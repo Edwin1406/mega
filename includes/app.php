@@ -1,12 +1,9 @@
 <?php 
-
-use Dotenv\Dotenv;
 use Model\ActiveRecord;
-require __DIR__ . '/../vendor/autoload.php';
-
-// Añadir Dotenv
-$dotenv = Dotenv::createImmutable(__DIR__);
+require_once __DIR__ . '/../vendor/autoload.php';
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__, '/../includes/.env');
 $dotenv->safeLoad();
+
 
 require 'funciones.php';
 require 'database.php';
