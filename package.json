@@ -1,7 +1,7 @@
 {
-  "name": "devwebcamp-php-mvc-mysql",
+  "name": "megastock",
   "version": "1.0.0",
-  "description": "Proyecto Final Desarrollo Web Completo con @codigoconjuan",
+  "description": "proyecto mega stock",
   "main": "index.js",
   "scripts": {
     "dev": "gulp dev"
