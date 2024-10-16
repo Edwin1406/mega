@@ -2,7 +2,7 @@
     <div class="footer__grid">
         <div class="footer__contenido">
             <h3 class="footer__logo">
-                sitio web
+                MEGASTOCK
             </h3>
             <p class="footer__texto">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ut purus eget nunc. Nullam nec

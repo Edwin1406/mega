@@ -33,7 +33,7 @@
 <div class="barra">
     <div class="barra__contenido">
         <a href="">
-            <h2 class="barra__logo"> Sitio Web </h2>
+            <h2 class="barra__logo"> MEGASTOCK </h2>
         </a>
         <nav class="navegacion">
             <a href="/" class="navegacion__enlace <?php echo pagina_actual('/') ? 'navegacion__enlace--actual' : ''; ?>">Iniciar Sesion</a>
