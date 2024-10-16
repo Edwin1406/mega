@@ -104,32 +104,93 @@ class ActiveRecord {
     }
 
     // Obtener todos los Registros
-    public static function all() {
-        $query = "SELECT * FROM " . static::$tabla . " ORDER BY id DESC";
+    public static function all($orden = 'DESC') {
+        $query = "SELECT * FROM " . static::$tabla . " ORDER BY id {$orden}";
         $resultado = self::consultarSQL($query);
         return $resultado;
     }
 
     // Busca un registro por su id
     public static function find($id) {
-        $query = "SELECT * FROM " . static::$tabla  ." WHERE id = ${id}";
+        $query = "SELECT * FROM " . static::$tabla  ." WHERE id = {$id}";
         $resultado = self::consultarSQL($query);
         return array_shift( $resultado ) ;
     }
+
+  
+    
 
     // Obtener Registros con cierta cantidad
     public static function get($limite) {
-        $query = "SELECT * FROM " . static::$tabla . " LIMIT ${limite} ORDER BY id DESC" ;
+        $query = "SELECT * FROM " . static::$tabla . " LIMIT {$limite} ORDER BY id DESC" ;
         $resultado = self::consultarSQL($query);
         return array_shift( $resultado ) ;
     }
 
+    // del paginador 
+    public static function paginar($por_pagina,$offset){
+        $query = "SELECT * FROM " . static::$tabla . " ORDER BY id DESC LIMIT {$por_pagina}  OFFSET {$offset} " ;
+        $resultado = self::consultarSQL($query);
+        return  $resultado ;
+        
+     }
+
+
+
     // Busqueda Where con Columna 
     public static function where($columna, $valor) {
-        $query = "SELECT * FROM " . static::$tabla . " WHERE ${columna} = '${valor}'";
+        $query = "SELECT * FROM " . static::$tabla . " WHERE {$columna} = '{$valor}'";
         $resultado = self::consultarSQL($query);
         return array_shift( $resultado ) ;
     }
+
+    // Retornar los registros por un orden 
+
+    public static function ordenar($columna, $orden) {
+        $query = "SELECT * FROM " . static::$tabla . " ORDER BY {$columna} {$orden}";
+        $resultado = self::consultarSQL($query);
+        return  $resultado ;
+    }
+
+
+
+
+
+    // Busqueda Where con multiples columnas
+    public static function whereArray($array=[]) {
+        $query = "SELECT * FROM " . static::$tabla . " WHERE ";
+        foreach($array as $key => $value) {
+            if($key === array_key_last($array)){
+
+                $query .= "{$key} = '{$value}'";
+            }else{
+
+                $query .= "{$key} = '{$value}' AND ";
+            }
+        }
+        // echo $query;
+        
+        $resultado = self::consultarSQL($query);
+        return  $resultado ;
+    }
+
+
+     // traer un total de registros count
+     public static function total( $columna='',$valor=''):string{
+        $query = "SELECT COUNT(*) FROM " . static::$tabla;
+        if($columna){
+            $query .= " WHERE {$columna} = '{$valor}'";
+        }
+        $resultado = self::$db->query($query);
+        $total= $resultado->fetch_array();
+        return array_shift($total);
+        
+     }
+    
+ 
+
+
+
 
     // crea un nuevo registro
     public function crear() {
@@ -152,6 +213,8 @@ class ActiveRecord {
            'id' => self::$db->insert_id
         ];
     }
+
+   
 
     // Actualizar el registro
     public function actualizar() {
