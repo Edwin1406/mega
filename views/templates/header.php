@@ -30,7 +30,7 @@
     </div>
 </div>
 
-<div class="barra">
+<!-- <div class="barra">
     <div class="barra__contenido">
         <a href="">
             <h2 class="barra__logo"> Sitio Web </h2>
@@ -42,4 +42,4 @@
             <a href="/sitioweb/registro" class="navegacion__enlace <?php echo pagina_actual('/registro') ? 'navegacion__enlace--actual' : ''; ?>">Comprar Pases</a>
         </nav>
     </div>
-</div>
+</div> -->
