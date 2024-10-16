@@ -36,7 +36,7 @@
     
     <p class="footer__copyright">
         <span class="footer__copyright--regular">
-            -Todos los derechos reservados <?php echo date('Y'); ?>
+            -Todos los derechos reservados <?php echo date('Y-m-d H:i:s'); ?>
         </span>
 
     </p>
