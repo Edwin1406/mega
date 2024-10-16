@@ -2,6 +2,7 @@
 
 namespace Controllers;
 
+use Model\Proveedor;
 use MVC\Router;
 
 class ProveedoresController {
@@ -13,10 +14,17 @@ class ProveedoresController {
     }
     public static function crear(Router $router) {
         $alertas = [];
+        $proveedor =  new Proveedor;
+
+        if($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $proveedor ->sincronizar($_POST);
+            debuguear($proveedor);
+        }
 
         $router->render('admin/proveedor/crear', [
             'titulo' => 'Crear Proveedor',
-            'alertas' => $alertas
+            'alertas' => $alertas,
+            'proveedor' => $proveedor
         ]);
     }
 }

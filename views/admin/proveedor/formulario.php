@@ -8,7 +8,7 @@
             id="nombre"
             class="formulario__input"
             placeholder="Nombre del ponente"
-            value="<?php echo $ponente->nombre ?? '' ?>">
+            value="<?php echo $proveedor->nombre ?? '' ?>">
     </div>
 
     <div class="formulario__campo">
@@ -19,7 +19,7 @@
             id="apellido"
             class="formulario__input"
             placeholder="Apellido del ponente"
-            value="<?php echo $ponente->apellido ?? '' ?>">
+            value="<?php echo $proveedor->apellido ?? '' ?>">
     </div>
 
     <div class="formulario__campo">
@@ -30,7 +30,7 @@
             id="ciudad"
             class="formulario__input"
             placeholder="Ciudad del ponente"
-            value="<?php echo $ponente->ciudad ?? '' ?>">
+            value="<?php echo $proveedor->ciudad ?? '' ?>">
     </div>
 
 
