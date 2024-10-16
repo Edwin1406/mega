@@ -30,16 +30,16 @@
     </div>
 </div>
 
-<!-- <div class="barra">
+<div class="barra">
     <div class="barra__contenido">
         <a href="">
             <h2 class="barra__logo"> Sitio Web </h2>
         </a>
         <nav class="navegacion">
-            <a href="/sitioweb/evento" class="navegacion__enlace <?php echo pagina_actual('/evento') ? 'navegacion__enlace--actual' : ''; ?>">Evento</a>
-            <a href="/sitioweb/paquetes" class="navegacion__enlace <?php echo pagina_actual('/paquetes') ? 'navegacion__enlace--actual' : ''; ?>">Paquetes</a>
+            <a href="/sitioweb/evento" class="navegacion__enlace <?php echo pagina_actual('/evento') ? 'navegacion__enlace--actual' : ''; ?>">Registro</a>
+            <a href="/sitioweb/paquetes" class="navegacion__enlace <?php echo pagina_actual('/paquetes') ? 'navegacion__enlace--actual' : ''; ?>">olvide mi pasword</a>
             <a href="/sitioweb/conferencias" class="navegacion__enlace <?php echo pagina_actual('/conferencias') ? 'navegacion__enlace--actual' : ''; ?>">workshops / Conferencias</a>
             <a href="/sitioweb/registro" class="navegacion__enlace <?php echo pagina_actual('/registro') ? 'navegacion__enlace--actual' : ''; ?>">Comprar Pases</a>
         </nav>
     </div>
-</div> -->
+</div>
