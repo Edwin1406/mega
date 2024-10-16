@@ -50,8 +50,7 @@ class Router
 
         $url_actual = $_SERVER['REQUEST_URI'] ?? '/';
         
-        $url_actual = str_replace('/', '', $url_actual);
-        $url_actual = strtok($url_actual, '?');
+       
         debuguear($url_actual);
 
         if(str_contains($url_actual,'admin')){
