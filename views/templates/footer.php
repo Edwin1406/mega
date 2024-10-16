@@ -36,36 +36,7 @@
     
     <p class="footer__copyright">
         <span class="footer__copyright--regular">
-            -Todos los derechos reservados 
-
-            <?php
-// Crear un array con los nombres de los meses en español
-$meses = [
-    1 => 'enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 
-    'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'
-];
-
-// Crear un array con los nombres de los días en español
-$dias = [
-    'Sunday' => 'domingo', 'Monday' => 'lunes', 'Tuesday' => 'martes',
-    'Wednesday' => 'miércoles', 'Thursday' => 'jueves', 
-    'Friday' => 'viernes', 'Saturday' => 'sábado'
-];
-
-// Obtener la fecha actual o especificar una fecha particular
-$fecha = new DateTime('2024-10-16');
-
-// Obtener el día de la semana y el mes en números
-$diaSemana = $dias[$fecha->format('l')]; // Día de la semana en español
-$dia = $fecha->format('d'); // Día del mes
-$mes = $meses[(int)$fecha->format('m')]; // Mes en español
-$anio = $fecha->format('Y'); // Año
-
-// Imprimir la fecha en el formato deseado
-echo "$diaSemana $dia de $mes del $anio";
-?>
-
-
+            -Todos los derechos reservados <?php setlocale(LC_TIME, 'es_ES.UTF-8'); echo strftime("%A %d de %B del %Y");?>
         </span>
 
     </p>
