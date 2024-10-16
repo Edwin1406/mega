@@ -12,8 +12,11 @@ class ProveedoresController {
         ]);
     }
     public static function crear(Router $router) {
+        $alertas = [];
+
         $router->render('admin/proveedor/crear', [
-            'titulo' => 'Crear Proveedor'
+            'titulo' => 'Crear Proveedor',
+            'alertas' => $alertas
         ]);
     }
 }
