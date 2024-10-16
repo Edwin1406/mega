@@ -5,14 +5,14 @@
     <div class="header__contenedor">
         <nav class="header__navegacion">
             <?php if (isAuth()): ?>
-                <a href="<?php echo isAdmin() ? '/sitioweb/dashboard' : '/sitioweb/finalizar-registro'?>" class="header__enlace"> Administrar</a>
+                <a href="<?php echo isAdmin() ? '/dashboard' : '/finalizar-registro'?>" class="header__enlace"> Administrar</a>
                 <form method="POST" action="/sitioweb/logout" class="header__form">
                     <input type="submit" value="Cerrar Sesión" class="header__submit">
                 </form>
 
             <?php else: ?>
-                <a href="/sitioweb/registro" class="header__enlace">Registro</a>
-                <a href="/sitioweb/login" class="header__enlace">Iniciar Sesión</a>
+                <a href="/registro" class="header__enlace">Registro</a>
+                <a href="/login" class="header__enlace">Iniciar Sesión</a>
             <?php endif; ?>
 
         </nav>
