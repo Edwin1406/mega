@@ -54,7 +54,12 @@ class Router
         // debuguear($url_actual);
 
         if(str_contains($url_actual,'/admin')){
-           debuguear('admin');
+            include __DIR__ . "/views/admin-layout.php";
+
+        }else{
+            
+            include __DIR__ . "/views/layout.php";
+
         }
       
 
