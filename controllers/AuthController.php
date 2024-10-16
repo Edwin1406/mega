@@ -37,9 +37,9 @@ class AuthController {
 
                         // Redireccionar
                         if($usuario->admin) {
-                            header('Location: /sitioweb/admin/index');
+                            header('Location: /admin/index');
                         } else {
-                            header('Location: /sitioweb/finalizar-registro');
+                            header('Location: /finalizar-registro');
                         }
                         
                     } else {
@@ -62,7 +62,7 @@ class AuthController {
         if($_SERVER['REQUEST_METHOD'] === 'POST') {
             session_start();
             $_SESSION = [];
-            header('Location: /sitioweb/login');
+            header('Location: /');
         }
        
     }
