@@ -23,8 +23,8 @@ class ProveedoresController {
             $alertas = $proveedor->validar();
 
             // guardar el registro
+            $resultado=$proveedor->guardar();
             if(empty($alertas)) {
-                $resultado=$proveedor->guardar();
                 if($resultado) {
                     // header('Location: /admin/proveedor');
                 }
@@ -38,4 +38,6 @@ class ProveedoresController {
             'proveedor' => $proveedor
         ]);
     }
+
+
 }
