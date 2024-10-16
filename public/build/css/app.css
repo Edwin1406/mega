@@ -540,7 +540,7 @@ h3 {
   }
 }
 .header__logo {
-  font-size: clamp(1rem, -0.8rem + 10vw, 4rem);
+  font-size: clamp(1rem, -0.8rem + 10vw, 8rem);
   text-align: center;
   font-family: "Dear story", sans-serif;
   color: #1a1b15;
