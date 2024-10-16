@@ -54,9 +54,9 @@ class Router
         // debuguear($url_actual);
 
         if(str_contains($url_actual,'admin')){
-            include __DIR__ . '/views/admin-layout.php';        
+            include __DIR__ . '/views/templates/admin-layout.php';        
         }else{
-            include __DIR__ . '/views/layout.php';
+            include __DIR__ . '/views/templates/layout.php';
         }
       
 
