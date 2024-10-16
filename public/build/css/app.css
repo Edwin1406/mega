@@ -897,14 +897,13 @@ h3 {
   font-size: 3rem;
   font-weight: 700;
   color: #FFFFFF;
-  margin: 2rem 0;
+  margin: 1rem 0;
   text-align: center;
   text-transform: uppercase;
 }
 @media (min-width: 768px) {
   .header__texto {
     font-size: 4rem;
-    text-align: left;
   }
 }
 .header__texto--modalidad {

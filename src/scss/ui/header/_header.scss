@@ -102,12 +102,12 @@
     font-size: 3rem;
     font-weight: v.$bold;
     color: v.$blanco;
-    margin: 2rem 0;
+    margin: 1rem 0;
     text-align: center;
     text-transform: uppercase;
     @include m.tablet {
         font-size: 4rem;
-        text-align: left;
+        // text-align: left;
         
     }
     &--modalidad{
