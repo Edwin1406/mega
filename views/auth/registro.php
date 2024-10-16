@@ -4,7 +4,7 @@
 
     <?php require_once __DIR__. '/../templates/alertas.php'; ?>
 
-    <form method="POST" action="/sitioweb/registro" class="formulario">
+    <form method="POST" action="/registro" class="formulario">
         <div class="formulario__campo">
             <label for="nombre"  class="formulario__label">Nombre</label>
             <input 
