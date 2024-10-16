@@ -483,8 +483,8 @@ h3 {
 }
 
 .header {
-  min-height: 50rem;
-  background-image: url("../img/grafico.svg"), url("../img/grafico.svg"), linear-gradient(to right, #64748b, rgba(30, 41, 59, 0.1)), url("../img/odonto.jpg");
+  min-height: 60rem;
+  background-image: url("../img/grafico.svg"), url("../img/grafico.svg"), linear-gradient(to right, #64748b, rgba(30, 41, 59, 0.1)), url("../img/logo_mega_stock.png");
   background-repeat: no-repeat;
   background-size: 400px, 400px, cover, cover;
   background-position: top left, bottom right, center top, center top;
