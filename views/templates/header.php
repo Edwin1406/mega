@@ -22,7 +22,7 @@
                     MEGASTOCK
                 </h1>
             </a>
-            <p class="header__texto"> 16-10-2024</p>
+            <p class="header__texto"> <?php dias(); ?></p>
             <p class="header__texto header__texto--modalidad"> EN-LINEA</p>
             <a href="https://serviacrilico.com/" class="header__boton"> SISTEMA</a>
 
