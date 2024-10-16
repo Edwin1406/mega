@@ -55,6 +55,8 @@
 }
 .dashboard__grid {
   display: flex;
+  flex: 1;
+  overflow-y: auto;
 }
 .dashboard__sidebar {
   background-color: rgb(47.191011236, 64.4943820225, 92.808988764);

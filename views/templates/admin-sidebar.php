@@ -9,10 +9,10 @@
 
        
 
-        <a href="/admin/eventos" class="dashboard__enlace <?php echo pagina_actual('/eventos') ? 'dashboard__enlace--actual' :'' ?>">
+        <a href="/admin/proveedores" class="dashboard__enlace <?php echo pagina_actual('/proveedores') ? 'dashboard__enlace--actual' :'' ?>">
             <i class="fa-duotone fa-solid fa-calendar-days dashboard__icono"></i>
             <span class="dashboard__menu--texto">
-                Eventos
+            Proveedores
             </span>
         </a>
 
