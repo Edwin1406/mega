@@ -36,8 +36,10 @@
     
     <p class="footer__copyright">
         <span class="footer__copyright--regular">
-            -Todos los derechos reservados <?php setlocale(LC_TIME, 'es_ES.UTF-8'); // Establece la localización en español
-echo strftime("%A %d de %B del %Y");?>
+            -Todos los derechos reservados <?php
+                $formatter = new IntlDateFormatter('es_ES', IntlDateFormatter::FULL, IntlDateFormatter::NONE);
+                echo $formatter->format(new DateTime());
+            ?>
         </span>
 
     </p>
