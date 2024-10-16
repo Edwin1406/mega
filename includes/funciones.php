@@ -37,4 +37,19 @@ function aos_animation():void{
     $efecto= array_rand($efectos, 1);
     echo $efectos[$efecto];
 }
+function dias(){
+        
+    setlocale(LC_TIME, 'es_ES.UTF-8'); // Configura la localización en español
 
+    $meses = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
+    $dias = ['domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado'];
+
+    $diaSemana = $dias[date('w')];
+    $dia = date('d');
+    $mes = $meses[date('n') - 1]; // date('n') da el número del mes (1-12), pero el índice del array empieza en 0
+    $anio = date('Y');
+
+    echo "$diaSemana $dia de $mes del $anio";
+
+
+}
