@@ -21,8 +21,8 @@ class ProveedoresController {
 
             //validar
             $alertas = $proveedor->validar();
-            
-            debuguear($proveedor);
+
+            // debuguear($proveedor);
         }
 
         $router->render('admin/proveedor/crear', [
