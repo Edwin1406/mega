@@ -17,7 +17,7 @@ class ProveedoresController {
         $proveedor =  new Proveedor;
 
         if($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $proveedor ->sincronizar($_POST);
+            $proveedor->sincronizar($_POST);
 
             //validar
             $alertas = $proveedor->validar();
@@ -26,7 +26,7 @@ class ProveedoresController {
             $resultado=$proveedor->guardar();
             if(empty($alertas)) {
                 if($resultado) {
-                    // header('Location: /admin/proveedor');
+                    header('Location: /admin/proveedor');
                 }
             }
             // debuguear($proveedor);
@@ -34,8 +34,8 @@ class ProveedoresController {
 
         $router->render('admin/proveedor/crear', [
             'titulo' => 'Crear Proveedor',
-            'alertas' => $alertas,
-            'proveedor' => $proveedor
+            'proveedor' => $proveedor,
+            'alertas' => $alertas
         ]);
     }
 
