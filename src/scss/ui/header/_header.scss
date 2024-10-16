@@ -76,7 +76,7 @@
    }
 
    &__logo{
-    @include m.texto-fluido(1rem,4rem);
+    @include m.texto-fluido(1rem,8rem);
     text-align: center;
     font-family: v.$dead;
     color: v.$negro;
