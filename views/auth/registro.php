@@ -61,7 +61,7 @@
         <input type="submit" value="Crear Cuenta" class="formulario__submit">
     </form>
     <div class="acciones">
-        <a href="/sitioweb/login" class="acciones__enlace">Ya tienes cuenta ? Iniciar Sesión</a>
-        <a href="/sitioweb/olvide" class="acciones__enlace">Olvide mi password</a>
+        <a href="/login" class="acciones__enlace">Ya tienes cuenta ? Iniciar Sesión</a>
+        <a href="/olvide" class="acciones__enlace">Olvide mi password</a>
     </div>
 </main>

@@ -6,7 +6,7 @@
 
 <?php if (isset($alertas['exito'])):?>
 <div class="acciones--centrar">
-        <a href="/sitioweb/login" class="acciones__enlace">Iniciar Sesión</a>
+        <a href="/login" class="acciones__enlace">Iniciar Sesión</a>
     </div>
 <?php endif ?>
 </main>

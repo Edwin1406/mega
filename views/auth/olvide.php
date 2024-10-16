@@ -17,7 +17,7 @@
         <input type="submit" value="Enviar Istrucciones" class="formulario__submit">
     </form>
     <div class="acciones">
-        <a href="/sitioweb/login" class="acciones__enlace">Ya tienes cuenta ? Iniciar Sesión</a>
-        <a href="/sitioweb/registro" class="acciones__enlace">Crear Cuenta</a>
+        <a href="/login" class="acciones__enlace">Ya tienes cuenta ? Iniciar Sesión</a>
+        <a href="/registro" class="acciones__enlace">Crear Cuenta</a>
     </div>
 </main>
