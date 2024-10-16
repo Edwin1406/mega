@@ -7,7 +7,7 @@ class Proveedor extends ActiveRecord {
     protected static $tabla = 'proveedor';
     protected static $columnasDB = ['id', 'nombre', 'apellido', 'ciudad'];
 
-    public $id;
+    public ?int $id;
     public $nombre;
     public $apellido;
     public $ciudad;
@@ -16,7 +16,7 @@ class Proveedor extends ActiveRecord {
 
     public function __construct($args = [])
     {
-        $this->id = $args['id'] ?? 1;
+        $this->id = $args['id'] ?? '';
         $this->nombre = $args['nombre'] ?? '';
         $this->apellido = $args['apellido'] ?? '';
         $this->ciudad = $args['ciudad'] ?? '';
