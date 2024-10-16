@@ -51,7 +51,7 @@ class Router
         $url_actual = $_SERVER['REQUEST_URI'] ?? '/';
         
        
-        debuguear($url_actual);
+        // debuguear($url_actual);
 
         if(str_contains($url_actual,'admin')){
             include __DIR__ . '/views/admin-layout.php';        
