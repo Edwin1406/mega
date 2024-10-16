@@ -414,4 +414,22 @@ h3 {
   background-color: rgb(18.5714285714, 76.1428571429, 202.4285714286);
   cursor: pointer;
 }
+
+.acciones, .acciones--centrar {
+  margin-top: 3rem;
+  display: flex;
+  justify-content: space-between;
+}
+.acciones--centrar {
+  justify-content: center;
+}
+.acciones__enlace {
+  color: #1a1b15;
+  font-size: 1.7rem;
+  font-weight: 300;
+}
+.acciones__enlace:hover {
+  color: #7C3AED;
+  text-decoration: underline;
+}
 /*# sourceMappingURL=app.css.map */
