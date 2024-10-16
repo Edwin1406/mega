@@ -18,6 +18,10 @@ class ProveedoresController {
 
         if($_SERVER['REQUEST_METHOD'] === 'POST') {
             $proveedor ->sincronizar($_POST);
+
+            //validar
+            $alertas = $proveedor->validar();
+            
             debuguear($proveedor);
         }
 
