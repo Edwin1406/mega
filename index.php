@@ -9,6 +9,7 @@ require_once __DIR__ . '/includes/app.php';
 use MVC\Router;
 use Controllers\AuthController;
 use Controllers\AdminController;
+use Controllers\ProveedoresController;
 
 $router = new Router();
 
@@ -38,6 +39,7 @@ $router->get('/confirmar-cuenta', [AuthController::class, 'confirmar']);
 // Area de Administración
 
 $router->get('/admin/index', [AdminController::class, 'index']);
+$router->get('/admin/proveedor', [ProveedoresController::class, 'index']);
 
 
 $router->comprobarRutas();

@@ -7,7 +7,7 @@ use MVC\Router;
 class ProveedoresController {
     
     public static function index(Router $router) {
-        $router->render('proveedores/index', [
+        $router->render('proveedor/index', [
             'titulo' => 'Proveedores'
         ]);
     }
