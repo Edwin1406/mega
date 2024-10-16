@@ -19,12 +19,12 @@
         <div class="header__contenido">
             <a href="">
                 <h1 class="header__logo">
-                    New Dental
+                    MEGASTOCK
                 </h1>
             </a>
-            <p class="header__texto"> Octubre 5-6 - 2024</p>
-            <p class="header__texto header__texto--modalidad"> En linea -Presecial</p>
-            <a href="https://serviacrilico.com/" class="header__boton"> Agendar Citas</a>
+            <p class="header__texto"> 16-10-2024</p>
+            <p class="header__texto header__texto--modalidad"> EN-LINEA</p>
+            <a href="https://serviacrilico.com/" class="header__boton"> SISTEMA</a>
 
         </div>
     </div>
