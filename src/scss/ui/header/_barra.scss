@@ -1,0 +1,26 @@
+@use 'base/variables' as v;
+@use 'base/mixins' as m;
+
+.barra {
+    background-color: darken(v.$cyan, 0.9%);
+    &__contenido{
+        @include m.contenedor;
+        display: flex;
+       flex-direction: column;
+       @include m.desktop{
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        
+       }
+       
+
+    }
+    &__logo{
+        padding: 3rem;
+        font-family: v.$dead;
+        @include m.texto-degradado(v.$rosa,v.$blanco);
+        @include m.texto-fluido(2rem,3rem);
+        @include m.logo;
+    }
+}

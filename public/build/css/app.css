@@ -339,4 +339,488 @@ h3 {
 .text-center {
   text-align: center;
 }
+
+.auth__heading {
+  background: linear-gradient(to right, #4338CA 0%, rgb(181.1428571429, 176.8214285714, 234.1785714286) 100%);
+  color: transparent;
+  background-clip: text;
+  font-size: 5rem;
+  text-align: center;
+}
+@media (min-width: 768px) {
+  .auth__heading {
+    font-size: 4.5rem;
+  }
+}
+
+.auth__texto {
+  background: linear-gradient(to right, #00c8c2 0%, rgb(98, 255, 250.29) 100%);
+  color: transparent;
+  background-clip: text;
+  font-size: 2rem;
+}
+@media (min-width: 768px) {
+  .auth__texto {
+    font-size: 3rem;
+  }
+}
+
+.formulario {
+  display: flex;
+  flex-direction: column;
+}
+.formulario__fieldset {
+  border: none;
+  margin-top: 1rem;
+  padding: 0;
+}
+.formulario__legend {
+  columns: #64748B;
+  font-size: 2.2rem;
+  margin-bottom: 2rem;
+}
+.formulario__campo {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+.formulario__contenedor-icono {
+  display: flex;
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+.formulario__icono {
+  background-color: #1E293B;
+  width: 4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.formulario__icono i {
+  color: #FFFFFF;
+  font-size: 2rem;
+}
+.formulario__label {
+  display: block;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: rgba(26, 27, 21, 0.8);
+}
+.formulario__input, .formulario__input--sociales, .formulario__select--sociales, .formulario__select {
+  padding: 1rem;
+  font-size: 1.6rem;
+  border: 1px solid rgb(57.3221757322, 66.4937238494, 79.6778242678);
+  border-radius: 0.5rem;
+}
+.formulario__input--file, .formulario__select--file {
+  border: none;
+}
+.formulario__input--sociales, .formulario__select--sociales {
+  flex: 1;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.formulario__radio {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+}
+.formulario__texto {
+  margin-top: 3rem;
+}
+.formulario__imagen {
+  max-width: 20rem;
+}
+.formulario__listado {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: wrap;
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+.formulario__listado > li {
+  background-color: #2563EB;
+  color: #FFFFFF;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+.formulario__submit {
+  background-color: #2563EB;
+  padding: 1.5rem 4rem;
+  color: #FFFFFF;
+  font-size: 1.8rem;
+  font-weight: 700;
+  border: none;
+  transition-property: background-color;
+  transition-duration: 0.3s;
+  text-align: center;
+  width: auto;
+  align-self: flex-start;
+  display: inline-block;
+  border-radius: 0.8rem;
+}
+.formulario__submit:hover {
+  background-color: rgb(18.5714285714, 76.1428571429, 202.4285714286);
+  cursor: pointer;
+}
+.formulario__submit--registrar {
+  width: 100%;
+}
+
+.acciones, .acciones--centrar {
+  margin-top: 3rem;
+  display: flex;
+  justify-content: space-between;
+}
+.acciones--centrar {
+  justify-content: center;
+}
+.acciones__enlace {
+  color: #1a1b15;
+  font-size: 1.7rem;
+  font-weight: 300;
+}
+.acciones__enlace:hover {
+  color: #7C3AED;
+  text-decoration: underline;
+}
+
+.horas {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(1, 1fr);
+}
+@media (min-width: 768px) {
+  .horas {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+.horas__hora, .horas__hora--desabilitada, .horas__hora--seleccionado {
+  color: #2563EB;
+  border: 1px solid #2563EB;
+  border-radius: 1rem;
+  padding: 1rem;
+  text-align: center;
+}
+.horas__hora--seleccionado {
+  background-color: #1E293B;
+  color: #FFFFFF;
+}
+.horas__hora--desabilitada {
+  border: 1px solid #c5cace;
+  color: #c5cace;
+  opacity: 0.5;
+}
+.horas__hora--desabilitada:hover {
+  cursor: not-allowed;
+}
+
+.header {
+  min-height: 60rem;
+  background-image: url("../img/grafico.svg"), url("../img/grafico.svg"), linear-gradient(to right, #64748b, rgba(30, 41, 59, 0.1)), url("../img/odonto.jpg");
+  background-repeat: no-repeat;
+  background-size: 400px, 400px, cover, cover;
+  background-position: top left, bottom right, center top, center top;
+}
+@media (min-width: 768px) {
+  .header {
+    height: 80rem;
+  }
+}
+.header__contenedor {
+  width: min(95%, 140rem);
+  margin: 0 auto;
+}
+.header__navegacion {
+  padding: 5rem 0;
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+}
+@media (min-width: 768px) {
+  .header__navegacion {
+    justify-content: flex-end;
+  }
+}
+.header__enlace, .header__submit {
+  color: #FFFFFF;
+  font-size: 1.5rem;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+.header__enlace:hover, .header__submit:hover {
+  background: linear-gradient(to right, #1a1b15, #64748B);
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+  border-bottom: 1px solid rgb(227, 3, 3);
+}
+.header__form {
+  display: flex;
+}
+.header__submit {
+  border: 0;
+  background: none;
+}
+.header__contenido {
+  padding-top: 6rem;
+  text-align: center;
+}
+@media (min-width: 768px) {
+  .header__contenido {
+    padding-top: 5rem;
+    text-align: left;
+  }
+}
+.header__logo {
+  font-size: clamp(1rem, -0.8rem + 10vw, 8rem);
+  text-align: center;
+  font-family: "Dear story", sans-serif;
+  color: #1a1b15;
+  padding-right: 34rem;
+  margin-top: 0;
+  padding: 2rem 0;
+  background: linear-gradient(to right, #FFFFFF, rgb(241, 8, 8));
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+}
+@media (min-width: 768px) {
+  .header__logo {
+    display: inline-block;
+    padding-top: 4.9rem;
+    padding-bottom: 4.9rem;
+    padding-right: 1rem;
+  }
+  .header__logo:hover {
+    background: linear-gradient(to right, #DB2777, #FFFFFF);
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: inline-block;
+  }
+}
+.header__texto {
+  font-size: 3rem;
+  font-weight: 700;
+  color: #FFFFFF;
+  margin: 2rem 0;
+  text-align: center;
+  text-transform: uppercase;
+}
+@media (min-width: 768px) {
+  .header__texto {
+    font-size: 4rem;
+    text-align: left;
+  }
+}
+.header__texto--modalidad {
+  font-size: 2rem;
+}
+.header__boton {
+  text-transform: uppercase;
+  margin: 2rem 0;
+  background-color: #00c8c2;
+  padding: 1.5rem 4rem;
+  color: #FFFFFF;
+  font-size: 1.8rem;
+  font-weight: 700;
+  border: none;
+  transition-property: background-color;
+  transition-duration: 0.3s;
+  text-align: center;
+  width: 100%;
+  display: inline-block;
+  border-radius: 0.8rem;
+}
+.header__boton:hover {
+  background-color: rgb(0, 149, 144.53);
+  cursor: pointer;
+}
+@media (min-width: 768px) {
+  .header__boton {
+    width: auto;
+  }
+}
+
+.navegacion {
+  display: flex;
+  flex-direction: column;
+}
+@media (min-width: 768px) {
+  .navegacion {
+    flex-direction: row;
+  }
+}
+.navegacion__enlace {
+  color: #FFFFFF;
+  font-size: 1.8rem;
+  padding: 2rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  text-align: center;
+}
+.navegacion__enlace--actual, .navegacion__enlace:hover {
+  border-bottom: 2px solid #cccccc;
+  background-color: rgb(10.1935483871, 184.7580645161, 226.8064516129);
+  color: rgb(0, 251, 243.47);
+  border-radius: 1rem;
+}
+
+.barra {
+  background-color: rgb(7.8025806452, 141.4217741935, 173.6074193548);
+}
+.barra__contenido {
+  width: min(95%, 140rem);
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+}
+@media (min-width: 1024px) {
+  .barra__contenido {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+.barra__logo {
+  padding: 3rem;
+  font-family: "Dear story", sans-serif;
+  background: linear-gradient(to right, #DB2777, #FFFFFF);
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+  font-size: clamp(2rem, -0.8rem + 10vw, 3rem);
+  color: #FFFFFF;
+  text-align: center;
+  margin-bottom: 2rem;
+  white-space: nowrap;
+}
+@media (min-width: 1024px) {
+  .barra__logo {
+    text-align: left;
+    margin: 0;
+  }
+}
+
+.footer {
+  background-color: rgb(0, 98, 95.06);
+  margin-top: 5rem;
+  padding-top: 3rem;
+  color: #FFFFFF;
+}
+.footer__grid {
+  width: min(95%, 140rem);
+  margin: 0 auto;
+}
+@media (min-width: 768px) {
+  .footer__grid {
+    display: grid;
+    gap: 3rem;
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+.footer__logo {
+  font-size: clamp(2rem, -0.8rem + 10vw, 4rem);
+  color: #FFFFFF;
+  text-align: center;
+  margin-bottom: 2rem;
+  white-space: nowrap;
+}
+@media (min-width: 1024px) {
+  .footer__logo {
+    text-align: left;
+    margin: 0;
+  }
+}
+@media (min-width: 768px) {
+  .footer__texto {
+    line-height: 2;
+    text-align: center;
+    text-align: left;
+  }
+}
+.footer__copyright {
+  background-color: rgb(0, 149, 144.53);
+  margin: 3rem 0 0 0;
+  padding: 2rem 0;
+  text-align: center;
+  font-size: 1.4rem;
+  font-weight: 900;
+}
+.footer__copyright--regular {
+  font-weight: 400;
+}
+
+.menu-redes {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin: 4rem 0;
+}
+.menu-redes__enlace::before {
+  color: #FFFFFF;
+  font-size: 3rem;
+  display: inline-block;
+  font-style: normal;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  font-family: "Font Awesome 6 Brands";
+}
+.menu-redes__enlace[href*="facebook.com"]::before {
+  content: "\f39e";
+}
+.menu-redes__enlace[href*="twitter.com"]::before {
+  content: "\f099";
+}
+.menu-redes__enlace[href*="instagram.com"]::before {
+  content: "\f16d";
+}
+.menu-redes__enlace[href*="linkedin.com"]::before {
+  content: "\f08c";
+}
+.menu-redes__enlace[href*="youtube.com"]::before {
+  content: "\f167";
+}
+.menu-redes__enlace[href*="tiktok.com"]::before {
+  content: "\e07b";
+}
+.menu-redes__ocultar {
+  display: none;
+}
+@media (min-width: 768px) {
+  .menu-redes {
+    justify-content: flex-end;
+  }
+}
+
+.alerta {
+  padding: 1rem 1rem 1rem 2rem;
+  text-transform: uppercase;
+  text-align: center;
+  font-weight: 900;
+  margin: 1rem 0;
+  border-radius: 1rem;
+  max-width: 80rem;
+  font-size: 1.2rem;
+}
+.alerta.error {
+  background-color: rgb(254.6739130435, 230.3260869565, 230.3260869565);
+  border-left: 1.5rem solid rgb(227, 3, 3);
+  color: rgb(227, 3, 3);
+}
+.alerta.exito {
+  background-color: rgb(221.3076923077, 254.6923076923, 221.3076923077);
+  border-left: 1.5rem solid #02db02;
+  color: #02db02;
+}
 /*# sourceMappingURL=app.css.map */
