@@ -324,6 +324,11 @@ img {
   height: auto;
 }
 
+h1, h2, h3 {
+  font-family: "Inter", sans-serif;
+  font-weight: 900;
+}
+
 h1 {
   font-size: 4rem;
 }
@@ -338,5 +343,20 @@ h3 {
 
 .text-center {
   text-align: center;
+}
+
+[class$=__heading] {
+  font-family: "Inter", sans-serif;
+  font-weight: 900;
+  margin: 6rem 0 3rem 0;
+  text-align: center;
+}
+
+[class$=__descripcion] {
+  text-align: center;
+  font-size: 1.8rem;
+  font-weight: 300;
+  color: #1E293B;
+  margin-bottom: 5rem;
 }
 /*# sourceMappingURL=app.css.map */
