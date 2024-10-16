@@ -190,7 +190,6 @@
 
 @mixin menu-social($color,$size){
     &__enlace{
-
         &::before{
             color: $color;
             font-size: $size;
