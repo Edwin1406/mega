@@ -10,7 +10,7 @@
 
 <div class="dashboard__formulario">
 
-    <?php require_once __DIR__. '/../templates/alertas.php'; ?>
+    <?php include_once __DIR__.'/../../templates/alertas.php'  ?>
 
     <form method="POST" action="/sitioweb/admin/ponentes/crear"  class="formulario" enctype="multipart/form-data">
 
