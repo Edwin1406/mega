@@ -26,7 +26,7 @@ class ProveedoresController {
             if(empty($alertas)) {
                 $resultado=$proveedor->guardar();
                 if($resultado) {
-                    header('Location: /admin/proveedor');
+                    // header('Location: /admin/proveedor');
                 }
             }
             // debuguear($proveedor);
