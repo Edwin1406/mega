@@ -17,4 +17,10 @@
         font-size: 1.8rem;
         color: rgba(v.$negro, .8);
     }
+
+    &__input{
+        padding: 1rem;
+        border: 1px solid v.$gris;
+        border-radius: 1rem;
+    }
 }

@@ -389,4 +389,9 @@ h3 {
   font-size: 1.8rem;
   color: rgba(26, 27, 21, 0.8);
 }
+.formulario__input {
+  padding: 1rem;
+  border: 1px solid #64748B;
+  border-radius: 1rem;
+}
 /*# sourceMappingURL=app.css.map */
