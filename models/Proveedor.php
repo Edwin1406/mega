@@ -16,7 +16,7 @@ class Proveedor extends ActiveRecord {
 
     public function __construct($args = [])
     {
-        $this->id = $args['id'] ?? '';
+        $this->id = $args['id'] ?? 1;
         $this->nombre = $args['nombre'] ?? '';
         $this->apellido = $args['apellido'] ?? '';
         $this->ciudad = $args['ciudad'] ?? '';
