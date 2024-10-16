@@ -29,7 +29,7 @@ class ProveedoresController {
                     // header('Location: /admin/proveedor');
                 }
             }
-            debuguear($proveedor);
+            // debuguear($proveedor);
         }
 
         $router->render('admin/proveedor/crear', [
