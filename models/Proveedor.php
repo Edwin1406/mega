@@ -7,7 +7,7 @@ class Proveedor extends ActiveRecord {
     protected static $tabla = 'proveedor';
     protected static $columnasDB = ['id', 'nombre', 'apellido', 'ciudad'];
 
-    public ?int $id;
+    public $id;
     public $nombre;
     public $apellido;
     public $ciudad;
