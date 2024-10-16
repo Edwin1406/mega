@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sitio web - <?php echo $titulo; ?></title>
+    <title>MEGASTOCK - <?php echo $titulo; ?></title>
     <link rel="shortcut icon" href="/sitioweb/public/build/img/3.svg" type="image/x-icon">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
