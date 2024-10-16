@@ -5,7 +5,7 @@
     min-height: 60rem;
     
     background-image: url('../img/grafico.svg') ,url('../img/grafico.svg'), linear-gradient(to right,rgba(v.$gris,1),rgba(v.$gris-oscuro,
-        .1)),url('../img/logo_mega_stock.png');
+        .1)),url('../img/odonto.jpg');
     // background-repeat:  no-repeat, no-repeat;
     // background-position: center;
    
@@ -15,7 +15,7 @@
     background-repeat: no-repeat;
     background-size: 400px,400px,cover,cover;
     // background-position: top left,bottom right,center,center;
-    background-position: top center, bottom center , center top ,center top;
+    background-position: top left, bottom right , center top ,center top;
     @include m.tablet {
         height: 80rem;
     
