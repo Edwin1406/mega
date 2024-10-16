@@ -869,7 +869,7 @@ h3 {
 .header__logo {
   font-size: clamp(1rem, -0.8rem + 10vw, 4rem);
   text-align: center;
-  font-family: "Dear story", sans-serif;
+  font-family: "Open Sans", sans-serif;
   color: #1a1b15;
   padding-right: 34rem;
   margin-top: 0;
@@ -978,7 +978,7 @@ h3 {
 }
 .barra__logo {
   padding: 3rem;
-  font-family: "Dear story", sans-serif;
+  font-family: "Open Sans", sans-serif;
   background: linear-gradient(to right, #DB2777, #FFFFFF);
   background-clip: text;
   -webkit-text-fill-color: transparent;
