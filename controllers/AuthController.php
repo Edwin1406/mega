@@ -7,7 +7,8 @@ use Model\Usuario;
 use MVC\Router;
 
 class AuthController {
-    public static function login(Router $router) {
+   
+    public static function login(Router $router):void {
 
         $alertas = [];
 
@@ -33,6 +34,13 @@ class AuthController {
                         $_SESSION['apellido'] = $usuario->apellido;
                         $_SESSION['email'] = $usuario->email;
                         $_SESSION['admin'] = $usuario->admin ?? null;
+
+                        // Redireccionar
+                        if($usuario->admin) {
+                            header('Location: /sitioweb/admin/index');
+                        } else {
+                            header('Location: /sitioweb/finalizar-registro');
+                        }
                         
                     } else {
                         Usuario::setAlerta('error', 'Password Incorrecto');
@@ -50,22 +58,24 @@ class AuthController {
         ]);
     }
 
-    public static function logout() {
+    public static function logout() :void{
         if($_SERVER['REQUEST_METHOD'] === 'POST') {
             session_start();
             $_SESSION = [];
-            header('Location: /');
+            header('Location: /sitioweb/login');
         }
        
     }
 
-    public static function registro(Router $router) {
+    public static function registro(Router $router):void {
         $alertas = [];
         $usuario = new Usuario;
+        // debuguear($usuario);
 
         if($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             $usuario->sincronizar($_POST);
+            // debuguear($usuario);
             
             $alertas = $usuario->validar_cuenta();
 
@@ -94,7 +104,7 @@ class AuthController {
                     
 
                     if($resultado) {
-                        header('Location: /mensaje');
+                        header('Location: /sitioweb/mensaje');
                     }
                 }
             }
@@ -102,13 +112,13 @@ class AuthController {
 
         // Render a la vista
         $router->render('auth/registro', [
-            'titulo' => 'Crea tu cuenta MEGASTOCK',
+            'titulo' => 'Crea tu cuenta en MEGASTOCK',
             'usuario' => $usuario, 
             'alertas' => $alertas
         ]);
     }
 
-    public static function olvide(Router $router) {
+    public static function olvide(Router $router):void {
         $alertas = [];
         
         if($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -153,7 +163,7 @@ class AuthController {
         ]);
     }
 
-    public static function reestablecer(Router $router) {
+    public static function reestablecer(Router $router) :void{
 
         $token = s($_GET['token']);
 
@@ -190,7 +200,7 @@ class AuthController {
 
                 // Redireccionar
                 if($resultado) {
-                    header('Location: /');
+                    header('Location: /sitioweb/login');
                 }
             }
         }
@@ -205,7 +215,7 @@ class AuthController {
         ]);
     }
 
-    public static function mensaje(Router $router) {
+    public static function mensaje(Router $router):void {
 
         $router->render('auth/mensaje', [
             'titulo' => 'Cuenta Creada Exitosamente'
@@ -223,7 +233,7 @@ class AuthController {
 
         if(empty($usuario)) {
             // No se encontró un usuario con ese token
-            Usuario::setAlerta('error', 'Token No Válido');
+            Usuario::setAlerta('error', 'Token No Válido , la cuenta no se confirmo');
         } else {
             // Confirmar la cuenta
             $usuario->confirmado = 1;
@@ -233,13 +243,13 @@ class AuthController {
             // Guardar en la BD
             $usuario->guardar();
 
-            Usuario::setAlerta('exito', 'Cuenta Comprobada Correctamente');
+            Usuario::setAlerta('exito', 'Cuenta Comprobada exitosamente');
         }
 
      
 
         $router->render('auth/confirmar', [
-            'titulo' => 'Confirma tu cuenta MEGASTOCK',
+            'titulo' => 'Confirma tu cuenta DevWebcamp',
             'alertas' => Usuario::getAlertas()
         ]);
     }
