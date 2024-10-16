@@ -18,6 +18,6 @@
         echo $contenido;
         include_once __DIR__ .'/templates/footer.php'; 
     ?>
-    <script src="/public/build/js/app.js" defer></script>
+    <script src="/public/build/js/app.js" ></script>
 </body>
 </html>
