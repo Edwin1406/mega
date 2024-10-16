@@ -407,6 +407,8 @@ h3 {
   width: 100%;
   display: inline-block;
   border-radius: 0.8rem;
+  width: auto;
+  align-self: flex-start;
 }
 .formulario__submit:hover {
   background-color: rgb(18.5714285714, 76.1428571429, 202.4285714286);
