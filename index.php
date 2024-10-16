@@ -40,6 +40,7 @@ $router->get('/confirmar-cuenta', [AuthController::class, 'confirmar']);
 
 $router->get('/admin/index', [AdminController::class, 'index']);
 $router->get('/admin/proveedor', [ProveedoresController::class, 'index']);
+$router->get('/admin/proveedor/crear', [ProveedoresController::class, 'crear']);
 
 
 $router->comprobarRutas();

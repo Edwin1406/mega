@@ -1,0 +1,1 @@
+<h1 class="proveedor__heading"> <?php echo $titulo ?> </h1>

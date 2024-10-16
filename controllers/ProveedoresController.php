@@ -11,4 +11,9 @@ class ProveedoresController {
             'titulo' => 'Proveedores'
         ]);
     }
+    public static function crear(Router $router) {
+        $router->render('admin/proveedor/crear', [
+            'titulo' => 'Crear Proveedor'
+        ]);
+    }
 }
