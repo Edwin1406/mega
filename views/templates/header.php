@@ -24,7 +24,6 @@
             </a>
             <p class="header__texto"> <?php dias(); ?></p>
             <p class="header__texto header__texto--modalidad"> EN-LINEA</p>
-            <a href="https://serviacrilico.com/" class="header__boton"> SISTEMA</a>
 
         </div>
     </div>
