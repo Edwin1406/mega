@@ -2,7 +2,7 @@
 @use 'base/mixins' as m;
 
 .header{
-    min-height: 20rem;
+    min-height: 60rem;
     
     background-image: url('../img/grafico.svg') ,url('../img/grafico.svg'), linear-gradient(to right,rgba(v.$gris,1),rgba(v.$gris-oscuro,
         .1)),url('../img/header.jpg');
@@ -17,7 +17,7 @@
     // background-position: top left,bottom right,center,center;
     background-position: top left, bottom right , center top ,center top;
     @include m.tablet {
-        height: 80rem;
+        height: 60rem;
     
     }
 

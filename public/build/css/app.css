@@ -483,7 +483,7 @@ h3 {
 }
 
 .header {
-  min-height: 20rem;
+  min-height: 60rem;
   background-image: url("../img/grafico.svg"), url("../img/grafico.svg"), linear-gradient(to right, #64748b, rgba(30, 41, 59, 0.1)), url("../img/header.jpg");
   background-repeat: no-repeat;
   background-size: 400px, 400px, cover, cover;
@@ -491,7 +491,7 @@ h3 {
 }
 @media (min-width: 768px) {
   .header {
-    height: 80rem;
+    height: 60rem;
   }
 }
 .header__contenedor {
