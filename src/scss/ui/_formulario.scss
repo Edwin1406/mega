@@ -23,4 +23,7 @@
         border: 1px solid v.$gris;
         border-radius: 1rem;
     }
+    &__submit{
+        @include m.boton(v.$azul, v.$blanco);
+    }
 }

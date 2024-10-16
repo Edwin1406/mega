@@ -394,4 +394,22 @@ h3 {
   border: 1px solid #64748B;
   border-radius: 1rem;
 }
+.formulario__submit {
+  background-color: #2563EB;
+  padding: 1.5rem 4rem;
+  color: #FFFFFF;
+  font-size: 1.8rem;
+  font-weight: 700;
+  border: none;
+  transition-property: background-color;
+  transition-duration: 0.3s;
+  text-align: center;
+  width: 100%;
+  display: inline-block;
+  border-radius: 0.8rem;
+}
+.formulario__submit:hover {
+  background-color: rgb(18.5714285714, 76.1428571429, 202.4285714286);
+  cursor: pointer;
+}
 /*# sourceMappingURL=app.css.map */
