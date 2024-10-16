@@ -39,18 +39,28 @@ class Router
         }
     }
 
-    public function render($view, $datos = [])
+    public function render(string $view, array $datos = []): void
     {
-        foreach ($datos as $key => $value) {
-            $$key = $value; 
+        extract($datos, EXTR_SKIP);
+
+        ob_start();
+        include __DIR__ . "/views/$view.php";
+        $contenido = ob_get_clean();
+
+
+        $url_actual = $_SERVER['REQUEST_URI'] ?? '/';
+        debuguear($url_actual);
+        $url_actual = str_replace('/', '', $url_actual);
+        $url_actual = strtok($url_actual, '?');
+        // debuguear($url_actual);
+
+        if(str_contains($url_actual,'admin')){
+            include __DIR__ . '/views/admin-layout.php';        
+        }else{
+            include __DIR__ . '/views/layout.php';
         }
+      
 
-        ob_start(); 
-
-        include_once __DIR__ . "/views/$view.php";
-
-        $contenido = ob_get_clean(); // Limpia el Buffer
-
-        include_once __DIR__ . '/views/layout.php';
+       
     }
 }
