@@ -36,7 +36,8 @@
     
     <p class="footer__copyright">
         <span class="footer__copyright--regular">
-            -Todos los derechos reservados <?php echo date('Y-m-d H:i:s'); ?>
+            -Todos los derechos reservados <?php setlocale(LC_TIME, 'es_ES.UTF-8'); // Establece la localización en español
+echo strftime("%A %d de %B del %Y");?>
         </span>
 
     </p>
