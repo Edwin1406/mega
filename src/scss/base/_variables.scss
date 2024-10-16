@@ -1,5 +1,9 @@
 // Fuentes
 $fuente-principal: 'Outfit', sans-serif;
+// Fuentes
+$fuente_headings: 'Inter', sans-serif;
+$fuente_textos: 'Open Sans', sans-serif;
+$dead : 'Dear story', sans-serif; 
 
 // Tamaño de Media Queries
 $telefono: 480px;
@@ -10,14 +14,24 @@ $xl_desktop: 1200px;
 // Colores
 $azul: #007df4;
 $secundario: #00c8c2;
+// Colores
+$cyan: #0891B2;
+$azul: #2563EB;
+$indigo: #4338CA;
+$morado: #7C3AED;
+$naranja:#F59E0B;
+$rosa: #DB2777;
 
 $negro: #1a1b15;
 $blanco: #FFFFFF;
 $gris: #64748B;
-$gris-claro: #F8FAFC;
+$gris-claro: #c5cace;
+$gris-natural:rgb(208, 212, 215)C;
 $gris-oscuro: #1E293B;
 
-$rojo: rgb(169, 0, 0);
+$rojo: rgb(227, 3, 3);
+$rojoblanco: rgb(241, 8, 8);
+// $rojo: #f73e3e;
 $verde: #02db02;
 
 // Fuentes
