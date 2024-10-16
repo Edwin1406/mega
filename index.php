@@ -8,6 +8,7 @@ require_once __DIR__ . '/includes/app.php';
 
 use MVC\Router;
 use Controllers\AuthController;
+use Controllers\AdminController;
 
 $router = new Router();
 
@@ -37,16 +38,6 @@ $router->get('/confirmar-cuenta', [AuthController::class, 'confirmar']);
 // Area de Administración
 
 $router->get('/admin/index', [AdminController::class, 'index']);
-$router->get('/admin/ponentes', [PonentesController::class, 'index']);
-// Crear ponentes
-$router->get('/admin/ponentes/crear', [PonentesController::class, 'crear']);
-$router->post('/admin/ponentes/crear', [PonentesController::class, 'crear']);
-// Editar ponentes
-$router->get('/admin/ponentes/editar', [PonentesController::class, 'editar']);
-$router->post('/admin/ponentes/editar', [PonentesController::class, 'editar']);
-// Eliminar ponentes
-$router->post('/admin/ponentes/eliminar', [PonentesController::class, 'eliminar']);
-
 
 
 $router->comprobarRutas();
