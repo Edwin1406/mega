@@ -3,7 +3,7 @@
         <a href="">
             <h2 class="dashboard__logo">
                 
-                Sitio web
+               MEGASTOCK
             </h2>
         </a>
         <nav class="dashboard__nav">
