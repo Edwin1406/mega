@@ -28,7 +28,7 @@
         <input type="submit" value="Iniciar Sesion" class="formulario__submit">
     </form>
     <div class="acciones">
-        <a href="/sitioweb/olvide" class="acciones__enlace">Olvide mi password</a>
-        <a href="/sitioweb/registro" class="acciones__enlace">Crear Cuenta</a>
+        <a href="/olvide" class="acciones__enlace">Olvide mi password</a>
+        <a href="/registro" class="acciones__enlace">Crear Cuenta</a>
     </div>
 </main>
