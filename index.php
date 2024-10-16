@@ -9,6 +9,7 @@ require_once __DIR__ . '/includes/app.php';
 use MVC\Router;
 use Controllers\AuthController;
 use Controllers\AdminController;
+use Controllers\AnchoController;
 use Controllers\ProveedoresController;
 
 $router = new Router();
@@ -42,6 +43,8 @@ $router->get('/admin/index', [AdminController::class, 'index']);
 $router->get('/admin/proveedor', [ProveedoresController::class, 'index']);
 $router->get('/admin/proveedor/crear', [ProveedoresController::class, 'crear']);
 $router->post('/admin/proveedor/crear', [ProveedoresController::class, 'crear']);
+
+$router->get('/admin/ancho', [AnchoController::class, 'index']);
 
 
 $router->comprobarRutas();
