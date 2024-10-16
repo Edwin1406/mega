@@ -12,7 +12,7 @@
 
             <?php else: ?>
                 <a href="/registro" class="header__enlace">Registro</a>
-                <a href="/login" class="header__enlace">Iniciar Sesión</a>
+                <a href="/" class="header__enlace">Iniciar Sesión</a>
             <?php endif; ?>
 
         </nav>
