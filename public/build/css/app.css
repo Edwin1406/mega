@@ -433,6 +433,55 @@ h3 {
   text-decoration: underline;
 }
 
+.footer {
+  background-color: rgb(0, 98, 95.06);
+  margin-top: 5rem;
+  padding-top: 3rem;
+  color: #FFFFFF;
+}
+.footer__grid {
+  width: min(95%, 140rem);
+  margin: 0 auto;
+}
+@media (min-width: 768px) {
+  .footer__grid {
+    display: grid;
+    gap: 3rem;
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+.footer__logo {
+  font-size: clamp(2rem, -0.8rem + 10vw, 4rem);
+  color: #FFFFFF;
+  text-align: center;
+  margin-bottom: 2rem;
+  white-space: nowrap;
+}
+@media (min-width: 1024px) {
+  .footer__logo {
+    text-align: left;
+    margin: 0;
+  }
+}
+@media (min-width: 768px) {
+  .footer__texto {
+    line-height: 2;
+    text-align: center;
+    text-align: left;
+  }
+}
+.footer__copyright {
+  background-color: rgb(0, 149, 144.53);
+  margin: 3rem 0 0 0;
+  padding: 2rem 0;
+  text-align: center;
+  font-size: 1.4rem;
+  font-weight: 900;
+}
+.footer__copyright--regular {
+  font-weight: 400;
+}
+
 .header {
   min-height: 60rem;
   background-image: url("../img/grafico.svg"), url("../img/grafico.svg"), linear-gradient(to right, #64748b, rgba(30, 41, 59, 0.1)), url("../img/odonto.jpg");
@@ -618,54 +667,5 @@ h3 {
     text-align: left;
     margin: 0;
   }
-}
-
-.footer {
-  background-color: rgb(0, 98, 95.06);
-  margin-top: 5rem;
-  padding-top: 3rem;
-  color: #FFFFFF;
-}
-.footer__grid {
-  width: min(95%, 140rem);
-  margin: 0 auto;
-}
-@media (min-width: 768px) {
-  .footer__grid {
-    display: grid;
-    gap: 3rem;
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-.footer__logo {
-  font-size: clamp(2rem, -0.8rem + 10vw, 4rem);
-  color: #FFFFFF;
-  text-align: center;
-  margin-bottom: 2rem;
-  white-space: nowrap;
-}
-@media (min-width: 1024px) {
-  .footer__logo {
-    text-align: left;
-    margin: 0;
-  }
-}
-@media (min-width: 768px) {
-  .footer__texto {
-    line-height: 2;
-    text-align: center;
-    text-align: left;
-  }
-}
-.footer__copyright {
-  background-color: rgb(0, 149, 144.53);
-  margin: 3rem 0 0 0;
-  padding: 2rem 0;
-  text-align: center;
-  font-size: 1.4rem;
-  font-weight: 900;
-}
-.footer__copyright--regular {
-  font-weight: 400;
 }
 /*# sourceMappingURL=app.css.map */
