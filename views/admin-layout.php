@@ -34,7 +34,7 @@
          
 
 </body>
-  <script src="/sitioweb/public/build/js/main.min.js" defer></script>
+  <!-- <script src="/sitioweb/public/build/js/main.min.js" defer></script> -->
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
  
