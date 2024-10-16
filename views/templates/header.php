@@ -36,7 +36,7 @@
             <h2 class="barra__logo"> Sitio Web </h2>
         </a>
         <nav class="navegacion">
-            <a href="/sitioweb/evento" class="navegacion__enlace <?php echo pagina_actual('/evento') ? 'navegacion__enlace--actual' : ''; ?>">Registro</a>
+            <a href="/sitioweb/evento" class="navegacion__enlace <?php echo pagina_actual('/') ? 'navegacion__enlace--actual' : ''; ?>">Iniciar Sesion</a>
             <a href="/sitioweb/paquetes" class="navegacion__enlace <?php echo pagina_actual('/paquetes') ? 'navegacion__enlace--actual' : ''; ?>">olvide mi pasword</a>
             <a href="/sitioweb/conferencias" class="navegacion__enlace <?php echo pagina_actual('/conferencias') ? 'navegacion__enlace--actual' : ''; ?>">workshops / Conferencias</a>
             <a href="/sitioweb/registro" class="navegacion__enlace <?php echo pagina_actual('/registro') ? 'navegacion__enlace--actual' : ''; ?>">Comprar Pases</a>
