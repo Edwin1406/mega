@@ -10,6 +10,9 @@
     padding: 0;
     margin-top: 3rem;
     @include m.grid(1, 2rem);
+    @include m.tablet {
+        @include m.grid(2, 2rem);
+    }
     .areas{
         background-color: lightblue;
         border-radius: 1rem;

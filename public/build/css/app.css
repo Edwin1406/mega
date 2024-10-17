@@ -11,6 +11,13 @@
   gap: 2rem;
   grid-template-columns: repeat(1, 1fr);
 }
+@media (min-width: 768px) {
+  .listado-areas {
+    display: grid;
+    gap: 2rem;
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
 .listado-areas .areas {
   background-color: lightblue;
   border-radius: 1rem;
