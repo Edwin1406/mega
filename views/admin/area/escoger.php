@@ -11,14 +11,13 @@
                 <?php 
                     // Asigna un ícono basado en el área
                     $icono = '';
-                    if($escoger->area === 'produccion') {
+                    if($escoger->area === 'PRODUCCION') {
                         $icono = '<i class="fas fa-industry"></i>'; // ícono de producción
-                    } elseif($escoger->area === 'ventas') {
-                        $icono = '<i class="fa-solid fa-hands-bound"></i>'; // ícono de ventas
+                    } elseif($escoger->area === 'VENTAS') {
+                        $icono = '<i class="fas fa-shopping-cart"></i>'; // ícono de ventas
                     } else {
                         $icono = '<i class="fas fa-briefcase"></i>'; // ícono por defecto
                     }
-
 
                     // Muestra el ícono y el nombre del área
                     echo $icono . ' ' . $escoger->area;
