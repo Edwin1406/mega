@@ -7,7 +7,7 @@
     <ul class="listado-areas">
         <?php foreach($escoger as $escoger) {?>
             <li class="areas">
-                <a href="/admin/area/paginaArea?id=<?php echo $escoger->url ?>" class="areas__nombre">
+                <a class="nando" href="/admin/area/paginaArea?id=<?php echo $escoger->url ?>" >
                     <?php echo $escoger->area ?>
                 </a>
             </li>
@@ -15,3 +15,9 @@
     </ul>
 
 <?php  }?>
+        }
+        <style>
+            .nando{
+                text-align: center;
+            }
+        </style>
