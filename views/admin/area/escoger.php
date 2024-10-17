@@ -15,7 +15,7 @@
     </ul>
 
 <?php  }?>
-        }
+        
         <style>
             .nando{
                 text-align: center;
