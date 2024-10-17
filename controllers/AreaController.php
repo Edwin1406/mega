@@ -56,7 +56,26 @@ class AreaController {
 
     public static function paginaArea(Router $router)
     {
-        echo 'pagina';
+       
+        session_start();
+        isAuth();
+
+        // revisar que la persona sea el propietario del proyecto o quien la creo
+        $url = $_GET['id']; // url es id
+        if(!$url) header('Location: /admin/index');
+        // obtener el proyecto
+        $area = Area::where('url',$url);
+        if($area->propietarioId !== $_SESSION['id']){
+            header('Location: /admin/index');
+        }
+        // ----------------------------------------------------------------------------------
+        $router->render('dashboard/proyecto',[
+            'titulo' => $area->area,
+        ]);
+    
+
+
+
     }
 
 
