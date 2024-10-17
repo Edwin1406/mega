@@ -89,7 +89,7 @@ class AreaController {
         $escoger = Area::belongsTo('propietarioId',$id);
         // debuguear($escoger);
         $router->render('admin/area/escoger' , [
-            'titulo' => 'escoja una area para entrar a la pagina',
+            'titulo' => 'INGRESE A UNA AREA',
             'escoger' => $escoger
         ]);
     }
