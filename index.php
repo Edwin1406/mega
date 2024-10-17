@@ -10,7 +10,7 @@ use MVC\Router;
 use Controllers\AuthController;
 use Controllers\AdminController;
 use Controllers\AnchoController;
-use Controllers\ProveedoresController;
+use Controllers\AreaController;
 
 $router = new Router();
 
@@ -41,9 +41,9 @@ $router->get('/confirmar-cuenta', [AuthController::class, 'confirmar']);
 
 $router->get('/admin/index', [AdminController::class, 'index']);
 
-$router->get('/admin/area', [ProveedoresController::class, 'index']);
-$router->get('/admin/area/crear', [ProveedoresController::class, 'crear']);
-$router->post('/admin/area/crear', [ProveedoresController::class, 'crear']);
+$router->get('/admin/area', [AreaController::class, 'index']);
+$router->get('/admin/area/crear', [AreaController::class, 'crear']);
+$router->post('/admin/area/crear', [AreaController::class, 'crear']);
 
 $router->get('/admin/ancho', [AnchoController::class, 'index']);
 
