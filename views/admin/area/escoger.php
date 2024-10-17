@@ -32,7 +32,7 @@
                         $icono = '<i class="fas fa-laptop-code"></i>'; // ícono de sistemas
                     } elseif($area === 'MARKETING') {
                         $icono = '<i class="fas fa-bullhorn"></i>'; // ícono de marketing
-                    } elseif($area === 'LOGISTICA') {
+                    } elseif($area === 'PRODUCTO TERMINADO') {
                         $icono = '<i class="fas fa-truck"></i>'; // ícono de logística
                     } elseif($area === 'CALIDAD') {
                         $icono = '<i class="fas fa-check-circle"></i>'; // ícono de calidad
