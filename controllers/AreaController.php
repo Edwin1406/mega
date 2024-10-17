@@ -12,6 +12,8 @@ class AreaController {
         isAuth();
         $area = Area::belongsTo('propietarioId', $_SESSION['id']);
         debuguear($area);
+
+        json_encode($area);
         $router->render('admin/area/index', [
             'titulo' => 'AREA',
             'area' => $area
