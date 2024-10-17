@@ -60,11 +60,11 @@ class ProveedoresController {
                 // generar la url
                 $hash = md5(uniqid(rand(),true));
                 $area->url= $hash;
-                debuguear($area);
-
+                
                 // almacenar el propietario
                 $area->propietarioId = $_SESSION['id'];
-
+                debuguear($area);
+                
                 // guardar en la base de datos 
                 $area->guardar();
                 // redireccionar
