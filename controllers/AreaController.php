@@ -12,8 +12,7 @@ class AreaController {
         isAuth();
          
         $router->render('admin/area/index', [
-            'titulo' => 'AREA',
-            'area' => $area
+            'titulo' => 'AREA'
         ]);
     }
 
@@ -86,8 +85,9 @@ class AreaController {
     {
         session_start();
         isAuth();
-        $area = Area::belongsTo('propietarioId', $_SESSION['id']); 
-        debuguear($area);
+        $id= $_SESSION['id'];
+        $escoger = Area::where('propietarioId',$id);
+        debuguear($escoger);
         $router->render('admin/area/escoger' , [
             'titulo' => 'escoja una area para entrar a la pagina',
             'area' => $area
