@@ -48,7 +48,7 @@ class AreaController {
         }
         $router->render('admin/area/crear',[
             'alertas' => $alertas,
-            'titulo' => 'Crear'
+            'titulo' => 'CREAR AREA',
         ]);
     
     }
