@@ -9,9 +9,7 @@ require_once __DIR__ . '/includes/app.php';
 use MVC\Router;
 use Controllers\AuthController;
 use Controllers\AdminController;
-use Controllers\AnchoController;
 use Controllers\AreaController;
-use Controllers\AreasController;
 
 $router = new Router();
 
