@@ -9,9 +9,10 @@ class ProveedoresController {
     
     public static function index(Router $router) {
         $router->render('admin/proveedor/index', [
-            'titulo' => 'Proveedores'
+            'titulo' => 'AREA'
         ]);
     }
+
     public static function crear(Router $router) {
         $alertas = [];
         $proveedor =  new Proveedor;

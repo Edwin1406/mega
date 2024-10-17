@@ -4,39 +4,36 @@ namespace Model;
 
 class Proveedor extends ActiveRecord {
 
-    protected static $tabla = 'proveedor';
-    protected static $columnasDB = ['id', 'nombre', 'apellido', 'ciudad'];
+    protected static $tabla = 'area';
+    protected static $columnasDB = ['id', 'area', 'url', 'propietarioId'];
 
     public $id;
-    public $nombre;
-    public $apellido;
-    public $ciudad;
-   
-
+    public $area;
+    public $url;
+    public $propietarioId;
 
     public function __construct($args = [])
     {
         $this->id = $args['id'] ?? null;
-        $this->nombre = $args['nombre'] ?? '';
-        $this->apellido = $args['apellido'] ?? '';
-        $this->ciudad = $args['ciudad'] ?? '';
+        $this->area = $args['area'] ?? '';
+        $this->url = $args['url'] ?? '';
+        $this->propietarioId = $args['propietarioId'] ?? '';
   
     }
 
 
 
     public function validar() {
-        if(!$this->nombre) {
-            self::$alertas['error'][] = 'El Nombre es Obligatorio';
+
+        if(!$this->area) {
+            self::$alertas['error'][] = 'El Campo Area es Obligatorio';
         }
-        if(!$this->apellido) {
-            self::$alertas['error'][] = 'El Apellido es Obligatorio';
+        if(!$this->url) {
+            self::$alertas['error'][] = 'El Campo URL es Obligatorio';
         }
-        if(!$this->ciudad) {
-            self::$alertas['error'][] = 'El Campo Ciudad es Obligatorio';
+        if(!$this->propietarioId) {
+            self::$alertas['error'][] = 'El Campo Propietario es Obligatorio';
         }
-       
-    
         return self::$alertas;
     }
 
