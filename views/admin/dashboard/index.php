@@ -69,7 +69,7 @@
 
   // Tercer gráfico: Pie
   const ctx3 = document.getElementById('myChart3');
-  new Chart(ctx2, {
+  new Chart(ctx3, {
     type: 'line',
     data: {
       labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
