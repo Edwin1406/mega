@@ -5,7 +5,7 @@ namespace Controllers;
 use MVC\Router;
 
 
-class AnchoController
+class AreasController
 {
     public static function index(Router $router)
     {
