@@ -1,6 +1,7 @@
 <h1 class="dashboard__heading"> <?php echo $titulo ?> </h1>
 <div>
   <canvas id="myChart"></canvas>
+  <canvas id="myChart"></canvas>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
@@ -29,16 +30,5 @@
 
 
 
-  const config = {
-  type: 'scatter',
-  data: data,
-  options: {
-    scales: {
-      x: {
-        type: 'linear',
-        position: 'bottom'
-      }
-    }
-  }
-};
+  
 </script>
