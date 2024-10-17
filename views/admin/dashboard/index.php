@@ -7,9 +7,9 @@
   <div class="tamaño">
     <canvas id="myChart2"></canvas>
   </div>
-  <!-- <div class="tamaño">
+  <div class="tamaño">
     <canvas id="myChart3"></canvas>
-  </div> -->
+  </div>
   <div class="tamaño">
     <canvas id="myChart4"></canvas>
   </div>
@@ -67,19 +67,29 @@
     }
   });
 
-  // // Tercer gráfico: Pie
-  // const ctx3 = document.getElementById('myChart3');
-  // new Chart(ctx3, {
-  //   type: 'pie',
-  //   data: {
-  //     labels: ['Red', 'Blue', 'Yellow'],
-  //     datasets: [{
-  //       label: '# of Votes',
-  //       data: [10, 20, 30],
-  //       backgroundColor: ['red', 'blue', 'yellow'],
-  //     }]
-  //   }
-  // });
+  // Tercer gráfico: Pie
+  const ctx3 = document.getElementById('myChart3');
+  new Chart(ctx2, {
+    type: 'line',
+    data: {
+      labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+      datasets: [{
+        label: '# of Votes',
+        data: [15, 10, 7, 8, 5, 6],
+        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+        borderColor: 'rgba(25, 99, 132, 4)',
+        borderWidth: 2,
+        fill: true
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
 
   // Cuarto gráfico: Doughnut
   const ctx4 = document.getElementById('myChart4');
