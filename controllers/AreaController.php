@@ -10,7 +10,7 @@ class AreaController {
     public static function index(Router $router) {
         session_start();
         isAuth();
-        $area = Area::belongsTo('propietarioId', $_SESSION['id']);     
+         
         $router->render('admin/area/index', [
             'titulo' => 'AREA',
             'area' => $area
@@ -84,8 +84,11 @@ class AreaController {
 
     public static function escoger(Router $router)
     {
+        session_start();
+        isAuth();
+        $area = Area::belongsTo('propietarioId', $_SESSION['id']); 
         $router->render('admin/area/escoger' , [
-            'titulo' => 'escoja una area para entrar a la pagina de ancho'
+            'titulo' => 'escoja una area para entrar a la pagina',
         ]);
     }
 
