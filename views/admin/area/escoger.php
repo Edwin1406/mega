@@ -17,7 +17,7 @@
 <?php  }?>
         
         <style>
-            .nando{
+            .areas{
                 text-align: center !important; 
             }
         </style>
