@@ -25,7 +25,10 @@
         display: flex;
        align-items: center;
        padding: 2rem;
-       text-align: center;
+       &_nombre{
+
+           text-align: center;
+       }
 
        a{
         color: v.$blanco;

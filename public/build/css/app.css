@@ -32,6 +32,8 @@
   display: flex;
   align-items: center;
   padding: 2rem;
+}
+.listado-areas .areas_nombre {
   text-align: center;
 }
 .listado-areas .areas a {
