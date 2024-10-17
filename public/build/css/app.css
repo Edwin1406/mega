@@ -1,4 +1,8 @@
 /** Media Queries **/
+.areas {
+  background-color: red;
+}
+
 .dashboard {
   height: 100%;
   display: flex;
