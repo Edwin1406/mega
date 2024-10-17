@@ -58,10 +58,7 @@ class AreaController {
     public static function paginaArea(Router $router)
     {
         
-        // ----------------------------------------------------------------------------------
-        $router->render('admin/area/paginaArea',[
-            'titulo' => 'Pagina Area'
-        ]);
+       echo 'pagina area';
     
     }
 
