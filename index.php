@@ -40,9 +40,10 @@ $router->get('/confirmar-cuenta', [AuthController::class, 'confirmar']);
 // Area de Administración
 
 $router->get('/admin/index', [AdminController::class, 'index']);
-$router->get('/admin/proveedor', [ProveedoresController::class, 'index']);
-$router->get('/admin/proveedor/crear', [ProveedoresController::class, 'crear']);
-$router->post('/admin/proveedor/crear', [ProveedoresController::class, 'crear']);
+
+$router->get('/admin/area', [ProveedoresController::class, 'index']);
+$router->get('/admin/area/crear', [ProveedoresController::class, 'crear']);
+$router->post('/admin/area/crear', [ProveedoresController::class, 'crear']);
 
 $router->get('/admin/ancho', [AnchoController::class, 'index']);
 

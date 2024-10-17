@@ -2,7 +2,7 @@
 
 namespace Model;
 
-class Proveedor extends ActiveRecord {
+class Area extends ActiveRecord {
 
     protected static $tabla = 'area';
     protected static $columnasDB = ['id', 'area', 'url', 'propietarioId'];

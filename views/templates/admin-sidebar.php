@@ -9,10 +9,10 @@
 
        
 
-        <a href="/admin/proveedor" class="dashboard__enlace <?php echo pagina_actual('/proveedor') ? 'dashboard__enlace--actual' :'' ?>">
+        <a href="/admin/area" class="dashboard__enlace <?php echo pagina_actual('/area') ? 'dashboard__enlace--actual' :'' ?>">
             <i class="fa-duotone fa-solid fa-calendar-days dashboard__icono"></i>
             <span class="dashboard__menu--texto">
-            Proveedores
+            Area
             </span>
         </a>
 

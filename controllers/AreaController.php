@@ -2,17 +2,17 @@
 
 namespace Controllers;
 
-use Model\Proveedor;
+use Model\Area;
 use MVC\Router;
 
-class ProveedoresController {
+class AreaController {
     
     public static function index(Router $router) {
         session_start();
         isAuth();
-        $area = Proveedor::belongsTo('propietarioId', $_SESSION['id']);
+        $area = Area::belongsTo('propietarioId', $_SESSION['id']);
         debuguear($area);
-        $router->render('admin/proveedor/index', [
+        $router->render('admin/area/index', [
             'titulo' => 'AREA',
             'area' => $area
         ]);
@@ -25,7 +25,7 @@ class ProveedoresController {
         session_start();
         isAuth();
         $alertas= [];
-        $area = new Proveedor;
+        $area = new Area;
         if($_SERVER['REQUEST_METHOD'] === 'POST'){
             $area->sincronizar($_POST);
             
@@ -43,12 +43,12 @@ class ProveedoresController {
                 // guardar en la base de datos 
                 $area->guardar();
                 // redireccionar
-                header('Location: /admin/proveedor?id='.$area->url);
+                header('Location: /admin/area?id='.$area->url);
 
             }
             // debuguear($proyecto);
         }
-        $router->render('admin/proveedor/crear',[
+        $router->render('admin/area/crear',[
             'alertas' => $alertas,
             'titulo' => 'Crear'
         ]);
