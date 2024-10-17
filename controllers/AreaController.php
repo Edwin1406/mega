@@ -56,14 +56,7 @@ class AreaController {
 
     public static function pagina(Router $router)
     {
-        session_start();
-        isAuth();
-        $id = $_GET['id'];
-        $area = Area::find($id);
-        $router->render('admin/area/paginaArea', [
-            'titulo' => 'Pagina Area',
-            'area' => $area
-        ]);
+        echo 'pagina';
     }
 
 
