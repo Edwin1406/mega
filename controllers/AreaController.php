@@ -67,6 +67,11 @@ class AreaController {
         $area = Area::where('url',$url);
         $respuesta = $area->propietarioId !== $_SESSION['id'];
         debuguear($respuesta);
+        if($respuesta==true){
+            echo 'eres programador ';
+        }else{
+            header('Location: /admin/index');
+        }
         
         
         // debuguear($area);
