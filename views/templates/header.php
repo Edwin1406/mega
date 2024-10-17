@@ -35,7 +35,7 @@
             <h2 class="barra__logo"> MEGASTOCK </h2>
         </a>
         <nav class="navegacion">
-            <a href="/" class="navegacion__enlace <?php echo pagina_actual('') ? 'navegacion__enlace--actual' : ''; ?>">Iniciar Sesion</a>
+            <a href="/" class="navegacion__enlace <?php echo pagina_actual('/') ? 'navegacion__enlace--actual' : ''; ?>">Iniciar Sesion</a>
             <a href="/registro" class="navegacion__enlace <?php echo pagina_actual('/registro') ? 'navegacion__enlace--actual' : ''; ?>">Registro</a>
             <a href="/olvide" class="navegacion__enlace <?php echo pagina_actual('/olvide') ? 'navegacion__enlace--actual' : ''; ?>">Olvide</a>
             <a href="/ver" class="navegacion__enlace <?php echo pagina_actual('/ver') ? 'navegacion__enlace--actual' : ''; ?>">Ver</a>
