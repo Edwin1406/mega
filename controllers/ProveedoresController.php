@@ -8,40 +8,15 @@ use MVC\Router;
 class ProveedoresController {
     
     public static function index(Router $router) {
+        session_start();
+        isAuth();
+        $area = Proveedor::All();
+        debuguear($area);
         $router->render('admin/proveedor/index', [
-            'titulo' => 'AREA'
+            'titulo' => 'AREA',
+            'area' => $area
         ]);
     }
-
-
-
-    // public static function crear(Router $router) {
-    //     $alertas = [];
-    //     $area =  new Proveedor;
-
-    //     if($_SERVER['REQUEST_METHOD'] === 'POST') {
-    //         $area->sincronizar($_POST);
-
-    //         //validar
-    //         $alertas = $area->validar();
-
-    //         // guardar el registro
-            
-    //         if(empty($alertas)) {
-    //             $resultado =  $area->guardar();
-    //             if($resultado) {
-    //                 header('Location: /admin/proveedor');
-    //             }
-    //         }
-    //         // debuguear($proveedor);
-    //     }
-
-    //     $router->render('admin/proveedor/crear', [
-    //         'titulo' => 'Crear Proveedor',
-    //         'proveedor' => $proveedor,
-    //         'alertas' => $alertas
-    //     ]);
-    // }
 
 
 
