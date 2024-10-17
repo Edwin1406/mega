@@ -4,6 +4,7 @@
 html {
     font-size: 62.5%;
     box-sizing: border-box;
+    height: 100%;
 }
 *, *:before, *:after {
     box-sizing: inherit;
@@ -11,6 +12,7 @@ html {
 body {
     font-family: v.$fuente_principal;
     font-size: 1.8rem;
+    
 }
 a {
     text-decoration: none;
