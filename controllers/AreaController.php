@@ -66,7 +66,7 @@ class AreaController {
         // obtener el proyecto
         $area = Area::where('url',$url);
         $respuesta = $area->propietarioId !== $_SESSION['id'];
-        debuguear($respuesta);
+        // debuguear($respuesta);
         if($respuesta==true){
             echo 'eres programador ';
         }else{
