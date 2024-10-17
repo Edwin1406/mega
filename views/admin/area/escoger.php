@@ -9,18 +9,21 @@
         <li class="areas">
             <a href="/admin/area/paginaArea?id=<?php echo $escoger->url ?>">
                 <?php 
+                    // Eliminar los espacios en blanco alrededor del valor del área
+                    $area = trim($escoger->area);
+
                     // Asigna un ícono basado en el área
                     $icono = '';
-                    if($escoger->area === 'PRODUCCION') {
+                    if($area === 'PRODUCCION') {
                         $icono = '<i class="fas fa-industry"></i>'; // ícono de producción
-                    } elseif($escoger->area === 'VENTAS') {
+                    } elseif($area === 'VENTAS') {
                         $icono = '<i class="fas fa-shopping-cart"></i>'; // ícono de ventas
                     } else {
                         $icono = '<i class="fas fa-briefcase"></i>'; // ícono por defecto
                     }
 
                     // Muestra el ícono y el nombre del área
-                    echo $icono . ' ' . $escoger->area;
+                    echo $icono . ' ' . $area;
                 ?>
             </a>
         </li>
