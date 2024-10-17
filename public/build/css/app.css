@@ -1,6 +1,15 @@
 /** Media Queries **/
-.areas {
-  background-color: red;
+.no-areas a {
+  color: #4338CA;
+}
+
+.listado-areas {
+  list-style: none;
+  padding: 0;
+  margin-top: 3rem;
+}
+.listado-areas .areas {
+  background-color: lightblue;
 }
 
 .dashboard {

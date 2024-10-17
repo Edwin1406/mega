@@ -1,6 +1,15 @@
 @use 'base/variables' as v;
 @use 'base/mixins' as m;
-
-.areas{
-    background-color: red;
+.no-areas{
+    a{
+        color: v.$indigo;
+    }
+}
+.listado-areas{
+    list-style: none;
+    padding: 0;
+    margin-top: 3rem;
+    .areas{
+        background-color: lightblue;
+    }
 }
