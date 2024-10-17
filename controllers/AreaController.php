@@ -86,7 +86,7 @@ class AreaController {
         session_start();
         isAuth();
         $id= $_SESSION['id'];
-        $escoger = Area::where('propietarioId',$id);
+        $escoger = Area::belongsTo('propietarioId',$id);
         debuguear($escoger);
         $router->render('admin/area/escoger' , [
             'titulo' => 'escoja una area para entrar a la pagina',
