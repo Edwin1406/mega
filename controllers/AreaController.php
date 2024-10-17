@@ -73,7 +73,7 @@ class AreaController {
         }
         // debuguear($area);
         // ----------------------------------------------------------------------------------
-        $router->render('dashboard/proyecto',[
+        $router->render('admin/area/paginaArea',[
             'titulo' => $area->area,
         ]);
     
