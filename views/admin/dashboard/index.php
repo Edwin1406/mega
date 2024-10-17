@@ -1,7 +1,10 @@
 <h1 class="dashboard__heading"> <?php echo $titulo ?> </h1>
 <div>
   <canvas id="myChart"></canvas>
-  <canvas id="myChart2"></canvas>
+ 
+</div>
+<div>
+<canvas id="myChart2"></canvas>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
