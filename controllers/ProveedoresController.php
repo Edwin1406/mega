@@ -13,33 +13,47 @@ class ProveedoresController {
         ]);
     }
 
-    public static function crear(Router $router) {
-        $alertas = [];
-        $proveedor =  new Proveedor;
 
-        if($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $proveedor->sincronizar($_POST);
 
-            //validar
-            $alertas = $proveedor->validar();
 
-            // guardar el registro
-            
-            if(empty($alertas)) {
-                $resultado =  $proveedor->guardar();
-                if($resultado) {
-                    header('Location: /admin/proveedor');
-                }
+    public static function crear(Router $router)
+    {
+        session_start();
+        isAuth();
+        $alertas= [];
+        if($_SERVER['REQUEST_METHOD'] === 'POST'){
+            $area = new Proveedor($_POST);
+            // validar
+            $alertas = $area->validar();
+            if(empty($alertas)){
+                // generar la url
+                $hash = md5(uniqid(rand(),true));
+                $area->url= $hash;
+                // almacenar el propietario
+                $area->propietarioId = $_SESSION['id'];
+
+                // guardar en la base de datos 
+                $area->guardar();
+                // redireccionar
+                header('Location: /admin/proveedor?id='.$area->url);
+
             }
-            // debuguear($proveedor);
+            // debuguear($proyecto);
         }
-
-        $router->render('admin/proveedor/crear', [
-            'titulo' => 'Crear Proveedor',
-            'proveedor' => $proveedor,
-            'alertas' => $alertas
+        $router->render('admin/proveedor/crear',[
+            'alertas' => $alertas,
+            'titulo' => 'Crear'
         ]);
+    
     }
+
+
+
+
+
+
+
+
 
 
 }
