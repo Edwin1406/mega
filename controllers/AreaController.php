@@ -65,9 +65,10 @@ class AreaController {
         if(!$url) header('Location: /admin/index');
         // obtener el proyecto
         $area = Area::where('url',$url);
-        if($area->propietarioId !== $_SESSION['id']){
-            header('Location: /admin/index');
-        }
+
+        // if($area->propietarioId !== $_SESSION['id']){
+        //     header('Location: /admin/index');
+        // }
         debuguear($area);
         // ----------------------------------------------------------------------------------
         $router->render('dashboard/proyecto',[
