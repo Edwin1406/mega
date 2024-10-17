@@ -10,7 +10,7 @@ class ProveedoresController {
     public static function index(Router $router) {
         session_start();
         isAuth();
-        $area = Proveedor::All();
+        $area = Proveedor::belongsTo('propietarioId', $_SESSION['id']);
         debuguear($area);
         $router->render('admin/proveedor/index', [
             'titulo' => 'AREA',

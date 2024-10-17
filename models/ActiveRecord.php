@@ -244,4 +244,11 @@ class ActiveRecord {
         $resultado = self::$db->query($query);
         return $resultado;
     }
+
+     // Busqueda todos los registros que pertenecen a un id
+     public static function belongsTo($columna, $valor) {
+        $query = "SELECT * FROM " . static::$tabla . " WHERE {$columna} = '{$valor}'";
+        $resultado = self::consultarSQL($query);
+        return $resultado;
+    }
 }
