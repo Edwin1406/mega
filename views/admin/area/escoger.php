@@ -18,6 +18,6 @@
         
         <style>
             .nando{
-                text-align: center;
+                text-align: center !important; 
             }
         </style>
