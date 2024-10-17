@@ -10,10 +10,7 @@ class AreaController {
     public static function index(Router $router) {
         session_start();
         isAuth();
-        $area = Area::belongsTo('propietarioId', $_SESSION['id']);
-        debuguear($area);
-
-        json_encode($area);
+        $area = Area::belongsTo('propietarioId', $_SESSION['id']);     
         $router->render('admin/area/index', [
             'titulo' => 'AREA',
             'area' => $area
