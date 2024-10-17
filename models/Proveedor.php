@@ -28,12 +28,7 @@ class Proveedor extends ActiveRecord {
         if(!$this->area) {
             self::$alertas['error'][] = 'El Campo Area es Obligatorio';
         }
-        if(!$this->url) {
-            self::$alertas['error'][] = 'El Campo URL es Obligatorio';
-        }
-        if(!$this->propietarioId) {
-            self::$alertas['error'][] = 'El Campo Propietario es Obligatorio';
-        }
+       
         return self::$alertas;
     }
 
