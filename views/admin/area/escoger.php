@@ -10,7 +10,7 @@
             <a href="/admin/area/paginaArea?id=<?php echo $escoger->url ?>">
                 <?php 
                     // Eliminar los espacios en blanco alrededor del valor del área
-                    $area = trim($escoger->area);
+                    // $area = trim($escoger->area);
 
                     // Asigna un ícono basado en el área
                     $icono = '';
