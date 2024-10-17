@@ -1,37 +1,58 @@
 @use 'base/variables' as v;
 @use 'base/mixins' as m;
+@use 'base/variables' as v;
+@use 'base/mixins' as m;
 .no-areas{
+    background-color: v.$rojo;
+    color: v.$blanco;
+    padding: 1rem;
+    border-radius: 1rem;
+    text-align: center;
     a{
         color: v.$indigo;
     }
 }
-.listado-areas{
+
+.lista-areas{
     list-style: none;
     padding: 0;
     margin-top: 3rem;
+    display: flex;
+        align-items: center;
+
+    // para que se vea en columnas
     @include m.grid(1, 2rem);
-     // para que se vea 2 columnas
-     @include m.tablet{
-         @include m.grid(2,2rem);
-     }
-     // para que se vea 3 columnas
-     @include m.desktop{
-         @include m.grid(3,2rem);
-     }
+    // para que se vea 2 columnas
+    @include m.tablet{
+        @include m.grid(2,2rem);
+    }
+    // para que se vea 3 columnas
+    @include m.desktop{
+        @include m.grid(3,2rem);
+    }
+
     .areas{
-        background-color: lightblue;
-        border-radius: 1rem;
+        background-color: lighten(v.$indigo, 5%);
         min-height: 12rem;
-        display: flex;
-       align-items: center;
-       padding: 2rem;
-       &_nombre{
+        
+        padding: 2rem;
+        padding-top: 4rem;
+        text-align: center;
+        a{
+            color: v.$blanco;
+        }
 
-           text-align: center;
-       }
+        
+    }
 
-       a{
-        color: v.$blanco;
-       }
+}
+
+.areas{
+    border-radius: 1rem;
+    
+    // justify-content: center;
+    &:hover{
+        background-color: darken(v.$cyan, 5%);
+        font-size: 2rem;
     }
 }

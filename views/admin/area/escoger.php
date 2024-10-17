@@ -4,10 +4,10 @@
     <p class="no-areas">NO HAY AREAS ASIGNADAS </p>
 
 <?php  }else {?>
-    <ul class="listado-areas">
+    <ul class="lista-areas">
         <?php foreach($escoger as $escoger) {?>
             <li class="areas">
-                <a class="nando" href="/admin/area/paginaArea?id=<?php echo $escoger->url ?>" >
+                <a  href="/admin/area/paginaArea?id=<?php echo $escoger->url ?>" >
                     <?php echo $escoger->area ?>
                 </a>
             </li>
@@ -16,8 +16,3 @@
 
 <?php  }?>
         
-        <style>
-            .areas{
-                text-align: center !important; 
-            }
-        </style>
