@@ -25,6 +25,7 @@ class AreaController {
         $alertas= [];
         $area = new Area;
         if($_SERVER['REQUEST_METHOD'] === 'POST'){
+            $_POST = array_map('trim', $_POST);
             $area->sincronizar($_POST);
             
             // validar
@@ -39,7 +40,7 @@ class AreaController {
                 // debuguear($area);
                 
                 // guardar en la base de datos 
-                trim($area->guardar());
+                $area->guardar();
                 // redireccionar
                 header('Location: /admin/area/paginaArea?id='.$area->url);
 
