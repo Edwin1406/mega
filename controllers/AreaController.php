@@ -42,7 +42,7 @@ class AreaController {
                 // guardar en la base de datos 
                 $area->guardar();
                 // redireccionar
-                header('Location: /admin/area/pagina-area?id='.$area->url);
+                header('Location: /admin/area/paginaArea?id='.$area->url);
 
             }
             // debuguear($proyecto);
@@ -60,7 +60,7 @@ class AreaController {
         isAuth();
         $id = $_GET['id'];
         $area = Area::find($id);
-        $router->render('admin/area/paginaArea', [
+        $router->render('/admin/area/paginaArea', [
             'titulo' => 'Pagina Area',
             'area' => $area
         ]);
