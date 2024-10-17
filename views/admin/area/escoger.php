@@ -8,11 +8,11 @@
         <?php foreach($escoger as $escoger) {?>
             <li class="areas">
                 <a  href="/admin/area/paginaArea?id=<?php echo $escoger->url ?>" >
-                    <?php echo $escoger->area ?>
+                    <?php  if($escoger->area=='PRODUCCION'):?>
+                        <i class="fa-solid fa-circle">no eres genial</i>
+                        <?php endif; ?>
                     
-                   <?php  if($escoger->area =='PRODUCCION'):?>
-                    <i class="fa-solid fa-circle-check"></i>
-                    <?php endif; ?>
+                   
                 
                 </a>
             </li>
@@ -20,3 +20,10 @@
     </ul>
 
 <?php  }?>
+
+
+
+
+
+
+
