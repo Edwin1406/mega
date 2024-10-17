@@ -90,7 +90,7 @@ class AreaController {
         debuguear($escoger);
         $router->render('admin/area/escoger' , [
             'titulo' => 'escoja una area para entrar a la pagina',
-            'area' => $area
+            'area' => $escoger
         ]);
     }
 
