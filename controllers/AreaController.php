@@ -67,9 +67,9 @@ class AreaController {
         $area = Area::where('url',$url);
         
         if($area->propietarioId !== $_SESSION['id']){
-            // header('Location: /admin/index');
+            header('Location: /admin/index');
 
-            echo 'No tienes permisos para ver este proyecto';
+           
         }
         // debuguear($area);
         // ----------------------------------------------------------------------------------
