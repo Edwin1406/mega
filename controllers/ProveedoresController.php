@@ -63,7 +63,7 @@ class ProveedoresController {
                 
                 // almacenar el propietario
                 $area->propietarioId = $_SESSION['id'];
-                debuguear($area);
+                // debuguear($area);
                 
                 // guardar en la base de datos 
                 $area->guardar();
