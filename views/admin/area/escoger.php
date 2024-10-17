@@ -11,7 +11,7 @@
                     <?php echo $escoger->area ?>
                     
                    <?php  if($escoger->area =='PRODUCCION'):?>
-                    <i class="fa-solid fa-hands-bound"></i>
+                    <i class="fa-solid fa-circle-check"></i>
                     <?php endif; ?>
                 
                 </a>
