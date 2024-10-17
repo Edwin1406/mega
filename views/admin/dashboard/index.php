@@ -11,7 +11,6 @@
     <canvas id="myChart3"></canvas>
   </div>
   <div class="tamaño">
-    <h3>como estas </h3>
     <canvas id="myChart4"></canvas>
   </div>
   <div class="tamaño">
