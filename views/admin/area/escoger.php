@@ -13,10 +13,10 @@
                     $icono = '';
                     if($escoger->area === 'PRODUCCION') {
                         $icono = '<i class="fas fa-industry"></i>'; // ícono de producción
-                    } elseif($escoger->area === 'VENTAS') {
-                        $icono = '<i class="fas fa-shopping-cart"></i>'; // ícono de ventas
+                    } elseif($escoger->area === 'BODEGA') {
+                        $icono = '<i class="fas fa-warehouse"></i>'; // ícono de bodega
                     } else {
-                        $icono = '<i class="fas fa-briefcase"></i>'; // ícono por defecto
+                        $icono = '<i class="fas fa-cogs"></i>'; // ícono de mantenimiento
                     }
 
                     // Muestra el ícono y el nombre del área
