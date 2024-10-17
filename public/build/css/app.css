@@ -10,6 +10,7 @@
 }
 .listado-areas .areas {
   background-color: lightblue;
+  min-height: 12rem;
 }
 
 .dashboard {
