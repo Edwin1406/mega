@@ -1,7 +1,6 @@
 @use 'base/variables' as v;
 @use 'base/mixins' as m;
-@use 'base/variables' as v;
-@use 'base/mixins' as m;
+
 .no-areas{
     background-color: v.$rojo;
     color: v.$blanco;

@@ -1,43 +1,56 @@
 /** Media Queries **/
+.no-areas {
+  background-color: rgb(227, 3, 3);
+  color: #FFFFFF;
+  padding: 1rem;
+  border-radius: 1rem;
+  text-align: center;
+}
 .no-areas a {
   color: #4338CA;
 }
 
-.listado-areas {
+.lista-areas {
   list-style: none;
   padding: 0;
   margin-top: 3rem;
+  display: flex;
+  align-items: center;
   display: grid;
   gap: 2rem;
   grid-template-columns: repeat(1, 1fr);
 }
 @media (min-width: 768px) {
-  .listado-areas {
+  .lista-areas {
     display: grid;
     gap: 2rem;
     grid-template-columns: repeat(2, 1fr);
   }
 }
 @media (min-width: 1024px) {
-  .listado-areas {
+  .lista-areas {
     display: grid;
     gap: 2rem;
     grid-template-columns: repeat(3, 1fr);
   }
 }
-.listado-areas .areas {
-  background-color: lightblue;
-  border-radius: 1rem;
+.lista-areas .areas {
+  background-color: rgb(86.0238095238, 76.1369047619, 207.3630952381);
   min-height: 12rem;
-  display: flex;
-  align-items: center;
   padding: 2rem;
-}
-.listado-areas .areas_nombre {
+  padding-top: 4rem;
   text-align: center;
 }
-.listado-areas .areas a {
+.lista-areas .areas a {
   color: #FFFFFF;
+}
+
+.areas {
+  border-radius: 1rem;
+}
+.areas:hover {
+  background-color: rgb(6.9032258065, 125.1209677419, 153.5967741935);
+  font-size: 2rem;
 }
 
 .dashboard {
