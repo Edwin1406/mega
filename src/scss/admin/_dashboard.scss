@@ -140,5 +140,16 @@
 
 .grafica{
     display: flex; 
-    justify-content: space-between;
+    align-items: center;
+
+    // para que se vea en columnas
+    @include m.grid(1, 2rem);
+    // para que se vea 2 columnas
+    @include m.tablet{
+        @include m.grid(2,2rem);
+    }
+    // para que se vea 3 columnas
+    @include m.desktop{
+        @include m.grid(3,2rem);
+    }
 }
