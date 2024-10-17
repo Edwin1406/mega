@@ -44,7 +44,7 @@ $router->get('/admin/index', [AdminController::class, 'index']);
 $router->get('/admin/area', [AreaController::class, 'index']);
 $router->get('/admin/area/crear', [AreaController::class, 'crear']);
 $router->post('/admin/area/crear', [AreaController::class, 'crear']);
-$router->post('/admin/area/paginaArea', [AreaController::class, 'paginaArea']);
+$router->get('/admin/area/paginaArea', [AreaController::class, 'paginaArea']);
 
 $router->get('/admin/ancho', [AnchoController::class, 'index']);
 
