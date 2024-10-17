@@ -10,7 +10,7 @@
                 <a  href="/admin/area/paginaArea?id=<?php echo $escoger->url ?>" >
                     <?php echo $escoger->area ?>
                     
-                   <?php  if($escoger->area ==='produccion'):?>
+                   <?php  if($escoger->area =='PRODUCCION'):?>
                     <i class="fa-solid fa-hands-bound"></i>
                     <?php endif; ?>
                 
