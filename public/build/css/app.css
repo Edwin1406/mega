@@ -18,6 +18,13 @@
     grid-template-columns: repeat(2, 1fr);
   }
 }
+@media (min-width: 1024px) {
+  .listado-areas {
+    display: grid;
+    gap: 2rem;
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
 .listado-areas .areas {
   background-color: lightblue;
   border-radius: 1rem;
@@ -25,10 +32,10 @@
   display: flex;
   align-items: center;
   padding: 2rem;
+  text-align: center;
 }
 .listado-areas .areas a {
   color: #FFFFFF;
-  text-align: center;
 }
 
 .dashboard {
