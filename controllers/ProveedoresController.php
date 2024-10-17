@@ -11,7 +11,7 @@ class ProveedoresController {
         session_start();
         isAuth();
         $area = Proveedor::belongsTo('propietarioId', $_SESSION['id']);
-        // debuguear($area);
+        debuguear($area);
         $router->render('admin/proveedor/index', [
             'titulo' => 'AREA',
             'area' => $area
