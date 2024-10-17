@@ -53,14 +53,15 @@ class ProveedoresController {
         $area = new Proveedor;
         if($_SERVER['REQUEST_METHOD'] === 'POST'){
             $area->sincronizar($_POST);
-            debuguear($area);
-
+            
             // validar
             $alertas = $area->validar();
             if(empty($alertas)){
                 // generar la url
                 $hash = md5(uniqid(rand(),true));
                 $area->url= $hash;
+                debuguear($area);
+
                 // almacenar el propietario
                 $area->propietarioId = $_SESSION['id'];
 
