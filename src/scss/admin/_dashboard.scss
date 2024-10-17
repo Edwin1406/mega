@@ -141,8 +141,7 @@
 .grafica{
     display: flex; 
     align-items: center;
-    margin-top: 2rem;
-
+    background-color: red;
     // para que se vea en columnas
     @include m.grid(1, 2rem);
     // para que se vea 2 columnas
