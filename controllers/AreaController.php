@@ -66,10 +66,8 @@ class AreaController {
         // obtener el proyecto
         $area = Area::where('url',$url);
         
-        if($area->propietarioId !== $_SESSION['id']){
+        if($_SESSION['id'] !== $area->propietarioId){
             header('Location: /admin/index');
-
-           
         }
         // debuguear($area);
         // ----------------------------------------------------------------------------------
