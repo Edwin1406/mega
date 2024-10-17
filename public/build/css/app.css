@@ -54,11 +54,6 @@
   font-size: 2rem;
 }
 
-.titulo__heading {
-  font-size: 3rem;
-  height: 50vh;
-}
-
 .dashboard {
   height: 100%;
   display: flex;
@@ -225,6 +220,7 @@
 
 .grafica__tamaño {
   width: 68%;
+  height: 50vh;
 }
 
 .listado-ponentes {
