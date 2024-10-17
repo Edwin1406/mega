@@ -197,10 +197,6 @@
 }
 
 .grafica {
-  padding: 0;
-  margin-top: 3rem;
-  display: flex;
-  align-items: center;
   width: min(95%, 140rem);
   margin: 0 auto;
   display: grid;
