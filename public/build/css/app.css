@@ -219,10 +219,8 @@
     grid-template-columns: repeat(3, 1fr);
   }
 }
-
-.grafica__tamaño {
-  width: 68%;
-  height: 50vh;
+.grafica .tamaño {
+  background-color: #0891B2;
 }
 
 .listado-ponentes {
