@@ -8,7 +8,12 @@
         <?php foreach($escoger as $escoger) {?>
             <li class="areas">
                 <a  href="/admin/area/paginaArea?id=<?php echo $escoger->url ?>" >
-                    <?php echo $escoger->area ?> <i class="fa-solid fa-hands-bound"></i>
+                    <?php echo $escoger->area ?>
+                    
+                   <?php  if($escoger->area ==='produccion'):?>
+                    <i class="fa-solid fa-hands-bound"></i>
+                    <?php endif; ?>
+                
                 </a>
             </li>
         <?php } ?>
