@@ -42,7 +42,7 @@ class AreaController {
                 // guardar en la base de datos 
                 $area->guardar();
                 // redireccionar
-                header('Location: /admin/area?id='.$area->url);
+                header('Location: /admin/area/pagina-area?id='.$area->url);
 
             }
             // debuguear($proyecto);
