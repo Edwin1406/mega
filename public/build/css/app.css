@@ -53,6 +53,10 @@
   font-size: 2rem;
 }
 
+.areas__heading {
+  font-size: 1.3rem;
+}
+
 .dashboard {
   height: 100%;
   display: flex;
