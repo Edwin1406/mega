@@ -232,6 +232,9 @@
 .grafica .tamaño a {
   color: #FFFFFF;
 }
+.grafica .tamaño:hover {
+  background-color: rgb(21.404494382, 29.2528089888, 42.095505618);
+}
 
 .listado-ponentes {
   margin: 0;
