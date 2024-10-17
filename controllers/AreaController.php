@@ -69,7 +69,7 @@ class AreaController {
             header('Location: /admin/index');
         }
         // ----------------------------------------------------------------------------------
-        $router->render('dashboard/proyecto',[
+        $router->render('admin/area/pagina-area',[
             'titulo' => $area->proyecto,
         ]);
     
