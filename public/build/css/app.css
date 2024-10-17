@@ -11,6 +11,8 @@
 .listado-areas .areas {
   background-color: lightblue;
   min-height: 12rem;
+  display: flex;
+  flex-direction: column;
 }
 
 .dashboard {
