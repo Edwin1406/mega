@@ -1,19 +1,19 @@
 <h1 class="dashboard__heading"> <?php echo $titulo ?> </h1>
 
 <div class="grafica">
-  <div style="width: 18%;">
+  <div class="grafica__tamaño">
     <canvas id="myChart1"></canvas>
   </div>
-  <div style="width: 18%;">
+  <div class="grafica__tamaño">
     <canvas id="myChart2"></canvas>
   </div>
-  <div style="width: 18%;">
+  <div class="grafica__tamaño">
     <canvas id="myChart3"></canvas>
   </div>
-  <div style="width: 18%;">
+  <div class="grafica__tamaño">
     <canvas id="myChart4"></canvas>
   </div>
-  <div style="width: 18%;">
+  <div class="grafica__tamaño">
     <canvas id="myChart5"></canvas>
   </div>
 </div>
