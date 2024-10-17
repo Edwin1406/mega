@@ -11,6 +11,7 @@ use Controllers\AuthController;
 use Controllers\AdminController;
 use Controllers\AnchoController;
 use Controllers\AreaController;
+use Controllers\AreasController;
 
 $router = new Router();
 
@@ -46,7 +47,7 @@ $router->get('/admin/area/crear', [AreaController::class, 'crear']);
 $router->post('/admin/area/crear', [AreaController::class, 'crear']);
 $router->get('/admin/area/paginaArea', [AreaController::class, 'paginaArea']);
 
-$router->get('/admin/ancho', [AnchoController::class, 'index']);
+$router->get('/admin/ancho', [AreasController::class, 'index']);
 
 
 $router->comprobarRutas();
