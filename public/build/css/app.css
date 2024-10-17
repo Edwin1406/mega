@@ -199,6 +199,11 @@
   margin: 0 auto;
 }
 
+.grafica {
+  display: flex;
+  justify-content: space-between;
+}
+
 .listado-ponentes {
   margin: 0;
   padding: 0;

@@ -1,5 +1,6 @@
 <h1 class="dashboard__heading"> <?php echo $titulo ?> </h1>
-<div style="display: flex; justify-content: space-between;">
+
+<div class="grafica">
   <div style="width: 18%;">
     <canvas id="myChart1"></canvas>
   </div>
