@@ -8,8 +8,7 @@
             id="area"
             class="formulario__input"
             placeholder="ingrese el area"
-            value="<?php echo isset($area->area) ? trim($area->area) : ''; ?>">
-
+            value="<?php echo $area->area ?? '' ?>">
     </div>
 
 
