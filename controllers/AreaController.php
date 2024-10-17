@@ -54,7 +54,7 @@ class AreaController {
     
     }
 
-    public static function pagina(Router $router)
+    public static function paginaArea(Router $router)
     {
         echo 'pagina';
     }
