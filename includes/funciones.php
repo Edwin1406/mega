@@ -11,10 +11,10 @@ function s($html) : string {
     return $s;
 }
 
-// function pagina_actual($path):bool{
-//     return str_contains($_SERVER['REQUEST_URI'] ?? '/', $path) ? true : false;
+function pagina_actual_admin($path):bool{
+    return str_contains($_SERVER['REQUEST_URI'] ?? '/', $path) ? true : false;
 
-// }
+}
 function pagina_actual($path): bool {
     return $_SERVER['REQUEST_URI'] === $path;
 }
