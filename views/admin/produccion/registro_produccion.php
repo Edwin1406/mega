@@ -26,7 +26,9 @@
                     $url = "/admin/produccion/maquinas/crear?id=".$id;
                 } elseif($area === 'papel'|| $area === 'PAPEL') {
                     $url = "/admin/produccion/papel/index?id=".$id;
-                } 
+                }elseif($area === 'proveedor'|| $area === 'PROVEEDOR') {
+                    $url = "/admin/produccion/tintas/index?id=".$id;
+                }
 
                 echo $url; // Muestra la URL específica
             ?>">
@@ -36,9 +38,10 @@
                     if($area === 'maquinas'|| $area === 'MAQUINAS') {
                         $icono = '<i class="fas fa-industry"></i>'; // ícono de producción
                     } elseif($area === 'papel'|| $area === 'PAPEL') {
-                        $icono = '<i class="fa-solid fa-scroll"></i>'; // ícono de cotización
-                        
-                    } 
+                        $icono = '<i class="fa-solid fa-scroll"></i>'; // ícono de cotizació  
+                    } elseif($area === 'proveedor'|| $area === 'PROVEEDOR') {
+                        $icono = '<i class="fas fa-dollar-sign"></i>'; // ícono de cotización
+                    }
                     // Muestra el ícono y el nombre del área
                     echo $icono . ' ' . $area;
                 ?>
