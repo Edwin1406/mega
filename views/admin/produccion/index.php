@@ -1,16 +1,16 @@
 <h1 class="dashboard__heading"> <?php echo $titulo ?> </h1>
 
-<?php if(count($escoger)===0) {?>
+<?php if(count($escoger_produccion)===0) {?>
     <p class="no-areas">NO HAY AREAS ASIGNADAS </p>
 
 <?php  }else {?>
    <ul class="lista-areas">
-    <?php foreach($escoger as $escoger) { ?>
+    <?php foreach($escoger_produccion as $produccionA) { ?>
         <li class="areas">
             <a href="<?php 
-                $area = trim($escoger->area);
+                $area = trim($produccionA->area_produccion);
                 $url = ''; // Inicializa la variable para la URL específica
-                $id = $escoger->url; // Obtiene el ID del área
+                $id = $produccionA->url; // Obtiene el ID del área
 
                 // Asigna una URL específica basada en el área
                 if($area === 'PRODUCCION') {

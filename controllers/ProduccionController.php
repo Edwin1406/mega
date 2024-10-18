@@ -1,7 +1,7 @@
 <?php
 namespace Controllers;
 
-use Model\Area;
+use Model\Produccion;
 use MVC\Router;
 
 class ProduccionController
@@ -12,10 +12,10 @@ class ProduccionController
         session_start();
         isAuth();
         $id= $_SESSION['id'];
-        $escoger = Area::belongsTo('propietarioId',$id);
+        $escoger_produccion = Produccion::belongsTo('propietarioId',$id);
         $router->render('admin/produccion/index', [
             'titulo' => 'SECCION DE PRODUCCCION',
-            'escoger' => $escoger
+            'escoger' => $escoger_produccion
         ]);
     }
 }
