@@ -54,6 +54,49 @@
   font-size: 2rem;
 }
 
+.lista-areas-produccion {
+  list-style: none;
+  padding: 0;
+  margin-top: 3rem;
+  display: flex;
+  align-items: center;
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: repeat(1, 1fr);
+}
+@media (min-width: 768px) {
+  .lista-areas-produccion {
+    display: grid;
+    gap: 2rem;
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (min-width: 1024px) {
+  .lista-areas-produccion {
+    display: grid;
+    gap: 2rem;
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+.lista-areas-produccion .areas {
+  background-color: #F59E0B;
+  min-height: 12rem;
+  padding: 2rem;
+  padding-top: 4rem;
+  text-align: center;
+}
+.lista-areas-produccion .areas a {
+  color: #FFFFFF;
+}
+
+.areas-produccion {
+  border-radius: 1rem;
+}
+.areas-produccion:hover {
+  background-color: rgb(6.9032258065, 125.1209677419, 153.5967741935);
+  font-size: 2rem;
+}
+
 .dashboard {
   height: 100%;
   display: flex;
