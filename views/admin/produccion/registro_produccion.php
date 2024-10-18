@@ -22,10 +22,10 @@
                 $id = $produccionA->url; // Obtiene el ID del área
 
                 // Asigna una URL específica basada en el área
-                if($area === 'seccion de registros'|| $area === 'SECCION DE REGISTROS') {
-                    $url = "/admin/produccion/registro_produccion?id=".$id;
-                } elseif($area === 'COTIZADOR'|| $area === 'cotizador') {
-                    $url = "/admin/produccion/cotizador/index?id=".$id;
+                if($area === 'maquinas'|| $area === 'MAQUINAS') {
+                    $url = "/admin/produccion/maquinas/crear?id=".$id;
+                } elseif($area === 'papel'|| $area === 'PAPEL') {
+                    $url = "/admin/produccion/papel/index?id=".$id;
                 } 
 
                 echo $url; // Muestra la URL específica
@@ -33,12 +33,11 @@
                 <?php 
                     // Asigna un ícono basado en el área
                     $icono = '';
-                    if($area === 'SECCION DE REGISTROS'|| $area === 'seccion de registros') {
+                    if($area === 'maquinas'|| $area === 'MAQUINAS') {
                         $icono = '<i class="fas fa-industry"></i>'; // ícono de producción
-                    } elseif($area === 'COTIZADOR'|| $area === 'cotizador') {
+                    } elseif($area === 'papel'|| $area === 'PAPEL') {
                         $icono = '<i class="fas fa-dollar-sign"></i>'; // ícono de cotización
-                    }
-
+                    } 
                     // Muestra el ícono y el nombre del área
                     echo $icono . ' ' . $area;
                 ?>
