@@ -51,6 +51,7 @@ $router->get('/admin/area/escoger', [AreaController::class, 'escoger']);
 
 // Area de Producción
 $router->get('/admin/produccion/index', [ProduccionController::class, 'index']);
+$router->get('/admin/produccion/registro-produccion', [ProduccionController::class, 'index']);
 
 
 $router->comprobarRutas();
