@@ -2,6 +2,7 @@
 namespace Controllers;
 
 use Model\Produccion;
+use Model\UrlRegistro;
 use MVC\Router;
 
 class ProduccionController
@@ -24,12 +25,14 @@ class ProduccionController
         session_start();
         isAuth();
         $id= $_SESSION['id'];
-        $escoge_registro = Produccion::belongsTo('propietarioId',$id);
+        $escoge_registro = UrlRegistro::belongsTo('propietarioId',$id);
         $router->render('admin/produccion/registro_produccion', [
             'titulo' => 'REGISTRO DE PRODUCCION',
             'escoge_registro' => $escoge_registro
         ]);
     }
+
+    
 
 
     public static function cotizador(Router $router)
