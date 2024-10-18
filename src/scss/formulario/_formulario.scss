@@ -1,5 +1,7 @@
 @use 'base/variables' as v;
 @use 'base/mixins' as m;
+@use "sass:color";
+
 
 
 .auth__heading{
@@ -63,7 +65,8 @@
     &__select{
         padding: 1rem;
         font-size: 1.6rem;
-        border: 1px solid darken(v.$gris, 20%);
+        // border: 1px solid darken(v.$gris, 20%);
+        border: 1px solid color.adjust(v.$gris, $lightness: -20%);
         border-radius: .5rem;
 
         &--file{

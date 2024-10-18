@@ -132,7 +132,7 @@
   transition: 300ms background-color ease-in-out, 300ms color ease, 300ms border-radius ease;
 }
 .dashboard__enlace:hover, .dashboard__enlace--actual {
-  background-color: rgb(64.3820224719, 87.9887640449, 126.6179775281);
+  background-color: rgb(6.9032258065, 125.1209677419, 153.5967741935);
   border-radius: 1rem;
   color: #FFFFFF;
 }
@@ -176,7 +176,7 @@
   border-radius: 0.8rem;
 }
 .dashboard__boton:hover {
-  background-color: rgb(18.5714285714, 76.1428571429, 202.4285714286);
+  background-color: rgb(83.7142857143, 132.4285714286, 239.2857142857);
   cursor: pointer;
 }
 @media (min-width: 768px) {
@@ -233,7 +233,7 @@
   color: #FFFFFF;
 }
 .grafica .tamaño:hover {
-  background-color: rgb(21.404494382, 29.2528089888, 42.095505618);
+  background-color: rgb(6.9032258065, 125.1209677419, 153.5967741935);
 }
 
 .listado-ponentes {
@@ -857,7 +857,7 @@ h3 {
   align-self: flex-start;
 }
 .formulario__submit:hover {
-  background-color: rgb(18.5714285714, 76.1428571429, 202.4285714286);
+  background-color: rgb(83.7142857143, 132.4285714286, 239.2857142857);
   cursor: pointer;
 }
 
@@ -1045,7 +1045,7 @@ h3 {
   border-radius: 0.8rem;
 }
 .header__boton:hover {
-  background-color: rgb(0, 149, 144.53);
+  background-color: rgb(0, 251, 243.47);
   cursor: pointer;
 }
 @media (min-width: 768px) {

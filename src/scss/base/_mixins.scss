@@ -1,4 +1,6 @@
 @use 'variables' as v;
+@use "sass:color";
+
 
 
 /** Media Queries **/
@@ -38,7 +40,10 @@
     border-radius: .8rem;
 
     &:hover {
-        background-color: darken( $bgColor, 10% );
+        // background-color: darken( $bgColor, 10% );
+        // background-color: lighten( $bgColor, 10% );
+        background-color: color.adjust($bgColor, $lightness: 10%);
+
         cursor: pointer;
     }
 }
@@ -81,7 +86,8 @@
     border-radius: .8rem;
 
     &:hover {
-        background-color: darken( $bgColor, 10% );
+        // background-color: darken( $bgColor, 10% );
+        background-color: color.adjust($bgColor, $lightness: -10%);
         cursor: pointer;
     }
 }
@@ -136,7 +142,9 @@
     }
 }
 @mixin textoDegradado-heading($color) {
-    background: linear-gradient(to right, $color 0%,lighten($color,30%) 100%);
+    // background: linear-gradient(to right, $color 0%,lighten($color,30%) 100%);
+    background: linear-gradient(to right, $color 0%, color.adjust($color, $lightness: 30%) 100%);
+
     color: transparent;
     background-clip: text;
     font-size: 5rem;
@@ -146,7 +154,8 @@
     }
 }
 @mixin textoDegradado-texto($color) {
-    background: linear-gradient(to right, $color 0%,lighten($color,30%) 100%);
+    // background: linear-gradient(to right, $color 0%,lighten($color,30%) 100%);
+    background: linear-gradient(to right, $color 0%, color.adjust($color, $lightness: 30%) 100%);
     color: transparent;
     background-clip: text;
     font-size: 2rem;

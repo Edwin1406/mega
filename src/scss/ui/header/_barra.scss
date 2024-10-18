@@ -1,8 +1,11 @@
 @use 'base/variables' as v;
 @use 'base/mixins' as m;
+@use "sass:color";
+
 
 .barra {
-    background-color: darken(v.$cyan, 0.9%);
+    // background-color: darken(v.$cyan, 0.9%);
+    background-color: color.adjust(v.$cyan, $lightness: -0.9%);
     &__contenido{
         @include m.contenedor;
         display: flex;

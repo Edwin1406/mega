@@ -1,5 +1,7 @@
 @use 'base/variables' as v;
 @use 'base/mixins' as m;
+@use 'sass:color';
+
 
 .no-areas{
     background-color: v.$rojo;
@@ -51,7 +53,9 @@
     
     // justify-content: center;
     &:hover{
-        background-color: darken(v.$cyan, 5%);
+        // background-color: darken(v.$cyan, 5%);
+        background-color: color.adjust(v.$cyan, $lightness: -5%);
+
         font-size: 2rem;
     }
 }
