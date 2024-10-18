@@ -14,7 +14,7 @@
 
                 // Asigna una URL específica basada en el área
                 if($area === 'REGISTRO DE SECCION') {
-                    $url = "/admin/produccion/nandasdsadasd?id=".$id;
+                    $url = "/admin/produccion/nose?id=".$id;
                 } elseif($area === 'BODEGA') {
                     $url = "/admin/bodega/index?id=".$id;
                 } elseif($area === 'COMPRAS') {
