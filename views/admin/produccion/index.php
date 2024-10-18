@@ -16,7 +16,7 @@
                 if($area === 'registro de maquinaria'|| $area === 'REGISTRO DE MAQUINARIA') {
                     $url = "/admin/produccion/registro_produccion?id=".$id;
                 } elseif($area === 'COTIZADOR'|| $area === 'cotizador') {
-                    $url = "/admin/cotizador/index?id=".$id;
+                    $url = "/admin/produccion/cotizador/index?id=".$id;
                 } 
 
                 echo $url; // Muestra la URL específica
