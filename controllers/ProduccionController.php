@@ -30,6 +30,23 @@ class ProduccionController
             'escoger_produccion' => $escoger_produccion
         ]);
     }
+
+
+    public static function cotizador(Router $router)
+    {
+       
+        session_start();
+        isAuth();
+        $id= $_SESSION['id'];
+        $escoger_produccion = Produccion::belongsTo('propietarioId',$id);
+        $router->render('admin/produccion/cotizador/index', [
+            'titulo' => 'COTIZADOR',
+            'escoger_produccion' => $escoger_produccion
+        ]);
+    }
+
+
+
 }
 
 
