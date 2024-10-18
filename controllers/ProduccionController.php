@@ -40,7 +40,7 @@ class ProduccionController
         $id= $_SESSION['id'];
         $escoger_produccion = Produccion::belongsTo('propietarioId',$id);
         if(!isAuth()){
-            header('Location: /login');{
+            header('Location: /login');
             
         }
         $router->render('admin/produccion/cotizador/index', [
