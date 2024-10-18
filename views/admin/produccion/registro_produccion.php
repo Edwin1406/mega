@@ -17,7 +17,7 @@
     <?php foreach($escoge_registro as $produccionA) { ?>
         <li class="areas-produccion">
             <a href="<?php 
-                $area = trim($produccionA->nombre);
+                $area = trim($produccionA->area_registro);
                 $url = ''; // Inicializa la variable para la URL específica
                 $id = $produccionA->url; // Obtiene el ID del área
 
