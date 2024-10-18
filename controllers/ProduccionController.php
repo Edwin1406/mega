@@ -39,8 +39,9 @@ class ProduccionController
         isAuth();
         $id= $_SESSION['id'];
         $escoger_produccion = Produccion::belongsTo('propietarioId',$id);
-        if(!isset($_GET['id'])){
-           header('Location: /admin/produccion/index'); 
+        if(!isAuth()){
+            header('Location: /login');{
+            
         }
         $router->render('admin/produccion/cotizador/index', [
             'titulo' => 'COTIZADOR',
