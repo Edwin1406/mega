@@ -24,10 +24,10 @@ class ProduccionController
         session_start();
         isAuth();
         $id= $_SESSION['id'];
-        $escoger_produccion = Produccion::belongsTo('propietarioId',$id);
+        $escoge_registro = Produccion::belongsTo('propietarioId',$id);
         $router->render('admin/produccion/registro_produccion', [
             'titulo' => 'REGISTRO DE PRODUCCION',
-            'escoger_produccion' => $escoger_produccion
+            'escoge_registro' => $escoge_registro
         ]);
     }
 

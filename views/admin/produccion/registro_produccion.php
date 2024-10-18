@@ -9,12 +9,12 @@
 
 
 
-<?php if(count($escoger)===0) {?>
+<?php if(count($escoge_registro)===0) {?>
     <p class="no-areas">NO HAY AREAS ASIGNADAS </p>
 
 <?php  }else {?>
    <ul class="lista-areas-produccion">
-    <?php foreach($escoge as $produccionA) { ?>
+    <?php foreach($escoge_registro as $produccionA) { ?>
         <li class="areas-produccion">
             <a href="<?php 
                 $area = trim($produccionA->nombre);
