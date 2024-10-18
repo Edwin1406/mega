@@ -1,5 +1,4 @@
 <h1 class="dashboard__heading"> <?php echo $titulo ?> </h1>
-<h1 class="titulo__heading"> <?php echo $titulo ?> </h1>
 
 <?php if(count($escoger)===0) {?>
     <p class="no-areas">NO HAY AREAS ASIGNADAS </p>
@@ -64,6 +63,27 @@
 <?php  }?>
 
 
+
+
+<?php if(count($proyectos)==0){?>
+    <p class="no-areas">
+        No hay proyectos Aún <a href="/uptask/crear-proyecto">Crea uno</a>
+    </p>
+<?php } else{?>
+    <ul class="lista-areas">
+        <?php foreach($proyectos as $proyecto):?>
+            <li class="proyecto">
+                <a href="/uptask/proyecto?id=<?php echo $proyecto->url?>">
+                    <?php echo $proyecto->proyecto?>
+                </a>
+            </li>
+
+        <?php endforeach?>
+
+
+    </ul>
+
+<?php } ?>
 
 
 
