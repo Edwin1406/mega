@@ -2,6 +2,7 @@
 
 namespace Controllers;
 
+use Model\Maquinas;
 use MVC\Router;
 
  class MaquinaController
@@ -10,8 +11,12 @@ use MVC\Router;
      {
          session_start();
          isAuth();
+         $id= $_SESSION['id'];
+         $escoge = Maquinas::belongsTo('propietarioId',$id);
+
          $router->render('admin/produccion/maquinas/crear', [
-             'titulo' => 'CREAR MAQUINA'
+             'titulo' => 'CREAR MAQUINA',
+             'escoge' => $escoge
          ]);
      }
  }

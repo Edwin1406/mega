@@ -9,15 +9,15 @@
 
 
 
-<?php if(count($escoger_produccion)===0) {?>
+<?php if(count($escoger)===0) {?>
     <p class="no-areas">NO HAY AREAS ASIGNADAS </p>
 
 <?php  }else {?>
    <ul class="lista-areas-produccion">
-    <?php foreach($escoger_produccion as $produccionA) { ?>
+    <?php foreach($escoger as $produccionA) { ?>
         <li class="areas-produccion">
             <a href="<?php 
-                $area = trim($produccionA->area_produccion);
+                $area = trim($produccionA->nombre);
                 $url = ''; // Inicializa la variable para la URL específica
                 $id = $produccionA->url; // Obtiene el ID del área
 

@@ -10,6 +10,7 @@ use MVC\Router;
 use Controllers\AreaController;
 use Controllers\AuthController;
 use Controllers\AdminController;
+use Controllers\MaquinaController;
 use Controllers\ProduccionController;
 
 $router = new Router();
@@ -53,7 +54,7 @@ $router->get('/admin/area/escoger', [AreaController::class, 'escoger']);
 $router->get('/admin/produccion/index', [ProduccionController::class, 'index']);
 $router->get('/admin/produccion/registro_produccion', [ProduccionController::class, 'registro_produccion']);
 $router->get('/admin/produccion/cotizador/index', [ProduccionController::class, 'cotizador']);
-$router->get('/admin/produccion/maquinas/crear', [ProduccionController::class, 'cotizador']);
+$router->get('/admin/produccion/maquinas/crear', [MaquinaController::class, 'cotizador']);
 
 
 
