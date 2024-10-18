@@ -13,19 +13,19 @@
                 $id = $produccionA->url; // Obtiene el ID del área
 
                 // Asigna una URL específica basada en el área
-                if($area === 'registro de maquinaria') {
+                if($area ===$area) {
                     $url = "/admin/produccion/registro_produccion?id=".$id;
-                } elseif($area === 'COTIZADOR'|| $area === 'cotizador') {
+                } elseif($area === $area) {
                     $url = "/admin/bodega/index?id=".$id;
-                } elseif($area === 'COMPRAS') {
+                } elseif($area === $area) {
                     $url = "/admin/compras/index?id=".$id;
-                } elseif($area === 'VENTAS') {
+                } elseif($area ===$area) {
                     $url = "/admin/ventas/index?id=".$id;
-                } elseif($area === 'RECURSOS HUMANOS') {
+                } elseif($area === $area) {
                     $url = "/admin/recursos-humanos/index?id=".$id;
-                } elseif($area === 'SISTEMAS') {
+                } elseif($area === $area) {
                     $url = "/admin/sistemas/index?id=".$id;
-                } elseif($area === 'PRODUCTO TERMINADO') {
+                } elseif($area === $area) {
                     $url = "/admin/producto-terminado/index?id=".$id;
                 }
 
