@@ -18,6 +18,18 @@ class ProduccionController
             'escoger_produccion' => $escoger_produccion
         ]);
     }
+    public static function registro_produccion(Router $router)
+    {
+       
+        session_start();
+        isAuth();
+        $id= $_SESSION['id'];
+        $escoger_produccion = Produccion::belongsTo('propietarioId',$id);
+        $router->render('admin/produccion/registro_produccion', [
+            'titulo' => 'SECCION DE PRODUCCCION',
+            'escoger_produccion' => $escoger_produccion
+        ]);
+    }
 }
 
 
