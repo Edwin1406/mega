@@ -15,7 +15,7 @@ class ProduccionController
         $escoger_produccion = Produccion::belongsTo('propietarioId',$id);
         $router->render('admin/produccion/index', [
             'titulo' => 'SECCION DE PRODUCCCION',
-            'escoger' => $escoger_produccion
+            'escoger_produccion' => $escoger_produccion
         ]);
     }
 }
