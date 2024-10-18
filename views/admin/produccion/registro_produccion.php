@@ -36,7 +36,8 @@
                     if($area === 'maquinas'|| $area === 'MAQUINAS') {
                         $icono = '<i class="fas fa-industry"></i>'; // ícono de producción
                     } elseif($area === 'papel'|| $area === 'PAPEL') {
-                        $icono = '<i class="fas fa-dollar-sign"></i>'; // ícono de cotización
+                        $icono = '<i class="fa-solid fa-scroll"></i>'; // ícono de cotización
+                        
                     } 
                     // Muestra el ícono y el nombre del área
                     echo $icono . ' ' . $area;
