@@ -14,7 +14,7 @@
 
 <?php  }else {?>
    <ul class="lista-areas-produccion">
-    <?php foreach($escoger as $produccionA) { ?>
+    <?php foreach($escoge as $produccionA) { ?>
         <li class="areas-produccion">
             <a href="<?php 
                 $area = trim($produccionA->nombre);
