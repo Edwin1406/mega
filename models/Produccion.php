@@ -2,7 +2,7 @@
 namespace Model;
 
 class Produccion extends ActiveRecord{
-    protected static $tabla = 'produccion';
+    protected static $tabla = 'area_produccion';
     protected static $columnasDB = ['id','area_produccion','url','propietarioId'];
 
     public $id;
