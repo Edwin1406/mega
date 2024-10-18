@@ -88,8 +88,6 @@ class AreaController {
         isAuth();
         $id= $_SESSION['id'];
         $escoger = Area::belongsTo('propietarioId',$id);
-        // debuguear($escoger);
-        // debuguear($escoger);
         $router->render('admin/area/escoger' , [
             'titulo' => 'INGRESE A UNA AREA',
             'escoger' => $escoger
