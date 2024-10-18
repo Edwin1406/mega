@@ -4,7 +4,7 @@
     <p class="no-areas">NO HAY AREAS ASIGNADAS </p>
 
 <?php  }else {?>
-    <ul class="lista-areas">
+   <ul class="lista-areas">
     <?php foreach($escoger as $escoger) { ?>
         <li class="areas">
             <a href="<?php 
@@ -13,7 +13,7 @@
 
                 // Asigna una URL específica basada en el área
                 if($area === 'PRODUCCION') {
-                    $url = '/admin/produccion';
+                    $url = "/admin/produccion?id=<?php echo $escoger->url ?>";
                 } elseif($area === 'BODEGA') {
                     $url = '/admin/bodega';
                 } elseif($area === 'COMPRAS') {
