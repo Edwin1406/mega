@@ -19,18 +19,14 @@ class ProduccionController
             'escoger_produccion' => $escoger_produccion
         ]);
     }
-
-
+    
     public static function registro_produccion(Router $router)
     {
        
         session_start();
         isAuth();
-        $id_maquinas = Maquinas::all();
-        debuguear($id_maquinas);
         $id= $_SESSION['id'];
-        $escoge_registro = Maquinas::belongsTo('id',$id);
-        debuguear($escoge_registro);
+        $escoge_registro = Maquinas::belongsTo('propietarioId',$id);
         $router->render('admin/produccion/registro_produccion', [
             'titulo' => 'REGISTRO DE PRODUCCION',
             'escoge_registro' => $escoge_registro
