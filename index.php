@@ -7,9 +7,10 @@ require_once __DIR__ . '/includes/app.php';
 
 
 use MVC\Router;
+use Controllers\AreaController;
 use Controllers\AuthController;
 use Controllers\AdminController;
-use Controllers\AreaController;
+use Controllers\ProduccionController;
 
 $router = new Router();
 
@@ -46,6 +47,10 @@ $router->post('/admin/area/crear', [AreaController::class, 'crear']);
 $router->get('/admin/area/paginaArea', [AreaController::class, 'paginaArea']);
 
 $router->get('/admin/area/escoger', [AreaController::class, 'escoger']);
+
+
+// Area de Producción
+$router->get('/admin/produccion', [ProduccionController::class, 'index']);
 
 
 $router->comprobarRutas();
