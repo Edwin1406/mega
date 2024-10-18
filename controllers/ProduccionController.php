@@ -28,6 +28,7 @@ class ProduccionController
         isAuth();
         $id= $_SESSION['id'];
         $escoge_registro = Maquinas::belongsTo('id',$id);
+        debuguear($escoge_registro);
         $router->render('admin/produccion/registro_produccion', [
             'titulo' => 'REGISTRO DE PRODUCCION',
             'escoge_registro' => $escoge_registro
