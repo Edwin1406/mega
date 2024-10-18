@@ -13,7 +13,7 @@
 
                 // Asigna una URL específica basada en el área
                 if($area === 'PRODUCCION') {
-                    $url = "/admin/produccion?id=<?php echo $escoger->url ?>";
+                    $url = "/admin/produccion/index?id=<?php echo $escoger->url ?>";
                 } elseif($area === 'BODEGA') {
                     $url = "/admin/bodega?id=<?php echo $escoger->url ?>";
                 } elseif($area === 'COMPRAS') {
