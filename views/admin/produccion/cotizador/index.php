@@ -5,7 +5,4 @@
         <i class="fa-solid fa-circle-arrow-left"></i>
         Volver
     </a>
-
 </div>
-
-
