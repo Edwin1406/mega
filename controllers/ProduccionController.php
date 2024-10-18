@@ -8,8 +8,7 @@ class ProduccionController
 {
     public static function index(Router $router)
     {
-        session_start();
-        isAuth();
+       
         session_start();
         isAuth();
         $id= $_SESSION['id'];
