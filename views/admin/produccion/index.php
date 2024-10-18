@@ -24,7 +24,7 @@
                 <?php 
                     // Asigna un ícono basado en el área
                     $icono = '';
-                    if($area === 'REGISTRO DE MAQUINARIA'|| $area === 'registro de maquinaria') {
+                    if($area === 'SECCION DE REGISTROS'|| $area === 'seccion de registros') {
                         $icono = '<i class="fas fa-industry"></i>'; // ícono de producción
                     } elseif($area === 'COTIZADOR'|| $area === 'cotizador') {
                         $icono = '<i class="fas fa-dollar-sign"></i>'; // ícono de cotización
