@@ -4,58 +4,31 @@
     <p class="no-areas">NO HAY AREAS ASIGNADAS </p>
 
 <?php  }else {?>
-   <ul class="lista-areas">
-    <?php foreach($escoger as $escoger) { ?>
+    <ul class="lista-areas">
+    <?php foreach ($escoger as $escoger) : ?>
         <li class="areas">
-            <a href="<?php 
-                $area = trim($escoger->area);
-                $url = ''; // Inicializa la variable para la URL específica
-
-                // Asigna una URL específica basada en el área
-                if($area === 'PRODUCCION') {
-                    $url = "/admin/produccion/index?id=<?php echo $escoger->url ?>";
-                } elseif($area === 'BODEGA') {
-                    $url = "/admin/bodega/index?id=<?php echo $escoger->url ?>";
-                } elseif($area === 'COMPRAS') {
-                    $url = "/admin/compras/index?id=<?php echo $escoger->url ?>";
-                } elseif($area === 'VENTAS') {
-                    $url = "/admin/ventas/index?id=<?php echo $escoger->url ?>";
-                } elseif($area === 'RECURSOS HUMANOS') {
-                    $url = "/admin/recursos-humanos/index?id=<?php echo $escoger->url ?>";
-                } elseif($area === 'SISTEMAS') {
-                    $url = "/admin/sistemas/index?id=<?php echo $escoger->url ?>";
-                } elseif($area === 'PRODUCTO TERMINADO') {
-                    $url = "/admin/producto-terminado/index?id=<?php echo $escoger->url ?>";
-                }
-
-                echo $url; // Muestra la URL específica
-            ?>">
-                <?php 
-                    // Asigna un ícono basado en el área
-                    $icono = '';
-                    if($area === 'PRODUCCION') {
-                        $icono = '<i class="fas fa-industry"></i>'; // ícono de producción
-                    } elseif($area === 'BODEGA') {
-                        $icono = '<i class="fas fa-shopping-cart"></i>'; // ícono de BODEGA
-                    } elseif($area === 'COMPRAS') {
-                        $icono = '<i class="fas fa-shopping-basket"></i>'; // ícono de compras
-                    } elseif($area === 'VENTAS') {
-                        $icono = '<i class="fas fa-handshake"></i>'; // ícono de ventas
-                    } elseif($area === 'RECURSOS HUMANOS') {
-                        $icono = '<i class="fas fa-users"></i>'; // ícono de recursos humanos
-                    } elseif($area === 'SISTEMAS') {
-                        $icono = '<i class="fas fa-laptop-code"></i>'; // ícono de sistemas
-                    } elseif($area === 'PRODUCTO TERMINADO') {
-                        $icono = '<i class="fas fa-box-open"></i>'; // ícono de producto terminado
-                    }
-
-                    // Muestra el ícono y el nombre del área
-                    echo $icono . ' ' . $area;
-                ?>
+            <a href="<?= '/admin/' . strtolower(str_replace(' ', '-', $escoger->area)) . '/index?id=' . htmlspecialchars($escoger->url) ?>">
+                <?= '<i class="' . getIcon($escoger->area) . '"></i> ' . htmlspecialchars($escoger->area) ?>
             </a>
         </li>
-    <?php } ?>
+    <?php endforeach; ?>
 </ul>
+
+<?php
+function getIcon($area) {
+    $icons = [
+        'PRODUCCION' => 'fas fa-industry',
+        'BODEGA' => 'fas fa-shopping-cart',
+        'COMPRAS' => 'fas fa-shopping-basket',
+        'VENTAS' => 'fas fa-handshake',
+        'RECURSOS HUMANOS' => 'fas fa-users',
+        'SISTEMAS' => 'fas fa-laptop-code',
+        'PRODUCTO TERMINADO' => 'fas fa-box-open',
+    ];
+    return $icons[$area] ?? 'fas fa-question'; // Retorna un ícono por defecto si el área no está en el mapeo
+}
+?>
+
 
 
 
