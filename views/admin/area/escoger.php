@@ -15,17 +15,17 @@
                 if($area === 'PRODUCCION') {
                     $url = "/admin/produccion?id=<?php echo $escoger->url ?>";
                 } elseif($area === 'BODEGA') {
-                    $url = '/admin/bodega';
+                    $url = "/admin/bodega?id=<?php echo $escoger->url ?>";
                 } elseif($area === 'COMPRAS') {
-                    $url = '/admin/compras';
+                    $url = "/admin/compras?id=<?php echo $escoger->url ?>";
                 } elseif($area === 'VENTAS') {
-                    $url = '/admin/ventas';
+                    $url = "/admin/ventas?id=<?php echo $escoger->url ?>";
                 } elseif($area === 'RECURSOS HUMANOS') {
-                    $url = '/admin/recursos-humanos';
+                    $url = "/admin/recursos-humanos?id=<?php echo $escoger->url ?>";
                 } elseif($area === 'SISTEMAS') {
-                    $url = '/admin/sistemas';
+                    $url = "/admin/sistemas?id=<?php echo $escoger->url ?>";
                 } elseif($area === 'PRODUCTO TERMINADO') {
-                    $url = '/admin/producto-terminado';
+                    $url = "/admin/producto-terminado?id=<?php echo $escoger->url ?>";
                 }
 
                 echo $url; // Muestra la URL específica
