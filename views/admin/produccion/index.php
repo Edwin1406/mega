@@ -34,7 +34,7 @@
                 <?php 
                     // Asigna un ícono basado en el área
                     $icono = '';
-                    if($area === 'REGISTRO DE MAQUINARIA'|| $area === 'registro de maquinaria') {
+                    if($area === $area) {
                         $icono = '<i class="fas fa-industry"></i>'; // ícono de producción
                     } elseif($area === 'BODEGA') {
                         $icono = '<i class="fas fa-shopping-cart"></i>'; // ícono de BODEGA
