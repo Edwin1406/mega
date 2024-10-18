@@ -27,7 +27,7 @@
                 } elseif($area === 'papel'|| $area === 'PAPEL') {
                     $url = "/admin/produccion/papel/index?id=".$id;
                 }elseif($area === 'proveedor'|| $area === 'PROVEEDOR') {
-                    $url = "/admin/produccion/tintas/index?id=".$id;
+                    $url = "/admin/produccion/proveedor/index?id=".$id;
                 }
 
                 echo $url; // Muestra la URL específica
