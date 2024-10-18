@@ -67,10 +67,10 @@ class AreaController {
         $area = Area::where('url',$url);
         // debuguear($area);
         
-        // if($area->propietarioId !== $_SESSION['id']){ 
-        // }else{
-        //     header('Location: /admin/index');
-        // }
+        if($area->propietarioId !== $_SESSION['id']){ 
+        }else{
+            header('Location: /admin/index');
+        }
         // debuguear($area);
         // ----------------------------------------------------------------------------------
         $router->render('admin/area/paginaArea',[
