@@ -1,4 +1,4 @@
-<h1 class="dashboard__heading"> <?php echo $titulo ?> </h1>
+<h2 class="dashboard__heading"> <?php echo $titulo ?> </h2>
 
 <?php if(count($escoger_produccion)===0) {?>
     <p class="no-areas">NO HAY AREAS ASIGNADAS </p>
