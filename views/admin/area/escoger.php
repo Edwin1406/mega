@@ -10,7 +10,7 @@
             <a href="<?php 
                 $area = trim($escoger->area);
                 $url = ''; // Inicializa la variable para la URL específica
-                $id = $escoger->id; // Obtiene el ID del área
+                $id = $escoger->url; // Obtiene el ID del área
 
                 // Asigna una URL específica basada en el área
                 if($area === 'PRODUCCION') {
