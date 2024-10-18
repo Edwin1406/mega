@@ -13,19 +13,19 @@
                 $id = $produccionA->url; // Obtiene el ID del área
 
                 // Asigna una URL específica basada en el área
-                if($area ===$area) {
+                if($area === 'registro de maquinaria') {
                     $url = "/admin/produccion/registro_produccion?id=".$id;
-                } elseif($area === $area) {
+                } elseif($area === 'COTIZADOR'|| $area === 'cotizador') {
                     $url = "/admin/bodega/index?id=".$id;
-                } elseif($area === $area) {
+                } elseif($area === 'COMPRAS') {
                     $url = "/admin/compras/index?id=".$id;
-                } elseif($area ===$area) {
+                } elseif($area === 'VENTAS') {
                     $url = "/admin/ventas/index?id=".$id;
-                } elseif($area === $area) {
+                } elseif($area === 'RECURSOS HUMANOS') {
                     $url = "/admin/recursos-humanos/index?id=".$id;
-                } elseif($area === $area) {
+                } elseif($area === 'SISTEMAS') {
                     $url = "/admin/sistemas/index?id=".$id;
-                } elseif($area === $area) {
+                } elseif($area === 'PRODUCTO TERMINADO') {
                     $url = "/admin/producto-terminado/index?id=".$id;
                 }
 
@@ -34,7 +34,7 @@
                 <?php 
                     // Asigna un ícono basado en el área
                     $icono = '';
-                    if($area === $area) {
+                    if($area === 'REGISTRO DE MAQUINARIA'|| $area === 'registro de maquinaria') {
                         $icono = '<i class="fas fa-industry"></i>'; // ícono de producción
                     } elseif($area === 'BODEGA') {
                         $icono = '<i class="fas fa-shopping-cart"></i>'; // ícono de BODEGA
