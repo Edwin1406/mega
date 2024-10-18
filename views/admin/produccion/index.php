@@ -10,9 +10,9 @@
     <p class="no-areas">NO HAY AREAS ASIGNADAS </p>
 
 <?php  }else {?>
-   <ul class="lista-areas-produccion">
+   <ul class="lista-areas-registro">
     <?php foreach($escoger_produccion as $produccionA) { ?>
-        <li class="areas-produccion">
+        <li class="areas-registro">
             <a href="<?php 
                 $area = trim($produccionA->area_produccion);
                 $url = ''; // Inicializa la variable para la URL específica
