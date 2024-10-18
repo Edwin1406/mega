@@ -13,8 +13,8 @@
                 $id = $produccionA->url; // Obtiene el ID del área
 
                 // Asigna una URL específica basada en el área
-                if($area === 'PRODUCCION') {
-                    $url = "/admin/produccion/index?id=".$id;
+                if($area === 'REGISTRO DE SECCION') {
+                    $url = "/admin/produccion/registro-seccion?id=".$id;
                 } elseif($area === 'BODEGA') {
                     $url = "/admin/bodega/index?id=".$id;
                 } elseif($area === 'COMPRAS') {
