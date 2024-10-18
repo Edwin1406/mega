@@ -78,14 +78,14 @@
     grid-template-columns: repeat(3, 1fr);
   }
 }
-.lista-areas-produccion .areas {
+.lista-areas-produccion .areas-produccion {
   background-color: #F59E0B;
   min-height: 12rem;
   padding: 2rem;
   padding-top: 4rem;
   text-align: center;
 }
-.lista-areas-produccion .areas a {
+.lista-areas-produccion .areas-produccion a {
   color: #FFFFFF;
 }
 
@@ -93,7 +93,7 @@
   border-radius: 1rem;
 }
 .areas-produccion:hover {
-  background-color: rgb(6.9032258065, 125.1209677419, 153.5967741935);
+  background-color: rgb(221.4251968504, 142.4744094488, 9.0748031496);
   font-size: 2rem;
 }
 

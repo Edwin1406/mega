@@ -60,6 +60,7 @@
     }
 }
 
+
 .lista-areas-produccion{
     list-style: none;
     padding: 0;
@@ -78,7 +79,7 @@
         @include m.grid(3,2rem);
     }
 
-    .areas{
+    .areas-produccion{
         background-color: v.$naranja;
         min-height: 12rem;
         
@@ -100,7 +101,7 @@
     // justify-content: center;
     &:hover{
         // background-color: darken(v.$cyan, 5%);
-        background-color: color.adjust(v.$cyan, $lightness: -5%);
+        background-color: color.adjust(v.$naranja, $lightness: -5%);
 
         font-size: 2rem;
     }
