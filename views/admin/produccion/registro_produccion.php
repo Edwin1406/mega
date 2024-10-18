@@ -40,7 +40,7 @@
                     } elseif($area === 'papel'|| $area === 'PAPEL') {
                         $icono = '<i class="fa-solid fa-scroll"></i>'; // ícono de cotizació  
                     } elseif($area === 'proveedor'|| $area === 'PROVEEDOR') {
-                        $icono = '<i class="fas fa-dollar-sign"></i>'; // ícono de cotización
+                        $icono = '<i class="fa-solid fa-users"></i>'; // ícono de cotización
                     }
                     // Muestra el ícono y el nombre del área
                     echo $icono . ' ' . $area;
