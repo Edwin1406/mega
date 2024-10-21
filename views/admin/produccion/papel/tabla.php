@@ -7,6 +7,7 @@
     </a>
 
 </div>
+<?php debuguear($boninas) ?>
 
 <div class="dashboard__contenedor">
     <?php if (!empty($bobinas)): ?>
