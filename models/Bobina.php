@@ -4,7 +4,7 @@ namespace Model;
 
 class Bobina extends ActiveRecord
 {
-    protected static $tabla = 'bobina';
+    protected static $tabla = 'bobinas';
     protected static $columnasDB = ['id', 'tipo_papel', 'gramaje', 'ancho','created_at','updated_at'];
 
     public $id;
