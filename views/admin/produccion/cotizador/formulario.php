@@ -4,95 +4,95 @@
 <fieldset class="formulario__fieldset">
     <legend class="formulario__legend">En desarrollo</legend>
     <div class="formulario__campo">
-        <label class="formulario__label" for="tipo_papel">Bobina interna</label>
+        <label class="formulario__label" for="bobina_interna_id">Bobina interna</label>
         <input
             type="text"
-            name="tipo_papel"
-            id="tipo_papel"
+            name="bobina_interna_id"
+            id="bobina_interna_id"
             class="formulario__input"
             placeholder="Escoja el tipo de papel"
-            value="<?php echo $papel->tipo_papel ?? '' ?>">
+            value="<?php echo $cotizacion->bobina_interna_id ?? '' ?>">
     </div>
     <div class="formulario__campo">
-        <label class="formulario__label" for="tipo_papel">Bobina media </label>
+        <label class="formulario__label" for="bobina_media_id">Bobina media </label>
         <input
             type="text"
-            name="tipo_papel"
-            id="tipo_papel"
+            name="bobina_media_id"
+            id="bobina_media_id"
             class="formulario__input"
             placeholder="Escoja el tipo de papel"
-            value="<?php echo $papel->tipo_papel ?? '' ?>">
+            value="<?php echo $cotizacion->bobina_media_id ?? '' ?>">
     </div>
     <div class="formulario__campo">
-        <label class="formulario__label" for="tipo_papel">Bobina externa</label>
+        <label class="formulario__label" for="bobina_externa_id">Bobina externa</label>
         <input
             type="text"
-            name="tipo_papel"
-            id="tipo_papel"
+            name="bobina_externa_id"
+            id="bobina_externa_id"
             class="formulario__input"
             placeholder="Escoja el tipo de papel"
-            value="<?php echo $papel->tipo_papel ?? '' ?>">
+            value="<?php echo $papel->bobina_externa_id ?? '' ?>">
     </div>
 
     <div class="formulario__campo">
-        <label class="formulario__label" for="gramaje">Escoja la maquina </label>
+        <label class="formulario__label" for="maquina_id">Escoja la maquina </label>
         <input
             type="text"
-            name="gramaje"
-            id="gramaje"
+            name="maquina_id"
+            id="maquina_id"
             class="formulario__input"
-            placeholder="Gramaje del papel"
-            value="<?php echo $papel->gramaje ?? '' ?>">
+            placeholder="maquina_id del papel"
+            value="<?php echo $papel->maquina_id ?? '' ?>">
     </div>
     <div class="formulario__campo">
-        <label class="formulario__label" for="ancho">Numero de piezas</label>
+        <label class="formulario__label" for="num_piezas">Numero de piezas</label>
         <input
             type="text"
-            name="ancho"
-            id="ancho"
+            name="num_piezas"
+            id="num_piezas"
             class="formulario__input"
-            placeholder="ancho del papel"
-            value="<?php echo $papel->ancho ?? '' ?>">
+            placeholder="num_piezas "
+            value="<?php echo $papel->num_piezas ?? '' ?>">
     </div>
     <div class="formulario__campo">
-        <label class="formulario__label" for="ancho">Poscion de cuchillas</label>
+        <label class="formulario__label" for="posicion_cuchilla">Poscion de cuchillas</label>
         <input
             type="text"
-            name="ancho"
-            id="ancho"
+            name="posicion_cuchilla"
+            id="posicion_cuchilla"
             class="formulario__input"
-            placeholder="ancho del papel"
-            value="<?php echo $papel->ancho ?? '' ?>">
+            placeholder="posicion_cuchilla del papel"
+            value="<?php echo $papel->posicion_cuchilla ?? '' ?>">
     </div>
     <div class="formulario__campo">
         <label class="formulario__label" for="ancho">Desperdicio</label>
         <input
             type="text"
-            name="ancho"
-            id="ancho"
+            name="desperdicio"
+            id="desperdicio"
             class="formulario__input"
-            placeholder="ancho del papel"
-            value="<?php echo $papel->ancho ?? '' ?>">
+            placeholder="desperdicio del papel"
+            value="<?php echo $papel->desperdicio ?? '' ?>">
     </div>
     <div class="formulario__campo">
-        <label class="formulario__label" for="ancho">Gramaje total</label>
+        <label class="formulario__label" for="gramaje_total">Gramaje total</label>
         <input
             type="text"
-            name="ancho"
-            id="ancho"
+            name="gramaje_total"
+            id="gramaje_total"
             class="formulario__input"
-            placeholder="ancho del papel"
-            value="<?php echo $papel->ancho ?? '' ?>">
+            placeholder="gramaje_total del papel"
+            value="<?php echo $papel->gramaje_total ?? '' ?>">
     </div>
     <div class="formulario__campo">
-        <label class="formulario__label" for="ancho">Estado de combinacion</label>
+        <label class="formulario__label" for="estado_combinacion">Estado de combinacion</label>
         <input
             type="text"
-            name="ancho"
-            id="ancho"
+            name="estado_combinacion"
+            id="estado_combinacion"
             class="formulario__input"
-            placeholder="ancho del papel"
-            value="<?php echo $papel->ancho ?? '' ?>">
+            placeholder="estado_combinacion del papel"
+            value="<?php echo $papel->estado_combinacion ?? '' ?>">
     </div>
 </fieldset>
 
