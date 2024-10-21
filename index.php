@@ -62,6 +62,8 @@ $router->get('/admin/produccion/maquinas/crear', [MaquinaController::class, 'cre
 $router->post('/admin/produccion/maquinas/crear', [MaquinaController::class, 'crear']);
 $router->get('/admin/produccion/maquinas/editar', [MaquinaController::class, 'editar']);
 $router->post('/admin/produccion/maquinas/editar', [MaquinaController::class, 'editar']);
+$router->post('/admin/produccion/maquinas/eliminar', [MaquinaController::class, 'eliminar']);
+
 
 
 
