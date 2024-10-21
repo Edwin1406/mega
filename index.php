@@ -73,6 +73,9 @@ $router->post('/admin/produccion/maquinas/eliminar', [MaquinaController::class, 
 $router->get('/admin/produccion/papel/tabla', [PapelController::class, 'tabla']);
 $router->get('/admin/produccion/papel/crear', [PapelController::class, 'crear']);
 $router->post('/admin/produccion/papel/crear', [PapelController::class, 'crear']);
+$router->get('/admin/produccion/papel/editar', [PapelController::class, 'editar']);
+$router->post('/admin/produccion/papel/editar', [PapelController::class, 'editar']);
+$router->post('/admin/produccion/papel/eliminar', [PapelController::class, 'eliminar']);
 
 
 
