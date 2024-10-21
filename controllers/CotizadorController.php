@@ -2,6 +2,7 @@
 
 namespace Controllers;
 
+use Model\Cotizar;
 use MVC\Router;
 use Model\Produccion;
 
@@ -26,7 +27,9 @@ class CotizadorController
             
         }
 
-        
+        $reusltado = Cotizar::all();
+        debuguear($reusltado);
+
 
 
         $router->render('admin/produccion/cotizador/crear', [
