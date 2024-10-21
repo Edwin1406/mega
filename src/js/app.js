@@ -51,15 +51,28 @@
             while(listadoMaquinas.firstChild){
                 listadoMaquinas.removeChild(listadoMaquinas.firstChild);
             }
-            maquinasFiltradas.forEach (maquina =>{
-                const maquinaHTML = document.createElement('LI');
-                maquinaHTML.classList.add('listado-ponentes__ponente');
-                maquinaHTML.textContent = maquina.nombre;
-                maquinaHTML.dataset.id = maquina.id;
 
-                // anadir al html
-                listadoMaquinas.appendChild(maquinaHTML);
-            })
+            if(maquinasFiltradas.length >0){
+                maquinasFiltradas.forEach (maquina =>{
+                    const maquinaHTML = document.createElement('LI');
+                    maquinaHTML.classList.add('listado-ponentes__ponente');
+                    maquinaHTML.textContent = maquina.nombre;
+                    maquinaHTML.dataset.id = maquina.id;
+    
+                    // anadir al html
+                    listadoMaquinas.appendChild(maquinaHTML);
+                })
+
+            }else{
+                const noResultado = document.createElement('P');
+                noResultado.classList.add('alerta', 'error');
+                noResultado.textContent = 'No hay resultados';
+                listadoMaquinas.appendChild(noResultado);
+            }
+
+
+
+          
         }
 
     }
