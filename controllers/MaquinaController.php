@@ -86,7 +86,15 @@ use Classes\Paginacion;
                 header('Location: /admin/produccion/maquinas/tabla');
             }
 
-    
+            if($_SERVER['REQUEST_METHOD']=='POST'){
+                $maquina->sincronizar($_POST);
+                $alertas = $maquina->validar();
+                if(empty($alertas)){
+                    $maquina->actualizar();
+                    header('Location: /admin/produccion/maquinas/tabla');
+                }
+
+            }
             $router->render('admin/produccion/maquinas/editar', [
                 'titulo' => 'EDITAR MAQUINA',
                 'alertas' => $alertas,
