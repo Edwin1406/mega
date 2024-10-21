@@ -10,10 +10,7 @@
 
 
 <?php
-require 'Bobina.php';
-require 'Maquina.php';
-require 'Combinacion.php';
-require 'Usuario.php';
+
 
 // Manejo de formularios
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
