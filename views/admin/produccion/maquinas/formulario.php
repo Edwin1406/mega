@@ -12,7 +12,7 @@
     </div>
 
     <div class="formulario__campo">
-        <label class="formulario__label" for="cuchillas">num_cuchillas</label>
+        <label class="formulario__label" for="cuchillas">numero cuchillas</label>
         <input
             type="text"
             name="cuchillas"
