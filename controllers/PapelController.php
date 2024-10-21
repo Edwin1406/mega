@@ -27,7 +27,7 @@ class PapelController
            $total = Bobina:: total();
            $paginacion = new Paginacion($pagina_actual, $pagina_por_registros, $total);
            if($paginacion->total_paginas() < $pagina_actual){
-               header('Location: /admin/produccion/maquinas/tabla?page=1');
+               header('Location: /admin/produccion/papel/tabla?page=1');
            }
        
            $bobinas = Bobina::paginar($pagina_por_registros, $paginacion->offset());
