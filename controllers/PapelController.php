@@ -35,7 +35,7 @@ class PapelController
         // debuguear($papel);
         $router->render('admin/produccion/papel/tabla', [
             'titulo' => 'TABLA DE PAPEL',
-            'papel' => $bobinas
+            'bobinas' => $bobinas
         ]);
     }
 
