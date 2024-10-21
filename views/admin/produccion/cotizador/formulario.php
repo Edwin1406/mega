@@ -55,7 +55,7 @@
             value="<?php echo $papel->num_piezas ?? '' ?>">
     </div>
     <div class="formulario__campo">
-        <label class="formulario__label" for="posicion_cuchilla">Poscion de cuchillas</label>
+        <label class="formulario__label" for="posicion_cuchilla">Posicion de cuchillas</label>
         <input
             type="text"
             name="posicion_cuchilla"
