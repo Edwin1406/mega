@@ -14,11 +14,11 @@
         <table class="table">
             <thead class="table__thead">
                 <tr>
-                    <th scope="col" class="table__th">Tipo</th>
+                    <th scope="col" class="table__th">Tipo de Papel</th>
                     <th scope="col" class="table__th">Gramaje</th>
                     <th scope="col" class="table__th">Ancho</th>
                     <th scope="col" class="table__th">Fecha y Hora </th>
-                    <th scope="col" class="table__th"></th>
+                    <th scope="col" class="table__th">Acciones</th>
                 </tr>
             </thead>
             <tbody class="table__tbody">
