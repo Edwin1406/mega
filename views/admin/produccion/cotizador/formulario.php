@@ -10,7 +10,7 @@
             name="bobina_interna_id"
             id="bobina_interna_id"
             class="formulario__input"
-            placeholder="Escoja el tipo de papel"
+            placeholder="Escoja el tipo de papel interno"
             value="<?php echo $cotizacion->bobina_interna_id ?? '' ?>">
     </div>
     <div class="formulario__campo">
@@ -20,7 +20,7 @@
             name="bobina_media_id"
             id="bobina_media_id"
             class="formulario__input"
-            placeholder="Escoja el tipo de papel"
+            placeholder="Escoja el tipo de papel medio"
             value="<?php echo $cotizacion->bobina_media_id ?? '' ?>">
     </div>
     <div class="formulario__campo">
@@ -30,7 +30,7 @@
             name="bobina_externa_id"
             id="bobina_externa_id"
             class="formulario__input"
-            placeholder="Escoja el tipo de papel"
+            placeholder="Escoja el tipo de papel externo"
             value="<?php echo $papel->bobina_externa_id ?? '' ?>">
     </div>
 
