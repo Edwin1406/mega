@@ -10,6 +10,8 @@ use MVC\Router;
 use Controllers\AreaController;
 use Controllers\AuthController;
 use Controllers\AdminController;
+use Controllers\ApiMaquinas;
+use Controllers\ApiMController;
 use Controllers\CotizadorController;
 use Controllers\PapelController;
 use Controllers\MaquinaController;
@@ -48,8 +50,14 @@ $router->get('/admin/area', [AreaController::class, 'index']);
 $router->get('/admin/area/crear', [AreaController::class, 'crear']);
 $router->post('/admin/area/crear', [AreaController::class, 'crear']);
 $router->get('/admin/area/paginaArea', [AreaController::class, 'paginaArea']);
-
 $router->get('/admin/area/escoger', [AreaController::class, 'escoger']);
+
+// API 
+$router->get('/admin/api/maquinas', [ApiMaquinas::class, 'api']);
+
+
+
+
 
 
 // Area de Producción
