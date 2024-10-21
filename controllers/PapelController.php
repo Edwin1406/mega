@@ -7,6 +7,7 @@ use MVC\Router;
 
 class PapelController
 {
+    
     public static function index()
     {
         echo 'index papel';

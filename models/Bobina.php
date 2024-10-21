@@ -4,6 +4,7 @@ namespace Model;
 
 class Bobina extends ActiveRecord
 {
+    
     protected static $tabla = 'bobinas';
     protected static $columnasDB = ['id', 'tipo_papel', 'gramaje', 'ancho','created_at','updated_at'];
 
@@ -16,6 +17,8 @@ class Bobina extends ActiveRecord
 
     public function __construct($args = [])
     {
+        date_default_timezone_set('America/Guayaquil');
+
         $this->id = $args['id'] ?? null;
         $this->tipo_papel = $args['tipo_papel'] ?? '';
         $this->gramaje = $args['gramaje'] ?? '';
