@@ -17,6 +17,7 @@
                     <th scope="col" class="table__th">Tipo</th>
                     <th scope="col" class="table__th">Gramaje</th>
                     <th scope="col" class="table__th">Ancho</th>
+                    <th scope="col" class="table__th">Fecha y Hora </th>
                     <th scope="col" class="table__th"></th>
                 </tr>
             </thead>
