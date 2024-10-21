@@ -16,7 +16,7 @@ use Classes\Paginacion;
 
             $pagina_actual = $_GET['page'];
             $pagina_actual = filter_var($pagina_actual, FILTER_VALIDATE_INT);
-            debuguear($pagina_actual);
+            // debuguear($pagina_actual);
 
             if(!$pagina_actual|| $pagina_actual <1){
                 header('Location: /admin/produccion/maquinas/tabla?page=1');
