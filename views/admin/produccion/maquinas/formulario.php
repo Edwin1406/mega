@@ -19,7 +19,7 @@
             id="cuchillas"
             class="formulario__input"
             placeholder="cuchillas de la maquina"
-            value="<?php echo $maquina->cuchillas ?? '' ?>">
+            value="<?php echo $maquina->num_cuchillas ?? '' ?>">
     </div>
 
     <div class="formulario__campo">
