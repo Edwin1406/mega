@@ -4,7 +4,27 @@
 <fieldset class="formulario__fieldset">
     <legend class="formulario__legend">En desarrollo</legend>
     <div class="formulario__campo">
-        <label class="formulario__label" for="tipo_papel">Bobina</label>
+        <label class="formulario__label" for="tipo_papel">Bobina interna</label>
+        <input
+            type="text"
+            name="tipo_papel"
+            id="tipo_papel"
+            class="formulario__input"
+            placeholder="Escoja el tipo de papel"
+            value="<?php echo $papel->tipo_papel ?? '' ?>">
+    </div>
+    <div class="formulario__campo">
+        <label class="formulario__label" for="tipo_papel">Bobina media </label>
+        <input
+            type="text"
+            name="tipo_papel"
+            id="tipo_papel"
+            class="formulario__input"
+            placeholder="Escoja el tipo de papel"
+            value="<?php echo $papel->tipo_papel ?? '' ?>">
+    </div>
+    <div class="formulario__campo">
+        <label class="formulario__label" for="tipo_papel">Bobina externa</label>
         <input
             type="text"
             name="tipo_papel"
