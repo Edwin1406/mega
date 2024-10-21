@@ -9,35 +9,6 @@
 
 
 
-<?php
-
-
-// Manejo de formularios
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if (isset($_POST['accion'])) {
-        switch ($_POST['accion']) {
-            case 'crear_bobina':
-                Bobina::crear($_POST['tipo_papel'], $_POST['gramaje'], $_POST['ancho']);
-                break;
-            case 'crear_maquina':
-                Maquina::crear($_POST['nombre'], $_POST['num_cuchillas'], $_POST['ancho_maximo'], $_POST['gramaje_maximo']);
-                break;
-            case 'crear_combinacion':
-                Combinacion::crear($_POST['bobina_interna_id'], $_POST['bobina_media_id'], $_POST['bobina_externa_id'], $_POST['num_piezas'], $_POST['posicion_cuchilla'], $_POST['desperdicio'], $_POST['gramaje_total'], $_POST['estado_combinacion'], $_POST['maquina_id']);
-                break;
-            case 'crear_usuario':
-                Usuario::crear($_POST['nombre'], $_POST['correo'], $_POST['contraseña']);
-                break;
-        }
-    }
-}
-
-// Obtener datos para mostrar
-$bobinas = Bobina::obtenerTodas();
-$maquinas = Maquina::obtenerTodas();
-$combinaciones = Combinacion::obtenerTodas();
-$usuarios = Usuario::obtenerTodos();
-?>
 
 <!DOCTYPE html>
 <html lang="es">
@@ -75,14 +46,14 @@ $usuarios = Usuario::obtenerTodos();
             </tr>
         </thead>
         <tbody>
-            <?php foreach ($bobinas as $bobina): ?>
+            <?php ?>
                 <tr>
-                    <td><?= $bobina['id'] ?></td>
-                    <td><?= $bobina['tipo_papel'] ?></td>
-                    <td><?= $bobina['gramaje'] ?></td>
-                    <td><?= $bobina['ancho'] ?></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
                 </tr>
-            <?php endforeach; ?>
+           
         </tbody>
     </table>
 
@@ -114,15 +85,15 @@ $usuarios = Usuario::obtenerTodos();
             </tr>
         </thead>
         <tbody>
-            <?php foreach ($maquinas as $maquina): ?>
+           
                 <tr>
-                    <td><?= $maquina['id'] ?></td>
-                    <td><?= $maquina['nombre'] ?></td>
-                    <td><?= $maquina['num_cuchillas'] ?></td>
-                    <td><?= $maquina['ancho_maximo'] ?></td>
-                    <td><?= $maquina['gramaje_maximo'] ?></td>
+                    <td></td>
+                    <td>></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
                 </tr>
-            <?php endforeach; ?>
+        
         </tbody>
     </table>
 
@@ -169,28 +140,21 @@ $usuarios = Usuario::obtenerTodos();
             </tr>
         </thead>
         <tbody>
-            <?php foreach ($combinaciones as $combinacion): ?>
+           
                 <tr>
-                    <td><?= $combinacion['id'] ?></td>
-                    <td><?= $combinacion['bobina_interna_id'] ?></td>
-                    <td><?= $combinacion['bobina_media_id'] ?></td>
-                    <td><?= $combinacion['bobina_externa_id'] ?></td>
-                    <td><?= $combinacion['num_piezas'] ?></td>
-                    <td><?= $combinacion['posicion_cuchilla'] ?></td>
-                    <td><?= $combinacion['desperdicio'] ?></td>
-                    <td><?= $combinacion['gramaje_total'] ?></td>
-                    <td><?= $combinacion['estado_combinacion'] ?></td>
-                    <td><?= $combinacion['maquina_id'] ?></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>?></td>
+                    <td><</td>
+                    <td></td>
+                    <td>></td>
+                    <td></td>
                 </tr>
-            <?php endforeach; ?>
+       
         </tbody>
     </table>
 
-    <!-- Formulario para crear Usuarios -->
-    <h2>Crear Usuario</h2>
-    <form method="post">
-        <input type="hidden" name="accion" value="crear_usuario">
-        <label for="nombre">Nombre:</label>
-        <input type="text" name="nombre" required>
-        <label for="correo">Correo:</label>
-        <input
+    
