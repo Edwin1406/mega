@@ -13,7 +13,7 @@
 <fieldset class="formulario__fieldset">
     <legend class="formulario__legend">Escoja la bobina</legend>
     <div class="formulario__campo">
-        <label class="formulario__label" for="tipo_papel">Tipo</label>
+        <label class="formulario__label" for="tipo_papel">Bobina</label>
         <input
             type="text"
             name="tipo_papel"
