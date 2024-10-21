@@ -33,7 +33,7 @@
         function buscarMaquinas(e){
            const busqueda = e.target.value;
 
-           if(busqueda.length){
+           if(busqueda.length>3){
             const expresion = new RegExp(busqueda, 'i');
             maquinasFiltradas = maquinas.filter(maquina =>{
                 if(maquina.nombre.toLowerCase().search(expresion) != -1){
@@ -41,12 +41,16 @@
 
                 }
             });
+           }else{
+                maquinasFiltradas = [];
            }
            mostrarMaquinas();
         }
 
         function mostrarMaquinas(){
-            listadoMaquinas.innerHTML = '';
+            while(listadoMaquinas.firstChild){
+                listadoMaquinas.removeChild(listadoMaquinas.firstChild);
+            }
             maquinasFiltradas.forEach (maquina =>{
                 const maquinaHTML = document.createElement('LI');
                 maquinaHTML.classList.add('listado-ponentes__ponente');
