@@ -2,6 +2,7 @@
 
 namespace Controllers;
 
+use Model\Bobina;
 use MVC\Router;
 
 class PapelController
@@ -13,9 +14,10 @@ class PapelController
     public static function crear(Router $router)
     {
         $alertas = [];
-        // $papel = new Papel;
+        $papel = new Bobina;
         if($_SERVER['REQUEST_METHOD'] === 'POST'){
-
+            $papel->sincronizar($_POST);
+            debuguear($papel);
 
         }   
 
