@@ -54,8 +54,15 @@ $router->get('/admin/area/escoger', [AreaController::class, 'escoger']);
 $router->get('/admin/produccion/index', [ProduccionController::class, 'index']);
 $router->get('/admin/produccion/registro_produccion', [ProduccionController::class, 'registro_produccion']);
 $router->get('/admin/produccion/cotizador/index', [ProduccionController::class, 'cotizador']);
+
+// Maquinas
 $router->get('/admin/produccion/maquinas/crear', [MaquinaController::class, 'crear']);
 $router->post('/admin/produccion/maquinas/crear', [MaquinaController::class, 'crear']);
+
+// papel
+$router->get('/admin/produccion/papel/crear', [PapelController::class, 'crear']);
+$router->post('/admin/produccion/papel/crear', [PapelController::class, 'crear']);
+
 
 
 
