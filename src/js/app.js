@@ -8,7 +8,18 @@
         async function obtenerMaquinas(){
             const url = `${location.origin}/admin/api/maquinas`;;
             const respuesta = await fetch(url);
-            maquinas = await respuesta.json();
+            resultado = await respuesta.json();
+            formatearMaquinas(resultado);
+        }
+
+
+        function formatearMaquinas(arrayMaquinas=[]){
+            maquinas = arrayMaquinas.map(maquina => {
+                return {
+                    id: maquina.id,
+                    nombre: maquina.nombre
+                }
+            });
             console.log(maquinas);
         }
 
