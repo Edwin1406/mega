@@ -32,15 +32,15 @@ class Bobina extends ActiveRecord
     public function validar() {
 
         if(!$this->tipo_papel) {
-            self::$alertas['error'][] = 'El Campo Area es Obligatorio';
+            self::$alertas['error'][] = 'El Campo Tipo papel es Obligatorio';
         }
 
         if(!$this->gramaje) {
-            self::$alertas['error'][] = 'El Campo Area es Obligatorio';
+            self::$alertas['error'][] = 'El Campo Gramaje es Obligatorio';
         }
 
         if(!$this->ancho) {
-            self::$alertas['error'][] = 'El Campo Area es Obligatorio';
+            self::$alertas['error'][] = 'El Campo Ancho es Obligatorio';
         }
         return self::$alertas;
     }
