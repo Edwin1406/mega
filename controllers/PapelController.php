@@ -19,7 +19,7 @@ class PapelController
            // debuguear($pagina_actual);
 
            if(!$pagina_actual|| $pagina_actual <1){
-               header('Location: /admin/produccion/maquinas/tabla?page=1');
+               header('Location: /admin/produccion/papel/tabla?page=1');
                exit;
            }
            
