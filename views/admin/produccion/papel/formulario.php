@@ -21,6 +21,16 @@
             placeholder="Gramaje del papel"
             value="<?php echo $papel->gramaje ?? '' ?>">
     </div>
+    <div class="formulario__campo">
+        <label class="formulario__label" for="ancho">Ancho</label>
+        <input
+            type="text"
+            name="ancho"
+            id="ancho"
+            class="formulario__input"
+            placeholder="ancho del papel"
+            value="<?php echo $papel->ancho ?? '' ?>">
+    </div>
 
 
 </fieldset>
