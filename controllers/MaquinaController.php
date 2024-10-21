@@ -78,12 +78,15 @@ use Classes\Paginacion;
             $id = filter_var($id, FILTER_VALIDATE_INT);
             // validar que el id sea un entero
             if (!$id) {
-                // header('Location: /sitioweb/admin/ponentes');
+                header('Location: /admin/produccion/maquinas/tabla?page=1');
             }
+            $maquina = Maquinas::find($id);
+
     
             $router->render('admin/produccion/maquinas/editar', [
                 'titulo' => 'EDITAR MAQUINA',
-                'alertas' => $alertas
+                'alertas' => $alertas,
+                'maquina' => $maquina
                 
             ]);
 
