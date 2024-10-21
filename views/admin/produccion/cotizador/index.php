@@ -11,7 +11,7 @@
 <?php include_once __DIR__.'/../../../templates/alertas.php'  ?>
 
 <fieldset class="formulario__fieldset">
-    <legend class="formulario__legend">Cotizador</legend>
+    <legend class="formulario__legend">Escoja la bobina</legend>
     <div class="formulario__campo">
         <label class="formulario__label" for="tipo_papel">Tipo</label>
         <input
@@ -24,7 +24,7 @@
     </div>
 
     <div class="formulario__campo">
-        <label class="formulario__label" for="gramaje">Gramaje</label>
+        <label class="formulario__label" for="gramaje">Escoja la maquina </label>
         <input
             type="text"
             name="gramaje"
@@ -34,7 +34,7 @@
             value="<?php echo $papel->gramaje ?? '' ?>">
     </div>
     <div class="formulario__campo">
-        <label class="formulario__label" for="ancho">Ancho</label>
+        <label class="formulario__label" for="ancho">Numero de piezas</label>
         <input
             type="text"
             name="ancho"
@@ -43,8 +43,46 @@
             placeholder="ancho del papel"
             value="<?php echo $papel->ancho ?? '' ?>">
     </div>
-
-
+    <div class="formulario__campo">
+        <label class="formulario__label" for="ancho">Poscion de cuchillas</label>
+        <input
+            type="text"
+            name="ancho"
+            id="ancho"
+            class="formulario__input"
+            placeholder="ancho del papel"
+            value="<?php echo $papel->ancho ?? '' ?>">
+    </div>
+    <div class="formulario__campo">
+        <label class="formulario__label" for="ancho">Desperdicio</label>
+        <input
+            type="text"
+            name="ancho"
+            id="ancho"
+            class="formulario__input"
+            placeholder="ancho del papel"
+            value="<?php echo $papel->ancho ?? '' ?>">
+    </div>
+    <div class="formulario__campo">
+        <label class="formulario__label" for="ancho">Gramaje total</label>
+        <input
+            type="text"
+            name="ancho"
+            id="ancho"
+            class="formulario__input"
+            placeholder="ancho del papel"
+            value="<?php echo $papel->ancho ?? '' ?>">
+    </div>
+    <div class="formulario__campo">
+        <label class="formulario__label" for="ancho">Estado de combinacion</label>
+        <input
+            type="text"
+            name="ancho"
+            id="ancho"
+            class="formulario__input"
+            placeholder="ancho del papel"
+            value="<?php echo $papel->ancho ?? '' ?>">
+    </div>
 </fieldset>
 
 </div>
