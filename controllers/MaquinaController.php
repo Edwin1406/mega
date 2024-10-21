@@ -11,6 +11,7 @@ use MVC\Router;
         public static function tabla(Router $router)
         {
             $maquinas = Maquinas::all();
+            debuguear($maquinas);
             $router->render('admin/produccion/maquinas/tabla', [
                 'titulo' => 'TABLA DE MAQUINAS',
                 'maquinas' => $maquinas
@@ -32,7 +33,7 @@ use MVC\Router;
                 if(empty($alertas)) {
                     // guardar en la base de datos
                     $maquina->guardar();
-                    header('Location: /admin/produccion/registro_produccion');
+                    header('Location: /admin/produccion/maquinas/tabla');
 
                 }
             
