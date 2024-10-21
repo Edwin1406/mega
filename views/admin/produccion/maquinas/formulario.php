@@ -12,11 +12,11 @@
     </div>
 
     <div class="formulario__campo">
-        <label class="formulario__label" for="cuchillas">numero cuchillas</label>
+        <label class="formulario__label" for="num_cuchillas">numero cuchillas</label>
         <input
             type="text"
-            name="cuchillas"
-            id="cuchillas"
+            name="num_cuchillas"
+            id="num_cuchillas"
             class="formulario__input"
             placeholder="cuchillas de la maquina"
             value="<?php echo $maquina->num_cuchillas ?? '' ?>">
