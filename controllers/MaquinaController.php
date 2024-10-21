@@ -9,10 +9,11 @@ use MVC\Router;
  {
      public static function crear(Router $router)
      {
-        
+        $alertas = [];
 
          $router->render('admin/produccion/maquinas/crear', [
              'titulo' => 'CREAR MAQUINA',
+             'alertas' => $alertas
              
          ]);
      }
