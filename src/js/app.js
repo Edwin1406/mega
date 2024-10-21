@@ -46,6 +46,7 @@
         }
 
         function mostrarMaquinas(){
+            listadoMaquinas.innerHTML = '';
             maquinasFiltradas.forEach (maquina =>{
                 const maquinaHTML = document.createElement('LI');
                 maquinaHTML.classList.add('listado-ponentes__ponente');
