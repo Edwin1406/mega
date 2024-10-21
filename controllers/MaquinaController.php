@@ -56,7 +56,7 @@ use Classes\Paginacion;
                 if(empty($alertas)) {
                     // guardar en la base de datos
                     $maquina->guardar();
-                    header('Location: /admin/produccion/maquinas/tabla');
+                    header('Location: /admin/produccion/maquinas/tabla?page=1');
 
                 }
             
