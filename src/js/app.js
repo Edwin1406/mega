@@ -16,11 +16,13 @@
         function formatearMaquinas(arrayMaquinas=[]){
             maquinas = arrayMaquinas.map(maquina => {
                 return {
-                    id: maquina.id,
-                    nombre: maquina.nombre
+                    nombre: `${maquina.nombre.trim()}`,
+                    id: maquina.id
                 }
             });
+
             console.log(maquinas);
+            
         }
 
     }
