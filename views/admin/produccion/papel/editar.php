@@ -1,36 +1,25 @@
-<fieldset class="formulario__fieldset">
-    <legend class="formulario__legend">Información de la Papel</legend>
-    <div class="formulario__campo">
-        <label class="formulario__label" for="tipo_papel">Tipo</label>
-        <input
-            type="text"
-            name="tipo_papel"
-            id="tipo_papel"
-            class="formulario__input"
-            placeholder="Tipo de papel"
-            value="<?php echo $papel->tipo_papel ?? '' ?>">
-    </div>
+<h1 class="dashboard__heading"> <?php echo $titulo ?> </h1>
 
-    <div class="formulario__campo">
-        <label class="formulario__label" for="gramaje">Gramaje</label>
-        <input
-            type="text"
-            name="gramaje"
-            id="gramaje"
-            class="formulario__input"
-            placeholder="Gramaje del papel"
-            value="<?php echo $papel->gramaje ?? '' ?>">
-    </div>
-    <div class="formulario__campo">
-        <label class="formulario__label" for="ancho">Ancho</label>
-        <input
-            type="text"
-            name="ancho"
-            id="ancho"
-            class="formulario__input"
-            placeholder="ancho del papel"
-            value="<?php echo $papel->ancho ?? '' ?>">
-    </div>
+<div class="dashboard__contenedor-boton">
+    <a class="dashboard__boton" href="/admin/produccion/papel/tabla" >
+        <i class="fa-solid fa-circle-arrow-left"></i>
+        Volver
+    </a>
 
+</div>
 
-</fieldset>
+<div class="dashboard__formulario">
+
+<?php include_once __DIR__.'/../../../templates/alertas.php'  ?>
+
+    <form method="POST"   class="formulario" enctype="multipart/form-data">
+
+     
+    <?php include_once __DIR__.'/formulario.php'  ?>
+
+        <input class="formulario__submit formulario__submit--registrar" type="submit" value="Actualizar Papel">
+
+        
+    </form>
+
+</div>
