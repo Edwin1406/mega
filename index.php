@@ -62,6 +62,7 @@ $router->get('/admin/produccion/maquinas/crear', [MaquinaController::class, 'cre
 $router->post('/admin/produccion/maquinas/crear', [MaquinaController::class, 'crear']);
 
 // papel
+$router->get('/admin/produccion/papel/tabla', [PapelController::class, 'tabla']);
 $router->get('/admin/produccion/papel/crear', [PapelController::class, 'crear']);
 $router->post('/admin/produccion/papel/crear', [PapelController::class, 'crear']);
 

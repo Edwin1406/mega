@@ -7,11 +7,17 @@ use MVC\Router;
 
 class PapelController
 {
-    
-    public static function index()
+   
+    public static function tabla(Router $router)
     {
-        echo 'index papel';
+        $papel = Bobina::all();
+        debuguear($papel);
+        $router->render('admin/produccion/papel/tabla', [
+            'titulo' => 'TABLA DE PAPEL',
+            'papel' => $papel
+        ]);
     }
+
     public static function crear(Router $router)
     {
         $alertas = [];
