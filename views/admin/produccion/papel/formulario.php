@@ -1,47 +1,26 @@
 <fieldset class="formulario__fieldset">
-    <legend class="formulario__legend">Información de la Maquina</legend>
+    <legend class="formulario__legend">Información de la Papel</legend>
     <div class="formulario__campo">
-        <label class="formulario__label" for="nombre">Nombre</label>
+        <label class="formulario__label" for="tipo_papel">Tipo</label>
         <input
             type="text"
-            name="nombre"
-            id="nombre"
+            name="tipo_papel"
+            id="tipo_papel"
             class="formulario__input"
-            placeholder="Nombre del ponente"
-            value="<?php echo $maquina->nombre ?? '' ?>">
+            placeholder="Tipo de papel"
+            value="<?php echo $papel->tipo_papel ?? '' ?>">
     </div>
 
     <div class="formulario__campo">
-        <label class="formulario__label" for="num_cuchillas">numero cuchillas</label>
+        <label class="formulario__label" for="gramaje">Gramaje</label>
         <input
             type="text"
-            name="num_cuchillas"
-            id="num_cuchillas"
+            name="gramaje"
+            id="gramaje"
             class="formulario__input"
-            placeholder="cuchillas de la maquina"
-            value="<?php echo $maquina->num_cuchillas ?? '' ?>">
+            placeholder="Gramaje del papel"
+            value="<?php echo $papel->gramaje ?? '' ?>">
     </div>
 
-    <div class="formulario__campo">
-        <label class="formulario__label" for="ancho_maximo">Ancho maximo</label>
-        <input
-            type="text"
-            name="ancho_maximo"
-            id="ancho_maximo"
-            class="formulario__input"
-            placeholder="ancho_maximo de la maquina"
-            value="<?php echo $maquina->ancho_maximo ?? '' ?>">
-    </div>
-
-    <div class="formulario__campo">
-        <label class="formulario__label" for="gramaje_maximo">gramaje_maximo</label>
-        <input
-            type="text"
-            name="gramaje_maximo"
-            id="gramaje_maximo"
-            class="formulario__input"
-            placeholder="gramaje_maximo de la maquina"
-            value="<?php echo $maquina->gramaje_maximo ?? '' ?>">
-    </div>
 
 </fieldset>
