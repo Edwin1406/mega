@@ -31,7 +31,16 @@
         function buscarMaquinas(e){
            const busqueda = e.target.value;
 
-            console.log(busqueda);
+           if(busqueda.length){
+            const expresion = new RegExp(busqueda, 'i');
+            maquinasFiltradas = maquinas.filter(maquina =>{
+                if(maquina.nombre.toLowerCase().search(expresion) != -1){
+                    return maquina;
+
+                }
+            });
+            console.log(maquinasFiltradas);
+           }
         }
 
     }
