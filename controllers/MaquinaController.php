@@ -13,9 +13,9 @@ use MVC\Router;
         $maquina = new Maquinas;
         if($_SERVER['REQUEST_METHOD'] === 'POST') {
             $maquina->sincronizar($_POST);
-
-            debuguear($maquina);
-
+                // validar
+                $alertas = $maquina->validar();
+            
         }
 
          $router->render('admin/produccion/maquinas/crear', [
