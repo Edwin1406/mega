@@ -10,6 +10,7 @@ use MVC\Router;
 use Controllers\AreaController;
 use Controllers\AuthController;
 use Controllers\AdminController;
+use Controllers\PapelController;
 use Controllers\MaquinaController;
 use Controllers\ProduccionController;
 
