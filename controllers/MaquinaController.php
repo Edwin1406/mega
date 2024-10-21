@@ -27,7 +27,7 @@ use Classes\Paginacion;
             $total = Maquinas:: total();
             $paginacion = new Paginacion($pagina_actual, $pagina_por_registros, $total);
             if($paginacion->total_paginas() < $pagina_actual){
-                header('Location: /sitioweb/admin/ponentes?page=1');
+                header('Location: /admin/produccion/maquinas/tabla?page=1');
             }
         
             $maquinas = Maquinas::paginar($pagina_por_registros, $paginacion->offset());
