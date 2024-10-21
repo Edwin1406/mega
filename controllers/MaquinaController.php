@@ -23,7 +23,7 @@ use Classes\Paginacion;
                 exit;
             }
             
-            $pagina_por_registros = 2;
+            $pagina_por_registros = 1;
             $total = Maquinas:: total();
             $paginacion = new Paginacion($pagina_actual, $pagina_por_registros, $total);
             if($paginacion->total_paginas() < $pagina_actual){
