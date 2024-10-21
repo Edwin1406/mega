@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculador de Desperdicio de Papel</title>
+</head>
+<body>
+    <h1>Calculador de Desperdicio de Papel</h1>
+    
+    <label for="bobina">Ancho de la Bobina (mm):</label>
+    <input type="number" id="bobina" value="2000" step="1"><br><br>
+
+    <label for="gramaje">Gramaje del Papel (g/m²):</label>
+    <input type="number" id="gramaje" value="80" step="1"><br><br>
+    
+    <button onclick="calcular()">Calcular</button>
+    
+    <h2>Resultados:</h2>
+    <p id="resultado-iguales"></p>
+    <p id="desperdicio"></p>
+    <p id="info-gramaje"></p>
+    <p id="evaluacion-gramaje"></p>
+
+    <script>
+        function calcular() {
+            const anchoBobina = parseFloat(document.getElementById('bobina').value);
+            const gramaje = parseFloat(document.getElementById('gramaje').value); // Obtener el gramaje
+            const corte = 450; // Medida de cada corte
+            const numeroCortes = 4; // Se buscan 4 piezas
+            const totalCorte = corte * numeroCortes; // Total de papel usado en cortes
+
+            // Cálculo del desperdicio
+            let desperdicio = anchoBobina - totalCorte;
+
+            // Mostrar resultados de la primera posición de cuchilla
+            const posicion = corte; // Primera posición de cuchilla
+            document.getElementById('resultado-iguales').textContent = `Para 4 piezas iguales: Posición de cuchilla: ${posicion} mm`;
+
+            // Mostrar desperdicio
+            if (desperdicio >= 0) {
+                document.getElementById('desperdicio').textContent = `Hay un desperdicio de: ${desperdicio} mm.`;
+            } else {
+                document.getElementById('desperdicio').textContent = `Error: El ancho de la bobina es demasiado pequeño para hacer 4 cortes de 450 mm.`;
+            }
+
+            // Mostrar información del gramaje
+            document.getElementById('info-gramaje').textContent = `Gramaje del papel: ${gramaje} g/m².`;
+            
+            // Evaluación del gramaje
+            let evaluacion;
+            if (gramaje < 70) {
+                evaluacion = "El gramaje es demasiado bajo, lo que puede afectar la resistencia del producto final. Considera aumentar el gramaje.";
+            } else if (gramaje > 150) {
+                evaluacion = "El gramaje es alto. Asegúrate de que esto no afecte los costos y la eficiencia de producción.";
+            } else {
+                evaluacion = "El gramaje es adecuado para la producción de cartón corrugado.";
+            }
+
+            document.getElementById('evaluacion-gramaje').textContent = evaluacion;
+        }
+    </script>
+</body>
+</html>
