@@ -16,13 +16,15 @@ class Maquinas extends ActiveRecord {
 
     public function __construct($args = [])
     {
+        date_default_timezone_set('America/Guayaquil');
+
         $this->id = $args['id'] ?? null;
         $this->nombre = $args['nombre'] ?? '';
         $this->num_cuchillas = $args['num_cuchillas'] ?? '';
         $this->ancho_maximo = $args['ancho_maximo'] ?? '';
         $this->gramaje_maximo = $args['gramaje_maximo'] ?? '';
-        $this->created_at = $args['created_at'] ?? '';
-        $this->updated_at = $args['updated_at'] ?? '';
+        $this->created_at = $args['created_at'] ?? date('Y-m-d H:i:s');
+        $this->updated_at = $args['updated_at'] ?? date('Y-m-d H:i:s');  
     }
 
     public function validar() {
