@@ -1,1 +1,1 @@
-{"version":3,"sources":[],"names":[],"mappings":"","file":"bundle.js","sourcesContent":[]}
+{"version":3,"sources":["app.js"],"names":["alert"],"mappings":"AAAAA,MAAA","file":"bundle.js","sourcesContent":["alert('hola')"]}
