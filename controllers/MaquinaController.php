@@ -50,15 +50,16 @@ use Classes\Paginacion;
         $maquina = new Maquinas;
         if($_SERVER['REQUEST_METHOD'] === 'POST') {
             $maquina->sincronizar($_POST);
+            debuguear($maquina);
                 // validar
                 $alertas = $maquina->validar();
 
-                if(empty($alertas)) {
-                    // guardar en la base de datos
-                    $maquina->guardar();
-                    header('Location: /admin/produccion/maquinas/tabla?page=1');
+                // if(empty($alertas)) {
+                //     // guardar en la base de datos
+                //     $maquina->guardar();
+                //     header('Location: /admin/produccion/maquinas/tabla?page=1');
 
-                }
+                // }
             
         }
 
