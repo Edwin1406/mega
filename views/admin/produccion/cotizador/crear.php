@@ -2,7 +2,7 @@
 <div class="dashboard__contenedor-boton">
     <a class="dashboard__boton" href="/admin/produccion/cotizador/tabla">
     <i class="fa-regular fa-eye"></i>
-        VER PAPEL
+        VER TABLA DE COTIZADOR
     </a>
 
 </div>
