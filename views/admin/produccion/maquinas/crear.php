@@ -2,7 +2,7 @@
 
 <div class="dashboard__formulario">
 
-<?php include_once __DIR__.'/../../templates/alertas.php'  ?>
+<?php include_once __DIR__.'/../../../templates/alertas.php'  ?>
 
     <form method="POST" action="/admin/produccion/maquinas/crear"  class="formulario" enctype="multipart/form-data">
 
