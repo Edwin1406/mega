@@ -11,7 +11,7 @@ class PapelController
     public static function tabla(Router $router)
     {
         $papel = Bobina::all();
-        debuguear($papel);
+        // debuguear($papel);
         $router->render('admin/produccion/papel/tabla', [
             'titulo' => 'TABLA DE PAPEL',
             'papel' => $papel
