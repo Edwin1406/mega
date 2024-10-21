@@ -54,7 +54,7 @@ $router->get('/admin/area/escoger', [AreaController::class, 'escoger']);
 // Area de Producción
 $router->get('/admin/produccion/index', [ProduccionController::class, 'index']);
 $router->get('/admin/produccion/registro_produccion', [ProduccionController::class, 'registro_produccion']);
-$router->get('/admin/produccion/cotizador/index', [ProduccionController::class, 'cotizador']);
+$router->get('/admin/produccion/cotizador/crear', [ProduccionController::class, 'cotizador']);
 
 // Maquinas
 $router->get('/admin/produccion/maquinas/tabla', [MaquinaController::class, 'tabla']);

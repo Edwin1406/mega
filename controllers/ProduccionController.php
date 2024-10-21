@@ -47,7 +47,7 @@ class ProduccionController
             header('Location: /');
             
         }
-        $router->render('admin/produccion/cotizador/index', [
+        $router->render('admin/produccion/cotizador/crear', [
             'titulo' => 'COTIZADOR',
             'escoger_produccion' => $escoger_produccion,
             'alertas' => $alertas
