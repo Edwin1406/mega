@@ -82,6 +82,7 @@ class PapelController
 
             if($_SERVER['REQUEST_METHOD']=='POST'){
                 $papel->sincronizar($_POST);
+                debuguear($papel);
                 $alertas = $papel->validar();
                 if(empty($alertas)){
                     $papel->actualizar();
