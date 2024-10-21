@@ -6,7 +6,7 @@
         obtenerMaquinas();
 
         async function obtenerMaquinas(){
-            const url = 'http://localhost:3000/maquinas';
+            const url = `${location.origin}/admin/api/maquinas`;;
             const respuesta = await fetch(url);
             maquinas = await respuesta.json();
             console.log(maquinas);
