@@ -32,11 +32,7 @@ use Classes\Paginacion;
         
             $maquinas = Maquinas::paginar($pagina_por_registros, $paginacion->offset());
 
-
-
-
-
-            $maquinas = Maquinas::all();
+            // $maquinas = Maquinas::all();
             // debuguear($maquinas);
             $router->render('admin/produccion/maquinas/tabla', [
                 'titulo' => 'TABLA DE MAQUINAS',
