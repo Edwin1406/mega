@@ -2,8 +2,9 @@
 
 namespace Controllers;
 
-use Model\Maquinas;
 use MVC\Router;
+use Model\Maquinas;
+use Classes\Paginacion;
 
  class MaquinaController
  {
@@ -22,14 +23,14 @@ use MVC\Router;
                 exit;
             }
             
-            // $pagina_por_registros = 1;
-            // $total = Ponente:: total();
-            // $paginacion = new Paginacion($pagina_actual, $pagina_por_registros, $total);
-            // if($paginacion->total_paginas() < $pagina_actual){
-            //     header('Location: /sitioweb/admin/ponentes?page=1');
-            // }
+            $pagina_por_registros = 1;
+            $total = Maquinas:: total();
+            $paginacion = new Paginacion($pagina_actual, $pagina_por_registros, $total);
+            if($paginacion->total_paginas() < $pagina_actual){
+                header('Location: /sitioweb/admin/ponentes?page=1');
+            }
         
-            // $ponentes = Ponente::paginar($pagina_por_registros, $paginacion->offset());
+            $maquinas = Maquinas::paginar($pagina_por_registros, $paginacion->offset());
 
 
 
@@ -39,7 +40,8 @@ use MVC\Router;
             // debuguear($maquinas);
             $router->render('admin/produccion/maquinas/tabla', [
                 'titulo' => 'TABLA DE MAQUINAS',
-                'maquinas' => $maquinas
+                'maquinas' => $maquinas,
+                'paginacion' => $paginacion->paginacion()
             ]);
         }
 
