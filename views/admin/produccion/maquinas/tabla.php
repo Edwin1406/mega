@@ -9,7 +9,7 @@
 </div>
 
 <div class="dashboard__contenedor">
-    <?php if (!empty($ponentes)): ?>
+    <?php if (!empty($maquinas)): ?>
         <table class="table">
             <thead class="table__thead">
                 <tr>
@@ -20,13 +20,13 @@
             </thead>
             <tbody class="table__tbody">
 
-                <?php foreach ($ponentes as $ponente):?>
+                <?php foreach ($maquinas as $maquina):?>
                     <tr class="table__tr">
-                        <td class="table__td"><?php echo $ponente->nombre?></td>
-                        <td class="table__td"><?php echo $ponente->pais?></td>
-                        <td class="table__td--acciones"><a class="table__accion table__accion--editar" href="/sitioweb/admin/ponentes/editar?id=<?php echo $ponente->id; ?>"><i class="fa-solid fa-user-pen"></i>Editar</a>
+                        <td class="table__td"><?php echo $maquina->nombre?></td>
+                        <td class="table__td"><?php echo $maquina->pais?></td>
+                        <td class="table__td--acciones"><a class="table__accion table__accion--editar" href="/sitioweb/admin/ponentes/editar?id=<?php echo $maquina->id; ?>"><i class="fa-solid fa-user-pen"></i>Editar</a>
                         <form method="POST" action="/sitioweb/admin/ponentes/eliminar" class="table__formulario">
-                            <input type="hidden" name="id" value="<?php echo $ponente->id; ?>">
+                            <input type="hidden" name="id" value="<?php echo $maquina->id; ?>">
                             <button class="table__accion table__accion--eliminar" type="submit">
                                 <i class="fa-solid fa-user-slash"></i>
                                     Eliminar

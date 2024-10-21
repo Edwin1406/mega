@@ -11,7 +11,7 @@ use MVC\Router;
         public static function tabla(Router $router)
         {
             $maquinas = Maquinas::all();
-            debuguear($maquinas);
+            // debuguear($maquinas);
             $router->render('admin/produccion/maquinas/tabla', [
                 'titulo' => 'TABLA DE MAQUINAS',
                 'maquinas' => $maquinas
