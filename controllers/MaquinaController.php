@@ -17,10 +17,10 @@ use MVC\Router;
             $pagina_actual = filter_var($pagina_actual, FILTER_VALIDATE_INT);
             debuguear($pagina_actual);
 
-            // if(!$pagina_actual|| $pagina_actual <1){
-            //     header('Location: /sitioweb/admin/ponentes?page=1');
-            //     exit;
-            // }
+            if(!$pagina_actual|| $pagina_actual <1){
+                header('Location: /admin/produccion/maquinas/tabla?page=1');
+                exit;
+            }
             
             // $pagina_por_registros = 1;
             // $total = Ponente:: total();
