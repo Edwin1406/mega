@@ -71,39 +71,39 @@ use Classes\Paginacion;
 
 
 
-        public static function editar(Router $router)
-        {
-            $alertas = [];
-            $id = $_GET['id'];
-            $id = filter_var($id, FILTER_VALIDATE_INT);
-            // validar que el id sea un entero
-            if (!$id) {
-                header('Location: /admin/produccion/maquinas/tabla');
-            }
-            $maquina = Maquinas::find($id);
+        // public static function editar(Router $router)
+        // {
+        //     $alertas = [];
+        //     $id = $_GET['id'];
+        //     $id = filter_var($id, FILTER_VALIDATE_INT);
+        //     // validar que el id sea un entero
+        //     if (!$id) {
+        //         header('Location: /admin/produccion/maquinas/tabla');
+        //     }
+        //     $maquina = Maquinas::find($id);
 
-            if (!$maquina) {
-                header('Location: /admin/produccion/maquinas/tabla');
-            }
+        //     if (!$maquina) {
+        //         header('Location: /admin/produccion/maquinas/tabla');
+        //     }
 
-            if($_SERVER['REQUEST_METHOD']=='POST'){
-                $maquina->sincronizar($_POST);
-                $alertas = $maquina->validar();
-                if(empty($alertas)){
-                    $maquina->actualizar();
-                    header('Location: /admin/produccion/maquinas/tabla');
-                }
+        //     if($_SERVER['REQUEST_METHOD']=='POST'){
+        //         $maquina->sincronizar($_POST);
+        //         $alertas = $maquina->validar();
+        //         if(empty($alertas)){
+        //             $maquina->actualizar();
+        //             header('Location: /admin/produccion/maquinas/tabla');
+        //         }
 
-            }
-            $router->render('admin/produccion/maquinas/editar', [
-                'titulo' => 'EDITAR MAQUINA',
-                'alertas' => $alertas,
-                'maquina' => $maquina
+        //     }
+        //     $router->render('admin/produccion/maquinas/editar', [
+        //         'titulo' => 'EDITAR MAQUINA',
+        //         'alertas' => $alertas,
+        //         'maquina' => $maquina
                 
-            ]);
+        //     ]);
 
             
-        }
+        // }
 
         // public static function eliminar()
         // {
