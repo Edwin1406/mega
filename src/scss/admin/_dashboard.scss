@@ -127,7 +127,7 @@
         @include m.boton(v.$azul ,v.$blanco);
         @include m.tablet {
             width: auto;
-            margin-bottom: 1rem;
+            margin-bottom: 2rem;
         }
     }
 

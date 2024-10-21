@@ -268,7 +268,7 @@
 @media (min-width: 768px) {
   .dashboard__boton {
     width: auto;
-    margin-bottom: 1rem;
+    margin-bottom: 2rem;
   }
 }
 .dashboard__contenedor, .dashboard__formulario {
