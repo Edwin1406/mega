@@ -30,7 +30,7 @@ class PapelController
             if(empty($alertas)){
                 // guardar en la base de datos
                 $papel->guardar();
-                header('Location: /admin/produccion/registro_produccion');
+                header('Location: /admin/produccion/papel/tabla');
             }
 
         }   
