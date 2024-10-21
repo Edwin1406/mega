@@ -3,6 +3,8 @@
     if(maquinaInput){
         let maquinas= [];
         let maquinasFiltradas = [];
+
+        const listadoMaquinas = document.querySelector('#listado-maquinas');
         obtenerMaquinas();
 
         maquinaInput.addEventListener('input',buscarMaquinas);
@@ -39,8 +41,20 @@
 
                 }
             });
-            console.log(maquinasFiltradas);
            }
+           mostrarMaquinas();
+        }
+
+        function mostrarMaquinas(){
+            maquinasFiltradas.forEach (maquina =>{
+                const maquinaHTML = document.createElement('LI');
+                maquinaHTML.classList.add('listado-ponentes__ponente');
+                maquinaHTML.textContent = maquina.nombre;
+                maquinaHTML.dataset.id = maquina.id;
+
+                // anadir al html
+                listadoMaquinas.appendChild(maquinaHTML);
+            })
         }
 
     }
