@@ -6,6 +6,9 @@
         Volver
     </a>
 </div>
+<div class="dashboard__formulario">
+
+<?php include_once __DIR__.'/../../../templates/alertas.php'  ?>
 
 <fieldset class="formulario__fieldset">
     <legend class="formulario__legend">Cotizador</legend>
@@ -43,3 +46,5 @@
 
 
 </fieldset>
+
+</div>
