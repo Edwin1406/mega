@@ -11,11 +11,4 @@
             value="<?php echo $area->area ?? '' ?>">
     </div>
 
-
-
-
-
-
-
-
 </fieldset>

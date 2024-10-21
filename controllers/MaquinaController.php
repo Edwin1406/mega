@@ -15,6 +15,13 @@ use MVC\Router;
             $maquina->sincronizar($_POST);
                 // validar
                 $alertas = $maquina->validar();
+
+                if(empty($alertas)) {
+                    // guardar en la base de datos
+                    $maquina->guardar();
+                    header('Location: /admin/produccion/registro_produccion');
+
+                }
             
         }
 
