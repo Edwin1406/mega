@@ -74,17 +74,17 @@ class PapelController
             if (!$id) {
                 header('Location: /admin/produccion/papel/tabla');
             }
-            $bobina = Bobina::find($id);
+            $papel = Bobina::find($id);
 
-            if (!$bobina) {
+            if (!$papel) {
                 header('Location: /admin/produccion/papel/tabla');
             }
 
             if($_SERVER['REQUEST_METHOD']=='POST'){
-                $bobina->sincronizar($_POST);
-                $alertas = $bobina->validar();
+                $papel->sincronizar($_POST);
+                $alertas = $papel->validar();
                 if(empty($alertas)){
-                    $bobina->actualizar();
+                    $papel->actualizar();
                     header('Location: /admin/produccion/papel/tabla');
                 }
 
@@ -92,7 +92,7 @@ class PapelController
             $router->render('admin/produccion/papel/editar', [
                 'titulo' => 'EDITAR MAQUINA',
                 'alertas' => $alertas,
-                'bobina' => $bobina
+                'papel' => $papel
                 
             ]);
 
