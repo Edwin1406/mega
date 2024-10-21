@@ -1,7 +1,7 @@
 <h2 class="dashboard__heading"> <?php echo $titulo ?> </h2>
 <div class="dashboard__contenedor-boton">
     <a class="dashboard__boton" href="/admin/produccion/maquinas/tabla">
-        <i class="fa-solid fa-circle-plus"></i>
+    <i class="fa-regular fa-eye"></i>
         TABLA MAQUINAS
     </a>
 
