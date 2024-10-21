@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRUD Combinaciones</title>
+</head>
+<body>
+    <h1>Crear Combinación</h1>
+    <form action="crear_combinacion.php" method="POST">
+        <!-- Selección de Bobinas -->
+        <label for="bobina_interna_id">Bobina Interna:</label>
+        <select name="bobina_interna_id" id="bobina_interna_id">
+            <!-- Aquí debes cargar las opciones desde la base de datos -->
+            <option value="1">Bobina Interna 1</option>
+            <option value="2">Bobina Interna 2</option>
+        </select>
+        <br><br>
+
+        <label for="bobina_media_id">Bobina Media:</label>
+        <select name="bobina_media_id" id="bobina_media_id">
+            <!-- Aquí debes cargar las opciones desde la base de datos -->
+            <option value="1">Bobina Media 1</option>
+            <option value="2">Bobina Media 2</option>
+        </select>
+        <br><br>
+
+        <label for="bobina_externa_id">Bobina Externa:</label>
+        <select name="bobina_externa_id" id="bobina_externa_id">
+            <!-- Aquí debes cargar las opciones desde la base de datos -->
+            <option value="1">Bobina Externa 1</option>
+            <option value="2">Bobina Externa 2</option>
+        </select>
+        <br><br>
+
+        <!-- Selección de la Máquina -->
+        <label for="maquina_id">Máquina:</label>
+        <select name="maquina_id" id="maquina_id">
+            <!-- Aquí debes cargar las opciones desde la base de datos -->
+            <option value="1">Máquina 1</option>
+            <option value="2">Máquina 2</option>
+        </select>
+        <br><br>
+
+        <!-- Número de piezas -->
+        <label for="num_piezas">Número de piezas:</label>
+        <input type="number" name="num_piezas" id="num_piezas" required>
+        <br><br>
+
+        <!-- Posición de la cuchilla -->
+        <label for="posicion_cuchilla">Posición de cuchilla:</label>
+        <input type="text" name="posicion_cuchilla" id="posicion_cuchilla" required>
+        <br><br>
+
+        <!-- Desperdicio -->
+        <label for="desperdicio">Desperdicio (en %):</label>
+        <input type="number" step="0.01" name="desperdicio" id="desperdicio" required>
+        <br><br>
+
+        <!-- Gramaje Total -->
+        <label for="gramaje_total">Gramaje Total:</label>
+        <input type="number" step="0.01" name="gramaje_total" id="gramaje_total" required>
+        <br><br>
+
+        <!-- Estado de la combinación -->
+        <label for="estado_combinacion">Estado de la combinación:</label>
+        <select name="estado_combinacion" id="estado_combinacion">
+            <option value="Buena">Buena</option>
+            <option value="Mala">Mala</option>
+        </select>
+        <br><br>
+
+        <!-- Botón para enviar el formulario -->
+        <input type="submit" value="Crear Combinación">
+    </form>
+</body>
+</html>

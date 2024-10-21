@@ -100,6 +100,26 @@ class PapelController
             
         }
 
+        public static function eliminar()
+        {
+            if($_SERVER['REQUEST_METHOD'] === 'POST'){
+                $id = $_POST['id'];
+                $id = filter_var($id, FILTER_VALIDATE_INT);
+                $papel = Bobina::find($id);
+
+                // debuguear($maquina);
+                if(!isset($papel)){
+                    header('Location: /admin/produccion/papel/tabla');
+                }
+                $resultado=$papel->eliminar();
+                if($resultado){
+                    header('Location: /admin/produccion/papel/tabla');
+                }
+
+            }
+               
+        }
+
 
 
 
