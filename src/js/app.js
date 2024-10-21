@@ -55,7 +55,7 @@
             if(maquinasFiltradas.length >0){
                 maquinasFiltradas.forEach (maquina =>{
                     const maquinaHTML = document.createElement('LI');
-                    maquinaHTML.classList.add('listado-ponentes__ponente');
+                    maquinaHTML.classList.add('listado-maquinas__maquina');
                     maquinaHTML.textContent = maquina.nombre;
                     maquinaHTML.dataset.id = maquina.id;
     
@@ -65,7 +65,7 @@
 
             }else{
                 const noResultado = document.createElement('P');
-                noResultado.classList.add('alerta', 'error');
+                noResultado.classList.add('listado-maquinas__no-resultado');
                 noResultado.textContent = 'No hay resultados';
                 listadoMaquinas.appendChild(noResultado);
             }

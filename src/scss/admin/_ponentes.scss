@@ -2,7 +2,8 @@
 @use 'base/mixins' as m;
 
 
-.listado-ponentes{
+
+.listado-maquinas{
     @include m.reset-lista;
     @include m.grid(1,1rem);
     &__ponente{
@@ -15,10 +16,10 @@
             cursor: pointer;
         }
         &--seleccionado{
-            @extend .listado-ponentes__ponente;
+
+            // @extend .listado-maquinas__maquina;
             background-color: v.$azul;
             color: v.$blanco;
         }
     }
 }
-
