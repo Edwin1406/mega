@@ -57,6 +57,7 @@ $router->get('/admin/produccion/registro_produccion', [ProduccionController::cla
 $router->get('/admin/produccion/cotizador/index', [ProduccionController::class, 'cotizador']);
 
 // Maquinas
+$router->get('/admin/produccion/maquinas/tabla', [MaquinaController::class, 'tabla']);
 $router->get('/admin/produccion/maquinas/crear', [MaquinaController::class, 'crear']);
 $router->post('/admin/produccion/maquinas/crear', [MaquinaController::class, 'crear']);
 

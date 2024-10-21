@@ -7,6 +7,19 @@ use MVC\Router;
 
  class MaquinaController
  {
+
+        public static function tabla(Router $router)
+        {
+            $maquinas = Maquinas::all();
+            $router->render('admin/produccion/maquinas/tabla', [
+                'titulo' => 'TABLA DE MAQUINAS',
+                'maquinas' => $maquinas
+            ]);
+        }
+
+
+
+
      public static function crear(Router $router)
      {
         $alertas = [];
