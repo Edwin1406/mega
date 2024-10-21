@@ -2,7 +2,7 @@
 <div class="dashboard__contenedor-boton">
     <a class="dashboard__boton" href="/admin/produccion/maquinas/tabla">
     <i class="fa-regular fa-eye"></i>
-        TABLA MAQUINAS
+        VER MAQUINAS
     </a>
 
 </div>
