@@ -54,12 +54,12 @@ use Classes\Paginacion;
                 // validar
                 $alertas = $maquina->validar();
 
-                // if(empty($alertas)) {
-                //     // guardar en la base de datos
-                //     $maquina->guardar();
-                //     header('Location: /admin/produccion/maquinas/tabla?page=1');
+                if(empty($alertas)) {
+                    // guardar en la base de datos
+                    $maquina->guardar();
+                    header('Location: /admin/produccion/maquinas/tabla?page=1');
 
-                // }
+                }
             
         }
 
