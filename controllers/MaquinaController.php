@@ -13,6 +13,7 @@ use MVC\Router;
          isAuth();
          $id= $_SESSION['id'];
          $escoge = Maquinas::belongsTo('propietarioId',$id);
+         debuguear($escoge);
 
          $router->render('admin/produccion/maquinas/crear', [
              'titulo' => 'CREAR MAQUINA',
