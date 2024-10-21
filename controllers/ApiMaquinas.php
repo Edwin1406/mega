@@ -10,6 +10,6 @@ class ApiMaquinas {
     public static function api(Router $router)
     {
         $maquinas = Maquinas::all();
-        $maquinas = json_encode($maquinas);
+        echo json_encode($maquinas);
     }
 }
