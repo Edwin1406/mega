@@ -111,9 +111,9 @@ use Classes\Paginacion;
                 $id = $_POST['id'];
                 $id = filter_var($id, FILTER_VALIDATE_INT);
                 $maquina = Maquinas::find($id);
-                if(!isset($maquina)){
-                    header('Location: /admin/produccion/maquinas/tabla');
-                }
+                // if(!isset($maquina)){
+                //     header('Location: /admin/produccion/maquinas/tabla');
+                // }
                 $resultado=$maquina->eliminar();
                 if($resultado){
                     header('Location: /admin/produccion/maquinas/tabla');
