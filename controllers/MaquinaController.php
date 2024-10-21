@@ -9,15 +9,11 @@ use MVC\Router;
  {
      public static function crear(Router $router)
      {
-         session_start();
-         isAuth();
-         $id= $_SESSION['id'];
-         $escoge = Maquinas::belongsTo('propietarioId',$id);
-         debuguear($escoge);
+        
 
          $router->render('admin/produccion/maquinas/crear', [
              'titulo' => 'CREAR MAQUINA',
-             'escoge' => $escoge
+             
          ]);
      }
  }
