@@ -68,6 +68,26 @@ use Classes\Paginacion;
              
          ]);
      }
+
+
+
+        public static function editar(Router $router)
+        {
+            $alertas = [];
+            
+    
+            $router->render('admin/produccion/maquinas/editar', [
+                'titulo' => 'EDITAR MAQUINA',
+                'alertas' => $alertas
+                
+            ]);
+
+            
+        }
+
+
+
+
  }
 
 

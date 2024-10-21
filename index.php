@@ -60,6 +60,8 @@ $router->get('/admin/produccion/cotizador/index', [ProduccionController::class, 
 $router->get('/admin/produccion/maquinas/tabla', [MaquinaController::class, 'tabla']);
 $router->get('/admin/produccion/maquinas/crear', [MaquinaController::class, 'crear']);
 $router->post('/admin/produccion/maquinas/crear', [MaquinaController::class, 'crear']);
+$router->get('/admin/produccion/maquinas/editar', [MaquinaController::class, 'editar']);
+$router->post('/admin/produccion/maquinas/editar', [MaquinaController::class, 'editar']);
 
 // papel
 $router->get('/admin/produccion/papel/tabla', [PapelController::class, 'tabla']);
