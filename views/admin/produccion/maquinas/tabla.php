@@ -15,8 +15,8 @@
                 <tr>
                     <th scope="col" class="table__th">Maquina</th>
                     <th scope="col" class="table__th">Num. Cuchillas</th>
-                    <th scope="col" class="table__th">Ancho</th>
-                    <th scope="col" class="table__th">Gramaje</th>
+                    <th scope="col" class="table__th">Ancho Maximo</th>
+                    <th scope="col" class="table__th">Gramaje Maximo</th>
                     <th scope="col" class="table__th">Fecha y Hora</th>
                     <th scope="col" class="table__th"></th>
                 </tr>
