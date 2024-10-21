@@ -2,7 +2,7 @@
 
 <div class="dashboard__contenedor-boton">
     <a class="dashboard__boton" href="/admin/produccion/registro_produccion">
-        <i class="fa-solid fa-circle-plus"></i>
+    <i class="fa-solid fa-circle-arrow-left"></i>
         REGRESAR A INICIO
     </a>
 
