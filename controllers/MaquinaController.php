@@ -73,7 +73,19 @@ use Classes\Paginacion;
 
         public static function editar(Router $router)
         {
-           echo 'desde editar';
+            $alertas = [];
+            $id = $_GET['id'];
+            $id = filter_var($id, FILTER_VALIDATE_INT);
+            // validar que el id sea un entero
+            if (!$id) {
+                // header('Location: /sitioweb/admin/ponentes');
+            }
+    
+            $router->render('admin/produccion/maquinas/editar', [
+                'titulo' => 'EDITAR MAQUINA',
+                'alertas' => $alertas
+                
+            ]);
 
             
         }
