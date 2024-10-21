@@ -11,34 +11,7 @@ use Classes\Paginacion;
 
         public static function tabla(Router $router)
         {
-
-            // PAGINACION DE MAQUINAS
-
-            $pagina_actual = $_GET['page'];
-            $pagina_actual = filter_var($pagina_actual, FILTER_VALIDATE_INT);
-            // debuguear($pagina_actual);
-
-            if(!$pagina_actual|| $pagina_actual <1){
-                header('Location: /admin/produccion/maquinas/tabla?page=1');
-                exit;
-            }
-            
-            $pagina_por_registros = 1;
-            $total = Maquinas:: total();
-            $paginacion = new Paginacion($pagina_actual, $pagina_por_registros, $total);
-            if($paginacion->total_paginas() < $pagina_actual){
-                header('Location: /admin/produccion/maquinas/tabla?page=1');
-            }
-        
-            $maquinas = Maquinas::paginar($pagina_por_registros, $paginacion->offset());
-
-            // $maquinas = Maquinas::all();
-            // debuguear($maquinas);
-            $router->render('admin/produccion/maquinas/tabla', [
-                'titulo' => 'TABLA DE MAQUINAS',
-                'maquinas' => $maquinas,
-                'paginacion' => $paginacion->paginacion()
-            ]);
+echo "hola";
         }
 
 
