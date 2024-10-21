@@ -1,5 +1,5 @@
 (function(){
-    const maquinaInput = document.getElementById('#maquina_id');
+    const maquinaInput = document.querySelector('#maquina_id');
     if(maquinaInput){
         let maquinas= [];
         let maquinasFiltradas = [];
