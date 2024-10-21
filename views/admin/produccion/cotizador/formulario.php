@@ -10,7 +10,7 @@
             name="tipo_papel"
             id="tipo_papel"
             class="formulario__input"
-            placeholder="Tipo de papel"
+            placeholder="Escoja el tipo de papel"
             value="<?php echo $papel->tipo_papel ?? '' ?>">
     </div>
 
