@@ -2,6 +2,7 @@
 
 namespace Controllers;
 
+use MVC\Router;
 
 class PapelController
 {
@@ -9,8 +10,10 @@ class PapelController
     {
         echo 'index papel';
     }
-    public static function crear()
+    public static function crear(Router $router)
     {
-        echo 'index papel';
+        $router->render('admin/produccion/papel/crear', [
+            'titulo' => 'CREAR PAPEL'
+        ]);
     }
 }
