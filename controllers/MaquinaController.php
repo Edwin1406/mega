@@ -113,7 +113,7 @@ use Classes\Paginacion;
                 $id = filter_var($id, FILTER_VALIDATE_INT);
                 $maquina = Maquinas::find($id);
 
-                debuguear($maquina);
+                // debuguear($maquina);
                 if(!isset($maquina)){
                     header('Location: /admin/produccion/maquinas/tabla');
                 }
