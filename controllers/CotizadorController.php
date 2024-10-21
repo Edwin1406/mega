@@ -25,6 +25,10 @@ class CotizadorController
             header('Location: /');
             
         }
+
+        
+
+
         $router->render('admin/produccion/cotizador/crear', [
             'titulo' => 'COTIZADOR',
             'escoger_produccion' => $escoger_produccion,

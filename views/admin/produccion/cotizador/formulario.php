@@ -34,6 +34,9 @@
             value="<?php echo $papel->bobina_externa_id ?? '' ?>">
     </div>
 
+
+    
+
     <div class="formulario__campo">
         <label class="formulario__label" for="maquina_id">Escoja la maquina </label>
         <input
@@ -44,6 +47,17 @@
             placeholder="maquina_id del papel"
             value="<?php echo $papel->maquina_id ?? '' ?>">
     </div>
+
+
+
+
+
+
+
+
+
+
+    
     <div class="formulario__campo">
         <label class="formulario__label" for="num_piezas">Numero de piezas</label>
         <input
