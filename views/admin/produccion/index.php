@@ -22,7 +22,7 @@
                 if($area === 'seccion de registros'|| $area === 'SECCION DE REGISTROS') {
                     $url = "/admin/produccion/registro_produccion?id=".$id;
                 } elseif($area === 'COTIZADOR'|| $area === 'cotizador') {
-                    $url = "/admin/produccion/cotizador/index?id=".$id;
+                    $url = "/admin/produccion/cotizador/crear?id=".$id;
                 } 
 
                 echo $url; // Muestra la URL específica
