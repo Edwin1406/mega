@@ -25,9 +25,9 @@
                 if($area === 'maquinas'|| $area === 'MAQUINAS') {
                     $url = "/admin/produccion/maquinas/crear?id=".$id;
                 } elseif($area === 'papel'|| $area === 'PAPEL') {
-                    $url = "/admin/produccion/papel/index?id=".$id;
+                    $url = "/admin/produccion/papel/crear?id=".$id;
                 }elseif($area === 'proveedor'|| $area === 'PROVEEDOR') {
-                    $url = "/admin/produccion/proveedor/index?id=".$id;
+                    $url = "/admin/produccion/proveedor/crear?id=".$id;
                 }
 
                 echo $url; // Muestra la URL específica
