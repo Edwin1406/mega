@@ -27,7 +27,7 @@
                         <td class="table__td"><?php echo $bobina->tipo_papel?></td>
                         <td class="table__td"><?php echo $bobina->gramaje?></td>
                         <td class="table__td"><?php echo $bobina->ancho?></td>
-                        <td class="table__td"><?php echo $bobina->create_at?></td>
+                        <td class="table__td"><?php echo $bobina->created_at?></td>
                         <td class="table__td--acciones"><a class="table__accion table__accion--editar" href="/admin/produccion/maquinas/editar?id=<?php echo $bobina->id; ?>"><i class="fa-solid fa-user-pen"></i>Editar</a>
                         <form method="POST" action="/admin/produccion/maquinas/eliminar" class="table__formulario">
                             <input type="hidden" name="id" value="<?php echo $bobina->id; ?>">
@@ -49,7 +49,7 @@
 
 
     <?php else: ?>
-        <a class="text-center"> No hay Ponentes Aún</a>
+        <a class="text-center"> No hay Papel Aún</a>
     <?php endif; ?>
 </div>
 
