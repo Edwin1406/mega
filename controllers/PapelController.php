@@ -62,4 +62,49 @@ class PapelController
             'alertas' => $alertas
         ]);
     }
+
+
+
+    public static function editar(Router $router)
+        {
+            $alertas = [];
+            $id = $_GET['id'];
+            $id = filter_var($id, FILTER_VALIDATE_INT);
+            // validar que el id sea un entero
+            if (!$id) {
+                header('Location: /admin/produccion/papel/tabla');
+            }
+            $bobina = Bobina::find($id);
+
+            if (!$bobina) {
+                header('Location: /admin/produccion/papel/tabla');
+            }
+
+            if($_SERVER['REQUEST_METHOD']=='POST'){
+                $bobina->sincronizar($_POST);
+                $alertas = $bobina->validar();
+                if(empty($alertas)){
+                    $bobina->actualizar();
+                    header('Location: /admin/produccion/papel/tabla');
+                }
+
+            }
+            $router->render('admin/produccion/papel/editar', [
+                'titulo' => 'EDITAR MAQUINA',
+                'alertas' => $alertas,
+                'bobina' => $bobina
+                
+            ]);
+
+            
+        }
+
+
+
+
+
+
+
+
+
 }
