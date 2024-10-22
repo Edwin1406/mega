@@ -46,7 +46,7 @@
             class="formulario__input"
             placeholder="maquina_id del papel"
             value="<?php echo $papel->maquina_id ?? '' ?>">
-            <ul id="listado-maquinas" class="listado-maquinas"> </ul>
+            <ul id="listado-maquinas" class="listado-maquinas"></ul>
     </div>
 
 

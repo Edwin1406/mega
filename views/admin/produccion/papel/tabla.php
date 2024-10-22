@@ -54,4 +54,39 @@
     <?php endif; ?>
 </div>
 
+
+
+
+
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Cotizador</h2>
+
+    <table id="miTabla" class="table table-striped table-bordered" style="width:100%">
+        <thead class="table-dark">
+            <tr>
+                <th>Nombre</th>
+                <th>Posición</th>
+                <th>Oficina</th>
+                <th>Edad</th>
+                <th>Fecha de inicio</th>
+                <th>Salario</th>
+            </tr>
+        </thead>
+        <?php foreach ($bobinas as $bobina):?>
+        <tbody>
+            <tr>
+                <td><?php echo $bobina->tipo_papel?></td>
+                <td>System Architect</td>
+                <td>Edinburgh</td>
+                <td>61</td>
+                <td>2011/04/25</td>
+                <td>$320,800</td>
+            </tr>
+           
+            <!-- Agrega más filas aquí -->
+        </tbody>
+        <?php endforeach;?>
+    </table>
+</div>
+
 <?php echo $paginacion; ?>

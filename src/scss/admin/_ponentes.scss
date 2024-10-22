@@ -18,7 +18,7 @@
         &--seleccionado{
 
             // @extend .listado-maquinas__maquina;
-            @extend .listado-maquinas__ponente;
+          
             background-color: v.$azul;
             color: v.$blanco;
         }
