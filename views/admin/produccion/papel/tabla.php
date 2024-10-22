@@ -57,7 +57,11 @@
 
 
 
-
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- DataTables CSS con Bootstrap -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
+    <!-- DataTables Buttons CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.1/css/buttons.bootstrap5.min.css">
 <div class="container mt-5">
     <h2 class="text-center mb-4">Cotizador</h2>
 
@@ -68,19 +72,17 @@
                 <th>Posición</th>
                 <th>Oficina</th>
                 <th>Edad</th>
-                <th>Fecha de inicio</th>
-                <th>Salario</th>
+               
             </tr>
         </thead>
         <?php foreach ($bobinas as $bobina):?>
         <tbody>
             <tr>
                 <td><?php echo $bobina->tipo_papel?></td>
-                <td>System Architect</td>
-                <td>Edinburgh</td>
-                <td>61</td>
-                <td>2011/04/25</td>
-                <td>$320,800</td>
+                <td><?php echo $bobina->gramaje?></td>
+                <td><?php echo $bobina->ancho?></td>
+                <td><?php echo $bobina->created_at?></td>
+             
             </tr>
            
             <!-- Agrega más filas aquí -->
