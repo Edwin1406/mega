@@ -3,61 +3,133 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calculador de Desperdicio de Papel</title>
+    <title>Calculador de Ancho de Bobinas y Desperdicio</title>
 </head>
 <body>
-    <h1>Calculador de Desperdicio de Papel</h1>
-    
-    <label for="bobina">Ancho de la Bobina (mm):</label>
-    <input type="number" id="bobina" value="2000" step="1"><br><br>
+    <h1>Calculador de Ancho de Bobinas y Resistencia</h1>
 
-    <label for="gramaje">Gramaje del Papel (g/m²):</label>
-    <input type="number" id="gramaje" value="80" step="1"><br><br>
-    
+    <label for="ancho-deseado">Ancho Deseado (mm):</label>
+    <input type="number" id="ancho-deseado" placeholder="Ej: 1840" step="1"><br><br>
+
+    <h2>Ingrese los detalles de las bobinas</h2>
+
+    <label for="gramaje-interno">Gramaje Bobina Interno (g/m²):</label>
+    <input type="number" id="gramaje-interno" step="1" placeholder="Ej: 80"><br><br>
+
+    <label for="resistencia-interno">Test Resistencia Interno:</label>
+    <input type="text" id="resistencia-interno" placeholder="Ej: 2.5"><br><br>
+
+    <label for="ancho-interno">Ancho Bobina Interno (mm):</label>
+    <input type="number" id="ancho-interno" placeholder="Ej: 1200" step="1"><br><br>
+
+    <label for="gramaje-medio">Gramaje Bobina Medio (g/m²):</label>
+    <input type="number" id="gramaje-medio" step="1" placeholder="Ej: 90"><br><br>
+
+    <label for="resistencia-medio">Test Resistencia Medio:</label>
+    <input type="text" id="resistencia-medio" placeholder="Ej: 3.0"><br><br>
+
+    <label for="ancho-medio">Ancho Bobina Medio (mm):</label>
+    <input type="number" id="ancho-medio" placeholder="Ej: 1200" step="1"><br><br>
+
+    <label for="gramaje-externo">Gramaje Bobina Externo (g/m²):</label>
+    <input type="number" id="gramaje-externo" step="1" placeholder="Ej: 100"><br><br>
+
+    <label for="resistencia-externo">Test Resistencia Externo:</label>
+    <input type="text" id="resistencia-externo" placeholder="Ej: 3.5"><br><br>
+
+    <label for="ancho-externo">Ancho Bobina Externo (mm):</label>
+    <input type="number" id="ancho-externo" placeholder="Ej: 1200" step="1"><br><br>
+
     <button onclick="calcular()">Calcular</button>
-    
+
     <h2>Resultados:</h2>
-    <p id="resultado-iguales"></p>
-    <p id="desperdicio"></p>
-    <p id="info-gramaje"></p>
-    <p id="evaluacion-gramaje"></p>
+    <p id="resultado-combinacion"></p>
+    <p id="resultado-desperdicio"></p>
+    <p id="evaluacion-resistencia"></p>
+    <p id="resultado-pedazos"></p>
+    <p id="bobina-recomendada"></p>
 
     <script>
         function calcular() {
-            const anchoBobina = parseFloat(document.getElementById('bobina').value);
-            const gramaje = parseFloat(document.getElementById('gramaje').value); // Obtener el gramaje
-            const corte = 450; // Medida de cada corte
-            const numeroCortes = 4; // Se buscan 4 piezas
-            const totalCorte = corte * numeroCortes; // Total de papel usado en cortes
+            // Ancho total del corrugador y restar 2 cm a cada lado
+            const anchoTotal = 1880;
+            const anchoUtil = anchoTotal - 40; // Quitamos 20mm de cada lado, dejando 1840mm para trabajar
 
-            // Cálculo del desperdicio
-            let desperdicio = anchoBobina - totalCorte;
+            // Obtener el ancho deseado
+            const anchoDeseado = parseFloat(document.getElementById('ancho-deseado').value);
 
-            // Mostrar resultados de la primera posición de cuchilla
-            const posicion = corte; // Primera posición de cuchilla
-            document.getElementById('resultado-iguales').textContent = `Para 4 piezas iguales: Posición de cuchilla: ${posicion} mm`;
-
-            // Mostrar desperdicio
-            if (desperdicio >= 0) {
-                document.getElementById('desperdicio').textContent = `Hay un desperdicio de: ${desperdicio} mm.`;
-            } else {
-                document.getElementById('desperdicio').textContent = `Error: El ancho de la bobina es demasiado pequeño para hacer 4 cortes de 450 mm.`;
+            if (anchoDeseado > anchoUtil) {
+                alert(`El ancho deseado (${anchoDeseado} mm) es mayor que el ancho utilizable (${anchoUtil} mm).`);
+                return;
             }
 
-            // Mostrar información del gramaje
-            document.getElementById('info-gramaje').textContent = `Gramaje del papel: ${gramaje} g/m².`;
-            
-            // Evaluación del gramaje
-            let evaluacion;
-            if (gramaje < 70) {
-                evaluacion = "El gramaje es demasiado bajo, lo que puede afectar la resistencia del producto final. Considera aumentar el gramaje.";
-            } else if (gramaje > 150) {
-                evaluacion = "El gramaje es alto. Asegúrate de que esto no afecte los costos y la eficiencia de producción.";
+            // Obtener los valores de gramaje, resistencia y ancho de las tres bobinas
+            const gramajeInterno = parseFloat(document.getElementById('gramaje-interno').value);
+            const resistenciaInterno = parseFloat(document.getElementById('resistencia-interno').value);
+            const anchoInterno = parseFloat(document.getElementById('ancho-interno').value);
+
+            const gramajeMedio = parseFloat(document.getElementById('gramaje-medio').value);
+            const resistenciaMedio = parseFloat(document.getElementById('resistencia-medio').value);
+            const anchoMedio = parseFloat(document.getElementById('ancho-medio').value);
+
+            const gramajeExterno = parseFloat(document.getElementById('gramaje-externo').value);
+            const resistenciaExterno = parseFloat(document.getElementById('resistencia-externo').value);
+            const anchoExterno = parseFloat(document.getElementById('ancho-externo').value);
+
+            // Calcular cuántos pedazos se pueden obtener del ancho de las bobinas
+            let pedazosInterno = Math.floor(anchoInterno / anchoDeseado);
+            let pedazosMedio = Math.floor(anchoMedio / anchoDeseado);
+            let pedazosExterno = Math.floor(anchoExterno / anchoDeseado);
+
+            // Calcular el desperdicio para cada bobina
+            let desperdicioInterno = anchoInterno % anchoDeseado;
+            let desperdicioMedio = anchoMedio % anchoDeseado;
+            let desperdicioExterno = anchoExterno % anchoDeseado;
+
+            // Mostrar los pedazos que pueden salir
+            document.getElementById('resultado-pedazos').textContent = `
+                Pedazos posibles de Bobina Interno: ${pedazosInterno}, con un desperdicio de ${desperdicioInterno} mm.
+                Pedazos posibles de Bobina Medio: ${pedazosMedio}, con un desperdicio de ${desperdicioMedio} mm.
+                Pedazos posibles de Bobina Externo: ${pedazosExterno}, con un desperdicio de ${desperdicioExterno} mm.
+            `;
+
+            // Recomendar la bobina que mejor se ajusta sin desperdicio
+            let mejorBobina = '';
+            if (desperdicioInterno === 0 && pedazosInterno > 0) {
+                mejorBobina = `La bobina interna (${anchoInterno} mm) es la mejor opción sin desperdicio y se pueden obtener ${pedazosInterno} pedazos.`;
+            } else if (desperdicioMedio === 0 && pedazosMedio > 0) {
+                mejorBobina = `La bobina media (${anchoMedio} mm) es la mejor opción sin desperdicio y se pueden obtener ${pedazosMedio} pedazos.`;
+            } else if (desperdicioExterno === 0 && pedazosExterno > 0) {
+                mejorBobina = `La bobina externa (${anchoExterno} mm) es la mejor opción sin desperdicio y se pueden obtener ${pedazosExterno} pedazos.`;
             } else {
-                evaluacion = "El gramaje es adecuado para la producción de cartón corrugado.";
+                // Si ninguna bobina es exacta, recomendar la que tenga el menor desperdicio
+                let menorDesperdicio = Math.min(desperdicioInterno, desperdicioMedio, desperdicioExterno);
+                if (menorDesperdicio === desperdicioInterno && pedazosInterno > 0) {
+                    mejorBobina = `La bobina interna (${anchoInterno} mm) es la mejor opción con un desperdicio de ${desperdicioInterno} mm.`;
+                } else if (menorDesperdicio === desperdicioMedio && pedazosMedio > 0) {
+                    mejorBobina = `La bobina media (${anchoMedio} mm) es la mejor opción con un desperdicio de ${desperdicioMedio} mm.`;
+                } else if (menorDesperdicio === desperdicioExterno && pedazosExterno > 0) {
+                    mejorBobina = `La bobina externa (${anchoExterno} mm) es la mejor opción con un desperdicio de ${desperdicioExterno} mm.`;
+                } else {
+                    mejorBobina = "No se encontró una bobina adecuada sin desperdicio ni una con menor desperdicio.";
+                }
             }
 
-            document.getElementById('evaluacion-gramaje').textContent = evaluacion;
+            document.getElementById('bobina-recomendada').textContent = mejorBobina;
+
+            // Evaluar la resistencia de la combinación
+            let evaluacionResistencia = '';
+
+            // Criterios de resistencia (puedes ajustar según las necesidades)
+            if (gramajeInterno < 70 || gramajeMedio < 70 || gramajeExterno < 70) {
+                evaluacionResistencia = "El gramaje de una o más bobinas es demasiado bajo para un cartón de buena resistencia.";
+            } else if (resistenciaInterno < 2 || resistenciaMedio < 2 || resistenciaExterno < 2) {
+                evaluacionResistencia = "El test de resistencia es insuficiente para uno o más componentes de las bobinas.";
+            } else {
+                evaluacionResistencia = "La combinación de gramaje y resistencia es adecuada para la producción.";
+            }
+
+            document.getElementById('evaluacion-resistencia').textContent = evaluacionResistencia;
         }
     </script>
 </body>
