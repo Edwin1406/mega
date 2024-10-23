@@ -5,7 +5,7 @@
 
 .footer{
     // background-color: darken(v.$secundario,  20%);
-    background-color: color.adjust(v.$secundario, $lightness: -20%);
+    background-color: color.adjust(v.$naranja, $lightness: -20%);
     margin-top: 5rem;
     padding-top: 3rem;
     color: v.$blanco;
@@ -30,7 +30,7 @@
 
     &__copyright{
         // background-color: darken(v.$secundario,  10%);
-        background-color: color.adjust(v.$secundario, $lightness: -10%);
+        background-color: color.adjust(v.$naranja, $lightness: -10%);
         margin: 3rem 0 0 0;
         padding: 2rem 0;  
         text-align: center;
