@@ -5,7 +5,7 @@
 
 .barra {
     // background-color: darken(v.$cyan, 0.9%);
-    background-color: color.adjust(v.$cyan, $lightness: -0.9%);
+    background-color: color.adjust(v.$naranja, $lightness: -0.9%);
     &__contenido{
         @include m.contenedor;
         display: flex;
