@@ -22,7 +22,7 @@
     &__logo{
         padding: 3rem;
         font-family: v.$dead;
-        @include m.texto-degradado(v.$rosa,v.$blanco);
+        @include m.texto-degradado(v.$gris-oscuro,v.$blanco);
         @include m.texto-fluido(2rem,3rem);
         @include m.logo;
     }
