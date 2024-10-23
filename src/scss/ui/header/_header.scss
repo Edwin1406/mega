@@ -83,14 +83,14 @@
     padding-right: 34rem;
     margin-top: 0;
     padding: 2rem 0; // Ajusta los valores según sea necesario
-    @include m.texto-degradado(v.$blanco,v.$rojoblanco);
+    @include m.texto-degradado(v.$blanco,v.$naranja);
     @include m.tablet {
         display: inline-block;
         padding-top: 4.9rem;
         padding-bottom: 4.9rem;
         padding-right: 1rem;
         &:hover{
-            @include m.texto-degradado(v.$rosa,v.$blanco);
+            @include m.texto-degradado(v.$naranja,v.$blanco);
 
         }
 

@@ -1168,7 +1168,7 @@ h3 {
   padding-right: 34rem;
   margin-top: 0;
   padding: 2rem 0;
-  background: linear-gradient(to right, #FFFFFF, rgb(241, 8, 8));
+  background: linear-gradient(to right, #FFFFFF, #F59E0B);
   background-clip: text;
   -webkit-text-fill-color: transparent;
   display: inline-block;
@@ -1181,7 +1181,7 @@ h3 {
     padding-right: 1rem;
   }
   .header__logo:hover {
-    background: linear-gradient(to right, #DB2777, #FFFFFF);
+    background: linear-gradient(to right, #F59E0B, #FFFFFF);
     background-clip: text;
     -webkit-text-fill-color: transparent;
     display: inline-block;
