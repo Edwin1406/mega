@@ -1248,8 +1248,8 @@ h3 {
 }
 .navegacion__enlace--actual, .navegacion__enlace:hover {
   border-bottom: 2px solid #cccccc;
-  background-color: rgb(10.1935483871, 184.7580645161, 226.8064516129);
-  color: rgb(0, 251, 243.47);
+  background-color: rgb(247.0078740157, 177.4763779528, 59.9921259843);
+  color: rgb(247.0078740157, 177.4763779528, 59.9921259843);
   border-radius: 1rem;
 }
 

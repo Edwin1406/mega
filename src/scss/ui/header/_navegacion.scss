@@ -24,9 +24,9 @@
             // border-bottom: 2px solid darken(v.$blanco, 20%);
             border-bottom: 2px solid color.adjust(v.$blanco, $lightness: -20%);
             // background-color: lighten(v.$cyan, 10%);
-            background-color: color.adjust(v.$cyan, $lightness: 10%);
+            background-color: color.adjust(v.$naranja, $lightness: 10%);
             // color:lighten( v.$secundario, 10% );
-            color: color.adjust(v.$secundario, $lightness: 10%);
+            color: color.adjust(v.$naranja, $lightness: 10%);
             border-radius: 1rem;
         }
     }
