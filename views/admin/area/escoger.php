@@ -28,7 +28,7 @@
                 } elseif($area === 'PRODUCTO TERMINADO') {
                     $url = "/admin/producto-terminado/index?id=".$id;
                 }elseif($area === 'VENDEDOR') {
-                    $url = "/admin/vendedor/index?id=".$id;
+                    $url = "/admin/vendedor/cliente/crear?id=".$id;
                 }
 
                 echo $url; // Muestra la URL específica
