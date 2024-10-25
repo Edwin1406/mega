@@ -7,7 +7,7 @@ class ClienteController
 {
     
 
-    public function crear(Router $router)
+    public static function crear(Router $router)
     {
 
         $alertas = [];
