@@ -1,5 +1,5 @@
 <fieldset class="formulario__fieldset">
-    <legend class="formulario__legend">Información de la Maquina</legend>
+    <legend class="formulario__legend">Información del cliente</legend>
     <div class="formulario__campo">
         <label class="formulario__label" for="nombre">Nombre</label>
         <input
@@ -10,38 +10,72 @@
             placeholder="Nombre del ponente"
             value="<?php echo $maquina->nombre ?? '' ?>">
     </div>
-
     <div class="formulario__campo">
-        <label class="formulario__label" for="num_cuchillas">numero cuchillas</label>
+        <label class="formulario__label" for="apellido">Apellido</label>
         <input
             type="text"
-            name="num_cuchillas"
-            id="num_cuchillas"
+            name="apellido"
+            id="apellido"
+            class="formulario__input"
+            placeholder="apellido del ponente"
+            value="<?php echo $maquina->apellido ?? '' ?>">
+    </div>
+
+    <div class="formulario__campo">
+        <label class="formulario__label" for="ruc">Ruc o cédula</label>
+        <input
+            type="text"
+            name="ruc"
+            id="ruc"
             class="formulario__input"
             placeholder="cuchillas de la maquina"
-            value="<?php echo $maquina->num_cuchillas ?? '' ?>">
+            value="<?php echo $maquina->ruc ?? '' ?>">
     </div>
 
     <div class="formulario__campo">
-        <label class="formulario__label" for="ancho_maximo">Ancho maximo</label>
+        <label class="formulario__label" for="telefono">Telefono</label>
         <input
             type="text"
-            name="ancho_maximo"
-            id="ancho_maximo"
+            name="telefono"
+            id="telefono"
             class="formulario__input"
-            placeholder="ancho_maximo de la maquina"
-            value="<?php echo $maquina->ancho_maximo ?? '' ?>">
+            placeholder="telefono del cliente"
+            value="<?php echo $maquina->telefono ?? '' ?>">
     </div>
 
     <div class="formulario__campo">
-        <label class="formulario__label" for="gramaje_maximo">gramaje_maximo</label>
+        <label class="formulario__label" for="direccion">Direcciòn</label>
         <input
             type="text"
-            name="gramaje_maximo"
-            id="gramaje_maximo"
+            name="direccion"
+            id="direccion"
             class="formulario__input"
-            placeholder="gramaje_maximo de la maquina"
+            placeholder="Direccion del cliente"
+            value="<?php echo $maquina->direccion ?? '' ?>">
+    </div>
+  
+    <div class="formulario__campo">
+        <label class="formulario__label" for="pais">Pais</label>
+        <input
+            type="text"
+            name="pais"
+            id="pais"
+            class="formulario__input"
+            placeholder="pais del cliente"
+            value="<?php echo $maquina->pais ?? '' ?>">
+    </div>
+    <div class="formulario__campo">
+        <label class="formulario__label" for="ciudad">Ciudad</label>
+        <input
+            type="text"
+            name="ciudad"
+            id="ciudad"
+            class="formulario__input"
+            placeholder="Ciudad del cliente"
             value="<?php echo $maquina->gramaje_maximo ?? '' ?>">
     </div>
+    
+    
 
+    
 </fieldset>

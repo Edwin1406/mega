@@ -1,6 +1,7 @@
 <?php 
 namespace Controllers;
 
+use Model\Cliente;
 use MVC\Router;
 
 class ClienteController
@@ -9,6 +10,15 @@ class ClienteController
 
     public static function crear(Router $router)
     {
+        $cliente = new Cliente;
+        if($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $cliente ->sincronizar($_POST);
+            debuguear($cliente); 
+            $alertas = $cliente->validar();
+        }
+
+
+
 
         $alertas = [];
          // Render a la vista
