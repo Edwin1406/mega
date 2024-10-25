@@ -8,7 +8,7 @@
             id="nombre"
             class="formulario__input"
             placeholder="Nombre del ponente"
-            value="<?php echo $maquina->nombre ?? '' ?>">
+            value="<?php echo $cliente->nombre ?? '' ?>">
     </div>
     <div class="formulario__campo">
         <label class="formulario__label" for="apellido">Apellido</label>
@@ -18,7 +18,7 @@
             id="apellido"
             class="formulario__input"
             placeholder="apellido del ponente"
-            value="<?php echo $maquina->apellido ?? '' ?>">
+            value="<?php echo $cliente->apellido ?? '' ?>">
     </div>
 
     <div class="formulario__campo">
@@ -29,7 +29,7 @@
             id="ruc"
             class="formulario__input"
             placeholder="cuchillas de la maquina"
-            value="<?php echo $maquina->ruc ?? '' ?>">
+            value="<?php echo $cliente->ruc ?? '' ?>">
     </div>
 
     <div class="formulario__campo">
@@ -40,7 +40,7 @@
             id="telefono"
             class="formulario__input"
             placeholder="telefono del cliente"
-            value="<?php echo $maquina->telefono ?? '' ?>">
+            value="<?php echo $cliente->telefono ?? '' ?>">
     </div>
 
     <div class="formulario__campo">
@@ -51,7 +51,7 @@
             id="direccion"
             class="formulario__input"
             placeholder="Direccion del cliente"
-            value="<?php echo $maquina->direccion ?? '' ?>">
+            value="<?php echo $cliente->direccion ?? '' ?>">
     </div>
   
     <div class="formulario__campo">
@@ -62,7 +62,7 @@
             id="pais"
             class="formulario__input"
             placeholder="pais del cliente"
-            value="<?php echo $maquina->pais ?? '' ?>">
+            value="<?php echo $cliente->pais ?? '' ?>">
     </div>
     <div class="formulario__campo">
         <label class="formulario__label" for="ciudad">Ciudad</label>
@@ -72,7 +72,7 @@
             id="ciudad"
             class="formulario__input"
             placeholder="Ciudad del cliente"
-            value="<?php echo $maquina->gramaje_maximo ?? '' ?>">
+            value="<?php echo $cliente->gramaje_maximo ?? '' ?>">
     </div>
     
     
