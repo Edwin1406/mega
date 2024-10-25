@@ -7,14 +7,14 @@ require_once __DIR__ . '/includes/app.php';
 
 
 use MVC\Router;
+use Controllers\ApiMaquinas;
 use Controllers\AreaController;
 use Controllers\AuthController;
 use Controllers\AdminController;
-use Controllers\ApiMaquinas;
-use Controllers\ApiMController;
-use Controllers\CotizadorController;
 use Controllers\PapelController;
+use Controllers\ClienteController;
 use Controllers\MaquinaController;
+use Controllers\CotizadorController;
 use Controllers\ProduccionController;
 
 $router = new Router();
@@ -85,6 +85,11 @@ $router->post('/admin/produccion/papel/crear', [PapelController::class, 'crear']
 $router->get('/admin/produccion/papel/editar', [PapelController::class, 'editar']);
 $router->post('/admin/produccion/papel/editar', [PapelController::class, 'editar']);
 $router->post('/admin/produccion/papel/eliminar', [PapelController::class, 'eliminar']);
+
+
+// Cliente
+
+$router->get('/admin/vendedor/cliente/crear', [ClienteController::class, 'crear']);
 
 
 
