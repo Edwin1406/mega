@@ -90,6 +90,7 @@ $router->post('/admin/produccion/papel/eliminar', [PapelController::class, 'elim
 // Cliente
 
 $router->get('/admin/vendedor/cliente/crear', [ClienteController::class, 'crear']);
+$router->post('/admin/vendedor/cliente/crear', [ClienteController::class, 'crear']);
 
 
 
