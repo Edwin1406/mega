@@ -1,113 +1,85 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cotizador</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-        }
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        input {
-            margin-bottom: 10px;
-            padding: 5px;
-            width: 100%;
-        }
-        button {
-            padding: 10px 15px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: #45a049;
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <h1>sin resis</h1>
-
-        <label for="anchoOriginal">Ancho Original (mm):</label>
-        <input type="number" id="anchoOriginal" placeholder="1880">
-
-        <h2>Ingrese los detalles de las bobinas</h2>
-
-        <label for="gramajeInterno">Gramaje Bobina Interno (g/m²):</label>
-        <input type="number" id="gramajeInterno" placeholder="80">
-        <label for="resistenciaInterno">Test Resistencia Interno:</label>
-        <input type="number" id="resistenciaInterno" placeholder="2.5">
-        <label for="anchoInterno">Ancho Bobina Interno (mm):</label>
-        <input type="number" id="anchoInterno" placeholder="1880">
-
-        <label for="gramajeMedio">Gramaje Bobina Medio (g/m²):</label>
-        <input type="number" id="gramajeMedio" placeholder="160">
-        <label for="resistenciaMedio">Test Resistencia Medio:</label>
-        <input type="number" id="resistenciaMedio" placeholder="3">
-        <label for="anchoMedio">Ancho Bobina Medio (mm):</label>
-        <input type="number" id="anchoMedio" placeholder="1880">
-
-        <label for="gramajeExterno">Gramaje Bobina Externo (g/m²):</label>
-        <input type="number" id="gramajeExterno" placeholder="150">
-        <label for="resistenciaExterno">Test Resistencia Externo:</label>
-        <input type="number" id="resistenciaExterno" placeholder="3">
-        <label for="anchoExterno">Ancho Bobina Externo (mm):</label>
-        <input type="number" id="anchoExterno" placeholder="1880">
-
-        <button onclick="calcular()">Calcular</button>
-
-        <h2>Resultados:</h2>
-        <p id="resultado"></p>
-    </div>
-
-    <script>
-        function calcular() {
-            let anchoOriginal = parseFloat(document.getElementById("anchoOriginal").value);
-
-            // Restamos los 40 mm para obtener el ancho de trabajo
-            let anchoTrabajo = anchoOriginal - 40;
-
-            // Comprobamos si el ancho es válido
-            if (isNaN(anchoTrabajo) || anchoTrabajo <= 0) {
-                document.getElementById("resultado").innerHTML = "Por favor, ingrese un ancho original válido.";
-                return;
+<Script>
+    let anchosDeBobinas = [1840, 1880, 1600, 1500, 1450, 1800, 1400, 1700, 500, 700,800,900,200];
+    let cuchillas = [1, 2, 3, 4, 5]; // Cuchillas disponibles
+    let pedido = 25; // Ancho de cada pieza
+    
+    function calcularMejorBobina(pedido, anchosDeBobinas, cuchillas) {
+      let mejorBobina = null;
+      let maxPiezas = 0;
+      let desperdicioMinimo = Infinity;
+    
+      // Ordenar los anchos de bobinas de menor a mayor
+      anchosDeBobinas.sort((a, b) => a - b);
+    
+      // Buscar la mejor bobina que acomode el pedido (solo si el ancho es mayor que el pedido)
+      for (let ancho of anchosDeBobinas) {
+        if (ancho > pedido) { // Ahora es estrictamente mayor
+          // Para cada cuchilla, calcular el total de piezas que pueden cortarse
+          for (let cuchilla of cuchillas) {
+            let piezas = Math.floor(ancho / pedido);  // Cuántas piezas caben
+            if (piezas >= cuchilla) { // Solo si el número de piezas es mayor o igual al número de cuchillas
+              let anchoUtilizado = piezas * pedido; // Ancho total utilizado
+              let desperdicio = ancho - anchoUtilizado; // Calcular desperdicio solo en base al ancho utilizado
+    
+              // Elegir la mejor bobina
+              if (piezas >= 1 && desperdicio < desperdicioMinimo) {
+                mejorBobina = ancho;
+                maxPiezas = piezas;
+                desperdicioMinimo = desperdicio;
+              }
             }
-
-            // Variables para las posiciones y desperdicios
-            let resultado = `Estado de la Combinación: Buena<br>`;
-            resultado += `Ancho de trabajo calculado: ${anchoTrabajo} mm<br><br>`;
-
-            // Para 4 piezas iguales
-            let cuchilla4 = anchoTrabajo / 4;
-            let desperdicio4 = (anchoTrabajo % 4 === 0) ? 0 : 1;
-            resultado += `Para 4 piezas iguales: Posición de cuchilla: ${cuchilla4.toFixed(2)} mm<br>`;
-            resultado += `Desperdicio de cuchilla: ${desperdicio4} mm<br><br>`;
-
-            // Para 3 piezas iguales
-            let cuchilla3 = anchoTrabajo / 3;
-            let desperdicio3 = (anchoTrabajo % 3 === 0) ? 0 : 1;
-            resultado += `Para 3 piezas iguales: Posición de cuchilla: ${cuchilla3.toFixed(2)} mm<br>`;
-            resultado += `Desperdicio de cuchilla: ${desperdicio3} mm<br><br>`;
-
-            // Para 2 piezas iguales
-            let cuchilla2 = anchoTrabajo / 2;
-            let desperdicio2 = (anchoTrabajo % 2 === 0) ? 0 : 1;
-            resultado += `Para 2 piezas iguales: Posición de cuchilla: ${cuchilla2.toFixed(2)} mm<br>`;
-            resultado += `Desperdicio de cuchilla: ${desperdicio2} mm<br><br>`;
-
-            // Para 1 pieza (sin cortes)
-            resultado += `Para 1 pieza: Posición de cuchilla: no aplica<br>`;
-            resultado += `Desperdicio de cuchilla: ninguno<br>`;
-
-            // Mostrar el resultado
-            document.getElementById("resultado").innerHTML = resultado;
+          }
         }
-    </script>
-</body>
-</html>
+      }
+    
+      return {
+        anchoBobina: mejorBobina,
+        piezasQueCaben: maxPiezas,
+        totalAnchoUtilizado: maxPiezas * pedido,
+        desperdicio: desperdicioMinimo
+      };
+    }
+    
+    let resultado = calcularMejorBobina(pedido, anchosDeBobinas, cuchillas);
+    
+    // Verificamos si hay una bobina seleccionada
+    if (resultado.anchoBobina) {
+        let restado = resultado.anchoBobina - 40; // Ajuste adicional de -40 mm
+    
+        console.log(`Para un pedido de ${pedido} mm, necesitas una bobina de ${resultado.anchoBobina} mm `);
+        console.log(`Quitado - 40mm: ${restado} mm.`);
+        console.log(`Total de ancho utilizado: ${restado} mm.`);
+        // console.log(`Desperdicio: ${resultado.desperdicio} mm.`);
+    
+        let res = restado;
+    
+        if (res > 0) {
+          let cuatro = restado / 4;
+          let desperdicioreal = restado - (cuatro * 4); 
+          console.log(`Para 4 piezas iguales: Posición de cuchilla: ${cuatro.toFixed(2)} mm`);
+          console.log(`Desperdicio de open: ${desperdicioreal.toFixed(2)} mm`);
+          
+          
+          let tres = restado / 3;
+          let desperdicioreal2 = restado - (tres * 3);
+          console.log(`Para 3 piezas iguales: Posición de cuchilla: ${tres.toFixed(2)} mm`);
+            console.log(`Desperdicio de open: ${desperdicioreal2.toFixed(2)} mm`);
+    
+          let dos = restado / 2;
+          let desperdicioreal3 = restado - (dos * 2);
+          console.log(`Para 2 piezas iguales: Posición de cuchilla: ${dos.toFixed(2)} mm`);
+            console.log(`Desperdicio de open: ${desperdicioreal3.toFixed(2)} mm`);
+
+            let piezasmalas = Math.floor(restado / cuatro);
+            console.log('desperdicio real: ', desperdicioreal);
+            let desperdicioreal4 = restado - (piezasmalas * 4);
+            
+            
+          
+        } else {
+          console.log("Estado de la Combinación: Mala");
+        }
+    } else {
+        console.log("No hay una bobina disponible que cumpla los requisitos.");
+    }
+</Script>

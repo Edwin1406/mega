@@ -1,77 +1,78 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CRUD Combinaciones</title>
-</head>
-<body>
-    <h1>Crear Combinación</h1>
-    <form action="crear_combinacion.php" method="POST">
-        <!-- Selección de Bobinas -->
-        <label for="bobina_interna_id">Bobina Interna:</label>
-        <select name="bobina_interna_id" id="bobina_interna_id">
-            <!-- Aquí debes cargar las opciones desde la base de datos -->
-            <option value="1">Bobina Interna 1</option>
-            <option value="2">Bobina Interna 2</option>
-        </select>
-        <br><br>
 
-        <label for="bobina_media_id">Bobina Media:</label>
-        <select name="bobina_media_id" id="bobina_media_id">
-            <!-- Aquí debes cargar las opciones desde la base de datos -->
-            <option value="1">Bobina Media 1</option>
-            <option value="2">Bobina Media 2</option>
-        </select>
-        <br><br>
 
-        <label for="bobina_externa_id">Bobina Externa:</label>
-        <select name="bobina_externa_id" id="bobina_externa_id">
-            <!-- Aquí debes cargar las opciones desde la base de datos -->
-            <option value="1">Bobina Externa 1</option>
-            <option value="2">Bobina Externa 2</option>
-        </select>
-        <br><br>
 
-        <!-- Selección de la Máquina -->
-        <label for="maquina_id">Máquina:</label>
-        <select name="maquina_id" id="maquina_id">
-            <!-- Aquí debes cargar las opciones desde la base de datos -->
-            <option value="1">Máquina 1</option>
-            <option value="2">Máquina 2</option>
-        </select>
-        <br><br>
+<Script>
+ let anchosDeBobinas = [1840, 1880, 1600, 1500, 1450, 1800, 1400, 1700, 500, 700];
+let cuchillas = [1, 2, 3, 4, 5]; // Cuchillas disponibles
+let pedido = 1840; // Ancho de cada pieza
 
-        <!-- Número de piezas -->
-        <label for="num_piezas">Número de piezas:</label>
-        <input type="number" name="num_piezas" id="num_piezas" required>
-        <br><br>
+function calcularMejorBobina(pedido, anchosDeBobinas, cuchillas) {
+  let mejorBobina = null;
+  let maxPiezas = 0;
+  let desperdicioMinimo = Infinity;
 
-        <!-- Posición de la cuchilla -->
-        <label for="posicion_cuchilla">Posición de cuchilla:</label>
-        <input type="text" name="posicion_cuchilla" id="posicion_cuchilla" required>
-        <br><br>
+  // Ordenar los anchos de bobinas de menor a mayor
+  anchosDeBobinas.sort((a, b) => a - b);
 
-        <!-- Desperdicio -->
-        <label for="desperdicio">Desperdicio (en %):</label>
-        <input type="number" step="0.01" name="desperdicio" id="desperdicio" required>
-        <br><br>
+  // Buscar la mejor bobina que acomode el pedido
+  for (let ancho of anchosDeBobinas) {
 
-        <!-- Gramaje Total -->
-        <label for="gramaje_total">Gramaje Total:</label>
-        <input type="number" step="0.01" name="gramaje_total" id="gramaje_total" required>
-        <br><br>
+    if (ancho > pedido) {
+    // Para cada cuchilla, calcular el total de piezas que pueden cortarse
+    for (let cuchilla of cuchillas) {
+      let piezas = Math.floor(ancho / pedido);
+      if (piezas >= cuchilla) { // Solo si el número de piezas es mayor o igual al número de cuchillas
+        let anchoUtilizado = cuchilla * pedido; // Ancho total utilizado
+        let desperdicio = ancho - anchoUtilizado; // Calcular desperdicio
 
-        <!-- Estado de la combinación -->
-        <label for="estado_combinacion">Estado de la combinación:</label>
-        <select name="estado_combinacion" id="estado_combinacion">
-            <option value="Buena">Buena</option>
-            <option value="Mala">Mala</option>
-        </select>
-        <br><br>
+        // Elegir la mejor bobina
+        if (piezas >= 1 && desperdicio < desperdicioMinimo) {
+          mejorBobina = ancho;
+          maxPiezas = piezas;
+          desperdicioMinimo = desperdicio;
+        }
+      }
+    }
+}
+  }
 
-        <!-- Botón para enviar el formulario -->
-        <input type="submit" value="Crear Combinación">
-    </form>
-</body>
-</html>
+  return {
+    anchoBobina: mejorBobina,
+    piezasQueCaben: maxPiezas,
+    totalAnchoUtilizado: maxPiezas * pedido,
+    desperdicio: desperdicioMinimo
+  };
+}
+
+let resultado = calcularMejorBobina(pedido, anchosDeBobinas, cuchillas);
+let restado = resultado.anchoBobina-40;
+
+
+console.log(`Para un pedido de ${pedido} mm, necesitas una bobina de ${resultado.anchoBobina} mm `);
+console.log(`Quitado - 40mm: ${restado} mm.`);
+console.log(`Total de ancho utilizado: ${restado} mm.`);
+console.log(`Desperdicio: ${resultado.desperdicio} mm.`);
+
+
+let res = restado;
+
+// console.log(res);
+
+if (res > 0) {
+    let cuatro =restado / 4;
+    console.log(`Para 4 piezas iguales: Posición de cuchilla: ${cuatro.toFixed(2)} mm`);
+    console.log(`Desperdicio de cuchilla: ${0} mm`);
+    let tres =restado / 3;
+    console.log(`Para 3 piezas iguales: Posición de cuchilla: ${tres.toFixed(2)} mm`);
+    console.log(`Desperdicio de cuchilla: ${0} mm`);
+
+    let dos =restado / 2;
+    console.log(`Para 2 piezas iguales: Posición de cuchilla: ${dos.toFixed(2)} mm`);
+    console.log(`Desperdicio de cuchilla: ${0} mm`);
+    
+} else {
+  console.log("Estado de la Combinación: Mala");
+}
+
+ 
+</Script>
