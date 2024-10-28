@@ -9,6 +9,7 @@ class ClienteController
     public static function cotizador(Router $router)
     {
         $id= $_GET['id'] ?? null;
+        debuguear($id);
         $router->render('admin/vendedor/cliente/cotizador', [
             'titulo' => 'cotizar Cliente',
             'id' => $id
