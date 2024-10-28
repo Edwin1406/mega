@@ -8,7 +8,7 @@
 
 
 <script>
-    const respuesta = document.querySelector('div');
+    const respuesta = document.querySelector('div .alerta');
     if(respuesta) {
         setTimeout(() => {
             respuesta.remove();
