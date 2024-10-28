@@ -9,7 +9,9 @@ class ClienteController
     public static function cotizador(Router $router)
     {
         $id= $_GET['id'] ?? null;
-        debuguear($id);
+        if($id==1) {
+            Cliente::setAlerta('exito', 'El Cliente se guardo correctamente');
+        }
         $router->render('admin/vendedor/cliente/cotizador', [
             'titulo' => 'cotizar Cliente',
             'id' => $id
