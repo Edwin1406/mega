@@ -17,6 +17,7 @@ class ClienteController
     {
         $alertas = [];
         $cliente = new Cliente;
+        $id = 0;
         if($_SERVER['REQUEST_METHOD'] === 'POST') {
             $cliente ->sincronizar($_POST);
             // debuguear($cliente); 
@@ -32,7 +33,7 @@ class ClienteController
                 } else {
                     $cliente->guardar();
                     Cliente::setAlerta('exito', 'El Cliente se guardo correctamente');
-                    header('Location: /admin/vendedor/cliente/cotizador');
+                    header('Location: /admin/vendedor/cliente/cotizador?',$id);
                 }
 
                 // debuguear($cliente);
@@ -43,8 +44,9 @@ class ClienteController
 
          // Render a la vista
          $router->render('admin/vendedor/cliente/crear', [
-            'titulo' => 'cotizar Cliente',
-            'alertas' => $alertas
+            'titulo' => 'COTIZADOR CLIENTE',
+            'alertas' => $alertas,
+            'id' => $id,
         ]);
     }
 }
