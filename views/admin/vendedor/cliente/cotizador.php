@@ -4,3 +4,16 @@
 <?php include_once __DIR__.'/../../../templates/alertas.php'  ?>
 
 </div>
+
+
+
+<script>
+    const respuesta = document.querySelector('div');
+    if(respuesta) {
+        setTimeout(() => {
+            respuesta.remove();
+        }, 3000);
+    }
+
+
+</script>
