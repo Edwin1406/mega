@@ -1,9 +1,9 @@
 (function() {
 
-    const respuesta = document.querySelector('div .alerta');
+    const alertaCotizador = document.querySelector('div .alerta');
     if(respuesta) {
         setTimeout(() => {
-            respuesta.remove();
+            alertaCotizador.remove();
         }, 3000);
     }
 
