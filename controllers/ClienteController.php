@@ -14,7 +14,7 @@ class ClienteController
         }
         $alertas = Cliente::getAlertas();
         $router->render('admin/vendedor/cliente/cotizador', [
-            'titulo' => 'cotizar Cliente',
+            'titulo' => 'COTIZADOR CLIENTE',
             'id' => $id,
             'alertas' => $alertas,
         ]);
@@ -51,7 +51,7 @@ class ClienteController
 
          // Render a la vista
          $router->render('admin/vendedor/cliente/crear', [
-            'titulo' => 'COTIZADOR CLIENTE',
+            'titulo' => 'CREAR CLIENTE',
             'alertas' => $alertas,
         ]);
     }
