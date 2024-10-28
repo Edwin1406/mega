@@ -45,9 +45,12 @@ class Cliente extends ActiveRecord {
         if(!$this->apellido) {
             self::$alertas['error'][] = 'El Campo Apellido es Obligatorio';
         }
-        if(!$this->ruc) {
+        if(preg_match('/^\d{10}$/',!$this->ruc)) {
             self::$alertas['error'][] = 'El Campo Ruc es Obligatorio';
         }
+        
+
+
         if(!$this->telefono) {
             self::$alertas['error'][] = 'El Campo Telefono es Obligatorio';
         }
