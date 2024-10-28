@@ -1,6 +1,8 @@
 <?php 
 namespace Model;
 
+use Classes\ValidarCedula;
+
 
 class Cliente extends ActiveRecord {
 
@@ -45,10 +47,14 @@ class Cliente extends ActiveRecord {
         if(!$this->apellido) {
             self::$alertas['error'][] = 'El Campo Apellido es Obligatorio';
         }
-        if(preg_match('/^\d{10}$/',!$this->ruc)) {
+        if(!$this->ruc) {
             self::$alertas['error'][] = 'El Campo Ruc es Obligatorio';
         }
-        
+      
+
+        if(!ValidarCedula::validarCedula($this->ruc)) {
+            self::$alertas['error'][] = 'El Campo Ruc no es Valido';
+        }
 
 
         if(!$this->telefono) {
