@@ -1,4 +1,11 @@
 (function() {
 
-//    console.log('alertas.js cargado');
+    const respuesta = document.querySelector('div .alerta');
+    if(respuesta) {
+        setTimeout(() => {
+            respuesta.remove();
+        }, 3000);
+    }
+
+
 })();
