@@ -36,11 +36,8 @@ class ClienteController
 
         }
 
-
-
-
          // Render a la vista
-         $router->render('admin/vendedor/cliente/crear', [
+         $router->render('admin/vendedor/cliente/cotizador', [
             'titulo' => 'Crea un nuevo Cliente',
             'alertas' => $alertas
         ]);
