@@ -22,7 +22,7 @@ class ClienteController
                 $ruc = Cliente::where('ruc', $cliente->ruc);
 
                 if($existeUsuario||$ruc) {
-                    Cliente::setAlerta('error', 'El Usuario ya esta registrado');
+                    Cliente::setAlerta('error', 'El Cliente  o Ruc ya estan registrados');
                     $alertas = Cliente::getAlertas();
                 } else {
                     $cliente->guardar();
