@@ -26,6 +26,7 @@ class ClienteController
                     $alertas = Cliente::getAlertas();
                 } else {
                     $cliente->guardar();
+                    Cliente::setAlerta('exito', 'El Cliente se guardo correctamente');
                     header('Location: /admin/vendedor/cliente/crear');
                 }
 
