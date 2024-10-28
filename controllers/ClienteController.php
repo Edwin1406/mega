@@ -6,7 +6,12 @@ use MVC\Router;
 
 class ClienteController
 {
-    
+    public static function cotizador(Router $router)
+    {
+        $router->render('admin/vendedor/cliente/cotizador', [
+            'titulo' => 'cotizar Cliente'
+        ]);
+    }
 
     public static function crear(Router $router)
     {
