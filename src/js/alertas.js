@@ -1,7 +1,7 @@
 (function() {
 
     const alertaCotizador = document.querySelector('div .alerta');
-    if(respuesta) {
+    if(alertaCotizador) {
         setTimeout(() => {
             alertaCotizador.remove();
         }, 3000);
