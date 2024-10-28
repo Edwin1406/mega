@@ -4,36 +4,27 @@ namespace Classes;
 
 class ValidarCedula
 {
-    public static function validarCedula($cedula)
-    {
-        $cedula = trim($cedula);
-        $tamano = strlen($cedula);
-        if ($tamano == 10) {
-            $coeficientes = array(2, 1, 2, 1, 2, 1, 2, 1, 2);
-            $verificador = $cedula[9];
-            $suma = 0;
-            for ($i = 0; $i < 9; $i++) {
-                $valor = $cedula[$i] * $coeficientes[$i];
-                if ($valor >= 10) {
-                    $valor -= 9;
-                }
-                $suma += $valor;
-            }
-            $suma = $suma % 10;
-            if ($suma == 0) {
-                $digito = 0;
-            } else {
-                $digito = 10 - $suma;
-            }
-            if ($digito == $verificador) {
-                return true;
-            } else {
-                return false;
-            }
-        } else {
+    public static function validarCedula($cedula) {
+        if (strlen($cedula) != 10) {
             return false;
         }
+    
+        $provincia = substr($cedula, 0, 2);
+        if ($provincia < 1 || $provincia > 24) {
+            return false;
+        }
+    
+        $coeficientes = [2, 1, 2, 1, 2, 1, 2, 1, 2];
+        $suma = 0;
+        for ($i = 0; $i < 9; $i++) {
+            $valor = $cedula[$i] * $coeficientes[$i];
+            $suma += ($valor >= 10) ? $valor - 9 : $valor;
+        }
+    
+        $modulo = 10 - ($suma % 10);
+        return ($modulo == 10 ? 0 : $modulo) == $cedula[9];
     }
+    
 
     public static function validarRuc($ruc)
     {
