@@ -51,6 +51,8 @@ class Cliente extends ActiveRecord {
 
         if(!ValidarCedula::validarCedula($this->ruc)) {
             self::$alertas['error'][] = 'El Campo Ruc o cedula no es Valido';
+        }elseif(!ValidarCedula::validarRuc($this->ruc)) {
+            self::$alertas['error'][] = 'El Campo Ruc o cedula es Obligatorio';
         }
 
 
