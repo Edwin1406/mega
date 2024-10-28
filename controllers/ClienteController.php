@@ -17,9 +17,18 @@ class ClienteController
             // debuguear($cliente); 
             $alertas = $cliente->validar();
             if(empty($alertas)) {
-                $cliente->guardar();
+
+                $existeUsuario = Cliente::where('email', $cliente->email);
+
+                if($existeUsuario) {
+                    Cliente::setAlerta('error', 'El Usuario ya esta registrado');
+                    $alertas = Cliente::getAlertas();
+                }else{
+                    $cliente->guardar();
+                    header('Location: /admin/vendedor/cliente/crear');
+                }
+
                 // debuguear($cliente);
-                header('Location: /admin/vendedor/cliente/crear');
 
             }
 
