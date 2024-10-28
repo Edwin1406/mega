@@ -27,7 +27,7 @@ class ClienteController
                 } else {
                     $cliente->guardar();
                     Cliente::setAlerta('exito', 'El Cliente se guardo correctamente');
-                    header('Location: /admin/vendedor/cliente/crear');
+                    header('Location: /admin/vendedor/cliente/cotizador');
                 }
 
                 // debuguear($cliente);
@@ -37,7 +37,7 @@ class ClienteController
         }
 
          // Render a la vista
-         $router->render('admin/vendedor/cliente/cotizador', [
+         $router->render('admin/vendedor/cliente/crear', [
             'titulo' => 'cotizar Cliente',
             'alertas' => $alertas
         ]);
