@@ -42,6 +42,16 @@
             placeholder="telefono del cliente"
             value="<?php echo $cliente->telefono ?? '' ?>">
     </div>
+    <div class="formulario__campo">
+        <label class="formulario__label" for="email">Email</label>
+        <input
+            type="text"
+            name="email"
+            id="email"
+            class="formulario__input"
+            placeholder="email del cliente"
+            value="<?php echo $cliente->email ?? '' ?>">
+    </div>
 
     <div class="formulario__campo">
         <label class="formulario__label" for="direccion">Direcciòn</label>
