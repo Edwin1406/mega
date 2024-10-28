@@ -7,7 +7,7 @@
             name="nombre"
             id="nombre"
             class="formulario__input"
-            placeholder="Nombre del ponente"
+            placeholder="Nombre del cliente"
             value="<?php echo $cliente->nombre ?? '' ?>">
     </div>
     <div class="formulario__campo">
@@ -17,7 +17,7 @@
             name="apellido"
             id="apellido"
             class="formulario__input"
-            placeholder="apellido del ponente"
+            placeholder="apellido del cliente"
             value="<?php echo $cliente->apellido ?? '' ?>">
     </div>
 
@@ -28,7 +28,7 @@
             name="ruc"
             id="ruc"
             class="formulario__input"
-            placeholder="cuchillas de la maquina"
+            placeholder="ingrese cedula o ruc"
             value="<?php echo $cliente->ruc ?? '' ?>">
     </div>
 

@@ -33,6 +33,35 @@ class Cliente extends ActiveRecord {
         $this->fecha_registro = date('Y/m/d');
     }
 
+    function validarCedula($cedula) {
+        // Verificar longitud de 10 dígitos
+        if (strlen($cedula) != 10 || !ctype_digit($cedula)) {
+            return false;
+        }
+    
+        // Verificar código de provincia (primeros dos dígitos)
+        $provincia = intval(substr($cedula, 0, 2));
+        if ($provincia < 1 || $provincia > 24) {
+            return false;
+        }
+    
+        // Cálculo de dígitos verificadores
+        $suma = 0;
+        for ($i = 0; $i < 9; $i++) {
+            $num = intval($cedula[$i]);
+            if ($i % 2 == 0) {
+                $num *= 2;
+                if ($num > 9) $num -= 9;
+            }
+            $suma += $num;
+        }
+    
+        $verificador = 10 - ($suma % 10);
+        $verificador = $verificador == 10 ? 0 : $verificador;
+    
+        return $verificador == intval($cedula[9]);
+    }
+
 
 
     public function validar() {
@@ -43,8 +72,8 @@ class Cliente extends ActiveRecord {
         if(!$this->apellido) {
             self::$alertas['error'][] = 'El Campo Apellido es Obligatorio';
         }
-        if(!$this->ruc) {
-            self::$alertas['error'][] = 'El Campo Ruc es Obligatorio';
+        if (!validarCedula($this->cedula)) {
+            self::$alertas['error'][] = 'La Cédula es inválida';
         }
         if(!$this->telefono) {
             self::$alertas['error'][] = 'El Campo Telefono es Obligatorio';
