@@ -47,7 +47,7 @@ class Cliente extends ActiveRecord {
         if(!$this->apellido) {
             self::$alertas['error'][] = 'El Campo Apellido es Obligatorio';
         }
-        if (!ValidarCedula::validarCedula($this->ruc) && !ValidarCedula::validarRuc(isset($this->ruc ))) {
+        if (!ValidarCedula::validarCedula($this->ruc) && !ValidarCedula::validarRuc($this->ruc)) {
             self::$alertas['error'][] = 'Cédula o RUC no son válidos';
         }
 
