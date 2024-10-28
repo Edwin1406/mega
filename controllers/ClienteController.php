@@ -16,6 +16,13 @@ class ClienteController
             $cliente ->sincronizar($_POST);
             // debuguear($cliente); 
             $alertas = $cliente->validar();
+            if(empty($alertas)) {
+                $cliente->guardar();
+                // debuguear($cliente);
+                header('Location: /admin/vendedor/cliente/crear');
+
+            }
+
         }
 
 
