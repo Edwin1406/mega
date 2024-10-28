@@ -92,6 +92,8 @@ $router->post('/admin/produccion/papel/eliminar', [PapelController::class, 'elim
 $router->get('/admin/vendedor/cliente/crear', [ClienteController::class, 'crear']);
 $router->post('/admin/vendedor/cliente/crear', [ClienteController::class, 'crear']);
 
+$router->get('/admin/vendedor/cliente/cotizador', [ClienteController::class, 'cotizador']);
+
 
 
 
