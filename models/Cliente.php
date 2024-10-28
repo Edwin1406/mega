@@ -73,5 +73,5 @@ class Cliente extends ActiveRecord {
         return self::$alertas;
     }
 
-dasdasdasda
+
 } 
