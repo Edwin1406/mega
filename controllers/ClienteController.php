@@ -21,13 +21,10 @@ class ClienteController
                 $existeUsuario = Cliente::where('email', $cliente->email);
                 $ruc = Cliente::where('ruc', $cliente->ruc);
 
-                if($existeUsuario) {
+                if($existeUsuario||$ruc) {
                     Cliente::setAlerta('error', 'El Usuario ya esta registrado');
                     $alertas = Cliente::getAlertas();
-                }elseif($ruc){
-                    Cliente::setAlerta('error', 'El RUC ya esta registrado');
-                    $alertas = Cliente::getAlertas();
-                }else{
+                } else {
                     $cliente->guardar();
                     header('Location: /admin/vendedor/cliente/crear');
                 }
