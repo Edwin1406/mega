@@ -14,7 +14,7 @@ class ClienteController
         }
         $alertas = Cliente::getAlertas();
         $router->render('admin/vendedor/cliente/cotizador', [
-            'titulo' => 'COTIZADOR CLIENTE',
+            'titulo' => ' CLIENTE',
             'id' => $id,
             'alertas' => $alertas,
         ]);
