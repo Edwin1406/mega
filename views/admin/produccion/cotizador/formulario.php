@@ -5,13 +5,25 @@
     <legend class="formulario__legend">En desarrollo</legend>
 
     <div class="formulario__campo">
-        <label class="formulario__label" for="ancho_pedido_1">Tipo de papel</label>
+        <label class="formulario__label" for="ancho_pedido_1">Ancho pedido 1
+        </label>
         <input
             type="text"
             name="ancho_pedido_1"
             id="ancho_pedido_1"
             class="formulario__input"
             placeholder="ingrese ancho_pedido_1"
+            value="<?php echo $cotizacion->tipo_papel ?? '' ?>">
+    </div>
+    <div class="formulario__campo">
+        <label class="formulario__label" for="ancho_pedido_2">Ancho pedido 1
+        </label>
+        <input
+            type="text"
+            name="ancho_pedido_2"
+            id="ancho_pedido_2"
+            class="formulario__input"
+            placeholder="ingrese ancho pedido 2"
             value="<?php echo $cotizacion->tipo_papel ?? '' ?>">
     </div>
 
