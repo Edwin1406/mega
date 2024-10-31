@@ -31,6 +31,5 @@
             placeholder="ancho del papel"
             value="<?php echo $papel->ancho ?? '' ?>">
     </div>
-
-
 </fieldset>
+

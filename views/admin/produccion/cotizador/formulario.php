@@ -3,6 +3,21 @@
 
 <fieldset class="formulario__fieldset">
     <legend class="formulario__legend">En desarrollo</legend>
+
+    <div class="formulario__campo">
+        <label class="formulario__label" for="ancho_pedido_1">Tipo de papel</label>
+        <input
+            type="text"
+            name="ancho_pedido_1"
+            id="ancho_pedido_1"
+            class="formulario__input"
+            placeholder="ingrese ancho_pedido_1"
+            value="<?php echo $cotizacion->tipo_papel ?? '' ?>">
+    </div>
+
+
+
+
     <div class="formulario__campo">
         <label class="formulario__label" for="bobina_interna_id">Bobina interna</label>
         <input
@@ -48,15 +63,6 @@
             value="<?php echo $papel->maquina_id ?? '' ?>">
             <ul id="listado-maquinas" class="listado-maquinas"></ul>
     </div>
-
-
-
-
-
-
-
-
-
 
     
     <div class="formulario__campo">
