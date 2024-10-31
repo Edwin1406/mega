@@ -12,7 +12,7 @@
             name="ancho_pedido_1"
             id="ancho_pedido_1"
             class="formulario__input"
-            placeholder="ingrese ancho_pedido_1"
+            placeholder="ingrese ancho pedido 1"
             value="<?php echo $cotizacion->tipo_papel ?? '' ?>">
     </div>
     <div class="formulario__campo">
