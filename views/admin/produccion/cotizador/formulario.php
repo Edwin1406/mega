@@ -16,7 +16,7 @@
             value="<?php echo $cotizacion->tipo_papel ?? '' ?>">
     </div>
     <div class="formulario__campo">
-        <label class="formulario__label" for="ancho_pedido_2">Ancho pedido 1
+        <label class="formulario__label" for="ancho_pedido_2">Ancho pedido 2
         </label>
         <input
             type="text"
