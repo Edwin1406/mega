@@ -13,7 +13,7 @@
             id="ancho_pedido_1"
             class="formulario__input"
             placeholder="ingrese ancho pedido 1"
-            value="<?php echo $cotizacion->tipo_papel ?? '' ?>">
+            value="">
     </div>
     <div class="formulario__campo">
         <label class="formulario__label" for="ancho_pedido_2">Ancho pedido 2
@@ -24,12 +24,9 @@
             id="ancho_pedido_2"
             class="formulario__input"
             placeholder="ingrese ancho pedido 2"
-            value="<?php echo $cotizacion->tipo_papel ?? '' ?>">
+            value="">
     </div>
-
-
-
-
+    
     <div class="formulario__campo">
         <label class="formulario__label" for="bobina_interna_id">Bobina interna</label>
         <input
