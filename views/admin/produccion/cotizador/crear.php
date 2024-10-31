@@ -24,23 +24,30 @@
 </div>
 
 
-<?php $curl
-=
-curl_init();
+<?php 
+$curl = curl_init();
+
 curl_setopt_array($curl, array(
-CURLOPT_URL => 'https://webservices.ec/api/ruc/{1716999303001}',
-CURLOPT_RETURNTRANSFER => true,
-CURLOPT_ENCODING => '',
-CURLOPT_MAXREDIRS => 10, 
-CURLOPT_TIMEOUT => 0,
-CURLOPT_FOLLOWLOCATION => true,
-CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-CURLOPT_CUSTOMREQUEST => 'GET',
-CURLOPT_HTTPHEADER => array(
-),
-'Accept: application/json',
-'Authorization: Bearer {E1AojmTPanzGXsvJW4817aByPpluAkWwU7UjDxly}'
+    CURLOPT_URL => 'https://webservices.ec/api/ruc/1716999303001', // Asegúrate de quitar las llaves
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_ENCODING => '',
+    CURLOPT_MAXREDIRS => 10, 
+    CURLOPT_TIMEOUT => 0,
+    CURLOPT_FOLLOWLOCATION => true,
+    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+    CURLOPT_CUSTOMREQUEST => 'GET',
+    CURLOPT_HTTPHEADER => array(
+        'Accept: application/json', // Asegúrate de incluirlo en el array
+        'Authorization: Bearer E1AojmTPanzGXsvJW4817aByPpluAkWwU7UjDxly' // Sin llaves
+    ),
 ));
-$response
-=
-curl_exec($curl);
+
+$response = curl_exec($curl);
+
+if(curl_errno($curl)) {
+    echo 'Error:' . curl_error($curl); // Para ver si hay algún error en la ejecución
+}
+
+curl_close($curl);
+
+echo $response; // Muestra la respuesta
