@@ -28,7 +28,7 @@ class CotizadorController
         }
 
         $reusltado = Cotizar::all();
-        debuguear($reusltado);
+        // debuguear($reusltado);
 
 
 
