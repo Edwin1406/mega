@@ -31,7 +31,7 @@ class CotizadorController
 
         $pedidos = Pedido::all('DESC');
         $bobinas = Bobina::all('DESC');
-        $tests = TestLiner::all('DESC');
+        // $tests = TestLiner::all('DESC');
 
      
 
@@ -40,8 +40,7 @@ class CotizadorController
             'escoger_produccion' => $escoger_produccion,
             'alertas' => $alertas,
             'pedidos' => $pedidos,
-            'bobinas' => $bobinas,
-            'tests' => $tests
+            'bobinas' => $bobinas
         ]);
     }
 }
