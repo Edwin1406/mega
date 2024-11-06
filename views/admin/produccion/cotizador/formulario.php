@@ -36,8 +36,8 @@
             
             <?php foreach($bobinas as $bobina): ?>
                 <?php if ($bobina->tipo_papel === 'BOBINA INTERNA'): // Mostrar solo pendientes ?>
-                <option <?php echo s($bobina===$bobina->id)? 'selected':'' ?> value="<?php echo s($bobina->id); ?>"><?php echo  s($bobina->tipo_papel) ,' gramaje : ', s($bobina->gramaje)?></option>
-                <?php endif; ?>
+                    <option <?php echo s($bobina===$bobina->id)? 'selected':'' ?> value="<?php echo s($bobina->id); ?>"><?php echo  s($bobina->tipo_papel) ,' Ancho:', s($bobina->ancho),' Gramaje : ', s($bobina->gramaje)?></option>
+                    <?php endif; ?>
                 <?php endforeach; ?>
         </select>
     </div>
@@ -54,7 +54,7 @@
             
             <?php foreach($bobinas as $bobina): ?>
                 <?php if ($bobina->tipo_papel === 'BOBINA MEDIA'): // Mostrar solo pendientes ?>
-                <option <?php echo s($bobina===$bobina->id)? 'selected':'' ?> value="<?php echo s($bobina->id); ?>"><?php echo  s($bobina->tipo_papel) ,'Ancho:', s($bobina->ancho),' gramaje : ', s($bobina->gramaje)?></option>
+                <option <?php echo s($bobina===$bobina->id)? 'selected':'' ?> value="<?php echo s($bobina->id); ?>"><?php echo  s($bobina->tipo_papel) ,' Ancho:', s($bobina->ancho),' Gramaje : ', s($bobina->gramaje)?></option>
                 <?php endif; ?>
                 <?php endforeach; ?>
         </select>
@@ -72,8 +72,8 @@
             
             <?php foreach($bobinas as $bobina): ?>
                 <?php if ($bobina->tipo_papel === 'BOBINA EXTERNA'): // Mostrar solo pendientes ?>
-                <option <?php echo s($bobina===$bobina->id)? 'selected':'' ?> value="<?php echo s($bobina->id); ?>"><?php echo  s($bobina->tipo_papel) ,' gramaje : ', s($bobina->gramaje)?></option>
-                <?php endif; ?>
+                    <option <?php echo s($bobina===$bobina->id)? 'selected':'' ?> value="<?php echo s($bobina->id); ?>"><?php echo  s($bobina->tipo_papel) ,' Ancho:', s($bobina->ancho),' Gramaje : ', s($bobina->gramaje)?></option>
+                    <?php endif; ?>
                 <?php endforeach; ?>
         </select>
     </div>
