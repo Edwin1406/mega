@@ -13,7 +13,7 @@
             >
             <option value="" disabled selected>-- Seleccione --</option>
             <?php foreach($pedidos as $pedido): ?>
-                <?php if ($pedido->estado === 'terminado'): // Mostrar solo pendientes ?>
+                <?php if ($pedido->estado === 'TERMINADO'): // Mostrar solo pendientes ?>
                 <option <?php echo s($pedido===$pedido->id)? 'selected':'' ?> value="<?php echo s($pedido->id); ?>"><?php echo s($pedido->ancho) ,' ', s($pedido->estado); ?></option>
                 <?php endif; ?>
                 <?php endforeach; ?>
