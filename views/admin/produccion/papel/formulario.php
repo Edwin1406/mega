@@ -12,7 +12,7 @@
     </div>
 
     <div class="formulario__campo">
-        <label class="formulario__label" for="gramaje">Gramaje-Test</label>
+        <label class="formulario__label" for="gramaje">Gramaje</label>
         <input
             type="text"
             name="gramaje"
