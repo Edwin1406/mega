@@ -32,22 +32,18 @@ class CotizadorController
         foreach($pedidos as $pedido){
             $pedidos_formateados[] = $pedido;
             if($pedido->estado == 'pendiente'){
-                $pedidos_formateados['estado'][]=$pedido;
-            }
-
-            if($pedido->estado == 'en_produccion'){
-                $pedidos_formateados['estado'][]=$pedido;
+                $pedidos_formateados['estado_p'][]=$pedido;
             }
 
             if($pedido->estado == 'terminado'){
-                $pedidos_formateados['estado'][]=$pedido;
+                $pedidos_formateados['estado_t'][]=$pedido;
             }
 
             
             
             
         }
-        debuguear($pedidos_formateados);
+        debuguear($pedidos_formateados['estado_p']);
 
         // debuguear($pedidos);
 
