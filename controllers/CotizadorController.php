@@ -28,6 +28,27 @@ class CotizadorController
         }
 
         $pedidos = Pedido::all('DESC');
+        $pedidos_formateados =[];
+        foreach($pedidos as $pedido){
+            $pedidos_formateados[] = $pedido;
+            if($pedido->estado == 'pendiente'){
+                $pedidos_formateados['estado'][]=$pedido;
+            }
+
+            if($pedido->estado == 'en_produccion'){
+                $pedidos_formateados['estado'][]=$pedido;
+            }
+
+            if($pedido->estado == 'terminado'){
+                $pedidos_formateados['estado'][]=$pedido;
+            }
+
+            
+            
+            
+        }
+        debuguear($pedidos_formateados);
+
         // debuguear($pedidos);
 
 
@@ -36,7 +57,7 @@ class CotizadorController
             'titulo' => 'COTIZADOR',
             'escoger_produccion' => $escoger_produccion,
             'alertas' => $alertas,
-            'pedidos' => $pedidos
+            'pedidos' => $pedido
         ]);
     }
 }
