@@ -9,11 +9,11 @@
         <select
             class="formulario__select"
             id="pedido"
-            name="categoria_id"
+            name="pedido"
             >
             <option value="" disabled selected>-- Seleccione --</option>
-            <?php foreach($categorias as $categoria): ?>
-                <option <?php echo s($pedido->categoria_id===$categoria->id)? 'selected':'' ?> value="<?php echo s($categoria->id); ?>"><?php echo s($categoria->nombre); ?></option>
+            <?php foreach($pedidos as $pedido): ?>
+                <option <?php echo s($pedido===$pedido->id)? 'selected':'' ?> value="" ?></option>
             <?php endforeach; ?>
         </select>
     </div>
