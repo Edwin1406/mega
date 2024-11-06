@@ -28,14 +28,15 @@ class CotizadorController
         }
 
         $pedidos = Pedido::all('DESC');
-        debuguear($pedidos);
+        // debuguear($pedidos);
 
 
 
         $router->render('admin/produccion/cotizador/crear', [
             'titulo' => 'COTIZADOR',
             'escoger_produccion' => $escoger_produccion,
-            'alertas' => $alertas
+            'alertas' => $alertas,
+            'pedidos' => $pedidos
         ]);
     }
 }
