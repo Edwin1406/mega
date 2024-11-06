@@ -3,7 +3,6 @@
 namespace Controllers;
 
 use MVC\Router;
-use Model\Cotizar;
 use models\Pedido;
 use Model\Produccion;
 

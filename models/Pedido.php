@@ -26,7 +26,7 @@ class Pedido  extends ActiveRecord{
         $this->updated_at = date('Y-m-d H:i:s');
     }
 
-    
+
 
 
 
