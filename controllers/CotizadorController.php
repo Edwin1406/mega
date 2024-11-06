@@ -30,10 +30,10 @@ class CotizadorController
             
         }
 
-        // $prueba = Test::all();
+        $prueba = Test::all();
         $pedidos = Pedido::all('DESC');
         $bobinas = Bobina::all();
-        // debuguear($prueba);
+        debuguear($prueba);
 
      
 
