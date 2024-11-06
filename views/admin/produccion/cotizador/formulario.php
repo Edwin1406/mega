@@ -81,7 +81,7 @@
 
     
     <div class="formulario__campo">
-        <label class="formulario__label" for="liner_test"> ESCOJA EL TEST</label>
+        <label class="formulario__label" for="liner_test"> Escoja el Test</label>
         <select
             class="formulario__select"
             id="liner_test"
