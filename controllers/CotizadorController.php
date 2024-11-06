@@ -40,9 +40,9 @@ class CotizadorController
             // }
 
             
-            debuguear($pedidos_formateados);
             
         }
+        debuguear($pedidos_formateados);
         // debuguear($pedidos_formateados['estado_p']);
 
         // debuguear($pedidos);
