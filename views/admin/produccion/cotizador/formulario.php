@@ -26,15 +26,15 @@
 
 
     <div class="formulario__campo">
-        <label class="formulario__label" for="pedido">Bobina interna</label>
+        <label class="formulario__label" for="bobina_interna">Bobina interna</label>
         <select
             class="formulario__select"
-            id="pedido"
-            name="pedido_id"
+            id="bobina_interna"
+            name="bobina_id"
             >
             <option value="" disabled selected>-- Seleccione --</option>
             <?php foreach($bobinas as $bobina): ?>
-                <?php if ($bobina->tipo_papel === 'BOBINA INTERNA'): // Mostrar solo pendientes ?>
+                <?php if ($bobina->tipo_papel === 'INTERNA'): // Mostrar solo pendientes ?>
                 <option <?php echo s($bobina===$bobina->id)? 'selected':'' ?> value="<?php echo s($bobina->id); ?>"><?php echo  s($bobina->tipo_papel) ,' gramaje : ', s($pedido->gramaje) ,' ancho: ', s($pedido->estado); ?></option>
                 <?php endif; ?>
                 <?php endforeach; ?>
