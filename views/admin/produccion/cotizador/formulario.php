@@ -5,7 +5,7 @@
     <legend class="formulario__legend">En desarrollo</legend>
 
     <div class="formulario__campo">
-        <label class="formulario__label" for="pedido">Pedido 1</label>
+        <label class="formulario__label" for="pedido">Pedido</label>
         <select
             class="formulario__select"
             id="pedido"
