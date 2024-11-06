@@ -79,7 +79,23 @@
     </div>
 
 
- 
+    
+    <div class="formulario__campo">
+        <label class="formulario__label" for="liner_test"> ESCOJA EL TEST</label>
+        <select
+            class="formulario__select"
+            id="liner_test"
+            name="liner_test"
+            >
+            <option value="" disabled selected>-- Seleccione --</option>
+            
+            <?php foreach($tests as $test): ?>
+                
+                    <option <?php echo s($test===$test->id)? 'selected':'' ?> value="<?php echo s($test->id); ?>"><?php echo  s($test->ect) ,' test:', s($test->test)?></option>
+                 
+                <?php endforeach; ?>
+        </select>
+    </div>
 
 
     
