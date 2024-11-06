@@ -5,28 +5,20 @@
     <legend class="formulario__legend">En desarrollo</legend>
 
     <div class="formulario__campo">
-        <label class="formulario__label" for="ancho_pedido_1">Ancho pedido 1 
-        </label>
-        <input
-            type="text"
-            name="ancho_pedido_1"
-            id="ancho_pedido_1"
-            class="formulario__input"
-            placeholder="ingrese ancho pedido 1"
-            value="">
+        <label class="formulario__label" for="pedido">Pedido 1</label>
+        <select
+            class="formulario__select"
+            id="pedido"
+            name="pedido_id"
+            >
+            <option value="" disabled selected>-- Seleccione --</option>
+            <?php foreach($pedidos as $pedido): ?>
+                <option <?php echo s($pedido->categoria_id===$categoria->id)? 'selected':'' ?> value="<?php echo s($categoria->id); ?>"><?php echo s($categoria->nombre); ?></option>
+            <?php endforeach; ?>
+        </select>
     </div>
-    <div class="formulario__campo">
-        <label class="formulario__label" for="ancho_pedido_2">Ancho pedido 2
-        </label>
-        <input
-            type="text"
-            name="ancho_pedido_2"
-            id="ancho_pedido_2"
-            class="formulario__input"
-            placeholder="ingrese ancho pedido 2"
-            value="">
-    </div>
-    
+
+
     <div class="formulario__campo">
         <label class="formulario__label" for="bobina_interna_id">Bobina interna</label>
         <input
