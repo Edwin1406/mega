@@ -1,5 +1,5 @@
 <?php 
-namespace models;
+namespace Model;
 
 use Model\ActiveRecord;
 
