@@ -6,6 +6,7 @@ use MVC\Router;
 use Model\Bobina;
 use Model\Pedido;
 use Model\Produccion;
+use Model\TestLiner;
 
 class CotizadorController
 {
@@ -30,6 +31,8 @@ class CotizadorController
 
         $pedidos = Pedido::all('DESC');
         $bobinas = Bobina::all();
+        $test_liner = TestLiner::all();
+
      
 
         $router->render('admin/produccion/cotizador/crear', [
@@ -38,6 +41,7 @@ class CotizadorController
             'alertas' => $alertas,
             'pedidos' => $pedidos,
             'bobinas' => $bobinas,
+            'test_liner' => $test_liner
         ]);
     }
 }
