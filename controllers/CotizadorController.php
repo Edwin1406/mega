@@ -30,7 +30,7 @@ class CotizadorController
         }
 
         $pedidos = Pedido::all('DESC');
-        $bobinas = Bobina::all('DESC');
+        $bobinas = Bobina::all();
         // $tests = TestLiner::all('DESC');
 
      
