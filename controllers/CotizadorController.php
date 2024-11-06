@@ -53,7 +53,7 @@ class CotizadorController
             'titulo' => 'COTIZADOR',
             'escoger_produccion' => $escoger_produccion,
             'alertas' => $alertas,
-            'pedidos' => $pedido
+            'pedidos' => $pedidos
         ]);
     }
 }
