@@ -1,6 +1,3 @@
-
-
-
 <fieldset class="formulario__fieldset">
     <legend class="formulario__legend">En desarrollo</legend>
 
@@ -9,14 +6,19 @@
         <select
             class="formulario__select"
             id="pedido"
-            name="categoria_id"
-            >
+            name="categoria_id">
             <option value="" disabled selected>-- Seleccione --</option>
-            <?php foreach($pedidos as $pedido): ?>
-                <option <?php echo s($pedido===$pedido->id)? 'selected':'' ?> value="<?php echo s($pedido->id); ?>"><?php echo s($pedido->ancho) ,' ', s($pedido->estado); ?></option>
+            <?php foreach ($pedidos as $pedido): ?>
+                <?php if ($pedido->estado === 'PENDIENTE'): // Mostrar solo pendientes 
+                ?>
+                    <option value="<?php echo s($pedido->id); ?>">
+                        <?php echo s($pedido->ancho), ' ', s($pedido->estado); ?>
+                    </option>
+                <?php endif; ?>
             <?php endforeach; ?>
         </select>
     </div>
+
 
 
     <div class="formulario__campo">
@@ -51,7 +53,7 @@
     </div>
 
 
-    
+
 
     <div class="formulario__campo">
         <label class="formulario__label" for="maquina_id">Escoja la maquina </label>
@@ -62,10 +64,10 @@
             class="formulario__input"
             placeholder="maquina_id del papel"
             value="<?php echo $papel->maquina_id ?? '' ?>">
-            <ul id="listado-maquinas" class="listado-maquinas"></ul>
+        <ul id="listado-maquinas" class="listado-maquinas"></ul>
     </div>
 
-    
+
     <div class="formulario__campo">
         <label class="formulario__label" for="num_piezas">Numero de piezas</label>
         <input
@@ -117,4 +119,3 @@
             value="<?php echo $papel->estado_combinacion ?? '' ?>">
     </div>
 </fieldset>
-
