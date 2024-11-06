@@ -2,8 +2,9 @@
 
 namespace Controllers;
 
-use Model\Cotizar;
 use MVC\Router;
+use Model\Cotizar;
+use models\Pedido;
 use Model\Produccion;
 
 class CotizadorController
@@ -27,8 +28,8 @@ class CotizadorController
             
         }
 
-        $reusltado = Cotizar::all();
-        // debuguear($reusltado);
+        $pedidos = Pedido::all('DESC');
+        debuguear($pedidos);
 
 
 
