@@ -13,7 +13,7 @@
             >
             <option value="" disabled selected>-- Seleccione --</option>
             <?php foreach($pedidos as $pedido): ?>
-                <option <?php echo s($pedido===$pedido->id)? 'selected':'' ?> value="<?php echo s($pedido->id); ?>"><?php echo s($pedido->ancho); ?></option>
+                <option <?php echo s($pedido===$pedido->id)? 'selected':'' ?> value="<?php echo s($pedido->id); ?>"><?php echo s($pedido->ancho) ,' ', s($pedido->estado); ?></option>
             <?php endforeach; ?>
         </select>
     </div>
