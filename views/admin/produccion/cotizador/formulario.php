@@ -25,38 +25,24 @@
 
 
 
+    <div class="formulario__campo">
+        <label class="formulario__label" for="pedido">Bobina interna</label>
+        <select
+            class="formulario__select"
+            id="pedido"
+            name="pedido_id"
+            >
+            <option value="" disabled selected>-- Seleccione --</option>
+            <?php foreach($bobinas as $bobina): ?>
+                <?php if ($bobina->tipo_papel === 'BOBINA INTERNA'): // Mostrar solo pendientes ?>
+                <option <?php echo s($bobina===$bobina->id)? 'selected':'' ?> value="<?php echo s($bobina->id); ?>"><?php echo  s($bobina->tipo_papel) ,' gramaje : ', s($pedido->gramaje) ,' ancho: ', s($pedido->estado); ?></option>
+                <?php endif; ?>
+                <?php endforeach; ?>
+        </select>
+    </div>
 
 
-    <div class="formulario__campo">
-        <label class="formulario__label" for="bobina_interna_id">Bobina interna</label>
-        <input
-            type="text"
-            name="bobina_interna_id"
-            id="bobina_interna_id"
-            class="formulario__input"
-            placeholder="Escoja el tipo de papel interno"
-            value="<?php echo $cotizacion->bobina_interna_id ?? '' ?>">
-    </div>
-    <div class="formulario__campo">
-        <label class="formulario__label" for="bobina_media_id">Bobina media </label>
-        <input
-            type="text"
-            name="bobina_media_id"
-            id="bobina_media_id"
-            class="formulario__input"
-            placeholder="Escoja el tipo de papel medio"
-            value="<?php echo $cotizacion->bobina_media_id ?? '' ?>">
-    </div>
-    <div class="formulario__campo">
-        <label class="formulario__label" for="bobina_externa_id">Bobina externa</label>
-        <input
-            type="text"
-            name="bobina_externa_id"
-            id="bobina_externa_id"
-            class="formulario__input"
-            placeholder="Escoja el tipo de papel externo"
-            value="<?php echo $papel->bobina_externa_id ?? '' ?>">
-    </div>
+
 
 
     

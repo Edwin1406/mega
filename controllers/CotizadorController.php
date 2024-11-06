@@ -3,6 +3,7 @@
 namespace Controllers;
 
 use MVC\Router;
+use Model\Bobina;
 use Model\Pedido;
 use Model\Produccion;
 
@@ -28,13 +29,15 @@ class CotizadorController
         }
 
         $pedidos = Pedido::all('DESC');
+        $bobinas = Bobina::all();
      
 
         $router->render('admin/produccion/cotizador/crear', [
             'titulo' => 'COTIZADOR',
             'escoger_produccion' => $escoger_produccion,
             'alertas' => $alertas,
-            'pedidos' => $pedidos
+            'pedidos' => $pedidos,
+            'bobinas' => $bobinas,
         ]);
     }
 }
