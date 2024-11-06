@@ -30,7 +30,7 @@ class CotizadorController
         $pedidos = Pedido::all('DESC');
         $pedidos_formateados =[];
         foreach($pedidos as $pedido){
-            // $pedidos_formateados[] = $pedido;
+            $pedidos_formateados[] = $pedido;
             // if($pedido->estado == 'pendiente'){
             //     $pedidos_formateados['estado_p'][]=$pedido;
             // }
@@ -40,7 +40,7 @@ class CotizadorController
             // }
 
             
-            debuguear($pedido);
+            debuguear($pedidos_formateados);
             
         }
         // debuguear($pedidos_formateados['estado_p']);
