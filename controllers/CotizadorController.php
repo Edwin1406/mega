@@ -31,9 +31,9 @@ class CotizadorController
         $pedidos_formateados =[];
         foreach($pedidos as $pedido){
             $pedidos_formateados[] = $pedido;
-            // if($pedido->estado == 'pendiente'){
-            //     $pedidos_formateados['estado_p'][]=$pedido;
-            // }
+            if($pedido->estado == 'pendiente'){
+                $pedidos_formateados['estado_p'][]=$pedido;
+            }
 
             // if($pedido->estado == 'terminado'){
             //     $pedidos_formateados['estado_t'][]=$pedido;
