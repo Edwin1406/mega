@@ -10,7 +10,6 @@
             placeholder="Tipo de papel"
             value="<?php echo $papel->tipo_papel ?? '' ?>">
     </div>
-
     <div class="formulario__campo">
         <label class="formulario__label" for="gramaje">Gramaje</label>
         <input

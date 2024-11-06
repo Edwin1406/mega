@@ -5,7 +5,7 @@
     <legend class="formulario__legend">En desarrollo</legend>
 
     <div class="formulario__campo">
-        <label class="formulario__label" for="ancho_pedido_1">Ancho pedido 1
+        <label class="formulario__label" for="ancho_pedido_1">Ancho pedido 1 
         </label>
         <input
             type="text"

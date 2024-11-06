@@ -5,8 +5,9 @@
 
 .listado-maquinas{
     @include m.reset-lista;
+    
     @include m.grid(1,1rem);
-    &__ponente{
+    &__maquina{
         color: v.$azul;
         border: 1px solid v.$azul;
         padding: 1rem;
@@ -17,7 +18,7 @@
         }
         &--seleccionado{
 
-            // @extend .listado-maquinas__maquina;
+            @extend .listado-maquinas__maquina;
           
             background-color: v.$azul;
             color: v.$blanco;

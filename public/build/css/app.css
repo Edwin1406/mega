@@ -379,17 +379,17 @@
   gap: 1rem;
   grid-template-columns: repeat(1, 1fr);
 }
-.listado-maquinas__ponente {
+.listado-maquinas__maquina, .listado-maquinas__maquina--seleccionado {
   color: #2563EB;
   border: 1px solid #2563EB;
   padding: 1rem;
   border-radius: 1rem;
   text-align: center;
 }
-.listado-maquinas__ponente:hover {
+.listado-maquinas__maquina:hover, .listado-maquinas__maquina--seleccionado:hover {
   cursor: pointer;
 }
-.listado-maquinas__ponente--seleccionado {
+.listado-maquinas__maquina--seleccionado {
   background-color: #2563EB;
   color: #FFFFFF;
 }
