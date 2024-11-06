@@ -7,7 +7,7 @@
       protected static $tabla = 'test-liner';
       protected static $columnasDB = ['id','ect','test','liner_interno','liner_externo'];
   
-      public $id;
+        public $id;
         public $ect;
         public $test;
         public $liner_interno;
