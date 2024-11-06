@@ -42,22 +42,6 @@
         </select>
     </div>
 
-    <div class="formulario__campo">
-        <label class="formulario__label" for="bobina_exterior">Bobina externa</label>
-        <select
-            class="formulario__select"
-            id="bobina_exterior"
-            name="bobina_id"
-            >
-            <option value="" disabled selected>-- Seleccione --</option>
-            
-            <?php foreach($bobinas as $bobina): ?>
-                <?php if ($bobina->tipo_papel === 'BOBINA EXTERNA'): // Mostrar solo pendientes ?>
-                <option <?php echo s($bobina===$bobina->id)? 'selected':'' ?> value="<?php echo s($bobina->id); ?>"><?php echo  s($bobina->tipo_papel) ,' gramaje : ', s($bobina->gramaje)?></option>
-                <?php endif; ?>
-                <?php endforeach; ?>
-        </select>
-    </div>
 
     <div class="formulario__campo">
         <label class="formulario__label" for="bobina_intermedia">Bobina intermedia</label>
@@ -76,6 +60,25 @@
         </select>
     </div>
     
+
+    <div class="formulario__campo">
+        <label class="formulario__label" for="bobina_exterior">Bobina externa</label>
+        <select
+            class="formulario__select"
+            id="bobina_exterior"
+            name="bobina_id"
+            >
+            <option value="" disabled selected>-- Seleccione --</option>
+            
+            <?php foreach($bobinas as $bobina): ?>
+                <?php if ($bobina->tipo_papel === 'BOBINA EXTERNA'): // Mostrar solo pendientes ?>
+                <option <?php echo s($bobina===$bobina->id)? 'selected':'' ?> value="<?php echo s($bobina->id); ?>"><?php echo  s($bobina->tipo_papel) ,' gramaje : ', s($bobina->gramaje)?></option>
+                <?php endif; ?>
+                <?php endforeach; ?>
+        </select>
+    </div>
+
+ 
 
 
 
