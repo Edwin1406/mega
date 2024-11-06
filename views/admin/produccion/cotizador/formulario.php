@@ -33,11 +33,9 @@
             name="bobina_id"
             >
             <option value="" disabled selected>-- Seleccione --</option>
-            <?php $area = trim($bobina->tipo_papel); ?>
-            <?php debuguear($area) ?>
-
+            <?php $tipo_pape = trim($bobina->tipo_papel); ?>
             <?php foreach($bobinas as $bobina): ?>
-                <?php if ($bobina->tipo_papel === 'INTERNA'): // Mostrar solo pendientes ?>
+                <?php if ($bobina->tipo_pape === 'INTERNA'): // Mostrar solo pendientes ?>
                 <option <?php echo s($bobina===$bobina->id)? 'selected':'' ?> value="<?php echo s($bobina->id); ?>"><?php echo  s($bobina->tipo_papel) ,' gramaje : ', s($bobina->gramaje)?></option>
                 <?php endif; ?>
                 <?php endforeach; ?>
