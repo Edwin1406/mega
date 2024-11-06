@@ -44,7 +44,7 @@
 
 
     <div class="formulario__campo">
-        <label class="formulario__label" for="bobina_intermedia">Bobina intermedia</label>
+        <label class="formulario__label" for="bobina_intermedia">Bobina media</label>
         <select
             class="formulario__select"
             id="bobina_intermedia"
@@ -53,7 +53,7 @@
             <option value="" disabled selected>-- Seleccione --</option>
             
             <?php foreach($bobinas as $bobina): ?>
-                <?php if ($bobina->tipo_papel === 'BOBINA INTERMEDIA'): // Mostrar solo pendientes ?>
+                <?php if ($bobina->tipo_papel === 'BOBINA MEDIA'): // Mostrar solo pendientes ?>
                 <option <?php echo s($bobina===$bobina->id)? 'selected':'' ?> value="<?php echo s($bobina->id); ?>"><?php echo  s($bobina->tipo_papel) ,' gramaje : ', s($bobina->gramaje)?></option>
                 <?php endif; ?>
                 <?php endforeach; ?>
