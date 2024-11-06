@@ -91,7 +91,7 @@
             
             <?php foreach($tests as $test): ?>
                 
-                    <option <?php echo s($test===$test->id)? 'selected':'' ?> value="<?php echo s($test->id); ?>"><?php echo  s($test->ect) ,' test:', s($test->test)?></option>
+                    <option <?php echo s($test===$test->id)? 'selected':'' ?> value="<?php echo s($test->id); ?>"><?php echo  'Ect: ',s($test->ect) ,' Test: ', s($test->test)?></option>
                  
                 <?php endforeach; ?>
         </select>
