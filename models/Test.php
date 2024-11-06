@@ -2,7 +2,7 @@
 
   namespace Model;
   
-  class TestLiner extends ActiveRecord {
+  class Test extends ActiveRecord {
   
       protected static $tabla = 'test-liner';
       protected static $columnasDB = ['id','ect','test','liner_interno','liner_externo'];

@@ -2,11 +2,12 @@
 
 namespace Controllers;
 
+
 use MVC\Router;
 use Model\Bobina;
 use Model\Pedido;
 use Model\Produccion;
-use Model\TestLiner;
+use Model\Test;
 
 class CotizadorController
 {
@@ -31,7 +32,7 @@ class CotizadorController
 
         $pedidos = Pedido::all('DESC');
         $bobinas = Bobina::all();
-        $prueba = TestLiner::all();
+        $prueba = Test::all();
         debuguear($prueba);
 
      
