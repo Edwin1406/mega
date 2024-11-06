@@ -28,26 +28,7 @@ class CotizadorController
         }
 
         $pedidos = Pedido::all('DESC');
-        $pedidos_formateados =[];
-        foreach($pedidos as $pedido){
-            $pedidos_formateados[] = $pedido;
-            if($pedido->estado == 'pendiente'){
-                $pedidos_formateados['estado_p'][]=$pedido;
-            }
-
-            // if($pedido->estado == 'terminado'){
-            //     $pedidos_formateados['estado_t'][]=$pedido;
-            // }
-
-            
-            
-        }
-        // debuguear($pedidos_formateados);
-        // debuguear($pedidos_formateados['estado_p']);
-
-        // debuguear($pedidos);
-
-
+     
 
         $router->render('admin/produccion/cotizador/crear', [
             'titulo' => 'COTIZADOR',
