@@ -45,8 +45,10 @@
     let pruebas = [];
     function mostrarApibobinas(apibobinas){
 
-        pruebas = [...apibobinas];
-       console.log(pruebas)
+        apibobinas.forEach(bobinas => {
+            console.log(bobinas.id)
+        });
+    
     }
 
 
