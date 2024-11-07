@@ -17,8 +17,8 @@
         try {
             const url = `${location.origin}/admin/api/test`;
             const resultado = await fetch(url);
-            const servicios = await resultado.json();
-            console.log(servicios);
+            const apitest = await resultado.json();
+            console.log(apitest);
             // mostrarServicios(servicios);
            
         } catch (e) {
@@ -31,15 +31,24 @@
         try {
             const url = `${location.origin}/admin/api/apibobinas`;
             const resultado = await fetch(url);
-            const servicios = await resultado.json();
-            console.log(servicios);
-            // mostrarServicios(servicios);
+            const apibobinas = await resultado.json();
+            console.log(apibobinas);
+            mostrarApibobinas(apibobinas);
            
         } catch (e) {
           console.log(e);
             
         }
     
+    }
+
+
+    mostrarApibobinas = (apibobinas) => {
+
+        const { bobinaInterna, bobinaIntermedia, bobinaExterna } = apibobinas;
+        console.log(bobinaInterna);
+        console.log(bobinaIntermedia);
+        console.log(bobinaExterna);
     }
 
 
