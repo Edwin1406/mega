@@ -24,7 +24,7 @@
                         ' Test: ', s($test->test),
                         ' Peso: ', s($test->peso),
                         ' Liner Ext: ', s($test->liner_externo),
-                        ' Liner Med: ', s($test->flauta),
+                        ' Liner Med: ', s($test->liner_medio),
                         ' Liner Int: ', s($test->liner_interno)
                         ?>
 
