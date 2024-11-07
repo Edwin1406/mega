@@ -118,7 +118,7 @@
 
     }else{
         test[e.target.name] = e.target.value.trim()
-        console.log(test)
+        // console.log(test)
         // ApiBobinas();
         ApiTest();
     }
