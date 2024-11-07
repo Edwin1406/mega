@@ -83,7 +83,7 @@
     
     }
     async function ApiBobina_media(){
-        const {bobinaExterna_id} = test;
+        const {bobinaIntermedia_id} = test;
         try {
             const url = `${location.origin}/admin/api/apibobina_media?bobinaIntermedia_id=${bobinaIntermedia_id}`;
             const resultado = await fetch(url);
