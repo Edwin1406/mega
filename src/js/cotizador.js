@@ -46,7 +46,8 @@
     function mostrarApibobinas(apibobinas){
 
         apibobinas.forEach(bobinas => {
-            console.log(bobinas.id)
+            const {id,tipo_papel} = bobinas;
+            console.log(id,tipo_papel);
         });
     
     }
