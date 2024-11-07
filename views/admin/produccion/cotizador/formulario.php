@@ -19,9 +19,10 @@
             <?php foreach($tests as $test): ?>
               
                     <option <?php echo s($test===$test->id)? 'selected':'' ?> value="<?php echo s($test->id); ?>"><?php echo  'Ect: ',s($test->ect) ,' Test: ', s($test->test),' Peso: ', s($test->peso)?></option>
-                 
+                 <?php echo s($test->id); ?>
                 <?php endforeach; ?>
         </select>
+        <input type="hiiden" name="test_id" >
     </div>
 
 
