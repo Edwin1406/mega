@@ -47,7 +47,7 @@
 
         apibobinas.forEach(bobinas => {
             const {id} = bobinas;
-            if (test.liner_id === id) {
+            if (test.liner_id === 3) {
                 console.log('liner')
             }
             console.log(id)
