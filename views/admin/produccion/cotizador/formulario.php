@@ -72,7 +72,7 @@
 
             const pedidos = document.querySelectorAll('#pedido')
 
-        if(pedidos){
+        if(pedidos && pedidos.length > 0){
 
         
 
