@@ -41,35 +41,6 @@
 
 
 
-    <script>
-        (function(){
-            let test ={
-            liner_id : '',
-            pedido_id : ''
-           
-            }
-
-        const  liner = document.querySelector('[name="liner_id"]')
-        const pedido = document.querySelector('[name="pedido_id"]')
-        // const bobinaInterna = document.querySelector('[name="bobinaInterna_id"]')
-        // const bobinaIntermedia = document.querySelector('[name="bobinaIntermedia_id"]')
-        // const bobinaExterna = document.querySelector('[name="bobinaExterna_id"]')
-
-        liner.addEventListener('change', busqueda)
-        pedido.addEventListener('change', busqueda)
-        // bobinaInterna.addEventListener('change', busqueda)
-        // bobinaIntermedia.addEventListener('change', busqueda)
-        // bobinaExterna.addEventListener('change', busqueda)
-
-      function busqueda (e){
-        test[e.target.name] = e.target.value.trim()
-        console.log(test)
-      }
-
-
-        })();
-    
-        </script>
 
 
 
@@ -88,6 +59,48 @@
                 <?php endforeach; ?>
         </select>
     </div>
+
+    
+
+    <script>
+        (function(){
+            let test ={
+            liner_id : '',
+            pedido_id : ''
+           
+            }
+
+            const pedidos = document.querySelectorAll('#pedido, #bobina_interna, #bobina_intermedia, #bobina_exterior')
+
+        if(pedidos){
+
+        
+
+        const  liner = document.querySelector('[name="liner_id"]')
+        const pedido = document.querySelector('[name="pedido_id"]')
+        // const bobinaInterna = document.querySelector('[name="bobinaInterna_id"]')
+        // const bobinaIntermedia = document.querySelector('[name="bobinaIntermedia_id"]')
+        // const bobinaExterna = document.querySelector('[name="bobinaExterna_id"]')
+
+        liner.addEventListener('change', busqueda)
+        pedido.addEventListener('change', busqueda)
+        // bobinaInterna.addEventListener('change', busqueda)
+        // bobinaIntermedia.addEventListener('change', busqueda)
+        // bobinaExterna.addEventListener('change', busqueda)
+
+      function busqueda (e){
+        test[e.target.name] = e.target.value.trim()
+        console.log(test)
+      }
+    }
+
+        })();
+    
+        </script>
+
+
+
+
 
 
     <div class="formulario__campo">
