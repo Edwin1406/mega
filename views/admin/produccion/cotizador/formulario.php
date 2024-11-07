@@ -1,6 +1,3 @@
-
-
-
 <fieldset class="formulario__fieldset">
     <legend class="formulario__legend">En desarrollo</legend>
 
@@ -9,19 +6,22 @@
         <select
             class="formulario__select"
             id="pedido"
-            name="pedido_id"
-            >
+            name="pedido_id">
             <option value="" disabled selected>-- Seleccione --</option>
-            <?php foreach($pedidos as $pedido): ?>
-                <?php if ($pedido->estado === 'PENDIENTE'): // Mostrar solo pendientes ?>
-                <option <?php echo s($pedido===$pedido->id)? 'selected':'' ?> value="<?php echo s($pedido->id); ?>"><?php echo s($pedido->cliente),' Largo : ', s($pedido->largo) ,' x',' Ancho : ', s($pedido->ancho) ,' ', s($pedido->estado); ?></option>
+            <?php foreach ($pedidos as $pedido): ?>
+                <?php if ($pedido->estado === 'PENDIENTE'): // Mostrar solo pendientes 
+                ?>
+                    <option <?php echo ($pedido->id === $pedidoSeleccionado->id) ? 'selected' : ''; ?> value="<?php echo s($pedido->id); ?>">
+                        <?php echo s($pedido->cliente) . ' Largo : ' . s($pedido->largo) . ' x Ancho : ' . s($pedido->ancho) . ' ' . s($pedido->estado); ?>
+                    </option>
+
                 <?php endif; ?>
-                <?php endforeach; ?>
+            <?php endforeach; ?>
         </select>
     </div>
 
 
-  
+
 
 
 
@@ -30,15 +30,15 @@
         <select
             class="formulario__select"
             id="bobina_interna"
-            name="bobina_id"
-            >
+            name="bobina_id">
             <option value="" disabled selected>-- Seleccione --</option>
-            
-            <?php foreach($bobinas as $bobina): ?>
-                <?php if ($bobina->tipo_papel === 'BOBINA INTERNA'): // Mostrar solo pendientes ?>
-                    <option <?php echo s($bobina===$bobina->id)? 'selected':'' ?> value="<?php echo s($bobina->id); ?>"><?php echo  s($bobina->tipo_papel) ,' Ancho:', s($bobina->ancho),' Gramaje : ', s($bobina->gramaje)?></option>
-                    <?php endif; ?>
-                <?php endforeach; ?>
+
+            <?php foreach ($bobinas as $bobina): ?>
+                <?php if ($bobina->tipo_papel === 'BOBINA INTERNA'): // Mostrar solo pendientes 
+                ?>
+                    <option <?php echo s($bobina === $bobina->id) ? 'selected' : '' ?> value="<?php echo s($bobina->id); ?>"><?php echo  s($bobina->tipo_papel), ' Ancho:', s($bobina->ancho), ' Gramaje : ', s($bobina->gramaje) ?></option>
+                <?php endif; ?>
+            <?php endforeach; ?>
         </select>
     </div>
 
@@ -48,57 +48,56 @@
         <select
             class="formulario__select"
             id="bobina_intermedia"
-            name="bobina_id"
-            >
+            name="bobina_id">
             <option value="" disabled selected>-- Seleccione --</option>
-            
-            <?php foreach($bobinas as $bobina): ?>
-                <?php if ($bobina->tipo_papel === 'BOBINA MEDIA'): // Mostrar solo pendientes ?>
-                <option <?php echo s($bobina===$bobina->id)? 'selected':'' ?> value="<?php echo s($bobina->id); ?>"><?php echo  s($bobina->tipo_papel) ,' Ancho:', s($bobina->ancho),' Gramaje : ', s($bobina->gramaje)?></option>
+
+            <?php foreach ($bobinas as $bobina): ?>
+                <?php if ($bobina->tipo_papel === 'BOBINA MEDIA'): // Mostrar solo pendientes 
+                ?>
+                    <option <?php echo s($bobina === $bobina->id) ? 'selected' : '' ?> value="<?php echo s($bobina->id); ?>"><?php echo  s($bobina->tipo_papel), ' Ancho:', s($bobina->ancho), ' Gramaje : ', s($bobina->gramaje) ?></option>
                 <?php endif; ?>
-                <?php endforeach; ?>
+            <?php endforeach; ?>
         </select>
     </div>
-    
+
 
     <div class="formulario__campo">
         <label class="formulario__label" for="bobina_exterior">Bobina externa</label>
         <select
             class="formulario__select"
             id="bobina_exterior"
-            name="bobina_id"
-            >
+            name="bobina_id">
             <option value="" disabled selected>-- Seleccione --</option>
-            
-            <?php foreach($bobinas as $bobina): ?>
-                <?php if ($bobina->tipo_papel === 'BOBINA EXTERNA'): // Mostrar solo pendientes ?>
-                    <option <?php echo s($bobina===$bobina->id)? 'selected':'' ?> value="<?php echo s($bobina->id); ?>"><?php echo  s($bobina->tipo_papel) ,' Ancho:', s($bobina->ancho),' Gramaje : ', s($bobina->gramaje)?></option>
-                    <?php endif; ?>
-                <?php endforeach; ?>
+
+            <?php foreach ($bobinas as $bobina): ?>
+                <?php if ($bobina->tipo_papel === 'BOBINA EXTERNA'): // Mostrar solo pendientes 
+                ?>
+                    <option <?php echo s($bobina === $bobina->id) ? 'selected' : '' ?> value="<?php echo s($bobina->id); ?>"><?php echo  s($bobina->tipo_papel), ' Ancho:', s($bobina->ancho), ' Gramaje : ', s($bobina->gramaje) ?></option>
+                <?php endif; ?>
+            <?php endforeach; ?>
         </select>
     </div>
 
 
-    
+
     <div class="formulario__campo">
         <label class="formulario__label" for="liner_test"> Escoja el Test</label>
         <select
             class="formulario__select"
             id="liner_test"
-            name="liner_test"
-            >
+            name="liner_test">
             <option value="" disabled selected>-- Seleccione --</option>
-            
-            <?php foreach($tests as $test): ?>
-              
-                    <option <?php echo s($test===$test->id)? 'selected':'' ?> value="<?php echo s($test->id); ?>"><?php echo  'Ect: ',s($test->ect) ,' Test: ', s($test->test),' Peso: ', s($test->peso)?></option>
-                 
-                <?php endforeach; ?>
+
+            <?php foreach ($tests as $test): ?>
+
+                <option <?php echo s($test === $test->id) ? 'selected' : '' ?> value="<?php echo s($test->id); ?>"><?php echo  'Ect: ', s($test->ect), ' Test: ', s($test->test), ' Peso: ', s($test->peso) ?></option>
+
+            <?php endforeach; ?>
         </select>
     </div>
 
 
-    
+
     <div class="formulario__campo">
         <label class="formulario__label" for="num_piezas">Numero de piezas</label>
         <input
@@ -152,6 +151,5 @@
 </fieldset>
 
 <script>
-
     console.log('hola');
 </script>
