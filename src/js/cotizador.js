@@ -8,7 +8,7 @@
     
     
     function inciarApp() { 
-        // ApiTest()
+        ApiTest()
       
     }
     // obtener datos del api de test
@@ -18,8 +18,8 @@
             const url = `${location.origin}/admin/api/test`;
             const resultado = await fetch(url);
             const apitest = await resultado.json();
-            mostrarApiTest(apitest);
-           
+            // mostrarApiTest(apitest);
+           console.log(apitest)
         } catch (e) {
           console.log(e);
             
@@ -28,48 +28,48 @@
     }
 
     
-    function mostrarApiTest(apitest){
+    // function mostrarApiTest(apitest){
 
-        apitest.forEach(test => {
-            const {id} = test;
-            console.log(`id test: ${id}`);
+    //     apitest.forEach(test => {
+    //         const {id} = test;
+    //         console.log(`id test: ${id}`);
            
           
-        });
+    //     });
     
-    }
+    // }
 
 
 
 
 
 
-    async function ApiBobinas(){
-        try {
-            const url = `${location.origin}/admin/api/apibobinas`;
-            const resultado = await fetch(url);
-            const apibobinas = await resultado.json();
-            console.log(apibobinas);
-            mostrarApibobinas(apibobinas);
+    // async function ApiBobinas(){
+    //     try {
+    //         const url = `${location.origin}/admin/api/apibobinas`;
+    //         const resultado = await fetch(url);
+    //         const apibobinas = await resultado.json();
+    //         console.log(apibobinas);
+    //         mostrarApibobinas(apibobinas);
            
-        } catch (e) {
-          console.log(e);
+    //     } catch (e) {
+    //       console.log(e);
             
-        }
+    //     }
     
-    }
+    // }
 
  
-    function mostrarApibobinas(apibobinas){
+    // function mostrarApibobinas(apibobinas){
 
-        apibobinas.forEach(bobinas => {
-            const {id} = bobinas;
-            console.log(`id bobinas: ${id}`);
+    //     apibobinas.forEach(bobinas => {
+    //         const {id} = bobinas;
+    //         console.log(`id bobinas: ${id}`);
            
           
-        });
+    //     });
     
-    }
+    // }
 
 
 
@@ -118,8 +118,8 @@
     }else{
         test[e.target.name] = e.target.value.trim()
         console.log(test)
-        ApiBobinas();
-        ApiTest();
+        // ApiBobinas();
+        // ApiTest();
     }
 
 }

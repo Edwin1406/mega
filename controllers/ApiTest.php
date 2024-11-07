@@ -9,22 +9,22 @@ class ApiTest {
 
     public static function api()
     {
-        // $liner_id= $_GET['liner_id'] ?? '';
-        // $liner_id =filter_var($liner_id, FILTER_VALIDATE_INT);
+        $liner_id= $_GET['liner_id'] ?? '';
+        $liner_id =filter_var($liner_id, FILTER_VALIDATE_INT);
 
-        // $bobinaExterna_id= $_GET['bobinaExterna_id'] ?? '';
-        // $bobinaExterna_id =filter_var($bobinaExterna_id, FILTER_VALIDATE_INT);
+        $bobinaExterna_id= $_GET['bobinaExterna_id'] ?? '';
+        $bobinaExterna_id =filter_var($bobinaExterna_id, FILTER_VALIDATE_INT);
 
 
-        // if(!$liner_id){
-        //     echo json_encode([]);
-        //     return;
+        if(!$liner_id){
+            echo json_encode([]);
+            return;
             
-        // }
+        }
 
-        $bobinas  = Bobina::all();
+        $test  = Test::find('id',$liner_id);
 
-        echo json_encode($bobinas);
+        echo json_encode($test);
 
     }
 
