@@ -27,44 +27,42 @@ class ApiTest {
 
     }
 
+
     public static function apibobinas()
-{
-    $bobinaInterna_id = $_GET['bobinaInterna_id'] ?? '';
-    $bobinaInterna_id = filter_var($bobinaInterna_id, FILTER_VALIDATE_INT);
+    {
 
-    $bobinaExterna_id = $_GET['bobinaExterna_id'] ?? '';
-    $bobinaExterna_id = filter_var($bobinaExterna_id, FILTER_VALIDATE_INT);
 
-    // Si no hay al menos un ID válido, retorna un arreglo vacío
-    if (!$bobinaInterna_id && !$bobinaExterna_id) {
-        echo json_encode([]);
-        return;
-    }
-
-    $ids = [
-        $bobinaInterna_id,
-        $bobinaExterna_id
-    ];
-
-    $resultados = [];
-
-    foreach ($ids as $id) {
-        // Solo realiza la consulta si el ID es válido
-        if ($id) {
-            $bobina = Bobina::where('id', $id);
-            if ($bobina) {
-                $resultados[] = $bobina;
-            }
+        $bobinaInterna_id= $_GET['bobinaInterna_id'] ?? '';
+        $bobinaInterna_id =filter_var($bobinaInterna_id, FILTER_VALIDATE_INT);
+    
+        if(!$bobinaInterna_id){
+            echo json_encode([]);
+            return;
+            
         }
+
+        $bobina  = Bobina::where('id',$bobinaInterna_id);
+
+        echo json_encode($bobina);
     }
 
-    echo json_encode($resultados);
-}
+    public static function apibobina_externa()
+    {
 
 
+        $bobinaExterna_id= $_GET['bobinaExterna_id'] ?? '';
+        $bobinaExterna_id =filter_var($bobinaExterna_id, FILTER_VALIDATE_INT);
+    
+        if(!$bobinaExterna_id){
+            echo json_encode([]);
+            return;
+            
+        }
 
-  
+        $bobina  = Bobina::where('id',$bobinaExterna_id);
 
+        echo json_encode($bobina);
+    }
 
 
 

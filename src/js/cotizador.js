@@ -70,7 +70,7 @@
     async function ApiBobinas(){
         const {bobinaExterna_id} = test;
         try {
-            const url = `${location.origin}/admin/api/apibobinas?bobinaExterna_id=${bobinaExterna_id}`;
+            const url = `${location.origin}/admin/api/apibobina_externa?bobinaExterna_id=${bobinaExterna_id}`;
             const resultado = await fetch(url);
             const apibobinas = await resultado.json();
             console.log(apibobinas);
