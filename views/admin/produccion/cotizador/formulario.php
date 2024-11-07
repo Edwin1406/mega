@@ -155,19 +155,6 @@
 
 
 
-    <div class="formulario__campo">
-        <label class="formulario__label" for="maquinas">Ponente</label>
-        <input
-            type="text"
-            id="maquinas"
-            class="formulario__input"
-            placeholder="Buscar ponente"
-        >
-        <ul id="listado-maquinas" class="listado-maquinas"></ul>
-        <input type="hiden" name="maquina_id" value="<?php echo $maquina->id;?>">
-    </div>
-
-
 
 
 
