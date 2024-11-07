@@ -155,6 +155,6 @@
     const pedido = document.querySelector('#pedido');
     pedido.onclick = (e) => {
         e.preventDefault();
-        console.log('hola');
+        console.log(e.target.value);
     }
 </script>
