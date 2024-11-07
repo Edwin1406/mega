@@ -243,7 +243,7 @@
       function busqueda (e){
 
         // los pedidos no pueden ser iguales
-        if(pedido.value === pedido2.value){
+        if(pedido.value= '' === pedido2.value){
           alert('Los pedidos no pueden ser iguales')
        
         }else{
