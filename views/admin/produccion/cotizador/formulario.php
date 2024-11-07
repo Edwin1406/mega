@@ -153,7 +153,8 @@
 
 <script>
     const pedido = document.querySelector('#pedido');
-    pedido.onclick = () => {
+    pedido.onclick = (e) => {
+        e.preventDefault();
         console.log('hola');
     }
 </script>
