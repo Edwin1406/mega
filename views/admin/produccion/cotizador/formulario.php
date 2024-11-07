@@ -245,7 +245,7 @@
         // los pedidos no pueden ser iguales
         if(pedido.value === pedido2.value){
             pedido2.value = ''
-            Swal.fire("SweetAlert2 is working!");
+            Swal.fire("Pedido ya seleccionado", "No puede seleccionar el mismo pedido", "error");
        
         }else{
         test[e.target.name] = e.target.value.trim()
