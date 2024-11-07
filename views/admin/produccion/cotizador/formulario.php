@@ -4,6 +4,29 @@
 <fieldset class="formulario__fieldset">
     <legend class="formulario__legend">En desarrollo</legend>
 
+
+
+ 
+    <div class="formulario__campo">
+        <label class="formulario__label" for="liner_test"> Escoja el Test</label>
+        <select
+            class="formulario__select"
+            id="liner_test"
+            name="liner_test"
+            >
+            <option value="" disabled selected>-- Seleccione --</option>
+            
+            <?php foreach($tests as $test): ?>
+              
+                    <option <?php echo s($test===$test->id)? 'selected':'' ?> value="<?php echo s($test->id); ?>"><?php echo  'Ect: ',s($test->ect) ,' Test: ', s($test->test),' Peso: ', s($test->peso)?></option>
+                 
+                <?php endforeach; ?>
+        </select>
+    </div>
+
+
+
+
     <div class="formulario__campo">
         <label class="formulario__label" for="pedido">Pedido</label>
         <select
@@ -79,24 +102,7 @@
     </div>
 
 
-    
-    <div class="formulario__campo">
-        <label class="formulario__label" for="liner_test"> Escoja el Test</label>
-        <select
-            class="formulario__select"
-            id="liner_test"
-            name="liner_test"
-            >
-            <option value="" disabled selected>-- Seleccione --</option>
-            
-            <?php foreach($tests as $test): ?>
-              
-                    <option <?php echo s($test===$test->id)? 'selected':'' ?> value="<?php echo s($test->id); ?>"><?php echo  'Ect: ',s($test->ect) ,' Test: ', s($test->test),' Peso: ', s($test->peso)?></option>
-                 
-                <?php endforeach; ?>
-        </select>
-    </div>
-
+   
 
     
     <div class="formulario__campo">
