@@ -70,11 +70,12 @@
         console.log(test);
 
         // Llamar a ApiBobinas siempre
-        ApiBobinas();
+     
 
         // Llamar a ApiTest solo si `liner_id` tiene un valor
-        if (test.liner_id) {
+        if (test.liner_id||test.bobinaInterna_id) {
             ApiTest();
+            ApiBobinas();
         }
     }
 })();
