@@ -55,7 +55,7 @@ $router->get('/admin/area/escoger', [AreaController::class, 'escoger']);
 // API 
 $router->get('/admin/api/maquinas', [ApiMaquinas::class, 'api']);
 $router->get('/admin/api/test', [ApiTest::class, 'api']);
-$router->get('/admin/api/bobinainterna', [ApiTest::class, 'apibobinainterna']);
+$router->get('/admin/api/apibobinas', [ApiTest::class, 'apibobinas']);
 
 
 

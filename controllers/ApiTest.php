@@ -14,7 +14,7 @@ class ApiTest {
     }
 
 
-    public static function apibobinainterna()
+    public static function apibobinas()
     {
         $bobina_interna = Bobina::all();
         echo json_encode($bobina_interna);

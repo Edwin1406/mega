@@ -9,12 +9,27 @@
     
     function inciarApp() { 
         ApiTest()
+        ApiBobinas();
     }
     // obtener datos del api de test
 
     async function ApiTest(){
         try {
             const url = `${location.origin}/admin/api/test`;
+            const resultado = await fetch(url);
+            const servicios = await resultado.json();
+            console.log(servicios);
+            // mostrarServicios(servicios);
+           
+        } catch (e) {
+          console.log(e);
+            
+        }
+    
+    }
+    async function ApiBobinas(){
+        try {
+            const url = `${location.origin}/admin/api/apibobinas`;
             const resultado = await fetch(url);
             const servicios = await resultado.json();
             console.log(servicios);
