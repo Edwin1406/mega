@@ -18,7 +18,14 @@
 
  
 
-
+    function datosTest (resultado){
+        const {id} = resultado;
+        console.log(id)
+        //  test[e.target.name] = e.target.value.trim()
+        //  console.log(test)
+     }
+ 
+ 
 
 
 
@@ -67,14 +74,7 @@
 
     }
 
-    function datosTest (resultado){
-       const {id} = resultado;
-       console.log(id)
-        test[e.target.name] = e.target.value.trim()
-        console.log(test)
-    }
-
-
+  
 
 
 
