@@ -11,6 +11,7 @@ use Controllers\ApiMaquinas;
 use Controllers\AreaController;
 use Controllers\AuthController;
 use Controllers\AdminController;
+use Controllers\ApiTest;
 use Controllers\PapelController;
 use Controllers\ClienteController;
 use Controllers\MaquinaController;
@@ -53,6 +54,9 @@ $router->get('/admin/area/escoger', [AreaController::class, 'escoger']);
 
 // API 
 $router->get('/admin/api/maquinas', [ApiMaquinas::class, 'api']);
+$router->get('/admin/api/test', [ApiTest::class, 'api']);
+
+
 
 
 
