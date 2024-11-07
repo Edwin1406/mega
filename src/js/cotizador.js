@@ -42,14 +42,14 @@
     
     }
 
-
-    mostrarApibobinas = (apibobinas) => {
-
-        const { bobinaInterna, bobinaIntermedia, bobinaExterna } = apibobinas;
-        console.log(bobinaInterna);
-        console.log(bobinaIntermedia);
-        console.log(bobinaExterna);
+    let pruebas = [];
+    function mostrarApibobinas(apibobinas){
+        pruebas = apibobinas;
+        console.log(pruebas);
     }
+
+
+
 
 
 
