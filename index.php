@@ -57,6 +57,7 @@ $router->get('/admin/api/maquinas', [ApiMaquinas::class, 'api']);
 $router->get('/admin/api/test', [ApiTest::class, 'api']);
 $router->get('/admin/api/apibobinas', [ApiTest::class, 'apibobinas']);
 $router->get('/admin/api/apibobina_externa', [ApiTest::class, 'apibobina_externa']);
+$router->get('/admin/api/apibobina_media', [ApiTest::class, 'apibobina_media']);
 
 
 

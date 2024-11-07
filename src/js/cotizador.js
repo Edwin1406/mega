@@ -82,6 +82,21 @@
         }
     
     }
+    async function ApiBobina_media(){
+        const {bobinaExterna_id} = test;
+        try {
+            const url = `${location.origin}/admin/api/apibobina_media?bobinaIntermedia_id=${bobinaIntermedia_id}`;
+            const resultado = await fetch(url);
+            const apibobinas = await resultado.json();
+            console.log(apibobinas);
+            // mostrarApibobinas(apibobinas);
+           
+        } catch (e) {
+          console.log(e);
+            
+        }
+    
+    }
 
  
     // function mostrarApibobinas(apibobinas){
@@ -138,6 +153,7 @@
         ApiBobinas();
         ApiTest();
         ApiBobina_externa();
+        ApiBobina_media();
     }
 
 }

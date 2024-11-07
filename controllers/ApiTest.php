@@ -63,6 +63,23 @@ class ApiTest {
 
         echo json_encode($bobina);
     }
+    public static function apibobina_media()
+    {
+
+
+        $bobinaIntermedia_id= $_GET['bobinaIntermedia_id'] ?? '';
+        $bobinaIntermedia_id =filter_var($bobinaIntermedia_id, FILTER_VALIDATE_INT);
+    
+        if(!$bobinaIntermedia_id){
+            echo json_encode([]);
+            return;
+            
+        }
+
+        $bobina  = Bobina::where('id',$bobinaIntermedia_id);
+
+        echo json_encode($bobina);
+    }
 
 
 
