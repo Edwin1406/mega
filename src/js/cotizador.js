@@ -48,7 +48,12 @@
             const {id} = bobinas;
             
             function buscarBobina(id){
-                return apibobinas.find(bobina => bobina.id === id)
+                 apibobinas.find(bobina => bobina.id === id)
+                if (bobina) {
+                    return bobina;
+                } else {
+                    return "La bobina no existe";
+                }
             }
             buscarBobina(apibobinas)
           
