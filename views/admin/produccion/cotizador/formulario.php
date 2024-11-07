@@ -46,7 +46,12 @@
     <script>
         
        const test =  document.querySelectorAll('[name="test"]');
-       console.log(test);
+       test.forEach (test => {
+           test.addEventListener('change', (e) => {
+               const test_id = e.target.value;
+              console.log(test_id);
+           });
+       });
 
     </script>
 
