@@ -12,8 +12,7 @@ class ApiTest {
         $liner_id= $_GET['liner_id'] ?? '';
         $liner_id =filter_var($liner_id, FILTER_VALIDATE_INT);
 
-        $bobinaExterna_id= $_GET['bobinaExterna_id'] ?? '';
-        $bobinaExterna_id =filter_var($bobinaExterna_id, FILTER_VALIDATE_INT);
+   
 
 
         if(!$liner_id){
@@ -31,8 +30,21 @@ class ApiTest {
 
     public static function apibobinas()
     {
-        $bobina_interna = Bobina::all();
-        echo json_encode($bobina_interna);
+
+
+        $bobinaInterna_id= $_GET['bobinaInterna_id'] ?? '';
+        $bobinaInterna_id =filter_var($bobinaInterna_id, FILTER_VALIDATE_INT);
+
+
+        if(!$bobinaInterna_id){
+            echo json_encode([]);
+            return;
+            
+        }
+
+        $bobina  = Bobina::find('id',$bobinaInterna_id);
+
+        echo json_encode($bobina);
     }
 
 
