@@ -9,13 +9,6 @@ class ApiTest {
 
     public static function api()
     {
-        $tests = Test::all();
-        echo json_encode($tests);
-    }
-
-
-    public static function apibobinas()
-    {
         $liner_id= $_GET['liner_id'] ?? '';
         $liner_id =filter_var($liner_id, FILTER_VALIDATE_INT);
 
@@ -24,6 +17,15 @@ class ApiTest {
             
         }
 
+
+
+    }
+
+
+    public static function apibobinas()
+    {
+        $bobina_interna = Bobina::all();
+        echo json_encode($bobina_interna);
     }
 
 
