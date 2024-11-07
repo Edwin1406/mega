@@ -8,7 +8,7 @@
     
     
     function inciarApp() { 
-        ApiTest()
+        // ApiTest()
       
     }
     // obtener datos del api de test
