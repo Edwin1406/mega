@@ -83,7 +83,7 @@
 
 
 
-
+console.log(test.bobinaInterna_id)
 
 
 
