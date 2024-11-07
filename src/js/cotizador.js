@@ -67,7 +67,7 @@
     
     }
 
-    async function ApiBobinas(){
+    async function ApiBobina_externa(){
         const {bobinaExterna_id} = test;
         try {
             const url = `${location.origin}/admin/api/apibobina_externa?bobinaExterna_id=${bobinaExterna_id}`;
@@ -137,6 +137,7 @@
         // console.log(test)
         ApiBobinas();
         ApiTest();
+        ApiBobina_externa();
     }
 
 }
