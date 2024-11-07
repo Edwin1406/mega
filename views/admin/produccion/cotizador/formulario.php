@@ -12,7 +12,7 @@
         <select
             class="formulario__select"
             id="liner_test"
-            name="liner_test"
+            name="liner_id"
             >
             <option  disabled selected>-- Seleccione --</option>
             
@@ -33,7 +33,6 @@
                         ?>
 
                     </option>
-                    <?php echo $test->liner_externo ?>
                  
                 <?php endforeach; ?>
         </select>
