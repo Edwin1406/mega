@@ -20,7 +20,7 @@
 
  
 
-    function datosTest (resultado){
+    function datosTest (e,resultado){
         resultado.forEach(result => {
             const {id} = result
             console.log(id)
