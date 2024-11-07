@@ -32,7 +32,7 @@
                  
                 <?php endforeach; ?>
         </select>
-        <input type="hiiden" name="test_id" >
+        <input type="hidden" name="test_id" >
     </div>
 
 
