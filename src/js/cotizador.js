@@ -42,12 +42,14 @@
     
     }
 
-    let pruebas = [];
+ 
     function mostrarApibobinas(apibobinas){
 
         apibobinas.forEach(bobinas => {
             const {id,tipo_papel} = bobinas;
-            console.log(id,tipo_papel);
+            if(id==test.liner_id){
+                console.log('liner',tipo_papel)
+            }
         });
     
     }
