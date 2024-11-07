@@ -21,8 +21,8 @@
  
 
     function datosTest (resultado){
-        test ={...resultado}
-        console.log(test)
+        datos ={...resultado}
+        console.log(datos)
         //  test[e.target.name] = e.target.value.trim()
         //  console.log(test)
      }
