@@ -48,7 +48,7 @@
         test_id : ''
       }
 
-        const  liner = document.querySelector('[name="liner_test"]')
+        const  liner = document.querySelector('[name="liner_id"]')
         liner.addEventListener('change', busqueda)
 
       function busqueda (e){
