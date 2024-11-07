@@ -44,21 +44,18 @@
 
  
     function mostrarApibobinas(apibobinas){
-
         apibobinas.forEach(bobinas => {
             const {id} = bobinas;
-          
-            buscarBobina(id)
-           
+            
+            function buscarBobina(id){
+                return apibobinas.find(bobina => bobina.id === id)
+            }
+            buscarBobina(apibobinas)
           
         });
         
     
     }
-
-    function buscarBobina(id){
-        return apibobinas.find(bobina => bobina.id === id)
-       }
 
 
 
