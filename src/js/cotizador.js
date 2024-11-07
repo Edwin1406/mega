@@ -1,14 +1,19 @@
 (function(){
 
-    // obtener datos del api de test
 
-  
+    obtenerTest();
+
+
+
+
+    // obtener datos del api de test
     
-    async function obtenerMaquinas(){
+    async function obtenerTest(){
         const url = `${location.origin}/admin/api/test`;
         const respuesta = await fetch(url);
         resultado = await respuesta.json();
-        console.log(resultado)
+        datosTest(resultado);
+        
     }
 
  
@@ -38,7 +43,7 @@
     const bobinaIntermedia = document.querySelector('[name="bobinaIntermedia_id"]')
     const bobinaExterna = document.querySelector('[name="bobinaExterna_id"]')
 
-    liner.addEventListener('change', tes_liner)
+    liner.addEventListener('change', datosTest)
     pedido.addEventListener('change', busqueda)
     pedido2.addEventListener('change', busqueda)
     bobinaInterna.addEventListener('change', busqueda)
@@ -62,8 +67,9 @@
 
     }
 
-    function tes_liner (e){
-        obtenerMaquinas();
+    function datosTest (e){
+       const {id} = resultado;
+       console.log(id)
         test[e.target.name] = e.target.value.trim()
         console.log(test)
     }
