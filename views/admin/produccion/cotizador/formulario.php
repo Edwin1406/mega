@@ -18,7 +18,7 @@
             
             <?php foreach($tests as $test): ?>
               
-                    <option name="test" <?php echo s($test===$test->id)? 'selected':'' ?> value="
+                    <option  <?php echo s($test===$test->id)? 'selected':'' ?> value="
                         <?php echo s($test->id); ?>">
                         <?php echo  'Ect: ',s($test->ect) ,
                         ' Test: ', s($test->test),
@@ -53,6 +53,7 @@
     test[e.target.name] = e.target.value
     console.log(test)
 }
+busqueda();
     </script>
 
 
