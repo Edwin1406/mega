@@ -17,7 +17,9 @@ class ApiTest {
             
         }
 
+        $bobinas  = Bobina::whereArray(['liner_interno' => $liner_id]);
 
+        debuguear($bobinas);
 
     }
 
