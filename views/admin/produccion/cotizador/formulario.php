@@ -37,20 +37,22 @@
                  
                 <?php endforeach; ?>
         </select>
-        <input type="hidden" name="test_id" value="">
+      
     </div>
 
 
 
 
     <script>
-        
-      const test = document.getElementById('liner_test');
-      test.onclick = function(e){
-        e.preventDefault();
-        console.log (test.value);
+      let test ={
+        test_id : ''
       }
 
+      function busqueda (e)
+{
+    test[e.target.name] = e.target.value
+    console.log(test)
+}
     </script>
 
 
