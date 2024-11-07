@@ -14,11 +14,11 @@
             id="liner_test"
             name="liner_test"
             >
-            <option value="" disabled selected>-- Seleccione --</option>
+            <option  disabled selected>-- Seleccione --</option>
             
             <?php foreach($tests as $test): ?>
               
-                    <option <?php echo s($test===$test->id)? 'selected':'' ?> value="
+                    <option name="test" <?php echo s($test===$test->id)? 'selected':'' ?> value="
                         <?php echo s($test->id); ?>">
                         <?php echo  'Ect: ',s($test->ect) ,
                         ' Test: ', s($test->test),
@@ -45,8 +45,7 @@
 
     <script>
         
-        const  test= document.querySelector('input[name="test_id"]');
-        console.log(test);
+       const test =  document.querySelectorAll('[name="liner_test"]');
 
     </script>
 
