@@ -66,8 +66,8 @@
         (function(){
             let test ={
             liner_id : '',
-            pedido_id : ''
-           
+            pedido_id : '',
+            bobinaInterna_id : ''
             }
 
             const pedidos = document.querySelectorAll('#pedido')
@@ -78,7 +78,7 @@
 
         const  liner = document.querySelector('[name="liner_id"]')
         const pedido = document.querySelector('[name="pedido_id"]')
-        // const bobinaInterna = document.querySelector('[name="bobinaInterna_id"]')
+        const bobinaInterna = document.querySelector('[name="bobinaInterna_id"]')
         // const bobinaIntermedia = document.querySelector('[name="bobinaIntermedia_id"]')
         // const bobinaExterna = document.querySelector('[name="bobinaExterna_id"]')
 
