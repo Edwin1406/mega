@@ -55,8 +55,6 @@
     bobinaInterna.addEventListener('change', busqueda);
     bobinaIntermedia.addEventListener('change', busqueda);
     bobinaExterna.addEventListener('change', busqueda);
-
-    // Función de búsqueda
     function busqueda(e) {
         // Evitar que los pedidos sean iguales
         if ((e.target.name === 'pedido_id' || e.target.name === 'pedido2_id') && pedido.value === pedido2.value) {
@@ -64,18 +62,19 @@
             Swal.fire("Pedido ya seleccionado", "No puede seleccionar el mismo pedido", "error");
             return;
         }
-
+    
         // Actualizar el valor en el objeto `test`
         test[e.target.name] = e.target.value.trim();
-        console.log(test);
-
+        console.log("Valor actualizado de test:", test);
+    
         // Llamar a ApiBobinas siempre
-     
-
+        ApiBobinas();
+    
         // Llamar a ApiTest solo si `liner_id` tiene un valor
-        if (test.liner_id||test.bobinaInterna_id) {
+        if (test.liner_id) {
+            console.log("Llamando a ApiTest con liner_id:", test.liner_id); // Debug
             ApiTest();
-            ApiBobinas();
         }
     }
+    
 })();
