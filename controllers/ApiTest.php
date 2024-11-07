@@ -21,7 +21,7 @@ class ApiTest {
             
         }
 
-        $test  = Test::find('id',$liner_id);
+        $test  = Test::where('id',$liner_id);
 
         echo json_encode($test);
 
@@ -42,7 +42,7 @@ class ApiTest {
             
         }
 
-        $bobina  = Bobina::find('id',$bobinaInterna_id);
+        $bobina  = Bobina::where('id',$bobinaInterna_id);
 
         echo json_encode($bobina);
     }
