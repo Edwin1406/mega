@@ -44,8 +44,8 @@
     <script>
         (function(){
             let test ={
-        test_id : ''
-      }
+            liner_id : ''
+            }
 
         const  liner = document.querySelector('[name="liner_id"]')
         liner.addEventListener('change', busqueda)
