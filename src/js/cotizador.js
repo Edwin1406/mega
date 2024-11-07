@@ -45,8 +45,8 @@
     let pruebas = [];
     function mostrarApibobinas(apibobinas){
 
-        const { id } = apibobinas;
-       console.log(id)
+        
+       console.log(apibobinas.id)
     }
 
 
