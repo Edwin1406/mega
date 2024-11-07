@@ -5,7 +5,7 @@
   class Test extends ActiveRecord {
   
       protected static $tabla = 'test';
-      protected static $columnasDB = ['id','ect','test','liner_interno','liner_externo','peso'];
+      protected static $columnasDB = ['id','ect','test','liner_interno','liner_medio','liner_externo','peso'];
   
         public $id;
         public $ect;
