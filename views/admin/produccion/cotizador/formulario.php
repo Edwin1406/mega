@@ -44,10 +44,6 @@
     </div>
 
 
-  
-
-
-
     <div class="formulario__campo">
         <label class="formulario__label" for="bobina_interna">Bobina interna</label>
         <select
