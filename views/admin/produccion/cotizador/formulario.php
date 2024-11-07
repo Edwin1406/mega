@@ -45,13 +45,11 @@
 
     <script>
         
-       const test =  document.querySelectorAll('[name="test"]');
-       test.forEach (test => {
-           test.addEventListener('change', (e) => {
-               const test_id = e.target.value;
-              console.log(test_id);
-           });
-       });
+      const test = document.getElementById('liner_test');
+      test.onclick = function(e){
+        e.preventDefault();
+        console.log (test.value);
+      }
 
     </script>
 
