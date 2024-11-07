@@ -15,7 +15,7 @@
 
     async function ApiTest(){
         try {
-            const url = `${location.origin}/admin/api/test`;
+            const url = `${location.origin}/admin/api/test?liner_id=`.test.liner_id;
             const resultado = await fetch(url);
             const apitest = await resultado.json();
             // mostrarApiTest(apitest);
