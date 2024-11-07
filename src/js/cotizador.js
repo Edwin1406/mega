@@ -1,37 +1,34 @@
 (function(){
 
-
-    obtenerTest();
-
-
-
-
+    
+    
+    document.addEventListener('DOMContentLoaded', function() {
+        inciarApp();
+    });
+    
+    
+    function inciarApp() { 
+        ApiTest()
+    }
     // obtener datos del api de test
 
-
+    async function ApiTest(){
+        try {
+            const url = `${location.origin}/admin/api/servicios`;
+            const resultado = await fetch(url);
+            const servicios = await resultado.json();
+            console.log(servicios);
+            // mostrarServicios(servicios);
+           
+        } catch (e) {
+          console.log(e);
+            
+        }
     
-    async function obtenerTest(){
-        const url = `${location.origin}/admin/api/test`;
-        const respuesta = await fetch(url);
-        resultado = await respuesta.json();
-        datosTest(resultado);
-        
     }
 
- 
 
-    function datosTest (resultado){
-        
-        resultado.forEach(result => {
-            const {id} = result
-            console.log(id)
-            
-        });
-        //  test[e.target.name] = e.target.value.trim()
-        //  console.log(test)
-     }
- 
- 
+
 
 
 
@@ -56,7 +53,7 @@
     const bobinaIntermedia = document.querySelector('[name="bobinaIntermedia_id"]')
     const bobinaExterna = document.querySelector('[name="bobinaExterna_id"]')
 
-    liner.addEventListener('change', datosTest)
+    liner.addEventListener('change', busqueda)
     pedido.addEventListener('change', busqueda)
     pedido2.addEventListener('change', busqueda)
     bobinaInterna.addEventListener('change', busqueda)
@@ -73,15 +70,10 @@
 
     }else{
         test[e.target.name] = e.target.value.trim()
-        
         console.log(test)
     }
 
-
-    }
-
-  
-
+}
 
 
 })();
