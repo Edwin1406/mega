@@ -245,7 +245,7 @@
         // los pedidos no pueden ser iguales
         if(pedido.value === pedido2.value){
             pedido2.value = ''
-          alert('Los pedidos no pueden ser iguales')
+          alert('Este pedido ya fue seleccionado')
        
         }else{
         test[e.target.name] = e.target.value.trim()
