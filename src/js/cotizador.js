@@ -42,20 +42,19 @@
     
     }
 
- 
-    function mostrarApibobinas(apibobinas){
-
+    function mostrarApibobinas(apibobinas) {
         apibobinas.forEach(bobinas => {
-            const {id} = bobinas;
-            console.log(id)
-            console.log(test.bobinaInterna_id)
-            // if(test.bobinaInterna_id === id ){
-            //     console.log('es liner')
-            // }else{
-            //     console.log('no es liner')
-            // }
+            const { id } = bobinas;
+            console.log(id);
+            console.log(test.bobinaInterna_id);
+            
+            // Condicional para comparar si el id de bobinas es igual a test.bobinaInterna_id
+            if (test.bobinaInterna_id === id) {
+                console.log('es liner');
+            } else {
+                console.log('no es liner');
+            }
         });
-    
     }
 
 
