@@ -44,12 +44,25 @@
     <script>
         (function(){
             let test ={
-            liner_id : ''
+            liner_id : '',
+            pedido_id : '',
+            bobinaInterna_id : '',
+            bobinaIntermedia_id : '',
+            bobinaExterna_id : '',
             }
 
         const  liner = document.querySelector('[name="liner_id"]')
-        liner.addEventListener('change', busqueda)
+        const pedido = document.querySelector('[name="pedido_id"]')
+        const bobinaInterna = document.querySelector('[name="bobinaInterna_id"]')
+        const bobinaIntermedia = document.querySelector('[name="bobinaIntermedia_id"]')
+        const bobinaExterna = document.querySelector('[name="bobinaExterna_id"]')
 
+        liner.addEventListener('change', busqueda)
+        pedido.addEventListener('change', busqueda)
+        bobinaInterna.addEventListener('change', busqueda)
+        bobinaIntermedia.addEventListener('change', busqueda)
+        bobinaExterna.addEventListener('change', busqueda)
+        
       function busqueda (e){
         test[e.target.name] = e.target.value.trim()
         console.log(test)
@@ -84,7 +97,7 @@
         <select
             class="formulario__select"
             id="bobina_interna"
-            name="bobina_id"
+            name="bobinaInterna_id"
             >
             <option value="" disabled selected>-- Seleccione --</option>
             
@@ -102,7 +115,7 @@
         <select
             class="formulario__select"
             id="bobina_intermedia"
-            name="bobina_id"
+            name="bobinaIntermedia_id"
             >
             <option value="" disabled selected>-- Seleccione --</option>
             
@@ -120,7 +133,7 @@
         <select
             class="formulario__select"
             id="bobina_exterior"
-            name="bobina_id"
+            name="bobinaExterna_id"
             >
             <option value="" disabled selected>-- Seleccione --</option>
             
