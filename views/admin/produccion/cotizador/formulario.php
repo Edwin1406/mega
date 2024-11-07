@@ -45,7 +45,8 @@
 
     <script>
         
-       const test =  document.querySelectorAll('[name="liner_test"]');
+       const test =  document.querySelectorAll('[name="test"]');
+       console.log(test);
 
     </script>
 
