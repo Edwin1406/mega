@@ -19,7 +19,6 @@
       
     }
     // obtener datos del api de test
-
     async function ApiTest(){
         const {liner_id} = test;
         try {
@@ -33,8 +32,8 @@
             
         }
     
-    }
-
+    }   
+    
     
     // function mostrarApiTest(apitest){
 
@@ -56,6 +55,22 @@
         const {bobinaInterna_id} = test;
         try {
             const url = `${location.origin}/admin/api/apibobinas?bobinaInterna_id=${bobinaInterna_id}`;
+            const resultado = await fetch(url);
+            const apibobinas = await resultado.json();
+            console.log(apibobinas);
+            // mostrarApibobinas(apibobinas);
+           
+        } catch (e) {
+          console.log(e);
+            
+        }
+    
+    }
+
+    async function ApiBobinas(){
+        const {bobinaExterna_id} = test;
+        try {
+            const url = `${location.origin}/admin/api/apibobinas?bobinaExterna_id=${bobinaExterna_id}`;
             const resultado = await fetch(url);
             const apibobinas = await resultado.json();
             console.log(apibobinas);

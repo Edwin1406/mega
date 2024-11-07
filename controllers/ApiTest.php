@@ -35,16 +35,21 @@ class ApiTest {
         $bobinaInterna_id= $_GET['bobinaInterna_id'] ?? '';
         $bobinaInterna_id =filter_var($bobinaInterna_id, FILTER_VALIDATE_INT);
 
+        $bobinaExterna_id= $_GET['bobinaExterna_id'] ?? '';
+        $bobinaExterna_id =filter_var($bobinaExterna_id, FILTER_VALIDATE_INT);
 
-        if(!$bobinaInterna_id){
+
+        if(!$bobinaInterna_id||!$bobinaExterna_id){
             echo json_encode([]);
             return;
             
         }
 
         $bobina  = Bobina::where('id',$bobinaInterna_id);
+        $bobinaExterna_id  = Bobina::where('id',$bobinaExterna_id);
 
         echo json_encode($bobina);
+        echo json_encode($bobinaExterna_id);
     }
 
 
