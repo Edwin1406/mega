@@ -45,7 +45,7 @@
     let pruebas = [];
     function mostrarApibobinas(apibobinas){
         pruebas = apibobinas;
-        console.log(pruebas);
+        console.log(pruebas.id);
     }
 
 
