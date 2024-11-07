@@ -43,10 +43,10 @@
     }
 
     function mostrarApibobinas(apibobinas) {
+       
         apibobinas.forEach(bobinas => {
             const { id } = bobinas;
             console.log(id);
-            console.log(test.bobinaInterna_id);
             
             // Condicional para comparar si el id de bobinas es igual a test.bobinaInterna_id
             if (test.bobinaInterna_id === id) {
@@ -104,7 +104,7 @@
     }else{
         test[e.target.name] = e.target.value.trim()
         console.log(test)
-        mostrarApibobinas()
+       
     }
 
 }
