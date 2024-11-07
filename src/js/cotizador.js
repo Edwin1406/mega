@@ -21,8 +21,9 @@
     // obtener datos del api de test
 
     async function ApiTest(){
+        const {liner_id, pedido_id, pedido2_id, bobinaInterna_id, bobinaIntermedia_id, bobinaExterna_id} = test;
         try {
-            const url = `${location.origin}/admin/api/test?liner_id=`.test.liner_id;
+            const url = `${location.origin}/admin/api/test?liner_id=${liner_id}`;
             const resultado = await fetch(url);
             const apitest = await resultado.json();
             // mostrarApiTest(apitest);
