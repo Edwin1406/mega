@@ -245,7 +245,7 @@
         // los pedidos no pueden ser iguales
         if(pedido.value === pedido2.value){
             pedido2.value = ''
-          alert('Este pedido ya fue seleccionado')
+            Swal.fire("SweetAlert2 is working!");
        
         }else{
         test[e.target.name] = e.target.value.trim()
@@ -261,3 +261,4 @@
         })();
     
         </script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
