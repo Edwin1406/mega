@@ -2,6 +2,8 @@
 
     // obtener datos del api de test
 
+    document.addEventListener('DOMContentLoaded', () => {
+
     
     async function obtenerMaquinas(){
         const url = `${location.origin}/admin/api/test`;
@@ -10,7 +12,7 @@
         console.log(resultado)
     }
 
-
+    });
 
 
 
