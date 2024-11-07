@@ -48,7 +48,7 @@
             const {id} = bobinas;
             
             function buscarBobina(id){
-                 apibobinas.find(bobina => bobina.id === id)
+                 test.find(bobina => bobina.bobinaInterna_id === id)
                 if (bobina) {
                     return bobina;
                 } else {
