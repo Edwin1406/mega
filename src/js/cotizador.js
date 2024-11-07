@@ -47,7 +47,7 @@
 
         apibobinas.forEach(bobinas => {
             const {id} = bobinas;
-            if(test.bobinaInterna_id === id || test.bobinaIntermedia_id === id || test.bobinaExterna_id === id){
+            if(test.bobinaInterna_id === id ){
                 console.log('es liner')
             }else{
                 console.log('no es liner')
