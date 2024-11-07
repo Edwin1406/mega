@@ -71,8 +71,9 @@
             }
 
             const pedidos = document.querySelectorAll('#pedido')
+            const bobinas = document.querySelectorAll('#bobina_interna , #bobina_intermedia , #bobina_exterior')
 
-        if(pedidos && pedidos.length > 0){
+        if(pedidos && bobinas ){
 
         
 
