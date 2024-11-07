@@ -119,9 +119,9 @@
 
     }else{
         test[e.target.name] = e.target.value.trim()
-        // console.log(test)
-        ApiBobinas();
-        ApiTest();
+        console.log(test)
+        // ApiBobinas();
+        // ApiTest();
     }
 
 }
