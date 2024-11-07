@@ -18,8 +18,18 @@
             
             <?php foreach($tests as $test): ?>
               
-                    <option <?php echo s($test===$test->id)? 'selected':'' ?> value="<?php echo s($test->id); ?>"><?php echo  'Ect: ',s($test->ect) ,' Test: ', s($test->test),' Peso: ', s($test->peso)?></option>
-                  <li><?php echo s($test->id); ?> </li>
+                    <option <?php echo s($test===$test->id)? 'selected':'' ?> value="
+                        <?php echo s($test->id); ?>">
+                        <?php echo  'Ect: ',s($test->ect) ,
+                        ' Test: ', s($test->test),
+                        ' Peso: ', s($test->peso),
+                        ' Liner Ext: ', s($test->liner_externo)
+                        
+                        
+                        ?>
+
+                    </option>
+                 
                 <?php endforeach; ?>
         </select>
         <input type="hiiden" name="test_id" >
