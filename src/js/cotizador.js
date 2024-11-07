@@ -8,7 +8,7 @@
 
     // obtener datos del api de test
 
-    let datos = [];
+
     
     async function obtenerTest(){
         const url = `${location.origin}/admin/api/test`;
@@ -21,10 +21,13 @@
  
 
     function datosTest (resultado){
-        datos ={...resultado}
-        console.log(datos)
-        //  test[e.target.name] = e.target.value.trim()
-        //  console.log(test)
+        resultado.forEach(result => {
+            const {id} = result
+            console.log(id)
+            
+        });
+         test[e.target.name] = e.target.value.trim()
+         console.log(test)
      }
  
  
