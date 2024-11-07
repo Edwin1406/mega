@@ -38,7 +38,7 @@
     const bobinaIntermedia = document.querySelector('[name="bobinaIntermedia_id"]')
     const bobinaExterna = document.querySelector('[name="bobinaExterna_id"]')
 
-    liner.addEventListener('change', busqueda)
+    liner.addEventListener('change', tes_liner)
     pedido.addEventListener('change', busqueda)
     pedido2.addEventListener('change', busqueda)
     bobinaInterna.addEventListener('change', busqueda)
@@ -55,11 +55,21 @@
 
     }else{
         test[e.target.name] = e.target.value.trim()
-        obtenerMaquinas();
+        
         console.log(test)
     }
 
+
     }
+
+    function tes_liner (e){
+        obtenerMaquinas();
+        test[e.target.name] = e.target.value.trim()
+        console.log(test)
+    }
+
+
+
 
 
 })();
