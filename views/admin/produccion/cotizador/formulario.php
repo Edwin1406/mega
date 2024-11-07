@@ -49,6 +49,8 @@
         test_id : ''
       }
 
+      const  liner = document.querySelector('#liner_test')
+        liner.addEventListener('change', busqueda)
       function busqueda (e)
 {
     test[e.target.name] = e.target.value
