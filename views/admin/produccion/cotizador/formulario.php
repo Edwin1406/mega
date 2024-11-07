@@ -12,8 +12,7 @@
         <select
             class="formulario__select"
             id="liner_test"
-            name="liner_id"
-            >
+            name="liner_id">
             <option  disabled selected>-- Seleccione --</option>
             
             <?php foreach($tests as $test): ?>
@@ -52,7 +51,7 @@
         liner.addEventListener('change', busqueda)
 
       function busqueda (e){
-        test[e.target.name] = e.target.value
+        test[e.target.name] = e.target.value.trim()
         console.log(test)
       }
 
