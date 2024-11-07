@@ -37,9 +37,18 @@
                  
                 <?php endforeach; ?>
         </select>
-        <input type="hidden" name="test_id" >
+        <input type="hidden" name="test_id" value="">
     </div>
 
+
+
+
+    <script>
+        
+        const  test= document.querySelector('input[name="test_id"]');
+        console.log(test);
+
+    </script>
 
 
 
