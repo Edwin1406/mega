@@ -48,7 +48,9 @@
         apibobinas.forEach(bobinas => {
             const {id,tipo_papel} = bobinas;
             if(id==test.liner_id){
-                console.log('liner',tipo_papel)
+                console.log('es liner')
+            }else{
+                console.log('no es liner')
             }
         });
     
