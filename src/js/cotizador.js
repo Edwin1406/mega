@@ -47,11 +47,13 @@
 
         apibobinas.forEach(bobinas => {
             const {id} = bobinas;
-            if(test.bobinaInterna_id === id ){
-                console.log('es liner')
-            }else{
-                console.log('no es liner')
-            }
+            console.log(id)
+            console.log(test.bobinaInterna_id)
+            // if(test.bobinaInterna_id === id ){
+            //     console.log('es liner')
+            // }else{
+            //     console.log('no es liner')
+            // }
         });
     
     }
