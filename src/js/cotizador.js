@@ -1,6 +1,13 @@
 (function(){
 
-    
+    let test ={
+        liner_id : '',
+        pedido_id : '',
+        pedido2_id : '',
+        bobinaInterna_id : '',
+        bobinaIntermedia_id : '',
+        bobinaExterna_id : ''
+        }
     
     document.addEventListener('DOMContentLoaded', function() {
         inciarApp();
@@ -81,14 +88,7 @@
 
 
 
-    let test ={
-    liner_id : '',
-    pedido_id : '',
-    pedido2_id : '',
-    bobinaInterna_id : '',
-    bobinaIntermedia_id : '',
-    bobinaExterna_id : ''
-    }
+    
 
     const pedidos = document.querySelectorAll('#pedido')
 
