@@ -152,6 +152,8 @@
 </fieldset>
 
 <script>
-
-    console.log('hola');
+    const pedido = document.getElementById('pedido');
+    pedido.onclick = () => {
+        console.log('hola');
+    }
 </script>
