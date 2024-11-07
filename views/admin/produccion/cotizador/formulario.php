@@ -152,7 +152,7 @@
 </fieldset>
 
 <script>
-    const pedido = document.getElementById('pedido');
+    const pedido = document.querySelector('#pedido');
     pedido.onclick = () => {
         console.log('hola');
     }
