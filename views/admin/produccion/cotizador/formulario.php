@@ -44,7 +44,8 @@
 
 
     <script>
-      let test ={
+        (function(){
+            let test ={
         test_id : ''
       }
 
@@ -53,8 +54,11 @@
     test[e.target.name] = e.target.value
     console.log(test)
 }
-busqueda();
-    </script>
+
+
+        })();
+    
+        </script>
 
 
 
