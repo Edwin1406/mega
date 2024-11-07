@@ -47,10 +47,14 @@
 
         apibobinas.forEach(bobinas => {
             const {id} = bobinas;
-            if (test.liner_id === id) {
-                console.log('liner')
-            }
-            // console.log(id)
+            test.forEach(tests => {
+
+                if (tests.liner_id === id) {
+                    console.log('liner')
+                }
+                // console.log(id)
+            });
+         
           
         });
     
