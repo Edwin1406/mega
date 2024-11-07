@@ -70,7 +70,7 @@
            
             }
 
-            const pedidos = document.querySelectorAll('#pedido, #bobina_interna, #bobina_intermedia, #bobina_exterior')
+            const pedidos = document.querySelectorAll('#pedido')
 
         if(pedidos){
 
