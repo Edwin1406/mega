@@ -1,4 +1,23 @@
 (function(){
+
+    // obtener datos del api de test
+
+    
+    async function obtenerMaquinas(){
+        const url = `${location.origin}/admin/api/test`;
+        const respuesta = await fetch(url);
+        resultado = await respuesta.json();
+        console.log(resultado)
+    }
+
+
+
+
+
+
+
+
+
     let test ={
     liner_id : '',
     pedido_id : '',
