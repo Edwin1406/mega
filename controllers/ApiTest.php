@@ -18,7 +18,7 @@ class ApiTest {
             
         }
 
-        $bobinas  = Bobina::whereArray(['liner_id' => $liner_id]);
+        $bobinas  = Bobina::whereArray(['id' => $liner_id]);
 
         echo json_encode($bobinas);
 
