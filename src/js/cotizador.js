@@ -9,7 +9,7 @@
     
     function inciarApp() { 
         ApiTest()
-        ApiBobinas();
+      
     }
     // obtener datos del api de test
 
@@ -100,6 +100,7 @@
     }else{
         test[e.target.name] = e.target.value.trim()
         console.log(test)
+        ApiBobinas();
     }
 
 }
