@@ -29,6 +29,7 @@
                         ?>
 
                     </option>
+                    <?php echo $test->liner_externo ?>
                  
                 <?php endforeach; ?>
         </select>
