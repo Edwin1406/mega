@@ -149,12 +149,31 @@
             placeholder="estado_combinacion del papel"
             value="<?php echo $papel->estado_combinacion ?? '' ?>">
     </div>
+
+
+
+
+
+
+    <div class="formulario__campo">
+        <label class="formulario__label" for="maquinas">Ponente</label>
+        <input
+            type="text"
+            id="maquinas"
+            class="formulario__input"
+            placeholder="Buscar ponente"
+        >
+        <ul id="listado-maquinas" class="listado-maquinas"></ul>
+        <input type="hiden" name="maquina_id" value="<?php echo $maquina->id;?>">
+    </div>
+
+
+
+
+
+
+
+
+
 </fieldset>
 
-<script>
-    const pedido = document.querySelector('#pedido');
-    pedido.onclick = (e) => {
-        e.preventDefault();
-        console.log(e.target.value);
-    }
-</script>
