@@ -67,7 +67,7 @@
 
     }
 
-    function datosTest (e){
+    function datosTest (resultado){
        const {id} = resultado;
        console.log(id)
         test[e.target.name] = e.target.value.trim()
