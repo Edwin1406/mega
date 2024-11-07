@@ -11,6 +11,7 @@
         public $ect;
         public $test;
         public $liner_interno;
+        public $liner_medio;
         public $liner_externo;
         public $peso;
 
@@ -21,6 +22,7 @@
             $this->ect = $args['ect'] ?? '';
             $this->test = $args['test'] ?? '';
             $this->liner_interno = $args['liner_interno'] ?? '';
+            $this->liner_medio = $args['liner_medio'] ?? '';
             $this->liner_externo = $args['liner_externo'] ?? '';
             $this->peso = $args['peso'] ?? '';
         }
