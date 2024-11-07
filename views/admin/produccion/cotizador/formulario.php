@@ -241,8 +241,19 @@
         bobinaExterna.addEventListener('change', busqueda)
 
       function busqueda (e){
+
+        // los pedidos no pueden ser iguales
+        if(pedido.value === pedido2.value){
+          alert('Los pedidos no pueden ser iguales')
+       
+        }else{
         test[e.target.name] = e.target.value.trim()
         console.log(test)
+        }
+
+
+
+
       }
     }
 
