@@ -11,7 +11,7 @@
             <?php foreach ($pedidos as $pedido): ?>
                 <?php if ($pedido->estado === 'PENDIENTE'): // Mostrar solo pendientes 
                 ?>
-                    <option <?php echo ($pedido->id === $pedidoSeleccionado->id) ? 'selected' : ''; ?> value="<?php echo s($pedido->id); ?>">
+                    <option <?php echo ($pedido->id === $pedido->id) ? 'selected' : ''; ?> value="<?php echo s($pedido->id); ?>">
                         <?php echo s($pedido->cliente) . ' Largo : ' . s($pedido->largo) . ' x Ancho : ' . s($pedido->ancho) . ' ' . s($pedido->estado); ?>
                     </option>
 
