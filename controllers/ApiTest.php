@@ -14,12 +14,13 @@ class ApiTest {
 
         if(!$liner_id){
             echo json_encode([]);
+            return;
             
         }
 
-        $bobinas  = Bobina::whereArray(['liner_interno' => $liner_id]);
+        $bobinas  = Bobina::whereArray(['liner_id' => $liner_id]);
 
-        debuguear($bobinas);
+        echo json_encode($bobinas);
 
     }
 
