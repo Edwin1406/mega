@@ -23,9 +23,9 @@
                         <?php echo  'Ect: ',s($test->ect) ,
                         ' Test: ', s($test->test),
                         ' Peso: ', s($test->peso),
-                        ' Liner Ext: ', s($test->liner_externo)
-                        
-                        
+                        ' Liner Ext: ', s($test->liner_externo),
+                        ' Liner Med: ', s($test->flauta),
+                        ' Liner Int: ', s($test->liner_interno)
                         ?>
 
                     </option>
