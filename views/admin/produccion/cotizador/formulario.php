@@ -84,7 +84,7 @@
 
         liner.addEventListener('change', busqueda)
         pedido.addEventListener('change', busqueda)
-        // bobinaInterna.addEventListener('change', busqueda)
+        bobinaInterna.addEventListener('change', busqueda)
         // bobinaIntermedia.addEventListener('change', busqueda)
         // bobinaExterna.addEventListener('change', busqueda)
 
