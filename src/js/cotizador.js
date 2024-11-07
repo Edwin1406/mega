@@ -27,8 +27,8 @@
             console.log(id)
             
         });
-         test[e.target.name] = e.target.value.trim()
-         console.log(test)
+        //  test[e.target.name] = e.target.value.trim()
+        //  console.log(test)
      }
  
  
