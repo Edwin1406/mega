@@ -45,7 +45,26 @@
 
 
     <div class="formulario__campo">
-        <label class="formulario__label" for="pedido">Pedido</label>
+        <label class="formulario__label" for="pedido">Pedido 1</label>
+        <select
+            class="formulario__select"
+            id="pedido"
+            name="pedido_id"
+            >
+            <option value="" disabled selected>-- Seleccione --</option>
+            <?php foreach($pedidos as $pedido): ?>
+                <?php if ($pedido->estado === 'PENDIENTE'): // Mostrar solo pendientes ?>
+                <option <?php echo s($pedido===$pedido->id)? 'selected':'' ?> value="<?php echo s($pedido->id); ?>"><?php echo s($pedido->cliente),' Largo : ', s($pedido->largo) ,' x',' Ancho : ', s($pedido->ancho) ,' ', s($pedido->estado); ?></option>
+                <?php endif; ?>
+                <?php endforeach; ?>
+        </select>
+    </div>
+
+    
+
+
+    <div class="formulario__campo">
+        <label class="formulario__label" for="pedido">Pedido 2</label>
         <select
             class="formulario__select"
             id="pedido"
@@ -206,9 +225,6 @@
             const pedidos = document.querySelectorAll('#pedido')
 
         if(pedidos ){
-
-        
-
         const  liner = document.querySelector('[name="liner_id"]')
         const pedido = document.querySelector('[name="pedido_id"]')
         const bobinaInterna = document.querySelector('[name="bobinaInterna_id"]')
