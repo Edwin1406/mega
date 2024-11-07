@@ -18,8 +18,7 @@
             const url = `${location.origin}/admin/api/test`;
             const resultado = await fetch(url);
             const apitest = await resultado.json();
-            console.log(apitest);
-            // mostrarServicios(servicios);
+            mostrarApiTest(apitest);
            
         } catch (e) {
           console.log(e);
@@ -27,6 +26,24 @@
         }
     
     }
+
+    
+    function mostrarApiTest(apitest){
+
+        apitest.forEach(test => {
+            const {id} = test;
+            console.log(`id test: ${id}`);
+           
+          
+        });
+    
+    }
+
+
+
+
+
+
     async function ApiBobinas(){
         try {
             const url = `${location.origin}/admin/api/apibobinas`;
@@ -44,21 +61,13 @@
 
  
     function mostrarApibobinas(apibobinas){
+
         apibobinas.forEach(bobinas => {
             const {id} = bobinas;
-            
-            function buscarBobina(id){
-                 test.find(bobina => bobina.bobinaInterna_id === id)
-                if (bobina) {
-                    return bobina;
-                } else {
-                    return "La bobina no existe";
-                }
-            }
-            buscarBobina(apibobinas)
+            console.log(`id bobinas: ${id}`);
+           
           
         });
-        
     
     }
 
