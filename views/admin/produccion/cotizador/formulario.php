@@ -243,7 +243,7 @@
       function busqueda (e){
 
         // los pedidos no pueden ser iguales
-        if(pedido.value === pedido2.value){
+        if ((e.target.name === 'pedido_id' || e.target.name === 'pedido2_id') && pedido.value === pedido2.value) {
             pedido2.value = ''
             Swal.fire("Pedido ya seleccionado", "No puede seleccionar el mismo pedido", "error");
        
