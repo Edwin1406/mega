@@ -22,26 +22,35 @@
 
 <script>
   // Primer gráfico: Bar
-  const ctx1 = document.getElementById('producto-grafica');
-  new Chart(ctx1, {
-    type: 'bar',
-    data: {
-      labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-      datasets: [{
-        label: '# of Votes',
-        data: [12, 19, 3, 5, 2, 3],
-        backgroundColor: ['red', 'blue', 'yellow', 'green', 'purple', 'orange'],
-        borderWidth: 1
-      }]
-    },
-    options: {
-      scales: {
-        y: {
-          beginAtZero: true
+  const grafica = document.querySelector('#producto-grafica');
+
+  if(grafica){
+
+        const ctx1 = document.getElementById('producto-grafica');
+      new Chart(ctx1, {
+        type: 'bar',
+        data: {
+          labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+          datasets: [{
+            label: '# of Votes',
+            data: [12, 19, 3, 5, 2, 3],
+            backgroundColor: ['red', 'blue', 'yellow', 'green', 'purple', 'orange'],
+            borderWidth: 1
+          }]
+        },
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true
+            }
+          }
         }
-      }
-    }
-  });
+      });
+
+
+
+  }
+ 
 
   // Segundo gráfico: Line
   const ctx2 = document.getElementById('myChart2');
