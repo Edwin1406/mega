@@ -9,13 +9,8 @@ class ApiProductos {
     public static function productos()
     {
         
-             $productos =Producto::topProductos('nombre'); 
-         
-
-        //  debuguear($productos);
-       
- 
-         // Mostrar el resultado en formato JSON
+        $productos =Producto::topProductos('nombre' , 10); 
+        
          echo json_encode($productos);
      
     }
