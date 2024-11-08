@@ -11,7 +11,7 @@ class ApiProductos {
         $productos = Producto::all();
         foreach ($productos as $producto) {
           
-            $productos =Producto::topProductos($producto->id); 
+           $producto->total =Producto::topProductos($producto->id); 
         }
         
          echo json_encode($productos);
