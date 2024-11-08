@@ -9,6 +9,7 @@ class Produccion extends ActiveRecord{
     public $area_produccion;
     public $url;
     public $propietarioId;
+    public $total;
 
     public function __construct($args = [])
     {
