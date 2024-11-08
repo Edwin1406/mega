@@ -196,8 +196,35 @@ class ActiveRecord {
     
  
 
+    //  Total con un array where
+    public static function totalArray( $array=[]){
+        $query = "SELECT COUNT(*) FROM " . static::$tabla ."WHERE ";
+        foreach($array as $key => $value) {
+            if($key == array_key_last($array)){
+                $query .= "{$key} = '{$value}'";
+            }else{
+
+                $query .= "  {$key} = '{$value}' AND ";
+            }
+        }
+        $resultado = self::$db->query($query);
+        $total= $resultado->fetch_array();
+        return array_shift($total);
+        
+     }
 
 
+//      SELECT nombre, SUM(cantidad) AS total
+// FROM productos
+// GROUP BY nombre
+// ORDER BY total DESC
+// LIMIT 10;
+
+     public static function topProductos($columna){
+        $query = "SELECT nombre, SUM(cantidad) AS total FROM " . static::$tabla . " GROUP BY {$columna} ORDER BY total DESC LIMIT 10";
+        $resultado = self::consultarSQL($query);
+        return  $resultado ;
+     }
 
     // crea un nuevo registro
     public function crear() {
