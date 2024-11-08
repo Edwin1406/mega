@@ -10,7 +10,7 @@ class ApiProductos {
     {
         $productos = Producto::all();
         foreach ($productos as $producto) {
-          $producto->total = Producto::totalArray(['nombre'=>$producto->nombre]);
+          $producto->total = Producto::totalArray(['nombre']);
         }
         
          echo json_encode($productos);
