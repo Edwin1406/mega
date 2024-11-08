@@ -16,7 +16,7 @@ class ApiProductos {
        
  
          // Mostrar el resultado en formato JSON
-         echo json_encode($productos);fds
+         echo json_encode($productos);
      
     }
 }
