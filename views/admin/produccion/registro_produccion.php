@@ -27,7 +27,7 @@
                 } elseif($area === 'papel'|| $area === 'PAPEL') {
                     $url = "/admin/produccion/papel/crear?id=".$id;
                 }elseif($area === 'proveedor'|| $area === 'PROVEEDOR') {
-                    $url = "/admin/produccion/proveedor/crear?id=".$id;
+                    $url = "/admin/produccion/subirexcel/crear?id=".$id;
                 }
 
                 echo $url; // Muestra la URL específica
