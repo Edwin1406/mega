@@ -74,6 +74,13 @@ $router->get('/admin/produccion/cotizador/crear', [CotizadorController::class, '
 $router->get('/admin/produccion/subirexcel/crear', [Subirexcel::class, 'subirexcel']);
 $router->post('/admin/produccion/subirexcel/crear', [Subirexcel::class, 'subirexcel']);
 
+
+
+
+
+
+
+
 // Maquinas
 $router->get('/admin/produccion/maquinas/tabla', [MaquinaController::class, 'tabla']);
 $router->get('/admin/produccion/maquinas/crear', [MaquinaController::class, 'crear']);
