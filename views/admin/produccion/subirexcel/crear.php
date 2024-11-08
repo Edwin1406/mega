@@ -15,33 +15,41 @@
 
 
 <script>
-    productos();
-async function productos() {
-    try {
-        const url = `${location.origin}/admin/api/productos`;
-        const resultado = await fetch(url);
-        const apibobinas = await resultado.json();
+    async function productos() {
+            try {
+                const url = `${location.origin}/admin/api/productos`;
+                const resultado = await fetch(url);
+                const apibobinas = await resultado.json();
 
-        // Agrupar y sumar cantidades de productos repetidos
-        const productosSumados = apibobinas.reduce((acc, producto) => {
-            // Convertimos la cantidad a número para poder sumarlo
-            const cantidad = parseInt(producto.cantidad, 10);
+                // Agrupar y sumar cantidades de productos repetidos
+                const productosSumados = apibobinas.reduce((acc, producto) => {
+                    const cantidad = parseInt(producto.cantidad, 10);
 
-            // Si ya existe el producto en el acumulador, sumamos la cantidad
-            if (acc[producto.nombre]) {
-                acc[producto.nombre] += cantidad;
-            } else {
-                // Si no existe, lo agregamos con la cantidad
-                acc[producto.nombre] = cantidad;
+                    if (acc[producto.nombre]) {
+                        acc[producto.nombre] += cantidad;
+                    } else {
+                        acc[producto.nombre] = cantidad;
+                    }
+                    return acc;
+                }, {});
+
+                // Mostrar los productos sumados en el HTML
+                const listaProductos = document.getElementById('productos-lista');
+                listaProductos.innerHTML = ''; // Limpiar el contenido actual
+
+                // Recorrer el objeto y agregarlo al HTML
+                for (const nombre in productosSumados) {
+                    const cantidad = productosSumados[nombre];
+                    const productoHTML = `<p>${nombre}: ${cantidad}</p>`;
+                    listaProductos.innerHTML += productoHTML;
+                }
+            } catch (e) {
+                console.log(e);
             }
-            return acc;
-        }, {});
+        }
 
-        console.log(productosSumados);
-    } catch (e) {
-        console.log(e);
-    }
-}
+        // Llamar a la función para cargar los productos
+        productos();
 
 
 </script>
