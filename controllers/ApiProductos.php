@@ -8,8 +8,11 @@ class ApiProductos {
 
     public static function productos()
     {
-        
-        $productos =Producto::topProductos('nombre' , 10); 
+        $productos = Producto::all();
+        foreach ($productos as $producto) {
+          
+            $productos =Producto::topProductos($producto->nombre); 
+        }
         
          echo json_encode($productos);
      
