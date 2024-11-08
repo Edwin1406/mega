@@ -2,14 +2,13 @@
 
 namespace Controllers;
 
-
-
+use Model\Producto;
 
 class ApiProductos {
 
-    public static function api()
+    public static function productos()
     {
-        
-        echo json_encode($maquinas);
+        $productos = Producto::all();
+        echo json_encode($productos);
     }
 }
