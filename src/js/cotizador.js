@@ -66,7 +66,7 @@
     }
 
 
-    function bobinascalculo(){
+    function bobinascalculo(apibobinas,apibobina_externa){
        console.log(apibobinas)
        console.log(apibobina_externa)
     }
