@@ -9,15 +9,7 @@
         bobinaExterna_id : ''
         }
     
-    document.addEventListener('DOMContentLoaded', function() {
-        inciarApp();
-    });
-    
-    
-    function inciarApp() { 
-        // ApiTest()
-      
-    }
+  
     // obtener datos del api de test
     async function ApiTest(){
         const {liner_id} = test;
