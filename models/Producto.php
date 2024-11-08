@@ -1,8 +1,6 @@
 <?php 
 namespace Model;
 
-use PhpOffice\PhpSpreadsheet\IOFactory;
-
 class Producto extends ActiveRecord
 {
     protected static $tabla = 'productos';

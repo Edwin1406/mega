@@ -2,7 +2,7 @@
 
 <div class="grafica">
   <div class="tamaño">
-    <canvas id="myChart1"></canvas>
+    <canvas id="producto-grafica"></canvas>
   </div>
   <div class="tamaño">
     <canvas id="myChart2"></canvas>
@@ -22,7 +22,7 @@
 
 <script>
   // Primer gráfico: Bar
-  const ctx1 = document.getElementById('myChart1');
+  const ctx1 = document.getElementById('producto-grafica');
   new Chart(ctx1, {
     type: 'bar',
     data: {
