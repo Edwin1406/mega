@@ -1,5 +1,7 @@
 <?php
 namespace Model;
+use PhpOffice\PhpSpreadsheet\IOFactory;
+
 class ActiveRecord {
 
     // Base DE DATOS
