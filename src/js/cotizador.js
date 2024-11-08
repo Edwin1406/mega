@@ -100,7 +100,7 @@
 
  
 
-
+    const pedidos = document.querySelector('.pedidos')
 
     if(pedidos ){
     const  liner = document.querySelector('[name="liner_id"]')
