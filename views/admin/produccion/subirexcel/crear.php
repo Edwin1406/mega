@@ -16,7 +16,7 @@
 <script>
 productos();
 async function productos(){
-        const {bobinaExterna_id} = test;
+       
         try {
             const url = `${location.origin}/admin/api/productos`;
             const resultado = await fetch(url);
