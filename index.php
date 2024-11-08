@@ -17,6 +17,7 @@ use Controllers\ClienteController;
 use Controllers\MaquinaController;
 use Controllers\CotizadorController;
 use Controllers\ProduccionController;
+use Controllers\Subirexcel;
 
 $router = new Router();
 
@@ -70,8 +71,8 @@ $router->get('/admin/api/apibobina_media', [ApiTest::class, 'apibobina_media']);
 $router->get('/admin/produccion/index', [ProduccionController::class, 'index']);
 $router->get('/admin/produccion/registro_produccion', [ProduccionController::class, 'registro_produccion']);
 $router->get('/admin/produccion/cotizador/crear', [CotizadorController::class, 'cotizador']);
-$router->get('/admin/produccion/subirexcel/crear', [CotizadorController::class, 'subirexcel']);
-$router->post('/admin/produccion/subirexcel/crear', [CotizadorController::class, 'subirexcel']);
+$router->get('/admin/produccion/subirexcel/crear', [Subirexcel::class, 'subirexcel']);
+$router->post('/admin/produccion/subirexcel/crear', [Subirexcel::class, 'subirexcel']);
 
 // Maquinas
 $router->get('/admin/produccion/maquinas/tabla', [MaquinaController::class, 'tabla']);
