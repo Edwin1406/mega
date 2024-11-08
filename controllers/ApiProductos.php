@@ -10,11 +10,11 @@ class ApiProductos {
     {
         $productos = Producto::all();
         foreach ($productos as $producto) {
-           
-            $producto->nombre =Producto:: topProductos($producto->id);
+          
+            $productos =Producto::topProductos($producto->id); 
         }
         
-        echo json_encode($productos);
+         echo json_encode($productos);
+     
     }
-    
 }
