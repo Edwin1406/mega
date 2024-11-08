@@ -216,6 +216,61 @@ class ActiveRecord {
 
    
 
+
+    public static function procesarArchivoExcel($filePath)
+    {
+        $spreadsheet = IOFactory::load($filePath);
+        $sheet = $spreadsheet->getActiveSheet();
+
+        // Crear la tabla si no existe
+        $queryCrearTabla = "
+            CREATE TABLE IF NOT EXISTS " . static::$tabla . " (
+                id INT PRIMARY KEY,
+                nombre VARCHAR(255),
+                cantidad INT,
+                fecha DATE
+            )
+        ";
+
+        // Ejecutar la creación de la tabla
+        self::$db->query($queryCrearTabla);
+
+        // Insertar los datos de cada fila
+        foreach ($sheet->getRowIterator(2) as $row) {
+            $data = [];
+            $cellIterator = $row->getCellIterator();
+            $cellIterator->setIterateOnlyExistingCells(false);
+
+            foreach ($cellIterator as $cell) {
+                $data[] = $cell->getValue();
+            }
+
+            // Mapear los datos a las columnas y convertir fecha al formato correcto
+            list($id, $nombre, $cantidad, $fecha) = $data;
+            $fecha = date('Y-m-d', strtotime(str_replace('/', '-', $fecha))); // Convertir fecha a formato YYYY-MM-DD
+
+            // Query para insertar cada fila
+            $queryInsertar = "
+                INSERT INTO " . static::$tabla . " (id, nombre, cantidad, fecha)
+                VALUES ('$id', '$nombre', '$cantidad', '$fecha')
+                ON DUPLICATE KEY UPDATE 
+                    nombre = VALUES(nombre), 
+                    cantidad = VALUES(cantidad), 
+                    fecha = VALUES(fecha)
+            ";
+
+            // Ejecutar la inserción
+            self::$db->query($queryInsertar);
+        }
+
+        return true;
+    }
+}
+
+
+
+
+
     // Actualizar el registro
     public function actualizar() {
         // Sanitizar los datos
