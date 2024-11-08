@@ -104,18 +104,6 @@
 
 
 
-
-
-
-
-
-
-
-
-    
-
-    const pedidos = document.querySelectorAll('#pedido')
-
     // if(pedidos ){
     const  liner = document.querySelector('[name="liner_id"]')
     const pedido = document.querySelector('[name="pedido_id"]')
@@ -141,7 +129,7 @@
 
     }else{
         test[e.target.name] = e.target.value.trim()
-        // console.log(test)
+        console.log(test)
         ApiBobinas();
         ApiTest();
         ApiBobina_externa();
