@@ -10,6 +10,7 @@
 </div>
 
 
+<div id="productos-lista"></div>
 
 
 
