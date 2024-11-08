@@ -1,7 +1,10 @@
 <?php
 namespace Model;
 use PhpOffice\PhpSpreadsheet\IOFactory;
-use PhpOffice\PhpSpreadsheet\Shared\Date as PHPExcel_Shared_Date;
+use PhpOffice\PhpSpreadsheet\Shared\Date;
+use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
+
+
 
 
 class ActiveRecord {
@@ -221,61 +224,61 @@ class ActiveRecord {
    
 
     public static function procesarArchivoExcel($filePath)
-    {
-        $spreadsheet = IOFactory::load($filePath);
-        $sheet = $spreadsheet->getActiveSheet();
-    
-        // Crear la tabla si no existe
-        $queryCrearTabla = "
-            CREATE TABLE IF NOT EXISTS " . static::$tabla . " (
-                id INT PRIMARY KEY,
-                nombre VARCHAR(255),
-                cantidad INT,
-                fecha DATE
-            )
-        ";
-    
-        // Ejecutar la creación de la tabla
-        self::$db->query($queryCrearTabla);
-    
-        // Insertar los datos de cada fila
-        foreach ($sheet->getRowIterator(2) as $row) {
-            $data = [];
-            $cellIterator = $row->getCellIterator();
-            $cellIterator->setIterateOnlyExistingCells(false);
-    
-            foreach ($cellIterator as $cell) {
-                $data[] = $cell->getValue();
-            }
-    
-            // Mapear los datos a las columnas
-            list($id, $nombre, $cantidad, $fecha) = $data;
-    
-            // Verificar si la fecha es válida y convertirla
-            if (PHPExcel_Shared_Date::isDateTime($cell)) {
-                // Si es una fecha válida de Excel, convertirla al formato adecuado
-                $fecha = PHPExcel_Style_NumberFormat::toFormattedString($fecha, 'YYYY-MM-DD');
-            } else {
-                // Si no es una fecha válida, intentar convertirla usando strtotime
-                $fecha = date('Y-m-d', strtotime(str_replace('/', '-', $fecha)));
-            }
-    
-            // Query para insertar cada fila
-            $queryInsertar = "
-                INSERT INTO " . static::$tabla . " (id, nombre, cantidad, fecha)
-                VALUES ('$id', '$nombre', '$cantidad', '$fecha')
-                ON DUPLICATE KEY UPDATE 
-                    nombre = VALUES(nombre), 
-                    cantidad = VALUES(cantidad), 
-                    fecha = VALUES(fecha)
-            ";
-    
-            // Ejecutar la inserción
-            self::$db->query($queryInsertar);
+{
+    $spreadsheet = IOFactory::load($filePath);
+    $sheet = $spreadsheet->getActiveSheet();
+
+    // Crear la tabla si no existe
+    $queryCrearTabla = "
+        CREATE TABLE IF NOT EXISTS " . static::$tabla . " (
+            id INT PRIMARY KEY,
+            nombre VARCHAR(255),
+            cantidad INT,
+            fecha DATE
+        )
+    ";
+
+    // Ejecutar la creación de la tabla
+    self::$db->query($queryCrearTabla);
+
+    // Insertar los datos de cada fila
+    foreach ($sheet->getRowIterator(2) as $row) {
+        $data = [];
+        $cellIterator = $row->getCellIterator();
+        $cellIterator->setIterateOnlyExistingCells(false);
+
+        foreach ($cellIterator as $cell) {
+            $data[] = $cell->getValue();
         }
-    
-        return true;
+
+        // Mapear los datos a las columnas
+        list($id, $nombre, $cantidad, $fecha) = $data;
+
+        // Verificar si la fecha es válida y convertirla
+        if (Date::isDateTime($cell)) {
+            // Si es una fecha válida de Excel, convertirla al formato adecuado
+            $fecha = Date::excelToDateTimeObject($fecha)->format('Y-m-d');
+        } else {
+            // Si no es una fecha válida, intentar convertirla usando strtotime
+            $fecha = date('Y-m-d', strtotime(str_replace('/', '-', $fecha)));
+        }
+
+        // Query para insertar cada fila
+        $queryInsertar = "
+            INSERT INTO " . static::$tabla . " (id, nombre, cantidad, fecha)
+            VALUES ('$id', '$nombre', '$cantidad', '$fecha')
+            ON DUPLICATE KEY UPDATE 
+                nombre = VALUES(nombre), 
+                cantidad = VALUES(cantidad), 
+                fecha = VALUES(fecha)
+        ";
+
+        // Ejecutar la inserción
+        self::$db->query($queryInsertar);
     }
+
+    return true;
+}
     
 
 
