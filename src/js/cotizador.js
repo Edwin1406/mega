@@ -9,6 +9,10 @@
         bobinaExterna_id : ''
         }
     
+
+           
+    let copiaTest = []
+    let copiaBobinas = []
   
     // obtener datos del api de test
     async function ApiTest(){
@@ -25,24 +29,9 @@
         }
     
     }   
-    
-    let copia = []
+ 
 
-    function copiarDatos(apitest){
-        copia = apitest
-        console.log(copia)
-    }
-    // function mostrarApiTest(apitest){
-
-    //     apitest.forEach(test => {
-    //         const {id} = test;
-    //         console.log(`id test: ${id}`);
-           
-          
-    //     });
-    
-    // }
-
+   
 
 
 
@@ -55,7 +44,7 @@
             const resultado = await fetch(url);
             const apibobinas = await resultado.json();
             console.log(apibobinas);
-            // mostrarApibobinas(apibobinas);
+            copiarDatos(apibobinas);
            
         } catch (e) {
           console.log(e);
@@ -63,6 +52,20 @@
         }
     
     }
+
+
+
+    function copiarDatos(apitest, apibobinas){
+        copiaTest = apitest
+        copiaBobinas = apibobinas
+        console.log(`copia de test:${copiaTest}`)
+        console.log(`copia de bobinas:${copiaBobinas}`)
+    }
+ 
+
+
+
+
 
     async function ApiBobina_externa(){
         const {bobinaExterna_id} = test;
