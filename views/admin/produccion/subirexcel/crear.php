@@ -14,22 +14,32 @@
 
 
 <script>
-productos();
-async function productos(){
-       
-        try {
-            const url = `${location.origin}/admin/api/productos`;
-            const resultado = await fetch(url);
-            const apibobinas = await resultado.json();
-            console.log(apibobinas);
-            // mostrarApibobinas(apibobinas);
-           
-        } catch (e) {
-          console.log(e);
-            
-        }
-    
+async function productos() {
+    try {
+        const url = `${location.origin}/admin/api/productos`;
+        const resultado = await fetch(url);
+        const apibobinas = await resultado.json();
+
+        // Agrupar y sumar cantidades de productos repetidos
+        const productosSumados = apibobinas.reduce((acc, producto) => {
+            // Convertimos la cantidad a número para poder sumarlo
+            const cantidad = parseInt(producto.cantidad, 10);
+
+            // Si ya existe el producto en el acumulador, sumamos la cantidad
+            if (acc[producto.nombre]) {
+                acc[producto.nombre] += cantidad;
+            } else {
+                // Si no existe, lo agregamos con la cantidad
+                acc[producto.nombre] = cantidad;
+            }
+            return acc;
+        }, {});
+
+        console.log(productosSumados);
+    } catch (e) {
+        console.log(e);
     }
+}
 
 
 </script>
