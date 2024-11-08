@@ -14,7 +14,7 @@
 
 
 <script>
-
+apibobinas();
 async function ApiBobina_externa(){
         const {bobinaExterna_id} = test;
         try {
