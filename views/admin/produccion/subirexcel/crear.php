@@ -8,3 +8,28 @@
     <input type="submit" name="submit" value="Subir">
 </form>
 </div>
+
+
+
+
+
+<script>
+
+async function ApiBobina_externa(){
+        const {bobinaExterna_id} = test;
+        try {
+            const url = `${location.origin}/admin/api/productos`;
+            const resultado = await fetch(url);
+            const apibobinas = await resultado.json();
+            console.log(apibobinas);
+            // mostrarApibobinas(apibobinas);
+           
+        } catch (e) {
+          console.log(e);
+            
+        }
+    
+    }
+
+
+</script>
