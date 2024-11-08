@@ -11,7 +11,7 @@ class ApiProductos {
          // Obtener todos los productos
          $productos = Producto::all();
          foreach ($productos as $producto) {
-             $producto->total =Producto::topProductos($producto->id); 
+             $producto->total =Producto::topProductos('cantidad'); 
          }
        
  
