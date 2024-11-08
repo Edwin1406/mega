@@ -102,7 +102,7 @@
 
 
 
-    // if(pedidos ){
+    if(pedidos ){
     const  liner = document.querySelector('[name="liner_id"]')
     const pedido = document.querySelector('[name="pedido_id"]')
     const pedido2 = document.querySelector('[name="pedido2_id"]')
@@ -110,12 +110,12 @@
     const bobinaIntermedia = document.querySelector('[name="bobinaIntermedia_id"]')
     const bobinaExterna = document.querySelector('[name="bobinaExterna_id"]')
 
-    // liner.addEventListener('change', busqueda)
-    // pedido.addEventListener('change', busqueda)
-    // pedido2.addEventListener('change', busqueda)
-    // bobinaInterna.addEventListener('change', busqueda)
-    // bobinaIntermedia.addEventListener('change', busqueda)
-    // bobinaExterna.addEventListener('change', busqueda)
+    liner.addEventListener('change', busqueda)
+    pedido.addEventListener('change', busqueda)
+    pedido2.addEventListener('change', busqueda)
+    bobinaInterna.addEventListener('change', busqueda)
+    bobinaIntermedia.addEventListener('change', busqueda)
+    bobinaExterna.addEventListener('change', busqueda)
 
     function busqueda (e){
 
@@ -135,6 +135,7 @@
     }
 
 }
+    }
 
 
 })();
