@@ -26,19 +26,7 @@
     
     }   
     
-    
-    // function mostrarApiTest(apitest){
-
-    //     apitest.forEach(test => {
-    //         const {id} = test;
-    //         console.log(`id test: ${id}`);
-           
-          
-    //     });
-    
-    // }
-
-
+   
 
 
 
@@ -49,8 +37,7 @@
             const url = `${location.origin}/admin/api/apibobinas?bobinaInterna_id=${bobinaInterna_id}`;
             const resultado = await fetch(url);
             const apibobinas = await resultado.json();
-            console.log(apibobinas);
-            // mostrarApibobinas(apibobinas);
+            sumadegramaje(apibobinas);
            
         } catch (e) {
           console.log(e);
@@ -66,7 +53,7 @@
             const resultado = await fetch(url);
             const apibobinas = await resultado.json();
             console.log(apibobinas);
-            // mostrarApibobinas(apibobinas);
+           
            
         } catch (e) {
           console.log(e);
@@ -81,7 +68,6 @@
             const resultado = await fetch(url);
             const apibobinas = await resultado.json();
             console.log(apibobinas);
-            // mostrarApibobinas(apibobinas);
            
         } catch (e) {
           console.log(e);
@@ -91,16 +77,16 @@
     }
 
  
-    // function mostrarApibobinas(apibobinas){
+    function sumadegramaje(apibobinas){
 
-    //     apibobinas.forEach(bobinas => {
-    //         const {id} = bobinas;
-    //         console.log(`id bobinas: ${id}`);
+        apibobinas.forEach(bobinas => {
+            const {id} = bobinas;
+            console.log(`id bobinas: ${id}`);
            
           
-    //     });
+        });
     
-    // }
+    }
 
 
 
