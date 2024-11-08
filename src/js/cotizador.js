@@ -82,18 +82,18 @@
     let arrayBobina_media = [];
 
     function sumadegramaje(apibobinas){
-        arrayBobinas.push(apibobinas.gramaje)
+        arrayBobinas.push(apibobinas)
         console.log(arrayBobinas)
     }
 
 
     function sumadegramaje(apibobina_externa){
-        arrayBobina_externa.push(apibobina_externa.gramaje)
+        arrayBobina_externa.push(apibobina_externa)
         console.log(arrayBobina_externa)
     }
 
     function sumadegramaje(apibobina_media){
-        arrayBobina_media.push(apibobina_media.gramaje)
+        arrayBobina_media.push(apibobina_media)
         console.log(arrayBobina_media)
     }
 
