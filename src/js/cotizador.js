@@ -37,7 +37,7 @@
             const url = `${location.origin}/admin/api/apibobinas?bobinaInterna_id=${bobinaInterna_id}`;
             const resultado = await fetch(url);
             const apibobinas = await resultado.json();
-            bobinascalculo(apibobinas);
+            // bobinascalculo(apibobinas);
             console.log(apibobinas)
            
         } catch (e) {
@@ -54,7 +54,7 @@
             const url = `${location.origin}/admin/api/apibobina_externa?bobinaExterna_id=${bobinaExterna_id}`;
             const resultado = await fetch(url);
             const apibobina_externa = await resultado.json();
-            bobinascalculo(apibobina_externa);
+            // bobinascalculo(apibobina_externa);
             console.log(apibobina_externa)
            
            
@@ -66,10 +66,10 @@
     }
 
 
-    function bobinascalculo(apibobinas,apibobina_externa){
-       console.log(apibobinas)
-       console.log(apibobina_externa)
-    }
+    // function bobinascalculo(apibobinas,apibobina_externa){
+    //    console.log(apibobinas)
+    //    console.log(apibobina_externa)
+    // }
 
 
 
