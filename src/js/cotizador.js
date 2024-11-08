@@ -80,7 +80,7 @@
     function sumadegramaje(apibobinas, apibobina_externa, apibobina_media){
         
    
-        console.log(apibobinas.gramaje)
+        // console.log(apibobinas.gramaje)
     
     }
 
