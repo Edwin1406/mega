@@ -214,18 +214,15 @@ class ActiveRecord {
      }
 
 
-//      SELECT nombre, SUM(cantidad) AS total
-// FROM productos
-// GROUP BY nombre
-// ORDER BY total DESC
-// LIMIT 10;
+     public static function topProductos($columna){
+        // Cambiar la agrupación por 'nombre' en lugar de 'cantidad'
+        $query = "SELECT nombre, SUM(cantidad) AS total FROM " . static::$tabla . " GROUP BY nombre ORDER BY total DESC LIMIT 10";
+        $resultado = self::consultarSQL($query);
+        return  $resultado ;
+    }
 
-        public static function topProductos($columna){
-            // Cambiar la agrupación por 'nombre' en lugar de 'cantidad'
-            $query = "SELECT nombre, SUM(cantidad) AS total FROM " . static::$tabla . " GROUP BY nombre ORDER BY total DESC LIMIT 10";
-            $resultado = self::consultarSQL($query);
-            return  $resultado ;
-        }
+
+
 
 
     // crea un nuevo registro
