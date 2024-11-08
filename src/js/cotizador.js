@@ -37,7 +37,8 @@
             const url = `${location.origin}/admin/api/apibobinas?bobinaInterna_id=${bobinaInterna_id}`;
             const resultado = await fetch(url);
             const apibobinas = await resultado.json();
-            sumadegramaje(apibobinas);
+            // sumadegramaje(apibobinas);
+            console.log(apibobinas)
            
         } catch (e) {
           console.log(e);
@@ -52,7 +53,8 @@
             const url = `${location.origin}/admin/api/apibobina_externa?bobinaExterna_id=${bobinaExterna_id}`;
             const resultado = await fetch(url);
             const apibobina_externa = await resultado.json();
-            sumadegramaje(apibobina_externa);
+            // sumadegramaje(apibobina_externa);
+            console.log(apibobina_externa)
            
            
         } catch (e) {
@@ -67,7 +69,8 @@
             const url = `${location.origin}/admin/api/apibobina_media?bobinaIntermedia_id=${bobinaIntermedia_id}`;
             const resultado = await fetch(url);
             const apibobina_media = await resultado.json();
-            sumadegramaje(apibobina_media);
+            // sumadegramaje(apibobina_media);
+            console.log(apibobina_media)
            
         } catch (e) {
           console.log(e);
@@ -77,25 +80,6 @@
     }
 
  
-    let arrayBobinas = [];
-    let arrayBobina_externa = [];
-    let arrayBobina_media = [];
-
-    function sumadegramaje(apibobinas){
-        arrayBobinas.push(apibobinas)
-        console.log(arrayBobinas)
-    }
-
-
-    function sumadegramaje(apibobina_externa){
-        arrayBobina_externa.push(apibobina_externa)
-        console.log(arrayBobina_externa)
-    }
-
-    function sumadegramaje(apibobina_media){
-        arrayBobina_media.push(apibobina_media)
-        console.log(arrayBobina_media)
-    }
 
 
 
