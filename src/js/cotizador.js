@@ -17,7 +17,7 @@
             const url = `${location.origin}/admin/api/test?liner_id=${liner_id}`;
             const resultado = await fetch(url);
             const apitest = await resultado.json();
-            // mostrarApiTest(apitest);
+            copiarDatos(apitest);
            console.log(apitest)
         } catch (e) {
           console.log(e);
@@ -26,7 +26,12 @@
     
     }   
     
-    
+    let copia = []
+
+    function copiarDatos(apitest){
+        copia = [...apitest]
+        console.log(copia)
+    }
     // function mostrarApiTest(apitest){
 
     //     apitest.forEach(test => {
@@ -91,16 +96,6 @@
     }
 
  
-    // function mostrarApibobinas(apibobinas){
-
-    //     apibobinas.forEach(bobinas => {
-    //         const {id} = bobinas;
-    //         console.log(`id bobinas: ${id}`);
-           
-          
-    //     });
-    
-    // }
 
 
 
