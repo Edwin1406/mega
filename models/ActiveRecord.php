@@ -265,7 +265,7 @@ class ActiveRecord {
 
         return true;
     }
-}
+
 
 
 
