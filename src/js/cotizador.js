@@ -51,8 +51,8 @@
         try {
             const url = `${location.origin}/admin/api/apibobina_externa?bobinaExterna_id=${bobinaExterna_id}`;
             const resultado = await fetch(url);
-            const apibobinas = await resultado.json();
-            console.log(apibobinas);
+            const apibobina_externa = await resultado.json();
+            sumadegramaje(apibobina_externa);
            
            
         } catch (e) {
@@ -66,8 +66,8 @@
         try {
             const url = `${location.origin}/admin/api/apibobina_media?bobinaIntermedia_id=${bobinaIntermedia_id}`;
             const resultado = await fetch(url);
-            const apibobinas = await resultado.json();
-            console.log(apibobinas);
+            const apibobina_media = await resultado.json();
+            sumadegramaje(apibobina_media);
            
         } catch (e) {
           console.log(e);
@@ -77,9 +77,10 @@
     }
 
  
-    function sumadegramaje(apibobinas){
-        const  {gramaje} = apibobinas;
-        console.log(gramaje)
+    function sumadegramaje(apibobinas, apibobina_externa, apibobina_media){
+        
+   
+        console.log(apibobinas.gramaje)
     
     }
 
