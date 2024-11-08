@@ -9,7 +9,7 @@ class ApiProductos {
     public static function productos()
     {
         
-             $productos =Producto::topProductos('cantidad'); 
+             $productos =Producto::topProductos('nombre'); 
          
 
         //  debuguear($productos);
