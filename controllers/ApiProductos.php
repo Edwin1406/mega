@@ -12,7 +12,7 @@ class ApiProductos {
              $productos =Producto::topProductos('cantidad'); 
          
 
-         debuguear($productos);
+        //  debuguear($productos);
        
  
          // Mostrar el resultado en formato JSON
