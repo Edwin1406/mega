@@ -8,11 +8,9 @@ class ApiProductos {
 
     public static function productos()
     {
-         // Obtener todos los productos
-         $productos = Producto::all();
-         foreach ($productos as $producto) {
-             $producto->total =Producto::topProductos('cantidad'); 
-         }
+        
+             $productos =Producto::topProductos('cantidad'); 
+         
 
          debuguear($productos);
        
