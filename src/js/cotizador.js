@@ -78,13 +78,8 @@
 
  
     function sumadegramaje(apibobinas){
-
-        apibobinas.forEach(bobinas => {
-            const {id} = bobinas;
-            console.log(`id bobinas: ${id}`);
-           
-          
-        });
+        const  {gramaje} = apibobinas;
+        console.log(gramaje)
     
     }
 
