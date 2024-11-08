@@ -29,7 +29,7 @@
     let copia = []
 
     function copiarDatos(apitest){
-        copia = [...apitest]
+        copia = apitest
         console.log(copia)
     }
     // function mostrarApiTest(apitest){
