@@ -14,6 +14,7 @@
 
 
 <script>
+    productos();
 async function productos() {
     try {
         const url = `${location.origin}/admin/api/productos`;
