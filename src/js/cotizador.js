@@ -26,7 +26,19 @@
     
     }   
     
-   
+    
+    // function mostrarApiTest(apitest){
+
+    //     apitest.forEach(test => {
+    //         const {id} = test;
+    //         console.log(`id test: ${id}`);
+           
+          
+    //     });
+    
+    // }
+
+
 
 
 
@@ -37,8 +49,8 @@
             const url = `${location.origin}/admin/api/apibobinas?bobinaInterna_id=${bobinaInterna_id}`;
             const resultado = await fetch(url);
             const apibobinas = await resultado.json();
-            // bobinascalculo(apibobinas);
-            console.log(apibobinas)
+            console.log(apibobinas);
+            // mostrarApibobinas(apibobinas);
            
         } catch (e) {
           console.log(e);
@@ -47,16 +59,14 @@
     
     }
 
-   
     async function ApiBobina_externa(){
         const {bobinaExterna_id} = test;
         try {
             const url = `${location.origin}/admin/api/apibobina_externa?bobinaExterna_id=${bobinaExterna_id}`;
             const resultado = await fetch(url);
-            const apibobina_externa = await resultado.json();
-            // bobinascalculo(apibobina_externa);
-            console.log(apibobina_externa)
-           
+            const apibobinas = await resultado.json();
+            console.log(apibobinas);
+            // mostrarApibobinas(apibobinas);
            
         } catch (e) {
           console.log(e);
@@ -64,32 +74,14 @@
         }
     
     }
-
-
-    // function bobinascalculo(apibobinas,apibobina_externa){
-    //    console.log(apibobinas)
-    //    console.log(apibobina_externa)
-    // }
-
-
-
-
-
-
-
-
-
-
-
-
     async function ApiBobina_media(){
         const {bobinaIntermedia_id} = test;
         try {
             const url = `${location.origin}/admin/api/apibobina_media?bobinaIntermedia_id=${bobinaIntermedia_id}`;
             const resultado = await fetch(url);
-            const apibobina_media = await resultado.json();
-            // sumadegramaje(apibobina_media);
-            console.log(apibobina_media)
+            const apibobinas = await resultado.json();
+            console.log(apibobinas);
+            // mostrarApibobinas(apibobinas);
            
         } catch (e) {
           console.log(e);
@@ -99,6 +91,17 @@
     }
 
  
+    // function mostrarApibobinas(apibobinas){
+
+    //     apibobinas.forEach(bobinas => {
+    //         const {id} = bobinas;
+    //         console.log(`id bobinas: ${id}`);
+           
+          
+    //     });
+    
+    // }
+
 
 
 
