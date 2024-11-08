@@ -10,11 +10,11 @@ class ApiProductos {
     {
         $productos = Producto::all();
         foreach ($productos as $producto) {
-          
-           $producto->total =Producto::topProductos($producto->id); 
+           
+            $productos->total = Producto::topProductos($producto->id); // Almacenar la información
         }
         
-         echo json_encode($productos);
-     
+        echo json_encode($productos);
     }
+    
 }
