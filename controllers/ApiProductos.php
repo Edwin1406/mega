@@ -13,6 +13,8 @@ class ApiProductos {
          foreach ($productos as $producto) {
              $producto->total =Producto::topProductos('cantidad'); 
          }
+
+         debuguear($productos);
        
  
          // Mostrar el resultado en formato JSON
