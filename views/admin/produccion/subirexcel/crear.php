@@ -10,9 +10,21 @@
 </div>
 
 
-<div id="productos-lista"></div>
+<div class="excel" id="productos-lista"></div>
 
+<style>
+    .excel {
+        margin-top: 20px;
+    }
 
+    .excel h2 {
+        margin-bottom: 10px;
+    }
+
+    .excel p {
+        margin: 0;
+    }
+</style>
 
 <script>
      async function productos() {
