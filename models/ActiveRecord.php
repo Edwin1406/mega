@@ -197,22 +197,26 @@ class ActiveRecord {
  
 
     //  Total con un array where
-    public static function totalArray( $array=[]){
-        $query = "SELECT COUNT(*) FROM " . static::$tabla ."WHERE ";
-        foreach($array as $key => $value) {
-            if($key == array_key_last($array)){
+    public static function totalArray($array = [])
+    {
+        // Construir la consulta SQL
+        $query = "SELECT COUNT(*) FROM " . static::$tabla . " WHERE ";
+        
+        foreach ($array as $key => $value) {
+            if ($key == array_key_last($array)) {
                 $query .= "{$key} = '{$value}'";
-            }else{
-
+            } else {
                 $query .= "  {$key} = '{$value}' AND ";
             }
         }
-        $resultado = self::$db->query($query);
-        $total= $resultado->fetch_array();
-        return array_shift($total);
         
-     }
-
+        // Ejecutar la consulta
+        $resultado = self::$db->query($query);
+        $total = $resultado->fetch_array();
+        
+        // Retornar el primer valor del array, que es el total
+        return array_shift($total);
+    }
 
      public static function topProductos($columna){
         // Cambiar la agrupación por 'nombre' en lugar de 'cantidad'
