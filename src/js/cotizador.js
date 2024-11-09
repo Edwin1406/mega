@@ -31,11 +31,7 @@
     }   
  
 
-   
-
-
-
-
+    // obtener datos del api de bobinas
 
     async function ApiBobinas(){
         const {bobinaInterna_id} = test;
@@ -98,13 +94,13 @@
     
     }
 
-    alert('hola')
+    
 
  
 
-    const pedidos = document.querySelector('.pedidos')
+    //const pedidos = document.querySelector('.pedidos')
 
-    if(pedidos ){
+    //if(pedidos ){
     const  liner = document.querySelector('[name="liner_id"]')
     const pedido = document.querySelector('[name="pedido_id"]')
     const pedido2 = document.querySelector('[name="pedido2_id"]')
@@ -137,7 +133,7 @@
     }
 
 }
-    }
+    //}
 
 
 })();
