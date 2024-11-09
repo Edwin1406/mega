@@ -98,6 +98,8 @@
     
     }
 
+    alert('hola')
+
  
 
     const pedidos = document.querySelector('.pedidos')
