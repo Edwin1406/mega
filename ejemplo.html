@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Filtrar Productos por Fecha</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- jQuery (opcional para manipular fechas más fácilmente) -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1>Filtrar Productos por Fecha</h1>
+
+        <!-- Selector de fechas -->
+        <div class="mb-3">
+            <label for="fechaInicio" class="form-label">Fecha de inicio</label>
+            <input type="date" id="fechaInicio" class="form-control" />
+        </div>
+        <div class="mb-3">
+            <label for="fechaFin" class="form-label">Fecha de fin</label>
+            <input type="date" id="fechaFin" class="form-control" />
+        </div>
+        <button id="filtrar" class="btn btn-primary">Filtrar</button>
+
+        <!-- Tabla de productos filtrados -->
+        <table id="productos-table" class="table table-striped mt-4">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Cantidad</th>
+                    <th>Fecha</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Los productos filtrados se agregarán aquí -->
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        async function obtenerProductos() {
+            try {
+                const url = `${location.origin}/admin/api/productos`;
+                const resultado = await fetch(url);
+                return await resultado.json();
+            } catch (e) {
+                console.log('Error al obtener productos:', e);
+                return [];
+            }
+        }
+
+        function mostrarProductosFiltrados(productos) {
+            const tablaCuerpo = document.getElementById('productos-table').getElementsByTagName('tbody')[0];
+            tablaCuerpo.innerHTML = ''; // Limpiar la tabla antes de mostrar nuevos datos
+
+            productos.forEach(producto => {
+                const row = tablaCuerpo.insertRow();
+                row.insertCell(0).textContent = producto.nombre;
+                row.insertCell(1).textContent = producto.cantidad;
+                row.insertCell(2).textContent = producto.fecha;
+            });
+        }
+
+        function filtrarPorFechas(productos, fechaInicio, fechaFin) {
+            // Filtrar productos por el rango de fechas
+            return productos.filter(producto => {
+                const fecha = new Date(producto.fecha);
+                return fecha >= fechaInicio && fecha <= fechaFin;
+            });
+        }
+
+        document.getElementById('filtrar').addEventListener('click', async () => {
+            const fechaInicio = new Date(document.getElementById('fechaInicio').value);
+            const fechaFin = new Date(document.getElementById('fechaFin').value);
+
+            if (!fechaInicio || !fechaFin || fechaInicio > fechaFin) {
+                alert('Por favor selecciona un rango de fechas válido.');
+                return;
+            }
+
+            // Obtener los productos de la API
+            const productos = await obtenerProductos();
+
+            // Filtrar los productos por las fechas seleccionadas
+            const productosFiltrados = filtrarPorFechas(productos, fechaInicio, fechaFin);
+
+            // Mostrar los productos filtrados en la tabla
+            mostrarProductosFiltrados(productosFiltrados);
+        });
+
+    </script>
+
+    <!-- Bootstrap JS (opcional para algunas funcionalidades) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
