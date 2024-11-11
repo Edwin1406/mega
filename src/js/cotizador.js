@@ -82,26 +82,25 @@
         }
     
     }
+
     async function sumargramaje() {
         // Llamamos a cada API para obtener los datos
         const bobinaInterna = await ApiBobinas();
         const bobinaExterna = await ApiBobina_externa();
         const bobinaMedia = await ApiBobina_media();
     
-        // Verificamos cada respuesta para asegurar que no esté vacía y contenga un valor de gramaje válido
-        const gramajeInterna = bobinaInterna && bobinaInterna.gramaje ? parseFloat(bobinaInterna.gramaje) : 0;
-        const gramajeExterna = bobinaExterna && bobinaExterna.gramaje ? parseFloat(bobinaExterna.gramaje) : 0;
-        const gramajeMedia = bobinaMedia && bobinaMedia.gramaje ? parseFloat(bobinaMedia.gramaje) : 0;
-    
-        // Sumamos los gramajes de cada bobina
-        const gramajeTotal = gramajeInterna + gramajeExterna + gramajeMedia;
+        // Convertimos el gramaje de cada bobina a número y sumamos
+        const gramajeTotal = 
+            (parseFloat(bobinaInterna.gramaje) || 0) + 
+            (parseFloat(bobinaExterna.gramaje) || 0) + 
+            (parseFloat(bobinaMedia.gramaje) || 0);
     
         console.log("Gramaje total:", gramajeTotal);
         return gramajeTotal;
     }
     
+   
 
-    
  
 
     const pedidos = document.querySelector('#pedido')
@@ -136,8 +135,7 @@
         ApiTest();
         ApiBobina_externa();
         ApiBobina_media();
-            // Llamada de prueba a la función
-    sumargramaje();
+        sumargramaje();
     }
 
 }
