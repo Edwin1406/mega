@@ -200,20 +200,20 @@
 
 
 
-
-
-
-
-
-
-
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador de Cobertura de Bobinas</title>
+</head>
 <body>
-    
+    <h2>Simulador de Cobertura de Bobinas</h2>
     <div id="resultados"></div>
 
     <script>
         // URLs de las APIs
-        const apiPedidosUrl = 'https://serviacrilico.com/admin/api/pedidos';
+        const apiPedidosUrl = 'https://serviacrilico.com/admin/api/apipedidos';
         const apiBobinasUrl = 'https://serviacrilico.com/admin/api/apibobina_media';
 
         // Función para obtener los anchos de pedidos pendientes desde la API
@@ -250,6 +250,9 @@
             let resultados = '';
             let pedidosPendientes = [...pedidos]; // Copia del arreglo de pedidos
             let pedidosCubiertos = []; // Para marcar los pedidos que ya han sido cubiertos
+
+            // Ordenar las bobinas de menor a mayor
+            bobinas.sort((a, b) => a - b);
 
             // Iterar sobre cada bobina
             bobinas.forEach(bobina => {
@@ -293,19 +296,13 @@
                         if (cubiertoEnEstaBobina) break; // Si ya cubrimos la bobina, dejamos de buscar más combinaciones
                     }
 
-                    // Si no se cubrieron 2 pedidos en esta bobina, buscar una más grande
+                    // Si no se cubrieron 2 pedidos en esta bobina, cubrir el siguiente pedido individualmente
                     if (!cubiertoEnEstaBobina) {
-                        let siguienteBobina = bobinas.find(b => b > bobina && b >= pedidosPendientes[0]);
-                        if (siguienteBobina) {
-                            bobina = siguienteBobina;
-                        } else {
-                            // Si no hay bobinas más grandes, cubrir el siguiente pedido individualmente
-                            let pedidoIndividual = pedidosPendientes[0];
-                            pedidosCubiertos.push(pedidoIndividual);
-                            pedidosCubiertosEstaBobina.push(pedidoIndividual);
-                            pedidosPendientes.splice(0, 1); // Eliminar el pedido individual
-                            cubiertoEnEstaBobina = true;
-                        }
+                        let pedidoIndividual = pedidosPendientes[0];
+                        pedidosCubiertos.push(pedidoIndividual);
+                        pedidosCubiertosEstaBobina.push(pedidoIndividual);
+                        pedidosPendientes.splice(0, 1); // Eliminar el pedido individual
+                        cubiertoEnEstaBobina = true;
                     }
 
                     // Si hemos cubierto algo con esta bobina, la contamos
