@@ -197,8 +197,6 @@
 
 </fieldset>
 
-
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -212,7 +210,7 @@
 
     <script>
         // URLs de las APIs
-        const apiPedidosUrl = 'https://serviacrilico.com/admin/api/pedidos';
+        const apiPedidosUrl = 'https://serviacrilico.com/admin/api/apipedidos';
         const apiBobinasUrl = 'https://serviacrilico.com/admin/api/apibobina_media';
 
         // Función para obtener los anchos de pedidos pendientes desde la API
@@ -261,7 +259,7 @@
                     let bobinaDisponible = bobina; // Restamos el ancho de la bobina conforme se vayan agregando pedidos
                     let cubiertoEnEstaBobina = false;
 
-                    // Buscar combinaciones para cubrir la bobina
+                    // Buscar combinaciones para cubrir la bobina con 2 pedidos
                     for (let i = 0; i < pedidosPendientes.length; i++) {
                         let pedidoActual = pedidosPendientes[i];
 
@@ -270,16 +268,38 @@
                             continue;
                         }
 
-                        if (pedidoActual <= bobinaDisponible) {
-                            // Si el pedido cabe en la bobina, lo cubrimos
-                            bobinaDisponible -= pedidoActual;
-                            pedidosCubiertosEstaBobina.push(pedidoActual);
-                            pedidosCubiertos.push(pedidoActual); // Marcamos el pedido como cubierto
-                            cubiertoEnEstaBobina = true;
+                        for (let j = i + 1; j < pedidosPendientes.length; j++) {
+                            let siguientePedido = pedidosPendientes[j];
+                            if (pedidosCubiertos.includes(siguientePedido)) {
+                                // Si el segundo pedido ya fue cubierto, lo saltamos
+                                continue;
+                            }
+
+                            // Si la suma de ambos pedidos es menor o igual al ancho de la bobina
+                            if (pedidoActual + siguientePedido <= bobina) {
+                                bobinaDisponible -= (pedidoActual + siguientePedido);
+                                pedidosCubiertosEstaBobina.push(pedidoActual, siguientePedido);
+                                pedidosCubiertos.push(pedidoActual, siguientePedido); // Marcamos ambos pedidos como cubiertos
+                                cubiertoEnEstaBobina = true;
+                                break; // Salir del bucle si ya encontramos una combinación válida
+                            }
                         }
 
-                        // Si no queda espacio en la bobina, dejamos de agregar más pedidos a esta bobina
-                        if (bobinaDisponible <= 0) break;
+                        if (cubiertoEnEstaBobina) break; // Si ya cubrimos la bobina, dejamos de buscar más combinaciones
+                    }
+
+                    // Si no se cubrieron 2 pedidos en esta bobina, buscar una más grande
+                    if (!cubiertoEnEstaBobina) {
+                        let siguienteBobina = bobinas.find(b => b > bobina && b >= pedidosPendientes[0]);
+                        if (siguienteBobina) {
+                            bobina = siguienteBobina;
+                        } else {
+                            // Si no hay bobinas más grandes, cubrir el siguiente pedido individualmente
+                            let pedidoIndividual = pedidosPendientes[0];
+                            pedidosCubiertos.push(pedidoIndividual);
+                            pedidosCubiertosEstaBobina.push(pedidoIndividual);
+                            cubiertoEnEstaBobina = true;
+                        }
                     }
 
                     // Si hemos cubierto algo con esta bobina, la contamos
