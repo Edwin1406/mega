@@ -21,7 +21,7 @@
             const url = `${location.origin}/admin/api/test?liner_id=${liner_id}`;
             const resultado = await fetch(url);
             const apitest = await resultado.json();
-            copiarDatos(apitest);
+            // copiarDatos(apitest);
            console.log(apitest)
         } catch (e) {
           console.log(e);
