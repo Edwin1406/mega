@@ -88,7 +88,7 @@
         console.log(copiaBobinas)
     }
     
-    
+    console.log(`copia de datos ${copiaBobinas.ancho}`)
 
  
 
