@@ -196,7 +196,6 @@
 
 
 </fieldset>
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -210,7 +209,7 @@
 
     <script>
         // URLs de las APIs
-        const apiPedidosUrl = 'https://serviacrilico.com/admin/api/pedidos';
+        const apiPedidosUrl = 'https://serviacrilico.com/admin/api/apipedidos';
         const apiBobinasUrl = 'https://serviacrilico.com/admin/api/apibobina_media';
 
         // Función para obtener los anchos de pedidos pendientes desde la API
@@ -277,11 +276,13 @@
 
                             // Si la suma de ambos pedidos es menor o igual al ancho de la bobina
                             if (pedidoActual + siguientePedido <= bobina) {
-                                bobinaDisponible -= (pedidoActual + siguientePedido);
+                                // Los pedidos se pueden cubrir juntos
                                 pedidosCubiertosEstaBobina.push(pedidoActual, siguientePedido);
                                 pedidosCubiertos.push(pedidoActual, siguientePedido); // Marcamos ambos pedidos como cubiertos
+                                pedidosPendientes.splice(i, 1); // Eliminar el primer pedido
+                                pedidosPendientes.splice(j - 1, 1); // Eliminar el segundo pedido (ajustamos el índice)
                                 cubiertoEnEstaBobina = true;
-                                break; // Salir del bucle si ya encontramos una combinación válida
+                                break; // Salir del bucle si encontramos una combinación válida
                             }
                         }
 
@@ -297,35 +298,4 @@
                             // Si no hay bobinas más grandes, cubrir el siguiente pedido individualmente
                             let pedidoIndividual = pedidosPendientes[0];
                             pedidosCubiertos.push(pedidoIndividual);
-                            pedidosCubiertosEstaBobina.push(pedidoIndividual);
-                            cubiertoEnEstaBobina = true;
-                        }
-                    }
-
-                    // Si hemos cubierto algo con esta bobina, la contamos
-                    if (cubiertoEnEstaBobina) {
-                        bobinasNecesarias++;
-                        detallesCobertura.push(`Bobina de ${bobina + 30} mm cubre los siguientes pedidos: ${pedidosCubiertosEstaBobina.join(', ')}`);
-                    } else {
-                        break; // Si no se cubrió nada en esta bobina, pasamos a la siguiente
-                    }
-                }
-
-                // Añadir resultados al HTML
-                resultados += `<p><strong>Bobina de ${bobina + 30} mm (ancho efectivo: ${bobina} mm):</strong></p>`;
-                resultados += `<p>Número de bobinas necesarias para cubrir los pedidos: ${bobinasNecesarias}</p>`;
-                detallesCobertura.forEach(detalle => {
-                    resultados += `<p>${detalle}</p>`;
-                });
-                resultados += `<p>Pedidos pendientes tras usar esta bobina: ${pedidosPendientes.length}</p><hr>`;
-            });
-
-            // Mostrar resultados en el div con id="resultados"
-            document.getElementById("resultados").innerHTML = resultados;
-        }
-
-        // Ejecutar la función al cargar la página
-        calcularCobertura();
-    </script>
-</body>
-</html>
+                       
