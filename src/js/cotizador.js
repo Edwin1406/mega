@@ -96,6 +96,8 @@
             (parseFloat(bobinaMedia.gramaje) || 0);
     
         console.log("Gramaje total:", gramajeTotal);
+        document.getElementById("gramaje_total").value = gramajeTotal;
+
         return gramajeTotal;
     }
     
