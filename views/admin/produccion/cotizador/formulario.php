@@ -206,7 +206,7 @@
     <title>Bobinas</title>
 </head>
 <body>
-    <h2>Simulador de Cobertura de Bobinas</h2>
+    <h2> Bobinas</h2>
     <div id="resultados"></div>
 
     <script>
