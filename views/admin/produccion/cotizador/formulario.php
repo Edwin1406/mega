@@ -204,11 +204,7 @@
 
 
 
-
-
-
 <body>
-    
     <div id="resultados"></div>
 
     <script>
@@ -236,7 +232,7 @@
                 const response = await fetch(apiBobinasUrl);
                 const data = await response.json();
                 // Aplicar el ajuste de refile de -30 mm
-                return data.map(bobina => parseInt(bobina.ancho) - 30);
+                return [...new Set(data.map(bobina => parseInt(bobina.ancho) - 30))]; // Eliminar duplicados
             } catch (error) {
                 console.error("Error al obtener bobinas:", error);
                 return [];
