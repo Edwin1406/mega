@@ -81,17 +81,13 @@
     
     }
 
-
-    
-    function copiarDatos( apibobinas, apibobina_media){
-        console.log(`copia de bobinas_interna:${apibobinas.ancho}`)
-        console.log(`copia de bobinas_intermedia:${apibobina_media.ancho}`)
-     
-
-
+    // copiar datos de la api de bobinas
+    let copiaBobinas = []
+    function copiarDatos(apibobinas){
+        copiaBobinas = [...apibobinas];
+        console.log(copiaBobinas)
     }
- 
-
+    
     
 
  
