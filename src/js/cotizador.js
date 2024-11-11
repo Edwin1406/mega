@@ -81,14 +81,24 @@
     
     }
 
-    // copiar datos de la api de bobinas
-    let copiaBobinas = []
-    function copiarDatos(apibobinas){
-        copiaBobinas.push(apibobinas);
-        console.log(copiaBobinas)
+    async function sumargramaje() {
+        // Llamamos a cada API para obtener los datos
+        const bobinaInterna = await ApiBobinas();
+        const bobinaExterna = await ApiBobina_externa();
+        const bobinaMedia = await ApiBobina_media();
+    
+        // Convertimos el gramaje de cada bobina a número y sumamos
+        const gramajeTotal = 
+            (parseFloat(bobinaInterna.gramaje) || 0) + 
+            (parseFloat(bobinaExterna.gramaje) || 0) + 
+            (parseFloat(bobinaMedia.gramaje) || 0);
+    
+        console.log("Gramaje total:", gramajeTotal);
+        return gramajeTotal;
     }
     
-    console.log(`copia de datos ${copiaBobinas.ancho}`)
+    // Ejemplo de cómo llamar a la función sumargramaje
+    sumargramaje();
 
  
 
