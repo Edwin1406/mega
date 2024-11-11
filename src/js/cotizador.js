@@ -50,24 +50,13 @@
     }
 
 
-
-    function copiarDatos( apibobinas){
-        console.log(`copia de bobinas:${apibobinas.ancho}`)
-
-    }
- 
-
-
-
-
-
     async function ApiBobina_externa(){
         const {bobinaExterna_id} = test;
         try {
             const url = `${location.origin}/admin/api/apibobina_externa?bobinaExterna_id=${bobinaExterna_id}`;
             const resultado = await fetch(url);
-            const apibobinas = await resultado.json();
-            console.log(apibobinas);
+            const apibobinasExterna = await resultado.json();
+            console.log(apibobinasExterna);
             // mostrarApibobinas(apibobinas);
            
         } catch (e) {
@@ -81,8 +70,8 @@
         try {
             const url = `${location.origin}/admin/api/apibobina_media?bobinaIntermedia_id=${bobinaIntermedia_id}`;
             const resultado = await fetch(url);
-            const apibobinas = await resultado.json();
-            console.log(apibobinas);
+            const apibobinasInterna = await resultado.json();
+            console.log(apibobinasInterna);
             // mostrarApibobinas(apibobinas);
            
         } catch (e) {
@@ -91,6 +80,17 @@
         }
     
     }
+
+
+    
+    function copiarDatos( apibobinas, apibobinasExterna, apibobinasInterna){
+        console.log(`copia de bobinas_interna:${apibobinas.ancho}`)
+        console.log(`copia de bobinas_intermedia:${apibobinasInterna.ancho}`)
+        console.log(`copia de bobinas_externa:${apibobinasExterna.ancho}`)
+
+
+    }
+ 
 
     
 
