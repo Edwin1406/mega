@@ -83,10 +83,10 @@
 
 
     
-    function copiarDatos( apibobinas, apibobinasExterna, apibobinasInterna){
+    function copiarDatos( apibobinas, apibobinasInterna){
         console.log(`copia de bobinas_interna:${apibobinas.ancho}`)
         console.log(`copia de bobinas_intermedia:${apibobinasInterna.ancho}`)
-        console.log(`copia de bobinas_externa:${apibobinasExterna.ancho}`)
+     
 
 
     }
