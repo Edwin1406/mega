@@ -1,28 +1,98 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bobinas</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .result {
+            margin-top: 20px;
+        }
+        .result p {
+            margin: 5px 0;
+        }
+        .button {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Bobinas</h1>
+    <label for="pedido">Ancho del pedido (mm):</label>
+    <input type="number" id="pedido" value="1600">
+    <button onclick="calcular()">Calcular Mejor Bobina</button>
+    
+    <div class="result" id="result">
+        <!-- Resultados se mostrarán aquí -->
+    </div>
 
-<?php 
-$curl = curl_init();
+    <script>
+        let anchosDeBobinas = [1840, 1880, 1600, 1500, 1450, 1800, 1400, 1700, 500, 700, 800, 900, 200];
+        let cuchillas = [1, 2, 3, 4, 5];
 
-curl_setopt_array($curl, array(
-    CURLOPT_URL => 'https://webservices.ec/api/ruc/1716999303001', // Asegúrate de quitar las llaves
-    CURLOPT_RETURNTRANSFER => true,
-    CURLOPT_ENCODING => '',
-    CURLOPT_MAXREDIRS => 10, 
-    CURLOPT_TIMEOUT => 0,
-    CURLOPT_FOLLOWLOCATION => true,
-    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-    CURLOPT_CUSTOMREQUEST => 'GET',
-    CURLOPT_HTTPHEADER => array(
-        'Accept: application/json', // Asegúrate de incluirlo en el array
-        'Authorization: Bearer E1AojmTPanzGXsvJW4817aByPpluAkWwU7UjDxly' // Sin llaves
-    ),
-));
+        function calcularMejorBobina(pedido, anchosDeBobinas, cuchillas) {
+            let mejorBobina = null;
+            let maxPiezas = 0;
+            let desperdicioMinimo = Infinity;
 
-$response = curl_exec($curl);
+            anchosDeBobinas.sort((a, b) => a - b);
 
-if(curl_errno($curl)) {
-    echo 'Error:' . curl_error($curl); // Para ver si hay algún error en la ejecución
-}
+            for (let ancho of anchosDeBobinas) {
+                if (ancho > pedido) {
+                    for (let cuchilla of cuchillas) {
+                        let piezas = Math.floor(ancho / pedido);
+                        if (piezas >= cuchilla) {
+                            let anchoUtilizado = piezas * pedido;
+                            let desperdicio = ancho - anchoUtilizado;
 
-curl_close($curl);
+                            if (piezas >= 1 && desperdicio < desperdicioMinimo) {
+                                mejorBobina = ancho;
+                                maxPiezas = piezas;
+                                desperdicioMinimo = desperdicio;
+                            }
+                        }
+                    }
+                }
+            }
 
-echo $response; // Muestra la respuesta
+            return {
+                anchoBobina: mejorBobina,
+                piezasQueCaben: maxPiezas,
+                totalAnchoUtilizado: maxPiezas * pedido,
+                desperdicio: desperdicioMinimo
+            };
+        }
+
+        function calcular() {
+            let pedido = parseInt(document.getElementById("pedido").value);
+            let resultado = calcularMejorBobina(pedido, anchosDeBobinas, cuchillas);
+            let resultDiv = document.getElementById("result");
+            resultDiv.innerHTML = "";
+
+            if (resultado.anchoBobina) {
+                let restado = resultado.anchoBobina - 30;
+
+                resultDiv.innerHTML += `<p>Para un pedido de ${pedido} mm, necesitas una bobina de ${resultado.anchoBobina} mm</p>`;
+                resultDiv.innerHTML += `<p>Ancho ajustado (-30 mm): ${restado} mm</p>`;
+                resultDiv.innerHTML += `<p>Total de ancho utilizado: ${restado} mm</p>`;
+
+                let opciones = [4, 3, 2];
+                opciones.forEach(opcion => {
+                    let valorDivision = (restado / opcion).toFixed(2);
+                    let desperdicioReal = (restado - valorDivision * opcion).toFixed(2);
+                    resultDiv.innerHTML += `<p>Para ${opcion} piezas iguales: Posición de cuchilla: ${valorDivision} mm, Desperdicio: ${desperdicioReal} mm</p>`;
+                });
+
+                let piezasmalas = Math.floor(restado / (restado / 4));
+                let desperdicioreal = restado - (piezasmalas * 4);
+                // resultDiv.innerHTML += `<p>Desperdicio real: ${desperdicioreal.toFixed(2)} mm</p>`;
+            } else {
+                resultDiv.innerHTML = "<p>No hay una bobina disponible que cumpla los requisitos.</p>";
+            }
+        }
+    </script>
+</body>
+</html>

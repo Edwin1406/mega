@@ -40,7 +40,7 @@
             const resultado = await fetch(url);
             const apibobinas = await resultado.json();
             console.log(apibobinas);
-            copiarDatos(apibobinas);
+            // copiarDatos(apibobinas);
            
         } catch (e) {
           console.log(e);
@@ -51,12 +51,12 @@
 
 
 
-    function copiarDatos(apitest, apibobinas){
-        copiaTest = apitest
-        copiaBobinas = apibobinas
-        console.log(`copia de test:${copiaTest}`)
-        console.log(`copia de bobinas:${copiaBobinas}`)
-    }
+    // function copiarDatos(apitest, apibobinas){
+    //     copiaTest = apitest
+    //     copiaBobinas = apibobinas
+    //     console.log(`copia de test:${copiaTest}`)
+    //     console.log(`copia de bobinas:${copiaBobinas}`)
+    // }
  
 
 
