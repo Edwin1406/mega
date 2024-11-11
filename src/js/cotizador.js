@@ -70,8 +70,8 @@
         try {
             const url = `${location.origin}/admin/api/apibobina_media?bobinaIntermedia_id=${bobinaIntermedia_id}`;
             const resultado = await fetch(url);
-            const apibobinasInterna = await resultado.json();
-            console.log(apibobinasInterna);
+            const apibobinasMedia = await resultado.json();
+            console.log(apibobinasMedia);
             // mostrarApibobinas(apibobinas);
            
         } catch (e) {
@@ -83,9 +83,9 @@
 
 
     
-    function copiarDatos( apibobinas, apibobinasInterna){
+    function copiarDatos( apibobinas, apibobina_media){
         console.log(`copia de bobinas_interna:${apibobinas.ancho}`)
-        console.log(`copia de bobinas_intermedia:${apibobinasInterna.ancho}`)
+        console.log(`copia de bobinas_intermedia:${apibobina_media.ancho}`)
      
 
 
