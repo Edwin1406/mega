@@ -196,7 +196,6 @@
 
 
 </fieldset>
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -249,49 +248,44 @@
             let resultados = '';
             let pedidosPendientes = [...pedidos]; // Copia del arreglo de pedidos
 
-            // Procesar cada bobina de mayor a menor
-            bobinas.forEach(bobina => {
-                let bobinasNecesarias = 0;
-                let detallesCobertura = []; // Para almacenar detalles de los pedidos cubiertos por cada bobina
+            // Procesar cada pedido de mayor a menor
+            while (pedidosPendientes.length > 0) {
+                let pedidoActual = pedidosPendientes.shift(); // Tomar el primer pedido pendiente
+                let bobinaUsada = false;
 
-                for (let i = 0; i < pedidosPendientes.length; i++) {
-                    let pedidoActual = pedidosPendientes[i];
-                    
-                    // Intentar encontrar otro pedido que junto con el actual pueda caber en la bobina
-                    let cubierto = false;
-                    for (let j = i + 1; j < pedidosPendientes.length; j++) {
-                        let siguientePedido = pedidosPendientes[j];
-                        
-                        // Si ambos pedidos caben juntos en la bobina
-                        if (pedidoActual + siguientePedido <= bobina) {
-                            bobinasNecesarias++;
-                            detallesCobertura.push(`Bobina de ${bobina + 30} mm cubre pedidos ${pedidoActual} y ${siguientePedido}`);
-                            // Remover ambos pedidos de la lista de pendientes
-                            pedidosPendientes.splice(j, 1); // Eliminar el siguiente pedido primero
-                            pedidosPendientes.splice(i, 1); // Luego eliminar el pedido actual
-                            i--; // Ajustar el índice debido a la eliminación
-                            cubierto = true;
-                            break; // Salir del bucle interno y avanzar al siguiente pedido
+                // Intentar cubrir el pedido actual con la bobina más pequeña posible que lo pueda cubrir
+                for (let i = 0; i < bobinas.length; i++) {
+                    const bobina = bobinas[i];
+
+                    if (pedidoActual <= bobina) {
+                        // Intentar combinar el pedido actual con otro pedido para optimizar el uso de la bobina
+                        let combinacionEncontrada = false;
+                        for (let j = 0; j < pedidosPendientes.length; j++) {
+                            const siguientePedido = pedidosPendientes[j];
+                            if (pedidoActual + siguientePedido <= bobina) {
+                                // Usar una bobina para cubrir ambos pedidos
+                                resultados += `<p>Bobina de ${bobina + 30} mm cubre pedidos ${pedidoActual} y ${siguientePedido}</p>`;
+                                pedidosPendientes.splice(j, 1); // Eliminar el segundo pedido combinado
+                                combinacionEncontrada = true;
+                                bobinaUsada = true;
+                                break;
+                            }
                         }
-                    }
 
-                    // Si el pedido actual no pudo combinarse, intentamos cubrirlo individualmente
-                    if (!cubierto && pedidoActual <= bobina) {
-                        bobinasNecesarias++;
-                        detallesCobertura.push(`Bobina de ${bobina + 30} mm cubre solo pedido ${pedidoActual}`);
-                        pedidosPendientes.splice(i, 1); // Eliminar el pedido individual
-                        i--; // Ajustar el índice debido a la eliminación
+                        // Si no se encontró una combinación, usar la bobina solo para el pedido actual
+                        if (!combinacionEncontrada) {
+                            resultados += `<p>Bobina de ${bobina + 30} mm cubre solo pedido ${pedidoActual}</p>`;
+                            bobinaUsada = true;
+                        }
+                        break; // Salir del bucle de bobinas, ya que hemos encontrado una bobina para este pedido
                     }
                 }
 
-                // Añadir resultados al HTML
-                resultados += `<p><strong>Bobina de ${bobina + 30} mm (ancho efectivo: ${bobina} mm):</strong></p>`;
-                resultados += `<p>Número de bobinas necesarias para cubrir los pedidos: ${bobinasNecesarias}</p>`;
-                detallesCobertura.forEach(detalle => {
-                    resultados += `<p>${detalle}</p>`;
-                });
-                resultados += `<p>Pedidos pendientes tras usar esta bobina: ${pedidosPendientes.length}</p><hr>`;
-            });
+                // Si no se encontró ninguna bobina que pueda cubrir el pedido actual (caso raro)
+                if (!bobinaUsada) {
+                    resultados += `<p>No se encontró ninguna bobina que pueda cubrir el pedido ${pedidoActual}</p>`;
+                }
+            }
 
             // Mostrar resultados en el div con id="resultados"
             document.getElementById("resultados").innerHTML = resultados;
