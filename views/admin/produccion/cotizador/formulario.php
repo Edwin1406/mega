@@ -211,7 +211,7 @@
 
     <script>
         // Arreglo de anchos de pedidos
-        const pedidos = [800, 950, 1041, 1064, 1333, 1714, 741, 914, 864, 475, 988, 999, 1133, 1186, 508];
+        const pedidos = [800, 950, 323, 1064, 1333, 1714, 741, 914, 864, 475, 988, 999, 470 , 472 , 476];
 
         // Función para obtener bobinas desde la API
         async function obtenerBobinas() {
