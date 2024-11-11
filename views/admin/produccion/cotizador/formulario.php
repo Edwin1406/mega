@@ -198,8 +198,6 @@
 </fieldset>
 
 
-
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -213,7 +211,7 @@
 
     <script>
         // URLs de las APIs
-        const apiPedidosUrl = 'https://serviacrilico.com/admin/api/pedidos';
+        const apiPedidosUrl = 'https://serviacrilico.com/admin/api/apipedidos';
         const apiBobinasUrl = 'https://serviacrilico.com/admin/api/apibobina_media';
 
         // Función para obtener los anchos de pedidos pendientes desde la API
@@ -265,7 +263,7 @@
                     let bobinaDisponible = bobina; // Restamos el ancho de la bobina conforme se vayan agregando pedidos
                     let cubiertoEnEstaBobina = false;
 
-                    // Buscar combinaciones para cubrir la bobina con 2 pedidos
+                    // Intentar cubrir dos pedidos en una bobina
                     for (let i = 0; i < pedidosPendientes.length; i++) {
                         let pedidoActual = pedidosPendientes[i];
 
@@ -299,10 +297,15 @@
                     // Si no se cubrieron 2 pedidos en esta bobina, cubrir el siguiente pedido individualmente
                     if (!cubiertoEnEstaBobina) {
                         let pedidoIndividual = pedidosPendientes[0];
-                        pedidosCubiertos.push(pedidoIndividual);
-                        pedidosCubiertosEstaBobina.push(pedidoIndividual);
-                        pedidosPendientes.splice(0, 1); // Eliminar el pedido individual
-                        cubiertoEnEstaBobina = true;
+                        if (pedidoIndividual <= bobina) {
+                            pedidosCubiertos.push(pedidoIndividual);
+                            pedidosCubiertosEstaBobina.push(pedidoIndividual);
+                            pedidosPendientes.splice(0, 1); // Eliminar el pedido individual
+                            cubiertoEnEstaBobina = true;
+                        } else {
+                            // Si el pedido individual es mayor que el ancho de la bobina, se pasa a la siguiente bobina
+                            break;
+                        }
                     }
 
                     // Si hemos cubierto algo con esta bobina, la contamos
