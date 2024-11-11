@@ -196,6 +196,8 @@
 
 
 </fieldset>
+
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -209,7 +211,7 @@
 
     <script>
         // URLs de las APIs
-        const apiPedidosUrl = 'https://serviacrilico.com/admin/api/pedidos';
+        const apiPedidosUrl = 'https://serviacrilico.com/admin/api/apipedidos';
         const apiBobinasUrl = 'https://serviacrilico.com/admin/api/apibobina_media';
 
         // Función para obtener los anchos de pedidos pendientes desde la API
@@ -249,6 +251,7 @@
             bobinas.forEach(bobina => {
                 let bobinasNecesarias = 0;
                 let detallesCobertura = []; // Para almacenar detalles de los pedidos cubiertos por cada bobina
+                let desperdicioTotal = 0; // Para almacenar el desperdicio total por bobina
 
                 // Mientras queden pedidos pendientes, intentamos cubrirlos
                 for (let i = 0; i < pedidosPendientes.length; i++) {
@@ -281,13 +284,19 @@
                     }
                 }
 
+                // Calcular el desperdicio total
+                let espacioCubierto = pedidos.length * bobina;
+                let desperdicioPorBobina = bobina - espacioCubierto;
+                desperdicioTotal += desperdicioPorBobina;
+
                 // Añadir resultados al HTML
                 resultados += `<p><strong>Bobina de ${bobina + 30} mm (ancho efectivo: ${bobina} mm):</strong></p>`;
                 resultados += `<p>Número de bobinas necesarias para cubrir los pedidos: ${bobinasNecesarias}</p>`;
                 detallesCobertura.forEach(detalle => {
                     resultados += `<p>${detalle}</p>`;
                 });
-                resultados += `<p>Pedidos pendientes tras usar esta bobina: ${pedidosPendientes.length}</p><hr>`;
+                resultados += `<p>Pedidos pendientes tras usar esta bobina: ${pedidosPendientes.length}</p>`;
+                resultados += `<p>Desperdicio estimado por esta bobina: ${desperdicioTotal} mm</p><hr>`;
             });
 
             // Mostrar resultados en el div con id="resultados"
