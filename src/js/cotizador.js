@@ -11,8 +11,8 @@
     
 
            
-    let copiaTest = []
-    let copiaBobinas = []
+    // let copiaTest = []
+    // let copiaBobinas = []
   
     // obtener datos del api de test
     async function ApiTest(){
