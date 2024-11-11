@@ -198,7 +198,6 @@
 </fieldset>
 
 
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -287,7 +286,6 @@
                                 pedidosCubiertos.push(pedidoActual, siguientePedido); // Marcamos ambos pedidos como cubiertos
                                 pedidosPendientes.splice(i, 1); // Eliminar el primer pedido
                                 pedidosPendientes.splice(j - 1, 1); // Eliminar el segundo pedido (ajustamos el índice)
-
                                 cubiertoEnEstaBobina = true;
                                 break; // Salir del bucle si encontramos una combinación válida
                             }
