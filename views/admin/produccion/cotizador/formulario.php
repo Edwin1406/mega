@@ -198,5 +198,89 @@
 </fieldset>
 
 
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador de Cobertura de Bobinas</title>
+</head>
+<body>
+    <h2>Simulador de Cobertura de Bobinas</h2>
+    <div id="resultados"></div>
 
+    <script>
+        // Arreglo de anchos de pedidos
+        const pedidos = [800, 950, 1041, 1064, 1333, 1714, 741, 914, 864, 475, 988, 999, 1133, 1186, 508];
 
+        // Función para obtener bobinas desde la API
+        async function obtenerBobinas() {
+            try {
+                const response = await fetch('https://serviacrilico.com/admin/api/apibobina_media');
+                const data = await response.json();
+                return data.map(bobina => parseInt(bobina.ancho));
+            } catch (error) {
+                console.error("Error al obtener bobinas:", error);
+                return [];
+            }
+        }
+
+        // Función para calcular la cobertura y la cantidad de bobinas necesarias
+        async function calcularCobertura() {
+            const bobinas = await obtenerBobinas();
+            let resultados = '';
+            let pedidosPendientes = [...pedidos]; // Copia del arreglo de pedidos
+
+            bobinas.forEach(bobina => {
+                let bobinasNecesarias = 0;
+                let detallesCobertura = []; // Para almacenar detalles de los pedidos cubiertos por cada bobina
+
+                // Mientras queden pedidos pendientes, intentamos cubrirlos
+                for (let i = 0; i < pedidosPendientes.length; i++) {
+                    let pedidoActual = pedidosPendientes[i];
+                    
+                    // Buscamos otro pedido que junto al actual entre en la bobina
+                    let cubierto = false;
+                    for (let j = i + 1; j < pedidosPendientes.length; j++) {
+                        let siguientePedido = pedidosPendientes[j];
+                        
+                        // Si los dos pedidos caben en la bobina
+                        if (pedidoActual + siguientePedido <= bobina) {
+                            bobinasNecesarias++;
+                            detallesCobertura.push(`Bobina de ${bobina} mm cubre pedidos ${pedidoActual} y ${siguientePedido}`);
+                            // Remover ambos pedidos de la lista de pendientes
+                            pedidosPendientes.splice(j, 1); // Eliminar el siguiente pedido primero
+                            pedidosPendientes.splice(i, 1); // Luego eliminar el pedido actual
+                            i--; // Ajustar el índice debido a la eliminación
+                            cubierto = true;
+                            break; // Salir del bucle interno y avanzar al siguiente pedido
+                        }
+                    }
+
+                    // Si el pedido actual no pudo ser combinado con otro, se cubre individualmente
+                    if (!cubierto && pedidoActual <= bobina) {
+                        bobinasNecesarias++;
+                        detallesCobertura.push(`Bobina de ${bobina} mm cubre solo pedido ${pedidoActual}`);
+                        pedidosPendientes.splice(i, 1); // Eliminar el pedido individual
+                        i--; // Ajustar el índice debido a la eliminación
+                    }
+                }
+
+                // Añadir resultados al HTML
+                resultados += `<p><strong>Bobina de ${bobina} mm:</strong></p>`;
+                resultados += `<p>Número de bobinas necesarias para cubrir los pedidos: ${bobinasNecesarias}</p>`;
+                detallesCobertura.forEach(detalle => {
+                    resultados += `<p>${detalle}</p>`;
+                });
+                resultados += `<p>Pedidos pendientes tras usar esta bobina: ${pedidosPendientes.length}</p><hr>`;
+            });
+
+            // Mostrar resultados en el div con id="resultados"
+            document.getElementById("resultados").innerHTML = resultados;
+        }
+
+        // Ejecutar la función al cargar la página
+        calcularCobertura();
+    </script>
+</body>
+</html>
