@@ -242,95 +242,92 @@
             }
         }
 
-        // Función para calcular la cobertura y la cantidad de bobinas necesarias
-        async function calcularCobertura() {
-            const pedidos = await obtenerPedidosPendientes();
-            const bobinas = await obtenerBobinas();
-            let resultados = '';
-            let pedidosPendientes = [...pedidos]; // Copia del arreglo de pedidos
-            let pedidosCubiertos = []; // Para marcar los pedidos que ya han sido cubiertos
+       // Función para calcular la cobertura y la cantidad de bobinas necesarias
+async function calcularCobertura() {
+    const pedidos = await obtenerPedidosPendientes();
+    const bobinas = await obtenerBobinas();
+    let resultados = '';
+    let pedidosPendientes = [...pedidos]; // Copia del arreglo de pedidos
+    let pedidosCubiertos = []; // Para marcar los pedidos que ya han sido cubiertos
 
-            // Ordenar las bobinas de menor a mayor
-            bobinas.sort((a, b) => a - b);
+    // Ordenar las bobinas de menor a mayor
+    bobinas.sort((a, b) => a - b);
 
-            // Iterar sobre cada bobina
-            bobinas.forEach(bobina => {
-                let bobinasNecesarias = 0;
-                let detallesCobertura = []; // Para almacenar detalles de los pedidos cubiertos por cada bobina
+    // Iterar sobre cada bobina
+    bobinas.forEach(bobina => {
+        let bobinasNecesarias = 0;
+        let detallesCobertura = []; // Para almacenar detalles de los pedidos cubiertos por cada bobina
 
-                // Mientras queden pedidos pendientes, intentamos cubrirlos
-                while (pedidosPendientes.length > 0) {
-                    let pedidosCubiertosEstaBobina = []; // Para almacenar los pedidos cubiertos en esta bobina
-                    let bobinaDisponible = bobina; // Restamos el ancho de la bobina conforme se vayan agregando pedidos
-                    let cubiertoEnEstaBobina = false;
+        // Mientras queden pedidos pendientes, intentamos cubrirlos
+        while (pedidosPendientes.length > 0) {
+            let cubiertoEnEstaBobina = false;
 
-                    // Intentar cubrir dos pedidos en una bobina
-                    for (let i = 0; i < pedidosPendientes.length; i++) {
-                        let pedidoActual = pedidosPendientes[i];
+            // Buscar dos pedidos que quepan en una bobina
+            for (let i = 0; i < pedidosPendientes.length; i++) {
+                let pedidoActual = pedidosPendientes[i];
 
-                        if (pedidosCubiertos.includes(pedidoActual)) {
-                            // Si el pedido ya fue cubierto, lo saltamos
-                            continue;
-                        }
+                if (pedidosCubiertos.includes(pedidoActual)) {
+                    // Si el pedido ya fue cubierto, lo saltamos
+                    continue;
+                }
 
-                        for (let j = i + 1; j < pedidosPendientes.length; j++) {
-                            let siguientePedido = pedidosPendientes[j];
-                            if (pedidosCubiertos.includes(siguientePedido)) {
-                                // Si el segundo pedido ya fue cubierto, lo saltamos
-                                continue;
-                            }
+                for (let j = i + 1; j < pedidosPendientes.length; j++) {
+                    let siguientePedido = pedidosPendientes[j];
 
-                            // Si la suma de ambos pedidos es menor o igual al ancho de la bobina
-                            if (pedidoActual + siguientePedido <= bobina) {
-                                // Los pedidos se pueden cubrir juntos
-                                pedidosCubiertosEstaBobina.push(pedidoActual, siguientePedido);
-                                pedidosCubiertos.push(pedidoActual, siguientePedido); // Marcamos ambos pedidos como cubiertos
-                                pedidosPendientes.splice(i, 1); // Eliminar el primer pedido
-                                pedidosPendientes.splice(j - 1, 1); // Eliminar el segundo pedido (ajustamos el índice)
-
-                                cubiertoEnEstaBobina = true;
-                                break; // Salir del bucle si encontramos una combinación válida
-                            }
-                        }
-
-                        if (cubiertoEnEstaBobina) break; // Si ya cubrimos la bobina, dejamos de buscar más combinaciones
+                    if (pedidosCubiertos.includes(siguientePedido)) {
+                        // Si el segundo pedido ya fue cubierto, lo saltamos
+                        continue;
                     }
 
-                    // Si no se cubrieron 2 pedidos en esta bobina, cubrir el siguiente pedido individualmente
-                    if (!cubiertoEnEstaBobina) {
-                        let pedidoIndividual = pedidosPendientes[0];
-                        if (pedidoIndividual <= bobina) {
-                            pedidosCubiertos.push(pedidoIndividual);
-                            pedidosCubiertosEstaBobina.push(pedidoIndividual);
-                            pedidosPendientes.splice(0, 1); // Eliminar el pedido individual
-                            cubiertoEnEstaBobina = true;
-                        } else {
-                            // Si el pedido individual es mayor que el ancho de la bobina, se pasa a la siguiente bobina
-                            break;
-                        }
-                    }
+                    // Si la suma de ambos pedidos es menor o igual al ancho de la bobina
+                    if (pedidoActual + siguientePedido <= bobina) {
+                        // Los pedidos se pueden cubrir juntos
+                        pedidosCubiertos.push(pedidoActual, siguientePedido); // Marcamos ambos pedidos como cubiertos
+                        pedidosPendientes.splice(i, 1); // Eliminar el primer pedido
+                        pedidosPendientes.splice(j - 1, 1); // Eliminar el segundo pedido (ajustamos el índice)
 
-                    // Si hemos cubierto algo con esta bobina, la contamos
-                    if (cubiertoEnEstaBobina) {
-                        bobinasNecesarias++;
-                        detallesCobertura.push(`Bobina de ${bobina + 30} mm cubre los siguientes pedidos: ${pedidosCubiertosEstaBobina.join(', ')}`);
-                    } else {
-                        break; // Si no se cubrió nada en esta bobina, pasamos a la siguiente
+                        cubiertoEnEstaBobina = true;
+                        bobinasNecesarias++; // Contabilizar la bobina usada
+                        detallesCobertura.push(`Bobina de ${bobina + 30} mm cubre los siguientes pedidos: ${pedidoActual}, ${siguientePedido}`);
+                        break; // Salir de los bucles al encontrar una combinación válida
                     }
                 }
 
-                // Añadir resultados al HTML
-                resultados += `<p><strong>Bobina de ${bobina + 30} mm (ancho efectivo: ${bobina} mm):</strong></p>`;
-                resultados += `<p>Número de bobinas necesarias para cubrir los pedidos: ${bobinasNecesarias}</p>`;
-                detallesCobertura.forEach(detalle => {
-                    resultados += `<p>${detalle}</p>`;
-                });
-                resultados += `<p>Pedidos pendientes tras usar esta bobina: ${pedidosPendientes.length}</p><hr>`;
-            });
+                if (cubiertoEnEstaBobina) break; // Si ya cubrimos la bobina, dejamos de buscar más combinaciones
+            }
 
-            // Mostrar resultados en el div con id="resultados"
-            document.getElementById("resultados").innerHTML = resultados;
+            // Si no se encontraron dos pedidos para cubrir, intentar cubrir un solo pedido
+            if (!cubiertoEnEstaBobina) {
+                let pedidoIndividual = pedidosPendientes[0];
+                if (pedidoIndividual <= bobina) {
+                    pedidosCubiertos.push(pedidoIndividual);
+                    pedidosPendientes.splice(0, 1); // Eliminar el pedido individual
+                    bobinasNecesarias++; // Contabilizar la bobina usada
+                    detallesCobertura.push(`Bobina de ${bobina + 30} mm cubre el siguiente pedido: ${pedidoIndividual}`);
+                } else {
+                    break; // Si el pedido individual no cabe en la bobina, pasamos a la siguiente bobina
+                }
+            }
+
+            // Si no se cubrió nada en esta bobina, pasamos a la siguiente
+            if (!cubiertoEnEstaBobina) {
+                break;
+            }
         }
+
+        // Añadir resultados al HTML
+        resultados += `<p><strong>Bobina de ${bobina + 30} mm (ancho efectivo: ${bobina} mm):</strong></p>`;
+        resultados += `<p>Número de bobinas necesarias para cubrir los pedidos: ${bobinasNecesarias}</p>`;
+        detallesCobertura.forEach(detalle => {
+            resultados += `<p>${detalle}</p>`;
+        });
+        resultados += `<p>Pedidos pendientes tras usar esta bobina: ${pedidosPendientes.length}</p><hr>`;
+    });
+
+    // Mostrar resultados en el div con id="resultados"
+    document.getElementById("resultados").innerHTML = resultados;
+}
+
 
         // Ejecutar la función al cargar la página
         calcularCobertura();
