@@ -40,7 +40,7 @@
             const resultado = await fetch(url);
             const apibobinas = await resultado.json();
             console.log(apibobinas);
-            copiarDatos(apibobinas);
+           return apibobinas
            
         } catch (e) {
           console.log(e);
@@ -58,6 +58,7 @@
             const apibobinasExterna = await resultado.json();
             console.log(apibobinasExterna);
             // mostrarApibobinas(apibobinas);
+            return apibobinasExterna
            
         } catch (e) {
           console.log(e);
@@ -73,6 +74,7 @@
             const apibobinasMedia = await resultado.json();
             console.log(apibobinasMedia);
             // mostrarApibobinas(apibobinas);
+            return apibobinasMedia
            
         } catch (e) {
           console.log(e);
