@@ -11,6 +11,7 @@ use Controllers\ApiMaquinas;
 use Controllers\AreaController;
 use Controllers\AuthController;
 use Controllers\AdminController;
+use Controllers\ApiPedidos;
 use Controllers\ApiProductos;
 use Controllers\ApiTest;
 use Controllers\PapelController;
@@ -62,6 +63,8 @@ $router->get('/admin/api/apibobina_externa', [ApiTest::class, 'apibobina_externa
 $router->get('/admin/api/apibobina_media', [ApiTest::class, 'apibobina_media']);
 
 $router->get('/admin/api/productos', [ApiProductos::class, 'productos']);
+
+$router->get('/admin/api/pedidos', [ApiPedidos::class, 'api']);
 
 
 
