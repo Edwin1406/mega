@@ -52,8 +52,8 @@
 
 
     function copiarDatos( apibobinas){
-      
-        console.log(`copia de bobinas:${apibobinas.gramaje}`)
+        console.log(`copia de bobinas:${apibobinas.ancho}`)
+
     }
  
 
