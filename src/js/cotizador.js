@@ -100,8 +100,7 @@
         return gramajeTotal;
     }
     
-    // Llamada de prueba a la función
-    sumargramaje();
+
     
  
 
@@ -137,6 +136,8 @@
         ApiTest();
         ApiBobina_externa();
         ApiBobina_media();
+            // Llamada de prueba a la función
+    sumargramaje();
     }
 
 }
