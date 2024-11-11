@@ -197,26 +197,40 @@
 
 </fieldset>
 
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bobinas</title>
+    <title>Simulador de Cobertura de Bobinas</title>
 </head>
 <body>
-    <h2> Bobinas</h2>
+    <h2>Simulador de Cobertura de Bobinas</h2>
     <div id="resultados"></div>
 
     <script>
-        // Arreglo de anchos de pedidos
-        const pedidos = [800, 950, 323, 1064, 1333, 1714, 741, 914, 864, 475, 988, 999, 470 , 472 , 476];
+        // URLs de las APIs
+        const apiPedidosUrl = 'https://serviacrilico.com/admin/api/apipedidos';
+        const apiBobinasUrl = 'https://serviacrilico.com/admin/api/apibobina_media';
+
+        // Función para obtener los anchos de pedidos pendientes desde la API
+        async function obtenerPedidosPendientes() {
+            try {
+                const response = await fetch(apiPedidosUrl);
+                const data = await response.json();
+                return data
+                    .filter(pedido => pedido.estado === "PENDIENTE")
+                    .map(pedido => parseInt(pedido.ancho));
+            } catch (error) {
+                console.error("Error al obtener pedidos:", error);
+                return [];
+            }
+        }
 
         // Función para obtener bobinas desde la API
         async function obtenerBobinas() {
             try {
-                const response = await fetch('https://serviacrilico.com/admin/api/apibobina_media');
+                const response = await fetch(apiBobinasUrl);
                 const data = await response.json();
                 return data.map(bobina => parseInt(bobina.ancho));
             } catch (error) {
@@ -227,6 +241,7 @@
 
         // Función para calcular la cobertura y la cantidad de bobinas necesarias
         async function calcularCobertura() {
+            const pedidos = await obtenerPedidosPendientes();
             const bobinas = await obtenerBobinas();
             let resultados = '';
             let pedidosPendientes = [...pedidos]; // Copia del arreglo de pedidos
