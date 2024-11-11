@@ -294,8 +294,11 @@
                             //eliminar el quinto pedido
                                 pedidosPendientes.splice(j - 4, 1); // Eliminar el quinto pedido (ajustamos el índice)
                             //eliminar el sexto pedido
+                                pedidosPendientes.splice(j - 5, 1); // Eliminar el sexto pedido (ajustamos el índice)
                             //eliminar el septimo pedido
+                                pedidosPendientes.splice(j - 6, 1); // Eliminar el septimo pedido (ajustamos el índice)
                             //eliminar el octavo pedido
+                                pedidosPendientes.splice(j - 7, 1); // Eliminar el octavo pedido (ajustamos el índice)
                             //eliminar el noveno pedido
                             //eliminar el decimo pedido
                             //eliminar el onceavo pedido
