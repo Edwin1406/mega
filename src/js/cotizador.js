@@ -82,15 +82,7 @@
     }
 
     // copiar datos de la api de bobinas
-    let copiaBobinas = [
-        {
-            ancho: '',
-            largo: '',
-            espesor: '',
-            peso: '',
-            precio: ''
-        }
-    ]
+    let copiaBobinas = []
     function copiarDatos(apibobinas){
         copiaBobinas.push(apibobinas);
         console.log(copiaBobinas)
