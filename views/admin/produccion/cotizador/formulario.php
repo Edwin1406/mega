@@ -196,6 +196,16 @@
 
 
 </fieldset>
+
+
+
+
+
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -298,4 +308,36 @@
                             // Si no hay bobinas más grandes, cubrir el siguiente pedido individualmente
                             let pedidoIndividual = pedidosPendientes[0];
                             pedidosCubiertos.push(pedidoIndividual);
-                       
+                            pedidosCubiertosEstaBobina.push(pedidoIndividual);
+                            pedidosPendientes.splice(0, 1); // Eliminar el pedido individual
+                            cubiertoEnEstaBobina = true;
+                        }
+                    }
+
+                    // Si hemos cubierto algo con esta bobina, la contamos
+                    if (cubiertoEnEstaBobina) {
+                        bobinasNecesarias++;
+                        detallesCobertura.push(`Bobina de ${bobina + 30} mm cubre los siguientes pedidos: ${pedidosCubiertosEstaBobina.join(', ')}`);
+                    } else {
+                        break; // Si no se cubrió nada en esta bobina, pasamos a la siguiente
+                    }
+                }
+
+                // Añadir resultados al HTML
+                resultados += `<p><strong>Bobina de ${bobina + 30} mm (ancho efectivo: ${bobina} mm):</strong></p>`;
+                resultados += `<p>Número de bobinas necesarias para cubrir los pedidos: ${bobinasNecesarias}</p>`;
+                detallesCobertura.forEach(detalle => {
+                    resultados += `<p>${detalle}</p>`;
+                });
+                resultados += `<p>Pedidos pendientes tras usar esta bobina: ${pedidosPendientes.length}</p><hr>`;
+            });
+
+            // Mostrar resultados en el div con id="resultados"
+            document.getElementById("resultados").innerHTML = resultados;
+        }
+
+        // Ejecutar la función al cargar la página
+        calcularCobertura();
+    </script>
+</body>
+</html>
