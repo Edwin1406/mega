@@ -196,6 +196,13 @@
 
 
 </fieldset>
+
+
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -209,7 +216,7 @@
 
     <script>
         // URLs de las APIs
-        const apiPedidosUrl = 'https://serviacrilico.com/admin/api/pedidos';
+        const apiPedidosUrl = 'https://serviacrilico.com/admin/api/apipedidos';
         const apiBobinasUrl = 'https://serviacrilico.com/admin/api/apibobina_media';
 
         // Función para obtener los anchos de pedidos pendientes desde la API
@@ -251,33 +258,29 @@
                 let detallesCobertura = []; // Para almacenar detalles de los pedidos cubiertos por cada bobina
 
                 // Mientras queden pedidos pendientes, intentamos cubrirlos
-                for (let i = 0; i < pedidosPendientes.length; i++) {
-                    let pedidoActual = pedidosPendientes[i];
-                    
-                    // Buscamos otro pedido que junto al actual entre en la bobina
+                while (pedidosPendientes.length > 0) {
+                    let pedidoActual = pedidosPendientes[0]; // Primer pedido pendiente
                     let cubierto = false;
-                    for (let j = i + 1; j < pedidosPendientes.length; j++) {
-                        let siguientePedido = pedidosPendientes[j];
-                        
-                        // Si los dos pedidos caben en la bobina considerando el refile
-                        if (pedidoActual + siguientePedido <= bobina) {
+
+                    // Buscar el segundo pedido que al sumarlo con el primero de exactamente el ancho de la bobina
+                    for (let i = 1; i < pedidosPendientes.length; i++) {
+                        let siguientePedido = pedidosPendientes[i];
+
+                        // Si la suma de ambos pedidos es igual al ancho de la bobina (sin desperdicio)
+                        if (pedidoActual + siguientePedido === bobina) {
                             bobinasNecesarias++;
                             detallesCobertura.push(`Bobina de ${bobina + 30} mm cubre pedidos ${pedidoActual} y ${siguientePedido}`);
                             // Remover ambos pedidos de la lista de pendientes
-                            pedidosPendientes.splice(j, 1); // Eliminar el siguiente pedido primero
-                            pedidosPendientes.splice(i, 1); // Luego eliminar el pedido actual
-                            i--; // Ajustar el índice debido a la eliminación
+                            pedidosPendientes.splice(i, 1); // Eliminar el siguiente pedido primero
+                            pedidosPendientes.splice(0, 1); // Luego eliminar el pedido actual
                             cubierto = true;
-                            break; // Salir del bucle interno y avanzar al siguiente pedido
+                            break; // Salir del bucle interno y avanzar al siguiente par de pedidos
                         }
                     }
 
-                    // Si el pedido actual no pudo ser combinado con otro, se cubre individualmente
-                    if (!cubierto && pedidoActual <= bobina) {
-                        bobinasNecesarias++;
-                        detallesCobertura.push(`Bobina de ${bobina + 30} mm cubre solo pedido ${pedidoActual}`);
-                        pedidosPendientes.splice(i, 1); // Eliminar el pedido individual
-                        i--; // Ajustar el índice debido a la eliminación
+                    // Si no se encuentra una combinación perfecta, eliminar el primer pedido y buscar más combinaciones
+                    if (!cubierto) {
+                        pedidosPendientes.splice(0, 1);
                     }
                 }
 
@@ -299,3 +302,4 @@
     </script>
 </body>
 </html>
+
