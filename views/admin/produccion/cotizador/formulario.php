@@ -196,17 +196,15 @@
 
 
 </fieldset>
-
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bobinas</title>
+    <title>Simulador de Cobertura de Bobinas</title>
 </head>
 <body>
-    <h2>Bobinas</h2>
+    <h2>Simulador de Cobertura de Bobinas</h2>
     <div id="resultados"></div>
 
     <script>
@@ -251,7 +249,6 @@
             bobinas.forEach(bobina => {
                 let bobinasNecesarias = 0;
                 let detallesCobertura = []; // Para almacenar detalles de los pedidos cubiertos por cada bobina
-                let desperdicioTotal = 0; // Para almacenar el desperdicio total por bobina
 
                 // Mientras queden pedidos pendientes, intentamos cubrirlos
                 for (let i = 0; i < pedidosPendientes.length; i++) {
@@ -284,19 +281,13 @@
                     }
                 }
 
-                // Calcular el desperdicio total
-                let espacioCubierto = pedidos.length * bobina;
-                let desperdicioPorBobina = bobina - espacioCubierto;
-                desperdicioTotal += desperdicioPorBobina;
-
                 // Añadir resultados al HTML
                 resultados += `<p><strong>Bobina de ${bobina + 30} mm (ancho efectivo: ${bobina} mm):</strong></p>`;
                 resultados += `<p>Número de bobinas necesarias para cubrir los pedidos: ${bobinasNecesarias}</p>`;
                 detallesCobertura.forEach(detalle => {
                     resultados += `<p>${detalle}</p>`;
                 });
-                resultados += `<p>Pedidos pendientes tras usar esta bobina: ${pedidosPendientes.length}</p>`;
-                resultados += `<p>Desperdicio estimado por esta bobina: ${desperdicioTotal} mm</p><hr>`;
+                resultados += `<p>Pedidos pendientes tras usar esta bobina: ${pedidosPendientes.length}</p><hr>`;
             });
 
             // Mostrar resultados en el div con id="resultados"
