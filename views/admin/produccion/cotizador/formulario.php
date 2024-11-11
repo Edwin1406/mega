@@ -197,7 +197,6 @@
 
 </fieldset>
 
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -244,24 +243,26 @@
         // Función para calcular la cobertura y la cantidad de bobinas necesarias
         async function calcularCobertura() {
             const pedidos = await obtenerPedidosPendientes();
-            const bobinas = await obtenerBobinas();
+            let bobinas = await obtenerBobinas();
+            bobinas.sort((a, b) => b - a); // Ordenar bobinas de mayor a menor tamaño
+
             let resultados = '';
             let pedidosPendientes = [...pedidos]; // Copia del arreglo de pedidos
 
+            // Procesar cada bobina de mayor a menor
             bobinas.forEach(bobina => {
                 let bobinasNecesarias = 0;
                 let detallesCobertura = []; // Para almacenar detalles de los pedidos cubiertos por cada bobina
 
-                // Mientras queden pedidos pendientes, intentamos cubrirlos
                 for (let i = 0; i < pedidosPendientes.length; i++) {
                     let pedidoActual = pedidosPendientes[i];
                     
-                    // Buscamos otro pedido que junto al actual entre en la bobina
+                    // Intentar encontrar otro pedido que junto con el actual pueda caber en la bobina
                     let cubierto = false;
                     for (let j = i + 1; j < pedidosPendientes.length; j++) {
                         let siguientePedido = pedidosPendientes[j];
                         
-                        // Si los dos pedidos caben en la bobina considerando el refile
+                        // Si ambos pedidos caben juntos en la bobina
                         if (pedidoActual + siguientePedido <= bobina) {
                             bobinasNecesarias++;
                             detallesCobertura.push(`Bobina de ${bobina + 30} mm cubre pedidos ${pedidoActual} y ${siguientePedido}`);
@@ -274,7 +275,7 @@
                         }
                     }
 
-                    // Si el pedido actual no pudo ser combinado con otro, se cubre individualmente
+                    // Si el pedido actual no pudo combinarse, intentamos cubrirlo individualmente
                     if (!cubierto && pedidoActual <= bobina) {
                         bobinasNecesarias++;
                         detallesCobertura.push(`Bobina de ${bobina + 30} mm cubre solo pedido ${pedidoActual}`);
