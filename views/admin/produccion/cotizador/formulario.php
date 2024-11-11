@@ -287,6 +287,21 @@
                                 pedidosCubiertos.push(pedidoActual, siguientePedido); // Marcamos ambos pedidos como cubiertos
                                 pedidosPendientes.splice(i, 1); // Eliminar el primer pedido
                                 pedidosPendientes.splice(j - 1, 1); // Eliminar el segundo pedido (ajustamos el índice)
+                            //eliminar el tercer pedido
+                                pedidosPendientes.splice(j - 2, 1); // Eliminar el tercer pedido (ajustamos el índice)
+                            //eliminar el cuarto pedido
+                                pedidosPendientes.splice(j - 3, 1); // Eliminar el cuarto pedido (ajustamos el índice)
+                            //eliminar el quinto pedido
+                                pedidosPendientes.splice(j - 4, 1); // Eliminar el quinto pedido (ajustamos el índice)
+                            //eliminar el sexto pedido
+                            //eliminar el septimo pedido
+                            //eliminar el octavo pedido
+                            //eliminar el noveno pedido
+                            //eliminar el decimo pedido
+                            //eliminar el onceavo pedido
+                            //eliminar el doceavo pedido
+                            //eliminar el treceavo pedido
+
                                 cubiertoEnEstaBobina = true;
                                 break; // Salir del bucle si encontramos una combinación válida
                             }
