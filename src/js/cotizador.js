@@ -84,7 +84,7 @@
     // copiar datos de la api de bobinas
     let copiaBobinas = []
     function copiarDatos(apibobinas){
-        copiaBobinas = [...apibobinas];
+        copiaBobinas.push(apibobinas);
         console.log(copiaBobinas)
     }
     
