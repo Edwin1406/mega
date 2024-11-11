@@ -144,7 +144,7 @@
 
     
     <div class="formulario__campo">
-        <label class="formulario__label" for="num_piezas">Numero de piezas</label>
+        <label class="formulario__label" for="num_piezas">Numero de cavidades</label>
         <input
             type="text"
             name="num_piezas"
