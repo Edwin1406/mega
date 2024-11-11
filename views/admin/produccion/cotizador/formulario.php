@@ -198,15 +198,17 @@
 </fieldset>
 
 
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simulador de Cobertura de Bobinas</title>
-</head>
+
+
+
+
+
+
+
+
+
 <body>
-    <h2>Simulador de Cobertura de Bobinas</h2>
+    
     <div id="resultados"></div>
 
     <script>
@@ -249,9 +251,6 @@
             let pedidosPendientes = [...pedidos]; // Copia del arreglo de pedidos
             let pedidosCubiertos = []; // Para marcar los pedidos que ya han sido cubiertos
 
-            // Ordenar las bobinas de menor a mayor
-            bobinas.sort((a, b) => a - b);
-
             // Iterar sobre cada bobina
             bobinas.forEach(bobina => {
                 let bobinasNecesarias = 0;
@@ -263,7 +262,7 @@
                     let bobinaDisponible = bobina; // Restamos el ancho de la bobina conforme se vayan agregando pedidos
                     let cubiertoEnEstaBobina = false;
 
-                    // Intentar cubrir dos pedidos en una bobina
+                    // Buscar combinaciones para cubrir la bobina con 2 pedidos
                     for (let i = 0; i < pedidosPendientes.length; i++) {
                         let pedidoActual = pedidosPendientes[i];
 
@@ -294,17 +293,18 @@
                         if (cubiertoEnEstaBobina) break; // Si ya cubrimos la bobina, dejamos de buscar más combinaciones
                     }
 
-                    // Si no se cubrieron 2 pedidos en esta bobina, cubrir el siguiente pedido individualmente
+                    // Si no se cubrieron 2 pedidos en esta bobina, buscar una más grande
                     if (!cubiertoEnEstaBobina) {
-                        let pedidoIndividual = pedidosPendientes[0];
-                        if (pedidoIndividual <= bobina) {
+                        let siguienteBobina = bobinas.find(b => b > bobina && b >= pedidosPendientes[0]);
+                        if (siguienteBobina) {
+                            bobina = siguienteBobina;
+                        } else {
+                            // Si no hay bobinas más grandes, cubrir el siguiente pedido individualmente
+                            let pedidoIndividual = pedidosPendientes[0];
                             pedidosCubiertos.push(pedidoIndividual);
                             pedidosCubiertosEstaBobina.push(pedidoIndividual);
                             pedidosPendientes.splice(0, 1); // Eliminar el pedido individual
                             cubiertoEnEstaBobina = true;
-                        } else {
-                            // Si el pedido individual es mayor que el ancho de la bobina, se pasa a la siguiente bobina
-                            break;
                         }
                     }
 
