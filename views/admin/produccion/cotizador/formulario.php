@@ -181,7 +181,7 @@
             id="gramaje_total"
             class="formulario__input"
             placeholder="gramaje_total del papel"
-            value="<?php echo $papel->gramaje_total ?? '' ?>">
+            value="">
     </div>
     <div class="formulario__campo">
         <label class="formulario__label" for="estado_combinacion">Estado de combinacion</label>
