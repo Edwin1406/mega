@@ -337,6 +337,9 @@
     }
     
 
+
+    // FUNCION PARA MOSTRAR EL PEDIDO2 MAS IDEAL PARA EL PEDIDO1 
+
    
 
  
