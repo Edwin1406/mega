@@ -22,7 +22,8 @@
             const resultado = await fetch(url);
             const apitest = await resultado.json();
             // copiarDatos(apitest);
-           console.log(apitest)
+            console.log(apitest)
+            return apitest
         } catch (e) {
           console.log(e);
             
