@@ -370,6 +370,7 @@
             mostrarAlerta("Test coincide", "El test del pedido coincide con el test del liner", "success", "#28a745", "#d4edda");
             return
         }else{
+            document.querySelector('[name="pedido_id"]').value = '';
             mostrarAlerta("Test no coincide", "El test del pedido no coincide con el test del liner", "error", "#ff0000", "#f8d7da");
             return
         }
