@@ -137,7 +137,8 @@
             if (pesoTest === gramajeTotal) {
                 console.log("Gramaje total:", gramajeTotal);
                 document.getElementById("gramaje_total").value = gramajeTotal;
-                mostrarAlerta(`El gramaje total de las bobinas seleccionadas es: ${gramajeTotal} gr`,'success','.contenido-resumen',false);
+                // mostrarAlerta(`El gramaje total de las bobinas seleccionadas es: ${gramajeTotal} gr`,'success','.contenido-resumen',false);
+                mostrarAlerta('Faltan datos de servicios, hora, fecha o nombre','error','.contenido-resumen',false);
 
 
                 return gramajeTotal;
