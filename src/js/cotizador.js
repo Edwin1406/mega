@@ -1,4 +1,5 @@
 (function(){
+    ApiPedidos();
 
     let test ={
         liner_id : '',
@@ -9,7 +10,6 @@
         bobinaExterna_id : ''
         }
     
-        ApiPedidos();
     // obtener datos del api de pedidos
     async function ApiPedidos(){
         const {pedido_id} = test;
