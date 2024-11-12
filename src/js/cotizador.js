@@ -162,16 +162,17 @@
        // Obtenemos los anchos de las bobinas
         const anchoInterno = parseFloat(bobinaInterna.ancho) || 0;
         const anchoMedia = parseFloat(bobinaMedia.ancho) || 0;
+        const anchoExterno = parseFloat(bobinaExterna.ancho) || 0;
 
         // Verificamos que los campos de ancho no estén vacíos
-        if (anchoInterno && anchoMedia) {
+        if (anchoInterno && anchoMedia && anchoExterno) {
             // Comprobamos si los anchos son iguales
-            if (anchoInterno === anchoMedia) {
+            if (anchoInterno === anchoMedia && anchoMedia === anchoExterno) {
              // Mostrar la alerta después de 30 segundos
                 setTimeout(() => {
                     mostrarAlerta('Ancho correcto', `Los anchos de las bobinas seleccionadas son iguales: ${anchoInterno} cm`, 'success', '#28a745', '#d4edda');
                     
-                }, 5000); // 30,000 milisegundos = 30 segundos
+                }, 4000); // 30,000 milisegundos = 30 segundos
 
 
             } else {
