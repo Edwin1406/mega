@@ -361,12 +361,13 @@
         const testNormal = await ApiTest();
         const testPedido = await ApiPedidos();
 
-        const testN = testNormal.test;
-        const testP = testPedido.test ?? '';
+        const testN = parseFloat(testNormal.test);
+        const testP = parseFloat(testPedido.test) ?? '';
 
-        console.log(`test normal : ${testN}`);
-        console.log(`test Pedido : ${testP}`);
-    
+
+        if(!testN === testP){
+            mostrarAlerta("Test no coincide", "El test del pedido no coincide con el test del liner", "error", "#ff0000", "#f8d7da");
+        }
 
     }
 
