@@ -365,7 +365,7 @@
         const testP = parseFloat(testPedido.test) ?? '';
 
 
-        if(!testN === testP){
+        if(!testP || testN === testP){
             mostrarAlerta("Test no coincide", "El test del pedido no coincide con el test del liner", "error", "#ff0000", "#f8d7da");
         }
 
