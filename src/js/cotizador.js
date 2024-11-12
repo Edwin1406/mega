@@ -104,13 +104,7 @@
        
     }
 
-   
-
-
-
-
-
-
+    // FUNCION PARA SUMAR EL GRAMAJE DE LAS BOBINAS Y COMPARAR CON EL TEST
 
     async function sumargramaje() {
        // Llamamos a cada API para obtener los datos
@@ -180,18 +174,26 @@
                 setTimeout(() => {
                     mostrarAlerta('Anchos incorrectos', `Los anchos de las bobinas seleccionadas no coinciden: Int: ${anchoInterno} cm, Media: ${anchoMedia} cm`,'error','#ff0000','#f8d7da');
                 
-                    const bobinaInterna = document.querySelector('[name="bobinaInterna_id"]')
-                    const bobinaIntermedia = document.querySelector('[name="bobinaIntermedia_id"]')
-                    const bobinaExterna = document.querySelector('[name="bobinaExterna_id"]')
-                    bobinaInterna.value = ''
-                    bobinaIntermedia.value = ''
-                    bobinaExterna.value = ''
+                    // const bobinaInterna = document.querySelector('[name="bobinaInterna_id"]')
+                    // const bobinaIntermedia = document.querySelector('[name="bobinaIntermedia_id"]')
+                    // const bobinaExterna = document.querySelector('[name="bobinaExterna_id"]')
+                    // bobinaInterna.value = ''
+                    // bobinaIntermedia.value = ''
+                    // bobinaExterna.value = ''
                 }, 4000); 
 
             }
         } else {
             console.log("Error: Los anchos internos y medios deben estar llenos");
         }
+
+    }
+
+
+    // funcion para sumar los anchos de los peddios 
+
+    async function sumarAnchosPedidos() { 
+
 
     }
 
