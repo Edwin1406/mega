@@ -231,20 +231,57 @@
 
     // funcion para sumar los anchos de los peddios 
 
-    async function sumarAnchosPedidos() { 
+    // async function sumarAnchosPedidos() { 
             
-        const anchoPedido1 = await ApiPedidos();
-        const anchoPedido2 = await ApiPedido2();
-        const pedido1 = parseFloat(anchoPedido1.ancho) || 0;
-        const pedido2 = parseFloat(anchoPedido2.ancho) || 0;
+    //     const anchoPedido1 = await ApiPedidos();
+    //     const anchoPedido2 = await ApiPedido2();
+    //     const allbobinas = await AllBobinas();
 
-        const anchoTotal = pedido1 + pedido2;
+    //     const pedido1 = parseFloat(anchoPedido1.ancho) || 0;
+    //     const pedido2 = parseFloat(anchoPedido2.ancho) || 0;
 
-        console.log("Ancho total de los pedidos:", anchoTotal);
-        AllBobinas();
+    //     const anchoTotal = pedido1 + pedido2;
+
+    //     console.log("Ancho total de los pedidos:", anchoTotal);
+    //     AllBobinas();
         
 
+    // }
+
+    async function sumarAnchosPedidos() {
+        const anchoPedido1 = await ApiPedidos();
+        const anchoPedido2 = await ApiPedido2();
+        const allbobinas = await AllBobinas();
+    
+        const pedido1 = parseFloat(anchoPedido1.ancho) || 0;
+        const pedido2 = parseFloat(anchoPedido2.ancho) || 0;
+    
+        const anchoTotal = pedido1 + pedido2;
+    
+        console.log("Ancho total de los pedidos:", anchoTotal);
+    
+        // Buscar la bobina ideal
+        let bobinaIdeal = null;
+        let diferenciaMinima = Infinity; // Para encontrar la bobina más cercana
+    
+        for (let i = 0; i < allbobinas.length; i++) {
+            const bobina = allbobinas[i];
+            const anchoBobina = parseFloat(bobina.ancho);
+    
+            // Verificar si el ancho de la bobina es mayor o igual al ancho total y más cercano
+            if (anchoBobina >= anchoTotal && (anchoBobina - anchoTotal) < diferenciaMinima) {
+                bobinaIdeal = bobina;
+                diferenciaMinima = anchoBobina - anchoTotal;
+            }
+        }
+    
+        if (bobinaIdeal) {
+            console.log("Bobina ideal encontrada:", bobinaIdeal);
+        } else {
+            console.log("No se encontró una bobina adecuada.");
+        }
     }
+       
 
 
    
