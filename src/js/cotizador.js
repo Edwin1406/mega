@@ -39,7 +39,6 @@
         }
     } 
 
-    AllBobinas();
     async function AllBobinas(){
         try {   
             const url = `${location.origin}/admin/api/allbobinas`;
@@ -242,6 +241,9 @@
         const anchoTotal = pedido1 + pedido2;
 
         console.log("Ancho total de los pedidos:", anchoTotal);
+        AllBobinas();
+        document.getElementById("ancho_total").value = anchoTotal;
+        return anchoTotal;
 
     }
 
