@@ -136,6 +136,7 @@
          const bobinaInterna = await ApiBobinas();
          const bobinaExterna = await ApiBobina_externa();
          const bobinaMedia = await ApiBobina_media();
+         if (gramajeInterna > 0 && gramajeExterna > 0 && gramajeMedia > 0) {
          if (bobinaInterna !== bobinaExterna || bobinaInterna !== bobinaMedia) {
             Swal.fire({
                 title: "Error de Ancho",
@@ -145,6 +146,7 @@
             });
             return;
         }
+    }
     }
     
    
