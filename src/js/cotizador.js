@@ -23,6 +23,7 @@
             const apitest = await resultado.json();
             // copiarDatos(apitest);
            console.log(apitest)
+           return apitest
         } catch (e) {
           console.log(e);
             
