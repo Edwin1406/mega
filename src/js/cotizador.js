@@ -107,6 +107,21 @@
             if (pesoTest === gramajeTotal) {
                 console.log("Gramaje total:", gramajeTotal);
                 document.getElementById("gramaje_total").value = gramajeTotal;
+                Swal.fire({ 
+                    title: "Gramaje correcto",
+                    text: `El gramaje total de las bobinas seleccionadas es: ${gramajeTotal} gr`,
+                    icon: "success",
+                    iconColor: "#28a745",  // Color del ícono
+                    confirmButtonText: "Entendido",
+                    confirmButtonColor: "#3085d6",
+                    background: "#d4edda", // Color de fondo del cuadro de alerta
+                    color: "#155724", // Color del texto
+                    customClass: {
+                        popup: 'swal-wide'  // Clase CSS personalizada para ajustar el ancho
+                    },
+                });
+
+
                 return gramajeTotal;
             } else {
                 Swal.fire({
