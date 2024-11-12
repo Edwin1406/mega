@@ -329,8 +329,8 @@
         // Seleccionar solo la primera bobina ideal y aplicar el refile de -30 mm
         const bobinaIdeal = bobinasOrdenadas[0];
         if (bobinaIdeal) {
-            bobinaIdeal.ancho = parseFloat(bobinaIdeal.ancho) - 30;
-            mostrarAlerta("Bobina ideal encontrada", `Ancho ideal: ${bobinaIdeal.ancho} mm`, "success" , "#28a745", "#d4edda");
+            const bobinaconRefile = bobinaIdeal.ancho = parseFloat(bobinaIdeal.ancho) - 30;
+            mostrarAlerta("Bobina ideal encontrada", `Ancho ideal: ${bobinaIdeal.ancho} mm  -30 : ${bobinaconRefile}`, "success" , "#28a745", "#d4edda");
         } else {
             console.log("No se encontró una bobina que cumpla con los requisitos.");
         }
