@@ -65,6 +65,7 @@ $router->get('/admin/api/apibobina_media', [ApiTest::class, 'apibobina_media']);
 $router->get('/admin/api/productos', [ApiProductos::class, 'productos']);
 
 $router->get('/admin/api/pedidos', [ApiPedidos::class, 'api']);
+$router->get('/admin/api/apipedido2', [ApiPedidos::class, 'apipedido2']);
 
 
 
