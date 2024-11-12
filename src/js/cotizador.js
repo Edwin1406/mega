@@ -330,7 +330,7 @@
         const bobinaIdeal = bobinasOrdenadas[0];
         if (bobinaIdeal) {
             bobinaIdeal.ancho = parseFloat(bobinaIdeal.ancho) - 30;
-            Swal.fire("Bobina ideal encontrada", `Ancho ideal: ${bobinaIdeal.ancho} mm`, "success");
+            mostrarAlerta("Bobina ideal encontrada", `Ancho ideal: ${bobinaIdeal.ancho} mm`, "success" , "#28a745", "#d4edda");
         } else {
             console.log("No se encontró una bobina que cumpla con los requisitos.");
         }
