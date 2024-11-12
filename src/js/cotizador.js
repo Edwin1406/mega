@@ -330,7 +330,7 @@
         const bobinaIdeal = bobinasOrdenadas[0];
         if (bobinaIdeal) {
             bobinaIdeal.ancho = parseFloat(bobinaIdeal.ancho) - 30;
-            console.log("La bobina ideal con refile aplicado es:", bobinaIdeal);
+            Swal.fire("Bobina ideal encontrada", `Ancho ideal: ${bobinaIdeal.ancho} mm`, "success");
         } else {
             console.log("No se encontró una bobina que cumpla con los requisitos.");
         }
