@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asignación de Bobinas a Pedidos</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Asignación de Bobinas a Pedidos</h1>
+
+    <table id="tablaAsignacion">
+        <thead>
+            <tr>
+                <th>ID Pedido</th>
+                <th>Ancho Requerido</th>
+                <th>ID Mejor Bobina</th>
+                <th>Ancho de Bobina (ajustado)</th>
+                <th>Desperdicio</th>
+                <th>Mensaje</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Filas generadas por JavaScript -->
+        </tbody>
+    </table>
+
+    <script>
+        // Array de bobinas
+        const bobinas = [
+            { id: 1, ancho: 1800, peso: 500, material: "KRAFT", gramaje: 250 },
+            { id: 2, ancho: 2000, peso: 700, material: "KRAFT", gramaje: 225 },
+            { id: 3, ancho: 1500, peso: 450, material: "KRAFT", gramaje: 205 },
+            { id: 4, ancho: 1000, peso: 300, material: "BLANCO", gramaje: 200 }
+        ];
+
+        // Array de pedidos
+        const pedidos = [
+            { id: "241120213", anchoRequerido: 914, largoRequerido: 1648, cantidad: 1000 },
+            { id: "241120214", anchoRequerido: 1000, largoRequerido: 1500, cantidad: 500 },
+            { id: "241120215", anchoRequerido: 1200, largoRequerido: 2000, cantidad: 300 },
+            { id: "241120216", anchoRequerido: 800, largoRequerido: 1000, cantidad: 700 }
+        ];
+
+        // Función para encontrar la mejor bobina para cada pedido
+        function asignarBobinasAPedidos(bobinas, pedidos) {
+            const asignaciones = [];
+
+            pedidos.forEach(pedido => {
+                // Filtrar las bobinas que puedan cubrir el ancho requerido después de restar 30 mm
+                const bobinasPosibles = bobinas.filter(bobina => (bobina.ancho - 30) >= pedido.anchoRequerido);
+
+                if (bobinasPosibles.length > 0) {
+                    // Encontrar la bobina con el ancho ajustado más cercano al ancho requerido
+                    let mejorBobina = bobinasPosibles.reduce((mejor, bobina) => {
+                        const anchoAjustadoActual = bobina.ancho - 30;
+                        const anchoAjustadoMejor = mejor.ancho - 30;
+                        const diferenciaActual = anchoAjustadoActual - pedido.anchoRequerido;
+                        const diferenciaMejor = anchoAjustadoMejor - pedido.anchoRequerido;
+                        return diferenciaActual < diferenciaMejor ? bobina : mejor;
+                    });
+
+                    // Calcular el ancho ajustado y el desperdicio
+                    const anchoAjustado = mejorBobina.ancho - 30;
+                    const desperdicio = anchoAjustado - pedido.anchoRequerido;
+
+                    // Guardar la asignación
+                    asignaciones.push({
+                        pedidoId: pedido.id,
+                        anchoRequerido: pedido.anchoRequerido,
+                        mejorBobinaId: mejorBobina.id,
+                        anchoBobina: anchoAjustado,
+                        desperdicio: desperdicio,
+                        mensaje: ""
+                    });
+                } else {
+                    // Si no hay ninguna bobina que cubra el ancho, se marca como no asignada
+                    asignaciones.push({
+                        pedidoId: pedido.id,
+                        anchoRequerido: pedido.anchoRequerido,
+                        mejorBobinaId: null,
+                        anchoBobina: null,
+                        desperdicio: null,
+                        mensaje: "No hay bobina disponible"
+                    });
+                }
+            });
+
+            return asignaciones;
+        }
+
+        // Función para mostrar las asignaciones en la tabla HTML
+        function mostrarAsignaciones() {
+            const resultadoAsignacion = asignarBobinasAPedidos(bobinas, pedidos);
+            const tablaBody = document.getElementById("tablaAsignacion").querySelector("tbody");
+            tablaBody.innerHTML = ""; // Limpiar el contenido previo
+
+            resultadoAsignacion.forEach(asignacion => {
+                const fila = document.createElement("tr");
+
+                fila.innerHTML = `
+                    <td>${asignacion.pedidoId}</td>
+                    <td>${asignacion.anchoRequerido}</td>
+                    <td>${asignacion.mejorBobinaId !== null ? asignacion.mejorBobinaId : "-"}</td>
+                    <td>${asignacion.anchoBobina !== null ? asignacion.anchoBobina : "-"}</td>
+                    <td>${asignacion.desperdicio !== null ? asignacion.desperdicio : "-"}</td>
+                    <td>${asignacion.mensaje}</td>
+                `;
+
+                tablaBody.appendChild(fila);
+            });
+        }
+
+        // Llamar a la función para mostrar los resultados al cargar la página
+        mostrarAsignaciones();
+    </script>
+
+</body>
+</html>
