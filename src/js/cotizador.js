@@ -288,23 +288,26 @@
         // Tomar las tres primeras bobinas de la lista ordenada
         const tresBobinasIdeales = bobinasOrdenadas.slice(0, 3);
     
+        // Restar 30mm a cada bobina ideal como refile
+        tresBobinasIdeales.forEach(bobina => {
+            bobina.ancho = parseFloat(bobina.ancho) - 30;
+        });
+    
         if (tresBobinasIdeales.length > 0) {
-            console.log("Las tres bobinas ideales son:", tresBobinasIdeales);
-            // Mostrar las bobinas ideales en la consola
-                const bobinaideal = document.getElementById("bobinaIdealAncho");
-                bobinaideal.innerHTML = tresBobinasIdeales.map(bobina => {
-                    return `<option value="${bobina.id}">${bobina.ancho} mm</option>`;
-                } );
-            
+               
+    const bobinaideal = document.getElementById("bobinaIdealAncho");
+    bobinaideal.innerHTML = tresBobinasIdeales.map(bobina => {
+        return `<option value="${bobina.id}">${bobina.ancho} mm</option>`;
+    } );
         } else {
             console.log("No se encontraron bobinas que cumplan con los requisitos.");
         }
     }
     
-
-
-   
     
+
+
+
    
 
  
