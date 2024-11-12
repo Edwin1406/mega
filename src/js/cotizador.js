@@ -85,78 +85,65 @@
     }
 
     async function sumargramaje() {
-        try {
-            // Llamamos a cada API para obtener los datos
-            const [bobinaInterna, bobinaExterna, bobinaMedia, test] = await Promise.all([
-                ApiBobinas(),
-                ApiBobina_externa(),
-                ApiBobina_media(),
-                ApiTest()
-            ]);
-    
-            // Validamos el ancho de las bobinas y el gramaje
-            const anchoInterna = parseFloat(bobinaInterna.ancho) || 0;
-            const anchoExterna = parseFloat(bobinaExterna.ancho) || 0;
-            const anchoMedia = parseFloat(bobinaMedia.ancho) || 0;
-            const gramajeInterna = parseFloat(bobinaInterna.gramaje) || 0;
-            const gramajeExterna = parseFloat(bobinaExterna.gramaje) || 0;
-            const gramajeMedia = parseFloat(bobinaMedia.gramaje) || 0;
-            
-            // Verificar que todas las bobinas tengan el mismo ancho
-            if (anchoInterna !== anchoExterna || anchoInterna !== anchoMedia) {
-                bobinaInterna.value = "";
-                bobinaExterna.value = "";
-                bobinaIntermedia.value = "";
+       // Llamamos a cada API para obtener los datos
+        const bobinaInterna = await ApiBobinas();
+        const bobinaExterna = await ApiBobina_externa();
+        const bobinaMedia = await ApiBobina_media();
+        const test = await ApiTest();
 
+        // Convertimos el gramaje de cada bobina a número y validamos que se hayan recibido correctamente
+        const gramajeInterna = parseFloat(bobinaInterna.gramaje) || 0;
+        const gramajeExterna = parseFloat(bobinaExterna.gramaje) || 0;
+        const gramajeMedia = parseFloat(bobinaMedia.gramaje) || 0;
+
+        // Calculamos el gramaje total
+        const gramajeTotal = gramajeInterna + gramajeExterna + gramajeMedia;
+
+        // Obtenemos el peso del test para la comparación
+        const pesoTest = parseFloat(test.peso);
+
+        // Verificamos que todas las bobinas tengan un gramaje válido antes de comparar
+        if (gramajeInterna > 0 && gramajeExterna > 0 && gramajeMedia > 0) {
+            if (pesoTest === gramajeTotal) {
+                console.log("Gramaje total:", gramajeTotal);
+                document.getElementById("gramaje_total").value = gramajeTotal;
+                return gramajeTotal;
+            } else {
                 Swal.fire({
-                    title: "Error de Ancho",
-                    text: "Las bobinas deben tener el mismo ancho.",
+                    title: "Gramaje no coincide",
+                    text: `Gramaje recomendado para el test ${test.test} : Int: ${test.liner_interno}` + "gr, Media: " + test.liner_medio + "gr, Externo: " + test.liner_externo + "gr",
                     icon: "error",
-                    confirmButtonText: "Entendido"
+                    iconColor: "#ff0000",  // Color del ícono
+                    confirmButtonText: "Entendido",
+                    confirmButtonColor: "#3085d6",
+                    background: "#f8d7da", // Color de fondo del cuadro de alerta
+                    color: "#721c24", // Color del texto
+                    customClass: {
+                        popup: 'swal-wide'  // Clase CSS personalizada para ajustar el ancho
+                    },
                 });
+                
                 return;
             }
-            
-            // Calculamos el gramaje total si el ancho es válido
-            const gramajeTotal = gramajeInterna + gramajeExterna + gramajeMedia;
-    
-            // Obtenemos el peso del test para la comparación
-            const pesoTest = parseFloat(test.peso);
-    
-            // Verificamos el gramaje total
-            if (gramajeInterna > 0 && gramajeExterna > 0 && gramajeMedia > 0) {
-                if (pesoTest === gramajeTotal) {
-                    console.log("Gramaje total:", gramajeTotal);
-                    document.getElementById("gramaje_total").value = gramajeTotal;
-                    return gramajeTotal;
-                } else {
-                    Swal.fire({
-                        title: "Gramaje no coincide",
-                        text: `Gramaje recomendado para el test ${test.test} : Int: ${test.liner_interno}gr, Media: ${test.liner_medio}gr, Externo: ${test.liner_externo}gr`,
-                        icon: "error",
-                        iconColor: "#ff0000",
-                        confirmButtonText: "Entendido",
-                        confirmButtonColor: "#3085d6",
-                        background: "#f8d7da",
-                        color: "#721c24",
-                        customClass: {
-                            popup: 'swal-wide'
-                        },
-                    });
-                    return;
-                }
-            } else {
-                console.log("Aún no se han seleccionado todas las bobinas necesarias.");
-            }
-    
-        } catch (error) {
-            console.error("Error al obtener los datos de las bobinas:", error);
+        } else {
+            console.log("Aún no se han seleccionado todas las bobinas necesarias.");
+        }
+
+    }
+
+    async function verificarAnchoBobinas(){
+         // Verificar que todas las bobinas tengan el mismo ancho
+         const bobinaInterna = await ApiBobinas();
+         const bobinaExterna = await ApiBobina_externa();
+         const bobinaMedia = await ApiBobina_media();
+         if (bobinaInterna !== bobinaExterna || bobinaInterna !== bobinaMedia) {
             Swal.fire({
-                title: "Error",
-                text: "Hubo un problema al obtener los datos de las bobinas. Inténtalo de nuevo.",
+                title: "Error de Ancho",
+                text: "Las bobinas deben tener el mismo ancho.",
                 icon: "error",
                 confirmButtonText: "Entendido"
             });
+            return;
         }
     }
     
@@ -197,6 +184,7 @@
         ApiBobina_externa();
         ApiBobina_media();
         sumargramaje();
+        verificarAnchoBobinas();
     }
 
 }
