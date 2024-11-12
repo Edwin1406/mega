@@ -124,7 +124,7 @@
 
                 return gramajeTotal;
             } else {
-                gramajeTotal.value = "";
+                
                 Swal.fire({
                     title: "Gramaje no coincide",
                     text: `Gramaje recomendado para el test ${test.test} : Int: ${test.liner_interno}` + "gr, Media: " + test.liner_medio + "gr, Externo: " + test.liner_externo + "gr",
@@ -138,6 +138,7 @@
                         popup: 'swal-wide'  // Clase CSS personalizada para ajustar el ancho
                     },
                 });
+                document.getElementById("gramaje_total").value = "";
                 
                 return;
             }
