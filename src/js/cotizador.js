@@ -365,7 +365,7 @@
         const testP = parseFloat(testPedido.test) ?? '';
 
 
-        if(testN=== testP){
+        if(testP=== testN){
             console.log("Test coincide");
             mostrarAlerta("Test coincide", "El test del pedido coincide con el test del liner", "success", "#28a745", "#d4edda");
             return
@@ -416,7 +416,12 @@
         sumargramaje();
         ApiPedidos();
         ApiPedido2();
-        TestPedido();
+        if (['pedido_id'].includes(e.target.name) &&
+        document.querySelector('[name="pedido_id"]').value) {
+        sumarAnchosPedidos();
+        }
+
+        
         if (['pedido_id'].includes(e.target.name) &&
         document.querySelector('[name="pedido_id"]').value) {
         sumarAnchosPedidos();
