@@ -166,33 +166,16 @@
             if (anchoInterno && anchoMedia) {
                 // Comprobamos si los anchos son iguales
                 if (anchoInterno === anchoMedia) {
-                    Swal.fire({
-                        title: "Anchos correctos",
-                        text: `Los anchos de las bobinas seleccionadas son iguales: ${anchoInterno} cm`,
-                        icon: "success",
-                        iconColor: "#28a745",  // Color del ícono
-                        confirmButtonText: "Entendido",
-                        confirmButtonColor: "#3085d6",
-                        background: "#d4edda", // Color de fondo del cuadro de alerta
-                        color: "#155724", // Color del texto
-                        customClass: {
-                            popup: 'swal-wide'  // Clase CSS personalizada para ajustar el ancho
-                        },
-                    });
+                 
+                    mostrarAlerta('Ancho correcto',`Los anchos de las bobinas seleccionadas son iguales: ${anchoInterno} cm`,'success','#28a745','#d4edda');
+
                 } else {
-                   Swal.fire({ 
-                        title: "Anchos incorrectos",
-                        text: `Los anchos de las bobinas seleccionadas no coinciden: Int: ${anchoInterno} cm, Media: ${anchoMedia} cm`,
-                        icon: "error",
-                        iconColor: "#ff0000",  // Color del ícono
-                        confirmButtonText: "Entendido",
-                        confirmButtonColor: "#3085d6",
-                        background: "#f8d7da", // Color de fondo del cuadro de alerta
-                        color: "#721c24", // Color del texto
-                        customClass: {
-                            popup: 'swal-wide'  // Clase CSS personalizada para ajustar el ancho
-                        },
-                    });
+                    mostrarAlerta('Anchos incorrectos', `Los anchos de las bobinas seleccionadas no coinciden: Int: ${anchoInterno} cm, Media: ${anchoMedia} cm`,'error','#ff0000','#f8d7da');
+                    const bobinaInterna = document.querySelector('[name="bobinaInterna_id"]')
+                    const bobinaIntermedia = document.querySelector('[name="bobinaIntermedia_id"]')
+                    bobinaInterna.value = ''
+                    bobinaIntermedia.value = ''
+
                 }
             } else {
                 console.log("Error: Los anchos internos y medios deben estar llenos");
