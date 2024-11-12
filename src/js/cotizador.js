@@ -13,6 +13,7 @@
     // obtener datos del api de pedidos
     async function ApiPedidos(){
         const {pedido_id} = test;
+        console.log(pedido_id)
         try {
             const url = `${location.origin}/admin/api/pedidos?pedido_id=${pedido_id}`;
             const resultado = await fetch(url);
