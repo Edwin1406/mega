@@ -109,7 +109,20 @@
                 document.getElementById("gramaje_total").value = gramajeTotal;
                 return gramajeTotal;
             } else {
-                Swal.fire("Gramaje no coincide", `Gramaje recomendado para ese test : Int: ${test.liner_interno}`, "error");
+                Swal.fire({
+                    title: "Gramaje no coincide",
+                    text: `Gramaje recomendado para ese test : Int: ${test.liner_interno}` + "gr, Media: " + test.liner_media + "gr, Externo: " + test.liner_externo + "gr",
+                    icon: "error",
+                    iconColor: "#ff0000",  // Color del ícono
+                    confirmButtonText: "Entendido",
+                    confirmButtonColor: "#3085d6",
+                    background: "#f8d7da", // Color de fondo del cuadro de alerta
+                    color: "#721c24", // Color del texto
+                    customClass: {
+                        popup: 'swal-wide'  // Clase CSS personalizada para ajustar el ancho
+                    },
+                });
+                
                 return;
             }
         } else {
