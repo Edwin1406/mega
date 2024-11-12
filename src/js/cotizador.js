@@ -38,6 +38,22 @@
                 
         }
     } 
+
+    AllBobinas();
+    async function AllBobinas(){
+        try {   
+            const url = `${location.origin}/admin/api/allbobinas`;
+            const resultado = await fetch(url);
+            const allbobinas = await resultado.json();
+            console.log(allbobinas);
+            return allbobinas
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+
+
     // obtener datos del api de test
     async function ApiTest(){
         const {liner_id} = test;

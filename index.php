@@ -67,6 +67,8 @@ $router->get('/admin/api/productos', [ApiProductos::class, 'productos']);
 $router->get('/admin/api/pedidos', [ApiPedidos::class, 'api']);
 $router->get('/admin/api/apipedido2', [ApiPedidos::class, 'apipedido2']);
 
+$router->get('/admin/api/allbobinas', [ApiTest::class, 'allbobinas']);
+
 
 
 

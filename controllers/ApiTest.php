@@ -83,6 +83,11 @@ class ApiTest {
         echo json_encode($bobina);
     }
 
+    public static function allbobinas(){
+        $bobinas = Bobina::all();
+        echo json_encode($bobinas);
+    }
+
 
 
 
