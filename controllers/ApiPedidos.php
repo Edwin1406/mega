@@ -41,7 +41,7 @@ class ApiPedidos {
 
     public static function Allpedidos()
     {
-        $pedidos = Pedido::all();
+        $pedidos = Pedido::all('DESC');
         echo json_encode($pedidos);
     }
 }
