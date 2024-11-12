@@ -260,27 +260,38 @@
     
         console.log("Ancho total de los pedidos:", anchoTotal);
     
-        // Buscar la bobina ideal
-        let bobinaIdeal = null;
-        let diferenciaMinima = Infinity; // Para encontrar la bobina más cercana
-    
-        for (let i = 0; i < allbobinas.length; i++) {
-            const bobina = allbobinas[i];
+        // Filtrar las bobinas que cumplen las condiciones: ancho >= anchoTotal y <= 2000
+        const bobinasFiltradas = allbobinas.filter(bobina => {
             const anchoBobina = parseFloat(bobina.ancho);
+            return anchoBobina >= anchoTotal && anchoBobina <= 2000;
+        });
     
-            // Verificar si el ancho de la bobina es mayor o igual al ancho total y más cercano
-            if (anchoBobina >= anchoTotal && (anchoBobina - anchoTotal) < diferenciaMinima) {
-                bobinaIdeal = bobina;
-                diferenciaMinima = anchoBobina - anchoTotal;
+        // Eliminar duplicados usando un Set para los anchos
+        const bobinasSinDuplicados = [];
+        const anchosVistos = new Set();
+    
+        for (let bobina of bobinasFiltradas) {
+            const anchoBobina = parseFloat(bobina.ancho);
+            if (!anchosVistos.has(anchoBobina)) {
+                bobinasSinDuplicados.push(bobina);
+                anchosVistos.add(anchoBobina);
             }
         }
     
-        // Mostrar el ancho de la bobina ideal en el HTML
-        const anchoElemento = document.getElementById('bobinaIdealAncho');
-        if (bobinaIdeal) {
-            anchoElemento.textContent = bobinaIdeal.ancho; // Actualiza el texto con el ancho de la bobina ideal
+        // Ordenar las bobinas por la diferencia más pequeña con el anchoTotal
+        const bobinasOrdenadas = bobinasSinDuplicados.sort((a, b) => {
+            const diferenciaA = Math.abs(parseFloat(a.ancho) - anchoTotal);
+            const diferenciaB = Math.abs(parseFloat(b.ancho) - anchoTotal);
+            return diferenciaA - diferenciaB;
+        });
+    
+        // Tomar las tres primeras bobinas de la lista ordenada
+        const tresBobinasIdeales = bobinasOrdenadas.slice(0, 3);
+    
+        if (tresBobinasIdeales.length > 0) {
+            console.log("Las tres bobinas ideales son:", tresBobinasIdeales);
         } else {
-            anchoElemento.textContent = "No se encontró una bobina adecuada."; // Si no se encuentra una bobina adecuada
+            console.log("No se encontraron bobinas que cumplan con los requisitos.");
         }
     }
     
