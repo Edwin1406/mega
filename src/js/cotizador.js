@@ -109,7 +109,7 @@
                 document.getElementById("gramaje_total").value = gramajeTotal;
                 return gramajeTotal;
             } else {
-                Swal.fire("Gramaje no coincide", "El gramaje total no coincide con el peso de la prueba", "error");
+                Swal.fire("Gramaje no coincide", `Gramaje recomendado para ese test : Int: ${test.liner_interno}`, "error");
                 return;
             }
         } else {
