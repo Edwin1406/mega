@@ -10,10 +10,20 @@
         }
     
 
-           
-    // let copiaTest = []
-    // let copiaBobinas = []
-  
+    // obtener datos del api de pedidos
+    async function ApiPedidos(){
+        const {pedido_id} = test;
+        try {
+            const url = `${location.origin}/admin/api/pedidos?pedido_id=${pedido_id}`;
+            const resultado = await fetch(url);
+            const apipedidos = await resultado.json();
+            console.log(apipedidos);
+            return apipedidos
+        } catch (e) {
+            console.log(e);
+                
+        }
+    } 
     // obtener datos del api de test
     async function ApiTest(){
         const {liner_id} = test;
