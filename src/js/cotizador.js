@@ -363,7 +363,7 @@
     // los pedidos no pueden ser iguales
     if ((e.target.name === 'pedido_id' || e.target.name === 'pedido2_id') && pedido.value === pedido2.value) {
         pedido2.value = ''
-        Swal.fire("Pedido ya seleccionado", "No puede seleccionar el mismo pedido", "error");
+        mostrarAlerta("Pedido ya seleccionado", "No puede seleccionar el mismo pedido", "error", "#ff0000", "#f8d7da");
         return    
 
     }else{
@@ -376,9 +376,12 @@
         sumargramaje();
         ApiPedidos();
         ApiPedido2();
-        if(e.target.name === 'pedido_id' || e.target.name === 'pedido2_id'){
-            sumarAnchosPedidos();
-        }
+        if (['pedido_id', 'pedido2_id'].includes(e.target.name) &&
+        document.querySelector('[name="pedido_id"]').value &&
+        document.querySelector('[name="pedido2_id"]').value) {
+        sumarAnchosPedidos();
+    }
+    
     }
 
 }
