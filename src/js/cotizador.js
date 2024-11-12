@@ -292,8 +292,8 @@
             console.log("Las tres bobinas ideales son:", tresBobinasIdeales);
             // Mostrar las bobinas ideales en la consola
                 const bobinaideal = document.getElementById("bobinaideal");
-                bobinaideal.innerHTML = tresBobinasIdeales.map(bobina => {
-                    return `<option value="${bobina.id}">${bobina.ancho} mm</option>`;
+                tresBobinasIdeales.map(bobina => {
+                    bobinaideal.innerHTML += `<option value="${bobina.id}">${bobina.id} - ${bobina.ancho} cm</option>`;
                 } );
             
         } else {
