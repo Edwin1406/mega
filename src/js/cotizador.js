@@ -217,7 +217,15 @@
     // funcion para sumar los anchos de los peddios 
 
     async function sumarAnchosPedidos() { 
+            
+        const anchoPedido1 = await ApiPedidos();
+        const anchoPedido2 = await ApiPedido2();
+        const pedido1 = parseFloat(anchoPedido1.ancho) || 0;
+        const pedido2 = parseFloat(anchoPedido2.ancho) || 0;
 
+        const anchoTotal = pedido1 + pedido2;
+
+        console.log("Ancho total de los pedidos:", anchoTotal);
 
     }
 
@@ -263,6 +271,7 @@
         sumargramaje();
         ApiPedidos();
         ApiPedido2();
+        sumarAnchosPedidos();
 
     }
 
