@@ -22,8 +22,7 @@
             const resultado = await fetch(url);
             const apitest = await resultado.json();
             // copiarDatos(apitest);
-            console.log(apitest)
-            return apitest
+           console.log(apitest)
         } catch (e) {
           console.log(e);
             
@@ -89,16 +88,13 @@
         const bobinaInterna = await ApiBobinas();
         const bobinaExterna = await ApiBobina_externa();
         const bobinaMedia = await ApiBobina_media();
-        const test = await ApiTest();
-        console.log(test.peso)
     
         // Convertimos el gramaje de cada bobina a número y sumamos
         const gramajeTotal = 
             (parseFloat(bobinaInterna.gramaje) || 0) + 
             (parseFloat(bobinaExterna.gramaje) || 0) + 
             (parseFloat(bobinaMedia.gramaje) || 0);
-       
-        // if(test.peso)
+    
         console.log("Gramaje total:", gramajeTotal);
         document.getElementById("gramaje_total").value = gramajeTotal;
 
