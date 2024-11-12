@@ -132,30 +132,17 @@
     }
 
     async function verificarAnchoBobinas() {
-        try {
+  
             // Obtener los valores de ancho de las bobinas
             const bobinaInterna = await ApiBobinas();
             const bobinaExterna = await ApiBobina_externa();
             
-            // Verifica que los valores sean válidos (no sean null o undefined) y sean números
-            if (bobinaInterna >0 && bobinaExterna >0) {
-                
-                // Comprobar si los anchos de las primeras dos bobinas son diferentes
-                if (bobinaInterna !== bobinaExterna) {
-                    Swal.fire({
-                        title: "Error de Ancho",
-                        text: "Las dos primeras bobinas deben tener el mismo ancho.",
-                        icon: "error",
-                        confirmButtonText: "Entendido"
-                    });
-                    return;
-                }
-            } else {
-                console.error("Error: uno de los valores de ancho de bobina es inválido.");
-            }
-        } catch (error) {
-            console.error("Error al verificar los anchos de las bobinas:", error);
-        }
+            // Convertir los valores de ancho a número y validar que se hayan recibido correctamente
+            const anchoInterna = parseFloat(bobinaInterna.ancho) || 0;
+            const anchoExterna = parseFloat(bobinaExterna.ancho) || 0;
+
+            console.log("Ancho Interna:", anchoInterna);
+            console.log("Ancho Externa:", anchoExterna);
     }
     
     
