@@ -134,6 +134,7 @@
         if (gramajeInterna > 0 && gramajeExterna > 0 && gramajeMedia > 0) {
             if (pesoTest === gramajeTotal) {
                 console.log("Gramaje total:", gramajeTotal);
+                verificarAnchoBobinas();
                 document.getElementById("gramaje_total").value = gramajeTotal;
                 mostrarAlerta('Gramaje correcto',`El gramaje total de las bobinas seleccionadas es: ${gramajeTotal} gr`,'success','#28a745','#d4edda');
 
@@ -234,7 +235,6 @@
         ApiBobina_externa();
         ApiBobina_media();
         sumargramaje();
-        verificarAnchoBobinas();
     }
 
 }
