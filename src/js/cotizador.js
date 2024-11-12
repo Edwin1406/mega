@@ -340,8 +340,20 @@
     
 
 
-    // FUNCION PARA MOSTRAR EL PEDIDO2 MAS IDEAL PARA EL PEDIDO1 
+    // FUNCION ALL PEDIDOS 
 
+    async function AllPedidos(){
+        try {
+            const url = `${location.origin}/admin/api/allpedidos`;
+            const resultado = await fetch(url);
+            const allpedidos = await resultado.json();
+            console.log(allpedidos);
+            return allpedidos
+        } catch (e) {
+            console.log(e);
+                
+        }
+    }
    
 
  
