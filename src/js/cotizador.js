@@ -90,24 +90,30 @@
         const bobinaExterna = await ApiBobina_externa();
         const bobinaMedia = await ApiBobina_media();
         const test = await ApiTest();
-       
-    
+
         // Convertimos el gramaje de cada bobina a número y sumamos
-        const gramajeTotal = 
-            (parseFloat(bobinaInterna.gramaje) || 0) + 
-            (parseFloat(bobinaExterna.gramaje) || 0) + 
-            (parseFloat(bobinaMedia.gramaje) || 0);
-       
-            if(bobinaInterna.gramaje || bobinaExterna.gramaje || bobinaMedia.gramaje){
-                if(parseFloat(test.peso)==gramajeTotal){ 
+        const gramajeInterna = parseFloat(bobinaInterna.gramaje) || 0;
+        const gramajeExterna = parseFloat(bobinaExterna.gramaje) || 0;
+        const gramajeMedia = parseFloat(bobinaMedia.gramaje) || 0;
+
+        const gramajeTotal = gramajeInterna + gramajeExterna + gramajeMedia;
+        const pesoTest = parseFloat(test.peso);
+
+        // Verificamos si se proporcionaron valores de gramaje y comparamos con el peso del test
+        if (gramajeInterna > 0 || gramajeExterna > 0 || gramajeMedia > 0) {
+            if (pesoTest === gramajeTotal) {
                 console.log("Gramaje total:", gramajeTotal);
                 document.getElementById("gramaje_total").value = gramajeTotal;
                 return gramajeTotal;
-                }else{
-                    Swal.fire("Gramaje no coincide", "El gramaje total no coincide con el peso de la prueba", "error");
-                    return
-                }
-            }}
+            } else {
+                Swal.fire("Gramaje no coincide", "El gramaje total no coincide con el peso de la prueba", "error");
+                return;
+            }
+        } else {
+            Swal.fire("Error", "No se obtuvo el gramaje de alguna de las bobinas", "warning");
+        }
+
+        }
     
    
 
