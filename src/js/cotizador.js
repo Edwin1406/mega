@@ -98,7 +98,7 @@
             (parseFloat(bobinaExterna.gramaje) || 0) + 
             (parseFloat(bobinaMedia.gramaje) || 0);
        
-            if(empty(bobinaInterna.gramaje) || empty(bobinaExterna.gramaje) || empty(bobinaMedia.gramaje)){
+            if(bobinaInterna.gramaje || bobinaExterna.gramaje || bobinaMedia.gramaje){
                 if(test.peso==gramajeTotal){ 
                 console.log("Gramaje total:", gramajeTotal);
                 document.getElementById("gramaje_total").value = gramajeTotal;
