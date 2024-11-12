@@ -200,11 +200,13 @@
 
 
 <style>
-    .swal-wide {
-    height: 100vh;
-    width: 20% !important; /* Ajusta el tamaño según tus necesidades */
-    font-size: 30px; /* Tamaño del texto */
+ .swal-wide {
+    width: 500px !important; /* Ancho del cuadro de alerta */
+    height: 300px !important; /* Altura del cuadro de alerta */
+    font-size: 18px; /* Tamaño del texto */
+    padding: 20px; /* Espacio interior del cuadro de alerta */
 }
+
 
 </style>
 
