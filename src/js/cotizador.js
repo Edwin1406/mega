@@ -295,10 +295,10 @@
     
         if (tresBobinasIdeales.length > 0) {
                
-    const bobinaideal = document.getElementById("bobinaIdealAncho");
-    bobinaideal.innerHTML = tresBobinasIdeales.map(bobina => {
-        return `<option value="${bobina.id}">${bobina.ancho} mm</option>`;
-    } );
+            const bobinaideal = document.getElementById("bobinaIdealAncho");
+            bobinaideal.innerHTML = tresBobinasIdeales.map(bobina => {
+                return `<option value="${bobina.id}">${bobina.ancho+30} mm</option>`;
+            } );
         } else {
             console.log("No se encontraron bobinas que cumplan con los requisitos.");
         }
