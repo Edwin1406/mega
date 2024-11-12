@@ -38,4 +38,10 @@ class ApiPedidos {
         // $pedidos = Pedido::all();
         echo json_encode($pedidos);
     }
+
+    public static function Allpedidos()
+    {
+        $pedidos = Pedido::all();
+        echo json_encode($pedidos);
+    }
 }
