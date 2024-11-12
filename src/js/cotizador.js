@@ -111,7 +111,7 @@
             } else {
                 Swal.fire({
                     title: "Gramaje no coincide",
-                    text: `Gramaje recomendado para ese test : Int: ${test.liner_interno}` + "gr, Media: " + test.liner_media + "gr, Externo: " + test.liner_externo + "gr",
+                    text: `Gramaje recomendado para ese test : Int: ${test.liner_interno}` + "gr, Media: " + test.liner_medio + "gr, Externo: " + test.liner_externo + "gr",
                     icon: "error",
                     iconColor: "#ff0000",  // Color del ícono
                     confirmButtonText: "Entendido",
