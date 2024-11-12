@@ -28,7 +28,7 @@
         const {pedido_id} = test;
         
         try {
-            const url = `${location.origin}/admin/api/pedidos?pedido2_id=${pedido_id}`;
+            const url = `${location.origin}/admin/api/apipedido2?pedido2_id=${pedido_id}`;
             const resultado = await fetch(url);
             const apipedido2 = await resultado.json();
             console.log(apipedido2);
