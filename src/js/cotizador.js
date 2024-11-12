@@ -89,13 +89,14 @@
         const bobinaExterna = await ApiBobina_externa();
         const bobinaMedia = await ApiBobina_media();
         const test = await ApiTest();
+        console.log(test.peso)
     
         // Convertimos el gramaje de cada bobina a número y sumamos
         const gramajeTotal = 
             (parseFloat(bobinaInterna.gramaje) || 0) + 
             (parseFloat(bobinaExterna.gramaje) || 0) + 
             (parseFloat(bobinaMedia.gramaje) || 0);
-        console.log(test.peso);
+       
         // if(test.peso)
         console.log("Gramaje total:", gramajeTotal);
         document.getElementById("gramaje_total").value = gramajeTotal;
