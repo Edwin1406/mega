@@ -362,7 +362,7 @@
         const testPedido = await ApiPedidos();
 
         const testN = testNormal.test;
-        const testP = testPedido.test;
+        const testP = testPedido.test ?? '';
 
         console.log(`test normal : ${testN}`);
         console.log(`test Pedido : ${testP}`);
