@@ -18,7 +18,7 @@
             const resultado = await fetch(url);
             const apipedidos = await resultado.json();
             console.log(apipedidos);
-            return apipedidos
+            // return apipedidos
         } catch (e) {
             console.log(e);
                 
