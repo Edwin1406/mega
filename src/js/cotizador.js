@@ -231,22 +231,63 @@
 
     // funcion para sumar los anchos de los peddios 
 
-    // async function sumarAnchosPedidos() { 
-            
+    // async function sumarAnchosPedidos() {
     //     const anchoPedido1 = await ApiPedidos();
     //     const anchoPedido2 = await ApiPedido2();
     //     const allbobinas = await AllBobinas();
-
+    
     //     const pedido1 = parseFloat(anchoPedido1.ancho) || 0;
     //     const pedido2 = parseFloat(anchoPedido2.ancho) || 0;
-
+    
     //     const anchoTotal = pedido1 + pedido2;
-
+    
     //     console.log("Ancho total de los pedidos:", anchoTotal);
-    //     AllBobinas();
-        
-
+    
+    //     // Filtrar las bobinas que cumplen las condiciones: ancho >= anchoTotal y <= 2000
+    //     const bobinasFiltradas = allbobinas.filter(bobina => {
+    //         const anchoBobina = parseFloat(bobina.ancho);
+    //         return anchoBobina >= anchoTotal && anchoBobina <= 2000;
+    //     });
+    
+    //     // Eliminar duplicados usando un Set para los anchos
+    //     const bobinasSinDuplicados = [];
+    //     const anchosVistos = new Set();
+    
+    //     for (let bobina of bobinasFiltradas) {
+    //         const anchoBobina = parseFloat(bobina.ancho);
+    //         if (!anchosVistos.has(anchoBobina)) {
+    //             bobinasSinDuplicados.push(bobina);
+    //             anchosVistos.add(anchoBobina);
+    //         }
+    //     }
+    
+    //     // Ordenar las bobinas por la diferencia más pequeña con el anchoTotal
+    //     const bobinasOrdenadas = bobinasSinDuplicados.sort((a, b) => {
+    //         const diferenciaA = Math.abs(parseFloat(a.ancho) - anchoTotal);
+    //         const diferenciaB = Math.abs(parseFloat(b.ancho) - anchoTotal);
+    //         return diferenciaA - diferenciaB;
+    //     });
+    
+    //     // Tomar las tres primeras bobinas de la lista ordenada
+    //     const tresBobinasIdeales = bobinasOrdenadas.slice(0, 3);
+    
+    //     // Restar 30mm a cada bobina ideal como refile
+    //     tresBobinasIdeales.forEach(bobina => {
+    //         bobina.ancho = parseFloat(bobina.ancho) - 30;
+    //     });
+    
+    //     if (tresBobinasIdeales.length > 0) {
+               
+    //         const bobinaideal = document.getElementById("bobinaIdealAncho");
+    //         bobinaideal.innerHTML = tresBobinasIdeales.map(bobina => {
+    //         return `<option value="${bobina.id}">${bobina.ancho} mm  sin refile:${bobina.ancho+30}</option>`;
+    //         } );
+    //     } else {
+    //         console.log("No se encontraron bobinas que cumplan con los requisitos.");
+    //     }
     // }
+    
+    
 
     async function sumarAnchosPedidos() {
         const anchoPedido1 = await ApiPedidos();
@@ -285,28 +326,18 @@
             return diferenciaA - diferenciaB;
         });
     
-        // Tomar las tres primeras bobinas de la lista ordenada
-        const tresBobinasIdeales = bobinasOrdenadas.slice(0, 3);
-    
-        // Restar 30mm a cada bobina ideal como refile
-        tresBobinasIdeales.forEach(bobina => {
-            bobina.ancho = parseFloat(bobina.ancho) - 30;
-        });
-    
-        if (tresBobinasIdeales.length > 0) {
-               
+        // Seleccionar solo la primera bobina ideal y aplicar el refile de -30 mm
+        const bobinaIdeal = bobinasOrdenadas[0];
+        if (bobinaIdeal) {
             const bobinaideal = document.getElementById("bobinaIdealAncho");
             bobinaideal.innerHTML = tresBobinasIdeales.map(bobina => {
-                return `<option value="${bobina.id}">${bobina.ancho} mm  sin refile:${bobina.ancho+30}</option>`;
-            } );
+            return `<option value="${bobina.id}">${bobina.ancho} mm  sin refile:${bobina.ancho+30}</option>`;
+            });
         } else {
-            console.log("No se encontraron bobinas que cumplan con los requisitos.");
+            console.log("No se encontró una bobina que cumpla con los requisitos.");
         }
     }
     
-    
-
-
 
    
 
