@@ -341,7 +341,7 @@
 
 
     // FUNCION ALL PEDIDOS 
-AllPedidos();
+// AllPedidos();
     async function AllPedidos(){
         try {
             const url = `${location.origin}/admin/api/allpedidos`;
@@ -360,8 +360,12 @@ AllPedidos();
     async function TestPedido(){
         const testNormal = await ApiTest();
         const testPedido = await ApiPedidos();
-        console.log(`test normal : ${testNormal}`);
-        console.log(`test Pedido : ${testPedido}`);
+
+        const testN = testNormal.test;
+        const testP = testPedido.test;
+
+        console.log(`test normal : ${testN}`);
+        console.log(`test Pedido : ${testP}`);
     
 
     }
