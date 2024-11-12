@@ -154,28 +154,45 @@
             const bobinaInterna = await ApiBobinas();
             const bobinaExterna = await ApiBobina_externa();
             const bobinaMedia = await ApiBobina_media();
-            const test = await ApiTest();
-
-            // Convertimos el gramaje de cada bobina a número y validamos que se hayan recibido correctamente
-            const gramajeInterna = parseFloat(bobinaInterna.gramaje) || 0;
-            const gramajeExterna = parseFloat(bobinaExterna.gramaje) || 0;
-            const gramajeMedia = parseFloat(bobinaMedia.gramaje) || 0;
-
            // Obtenemos los anchos de las bobinas
-    const anchoInterno = parseFloat(bobinaInterna.ancho) || 0;
-    const anchoMedia = parseFloat(bobinaMedia.ancho) || 0;
+            const anchoInterno = parseFloat(bobinaInterna.ancho) || 0;
+            const anchoMedia = parseFloat(bobinaMedia.ancho) || 0;
 
-    // Verificamos que los campos de ancho no estén vacíos
-    if (anchoInterno && anchoMedia) {
-        // Comprobamos si los anchos son iguales
-        if (anchoInterno === anchoMedia) {
-            console.log("Anchos iguales");
-        } else {
-            console.log("Error: Los anchos deben ser iguales");
-        }
-    } else {
-        console.log("Error: Los anchos internos y medios deben estar llenos");
-    }
+            // Verificamos que los campos de ancho no estén vacíos
+            if (anchoInterno && anchoMedia) {
+                // Comprobamos si los anchos son iguales
+                if (anchoInterno === anchoMedia) {
+                    Swal.fire({
+                        title: "Anchos correctos",
+                        text: `Los anchos de las bobinas seleccionadas son iguales: ${anchoInterno} cm`,
+                        icon: "success",
+                        iconColor: "#28a745",  // Color del ícono
+                        confirmButtonText: "Entendido",
+                        confirmButtonColor: "#3085d6",
+                        background: "#d4edda", // Color de fondo del cuadro de alerta
+                        color: "#155724", // Color del texto
+                        customClass: {
+                            popup: 'swal-wide'  // Clase CSS personalizada para ajustar el ancho
+                        },
+                    });
+                } else {
+                   Swal.fire({ 
+                        title: "Anchos incorrectos",
+                        text: `Los anchos de las bobinas seleccionadas no coinciden: Int: ${anchoInterno} cm, Media: ${anchoMedia} cm`,
+                        icon: "error",
+                        iconColor: "#ff0000",  // Color del ícono
+                        confirmButtonText: "Entendido",
+                        confirmButtonColor: "#3085d6",
+                        background: "#f8d7da", // Color de fondo del cuadro de alerta
+                        color: "#721c24", // Color del texto
+                        customClass: {
+                            popup: 'swal-wide'  // Clase CSS personalizada para ajustar el ancho
+                        },
+                    });
+                }
+            } else {
+                console.log("Error: Los anchos internos y medios deben estar llenos");
+            }
 
     }
     
