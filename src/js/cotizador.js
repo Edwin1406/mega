@@ -131,23 +131,34 @@
 
     }
 
-    async function verificarAnchoBobinas(){
-         // Verificar que todas las bobinas tengan el mismo ancho
-         const bobinaInterna = await ApiBobinas();
-         const bobinaExterna = await ApiBobina_externa();
-         const bobinaMedia = await ApiBobina_media();
-         if (bobinaInterna > 0 && bobinaExterna > 0 && bobinaMedia > 0) {
-         if (bobinaInterna !== bobinaExterna || bobinaInterna !== bobinaMedia) {
-            Swal.fire({
-                title: "Error de Ancho",
-                text: "Las bobinas deben tener el mismo ancho.",
-                icon: "error",
-                confirmButtonText: "Entendido"
-            });
-            return;
+    async function verificarAnchoBobinas() {
+        try {
+            // Obtener los valores de ancho de las bobinas
+            const bobinaInterna = await ApiBobinas();
+            const bobinaExterna = await ApiBobina_externa();
+            
+            // Verifica que los valores sean válidos (no sean null o undefined) y sean números
+            if (bobinaInterna != null && bobinaExterna != null && 
+                !isNaN(bobinaInterna) && !isNaN(bobinaExterna)) {
+                
+                // Comprobar si los anchos de las primeras dos bobinas son diferentes
+                if (bobinaInterna !== bobinaExterna) {
+                    Swal.fire({
+                        title: "Error de Ancho",
+                        text: "Las dos primeras bobinas deben tener el mismo ancho.",
+                        icon: "error",
+                        confirmButtonText: "Entendido"
+                    });
+                    return;
+                }
+            } else {
+                console.error("Error: uno de los valores de ancho de bobina es inválido.");
+            }
+        } catch (error) {
+            console.error("Error al verificar los anchos de las bobinas:", error);
         }
     }
-    }
+    
     
    
 
