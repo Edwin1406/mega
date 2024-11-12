@@ -297,7 +297,7 @@
                
             const bobinaideal = document.getElementById("bobinaIdealAncho");
             bobinaideal.innerHTML = tresBobinasIdeales.map(bobina => {
-                return `<option value="${bobina.id}">${bobina.ancho+30} mm</option>`;
+                return `<option value="${bobina.id}">${bobina.ancho} mm  sin refile:${bobina.ancho+30}</option>`;
             } );
         } else {
             console.log("No se encontraron bobinas que cumplan con los requisitos.");
