@@ -152,37 +152,41 @@
 
     }
 
-    async function verificarAnchoBobinas() {
+    (function (){
+        async function verificarAnchoBobinas() {
   
-                // Llamamos a cada API para obtener los datos
-            const bobinaInterna = await ApiBobinas();
-            const bobinaExterna = await ApiBobina_externa();
-            const bobinaMedia = await ApiBobina_media();
-           // Obtenemos los anchos de las bobinas
-            const anchoInterno = parseFloat(bobinaInterna.ancho) || 0;
-            const anchoMedia = parseFloat(bobinaMedia.ancho) || 0;
+            // Llamamos a cada API para obtener los datos
+        const bobinaInterna = await ApiBobinas();
+        const bobinaExterna = await ApiBobina_externa();
+        const bobinaMedia = await ApiBobina_media();
+       // Obtenemos los anchos de las bobinas
+        const anchoInterno = parseFloat(bobinaInterna.ancho) || 0;
+        const anchoMedia = parseFloat(bobinaMedia.ancho) || 0;
 
-            // Verificamos que los campos de ancho no estén vacíos
-            if (anchoInterno && anchoMedia) {
-                // Comprobamos si los anchos son iguales
-                if (anchoInterno === anchoMedia) {
-                 
-                    mostrarAlerta('Ancho correcto',`Los anchos de las bobinas seleccionadas son iguales: ${anchoInterno} cm`,'success','#28a745','#d4edda');
+        // Verificamos que los campos de ancho no estén vacíos
+        if (anchoInterno && anchoMedia) {
+            // Comprobamos si los anchos son iguales
+            if (anchoInterno === anchoMedia) {
+             
+                mostrarAlerta('Ancho correcto',`Los anchos de las bobinas seleccionadas son iguales: ${anchoInterno} cm`,'success','#28a745','#d4edda');
 
-                } else {
-                    mostrarAlerta('Anchos incorrectos', `Los anchos de las bobinas seleccionadas no coinciden: Int: ${anchoInterno} cm, Media: ${anchoMedia} cm`,'error','#ff0000','#f8d7da');
-                    const bobinaInterna = document.querySelector('[name="bobinaInterna_id"]')
-                    const bobinaIntermedia = document.querySelector('[name="bobinaIntermedia_id"]')
-                    bobinaInterna.value = ''
-                    bobinaIntermedia.value = ''
-
-                }
             } else {
-                console.log("Error: Los anchos internos y medios deben estar llenos");
+                mostrarAlerta('Anchos incorrectos', `Los anchos de las bobinas seleccionadas no coinciden: Int: ${anchoInterno} cm, Media: ${anchoMedia} cm`,'error','#ff0000','#f8d7da');
+                const bobinaInterna = document.querySelector('[name="bobinaInterna_id"]')
+                const bobinaIntermedia = document.querySelector('[name="bobinaIntermedia_id"]')
+                bobinaInterna.value = ''
+                bobinaIntermedia.value = ''
+
             }
+        } else {
+            console.log("Error: Los anchos internos y medios deben estar llenos");
+        }
 
     }
-    
+
+    })
+
+   
     
    
 
