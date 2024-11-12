@@ -161,9 +161,22 @@
             const gramajeExterna = parseFloat(bobinaExterna.gramaje) || 0;
             const gramajeMedia = parseFloat(bobinaMedia.gramaje) || 0;
 
-            console.log("Ancho interno: ", bobinaInterna.ancho);
-            console.log("Ancho medio: ", bobinaMedia.ancho);
-            console.log("Ancho externo: ", bobinaExterna.ancho);
+           // Obtenemos los anchos de las bobinas
+    const anchoInterno = parseFloat(bobinaInterna.ancho) || 0;
+    const anchoMedia = parseFloat(bobinaMedia.ancho) || 0;
+
+    // Verificamos que los campos de ancho no estén vacíos
+    if (anchoInterno && anchoMedia) {
+        // Comprobamos si los anchos son iguales
+        if (anchoInterno === anchoMedia) {
+            console.log("Anchos iguales");
+        } else {
+            console.log("Error: Los anchos deben ser iguales");
+        }
+    } else {
+        console.log("Error: Los anchos internos y medios deben estar llenos");
+    }
+
     }
     
     
