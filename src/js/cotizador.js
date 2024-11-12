@@ -275,13 +275,15 @@
             }
         }
     
+        // Mostrar el ancho de la bobina ideal en el HTML
+        const anchoElemento = document.getElementById('bobinaIdealAncho');
         if (bobinaIdeal) {
-            console.log("Bobina ideal encontrada:", bobinaIdeal);
+            anchoElemento.textContent = bobinaIdeal.ancho; // Actualiza el texto con el ancho de la bobina ideal
         } else {
-            console.log("No se encontró una bobina adecuada.");
+            anchoElemento.textContent = "No se encontró una bobina adecuada."; // Si no se encuentra una bobina adecuada
         }
     }
-       
+    
 
 
    
