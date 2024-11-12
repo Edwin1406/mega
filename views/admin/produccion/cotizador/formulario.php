@@ -202,7 +202,7 @@
 <style>
     .swal-wide {
     width: 50% !important; /* Ajusta el tamaño según tus necesidades */
-    font-size: 90px; /* Tamaño del texto */
+    font-size: 60px; /* Tamaño del texto */
 }
 
 </style>
