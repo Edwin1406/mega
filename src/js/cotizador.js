@@ -293,6 +293,8 @@
         const anchoPedido1 = await ApiPedidos();
         const anchoPedido2 = await ApiPedido2();
         const allbobinas = await AllBobinas();
+
+        console.log(anchoPedido1.id);
     
         const pedido1 = parseFloat(anchoPedido1.ancho) || 0;
         const pedido2 = parseFloat(anchoPedido2.ancho) || 0;
