@@ -354,6 +354,19 @@ AllPedidos();
                 
         }
     }
+
+
+    // FUNCION TEST IGUAL AL TEST DEL PEDIDO
+    async function TestPedido(){
+        const testNormal = await ApiTest();
+        const testPedido = await ApiPedidos();
+        console.log(`test normal : ${testNormal}`);
+        console.log(`test Pedido : ${testPedido}`);
+    
+
+    }
+
+
    
 
  
@@ -396,6 +409,7 @@ AllPedidos();
         if (['pedido_id'].includes(e.target.name) &&
         document.querySelector('[name="pedido_id"]').value) {
         sumarAnchosPedidos();
+        TestPedido();
     }
     
     }
