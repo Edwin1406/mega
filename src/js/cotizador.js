@@ -181,8 +181,10 @@
                 
                     const bobinaInterna = document.querySelector('[name="bobinaInterna_id"]')
                     const bobinaIntermedia = document.querySelector('[name="bobinaIntermedia_id"]')
+                    const bobinaExterna = document.querySelector('[name="bobinaExterna_id"]')
                     bobinaInterna.value = ''
                     bobinaIntermedia.value = ''
+                    bobinaExterna.value = ''
                 }, 4000); 
 
             }
