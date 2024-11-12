@@ -406,10 +406,10 @@ AllPedidos();
         sumargramaje();
         ApiPedidos();
         ApiPedido2();
+        TestPedido();
         if (['pedido_id'].includes(e.target.name) &&
         document.querySelector('[name="pedido_id"]').value) {
         sumarAnchosPedidos();
-        TestPedido();
     }
     
     }
