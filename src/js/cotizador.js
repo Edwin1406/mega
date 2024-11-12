@@ -90,7 +90,7 @@
         const bobinaExterna = await ApiBobina_externa();
         const bobinaMedia = await ApiBobina_media();
         const test = await ApiTest();
-        console.log(test.peso)
+       
     
         // Convertimos el gramaje de cada bobina a número y sumamos
         const gramajeTotal = 
@@ -98,11 +98,14 @@
             (parseFloat(bobinaExterna.gramaje) || 0) + 
             (parseFloat(bobinaMedia.gramaje) || 0);
        
-        // if(test.peso)
+        if(test.peso==gramajeTotal){ 
         console.log("Gramaje total:", gramajeTotal);
         document.getElementById("gramaje_total").value = gramajeTotal;
-
         return gramajeTotal;
+        }else{
+            Swal.fire("Gramaje no coincide", "El gramaje total no coincide con el peso de la prueba", "error");
+            return
+        }
     }
     
    
