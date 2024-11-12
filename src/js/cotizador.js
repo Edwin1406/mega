@@ -330,7 +330,7 @@
         const bobinaIdeal = bobinasOrdenadas[0];
         if (bobinaIdeal) {
             const bobinaideal = document.getElementById("bobinaIdealAncho");
-            bobinaideal.innerHTML = tresBobinasIdeales.map(bobina => {
+            bobinaideal.innerHTML = bobinaIdeal.map(bobina => {
             return `<option value="${bobina.id}">${bobina.ancho} mm  sin refile:${bobina.ancho+30}</option>`;
             });
         } else {
