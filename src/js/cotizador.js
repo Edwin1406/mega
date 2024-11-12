@@ -416,8 +416,8 @@
         sumargramaje();
         ApiPedidos();
         ApiPedido2();
-        if (['liner_id'].includes(e.target.name) &&
-        document.querySelector('[name="liner_id"]').value) {
+        if (['pedido_id'].includes(e.target.name) &&
+        document.querySelector('[name="pedido_id"]').value) {
             TestPedido();
         }
 
@@ -425,6 +425,7 @@
         if (['pedido_id'].includes(e.target.name) &&
         document.querySelector('[name="pedido_id"]').value) {
         sumarAnchosPedidos();
+        
     }
     
     }
