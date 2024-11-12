@@ -79,10 +79,9 @@
         </select>
     </div>
 
-    
-
-
-
+    <div class="formulario__campo">
+            <p>El ancho de la bobina ideal es: <span id="bobinaIdealAncho">Cargando...</span></p>
+    </div>
 
 
 
@@ -102,11 +101,6 @@
                 <?php endforeach; ?>
         </select>
     </div>
-
-    <div class="formulario__campo">
-            <p>El ancho de la bobina ideal es: <span id="bobinaIdealAncho">Cargando...</span></p>
-    </div>
-
 
     <div class="formulario__campo">
         <label class="formulario__label" for="bobina_intermedia">Bobina media</label>
