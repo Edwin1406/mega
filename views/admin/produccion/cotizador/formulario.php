@@ -201,7 +201,7 @@
 
 <style>
  .swal-wide {
-    width: 70% !important; /* Ancho del cuadro de alerta */
+    width: 50% !important; /* Ancho del cuadro de alerta */
     height: 70% !important; /* Altura del cuadro de alerta */
     font-size: 18px; /* Tamaño del texto */
     padding: 20px; /* Espacio interior del cuadro de alerta */
