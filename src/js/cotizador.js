@@ -329,10 +329,8 @@
         // Seleccionar solo la primera bobina ideal y aplicar el refile de -30 mm
         const bobinaIdeal = bobinasOrdenadas[0];
         if (bobinaIdeal) {
-            const bobinaideal = document.getElementById("bobinaIdealAncho");
-            bobinaideal.innerHTML = bobinaIdeal.map(bobina => {
-            return `<option value="${bobina.id}">${bobina.ancho} mm  sin refile:${bobina.ancho+30}</option>`;
-            });
+            bobinaIdeal.ancho = parseFloat(bobinaIdeal.ancho) - 30;
+            console.log("La bobina ideal con refile aplicado es:", bobinaIdeal);
         } else {
             console.log("No se encontró una bobina que cumpla con los requisitos.");
         }
