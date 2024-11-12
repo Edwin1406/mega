@@ -172,15 +172,18 @@
                 setTimeout(() => {
                     mostrarAlerta('Ancho correcto', `Los anchos de las bobinas seleccionadas son iguales: ${anchoInterno} cm`, 'success', '#28a745', '#d4edda');
                     
-                }, 4000); // 30,000 milisegundos = 30 segundos
+                }, 4000); 
 
 
             } else {
-                mostrarAlerta('Anchos incorrectos', `Los anchos de las bobinas seleccionadas no coinciden: Int: ${anchoInterno} cm, Media: ${anchoMedia} cm`,'error','#ff0000','#f8d7da');
-                const bobinaInterna = document.querySelector('[name="bobinaInterna_id"]')
-                const bobinaIntermedia = document.querySelector('[name="bobinaIntermedia_id"]')
-                bobinaInterna.value = ''
-                bobinaIntermedia.value = ''
+                setTimeout(() => {
+                    mostrarAlerta('Anchos incorrectos', `Los anchos de las bobinas seleccionadas no coinciden: Int: ${anchoInterno} cm, Media: ${anchoMedia} cm`,'error','#ff0000','#f8d7da');
+                
+                    const bobinaInterna = document.querySelector('[name="bobinaInterna_id"]')
+                    const bobinaIntermedia = document.querySelector('[name="bobinaIntermedia_id"]')
+                    bobinaInterna.value = ''
+                    bobinaIntermedia.value = ''
+                }, 4000); 
 
             }
         } else {
