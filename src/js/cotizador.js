@@ -290,6 +290,9 @@
     
         if (tresBobinasIdeales.length > 0) {
             console.log("Las tres bobinas ideales son:", tresBobinasIdeales);
+            // Mostrar las bobinas ideales en la consola
+                const bobinaideal = document.getElementById("bobinaideal");
+                bobinaideal.innerHTML = '';
         } else {
             console.log("No se encontraron bobinas que cumplan con los requisitos.");
         }
