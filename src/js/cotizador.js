@@ -138,8 +138,7 @@
             const bobinaExterna = await ApiBobina_externa();
             
             // Verifica que los valores sean válidos (no sean null o undefined) y sean números
-            if (bobinaInterna != null && bobinaExterna != null && 
-                !isNaN(bobinaInterna) && !isNaN(bobinaExterna)) {
+            if (bobinaInterna >0 && bobinaExterna >0) {
                 
                 // Comprobar si los anchos de las primeras dos bobinas son diferentes
                 if (bobinaInterna !== bobinaExterna) {
