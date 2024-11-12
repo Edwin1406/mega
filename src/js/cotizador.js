@@ -422,15 +422,16 @@
         }
 
         
-        if (['pedido_id'].includes(e.target.name) &&
-        document.querySelector('[name="pedido_id"]').value) {
-        sumarAnchosPedidos();
+        if (['pedido_id','pedido2_id'].includes(e.target.name) &&
+        document.querySelector('[name="pedido_id"]').value &&
+        document.querySelector('[name="pedido2_id"]').value) {
+            sumarAnchosPedidos();
         
-    }
+        }
     
-    }
+     }
 
-}
+    }
     }
 
 
