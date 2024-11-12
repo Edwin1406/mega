@@ -104,6 +104,10 @@
             
             // Verificar que todas las bobinas tengan el mismo ancho
             if (anchoInterna !== anchoExterna || anchoInterna !== anchoMedia) {
+                bobinaInterna.value = "";
+                bobinaExterna.value = "";
+                bobinaIntermedia.value = "";
+
                 Swal.fire({
                     title: "Error de Ancho",
                     text: "Las bobinas deben tener el mismo ancho.",
