@@ -133,16 +133,20 @@
 
     async function verificarAnchoBobinas() {
   
-            // Obtener los valores de ancho de las bobinas
+                // Llamamos a cada API para obtener los datos
             const bobinaInterna = await ApiBobinas();
             const bobinaExterna = await ApiBobina_externa();
-            
-            // Convertir los valores de ancho a número y validar que se hayan recibido correctamente
-            const anchoInterna = parseFloat(bobinaInterna.ancho) || 0;
-            const anchoExterna = parseFloat(bobinaExterna.ancho) || 0;
+            const bobinaMedia = await ApiBobina_media();
+            const test = await ApiTest();
 
-            console.log("Ancho Interna:", anchoInterna);
-            console.log("Ancho Externa:", anchoExterna);
+            // Convertimos el gramaje de cada bobina a número y validamos que se hayan recibido correctamente
+            const gramajeInterna = parseFloat(bobinaInterna.gramaje) || 0;
+            const gramajeExterna = parseFloat(bobinaExterna.gramaje) || 0;
+            const gramajeMedia = parseFloat(bobinaMedia.gramaje) || 0;
+
+            console.log("Ancho interno: ", bobinaInterna.ancho);
+            console.log("Ancho medio: ", bobinaMedia.ancho);
+            console.log("Ancho externo: ", bobinaExterna.ancho);
     }
     
     
