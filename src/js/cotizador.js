@@ -376,8 +376,9 @@
         sumargramaje();
         ApiPedidos();
         ApiPedido2();
-        sumarAnchosPedidos();
-
+        if(e.target.name === 'pedido_id' || e.target.name === 'pedido2_id'){
+            sumarAnchosPedidos();
+        }
     }
 
 }
