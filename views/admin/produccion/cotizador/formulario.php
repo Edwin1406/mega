@@ -73,7 +73,7 @@
             <option value="" disabled selected>-- Seleccione --</option>
             <?php foreach($pedidos as $pedido): ?>
                 <?php if ($pedido->estado === 'PENDIENTE'): // Mostrar solo pendientes ?>
-                <option <?php echo s($pedido===$pedido->id)? 'selected':'' ?> value="<?php echo s($pedido->id); ?>"><?php echo s($pedido->cliente),' Largo : ', s($pedido->largo) ,' x',' Ancho : ', s($pedido->ancho) ,' ', s($pedido->estado); ?></option>
+                <option <?php echo s($pedido===$pedido->id)? 'selected':'' ?> value="<?php echo s($pedido->id); ?>"><?php echo s($pedido->cliente),' Largo : ', s($pedido->largo) ,' x',' Ancho : ', s($pedido->ancho) ,'Cantidad :',s($pedido->cantidad), s($pedido->estado); ?></option>
                 <?php endif; ?>
                 <?php endforeach; ?>
         </select>

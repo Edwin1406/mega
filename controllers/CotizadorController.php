@@ -34,6 +34,8 @@ class CotizadorController
         $pedidos = Pedido::all('DESC');
         $bobinas = Bobina::all();
 
+        
+
 
      
 
