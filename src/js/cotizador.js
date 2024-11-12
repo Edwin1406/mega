@@ -87,7 +87,7 @@
 
     // FUNCION PARA MOSTRAR ALERTA 
 
-    function mostrarAlerta(titulo,mensaje,tipo,color){
+    function mostrarAlerta(titulo,mensaje,tipo,color,fondo){
         Swal.fire({ 
             title: titulo,
             text: mensaje,
@@ -95,7 +95,7 @@
             iconColor: color,  // Color del ícono
             confirmButtonText: "Entendido",
             confirmButtonColor: "#3085d6",
-            background: "#d4edda", // Color de fondo del cuadro de alerta
+            background: fondo, // Color de fondo del cuadro de alerta
             color: "#155724", // Color del texto
             customClass: {
                 popup: 'swal-wide'  // Clase CSS personalizada para ajustar el ancho
@@ -135,12 +135,12 @@
             if (pesoTest === gramajeTotal) {
                 console.log("Gramaje total:", gramajeTotal);
                 document.getElementById("gramaje_total").value = gramajeTotal;
-                mostrarAlerta('Gramaje correcto',`El gramaje total de las bobinas seleccionadas es: ${gramajeTotal} gr`,'success','#28a745');
+                mostrarAlerta('Gramaje correcto',`El gramaje total de las bobinas seleccionadas es: ${gramajeTotal} gr`,'success','#28a745','#d4edda');
 
                 return gramajeTotal;
             } else {
                 
-                mostrarAlerta('Gramaje no coincide',`Gramaje recomendado para el test ${test.test} : Int: ${test.liner_interno}` + "gr, Media: " + test.liner_medio + "gr, Externo: " + test.liner_externo + "gr",'error','#ff0000');
+                mostrarAlerta('Gramaje no coincide',`Gramaje recomendado para el test ${test.test} : Int: ${test.liner_interno}` + "gr, Media: " + test.liner_medio + "gr, Externo: " + test.liner_externo + "gr",'error','#ff0000','#f8d7da');
 
                 document.getElementById("gramaje_total").value = "";
                 
