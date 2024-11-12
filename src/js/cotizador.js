@@ -242,8 +242,7 @@
 
         console.log("Ancho total de los pedidos:", anchoTotal);
         AllBobinas();
-        document.getElementById("ancho_total").value = anchoTotal;
-        return anchoTotal;
+        
 
     }
 
