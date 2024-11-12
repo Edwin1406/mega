@@ -67,18 +67,18 @@ class ApiTest {
     {
 
 
-        // $bobinaIntermedia_id= $_GET['bobinaIntermedia_id'] ?? '';
-        // $bobinaIntermedia_id =filter_var($bobinaIntermedia_id, FILTER_VALIDATE_INT);
+        $bobinaIntermedia_id= $_GET['bobinaIntermedia_id'] ?? '';
+        $bobinaIntermedia_id =filter_var($bobinaIntermedia_id, FILTER_VALIDATE_INT);
     
-        // if(!$bobinaIntermedia_id){
-        //     echo json_encode([]);
-        //     return;
+        if(!$bobinaIntermedia_id){
+            echo json_encode([]);
+            return;
             
-        // }
+        }
 
-        // $bobina  = Bobina::where('id',$bobinaIntermedia_id);
+        $bobina  = Bobina::where('id',$bobinaIntermedia_id);
 
-        $bobina = Bobina::all();
+        // $bobina = Bobina::all();
 
         echo json_encode($bobina);
     }
