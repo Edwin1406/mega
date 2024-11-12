@@ -152,7 +152,7 @@
 
     }
 
-    (function (){
+   
         async function verificarAnchoBobinas() {
   
             // Llamamos a cada API para obtener los datos
@@ -167,8 +167,16 @@
         if (anchoInterno && anchoMedia) {
             // Comprobamos si los anchos son iguales
             if (anchoInterno === anchoMedia) {
-             
-                mostrarAlerta('Ancho correcto',`Los anchos de las bobinas seleccionadas son iguales: ${anchoInterno} cm`,'success','#28a745','#d4edda');
+             // Mostrar la alerta después de 30 segundos
+                setTimeout(() => {
+                    mostrarAlerta('Ancho correcto', `Los anchos de las bobinas seleccionadas son iguales: ${anchoInterno} cm`, 'success', '#28a745', '#d4edda');
+                    
+                    // Eliminar la alerta después de 3 segundos
+                    setTimeout(() => {
+                        alerta.remove();
+                    }, 3000);
+                }, 5000); // 30,000 milisegundos = 30 segundos
+
 
             } else {
                 mostrarAlerta('Anchos incorrectos', `Los anchos de las bobinas seleccionadas no coinciden: Int: ${anchoInterno} cm, Media: ${anchoMedia} cm`,'error','#ff0000','#f8d7da');
@@ -184,7 +192,6 @@
 
     }
 
-    })
 
    
     
