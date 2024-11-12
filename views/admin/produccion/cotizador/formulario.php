@@ -139,6 +139,9 @@
         </select>
     </div>
 
+        <div>
+            <p>El ancho de la bobina ideal es: <span id="bobinaIdealAncho">Cargando...</span></p>
+        </div>
 
    
 
