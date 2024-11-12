@@ -5,14 +5,14 @@ use Model\ActiveRecord;
 
 class Pedido  extends ActiveRecord{
     protected static $tabla = 'pedidos';
-    protected static $columnasDB = ['id', 'cliente', 'ancho','largo', 'estado', 'observaciones', 'created_at', 'updated_at'];
+    protected static $columnasDB = ['id', 'cliente', 'ancho','largo', 'estado', 'cantidad', 'created_at', 'updated_at'];
 
     public $id;
     public $cliente;
     public $ancho;
     public $largo;
     public $estado;
-    public $observaciones;
+    public $cantidad;
     public $created_at;
     public $updated_at;
 
@@ -23,7 +23,7 @@ class Pedido  extends ActiveRecord{
         $this->ancho = $args['ancho'] ?? '';
         $this->largo = $args['largo'] ?? '';
         $this->estado = $args['estado'] ?? '';
-        $this->observaciones = $args['observaciones'] ?? '';
+        $this->cantidad = $args['cantidad'] ?? '';
         $this->created_at = date('Y-m-d H:i:s');
         $this->updated_at = date('Y-m-d H:i:s');
     }
