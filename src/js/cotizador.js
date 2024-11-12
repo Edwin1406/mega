@@ -9,7 +9,7 @@
         bobinaExterna_id : ''
         }
     
-apipedidos();
+        ApiPedidos();
     // obtener datos del api de pedidos
     async function ApiPedidos(){
         const {pedido_id} = test;
