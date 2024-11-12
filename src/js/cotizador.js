@@ -1,5 +1,4 @@
 (function(){
-    ApiPedidos();
 
     let test ={
         liner_id : '',
@@ -248,6 +247,8 @@
         ApiBobina_externa();
         ApiBobina_media();
         sumargramaje();
+        ApiPedidos();
+
     }
 
 }
