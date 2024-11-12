@@ -171,10 +171,6 @@
                 setTimeout(() => {
                     mostrarAlerta('Ancho correcto', `Los anchos de las bobinas seleccionadas son iguales: ${anchoInterno} cm`, 'success', '#28a745', '#d4edda');
                     
-                    // Eliminar la alerta después de 3 segundos
-                    setTimeout(() => {
-                        alerta.remove();
-                    }, 3000);
                 }, 5000); // 30,000 milisegundos = 30 segundos
 
 
