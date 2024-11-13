@@ -61,12 +61,13 @@
     </div>
 
 
-                    <?php $totalPedidos ?>
     
 
 
     <div class="formulario__campo">
         <label class="formulario__label" for="pedido">Pedido 2</label>
+        <?php echo s($totalPedidos) ?>
+
         <select
             class="formulario__select"
             id="pedido"
