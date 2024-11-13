@@ -32,7 +32,7 @@ class CotizadorController
 
         $tests = Test::all();
         $pedidos = Pedido::all('ASC');
-        $totalPedidos = count($pedidos); // Contamos el total de pedidos en el array
+        $totalPedidos = count($pedidos); 
         debuguear($totalPedidos);
         
         $bobinas = Bobina::all();
@@ -48,7 +48,8 @@ class CotizadorController
             'alertas' => $alertas,
             'pedidos' => $pedidos,
             'bobinas' => $bobinas,
-            'tests' => $tests
+            'tests' => $tests,
+            'totalPedidos' => $totalPedidos,
         ]);
     }
 }
