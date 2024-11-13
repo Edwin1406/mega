@@ -365,7 +365,7 @@
 
         const suma = parseFloat(allsuma.ancho) || 0;
 
-        console.log(suma);
+        console.log(allsuma);
 
     }
 
