@@ -445,7 +445,8 @@
        // Evento para capturar la selección y mostrarla en consola
        $('#pedido1').on('change', function() {
         const selectedValue = $(this).val(); // Obtiene el valor seleccionado
-        id_pedido = selectedValue;
+        id_pedido.push(selectedValue);
+        
     });
 
     console.log(id_pedido);
