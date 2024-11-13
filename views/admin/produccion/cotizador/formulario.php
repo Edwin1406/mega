@@ -35,8 +35,16 @@
                  
                 <?php endforeach; ?>
         </select>
-      
-        <input type="hiden" name="id" value=" <?php echo s($test===$test->id)?>">
+                <dl>
+                <dt>Término 1</dt>
+                <dd>Descripción del término 1</dd>
+                
+                <dt>Término 2</dt>
+                <dd>Descripción del término 2</dd>
+                </dl>
+
+            
+
     </div>
 
 
