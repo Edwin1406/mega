@@ -43,11 +43,11 @@
         <div class="formulario__radio">
             <?php foreach ($tests as $test) :?>
                 <div>
-                    <label for="<?php echo strtolower($test->liner_externo);?>"><?php echo $test->liner_externo ?></label>
+                    <label for="<?php echo strtolower($test->test);?>"><?php echo $test->test ?></label>
                     <input
                         type="radio"
                         name="dia"
-                        id="<?php echo strtolower($test->liner_externo);?>"
+                        id="<?php echo strtolower($test->test);?>"
                         value="<?php echo s($test->id); ?>"
                        
                         >
