@@ -64,6 +64,13 @@
             placeholder: "-- Seleccione --",
             allowClear: false
         });
+
+         // Evento para capturar la selección y mostrarla en consola
+         $('#pedido1').on('change', function() {
+                const selectedValue = $(this).val(); // Obtiene el valor seleccionado
+                console.log("Valor seleccionado:", selectedValue);
+            });
+
     });
 </script>
 
