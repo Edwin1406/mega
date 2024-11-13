@@ -366,10 +366,9 @@
         const pedidoSeleccionado = await ApiPedidos();
 
         
-        const todosPedidos = parseFloat(allanchospedidos.ancho) || 0;
         const seleccionado = parseFloat(pedidoSeleccionado.ancho) || 0;
 
-       console.log(`todos los pedidos :${todosPedidos}`);
+       console.log(`todos los pedidos :${allanchospedidos}`);
          console.log(seleccionado);
         
     }
