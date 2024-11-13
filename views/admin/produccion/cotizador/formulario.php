@@ -8,7 +8,7 @@
 
  
     <div class="formulario__campo">
-        <label class="formulario__label" for=""> Escoja el Test</label>
+        <label class="formulario__label" for=" <?php echo s($test===$test->id)?>"> Escoja el Test</label>
         <select
             class="formulario__select"
             id="liner_test"
