@@ -48,7 +48,7 @@
         <label class="formulario__label" for="pedido">Pedido 1</label>
         <select
             class="formulario__select"
-            id="pedido"
+            id="pedido1"
             name="pedido_id"
             >
             <option value="" disabled selected>-- Seleccione --</option>
