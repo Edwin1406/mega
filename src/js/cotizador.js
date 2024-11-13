@@ -381,7 +381,9 @@
 
     async  function scriptingTest (){
         const testscripting = await ApiTest();
-        console.log(` test scripting :${testscripting}`);
+
+        const scripting = parseFloat(testscripting.test) || 0;
+        console.log(` test scripting :${scripting}`);
 
     }
 
