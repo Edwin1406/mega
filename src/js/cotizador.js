@@ -361,15 +361,22 @@
     }
 
 
-    async function pruebasuma(){
+    async function pruebasuma() {
         const allsuma = await AllPedidos();
         
-        const suma = parseFloat(allsuma.ancho) || 0;
-        
-        console.log(allsuma);
-        
+        let suma = 0;
+    
+        // Iteramos el array y sumamos los anchos en posiciones pares
+        for (let i = 0; i < allsuma.length; i += 2) {
+            const anchoActual = parseFloat(allsuma[i].ancho) || 0;
+            suma += anchoActual;
+        }
+    
+        console.log("Suma de anchos en posiciones pares:", suma);
     }
+    
     pruebasuma();
+    
 
 
     // FUNCION TEST IGUAL AL TEST DEL PEDIDO
