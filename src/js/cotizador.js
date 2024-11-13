@@ -379,12 +379,21 @@
 
 
 
-    async  function scriptingTest (){
+    async function scriptingTest() {
         const testscripting = await ApiTest();
 
         const scripting = parseFloat(testscripting.test) || 0;
-        console.log(` test scripting :${scripting}`);
+        console.log(scripting);
 
+        // Obtener el elemento de la lista
+        const resultList = document.getElementById('resultList');
+
+        // Crear un nuevo elemento de lista (li)
+        const listItem = document.createElement('li');
+        listItem.textContent = `Resultado: ${scripting}`;
+
+        // Agregar el nuevo item a la lista
+        resultList.appendChild(listItem);
     }
 
 

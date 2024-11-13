@@ -35,15 +35,8 @@
                  
                 <?php endforeach; ?>
         </select>
-                <dl class="mostrarDatostest">
-                <dt>Término 1</dt>
-                <dd>Descripción del término 1</dd>
-                
-                <dt>Término 2</dt>
-                <dd>Descripción del término 2</dd>
-                </dl>
 
-            
+        <ul id="resultList"></ul>
 
     </div>
 
