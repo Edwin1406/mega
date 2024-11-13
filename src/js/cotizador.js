@@ -368,7 +368,7 @@
         
         const seleccionado = parseFloat(pedidoSeleccionado.ancho) || 0;
 
-       console.log(`todos los pedidos :${allanchospedidos}`);
+       console.log(allanchospedidos);
          console.log(seleccionado);
         
     }
