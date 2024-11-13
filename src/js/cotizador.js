@@ -378,15 +378,13 @@
     }
 
 
-    function pedidosone (){
-        const pedido = document.querySelector('[name="pedido_id"]')
-        const pedido2 = document.querySelector('[name="pedido2_id"]')
-        pedido.forEach(ped => {
-            console.log(ped)
-        });
-    }
+    // FUNCION PARA VER LA LOGITUD DE LOS PEDIDOS
+    async function longitudPedidos(){
+        const ped=document.querySelector('[name="pedido_id"]').value;
+        console.log(ped);
+    }   
 
-
+    longitudPedidos();
    
 
  
@@ -426,7 +424,6 @@
         sumargramaje();
         ApiPedidos();
         ApiPedido2();
-        pedidosone();
         if (['pedido_id'].includes(e.target.name) &&
         document.querySelector('[name="pedido_id"]').value) {
             TestPedido();
