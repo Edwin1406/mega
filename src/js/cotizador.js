@@ -359,15 +359,17 @@
 
 
     }
-    pruebasuma();
+
+
     async function pruebasuma(){
         const allsuma = await ApiPedidos();
-
+        
         const suma = parseFloat(allsuma.ancho) || 0;
-
+        
         console.log(allsuma);
-
+        
     }
+    pruebasuma();
 
 
     // FUNCION TEST IGUAL AL TEST DEL PEDIDO
