@@ -87,21 +87,29 @@
 </div>
 
 <script>
-function filtrarPedidos() {
-    const testSeleccionado = document.getElementById('liner_test').value;
-    const selectPedidos = document.getElementById('pedido');
-    const opciones = selectPedidos.querySelectorAll('option');
+    (function(){
 
-    opciones.forEach(option => {
-        if (option.hasAttribute('data-test')) {
-            // Mostrar solo las opciones con el test seleccionado
-            option.style.display = option.getAttribute('data-test') === testSeleccionado ? 'block' : 'none';
-        }
-    });
+            function filtrarPedidos() {
+        const testSeleccionado = document.getElementById('liner_test').value;
+        const selectPedidos = document.getElementById('pedido');
+        const opciones = selectPedidos.querySelectorAll('option');
 
-    // Restablecer la selección para mostrar '-- Seleccione --' después del filtrado
-    selectPedidos.selectedIndex = 0;
+        opciones.forEach(option => {
+            if (option.hasAttribute('data-test')) {
+                // Mostrar solo las opciones con el test seleccionado
+                option.style.display = option.getAttribute('data-test') === testSeleccionado ? 'block' : 'none';
+            }
+        });
+
+        // Restablecer la selección para mostrar '-- Seleccione --' después del filtrado
+        selectPedidos.selectedIndex = 0;
 }
+
+
+
+    })();
+ 
+
 </script>
 
 
