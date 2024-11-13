@@ -368,6 +368,11 @@
         
         const seleccionado = parseFloat(pedidoSeleccionado.ancho) || 0;
 
+        allanchospedidos.forEach(todos => {
+            todos.ancho = parseFloat(todos.ancho);
+            console.log(todos.ancho);
+        });
+
        console.log(allanchospedidos);
          console.log(seleccionado);
         
