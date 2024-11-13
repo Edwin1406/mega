@@ -350,7 +350,7 @@
             const url = `${location.origin}/admin/api/allpedidos`;
             const resultado = await fetch(url);
             const allpedidos = await resultado.json();
-            console.log(allpedidos);
+            // console.log(allpedidos);
             return allpedidos
         } catch (e) {
             console.log(e);
