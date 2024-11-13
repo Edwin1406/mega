@@ -32,6 +32,9 @@ class CotizadorController
 
         $tests = Test::all();
         $pedidos = Pedido::all('ASC');
+        $totalPedidos = $pedidos->count(); // Contamos el total de pedidos
+        debuguear($totalPedidos);
+        
         $bobinas = Bobina::all();
 
         
