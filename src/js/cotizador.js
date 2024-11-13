@@ -356,6 +356,17 @@
             console.log(e);
                 
         }
+
+
+    }
+    pruebasuma();
+    async function pruebasuma(){
+        const allsuma = await ApiPedidos();
+
+        const suma = parseFloat(allsuma.ancho) || 0;
+
+        console.log(suma);
+
     }
 
 
@@ -418,12 +429,6 @@
     }
 
 
-
-
-
-   
-
- 
 
     const pedidos = document.querySelector('#pedido')
 
