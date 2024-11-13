@@ -366,16 +366,24 @@
         
         let suma = 0;
     
-        // Iteramos el array y sumamos los anchos en posiciones pares
-        for (let i = 0; i < allsuma.length; i += 2) {
+        // Iteramos en pares
+        for (let i = 0; i < allsuma.length - 1; i++) {
             const anchoActual = parseFloat(allsuma[i].ancho) || 0;
-            suma += anchoActual;
+            const anchoSiguiente = parseFloat(allsuma[i + 1].ancho) || 0;
+    
+            // Verificamos si anchoActual es menor a 10
+            if (anchoActual < 10) {
+                // Sumamos el par de anchos y acumulamos en `suma`
+                suma += anchoActual + anchoSiguiente;
+                i++; // Avanzamos al siguiente par al sumar dos valores
+            }
         }
     
-        console.log("Suma de anchos en posiciones pares:", suma);
+        console.log("Suma de pares con ancho menor a 10:", suma);
     }
     
     pruebasuma();
+    
     
 
 
