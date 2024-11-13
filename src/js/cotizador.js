@@ -378,15 +378,14 @@
     }
 
 
-    function longitudPedidos(){
-        const selectElement = document.querySelector('[name="pedido_id"]');
-        const ped = selectElement.options[selectElement.selectedIndex].text; // Obtiene el texto de la opción seleccionada
-        const longitud = ped.length;
-        console.log("Longitud del pedido:", longitud);
+
+    async  function scriptingTest (){
+        const testscripting = await ApiTest();
+        console.log(testscripting);
+
     }
-    
-    longitudPedidos();
-    
+
+
 
    
 
@@ -427,6 +426,8 @@
         sumargramaje();
         ApiPedidos();
         ApiPedido2();
+
+        scriptingTest();
         if (['pedido_id'].includes(e.target.name) &&
         document.querySelector('[name="pedido_id"]').value) {
             TestPedido();

@@ -35,7 +35,7 @@
                  
                 <?php endforeach; ?>
         </select>
-                <dl>
+                <dl class="mostrarDatostest">
                 <dt>Término 1</dt>
                 <dd>Descripción del término 1</dd>
                 
