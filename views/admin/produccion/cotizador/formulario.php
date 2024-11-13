@@ -58,7 +58,7 @@
                 <?php endforeach; ?>
         </select>
     </div>
-<script>
+<!-- <script>
      $(document).ready(function() {
         $('#pedido1').select2({
             placeholder: "-- Seleccione --",
@@ -72,7 +72,7 @@
             });
 
     });
-</script>
+</script> -->
 
     
 
