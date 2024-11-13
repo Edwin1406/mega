@@ -378,6 +378,15 @@
     }
 
 
+    function pedidosone (){
+        const pedido = document.querySelector('[name="pedido_id"]')
+        const pedido2 = document.querySelector('[name="pedido2_id"]')
+        pedido.forEach(ped => {
+            console.log(ped)
+        });
+    }
+
+
    
 
  
@@ -417,6 +426,7 @@
         sumargramaje();
         ApiPedidos();
         ApiPedido2();
+        pedidosone();
         if (['pedido_id'].includes(e.target.name) &&
         document.querySelector('[name="pedido_id"]').value) {
             TestPedido();
