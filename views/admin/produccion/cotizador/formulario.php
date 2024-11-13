@@ -35,10 +35,6 @@
 
 
 
-
-
-
-
     <div class="formulario__campo">
         <label class="formulario__label" for="pedido">Pedido 1</label>
         <select

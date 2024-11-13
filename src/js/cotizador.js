@@ -1,5 +1,8 @@
 (function(){
 
+    let Extratrim = 50;
+    console.log(Extratrim);
+
     let test ={
         liner_id : '',
         pedido_id : '',
