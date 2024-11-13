@@ -363,10 +363,15 @@
 
     async function pruebasuma(){
         const allsuma = await AllPedidos();
+        const anchoPedido1 = await ApiPedidos();
+
         
         const suma = parseFloat(allsuma.ancho) || 0;
+        const suma2 = parseFloat(anchoPedido1.ancho) || 0;
+
+        console.log(suma2);
         
-        console.log(allsuma);
+        // console.log(allsuma);
         
     }
     pruebasuma();
