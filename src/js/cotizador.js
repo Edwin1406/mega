@@ -372,7 +372,7 @@
             const anchoSiguiente = parseFloat(allsuma[i + 1].ancho) || 0;
     
             // Verificamos si anchoActual es menor a 10
-            if (anchoActual < 10) {
+            if (anchoActual > 10) {
                 // Sumamos el par de anchos y acumulamos en `suma`
                 suma += anchoActual + anchoSiguiente;
                 i++; // Avanzamos al siguiente par al sumar dos valores
