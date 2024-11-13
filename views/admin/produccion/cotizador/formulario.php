@@ -54,7 +54,7 @@
                 </div>
             <?php endforeach; ?>
         </div>
-        <input type="hiden" name="dia_id" value="<?php echo $evento-> dia_id?>">
+    
     </div>
 
 
