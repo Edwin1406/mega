@@ -19,7 +19,7 @@
               
                     <option  <?php echo s($test===$test->id)? 'selected':'' ?> value="
                         <?php echo s($test->id); ?>">
-                        <?php echo  'Ect: ',s($test->ect) ,
+                        <?php echo 
                         ' Test: ', s($test->test),
                         ' Peso: ', s($test->peso)
                         ?>
