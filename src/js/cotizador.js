@@ -381,7 +381,7 @@
 
     async  function scriptingTest (){
         const testscripting = await ApiTest();
-        console.log(testscripting);
+        console.log(` test scripting :${testscripting}`);
 
     }
 
