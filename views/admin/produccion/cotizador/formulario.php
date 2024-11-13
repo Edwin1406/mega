@@ -36,7 +36,7 @@
                 <?php endforeach; ?>
         </select>
       
-        <input type="hiden" name="id" value="<?php echo $test-> id?>">
+        <input type="hiden" name="id" value=" <?php echo s($test===$test->id)?>">
     </div>
 
 
