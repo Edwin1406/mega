@@ -378,14 +378,15 @@
     }
 
 
-  // FUNCION PARA VER LA LONGITUD DE LOS PEDIDOS
-function longitudPedidos(){
-    const ped = document.querySelector('[name="pedido_id"]').value;
-    const longitud = ped.length; // Obtiene la longitud de la cadena
-    console.log("Longitud del pedido:", longitud); // Muestra la longitud en la consola
-}
-
-longitudPedidos();
+    function longitudPedidos(){
+        const selectElement = document.querySelector('[name="pedido_id"]');
+        const ped = selectElement.options[selectElement.selectedIndex].text; // Obtiene el texto de la opción seleccionada
+        const longitud = ped.length;
+        console.log("Longitud del pedido:", longitud);
+    }
+    
+    longitudPedidos();
+    
 
    
 
