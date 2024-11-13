@@ -33,7 +33,7 @@ class CotizadorController
         $tests = Test::all();
         $pedidos = Pedido::all('ASC');
         $totalPedidos = count($pedidos); 
-        debuguear($totalPedidos);
+        // debuguear($totalPedidos);
         
         $bobinas = Bobina::all();
 

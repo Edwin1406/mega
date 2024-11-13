@@ -60,6 +60,8 @@
         </select>
     </div>
 
+
+                    <?php $totalPedidos ?>
     
 
 
