@@ -66,7 +66,7 @@
         <option disabled selected>-- Seleccione --</option>
         <?php foreach($tests as $test): ?>
             <option value="<?php echo s($test->id); ?>">
-                <?php echo 'Ect: ', s($test->ect), ' Test: ', s($test->test), ' --- Liner Ext: ', s($test->liner_externo), ' --- Liner Med: ', s($test->liner_medio), ' --- Liner Int: ', s($test->liner_interno), ' --- Peso: ', s($test->peso); ?>
+                <?php echo 'Ect: ', s($test->ect), ' Test: ', s($test->test), ' ---', ' Liner Ext: ', s($test->liner_externo), ' ---', ' Liner Med: ', s($test->liner_medio), ' ---', ' Liner Int: ', s($test->liner_interno), ' ---', ' Peso: ', s($test->peso); ?>
             </option>
         <?php endforeach; ?>
     </select>
@@ -86,10 +86,9 @@
     </select>
 </div>
 
-
-    <script>
-    document.getElementById('liner_test').addEventListener('change', function() {
-    const testSeleccionado = this.value;
+<script>
+function filtrarPedidos() {
+    const testSeleccionado = document.getElementById('liner_test').value;
     const selectPedidos = document.getElementById('pedido');
     const opciones = selectPedidos.querySelectorAll('option');
 
@@ -102,9 +101,9 @@
 
     // Restablecer la selección para mostrar '-- Seleccione --' después del filtrado
     selectPedidos.selectedIndex = 0;
-});
+}
+</script>
 
-    </script>
 
 
     <div class="formulario__campo">
