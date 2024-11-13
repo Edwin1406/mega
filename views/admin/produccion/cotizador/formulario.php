@@ -88,7 +88,7 @@
 
 <script>
     (function(){
-
+            filtrarPedidos();
             function filtrarPedidos() {
         const testSeleccionado = document.getElementById('liner_test').value;
         const selectPedidos = document.getElementById('pedido');
