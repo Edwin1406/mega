@@ -436,11 +436,17 @@
     const bobinaExterna = document.querySelector('[name="bobinaExterna_id"]')
 
     liner.addEventListener('change', busqueda)
-    pedido.addEventListener('change', busqueda)
+    pedido.on('change', busqueda)
     pedido2.addEventListener('change', busqueda)
     bobinaInterna.addEventListener('change', busqueda)
     bobinaIntermedia.addEventListener('change', busqueda)
     bobinaExterna.addEventListener('change', busqueda)
+
+     // Evento para capturar la selección y mostrarla en consola
+     $('#pedido1').on('change', function() {
+        const selectedValue = $(this).val(); // Obtiene el valor seleccionado
+        console.log("Valor seleccionado:", selectedValue);
+    });
 
     function busqueda (e){
 
