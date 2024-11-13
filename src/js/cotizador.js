@@ -344,7 +344,7 @@
 
 
     // FUNCION ALL PEDIDOS 
-AllPedidos();
+    AllPedidos();
     async function AllPedidos(){
         try {
             const url = `${location.origin}/admin/api/allpedidos`;
