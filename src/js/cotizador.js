@@ -441,17 +441,8 @@
     bobinaInterna.addEventListener('change', busqueda)
     bobinaIntermedia.addEventListener('change', busqueda)
     bobinaExterna.addEventListener('change', busqueda)
-        let id_pedido='';
-       // Evento para capturar la selección y mostrarla en consola
-       $('#pedido1').on('change', function() {
-        const selectedValue = $(this).val(); // Obtiene el valor seleccionado
-        // insertar el valor seleccionado en el input
-        $('#pedido').val(selectedValue);
-        
 
-    });
-
-    console.log(id_pedido);
+    
 
     function busqueda (e){
 
