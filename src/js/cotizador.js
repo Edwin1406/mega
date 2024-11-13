@@ -379,6 +379,7 @@
 
 
 
+   
     async function scriptingTest() {
         const testscripting = await ApiTest();
 
@@ -390,17 +391,30 @@
         // Obtener el elemento de la lista
         const resultList = document.getElementById('resultList');
 
-        // Crear un nuevo elemento de lista (li)
+        // Limpiar la lista antes de agregar nuevos elementos
+        resultList.innerHTML = '';
+
+        // Crear nuevos elementos de lista (li)
         const listItem = document.createElement('li');
         listItem.textContent = `Ect: ${scripting}`;
-        listItem.textContent = `Interno: ${scripting2}`;
-        listItem.textContent = `Medio: ${scripting3}`;
-        listItem.textContent = `Externo: ${scripting4}`;
 
+        const listItem2 = document.createElement('li');
+        listItem2.textContent = `Interno: ${scripting2}`;
 
-        // Agregar el nuevo item a la lista
+        const listItem3 = document.createElement('li');
+        listItem3.textContent = `Medio: ${scripting3}`;
+
+        const listItem4 = document.createElement('li');
+        listItem4.textContent = `Externo: ${scripting4}`;
+
+        // Agregar los nuevos items a la lista
         resultList.appendChild(listItem);
+        resultList.appendChild(listItem2);
+        resultList.appendChild(listItem3);
+        resultList.appendChild(listItem4);
     }
+
+
 
 
 
