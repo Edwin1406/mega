@@ -6,7 +6,7 @@
 
 
 
-<!--  
+ 
     <div class="formulario__campo">
         <label class="formulario__label" for="liner_test"> Escoja el Test</label>
         <select
@@ -36,38 +36,26 @@
                 <?php endforeach; ?>
         </select>
       
-    </div> -->
+    </div>
 
     <div class="formulario__campo">
-    <label class="formulario__label" for="liner_test">Escoja el Test</label>
-
-    <?php foreach($tests as $test): ?>
-        <div class="formulario__checkbox">
-            <input 
-                type="checkbox" 
-                id="test_<?php echo s($test->id); ?>" 
-                name="liner_id[]" 
-                value="<?php echo s($test->id); ?>"
-                <?php echo in_array($test->id, $selected_tests) ? 'checked' : ''; ?>
-            >
-            <label for="test_<?php echo s($test->id); ?>">
-                <?php echo 'Ect: ', s($test->ect),
-                ' Test: ', s($test->test),
-                ' ---',
-                ' Liner Ext: ', s($test->liner_externo),
-                ' ---',
-                ' Liner Med: ', s($test->liner_medio),
-                ' ---',
-                ' Liner Int: ', s($test->liner_interno),
-                ' ---',
-                ' Peso: ', s($test->peso);
-                ?>
-            </label>
+        <label class="formulario__label" for="dias">Selecciona el Dia</label>
+        <div class="formulario__radio">
+            <?php foreach ($tests as $test) :?>
+                <div>
+                    <label for="<?php echo strtolower($test->nombre);?>"><?php echo $test->nombre ?></label>
+                    <input
+                        type="radio"
+                        name="dia"
+                        id="<?php echo strtolower($test->nombre);?>"
+                        value="<?php echo s($test->id); ?>"
+                       
+                        >
+                </div>
+            <?php endforeach; ?>
         </div>
-    <?php endforeach; ?>
-
-</div>
-
+        <input type="hiden" name="dia_id" value="<?php echo $evento-> dia_id?>">
+    </div>
 
 
 
