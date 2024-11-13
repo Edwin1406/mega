@@ -8,7 +8,7 @@
 
  
     <div class="formulario__campo">
-        <label class="formulario__label" for="liner_test"> Escoja el Test</label>
+        <label class="formulario__label" for=""> Escoja el Test</label>
         <select
             class="formulario__select"
             id="liner_test"
@@ -39,7 +39,7 @@
     </div>
 
     <div class="formulario__campo">
-        <label class="formulario__label" for="dias">Selecciona el Dia</label>
+        <label class="formulario__label" for="dias">Selecciona el Test</label>
         <div class="formulario__radio">
             <?php foreach ($tests as $test) :?>
                 <div>
