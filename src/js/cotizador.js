@@ -362,7 +362,7 @@
 
 
     async function pruebasuma(){
-        const allsuma = await ApiPedidos();
+        const allsuma = await AllPedidos();
         
         const suma = parseFloat(allsuma.ancho) || 0;
         
