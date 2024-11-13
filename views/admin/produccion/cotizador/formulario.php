@@ -6,7 +6,7 @@
 
 
 
- 
+<!--  
     <div class="formulario__campo">
         <label class="formulario__label" for="liner_test"> Escoja el Test</label>
         <select
@@ -36,8 +36,37 @@
                 <?php endforeach; ?>
         </select>
       
-    </div>
+    </div> -->
 
+    <div class="formulario__campo">
+    <label class="formulario__label" for="liner_test">Escoja el Test</label>
+
+    <?php foreach($tests as $test): ?>
+        <div class="formulario__checkbox">
+            <input 
+                type="checkbox" 
+                id="test_<?php echo s($test->id); ?>" 
+                name="liner_id[]" 
+                value="<?php echo s($test->id); ?>"
+                <?php echo in_array($test->id, $selected_tests) ? 'checked' : ''; ?>
+            >
+            <label for="test_<?php echo s($test->id); ?>">
+                <?php echo 'Ect: ', s($test->ect),
+                ' Test: ', s($test->test),
+                ' ---',
+                ' Liner Ext: ', s($test->liner_externo),
+                ' ---',
+                ' Liner Med: ', s($test->liner_medio),
+                ' ---',
+                ' Liner Int: ', s($test->liner_interno),
+                ' ---',
+                ' Peso: ', s($test->peso);
+                ?>
+            </label>
+        </div>
+    <?php endforeach; ?>
+
+</div>
 
 
 
@@ -67,7 +96,6 @@
     <div class="formulario__campo">
         <label class="formulario__label" for="pedido">Pedido 2</label>
         <?php echo s($totalPedidos) ?>
-
         <select
             class="formulario__select"
             id="pedido"
