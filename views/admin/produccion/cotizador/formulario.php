@@ -55,7 +55,7 @@
      $(document).ready(function() {
         $('#pedido1').select2({
             placeholder: "-- Seleccione --",
-            allowClear: true
+            allowClear: false
         });
     });
 </script>
