@@ -76,7 +76,7 @@
 
 <script>
      $(document).ready(function() {
-        $('#pedido').select2({
+        $('pedido_id').select2({
             placeholder: "-- Seleccione --",
             allowClear: false
         });
