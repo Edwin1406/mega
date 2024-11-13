@@ -8,7 +8,7 @@
 
  
     <div class="formulario__campo">
-        <label class="formulario__label" for=" <?php echo s($test===$test->id)?>"> Escoja el Test</label>
+        <label class="formulario__label" for="liner_test"> Escoja el Test</label>
         <select
             class="formulario__select"
             id="liner_test"
@@ -38,24 +38,7 @@
       
     </div>
 
-    <div class="formulario__campo">
-        <label class="formulario__label" for="dias">Selecciona el Test</label>
-        <div class="formulario__radio">
-            <?php foreach ($tests as $test) :?>
-                <div>
-                    <label for="<?php echo strtolower($test->test);?>"><?php echo $test->test ?></label>
-                    <input
-                        type="radio"
-                        name="dia"
-                        id="<?php echo strtolower($test->test);?>"
-                        value="<?php echo s($test->id); ?>"
-                       
-                        >
-                </div>
-            <?php endforeach; ?>
-        </div>
-    
-    </div>
+
 
 
 
