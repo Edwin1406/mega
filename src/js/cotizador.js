@@ -382,15 +382,21 @@
     async function scriptingTest() {
         const testscripting = await ApiTest();
 
-        const scripting = parseFloat(testscripting.test) || 0;
-        console.log(scripting);
+        const scripting = parseFloat(testscripting.ect) || 0;
+        const scripting2 = testscripting.liner_interno || 0;
+        const scripting3 = testscripting.liner_medio || 0;
+        const scripting4 = testscripting.liner_externo || 0;
 
         // Obtener el elemento de la lista
         const resultList = document.getElementById('resultList');
 
         // Crear un nuevo elemento de lista (li)
         const listItem = document.createElement('li');
-        listItem.textContent = `Resultado: ${scripting}`;
+        listItem.textContent = `Ect: ${scripting}`;
+        listItem.textContent = `Interno: ${scripting2}`;
+        listItem.textContent = `Medio: ${scripting3}`;
+        listItem.textContent = `Externo: ${scripting4}`;
+
 
         // Agregar el nuevo item a la lista
         resultList.appendChild(listItem);
