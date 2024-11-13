@@ -374,7 +374,6 @@
         // console.log(allsuma);
         
     }
-    pruebasuma();
 
 
     // FUNCION TEST IGUAL AL TEST DEL PEDIDO
@@ -474,6 +473,9 @@
         sumargramaje();
         ApiPedidos();
         ApiPedido2();
+        // prueba 
+        pruebasuma();
+
 
         scriptingTest();
         if (['pedido_id'].includes(e.target.name) &&
