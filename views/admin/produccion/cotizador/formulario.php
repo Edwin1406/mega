@@ -21,13 +21,6 @@
                         <?php echo s($test->id); ?>">
                         <?php echo  'Ect: ',s($test->ect) ,
                         ' Test: ', s($test->test),
-                        ' ---',
-                        ' Liner Ext: ', s($test->liner_externo),
-                        ' ---',
-                        ' Liner Med: ', s($test->liner_medio),
-                        ' ---',
-                        ' Liner Int: ', s($test->liner_interno),
-                        ' ---',
                         ' Peso: ', s($test->peso)
                         ?>
 
