@@ -57,7 +57,7 @@
     <label class="formulario__label" for="pedido">Pedido 1</label>
     <select
         class="formulario__select"
-        id="pedido1"
+        id="pedido"
         name="pedido_id"
     >
         <option value="" disabled selected>-- Seleccione --</option>
@@ -76,7 +76,7 @@
 
 <script>
      $(document).ready(function() {
-        $('#pedido1').select2({
+        $('#pedido').select2({
             placeholder: "-- Seleccione --",
             allowClear: false
         });
