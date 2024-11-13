@@ -35,7 +35,7 @@
     </div>
 
 
-
+<!-- 
     <div class="formulario__campo">
         <label class="formulario__label" for="pedido">Pedido 1</label>
         <select
@@ -50,7 +50,30 @@
                 <?php endif; ?>
                 <?php endforeach; ?>
         </select>
-    </div>
+    </div> -->
+
+
+    <div class="formulario__campo">
+    <label class="formulario__label" for="pedido">Pedido 1</label>
+    <select
+        class="formulario__select"
+        id="pedido1"
+        name="pedido_id"
+    >
+        <option value="" disabled selected>-- Seleccione --</option>
+        <?php foreach($pedidos as $pedido): ?>
+            <?php if ($pedido->estado === 'PENDIENTE'): // Mostrar solo pendientes ?>
+                <option 
+                    value="<?php echo s($pedido->id); ?>"
+                    <?php echo (isset($pedido_seleccionado) && $pedido_seleccionado === $pedido->id) ? 'selected' : ''; ?>>
+                    <?php echo s($pedido->cliente), ' Largo : ', s($pedido->largo), ' x Ancho : ', s($pedido->ancho), ' TEST: ', s($pedido->test), ' Cantidad :', s($pedido->cantidad); ?>
+                </option>
+            <?php endif; ?>
+        <?php endforeach; ?>
+    </select>
+</div>
+
+
 <script>
      $(document).ready(function() {
         $('#pedido1').select2({
