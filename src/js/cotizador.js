@@ -371,7 +371,7 @@
 
         console.log(suma2);
         
-        // console.log(allsuma);
+        console.log(allsuma);
         
     }
 
