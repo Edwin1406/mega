@@ -405,7 +405,7 @@
             const pedidoSeleccionado = await ApiPedidos();
     
             const seleccionado = parseFloat(pedidoSeleccionado.ancho) || 0;
-            const testNormal = parseFloat(pedidoSeleccionado.test) || 0;
+            const testNormal = parseFloat(test.test) || 0;
     
             console.log(`testNormal: ${testNormal}`);
     
