@@ -350,13 +350,67 @@
             const url = `${location.origin}/admin/api/allpedidos`;
             const resultado = await fetch(url);
             const allpedidos = await resultado.json();
-            console.log(allpedidos);
+            // console.log(allpedidos);
             return allpedidos
         } catch (e) {
             console.log(e);
                 
         }
+
+
     }
+
+
+    // async function pruebasuma(){
+    //     const allanchospedidos = await AllPedidos();
+    //     const pedidoSeleccionado = await ApiPedidos();
+
+        
+    //     const seleccionado = parseFloat(pedidoSeleccionado.ancho) || 0;
+
+    //     allanchospedidos.forEach(todos => {
+    //         todos.ancho = parseFloat(todos.ancho);
+    //         console.log(todos.ancho);
+    //     });
+
+    //    console.log(allanchospedidos);
+    //      console.log(seleccionado);
+        
+    // }
+
+
+    async function pruebasuma() {
+        try {
+            const allanchospedidos = await AllPedidos();
+            const pedidoSeleccionado = await ApiPedidos();
+            
+            const seleccionado = parseFloat(pedidoSeleccionado.ancho) || 0;
+    
+            // Convertimos todos los anchos a número para asegurarnos
+            allanchospedidos.forEach(todos => {
+                todos.ancho = parseFloat(todos.ancho);
+            });
+    
+            // Buscamos el ancho que cumpla con la condición
+            const anchoEncontrado = allanchospedidos.find(todos => 
+                todos.ancho === seleccionado + 30 || todos.ancho === seleccionado - 30
+            );
+    
+            if (anchoEncontrado) {
+                const suma = seleccionado + anchoEncontrado.ancho;
+                console.log(`Ancho seleccionado: ${seleccionado}`);
+                console.log(`Ancho encontrado: ${anchoEncontrado.ancho}`);
+                console.log(`Suma: ${suma}`);
+            } else {
+                console.log("No se encontró ningún ancho que cumpla con la condición.");
+            }
+    
+        } catch (error) {
+            console.error("Error al realizar la suma:", error);
+        }
+    }
+    
+
 
 
     // FUNCION TEST IGUAL AL TEST DEL PEDIDO
@@ -419,12 +473,6 @@
 
 
 
-
-
-   
-
- 
-
     const pedidos = document.querySelector('#pedido')
 
     if(pedidos ){
@@ -441,6 +489,8 @@
     bobinaInterna.addEventListener('change', busqueda)
     bobinaIntermedia.addEventListener('change', busqueda)
     bobinaExterna.addEventListener('change', busqueda)
+
+    
 
     function busqueda (e){
 
@@ -460,6 +510,9 @@
         sumargramaje();
         ApiPedidos();
         ApiPedido2();
+        // prueba 
+        pruebasuma();
+
 
         scriptingTest();
         if (['pedido_id'].includes(e.target.name) &&
@@ -480,8 +533,6 @@
     }
     }
 
-
-    alert('hola')
 
 
 })();
