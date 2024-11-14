@@ -534,6 +534,7 @@
     }
 
 
+    console.log('cotizador.js');
 
 
 
