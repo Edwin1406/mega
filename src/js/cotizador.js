@@ -388,7 +388,7 @@
             const seleccionado = parseFloat(pedidoSeleccionado.ancho) || 0;
             const testNormal = parseFloat(test.test) || 0;
 
-            console.log(testNormal);
+            console.log(`testNormal: ${testNormal}`);
 
             // Convertimos todos los anchos a número para asegurarnos
             allanchospedidos.forEach(todos => {
