@@ -534,7 +534,7 @@
     }
 
 
-   console.log('cotizador.js cambios realizados ')
+   console.log('cotizador.js cambios realizados ');
 
 
 
