@@ -534,8 +534,6 @@
     }
 
 
-    // alert ("hola como estas ");
-    alert ("si estoy reciinedo cambio");
 
 
 
