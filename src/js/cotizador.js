@@ -361,42 +361,61 @@
     }
 
 
-    // async function pruebasuma(){
-    //     const allanchospedidos = await AllPedidos();
-    //     const pedidoSeleccionado = await ApiPedidos();
+    // FUNCION PRUEBA DE SUMA
 
-        
-    //     const seleccionado = parseFloat(pedidoSeleccionado.ancho) || 0;
+    // async function pruebasuma() {
+    //     try {
+    //         const test = await ApiTest();
+    //         const allanchospedidos = await AllPedidos();
+    //         const pedidoSeleccionado = await ApiPedidos();
+            
+    //         const seleccionado = parseFloat(pedidoSeleccionado.ancho) || 0;
+    //         const testNormal = parseFloat(test.test) || 0;
 
-    //     allanchospedidos.forEach(todos => {
-    //         todos.ancho = parseFloat(todos.ancho);
-    //         console.log(todos.ancho);
-    //     });
+    //         console.log(`testNormal: ${testNormal}`);
 
-    //    console.log(allanchospedidos);
-    //      console.log(seleccionado);
-        
+    //         // Convertimos todos los anchos a número para asegurarnos
+    //         allanchospedidos.forEach(todos => {
+    //             todos.ancho = parseFloat(todos.ancho);
+    //         });
+    
+    //         // Buscamos el ancho que cumpla con la condición
+    //         const anchoEncontrado = allanchospedidos.find(todos => 
+    //             todos.ancho === seleccionado + 30 || todos.ancho === seleccionado - 30
+    //         );
+    
+    //         if (anchoEncontrado) {
+    //             const suma = seleccionado + anchoEncontrado.ancho;
+    //             console.log(`Ancho seleccionado: ${seleccionado}`);
+    //             console.log(`Ancho encontrado: ${anchoEncontrado.ancho}`);
+    //             console.log(`Suma: ${suma}`);
+    //         } else {
+    //             console.log("No se encontró ningún ancho que cumpla con la condición.");
+    //         }
+    
+    //     } catch (error) {
+    //         console.error("Error al realizar la suma:", error);
+    //     }
     // }
-
-
+    
     async function pruebasuma() {
         try {
             const test = await ApiTest();
             const allanchospedidos = await AllPedidos();
             const pedidoSeleccionado = await ApiPedidos();
-            
-            const seleccionado = parseFloat(pedidoSeleccionado.ancho) || 0;
-            const testNormal = parseFloat(test.test) || 0;
-
-            console.log(`testNormal: ${testNormal}`);
-
-            // Convertimos todos los anchos a número para asegurarnos
-            allanchospedidos.forEach(todos => {
-                todos.ancho = parseFloat(todos.ancho);
-            });
     
-            // Buscamos el ancho que cumpla con la condición
-            const anchoEncontrado = allanchospedidos.find(todos => 
+            const seleccionado = parseFloat(pedidoSeleccionado.ancho) || 0;
+            const testNormal = parseFloat(pedidoSeleccionado.test) || 0;
+    
+            console.log(`testNormal: ${testNormal}`);
+    
+            // Convertimos todos los anchos a número para asegurarnos y filtramos por el mismo test
+            const anchosFiltrados = allanchospedidos
+                .filter(todos => parseFloat(todos.test) === testNormal)
+                .map(todos => ({ ...todos, ancho: parseFloat(todos.ancho) }));
+    
+            // Buscamos el ancho que cumpla con la condición dentro de los pedidos filtrados
+            const anchoEncontrado = anchosFiltrados.find(todos => 
                 todos.ancho === seleccionado + 30 || todos.ancho === seleccionado - 30
             );
     
@@ -414,6 +433,7 @@
         }
     }
     
+
 
 
 
