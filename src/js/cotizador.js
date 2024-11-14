@@ -534,7 +534,7 @@
     }
 
 
-    alert ("hola como estas ");
+    // alert ("hola como estas ");
     alert ("si estoy reciinedo cambio");
 
 
