@@ -381,11 +381,15 @@
 
     async function pruebasuma() {
         try {
+            const test = await ApiTest();
             const allanchospedidos = await AllPedidos();
             const pedidoSeleccionado = await ApiPedidos();
             
             const seleccionado = parseFloat(pedidoSeleccionado.ancho) || 0;
-    
+            const testNormal = parseFloat(test.test) || 0;
+
+            console.log(testNormal);
+
             // Convertimos todos los anchos a número para asegurarnos
             allanchospedidos.forEach(todos => {
                 todos.ancho = parseFloat(todos.ancho);
