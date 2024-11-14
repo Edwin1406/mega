@@ -534,7 +534,7 @@
     }
 
 
-cons sad
+console.log('cotizador.js');
 
 
 })();
