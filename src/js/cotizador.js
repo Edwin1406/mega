@@ -534,7 +534,7 @@
     }
 
 
-   console.log('cotizador.js cargado')
+   console.log('cotizador.js ')
 
 
 
