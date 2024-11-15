@@ -414,10 +414,15 @@
                 .filter(todos => parseFloat(todos.test) === testNormal)
                 .map(todos => ({ ...todos, ancho: parseFloat(todos.ancho) }));
     
-            // Buscamos el ancho que cumpla con la condición dentro de los pedidos filtrados
+            // // Buscamos el ancho que cumpla con la condición dentro de los pedidos filtrados
+            // const anchoEncontrado = anchosFiltrados.find(todos => 
+            //     todos.ancho === seleccionado + 30 || todos.ancho === seleccionado - 30
+            // );
+
             const anchoEncontrado = anchosFiltrados.find(todos => 
-                todos.ancho === seleccionado + 30 || todos.ancho === seleccionado - 30
+                todos.ancho >= seleccionado - 100 && todos.ancho <= seleccionado + 100
             );
+            
     
             if (anchoEncontrado) {
                 const suma = seleccionado + anchoEncontrado.ancho;
