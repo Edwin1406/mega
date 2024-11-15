@@ -363,26 +363,33 @@
 
     // FUNCION PRUEBA DE SUMA
 
+
+    
     // async function pruebasuma() {
     //     try {
     //         const test = await ApiTest();
     //         const allanchospedidos = await AllPedidos();
     //         const pedidoSeleccionado = await ApiPedidos();
-            
+    //         const bobinas = await AllBobinas();
+    
     //         const seleccionado = parseFloat(pedidoSeleccionado.ancho) || 0;
     //         const testNormal = parseFloat(test.test) || 0;
-
-    //         console.log(`testNormal: ${testNormal}`);
-
-    //         // Convertimos todos los anchos a número para asegurarnos
-    //         allanchospedidos.forEach(todos => {
-    //             todos.ancho = parseFloat(todos.ancho);
-    //         });
     
-    //         // Buscamos el ancho que cumpla con la condición
-    //         const anchoEncontrado = allanchospedidos.find(todos => 
-    //             todos.ancho === seleccionado + 30 || todos.ancho === seleccionado - 30
+    //         console.log(`testNormal: ${testNormal}`);
+    
+    //         // Convertimos todos los anchos a número para asegurarnos y filtramos por el mismo test
+    //         const anchosFiltrados = allanchospedidos
+    //             .filter(todos => parseFloat(todos.test) === testNormal)
+    //             .map(todos => ({ ...todos, ancho: parseFloat(todos.ancho) }));
+    
+    //         console.log(anchosFiltrados);
+
+    //         const anchoEncontrado = anchosFiltrados.find(todos => 
+    //             todos.id !== pedidoSeleccionado.id && // Excluye el propio pedido seleccionado
+    //             todos.ancho >= seleccionado - 500 && todos.ancho <= seleccionado + 500
     //         );
+            
+            
     
     //         if (anchoEncontrado) {
     //             const suma = seleccionado + anchoEncontrado.ancho;
@@ -397,12 +404,12 @@
     //         console.error("Error al realizar la suma:", error);
     //     }
     // }
-    
     async function pruebasuma() {
         try {
             const test = await ApiTest();
             const allanchospedidos = await AllPedidos();
             const pedidoSeleccionado = await ApiPedidos();
+            const bobinas = await AllBobinas();
     
             const seleccionado = parseFloat(pedidoSeleccionado.ancho) || 0;
             const testNormal = parseFloat(test.test) || 0;
@@ -414,31 +421,40 @@
                 .filter(todos => parseFloat(todos.test) === testNormal)
                 .map(todos => ({ ...todos, ancho: parseFloat(todos.ancho) }));
     
-            // // Buscamos el ancho que cumpla con la condición dentro de los pedidos filtrados
-            // const anchoEncontrado = anchosFiltrados.find(todos => 
-            //     todos.ancho === seleccionado + 30 || todos.ancho === seleccionado - 30
-            // );
-
-            console.log(anchosFiltrados);
-
+            console.log("Pedidos filtrados:", anchosFiltrados);
+    
+            // Buscar un ancho cercano al seleccionado
             const anchoEncontrado = anchosFiltrados.find(todos => 
                 todos.id !== pedidoSeleccionado.id && // Excluye el propio pedido seleccionado
                 todos.ancho >= seleccionado - 500 && todos.ancho <= seleccionado + 500
             );
-            
-            
     
             if (anchoEncontrado) {
                 const suma = seleccionado + anchoEncontrado.ancho;
                 console.log(`Ancho seleccionado: ${seleccionado}`);
                 console.log(`Ancho encontrado: ${anchoEncontrado.ancho}`);
                 console.log(`Suma: ${suma}`);
+    
+                // Eliminar bobinas repetidas (por ancho) y convertir a números
+                const bobinasUnicas = bobinas
+                    .map(bobina => parseFloat(bobina.ancho))
+                    .filter((ancho, index, self) => self.indexOf(ancho) === index);
+    
+                console.log("Bobinas únicas:", bobinasUnicas);
+    
+                // Buscar una bobina que pueda contener la suma de los anchos
+                const bobinaIdeal = bobinasUnicas.find(bobina => bobina >= suma);
+    
+                if (bobinaIdeal) {
+                    console.log(`Bobina ideal encontrada: ${bobinaIdeal}`);
+                } else {
+                    console.log("No se encontró una bobina adecuada para la suma.");
+                }
             } else {
                 console.log("No se encontró ningún ancho que cumpla con la condición.");
             }
-    
         } catch (error) {
-            console.error("Error al realizar la suma:", error);
+            console.error("Error al realizar la operación:", error);
         }
     }
     
