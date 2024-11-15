@@ -420,8 +420,10 @@
             // );
 
             const anchoEncontrado = anchosFiltrados.find(todos => 
-                todos.ancho > seleccionado - 100 && todos.ancho < seleccionado + 100
+                todos.id !== pedidoSeleccionado.id && // Excluye el propio pedido seleccionado
+                todos.ancho >= seleccionado - 100 && todos.ancho <= seleccionado + 100
             );
+            
             
     
             if (anchoEncontrado) {
