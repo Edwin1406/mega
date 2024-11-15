@@ -420,7 +420,7 @@
             // );
 
             const anchoEncontrado = anchosFiltrados.find(todos => 
-                todos.ancho >= seleccionado - 100 && todos.ancho <= seleccionado + 100
+                todos.ancho > seleccionado - 100 && todos.ancho < seleccionado + 100
             );
             
     
@@ -439,7 +439,7 @@
     }
     
 
-console.log('cotizador.js');
+
 
 
     // FUNCION TEST IGUAL AL TEST DEL PEDIDO
