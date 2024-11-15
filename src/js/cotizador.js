@@ -439,7 +439,7 @@
     }
     
 
-
+console.log('cotizador.js');
 
 
     // FUNCION TEST IGUAL AL TEST DEL PEDIDO
