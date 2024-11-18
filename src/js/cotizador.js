@@ -581,6 +581,9 @@
        
 
         console.log(`Ancho seleccionado: ${seleccionado}`);	
+        console.log(`Ancho encontrado: ${anchoEncontrado.ancho}`);
+        console.log(`Suma: ${suma}`);
+        console.log(`Bobina ideal encontrada: ${bobinaIdeal}`);
 
     }
     
