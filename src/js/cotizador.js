@@ -458,6 +458,62 @@
     //     }
     // }
     
+    // async function pruebasuma() {
+    //     try {
+    //         const test = await ApiTest();
+    //         const allanchospedidos = await AllPedidos();
+    //         const pedidoSeleccionado = await ApiPedidos();
+    //         const bobinas = await AllBobinas();
+    
+    //         const seleccionado = parseFloat(pedidoSeleccionado.ancho) || 0;
+    //         const testNormal = parseFloat(test.test) || 0;
+    
+    //         console.log(`testNormal: ${testNormal}`);
+    
+    //         // Convertimos todos los anchos a número para asegurarnos y filtramos por el mismo test
+    //         const anchosFiltrados = allanchospedidos
+    //             .filter(todos => parseFloat(todos.test) === testNormal)
+    //             .map(todos => ({ ...todos, ancho: parseFloat(todos.ancho) }));
+    
+    //         console.log("Pedidos filtrados:", anchosFiltrados);
+    
+    //         // Buscar un ancho cercano al seleccionado
+    //         const anchoEncontrado = anchosFiltrados.find(todos =>
+    //             todos.id !== pedidoSeleccionado.id && // Excluye el propio pedido seleccionado
+    //             todos.ancho >= seleccionado - 2000 && todos.ancho <= seleccionado + 2000
+    //         );
+    
+    //         if (anchoEncontrado) {
+    //             const suma = seleccionado + anchoEncontrado.ancho; 
+    //             console.log(`Ancho seleccionado: ${seleccionado}`);
+    //             console.log(`Ancho encontrado: ${anchoEncontrado.ancho}`);
+    //             console.log(`Suma: ${suma}`);
+    
+    //             // Eliminar bobinas repetidas (por ancho), restar 30 y convertir a números
+    //             const bobinasUnicas = bobinas
+    //                 .map(bobina => parseFloat(bobina.ancho) - 30) // Restar 30 a cada ancho
+    //                 .filter((ancho, index, self) => self.indexOf(ancho) === index);
+    
+    //             console.log("Bobinas únicas después de restar 30:", bobinasUnicas);
+    
+    //             // Buscar la bobina más pequeña que sea mayor o igual a la suma
+    //             const bobinaIdeal = bobinasUnicas
+    //                 .filter(bobina => bobina >= suma) // Filtra bobinas mayores o iguales a la suma
+    //                 .sort((a, b) => a - b)[0]; // Ordena de menor a mayor y toma la primera
+    
+    //             if (bobinaIdeal) {
+    //                 console.log(`Bobina ideal encontrada: ${bobinaIdeal}`);
+    //             } else {
+    //                 console.log("No se encontró una bobina adecuada para la suma.");
+    //             }
+    //         } else {
+    //             console.log("No se encontró ningún ancho que cumpla con la condición.");
+    //         }
+    //     } catch (error) {
+    //         console.error("Error al realizar la operación:", error);
+    //     }
+    // }
+
     async function pruebasuma() {
         try {
             const test = await ApiTest();
@@ -470,9 +526,12 @@
     
             console.log(`testNormal: ${testNormal}`);
     
-            // Convertimos todos los anchos a número para asegurarnos y filtramos por el mismo test
+            // Filtramos solo pedidos con estado "PENDIENTE" y el mismo test
             const anchosFiltrados = allanchospedidos
-                .filter(todos => parseFloat(todos.test) === testNormal)
+                .filter(todos => 
+                    parseFloat(todos.test) === testNormal && // Mismo test
+                    todos.estado === "PENDIENTE" // Estado "PENDIENTE"
+                )
                 .map(todos => ({ ...todos, ancho: parseFloat(todos.ancho) }));
     
             console.log("Pedidos filtrados:", anchosFiltrados);
@@ -513,6 +572,7 @@
             console.error("Error al realizar la operación:", error);
         }
     }
+    
     
 
 
