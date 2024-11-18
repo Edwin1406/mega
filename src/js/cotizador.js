@@ -426,7 +426,7 @@
             // Buscar un ancho cercano al seleccionado
             const anchoEncontrado = anchosFiltrados.find(todos => 
                 todos.id !== pedidoSeleccionado.id && // Excluye el propio pedido seleccionado
-                todos.ancho >= seleccionado - 1000 && todos.ancho <= seleccionado + 1000
+                todos.ancho >= seleccionado - 2000 && todos.ancho <= seleccionado + 2000
             );
     
             if (anchoEncontrado) {
