@@ -562,9 +562,14 @@
     
                 if (bobinaIdeal) {
                     console.log(`Bobina ideal encontrada: ${bobinaIdeal}`);
-                    console.log(`proceso: ${suma-bobinaIdeal}`);
+                    let extratrim = 150;
+                    const calculo = suma-bobinaIdeal;
                     proceso(seleccionado,anchoEncontrado, suma, bobinaIdeal);
-
+                    if(extratrim >= calculo){  
+                    console.log(`pasaste el extratrim`);
+                    }else{
+                        console.log(`no pasaste el extratrim`);
+                    }
                 } else {
                     console.log("No se encontró una bobina adecuada para la suma.");
                 }
