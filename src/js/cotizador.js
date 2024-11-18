@@ -433,7 +433,7 @@
                 const suma = seleccionado + anchoEncontrado.ancho;
                 console.log(`Ancho seleccionado: ${seleccionado}`);
                 console.log(`Ancho encontrado: ${anchoEncontrado.ancho}`);
-                console.log(`Suma: ${suma}`);
+                console.log(`Suma: ${suma+30}`);
     
                 // Eliminar bobinas repetidas (por ancho) y convertir a números
                 const bobinasUnicas = bobinas
