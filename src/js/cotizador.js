@@ -562,6 +562,8 @@
     
                 if (bobinaIdeal) {
                     console.log(`Bobina ideal encontrada: ${bobinaIdeal}`);
+                    proceso(seleccionado,anchoEncontrado, suma, bobinaIdeal);
+
                 } else {
                     console.log("No se encontró una bobina adecuada para la suma.");
                 }
@@ -573,6 +575,14 @@
         }
     }
     
+
+
+    function proceso(seleccionado,anchoEncontrado, suma, bobinaIdeal) {
+       
+
+        console.log(`Ancho seleccionado: ${seleccionado}`);	
+
+    }
     
 
 
