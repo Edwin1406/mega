@@ -562,6 +562,7 @@
     
                 if (bobinaIdeal) {
                     console.log(`Bobina ideal encontrada: ${bobinaIdeal}`);
+                    console.log(`proceso: ${suma}-${bobinaIdeal}`);
                     proceso(seleccionado,anchoEncontrado, suma, bobinaIdeal);
 
                 } else {
