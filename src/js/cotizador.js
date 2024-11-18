@@ -496,8 +496,10 @@
     
                 console.log("Bobinas únicas después de restar 30:", bobinasUnicas);
     
-                // Buscar una bobina que pueda contener la suma de los anchos
-                const bobinaIdeal = bobinasUnicas.find(bobina => bobina >= suma);
+                // Buscar la bobina más pequeña que sea mayor o igual a la suma
+                const bobinaIdeal = bobinasUnicas
+                    .filter(bobina => bobina >= suma) // Filtra bobinas mayores o iguales a la suma
+                    .sort((a, b) => a - b)[0]; // Ordena de menor a mayor y toma la primera
     
                 if (bobinaIdeal) {
                     console.log(`Bobina ideal encontrada: ${bobinaIdeal}`);
