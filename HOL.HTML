@@ -1,102 +1,155 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Combinaciones de Anchos</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
         }
-        .combination {
-            margin: 5px 0;
-            padding: 5px;
-            border-radius: 5px;
-            color: white;
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+        .sobrante-optimo {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        .espera {
+            background-color: #f8d7da;
+            color: #721c24;
         }
     </style>
 </head>
 <body>
+   
+    <p>Ingrese los anchos de los pedidos separados por comas:</p>
+    <input type="text" id="pedidos" placeholder="">
+    <button onclick="optimizar()">Optimizar</button>
 
-<h2>Combinaciones de Anchos</h2>
-<div id="combinations"></div>
+    <h2>Resultados</h2>
+    <div id="resultado"></div>
 
-<script>
-    // Lista de anchos
-    const anchos = [573, 613, 632, 678, 760, 783, 893, 914, 1041, 1064];
-    const combinationsDiv = document.getElementById('combinations');
+    <script>
+        function optimizar() {
+            const bobinas = [1980, 1900, 1880, 1800,801]; 
+            const refile = 30; 
+            let pedidos = document.getElementById("pedidos").value.split(",").map(Number);
 
-    // Lista de colores predefinidos, uno por cada número en "anchos"
-    const colores = {
-        573: 'red',
-        613: 'blue',
-        632: 'green',
-        678: 'purple',
-        760: 'orange',
-        783: 'pink',
-        893: 'brown',
-        914: '#ffadb2',
-        1041: 'teal',
-        1064: 'gray'
-    };
+            const resultados = []; // Almacena los resultados de asignación
+            const pendientes = []; // Pedidos no asignados
 
-    // Lista de bobinas recomendadas, ajustadas a los rangos
-    const bobinas = [
-        { min: 0, max: 600, recomendada: 600 },
-        { min: 601, max: 700, recomendada: 700 },
-        { min: 701, max: 800, recomendada: 800 },
-        { min: 801, max: 900, recomendada: 900 },
-        { min: 901, max: 1000, recomendada: 1000 },
-        { min: 1001, max: 1100, recomendada: 1100 },
-        { min: 1101, max: 1200, recomendada: 1200 },
-        { min: 1201, max: 1300, recomendada: 1300 },
-        { min: 1301, max: 1400, recomendada: 1400 },
-        { min: 1401, max: 1500, recomendada: 1500 },
-        { min: 1501, max: 1600, recomendada: 1600 },
-        { min: 1601, max: 1614, recomendada: 1600 },
-        { min: 1615, max: 1654, recomendada: 1700 },
-        { min: 1655, max: 1718, recomendada: 1700 },
-        { min: 1719, max: 1800, recomendada: 1800 },
-        { min: 1801, max: 1900, recomendada: 1900 },
-        { min: 1901, max: 2000, recomendada: 2000 }
-    ];
+            while (pedidos.length > 0) {
+                let mejorCombinacion = null;
 
-    // Función para generar combinaciones
-    function generateCombinations() {
-        let combinationsHTML = "";
+                // Ordenar pedidos de mayor a menor para optimizar el espacio
+                pedidos.sort((a, b) => b - a);
 
-        for (let i = 0; i < anchos.length; i++) {
-            for (let j = 0; j < anchos.length; j++) {
-                // Crear la combinación en formato "573 + 613 = 1186"
-                const suma = anchos[i] + anchos[j];
-                // Obtener el color para el primer número de la combinación
-                const color = colores[anchos[i]];
-                const bobinaRecomendada = getRecommendedBobina(suma+30);
+                // Probar cada bobina para encontrar la combinación óptima
+                for (let i = 0; i < bobinas.length; i++) {
+                    let bobinaDisponible = bobinas[i] - refile;
 
-                combinationsHTML += `<div class="combination" style="background-color: ${color};">
-                                        ${anchos[i]} + ${anchos[j]} = ${suma+30} 
-                                        - Bobina recomendada = ${bobinaRecomendada}
-                                      </div>`;
+                    // Buscar combinaciones de pedidos para la bobina
+                    let combinacion = [];
+                    let suma = 0;
+
+                    for (let j = 0; j < pedidos.length; j++) {
+                        if (suma + pedidos[j] <= bobinaDisponible) {
+                            suma += pedidos[j];
+                            combinacion.push(pedidos[j]);
+                        }
+
+                        if (suma === bobinaDisponible || suma + Math.min(...pedidos) > bobinaDisponible) {
+                            break;
+                        }
+                    }
+
+                    const sobrante = bobinaDisponible - suma;
+
+                    // Evaluar si es la mejor combinación hasta ahora
+                    if (
+                        combinacion.length > 0 &&
+                        (!mejorCombinacion || sobrante < mejorCombinacion.sobrante)
+                    ) {
+                        mejorCombinacion = {
+                            bobina: bobinas[i],
+                            pedidos: combinacion,
+                            sobrante: sobrante
+                        };
+                    }
+                }
+
+                // Si se encontró una combinación válida, asignar
+                if (mejorCombinacion) {
+                    resultados.push(mejorCombinacion);
+
+                    // Eliminar los pedidos asignados
+                    pedidos = pedidos.filter(
+                        pedido => !mejorCombinacion.pedidos.includes(pedido)
+                    );
+                } else {
+                    // Si no se pudo asignar ningún pedido, añadir a pendientes
+                    pendientes.push(...pedidos);
+                    break;
+                }
             }
+
+            // Mostrar los resultados
+            mostrarResultados(resultados, pendientes);
         }
 
-        // Insertar combinaciones en el contenedor
-        combinationsDiv.innerHTML = combinationsHTML;
-    }
+        function mostrarResultados(resultados, pendientes) {
+            const resultadoDiv = document.getElementById("resultado");
+            resultadoDiv.innerHTML = "";
 
-    // Función para obtener la bobina recomendada
-    function getRecommendedBobina(suma) {
-        for (let bobina of bobinas) {
-            if (suma >= bobina.min && suma <= bobina.max) {
-                return bobina.recomendada;
+            let tablaHTML = `
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Bobina</th>
+                            <th>Pedidos Usados</th>
+                            <th>Sobrante</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+            `;
+
+            resultados.forEach(resultado => {
+                const claseSobrante = resultado.sobrante <= 10 ? "sobrante-optimo" : "";
+                tablaHTML += `
+                    <tr>
+                        <td>${resultado.bobina}</td>
+                        <td>${resultado.pedidos.join(", ")}</td>
+                        <td class="${claseSobrante}">${resultado.sobrante}</td>
+                    </tr>
+                `;
+            });
+
+            if (pendientes.length > 0) {
+                tablaHTML += `
+                    <tr>
+                        <td colspan="3" class="espera">A la espera de más pedidos: ${pendientes.join(", ")}</td>
+                    </tr>
+                `;
             }
+
+            tablaHTML += `
+                    </tbody>
+                </table>
+            `;
+
+            resultadoDiv.innerHTML = tablaHTML;
         }
-        return 'No disponible';
-    }
 
-    // Ejecutar la función para mostrar las combinaciones
-    generateCombinations();
-</script>
 
+
+        
+    </script>
 </body>
 </html>

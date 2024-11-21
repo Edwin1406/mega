@@ -1,98 +1,159 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bobinas</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-        }
-        .result {
+        table {
+            width: 100%;
+            border-collapse: collapse;
             margin-top: 20px;
         }
-        .result p {
-            margin: 5px 0;
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
         }
-        .button {
-            margin-top: 10px;
+        th {
+            background-color: #f4f4f4;
+        }
+        .sobrante-optimo {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        .espera {
+            background-color: #f8d7da;
+            color: #721c24;
         }
     </style>
 </head>
 <body>
-    <h1>Bobinas</h1>
-    <label for="pedido">Ancho del pedido (mm):</label>
-    <input type="number" id="pedido" value="1600">
-    <button onclick="calcular()">Calcular Mejor Bobina</button>
+   
+    <p>Ingrese los anchos de los pedidos separados por comas:</p>
+    <input type="text" id="pedidos" placeholder="">
+    <button onclick="optimizar()">Optimizar</button>
+
+    <h2>Resultados</h2>
+    <div id="resultado"></div>
+
+  
     
-    <div class="result" id="result">
-        <!-- Resultados se mostrarán aquí -->
-    </div>
+
 
     <script>
-        let anchosDeBobinas = [1840, 1880, 1600, 1500, 1450, 1800, 1400, 1700, 500, 700, 800, 900, 200];
-        let cuchillas = [1, 2, 3, 4, 5];
+        function optimizar() {
+            const bobinas = [1980, 1900]; // Tamaños disponibles de las bobinas
+            const refile = 30; // Espacio reservado para el refile
+            let pedidos = document.getElementById("pedidos").value.split(",").map(Number);
 
-        function calcularMejorBobina(pedido, anchosDeBobinas, cuchillas) {
-            let mejorBobina = null;
-            let maxPiezas = 0;
-            let desperdicioMinimo = Infinity;
+            const objetoResultados = {
+                resultados: [],
+                pendientes: []
+            };
 
-            anchosDeBobinas.sort((a, b) => a - b);
+            while (pedidos.length > 0) {
+                let mejorCombinacion = null;
 
-            for (let ancho of anchosDeBobinas) {
-                if (ancho > pedido) {
-                    for (let cuchilla of cuchillas) {
-                        let piezas = Math.floor(ancho / pedido);
-                        if (piezas >= cuchilla) {
-                            let anchoUtilizado = piezas * pedido;
-                            let desperdicio = ancho - anchoUtilizado;
+                // Ordenar pedidos de mayor a menor para optimizar el espacio
+                pedidos.sort((a, b) => b - a);
 
-                            if (piezas >= 1 && desperdicio < desperdicioMinimo) {
-                                mejorBobina = ancho;
-                                maxPiezas = piezas;
-                                desperdicioMinimo = desperdicio;
-                            }
+                // Probar cada bobina para encontrar la combinación óptima
+                for (let i = 0; i < bobinas.length; i++) {
+                    let bobinaDisponible = bobinas[i] - refile;
+
+                    // Buscar combinaciones de pedidos para la bobina
+                    let combinacion = [];
+                    let suma = 0;
+
+                    for (let j = 0; j < pedidos.length; j++) {
+                        if (suma + pedidos[j] <= bobinaDisponible) {
+                            suma += pedidos[j];
+                            combinacion.push(pedidos[j]);
+                        }
+
+                        if (suma === bobinaDisponible || suma + Math.min(...pedidos) > bobinaDisponible) {
+                            break;
                         }
                     }
+
+                    const sobrante = bobinaDisponible - suma;
+
+                    // Evaluar si es la mejor combinación hasta ahora
+                    if (
+                        combinacion.length > 0 &&
+                        (!mejorCombinacion || sobrante < mejorCombinacion.sobrante)
+                    ) {
+                        mejorCombinacion = {
+                            bobina: bobinas[i],
+                            pedidos: combinacion,
+                            sobrante: sobrante
+                        };
+                    }
+                }
+
+                // Si se encontró una combinación válida, asignar
+                if (mejorCombinacion) {
+                    objetoResultados.resultados.push(mejorCombinacion);
+
+                    // Eliminar los pedidos asignados
+                    pedidos = pedidos.filter(
+                        pedido => !mejorCombinacion.pedidos.includes(pedido)
+                    );
+                } else {
+                    // Si no se pudo asignar ningún pedido, añadir a pendientes
+                    objetoResultados.pendientes.push(...pedidos);
+                    break;
                 }
             }
 
-            return {
-                anchoBobina: mejorBobina,
-                piezasQueCaben: maxPiezas,
-                totalAnchoUtilizado: maxPiezas * pedido,
-                desperdicio: desperdicioMinimo
-            };
+            // Mostrar los resultados
+            mostrarResultados(objetoResultados);
+            console.log("Resultados finales:", objetoResultados); // Mostrar el objeto en la consola
         }
 
-        function calcular() {
-            let pedido = parseInt(document.getElementById("pedido").value);
-            let resultado = calcularMejorBobina(pedido, anchosDeBobinas, cuchillas);
-            let resultDiv = document.getElementById("result");
-            resultDiv.innerHTML = "";
+        function mostrarResultados(objetoResultados) {
+            const resultadoDiv = document.getElementById("resultado");
+            resultadoDiv.innerHTML = "";
 
-            if (resultado.anchoBobina) {
-                let restado = resultado.anchoBobina - 30;
+            let tablaHTML = `
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Bobina</th>
+                            <th>Pedidos Usados</th>
+                            <th>Sobrante</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+            `;
 
-                resultDiv.innerHTML += `<p>Para un pedido de ${pedido} mm, necesitas una bobina de ${resultado.anchoBobina} mm</p>`;
-                resultDiv.innerHTML += `<p>Ancho ajustado (-30 mm): ${restado} mm</p>`;
-                resultDiv.innerHTML += `<p>Total de ancho utilizado: ${restado} mm</p>`;
+            objetoResultados.resultados.forEach(resultado => {
+                const claseSobrante = resultado.sobrante <= 10 ? "sobrante-optimo" : "";
+                tablaHTML += `
+                    <tr>
+                        <td>${resultado.bobina}</td>
+                        <td>${resultado.pedidos.join(", ")}</td>
+                        <td class="${claseSobrante}">${resultado.sobrante}</td>
+                    </tr>
+                `;
+            });
 
-                let opciones = [4, 3, 2];
-                opciones.forEach(opcion => {
-                    let valorDivision = (restado / opcion).toFixed(2);
-                    let desperdicioReal = (restado - valorDivision * opcion).toFixed(2);
-                    resultDiv.innerHTML += `<p>Para ${opcion} piezas iguales: Posición de cuchilla: ${valorDivision} mm, Desperdicio: ${desperdicioReal} mm</p>`;
-                });
-
-                let piezasmalas = Math.floor(restado / (restado / 4));
-                let desperdicioreal = restado - (piezasmalas * 4);
-                // resultDiv.innerHTML += `<p>Desperdicio real: ${desperdicioreal.toFixed(2)} mm</p>`;
-            } else {
-                resultDiv.innerHTML = "<p>No hay una bobina disponible que cumpla los requisitos.</p>";
+            if (objetoResultados.pendientes.length > 0) {
+                tablaHTML += `
+                    <tr>
+                        <td colspan="3" class="espera">A la espera de más pedidos: ${objetoResultados.pendientes.join(", ")}</td>
+                    </tr>
+                `;
             }
+
+            tablaHTML += `
+                    </tbody>
+                </table>
+            `;
+
+            resultadoDiv.innerHTML = tablaHTML;
         }
     </script>
 </body>
 </html>
+

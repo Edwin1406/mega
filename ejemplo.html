@@ -1,100 +1,97 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Filtrar Productos por Fecha</title>
-
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- jQuery (opcional para manipular fechas más fácilmente) -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <title>Combinación de Bobinas</title>
 </head>
 <body>
-    <div class="container mt-5">
-        <h1>Filtrar Productos por Fecha</h1>
 
-        <!-- Selector de fechas -->
-        <div class="mb-3">
-            <label for="fechaInicio" class="form-label">Fecha de inicio</label>
-            <input type="date" id="fechaInicio" class="form-control" />
-        </div>
-        <div class="mb-3">
-            <label for="fechaFin" class="form-label">Fecha de fin</label>
-            <input type="date" id="fechaFin" class="form-control" />
-        </div>
-        <button id="filtrar" class="btn btn-primary">Filtrar</button>
+    <p>Los 10 mejores anchos se usarán para calcular combinaciones óptimas.</p>
 
-        <!-- Tabla de productos filtrados -->
-        <table id="productos-table" class="table table-striped mt-4">
-            <thead>
-                <tr>
-                    <th>Nombre</th>
-                    <th>Cantidad</th>
-                    <th>Fecha</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- Los productos filtrados se agregarán aquí -->
-            </tbody>
-        </table>
-    </div>
+    <button onclick="calcularCombinaciones()">Calcular Combinaciones</button>
+
+    <h2>Resultados</h2>
+    <ul id="resultados"></ul>
+
+    <h3>Frecuencia de Uso de las Bobinas</h3>
+    <ul id="frecuenciaBobinas"></ul>
 
     <script>
-        async function obtenerProductos() {
-            try {
-                const url = `${location.origin}/admin/api/productos`;
-                const resultado = await fetch(url);
-                return await resultado.json();
-            } catch (e) {
-                console.log('Error al obtener productos:', e);
-                return [];
+        // Los 10 mejores anchos y sus frecuencias
+        const anchos = [573, 613, 632, 678, 760, 783, 893, 914, 1041, 1064];
+        const maxBobina = 1980;
+        const minBobina = 200;
+
+        function calcularCombinaciones() {
+            const resultados = [];
+            const usado = new Set();
+            const contadorBobinas = {}; // Objeto para contar las bobinas recomendadas
+
+            // Calcular todas las combinaciones posibles (todos contra todos)
+            for (let i = 0; i < anchos.length; i++) {
+                for (let j = 0; j < anchos.length; j++) {
+                    // Evitar combinaciones repetidas
+                    if (i !== j) {
+                        let suma = anchos[i] + anchos[j];
+
+                        // Agregar 30 a la suma
+                        suma += 30;
+
+                        // Verificar si la suma está dentro del rango permitido
+                        if (suma >= minBobina && suma <= maxBobina) {
+                            // Redondear al múltiplo de 100 más cercano, pero no superar el máximo de 1980
+                            let recomendada = Math.ceil(suma / 50) * 50;
+                            if (recomendada > maxBobina) {
+                                recomendada = maxBobina; // Ajustar si excede el límite
+                            }
+
+                            // Calcular desperdicio
+                            const desperdicio = suma - recomendada;
+
+                            const claveCombinacion = `${anchos[i]}+${anchos[j]}`;
+
+                            if (!usado.has(claveCombinacion)) {
+                                resultados.push({
+                                    combinacion: `${anchos[i]} + ${anchos[j]} = ${suma}`,
+                                    bobinaRecomendada: recomendada,
+                                    desperdicio: desperdicio
+                                });
+                                usado.add(claveCombinacion);
+
+                                // Contar cuántas veces aparece cada bobina recomendada
+                                if (contadorBobinas[recomendada]) {
+                                    contadorBobinas[recomendada]++;
+                                } else {
+                                    contadorBobinas[recomendada] = 1;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            // Mostrar los resultados en el HTML
+            const resultadosLista = document.getElementById('resultados');
+            resultadosLista.innerHTML = ''; // Limpiar resultados previos
+            resultados.forEach(resultado => {
+                const li = document.createElement('li');
+                li.textContent = `${resultado.combinacion} - Bobina Recomendada: ${resultado.bobinaRecomendada} - Desperdicio: ${resultado.desperdicio}`;
+                resultadosLista.appendChild(li);
+            });
+
+            // Mostrar la frecuencia de uso de cada bobina
+            const frecuenciaLista = document.getElementById('frecuenciaBobinas');
+            frecuenciaLista.innerHTML = ''; // Limpiar la lista previa
+            for (const bobina in contadorBobinas) {
+                const li = document.createElement('li');
+                li.textContent = `La bobina utilizada es: ${bobina} (usada ${contadorBobinas[bobina]} veces)`;
+                frecuenciaLista.appendChild(li);
             }
         }
-
-        function mostrarProductosFiltrados(productos) {
-            const tablaCuerpo = document.getElementById('productos-table').getElementsByTagName('tbody')[0];
-            tablaCuerpo.innerHTML = ''; // Limpiar la tabla antes de mostrar nuevos datos
-
-            productos.forEach(producto => {
-                const row = tablaCuerpo.insertRow();
-                row.insertCell(0).textContent = producto.nombre;
-                row.insertCell(1).textContent = producto.cantidad;
-                row.insertCell(2).textContent = producto.fecha;
-            });
-        }
-
-        function filtrarPorFechas(productos, fechaInicio, fechaFin) {
-            // Filtrar productos por el rango de fechas
-            return productos.filter(producto => {
-                const fecha = new Date(producto.fecha);
-                return fecha >= fechaInicio && fecha <= fechaFin;
-            });
-        }
-
-        document.getElementById('filtrar').addEventListener('click', async () => {
-            const fechaInicio = new Date(document.getElementById('fechaInicio').value);
-            const fechaFin = new Date(document.getElementById('fechaFin').value);
-
-            if (!fechaInicio || !fechaFin || fechaInicio > fechaFin) {
-                alert('Por favor selecciona un rango de fechas válido.');
-                return;
-            }
-
-            // Obtener los productos de la API
-            const productos = await obtenerProductos();
-
-            // Filtrar los productos por las fechas seleccionadas
-            const productosFiltrados = filtrarPorFechas(productos, fechaInicio, fechaFin);
-
-            // Mostrar los productos filtrados en la tabla
-            mostrarProductosFiltrados(productosFiltrados);
-        });
-
     </script>
-
-    <!-- Bootstrap JS (opcional para algunas funcionalidades) -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
+
+
+

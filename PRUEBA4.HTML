@@ -1,78 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Combinación de Bobinas</title>
+</head>
+<body>
+    <h1>Resto  de Bobinas</h1>
+
+    <button onclick="calcularCombinaciones()">Calcular Combinaciones</button>
+
+    <h2>Resultados</h2>
+    <ul id="resultados"></ul>
+
+    <h3>Frecuencia de Uso de las Bobinas</h3>
+    <ul id="frecuenciaBobinas"></ul>
+
+    <script>
+      
 
 
+        const anchos = [
+    309, 332, 344, 359, 364, 387, 408, 427, 428, 442, 448, 449, 450, 471, 
+    473, 483, 485, 490, 491, 506, 508, 509, 511, 513, 514, 534, 536, 541, 
+    548, 558, 564, 571, 591, 597, 605, 614, 625, 628, 630, 639, 641, 648, 
+    649, 655, 662, 663, 664, 669, 691, 692, 710, 714, 749, 750, 769, 772, 
+    780, 802, 804, 810, 833, 840, 859, 872, 874, 885, 889, 891, 895, 898, 
+    902, 908, 938, 957, 958, 964, 978, 979, 999, 1039, 1056, 1079, 1163, 
+    1186, 1191, 1214
+];
 
-<Script>
- let anchosDeBobinas = [1840, 1880, 1600, 1500, 1450, 1800, 1400, 1700, 500, 700];
-let cuchillas = [1, 2, 3, 4, 5]; // Cuchillas disponibles
-let pedido = 1840; // Ancho de cada pieza
+        const maxBobina = 1980;
+        const minBobina = 1880;
 
-function calcularMejorBobina(pedido, anchosDeBobinas, cuchillas) {
-  let mejorBobina = null;
-  let maxPiezas = 0;
-  let desperdicioMinimo = Infinity;
+        function calcularCombinaciones() {
+            const resultados = [];
+            const usado = new Set();
+            const contadorBobinas = {}; // Objeto para contar las bobinas recomendadas
 
-  // Ordenar los anchos de bobinas de menor a mayor
-  anchosDeBobinas.sort((a, b) => a - b);
+            // Calcular todas las combinaciones posibles (todos contra todos)
+            for (let i = 0; i < anchos.length; i++) {
+                for (let j = 0; j < anchos.length; j++) {
+                    // Evitar combinaciones repetidas
+                    if (i !== j) {
+                        let suma = anchos[i] + anchos[j];
 
-  // Buscar la mejor bobina que acomode el pedido
-  for (let ancho of anchosDeBobinas) {
+                        // Agregar 30 a la suma
+                        suma += 30;
 
-    if (ancho > pedido) {
-    // Para cada cuchilla, calcular el total de piezas que pueden cortarse
-    for (let cuchilla of cuchillas) {
-      let piezas = Math.floor(ancho / pedido);
-      if (piezas >= cuchilla) { // Solo si el número de piezas es mayor o igual al número de cuchillas
-        let anchoUtilizado = cuchilla * pedido; // Ancho total utilizado
-        let desperdicio = ancho - anchoUtilizado; // Calcular desperdicio
+                        // Verificar si la suma está dentro del rango permitido
+                        if (suma >= minBobina && suma <= maxBobina) {
+                            // Redondear al múltiplo de 100 más cercano, pero no superar el máximo de 1980
+                            let recomendada = Math.ceil(suma / 50) * 50;
+                            if (recomendada > maxBobina) {
+                                recomendada = maxBobina; // Ajustar si excede el límite
+                            }
 
-        // Elegir la mejor bobina
-        if (piezas >= 1 && desperdicio < desperdicioMinimo) {
-          mejorBobina = ancho;
-          maxPiezas = piezas;
-          desperdicioMinimo = desperdicio;
+                            const claveCombinacion = `${anchos[i]}+${anchos[j]}`;
+
+                            if (!usado.has(claveCombinacion)) {
+                                resultados.push({
+                                    combinacion: `${anchos[i]} + ${anchos[j]} = ${suma}`,
+                                    bobinaRecomendada: recomendada
+                                });
+                                usado.add(claveCombinacion);
+
+                                // Contar cuántas veces aparece cada bobina recomendada
+                                if (contadorBobinas[recomendada]) {
+                                    contadorBobinas[recomendada]++;
+                                } else {
+                                    contadorBobinas[recomendada] = 1;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            // Mostrar los resultados en el HTML
+            const resultadosLista = document.getElementById('resultados');
+            resultadosLista.innerHTML = ''; // Limpiar resultados previos
+            resultados.forEach(resultado => {
+                const li = document.createElement('li');
+                li.textContent = `${resultado.combinacion} - Bobina Recomendada: ${resultado.bobinaRecomendada}`;
+                resultadosLista.appendChild(li);
+            });
+
+            // Mostrar la frecuencia de uso de cada bobina
+            const frecuenciaLista = document.getElementById('frecuenciaBobinas');
+            frecuenciaLista.innerHTML = ''; // Limpiar la lista previa
+            for (const bobina in contadorBobinas) {
+                const li = document.createElement('li');
+                li.textContent = `La bobina utilizada es: ${bobina} (usada ${contadorBobinas[bobina]} veces)`;
+                frecuenciaLista.appendChild(li);
+            }
         }
-      }
-    }
-}
-  }
-
-  return {
-    anchoBobina: mejorBobina,
-    piezasQueCaben: maxPiezas,
-    totalAnchoUtilizado: maxPiezas * pedido,
-    desperdicio: desperdicioMinimo
-  };
-}
-
-let resultado = calcularMejorBobina(pedido, anchosDeBobinas, cuchillas);
-let restado = resultado.anchoBobina-40;
-
-
-console.log(`Para un pedido de ${pedido} mm, necesitas una bobina de ${resultado.anchoBobina} mm `);
-console.log(`Quitado - 40mm: ${restado} mm.`);
-console.log(`Total de ancho utilizado: ${restado} mm.`);
-console.log(`Desperdicio: ${resultado.desperdicio} mm.`);
-
-
-let res = restado;
-
-// console.log(res);
-
-if (res > 0) {
-    let cuatro =restado / 4;
-    console.log(`Para 4 piezas iguales: Posición de cuchilla: ${cuatro.toFixed(2)} mm`);
-    console.log(`Desperdicio de cuchilla: ${0} mm`);
-    let tres =restado / 3;
-    console.log(`Para 3 piezas iguales: Posición de cuchilla: ${tres.toFixed(2)} mm`);
-    console.log(`Desperdicio de cuchilla: ${0} mm`);
-
-    let dos =restado / 2;
-    console.log(`Para 2 piezas iguales: Posición de cuchilla: ${dos.toFixed(2)} mm`);
-    console.log(`Desperdicio de cuchilla: ${0} mm`);
-    
-} else {
-  console.log("Estado de la Combinación: Mala");
-}
-
- 
-</Script>
+    </script>
+</body>
+</html>
