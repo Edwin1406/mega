@@ -652,7 +652,8 @@
     
                 if (bobinaIdeal) {
                     console.log(`Bobina ideal encontrada: ${bobinaIdeal}`);
-                    console.log(`desperdicio: ${suma}-${bobinaIdeal}`)
+                    const desperdicio = bobinaIdeal-suma;
+                    console.log(`desperdicio: ${desperdicio}`)
                     let extratrim = 100;
                     const calculo = suma - bobinaIdeal;
                     proceso(seleccionado, anchoEncontrado, suma, bobinaIdeal);
