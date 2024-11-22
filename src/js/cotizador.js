@@ -634,6 +634,8 @@
 
 
                 console.log(`Suma: ${suma}`);
+
+               
     
                 // Eliminar bobinas repetidas (por ancho), restar 30 y convertir a números
                 const bobinasUnicas = bobinas
@@ -650,6 +652,7 @@
     
                 if (bobinaIdeal) {
                     console.log(`Bobina ideal encontrada: ${bobinaIdeal}`);
+                    console.log(`desperdicio: ${suma}-${bobinaIdeal}`)
                     let extratrim = 100;
                     const calculo = suma - bobinaIdeal;
                     proceso(seleccionado, anchoEncontrado, suma, bobinaIdeal);
