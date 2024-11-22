@@ -625,8 +625,11 @@
                 const cantidadCortes = Math.trunc(cortes);
                 console.log(`Cortes: ${cantidadCortes}`);
 
-                if(anchoEncontrado.cantidad >cantidadCortes){
-                    console.log(`Cantidad de cortes: ${cantidadCortes}`);
+                const calculos=anchoEncontrado.cantidad-cantidadCortes;
+                if(calculos === anchoEncontrado.largo){
+                    console.log('excelente trimaje ')
+                }else{
+                    console.log (`Falta completar :${calculos}`);
                 }
 
 
