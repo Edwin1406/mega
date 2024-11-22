@@ -617,6 +617,8 @@
 
                 const metrosLineales = (pedidoSeleccionado.cantidad * pedidoSeleccionado.largo)/1000;
                 console.log(`Metros lineales: ${metrosLineales}`);
+                const cortes = Math.ceil(metrosLineales / anchoEncontrado.largo);
+                console.log(`Cortes: ${cortes}`);
 
 
                 console.log(`Suma: ${suma}`);
