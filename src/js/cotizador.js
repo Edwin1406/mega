@@ -620,8 +620,13 @@
 
                 const largoOriginal = anchoEncontrado.largo; // Ejemplo: 1908
                 const largoEnMetros = (largoOriginal / 1000).toFixed(2); // Resultado: "1.90"
+                console.log(`Largo en metros: ${largoEnMetros}`);
                 const cortes = metrosLineales / largoEnMetros; // Resultado: 105.26
                 console.log(`Cortes: ${cortes}`);
+
+                if(anchoEncontrado.cantidad >cortes){
+                    console.log(`Cantidad de cortes: ${cortes}`);
+                }
 
 
                 console.log(`Suma: ${suma}`);
