@@ -559,6 +559,7 @@
                 const bobinaIdeal = bobinasUnicas
                     .filter(bobina => bobina >= suma) // Filtra bobinas mayores o iguales a la suma
                     .sort((a, b) => a - b)[0]; // Ordena de menor a mayor y toma la primera
+                    console.log(bobinaIdeal);
     
                 if (bobinaIdeal) {
                     console.log(`Bobina ideal encontrada: ${bobinaIdeal}`);
