@@ -612,8 +612,13 @@
     
             if (anchoEncontrado) {
                 const suma = seleccionado + anchoEncontrado.ancho; 
-                console.log(`Ancho seleccionado: ID=${pedidoSeleccionado.id} ANCHO=${seleccionado}`);
-                console.log(`Ancho encontrado: ID=${anchoEncontrado.id} ANCHO=${anchoEncontrado.ancho}`);
+                console.log(`Ancho seleccionado: ID=${pedidoSeleccionado.id} ANCHO=${seleccionado} LARGO=${pedidoSeleccionado.largo} CANTIDAD ${pedidoSeleccionado.cantidad}`);
+                console.log(`Ancho encontrado: ID=${anchoEncontrado.id} ANCHO=${anchoEncontrado.ancho} LARGO=${anchoEncontrado.largo}`);
+
+                const metrosLineales = (pedidoSeleccionado.cantidad * pedidoSeleccionado.largo)/1000;
+                console.log(`Metros lineales: ${metrosLineales}`);
+
+
                 console.log(`Suma: ${suma}`);
     
                 // Eliminar bobinas repetidas (por ancho), restar 30 y convertir a números
