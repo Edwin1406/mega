@@ -622,10 +622,11 @@
                 const largoEnMetros = Math.floor(largoOriginal / 10) / 100; // Truncar a dos decimales sin redondear
                 console.log(`Largo en metros: ${largoEnMetros}`);
                 const cortes = metrosLineales / largoEnMetros; // Resultado: 105.26
-                console.log(`Cortes: ${Math.trunc(cortes)}`);
+                const cantidadCortes = Math.trunc(cortes);
+                console.log(`Cortes: ${cantidadCortes}`);
 
-                if(anchoEncontrado.cantidad >cortes){
-                    console.log(`Cantidad de cortes: ${cortes}`);
+                if(anchoEncontrado.cantidad >cantidadCortes){
+                    console.log(`Cantidad de cortes: ${cantidadCortes}`);
                 }
 
 
