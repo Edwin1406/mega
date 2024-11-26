@@ -317,6 +317,13 @@
     console.log("Resultados finales:", objetoResultados); // Mostrar el objeto en la consola
     
     objetoResultados.resultados.forEach((resultado, index) => {
+        // necesito que siempre se muestre el resultado 2
+        if(resultado.pedidos.length === 2){
+            console.log(`Resultado ${index}:`);
+            console.log(`  Bobina: ${resultado.bobina}`);
+            console.log(`  Pedidos: ${resultado.pedidos.join(", ")}`);
+            console.log(`  Sobrante: ${resultado.sobrante}`);
+        }
     console.log(`Resultado ${index}:`);
     console.log(`  Bobina: ${resultado.bobina}`);
     console.log(`  Pedidos: ${resultado.pedidos.join(", ")}`);
@@ -330,9 +337,11 @@
 
     });
     const sumaPedidos = resultado.pedidos.reduce((total, pedido) => total + pedido, 0);
-console.log("Suma de pedidos:", sumaPedidos);
+    console.log("Suma de pedidos:", sumaPedidos);
     console.log(`  Sobrante: ${resultado.sobrante}`);
+
 });
+
 
 
 
