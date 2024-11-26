@@ -356,7 +356,7 @@ function mostrarResultados(objetoResultados) {
 
     resultadoDiv.innerHTML = tablaHTML;
 }
-
+optimizar();
 
    
 })();
