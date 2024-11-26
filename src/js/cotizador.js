@@ -586,8 +586,8 @@
         try {
             const test = await ApiTest();
             const allanchospedidos = await AllPedidos();
-            const pedidoSeleccionado = await ApiPedidos();
             const bobinas = await AllBobinas();
+            const pedidoSeleccionado = await ApiPedidos();
     
             const seleccionado = parseFloat(pedidoSeleccionado.ancho) || 0;
             const testNormal = parseFloat(test.test) || 0;

@@ -223,131 +223,170 @@
 
 
 
-<body>
-    <div id="resultados"></div>
 
-    <script>
-        // URLs de las APIs
-        const apiPedidosUrl = 'https://serviacrilico.com/admin/api/pedidos';
-        const apiBobinasUrl = 'https://serviacrilico.com/admin/api/apibobina_media';
 
-        // Función para obtener los anchos de pedidos pendientes desde la API
-        async function obtenerPedidosPendientes() {
-            try {
-                const response = await fetch(apiPedidosUrl);
-                const data = await response.json();
-                return data
-                    .filter(pedido => pedido.estado === "PENDIENTE")
-                    .map(pedido => parseInt(pedido.ancho));
-            } catch (error) {
-                console.error("Error al obtener pedidos:", error);
-                return [];
+<script>
+    async function optimizar() {
+        const bobinas = [1980, 1900, 1880, 1800]; // Tamaños disponibles de las bobinas
+        const refile = 30; // Espacio reservado para el refile
+
+        try {
+            const pedidosAPI = await AllPedidos(); // Obtener pedidos desde la API
+            if (!pedidosAPI || pedidosAPI.length === 0) {
+                console.log("No hay datos de pedidos disponibles desde la API.");
+                return;
             }
-        }
 
-        // Función para obtener bobinas desde la API y aplicar el ajuste de -30 mm para refile
-        async function obtenerBobinas() {
-            try {
-                const response = await fetch(apiBobinasUrl);
-                const data = await response.json();
-                // Aplicar el ajuste de refile de -30 mm
-                return [...new Set(data.map(bobina => parseInt(bobina.ancho) - 30))]; // Eliminar duplicados
-            } catch (error) {
-                console.error("Error al obtener bobinas:", error);
-                return [];
-            }
-        }
+            // Supongamos que los pedidos se encuentran en una propiedad llamada "ancho"
+            const pedidos = pedidosAPI.map(pedido => pedido.ancho).sort((a, b) => b - a);
 
-        // Función para calcular la cobertura y la cantidad de bobinas necesarias
-        async function calcularCobertura() {
-            const pedidos = await obtenerPedidosPendientes();
-            const bobinas = await obtenerBobinas();
-            let resultados = '';
-            let pedidosPendientes = [...pedidos]; // Copia del arreglo de pedidos
-            let pedidosCubiertos = []; // Para marcar los pedidos que ya han sido cubiertos
+            const objetoResultados = {
+                resultados: [],
+                pendientes: []
+            };
 
-            // Iterar sobre cada bobina
-            bobinas.forEach(bobina => {
-                let bobinasNecesarias = 0;
-                let detallesCobertura = []; // Para almacenar detalles de los pedidos cubiertos por cada bobina
+            while (pedidos.length > 0) {
+                let mejorCombinacion = null;
 
-                // Mientras queden pedidos pendientes, intentamos cubrirlos
-                while (pedidosPendientes.length > 0) {
-                    let pedidosCubiertosEstaBobina = []; // Para almacenar los pedidos cubiertos en esta bobina
-                    let bobinaDisponible = bobina; // Restamos el ancho de la bobina conforme se vayan agregando pedidos
-                    let cubiertoEnEstaBobina = false;
+                // Ordenar pedidos de mayor a menor para optimizar el espacio
+                pedidos.sort((a, b) => b - a);
 
-                    // Buscar combinaciones para cubrir la bobina con 2 pedidos
-                    for (let i = 0; i < pedidosPendientes.length; i++) {
-                        let pedidoActual = pedidosPendientes[i];
+                // Probar cada bobina para encontrar la combinación óptima
+                for (let i = 0; i < bobinas.length; i++) {
+                    let bobinaDisponible = bobinas[i] - refile;
 
-                        if (pedidosCubiertos.includes(pedidoActual)) {
-                            // Si el pedido ya fue cubierto, lo saltamos
-                            continue;
+                    // Buscar combinaciones de pedidos para la bobina
+                    let combinacion = [];
+                    let suma = 0;
+
+                    for (let j = 0; j < pedidos.length; j++) {
+                        if (suma + pedidos[j] <= bobinaDisponible) {
+                            suma += pedidos[j];
+                            combinacion.push(pedidos[j]);
                         }
 
-                        for (let j = i + 1; j < pedidosPendientes.length; j++) {
-                            let siguientePedido = pedidosPendientes[j];
-                            if (pedidosCubiertos.includes(siguientePedido)) {
-                                // Si el segundo pedido ya fue cubierto, lo saltamos
-                                continue;
-                            }
-
-                            // Si la suma de ambos pedidos es menor o igual al ancho de la bobina
-                            if (pedidoActual + siguientePedido <= bobina) {
-                                // Los pedidos se pueden cubrir juntos
-                                pedidosCubiertosEstaBobina.push(pedidoActual, siguientePedido);
-                                pedidosCubiertos.push(pedidoActual, siguientePedido); // Marcamos ambos pedidos como cubiertos
-                                pedidosPendientes.splice(i, 1); // Eliminar el primer pedido
-                                pedidosPendientes.splice(j - 1, 1); // Eliminar el segundo pedido (ajustamos el índice)
-                                cubiertoEnEstaBobina = true;
-                                break; // Salir del bucle si encontramos una combinación válida
-                            }
-                        }
-
-                        if (cubiertoEnEstaBobina) break; // Si ya cubrimos la bobina, dejamos de buscar más combinaciones
-                    }
-
-                    // Si no se cubrieron 2 pedidos en esta bobina, buscar una más grande
-                    if (!cubiertoEnEstaBobina) {
-                        let siguienteBobina = bobinas.find(b => b > bobina && b >= pedidosPendientes[0]);
-                        if (siguienteBobina) {
-                            bobina = siguienteBobina;
-                        } else {
-                            // Si no hay bobinas más grandes, cubrir el siguiente pedido individualmente
-                            let pedidoIndividual = pedidosPendientes[0];
-                            pedidosCubiertos.push(pedidoIndividual);
-                            pedidosCubiertosEstaBobina.push(pedidoIndividual);
-                            pedidosPendientes.splice(0, 1); // Eliminar el pedido individual
-                            cubiertoEnEstaBobina = true;
+                        if (suma === bobinaDisponible || suma + Math.min(...pedidos) > bobinaDisponible) {
+                            break;
                         }
                     }
 
-                    // Si hemos cubierto algo con esta bobina, la contamos
-                    if (cubiertoEnEstaBobina) {
-                        bobinasNecesarias++;
-                        detallesCobertura.push(`Bobina de ${bobina + 30} mm cubre los siguientes pedidos: ${pedidosCubiertosEstaBobina.join(', ')}`);
-                    } else {
-                        break; // Si no se cubrió nada en esta bobina, pasamos a la siguiente
+                    const sobrante = bobinaDisponible - suma;
+
+                    // Evaluar si es la mejor combinación hasta ahora
+                    if (
+                        combinacion.length > 0 &&
+                        (!mejorCombinacion || sobrante < mejorCombinacion.sobrante)
+                    ) {
+                        mejorCombinacion = {
+                            bobina: bobinas[i],
+                            pedidos: combinacion,
+                            sobrante: sobrante
+                        };
                     }
                 }
 
-                // Añadir resultados al HTML
-                resultados += `<p><strong>Bobina de ${bobina + 30} mm (ancho efectivo: ${bobina} mm):</strong></p>`;
-                resultados += `<p>Número de bobinas necesarias para cubrir los pedidos: ${bobinasNecesarias}</p>`;
-                detallesCobertura.forEach(detalle => {
-                    resultados += `<p>${detalle}</p>`;
-                });
-                resultados += `<p>Pedidos pendientes tras usar esta bobina: ${pedidosPendientes.length}</p><hr>`;
-            });
+                // Si se encontró una combinación válida, asignar
+                if (mejorCombinacion) {
+                    const detalles = calcularDetalles(mejorCombinacion);
+                    objetoResultados.resultados.push({ ...mejorCombinacion, ...detalles });
 
-            // Mostrar resultados en el div con id="resultados"
-            document.getElementById("resultados").innerHTML = resultados;
+                    // Eliminar los pedidos asignados
+                    pedidos = pedidos.filter(
+                        pedido => !mejorCombinacion.pedidos.includes(pedido)
+                    );
+                } else {
+                    // Si no se pudo asignar ningún pedido, añadir a pendientes
+                    objetoResultados.pendientes.push(...pedidos);
+                    break;
+                }
+            }
+
+            // Mostrar los resultados
+            mostrarResultados(objetoResultados);
+            console.log("Resultados finales:", objetoResultados); // Mostrar el objeto en la consola
+        } catch (error) {
+            console.error("Error al procesar la optimización:", error);
+        }
+    }
+
+    async function AllPedidos() {
+        try {
+            const url = `${location.origin}/admin/api/allpedidos`;
+            const resultado = await fetch(url);
+            const allpedidos = await resultado.json();
+            return allpedidos;
+        } catch (e) {
+            console.error("Error al obtener los pedidos desde la API:", e);
+            return [];
+        }
+    }
+
+    function calcularDetalles(combinacion) {
+        const cavidad = 1; // Cavidad fija para cada ancho (1 y 1)
+        const detalles = {
+            cortes: [],
+            metrosLineales: []
+        };
+
+        combinacion.pedidos.forEach((ancho, index) => {
+            const largo = index === 1 ? 1.90 : 1.46; // Ajuste del largo según el índice
+            const cantidad = Math.floor(Math.random() * 1000) + 500; // Simular cantidad
+
+            // Cálculos
+            const cortes = cantidad * cavidad;
+            const metrosLineales = (cantidad * largo) / 1000;
+
+            detalles.cortes.push(cortes);
+            detalles.metrosLineales.push(metrosLineales.toFixed(2));
+        });
+
+        return detalles;
+    }
+
+    function mostrarResultados(objetoResultados) {
+        const resultadoDiv = document.getElementById("resultado");
+        resultadoDiv.innerHTML = "";
+
+        let tablaHTML = `
+            <table>
+                <thead>
+                    <tr>
+                        <th>Bobina</th>
+                        <th>Pedidos Usados</th>
+                        <th>Cortes</th>
+                        <th>Metros Lineales</th>
+                        <th>Sobrante</th>
+                    </tr>
+                </thead>
+                <tbody>
+        `;
+
+        objetoResultados.resultados.forEach(resultado => {
+            const claseSobrante = resultado.sobrante <= 10 ? "sobrante-optimo" : "";
+            tablaHTML += `
+                <tr>
+                    <td>${resultado.bobina}</td>
+                    <td>${resultado.pedidos.join(", ")}</td>
+                    <td>${resultado.cortes.join(", ")}</td>
+                    <td>${resultado.metrosLineales.join(", ")}</td>
+                    <td class="${claseSobrante}">${resultado.sobrante}</td>
+                </tr>
+            `;
+        });
+
+        if (objetoResultados.pendientes.length > 0) {
+            tablaHTML += `
+                <tr>
+                    <td colspan="5" class="espera">A la espera de más pedidos: ${objetoResultados.pendientes.join(", ")}</td>
+                </tr>
+            `;
         }
 
-        // Ejecutar la función al cargar la página
-        calcularCobertura();
-    </script>
-</body>
-</html>
+        tablaHTML += `
+                </tbody>
+            </table>
+        `;
 
+        resultadoDiv.innerHTML = tablaHTML;
+    }
+</script>
