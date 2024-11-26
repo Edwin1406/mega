@@ -227,6 +227,10 @@
 
 <script>
 
+(function(){
+
+
+
     optimizar();
     async function optimizar() {
         const bobinas = [1980, 1900, 1880, 1800]; // Tamaños disponibles de las bobinas
@@ -391,4 +395,6 @@
 
         resultadoDiv.innerHTML = tablaHTML;
     }
+})();
+
 </script>
