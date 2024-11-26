@@ -205,6 +205,20 @@
     </div>
 
 
+    <div class="formulario__campo">
+        <label class="formulario__label" for="estado_combinacion">Preuba de datos </label>
+        <input
+            type="text"
+            name="estado_combinacion"
+            id="estado_combinacion"
+            class="formulario__input"
+            placeholder="estado_combinacion del papel"
+            value="">
+    </div>
+
+
+
+
 </fieldset>
 
 
@@ -310,6 +324,11 @@
     console.log(`Resultado ${index}:`);
     console.log(`  Bobina: ${resultado.bobina}`);
     console.log(`  Pedidos: ${resultado.pedidos.join(", ")}`);
+    // Selecciona el campo de entrada por su ID
+const inputEstadoCombinacion = document.getElementById("estado_combinacion");
+
+// Asigna el valor al atributo `value` del input
+inputEstadoCombinacion.value = pedidosString;
     resultado.pedidos.forEach(pedido => {
         console.log(pedido);
 
