@@ -337,7 +337,7 @@
 
 
 
-}
+
 
 function mostrarResultados(objetoResultados) {
     const resultadoDiv = document.getElementById("resultado");
