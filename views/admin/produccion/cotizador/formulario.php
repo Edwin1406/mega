@@ -222,7 +222,7 @@
 
 
 
-<<h2>Resultados</h2>
+<h2>Resultados</h2>
 <div id="resultado"></div>
 
 <script>
