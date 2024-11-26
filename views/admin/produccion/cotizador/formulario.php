@@ -240,6 +240,10 @@
             return [];
         }
     }
+
+    AllPedidos ().then((pedidos) => {
+        console.log(pedidos);
+    });
    
    
    
