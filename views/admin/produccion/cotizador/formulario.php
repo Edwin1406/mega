@@ -305,6 +305,7 @@
     // Mostrar los resultados
     mostrarResultados(objetoResultados);
     console.log("Resultados finales:", objetoResultados); // Mostrar el objeto en la consola
+    console.log(`resuñtados ${objetoResultados.resultados}`);
 }
 
 function mostrarResultados(objetoResultados) {
