@@ -305,7 +305,18 @@
     // Mostrar los resultados
     mostrarResultados(objetoResultados);
     console.log("Resultados finales:", objetoResultados); // Mostrar el objeto en la consola
-    console.log("resultados", objetoResultados.resultados);
+    
+    objetoResultados.resultados.forEach((resultado, index) => {
+    console.log(`Resultado ${index}:`);
+    console.log(`  Bobina: ${resultado.bobina}`);
+    console.log(`  Pedidos: ${resultado.pedidos.join(", ")}`);
+    console.log(`  Sobrante: ${resultado.sobrante}`);
+});
+
+
+
+
+
 }
 
 function mostrarResultados(objetoResultados) {
