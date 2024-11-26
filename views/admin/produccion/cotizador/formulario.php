@@ -247,7 +247,6 @@ AllPedidos();
 function optimizar() {
     const bobinas = [1980, 1900]; // Tamaños disponibles de las bobinas
     const refile = 30; // Espacio reservado para el refile
-    let pedidos = document.getElementById("pedidos").value.split(",").map(Number);
 
     const objetoResultados = {
         resultados: [],
