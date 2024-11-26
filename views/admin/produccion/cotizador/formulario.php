@@ -229,7 +229,18 @@
 
 (function(){
 
-
+    async function AllPedidos() {
+        try {
+            const url = `${location.origin}/admin/api/allpedidos`;
+            const resultado = await fetch(url);
+            const allpedidos = await resultado.json();
+            return allpedidos;
+        } catch (e) {
+            console.error("Error al obtener los pedidos desde la API:", e);
+            return [];
+        }
+    }
+    AllPedidos();
 
     optimizar();
     async function optimizar() {
@@ -315,17 +326,7 @@
         }
     }
 
-    async function AllPedidos() {
-        try {
-            const url = `${location.origin}/admin/api/allpedidos`;
-            const resultado = await fetch(url);
-            const allpedidos = await resultado.json();
-            return allpedidos;
-        } catch (e) {
-            console.error("Error al obtener los pedidos desde la API:", e);
-            return [];
-        }
-    }
+   
 
     function calcularDetalles(combinacion) {
         const cavidad = 1; // Cavidad fija para cada ancho (1 y 1)
