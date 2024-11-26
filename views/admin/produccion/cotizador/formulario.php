@@ -234,7 +234,7 @@
             const url = `${location.origin}/admin/api/allpedidos`;
             const resultado = await fetch(url);
             const allpedidos = await resultado.json();
-            console.log(`edwin`,allpedidos);
+            console.log(`diaz`,allpedidos);
             // return allpedidos;
         } catch (e) {
             console.error("Error al obtener los pedidos desde la API:", e);
