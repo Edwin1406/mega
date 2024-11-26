@@ -207,13 +207,9 @@
 
     <div class="formulario__campo">
         <label class="formulario__label" for="estado">Preuba de datos </label>
-        <input
-            type="text"
-            name="estado"
-            id="estado"
-            class="formulario__input"
-            placeholder="estado del papel"
-            value="">
+        <li>
+            <ul id="estado"></ul>
+        </li>
     </div>
 
 
