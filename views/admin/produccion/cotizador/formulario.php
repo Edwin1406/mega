@@ -434,4 +434,5 @@ optimizar();
     // Llamar a la función optimizar cuando sea necesario
     optimizar();
 </script>
-<iframe src="https://1drv.ms/x/s!AqJSslGtYGFChIwmUeSimalgcIxaAg?embed=1&em=2" width="402" height="346" frameborder="0" scrolling="no"></iframe>
+
+
