@@ -297,19 +297,49 @@
             }
         }
 
-        // Si se encontró una combinación válida, asignar
-        if (mejorCombinacion) {
-            objetoResultados.resultados.push(mejorCombinacion);
+        // // Si se encontró una combinación válida, asignar
+        // if (mejorCombinacion) {
+        //     objetoResultados.resultados.push(mejorCombinacion);
 
-            // Eliminar los pedidos asignados
-            pedidosNumeros = pedidosNumeros.filter(
-                pedido => !mejorCombinacion.pedidos.includes(pedido)
-            );
-        } else {
-            // Si no se pudo asignar ningún pedido, añadir a pendientes
-            objetoResultados.pendientes.push(...pedidosNumeros);
-            break;
-        }
+        //     // Eliminar los pedidos asignados
+        //     pedidosNumeros = pedidosNumeros.filter(
+        //         pedido => !mejorCombinacion.pedidos.includes(pedido)
+        //     );
+        // } else {
+        //     // Si no se pudo asignar ningún pedido, añadir a pendientes
+        //     objetoResultados.pendientes.push(...pedidosNumeros);
+        //     break;
+        // }
+
+// Revisar pedidos y mover aquellos con solo un pedido a pendientes
+pedidosNumeros.forEach((pedido, index) => {
+    if (Array.isArray(pedido) && pedido.length === 1) {
+        objetoResultados.pendientes.push(...pedido); // Agregar el único pedido a pendientes
+        pedidosNumeros.splice(index, 1); // Eliminar del array principal
+    }
+});
+
+// Si se encontró una combinación válida, asignar
+if (mejorCombinacion) {
+    objetoResultados.resultados.push(mejorCombinacion);
+
+    // Eliminar los pedidos asignados
+    pedidosNumeros = pedidosNumeros.filter(
+        pedido => !mejorCombinacion.pedidos.includes(pedido)
+    );
+} else {
+    // Si no se pudo asignar ningún pedido, añadir a pendientes
+    objetoResultados.pendientes.push(...pedidosNumeros);
+}
+
+
+
+
+
+
+
+
+
     }
 
     // Mostrar los resultados
