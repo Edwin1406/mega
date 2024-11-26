@@ -222,54 +222,34 @@
 
 
 
+<<h2>Resultados</h2>
 <div id="resultado"></div>
 
-
-
 <script>
-
-(function(){
-
-    async function AllPedidos() {
-        try {
-            const url = `${location.origin}/admin/api/allpedidos`;
-            const resultado = await fetch(url);
-            const allpedidos = await resultado.json();
-            console.log(`diaz`,allpedidos);
-            return allpedidos;
-        } catch (e) {
-            console.error("Error al obtener los pedidos desde la API:", e);
-            return [];
-        }
-    }
-
-    AllPedidos ();
-
-
     async function optimizar() {
-    const bobinas = [1980, 1900]; // Tamaños disponibles de las bobinas
-    const refile = 30; // Espacio reservado para el refile
+        const bobinas = [1980, 1900]; // Tamaños disponibles de las bobinas
+        const refile = 30; // Espacio reservado para el refile
 
-    try {
-        const pedidosAPI = await AllPedidos(); // Obtener pedidos desde la API
-        if (!pedidosAPI || pedidosAPI.length === 0) {
-            console.log("No hay datos de pedidos disponibles desde la API.");
+        // Obtener los pedidos desde la API
+        const pedidos = await AllPedidos(); // Cambié esto para obtener desde la API
+        if (pedidos.length === 0) {
+            alert('No se pudieron obtener pedidos desde la API.');
             return;
         }
 
-        // Supongamos que los pedidos se encuentran en una propiedad llamada "ancho"
-        let pedidos = pedidosAPI.map(pedido => pedido.ancho).sort((a, b) => b - a); // Cambiado a let
+        // Asegurarse de que los pedidos son números
+        const pedidosNumeros = pedidos.map(pedido => parseInt(pedido.ancho, 10)).filter(Number);
 
         const objetoResultados = {
             resultados: [],
             pendientes: []
         };
 
-        while (pedidos.length > 0) {
+        while (pedidosNumeros.length > 0) {
             let mejorCombinacion = null;
 
             // Ordenar pedidos de mayor a menor para optimizar el espacio
-            pedidos.sort((a, b) => b - a);
+            pedidosNumeros.sort((a, b) => b - a);
 
             // Probar cada bobina para encontrar la combinación óptima
             for (let i = 0; i < bobinas.length; i++) {
@@ -279,13 +259,13 @@
                 let combinacion = [];
                 let suma = 0;
 
-                for (let j = 0; j < pedidos.length; j++) {
-                    if (suma + pedidos[j] <= bobinaDisponible) {
-                        suma += pedidos[j];
-                        combinacion.push(pedidos[j]);
+                for (let j = 0; j < pedidosNumeros.length; j++) {
+                    if (suma + pedidosNumeros[j] <= bobinaDisponible) {
+                        suma += pedidosNumeros[j];
+                        combinacion.push(pedidosNumeros[j]);
                     }
 
-                    if (suma === bobinaDisponible || suma + Math.min(...pedidos) > bobinaDisponible) {
+                    if (suma === bobinaDisponible || suma + Math.min(...pedidosNumeros) > bobinaDisponible) {
                         break;
                     }
                 }
@@ -307,16 +287,15 @@
 
             // Si se encontró una combinación válida, asignar
             if (mejorCombinacion) {
-                const detalles = calcularDetalles(mejorCombinacion);
-                objetoResultados.resultados.push({ ...mejorCombinacion, ...detalles });
+                objetoResultados.resultados.push(mejorCombinacion);
 
                 // Eliminar los pedidos asignados
-                pedidos = pedidos.filter(
+                pedidosNumeros = pedidosNumeros.filter(
                     pedido => !mejorCombinacion.pedidos.includes(pedido)
                 );
             } else {
                 // Si no se pudo asignar ningún pedido, añadir a pendientes
-                objetoResultados.pendientes.push(...pedidos);
+                objetoResultados.pendientes.push(...pedidosNumeros);
                 break;
             }
         }
@@ -324,32 +303,6 @@
         // Mostrar los resultados
         mostrarResultados(objetoResultados);
         console.log("Resultados finales:", objetoResultados); // Mostrar el objeto en la consola
-    } catch (error) {
-        console.error("Error al procesar la optimización:", error);
-    }
-}
-optimizar();
-
-function calcularDetalles(combinacion) {
-        const cavidad = 1; // Cavidad fija para cada ancho (1 y 1)
-        const detalles = {
-            cortes: [],
-            metrosLineales: []
-        };
-
-        combinacion.pedidos.forEach((ancho, index) => {
-            const largo = index === 1 ? 1.90 : 1.46; // Ajuste del largo según el índice
-            const cantidad = Math.floor(Math.random() * 1000) + 500; // Simular cantidad
-
-            // Cálculos
-            const cortes = cantidad * cavidad;
-            const metrosLineales = (cantidad * largo) / 1000;
-
-            detalles.cortes.push(cortes);
-            detalles.metrosLineales.push(metrosLineales.toFixed(2));
-        });
-
-        return detalles;
     }
 
     function mostrarResultados(objetoResultados) {
@@ -362,8 +315,6 @@ function calcularDetalles(combinacion) {
                     <tr>
                         <th>Bobina</th>
                         <th>Pedidos Usados</th>
-                        <th>Cortes</th>
-                        <th>Metros Lineales</th>
                         <th>Sobrante</th>
                     </tr>
                 </thead>
@@ -376,8 +327,6 @@ function calcularDetalles(combinacion) {
                 <tr>
                     <td>${resultado.bobina}</td>
                     <td>${resultado.pedidos.join(", ")}</td>
-                    <td>${resultado.cortes.join(", ")}</td>
-                    <td>${resultado.metrosLineales.join(", ")}</td>
                     <td class="${claseSobrante}">${resultado.sobrante}</td>
                 </tr>
             `;
@@ -386,7 +335,7 @@ function calcularDetalles(combinacion) {
         if (objetoResultados.pendientes.length > 0) {
             tablaHTML += `
                 <tr>
-                    <td colspan="5" class="espera">A la espera de más pedidos: ${objetoResultados.pendientes.join(", ")}</td>
+                    <td colspan="3" class="espera">A la espera de más pedidos: ${objetoResultados.pendientes.join(", ")}</td>
                 </tr>
             `;
         }
@@ -399,8 +348,19 @@ function calcularDetalles(combinacion) {
         resultadoDiv.innerHTML = tablaHTML;
     }
 
+    async function AllPedidos() {
+        try {
+            const url = `${location.origin}/admin/api/allpedidos`;
+            const resultado = await fetch(url);
+            const allpedidos = await resultado.json();
+            console.log("Pedidos obtenidos desde la API:", allpedidos);
+            return allpedidos;
+        } catch (e) {
+            console.error("Error al obtener los pedidos desde la API:", e);
+            return [];
+        }
+    }
 
-   
-})();
-
+    // Llamar a la función optimizar cuando sea necesario
+    optimizar();
 </script>
