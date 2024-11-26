@@ -297,80 +297,40 @@
             }
         }
 
-        // // Si se encontró una combinación válida, asignar
-        // if (mejorCombinacion) {
-        //     objetoResultados.resultados.push(mejorCombinacion);
+        // Si se encontró una combinación válida, asignar
+        if (mejorCombinacion) {
+            // Si la combinación tiene solo un pedido, enviarla a pendientes
+            if (mejorCombinacion.pedidos.length === 1) {
+                objetoResultados.pendientes.push(...mejorCombinacion.pedidos);
+            } else {
+                objetoResultados.resultados.push(mejorCombinacion);
+            }
 
-        //     // Eliminar los pedidos asignados
-        //     pedidosNumeros = pedidosNumeros.filter(
-        //         pedido => !mejorCombinacion.pedidos.includes(pedido)
-        //     );
-        // } else {
-        //     // Si no se pudo asignar ningún pedido, añadir a pendientes
-        //     objetoResultados.pendientes.push(...pedidosNumeros);
-        //     break;
-        // }
-
-// Revisar pedidos y mover aquellos con solo un pedido a pendientes
-pedidosNumeros.forEach((pedido, index) => {
-    if (Array.isArray(pedido) && pedido.length === 1) {
-        objetoResultados.pendientes.push(...pedido); // Agregar el único pedido a pendientes
-        pedidosNumeros.splice(index, 1); // Eliminar del array principal
-    }
-});
-
-// Si se encontró una combinación válida, asignar
-if (mejorCombinacion) {
-    objetoResultados.resultados.push(mejorCombinacion);
-
-    // Eliminar los pedidos asignados
-    pedidosNumeros = pedidosNumeros.filter(
-        pedido => !mejorCombinacion.pedidos.includes(pedido)
-    );
-} else {
-    // Si no se pudo asignar ningún pedido, añadir a pendientes
-    objetoResultados.pendientes.push(...pedidosNumeros);
-}
-
-
-
-
-
-
-
-
-
+            // Eliminar los pedidos asignados
+            pedidosNumeros = pedidosNumeros.filter(
+                pedido => !mejorCombinacion.pedidos.includes(pedido)
+            );
+        } else {
+            // Si no se pudo asignar ningún pedido, añadir a pendientes
+            objetoResultados.pendientes.push(...pedidosNumeros);
+            break;
+        }
     }
 
     // Mostrar los resultados
     mostrarResultados(objetoResultados);
-    console.log("Resultados finales:", objetoResultados); // Mostrar el objeto en la consola
-    
+    console.log("Resultados finales:", objetoResultados);
+
     objetoResultados.resultados.forEach((resultado, index) => {
-        // necesito que siempre se muestre el resultado 2
-        if(resultado.pedidos.length === 2){
-            console.log(`Resultado ${index}:`);
-            console.log(`  Bobina: ${resultado.bobina}`);
-            console.log(`  Pedidos: ${resultado.pedidos.join(", ")}`);
-            console.log(`  Sobrante: ${resultado.sobrante}`);
-        }
-    console.log(`Resultado ${index}:`);
-    console.log(`  Bobina: ${resultado.bobina}`);
-    console.log(`  Pedidos: ${resultado.pedidos.join(", ")}`);
-    
-    document.getElementById("estado").value = resultado.pedidos.join(", ");
-
-
-
-    resultado.pedidos.forEach(pedido => {
-        console.log(pedido);
-
+        console.log(`Resultado ${index}:`);
+        console.log(`  Bobina: ${resultado.bobina}`);
+        console.log(`  Pedidos: ${resultado.pedidos.join(", ")}`);
+        console.log(`  Sobrante: ${resultado.sobrante}`);
     });
-    const sumaPedidos = resultado.pedidos.reduce((total, pedido) => total + pedido, 0);
-    console.log("Suma de pedidos:", sumaPedidos);
-    console.log(`  Sobrante: ${resultado.sobrante}`);
 
-});
+    console.log("Pendientes:", objetoResultados.pendientes);
+}
+
 
 
 
