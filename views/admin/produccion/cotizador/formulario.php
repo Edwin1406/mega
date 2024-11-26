@@ -310,6 +310,9 @@
     console.log(`Resultado ${index}:`);
     console.log(`  Bobina: ${resultado.bobina}`);
     console.log(`  Pedidos: ${resultado.pedidos.join(", ")}`);
+    resultado.pedidos.forEach(pedido => {
+        console.log(`    Pedido ${pedido}: ${pedidos.find(p => p.ancho === pedido).cliente}`);
+    });
     console.log(`  Sobrante: ${resultado.sobrante}`);
 });
 
