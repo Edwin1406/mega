@@ -312,7 +312,10 @@
     console.log(`  Pedidos: ${resultado.pedidos.join(", ")}`);
     resultado.pedidos.forEach(pedido => {
         console.log(pedido);
+
     });
+    const sumaPedidos = resultado.pedidos.reduce((total, pedido) => total + pedido, 0);
+console.log("Suma de pedidos:", sumaPedidos);
     console.log(`  Sobrante: ${resultado.sobrante}`);
 });
 
