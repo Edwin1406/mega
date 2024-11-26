@@ -329,6 +329,75 @@
 }
 optimizar();
 
+function calcularDetalles(combinacion) {
+        const cavidad = 1; // Cavidad fija para cada ancho (1 y 1)
+        const detalles = {
+            cortes: [],
+            metrosLineales: []
+        };
+
+        combinacion.pedidos.forEach((ancho, index) => {
+            const largo = index === 1 ? 1.90 : 1.46; // Ajuste del largo según el índice
+            const cantidad = Math.floor(Math.random() * 1000) + 500; // Simular cantidad
+
+            // Cálculos
+            const cortes = cantidad * cavidad;
+            const metrosLineales = (cantidad * largo) / 1000;
+
+            detalles.cortes.push(cortes);
+            detalles.metrosLineales.push(metrosLineales.toFixed(2));
+        });
+
+        return detalles;
+    }
+
+    function mostrarResultados(objetoResultados) {
+        const resultadoDiv = document.getElementById("resultado");
+        resultadoDiv.innerHTML = "";
+
+        let tablaHTML = `
+            <table>
+                <thead>
+                    <tr>
+                        <th>Bobina</th>
+                        <th>Pedidos Usados</th>
+                        <th>Cortes</th>
+                        <th>Metros Lineales</th>
+                        <th>Sobrante</th>
+                    </tr>
+                </thead>
+                <tbody>
+        `;
+
+        objetoResultados.resultados.forEach(resultado => {
+            const claseSobrante = resultado.sobrante <= 10 ? "sobrante-optimo" : "";
+            tablaHTML += `
+                <tr>
+                    <td>${resultado.bobina}</td>
+                    <td>${resultado.pedidos.join(", ")}</td>
+                    <td>${resultado.cortes.join(", ")}</td>
+                    <td>${resultado.metrosLineales.join(", ")}</td>
+                    <td class="${claseSobrante}">${resultado.sobrante}</td>
+                </tr>
+            `;
+        });
+
+        if (objetoResultados.pendientes.length > 0) {
+            tablaHTML += `
+                <tr>
+                    <td colspan="5" class="espera">A la espera de más pedidos: ${objetoResultados.pendientes.join(", ")}</td>
+                </tr>
+            `;
+        }
+
+        tablaHTML += `
+                </tbody>
+            </table>
+        `;
+
+        resultadoDiv.innerHTML = tablaHTML;
+    }
+
 
    
 })();
