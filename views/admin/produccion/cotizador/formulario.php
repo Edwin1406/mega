@@ -327,7 +327,7 @@
             console.error("Error al procesar la optimización:", error);
         }
     }
-   
+     optimizar();
    
    
 
