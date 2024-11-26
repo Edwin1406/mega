@@ -311,7 +311,7 @@
     console.log(`  Bobina: ${resultado.bobina}`);
     console.log(`  Pedidos: ${resultado.pedidos.join(", ")}`);
     resultado.pedidos.forEach(pedido => {
-        console.log(pedidos.find(p => p.ancho === pedido));
+        console.log(pedido);
     });
     console.log(`  Sobrante: ${resultado.sobrante}`);
 });
