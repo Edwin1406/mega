@@ -222,6 +222,7 @@
 
 
 
+<div id="resultado"></div>
 
 
 
