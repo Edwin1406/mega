@@ -78,13 +78,11 @@ class ApiPedidos {
                 $resultado['Largo'] = $dimensiones[1];
                 $resultado['Ancho'] = $dimensiones[2];
                 $resultado['Altura'] = $dimensiones[3];
+                $resultado['lamina'] = $dimensiones[4]; // Extrae "K/K" o cualquier texto adicional
+                $resultado['test'] = $dimensiones[5];   // Extrae el valor numérico después de "TEST"
             }
     
-            // Expresión regular para "K/K" y "TEST"
-            if (preg_match('/K\/K\s+(\w+)\s+TEST\s+(\d+)/i', $cadena, $kk_match)) {
-                $resultado['lamina'] = $kk_match[1]; // Extrae "K/K" o cualquier texto adicional
-                $resultado['test'] = $kk_match[2];   // Extrae el valor numérico después de "TEST"
-            }
+           
     
             // Agregar el resultado procesado al arreglo de resultados
             $resultados[] = $resultado;
