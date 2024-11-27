@@ -47,9 +47,11 @@ function desglozar(pedidosPendientes) {
             subtotal: pedido.subtotal,
             total: pedido.total,
             dimensiones: {
-                ancho: dimensiones.ancho,
                 largo: dimensiones.largo,
-                alto: dimensiones.alto
+                ancho: dimensiones.ancho,
+                alto: dimensiones.alto,
+                tipo: pedido.tipo || "K/K", // Valor predeterminado si no está en el pedido
+                test: pedido.test || "250"  // Valor predeterminado si no está en el pedido
             }
         };
 
@@ -70,10 +72,9 @@ function extraerDimensiones(nombreProducto) {
     // Si se encuentra un resultado, extraemos las dimensiones
     if (resultado) {
         return {
-            largo: resultado[1], // El primer número es el ancho
-            ancho: resultado[2], // El segundo número es el largo
-            alto: resultado[3] || 'N/A', // Si no hay alto, asignamos 'N/A'
-            tipo : resultado[4] || 'N/A'
+            ancho: resultado[1], // El primer número es el ancho
+            largo: resultado[2], // El segundo número es el largo
+            alto: resultado[3] || 'N/A' // Si no hay alto, asignamos 'N/A'
         };
     }
 
@@ -81,8 +82,7 @@ function extraerDimensiones(nombreProducto) {
     return {
         ancho: 'N/A',
         largo: 'N/A',
-        alto: 'N/A',
-        tipo: 'N/A'
+        alto: 'N/A'
     };
 }
 
