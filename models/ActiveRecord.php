@@ -257,7 +257,6 @@ class ActiveRecord {
     // Crear la tabla si no existe
     $queryCrearTabla = "
         CREATE TABLE IF NOT EXISTS " . static::$tabla . " (
-            id INT PRIMARY KEY,
             almacen VARCHAR(255),
             nombre_cliente VARCHAR(255),
             ruc_cliente VARCHAR(255),
@@ -288,7 +287,7 @@ class ActiveRecord {
         }
 
         // Mapear los datos a las columnas
-        list($id, $almacen,$nombre_cliente,$ruc_cliente, $fecha_pedido, $vendedor, $plazo_entrega, $estado_pedido, $codigo_producto, $nombre_producto, $cantidad, $pvp, $subtotal, $total  ) = $data;
+        list( $almacen,$nombre_cliente,$ruc_cliente, $fecha_pedido, $vendedor, $plazo_entrega, $estado_pedido, $codigo_producto, $nombre_producto, $cantidad, $pvp, $subtotal, $total  ) = $data;
 
         // Verificar si la fecha es válida y convertirla
         if (is_numeric($fecha_pedido)) {
@@ -300,8 +299,8 @@ class ActiveRecord {
         }
         // Query para insertar cada fila
         $queryInsertar = "
-            INSERT INTO " . static::$tabla . " (id, almacen, nombre_cliente, ruc_cliente, fecha_pedido, vendedor, plazo_entrega, estado_pedido, codigo_producto, nombre_producto, cantidad, pvp, subtotal, total)
-            VALUES ('$id','$almacen','$nombre_cliente','$ruc_cliente','$fecha_pedido','$vendedor','$plazo_entrega','$estado_pedido','$codigo_producto','$nombre_producto','$cantidad','$pvp','$subtotal','$total')
+            INSERT INTO " . static::$tabla . " (almacen, nombre_cliente, ruc_cliente, fecha_pedido, vendedor, plazo_entrega, estado_pedido, codigo_producto, nombre_producto, cantidad, pvp, subtotal, total)
+            VALUES ('$almacen','$nombre_cliente','$ruc_cliente','$fecha_pedido','$vendedor','$plazo_entrega','$estado_pedido','$codigo_producto','$nombre_producto','$cantidad','$pvp','$subtotal','$total')
             ON DUPLICATE KEY UPDATE 
                 almacen = VALUES(almacen),
                 nombre_cliente = VALUES(nombre_cliente),
