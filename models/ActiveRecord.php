@@ -479,7 +479,7 @@ public static function procesarArchivoExcel($filePath)
                     fecha_pedido = '$fecha_pedido',
                     vendedor = '$vendedor',
                     plazo_entrega = '$plazo_entrega',
-                    estado_pedido = '$estado_pedido',
+                   
                     nombre_producto = '$nombre_producto',
                     cantidad = '$cantidad',
                     pvp = '$pvp',
