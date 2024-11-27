@@ -249,12 +249,83 @@ class ActiveRecord {
 
 //    // Procesar un archivo Excel-----------------------------------------------------------------------------------------------------------------------------------
 
-    public static function procesarArchivoExcel($filePath)
+//     public static function procesarArchivoExcel($filePath)
+// {
+//     $spreadsheet = IOFactory::load($filePath);
+//     $sheet = $spreadsheet->getActiveSheet();
+
+//     // Crear la tabla si no existe
+//     $queryCrearTabla = "
+//         CREATE TABLE IF NOT EXISTS " . static::$tabla . " (
+//             almacen VARCHAR(255),
+//             nombre_cliente VARCHAR(255),
+//             ruc_cliente VARCHAR(255),
+//             numero_pedido VARCHAR(255),
+//             fecha_pedido DATE,
+//             vendedor VARCHAR(255),
+//             plazo_entrega DATE,
+//             estado_pedido VARCHAR(255),
+//             codigo_producto VARCHAR(255),
+//             nombre_producto VARCHAR(255),
+//             cantidad INT,
+//             pvp DECIMAL(10, 2),
+//             subtotal DECIMAL(10, 2),
+//             total DECIMAL(10, 2)
+//         )
+//     ";
+
+//     // Ejecutar la creación de la tabla
+//     self::$db->query($queryCrearTabla);
+
+//     // Insertar los datos de cada fila
+//     foreach ($sheet->getRowIterator(2) as $row) {
+//         $data = [];
+//         $cellIterator = $row->getCellIterator();
+//         $cellIterator->setIterateOnlyExistingCells(false);
+
+//         foreach ($cellIterator as $cell) {
+//             $data[] = $cell->getValue();
+//         }
+
+//         // Mapear los datos a las columnas
+//         list( $almacen,$nombre_cliente,$ruc_cliente,$numero_pedido,$fecha_pedido, $vendedor, $plazo_entrega, $estado_pedido, $codigo_producto, $nombre_producto, $cantidad, $pvp, $subtotal, $total  ) = $data;
+
+//         // Query para insertar cada fila
+//         $queryInsertar = "
+//             INSERT INTO " . static::$tabla . " (almacen, nombre_cliente, ruc_cliente,numero_pedido, fecha_pedido, vendedor, plazo_entrega, estado_pedido, codigo_producto, nombre_producto, cantidad, pvp, subtotal, total)
+//             VALUES ('$almacen','$nombre_cliente','$ruc_cliente','$numero_pedido','$fecha_pedido','$vendedor','$plazo_entrega','$estado_pedido','$codigo_producto','$nombre_producto','$cantidad','$pvp','$subtotal','$total')
+//             ON DUPLICATE KEY UPDATE 
+//                 almacen = VALUES(almacen),
+//                 nombre_cliente = VALUES(nombre_cliente),
+//                 ruc_cliente = VALUES(ruc_cliente),
+//                 numero_pedido = VALUES(numero_pedido),
+//                 fecha_pedido = VALUES(fecha_pedido),
+//                 vendedor = VALUES(vendedor),
+//                 plazo_entrega = VALUES(plazo_entrega),
+//                 estado_pedido = VALUES(estado_pedido),
+//                 codigo_producto = VALUES(codigo_producto),
+//                 nombre_producto = VALUES(nombre_producto),
+//                 cantidad = VALUES(cantidad),
+//                 pvp = VALUES(pvp),
+//                 subtotal = VALUES(subtotal),
+//                 total = VALUES(total)
+//         ";
+
+//         // Ejecutar la inserción
+//         self::$db->query($queryInsertar);
+//     }
+
+//     return true;
+// }
+
+
+public static function procesarArchivoExcel($filePath)
 {
+    // Cargar la hoja de cálculo
     $spreadsheet = IOFactory::load($filePath);
     $sheet = $spreadsheet->getActiveSheet();
 
-    // Crear la tabla si no existe
+    // Crear la tabla si no existe, incluyendo una clave primaria compuesta
     $queryCrearTabla = "
         CREATE TABLE IF NOT EXISTS " . static::$tabla . " (
             almacen VARCHAR(255),
@@ -270,14 +341,17 @@ class ActiveRecord {
             cantidad INT,
             pvp DECIMAL(10, 2),
             subtotal DECIMAL(10, 2),
-            total DECIMAL(10, 2)
+            total DECIMAL(10, 2),
+            PRIMARY KEY (numero_pedido, codigo_producto) -- Clave primaria compuesta
         )
     ";
-
     // Ejecutar la creación de la tabla
     self::$db->query($queryCrearTabla);
 
-    // Insertar los datos de cada fila
+    // Arreglo para evitar procesar duplicados desde el archivo Excel
+    $datosProcesados = [];
+
+    // Procesar cada fila de la hoja de cálculo
     foreach ($sheet->getRowIterator(2) as $row) {
         $data = [];
         $cellIterator = $row->getCellIterator();
@@ -287,13 +361,34 @@ class ActiveRecord {
             $data[] = $cell->getValue();
         }
 
-        // Mapear los datos a las columnas
-        list( $almacen,$nombre_cliente,$ruc_cliente,$numero_pedido,$fecha_pedido, $vendedor, $plazo_entrega, $estado_pedido, $codigo_producto, $nombre_producto, $cantidad, $pvp, $subtotal, $total  ) = $data;
+        // Mapear las columnas del archivo a las variables
+        list(
+            $almacen, $nombre_cliente, $ruc_cliente, $numero_pedido, $fecha_pedido,
+            $vendedor, $plazo_entrega, $estado_pedido, $codigo_producto, $nombre_producto,
+            $cantidad, $pvp, $subtotal, $total
+        ) = $data;
 
-        // Query para insertar cada fila
+        // Crear un identificador único para detectar duplicados en el archivo
+        $uniqueKey = $numero_pedido . '-' . $codigo_producto;
+
+        // Evitar procesar filas duplicadas en el archivo
+        if (isset($datosProcesados[$uniqueKey])) {
+            continue; // Saltar si el registro ya fue procesado
+        }
+        $datosProcesados[$uniqueKey] = true;
+
+        // Insertar los datos en la tabla con ON DUPLICATE KEY UPDATE
         $queryInsertar = "
-            INSERT INTO " . static::$tabla . " (almacen, nombre_cliente, ruc_cliente,numero_pedido, fecha_pedido, vendedor, plazo_entrega, estado_pedido, codigo_producto, nombre_producto, cantidad, pvp, subtotal, total)
-            VALUES ('$almacen','$nombre_cliente','$ruc_cliente','$numero_pedido','$fecha_pedido','$vendedor','$plazo_entrega','$estado_pedido','$codigo_producto','$nombre_producto','$cantidad','$pvp','$subtotal','$total')
+            INSERT INTO " . static::$tabla . " (
+                almacen, nombre_cliente, ruc_cliente, numero_pedido, fecha_pedido,
+                vendedor, plazo_entrega, estado_pedido, codigo_producto, nombre_producto,
+                cantidad, pvp, subtotal, total
+            )
+            VALUES (
+                '$almacen', '$nombre_cliente', '$ruc_cliente', '$numero_pedido', '$fecha_pedido',
+                '$vendedor', '$plazo_entrega', '$estado_pedido', '$codigo_producto', '$nombre_producto',
+                '$cantidad', '$pvp', '$subtotal', '$total'
+            )
             ON DUPLICATE KEY UPDATE 
                 almacen = VALUES(almacen),
                 nombre_cliente = VALUES(nombre_cliente),
@@ -310,13 +405,14 @@ class ActiveRecord {
                 subtotal = VALUES(subtotal),
                 total = VALUES(total)
         ";
-
         // Ejecutar la inserción
         self::$db->query($queryInsertar);
     }
 
     return true;
 }
+
+
     
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
