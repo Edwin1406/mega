@@ -333,12 +333,12 @@ public static function procesarArchivoExcel($filePath)
             ruc_cliente VARCHAR(255),
             numero_pedido VARCHAR(255),
             fecha_pedido DATE,
-            vendedor VARCHAR(255),
+            vendedor VARCHAR(50),
             plazo_entrega DATE,
-            estado_pedido VARCHAR(255),
-            codigo_producto VARCHAR(255),
+            estado_pedido VARCHAR(11),
+            codigo_producto VARCHAR(40),
             nombre_producto VARCHAR(255),
-            cantidad INT,
+            cantidad INT(10),
             pvp DECIMAL(10, 2),
             subtotal DECIMAL(10, 2),
             total DECIMAL(10, 2),
@@ -390,6 +390,7 @@ public static function procesarArchivoExcel($filePath)
                 '$cantidad', '$pvp', '$subtotal', '$total'
             )
             ON DUPLICATE KEY UPDATE 
+                id = LAST_INSERT_ID(id), -- Mantener el ID existente
                 almacen = VALUES(almacen),
                 nombre_cliente = VALUES(nombre_cliente),
                 ruc_cliente = VALUES(ruc_cliente),
