@@ -65,10 +65,11 @@ class ApiPedidos {
         header("Access-Control-Allow-Headers: Content-Type, Authorization"); // Cabeceras permitidas
     
         $pedidos = Producto::all('ASC');
+        $resultados = []; // Arreglo para guardar todos los resultados
     
         foreach ($pedidos as $pedido) {
             // Accede a la propiedad 'nombre' del objeto Producto
-            $cadena = $pedido->nombre_producto; 
+            $cadena = $pedido->nombre_producto;
     
             $resultado = [];
     
@@ -85,11 +86,14 @@ class ApiPedidos {
                 $resultado['test'] = $kk_match[2];   // Extrae el valor numérico después de "TEST"
             }
     
-            // Muestra el resultado de cada pedido
-            debuguear($resultado);
-            // echo json_encode($resultado);
+            // Agregar el resultado procesado al arreglo de resultados
+            $resultados[] = $resultado;
         }
+    
+        // Muestra todos los resultados al final
+        debuguear($resultados);
     }
+    
     
     
 
