@@ -47,51 +47,19 @@ class ApiPedidos {
     }
 
 
-    // public static function Allpedidos2()
-    // {
-    //     // header("Access-Control-Allow-Origin: *");  // Permite solicitudes desde cualquier origen
-    //     // header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS"); // Métodos permitidos
-    //     // header("Access-Control-Allow-Headers: Content-Type, Authorization"); // Cabeceras permitidas
-    //     // $pedidos = Producto::all('ASC');
-    //     // debuguear($pedidos);
-       
-        
-    // }
-
     public static function Allpedidos2()
     {
         header("Access-Control-Allow-Origin: *");  // Permite solicitudes desde cualquier origen
         header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS"); // Métodos permitidos
         header("Access-Control-Allow-Headers: Content-Type, Authorization"); // Cabeceras permitidas
-    
         $pedidos = Producto::all('ASC');
-        $resultados = []; // Arreglo para guardar todos los resultados
-    
-        foreach ($pedidos as $pedido) {
-            // Accede a la propiedad 'nombre' del objeto Producto
-            $cadena = $pedido->nombre_producto;
-    
-            $resultado = [];
-    
-            // Expresión regular para las dimensiones
-            if (preg_match('/(\d+)X(\d+)X(\d+)/', $cadena, $dimensiones)) {
-                $resultado['Largo'] = $dimensiones[1];
-                $resultado['Ancho'] = $dimensiones[2];
-                $resultado['Altura'] = $dimensiones[3];
-                $resultado['lamina'] = $dimensiones[4]; // Extrae "K/K" o cualquier texto adicional
-                $resultado['test'] = $dimensiones[5];   // Extrae el valor numérico después de "TEST"
-            }
-    
-           
-    
-            // Agregar el resultado procesado al arreglo de resultados
-            $resultados[] = $resultado;
-        }
-    
-        // Muestra todos los resultados al final
-        // debuguear($resultados);
-        echo json_encode($resultados);
+        // debuguear($pedidos);
+        echo json_encode($pedidos);
+       
+        
     }
+
+    
     
     
     
