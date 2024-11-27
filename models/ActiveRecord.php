@@ -318,14 +318,12 @@ class ActiveRecord {
 //     return true;
 // }
 
-
 public static function procesarArchivoExcel($filePath)
 {
-    // Cargar la hoja de cálculo
     $spreadsheet = IOFactory::load($filePath);
     $sheet = $spreadsheet->getActiveSheet();
 
-    // Crear la tabla si no existe, incluyendo una clave primaria compuesta
+    // Crear la tabla si no existe
     $queryCrearTabla = "
         CREATE TABLE IF NOT EXISTS " . static::$tabla . " (
             almacen VARCHAR(255),
@@ -333,85 +331,87 @@ public static function procesarArchivoExcel($filePath)
             ruc_cliente VARCHAR(255),
             numero_pedido VARCHAR(255),
             fecha_pedido DATE,
-            vendedor VARCHAR(50),
+            vendedor VARCHAR(255),
             plazo_entrega DATE,
-            estado_pedido VARCHAR(11),
-            codigo_producto VARCHAR(40),
+            estado_pedido VARCHAR(255),
+            codigo_producto VARCHAR(255),
             nombre_producto VARCHAR(255),
-            cantidad INT(10),
+            cantidad INT,
             pvp DECIMAL(10, 2),
             subtotal DECIMAL(10, 2),
             total DECIMAL(10, 2),
-            PRIMARY KEY (numero_pedido, codigo_producto) -- Clave primaria compuesta
+            PRIMARY KEY (numero_pedido, codigo_producto)  -- Asegúrate de tener una clave primaria
         )
     ";
+
     // Ejecutar la creación de la tabla
     self::$db->query($queryCrearTabla);
 
-    // Arreglo para evitar procesar duplicados desde el archivo Excel
-    $datosProcesados = [];
-
-    // Procesar cada fila de la hoja de cálculo
+    // Insertar los datos de cada fila
     foreach ($sheet->getRowIterator(2) as $row) {
         $data = [];
         $cellIterator = $row->getCellIterator();
         $cellIterator->setIterateOnlyExistingCells(false);
 
         foreach ($cellIterator as $cell) {
-            $data[] = $cell->getValue();
+            $data[] = trim($cell->getValue()); // Eliminar espacios en blanco
         }
 
-        // Mapear las columnas del archivo a las variables
+        // Mapear los datos a las columnas
         list(
             $almacen, $nombre_cliente, $ruc_cliente, $numero_pedido, $fecha_pedido,
             $vendedor, $plazo_entrega, $estado_pedido, $codigo_producto, $nombre_producto,
             $cantidad, $pvp, $subtotal, $total
         ) = $data;
 
-        // Crear un identificador único para detectar duplicados en el archivo
-        $uniqueKey = $numero_pedido . '-' . $codigo_producto;
-
-        // Evitar procesar filas duplicadas en el archivo
-        if (isset($datosProcesados[$uniqueKey])) {
-            continue; // Saltar si el registro ya fue procesado
-        }
-        $datosProcesados[$uniqueKey] = true;
-
-        // Insertar los datos en la tabla con ON DUPLICATE KEY UPDATE
-        $queryInsertar = "
-            INSERT INTO " . static::$tabla . " (
-                almacen, nombre_cliente, ruc_cliente, numero_pedido, fecha_pedido,
-                vendedor, plazo_entrega, estado_pedido, codigo_producto, nombre_producto,
-                cantidad, pvp, subtotal, total
-            )
-            VALUES (
-                '$almacen', '$nombre_cliente', '$ruc_cliente', '$numero_pedido', '$fecha_pedido',
-                '$vendedor', '$plazo_entrega', '$estado_pedido', '$codigo_producto', '$nombre_producto',
-                '$cantidad', '$pvp', '$subtotal', '$total'
-            )
-            ON DUPLICATE KEY UPDATE 
-                id = LAST_INSERT_ID(id), -- Mantener el ID existente
-                almacen = VALUES(almacen),
-                nombre_cliente = VALUES(nombre_cliente),
-                ruc_cliente = VALUES(ruc_cliente),
-                numero_pedido = VALUES(numero_pedido),
-                fecha_pedido = VALUES(fecha_pedido),
-                vendedor = VALUES(vendedor),
-                plazo_entrega = VALUES(plazo_entrega),
-                estado_pedido = VALUES(estado_pedido),
-                codigo_producto = VALUES(codigo_producto),
-                nombre_producto = VALUES(nombre_producto),
-                cantidad = VALUES(cantidad),
-                pvp = VALUES(pvp),
-                subtotal = VALUES(subtotal),
-                total = VALUES(total)
+        // Verificar si el registro ya existe
+        $queryVerificar = "
+            SELECT COUNT(*) as total 
+            FROM " . static::$tabla . " 
+            WHERE numero_pedido = '$numero_pedido' AND codigo_producto = '$codigo_producto'
         ";
-        // Ejecutar la inserción
-        self::$db->query($queryInsertar);
+        $resultado = self::$db->query($queryVerificar)->fetch_assoc();
+
+        if ($resultado['total'] > 0) {
+            // Actualizar el registro existente
+            $queryActualizar = "
+                UPDATE " . static::$tabla . "
+                SET 
+                    almacen = '$almacen',
+                    nombre_cliente = '$nombre_cliente',
+                    ruc_cliente = '$ruc_cliente',
+                    fecha_pedido = '$fecha_pedido',
+                    vendedor = '$vendedor',
+                    plazo_entrega = '$plazo_entrega',
+                    estado_pedido = '$estado_pedido',
+                    nombre_producto = '$nombre_producto',
+                    cantidad = '$cantidad',
+                    pvp = '$pvp',
+                    subtotal = '$subtotal',
+                    total = '$total'
+                WHERE numero_pedido = '$numero_pedido' AND codigo_producto = '$codigo_producto'
+            ";
+            self::$db->query($queryActualizar);
+        } else {
+            // Insertar un nuevo registro
+            $queryInsertar = "
+                INSERT INTO " . static::$tabla . " (
+                    almacen, nombre_cliente, ruc_cliente, numero_pedido, fecha_pedido,
+                    vendedor, plazo_entrega, estado_pedido, codigo_producto, nombre_producto,
+                    cantidad, pvp, subtotal, total
+                ) VALUES (
+                    '$almacen', '$nombre_cliente', '$ruc_cliente', '$numero_pedido', '$fecha_pedido',
+                    '$vendedor', '$plazo_entrega', '$estado_pedido', '$codigo_producto', '$nombre_producto',
+                    '$cantidad', '$pvp', '$subtotal', '$total'
+                )
+            ";
+            self::$db->query($queryInsertar);
+        }
     }
 
     return true;
 }
+
 
 
     
