@@ -289,14 +289,6 @@ class ActiveRecord {
         // Mapear los datos a las columnas
         list( $almacen,$nombre_cliente,$ruc_cliente, $fecha_pedido, $vendedor, $plazo_entrega, $estado_pedido, $codigo_producto, $nombre_producto, $cantidad, $pvp, $subtotal, $total  ) = $data;
 
-        // Verificar si la fecha es válida y convertirla
-        if (is_numeric($fecha_pedido)) {
-            $fecha_pedido = Date::excelToDateTimeObject($fecha_pedido)->format('Y-m-d');
-        }
-
-        if (is_numeric($plazo_entrega)) {
-            $plazo_entrega = Date::excelToDateTimeObject($plazo_entrega)->format('Y-m-d');
-        }
         // Query para insertar cada fila
         $queryInsertar = "
             INSERT INTO " . static::$tabla . " (almacen, nombre_cliente, ruc_cliente, fecha_pedido, vendedor, plazo_entrega, estado_pedido, codigo_producto, nombre_producto, cantidad, pvp, subtotal, total)
