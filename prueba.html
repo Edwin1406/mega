@@ -1,233 +1,35 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistema de Producción de Cartón</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-    <h1>Sistema de Producción de Cartón</h1>
-    
-    <h2>Agregar Bobina</h2>
-    <form id="bobinaForm">
-        <label for="tipo_papel">Tipo de Papel:</label>
-        <select id="tipo_papel" required>
-            <option value="Interno">Interno</option>
-            <option value="Medio">Medio</option>
-            <option value="Externo">Externo</option>
-        </select>
-        
-        <label for="gramaje">Gramaje (g/m²):</label>
-        <input type="number" id="gramaje" required>
-
-        <label for="ancho">Ancho (mm):</label>
-        <input type="number" id="ancho" required>
-
-        <button type="submit">Agregar Bobina</button>
-    </form>
-
-    <h2>Agregar Combinación de Cartón</h2>
-    <form id="combinacionForm">
-        <label for="bobinaInterna">Bobina Interna:</label>
-        <select id="bobinaInterna" required></select>
-
-        <label for="bobinaMedia">Bobina Media:</label>
-        <select id="bobinaMedia" required></select>
-
-        <label for="bobinaExterna">Bobina Externa:</label>
-        <select id="bobinaExterna" required></select>
-
-        <button type="submit">Agregar Combinación</button>
-    </form>
-
-    <h2>Calcular Desperdicio</h2>
-    <form id="desperdicioForm">
-        <label for="combinacion">Combinación:</label>
-        <select id="combinacion" required></select>
-
-        <button type="submit">Calcular Desperdicio</button>
-    </form>
-
-    <div id="resultados"></div>
-
-    <script src="script.js"></script>
-</body>
-</html>
-
 <script>
-// Datos en memoria para simular la base de datos
-let bobinas = [];
-let combinaciones = [];
 
-// Manejo de formulario para agregar bobina
-document.getElementById('bobinaForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    const tipoPapel = document.getElementById('tipo_papel').value;
-    const gramaje = document.getElementById('gramaje').value;
-    const ancho = document.getElementById('ancho').value;
+let pedidos = [
+  { "clave": "CJ - FONDO TABACO 10 ECOROSES 982X 262 X 341 K/K TEST 275 ", "valor": 10 },
+  { "clave": "CJ- TAPA TABACO 10 ECOROSES 992X 277 X 344 K/K TEST 250 ", "valor": 20 },
+  { "clave": "CJ- TAPA QUARTO YOUROSES 982x266x176 B/K TEST 200 ", "valor": 30 },
+  { "clave": "REG 21 LAMINA IMP NATUFLOR 33.5X80 DOB MG CEJA 5 CM ", "valor": 100 },
+  { "clave": "LAMINA IMP AMC SANBEL FLOWER 35X60 DOB MG CEJA  5 CM ", "valor": 40 },
+  {"clave": "LAMINA CORRUGADA BLANCA 10X65 MG","valor":50}
+];
 
-    const bobina = {
-        id: bobinas.length + 1,
-        tipoPapel,
-        gramaje: parseFloat(gramaje),
-        ancho: parseFloat(ancho)
+// Separar medidas en ancho, largo y (opcionalmente) altura
+let pedidosConMedidas = pedidos.map(pedido => {
+  // Buscar dos o tres medidas
+  let match = pedido.clave.match(/(\d+(\.\d+)?)X\s*(\d+(\.\d+)?)(?:X\s*(\d+(\.\d+)?))?/i);
+  
+  if (match) {
+    return {
+      clave: pedido.clave,
+      valor: pedido.valor,
+      medidas: {
+        ancho: parseFloat(match[1]),  // Siempre presente
+        largo: parseFloat(match[3]), // Siempre presente
+        altura: match[5] ? parseFloat(match[5]) : null // Solo si está presente
+      }
     };
-
-    bobinas.push(bobina);
-    alert('Bobina agregada');
-    agregarBobinasSelect();
-    this.reset();
+  } else {
+    return { ...pedido, medidas: null }; // Si no encuentra medidas, asigna null
+  }
 });
 
-// Manejo de formulario para agregar combinación de cartón
-document.getElementById('combinacionForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    const bobinaInterna = parseInt(document.getElementById('bobinaInterna').value);
-    const bobinaMedia = parseInt(document.getElementById('bobinaMedia').value);
-    const bobinaExterna = parseInt(document.getElementById('bobinaExterna').value);
-
-    const combinacion = {
-        id: combinaciones.length + 1,
-        bobinaInterna,
-        bobinaMedia,
-        bobinaExterna
-    };
-
-    combinaciones.push(combinacion);
-    alert('Combinación de cartón agregada');
-    agregarCombinacionesSelect();
-    this.reset();
-});
-
-// Manejo de formulario para calcular desperdicio
-document.getElementById('desperdicioForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    const combinacionId = parseInt(document.getElementById('combinacion').value);
-    const combinacion = combinaciones.find(c => c.id === combinacionId);
-    
-    if (combinacion) {
-        const bobinaInterna = bobinas.find(b => b.id === combinacion.bobinaInterna);
-        const bobinaMedia = bobinas.find(b => b.id === combinacion.bobinaMedia);
-        const bobinaExterna = bobinas.find(b => b.id === combinacion.bobinaExterna);
-        
-        // Calcular el gramaje total
-        const gramajeTotal = bobinaInterna.gramaje + bobinaMedia.gramaje + bobinaExterna.gramaje;
-        
-        // Definir un gramaje objetivo
-        const gramajeObjetivo = 300; // Por ejemplo, 300 g/m²
-        
-        // Calcular el desperdicio
-        const desperdicio = gramajeTotal - gramajeObjetivo;
-
-        // Determinar si la combinación es buena o mala
-        const estadoCombinacion = desperdicio < 0 ? "Buena" : "Mala";
-
-        // Cálculos adicionales para las cuchillas
-        const numPiezas = 4; // Número de piezas
-        const posicionCuchilla = 450; // Posición de la cuchilla en mm
-        const desperdicioCuchillas = 200; // Desperdicio en mm
-
-        // Calcular el gramaje por pieza
-        const gramajePorPieza = bobinaInterna.gramaje / numPiezas;
-
-        // Verificar si el gramaje es adecuado para la producción de cartón corrugado
-        const gramajeAdecuado = gramajePorPieza >= 80; // 80 g/m² es el gramaje mínimo adecuado
-        const estadoGramaje = gramajeAdecuado ? "Adecuado" : "Inadecuado";
-
-        // Mostrar resultados
-        document.getElementById('resultados').innerHTML = `
-            Gramaje Total: ${gramajeTotal.toFixed(2)} g/m²<br>
-            Desperdicio Total: ${desperdicio.toFixed(2)} g/m²<br>
-            Estado de la Combinación: ${estadoCombinacion}<br>
-            Para ${numPiezas} piezas iguales: Posición de cuchilla: ${posicionCuchilla} mm<br>
-            Desperdicio de cuchilla: ${desperdicioCuchillas} mm<br>
-            Gramaje del papel por pieza: ${gramajePorPieza.toFixed(2)} g/m²<br>
-            El gramaje es ${estadoGramaje} para la producción de cartón corrugado.
-        `;
-    } else {
-        alert('Combinación no encontrada');
-    }
-});
-
-// Función para agregar bobinas a los select
-function agregarBobinasSelect() {
-    const bobinaInternaSelect = document.getElementById('bobinaInterna');
-    const bobinaMediaSelect = document.getElementById('bobinaMedia');
-    const bobinaExternaSelect = document.getElementById('bobinaExterna');
-
-    bobinaInternaSelect.innerHTML = '';
-    bobinaMediaSelect.innerHTML = '';
-    bobinaExternaSelect.innerHTML = '';
-
-    bobinas.forEach(bobina => {
-        const option = document.createElement('option');
-        option.value = bobina.id;
-        option.textContent = `${bobina.tipoPapel} - ${bobina.gramaje} g/m²`;
-        bobinaInternaSelect.appendChild(option.cloneNode(true));
-        bobinaMediaSelect.appendChild(option.cloneNode(true));
-        bobinaExternaSelect.appendChild(option.cloneNode(true));
-    });
-}
-
-// Función para agregar combinaciones al select
-function agregarCombinacionesSelect() {
-    const combinacionSelect = document.getElementById('combinacion');
-    combinacionSelect.innerHTML = '';
-
-    combinaciones.forEach(combinacion => {
-        const option = document.createElement('option');
-        option.value = combinacion.id;
-        option.textContent = `Combinación ${combinacion.id}`;
-        combinacionSelect.appendChild(option);
-    });
-}
+console.log(pedidosConMedidas);
 
 
 </script>
-
-
-<style>
-  body {
-    font-family: Arial, sans-serif;
-    margin: 20px;
-    padding: 20px;
-    background-color: #f9f9f9;
-}
-
-h1, h2 {
-    color: #333;
-}
-
-form {
-    margin-bottom: 20px;
-}
-
-label {
-    display: block;
-    margin: 10px 0 5px;
-}
-
-input, select, button {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 10px;
-}
-
-button {
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    cursor: pointer;
-}
-
-button:hover {
-    background-color: #45a049;
-}
-
-#resultados {
-    margin-top: 20px;
-    font-weight: bold;
-}
-
-</style>
