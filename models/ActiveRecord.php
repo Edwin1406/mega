@@ -260,6 +260,7 @@ class ActiveRecord {
             almacen VARCHAR(255),
             nombre_cliente VARCHAR(255),
             ruc_cliente VARCHAR(255),
+            numero_pedido VARCHAR(255),
             fecha_pedido DATE,
             vendedor VARCHAR(255),
             plazo_entrega DATE,
@@ -287,16 +288,17 @@ class ActiveRecord {
         }
 
         // Mapear los datos a las columnas
-        list( $almacen,$nombre_cliente,$ruc_cliente, $fecha_pedido, $vendedor, $plazo_entrega, $estado_pedido, $codigo_producto, $nombre_producto, $cantidad, $pvp, $subtotal, $total  ) = $data;
+        list( $almacen,$nombre_cliente,$ruc_cliente,$numero_pedido,$fecha_pedido, $vendedor, $plazo_entrega, $estado_pedido, $codigo_producto, $nombre_producto, $cantidad, $pvp, $subtotal, $total  ) = $data;
 
         // Query para insertar cada fila
         $queryInsertar = "
-            INSERT INTO " . static::$tabla . " (almacen, nombre_cliente, ruc_cliente, fecha_pedido, vendedor, plazo_entrega, estado_pedido, codigo_producto, nombre_producto, cantidad, pvp, subtotal, total)
-            VALUES ('$almacen','$nombre_cliente','$ruc_cliente','$fecha_pedido','$vendedor','$plazo_entrega','$estado_pedido','$codigo_producto','$nombre_producto','$cantidad','$pvp','$subtotal','$total')
+            INSERT INTO " . static::$tabla . " (almacen, nombre_cliente, ruc_cliente,numero_pedido, fecha_pedido, vendedor, plazo_entrega, estado_pedido, codigo_producto, nombre_producto, cantidad, pvp, subtotal, total)
+            VALUES ('$almacen','$nombre_cliente','$ruc_cliente','$numero_pedido','$fecha_pedido','$vendedor','$plazo_entrega','$estado_pedido','$codigo_producto','$nombre_producto','$cantidad','$pvp','$subtotal','$total')
             ON DUPLICATE KEY UPDATE 
                 almacen = VALUES(almacen),
                 nombre_cliente = VALUES(nombre_cliente),
                 ruc_cliente = VALUES(ruc_cliente),
+                numero_pedido = VALUES(numero_pedido),
                 fecha_pedido = VALUES(fecha_pedido),
                 vendedor = VALUES(vendedor),
                 plazo_entrega = VALUES(plazo_entrega),
