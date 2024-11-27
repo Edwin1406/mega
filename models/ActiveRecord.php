@@ -303,9 +303,19 @@ class ActiveRecord {
             INSERT INTO " . static::$tabla . " (id, almacen, nombre_cliente, ruc_cliente, fecha_pedido, vendedor, plazo_entrega, estado_pedido, codigo_producto, nombre_producto, cantidad, pvp, subtotal, total)
             VALUES ('$id','$almacen','$nombre_cliente','$ruc_cliente','$fecha_pedido','$vendedor','$plazo_entrega','$estado_pedido','$codigo_producto','$nombre_producto','$cantidad','$pvp','$subtotal','$total')
             ON DUPLICATE KEY UPDATE 
-                nombre = VALUES(nombre), 
-                cantidad = VALUES(cantidad), 
-                fecha = VALUES(fecha)
+                almacen = VALUES(almacen),
+                nombre_cliente = VALUES(nombre_cliente),
+                ruc_cliente = VALUES(ruc_cliente),
+                fecha_pedido = VALUES(fecha_pedido),
+                vendedor = VALUES(vendedor),
+                plazo_entrega = VALUES(plazo_entrega),
+                estado_pedido = VALUES(estado_pedido),
+                codigo_producto = VALUES(codigo_producto),
+                nombre_producto = VALUES(nombre_producto),
+                cantidad = VALUES(cantidad),
+                pvp = VALUES(pvp),
+                subtotal = VALUES(subtotal),
+                total = VALUES(total)
         ";
 
         // Ejecutar la inserción
