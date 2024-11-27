@@ -318,6 +318,100 @@ class ActiveRecord {
 //     return true;
 // }
 
+// public static function procesarArchivoExcel($filePath)
+// {
+//     $spreadsheet = IOFactory::load($filePath);
+//     $sheet = $spreadsheet->getActiveSheet();
+
+//     // Crear la tabla si no existe
+//     $queryCrearTabla = "
+//         CREATE TABLE IF NOT EXISTS " . static::$tabla . " (
+//             almacen VARCHAR(255),
+//             nombre_cliente VARCHAR(255),
+//             ruc_cliente VARCHAR(255),
+//             numero_pedido VARCHAR(255),
+//             fecha_pedido DATE,
+//             vendedor VARCHAR(255),
+//             plazo_entrega DATE,
+//             estado_pedido VARCHAR(255),
+//             codigo_producto VARCHAR(255),
+//             nombre_producto VARCHAR(255),
+//             cantidad INT,
+//             pvp DECIMAL(10, 2),
+//             subtotal DECIMAL(10, 2),
+//             total DECIMAL(10, 2),
+//             PRIMARY KEY (numero_pedido, codigo_producto)  
+//         )
+//     ";
+
+//     // Ejecutar la creación de la tabla
+//     self::$db->query($queryCrearTabla);
+
+//     // Insertar los datos de cada fila
+//     foreach ($sheet->getRowIterator(2) as $row) {
+//         $data = [];
+//         $cellIterator = $row->getCellIterator();
+//         $cellIterator->setIterateOnlyExistingCells(false);
+
+//         foreach ($cellIterator as $cell) {
+//             $data[] = trim($cell->getValue()); // Eliminar espacios en blanco
+//         }
+
+//         // Mapear los datos a las columnas
+//         list(
+//             $almacen, $nombre_cliente, $ruc_cliente, $numero_pedido, $fecha_pedido,
+//             $vendedor, $plazo_entrega, $estado_pedido, $codigo_producto, $nombre_producto,
+//             $cantidad, $pvp, $subtotal, $total
+//         ) = $data;
+
+//         // Verificar si el registro ya existe
+//         $queryVerificar = "
+//             SELECT COUNT(*) as total 
+//             FROM " . static::$tabla . " 
+//             WHERE numero_pedido = '$numero_pedido' AND codigo_producto = '$codigo_producto'
+//         ";
+//         $resultado = self::$db->query($queryVerificar)->fetch_assoc();
+
+//         if ($resultado['total'] > 0) {
+//             // Actualizar el registro existente
+//             $queryActualizar = "
+//                 UPDATE " . static::$tabla . "
+//                 SET 
+//                     almacen = '$almacen',
+//                     nombre_cliente = '$nombre_cliente',
+//                     ruc_cliente = '$ruc_cliente',
+//                     fecha_pedido = '$fecha_pedido',
+//                     vendedor = '$vendedor',
+//                     plazo_entrega = '$plazo_entrega',
+//                     estado_pedido = '$estado_pedido',
+//                     nombre_producto = '$nombre_producto',
+//                     cantidad = '$cantidad',
+//                     pvp = '$pvp',
+//                     subtotal = '$subtotal',
+//                     total = '$total'
+//                 WHERE numero_pedido = '$numero_pedido' AND codigo_producto = '$codigo_producto'
+//             ";
+//             self::$db->query($queryActualizar);
+//         } else {
+//             // Insertar un nuevo registro
+//             $queryInsertar = "
+//                 INSERT INTO " . static::$tabla . " (
+//                     almacen, nombre_cliente, ruc_cliente, numero_pedido, fecha_pedido,
+//                     vendedor, plazo_entrega, estado_pedido, codigo_producto, nombre_producto,
+//                     cantidad, pvp, subtotal, total
+//                 ) VALUES (
+//                     '$almacen', '$nombre_cliente', '$ruc_cliente', '$numero_pedido', '$fecha_pedido',
+//                     '$vendedor', '$plazo_entrega', '$estado_pedido', '$codigo_producto', '$nombre_producto',
+//                     '$cantidad', '$pvp', '$subtotal', '$total'
+//                 )
+//             ";
+//             self::$db->query($queryInsertar);
+//         }
+//     }
+
+//     return true;
+// }
+
 public static function procesarArchivoExcel($filePath)
 {
     $spreadsheet = IOFactory::load($filePath);
@@ -354,15 +448,17 @@ public static function procesarArchivoExcel($filePath)
         $cellIterator->setIterateOnlyExistingCells(false);
 
         foreach ($cellIterator as $cell) {
-            $data[] = trim($cell->getValue()); // Eliminar espacios en blanco
+            $data[] = $cell->getValue(); // No usamos trim aquí, lo haremos más abajo
         }
 
-        // Mapear los datos a las columnas
+        // Mapear los datos a las columnas con verificación para null
         list(
             $almacen, $nombre_cliente, $ruc_cliente, $numero_pedido, $fecha_pedido,
             $vendedor, $plazo_entrega, $estado_pedido, $codigo_producto, $nombre_producto,
             $cantidad, $pvp, $subtotal, $total
-        ) = $data;
+        ) = array_map(function ($value) {
+            return trim($value ?? '');  // Verifica si el valor es null y aplica trim
+        }, $data);
 
         // Verificar si el registro ya existe
         $queryVerificar = "
@@ -411,7 +507,6 @@ public static function procesarArchivoExcel($filePath)
 
     return true;
 }
-
 
 
     
