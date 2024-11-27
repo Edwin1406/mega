@@ -72,7 +72,8 @@ function extraerDimensiones(nombreProducto) {
         return {
             ancho: resultado[1], // El primer número es el ancho
             largo: resultado[2], // El segundo número es el largo
-            alto: resultado[3] || 'N/A' // Si no hay alto, asignamos 'N/A'
+            alto: resultado[3] || 'N/A', // Si no hay alto, asignamos 'N/A'
+            tipo : resultado[4] || 'N/A'
         };
     }
 
@@ -80,7 +81,8 @@ function extraerDimensiones(nombreProducto) {
     return {
         ancho: 'N/A',
         largo: 'N/A',
-        alto: 'N/A'
+        alto: 'N/A',
+        tipo: 'N/A'
     };
 }
 
