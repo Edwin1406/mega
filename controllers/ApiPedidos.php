@@ -87,7 +87,7 @@ class ApiPedidos {
     
             // Muestra el resultado de cada pedido
             debuguear($resultado);
-            echo json_encode($resultado);
+            // echo json_encode($resultado);
         }
     }
     
