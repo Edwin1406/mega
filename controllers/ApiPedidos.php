@@ -2,6 +2,7 @@
 namespace Controllers;
 
 use Model\Pedido;
+use Model\Producto;
 
 class ApiPedidos {
     public static function api()
@@ -44,4 +45,14 @@ class ApiPedidos {
         $pedidos = Pedido::all('ASC');
         echo json_encode($pedidos);
     }
+
+
+    public static function Allpedidos2()
+    {
+        $pedidos = Producto::all('DESC');
+        echo json_encode($pedidos);
+    }
+
+
+
 }

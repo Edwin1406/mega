@@ -72,6 +72,9 @@ $router->get('/admin/api/allbobinas', [ApiTest::class, 'allbobinas']);
 $router->get('/admin/api/allpedidos', [ApiPedidos::class, 'Allpedidos']);
 
 
+$router->get('/admin/api/allpedidos2', [ApiPedidos::class, 'Allpedidos2']);
+
+
 
 
 
