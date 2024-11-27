@@ -258,9 +258,19 @@ class ActiveRecord {
     $queryCrearTabla = "
         CREATE TABLE IF NOT EXISTS " . static::$tabla . " (
             id INT PRIMARY KEY,
-            nombre VARCHAR(255),
+            almacen VARCHAR(255),
+            nombre_cliente VARCHAR(255),
+            ruc_cliente VARCHAR(255),
+            fecha_pedido DATE,
+            vendedor VARCHAR(255),
+            plazo_entrega DATE,
+            estado_pedido VARCHAR(255),
+            codigo_producto VARCHAR(255),
+            nombre_producto VARCHAR(255),
             cantidad INT,
-            fecha DATE
+            pvp DECIMAL(10, 2),
+            subtotal DECIMAL(10, 2),
+            total DECIMAL(10, 2)
         )
     ";
 
@@ -278,21 +288,20 @@ class ActiveRecord {
         }
 
         // Mapear los datos a las columnas
-        list($id, $nombre, $cantidad, $fecha) = $data;
+        list($id, $almacen,$nombre_cliente,$ruc_cliente, $fecha_pedido, $vendedor, $plazo_entrega, $estado_pedido, $codigo_producto, $nombre_producto, $cantidad, $pvp, $subtotal, $total  ) = $data;
 
         // Verificar si la fecha es válida y convertirla
-        if (Date::isDateTime($cell)) {
-            // Si es una fecha válida de Excel, convertirla al formato adecuado
-            $fecha = Date::excelToDateTimeObject($fecha)->format('Y-m-d');
-        } else {
-            // Si no es una fecha válida, intentar convertirla usando strtotime
-            $fecha = date('Y-m-d', strtotime(str_replace('/', '-', $fecha)));
+        if (is_numeric($fecha_pedido)) {
+            $fecha_pedido = Date::excelToDateTimeObject($fecha_pedido)->format('Y-m-d');
         }
 
+        if (is_numeric($plazo_entrega)) {
+            $plazo_entrega = Date::excelToDateTimeObject($plazo_entrega)->format('Y-m-d');
+        }
         // Query para insertar cada fila
         $queryInsertar = "
-            INSERT INTO " . static::$tabla . " (id, nombre, cantidad, fecha)
-            VALUES ('$id', '$nombre', '$cantidad', '$fecha')
+            INSERT INTO " . static::$tabla . " (id, almacen, nombre_cliente, ruc_cliente, fecha_pedido, vendedor, plazo_entrega, estado_pedido, codigo_producto, nombre_producto, cantidad, pvp, subtotal, total)
+            VALUES ('$id','$almacen','$nombre_cliente','$ruc_cliente','$fecha_pedido','$vendedor','$plazo_entrega','$estado_pedido','$codigo_producto','$nombre_producto','$cantidad','$pvp','$subtotal','$total')
             ON DUPLICATE KEY UPDATE 
                 nombre = VALUES(nombre), 
                 cantidad = VALUES(cantidad), 
