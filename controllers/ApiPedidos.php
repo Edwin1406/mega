@@ -69,7 +69,7 @@ class ApiPedidos {
 
     foreach ($pedidos as $pedido) {
         // Cadena de ejemplo
-        $cadena = $pedido['nombre']; // Asegúrate de que la propiedad sea el nombre adecuado
+        $cadena = $pedido['nombre_pedido']; // Asegúrate de que la propiedad sea el nombre adecuado
 
         // Expresión regular para las dimensiones
         if (preg_match('/(\d+)X(\d+)X(\d+)/', $cadena, $dimensiones)) {
