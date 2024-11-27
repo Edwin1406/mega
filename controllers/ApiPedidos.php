@@ -53,6 +53,7 @@ class ApiPedidos {
         header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS"); // Métodos permitidos
         header("Access-Control-Allow-Headers: Content-Type, Authorization"); // Cabeceras permitidas
         $pedidos = Producto::all('ASC');
+        debuguear($pedidos);
         echo json_encode($pedidos);
     }
 
