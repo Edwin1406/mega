@@ -58,7 +58,6 @@ class ApiPedidos {
         
     // }
 
-
     public static function Allpedidos2()
     {
         header("Access-Control-Allow-Origin: *");  // Permite solicitudes desde cualquier origen
@@ -68,8 +67,8 @@ class ApiPedidos {
         $pedidos = Producto::all('ASC');
     
         foreach ($pedidos as $pedido) {
-            // Cadena de ejemplo
-            $cadena = $pedido['nombre']; // Asegúrate de que sea el campo correcto para obtener la cadena.
+            // Accede a la propiedad 'nombre' del objeto Producto
+            $cadena = $pedido->nombre_producto; 
     
             $resultado = [];
     
@@ -87,9 +86,11 @@ class ApiPedidos {
             }
     
             // Muestra el resultado de cada pedido
-        echo json_encode($resultado);
+            debuguear($resultado);
+            echo json_encode($resultado);
         }
     }
+    
     
 
 
