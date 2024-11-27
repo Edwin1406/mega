@@ -1,35 +1,89 @@
 <script>
 
-let pedidos = [
-  { "clave": "CJ - FONDO TABACO 10 ECOROSES 982X 262 X 341 K/K TEST 275 ", "valor": 10 },
-  { "clave": "CJ- TAPA TABACO 10 ECOROSES 992X 277 X 344 K/K TEST 250 ", "valor": 20 },
-  { "clave": "CJ- TAPA QUARTO YOUROSES 982x266x176 B/K TEST 200 ", "valor": 30 },
-  { "clave": "REG 21 LAMINA IMP NATUFLOR 33.5X80 DOB MG CEJA 5 CM ", "valor": 100 },
-  { "clave": "LAMINA IMP AMC SANBEL FLOWER 35X60 DOB MG CEJA  5 CM ", "valor": 40 },
-  {"clave": "LAMINA CORRUGADA BLANCA 10X65 MG","valor":50}
-];
 
-// Separar medidas en ancho, largo y (opcionalmente) altura
-let pedidosConMedidas = pedidos.map(pedido => {
-  // Buscar dos o tres medidas
-  let match = pedido.clave.match(/(\d+(\.\d+)?)X\s*(\d+(\.\d+)?)(?:X\s*(\d+(\.\d+)?))?/i);
-  
-  if (match) {
+async function pedidoss() {
+    try {
+        const url = 'https://serviacrilico.com/admin/api/allpedidos2';
+        const resultado = await fetch(url);
+        const pedidos = await resultado.json();
+
+        // Filtrar los pedidos con estado 'pendiente'
+        const pedidosPendientes = pedidos.filter(pedido => pedido.estado_pedido === 'pendiente');
+        
+        // console.log(pedidosPendientes);
+        
+        // Si necesitas hacer algo con los pedidos pendientes, puedes llamarlo aquí
+        desglozar(pedidosPendientes);
+
+        return pedidosPendientes;
+
+    } catch (e) {
+        console.log(e);
+    }
+}
+
+
+
+
+
+pedidoss();
+
+function desglozar(pedidosPendientes) {
+    const pedidosDesglosados = []; // Arreglo donde almacenaremos los pedidos desglosados
+
+    pedidosPendientes.forEach(pedido => {
+        // Extraer las dimensiones del nombre del producto
+        const dimensiones = extraerDimensiones(pedido.nombre_producto);
+
+        // Crear un objeto con los detalles del pedido y las dimensiones extraídas
+        const pedidoDesglosado = {
+            id: pedido.id,
+            nombre_cliente: pedido.nombre_cliente,
+            numero_pedido: pedido.numero_pedido,
+            fecha_pedido: pedido.fecha_pedido,
+            plazo_entrega: pedido.plazo_entrega,
+            nombre_producto: pedido.nombre_producto,
+            cantidad: pedido.cantidad,
+            subtotal: pedido.subtotal,
+            total: pedido.total,
+            dimensiones: {
+                ancho: dimensiones.ancho,
+                largo: dimensiones.largo,
+                alto: dimensiones.alto
+            }
+        };
+
+        // Agregar el objeto al arreglo
+        pedidosDesglosados.push(pedidoDesglosado);
+    });
+
+    console.log(pedidosDesglosados); // Muestra el arreglo completo en la consola
+    return pedidosDesglosados; // Devuelve el arreglo de pedidos desglosados
+}
+
+// Función para extraer las dimensiones de un nombre de producto
+function extraerDimensiones(nombreProducto) {
+    // Usamos expresiones regulares para buscar las dimensiones en el formato XxX
+    const regex = /(\d+)(?:X|x)(\d+)\s*(?:X|x)?\s*(\d+)?\s*(CM|cm)?/;
+    const resultado = regex.exec(nombreProducto);
+
+    // Si se encuentra un resultado, extraemos las dimensiones
+    if (resultado) {
+        return {
+            ancho: resultado[1], // El primer número es el ancho
+            largo: resultado[2], // El segundo número es el largo
+            alto: resultado[3] || 'N/A' // Si no hay alto, asignamos 'N/A'
+        };
+    }
+
+    // Si no se encuentran dimensiones, devolvemos valores predeterminados
     return {
-      clave: pedido.clave,
-      valor: pedido.valor,
-      medidas: {
-        ancho: parseFloat(match[1]),  // Siempre presente
-        largo: parseFloat(match[3]), // Siempre presente
-        altura: match[5] ? parseFloat(match[5]) : null // Solo si está presente
-      }
+        ancho: 'N/A',
+        largo: 'N/A',
+        alto: 'N/A'
     };
-  } else {
-    return { ...pedido, medidas: null }; // Si no encuentra medidas, asigna null
-  }
-});
+}
 
-console.log(pedidosConMedidas);
 
 
 </script>
