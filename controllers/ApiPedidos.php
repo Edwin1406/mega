@@ -91,7 +91,8 @@ class ApiPedidos {
         }
     
         // Muestra todos los resultados al final
-        debuguear($resultados);
+        // debuguear($resultados);
+        echo json_encode($resultados);
     }
     
     
