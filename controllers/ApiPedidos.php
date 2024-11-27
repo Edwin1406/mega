@@ -47,15 +47,52 @@ class ApiPedidos {
     }
 
 
+    // public static function Allpedidos2()
+    // {
+    //     // header("Access-Control-Allow-Origin: *");  // Permite solicitudes desde cualquier origen
+    //     // header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS"); // Métodos permitidos
+    //     // header("Access-Control-Allow-Headers: Content-Type, Authorization"); // Cabeceras permitidas
+    //     // $pedidos = Producto::all('ASC');
+    //     // debuguear($pedidos);
+       
+        
+    // }
+
+
     public static function Allpedidos2()
-    {
-        header("Access-Control-Allow-Origin: *");  // Permite solicitudes desde cualquier origen
-        header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS"); // Métodos permitidos
-        header("Access-Control-Allow-Headers: Content-Type, Authorization"); // Cabeceras permitidas
-        $pedidos = Producto::all('ASC');
-        debuguear($pedidos);
-        echo json_encode($pedidos);
+{
+    header("Access-Control-Allow-Origin: *");  // Permite solicitudes desde cualquier origen
+    header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS"); // Métodos permitidos
+    header("Access-Control-Allow-Headers: Content-Type, Authorization"); // Cabeceras permitidas
+
+    $pedidos = Producto::all('ASC');
+
+    foreach ($pedidos as $pedido) {
+        // Cadena de ejemplo
+        $cadena = $pedido['nombre']; // Asegúrate de que la propiedad sea el nombre adecuado
+
+        // Expresión regular para las dimensiones
+        if (preg_match('/(\d+)X(\d+)X(\d+)/', $cadena, $dimensiones)) {
+            $largo = $dimensiones[1];
+            $ancho = $dimensiones[2];
+            $altura = $dimensiones[3];
+        }
+
+        // Expresión regular para el valor K/K
+        if (preg_match('/K\/K TEST (\d+)/i', $cadena, $kk_match)) {
+            $k_k = $kk_match[1];
+        }
+
+        // Muestra los resultados
+        debuguear([
+            'Largo' => $largo ?? null,
+            'Ancho' => $ancho ?? null,
+            'Altura' => $altura ?? null,
+            'K/K' => $k_k ?? null
+        ]);
     }
+}
+
 
 
 
