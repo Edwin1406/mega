@@ -27,11 +27,35 @@ async function filtradoPendientes() {
 }
 
 
+// function extraerDimensiones(nombreProducto) {
+//     const regexDimensiones = /(\d+)(?:X|x)(\d+)\s*(?:X|x)?\s*(\d+)?\s*(CM|cm)?/;
+//     const regexTipo = /\b(K\/K|B\/B|T\/T|B\/k)\b/i;
+//     const regexTest = /\bTEST (\d+)\b/i;
+//     const regexFlauta = /\b(C|B)\b/i; // Ahora detecta flauta C o B
+
+//     // Extraer dimensiones
+//     const [_, largo, ancho, alto = 'N/A'] = regexDimensiones.exec(nombreProducto) || [];
+
+//     // Extraer tipo, test y flauta
+//     const tipo = (regexTipo.exec(nombreProducto) || [])[1] || 'N/A';
+//     const test = (regexTest.exec(nombreProducto) || [])[1] || 'N/A';
+//     const flauta = (regexFlauta.exec(nombreProducto) || [])[1] || 'C';
+
+//     return {
+//         largo: largo || 'N/A',
+//         ancho: ancho || 'N/A',
+//         alto: alto,
+//         tipo,
+//         test,
+//         flauta 
+//     };
+// }
+
 function extraerDimensiones(nombreProducto) {
     const regexDimensiones = /(\d+)(?:X|x)(\d+)\s*(?:X|x)?\s*(\d+)?\s*(CM|cm)?/;
     const regexTipo = /\b(K\/K|B\/B|T\/T|B\/k)\b/i;
     const regexTest = /\bTEST (\d+)\b/i;
-    const regexFlauta = /\b(C|B)\b/i; // Ahora detecta flauta C o B
+    const regexFlauta = /\b(C|B)\b/i; // Detecta flauta C o B
 
     // Extraer dimensiones
     const [_, largo, ancho, alto = 'N/A'] = regexDimensiones.exec(nombreProducto) || [];
@@ -39,7 +63,12 @@ function extraerDimensiones(nombreProducto) {
     // Extraer tipo, test y flauta
     const tipo = (regexTipo.exec(nombreProducto) || [])[1] || 'N/A';
     const test = (regexTest.exec(nombreProducto) || [])[1] || 'N/A';
-    const flauta = (regexFlauta.exec(nombreProducto) || [])[1] || 'C';
+    let flauta = (regexFlauta.exec(nombreProducto) || [])[1] || 'C';
+
+    // Sobrescribir flauta como "C" si el producto contiene "CJ"
+    if (/CJ/i.test(nombreProducto)) {
+        flauta = 'C';
+    }
 
     return {
         largo: largo || 'N/A',
@@ -47,9 +76,13 @@ function extraerDimensiones(nombreProducto) {
         alto: alto,
         tipo,
         test,
-        flauta 
+        flauta
     };
 }
+
+
+
+
 
 // Función para desglosar los pedidos pendientes
 async function desgloza() {
