@@ -249,74 +249,7 @@ class ActiveRecord {
 
 //    // Procesar un archivo Excel-----------------------------------------------------------------------------------------------------------------------------------
 
-//     public static function procesarArchivoExcel($filePath)
-// {
-//     $spreadsheet = IOFactory::load($filePath);
-//     $sheet = $spreadsheet->getActiveSheet();
 
-//     // Crear la tabla si no existe
-//     $queryCrearTabla = "
-//         CREATE TABLE IF NOT EXISTS " . static::$tabla . " (
-//             almacen VARCHAR(255),
-//             nombre_cliente VARCHAR(255),
-//             ruc_cliente VARCHAR(255),
-//             numero_pedido VARCHAR(255),
-//             fecha_pedido DATE,
-//             vendedor VARCHAR(255),
-//             plazo_entrega DATE,
-//             estado_pedido VARCHAR(255),
-//             codigo_producto VARCHAR(255),
-//             nombre_producto VARCHAR(255),
-//             cantidad INT,
-//             pvp DECIMAL(10, 2),
-//             subtotal DECIMAL(10, 2),
-//             total DECIMAL(10, 2)
-//         )
-//     ";
-
-//     // Ejecutar la creación de la tabla
-//     self::$db->query($queryCrearTabla);
-
-//     // Insertar los datos de cada fila
-//     foreach ($sheet->getRowIterator(2) as $row) {
-//         $data = [];
-//         $cellIterator = $row->getCellIterator();
-//         $cellIterator->setIterateOnlyExistingCells(false);
-
-//         foreach ($cellIterator as $cell) {
-//             $data[] = $cell->getValue();
-//         }
-
-//         // Mapear los datos a las columnas
-//         list( $almacen,$nombre_cliente,$ruc_cliente,$numero_pedido,$fecha_pedido, $vendedor, $plazo_entrega, $estado_pedido, $codigo_producto, $nombre_producto, $cantidad, $pvp, $subtotal, $total  ) = $data;
-
-//         // Query para insertar cada fila
-//         $queryInsertar = "
-//             INSERT INTO " . static::$tabla . " (almacen, nombre_cliente, ruc_cliente,numero_pedido, fecha_pedido, vendedor, plazo_entrega, estado_pedido, codigo_producto, nombre_producto, cantidad, pvp, subtotal, total)
-//             VALUES ('$almacen','$nombre_cliente','$ruc_cliente','$numero_pedido','$fecha_pedido','$vendedor','$plazo_entrega','$estado_pedido','$codigo_producto','$nombre_producto','$cantidad','$pvp','$subtotal','$total')
-//             ON DUPLICATE KEY UPDATE 
-//                 almacen = VALUES(almacen),
-//                 nombre_cliente = VALUES(nombre_cliente),
-//                 ruc_cliente = VALUES(ruc_cliente),
-//                 numero_pedido = VALUES(numero_pedido),
-//                 fecha_pedido = VALUES(fecha_pedido),
-//                 vendedor = VALUES(vendedor),
-//                 plazo_entrega = VALUES(plazo_entrega),
-//                 estado_pedido = VALUES(estado_pedido),
-//                 codigo_producto = VALUES(codigo_producto),
-//                 nombre_producto = VALUES(nombre_producto),
-//                 cantidad = VALUES(cantidad),
-//                 pvp = VALUES(pvp),
-//                 subtotal = VALUES(subtotal),
-//                 total = VALUES(total)
-//         ";
-
-//         // Ejecutar la inserción
-//         self::$db->query($queryInsertar);
-//     }
-
-//     return true;
-// }
 
 // public static function procesarArchivoExcel($filePath)
 // {
@@ -340,7 +273,7 @@ class ActiveRecord {
 //             pvp DECIMAL(10, 2),
 //             subtotal DECIMAL(10, 2),
 //             total DECIMAL(10, 2),
-//             PRIMARY KEY (numero_pedido, codigo_producto)  
+//             PRIMARY KEY (numero_pedido, codigo_producto)  -- Asegúrate de tener una clave primaria
 //         )
 //     ";
 
@@ -354,15 +287,17 @@ class ActiveRecord {
 //         $cellIterator->setIterateOnlyExistingCells(false);
 
 //         foreach ($cellIterator as $cell) {
-//             $data[] = trim($cell->getValue()); // Eliminar espacios en blanco
+//             $data[] = $cell->getValue(); // No usamos trim aquí, lo haremos más abajo
 //         }
 
-//         // Mapear los datos a las columnas
+//         // Mapear los datos a las columnas con verificación para null
 //         list(
 //             $almacen, $nombre_cliente, $ruc_cliente, $numero_pedido, $fecha_pedido,
 //             $vendedor, $plazo_entrega, $estado_pedido, $codigo_producto, $nombre_producto,
 //             $cantidad, $pvp, $subtotal, $total
-//         ) = $data;
+//         ) = array_map(function ($value) {
+//             return trim($value ?? '');  // Verifica si el valor es null y aplica trim
+//         }, $data);
 
 //         // Verificar si el registro ya existe
 //         $queryVerificar = "
@@ -383,7 +318,7 @@ class ActiveRecord {
 //                     fecha_pedido = '$fecha_pedido',
 //                     vendedor = '$vendedor',
 //                     plazo_entrega = '$plazo_entrega',
-//                     estado_pedido = '$estado_pedido',
+                   
 //                     nombre_producto = '$nombre_producto',
 //                     cantidad = '$cantidad',
 //                     pvp = '$pvp',
@@ -411,7 +346,6 @@ class ActiveRecord {
 
 //     return true;
 // }
-
 public static function procesarArchivoExcel($filePath)
 {
     $spreadsheet = IOFactory::load($filePath);
@@ -460,6 +394,12 @@ public static function procesarArchivoExcel($filePath)
             return trim($value ?? '');  // Verifica si el valor es null y aplica trim
         }, $data);
 
+        // Comprobar si el nombre_producto comienza con alguno de los valores no deseados
+        if (preg_match('/^(LM|CIRELES|CHRYSAL|Z|GUANTE)/', $nombre_producto)) {
+            // Si coincide, se omite el registro
+            continue;
+        }
+
         // Verificar si el registro ya existe
         $queryVerificar = "
             SELECT COUNT(*) as total 
@@ -479,7 +419,6 @@ public static function procesarArchivoExcel($filePath)
                     fecha_pedido = '$fecha_pedido',
                     vendedor = '$vendedor',
                     plazo_entrega = '$plazo_entrega',
-                   
                     nombre_producto = '$nombre_producto',
                     cantidad = '$cantidad',
                     pvp = '$pvp',

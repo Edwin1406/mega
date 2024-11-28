@@ -1,10 +1,14 @@
-<!--  id contador  -->
-<pre id="contador"></pre>     
-<!-- id pedidos  -->
 <pre id="pedidos"></pre>
-
 <script>
-
+(function(){
+ document.addEventListener('DOMContentLoaded', function() {
+    iniciarApp();
+  });
+    
+  function iniciarApp() {
+    desgloza();
+    // Cj();
+  }
 
 async function pedidoss() {
     try {
@@ -30,7 +34,7 @@ function extraerDimensiones(nombreProducto) {
     const regexDimensiones = /(\d+)(?:X|x)(\d+)\s*(?:X|x)?\s*(\d+)?\s*(CM|cm)?/;
     const regexTipo = /\b(K\/K|B\/B|T\/T|B\/k)\b/i;
     const regexTest = /\bTEST (\d+)\b/i;
-    const regexFlauta = /\b(C|B)\b/i; // Ahora detecta flauta C o B
+    const regexFlauta = /\bFLAUTA (C|B)\b/i; 
 
     // Extraer dimensiones
     const [_, largo, ancho, alto = 'N/A'] = regexDimensiones.exec(nombreProducto) || [];
@@ -38,7 +42,12 @@ function extraerDimensiones(nombreProducto) {
     // Extraer tipo, test y flauta
     const tipo = (regexTipo.exec(nombreProducto) || [])[1] || 'N/A';
     const test = (regexTest.exec(nombreProducto) || [])[1] || 'N/A';
-    const flauta = (regexFlauta.exec(nombreProducto) || [])[1] || 'C';
+    let flauta = (regexFlauta.exec(nombreProducto) || [])[1] || 'C';
+
+    // Sobrescribir flauta como "C" si el producto contiene "CJ"
+    // if (/CJ/i.test(nombreProducto)) {
+    //     flauta = 'C';
+    // }
 
     return {
         largo: largo || 'N/A',
@@ -46,9 +55,14 @@ function extraerDimensiones(nombreProducto) {
         alto: alto,
         tipo,
         test,
-        flauta 
+        flauta
     };
 }
+
+
+
+
+
 
 // Función para desglosar los pedidos pendientes
 async function desgloza() {
@@ -76,17 +90,39 @@ async function desgloza() {
         };
 
         peddidoDesglosado.push(pedidoDesglosado);
+
         
     });
-    document.getElementById('pedidos').innerHTML = JSON.stringify(peddidoDesglosado, null, 2);
-    document.getElementById('contador').innerHTML = peddidoDesglosado.length;
+    document.querySelector('#pedidos').innerHTML = JSON.stringify(peddidoDesglosado, null, 2);
 
-    console.log(peddidoDesglosado.length);
+   return peddidoDesglosado;
     
 }
 
 
-desgloza();
+// async function Cj(){
+//     const verificar = await desgloza();  // Llamando a la función correcta
+//     const productosCJ = []; // Array para los productos CJ
+//     const productosPL = []; // Array para los productos PL
 
+//     // Separa los productos según el tipo (CJ o PL) y sus medidas
+//     verificar.forEach(pedido => {
+//         if (pedido.alto !== "N/A") {  // Si el alto es diferente de "N/A", es un producto CJ
+//             productosCJ.push(pedido);
+//         } else {  // Si el alto es "N/A", es un producto PL
+//             productosPL.push(pedido);
+//         }
+//     });
+
+//     console.log("Productos CJ:", productosCJ);
+//     console.log("Productos PL:", productosPL);
+// }
+
+
+
+
+
+
+})();
 
 </script>
