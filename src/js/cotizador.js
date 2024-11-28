@@ -55,7 +55,7 @@ function extraerDimensiones(nombreProducto) {
     const regexDimensiones = /(\d+)(?:X|x)(\d+)\s*(?:X|x)?\s*(\d+)?\s*(CM|cm)?/;
     const regexTipo = /\b(K\/K|B\/B|T\/T|B\/k)\b/i;
     const regexTest = /\bTEST (\d+)\b/i;
-    const regexFlauta = /\b(C|B)\b/i; // Detecta flauta C o B
+    const regexFlauta = /\bFLAUTA (C|B)\b/i; // Busca explícitamente "FLAUTA C" o "FLAUTA B"
 
     // Extraer dimensiones
     const [_, largo, ancho, alto = 'N/A'] = regexDimensiones.exec(nombreProducto) || [];
