@@ -89,18 +89,14 @@ async function desgloza() {
         peddidoDesglosado.push(pedidoDesglosado);
         
     });
-    document.getElementById('pedidos').innerHTML = JSON.stringify(peddidoDesglosado, null, 2);
-    document.getElementById('contador').innerHTML = peddidoDesglosado.length;
-
-    console.log(peddidoDesglosado.length);
+   return peddidoDesglosado;
     
 }
 
 Cj();
 
 async function Cj(){
-    const verificar = await pedidoss(); 
-    verificar.filter(pedido => pedido.nombre_producto.includes("CJ"));
+    const verificar = await peddidoDesglosado(peddidoDesglosado); 
     console.log(verificar);
 }
 
