@@ -1,6 +1,12 @@
 (function(){
-
+ document.addEventListener('DOMContentLoaded', function() {
+    iniciarApp();
+  });
     
+  function iniciarApp() {
+    desgloza();
+  }
+
 async function pedidoss() {
     try {
         const url = 'https://serviacrilico.com/admin/api/allpedidos2';
@@ -81,7 +87,7 @@ async function desgloza() {
 }
 
 
-desgloza();
+
 
 
 
