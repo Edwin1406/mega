@@ -96,13 +96,13 @@ async function desgloza() {
     
 }
 
-Cj();
+// Cj();
 
-async function Cj(){
-    const verificar = await pedidoss(); 
-    verificar.filter(pedido => pedido.nombre_producto.includes("CJ"));
-    console.log(verificar);
-}
+// async function Cj(){
+//     const verificar = await pedidoss(); 
+//     verificar.filter(pedido => pedido.nombre_producto.includes("CJ"));
+//     console.log(verificar);
+// }
 
 
 
