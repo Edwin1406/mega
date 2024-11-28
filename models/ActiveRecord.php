@@ -395,10 +395,11 @@ public static function procesarArchivoExcel($filePath)
         }, $data);
 
         // Comprobar si el nombre_producto comienza con alguno de los valores no deseados
-        if (preg_match('/^(|CIRELES|CHRYSAL|Z|GUANTE)/', $nombre_producto)) {
+        if (preg_match('/^(CIRELES|CHRYSAL|Z|GUANTE)/', $nombre_producto)) {
             // Si coincide, se omite el registro
             continue;
         }
+        
 
         // Verificar si el registro ya existe
         $queryVerificar = "
