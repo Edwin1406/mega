@@ -7,9 +7,9 @@
   });
     
   function iniciarApp() {
-    pedidoss();
     desgloza();
-    // Cj();
+    Cj();
+    DatosCompletos();
   }
 
 async function pedidoss() {
@@ -95,33 +95,93 @@ async function desgloza() {
 
         
     });
-    document.querySelector('#pedidos').innerHTML = JSON.stringify(peddidoDesglosado, null, 2);
-    document.querySelector('#CONTADOR').innerHTML = `Total de pedidos pendientes: ${peddidoDesglosado.length}`;
-    
+  
 
    return peddidoDesglosado;
     
 }
-desgloza();
 
-// async function Cj(){
-//     const verificar = await desgloza();  // Llamando a la función correcta
-//     const productosCJ = []; // Array para los productos CJ
-//     const productosPL = []; // Array para los productos PL
+async function Cj(){
+    const verificar = await desgloza();  // Llamando a la función correcta
+    const productosCJ = []; // Array para los productos CJ
+    const productosPL = []; // Array para los productos PL
 
-//     // Separa los productos según el tipo (CJ o PL) y sus medidas
-//     verificar.forEach(pedido => {
-//         if (pedido.alto !== "N/A") {  // Si el alto es diferente de "N/A", es un producto CJ
-//             productosCJ.push(pedido);
-//         } else {  // Si el alto es "N/A", es un producto PL
-//             productosPL.push(pedido);
-//         }
-//     });
+    // Separa los productos según el tipo (CJ o PL) y sus medidas
+    verificar.forEach(pedido => {
+        if (pedido.alto !== "N/A") {  // Si el alto es diferente de "N/A", es un producto CJ
+            productosCJ.push(pedido);
+        } else {  // Si el alto es "N/A", es un producto PL
+            productosPL.push(pedido);
+        }
+    });
 
-//     console.log("Productos CJ:", productosCJ);
-//     console.log("Productos PL:", productosPL);
-// }
+    const CJ= [];
+    const CJcalculados = productosCJ.map(producto => { 
+        const { id, nombre_cliente, numero_pedido, fecha_pedido, plazo_entrega, nombre_producto, cantidad, subtotal, total, tipo, test, flauta } = producto;
+        let largoCJ = parseFloat(producto.largo);
+        let anchoCJ = parseFloat(producto.ancho);
+        let altoCJ = parseFloat(producto.alto);
 
+        let largo = (2*parseFloat(altoCJ))+parseFloat(largoCJ)+8;
+        // console.log(LargoCalculado);
+        let ancho = (2*parseFloat(altoCJ))+parseFloat(anchoCJ)+10+4
+        // console.log(AnchoCalculado);
+        // agregar todo al array CJ
+        CJ.push({
+            id,
+            nombre_cliente,
+            numero_pedido,
+            fecha_pedido,
+            plazo_entrega,
+            nombre_producto,
+            cantidad,
+            subtotal,
+            total,
+            largo,
+            ancho,
+            tipo,
+            test,
+            flauta
+        });
+    });
+
+   const DatosFormateador =[...CJ,...productosPL];
+
+       
+    return DatosFormateador;
+}
+
+async function DatosCompletos() {
+    const formatear = await Cj();  
+    const AnchosBobinas = [1880]; // Bobinas disponibles
+    const refile = 30; 
+
+    formatear.forEach(pedido => {
+        delete pedido.alto;
+
+        pedido.largo = parseFloat(pedido.largo);
+        pedido.ancho = parseFloat(pedido.ancho);
+
+        // const AnchosBobinas = [1880]; // Bobinas disponibles
+        // const refile = 30; // Refile
+        // AnchosBobinas.forEach(AnchoBobina => {
+        //     let resultado = AnchoBobina - refile;
+        //     return resultado;
+        // });
+
+
+    });
+
+    // while (formatear.length > 0){
+    //  let mejorCombinacion = null;
+    //  formatear.sort((a, b) => b.largo - a.largo);
+    //  console.log(formatear);             
+    // };
+
+
+
+        console.log(formatear);
+}
 
 
 
