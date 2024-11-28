@@ -80,7 +80,7 @@ function extraerDimensiones(nombreProducto) {
     };
 }
 
-fundion as 
+
 
 
 
