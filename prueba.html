@@ -102,7 +102,7 @@ async function desgloza() {
 }
 
 async function Cj(){
-    const verificar = await desgloza();  // Llamando a la función correcta
+    const verificar = await desgloza(); 
     const productosCJ = []; // Array para los productos CJ
     const productosPL = []; // Array para los productos PL
 
@@ -158,29 +158,16 @@ async function DatosCompletos() {
 
     formatear.forEach(pedido => {
         delete pedido.alto;
-
+        // convertimos a flotante
         pedido.largo = parseFloat(pedido.largo);
+        // convertimos a flotante
         pedido.ancho = parseFloat(pedido.ancho);
-
-        // const AnchosBobinas = [1880]; // Bobinas disponibles
-        // const refile = 30; // Refile
-        // AnchosBobinas.forEach(AnchoBobina => {
-        //     let resultado = AnchoBobina - refile;
-        //     return resultado;
-        // });
-
 
     });
 
-    // while (formatear.length > 0){
-    //  let mejorCombinacion = null;
-    //  formatear.sort((a, b) => b.largo - a.largo);
-    //  console.log(formatear);             
-    // };
 
 
-
-        console.log(formatear);
+        console.log(formatear); // Mostrar en consola
 }
 
 
