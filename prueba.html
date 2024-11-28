@@ -1,4 +1,5 @@
 <pre id="pedidos"></pre>
+<pre id="CONTADOR"></pre>
 <script>
 (function(){
  document.addEventListener('DOMContentLoaded', function() {
@@ -6,6 +7,7 @@
   });
     
   function iniciarApp() {
+    pedidoss();
     desgloza();
     // Cj();
   }
@@ -94,11 +96,13 @@ async function desgloza() {
         
     });
     document.querySelector('#pedidos').innerHTML = JSON.stringify(peddidoDesglosado, null, 2);
+    document.querySelector('#CONTADOR').innerHTML = `Total de pedidos pendientes: ${peddidoDesglosado.length}`;
+    
 
    return peddidoDesglosado;
     
 }
-
+desgloza();
 
 // async function Cj(){
 //     const verificar = await desgloza();  // Llamando a la función correcta
