@@ -1,85 +1,56 @@
-<Script>
-    let anchosDeBobinas = [1840, 1880, 1600, 1500, 1450, 1800, 1400, 1700, 500, 700,800,900,200];
-    let cuchillas = [1, 2, 3, 4, 5]; // Cuchillas disponibles
-    let pedido = 1600; // Ancho de cada pieza
-    
-    function calcularMejorBobina(pedido, anchosDeBobinas, cuchillas) {
-      let mejorBobina = null;
-      let maxPiezas = 0;
-      let desperdicioMinimo = Infinity;
-    
-      // Ordenar los anchos de bobinas de menor a mayor
-      anchosDeBobinas.sort((a, b) => a - b);
-    
-      // Buscar la mejor bobina que acomode el pedido (solo si el ancho es mayor que el pedido)
-      for (let ancho of anchosDeBobinas) {
-        if (ancho > pedido) { // Ahora es estrictamente mayor
-          // Para cada cuchilla, calcular el total de piezas que pueden cortarse
-          for (let cuchilla of cuchillas) {
-            let piezas = Math.floor(ancho / pedido);  // Cuántas piezas caben
-            if (piezas >= cuchilla) { // Solo si el número de piezas es mayor o igual al número de cuchillas
-              let anchoUtilizado = piezas * pedido; // Ancho total utilizado
-              let desperdicio = ancho - anchoUtilizado; // Calcular desperdicio solo en base al ancho utilizado
-    
-              // Elegir la mejor bobina
-              if (piezas >= 1 && desperdicio < desperdicioMinimo) {
-                mejorBobina = ancho;
-                maxPiezas = piezas;
-                desperdicioMinimo = desperdicio;
-              }
-            }
-          }
-        }
-      }
-    
-      return {
-        anchoBobina: mejorBobina,
-        piezasQueCaben: maxPiezas,
-        totalAnchoUtilizado: maxPiezas * pedido,
-        desperdicio: desperdicioMinimo
-      };
-    }
-    
-    let resultado = calcularMejorBobina(pedido, anchosDeBobinas, cuchillas);
-    
-    // Verificamos si hay una bobina seleccionada
-    if (resultado.anchoBobina) {
-        let restado = resultado.anchoBobina - 40; // Ajuste adicional de -40 mm
-    
-        console.log(`Para un pedido de ${pedido} mm, necesitas una bobina de ${resultado.anchoBobina} mm `);
-        console.log(`Quitado - 40mm: ${restado} mm.`);
-        console.log(`Total de ancho utilizado: ${restado} mm.`);
-        // console.log(`Desperdicio: ${resultado.desperdicio} mm.`);
-    
-        let res = restado;
-    
-        if (res > 0) {
-          let cuatro = restado / 4;
-          let desperdicioreal = restado - (cuatro * 4); 
-          console.log(`Para 4 piezas iguales: Posición de cuchilla: ${cuatro.toFixed(2)} mm`);
-          console.log(`Desperdicio de open: ${desperdicioreal.toFixed(2)} mm`);
-          
-          
-          let tres = restado / 3;
-          let desperdicioreal2 = restado - (tres * 3);
-          console.log(`Para 3 piezas iguales: Posición de cuchilla: ${tres.toFixed(2)} mm`);
-            console.log(`Desperdicio de open: ${desperdicioreal2.toFixed(2)} mm`);
-    
-          let dos = restado / 2;
-          let desperdicioreal3 = restado - (dos * 2);
-          console.log(`Para 2 piezas iguales: Posición de cuchilla: ${dos.toFixed(2)} mm`);
-            console.log(`Desperdicio de open: ${desperdicioreal3.toFixed(2)} mm`);
+<script>
+// Datos iniciales
+let bobina = 1900;
+let refile = 30;
+let bobinaUtil = bobina - refile;
 
-            let piezasmalas = Math.floor(restado / cuatro);
-            console.log('desperdicio real: ', desperdicioreal);
-            let desperdicioreal4 = restado - (piezasmalas * 4);
-            
-            
-          
-        } else {
-          console.log("Estado de la Combinación: Mala");
+let pedidos = [
+    { id: 1, tipo: '150-C', ancho: 1214, cantidad: 5000 }, 
+    { id: 2, tipo: '150-C', ancho: 655, cantidad: 5000 }, 
+    { id: 3, tipo: '150-B', ancho: 655, cantidad: 5000 }, // Este pedido es del tipo 150-B y no debe entrar en la dupla de 150-C
+    { id: 3, tipo: '150-B', ancho: 655, cantidad: 5000 }, // Este pedido es del tipo 150-B y no debe entrar en la dupla de 150-C
+    { id: 3, tipo: '150-B', ancho: 655, cantidad: 5000 } // Este pedido es del tipo 150-B y no debe entrar en la dupla de 150-C
+
+  ];
+
+// Función para calcular la tabla
+function calcularPedidos(bobinaUtil, pedidos) {
+    let pedidosUsados = [];
+    let sobrante = bobinaUtil;
+
+    // Filtrar los pedidos por tipo
+    let pedidosC = pedidos.filter(pedido => pedido.tipo === '150-C');
+    let pedidosB = pedidos.filter(pedido => pedido.tipo === '150-B');
+
+    // Intentar acomodar solo dos pedidos de tipo 150-C en la bobina utilizable
+    let pedidosContados = 0;
+
+    // Procesar pedidos tipo 150-C
+    for (let pedido of pedidosC) {
+        if (pedidosContados >= 2 && sobrante >= pedido.ancho) {
+            pedidosUsados.push(pedido.ancho);
+            sobrante -= pedido.ancho;
+            pedidosContados++;
         }
-    } else {
-        console.log("No hay una bobina disponible que cumpla los requisitos.");
     }
-</Script>
+
+    // Mostrar la tabla en consola
+    console.table([{
+        Bobina: bobina,
+        'Pedidos Usados': pedidosUsados.join(", "),
+        Sobrante: sobrante
+    }]);
+
+    // Si quieres ver los pedidos de tipo '150-B' también
+    console.table([{
+        Tipo: '150-B',
+        'Pedidos Usados': pedidosB.map(p => p.ancho).join(", "),
+        Sobrante: sobrante // Si los '150-B' no entran, su sobrante es el mismo
+    }]);
+}
+
+// Llamamos a la función para calcular
+calcularPedidos(bobinaUtil, pedidos);
+
+
+</script>

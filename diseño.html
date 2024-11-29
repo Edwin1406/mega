@@ -1,217 +1,174 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Orden de Producción</title>
+  <title>Diseño de Interfaz</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <div class="container">
-    <h1>Orden de Producción</h1>
-    <div class="form-section">
-      <div class="form-column">
-        <label for="codigo">Código:</label>
-        <input type="text" id="codigo" value="0055840" readonly>
-
-        <label for="cliente">Cliente:</label>
-        <input type="text" id="cliente" value="110226121001" readonly>
-
-        <label for="nombre">Nombre:</label>
-        <input type="text" id="nombre" value="CAMBIO MERCHAN VICTOR HORACIO" readonly>
-
-        <label for="pedido">Pedido:</label>
-        <input type="text" id="pedido" value="1235" readonly>
-
-        <label for="fecha-pedido">Fecha Pedido:</label>
-        <input type="date" id="fecha-pedido" value="2024-11-26" readonly>
-
-        <label for="estado">Estado:</label>
-        <input type="text" id="estado" value="PROCESO" readonly>
+    
+    <div class="liners">
+      <div class="liner">
+        <p>id_pedido 1 : 25</p>
+        <p>id_pedido 2 : 26</p>
+        <p>id_pedido 3 : 0</p>
+        <p>id_pedido 4 : 0</p>
       </div>
-
-      <div class="form-column">
-        <label for="unificacion">Unificación:</label>
-        <input type="text" id="unificacion" value="S000001" readonly>
-
-        <label for="fecha-cliente">Fent. Cliente:</label>
-        <input type="date" id="fecha-cliente" value="2024-12-05" readonly>
-
-        <label for="hora">Hora:</label>
-        <input type="text" id="hora" value="00:00" readonly>
-
-        <label for="bulks">Bulks:</label>
-        <input type="text" id="bulks" value="0" readonly>
-
-        <label for="local">Local:</label>
-        <input type="text" id="local" value="2" readonly>
+      <div class="liner">
+        <h3>LINER EXT</h3>
+        <p>id</p>
+        <p>Proveedor: KAFT</p>
+        <p>Ancho:1900</p>
+        <p>Gramaje:250</p>
+        <p>Peso:250 </p>
+      </div>
+      <div class="liner">
+        <h3>LINER MED</h3>
+        <p>id</p>
+        <p>Proveedor: KAFT</p>
+        <p>Ancho:1900</p>
+        <p>Gramaje:250</p>
+        <p>Peso:250</p>
+      </div>
+      <div class="liner">
+        <h3>LINER INT</h3>
+        <p>id</p>
+        <p>Proveedor: KAFT</p>
+        <p>Ancho:1900</p>
+        <p>Gramaje:250</p>
+        <p>Peso:250</p>
       </div>
     </div>
-
-    <!-- Sección de papel -->
-    <div class="paper-section">
-      <h2>Papel Compuesto</h2>
-      <div class="form-row">
-        <div class="form-column">
-          <label for="papel1">Papel:</label>
-          <input type="text" id="papel1" value="P000001" readonly>
-
-          <label for="proveedor1">Proveedor:</label>
-          <input type="text" id="proveedor1" value="423 KLABIN" readonly>
-
-          <label for="anc-bobina1">Anc. Bobina:</label>
-          <input type="text" id="anc-bobina1" value="1100.00" readonly>
-
-          <label for="peso1">Peso:</label>
-          <input type="text" id="peso1" value="365.00" readonly>
-        </div>
-
-        <div class="form-column">
-          <label for="papel2">Papel:</label>
-          <input type="text" id="papel2" value="P000001" readonly>
-
-          <label for="proveedor2">Proveedor:</label>
-          <input type="text" id="proveedor2" value="468 BILLERUD" readonly>
-
-          <label for="anc-bobina2">Anc. Bobina:</label>
-          <input type="text" id="anc-bobina2" value="1100.00" readonly>
-
-          <label for="peso2">Peso:</label>
-          <input type="text" id="peso2" value="343.69" readonly>
-        </div>
-      </div>
-    </div>
-
-    <!-- Sección de tabla -->
-    <div class="table-section">
-      <table>
-        <thead>
-          <tr>
-            <th>Orden</th>
-            <th>Item</th>
-            <th>Descripción</th>
-            <th>Cabida</th>
-            <th>Lámina</th>
-            <th>Ancho</th>
-            <th>Consumo</th>
-            <th>Sobrante</th>
-            <th>Metros</th>
-            <th>Peso</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>24111095</td>
-            <td>024028726</td>
-            <td>LAMINA IMP OV INFINITY ROSES 35X50 DOB MG CEJA</td>
-            <td>3</td>
-            <td>1,200.00</td>
-            <td>55.00</td>
-            <td>355.26</td>
-            <td>58.62</td>
-            <td>125.41</td>
-            <td>65.24</td>
-          </tr>
-          <tr>
-            <td>24111096</td>
-            <td>024028727</td>
-            <td>LAMINA IMP OV INFINITY ROSES 35X70 DOB MG CEJA</td>
-            <td>3</td>
-            <td>1,400.00</td>
-            <td>65.00</td>
-            <td>400.26</td>
-            <td>60.32</td>
-            <td>130.10</td>
-            <td>68.42</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+      <h1 style="text-align: center;">Pedidos Test 250</h1>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Bobina</th>
+          <th>Pedidos Usados</th>
+          <th>ESTADO</th>
+          <th>Sobrante</th>
+          <th>Cantidad</th>
+          <th>Cavidad</th>
+          <th>Cortes</th>
+          <th>Metros lineales</th>
+          <th>Acción</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1900</td>
+          <td>1064,784</td>
+          <td class="status">PENDIENTE</td>
+          <td>22</td>
+          <td>718,2513</td>
+          <td>2</td>
+          <td></td>
+          <td></td>
+          <td><button class="add-btn">AGREGAR</button></td>
+        </tr>
+      </tbody>
+    </table>
+    <h1 style="text-align: center;">Pedidos Test 250</h1>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Bobina</th>
+          <th>Pedidos Usados</th>
+          <th>ESTADO</th>
+          <th>Sobrante</th>
+          <th>Cantidad</th>
+          <th>Cavidad</th>
+          <th>Cortes</th>
+          <th>Metros lineales</th>
+          <th>Acción</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1900</td>
+          <td>1064,784</td>
+          <td class="status">PENDIENTE</td>
+          <td>22</td>
+          <td>718,2513</td>
+          <td>2</td>
+          <td></td>
+          <td></td>
+          <td><button class="add-btn">AGREGAR</button></td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </body>
 </html>
-<style>
-body {
+<STYle>
+  body {
   font-family: Arial, sans-serif;
-  background-color: #f2f2f2;
+  background-color: #e6d5f2;
   margin: 0;
   padding: 0;
 }
 
 .container {
-  max-width: 1200px;
-  margin: 20px auto;
-  background: #fff;
   padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-h1, h2 {
-  text-align: center;
-  color: #004080;
-}
-
-.form-section, .paper-section {
+.ids {
   margin-bottom: 20px;
 }
 
-.form-section {
+.ids p {
+  margin: 5px 0;
+}
+
+.liners {
   display: flex;
-  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 20px;
 }
 
-.form-row {
-  display: flex;
-  justify-content: space-between;
+.liner {
+  background-color: #baf4c2;
+  padding: 10px;
+  flex: 1;
+  border-radius: 5px;
+  text-align: center;
 }
 
-.form-column {
-  width: 45%;
+.liner h3 {
+  margin-top: 0;
 }
 
-label {
-  display: block;
-  font-weight: bold;
-  margin-bottom: 5px;
-  color: #333;
-}
-
-input[type="text"],
-input[type="date"] {
-  width: 100%;
-  padding: 8px;
-  margin-bottom: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  background-color: #f9f9f9;
-}
-
-input[readonly] {
-  background-color: #e6e6e6;
-  color: #555;
-}
-
-.table-section table {
+.table {
   width: 100%;
   border-collapse: collapse;
-}
-
-table thead {
-  background-color: #004080;
-  color: #fff;
-}
-
-table th, table td {
   text-align: center;
-  padding: 10px;
+  background-color: white;
+}
+
+.table th, .table td {
   border: 1px solid #ddd;
+  padding: 10px;
 }
 
-table tbody tr:nth-child(even) {
-  background-color: #f9f9f9;
+.table .status {
+  background-color: #ff6048;
+  color: white;
+  font-weight: bold;
 }
 
+.add-btn {
+  background-color: #ff6048;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  cursor: pointer;
+  border-radius: 5px;
+}
 
+.add-btn:hover {
+  background-color: #ff836d;
+}
 
-</style>
+</STYle>

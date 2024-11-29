@@ -1,5 +1,42 @@
-<pre id="pedidos"></pre>
-<pre id="CONTADOR"></pre>
+
+<style>
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+    th, td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: center;
+    }
+    th {
+        background-color: #f4f4f4;
+    }
+    .sobrante-optimo {
+        background-color: #d4edda;
+        color: #155724;
+    }
+    .espera {
+        background-color: #f8d7da;
+        color: #721c24;
+    }
+</style>
+
+<table border="1">
+    <thead>
+        <tr>
+            <th>Bobina</th>
+            <th>Pedidos</th>
+            <th>Suma (Anchos)</th>
+            <th>Sobrante</th>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- Esto es donde se agregarán los resultados -->
+    </tbody>
+</table>
+
 <script>
 (function(){
  document.addEventListener('DOMContentLoaded', function() {
@@ -10,6 +47,8 @@
     desgloza();
     Cj();
     DatosCompletos();
+    agruparPedidos();
+
   }
 
 async function pedidoss() {
@@ -33,9 +72,14 @@ async function filtradoPendientes() {
 
 
 function extraerDimensiones(nombreProducto) {
-    const regexDimensiones = /(\d+)(?:X|x)(\d+)\s*(?:X|x)?\s*(\d+)?\s*(CM|cm)?/;
+    // const regexDimensiones = /(\d+)(?:X|x)(\d+)\s*(?:X|x)?\s*(\d+)?\s*(CM|cm)?/;
+    const regexDimensiones = /(\d+)\s*[Xx]\s*(\d+)\s*[Xx]?\s*(\d+)?\s*(CM|cm)?/;
+
     const regexTipo = /\b(K\/K|B\/B|T\/T|B\/k)\b/i;
-    const regexTest = /\bTEST (\d+)\b/i;
+    const regexTest = /\b(?:TEST|T)?\s?(\d{3})\b(?!.*\d{3})/i;
+
+
+    
     const regexFlauta = /\bFLAUTA (C|B)\b/i; 
 
     // Extraer dimensiones
@@ -153,24 +197,335 @@ async function Cj(){
 
 async function DatosCompletos() {
     const formatear = await Cj();  
-    const AnchosBobinas = [1880]; // Bobinas disponibles
-    const refile = 30; 
-
     formatear.forEach(pedido => {
         delete pedido.alto;
         // convertimos a flotante
         pedido.largo = parseFloat(pedido.largo);
         // convertimos a flotante
         pedido.ancho = parseFloat(pedido.ancho);
-
+        // convertimos a entero
         pedido.cantidad = parseInt(pedido.cantidad);
-
+        // ordenar por test y flauta
+        pedido.test = parseInt(pedido.test);
     });
 
+     return formatear;
+    }
 
+// agrupamos los pedidos por test y flauta
+async function agruparPedidos() {
+    const agrupados = await DatosCompletos(); 
+        // los test son 125 flauta c ,150 flauta c,175 flauta c, 200 flauta c, 275 flauta c, 150 flauta B, 175 flauta b, 200 flauta b
+        agrupados.sort((a, b) => {
+            if (a.test === b.test) {
+                return a.flauta.localeCompare(b.flauta);
+            }
+            return a.test - b.test;
+        });
 
-        console.log(formatear); // Mostrar en consola
+    return agrupados;
 }
+
+
+
+
+//  SEPARO LOS PEDIDOS POR TEST Y FLAUTA 
+
+// Función principal que agrupa los pedidos
+async function juntarPedidos() {
+    const parejasPedidos = await agruparPedidos();
+    return parejasPedidos.reduce((acc, pedido) => {
+        const key = `${pedido.test}-${pedido.flauta}`;
+        if (!acc[key]) {
+            acc[key] = [];
+        }
+        acc[key].push(pedido);
+        return acc;
+    }, {});
+
+}
+
+// Función para obtener los pedidos agrupados para un tipo específico
+async function obtenerPedidosPorTipo(tipo) {
+    const agrupados = await juntarPedidos();
+    console.log(agrupados);
+    return agrupados[tipo] || [];
+}
+
+// Funciones específicas para obtener los pedidos de cada tipo
+async function test125C() {
+    const pedidos = await obtenerPedidosPorTipo("125-C");
+    console.log(pedidos);
+}
+
+async function test150C() {
+    const pedidos = await obtenerPedidosPorTipo("150-C");
+    console.log(pedidos);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // async function test175C() {
+    //     // Obtener los pedidos del tipo "175-C"
+    //     const pedidos = await obtenerPedidosPorTipo("175-C");
+    //     const bobinas = [1880,1700, 1500, 1300, 1100, 900, 700, 500, 300]; // Bobinas disponibles
+    //     const refile = 30; // Espacio reservado para el refile
+    //     let pedidosAnchos = pedidos.map(pedido => pedido.ancho);
+    //     const objetoResultados = {
+    //         resultados: [],
+    //         pendientes: []
+    //     };
+
+    //     while (pedidosAnchos.length > 0) { 
+    //         let mejorCombinacion = null;
+    //         pedidosAnchos.sort((a, b) => b - a);
+    //         for (let i = 0; i < bobinas.length; i++) {
+    //             let bobinaDisponible = bobinas[i] - refile;
+    //             for (let j = 0; j < pedidosAnchos.length; j++) {
+    //                 for (let k = j + 1; k < pedidosAnchos.length; k++) {
+    //                     const suma = pedidosAnchos[j] + pedidosAnchos[k];
+    //                     if (suma <= bobinaDisponible) {
+    //                         const sobrante = bobinaDisponible - suma;
+    //                         if (
+    //                             (!mejorCombinacion || sobrante < mejorCombinacion.sobrante)
+    //                         ) {
+    //                             mejorCombinacion = {
+    //                                 bobina: bobinas[i],
+    //                                 pedidos: [pedidosAnchos[j], pedidosAnchos[k]],
+    //                                 suma: suma, // Suma de los anchos
+    //                                 sobrante: sobrante
+    //                             };
+    //                         }
+    //                     }
+    //                 }
+    //             }
+    //         }
+    //         if (mejorCombinacion) {
+    //             objetoResultados.resultados.push(mejorCombinacion);
+    //             pedidosAnchos = pedidosAnchos.filter(
+    //                 pedido => !mejorCombinacion.pedidos.includes(pedido)
+    //             );
+    //         } else {
+    //             const pedidoIndividual = pedidosAnchos[0];
+    //             if (pedidoIndividual <= bobinas[0] - refile) {
+    //                 objetoResultados.resultados.push({
+    //                     bobina: bobinas[0],
+    //                     pedidos: [pedidoIndividual],
+    //                     suma: pedidoIndividual, // La suma de un solo ancho
+    //                     sobrante: bobinas[0] - refile - pedidoIndividual
+    //                 });
+    //                 pedidosAnchos = pedidosAnchos.filter(
+    //                     pedido => pedido !== pedidoIndividual
+    //                 );
+    //             } else {
+    //                 objetoResultados.pendientes.push(pedidoIndividual);
+    //                 pedidosAnchos = pedidosAnchos.filter(
+    //                     pedido => pedido !== pedidoIndividual
+    //                 );
+    //             }
+    //         }
+    //     }
+
+    //     // Mostrar los resultados en la tabla
+    //     const tbody = document.querySelector('table tbody');
+    //     objetoResultados.resultados.forEach(resultado => {
+    //         const tr = document.createElement('tr');
+    //         const tdBobina = document.createElement('td');
+    //         tdBobina.textContent = resultado.bobina;
+    //         tr.appendChild(tdBobina);
+
+    //         const tdPedidos = document.createElement('td');
+    //         tdPedidos.textContent = resultado.pedidos.join(', ');
+    //         tr.appendChild(tdPedidos);
+
+    //         const tdSuma = document.createElement('td');
+    //         tdSuma.textContent = resultado.suma;
+    //         tr.appendChild(tdSuma);
+
+    //         const tdSobrante = document.createElement('td');
+    //         tdSobrante.textContent = resultado.sobrante;
+    //         tr.appendChild(tdSobrante);
+
+    //         tbody.appendChild(tr);
+    //     });
+    // }
+
+    async function test175C() {
+    // Obtener los pedidos del tipo "175-C"
+    const pedidos = await obtenerPedidosPorTipo("175-C");
+    const bobinas = [1880, 1700, 1500, 1300, 1100, 900, 700, 500, 300]; // Bobinas disponibles
+    const refile = 30; // Espacio reservado para el refile
+    let pedidosAnchos = pedidos.map(pedido => ({
+        ancho: pedido.ancho,
+        cantidad: pedido.cantidad,
+        id: pedido.id,
+        pedido: pedido // Guardamos el objeto completo para referenciarlo después
+    }));
+    const objetoResultados = {
+        resultados: [],
+        pendientes: []
+    };
+
+    while (pedidosAnchos.length > 0) {
+        let mejorCombinacion = null;
+        pedidosAnchos.sort((a, b) => b.ancho - a.ancho); // Ordenar de mayor a menor por ancho
+        for (let i = 0; i < bobinas.length; i++) {
+            let bobinaDisponible = bobinas[i] - refile;
+            for (let j = 0; j < pedidosAnchos.length; j++) {
+                for (let k = j + 1; k < pedidosAnchos.length; k++) {
+                    const suma = pedidosAnchos[j].ancho + pedidosAnchos[k].ancho;
+                    if (suma <= bobinaDisponible) {
+                        const sobrante = bobinaDisponible - suma;
+                        if (
+                            (!mejorCombinacion || sobrante < mejorCombinacion.sobrante)
+                        ) {
+                            mejorCombinacion = {
+                                bobina: bobinas[i],
+                                pedidos: [pedidosAnchos[j], pedidosAnchos[k]],
+                                suma: suma, // Suma de los anchos
+                                sobrante: sobrante
+                            };
+                        }
+                    }
+                }
+            }
+        }
+
+        if (mejorCombinacion) {
+            objetoResultados.resultados.push(mejorCombinacion);
+            // Eliminar los pedidos que ya han sido combinados
+            pedidosAnchos = pedidosAnchos.filter(pedido =>
+                !mejorCombinacion.pedidos.includes(pedido)
+            );
+        } else {
+            // Si no se encuentra una combinación, tomar el primer pedido
+            const pedidoIndividual = pedidosAnchos[0];
+            if (pedidoIndividual.ancho <= bobinas[0] - refile) {
+                objetoResultados.resultados.push({
+                    bobina: bobinas[0],
+                    pedidos: [pedidoIndividual],
+                    suma: pedidoIndividual.ancho, // La suma de un solo ancho
+                    sobrante: bobinas[0] - refile - pedidoIndividual.ancho
+                });
+                pedidosAnchos = pedidosAnchos.filter(pedido => pedido !== pedidoIndividual);
+            } else {
+                objetoResultados.pendientes.push(pedidoIndividual);
+                pedidosAnchos = pedidosAnchos.filter(pedido => pedido !== pedidoIndividual);
+            }
+        }
+    }
+
+    // Mostrar los resultados en la tabla
+    const tbody = document.querySelector('table tbody');
+    objetoResultados.resultados.forEach(resultado => {
+        const tr = document.createElement('tr');
+        const tdBobina = document.createElement('td');
+        tdBobina.textContent = resultado.bobina;
+        tr.appendChild(tdBobina);
+
+        const tdPedidos = document.createElement('td');
+        const pedidosText = resultado.pedidos.map(pedido => `${pedido.pedido.nombre_producto} (ID: ${pedido.id}, Cantidad: ${pedido.cantidad})`).join(', ');
+        // const pedidosText = resultado.pedidos.map(pedido => ` (ID: ${pedido.id}`).join(', ');
+        tdPedidos.textContent = pedidosText;
+        tr.appendChild(tdPedidos);
+
+        const tdSuma = document.createElement('td');
+        tdSuma.textContent = resultado.suma;
+        tr.appendChild(tdSuma);
+
+        const tdSobrante = document.createElement('td');
+        tdSobrante.textContent = resultado.sobrante;
+        tr.appendChild(tdSobrante);
+
+        tbody.appendChild(tr);
+    });
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+async function test200C() {
+    const pedidos = await obtenerPedidosPorTipo("200-C");
+    console.log(pedidos);
+}
+
+async function test250C() {
+    const pedidos = await obtenerPedidosPorTipo("250-C");
+    console.log(pedidos);
+}
+
+
+async function test275C() {
+    const pedidos = await obtenerPedidosPorTipo("275-C");
+    console.log(pedidos);
+}
+
+
+async function test150B() {
+    const pedidos = await obtenerPedidosPorTipo("150-B");
+    console.log(pedidos);
+}
+
+async function test175B() {
+    const pedidos = await obtenerPedidosPorTipo("175-B");
+    console.log(pedidos);
+}
+
+async function test200B() {
+    const pedidos = await obtenerPedidosPorTipo("200-B");
+    console.log(pedidos);
+}
+
+async function test250B() {
+    const pedidos = await obtenerPedidosPorTipo("250-B");
+    console.log(pedidos);
+}
+
+// test125C();
+test175C();
+// test200C();
+
+// test250C();
+// test275C();
+// test150B();
+// test175B();
+// test200B();
+// test250B();
+
+
+
+
+
 
 
 
