@@ -1,133 +1,151 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Asignación de Bobinas a Pedidos</title>
-    <style>
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
+<style>
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+    th, td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: center;
+    }
+    th {
+        background-color: #f4f4f4;
+    }
+    .sobrante-optimo {
+        background-color: #d4edda;
+        color: #155724;
+    }
+    .espera {
+        background-color: #f8d7da;
+        color: #721c24;
+    }
+</style>
+
+<table>
+    <thead>
+        <tr>
+            <th>Bobina</th>
+            <th>Pedidos</th>
+            <th>Suma (Anchos)</th>
+            <th>Sobrante</th>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- Aquí se agregarán los resultados -->
+    </tbody>
+</table>
+
+<script>
+document.addEventListener('DOMContentLoaded', async function() {
+    try {
+        const pedidos = await obtenerPedidosFiltrados();
+        const pedidosPorTipo = await separarPedidosPorTipo(pedidos);
+        const resultados = await procesarPedidos(pedidosPorTipo["175-C"]);
+        mostrarResultadosEnTabla(resultados);
+    } catch (error) {
+        console.error("Error al inicializar la aplicación:", error);
+    }
+});
+
+async function obtenerPedidosFiltrados() {
+    const url = 'https://serviacrilico.com/admin/api/allpedidos2';
+    const response = await fetch(url);
+    const pedidos = await response.json();
+    return pedidos.filter(pedido => pedido.estado_pedido === "pendiente");
+}
+
+function extraerDimensiones(nombreProducto) {
+    const regexDimensiones = /(\d+)\s*[Xx]\s*(\d+)\s*[Xx]?\s*(\d+)?\s*(CM|cm)?/;
+    const regexTipo = /\b(K\/K|B\/B|T\/T|B\/k)\b/i;
+    const regexTest = /\b(?:TEST|T)?\s?(\d{3})\b(?!.*\d{3})/i;
+    const regexFlauta = /\bFLAUTA (C|B)\b/i;
+
+    const [_, largo, ancho, alto = 'N/A'] = regexDimensiones.exec(nombreProducto) || [];
+    const tipo = (regexTipo.exec(nombreProducto) || [])[1] || 'N/A';
+    const test = (regexTest.exec(nombreProducto) || [])[1] || 'N/A';
+    const flauta = (regexFlauta.exec(nombreProducto) || [])[1] || 'C';
+
+    return { largo, ancho, alto, tipo, test, flauta };
+}
+
+async function procesarPedidos(pedidos) {
+    const bobinas = [1880, 1700, 1500, 1300, 1100, 900, 700, 500, 300];
+    const refile = 30;
+    let pedidosAnchos = pedidos.map(pedido => ({
+        ancho: parseFloat(pedido.ancho),
+        id: pedido.id,
+        cantidad: parseInt(pedido.cantidad),
+        pedido: pedido
+    }));
+
+    const resultados = [];
+    while (pedidosAnchos.length > 0) {
+        let mejorCombinacion = encontrarMejorCombinacion(pedidosAnchos, bobinas, refile);
+        if (mejorCombinacion) {
+            resultados.push(mejorCombinacion);
+            pedidosAnchos = pedidosAnchos.filter(p => !mejorCombinacion.pedidos.includes(p));
+        } else {
+            break; // No se encontró más combinaciones posibles
         }
-        table, th, td {
-            border: 1px solid #ddd;
-            padding: 8px;
-        }
-        th {
-            background-color: #f2f2f2;
-        }
-    </style>
-</head>
-<body>
+    }
+    return resultados;
+}
 
-    <h1>Asignación de Bobinas a Pedidos</h1>
-
-    <table id="tablaAsignacion">
-        <thead>
-            <tr>
-                <th>ID Pedido</th>
-                <th>Ancho Requerido</th>
-                <th>ID Mejor Bobina</th>
-                <th>Ancho de Bobina (ajustado)</th>
-                <th>Desperdicio</th>
-                <th>Mensaje</th>
-            </tr>
-        </thead>
-        <tbody>
-            <!-- Filas generadas por JavaScript -->
-        </tbody>
-    </table>
-
-    <script>
-        // Array de bobinas
-        const bobinas = [
-            { id: 1, ancho: 1800, peso: 500, material: "KRAFT", gramaje: 250 },
-            { id: 2, ancho: 2000, peso: 700, material: "KRAFT", gramaje: 225 },
-            { id: 3, ancho: 1500, peso: 450, material: "KRAFT", gramaje: 205 },
-            { id: 4, ancho: 1000, peso: 300, material: "BLANCO", gramaje: 200 }
-        ];
-
-        // Array de pedidos
-        const pedidos = [
-            { id: "241120213", anchoRequerido: 914, largoRequerido: 1648, cantidad: 1000 },
-            { id: "241120214", anchoRequerido: 1000, largoRequerido: 1500, cantidad: 500 },
-            { id: "241120215", anchoRequerido: 1200, largoRequerido: 2000, cantidad: 300 },
-            { id: "241120216", anchoRequerido: 800, largoRequerido: 1000, cantidad: 700 }
-        ];
-
-        // Función para encontrar la mejor bobina para cada pedido
-        function asignarBobinasAPedidos(bobinas, pedidos) {
-            const asignaciones = [];
-
-            pedidos.forEach(pedido => {
-                // Filtrar las bobinas que puedan cubrir el ancho requerido después de restar 30 mm
-                const bobinasPosibles = bobinas.filter(bobina => (bobina.ancho - 30) >= pedido.anchoRequerido);
-
-                if (bobinasPosibles.length > 0) {
-                    // Encontrar la bobina con el ancho ajustado más cercano al ancho requerido
-                    let mejorBobina = bobinasPosibles.reduce((mejor, bobina) => {
-                        const anchoAjustadoActual = bobina.ancho - 30;
-                        const anchoAjustadoMejor = mejor.ancho - 30;
-                        const diferenciaActual = anchoAjustadoActual - pedido.anchoRequerido;
-                        const diferenciaMejor = anchoAjustadoMejor - pedido.anchoRequerido;
-                        return diferenciaActual < diferenciaMejor ? bobina : mejor;
-                    });
-
-                    // Calcular el ancho ajustado y el desperdicio
-                    const anchoAjustado = mejorBobina.ancho - 30;
-                    const desperdicio = anchoAjustado - pedido.anchoRequerido;
-
-                    // Guardar la asignación
-                    asignaciones.push({
-                        pedidoId: pedido.id,
-                        anchoRequerido: pedido.anchoRequerido,
-                        mejorBobinaId: mejorBobina.id,
-                        anchoBobina: anchoAjustado,
-                        desperdicio: desperdicio,
-                        mensaje: ""
-                    });
-                } else {
-                    // Si no hay ninguna bobina que cubra el ancho, se marca como no asignada
-                    asignaciones.push({
-                        pedidoId: pedido.id,
-                        anchoRequerido: pedido.anchoRequerido,
-                        mejorBobinaId: null,
-                        anchoBobina: null,
-                        desperdicio: null,
-                        mensaje: "No hay bobina disponible"
-                    });
+function encontrarMejorCombinacion(pedidos, bobinas, refile) {
+    let mejorCombinacion = null;
+    pedidos.sort((a, b) => b.ancho - a.ancho);
+    for (let bobina of bobinas) {
+        const bobinaDisponible = bobina - refile;
+        for (let i = 0; i < pedidos.length; i++) {
+            for (let j = i + 1; j < pedidos.length; j++) {
+                const suma = pedidos[i].ancho + pedidos[j].ancho;
+                if (suma <= bobinaDisponible) {
+                    const sobrante = bobinaDisponible - suma;
+                    if (!mejorCombinacion || sobrante < mejorCombinacion.sobrante) {
+                        mejorCombinacion = {
+                            bobina,
+                            pedidos: [pedidos[i], pedidos[j]],
+                            suma,
+                            sobrante
+                        };
+                    }
                 }
-            });
-
-            return asignaciones;
+            }
         }
+    }
+    return mejorCombinacion;
+}
 
-        // Función para mostrar las asignaciones en la tabla HTML
-        function mostrarAsignaciones() {
-            const resultadoAsignacion = asignarBobinasAPedidos(bobinas, pedidos);
-            const tablaBody = document.getElementById("tablaAsignacion").querySelector("tbody");
-            tablaBody.innerHTML = ""; // Limpiar el contenido previo
+function mostrarResultadosEnTabla(resultados) {
+    const tbody = document.querySelector('table tbody');
+    resultados.forEach(resultado => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+            <td>${resultado.bobina}</td>
+            <td>${resultado.pedidos.map(p => `${p.pedido.nombre_producto} (ID: ${p.id})`).join(', ')}</td>
+            <td>${resultado.suma}</td>
+            <td>${resultado.sobrante}</td>
+        `;
+        tbody.appendChild(tr);
+    });
+}
 
-            resultadoAsignacion.forEach(asignacion => {
-                const fila = document.createElement("tr");
+async function separarPedidosPorTipo(pedidos) {
+    const pedidosCj = pedidos.map(p => ({
+        ...p,
+        ...extraerDimensiones(p.nombre_producto)
+    }));
 
-                fila.innerHTML = `
-                    <td>${asignacion.pedidoId}</td>
-                    <td>${asignacion.anchoRequerido}</td>
-                    <td>${asignacion.mejorBobinaId !== null ? asignacion.mejorBobinaId : "-"}</td>
-                    <td>${asignacion.anchoBobina !== null ? asignacion.anchoBobina : "-"}</td>
-                    <td>${asignacion.desperdicio !== null ? asignacion.desperdicio : "-"}</td>
-                    <td>${asignacion.mensaje}</td>
-                `;
-
-                tablaBody.appendChild(fila);
-            });
+    const pedidosPorTipo = pedidosCj.reduce((acc, pedido) => {
+        const key = `${pedido.test}-${pedido.flauta}`;
+        if (!acc[key]) {
+            acc[key] = [];
         }
+        acc[key].push(pedido);
+        return acc;
+    }, {});
 
-        // Llamar a la función para mostrar los resultados al cargar la página
-        mostrarAsignaciones();
-    </script>
-
-</body>
-</html>
+    return pedidosPorTipo;
+}
+</script>
