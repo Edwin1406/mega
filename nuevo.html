@@ -27,6 +27,10 @@
         <tr>
             <th>Bobina</th>
             <th>Pedidos</th>
+            <th>Flauta</th>
+            <th>test</th>
+            <th>Anchos</th>
+            <th>Cantidad</th>
             <th>Suma (Anchos)</th>
             <th>Sobrante</th>
         </tr>
@@ -36,8 +40,9 @@
     </tbody>
 </table>
 
+
 <script>
-document.addEventListener('DOMContentLoaded', async function() {
+document.addEventListener('DOMContentLoaded', async function () {
     try {
         const pedidos = await obtenerPedidosFiltrados();
         const pedidosPorTipo = await separarPedidosPorTipo(pedidos);
@@ -55,18 +60,63 @@ async function obtenerPedidosFiltrados() {
     return pedidos.filter(pedido => pedido.estado_pedido === "pendiente");
 }
 
-function extraerDimensiones(nombreProducto) {
-    const regexDimensiones = /(\d+)\s*[Xx]\s*(\d+)\s*[Xx]?\s*(\d+)?\s*(CM|cm)?/;
-    const regexTipo = /\b(K\/K|B\/B|T\/T|B\/k)\b/i;
-    const regexTest = /\b(?:TEST|T)?\s?(\d{3})\b(?!.*\d{3})/i;
-    const regexFlauta = /\bFLAUTA (C|B)\b/i;
 
-    const [_, largo, ancho, alto = 'N/A'] = regexDimensiones.exec(nombreProducto) || [];
-    const tipo = (regexTipo.exec(nombreProducto) || [])[1] || 'N/A';
-    const test = (regexTest.exec(nombreProducto) || [])[1] || 'N/A';
-    const flauta = (regexFlauta.exec(nombreProducto) || [])[1] || 'C';
+async function AllBobinas(){
+        try {   
+            const url = `${location.origin}/admin/api/allbobinas`;
+            const resultado = await fetch(url);
+            const allbobinas = await resultado.json();
+            console.log(allbobinas);
+            return allbobinas
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
-    return { largo, ancho, alto, tipo, test, flauta };
+function mostrarResultadosEnTabla(resultados) {
+    const tbody = document.querySelector('table tbody');
+    tbody.innerHTML = ''; // Limpiamos la tabla antes de mostrar resultados
+    console.log(resultados);  
+    resultados.forEach(resultado => {
+        const tr = document.createElement('tr');
+
+        // Crear opciones para el select dinámicamente
+        const bobinasDisponibles = [1880, 1700, 1500, 1300, 1100, 900, 700, 500, 300];
+        const opciones = bobinasDisponibles.map(bobina => 
+            `<option value="${bobina}" ${bobina === resultado.bobina ? 'selected' : ''}>${bobina}</option>`
+        ).join('');
+
+        tr.innerHTML = `
+            <td>
+                <select class="bobina-select">
+                    ${opciones}
+                </select>
+            </td>
+            <td>${resultado.pedidos.map(p => `${p.pedido.nombre_producto} (ID: ${p.id})`).join(', ')}</td>
+            <td>${resultado.pedidos.map(p => p.flauta).join(', ')}</td>
+            <td>${resultado.pedidos.map(p => p.test).join(', ')}</td>
+            <td>${resultado.pedidos.map(p => p.ancho).join(', ')}</td>
+            <td>${resultado.pedidos.map(p => p.cantidad).join(', ')}</td>
+            <td>${resultado.suma}</td>
+            <td class="sobrante">${resultado.sobrante}</td>
+        `;
+        tbody.appendChild(tr);
+    });
+
+    // Agregar evento de cambio al select
+    document.querySelectorAll('.bobina-select').forEach(select => {
+        select.addEventListener('change', (e) => {
+            const fila = e.target.closest('tr');
+            const nuevaBobina = parseInt(e.target.value);
+
+            // Recalcular los valores de la fila
+            const suma = parseInt(fila.querySelector('td:nth-child(4)').textContent);
+            const sobrante = nuevaBobina - suma;
+
+            // Actualizar el valor del sobrante en la tabla
+            fila.querySelector('.sobrante').textContent = sobrante;
+        });
+    });
 }
 
 async function procesarPedidos(pedidos) {
@@ -117,20 +167,6 @@ function encontrarMejorCombinacion(pedidos, bobinas, refile) {
     return mejorCombinacion;
 }
 
-function mostrarResultadosEnTabla(resultados) {
-    const tbody = document.querySelector('table tbody');
-    resultados.forEach(resultado => {
-        const tr = document.createElement('tr');
-        tr.innerHTML = `
-            <td>${resultado.bobina}</td>
-            <td>${resultado.pedidos.map(p => `${p.pedido.nombre_producto} (ID: ${p.id})`).join(', ')}</td>
-            <td>${resultado.suma}</td>
-            <td>${resultado.sobrante}</td>
-        `;
-        tbody.appendChild(tr);
-    });
-}
-
 async function separarPedidosPorTipo(pedidos) {
     const pedidosCj = pedidos.map(p => ({
         ...p,
@@ -148,4 +184,19 @@ async function separarPedidosPorTipo(pedidos) {
 
     return pedidosPorTipo;
 }
+
+function extraerDimensiones(nombreProducto) {
+    const regexDimensiones = /(\d+)\s*[Xx]\s*(\d+)\s*[Xx]?\s*(\d+)?\s*(CM|cm)?/;
+    const regexTipo = /\b(K\/K|B\/B|T\/T|B\/k)\b/i;
+    const regexTest = /\b(?:TEST|T)?\s?(\d{3})\b(?!.*\d{3})/i;
+    const regexFlauta = /\bFLAUTA (C|B)\b/i;
+
+    const [_, largo, ancho, alto = 'N/A'] = regexDimensiones.exec(nombreProducto) || [];
+    const tipo = (regexTipo.exec(nombreProducto) || [])[1] || 'N/A';
+    const test = (regexTest.exec(nombreProducto) || [])[1] || 'N/A';
+    const flauta = (regexFlauta.exec(nombreProducto) || [])[1] || 'C';
+
+    return { largo, ancho, alto, tipo, test, flauta };
+}
+
 </script>
