@@ -165,71 +165,70 @@
     //     });
     // }
     
-    function mostrarResultadosEnTabla(resultados) {
+     function mostrarResultadosEnTabla(resultados) {
+    
     const tbody = document.querySelector('table tbody');
     tbody.innerHTML = ''; // Limpiamos la tabla antes de mostrar resultados
-
     resultados.forEach(resultado => {
         const tr = document.createElement('tr');
 
-        // Crear opciones para el select dinámicamente
         const bobinasDisponibles = [1880, 1700, 1500, 1300, 1100, 900, 700, 500, 300];
         const opciones = bobinasDisponibles.map(
             bobina => `<option value="${bobina}" ${bobina === resultado.bobina ? 'selected' : ''}>${bobina}</option>`
         ).join('');
 
-        // Calcular valores de corteP1, corteP2 y metros lineales
-        let corteP1 = 0, corteP2 = 0, metrosLineales = 0;
+        let corteP1 = 0, corteP2 = 0, metrosLineales = 0, metrosLineale2 = 0;
         if (resultado.cavidad === 2) {
             const [pedido1, pedido2] = resultado.pedidos;
             const largoP1 = pedido1.largo / 1000;
             const largoP2 = pedido2.largo / 1000;
             const metrosLinealP1 = pedido1.cantidad * largoP1;
 
+            resultado.cavidad = " P1: 1 <br> P2: 1"; ;
+
             corteP1 = pedido1.cantidad;
             corteP2 = Math.floor(metrosLinealP1 / largoP2);
             metrosLineales = metrosLinealP1;
-            metrosLineale2 = pedido2.cantidad * pedido2.largo / 1000;
+            metrosLineale2 = pedido2.cantidad * largoP2;
 
-
+            // Mostrar por consola el resto que falta
+            const cantidadRestante = pedido2.cantidad - corteP2;
+            console.log(`Pedido 2 (ID: ${pedido2.id}) - Cantidad Restante: ${cantidadRestante}`);
         } else if (resultado.cavidad === 1) {
             const pedido = resultado.pedidos[0];
             metrosLineales = (pedido.cantidad * pedido.largo) / 1000;
             corteP1 = pedido.cantidad;
             metrosLineale2 = 0;
-        } 
+        }
 
         tr.innerHTML = `
-    <td>
-        <select class="bobina-select">
-            ${opciones}
-        </select>
-    </td>
-    <td>
-        ${resultado.pedidos.map(p => `<div>Pedido: ${p.pedido.nombre_producto} (ID: ${p.id})</div>`).join('')}
-    </td>
-    <td>
-        ${resultado.pedidos.map(p => `<div>${p.ancho}</div>`).join('')}
-    </td>
-    <td>
-        ${resultado.pedidos.map(p => `<div>${p.largo}</div>`).join('')}
-    </td>
-    <td>${resultado.suma}</td>
-    <td class="sobrante">${resultado.sobrante}</td>
-    <td>
-        ${resultado.pedidos.map(p => `<div>${p.cantidad}</div>`).join('')}
-    </td>
-    <td>${resultado.pedidos.reduce((total, p) => total + p.cantidad, 0)}</td>
-    <td>${resultado.cavidad}</td>
-    <td>${corteP1}</td>
-    <td>${corteP2}</td>
-   
-    <td>${metrosLineales.toFixed(2)}</td>
-    <td>${metrosLineale2.toFixed(2)}</td>
-`;
-tbody.appendChild(tr);
-
-
+            <td>
+                <select class="bobina-select">
+                    ${opciones}
+                </select>
+            </td>
+            <td>
+                ${resultado.pedidos.map(p => `<div>Pedido: ${p.pedido.nombre_producto} (ID: ${p.id})</div>`).join('')}
+            </td>
+            <td>
+                ${resultado.pedidos.map(p => `<div>${p.ancho}</div>`).join('')}
+            </td>
+            <td>
+                ${resultado.pedidos.map(p => `<div>${p.largo}</div>`).join('')}
+            </td>
+            <td>${resultado.suma}</td>
+            <td class="sobrante">${resultado.sobrante}</td>
+            <td>
+                ${resultado.pedidos.map(p => `<div>${p.cantidad}</div>`).join('')}
+            </td>
+            <td>${resultado.pedidos.reduce((total, p) => total + p.cantidad, 0)}</td>
+            <td>${resultado.cavidad}</td>
+            <td>${corteP1}</td>
+            <td>${corteP2}</td>
+            <td>${metrosLineales.toFixed(2)}</td>
+            <td>${metrosLineale2.toFixed(2)}</td>
+        `;
+        tbody.appendChild(tr);
     });
 
     // Agregar evento de cambio al select
@@ -250,8 +249,15 @@ tbody.appendChild(tr);
 
 
 
+
+
+
+
+
+
+
+const bobinas = [1880, 1700, 1500, 1300, 1100, 900, 700, 500, 300];
     async function procesarPedidos(pedidos) {
-        const bobinas = [1880, 1700, 1500, 1300, 1100, 900, 700, 500, 300];
         const refile = 30;
         let pedidosAnchos = pedidos.map(pedido => ({
             ancho: parseFloat(pedido.ancho),
@@ -275,6 +281,9 @@ tbody.appendChild(tr);
         return resultados;
     }
   
+
+    let ereselmejor = []
+console.log(ereselmejor)
 
     function encontrarMejorCombinacion(pedidos, bobinas, refile) {
     let mejorCombinacion = null;
@@ -322,45 +331,8 @@ tbody.appendChild(tr);
             }
         }
     }
-
-    // tomar el primer pedido de la dupla
-    // para realizar el calculo de cortes
-    // primero vemos que el primer pedidos de la dupla sea menor al segundo
-    // si no lo es, los intercambiamos
-    // luego calculamos los cortes
-    // el calculo para saber los cortes es el siguiente la cantidad * la cavidad pero tomando en ecunta que la cavidad es 2 pero ws 1 de un pedido y 1 del otro
- 
-    if (mejorCombinacion && mejorCombinacion.cavidad === 2) {
-        const [pedido1, pedido2] = mejorCombinacion.pedidos;
-        if (pedido1.ancho > pedido2.ancho) {
-            mejorCombinacion.pedidos = [pedido2, pedido1];
-        }
-        let cortesP1 = mejorCombinacion.cortes = pedido1.cantidad * 1;
-        // cantidad * largo / 1000
-        let MetrosLinealP1 = pedido1.cantidad * pedido1.largo / 1000;
-        let largoP2 = pedido2.largo/1000;
-        let cortesP2 = Math.floor(MetrosLinealP1 / largoP2);
-        // 
-            console.log("corte 1",cortesP1);
-            console.log("metros lineales",MetrosLinealP1);
-            console.log("corte 2",cortesP2);
-            let MetrosLinealP2 = pedido2.cantidad * pedido2.largo / 1000;
-            console.log("metros lineales P2",MetrosLinealP2);
-        
-    } else if (mejorCombinacion && mejorCombinacion.cavidad === 1) {
-        mejorCombinacion.cortes = mejorCombinacion.pedidos[0].cantidad;
-        let cortesIndividual = mejorCombinacion.cortes*1;
-        console.log("corte individual",cortesIndividual);
-        let MetrosLinealesIndividual = mejorCombinacion.pedidos[0].cantidad * mejorCombinacion.pedidos[0].largo / 1000;
-        console.log("Metros Lineales Individual",MetrosLinealesIndividual);
-        
-        
-    }
-
-    
-
-
-
+    ereselmejor.push(mejorCombinacion)
+console.log(mejorCombinacion);
     return mejorCombinacion;
 }
 
