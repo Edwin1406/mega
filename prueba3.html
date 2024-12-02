@@ -1,40 +1,89 @@
 <style>
-    table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-top: 20px;
+ /* Estilo general de la tabla */
+.tabla-mejorada {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: Arial, sans-serif;
+    margin-top: 20px;
+}
+
+/* Encabezado de la tabla */
+.tabla-mejorada thead {
+    background-color: #f4f4f4;
+    color: #333;
+    font-weight: bold;
+}
+
+.tabla-mejorada th {
+    padding: 10px;
+    text-align: center;
+    border: 1px solid #ddd;
+    font-size: 14px;
+}
+
+/* Cuerpo de la tabla */
+.tabla-mejorada td {
+    padding: 10px;
+    text-align: center;
+    border: 1px solid #ddd;
+    font-size: 13px;
+}
+
+/* Alternar colores en las filas */
+.tabla-mejorada tbody tr:nth-child(odd) {
+    background-color: #f9f9f9;
+}
+
+.tabla-mejorada tbody tr:nth-child(even) {
+    background-color: #ffffff;
+}
+
+/* Hover efecto para filas */
+.tabla-mejorada tbody tr:hover {
+    background-color: #eaf4fb;
+}
+
+/* Espaciado y alineación en celdas con múltiples valores */
+.tabla-mejorada td div {
+    margin-bottom: 5px;
+    text-align: left;
+}
+
+/* Alineación vertical */
+.tabla-mejorada td {
+    vertical-align: top;
+}
+
+/* Responsividad */
+@media (max-width: 768px) {
+    .tabla-mejorada {
+        font-size: 12px;
     }
-    th, td {
-        border: 1px solid #ddd;
+
+    .tabla-mejorada th,
+    .tabla-mejorada td {
         padding: 8px;
-        text-align: center;
     }
-    th {
-        background-color: #f4f4f4;
-    }
-    .sobrante-optimo {
-        background-color: #d4edda;
-        color: #155724;
-    }
-    .espera {
-        background-color: #f8d7da;
-        color: #721c24;
-    }
+}
+
+
+
 </style>
 
-<table>
+<table class="tabla-mejorada">    
     <thead>
         <tr>
             <th>Bobina</th>
             <th>Pedidos</th>
             <th>Anchos</th>
+            <th>Largos</th>
             <th>Suma (Anchos)</th>
             <th>Sobrante</th>
             <th>Cantidad</th>
             <th>Total Cantidad</th>
             <th>Cavidad</th>
-            <th>Cortes</th>
-            <th>Cortes 2 </th>
+            <th>Corte pedido 1</th>
+            <th>Corte pedido 2</th>
             <th>Metros LinealesP1</th>
             <th>Metros LinealesP2</th>
             
@@ -148,30 +197,39 @@
             metrosLineales = (pedido.cantidad * pedido.largo) / 1000;
             corteP1 = pedido.cantidad;
             metrosLineale2 = 0;
-        }
+        } 
 
         tr.innerHTML = `
-            <td>
-                <select class="bobina-select">
-                    ${opciones}
-                </select>
-            </td>
-            <td>${resultado.pedidos.map(p => `${p.pedido.nombre_producto} (ID: ${p.id})`).join(', ')}</td>
-            <td>${resultado.pedidos.map(p => p.ancho).join(', ')}</td>
-            <td>${resultado.suma}</td>
-            <td class="sobrante">${resultado.sobrante}</td>
-            <td>${resultado.pedidos.map(p => p.cantidad).join(', ')}</td>
-            <td>${resultado.pedidos.reduce((total, p) => total + p.cantidad, 0)}</td>
-            <td>${resultado.cavidad}</td>
-            <td>${resultado.cortes || ''}</td>
-            <td>${corteP1} : ${corteP2}</td>
-            <td>${metrosLineales.toFixed(2)}</td>
-            <td>${metrosLineale2.toFixed(2)}</td>
-            
+    <td>
+        <select class="bobina-select">
+            ${opciones}
+        </select>
+    </td>
+    <td>
+        ${resultado.pedidos.map(p => `<div>Pedido: ${p.pedido.nombre_producto} (ID: ${p.id})</div>`).join('')}
+    </td>
+    <td>
+        ${resultado.pedidos.map(p => `<div>${p.ancho}</div>`).join('')}
+    </td>
+    <td>
+        ${resultado.pedidos.map(p => `<div>${p.largo}</div>`).join('')}
+    </td>
+    <td>${resultado.suma}</td>
+    <td class="sobrante">${resultado.sobrante}</td>
+    <td>
+        ${resultado.pedidos.map(p => `<div>${p.cantidad}</div>`).join('')}
+    </td>
+    <td>${resultado.pedidos.reduce((total, p) => total + p.cantidad, 0)}</td>
+    <td>${resultado.cavidad}</td>
+    <td>${corteP1}</td>
+    <td>${corteP2}</td>
+   
+    <td>${metrosLineales.toFixed(2)}</td>
+    <td>${metrosLineale2.toFixed(2)}</td>
+`;
+tbody.appendChild(tr);
 
-          
-        `;
-        tbody.appendChild(tr);
+
     });
 
     // Agregar evento de cambio al select
