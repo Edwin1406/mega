@@ -1,0 +1,138 @@
+
+
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <table>
+        <thead>
+            <tr>
+                <th>LARGO</th>
+                <th>LARGO SIN REDONDEO</th>
+                <th>ANCHO</th>
+                <th>CANTIDAD</th>
+                <th>CAVIDAD</th>
+                <th>CORTES</th>
+                <th>METROS LINEALES</th>
+                <th>BOBINA</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><input type="number" class="largo" value="1464"></td>
+                <td><span class="largo-sin-redondeo">1.46</span></td>
+                <td><input type="number" class="ancho" value="783"></td>
+                <td><input type="number" class="cantidad" value="718"></td>
+                <td><span class="cavidad">718</span></td>
+                <td><input type="number" class="cortes" value="1"></td>
+                <td><span class="metros-lineales">1051.15</span></td>
+                <td><span class="bobina">1900</span></td>
+            </tr>
+            <tr>
+                <td><input type="number" class="largo" value="1908"></td>
+                <td><span class="largo-sin-redondeo">1.90</span></td>
+                <td><input type="number" class="ancho" value="1064"></td>
+                <td><input type="number" class="cantidad" value="2513"></td>
+                <td><span class="cavidad">2513</span></td>
+                <td><input type="number" class="cortes" value="1"></td>
+                <td><span class="metros-lineales">4774.7</span></td>
+                <td><span class="bobina">1900</span></td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="resultado">
+        <p>FALTA: <span class="falta">1960</span></p>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
+
+
+
+
+<style>
+    body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin: 20px;
+}
+
+h1 {
+    color: #4CAF50;
+}
+
+table {
+    margin: 0 auto;
+    border-collapse: collapse;
+    width: 90%;
+    font-size: 1rem;
+}
+
+table th, table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
+}
+
+table th {
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+input[type="number"] {
+    width: 100%;
+    text-align: center;
+    padding: 5px;
+    box-sizing: border-box;
+}
+
+span {
+    font-weight: bold;
+}
+
+.resultado {
+    margin-top: 20px;
+    font-size: 1.2rem;
+    color: red;
+}
+
+
+
+</style>
+
+<script>
+    document.addEventListener('input', function () {
+    const rows = document.querySelectorAll('tbody tr');
+
+    rows.forEach(row => {
+        const largo = parseFloat(row.querySelector('.largo').value) || 0;
+        const ancho = parseFloat(row.querySelector('.ancho').value) || 0;
+        const cantidad = parseFloat(row.querySelector('.cantidad').value) || 0;
+        const cortes = parseFloat(row.querySelector('.cortes').value) || 1;
+
+        // Cálculos
+        const largoSinRedondeo = (largo / 1000).toFixed(2);
+        const metrosLineales = ((cantidad * largo) / 1000).toFixed(2);
+        const cavidad = cantidad * cortes;
+
+        // Actualizar DOM
+        row.querySelector('.largo-sin-redondeo').textContent = largoSinRedondeo;
+        row.querySelector('.cavidad').textContent = cavidad;
+        row.querySelector('.metros-lineales').textContent = metrosLineales;
+    });
+
+    // Calcular FALTA
+    const totalAncho = Array.from(rows).reduce((sum, row) => {
+        return sum + parseFloat(row.querySelector('.ancho').value || 0);
+    }, 0);
+
+    const falta = 1900 - totalAncho;
+    document.querySelector('.falta').textContent = falta.toFixed(2);
+});
+
+</script>

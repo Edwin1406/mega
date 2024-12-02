@@ -28,8 +28,11 @@
         <tr>
             <th>Bobina</th>
             <th>Pedidos</th>
+            <th>Cantidad</th>
             <th>Suma (Anchos)</th>
             <th>Sobrante</th>
+            <th>Cavidad</th>
+            
         </tr>
     </thead>
     <tbody>
@@ -362,40 +365,144 @@ async function test150C() {
     //     });
     // }
 
-    async function test175C() {
-    // Obtener los pedidos del tipo "175-C"
+//     async function test175C() {
+//     const pedidos = await obtenerPedidosPorTipo("175-C");
+//     const bobinas = [1880, 1700, 1500, 1300, 1100, 900, 700, 500, 300]; // Bobinas disponibles
+//     const refile = 30; // Espacio reservado para el refile
+
+//     let pedidosAnchos = pedidos.map(pedido => ({
+//         ancho: pedido.ancho,
+//         cantidad: pedido.cantidad,
+//         id: pedido.id,
+//         pedido: pedido // Guardamos el objeto completo para referencia
+//     }));
+
+//     const objetoResultados = {
+//         resultados: [],
+//         pendientes: []
+//     };
+
+//     // PRIMERA ETAPA: Encontrar todas las duplas posibles
+//     while (pedidosAnchos.length > 0) {
+//         let mejorCombinacion = null;
+//         pedidosAnchos.sort((a, b) => b.ancho - a.ancho); // Ordenar de mayor a menor por ancho
+
+//         for (let i = 0; i < bobinas.length; i++) {
+//             let bobinaDisponible = bobinas[i] - refile;
+
+//             for (let j = 0; j < pedidosAnchos.length; j++) {
+//                 for (let k = j + 1; k < pedidosAnchos.length; k++) {
+//                     const suma = pedidosAnchos[j].ancho + pedidosAnchos[k].ancho;
+//                     if (suma <= bobinaDisponible) {
+//                         const sobrante = bobinaDisponible - suma;
+//                         if (!mejorCombinacion || sobrante < mejorCombinacion.sobrante) {
+//                             mejorCombinacion = {
+//                                 bobina: bobinas[i],
+//                                 pedidos: [pedidosAnchos[j], pedidosAnchos[k]],
+//                                 suma: suma,
+//                                 sobrante: sobrante
+//                             };
+//                         }
+//                     }
+//                 }
+//             }
+//         }
+
+//         if (mejorCombinacion) {
+//             objetoResultados.resultados.push(mejorCombinacion);
+//             pedidosAnchos = pedidosAnchos.filter(pedido =>
+//                 !mejorCombinacion.pedidos.includes(pedido)
+//             );
+//         } else {
+//             break; // Salimos si ya no es posible formar duplas
+//         }
+//     }
+
+//     // SEGUNDA ETAPA: Asignar bobinas óptimas a los pedidos restantes
+//     pedidosAnchos.forEach(pedido => {
+//         for (let bobina of bobinas) {
+//             if (pedido.ancho <= bobina - refile) {
+//                 objetoResultados.resultados.push({
+//                     bobina: bobina,
+//                     pedidos: [pedido],
+//                     suma: pedido.ancho,
+//                     sobrante: bobina - refile - pedido.ancho
+//                 });
+//                 return; // Asignar el pedido y pasar al siguiente
+//             }
+//         }
+
+//         // Si no hay una bobina adecuada, el pedido queda pendiente
+//         objetoResultados.pendientes.push(pedido);
+//     });
+
+//     // Mostrar los resultados en la tabla
+//     const tbody = document.querySelector('table tbody');
+//     objetoResultados.resultados.forEach(resultado => {
+//         const tr = document.createElement('tr');
+//         const tdBobina = document.createElement('td');
+//         tdBobina.textContent = resultado.bobina;
+//         tr.appendChild(tdBobina);
+
+//         const tdPedidos = document.createElement('td');
+//         const pedidosText = resultado.pedidos
+//             .map(
+//                 pedido =>
+//                     `${pedido.pedido.nombre_producto} (ID: ${pedido.id}, Cantidad: ${pedido.cantidad})`
+//             )
+//             .join(', ');
+//         tdPedidos.textContent = pedidosText;
+//         tr.appendChild(tdPedidos);
+
+//         const tdSuma = document.createElement('td');
+//         tdSuma.textContent = resultado.suma;
+//         tr.appendChild(tdSuma);
+
+//         const tdSobrante = document.createElement('td');
+//         tdSobrante.textContent = resultado.sobrante;
+//         tr.appendChild(tdSobrante);
+
+//         tbody.appendChild(tr);
+//     });
+// }
+
+async function test175C() {
     const pedidos = await obtenerPedidosPorTipo("175-C");
     const bobinas = [1880, 1700, 1500, 1300, 1100, 900, 700, 500, 300]; // Bobinas disponibles
     const refile = 30; // Espacio reservado para el refile
+
     let pedidosAnchos = pedidos.map(pedido => ({
         ancho: pedido.ancho,
         cantidad: pedido.cantidad,
         id: pedido.id,
-        pedido: pedido // Guardamos el objeto completo para referenciarlo después
+        pedido: pedido // Guardamos el objeto completo para referencia
     }));
+
     const objetoResultados = {
         resultados: [],
         pendientes: []
     };
 
+    // PRIMERA ETAPA: Encontrar todas las duplas posibles
     while (pedidosAnchos.length > 0) {
         let mejorCombinacion = null;
         pedidosAnchos.sort((a, b) => b.ancho - a.ancho); // Ordenar de mayor a menor por ancho
+
         for (let i = 0; i < bobinas.length; i++) {
             let bobinaDisponible = bobinas[i] - refile;
+
             for (let j = 0; j < pedidosAnchos.length; j++) {
                 for (let k = j + 1; k < pedidosAnchos.length; k++) {
                     const suma = pedidosAnchos[j].ancho + pedidosAnchos[k].ancho;
                     if (suma <= bobinaDisponible) {
                         const sobrante = bobinaDisponible - suma;
-                        if (
-                            (!mejorCombinacion || sobrante < mejorCombinacion.sobrante)
-                        ) {
+                        if (!mejorCombinacion || sobrante < mejorCombinacion.sobrante) {
                             mejorCombinacion = {
                                 bobina: bobinas[i],
                                 pedidos: [pedidosAnchos[j], pedidosAnchos[k]],
-                                suma: suma, // Suma de los anchos
-                                sobrante: sobrante
+                                suma: suma,
+                                sobrante: sobrante,
+                                cavidad: "1:1" // Agregamos cavidad para duplas
                             };
                         }
                     }
@@ -405,27 +512,32 @@ async function test150C() {
 
         if (mejorCombinacion) {
             objetoResultados.resultados.push(mejorCombinacion);
-            // Eliminar los pedidos que ya han sido combinados
             pedidosAnchos = pedidosAnchos.filter(pedido =>
                 !mejorCombinacion.pedidos.includes(pedido)
             );
         } else {
-            // Si no se encuentra una combinación, tomar el primer pedido
-            const pedidoIndividual = pedidosAnchos[0];
-            if (pedidoIndividual.ancho <= bobinas[0] - refile) {
-                objetoResultados.resultados.push({
-                    bobina: bobinas[0],
-                    pedidos: [pedidoIndividual],
-                    suma: pedidoIndividual.ancho, // La suma de un solo ancho
-                    sobrante: bobinas[0] - refile - pedidoIndividual.ancho
-                });
-                pedidosAnchos = pedidosAnchos.filter(pedido => pedido !== pedidoIndividual);
-            } else {
-                objetoResultados.pendientes.push(pedidoIndividual);
-                pedidosAnchos = pedidosAnchos.filter(pedido => pedido !== pedidoIndividual);
-            }
+            break; // Salimos si ya no es posible formar duplas
         }
     }
+
+    // SEGUNDA ETAPA: Asignar bobinas óptimas a los pedidos restantes
+    pedidosAnchos.forEach(pedido => {
+        for (let bobina of bobinas) {
+            if (pedido.ancho <= bobina - refile) {
+                objetoResultados.resultados.push({
+                    bobina: bobina,
+                    pedidos: [pedido],
+                    suma: pedido.ancho,
+                    sobrante: bobina - refile - pedido.ancho,
+                    cavidad: "1" // Cavidad para pedidos únicos
+                });
+                return; // Asignar el pedido y pasar al siguiente
+            }
+        }
+
+        // Si no hay una bobina adecuada, el pedido queda pendiente
+        objetoResultados.pendientes.push(pedido);
+    });
 
     // Mostrar los resultados en la tabla
     const tbody = document.querySelector('table tbody');
@@ -436,10 +548,21 @@ async function test150C() {
         tr.appendChild(tdBobina);
 
         const tdPedidos = document.createElement('td');
-        const pedidosText = resultado.pedidos.map(pedido => `${pedido.pedido.nombre_producto} (ID: ${pedido.id}, Cantidad: ${pedido.cantidad})`).join(', ');
-        // const pedidosText = resultado.pedidos.map(pedido => ` (ID: ${pedido.id}`).join(', ');
+        const pedidosText = resultado.pedidos
+            .map(
+                pedido =>
+                    `${pedido.pedido.nombre_producto} (ID: ${pedido.id})`
+            )
+            .join(', ');
         tdPedidos.textContent = pedidosText;
         tr.appendChild(tdPedidos);
+
+        const tdCantidad = document.createElement('td'); // Nueva columna para las cantidades
+        const cantidadesText = resultado.pedidos
+            .map(pedido => `${pedido.cantidad}`)
+            .join(', ');
+        tdCantidad.textContent = cantidadesText;
+        tr.appendChild(tdCantidad);
 
         const tdSuma = document.createElement('td');
         tdSuma.textContent = resultado.suma;
@@ -449,15 +572,14 @@ async function test150C() {
         tdSobrante.textContent = resultado.sobrante;
         tr.appendChild(tdSobrante);
 
+        const tdCavidad = document.createElement('td'); // Nueva columna para cavidad
+        tdCavidad.textContent = resultado.cavidad;
+        console.log(tdCavidad);
+        tr.appendChild(tdCavidad);
+
         tbody.appendChild(tr);
     });
 }
-
-
-
-
-
-
 
 
 
