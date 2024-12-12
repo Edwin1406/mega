@@ -77,30 +77,22 @@
                 <th>Anchos</th>
                 <th>Suma (Anchos)</th>
                 <th>Refile</th>
-                <th>Cantidad</th>
+                <th>Cantidad P1</th>
+                <th>Cantidad P2</th>
                 <th>Total Cantidad</th>
                 <th>Cavidad</th>
-                <th>Corte pedido 1</th>
-        
+                <th>Corte Pedido 1</th>
+                <th>Corte Pedido 2</th>
                 <th>Metros Lineales</th>
+                <th>Cantidad restante P2</th>
+              
             </tr>
         </thead>
         <tbody></tbody>
     </table>
     
     <script>
-    // document.addEventListener('DOMContentLoaded', async function () {
-    //     try {
-    //         const pedidos = await Cj(); // Procesa los productos CJ y PL
-    //         const pedidosPorTipo = await separarPedidosPorTipo(pedidos);
-    //         const resultados = await procesarPedidos(pedidosPorTipo["150-B"]);
-    //         mostrarResultadosEnTabla(resultados);
-    //     } catch (error) {
-    //         console.error("Error al inicializar la aplicación:", error);
-    //     }
-    // });
-
-
+    
     document.getElementById('filtrarBtn').addEventListener('click', async () => {
     const filtroSeleccionado = document.getElementById('filtroTest').value; // Obtener el valor seleccionado
     if (!filtroSeleccionado) {
@@ -208,7 +200,7 @@
 
 
 
-    function encontrarMejorCombinacion(pedidos, bobinas, refile) {
+   function encontrarMejorCombinacion(pedidos, bobinas, refile) {
     let mejorCombinacion = null;
 
     // Función para buscar combinaciones de dos pedidos que encajen en una bobina
@@ -233,17 +225,32 @@
                     if (suma <= disponible) {
                         const sobrante = disponible - suma;
 
-                        // Seleccionar la mejor combinación (mínimo sobrante)
+                        // Asegurarse de que dentro de la dupla, el pedido con menor cantidad sea el primero
+                        // Si las cantidades son iguales, el de menor largo va primero
+                        let pedido1 = pedidoActual;
+                        let pedido2 = otroPedido;
+
+                        if (
+                            pedido2.cantidad < pedido1.cantidad ||
+                            (pedido2.cantidad === pedido1.cantidad && pedido2.largo < pedido1.largo)
+                        ) {
+                            [pedido1, pedido2] = [pedido2, pedido1];
+                        }
+
                         if (!mejorCombinacionLocal || sobrante < mejorCombinacionLocal.sobrante) {
+                            let largosinredondeo = pedido2.largo / 1000;
+                            let metrosLineales = (pedido1.cantidad * pedido1.largo) / 1000;
+                            let corte2 = metrosLineales / largosinredondeo;
+
                             mejorCombinacionLocal = {
                                 bobina,
-                                pedidos: [pedidoActual, otroPedido],
+                                pedidos: [pedido1, pedido2],
                                 suma,
                                 sobrante,
                                 cavidad: "1<br>1",
-                                corteP1: pedidoActual.cantidad,
-                                corteP2: otroPedido.cantidad,
-                                metrosLineales: ((pedidoActual.cantidad + otroPedido.cantidad) * pedidoActual.largo) / 1000
+                                corteP1: pedido1.cantidad,
+                                corteP2: parseInt(corte2),
+                                metrosLineales,
                             };
                         }
                     }
@@ -278,9 +285,12 @@
     if (mejorCombinacionResultante) {
         mejorCombinacion = mejorCombinacionResultante;
 
-        // Crear un nuevo pedido con la cantidad restante para cada pedido procesado
-        const pedidosRestantes = mejorCombinacion.pedidos.map(pedido => {
-            const cantidadRestante = pedido.cantidad - mejorCombinacion.corteP1;
+        // Actualizar la cantidad de los pedidos seleccionados
+        const pedidosRestantes = mejorCombinacion.pedidos.map((pedido, index) => {
+            const cantidadRestante = index === 1
+                ? pedido.cantidad - mejorCombinacion.corteP2
+                : pedido.cantidad - mejorCombinacion.corteP1;
+
             if (cantidadRestante > 0) {
                 return { ...pedido, cantidad: cantidadRestante };
             }
@@ -293,37 +303,84 @@
     return mejorCombinacion;
 }
 
-    
-    function mostrarResultadosEnTabla(resultados) {
-        const tbody = document.querySelector('table tbody');
-        tbody.innerHTML = '';
-    
-        resultados.forEach(resultado => {
-            const tr = document.createElement('tr');
-            tr.innerHTML = `
-                <td>${resultado.bobina}</td>
-                
-                <td>${resultado.pedidos.map(p =>` Pedido : ${p.pedido.nombre_producto} , ID:${p.pedido.id}`).join('<br>')}</td>
-                <td>${resultado.pedidos.map(p => p.largo).join('<br>')}</td>
-                <td>${resultado.pedidos.map(p => p.ancho).join('<br>')}</td>
-                <td>${resultado.suma}</td>
-                <td class="sobrante" >${resultado.sobrante}</td>
-                <td>${resultado.pedidos.map(p => p.cantidad).join('<br>')}</td>
-                <td>${resultado.pedidos.reduce((total, p) => total + p.cantidad, 0)}</td>
-                <td>${resultado.cavidad}</td>
-                <td>${resultado.corteP1}<br>${resultado.corteP2}</td>
-                <td>${resultado.metrosLineales.toFixed(2)}</td>
-            `;
 
-            const sobranteCelda = tr.querySelector('.sobrante');
+
+function mostrarResultadosEnTabla(resultados) {
+    const tbody = document.querySelector('table tbody');
+    tbody.innerHTML = '';
+
+    resultados.forEach(resultado => {
+        const tr = document.createElement('tr');
+        const pedido1 = resultado.pedidos[0] || {};
+        const pedido2 = resultado.pedidos[1] || {};
+
+        tr.innerHTML = `
+            <td>${resultado.bobina}</td>
+            <td>
+                ${resultado.pedidos.map((p, index) => 
+                    `Pedido ${index + 1}: ${p.pedido.nombre_producto}, ID: ${p.pedido.id}`
+                ).join('<br>')}
+            </td>
+            <td>${resultado.pedidos.map(p => p.largo).join('<br>')}</td>
+            <td>${resultado.pedidos.map(p => p.ancho).join('<br>')}</td>
+            <td>${resultado.suma}</td>
+            <td class="sobrante">${resultado.sobrante}</td>
+            <td>${pedido1.cantidad || 0}</td>
+            <td>${pedido2.cantidad || 0}</td>
+            <td>${resultado.pedidos.reduce((total, p) => total + p.cantidad, 0)}</td>
+            <td>${resultado.cavidad}</td>
+            <td>${resultado.corteP1 || 0}</td>
+            <td>${resultado.corteP2 || 0}</td>
+            <td>${resultado.metrosLineales.toFixed(2)}</td>
+            <td class="restante">${pedido2.cantidad - resultado.corteP2 || 0}</td>
+        `;
+
+        // Colorear el sobrante según la condición
+        const sobranteCelda = tr.querySelector('.sobrante');
         if (resultado.sobrante < 170) {
             sobranteCelda.style.backgroundColor = 'green';
-            sobranteCelda.style.color = 'white'; // Opcional, para que el texto sea más legible
+            sobranteCelda.style.color = 'white';
         } else {
             sobranteCelda.style.backgroundColor = 'red';
-            sobranteCelda.style.color = 'white'; // Opcional
+            sobranteCelda.style.color = 'white';
+        } 
+
+        if (pedido2.cantidad - resultado.corteP2 > 0) {
+            const restanteCelda = tr.querySelector('.restante');
+            restanteCelda.style.backgroundColor = 'red';
+            restanteCelda.style.color = 'white';
+        } else {
+            const restanteCelda = tr.querySelector('.restante');
+            restanteCelda.style.backgroundColor = 'green';
+            restanteCelda.style.color = 'white';
         }
-            tbody.appendChild(tr);
-        });
-    }
+        
+
+
+
+
+        tbody.appendChild(tr);
+    });
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     </script>
