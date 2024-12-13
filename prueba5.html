@@ -1,162 +1,108 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Escáner de Códigos - Guardar en Arreglo</title>
+    <script src="https://cdn.jsdelivr.net/npm/quagga/dist/quagga.min.js"></script>
     <style>
-        table {
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+        #lector {
             width: 100%;
-            border-collapse: collapse;
+            max-width: 500px;
+            height: 300px;
+            margin: 20px auto;
+            border: 2px solid #ccc;
+        }
+        #resultado {
+            font-size: 18px;
             margin-top: 20px;
         }
-        th, td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: center;
+        #lista {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+            text-align: left;
         }
-        th {
-            background-color: #f4f4f4;
-        }
-        .sobrante-optimo {
-            background-color: #d4edda;
-            color: #155724;
-        }
-        .espera {
-            background-color: #f8d7da;
-            color: #721c24;
+        button {
+            margin-top: 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
         }
     </style>
 </head>
 <body>
-   
-    <p>Ingrese los anchos de los pedidos separados por comas:</p>
-    <input type="text" id="pedidos" placeholder="">
-    <button onclick="optimizar()">Optimizar</button>
-
-    <h2>Resultados</h2>
-    <div id="resultado"></div>
+    <h1>Escáner de Códigos</h1>
+    <div id="lector"></div>
+    <p id="resultado">Esperando código...</p>
+    <div id="lista">
+        <h3>Arreglo de Códigos:</h3>
+        <ul id="codigo-lista"></ul>
+    </div>
+    <button id="detener">Detener Escáner</button>
 
     <script>
-        function optimizar() {
-            const bobinas = [1880,1700, 1500, 1300, 1100, 900, 700, 500, 300]; // Bobinas disponibles
-            const refile = 30; // Espacio reservado para el refile
-            let pedidos = document.getElementById("pedidos").value.split(",").map(Number);
+        // Inicializar el arreglo para almacenar los códigos
+        const codigos = [];
 
-            const objetoResultados = {
-                resultados: [],
-                pendientes: []
-            };
-
-            while (pedidos.length > 0) {
-                let mejorCombinacion = null;
-
-                // Ordenar pedidos de mayor a menor para optimizar el espacio
-                pedidos.sort((a, b) => b - a);
-
-                // Probar cada bobina para encontrar la combinación óptima
-                for (let i = 0; i < bobinas.length; i++) {
-                    let bobinaDisponible = bobinas[i] - refile;
-
-                    // Buscar combinaciones de solo dos pedidos para la bobina
-                    for (let j = 0; j < pedidos.length; j++) {
-                        for (let k = j + 1; k < pedidos.length; k++) {
-                            const suma = pedidos[j] + pedidos[k];
-
-                            if (suma <= bobinaDisponible) {
-                                const sobrante = bobinaDisponible - suma;
-
-                                // Evaluar si es la mejor combinación hasta ahora
-                                if (
-                                    (!mejorCombinacion || sobrante < mejorCombinacion.sobrante)
-                                ) {
-                                    mejorCombinacion = {
-                                        bobina: bobinas[i],
-                                        pedidos: [pedidos[j], pedidos[k]],
-                                        suma: suma, // Suma de los anchos
-                                        sobrante: sobrante
-                                    };
-                                }
-                            }
-                        }
-                    }
+        // Inicializar QuaggaJS
+        Quagga.init({
+            inputStream: {
+                name: "Live",
+                type: "LiveStream",
+                target: document.querySelector('#lector'), // Cámara del dispositivo
+                constraints: {
+                    width: 500,
+                    height: 300,
+                    facingMode: "environment" // Usa la cámara trasera
                 }
-
-                // Si se encontró una combinación válida, asignar
-                if (mejorCombinacion) {
-                    objetoResultados.resultados.push(mejorCombinacion);
-
-                    // Eliminar los pedidos asignados
-                    pedidos = pedidos.filter(
-                        pedido => !mejorCombinacion.pedidos.includes(pedido)
-                    );
-                } else {
-                    // Si no se encontró una combinación de duplas, asignar un pedido individualmente
-                    const pedidoIndividual = pedidos[0];
-                    if (pedidoIndividual <= bobinas[0] - refile) {
-                        objetoResultados.resultados.push({
-                            bobina: bobinas[0],
-                            pedidos: [pedidoIndividual],
-                            suma: pedidoIndividual, // La suma de un solo ancho
-                            sobrante: bobinas[0] - refile - pedidoIndividual
-                        });
-                        pedidos.shift(); // Eliminar el pedido asignado
-                    } else {
-                        // Si no se puede asignar, agregar a pendientes
-                        objetoResultados.pendientes.push(...pedidos);
-                        break;
-                    }
-                }
+            },
+            decoder: {
+                readers: ["code_128_reader", "ean_reader", "ean_8_reader"] // Tipos de códigos soportados
             }
-
-            // Mostrar los resultados
-            mostrarResultados(objetoResultados);
-            console.log("Resultados finales:", objetoResultados); // Mostrar el objeto en la consola
-        }
-
-        function mostrarResultados(objetoResultados) {
-            const resultadoDiv = document.getElementById("resultado");
-            resultadoDiv.innerHTML = "";
-
-            let tablaHTML = `
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Bobina</th>
-                            <th>Pedidos Usados</th>
-                            <th>Suma de Anchos</th> <!-- Nueva columna -->
-                            <th>Sobrante</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-            `;
-
-            objetoResultados.resultados.forEach(resultado => {
-                const claseSobrante = resultado.sobrante <= 10 ? "sobrante-optimo" : "";
-                tablaHTML += `
-                    <tr>
-                        <td>${resultado.bobina}</td>
-                        <td>${resultado.pedidos.join(", ")}</td>
-                        <td>${resultado.suma}</td> <!-- Mostrar la suma de los anchos -->
-                        <td class="${claseSobrante}">${resultado.sobrante}</td>
-                    </tr>
-                `;
-            });
-
-            if (objetoResultados.pendientes.length > 0) {
-                tablaHTML += `
-                    <tr>
-                        <td colspan="4" class="espera">A la espera de más pedidos: ${objetoResultados.pendientes.join(", ")}</td>
-                    </tr>
-                `;
+        }, function(err) {
+            if (err) {
+                console.error("Error al inicializar Quagga:", err);
+                document.getElementById("resultado").textContent = "Error al inicializar la cámara.";
+                return;
             }
+            Quagga.start(); // Inicia el escáner
+            document.getElementById("resultado").textContent = "Apunta al código de barras.";
+        });
 
-            tablaHTML += `
-                    </tbody>
-                </table>
-            `;
+        // Detectar códigos escaneados
+        Quagga.onDetected(function(data) {
+            const codigo = data.codeResult.code;
 
-            resultadoDiv.innerHTML = tablaHTML;
-        }
+            // Agregar el código al arreglo si no existe ya
+            if (!codigos.includes(codigo)) {
+                codigos.push(codigo);
+                document.getElementById("resultado").textContent = "Código detectado: " + codigo;
+
+                // Mostrar el arreglo actualizado en la interfaz
+                const lista = document.getElementById("codigo-lista");
+                const nuevoCodigo = document.createElement("li");
+                nuevoCodigo.textContent = codigo;
+                lista.appendChild(nuevoCodigo);
+            } else {
+                document.getElementById("resultado").textContent = "Código repetido: " + codigo;
+            }
+        });
+
+        // Botón para detener el escáner
+        document.getElementById('detener').addEventListener('click', () => {
+            Quagga.stop();
+            document.getElementById("resultado").textContent = "Escáner detenido.";
+        });
     </script>
 </body>
 </html>
