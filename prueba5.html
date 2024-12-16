@@ -3,58 +3,194 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Actualizar Cantidad de Bobina</title>
+  <title>Actualizar Cantidad</title>
+  <script src="https://cdn.jsdelivr.net/npm/quagga/dist/quagga.min.js"></script>
+  <style>
+    /* Estilos Generales */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f9f9f9;
+      color: #333;
+      text-align: center;
+    }
+
+    h1 {
+      color: #007bff;
+    }
+
+    #scanner {
+      width: 90%;
+      max-width: 600px;
+      height: 350px;
+      margin: 10px auto;
+      border: 2px solid #ccc;
+      border-radius: 10px;
+      background-color: #000;
+    }
+
+    form {
+      margin: 20px auto;
+      width: 90%;
+      max-width: 400px;
+      text-align: left;
+    }
+
+    label {
+      font-weight: bold;
+    }
+
+    input {
+      width: 100%;
+      padding: 8px;
+      margin: 5px 0 15px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    button {
+      background-color: #28a745;
+      color: white;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      width: 100%;
+    }
+
+    button:hover {
+      background-color: #218838;
+    }
+
+    #status {
+      margin-top: 10px;
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: #28a745;
+    }
+  </style>
 </head>
 <body>
-  <h1>Actualizar Cantidad</h1>
-  <label for="id">ID de Bobina:</label>
-  <input type="text" id="id" placeholder="Ingrese el ID" required>
-  <br><br>
-  <label for="cantidad">Nueva Cantidad:</label>
-  <input type="number" id="cantidad" placeholder="Ingrese cantidad" required>
-  <br><br>
-  <button onclick="actualizarCantidad()">Actualizar</button>
+  <h1>Escáner y Actualización de Cantidad</h1>
+  <div id="scanner"></div>
+  <p id="status">Escaneando...</p>
 
-  <p id="resultado"></p>
+  <form id="update-form" style="display:none;">
+    <label for="id">ID:</label>
+    <input type="text" id="id" readonly>
+
+    <label for="tipo_papel">Tipo de Papel:</label>
+    <input type="text" id="tipo_papel" readonly>
+
+    <label for="gramaje">Gramaje:</label>
+    <input type="text" id="gramaje" readonly>
+
+    <label for="ancho">Ancho:</label>
+    <input type="text" id="ancho" readonly>
+
+    <label for="cantidad">Cantidad:</label>
+    <input type="number" id="cantidad" placeholder="Ingrese nueva cantidad">
+
+    <button type="button" onclick="actualizarCantidad()">Actualizar</button>
+  </form>
 
   <script>
-    const apiUrl = "https://megawebsistem.com/admin/api/updatebobina"; // La URL de actualización
+    const apiUrl = "https://megawebsistem.com/admin/api/allbobinas";
+    let bobinas = [];
 
+    // Cargar datos desde la API
+    async function cargarDatos() {
+      const response = await fetch(apiUrl);
+      if (!response.ok) throw new Error("Error al cargar la API");
+      bobinas = await response.json();
+      console.log("Datos cargados:", bobinas);
+    }
+
+    // Inicializar escáner
+    function iniciarEscaner() {
+      Quagga.init({
+        inputStream: {
+          type: "LiveStream",
+          target: document.querySelector("#scanner"),
+          constraints: {
+            facingMode: "environment"
+          }
+        },
+        decoder: {
+          readers: ["code_128_reader"]
+        },
+      }, function (err) {
+        if (err) {
+          console.error(err);
+          return;
+        }
+        Quagga.start();
+      });
+
+      Quagga.onDetected(data => {
+        const codigoEscaneado = data.codeResult.code;
+        console.log("Código detectado:", codigoEscaneado);
+        mostrarInformacion(codigoEscaneado);
+      });
+    }
+
+    // Mostrar información en el formulario
+    function mostrarInformacion(codigo) {
+      const status = document.getElementById("status");
+      const form = document.getElementById("update-form");
+
+      const bobina = bobinas.find(b => b.qr === codigo);
+      if (bobina) {
+        document.getElementById("id").value = bobina.id;
+        document.getElementById("tipo_papel").value = bobina.tipo_papel;
+        document.getElementById("gramaje").value = bobina.gramaje;
+        document.getElementById("ancho").value = bobina.ancho;
+        document.getElementById("cantidad").value = bobina.cantidad;
+
+        form.style.display = "block";
+        status.textContent = "Código encontrado ✅";
+        status.style.color = "#28a745";
+      } else {
+        status.textContent = "Código no encontrado ❌";
+        status.style.color = "#dc3545";
+        form.style.display = "none";
+      }
+    }
+
+    // Actualizar cantidad mediante PUT
     async function actualizarCantidad() {
       const id = document.getElementById("id").value;
-      const cantidad = document.getElementById("cantidad").value;
-      const resultado = document.getElementById("resultado");
+      const nuevaCantidad = document.getElementById("cantidad").value;
 
-      if (!id || cantidad === "") {
-        resultado.textContent = "Por favor, complete todos los campos.";
-        resultado.style.color = "red";
+      if (nuevaCantidad === "") {
+        alert("La cantidad no puede estar vacía.");
         return;
       }
 
       try {
         const response = await fetch(`${apiUrl}/${id}`, {
-          method: "PUT", // O PATCH, según tu API
+          method: "PUT",
           headers: {
             "Content-Type": "application/json"
           },
-          body: JSON.stringify({
-            cantidad: cantidad
-          })
+          body: JSON.stringify({ cantidad: nuevaCantidad })
         });
 
-        if (!response.ok) throw new Error("Error al actualizar la cantidad.");
-
-        const data = await response.json();
-        console.log("Respuesta del servidor:", data);
-
-        resultado.textContent = "Cantidad actualizada correctamente.";
-        resultado.style.color = "green";
+        if (response.ok) {
+          alert("Cantidad actualizada correctamente.");
+          document.getElementById("update-form").style.display = "none";
+          Quagga.start(); // Reiniciar el escáner
+        } else {
+          alert("Error al actualizar la cantidad.");
+        }
       } catch (error) {
-        console.error("Error:", error);
-        resultado.textContent = "Hubo un error al actualizar la cantidad.";
-        resultado.style.color = "red";
+        console.error("Error al actualizar:", error);
       }
     }
+
+    // Ejecutar al inicio
+    cargarDatos().then(() => iniciarEscaner());
   </script>
 </body>
 </html>
