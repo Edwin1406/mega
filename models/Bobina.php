@@ -24,6 +24,7 @@ class Bobina extends ActiveRecord
         $this->tipo_papel = $args['tipo_papel'] ?? '';
         $this->gramaje = $args['gramaje'] ?? '';
         $this->ancho = $args['ancho'] ?? '';
+        $this->qr = $args['qr'] ?? '';
         $this->created_at = $args['created_at'] ?? date('Y-m-d H:i:s');
         $this->updated_at = $args['updated_at'] ?? date('Y-m-d H:i:s');        
     }
