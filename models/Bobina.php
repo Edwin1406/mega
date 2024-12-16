@@ -6,13 +6,14 @@ class Bobina extends ActiveRecord
 {
     
     protected static $tabla = 'bobinas';
-    protected static $columnasDB = ['id', 'tipo_papel', 'gramaje', 'ancho','qr','created_at','updated_at'];
+    protected static $columnasDB = ['id', 'tipo_papel', 'gramaje', 'ancho','qr','cantidad','created_at','updated_at'];
 
     public $id;
     public $tipo_papel;
     public $gramaje;
     public $ancho;
     public $qr;
+    public $cantidad;
     public $created_at;
     public $updated_at;
 
@@ -25,6 +26,7 @@ class Bobina extends ActiveRecord
         $this->gramaje = $args['gramaje'] ?? '';
         $this->ancho = $args['ancho'] ?? '';
         $this->qr = $args['qr'] ?? '';
+        $this->cantidad = $args['cantidad'] ?? '';
         $this->created_at = $args['created_at'] ?? date('Y-m-d H:i:s');
         $this->updated_at = $args['updated_at'] ?? date('Y-m-d H:i:s');        
     }
