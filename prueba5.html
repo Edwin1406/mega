@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Escáner de Código de Barras</title>
+  <title>Escáner de Código de Barras con Información</title>
   <script src="https://cdn.jsdelivr.net/npm/quagga/dist/quagga.min.js"></script>
 </head>
 <body>
@@ -11,12 +11,13 @@
   <div id="scanner" style="width: 100%; max-width: 500px; height: 300px; border: 1px solid #ccc;"></div>
   <p id="status">Escaneando...</p>
   <p id="resultado"></p>
+  <pre id="info"></pre> <!-- Contenedor para la información -->
 
   <script>
-    const apiUrl = "https://megawebsistem.com/admin/api/allbobinas";
+    const apiUrl = "https://megawebsistem.com/admin/api/allbobinas"; // URL de tu API
     let bobinas = [];
 
-    // Cargar los datos desde la API
+    // Función para obtener datos desde la API
     async function cargarDatos() {
       try {
         const response = await fetch(apiUrl);
@@ -64,17 +65,20 @@
     function verificarCodigo(codigo) {
       const status = document.getElementById("status");
       const resultado = document.getElementById("resultado");
+      const info = document.getElementById("info");
 
-      // Buscar el código en los datos de la API
-      const existe = bobinas.some(bobina => bobina.qr === codigo);
+      // Buscar el objeto completo en los datos de la API
+      const bobinaEncontrada = bobinas.find(bobina => bobina.qr === codigo);
 
-      if (existe) {
+      if (bobinaEncontrada) {
         status.textContent = "Código encontrado ✅";
         resultado.textContent = `El código ${codigo} existe en la base de datos.`;
+        info.textContent = JSON.stringify(bobinaEncontrada, null, 2); // Mostrar información formateada
         resultado.style.color = "green";
       } else {
         status.textContent = "Código no encontrado ❌";
         resultado.textContent = `El código ${codigo} no existe en la base de datos.`;
+        info.textContent = ""; // Limpiar información previa
         resultado.style.color = "red";
       }
       Quagga.stop(); // Detiene el escáner temporalmente
