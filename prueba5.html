@@ -3,21 +3,96 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Escáner de Código de Barras con Información</title>
+  <title>Escáner de Código de Barras Responsive</title>
   <script src="https://cdn.jsdelivr.net/npm/quagga/dist/quagga.min.js"></script>
+  <style>
+    /* Estilos generales */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f9f9f9;
+      color: #333;
+      text-align: center;
+    }
+
+    h1 {
+      margin-top: 10px;
+      font-size: 1.8rem;
+      color: #007BFF;
+    }
+
+    /* Contenedor del escáner */
+    #scanner {
+      position: relative;
+      width: 90%;
+      max-width: 600px;
+      height: 350px;
+      margin: 20px auto;
+      border: 2px solid #ccc;
+      border-radius: 10px;
+      overflow: hidden;
+      background-color: #000;
+    }
+
+    /* Mensajes de estado */
+    #status {
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: #28a745;
+    }
+
+    #resultado {
+      margin-top: 10px;
+      font-size: 1rem;
+    }
+
+    /* Información del objeto */
+    #info {
+      background-color: #f8f9fa;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      padding: 10px;
+      margin: 20px auto;
+      width: 90%;
+      max-width: 600px;
+      text-align: left;
+      font-size: 0.9rem;
+      white-space: pre-wrap; /* Formato JSON legible */
+    }
+
+    /* Responsividad */
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 1.5rem;
+      }
+
+      #scanner {
+        height: 250px;
+      }
+
+      #status {
+        font-size: 1rem;
+      }
+
+      #resultado {
+        font-size: 0.9rem;
+      }
+    }
+  </style>
 </head>
 <body>
   <h1>Escáner de Código de Barras</h1>
-  <div id="scanner" style="width: 100%; max-width: 500px; height: 300px; border: 1px solid #ccc;"></div>
+  <div id="scanner"></div>
   <p id="status">Escaneando...</p>
   <p id="resultado"></p>
-  <pre id="info"></pre> <!-- Contenedor para la información -->
+  <pre id="info"></pre> <!-- Información formateada -->
 
   <script>
-    const apiUrl = "https://megawebsistem.com/admin/api/allbobinas"; // URL de tu API
+    const apiUrl = "https://megawebsistem.com/admin/api/allbobinas";
     let bobinas = [];
 
-    // Función para obtener datos desde la API
+    // Cargar datos desde la API
     async function cargarDatos() {
       try {
         const response = await fetch(apiUrl);
@@ -26,34 +101,36 @@
         console.log("Datos cargados:", bobinas);
       } catch (error) {
         console.error("Error al cargar la API:", error);
+        document.getElementById("status").textContent = "Error al cargar los datos.";
       }
     }
 
-    // Función para iniciar el escáner
+    // Iniciar el escáner
     function iniciarEscaner() {
       Quagga.init({
         inputStream: {
           type: "LiveStream",
-          target: document.querySelector("#scanner"), // Div donde se mostrará el video
+          target: document.querySelector("#scanner"),
           constraints: {
+            facingMode: "environment",
             width: 500,
-            height: 300,
-            facingMode: "environment" // Usa la cámara trasera si está disponible
-          },
+            height: 350
+          }
         },
         decoder: {
-          readers: ["code_128_reader"] // Formato de código de barras
+          readers: ["code_128_reader"] // Tipo de código de barras
         },
       }, function (err) {
         if (err) {
           console.error("Error al iniciar Quagga:", err);
+          document.getElementById("status").textContent = "Error al iniciar el escáner.";
           return;
         }
         console.log("Quagga iniciado.");
         Quagga.start();
       });
 
-      // Evento al detectar un código de barras
+      // Detectar el código escaneado
       Quagga.onDetected(data => {
         const codigoEscaneado = data.codeResult.code;
         console.log("Código detectado:", codigoEscaneado);
@@ -61,34 +138,31 @@
       });
     }
 
-    // Verificar si el código escaneado existe en los datos de la API
+    // Verificar si el código existe y mostrar información
     function verificarCodigo(codigo) {
       const status = document.getElementById("status");
       const resultado = document.getElementById("resultado");
       const info = document.getElementById("info");
 
-      // Buscar el objeto completo en los datos de la API
       const bobinaEncontrada = bobinas.find(bobina => bobina.qr === codigo);
 
       if (bobinaEncontrada) {
         status.textContent = "Código encontrado ✅";
-        resultado.textContent = `El código ${codigo} existe en la base de datos.`;
-        info.textContent = JSON.stringify(bobinaEncontrada, null, 2); // Mostrar información formateada
-        resultado.style.color = "green";
+        resultado.textContent = `Código ${codigo} existe en la base de datos.`;
+        info.textContent = JSON.stringify(bobinaEncontrada, null, 2);
+        resultado.style.color = "#28a745";
       } else {
         status.textContent = "Código no encontrado ❌";
-        resultado.textContent = `El código ${codigo} no existe en la base de datos.`;
-        info.textContent = ""; // Limpiar información previa
-        resultado.style.color = "red";
+        resultado.textContent = `Código ${codigo} no existe en la base de datos.`;
+        info.textContent = "";
+        resultado.style.color = "#dc3545";
       }
-      Quagga.stop(); // Detiene el escáner temporalmente
-      setTimeout(() => Quagga.start(), 2000); // Reinicia después de 2 segundos
+      Quagga.stop();
+      setTimeout(() => Quagga.start(), 2000); // Reiniciar escáner después de 2 segundos
     }
 
-    // Ejecutar
-    cargarDatos().then(() => {
-      iniciarEscaner();
-    });
+    // Cargar datos y luego iniciar escáner
+    cargarDatos().then(() => iniciarEscaner());
   </script>
 </body>
 </html>
