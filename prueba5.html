@@ -3,16 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Escáner de Código de Barras Responsivo</title>
+  <title>Escáner de Código de Barras</title>
   <script src="https://cdn.jsdelivr.net/npm/quagga/dist/quagga.min.js"></script>
   <style>
-    /* Estilos Generales */
+    /* Estilo General */
     body {
       font-family: Arial, sans-serif;
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      background-color: #f8f9fa;
+      background: linear-gradient(to bottom, #f9f9f9, #e9ecef);
       color: #333;
       display: flex;
       flex-direction: column;
@@ -24,37 +24,39 @@
     h1 {
       font-size: 1.8rem;
       color: #007bff;
-      text-align: center;
+      margin-bottom: 15px;
     }
 
     /* Contenedor del Escáner */
     #scanner {
       width: 100%;
-      max-width: 500px;
-      height: 300px;
-      margin: 10px auto;
+      max-width: 400px;
+      height: 250px;
       background-color: #000;
-      border: 2px solid #ccc;
-      border-radius: 10px;
+      border: 2px solid #007bff;
+      border-radius: 8px;
+      overflow: hidden;
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
 
     #status {
       margin: 10px 0;
-      font-size: 1.1rem;
-      text-align: center;
+      font-size: 1rem;
       font-weight: bold;
+      color: #28a745;
+      text-align: center;
     }
 
-    /* Estilo del Formulario */
+    /* Formulario Estilizado */
     form {
       background: #fff;
       padding: 20px;
-      margin: 20px auto;
-      border-radius: 8px;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      max-width: 500px;
+      margin: 15px auto;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
       width: 90%;
+      max-width: 400px;
+      text-align: left;
     }
 
     label {
@@ -65,7 +67,7 @@
 
     input {
       width: 100%;
-      padding: 10px;
+      padding: 8px;
       margin-bottom: 15px;
       border: 1px solid #ddd;
       border-radius: 5px;
@@ -73,32 +75,35 @@
     }
 
     button {
-      background-color: #28a745;
-      color: #fff;
-      padding: 10px;
+      background-color: #007bff;
+      color: white;
       border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      width: 100%;
+      padding: 10px;
       font-size: 1rem;
+      border-radius: 5px;
+      width: 100%;
+      cursor: pointer;
       transition: background 0.3s;
     }
 
     button:hover {
-      background-color: #218838;
+      background-color: #0056b3;
     }
 
     /* Responsividad */
     @media (max-width: 600px) {
       h1 {
-        font-size: 1.5rem;
+        font-size: 1.4rem;
       }
+
       #scanner {
-        height: 250px;
+        height: 200px;
       }
+
       form {
         padding: 15px;
       }
+
       input, button {
         font-size: 0.9rem;
       }
@@ -125,9 +130,9 @@
     <input type="text" id="ancho" readonly>
 
     <label for="cantidad">Cantidad:</label>
-    <input type="number" id="cantidad" placeholder="Nueva cantidad">
+    <input type="number" id="cantidad" placeholder="Ingrese nueva cantidad">
 
-    <button type="button" onclick="actualizarCantidad()">Actualizar</button>
+    <button type="button" onclick="actualizarCantidad()">Actualizar Cantidad</button>
   </form>
 
   <script>
@@ -137,20 +142,24 @@
     // Cargar datos desde la API
     async function cargarDatos() {
       const response = await fetch(apiUrl);
-      if (!response.ok) throw new Error("Error al cargar los datos");
+      if (!response.ok) throw new Error("Error al cargar la API");
       bobinas = await response.json();
       console.log("Datos cargados:", bobinas);
     }
 
-    // Iniciar escáner
+    // Inicializar escáner
     function iniciarEscaner() {
       Quagga.init({
         inputStream: {
           type: "LiveStream",
           target: document.querySelector("#scanner"),
-          constraints: { facingMode: "environment" }
+          constraints: {
+            facingMode: "environment",
+            width: 400,
+            height: 250
+          }
         },
-        decoder: { readers: ["code_128_reader"] },
+        decoder: { readers: ["code_128_reader"] }
       }, function(err) {
         if (err) {
           console.error(err);
@@ -209,7 +218,7 @@
         if (response.ok) {
           alert("Cantidad actualizada correctamente.");
           document.getElementById("update-form").style.display = "none";
-          Quagga.start(); // Reiniciar el escáner
+          Quagga.start();
         } else {
           alert("Error al actualizar la cantidad.");
         }
