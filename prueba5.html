@@ -3,205 +3,58 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Escáner de Código de Barras con Tabla Responsiva</title>
-  <script src="https://cdn.jsdelivr.net/npm/quagga/dist/quagga.min.js"></script>
-  <style>
-    /* Estilos Generales */
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      background-color: #f8f9fa;
-      color: #333;
-      text-align: center;
-    }
-
-    h1 {
-      font-size: 1.8rem;
-      color: #007bff;
-      margin-top: 10px;
-    }
-
-    #scanner {
-      position: relative;
-      width: 90%;
-      max-width: 600px;
-      height: 350px;
-      margin: 20px auto;
-      border: 2px solid #ccc;
-      border-radius: 10px;
-      overflow: hidden;
-      background-color: #000;
-    }
-
-    #status {
-      font-size: 1.2rem;
-      font-weight: bold;
-      margin-top: 10px;
-    }
-
-    #resultado {
-      margin-top: 10px;
-      font-size: 1rem;
-    }
-
-    /* Tabla Responsiva */
-    .table-container {
-      margin: 20px auto;
-      overflow-x: auto;
-      width: 90%;
-      max-width: 600px;
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin: 10px 0;
-    }
-
-    th, td {
-      padding: 10px;
-      border: 1px solid #ddd;
-      text-align: center;
-    }
-
-    th {
-      background-color: #007bff;
-      color: white;
-      text-transform: uppercase;
-    }
-
-    td {
-      background-color: #f8f9fa;
-    }
-
-    /* Responsividad */
-    @media (max-width: 600px) {
-      h1 {
-        font-size: 1.5rem;
-      }
-
-      #scanner {
-        height: 250px;
-      }
-
-      th, td {
-        font-size: 0.9rem;
-        padding: 8px;
-      }
-    }
-  </style>
+  <title>Actualizar Cantidad de Bobina</title>
 </head>
 <body>
-  <h1>Escáner de Código de Barras</h1>
-  <div id="scanner"></div>
-  <p id="status">Escaneando...</p>
+  <h1>Actualizar Cantidad</h1>
+  <label for="id">ID de Bobina:</label>
+  <input type="text" id="id" placeholder="Ingrese el ID" required>
+  <br><br>
+  <label for="cantidad">Nueva Cantidad:</label>
+  <input type="number" id="cantidad" placeholder="Ingrese cantidad" required>
+  <br><br>
+  <button onclick="actualizarCantidad()">Actualizar</button>
+
   <p id="resultado"></p>
-  <div class="table-container">
-    <table id="info-table" style="display: none;">
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Tipo Papel</th>
-          <th>Gramaje</th>
-          <th>Ancho</th>
-          <th>QR</th>
-          <th>Creado</th>
-          <th>Actualizado</th>
-        </tr>
-      </thead>
-      <tbody id="info-body"></tbody>
-    </table>
-  </div>
 
   <script>
-    const apiUrl = "https://megawebsistem.com/admin/api/allbobinas";
-    let bobinas = [];
+    const apiUrl = "https://megawebsistem.com/admin/api/updatebobina"; // La URL de actualización
 
-    // Cargar datos desde la API
-    async function cargarDatos() {
-      try {
-        const response = await fetch(apiUrl);
-        if (!response.ok) throw new Error("Error al obtener los datos de la API");
-        bobinas = await response.json();
-        console.log("Datos cargados:", bobinas);
-      } catch (error) {
-        console.error("Error al cargar la API:", error);
-        document.getElementById("status").textContent = "Error al cargar los datos.";
-      }
-    }
-
-    // Iniciar escáner
-    function iniciarEscaner() {
-      Quagga.init({
-        inputStream: {
-          type: "LiveStream",
-          target: document.querySelector("#scanner"),
-          constraints: {
-            facingMode: "environment",
-            width: 500,
-            height: 350
-          }
-        },
-        decoder: {
-          readers: ["code_128_reader"]
-        },
-      }, function (err) {
-        if (err) {
-          console.error("Error al iniciar Quagga:", err);
-          return;
-        }
-        Quagga.start();
-      });
-
-      // Evento al detectar el código de barras
-      Quagga.onDetected(data => {
-        const codigoEscaneado = data.codeResult.code;
-        console.log("Código detectado:", codigoEscaneado);
-        verificarCodigo(codigoEscaneado);
-      });
-    }
-
-    // Verificar si el código existe y mostrar la información
-    function verificarCodigo(codigo) {
-      const status = document.getElementById("status");
+    async function actualizarCantidad() {
+      const id = document.getElementById("id").value;
+      const cantidad = document.getElementById("cantidad").value;
       const resultado = document.getElementById("resultado");
-      const infoTable = document.getElementById("info-table");
-      const infoBody = document.getElementById("info-body");
 
-      const bobinaEncontrada = bobinas.find(bobina => bobina.qr === codigo);
-
-      if (bobinaEncontrada) {
-        status.textContent = "Código encontrado ✅";
-        resultado.textContent = `El código ${codigo} existe en la base de datos.`;
-
-        // Llenar la tabla con la información
-        infoBody.innerHTML = `
-          <tr>
-            <td>${bobinaEncontrada.id}</td>
-            <td>${bobinaEncontrada.tipo_papel}</td>
-            <td>${bobinaEncontrada.gramaje}</td>
-            <td>${bobinaEncontrada.ancho}</td>
-            <td>${bobinaEncontrada.qr}</td>
-            <td>${bobinaEncontrada.created_at}</td>
-            <td>${bobinaEncontrada.updated_at}</td>
-          </tr>
-        `;
-        infoTable.style.display = "table";
-        resultado.style.color = "#28a745";
-      } else {
-        status.textContent = "Código no encontrado ❌";
-        resultado.textContent = `El código ${codigo} no existe en la base de datos.`;
-        infoTable.style.display = "none";
-        resultado.style.color = "#dc3545";
+      if (!id || cantidad === "") {
+        resultado.textContent = "Por favor, complete todos los campos.";
+        resultado.style.color = "red";
+        return;
       }
 
-      Quagga.stop();
-      setTimeout(() => Quagga.start(), 2000);
-    }
+      try {
+        const response = await fetch(`${apiUrl}/${id}`, {
+          method: "PUT", // O PATCH, según tu API
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            cantidad: cantidad
+          })
+        });
 
-    // Ejecutar
-    cargarDatos().then(() => iniciarEscaner());
+        if (!response.ok) throw new Error("Error al actualizar la cantidad.");
+
+        const data = await response.json();
+        console.log("Respuesta del servidor:", data);
+
+        resultado.textContent = "Cantidad actualizada correctamente.";
+        resultado.style.color = "green";
+      } catch (error) {
+        console.error("Error:", error);
+        resultado.textContent = "Hubo un error al actualizar la cantidad.";
+        resultado.style.color = "red";
+      }
+    }
   </script>
 </body>
 </html>
