@@ -1,182 +1,90 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Optimización de Bobinas con Detalles Adicionales</title>
-    <style>
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-        th, td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: center;
-        }
-        th {
-            background-color: #f4f4f4;
-        }
-        .sobrante-optimo {
-            background-color: #d4edda;
-            color: #155724;
-        }
-        .espera {
-            background-color: #f8d7da;
-            color: #721c24;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Escáner de Código de Barras</title>
+  <script src="https://cdn.jsdelivr.net/npm/quagga/dist/quagga.min.js"></script>
 </head>
 <body>
-    <h1>Optimización de Bobinas</h1>
-    <p>Ingrese los anchos de los pedidos separados por comas:</p>
-    <input type="text" id="pedidos" placeholder="Ejemplo: 270, 573, 783, 1064">
-    <button onclick="optimizar()">Optimizar</button>
+  <h1>Escáner de Código de Barras</h1>
+  <div id="scanner" style="width: 100%; max-width: 500px; height: 300px; border: 1px solid #ccc;"></div>
+  <p id="status">Escaneando...</p>
+  <p id="resultado"></p>
 
-    <h2>Resultados</h2>
-    <div id="resultado"></div>
+  <script>
+    const apiUrl = "https://megawebsistem.com/admin/api/allbobinas";
+    let bobinas = [];
 
-    <script>
-        function optimizar() {
-            const bobinas = [1980, 1900, 1880, 1800]; // Tamaños disponibles de las bobinas
-            const refile = 30; // Espacio reservado para el refile
-            let pedidos = document.getElementById("pedidos").value.split(",").map(Number);
+    // Cargar los datos desde la API
+    async function cargarDatos() {
+      try {
+        const response = await fetch(apiUrl);
+        if (!response.ok) throw new Error("Error al obtener los datos de la API");
+        bobinas = await response.json();
+        console.log("Datos cargados:", bobinas);
+      } catch (error) {
+        console.error("Error al cargar la API:", error);
+      }
+    }
 
-            const objetoResultados = {
-                resultados: [],
-                pendientes: []
-            };
-
-            while (pedidos.length > 0) {
-                let mejorCombinacion = null;
-
-                // Ordenar pedidos de mayor a menor para optimizar el espacio
-                pedidos.sort((a, b) => b - a);
-
-                // Probar cada bobina para encontrar la combinación óptima
-                for (let i = 0; i < bobinas.length; i++) {
-                    let bobinaDisponible = bobinas[i] - refile;
-
-                    // Buscar combinaciones de pedidos para la bobina
-                    let combinacion = [];
-                    let suma = 0;
-
-                    for (let j = 0; j < pedidos.length; j++) {
-                        if (suma + pedidos[j] <= bobinaDisponible) {
-                            suma += pedidos[j];
-                            combinacion.push(pedidos[j]);
-                        }
-
-                        if (suma === bobinaDisponible || suma + Math.min(...pedidos) > bobinaDisponible) {
-                            break;
-                        }
-                    }
-
-                    const sobrante = bobinaDisponible - suma;
-
-                    // Evaluar si es la mejor combinación hasta ahora
-                    if (
-                        combinacion.length > 0 &&
-                        (!mejorCombinacion || sobrante < mejorCombinacion.sobrante)
-                    ) {
-                        mejorCombinacion = {
-                            bobina: bobinas[i],
-                            pedidos: combinacion,
-                            sobrante: sobrante
-                        };
-                    }
-                }
-
-                // Si se encontró una combinación válida, asignar
-                if (mejorCombinacion) {
-                    const detalles = calcularDetalles(mejorCombinacion);
-                    objetoResultados.resultados.push({ ...mejorCombinacion, ...detalles });
-
-                    // Eliminar los pedidos asignados
-                    pedidos = pedidos.filter(
-                        pedido => !mejorCombinacion.pedidos.includes(pedido)
-                    );
-                } else {
-                    // Si no se pudo asignar ningún pedido, añadir a pendientes
-                    objetoResultados.pendientes.push(...pedidos);
-                    break;
-                }
-            }
-
-            // Mostrar los resultados
-            mostrarResultados(objetoResultados);
-            console.log("Resultados finales:", objetoResultados); // Mostrar el objeto en la consola
+    // Función para iniciar el escáner
+    function iniciarEscaner() {
+      Quagga.init({
+        inputStream: {
+          type: "LiveStream",
+          target: document.querySelector("#scanner"), // Div donde se mostrará el video
+          constraints: {
+            width: 500,
+            height: 300,
+            facingMode: "environment" // Usa la cámara trasera si está disponible
+          },
+        },
+        decoder: {
+          readers: ["code_128_reader"] // Formato de código de barras
+        },
+      }, function (err) {
+        if (err) {
+          console.error("Error al iniciar Quagga:", err);
+          return;
         }
+        console.log("Quagga iniciado.");
+        Quagga.start();
+      });
 
-        function calcularDetalles(combinacion) {
-            const cavidad = 1; // Cavidad fija para cada ancho (1 y 1)
-            const detalles = {
-                cortes: [],
-                metrosLineales: []
-            };
+      // Evento al detectar un código de barras
+      Quagga.onDetected(data => {
+        const codigoEscaneado = data.codeResult.code;
+        console.log("Código detectado:", codigoEscaneado);
+        verificarCodigo(codigoEscaneado);
+      });
+    }
 
-            combinacion.pedidos.forEach((ancho, index) => {
-                const largo = index === 1 ? 1.90 : 1.46; // Ajuste del largo según el índice
-                const cantidad = Math.floor(Math.random() * 1000) + 500; // Simular cantidad
+    // Verificar si el código escaneado existe en los datos de la API
+    function verificarCodigo(codigo) {
+      const status = document.getElementById("status");
+      const resultado = document.getElementById("resultado");
 
-                // Cálculos
-                const cortes = cantidad * cavidad;
-                const metrosLineales = (cantidad * largo) / 1000;
+      // Buscar el código en los datos de la API
+      const existe = bobinas.some(bobina => bobina.qr === codigo);
 
-                detalles.cortes.push(cortes);
-                detalles.metrosLineales.push(metrosLineales.toFixed(2));
-            });
+      if (existe) {
+        status.textContent = "Código encontrado ✅";
+        resultado.textContent = `El código ${codigo} existe en la base de datos.`;
+        resultado.style.color = "green";
+      } else {
+        status.textContent = "Código no encontrado ❌";
+        resultado.textContent = `El código ${codigo} no existe en la base de datos.`;
+        resultado.style.color = "red";
+      }
+      Quagga.stop(); // Detiene el escáner temporalmente
+      setTimeout(() => Quagga.start(), 2000); // Reinicia después de 2 segundos
+    }
 
-            return detalles;
-        }
-
-        function mostrarResultados(objetoResultados) {
-            const resultadoDiv = document.getElementById("resultado");
-            resultadoDiv.innerHTML = "";
-
-            let tablaHTML = `
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Bobina</th>
-                            <th>Pedidos Usados</th>
-                            <th>Cortes</th>
-                            <th>Metros Lineales</th>
-                            <th>Sobrante</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-            `;
-
-            objetoResultados.resultados.forEach(resultado => {
-                const claseSobrante = resultado.sobrante <= 10 ? "sobrante-optimo" : "";
-                tablaHTML += `
-                    <tr>
-                        <td>${resultado.bobina}</td>
-                        <td>${resultado.pedidos.join(", ")}</td>
-                        <td>${resultado.cortes.join(", ")}</td>
-                        <td>${resultado.metrosLineales.join(", ")}</td>
-                        <td class="${claseSobrante}">${resultado.sobrante}</td>
-                    </tr>
-                `;
-            });
-
-            if (objetoResultados.pendientes.length > 0) {
-                tablaHTML += `
-                    <tr>
-                        <td colspan="5" class="espera">A la espera de más pedidos: ${objetoResultados.pendientes.join(", ")}</td>
-                    </tr>
-                `;
-            }
-
-            tablaHTML += `
-                    </tbody>
-                </table>
-            `;
-
-            resultadoDiv.innerHTML = tablaHTML;
-        }
-    </script>
+    // Ejecutar
+    cargarDatos().then(() => {
+      iniciarEscaner();
+    });
+  </script>
 </body>
 </html>
