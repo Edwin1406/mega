@@ -1,108 +1,53 @@
+<script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Escáner de Códigos - Guardar en Arreglo</title>
-    <script src="https://cdn.jsdelivr.net/npm/quagga/dist/quagga.min.js"></script>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            margin: 0;
-            padding: 0;
-        }
-        #lector {
-            width: 100%;
-            max-width: 500px;
-            height: 300px;
-            margin: 20px auto;
-            border: 2px solid #ccc;
-        }
-        #resultado {
-            font-size: 18px;
-            margin-top: 20px;
-        }
-        #lista {
-            margin-top: 20px;
-            padding: 10px;
-            border: 1px solid #ccc;
-            max-width: 500px;
-            margin-left: auto;
-            margin-right: auto;
-            text-align: left;
-        }
-        button {
-            margin-top: 10px;
-            padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
-        }
-    </style>
+    <title>Generar QR</title>
 </head>
 <body>
-    <h1>Escáner de Códigos</h1>
-    <div id="lector"></div>
-    <p id="resultado">Esperando código...</p>
-    <div id="lista">
-        <h3>Arreglo de Códigos:</h3>
-        <ul id="codigo-lista"></ul>
-    </div>
-    <button id="detener">Detener Escáner</button>
-
+    <h1>Generar Código QR</h1>
+    <div id="qr-container"></div>
+    <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
     <script>
-        // Inicializar el arreglo para almacenar los códigos
-        const codigos = [];
+        // URL de tu API
+        const apiUrl = "https://megawebsistem.com/admin/api/allbobinas";
 
-        // Inicializar QuaggaJS
-        Quagga.init({
-            inputStream: {
-                name: "Live",
-                type: "LiveStream",
-                target: document.querySelector('#lector'), // Cámara del dispositivo
-                constraints: {
-                    width: 500,
-                    height: 300,
-                    facingMode: "environment" // Usa la cámara trasera
+        // Obtener datos de la API
+        async function obtenerDatos() {
+            try {
+                const respuesta = await fetch(apiUrl);
+                const datos = await respuesta.json();
+
+                // Filtrar un objeto específico (por ejemplo, ID 27)
+                const bobina = datos.find(item => item.id === 27);
+
+                if (bobina) {
+                    const qrData = bobina.qr.toString(); // Convertir a string
+                    generarQR(qrData);
+                } else {
+                    console.error("No se encontró el objeto con ID 27");
                 }
-            },
-            decoder: {
-                readers: ["code_128_reader", "ean_reader", "ean_8_reader"] // Tipos de códigos soportados
+            } catch (error) {
+                console.error("Error al obtener datos:", error);
             }
-        }, function(err) {
-            if (err) {
-                console.error("Error al inicializar Quagga:", err);
-                document.getElementById("resultado").textContent = "Error al inicializar la cámara.";
-                return;
-            }
-            Quagga.start(); // Inicia el escáner
-            document.getElementById("resultado").textContent = "Apunta al código de barras.";
-        });
+        }
 
-        // Detectar códigos escaneados
-        Quagga.onDetected(function(data) {
-            const codigo = data.codeResult.code;
+        // Función para generar el QR
+        function generarQR(data) {
+            const qrContainer = document.getElementById("qr-container");
+            QRCode.toCanvas(qrContainer, data, function (error) {
+                if (error) {
+                    console.error("Error generando el QR:", error);
+                } else {
+                    console.log("Código QR generado con éxito:", data);
+                }
+            });
+        }
 
-            // Agregar el código al arreglo si no existe ya
-            if (!codigos.includes(codigo)) {
-                codigos.push(codigo);
-                document.getElementById("resultado").textContent = "Código detectado: " + codigo;
-
-                // Mostrar el arreglo actualizado en la interfaz
-                const lista = document.getElementById("codigo-lista");
-                const nuevoCodigo = document.createElement("li");
-                nuevoCodigo.textContent = codigo;
-                lista.appendChild(nuevoCodigo);
-            } else {
-                document.getElementById("resultado").textContent = "Código repetido: " + codigo;
-            }
-        });
-
-        // Botón para detener el escáner
-        document.getElementById('detener').addEventListener('click', () => {
-            Quagga.stop();
-            document.getElementById("resultado").textContent = "Escáner detenido.";
-        });
+        // Llamar a la función para obtener datos y generar el QR
+        obtenerDatos();
     </script>
 </body>
 </html>
