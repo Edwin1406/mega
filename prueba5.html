@@ -21,7 +21,7 @@
                 const datos = await respuesta.json();
 
                 // Filtrar un objeto específico (por ejemplo, ID 27)
-                const bobina = datos.find(item => item.id === 27);
+                const bobina = datos.find(item => item.id === 26);
 
                 if (bobina) {
                     const qrData = bobina.qr.toString(); // Convertir a string

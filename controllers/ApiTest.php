@@ -9,9 +9,7 @@ class ApiTest {
 
     public static function api()
     {
-         header("Access-Control-Allow-Origin: *");  // Permite solicitudes desde cualquier origen
-        header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS"); // Métodos permitidos
-        header("Access-Control-Allow-Headers: Content-Type, Authorization"); // Cabeceras permitidas
+        
         $liner_id= $_GET['liner_id'] ?? '';
         $liner_id =filter_var($liner_id, FILTER_VALIDATE_INT);
 
