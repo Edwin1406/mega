@@ -1,53 +1,57 @@
-<script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Generar QR</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Generar QR desde API</title>
+  <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
 </head>
 <body>
-    <h1>Generar Código QR</h1>
-    <div id="qr-container"></div>
-    <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
-    <script>
-        // URL de tu API
-        const apiUrl = "https://megawebsistem.com/admin/api/allbobinas";
+  <h1>Generar Códigos QR desde la API</h1>
+  <div id="qrs"></div>
 
-        // Obtener datos de la API
-        async function obtenerDatos() {
-            try {
-                const respuesta = await fetch(apiUrl);
-                const datos = await respuesta.json();
+  <script>
+    const apiUrl = "https://megawebsistem.com/admin/api/allbobinas"; // URL de tu API
+    const qrContainer = document.getElementById('qrs');
 
-                // Filtrar un objeto específico (por ejemplo, ID 27)
-                const bobina = datos.find(item => item.id === 26);
+    // Función para obtener datos desde la API
+    async function obtenerDatos() {
+      try {
+        const response = await fetch(apiUrl);
+        if (!response.ok) throw new Error("Error al obtener los datos de la API");
 
-                if (bobina) {
-                    const qrData = bobina.qr.toString(); // Convertir a string
-                    generarQR(qrData);
-                } else {
-                    console.error("No se encontró el objeto con ID 27");
-                }
-            } catch (error) {
-                console.error("Error al obtener datos:", error);
-            }
-        }
+        const bobinas = await response.json();
+        generarQRCodes(bobinas);
+      } catch (error) {
+        console.error("Error:", error);
+        qrContainer.innerHTML = `<p style="color: red;">No se pudieron cargar los datos.</p>`;
+      }
+    }
 
-        // Función para generar el QR
-        function generarQR(data) {
-            const qrContainer = document.getElementById("qr-container");
-            QRCode.toCanvas(qrContainer, data, function (error) {
-                if (error) {
-                    console.error("Error generando el QR:", error);
-                } else {
-                    console.log("Código QR generado con éxito:", data);
-                }
-            });
-        }
+    // Función para generar los códigos QR
+    function generarQRCodes(bobinas) {
+      bobinas.forEach(bobina => {
+        const div = document.createElement('div');
+        div.style.margin = "20px";
 
-        // Llamar a la función para obtener datos y generar el QR
-        obtenerDatos();
-    </script>
+        // Información de la bobina
+        const info = document.createElement('p');
+        info.textContent = `ID: ${bobina.id}, Tipo: ${bobina.tipo_papel}, QR: ${bobina.qr}`;
+        div.appendChild(info);
+
+        // Generar QR
+        const canvas = document.createElement('canvas');
+        QRCode.toCanvas(canvas, bobina.qr, function (error) {
+          if (error) console.error("Error generando QR:", error);
+        });
+
+        div.appendChild(canvas);
+        qrContainer.appendChild(div);
+      });
+    }
+
+    // Ejecutar
+    obtenerDatos();
+  </script>
 </body>
 </html>
