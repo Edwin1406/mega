@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Actualizar Cantidad</title>
+  <title>Escáner de Código de Barras Responsivo</title>
   <script src="https://cdn.jsdelivr.net/npm/quagga/dist/quagga.min.js"></script>
   <style>
     /* Estilos Generales */
@@ -11,71 +11,106 @@
       font-family: Arial, sans-serif;
       margin: 0;
       padding: 0;
-      background-color: #f9f9f9;
+      box-sizing: border-box;
+      background-color: #f8f9fa;
       color: #333;
-      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
     }
 
     h1 {
+      font-size: 1.8rem;
       color: #007bff;
+      text-align: center;
     }
 
+    /* Contenedor del Escáner */
     #scanner {
-      width: 90%;
-      max-width: 600px;
-      height: 350px;
+      width: 100%;
+      max-width: 500px;
+      height: 300px;
       margin: 10px auto;
+      background-color: #000;
       border: 2px solid #ccc;
       border-radius: 10px;
-      background-color: #000;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
 
+    #status {
+      margin: 10px 0;
+      font-size: 1.1rem;
+      text-align: center;
+      font-weight: bold;
+    }
+
+    /* Estilo del Formulario */
     form {
+      background: #fff;
+      padding: 20px;
       margin: 20px auto;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      max-width: 500px;
       width: 90%;
-      max-width: 400px;
-      text-align: left;
     }
 
     label {
+      display: block;
       font-weight: bold;
+      margin-bottom: 5px;
     }
 
     input {
       width: 100%;
-      padding: 8px;
-      margin: 5px 0 15px;
-      border: 1px solid #ccc;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ddd;
       border-radius: 5px;
+      font-size: 1rem;
     }
 
     button {
       background-color: #28a745;
-      color: white;
+      color: #fff;
       padding: 10px;
       border: none;
       border-radius: 5px;
       cursor: pointer;
       width: 100%;
+      font-size: 1rem;
+      transition: background 0.3s;
     }
 
     button:hover {
       background-color: #218838;
     }
 
-    #status {
-      margin-top: 10px;
-      font-size: 1.2rem;
-      font-weight: bold;
-      color: #28a745;
+    /* Responsividad */
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 1.5rem;
+      }
+      #scanner {
+        height: 250px;
+      }
+      form {
+        padding: 15px;
+      }
+      input, button {
+        font-size: 0.9rem;
+      }
     }
   </style>
 </head>
 <body>
-  <h1>Escáner y Actualización de Cantidad</h1>
+  <h1>Escáner de Código de Barras</h1>
   <div id="scanner"></div>
   <p id="status">Escaneando...</p>
 
+  <!-- Formulario para editar la cantidad -->
   <form id="update-form" style="display:none;">
     <label for="id">ID:</label>
     <input type="text" id="id" readonly>
@@ -90,7 +125,7 @@
     <input type="text" id="ancho" readonly>
 
     <label for="cantidad">Cantidad:</label>
-    <input type="number" id="cantidad" placeholder="Ingrese nueva cantidad">
+    <input type="number" id="cantidad" placeholder="Nueva cantidad">
 
     <button type="button" onclick="actualizarCantidad()">Actualizar</button>
   </form>
@@ -102,25 +137,21 @@
     // Cargar datos desde la API
     async function cargarDatos() {
       const response = await fetch(apiUrl);
-      if (!response.ok) throw new Error("Error al cargar la API");
+      if (!response.ok) throw new Error("Error al cargar los datos");
       bobinas = await response.json();
       console.log("Datos cargados:", bobinas);
     }
 
-    // Inicializar escáner
+    // Iniciar escáner
     function iniciarEscaner() {
       Quagga.init({
         inputStream: {
           type: "LiveStream",
           target: document.querySelector("#scanner"),
-          constraints: {
-            facingMode: "environment"
-          }
+          constraints: { facingMode: "environment" }
         },
-        decoder: {
-          readers: ["code_128_reader"]
-        },
-      }, function (err) {
+        decoder: { readers: ["code_128_reader"] },
+      }, function(err) {
         if (err) {
           console.error(err);
           return;
@@ -137,10 +168,10 @@
 
     // Mostrar información en el formulario
     function mostrarInformacion(codigo) {
-      const status = document.getElementById("status");
-      const form = document.getElementById("update-form");
-
       const bobina = bobinas.find(b => b.qr === codigo);
+      const form = document.getElementById("update-form");
+      const status = document.getElementById("status");
+
       if (bobina) {
         document.getElementById("id").value = bobina.id;
         document.getElementById("tipo_papel").value = bobina.tipo_papel;
@@ -152,18 +183,18 @@
         status.textContent = "Código encontrado ✅";
         status.style.color = "#28a745";
       } else {
+        form.style.display = "none";
         status.textContent = "Código no encontrado ❌";
         status.style.color = "#dc3545";
-        form.style.display = "none";
       }
     }
 
     // Actualizar cantidad mediante PUT
     async function actualizarCantidad() {
       const id = document.getElementById("id").value;
-      const nuevaCantidad = document.getElementById("cantidad").value;
+      const cantidad = document.getElementById("cantidad").value;
 
-      if (nuevaCantidad === "") {
+      if (!cantidad) {
         alert("La cantidad no puede estar vacía.");
         return;
       }
@@ -171,10 +202,8 @@
       try {
         const response = await fetch(`${apiUrl}/${id}`, {
           method: "PUT",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({ cantidad: nuevaCantidad })
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ cantidad })
         });
 
         if (response.ok) {
@@ -185,11 +214,10 @@
           alert("Error al actualizar la cantidad.");
         }
       } catch (error) {
-        console.error("Error al actualizar:", error);
+        console.error("Error:", error);
       }
     }
 
-    // Ejecutar al inicio
     cargarDatos().then(() => iniciarEscaner());
   </script>
 </body>
