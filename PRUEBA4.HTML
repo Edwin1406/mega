@@ -3,88 +3,60 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Escáner de Código de Barras</title>
-  <script src="https://cdn.jsdelivr.net/npm/quagga/dist/quagga.min.js"></script>
+  <title>Generar Código de Barras desde API</title>
+  <script src="https://cdn.jsdelivr.net/npm/jsbarcode/dist/JsBarcode.all.min.js"></script>
 </head>
 <body>
-  <h1>Escáner de Código de Barras</h1>
-  <div id="scanner" style="width: 100%; max-width: 500px; height: 300px; border: 1px solid #ccc;"></div>
-  <p id="status">Escaneando...</p>
-  <p id="resultado"></p>
+  <h1>Generar Códigos de Barras desde la API</h1>
+  <div id="barcodes"></div>
 
   <script>
-    const apiUrl = "https://megawebsistem.com/admin/api/allbobinas";
-    let bobinas = [];
+    const apiUrl = "https://megawebsistem.com/admin/api/allbobinas"; // URL de tu API
+    const barcodeContainer = document.getElementById('barcodes');
 
-    // Cargar los datos desde la API
-    async function cargarDatos() {
+    // Función para obtener datos desde la API
+    async function obtenerDatos() {
       try {
         const response = await fetch(apiUrl);
         if (!response.ok) throw new Error("Error al obtener los datos de la API");
-        bobinas = await response.json();
-        console.log("Datos cargados:", bobinas);
+
+        const bobinas = await response.json();
+        generarCodigosDeBarras(bobinas);
       } catch (error) {
-        console.error("Error al cargar la API:", error);
+        console.error("Error:", error);
+        barcodeContainer.innerHTML = `<p style="color: red;">No se pudieron cargar los datos.</p>`;
       }
     }
 
-    // Función para iniciar el escáner
-    function iniciarEscaner() {
-      Quagga.init({
-        inputStream: {
-          type: "LiveStream",
-          target: document.querySelector("#scanner"), // Div donde se mostrará el video
-          constraints: {
-            width: 500,
-            height: 300,
-            facingMode: "environment" // Usa la cámara trasera si está disponible
-          },
-        },
-        decoder: {
-          readers: ["code_128_reader"] // Formato de código de barras
-        },
-      }, function (err) {
-        if (err) {
-          console.error("Error al iniciar Quagga:", err);
-          return;
-        }
-        console.log("Quagga iniciado.");
-        Quagga.start();
+    // Función para generar los códigos de barras
+    function generarCodigosDeBarras(bobinas) {
+      bobinas.forEach(bobina => {
+        const div = document.createElement('div');
+        div.style.margin = "20px";
+
+        // Información de la bobina
+        const info = document.createElement('p');
+        info.textContent = `ID: ${bobina.id}, Tipo: ${bobina.tipo_papel}, Código: ${bobina.qr}`;
+        div.appendChild(info);
+
+        // Crear un elemento canvas para el código de barras
+        const canvas = document.createElement('canvas');
+        JsBarcode(canvas, bobina.qr, {
+          format: "CODE128", // Formato de código de barras
+          displayValue: true, // Mostrar el valor numérico debajo
+          fontSize: 14,
+          lineColor: "#000",
+          width: 2,
+          height: 60
+        });
+
+        div.appendChild(canvas);
+        barcodeContainer.appendChild(div);
       });
-
-      // Evento al detectar un código de barras
-      Quagga.onDetected(data => {
-        const codigoEscaneado = data.codeResult.code;
-        console.log("Código detectado:", codigoEscaneado);
-        verificarCodigo(codigoEscaneado);
-      });
-    }
-
-    // Verificar si el código escaneado existe en los datos de la API
-    function verificarCodigo(codigo) {
-      const status = document.getElementById("status");
-      const resultado = document.getElementById("resultado");
-
-      // Buscar el código en los datos de la API
-      const existe = bobinas.some(bobina => bobina.qr === codigo);
-
-      if (existe) {
-        status.textContent = "Código encontrado ✅";
-        resultado.textContent = `El código ${codigo} existe en la base de datos.`;
-        resultado.style.color = "green";
-      } else {
-        status.textContent = "Código no encontrado ❌";
-        resultado.textContent = `El código ${codigo} no existe en la base de datos.`;
-        resultado.style.color = "red";
-      }
-      Quagga.stop(); // Detiene el escáner temporalmente
-      setTimeout(() => Quagga.start(), 2000); // Reinicia después de 2 segundos
     }
 
     // Ejecutar
-    cargarDatos().then(() => {
-      iniciarEscaner();
-    });
+    obtenerDatos();
   </script>
 </body>
 </html>
