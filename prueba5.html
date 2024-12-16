@@ -3,16 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Generar QR desde API</title>
-  <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+  <title>Generar Código de Barras desde API</title>
+  <script src="https://cdn.jsdelivr.net/npm/jsbarcode/dist/JsBarcode.all.min.js"></script>
 </head>
 <body>
-  <h1>Generar Códigos QR desde la API</h1>
-  <div id="qrs"></div>
+  <h1>Generar Códigos de Barras desde la API</h1>
+  <div id="barcodes"></div>
 
   <script>
     const apiUrl = "https://megawebsistem.com/admin/api/allbobinas"; // URL de tu API
-    const qrContainer = document.getElementById('qrs');
+    const barcodeContainer = document.getElementById('barcodes');
 
     // Función para obtener datos desde la API
     async function obtenerDatos() {
@@ -21,32 +21,37 @@
         if (!response.ok) throw new Error("Error al obtener los datos de la API");
 
         const bobinas = await response.json();
-        generarQRCodes(bobinas);
+        generarCodigosDeBarras(bobinas);
       } catch (error) {
         console.error("Error:", error);
-        qrContainer.innerHTML = `<p style="color: red;">No se pudieron cargar los datos.</p>`;
+        barcodeContainer.innerHTML = `<p style="color: red;">No se pudieron cargar los datos.</p>`;
       }
     }
 
-    // Función para generar los códigos QR
-    function generarQRCodes(bobinas) {
+    // Función para generar los códigos de barras
+    function generarCodigosDeBarras(bobinas) {
       bobinas.forEach(bobina => {
         const div = document.createElement('div');
         div.style.margin = "20px";
 
         // Información de la bobina
         const info = document.createElement('p');
-        info.textContent = `ID: ${bobina.id}, Tipo: ${bobina.tipo_papel}, QR: ${bobina.qr}`;
+        info.textContent = `ID: ${bobina.id}, Tipo: ${bobina.tipo_papel}, Código: ${bobina.qr}`;
         div.appendChild(info);
 
-        // Generar QR
+        // Crear un elemento canvas para el código de barras
         const canvas = document.createElement('canvas');
-        QRCode.toCanvas(canvas, bobina.qr, function (error) {
-          if (error) console.error("Error generando QR:", error);
+        JsBarcode(canvas, bobina.qr, {
+          format: "CODE128", // Formato de código de barras
+          displayValue: true, // Mostrar el valor numérico debajo
+          fontSize: 14,
+          lineColor: "#000",
+          width: 2,
+          height: 60
         });
 
         div.appendChild(canvas);
-        qrContainer.appendChild(div);
+        barcodeContainer.appendChild(div);
       });
     }
 
