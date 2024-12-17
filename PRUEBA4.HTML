@@ -3,60 +3,153 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Código de Barras desde API</title>
+  <title>Etiquetas Bobina</title>
   <script src="https://cdn.jsdelivr.net/npm/jsbarcode/dist/JsBarcode.all.min.js"></script>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f8f9fa;
+    }
+
+    .contenedor-etiquetas {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      padding: 20px;
+      justify-content: center;
+    }
+
+    .etiqueta {
+      width: 320px;
+      border: 2px solid #000;
+      box-sizing: border-box;
+      border-radius: 10px;
+      display: flex;
+      flex-direction: column;
+      background-color: #fff;
+      overflow: hidden;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Encabezado */
+    .encabezado {
+      background-color: #FFA41B;
+      color: black;
+      padding: 10px;
+      font-weight: bold;
+      text-align: center;
+      position: relative;
+      font-size: 16px;
+    }
+
+    .encabezado img {
+      position: absolute;
+      left: 10px;
+      top: 5px;
+      width: 40px;
+      height: 40px;
+    }
+
+    /* Información */
+    .info {
+      padding: 10px 20px;
+      font-size: 14px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      row-gap: 8px;
+    }
+
+    .info p {
+      margin: 0;
+    }
+
+    .info strong {
+      font-weight: bold;
+    }
+
+    /* Divisor */
+    hr {
+      margin: 0;
+      border: none;
+      border-top: 2px solid #000;
+    }
+
+    /* Código de barras */
+    .codigo-barras {
+      text-align: center;
+      padding: 10px 0;
+    }
+    @media print {
+  * {
+    -webkit-print-color-adjust: exact !important; /* Forzar impresión de colores en Chrome */
+    print-color-adjust: exact !important;         /* Para otros navegadores */
+  }
+
+  .encabezado {
+    background-color: #FFA41B !important; /* Asegurar el color */
+    color: black !important;
+  }
+
+  .etiqueta {
+    border: 2px solid #000 !important; /* Forzar borde negro */
+  }
+  
+}
+
+  </style>
 </head>
+
 <body>
-  <h1>Barras desde la API</h1>
-  <div id="barcodes"></div>
+  <div class="contenedor-etiquetas" id="contenedor-etiquetas"></div>
 
   <script>
-    const apiUrl = "https://megawebsistem.com/admin/api/allbobinas"; // URL de tu API
-    const barcodeContainer = document.getElementById('barcodes');
+    // API dinámica para obtener etiquetas de bobinas
+    fetch("https://megawebsistem.com/admin/api/allbobinas")
+      .then(response => response.json())
+      .then(bobinas => {
+        const contenedor = document.getElementById("contenedor-etiquetas");
+        contenedor.innerHTML = ''; // Limpiar contenedor
 
-    // Función para obtener datos desde la API
-    async function obtenerDatos() {
-      try {
-        const response = await fetch(apiUrl);
-        if (!response.ok) throw new Error("Error al obtener los datos de la API");
+        // Crear etiqueta por cada bobina
+        bobinas.forEach((bobina, index) => {
+          const etiquetaDiv = document.createElement("div");
+          etiquetaDiv.className = "etiqueta";
+          etiquetaDiv.innerHTML = `
+            <div class="encabezado">
+              <img src="/src/img/logo2.png" alt="Logo">
+              MEGASTOCK 
+              </br>${bobina.tipo_papel}
+            </div>
+            <hr>
+            <div class="info">
+              <p><strong>TIPO:</strong> ${bobina.tipo_papel || 'N/A'}</p>
+              <p><strong>CANTIDAD:</strong> ${bobina.cantidad || 'N/A'}</p>
+              <p><strong>GRAMAJE:</strong> ${bobina.gramaje || 'N/A'} GR</p>
+              <p><strong>LINER:</strong> ${bobina.liner || 'BLANCO/KRAFT'}</p>
+              <p><strong>ANCHO:</strong> ${bobina.ancho || 'N/A'}</p>
+              <p><strong>LARGO:</strong> ${bobina.largo || '100000m'}</p>
+              <p><strong>PESO:</strong> ${bobina.peso || '1900KG'}</p>
+            </div>
+            <hr>
+            <div class="codigo-barras">
+              <svg id="barcode-${index}"></svg>
+            </div>
+          `;
+          contenedor.appendChild(etiquetaDiv);
 
-        const bobinas = await response.json();
-        generarCodigosDeBarras(bobinas);
-      } catch (error) {
-        console.error("Error:", error);
-        barcodeContainer.innerHTML = `<p style="color: red;">No se pudieron cargar los datos.</p>`;
-      }
-    }
-
-    // Función para generar los códigos de barras
-    function generarCodigosDeBarras(bobinas) {
-      bobinas.forEach(bobina => {
-        const div = document.createElement('div');
-        div.style.margin = "20px";
-
-        // Información de la bobina
-        const info = document.createElement('p');
-        info.textContent = `ID: ${bobina.id}, Tipo: ${bobina.tipo_papel}, Código: ${bobina.qr}`;
-        div.appendChild(info);
-
-        // Crear un elemento canvas para el código de barras
-        const canvas = document.createElement('canvas');
-        JsBarcode(canvas, bobina.qr, {
-          format: "CODE128", // Formato de código de barras
-          displayValue: true, // Mostrar el valor numérico debajo
-          fontSize: 14,
-          lineColor: "#000",
-          width: 2,
-          height: 60
+          // Generar código de barras
+          JsBarcode(`#barcode-${index}`, bobina.qr || `ID-${bobina.id}`, {
+            format: "CODE128",
+            width: 2,
+            height: 50,
+            displayValue: false
+          });
         });
-
-        div.appendChild(canvas);
-        barcodeContainer.appendChild(div);
+      })
+      .catch(error => {
+        console.error("Error al obtener las bobinas:", error);
       });
-    }
-
-    // Ejecutar
-    obtenerDatos();
   </script>
 </body>
 </html>
