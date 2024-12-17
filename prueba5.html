@@ -73,6 +73,8 @@
     const apiUrl = "https://megawebsistem.com/admin/api/allbobinas";
     let codigos = {};
     let productos = [];
+    let ultimaDeteccion = {}; // Almacena la última detección de códigos
+    const bloqueoTiempo = 2000; // Tiempo de espera en milisegundos
 
     // Cargar datos desde la API
     async function cargarDatos() {
@@ -109,6 +111,14 @@
 
       Quagga.onDetected(data => {
         const codigoEscaneado = data.codeResult.code;
+        const ahora = new Date().getTime();
+
+        // Verificar si el código fue detectado recientemente
+        if (ultimaDeteccion[codigoEscaneado] && ahora - ultimaDeteccion[codigoEscaneado] < bloqueoTiempo) {
+          return; // Ignorar detección duplicada
+        }
+
+        ultimaDeteccion[codigoEscaneado] = ahora; // Actualizar tiempo de detección
         console.log("Código detectado:", codigoEscaneado);
         manejarProducto(codigoEscaneado);
       });
