@@ -7,18 +7,18 @@ use Classes\ValidarCedula;
 class Cliente extends ActiveRecord {
 
     protected static $tabla = 'visor';
-    protected static $columnasDB = ['id', 'codigo','nombre','imagen'];
+    protected static $columnasDB = ['id', 'nombre_cliente','nombre_producto','imagen'];
 
     public $id;
-    public $codigo;
-    public $nombre;
+    public $nombre_cliente;
+    public $nombre_producto;
     public $imagen;
 
     public function __construct($args = [])
     {
         $this->id = $args['id'] ?? null;
-        $this->nombre = $args['nombre'] ?? '';
-        $this->codigo = $args['codigo'] ?? '';
+        $this->nombre_cliente = $args['nombre_cliente'] ?? '';
+        $this->nombre_producto = $args['nombre_producto'] ?? '';
         $this->imagen = $args['imagen'] ?? '';
     }
 
@@ -28,10 +28,11 @@ class Cliente extends ActiveRecord {
 
     public function validar() {
 
-        if(!$this->codigo) {
+        if(!$this->nombre_cliente) {
             self::$alertas['error'][] = 'El Campo Codigo es Obligatorio';
         }
-        if(!$this->nombre) {
+
+        if(!$this->nombre_producto) {
             self::$alertas['error'][] = 'El Campo Nombre es Obligatorio';
         }
        
