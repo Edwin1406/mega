@@ -98,7 +98,7 @@ class ClienteController
                     }
                 }
             
-            
+            }}
 
          // Render a la vista
          $router->render('admin/vendedor/cliente/crear', [
