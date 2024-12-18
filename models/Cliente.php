@@ -34,9 +34,7 @@ class Cliente extends ActiveRecord {
         if(!$this->nombre) {
             self::$alertas['error'][] = 'El Campo Nombre es Obligatorio';
         }
-        if(!$this->imagen) {
-            self::$alertas['error'][] = 'El Campo Imagen es Obligatorio';
-        }
+       
         return self::$alertas;
     }
 
