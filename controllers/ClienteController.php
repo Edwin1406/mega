@@ -45,7 +45,7 @@ class ClienteController
 
                 // debuguear($cliente);
 
-            }
+            
 
         }
 
