@@ -24,7 +24,10 @@
                     <tr class="table__tr">
                         <td class="table__td"><?php echo $maquina->codigo?></td>
                         <td class="table__td"><?php echo $maquina->nombre?></td>
-                        <img src="/src/visor/<?php echo htmlspecialchars($maquina->imagen) ?>" alt="Imagen del visor" class="table__td">
+                        <td class="table__td">
+                            <img src="/src/visor/<?php echo htmlspecialchars($maquina->imagen) ?>" 
+                                 alt="Imagen" style="width: 100px; height: auto;">
+                        </td>
                         </td>
 
 
