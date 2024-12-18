@@ -33,13 +33,27 @@
                         <td class="table__td"><?php echo $maquina->codigo?></td>
                         <td class="table__td"><?php echo $maquina->nombre?></td>
                         <td class="table__td">
-                            <img 
-                                src="/src/visor/<?php echo htmlspecialchars($maquina->imagen) ?>" 
-                                alt="Imagen" 
-                                class="imagen-miniatura" 
-                                style="width: 100px; height: auto; cursor: pointer;"
-                                onclick="mostrarImagen(this.src)">
-                        </td>
+    <?php 
+    $rutaArchivo = "/src/visor/" . htmlspecialchars($maquina->imagen);
+    $extension = pathinfo($maquina->imagen, PATHINFO_EXTENSION);
+
+    if (in_array(strtolower($extension), ['jpg', 'jpeg', 'png', 'gif'])): ?>
+        <!-- Mostrar miniatura para imágenes -->
+        <img 
+            src="<?php echo $rutaArchivo ?>" 
+            alt="Imagen" 
+            class="imagen-miniatura" 
+            style="width: 100px; height: auto; cursor: pointer;" 
+            onclick="mostrarImagen(this.src)">
+    <?php elseif (strtolower($extension) === 'pdf'): ?>
+        <!-- Mostrar enlace para visualizar PDF -->
+        <a href="<?php echo $rutaArchivo ?>" target="_blank" class="enlace-pdf">Ver PDF</a>
+    <?php else: ?>
+        <!-- Mostrar enlace para descargar otros archivos -->
+        <a href="<?php echo $rutaArchivo ?>" download class="enlace-descarga">Descargar archivo</a>
+    <?php endif; ?>
+</td>
+
                     </tr>
                 <?php endforeach;?>
             </tbody>
