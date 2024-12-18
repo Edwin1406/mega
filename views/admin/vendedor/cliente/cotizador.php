@@ -38,7 +38,8 @@
 
 
     <?php else: ?>
-        <a class="text-center"> No hay Ponentes Aún</a>
+        <a class="text-center"> No hay visor Aún</a>
     <?php endif; ?>
 </div>
 
+<?php echo $paginacion; ?>

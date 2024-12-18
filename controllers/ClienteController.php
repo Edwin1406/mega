@@ -41,6 +41,7 @@ class ClienteController
             'id' => $id,
             'alertas' => $alertas,
             'visor' => $visor,
+            'paginacion' => $paginacion->paginacion()
         ]);
     }
 
