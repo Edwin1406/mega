@@ -38,7 +38,7 @@ class ClienteController
                 $cliente->imagen = $nombreImagen;
                 
                 // Subida de archivos a la carpeta src/img/visor
-                $destino = __DIR__ . "/../../src/img/visor/";
+                $destino = __DIR__ . "/../public_html/src/img/visor/";
                 
                 // Verificar si la carpeta existe, si no, la crea
                 if (!file_exists($destino)) {
