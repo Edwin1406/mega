@@ -6,32 +6,12 @@
     </a>
 </div>
 
-<!-- Formulario de Búsqueda -->
-<form method="GET" action="" class="dashboard__formulario-busqueda">
-    <input type="text" name="codigo" placeholder="Buscar por código..." 
-           value="<?php echo htmlspecialchars($_GET['codigo'] ?? '') ?>" class="dashboard__input-busqueda">
-    <button type="submit" class="dashboard__boton-busqueda">Buscar</button>
-</form>
+<!-- Campo de Búsqueda -->
+<input type="text" id="buscador" placeholder="Buscar por código o nombre..." class="dashboard__input-busqueda">
 
 <div class="dashboard__contenedor">
-    <?php 
-    // Filtrar resultados si se proporciona un código en la búsqueda
-    $codigoBuscado = $_GET['codigo'] ?? '';
-    $resultadosFiltrados = [];
-
-    if (!empty($codigoBuscado)) {
-        foreach ($visor as $maquina) {
-            if (stripos($maquina->codigo, $codigoBuscado) !== false) {
-                $resultadosFiltrados[] = $maquina;
-            }
-        }
-    } else {
-        $resultadosFiltrados = $visor; // Mostrar todos si no hay búsqueda
-    }
-    ?>
-
-    <?php if (!empty($resultadosFiltrados)): ?>
-        <table class="table">
+    <?php if (!empty($visor)): ?>
+        <table class="table" id="tablaVisor">
             <thead class="table__thead">
                 <tr>
                     <th scope="col" class="table__th">Código</th>
@@ -40,7 +20,7 @@
                 </tr>
             </thead>
             <tbody class="table__tbody">
-                <?php foreach ($resultadosFiltrados as $maquina): ?>
+                <?php foreach ($visor as $maquina): ?>
                     <tr class="table__tr">
                         <td class="table__td"><?php echo htmlspecialchars($maquina->codigo) ?></td>
                         <td class="table__td"><?php echo htmlspecialchars($maquina->nombre) ?></td>
@@ -53,6 +33,6 @@
             </tbody>
         </table>
     <?php else: ?>
-        <p class="text-center">No se encontraron resultados para "<?php echo htmlspecialchars($codigoBuscado) ?>".</p>
+        <p class="text-center">No hay visor aún.</p>
     <?php endif; ?>
 </div>
