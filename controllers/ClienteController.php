@@ -27,7 +27,7 @@ class ClienteController
         if($_SERVER['REQUEST_METHOD'] === 'POST') {
             $cliente ->sincronizar($_POST);
             debuguear($cliente); 
-            // $alertas = $cliente->validar();
+            $alertas = $cliente->validar();
             // if(empty($alertas)) {
 
             //     $existeUsuario = Cliente::where('email', $cliente->email);
@@ -43,7 +43,7 @@ class ClienteController
             //         header('Location: /admin/vendedor/cliente/cotizador?id=1');
             //     }
 
-                // debuguear($cliente);
+                debuguear($cliente);
 
             
 
