@@ -84,7 +84,19 @@
             placeholder="Ciudad del cliente"
             value="<?php echo $cliente->gramaje_maximo ?? '' ?>">
     </div>
-    
+
+    <!-- subir archivos  -->
+
+    <div class="formulario__campo">
+        <label class="formulario__label" for="imagen">Imagen</label>
+        <input
+            type="file"
+            name="imagen"
+            id="imagen"
+            class="formulario__input"
+            placeholder="imagen del cliente"
+            value="<?php echo $cliente->imagen ?? '' ?>">
+    </div>
     
 
     

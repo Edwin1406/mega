@@ -6,33 +6,20 @@ use Classes\ValidarCedula;
 
 class Cliente extends ActiveRecord {
 
-    protected static $tabla = 'clientes';
-    protected static $columnasDB = ['id', 'nombre', 'apellido', 'ruc', 'telefono', 'email','direccion', 'ciudad','pais','fecha_registro'];
+    protected static $tabla = 'visor';
+    protected static $columnasDB = ['id', 'codigo','nombre','imagen'];
 
     public $id;
+    public $codigo;
     public $nombre;
-    public $apellido;
-    public $ruc;
-    public $telefono;
-    public $email;
-    public $direccion;
-    public $ciudad;
-    public $pais;
-    public $fecha_registro;
-
+    public $imagen;
 
     public function __construct($args = [])
     {
         $this->id = $args['id'] ?? null;
         $this->nombre = $args['nombre'] ?? '';
-        $this->apellido = $args['apellido'] ?? '';
-        $this->ruc = $args['ruc'] ?? '';
-        $this->telefono = $args['telefono'] ?? '';
-        $this->email = $args['email'] ?? '';
-        $this->direccion = $args['direccion'] ?? '';
-        $this->ciudad = $args['ciudad'] ?? '';
-        $this->pais = $args['pais'] ?? '';
-        $this->fecha_registro = date('Y/m/d');
+        $this->codigo = $args['codigo'] ?? '';
+        $this->imagen = $args['imagen'] ?? '';
     }
 
     
@@ -41,30 +28,14 @@ class Cliente extends ActiveRecord {
 
     public function validar() {
 
+        if(!$this->codigo) {
+            self::$alertas['error'][] = 'El Campo Codigo es Obligatorio';
+        }
         if(!$this->nombre) {
             self::$alertas['error'][] = 'El Campo Nombre es Obligatorio';
         }
-        if(!$this->apellido) {
-            self::$alertas['error'][] = 'El Campo Apellido es Obligatorio';
-        }
-        if (!ValidarCedula::validarCedula($this->ruc) && !ValidarCedula::validarRuc($this->ruc)) {
-            self::$alertas['error'][] = 'Cédula o RUC no son válidos';
-        }
-
-        if(!$this->telefono) {
-            self::$alertas['error'][] = 'El Campo Telefono es Obligatorio';
-        }
-        if(!$this->email) {
-            self::$alertas['error'][] = 'El Campo Email es Obligatorio';
-        }
-        if(!$this->direccion) {
-            self::$alertas['error'][] = 'El Campo Direccion es Obligatorio';
-        }
-        if(!$this->ciudad) {
-            self::$alertas['error'][] = 'El Campo Ciudad es Obligatorio';
-        }
-        if(!$this->pais) {
-            self::$alertas['error'][] = 'El Campo Pais es Obligatorio';
+        if(!$this->imagen) {
+            self::$alertas['error'][] = 'El Campo Imagen es Obligatorio';
         }
         return self::$alertas;
     }
