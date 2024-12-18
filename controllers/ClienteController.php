@@ -26,22 +26,22 @@ class ClienteController
         $cliente = new Cliente;
         if($_SERVER['REQUEST_METHOD'] === 'POST') {
             $cliente ->sincronizar($_POST);
-            // debuguear($cliente); 
-            $alertas = $cliente->validar();
-            if(empty($alertas)) {
+            debuguear($cliente); 
+            // $alertas = $cliente->validar();
+            // if(empty($alertas)) {
 
-                $existeUsuario = Cliente::where('email', $cliente->email);
-                $ruc = Cliente::where('ruc', $cliente->ruc);
-                $nombre = Cliente::where('nombre', $cliente->nombre);
+            //     $existeUsuario = Cliente::where('email', $cliente->email);
+            //     $ruc = Cliente::where('ruc', $cliente->ruc);
+            //     $nombre = Cliente::where('nombre', $cliente->nombre);
 
 
-                if($existeUsuario||$ruc || $nombre) {
-                    Cliente::setAlerta('error', 'El Cliente  y Ruc ya estan registrados');
-                    $alertas = Cliente::getAlertas();
-                } else {
-                    $cliente->guardar();
-                    header('Location: /admin/vendedor/cliente/cotizador?id=1');
-                }
+            //     if($existeUsuario||$ruc || $nombre) {
+            //         Cliente::setAlerta('error', 'El Cliente  y Ruc ya estan registrados');
+            //         $alertas = Cliente::getAlertas();
+            //     } else {
+            //         $cliente->guardar();
+            //         header('Location: /admin/vendedor/cliente/cotizador?id=1');
+            //     }
 
                 // debuguear($cliente);
 
