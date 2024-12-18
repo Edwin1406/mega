@@ -42,7 +42,7 @@ class ClienteController
             //         $cliente->guardar();
             //         header('Location: /admin/vendedor/cliente/cotizador?id=1');
             //     }
-
+        // }
                 debuguear($cliente);
 
             
