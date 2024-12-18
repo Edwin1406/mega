@@ -63,14 +63,8 @@
     <?php endif; ?>
 </div>
 
-<!-- Modal para la imagen a pantalla completa -->
-<div id="modalImagen" class="modal" style="display: none;">
-    <span class="modal__cerrar" onclick="cerrarModal()">&times;</span>
-    <img class="modal__contenido" id="imagenAmpliada" src="" alt="Imagen ampliada">
-</div>
 
 <script>
-   
     // Filtro en tiempo real
     document.getElementById('filtro').addEventListener('input', function () {
         const filtro = this.value.toLowerCase();
@@ -87,7 +81,7 @@
             }
         });
     });
-</script>
 
+</script>
 
 <?php echo $paginacion; ?>
