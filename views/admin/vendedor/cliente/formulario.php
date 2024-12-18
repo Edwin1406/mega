@@ -2,25 +2,25 @@
     <legend class="formulario__legend">Ingresar visor </legend>
 
     <div class="formulario__campo">
-        <label class="formulario__label" for="codigo">Codigo</label>
+        <label class="formulario__label" for="nombre_cliente">Nombre Cliente</label>
         <input
             type="text"
-            name="codigo"
-            id="codigo"
+            name="nombre_cliente"
+            id="nombre_cliente"
             class="formulario__input"
-            placeholder="Codigo del cliente"
-            value="<?php echo $cliente->codigo ?? '' ?>">
+            placeholder="nombre cliente"
+            value="<?php echo $cliente->nombre_cliente ?? '' ?>">
     </div>
 
     <div class="formulario__campo">
-        <label class="formulario__label" for="nombre">Nombre</label>
+        <label class="formulario__label" for="nombre_producto">Nombre Producto</label>
         <input
             type="text"
-            name="nombre"
-            id="nombre"
+            name="nombre_producto"
+            id="nombre_producto"
             class="formulario__input"
-            placeholder="Nombre del cliente"
-            value="<?php echo $cliente->nombre ?? '' ?>">
+            placeholder="nombre_producto"
+            value="<?php echo $cliente->nombre_producto ?? '' ?>">
     </div>
    
 

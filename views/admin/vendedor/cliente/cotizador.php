@@ -30,8 +30,8 @@
             <tbody class="table__tbody">
                 <?php foreach ($visor as $maquina):?>
                     <tr class="table__tr">
-                        <td class="table__td"><?php echo $maquina->codigo?></td>
-                        <td class="table__td"><?php echo $maquina->nombre?></td>
+                        <td class="table__td"><?php echo $maquina->nombre_cliente?></td>
+                        <td class="table__td"><?php echo $maquina->nombre_producto?></td>
                         <td class="table__td">
     <?php 
     $rutaArchivo = "/src/visor/" . htmlspecialchars($maquina->imagen);
