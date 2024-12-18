@@ -25,10 +25,6 @@
                         <td class="table__td"><?php echo $maquina->codigo?></td>
                         <td class="table__td"><?php echo $maquina->nombre?></td>
                         <td class="table__td"><?php echo $maquina->imagen?></td>
-                        <td class="table__td"><?php echo $maquina->gramaje_maximo?></td>
-                        <td class="table__td"><?php echo $maquina->created_at?></td>
-                        <td class="table__td--acciones"><a class="table__accion table__accion--editar" href="/admin/produccion/maquinas/editar?id=<?php echo $maquina->id; ?>"><i class="fa-solid fa-user-pen"></i>Editar</a>
-                       
                         </td>
 
 
