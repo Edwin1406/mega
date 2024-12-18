@@ -9,7 +9,7 @@
 </div>
 
 <div class="dashboard__contenedor">
-    <?php if (!empty($maquinas)): ?>
+    <?php if (!empty($visor)): ?>
         <table class="table">
             <thead class="table__thead">
                 <tr>
@@ -23,7 +23,7 @@
             </thead>
             <tbody class="table__tbody">
 
-                <?php foreach ($maquinas as $maquina):?>
+                <?php foreach ($visor as $maquina):?>
                     <tr class="table__tr">
                         <td class="table__td"><?php echo $maquina->nombre?></td>
                         <td class="table__td"><?php echo $maquina->num_cuchillas?></td>
