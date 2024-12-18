@@ -32,7 +32,7 @@ class ClienteController
 
                 $existeUsuario = Cliente::where('codigo', $cliente->codigo);
 
-                if($existeUsuario->$codigo) {
+                if($existeUsuario->codigo) {
                     Cliente::setAlerta('error', 'El Cliente  y Ruc ya estan registrados');
                     $alertas = Cliente::getAlertas();
                 } else {
