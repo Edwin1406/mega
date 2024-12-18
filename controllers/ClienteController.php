@@ -1,8 +1,9 @@
 <?php 
 namespace Controllers;
 
-use Model\Cliente;
 use MVC\Router;
+use Model\Cliente;
+use Classes\Paginacion;
 
 class ClienteController
 {
@@ -12,11 +13,34 @@ class ClienteController
         if($id==1) {
             Cliente::setAlerta('exito', 'El Cliente se guardo correctamente');
         }
+
+
+        $pagina_actual = $_GET['page'];
+        $pagina_actual = filter_var($pagina_actual, FILTER_VALIDATE_INT);
+        // debuguear($pagina_actual);
+
+        if(!$pagina_actual|| $pagina_actual <1){
+            header('Location: /admin/produccion/maquinas/tabla?page=1');
+            exit;
+        }
+        
+        $pagina_por_registros = 5;
+        $total = Cliente:: total();
+        $paginacion = new Paginacion($pagina_actual, $pagina_por_registros, $total);
+        if($paginacion->total_paginas() < $pagina_actual){
+            header('Location: /admin/produccion/maquinas/tabla?page=1');
+        }
+    
+        $visor = Cliente::paginar($pagina_por_registros, $paginacion->offset());
+
+
+
         $alertas = Cliente::getAlertas();
         $router->render('admin/vendedor/cliente/cotizador', [
             'titulo' => ' CLIENTE',
             'id' => $id,
             'alertas' => $alertas,
+            'visor' => $visor,
         ]);
     }
 
