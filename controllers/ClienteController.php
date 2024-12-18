@@ -60,8 +60,16 @@ class ClienteController
                 if (empty($alertas)) {
                     $codigo = Cliente::where('codigo', $cliente->codigo);
                     $nombre = Cliente::where('nombre', $cliente->nombre);
-                    $archivo = $_FILES['archivo']; // Cambiado a 'archivo' para mayor generalidad
+                    $archivo = $_FILES['archivo']; // Cambiado a 'archivo' para mayor claridad
                     $nombreArchivo = preg_replace('/[^a-zA-Z0-9._-]/', '_', $archivo['name']); // Limpia el nombre del archivo
+                    $tipoArchivo = $archivo['type'];
+            
+                    // Validar que sea un PDF
+                    if ($tipoArchivo !== 'application/pdf') {
+                        echo "Error: Solo se permiten archivos PDF.";
+                        exit;
+                    }
+            
                     $rutaTemporal = $archivo['tmp_name'];
                     $cliente->archivo = $nombreArchivo;
             
@@ -89,8 +97,8 @@ class ClienteController
                         header('Location: /admin/vendedor/cliente/cotizador?id=1');
                     }
                 }
-            }
-        }            
+            
+            
 
          // Render a la vista
          $router->render('admin/vendedor/cliente/crear', [
