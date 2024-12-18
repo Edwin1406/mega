@@ -50,7 +50,7 @@
         <a href="<?php echo $rutaArchivo ?>" target="_blank" class="enlace-pdf">Ver PDF</a>
     <?php else: ?>
         <!-- Mostrar enlace para descargar otros archivos -->
-        <a href="<?php echo $rutaArchivo ?>" download class="enlace-descarga">Descargar archivo</a>
+     
     <?php endif; ?>
 </td>
 
