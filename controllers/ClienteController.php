@@ -29,10 +29,19 @@ class ClienteController
             // debuguear($cliente); 
             $alertas = $cliente->validar();
             if(empty($alertas)) {
-
-                $existeUsuario = Cliente::where('codigo', $cliente->codigo);
-
-                if($existeUsuario||$codigo || $nombre) {
+                $codigo = Cliente::where('codigo', $cliente->codigo);
+                $nombre = Cliente::where('nombre', $cliente->nombre);
+                // imagen 
+                $imagen = $_FILES['imagen'];
+                $nombreImagen = $imagen['name'];
+                $archivo = $imagen['tmp_name'];
+                $cliente->imagen = $nombreImagen;
+                // Subida de archivos
+                $destino = __DIR__ . "/../../public/imagenes/clientes/";
+                move_uploaded_file($archivo, $destino . $nombreImagen);
+                debuguear($cliente);
+        
+                if($codigo || $nombre) {
                     Cliente::setAlerta('error', 'El Cliente  y Ruc ya estan registrados');
                     $alertas = Cliente::getAlertas();
                 } else {
@@ -40,7 +49,7 @@ class ClienteController
                     header('Location: /admin/vendedor/cliente/cotizador?id=1');
                 }
         }
-                debuguear($cliente);
+              
 
             
 
