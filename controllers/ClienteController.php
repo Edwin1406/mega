@@ -31,26 +31,27 @@ class ClienteController
             if(empty($alertas)) {
                 $codigo = Cliente::where('codigo', $cliente->codigo);
                 $nombre = Cliente::where('nombre', $cliente->nombre);
-                // imagen 
                 $imagen = $_FILES['imagen'];
                 $nombreImagen = preg_replace('/[^a-zA-Z0-9._-]/', '_', $imagen['name']); // Limpia el nombre del archivo
                 $archivo = $imagen['tmp_name'];
                 $cliente->imagen = $nombreImagen;
                 
-                // Subida de archivos a la carpeta src/img/visor
-                $destino = __DIR__ . "/../public_html/src/img/visor/";
+                // Ruta destino: carpeta 'src/visor'
+                $destino = $_SERVER['DOCUMENT_ROOT'] . '/src/visor/';
                 
-                // Verificar si la carpeta existe, si no, la crea
+                // Verificar si la carpeta 'visor' existe, si no, crearla
                 if (!file_exists($destino)) {
-                    mkdir($destino, 0777, true); // Crear la carpeta con permisos adecuados
+                    mkdir($destino, 0777, true); // Crear carpeta con permisos adecuados
                 }
                 
-                // Mover el archivo al destino
+                // Mover el archivo a la carpeta 'src/visor'
                 if (move_uploaded_file($archivo, $destino . $nombreImagen)) {
                     echo "Archivo subido correctamente a la carpeta 'visor'.";
+                    echo "URL de la imagen: https://megawebsistem.com/src/visor/$nombreImagen";
                 } else {
                     echo "Error al subir el archivo a la carpeta 'visor'.";
                 }
+                
                 
                 // debuguear($cliente);
         
