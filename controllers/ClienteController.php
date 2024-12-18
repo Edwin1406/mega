@@ -57,8 +57,8 @@ class ClienteController
             $alertas = $cliente->validar();
     
             if (empty($alertas)) {
-                $codigo = Cliente::where('codigo', $cliente->codigo);
-                $nombre = Cliente::where('nombre', $cliente->nombre);
+                $codigo = Cliente::where('nombre_cliente', $cliente->nombre_cliente);
+                $nombre = Cliente::where('nombre_producto', $cliente->nombre_producto);
                 $archivo = $_FILES['imagen'];
     
                 // Verificar si se cargó un archivo
