@@ -55,6 +55,7 @@ class ClienteController
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $cliente->sincronizar($_POST);
             $alertas = $cliente->validar();
+            debuguear($cliente);
     
             if (empty($alertas)) {
                 $codigo = Cliente::where('nombre_cliente', $cliente->nombre_cliente);
