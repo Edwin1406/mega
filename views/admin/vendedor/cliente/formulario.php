@@ -25,7 +25,7 @@
    
 
     <div class="formulario__campo">
-    <label class="formulario__label" for="imagen">Imagen</label>
+    <label class="formulario__label" for="imagen">Subir PDF</label>
     <input
         type="file"
         name="imagen"
