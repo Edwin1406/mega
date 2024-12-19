@@ -17,10 +17,11 @@ class Cliente extends ActiveRecord {
     public function __construct($args = [])
     {
         $this->id = $args['id'] ?? null;
-        $this->nombre_cliente = $args['nombre_cliente'] ?? '';
-        $this->nombre_producto = $args['nombre_producto'] ?? '';
+        $this->nombre_cliente = isset($args['nombre_cliente']) ? strtoupper($args['nombre_cliente']) : '';
+        $this->nombre_producto = isset($args['nombre_producto']) ? strtoupper($args['nombre_producto']) : '';
         $this->imagen = $args['imagen'] ?? '';
     }
+    
 
     
 
