@@ -8,26 +8,36 @@
 </div>
 
 <!-- Campo de búsqueda -->
-<div style="
-    margin-bottom: 15px; 
-    padding: 10px; 
-    width: 100%; 
-    box-sizing: border-box; 
-    border-radius: 10px; 
-    border: 1px solid #ccc; 
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
-    background-color: #f9f9f9; 
-    transition: all 0.3s ease-in-out;
-">
-    <input type="text" placeholder="Filtrar..." 
+<div class="dashboard__contenedor" 
+    style="
+        margin-bottom: 15px; 
+        padding: 20px; 
+        border-radius: 10px; 
+        border: 1px solid #ddd; 
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+        background-color: #fff; 
+        transition: all 0.3s ease-in-out;
+    ">
+    <input 
+        type="text" 
+        id="filtro" 
+        class="dashboard__input" 
+        placeholder="Filtrar por nombre cliente o nombre producto"
         style="
+            margin-bottom: 0; 
+            padding: 12px 15px; 
             width: 100%; 
-            padding: 8px; 
-            border: none; 
+            box-sizing: border-box; 
+            border: 1px solid #ccc; 
+            border-radius: 8px; 
             outline: none; 
-            border-radius: 5px; 
-            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+            font-size: 16px; 
+            background-color: #f9f9f9; 
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1); 
+            transition: all 0.2s ease-in-out;
         "
+        onfocus="this.style.boxShadow='0 0 5px rgba(0, 123, 255, 0.5)'; this.style.borderColor='#007bff';"
+        onblur="this.style.boxShadow='inset 0 2px 4px rgba(0, 0, 0, 0.1)'; this.style.borderColor='#ccc';"
     >
 </div>
 
