@@ -9,7 +9,7 @@
 
 async function pedidoss() {
     try {
-        const url = 'https://serviacrilico.com/admin/api/allpedidos2';
+        const url = `${location.origin}/admin/api/allpedidos2`;
         const resultado = await fetch(url);
         const pedidos = await resultado.json();
         return pedidos;
