@@ -19,7 +19,7 @@ class ClienteController
         $busqueda = $_GET['busqueda'] ?? '';
         $pagina_por_registros = 5;
     
-        $total = Cliente::total($busqueda);
+        $total = Cliente::totalS($busqueda);
         $paginacion = new Paginacion($pagina_actual, $pagina_por_registros, $total);
     
         if ($paginacion->total_paginas() < $pagina_actual) {

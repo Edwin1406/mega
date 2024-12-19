@@ -162,7 +162,7 @@ class ActiveRecord {
         return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
     
-    public static function total($busqueda = '') {
+    public static function totalS($busqueda = '') {
         $query = "SELECT COUNT(*) FROM " . static::$tabla;
     
         if (!empty($busqueda)) {
