@@ -82,6 +82,8 @@ class ClienteController
                 }
             }
         }
+        $alertas = Cliente::getAlertas();
+
     
         // Render a la vista
         $router->render('admin/vendedor/cliente/crear', [
