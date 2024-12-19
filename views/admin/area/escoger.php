@@ -27,7 +27,7 @@
                     $url = "/admin/sistemas/index?id=".$id;
                 } elseif($area === 'PRODUCTO TERMINADO') {
                     $url = "/admin/producto-terminado/index?id=".$id;
-                }elseif($area === 'VENDEDOR') {
+                }elseif($area === 'ARTES') {
                     $url = "/admin/vendedor/cliente/crear?id=".$id;
                 }
 
@@ -50,7 +50,7 @@
                         $icono = '<i class="fas fa-laptop-code"></i>'; // ícono de sistemas
                     } elseif($area === 'PRODUCTO TERMINADO') {
                         $icono = '<i class="fas fa-box-open"></i>'; // ícono de producto terminado
-                    }elseif($area === 'VENDEDOR') {
+                    }elseif($area === 'ARTES') {
                         $icono = '<i class="fas fa-user-tie"></i>'; // ícono de vendedor
                     }
 
