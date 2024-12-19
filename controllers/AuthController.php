@@ -39,7 +39,7 @@ class AuthController {
                         if($usuario->admin) {
                             header('Location: /admin/index');
                         } else {
-                            header('Location: /finalizar-registro');
+                            header('Location: /admin/vendedor/cliente/cotizador?page=1');
                         }
                         
                     } else {
