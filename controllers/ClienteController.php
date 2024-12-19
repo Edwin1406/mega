@@ -47,67 +47,40 @@ class ClienteController
 
    
 
-
     public static function crear(Router $router)
     {
-        $alertas = [];
         $cliente = new Cliente;
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $cliente->sincronizar($_POST);
             $alertas = $cliente->validar();
-            debuguear($cliente);
     
             if (empty($alertas)) {
-                $codigo = Cliente::where('nombre_cliente', $cliente->nombre_cliente);
-                $nombre = Cliente::where('nombre_producto', $cliente->nombre_producto);
-                $archivo = $_FILES['imagen'];
-    
-                // Verificar si se cargó un archivo
+                $archivo = $_FILES['imagen'] ?? null;
                 if ($archivo && $archivo['error'] === UPLOAD_ERR_OK) {
-                    $nombreArchivo = preg_replace('/[^a-zA-Z0-9._-]/', '_', $archivo['name']); // Limpia el nombre del archivo
-                    $tipoArchivo = $archivo['type'];
-                    $extensionArchivo = pathinfo($nombreArchivo, PATHINFO_EXTENSION);
+                    $nombreArchivo = preg_replace('/[^a-zA-Z0-9._-]/', '_', $archivo['name']);
+                    $extension = strtolower(pathinfo($nombreArchivo, PATHINFO_EXTENSION));
     
-                    // Validar tipo y extensión del archivo (PDF)
-                    if ($tipoArchivo === 'application/pdf' && strtolower($extensionArchivo) === 'pdf') {
-                        // Ruta destino: carpeta 'src/visor'
+                    if ($archivo['type'] === 'application/pdf' && $extension === 'pdf') {
                         $destino = $_SERVER['DOCUMENT_ROOT'] . '/src/visor/';
+                        if (!file_exists($destino)) mkdir($destino, 0777, true);
     
-                        // Verificar si la carpeta 'visor' existe, si no, crearla
-                        if (!file_exists($destino)) {
-                            mkdir($destino, 0777, true); // Crear carpeta con permisos adecuados
-                        }
-    
-                        // Mover el archivo a la carpeta 'src/visor'
                         if (move_uploaded_file($archivo['tmp_name'], $destino . $nombreArchivo)) {
                             $cliente->imagen = $nombreArchivo;
-                            echo "Archivo PDF subido correctamente a la carpeta 'visor'.";
-                            echo "URL del archivo: https://megawebsistem.com/src/visor/$nombreArchivo";
                         } else {
-                            Cliente::setAlerta('error', 'Error al subir el archivo a la carpeta.');
-                            $alertas = Cliente::getAlertas();
+                            Cliente::setAlerta('error', 'Error al subir el archivo.');
                         }
                     } else {
                         Cliente::setAlerta('error', 'El archivo debe ser un PDF.');
-                        $alertas = Cliente::getAlertas();
                     }
                 } else {
-                    Cliente::setAlerta('error', 'No se ha subido ningún archivo o hay un error con la subida.');
-                    $alertas = Cliente::getAlertas();
+                    Cliente::setAlerta('error', 'No se ha subido ningún archivo.');
                 }
     
-                if ($codigo || $nombre) {
-                    Cliente::setAlerta('error', 'El Cliente y RUC ya están registrados.');
-                    $alertas = Cliente::getAlertas();
-                } else {
-                    if (empty($alertas)) {
-                        $cliente->guardar();
-                        header('Location: /admin/vendedor/cliente/cotizador?id=1');
-                    }
+                if (empty(Cliente::getAlertas())) {
+                    $cliente->guardar();
+                    header('Location: /admin/vendedor/cliente/cotizador?id=1');
                 }
             }
-        }
-    
         // Render a la vista
         $router->render('admin/vendedor/cliente/crear', [
             'titulo' => 'CREAR CLIENTE',
