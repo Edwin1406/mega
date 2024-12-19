@@ -8,14 +8,29 @@
 </div>
 
 <!-- Campo de búsqueda -->
-<div class="dashboard__contenedor">
-    <input 
-        type="text" 
-        id="filtro" 
-        class="dashboard__input" 
-        placeholder="Filtrar por nombre cliente o nombre producto"
-        style="margin-bottom: 15px; padding: 10px; width: 100%; boder-radious 1rem;">
+<div style="
+    margin-bottom: 15px; 
+    padding: 10px; 
+    width: 100%; 
+    box-sizing: border-box; 
+    border-radius: 10px; 
+    border: 1px solid #ccc; 
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+    background-color: #f9f9f9; 
+    transition: all 0.3s ease-in-out;
+">
+    <input type="text" placeholder="Filtrar..." 
+        style="
+            width: 100%; 
+            padding: 8px; 
+            border: none; 
+            outline: none; 
+            border-radius: 5px; 
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+        "
+    >
 </div>
+
 
 <div class="dashboard__contenedor">
     <?php if (!empty($visor)): ?>
