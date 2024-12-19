@@ -2,7 +2,7 @@
 <div class="dashboard__contenedor-boton">
     <a class="dashboard__boton" href="/admin/vendedor/cliente/cotizador">
     <i class="fa-regular fa-eye"></i>
-        VER COTIZADOR
+        VER ARCHIVO 
     </a>
 
 </div>
