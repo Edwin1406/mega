@@ -93,12 +93,12 @@ async function desgloza() {
     
 }
 
-Cj();
+// Cj();
 
-async function Cj(){
-    const verificar = await peddidoDesglosado(peddidoDesglosado); 
-    console.log(verificar);
-}
+// async function Cj(){
+//     const verificar = await peddidoDesglosado(peddidoDesglosado); 
+//     console.log(verificar);
+// }
 
 
 
