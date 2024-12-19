@@ -13,7 +13,7 @@
         type="text" 
         id="filtro" 
         class="dashboard__input" 
-        placeholder="Filtrar por Código o Nombre..."
+        placeholder="Filtrar por nombre cliente o nombre producto"
         style="margin-bottom: 15px; padding: 10px; width: 100%; box-sizing: border-box;">
 </div>
 
@@ -69,8 +69,8 @@
         const filas = document.querySelectorAll('#tabla .table__tr');
 
         filas.forEach(fila => {
-            const nombreCliente = fila.cells[0].textContent.toLowerCase();
-            const nombreProducto = fila.cells[1].textContent.toLowerCase();
+            const codigo = fila.cells[0].textContent.toLowerCase();
+            const nombre = fila.cells[1].textContent.toLowerCase();
 
             if (codigo.includes(filtro) || nombre.includes(filtro)) {
                 fila.style.display = '';
