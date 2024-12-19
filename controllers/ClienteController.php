@@ -81,6 +81,8 @@ class ClienteController
                     header('Location: /admin/vendedor/cliente/cotizador?id=1');
                 }
             }
+        }
+    
         // Render a la vista
         $router->render('admin/vendedor/cliente/crear', [
             'titulo' => 'CREAR CLIENTE',
