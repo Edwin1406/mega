@@ -17,8 +17,8 @@ class Cliente extends ActiveRecord {
     public function __construct($args = [])
     {
         $this->id = $args['id'] ?? null;
-        $this->nombre_cliente = $args['nombre_cliente'] ?? '';
-        $this->nombre_producto = $args['nombre_producto'] ?? '';
+        $this->nombre_cliente = isset($args['nombre_cliente']) ? strtoupper($args['nombre_cliente']) : '';
+        $this->nombre_producto = isset($args['nombre_producto']) ? strtoupper($args['nombre_producto']) : '';
         $this->imagen = $args['imagen'] ?? '';
     }
 
@@ -29,11 +29,11 @@ class Cliente extends ActiveRecord {
     public function validar() {
 
         if(!$this->nombre_cliente) {
-            self::$alertas['error'][] = 'El Campo Codigo es Obligatorio';
+            self::$alertas['error'][] = 'El Campo Nombre Cliente es Obligatorio';
         }
 
         if(!$this->nombre_producto) {
-            self::$alertas['error'][] = 'El Campo Nombre es Obligatorio';
+            self::$alertas['error'][] = 'El Campo Nombre Producto es Obligatorio';
         }
        
         return self::$alertas;
