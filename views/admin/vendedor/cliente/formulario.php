@@ -35,6 +35,18 @@
         value="<?php echo $cliente->imagen ?? '' ?>">
 </div>
 
+<label class="formulario__label" for="imagen">Subir PDF</label>
+            <div id="drop-zone">
+                Arrastra tu archivo aquí o haz clic para seleccionar un archivo
+            </div>
+            <input
+                type="file"
+                name="imagen"
+                id="imagen"
+                class="formulario__input"
+                accept=".pdf"
+                style="display: none;">
+
 
 
     
