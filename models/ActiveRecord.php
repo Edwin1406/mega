@@ -494,27 +494,5 @@ public static function procesarArchivoExcel($filePath)
 
 
 
-    public static function totalFiltrado($busqueda)
-{
-    $query = "SELECT COUNT(*) as total FROM clientes WHERE nombre_cliente LIKE :busqueda OR nombre_producto LIKE :busqueda";
-    $stmt = self::$db->prepare($query);
-    $stmt->bindValue(':busqueda', '%' . $busqueda . '%');
-    $stmt->execute();
-    return $stmt->fetch(PDO::FETCH_ASSOC)['total'];
-}
-
-public static function buscarPaginado($busqueda, $limite, $offset)
-{
-    $query = "SELECT * FROM clientes WHERE nombre_cliente LIKE :busqueda OR nombre_producto LIKE :busqueda LIMIT :limite OFFSET :offset";
-    $stmt = self::$db->prepare($query);
-    $stmt->bindValue(':busqueda', '%' . $busqueda . '%');
-    $stmt->bindValue(':limite', $limite, PDO::PARAM_INT);
-    $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
-    $stmt->execute();
-    return $stmt->fetchAll(PDO::FETCH_OBJ);
-}
-
-
-
 
 }
