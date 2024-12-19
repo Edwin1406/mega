@@ -24,7 +24,7 @@ class ClienteController
             exit;
         }
         
-        $pagina_por_registros = 5;
+        $pagina_por_registros = 100000;
         $total = Cliente:: total();
         $paginacion = new Paginacion($pagina_actual, $pagina_por_registros, $total);
         if($paginacion->total_paginas() < $pagina_actual){
