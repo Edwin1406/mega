@@ -7,7 +7,7 @@
     </a>
 </div>
 
-<!-- Campo de búsqueda -->
+<!-- Campo de búsqueda
 <div class="dashboard__contenedor">
     <input 
         type="text" 
@@ -15,7 +15,19 @@
         class="dashboard__input" 
         placeholder="Filtrar por nombre cliente o nombre producto"
         style="margin-bottom: 15px; padding: 10px; width: 100%; box-sizing: border-box;">
-</div>
+</div> -->
+<form method="GET" action="/admin/vendedor/cliente/cotizador" style="margin-bottom: 15px;">
+    <input 
+        type="text" 
+        name="filtro" 
+        id="filtro" 
+        class="dashboard__input" 
+        placeholder="Filtrar por nombre cliente o nombre producto"
+        value="<?php echo htmlspecialchars($filtro); ?>"
+        style="padding: 10px; width: calc(100% - 20px); box-sizing: border-box;">
+    <input type="hidden" name="page" value="1">
+    <button type="submit" style="display: none;"></button>
+</form>
 
 <div class="dashboard__contenedor">
     <?php if (!empty($visor)): ?>
