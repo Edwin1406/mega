@@ -69,8 +69,8 @@
         const filas = document.querySelectorAll('#tabla .table__tr');
 
         filas.forEach(fila => {
-            const codigo = fila.cells[0].textContent.toLowerCase();
-            const nombre = fila.cells[1].textContent.toLowerCase();
+            const nombreCliente = fila.cells[0].textContent.toLowerCase();
+            const nombreProducto = fila.cells[1].textContent.toLowerCase();
 
             if (codigo.includes(filtro) || nombre.includes(filtro)) {
                 fila.style.display = '';
