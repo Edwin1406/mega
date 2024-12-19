@@ -22,9 +22,9 @@
         <table class="table" id="tabla">
             <thead class="table__thead">
                 <tr>
-                    <th scope="col" class="table__th">Codigo</th>
-                    <th scope="col" class="table__th">Nombre</th>
-                    <th scope="col" class="table__th">Imagen</th>
+                    <th scope="col" class="table__th">Nombre Cliente</th>
+                    <th scope="col" class="table__th">Nombre Prodcuto</th>
+                    <th scope="col" class="table__th">Archivo PDF</th>
                 </tr>
             </thead>
             <tbody class="table__tbody">
