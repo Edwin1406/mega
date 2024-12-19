@@ -37,7 +37,7 @@ class ClienteController
 
         $alertas = Cliente::getAlertas();
         $router->render('admin/vendedor/cliente/cotizador', [
-            'titulo' => ' CLIENTE',
+            'titulo' => 'VISOR DE CAJAS Y LAMINAR INTERNO',
             'id' => $id,
             'alertas' => $alertas,
             'visor' => $visor,
@@ -87,7 +87,7 @@ class ClienteController
     
         // Render a la vista
         $router->render('admin/vendedor/cliente/crear', [
-            'titulo' => 'CREAR CLIENTE',
+            'titulo' => 'CREAR REGISTRO',
             'alertas' => $alertas,
         ]);
     }
