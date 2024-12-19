@@ -200,7 +200,7 @@ class AuthController {
 
                 // Redireccionar
                 if($resultado) {
-                    header('Location: /sitioweb/login');
+                    header('Location: /login');
                 }
             }
         }
@@ -249,7 +249,7 @@ class AuthController {
      
 
         $router->render('auth/confirmar', [
-            'titulo' => 'Confirma tu cuenta DevWebcamp',
+            'titulo' => 'Confirma tu cuenta en MEGASTOCK',
             'alertas' => Usuario::getAlertas()
         ]);
     }
