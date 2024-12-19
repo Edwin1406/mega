@@ -33,24 +33,24 @@
                         <td class="table__td"><?php echo $maquina->nombre_cliente?></td>
                         <td class="table__td"><?php echo $maquina->nombre_producto?></td>
                         <td class="table__td">
-    <?php 
-    $rutaArchivo = "/src/visor/" . htmlspecialchars($maquina->imagen);
-    $extension = pathinfo($maquina->imagen, PATHINFO_EXTENSION);
+                            <?php 
+                            $rutaArchivo = "/src/visor/" . htmlspecialchars($maquina->imagen);
+                            $extension = pathinfo($maquina->imagen, PATHINFO_EXTENSION);
 
-    if (in_array(strtolower($extension), ['jpg', 'jpeg', 'png', 'gif'])): ?>
-        <!-- Mostrar miniatura para imágenes -->
-        <img 
-            src="<?php echo $rutaArchivo ?>" 
-            alt="Imagen" 
-            class="imagen-miniatura" 
-            style="width: 100px; height: auto; cursor: pointer;" 
-            onclick="mostrarImagen(this.src)">
-    <?php elseif (strtolower($extension) === 'pdf'): ?>
-        <!-- Mostrar enlace para visualizar PDF -->
-        <?php else: ?>
-            <a href="<?php echo $rutaArchivo ?>" target="_blank" class="enlace-pdf">Ver PDF</a>
-    <?php endif; ?>
-</td>
+                            if (in_array(strtolower($extension), ['jpg', 'jpeg', 'png', 'gif'])): ?>
+                                <!-- Mostrar miniatura para imágenes -->
+                                <img 
+                                    src="<?php echo $rutaArchivo ?>" 
+                                    alt="Imagen" 
+                                    class="imagen-miniatura" 
+                                    style="width: 100px; height: auto; cursor: pointer;" 
+                                    onclick="mostrarImagen(this.src)">
+                            <?php elseif (strtolower($extension) === 'pdf'): ?>
+                                <!-- Mostrar enlace para visualizar PDF -->
+                                <?php else: ?>
+                                    <a href="<?php echo $rutaArchivo ?>" target="_blank" class="enlace-pdf">Ver PDF</a>
+                            <?php endif; ?>
+                        </td>
 
                     </tr>
                 <?php endforeach;?>
