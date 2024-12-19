@@ -20,7 +20,7 @@
                 } elseif($area === 'COMPRAS') {
                     $url = "/admin/compras/index?id=".$id;
                 } elseif($area === 'VENTAS') {
-                    $url = "/admin/ventas/index?id=".$id;
+                    $url = "/admin/vendedor/cliente/cotizador?id=".$id;
                 } elseif($area === 'RECURSOS HUMANOS') {
                     $url = "/admin/recursos-humanos/index?id=".$id;
                 } elseif($area === 'SISTEMAS') {
