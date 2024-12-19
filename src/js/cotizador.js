@@ -21,6 +21,7 @@ async function pedidoss() {
 
 
 
+
 async function filtradoPendientes() {
     const verificar = await pedidoss(); 
     return verificar.filter(pedido => pedido.estado_pedido === "pendiente");
