@@ -9,7 +9,7 @@
             id="nombre_cliente"
             class="formulario__input"
             placeholder="nombre cliente"
-            value="<?php echo strtoupper($cliente->nombre_cliente);?>">
+            value="<?php echo strtoupper($cliente->nombre_cliente??'')?>">
     </div>
 
     <div class="formulario__campo">
@@ -20,7 +20,7 @@
             id="nombre_producto"
             class="formulario__input"
             placeholder="nombre_producto"
-            value="<?php echo isset($cliente->nombre_producto) ? strtoupper($cliente->nombre_producto) : ''; ?>">
+            value="<?php echo strtoupper($cliente->nombre_producto??'')?>">
     </div>
    
 
