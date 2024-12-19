@@ -104,7 +104,7 @@ class AuthController {
                     
 
                     if($resultado) {
-                        header('Location: /sitioweb/mensaje');
+                        header('Location: /mensaje');
                     }
                 }
             }
