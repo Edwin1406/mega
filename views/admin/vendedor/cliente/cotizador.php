@@ -94,4 +94,12 @@
 
 </script>
 
-<?php echo $paginacion; ?>
+<?php if ($paginacion): ?>
+    <nav class="paginacion">
+        <?php foreach ($paginacion as $pagina): ?>
+            <a href="?page=<?php echo $pagina; ?>&filtro=<?php echo urlencode($filtro); ?>" class="paginacion__enlace">
+                <?php echo $pagina; ?>
+            </a>
+        <?php endforeach; ?>
+    </nav>
+<?php endif; ?>
