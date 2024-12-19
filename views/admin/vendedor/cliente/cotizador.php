@@ -13,6 +13,8 @@
         type="text" 
         id="filtro" 
         class="dashboard__input" 
+        name="busqueda" 
+        value="<?php echo htmlspecialchars($busqueda); ?>" 
         placeholder="Filtrar por nombre cliente o nombre producto"
         style="margin-bottom: 15px; padding: 10px; width: 100%; box-sizing: border-box;">
 </div>

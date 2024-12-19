@@ -7,46 +7,35 @@ use Classes\Paginacion;
 
 class ClienteController
 {
-    public static function cotizador(Router $router)
-    {
-        $id= $_GET['id'] ?? null;
-        if($id==1) {
-            Cliente::setAlerta('exito', 'El Cliente se guardo correctamente');
-        }
-
-
-        $pagina_actual = $_GET['page'];
+    public static function cotizador(Router $router) {
+        $pagina_actual = $_GET['page'] ?? 1;
         $pagina_actual = filter_var($pagina_actual, FILTER_VALIDATE_INT);
-        // debuguear($pagina_actual);
-
-        if(!$pagina_actual|| $pagina_actual <1){
+    
+        if (!$pagina_actual || $pagina_actual < 1) {
             header('Location: /admin/vendedor/cliente/cotizador?page=1');
             exit;
         }
-        
+    
+        $busqueda = $_GET['busqueda'] ?? '';
         $pagina_por_registros = 5;
-        $total = Cliente:: total();
+    
+        $total = Cliente::total($busqueda);
         $paginacion = new Paginacion($pagina_actual, $pagina_por_registros, $total);
-        if($paginacion->total_paginas() < $pagina_actual){
+    
+        if ($paginacion->total_paginas() < $pagina_actual) {
             header('Location: /admin/vendedor/cliente/cotizador?page=1');
         }
     
-        $visor = Cliente::paginar($pagina_por_registros, $paginacion->offset());
-
-
-
-        $alertas = Cliente::getAlertas();
+        $visor = Cliente::paginar($pagina_por_registros, $paginacion->offset(), $busqueda);
+    
         $router->render('admin/vendedor/cliente/cotizador', [
             'titulo' => 'VISOR DE CAJAS Y LAMINAR INTERNO',
-            'id' => $id,
-            'alertas' => $alertas,
             'visor' => $visor,
-            'paginacion' => $paginacion->paginacion()
+            'paginacion' => $paginacion->paginacion(['busqueda' => $busqueda]),
+            'busqueda' => $busqueda
         ]);
     }
-
-   
-
+    
     public static function crear(Router $router)
     {
         $cliente = new Cliente;

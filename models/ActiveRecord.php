@@ -134,14 +134,51 @@ class ActiveRecord {
         return array_shift( $resultado ) ;
     }
 
-    // del paginador 
-    public static function paginar($por_pagina,$offset){
-        $query = "SELECT * FROM " . static::$tabla . " ORDER BY id DESC LIMIT {$por_pagina}  OFFSET {$offset} " ;
-        $resultado = self::consultarSQL($query);
-        return  $resultado ;
+    // // del paginador 
+    // public static function paginar($por_pagina,$offset){
+    //     $query = "SELECT * FROM " . static::$tabla . " ORDER BY id DESC LIMIT {$por_pagina}  OFFSET {$offset} " ;
+    //     $resultado = self::consultarSQL($query);
+    //     return  $resultado ;
         
-     }
-
+    //  }
+    public static function paginar($por_pagina, $offset, $busqueda = '') {
+        $query = "SELECT * FROM " . static::$tabla;
+    
+        if (!empty($busqueda)) {
+            $query .= " WHERE nombre_cliente LIKE :busqueda OR nombre_producto LIKE :busqueda";
+        }
+    
+        $query .= " ORDER BY id DESC LIMIT :por_pagina OFFSET :offset";
+        $stmt = self::$db->prepare($query);
+    
+        if (!empty($busqueda)) {
+            $stmt->bindValue(':busqueda', '%' . $busqueda . '%');
+        }
+    
+        $stmt->bindValue(':por_pagina', (int)$por_pagina, PDO::PARAM_INT);
+        $stmt->bindValue(':offset', (int)$offset, PDO::PARAM_INT);
+    
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_OBJ);
+    }
+    
+    public static function total($busqueda = '') {
+        $query = "SELECT COUNT(*) FROM " . static::$tabla;
+    
+        if (!empty($busqueda)) {
+            $query .= " WHERE nombre_cliente LIKE :busqueda OR nombre_producto LIKE :busqueda";
+        }
+    
+        $stmt = self::$db->prepare($query);
+    
+        if (!empty($busqueda)) {
+            $stmt->bindValue(':busqueda', '%' . $busqueda . '%');
+        }
+    
+        $stmt->execute();
+        return $stmt->fetchColumn();
+    }
+    
 
 
     // Busqueda Where con Columna 
