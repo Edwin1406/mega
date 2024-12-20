@@ -1,19 +1,21 @@
-(function (){
-     // Filtro en tiempo real
-     document.getElementById('filtro').addEventListener('input', function () {
-        const filtro = this.value.toLowerCase();
-        const filas = document.querySelectorAll('#tabla .table__tr');
+// Objetivo: Filtrar ventas en tiempo real
+(function() {
 
-        filas.forEach(fila => {
-            const codigo = fila.cells[0].textContent.toLowerCase();
-            const nombre = fila.cells[1].textContent.toLowerCase();
+   // Filtro en tiempo real
+   document.getElementById('filtro').addEventListener('input', function () {
+    const filtro = this.value.toLowerCase();
+    const filas = document.querySelectorAll('#tabla .table__tr');
 
-            if (codigo.includes(filtro) || nombre.includes(filtro)) {
-                fila.style.display = '';
-            } else {
-                fila.style.display = 'none';
-            }
-        });
+    filas.forEach(fila => {
+        const codigo = fila.cells[0].textContent.toLowerCase();
+        const nombre = fila.cells[1].textContent.toLowerCase();
+
+        if (codigo.includes(filtro) || nombre.includes(filtro)) {
+            fila.style.display = '';
+        } else {
+            fila.style.display = 'none';
+        }
     });
-    
-} ) ();
+});
+
+})();
