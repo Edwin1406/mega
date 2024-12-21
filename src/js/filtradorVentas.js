@@ -1,4 +1,5 @@
 // Objetivo: Filtrar ventas en tiempo real
+document.addEventListener('DOMContentLoaded', function() {
 (function() {
 
    // Filtro en tiempo real
@@ -19,6 +20,8 @@
 });
 
 })();
+}
+);
 
 
 
