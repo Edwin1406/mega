@@ -19,8 +19,6 @@ document.addEventListener('DOMContentLoaded', function () {
                     }
                 });
             });
-        } else {
-            console.log("Elemento #filtros_ventas no encontrado en el DOM.");
         }
     })();
 });
