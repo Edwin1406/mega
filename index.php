@@ -123,6 +123,7 @@ $router->get('/admin/vendedor/cliente/crear', [ClienteController::class, 'crear'
 $router->post('/admin/vendedor/cliente/crear', [ClienteController::class, 'crear']);
 
 $router->get('/admin/vendedor/cliente/cotizador', [ClienteController::class, 'cotizador']);
+$router->get('/admin/vendedor/cliente/tabla', [ClienteController::class, 'tabla']);
 
 
 
