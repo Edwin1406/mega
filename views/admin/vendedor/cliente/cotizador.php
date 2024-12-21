@@ -20,7 +20,7 @@
     ">
     <input 
         type="text" 
-        id="filtros" 
+        id="filtros_ventas" 
         class="dashboard__input" 
         placeholder="Filtrar por nombre cliente o nombre producto"
         style="
