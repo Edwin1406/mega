@@ -76,7 +76,7 @@ class ClienteController
     
                 if (empty(Cliente::getAlertas())) {
                     $cliente->guardar();
-                    header('Location: /admin/vendedor/cliente/cotizador?id=1');
+                    header('Location: /admin/vendedor/cliente/tabla?id=1');
                 }
             }
         }
