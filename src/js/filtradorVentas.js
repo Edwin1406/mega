@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 });
             });
         } else {
-            console.error("Elemento #filtros_ventas no encontrado en el DOM.");
+            console.log("Elemento #filtros_ventas no encontrado en el DOM.");
         }
     })();
 });
