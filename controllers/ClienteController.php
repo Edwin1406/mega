@@ -44,6 +44,43 @@ class ClienteController
             'paginacion' => $paginacion->paginacion()
         ]);
     }
+    public static function tabla(Router $router)
+    {
+        $id= $_GET['id'] ?? null;
+        if($id==1) {
+            Cliente::setAlerta('exito', 'El Cliente se guardo correctamente');
+        }
+
+
+        $pagina_actual = $_GET['page'];
+        $pagina_actual = filter_var($pagina_actual, FILTER_VALIDATE_INT);
+        // debuguear($pagina_actual);
+
+        if(!$pagina_actual|| $pagina_actual <1){
+            header('Location: /admin/vendedor/cliente/cotizador?page=1');
+            exit;
+        }
+        
+        $pagina_por_registros = 100;
+        $total = Cliente:: total();
+        $paginacion = new Paginacion($pagina_actual, $pagina_por_registros, $total);
+        if($paginacion->total_paginas() < $pagina_actual){
+            header('Location: /admin/vendedor/cliente/cotizador?page=1');
+        }
+    
+        $visor = Cliente::paginar($pagina_por_registros, $paginacion->offset());
+
+
+
+        $alertas = Cliente::getAlertas();
+        $router->render('admin/vendedor/cliente/cotizador', [
+            'titulo' => 'VISOR DE CAJAS Y LAMINAR INTERNO',
+            'id' => $id,
+            'alertas' => $alertas,
+            'visor' => $visor,
+            'paginacion' => $paginacion->paginacion()
+        ]);
+    }
 
     public static function crear(Router $router)
     {
