@@ -57,7 +57,7 @@ class ClienteController
         // debuguear($pagina_actual);
 
         if(!$pagina_actual|| $pagina_actual <1){
-            header('Location: /admin/vendedor/cliente/cotizador?page=1');
+            header('Location: /admin/vendedor/cliente/tabla?page=1');
             exit;
         }
         
@@ -65,7 +65,7 @@ class ClienteController
         $total = Cliente:: total();
         $paginacion = new Paginacion($pagina_actual, $pagina_por_registros, $total);
         if($paginacion->total_paginas() < $pagina_actual){
-            header('Location: /admin/vendedor/cliente/cotizador?page=1');
+            header('Location: /admin/vendedor/cliente/tabla?page=1');
         }
     
         $visor = Cliente::paginar($pagina_por_registros, $paginacion->offset());
@@ -73,7 +73,7 @@ class ClienteController
 
 
         $alertas = Cliente::getAlertas();
-        $router->render('admin/vendedor/cliente/cotizador', [
+        $router->render('admin/vendedor/cliente/tabla', [
             'titulo' => 'VISOR DE CAJAS Y LAMINAR INTERNO',
             'id' => $id,
             'alertas' => $alertas,
