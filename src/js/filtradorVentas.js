@@ -1,7 +1,7 @@
 // Objetivo: Filtrar ventas en tiempo real
 (function() {
 
-    document.addEventListener('DOMContentLoaded', function() {
+    
         // Verificar si el elemento con ID 'filtros_ventas' existe
         const filtroInput = document.querySelector('#filtros_ventas');
         if (filtroInput) {
@@ -24,7 +24,7 @@
         } else {
             console.log("El elemento con ID 'filtros_ventas' no se encontró en esta página.");
         }
-    });
+
     
 })();
 
