@@ -14,9 +14,6 @@ const imagemin = require('gulp-imagemin');
 const webp = require('gulp-webp');
 const avif = require('gulp-avif');
 
-
-
-
 // Javascript
 const terser = require('gulp-terser-js');
 const concat = require('gulp-concat');
