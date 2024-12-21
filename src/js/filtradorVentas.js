@@ -2,7 +2,7 @@
 (function() {
 
    // Filtro en tiempo real
-   document.getElementById('filtro').addEventListener('input', function () {
+   document.getElementById('filtros').addEventListener('input', function () {
     const filtro = this.value.toLowerCase();
     const filas = document.querySelectorAll('#tabla .table__tr');
 
