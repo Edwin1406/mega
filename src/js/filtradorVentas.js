@@ -22,7 +22,7 @@
                 });
             });
         } else {
-            console.warn("El elemento con ID 'filtros_ventas' no se encontró en esta página.");
+            console.log("El elemento con ID 'filtros_ventas' no se encontró en esta página.");
         }
     });
     
