@@ -50,6 +50,7 @@
                     <th scope="col" class="table__th">Nombre Cliente</th>
                     <th scope="col" class="table__th">Nombre Prodcuto</th>
                     <th scope="col" class="table__th">Archivo PDF</th>
+                    <th scope="col" class="table__th">Acciones</th>
                 </tr>
             </thead>
             <tbody class="table__tbody">
