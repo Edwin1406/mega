@@ -126,6 +126,7 @@ class ClienteController
             'alertas' => $alertas,
         ]);
     }
+
     public static function editar(Router $router)
     {
         $id = $_GET['id'];
@@ -147,11 +148,6 @@ class ClienteController
                         $destino = $_SERVER['DOCUMENT_ROOT'] . '/src/visor/';
                         if (!file_exists($destino)) mkdir($destino, 0777, true);
     
-                        // Eliminar el archivo anterior si existe
-                        if (!empty($cliente->imagen) && file_exists($destino . $cliente->imagen)) {
-                            unlink($destino . $cliente->imagen);
-                        }
-                        // Guardar el nuevo archivo
                         if (move_uploaded_file($archivo['tmp_name'], $destino . $nombreArchivo)) {
                             $cliente->imagen = $nombreArchivo;
                         } else {
@@ -176,7 +172,7 @@ class ClienteController
             'cliente' => $cliente
         ]);
     }
-    
+
 
 
 
