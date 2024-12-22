@@ -59,13 +59,12 @@
                         <td class="table__td"><?php echo $visores->nombre_cliente?></td>
                         <td class="table__td"><?php echo $visores->nombre_producto?></td>
                         <td>
-    <?php if (!empty($cliente['imagen']) && strtolower(pathinfo($cliente['imagen'], PATHINFO_EXTENSION)) === 'pdf') : ?>
-        <a href="/src/visor/<?php echo htmlspecialchars($cliente['imagen']); ?>" target="_blank">Ver PDF</a>
-    <?php else : ?>
-        Sin archivo
-    <?php endif; ?>
-</td>
-
+                <?php if (!empty($cliente['imagen']) && strtolower(pathinfo($cliente['imagen'], PATHINFO_EXTENSION)) === 'pdf') : ?>
+                    <a href="/src/visor/<?php echo htmlspecialchars($cliente['imagen']); ?>" target="_blank">Ver PDF</a>
+                <?php else : ?>
+                    Sin archivo
+                <?php endif; ?>
+            </td>
                         <td class="table__td--acciones"><a class="table__accion table__accion--editar" href="/admin/vendedor/cliente/editar?id=<?php echo $visores->id; ?>"><i class="fa-solid fa-user-pen"></i>Editar</a>
 
 
