@@ -126,6 +126,59 @@ class ClienteController
             'alertas' => $alertas,
         ]);
     }
+
+    public static function editar(Router $router)
+    {
+        $id = $_GET['id'];
+        $id = filter_var($id, FILTER_VALIDATE_INT);
+        $cliente = Cliente::find($id);
+        $alertas = Cliente::getAlertas();
+    
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $cliente->sincronizar($_POST);
+            $alertas = $cliente->validar();
+    
+            if (empty($alertas)) {
+                $archivo = $_FILES['imagen'] ?? null;
+                if ($archivo && $archivo['error'] === UPLOAD_ERR_OK) {
+                    $nombreArchivo = preg_replace('/[^a-zA-Z0-9._-]/', '_', $archivo['name']);
+                    $extension = strtolower(pathinfo($nombreArchivo, PATHINFO_EXTENSION));
+    
+                    if ($archivo['type'] === 'application/pdf' && $extension === 'pdf') {
+                        $destino = $_SERVER['DOCUMENT_ROOT'] . '/src/visor/';
+                        if (!file_exists($destino)) mkdir($destino, 0777, true);
+    
+                        if (move_uploaded_file($archivo['tmp_name'], $destino . $nombreArchivo)) {
+                            $cliente->imagen = $nombreArchivo;
+                        } else {
+                            Cliente::setAlerta('error', 'Error al subir el archivo.');
+                        }
+                    } else {
+                        Cliente::setAlerta('error', 'El archivo debe ser un PDF.');
+                    }
+                }
+    
+                if (empty(Cliente::getAlertas())) {
+                    $cliente->actualizar();
+                    header('Location: /admin/vendedor/cliente/tabla?id=1');
+                }
+            }
+        }
+    
+        // Render a la vista
+        $router->render('admin/vendedor/cliente/editar', [
+            'titulo' => 'EDITAR REGISTRO',
+            'alertas' => $alertas,
+            'cliente' => $cliente
+        ]);
+    }
+
+
+
+
+
+
+
     
 
 
