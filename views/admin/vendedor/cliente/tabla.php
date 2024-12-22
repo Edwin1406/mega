@@ -59,8 +59,8 @@
                         <td class="table__td"><?php echo $visores->nombre_cliente?></td>
                         <td class="table__td"><?php echo $visores->nombre_producto?></td>
                         <td>
-    <?php if (!empty($cliente->imagen) && strtolower(pathinfo($cliente->imagen, PATHINFO_EXTENSION)) === 'pdf') : ?>
-        <a href="/src/visor/<?php echo htmlspecialchars($cliente->imagen); ?>" target="_blank">Ver PDF</a>
+    <?php if (!empty($cliente['imagen'])) : ?>
+        <a href="/src/visor/<?php echo htmlspecialchars($cliente['imagen']); ?>" target="_blank">Ver PDF</a>
     <?php else : ?>
         Sin archivo
     <?php endif; ?>
