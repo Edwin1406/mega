@@ -54,14 +54,14 @@
                 </tr>
             </thead>
             <tbody class="table__tbody">
-                <?php foreach ($visor as $maquina):?>
+                <?php foreach ($visor as $visores):?>
                     <tr class="table__tr">
-                        <td class="table__td"><?php echo $maquina->nombre_cliente?></td>
-                        <td class="table__td"><?php echo $maquina->nombre_producto?></td>
+                        <td class="table__td"><?php echo $visores->nombre_cliente?></td>
+                        <td class="table__td"><?php echo $visores->nombre_producto?></td>
                         <td class="table__td">
                             <?php 
-                            $rutaArchivo = "/src/visor/" . htmlspecialchars($maquina->imagen);
-                            $extension = pathinfo($maquina->imagen, PATHINFO_EXTENSION);
+                            $rutaArchivo = "/src/visor/" . htmlspecialchars($visores->imagen);
+                            $extension = pathinfo($visores->imagen, PATHINFO_EXTENSION);
 
                             if (in_array(strtolower($extension), ['jpg', 'jpeg', 'png', 'gif'])): ?>
                                 <!-- Mostrar miniatura para imágenes -->
@@ -77,7 +77,7 @@
                                     <a href="<?php echo $rutaArchivo ?>" target="_blank" class="enlace-pdf">Ver PDF</a>
                             <?php endif; ?>
                         </td>
-                        <td class="table__td--acciones"><a class="table__accion table__accion--editar" href="/admin/produccion/maquinas/editar?id=<?php echo $maquina->id; ?>"><i class="fa-solid fa-user-pen"></i>Editar</a>
+                        <td class="table__td--acciones"><a class="table__accion table__accion--editar" href="/admin/produccion/maquinas/editar?id=<?php echo $visores->id; ?>"><i class="fa-solid fa-user-pen"></i>Editar</a>
 
 
                     </tr>
