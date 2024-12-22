@@ -58,14 +58,25 @@
                     <tr class="table__tr">
                         <td class="table__td"><?php echo $visores->nombre_cliente?></td>
                         <td class="table__td"><?php echo $visores->nombre_producto?></td>
-                        <td>
-    <?php if (!empty($cliente->imagen)) : ?>
-        <a href="/src/visor/<?php echo htmlspecialchars($cliente->imagen); ?>" target="_blank">Ver PDF</a>
-    <?php else : ?>
-        Sin archivo
-    <?php endif; ?>
-</td>
+                        <td class="table__td">
+                            <?php 
+                            $rutaArchivo = "/src/visor/" . htmlspecialchars($visores->imagen);
+                            $extension = pathinfo($visores->imagen, PATHINFO_EXTENSION);
 
+                            if (in_array(strtolower($extension), ['jpg', 'jpeg', 'png', 'gif'])): ?>
+                                <!-- Mostrar miniatura para imágenes -->
+                                <img 
+                                    src="<?php echo $rutaArchivo ?>" 
+                                    alt="Imagen" 
+                                    class="imagen-miniatura" 
+                                    style="width: 100px; height: auto; cursor: pointer;" 
+                                    onclick="mostrarImagen(this.src)">
+                            <?php elseif (strtolower($extension) === 'pdf'): ?>
+                                <!-- Mostrar enlace para visualizar PDF -->
+                                <?php else: ?>
+                                    <a href="<?php echo $rutaArchivo ?>" target="_blank" class="enlace-pdf">Ver PDF</a>
+                            <?php endif; ?>
+                        </td>
                         <td class="table__td--acciones"><a class="table__accion table__accion--editar" href="/admin/vendedor/cliente/editar?id=<?php echo $visores->id; ?>"><i class="fa-solid fa-user-pen"></i>Editar</a>
 
 
