@@ -124,6 +124,9 @@ $router->post('/admin/vendedor/cliente/crear', [ClienteController::class, 'crear
 
 $router->get('/admin/vendedor/cliente/cotizador', [ClienteController::class, 'cotizador']);
 $router->get('/admin/vendedor/cliente/tabla', [ClienteController::class, 'tabla']);
+$router->get('/admin/vendedor/cliente/editar', [ClienteController::class, 'editar']);
+$router->post('/admin/vendedor/cliente/editar', [ClienteController::class, 'editar']);
+$router->post('/admin/vendedor/cliente/eliminar', [ClienteController::class, 'eliminar']);
 
 
 
