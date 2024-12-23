@@ -116,7 +116,7 @@ class ClienteController
             // Guardar en la base de datos
             $resultado = $cliente->guardar();
             if ($resultado) {
-                header('Location: /mega/admin/ponentes');
+                header('Location: /admin/vendedor/cliente/tabla?page=1');
                 exit;
             }
         }
