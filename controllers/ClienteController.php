@@ -83,60 +83,52 @@ class ClienteController
     }
 
     public static function crear(Router $router)
-    {
-        $cliente = new Cliente;
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $cliente->sincronizar($_POST);
-            $alertas = $cliente->validar();
+{
+    $cliente = new Cliente;
+    $alertas = [];
 
-            if (!empty($_FILES['pdf']['tmp_name'])) {
-                $carpeta_pdfs = $_SERVER['DOCUMENT_ROOT'] . '/public/pdfs';
-                
-                // Crear carpeta si no existe
-                if (!is_dir($carpeta_pdfs)) {
-                    mkdir($carpeta_pdfs, 0755, true);
-                }
-                
-                // Generar un nombre único para el archivo
-                $nombre_pdf = md5(uniqid(rand(), true)) . '.pdf';
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $cliente->sincronizar($_POST);
+        $alertas = $cliente->validar();
+
+        if (!empty($_FILES['pdf']['tmp_name'])) {
+            $carpeta_pdfs = $_SERVER['DOCUMENT_ROOT'] . '/public/pdfs';
             
-                // Mover el archivo cargado a la carpeta
-                $ruta_destino = $carpeta_pdfs . '/' . $nombre_pdf;
-                if (move_uploaded_file($_FILES['pdf']['tmp_name'], $ruta_destino)) {
-                    $_POST['pdf'] = $nombre_pdf; // Guardar el nombre del archivo en el array POST
-                } else {
-                    // Manejar error en la subida
-                    echo "Error al subir el archivo PDF.";
-                }
+            // Crear carpeta si no existe
+            if (!is_dir($carpeta_pdfs)) {
+                mkdir($carpeta_pdfs, 0755, true);
             }
-            
-    
-            if (empty($alertas)) {
-                // Mover el archivo PDF a la carpeta
-                $ruta_destino = $carpeta_pdfs . '/' . $nombre_pdf;
-                if (move_uploaded_file($_FILES['pdf']['tmp_name'], $ruta_destino)) {
-                    // Guardar en la base de datos
-                    $cliente->pdf = $nombre_pdf; // Asignar el nombre del archivo PDF al atributo correspondiente
-                    $resultado = $cliente->guardar();
-                    
-                    if ($resultado) {
-                        header('Location: /mega/admin/ponentes');
-                    }
-                } else {
-                    echo "Error al mover el archivo PDF.";
-                }
+
+            // Generar un nombre único para el archivo
+            $nombre_pdf = md5(uniqid(rand(), true)) . '.pdf';
+            $ruta_destino = $carpeta_pdfs . '/' . $nombre_pdf;
+
+            // Intentar mover el archivo cargado
+            if (move_uploaded_file($_FILES['pdf']['tmp_name'], $ruta_destino)) {
+                // Asignar el nombre del archivo al objeto cliente
+                $cliente->pdf = $nombre_pdf;
+            } else {
+                $alertas[] = "Error al mover el archivo PDF. Verifica los permisos de la carpeta.";
             }
-            
         }
-        $alertas = Cliente::getAlertas();
 
-    
-        // Render a la vista
-        $router->render('admin/vendedor/cliente/crear', [
-            'titulo' => 'CREAR REGISTRO',
-            'alertas' => $alertas,
-        ]);
+        if (empty($alertas)) {
+            // Guardar en la base de datos
+            $resultado = $cliente->guardar();
+            if ($resultado) {
+                header('Location: /mega/admin/ponentes');
+                exit;
+            }
+        }
     }
+
+    // Render a la vista con alertas
+    $router->render('admin/vendedor/cliente/crear', [
+        'titulo' => 'CREAR REGISTRO',
+        'alertas' => $alertas,
+    ]);
+}
+
 
     public static function editar(Router $router)
     {
