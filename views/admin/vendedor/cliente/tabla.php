@@ -49,6 +49,7 @@
                 <tr>
                     <th scope="col" class="table__th">Nombre Cliente</th>
                     <th scope="col" class="table__th">Nombre Prodcuto</th>
+                    <th scope="col" class="table__th">Estado</th>
                     <th scope="col" class="table__th">Archivo PDF</th>
                     <th scope="col" class="table__th">Acciones</th>
                 </tr>
@@ -58,6 +59,7 @@
                     <tr class="table__tr">
                         <td class="table__td"><?php echo $visores->nombre_cliente?></td>
                         <td class="table__td"><?php echo $visores->nombre_producto?></td>
+                        <td class="table__td"><?php echo $visores->estado?></td>
                         <td class="table__td">
                             <?php 
                             $rutaArchivo = "/src/visor/" . htmlspecialchars($visores->pdf);
