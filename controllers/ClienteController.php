@@ -90,7 +90,7 @@ class ClienteController
             $alertas = $cliente->validar();
 
             if (!empty($_FILES['pdf']['tmp_name'])) {
-                $carpeta_pdfs = $_SERVER['DOCUMENT_ROOT'] . '/mega/public/pdfs';
+                $carpeta_pdfs = $_SERVER['DOCUMENT_ROOT'] . '/public/pdfs';
                 
                 // Crear carpeta si no existe
                 if (!is_dir($carpeta_pdfs)) {
