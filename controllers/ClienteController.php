@@ -149,6 +149,7 @@ class ClienteController
         ]);
     }
     
+    
 
     public static function editar(Router $router)
     {
