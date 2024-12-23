@@ -38,7 +38,7 @@
     <div class="formulario__campo">
         <a class="formulario__texto">Archivo Actual:</a>
         <div class="formulario__archivo">
-            <a href="<?php echo $_ENV['HOST'] . '/public/pdfs/' . $cliente->pdf; ?>" target="_blank" class="formulario__enlace">
+            <a href="<?php echo $_ENV['HOST'] . '/src/visor/' . $cliente->pdf; ?>" target="_blank" class="formulario__enlace">
                 Descargar/Ver PDF
             </a>
         </div>
