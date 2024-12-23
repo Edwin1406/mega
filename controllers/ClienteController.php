@@ -132,7 +132,12 @@ class ClienteController
 
     public static function editar(Router $router)
     {
-        $id = $_GET['id'];
+        $id = $_GET['id'] ?? null;
+        if (!$id) {
+            header('Location: /error');
+            exit;
+        }
+        
         $id = filter_var($id, FILTER_VALIDATE_INT);
         $cliente = Cliente::find($id);
         $alertas = Cliente::getAlertas();
