@@ -43,6 +43,7 @@
 <style>
     .estado-pendiente {
     color: red;
+    border-radius: 1rem solid red;
 }
 
 .estado-completado {
