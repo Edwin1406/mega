@@ -40,7 +40,16 @@
         onblur="this.style.boxShadow='inset 0 2px 4px rgba(0, 0, 0, 0.1)'; this.style.borderColor='#ccc';"
     >
 </div>
+<style>
+    .estado-pendiente {
+    color: red;
+}
 
+.estado-completado {
+    color: green;
+}
+
+</style>
 
 <div class="dashboard__contenedor">
     <?php if (!empty($visor)): ?>
