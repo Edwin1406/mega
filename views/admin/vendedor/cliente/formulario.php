@@ -45,10 +45,6 @@
     </div>
 <?php endif;?>
 
-<?php
-var_dump($cliente->pdf); die();
-?>
-
 
 
 
