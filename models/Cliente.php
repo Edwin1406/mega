@@ -12,6 +12,7 @@ class Cliente extends ActiveRecord {
     public $id;
     public $nombre_cliente;
     public $nombre_producto;
+    public $estado;
     public $pdf;
     public $pdf_actual; // Definir la propiedad explícitamente
 
