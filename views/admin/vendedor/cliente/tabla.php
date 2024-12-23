@@ -75,6 +75,8 @@
                                 <!-- Mostrar enlace para visualizar PDF -->
                                 <?php else: ?>
                                     <a href="<?php echo $rutaArchivo ?>" target="_blank" class="enlace-pdf">Ver PDF</a>
+                                    <a href="/src/visor/<?php echo $cliente->pdf; ?>" target="_blank">Ver PDF</a>
+
                             <?php endif; ?>
                         </td>
                         <td class="table__td--acciones"><a class="table__accion table__accion--editar" href="/admin/vendedor/cliente/editar?id=<?php echo $visores->id; ?>"><i class="fa-solid fa-user-pen"></i>Editar</a>
