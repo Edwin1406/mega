@@ -60,14 +60,14 @@
                         <td class="table__td"><?php echo $visores->nombre_producto?></td>
                         <td class="table__td">
                             <?php 
-                            $rutaArchivo = "/src/visor/" . htmlspecialchars($visores->imagen);
-                            $extension = pathinfo($visores->imagen, PATHINFO_EXTENSION);
+                            $rutaArchivo = "/src/visor/" . htmlspecialchars($visores->pdf);
+                            $extension = pathinfo($visores->pdf, PATHINFO_EXTENSION);
 
                             if (in_array(strtolower($extension), ['jpg', 'jpeg', 'png', 'gif'])): ?>
                                 <!-- Mostrar miniatura para imágenes -->
                                 <img 
                                     src="<?php echo $rutaArchivo ?>" 
-                                    alt="Imagen" 
+                                    alt="pdf" 
                                     class="imagen-miniatura" 
                                     style="width: 100px; height: auto; cursor: pointer;" 
                                     onclick="mostrarImagen(this.src)">
