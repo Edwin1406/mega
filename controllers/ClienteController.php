@@ -88,34 +88,28 @@ class ClienteController
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $cliente->sincronizar($_POST);
             $alertas = $cliente->validar();
-    
-            if (empty($alertas)) {
-                $archivo = $_FILES['imagen'] ?? null;
-                if ($archivo && $archivo['error'] === UPLOAD_ERR_OK) {
-                    $nombreArchivo = preg_replace('/[^a-zA-Z0-9._-]/', '_', $archivo['name']);
-                    $extension = strtolower(pathinfo($nombreArchivo, PATHINFO_EXTENSION));
-    
-                    if ($archivo['type'] === 'application/pdf' && $extension === 'pdf') {
-                        $destino = $_SERVER['DOCUMENT_ROOT'] . '/src/visor/';
-                        if (!file_exists($destino)) mkdir($destino, 0777, true);
-    
-                        if (move_uploaded_file($archivo['tmp_name'], $destino . $nombreArchivo)) {
-                            $cliente->imagen = $nombreArchivo;
-                        } else {
-                            Cliente::setAlerta('error', 'Error al subir el archivo.');
-                        }
-                    } else {
-                        Cliente::setAlerta('error', 'El archivo debe ser un PDF.');
-                    }
-                } else {
-                    Cliente::setAlerta('error', 'No se ha subido ningún archivo.');
-                }
-    
-                if (empty(Cliente::getAlertas())) {
-                    $cliente->guardar();
-                    header('Location: /admin/vendedor/cliente/tabla?id=1');
-                }
+
+            $nombrePDF =md5(uniqid(rand(), true)) . '.pdf';
+            $archivo = $_FILES['archivo'];
+
+            if (!$archivo['name']) {
+                $alertas[] = 'El archivo es obligatorio';
             }
+
+            if (!$cliente->imagen) {
+                $alertas[] = 'La imagen es obligatoria';
+            }
+
+            if (empty($alertas)) {
+                $cliente->guardar();
+                $destino = CARPETA_IMAGENES . $cliente->imagen;
+                move_uploaded_file($archivo['tmp_name'], $destino);
+                header('Location: /admin/vendedor/cliente/tabla?id=1');
+            }
+            
+
+    
+           
         }
         $alertas = Cliente::getAlertas();
 
