@@ -73,9 +73,8 @@
                                     onclick="mostrarImagen(this.src)">
                             <?php elseif (strtolower($extension) === 'pdf'): ?>
                                 <!-- Mostrar enlace para visualizar PDF -->
-                                <a href="/src/visor/<?php echo $cliente->pdf; ?>" target="_blank">Ver PDF</a>
+                                <a href="<?php echo $rutaArchivo ?>" target="_blank" class="enlace-pdf">Ver PDF</a>
                                 <?php else: ?>
-                                    <a href="<?php echo $rutaArchivo ?>" target="_blank" class="enlace-pdf">Ver PDF</a>
 
                             <?php endif; ?>
                         </td>
