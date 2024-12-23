@@ -53,7 +53,9 @@
                     <tr class="table__tr">
                         <td class="table__td"><?php echo $maquina->nombre_cliente?></td>
                         <td class="table__td"><?php echo $maquina->nombre_producto?></td>
-                        <td class="table__td"><?php echo $maquina->estado?></td>
+                        <td class="table__td" style="color: <?php echo ($visores->estado == 'pendiente') ? 'red' : 'green'; ?>">
+                            <?php echo $visores->estado; ?>
+                        </td>
                         <td class="table__td">
                             <?php 
                             $rutaArchivo = "/src/visor/" . htmlspecialchars($maquina->pdf);
