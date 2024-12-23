@@ -74,8 +74,6 @@
                             <?php elseif (strtolower($extension) === 'pdf'): ?>
                                 <!-- Mostrar enlace para visualizar PDF -->
                                 <a href="<?php echo $rutaArchivo ?>" target="_blank" class="enlace-pdf">Ver PDF</a>
-                                <?php else: ?>
-
                             <?php endif; ?>
                         </td>
                         <td class="table__td--acciones"><a class="table__accion table__accion--editar" href="/admin/vendedor/cliente/editar?id=<?php echo $visores->id; ?>"><i class="fa-solid fa-user-pen"></i>Editar</a>
