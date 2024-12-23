@@ -88,34 +88,45 @@ class ClienteController
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $cliente->sincronizar($_POST);
             $alertas = $cliente->validar();
-    
-            if (empty($alertas)) {
-                $archivo = $_FILES['imagen'] ?? null;
-                if ($archivo && $archivo['error'] === UPLOAD_ERR_OK) {
-                    $nombreArchivo = preg_replace('/[^a-zA-Z0-9._-]/', '_', $archivo['name']);
-                    $extension = strtolower(pathinfo($nombreArchivo, PATHINFO_EXTENSION));
-    
-                    if ($archivo['type'] === 'application/pdf' && $extension === 'pdf') {
-                        $destino = $_SERVER['DOCUMENT_ROOT'] . '/src/visor/';
-                        if (!file_exists($destino)) mkdir($destino, 0777, true);
-    
-                        if (move_uploaded_file($archivo['tmp_name'], $destino . $nombreArchivo)) {
-                            $cliente->imagen = $nombreArchivo;
-                        } else {
-                            Cliente::setAlerta('error', 'Error al subir el archivo.');
-                        }
-                    } else {
-                        Cliente::setAlerta('error', 'El archivo debe ser un PDF.');
-                    }
-                } else {
-                    Cliente::setAlerta('error', 'No se ha subido ningún archivo.');
+
+            if (!empty($_FILES['pdf']['tmp_name'])) {
+                $carpeta_pdfs = $_SERVER['DOCUMENT_ROOT'] . '/mega/public/pdfs';
+                
+                // Crear carpeta si no existe
+                if (!is_dir($carpeta_pdfs)) {
+                    mkdir($carpeta_pdfs, 0755, true);
                 }
-    
-                if (empty(Cliente::getAlertas())) {
-                    $cliente->guardar();
-                    header('Location: /admin/vendedor/cliente/tabla?id=1');
+                
+                // Generar un nombre único para el archivo
+                $nombre_pdf = md5(uniqid(rand(), true)) . '.pdf';
+            
+                // Mover el archivo cargado a la carpeta
+                $ruta_destino = $carpeta_pdfs . '/' . $nombre_pdf;
+                if (move_uploaded_file($_FILES['pdf']['tmp_name'], $ruta_destino)) {
+                    $_POST['pdf'] = $nombre_pdf; // Guardar el nombre del archivo en el array POST
+                } else {
+                    // Manejar error en la subida
+                    echo "Error al subir el archivo PDF.";
                 }
             }
+            
+    
+            if (empty($alertas)) {
+                // Mover el archivo PDF a la carpeta
+                $ruta_destino = $carpeta_pdfs . '/' . $nombre_pdf;
+                if (move_uploaded_file($_FILES['pdf']['tmp_name'], $ruta_destino)) {
+                    // Guardar en la base de datos
+                    $cliente->pdf = $nombre_pdf; // Asignar el nombre del archivo PDF al atributo correspondiente
+                    $resultado = $cliente->guardar();
+                    
+                    if ($resultado) {
+                        header('Location: /mega/admin/ponentes');
+                    }
+                } else {
+                    echo "Error al mover el archivo PDF.";
+                }
+            }
+            
         }
         $alertas = Cliente::getAlertas();
 

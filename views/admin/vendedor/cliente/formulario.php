@@ -22,19 +22,30 @@
             placeholder="nombre_producto"
             value="<?php echo $cliente->nombre_producto ?? '' ?>">
     </div>
-   
+
 
     <div class="formulario__campo">
-    <label class="formulario__label" for="pdf">Subir PDF</label>
-    <input
-        type="file"
-        name="pdf"
-        id="pdf"
-        class="formulario__input"
-        placeholder="pdf del cliente"
-        value="<?php echo $cliente->pdf ?? '' ?>">
-</div>
+        <label class="formulario__label" for="pdf">Subir PDF</label>
+        <input
+            type="file"
+            name="pdf"
+            id="pdf"
+            class="formulario__input"
+            placeholder="pdf del cliente">
+    </div>
+
+    <?php if(isset($cliente->pdf)) :?>
+        <a class="formulario__texto">Imagen Actual</a>
+        <div class="formulario__imagen">
+            <picture>
+                <source srcset="<?php echo $_ENV['HOST'] . '/public/img/speakers/' . $cliente->pdf; ?>.webp" type="image/webp"> 
+                <source srcset="<?php echo $_ENV['HOST'] . '/public/img/speakers/' . $cliente->pdf; ?>.png" type="image/png"> 
+                <img  src="<?php echo $_ENV['HOST'] . '/public/img/speakers/' . $cliente->pdf; ?>.png" alt="no carga">
+            </picture>
+        </div>
+
+    <?php endif;?>
 
 
-    
+
 </fieldset>
