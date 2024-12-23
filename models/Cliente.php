@@ -13,6 +13,8 @@ class Cliente extends ActiveRecord {
     public $nombre_cliente;
     public $nombre_producto;
     public $pdf;
+    public $pdf_actual; // Definir la propiedad explícitamente
+
 
     public function __construct($args = [])
     {
