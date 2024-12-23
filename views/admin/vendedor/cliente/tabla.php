@@ -40,20 +40,6 @@
         onblur="this.style.boxShadow='inset 0 2px 4px rgba(0, 0, 0, 0.1)'; this.style.borderColor='#ccc';"
     >
 </div>
-<style>
-    .estado-pendiente {
-    color: red;
-    border-radius: 1rem;
-    padding-right: 1rem;
-    background-color: rgba(255, 0, 0, 0.1);
-
-}
-
-.estado-completado {
-    color: green;
-}
-
-</style>
 
 <div class="dashboard__contenedor">
     <?php if (!empty($visor)): ?>
@@ -73,8 +59,8 @@
                         <td class="table__td"><?php echo $visores->nombre_cliente?></td>
                         <td class="table__td"><?php echo $visores->nombre_producto?></td>
                         <td class="table__td" style="color: <?php echo ($visores->estado == 'pendiente') ? 'red' : 'green'; ?>">
-    <?php echo $visores->estado; ?>
-</td>
+                            <?php echo $visores->estado; ?>
+                        </td>
 
                         
                         <td class="table__td">
