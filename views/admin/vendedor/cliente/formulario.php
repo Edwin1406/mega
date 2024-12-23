@@ -22,18 +22,29 @@
             placeholder="nombre_producto"
             value="<?php echo $cliente->nombre_producto ?? '' ?>">
     </div>
-   
 
-    <label for="pdf">Archivo PDF:</label>
-<input type="file" id="pdf" accept="application/pdf" name="propiedad[pdf]">
+<!-- 
+    <div class="formulario__campo">
+        <label class="formulario__label" for="archivo">Subir PDF</label>
+        <input
+            type="file"
+            name="archivo"
+            id="archivo"
+            class="formulario__input"
+            placeholder="imagen del cliente"
+            value="<?php echo $cliente->imagen ?? '' ?>">
+    </div> -->
 
-<?php if($propiedad->pdf) { ?>
-    <a href="/uploads/pdf/<?php echo htmlspecialchars($propiedad->pdf); ?>" target="_blank">Ver PDF subido</a>
-<?php } ?>
+    <label for="archivo">Archivo PDF:</label>
+    <input type="file" id="archivo" accept="application/pdf" name="cliente[archivo]">
+
+    <?php if ($cliente->imagen) { ?>
+        <p>Archivo actual: <a href="/src/visor/<?php echo $cliente->imagen ?>" target="_blank"><?php echo $cliente->imagen ?></a></p>
+    <?php } ?>
 
 
 
 
 
-    
+
 </fieldset>
