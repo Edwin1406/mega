@@ -143,7 +143,7 @@ class ClienteController
             $cliente->sincronizar($_POST);
             $alertas = $cliente->validar();
     
-        }
+
                
         if (isset($_FILES['pdf']) && $_FILES['pdf']['error'] === UPLOAD_ERR_OK) {
             $carpeta_pdfs = $_SERVER['DOCUMENT_ROOT'] . '/src/visor';
@@ -179,6 +179,7 @@ class ClienteController
         } else {
             $alertas[] = "No se subió ningún archivo PDF o hubo un error en la carga.";
         }
+    }
         
         // Render a la vista
         $router->render('admin/vendedor/cliente/editar', [
