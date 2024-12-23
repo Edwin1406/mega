@@ -25,26 +25,26 @@
 
 
     <div class="formulario__campo">
-        <label class="formulario__label" for="pdf">Subir PDF</label>
-        <input
-            type="file"
-            name="pdf"
-            id="pdf"
-            class="formulario__input"
-            placeholder="pdf del cliente">
-    </div>
+    <label class="formulario__label" for="pdf">Subir PDF</label>
+    <input
+        type="file"
+        name="pdf"
+        id="pdf"
+        class="formulario__input"
+        placeholder="Subir PDF del cliente">
+</div>
 
-    <?php if(isset($cliente->pdf)) :?>
-        <a class="formulario__texto">Imagen Actual</a>
-        <div class="formulario__imagen">
-            <picture>
-                <source srcset="<?php echo $_ENV['HOST'] . '/public/img/speakers/' . $cliente->pdf; ?>.webp" type="image/webp"> 
-                <source srcset="<?php echo $_ENV['HOST'] . '/public/img/speakers/' . $cliente->pdf; ?>.png" type="image/png"> 
-                <img  src="<?php echo $_ENV['HOST'] . '/public/img/speakers/' . $cliente->pdf; ?>.png" alt="no carga">
-            </picture>
+<?php if(isset($cliente->pdf)) :?>
+    <div class="formulario__campo">
+        <a class="formulario__texto">Archivo Actual:</a>
+        <div class="formulario__archivo">
+            <a href="<?php echo $_ENV['HOST'] . '/public/pdfs/' . $cliente->pdf; ?>" target="_blank" class="formulario__enlace">
+                Descargar/Ver PDF
+            </a>
         </div>
+    </div>
+<?php endif;?>
 
-    <?php endif;?>
 
 
 
