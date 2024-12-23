@@ -46,10 +46,10 @@
 <?php endif;?>
 
 <label for="imagen">Imagen:</label>
-    <input type="file" id="imagen" accept="application/pdf" name="cliente[imagen]">
+    <input type="file" id="imagen" accept="application/pdf" name="cliente[pdf]">
 
-    <?php if($propiedad->imagen) { ?>
-        <a href="/src/pdfs/<?php echo $propiedad->pdf ?>" target="_blank" class="archivo-enlace">
+    <?php if($cliente->pdf) { ?>
+        <a href="/src/pdfs/<?php echo $cliente->pdf ?>" target="_blank" class="archivo-enlace">
     <?php } ?>
 
 
