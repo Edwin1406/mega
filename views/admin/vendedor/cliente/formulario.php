@@ -25,14 +25,14 @@
    
 
     <div class="formulario__campo">
-    <label class="formulario__label" for="imagen">Subir PDF</label>
+    <label class="formulario__label" for="pdf">Subir PDF</label>
     <input
         type="file"
-        name="imagen"
-        id="imagen"
+        name="pdf"
+        id="pdf"
         class="formulario__input"
-        placeholder="imagen del cliente"
-        value="<?php echo $cliente->imagen ?? '' ?>">
+        placeholder="pdf del cliente"
+        value="<?php echo $cliente->pdf ?? '' ?>">
 </div>
 
 

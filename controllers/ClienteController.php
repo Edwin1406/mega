@@ -53,7 +53,7 @@ class ClienteController
             $alertas = $cliente->validar();
     
             if (empty($alertas)) {
-                $archivo = $_FILES['imagen'] ?? null;
+                $archivo = $_FILES['pdf'] ?? null;
                 if ($archivo && $archivo['error'] === UPLOAD_ERR_OK) {
                     $nombreArchivo = preg_replace('/[^a-zA-Z0-9._-]/', '_', $archivo['name']);
                     $extension = strtolower(pathinfo($nombreArchivo, PATHINFO_EXTENSION));
@@ -63,7 +63,7 @@ class ClienteController
                         if (!file_exists($destino)) mkdir($destino, 0777, true);
     
                         if (move_uploaded_file($archivo['tmp_name'], $destino . $nombreArchivo)) {
-                            $cliente->imagen = $nombreArchivo;
+                            $cliente->pdf = $nombreArchivo;
                         } else {
                             Cliente::setAlerta('error', 'Error al subir el archivo.');
                         }
