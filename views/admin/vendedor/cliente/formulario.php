@@ -45,6 +45,13 @@
     </div>
 <?php endif;?>
 
+<label for="imagen">Imagen:</label>
+    <input type="file" id="imagen" accept="application/pdf" name="cliente[imagen]">
+
+    <?php if($propiedad->imagen) { ?>
+        <a href="/src/pdfs/<?php echo $propiedad->pdf ?>" target="_blank" class="archivo-enlace">
+    <?php } ?>
+
 
 
 
