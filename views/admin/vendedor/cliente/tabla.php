@@ -44,7 +44,7 @@
     .estado-pendiente {
     color: red;
     border-radius: 1rem;
-    padding: 0.5rem 1rem;
+    
     background-color: rgba(255, 0, 0, 0.1);
 
 }
