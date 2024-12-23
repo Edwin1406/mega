@@ -85,52 +85,70 @@ class ClienteController
     public static function crear(Router $router)
     {
         $cliente = new Cliente;
+    
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $cliente->sincronizar($_POST);
             $alertas = $cliente->validar();
-
-            $nombrePDF =md5(uniqid(rand(), true)) . '.pdf';
+    
+            // Generar un nombre único para el archivo PDF
+            $nombrePDF = md5(uniqid(rand(), true)) . '.pdf';
             $cliente->imagen = $nombrePDF;
+    
             if (empty($alertas)) {
+                // Guardar los datos del cliente en la base de datos
                 $cliente->guardar();
+    
+                // Procesar el archivo PDF
                 $archivo = $_FILES['imagen'] ?? null;
+    
                 if ($archivo && $archivo['error'] === UPLOAD_ERR_OK) {
+                    // Sanitizar el nombre del archivo
                     $nombreArchivo = preg_replace('/[^a-zA-Z0-9._-]/', '_', $archivo['name']);
                     $extension = strtolower(pathinfo($nombreArchivo, PATHINFO_EXTENSION));
     
+                    // Validar que sea un archivo PDF
                     if ($archivo['type'] === 'application/pdf' && $extension === 'pdf') {
                         $destino = $_SERVER['DOCUMENT_ROOT'] . '/src/visor/';
-                        if (!file_exists($destino)) mkdir($destino, 0777, true);
     
+                        // Crear la carpeta si no existe
+                        if (!file_exists($destino)) {
+                            if (!mkdir($destino, 0777, true) && !is_dir($destino)) {
+                                Cliente::setAlerta('error', 'No se pudo crear la carpeta de destino.');
+                            }
+                        }
+    
+                        // Mover el archivo subido al destino
                         if (move_uploaded_file($archivo['tmp_name'], $destino . $nombrePDF)) {
                             $cliente->imagen = $nombrePDF;
                         } else {
                             Cliente::setAlerta('error', 'Error al subir el archivo.');
                         }
                     } else {
-                        Cliente::setAlerta('error', 'El archivo debe ser un PDF.');
+                        Cliente::setAlerta('error', 'El archivo debe ser un PDF válido.');
                     }
+                } else {
+                    Cliente::setAlerta('error', 'No se pudo procesar el archivo.');
                 }
     
+                // Redirigir si no hay errores
                 if (empty(Cliente::getAlertas())) {
                     $cliente->actualizar();
                     header('Location: /admin/vendedor/cliente/tabla?id=1');
+                    exit;
                 }
             }
-            
-
-    
-           
         }
-        $alertas = Cliente::getAlertas();
-
     
-        // Render a la vista
+        // Obtener alertas
+        $alertas = Cliente::getAlertas();
+    
+        // Renderizar la vista
         $router->render('admin/vendedor/cliente/crear', [
             'titulo' => 'CREAR REGISTRO',
             'alertas' => $alertas,
         ]);
     }
+    
 
     public static function editar(Router $router)
     {
