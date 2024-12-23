@@ -90,21 +90,32 @@ class ClienteController
             $alertas = $cliente->validar();
 
             $nombrePDF =md5(uniqid(rand(), true)) . '.pdf';
-            $archivo = $_FILES['archivo'];
-
-            if (!$archivo['name']) {
-                $alertas[] = 'El archivo es obligatorio';
-            }
-
-            if (!$cliente->imagen) {
-                $alertas[] = 'La imagen es obligatoria';
-            }
-
+            $cliente->imagen = $nombrePDF;
             if (empty($alertas)) {
                 $cliente->guardar();
-                $destino = CARPETA_IMAGENES . $cliente->imagen;
-                move_uploaded_file($archivo['tmp_name'], $destino);
-                header('Location: /admin/vendedor/cliente/tabla?id=1');
+                $archivo = $_FILES['imagen'] ?? null;
+                if ($archivo && $archivo['error'] === UPLOAD_ERR_OK) {
+                    $nombreArchivo = preg_replace('/[^a-zA-Z0-9._-]/', '_', $archivo['name']);
+                    $extension = strtolower(pathinfo($nombreArchivo, PATHINFO_EXTENSION));
+    
+                    if ($archivo['type'] === 'application/pdf' && $extension === 'pdf') {
+                        $destino = $_SERVER['DOCUMENT_ROOT'] . '/src/visor/';
+                        if (!file_exists($destino)) mkdir($destino, 0777, true);
+    
+                        if (move_uploaded_file($archivo['tmp_name'], $destino . $nombrePDF)) {
+                            $cliente->imagen = $nombrePDF;
+                        } else {
+                            Cliente::setAlerta('error', 'Error al subir el archivo.');
+                        }
+                    } else {
+                        Cliente::setAlerta('error', 'El archivo debe ser un PDF.');
+                    }
+                }
+    
+                if (empty(Cliente::getAlertas())) {
+                    $cliente->actualizar();
+                    header('Location: /admin/vendedor/cliente/tabla?id=1');
+                }
             }
             
 
