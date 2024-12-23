@@ -23,7 +23,6 @@ class Cliente extends ActiveRecord {
         $this->nombre_cliente = $args['nombre_cliente'] ?? '';
         $this->nombre_producto = $args['nombre_producto'] ?? '';
         $this->estado = $args['estado'] ?? 'pendiente';
-        $this->pdf = $args['pdf'] ?? '';
     }
 
     
