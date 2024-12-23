@@ -165,6 +165,22 @@ class ClienteController
             } else {
                 $alertas[] = "Error al mover el archivo PDF. Verifica los permisos de la carpeta.";
             }
+            if (empty($alertas)) {
+                // Eliminar el archivo anterior
+                if ($cliente->pdf_actual) {
+                    unlink($carpeta_pdfs . '/' . $cliente->pdf_actual);
+                }
+            }
+
+            if (empty($alertas)) {
+                // Guardar en la base de datos
+                $resultado = $cliente->guardar();
+                if ($resultado) {
+                    header('Location: /admin/vendedor/cliente/tabla?page=1');
+                    exit;
+                }
+            }
+            
         }
     
         // Render a la vista
