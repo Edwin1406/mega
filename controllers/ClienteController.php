@@ -172,6 +172,7 @@ if (!empty($_FILES['pdf']['tmp_name'])) {
         $alertas[] = "Error al mover el archivo PDF. Verifica los permisos de la carpeta.";
     }
 }
+    
 
 
         if (empty($alertas)) {
