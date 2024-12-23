@@ -136,35 +136,34 @@ class ClienteController
         $id = filter_var($id, FILTER_VALIDATE_INT);
         $cliente = Cliente::find($id);
         $alertas = Cliente::getAlertas();
+
+        $cliente->pdf_actual = $cliente->pdf;
     
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $cliente->sincronizar($_POST);
             $alertas = $cliente->validar();
     
-            if (empty($alertas)) {
-                $archivo = $_FILES['imagen'] ?? null;
-                if ($archivo && $archivo['error'] === UPLOAD_ERR_OK) {
-                    $nombreArchivo = preg_replace('/[^a-zA-Z0-9._-]/', '_', $archivo['name']);
-                    $extension = strtolower(pathinfo($nombreArchivo, PATHINFO_EXTENSION));
+        }
+               
+            
+        if ($_FILES['pdf']['error'] === UPLOAD_ERR_OK) {
+            $carpeta_pdfs = $_SERVER['DOCUMENT_ROOT'] . '/src/visor';
+            
+            // Crear carpeta si no existe
+            if (!is_dir($carpeta_pdfs)) {
+                mkdir($carpeta_pdfs, 0755, true);
+            }
     
-                    if ($archivo['type'] === 'application/pdf' && $extension === 'pdf') {
-                        $destino = $_SERVER['DOCUMENT_ROOT'] . '/src/visor/';
-                        if (!file_exists($destino)) mkdir($destino, 0777, true);
+            // Generar un nombre único para el archivo
+            $nombre_pdf = md5(uniqid(rand(), true)) . '.pdf';
+            $ruta_destino = $carpeta_pdfs . '/' . $nombre_pdf;
     
-                        if (move_uploaded_file($archivo['tmp_name'], $destino . $nombreArchivo)) {
-                            $cliente->imagen = $nombreArchivo;
-                        } else {
-                            Cliente::setAlerta('error', 'Error al subir el archivo.');
-                        }
-                    } else {
-                        Cliente::setAlerta('error', 'El archivo debe ser un PDF.');
-                    }
-                }
-    
-                if (empty(Cliente::getAlertas())) {
-                    $cliente->actualizar();
-                    header('Location: /admin/vendedor/cliente/tabla?id=1');
-                }
+            // Intentar mover el archivo cargado
+            if (move_uploaded_file($_FILES['pdf']['tmp_name'], $ruta_destino)) {
+                // Asignar el nombre del archivo al objeto cliente
+                $cliente->pdf = $nombre_pdf;
+            } else {
+                $alertas[] = "Error al mover el archivo PDF. Verifica los permisos de la carpeta.";
             }
         }
     
