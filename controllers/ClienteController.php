@@ -141,38 +141,40 @@ public static function editar(Router $router)
         $alertas = $cliente->validar();
 
         // Verificar si se subió un nuevo archivo PDF
-        if (!empty($_FILES['pdf']['tmp_name'])) {
-            $carpeta_pdfs = $_SERVER['DOCUMENT_ROOT'] . '/src/visor';
+if (!empty($_FILES['pdf']['tmp_name'])) {
+    $carpeta_pdfs = $_SERVER['DOCUMENT_ROOT'] . '/src/visor';
 
-            // Crear carpeta si no existe
-            if (!is_dir($carpeta_pdfs)) {
-                mkdir($carpeta_pdfs, 0755, true);
-            }
+    // Crear carpeta si no existe
+    if (!is_dir($carpeta_pdfs)) {
+        mkdir($carpeta_pdfs, 0755, true);
+    }
 
-            // Obtener el nombre del archivo actual desde la base de datos
-            $cliente_actual = Cliente::find($id); // Consulta para obtener el cliente actual desde la BD
-            $pdf_actual = $cliente_actual->pdf;
+    // Obtener el cliente actual desde la base de datos
+    $cliente_actual = Cliente::find($id); // Consulta para obtener el cliente actual desde la BD
+    $pdf_actual = $cliente_actual->pdf;
 
-            // Verificar y eliminar el archivo PDF anterior si existe
-            if (!empty($pdf_actual)) {
-                $ruta_pdf_actual = $carpeta_pdfs . '/' . $pdf_actual;
-                if (file_exists($ruta_pdf_actual)) {
-                    unlink($ruta_pdf_actual); // Eliminar el archivo previo
-                }
-            }
-
-            // Generar un nombre único para el nuevo archivo
-            $nombre_pdf = md5(uniqid(rand(), true)) . '.pdf';
-            $ruta_destino = $carpeta_pdfs . '/' . $nombre_pdf;
-
-            // Intentar mover el archivo cargado
-            if (move_uploaded_file($_FILES['pdf']['tmp_name'], $ruta_destino)) {
-                // Asignar el nuevo nombre del archivo al objeto cliente
-                $cliente->pdf = $nombre_pdf;
-            } else {
-                $alertas[] = "Error al mover el archivo PDF. Verifica los permisos de la carpeta.";
-            }
+    // Eliminar el archivo PDF anterior solo si ya existe
+    if (!empty($pdf_actual)) {
+        $ruta_pdf_actual = $carpeta_pdfs . '/' . $pdf_actual;
+        if (file_exists($ruta_pdf_actual)) {
+            unlink($ruta_pdf_actual); // Eliminar el archivo previo
         }
+    }
+
+    // Generar un nombre único para el nuevo archivo
+    $nombre_pdf = md5(uniqid(rand(), true)) . '.pdf';
+    $ruta_destino = $carpeta_pdfs . '/' . $nombre_pdf;
+
+    // Intentar mover el archivo cargado
+    if (move_uploaded_file($_FILES['pdf']['tmp_name'], $ruta_destino)) {
+        // Asignar el nuevo nombre del archivo al objeto cliente
+        $cliente_actual->pdf = $nombre_pdf;
+        $cliente_actual->save(); // Guardar cambios en la base de datos
+    } else {
+        $alertas[] = "Error al mover el archivo PDF. Verifica los permisos de la carpeta.";
+    }
+}
+
 
         if (empty($alertas)) {
             // Guardar en la base de datos
