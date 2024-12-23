@@ -35,6 +35,15 @@
         value="<?php echo $cliente->imagen ?? '' ?>">
 </div>
 
+<label for="archivo">Archivo PDF:</label>
+<input type="file" id="archivo" accept="application/pdf" name="cliente[archivo]">
+
+<?php if ($cliente->imagen) { ?>
+    <p>Archivo actual: <a href="/src/visor/<?php echo $cliente->imagen ?>" target="_blank"><?php echo $cliente->imagen ?></a></p>
+<?php } ?>
+
+
+
 
 
     
