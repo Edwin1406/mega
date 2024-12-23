@@ -89,7 +89,8 @@
     <?php endif; ?>
 </div>
 
-
-
+<?php 
+var_dump($cliente->pdf); die();
+?>
 
 <?php echo $paginacion; ?>
