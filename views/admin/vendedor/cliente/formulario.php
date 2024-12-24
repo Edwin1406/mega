@@ -23,6 +23,17 @@
             value="<?php echo $cliente->nombre_producto ?? '' ?>">
     </div>
 
+    <div class="formulario__campo">
+        <label class="formulario__label" for="codigo_producto">Cod.Producto</label>
+        <input
+            type="text"
+            name="codigo_producto"
+            id="codigo_producto"
+            class="formulario__input"
+            placeholder="codigo_producto"
+            value="<?php echo $cliente->codigo_producto ?? '' ?>">
+    </div>
+
 
     <div class="formulario__campo">
     <label class="formulario__label" for="pdf">Subir PDF</label>
