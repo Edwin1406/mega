@@ -43,7 +43,8 @@
             <thead class="table__thead">
                 <tr>
                     <th scope="col" class="table__th">Nombre Cliente</th>
-                    <th scope="col" class="table__th">Nombre Prodcuto</th>
+                    <th scope="col" class="table__th">Nombre producto</th>
+                    <th scope="col" class="table__th">Codigo producto</th>
                     <th scope="col" class="table__th">Estado</th>
                     <th scope="col" class="table__th">Archivo PDF</th>
                 </tr>
@@ -53,6 +54,7 @@
                     <tr class="table__tr">
                         <td class="table__td"><?php echo $maquina->nombre_cliente?></td>
                         <td class="table__td"><?php echo $maquina->nombre_producto?></td>
+                        <td class="table__td"><?php echo $maquina->codigo_producto?></td>
                         <td class="table__td" style="color: <?php echo ($maquina->estado == 'pendiente') ? 'red' : 'green'; ?>">
                             <?php echo $maquina->estado; ?>
                         </td>
