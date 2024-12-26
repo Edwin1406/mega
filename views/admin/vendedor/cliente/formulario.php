@@ -9,7 +9,7 @@
             id="nombre_cliente"
             class="formulario__input"
             placeholder="nombre cliente"
-            value="<?php echo $cliente->nombre_cliente ?? '' ?>">
+            value="<?php echo $cliente->nombre_clente ?? '' ?>">
     </div>
 
     <div class="formulario__campo">
