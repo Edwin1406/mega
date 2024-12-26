@@ -45,9 +45,9 @@ class Cliente extends ActiveRecord {
             self::$alertas['error'][] = 'El Campo Codigo Producto es Obligatorio';
         }
 
-        if(!$this->pdf && !$this->id) {
-            self::$alertas['error'][] = 'El Campo PDF es Obligatorio';
-        }
+        // if(!$this->pdf && !$this->id) {
+        //     self::$alertas['error'][] = 'El Campo PDF es Obligatorio';
+        // }
        
         return self::$alertas;
     }
