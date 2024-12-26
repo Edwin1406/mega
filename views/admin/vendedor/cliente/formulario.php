@@ -56,7 +56,29 @@
     </div>
 <?php endif;?>
 
-
-
-
 </fieldset>
+
+
+
+<script>
+
+document.querySelector('#pdf').addEventListener('change', (e) => {
+    const file = e.target.files[0];
+    const pdf = document.querySelector('#pdf');
+    const pdf_actual = document.querySelector('#pdf_actual');
+
+    if(pdf_actual) {
+        pdf_actual.remove();
+    }
+
+    const pdf_actualizado = document.createElement('input');
+    pdf_actualizado.setAttribute('type', 'hidden');
+    pdf_actualizado.setAttribute('name', 'pdf_actual');
+    pdf_actualizado.setAttribute('id', 'pdf_actual');
+    pdf_actualizado.setAttribute('value', file.name);
+
+    pdf.insertAdjacentElement('afterend', pdf_actualizado);
+});
+
+
+</script>
