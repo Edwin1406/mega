@@ -9,7 +9,7 @@
             id="nombre_cliente"
             class="formulario__input"
             placeholder="nombre cliente"
-            value="<?php echo $cliente->nombre_clente ?? '' ?>">
+            value="<?php echo $cliente->nombre_cliente ?? '' ?>">
     </div>
 
     <div class="formulario__campo">
@@ -58,10 +58,3 @@
 
 </fieldset>
 
-
-
-<script>
-
-
-
-</script>
