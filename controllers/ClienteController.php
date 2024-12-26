@@ -24,7 +24,7 @@ class ClienteController
             exit;
         }
         
-        $pagina_por_registros = 100;
+        $pagina_por_registros = 500;
         $total = Cliente:: total();
         $paginacion = new Paginacion($pagina_actual, $pagina_por_registros, $total);
         if($paginacion->total_paginas() < $pagina_actual){
@@ -197,7 +197,7 @@ if (!empty($_FILES['pdf']['tmp_name'])) {
 public function nombreCliente (Router $router){
     $clientes = Cliente::all();
     echo json_encode($clientes);
-    
+
 }
 
 
