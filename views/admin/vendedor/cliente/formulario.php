@@ -32,8 +32,6 @@
             class="formulario__input"
             placeholder="codigo_producto"
             value="<?php echo $cliente->codigo_producto ?? '' ?>">
-            <ul id="listado-ponentes" class="listado-ponentes"></ul>
-            <input type="hidden" name="ponente_id">
     </div>
 
 
