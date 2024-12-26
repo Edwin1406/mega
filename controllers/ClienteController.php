@@ -194,7 +194,11 @@ if (!empty($_FILES['pdf']['tmp_name'])) {
 }
 
 
-
+public function nombreCliente (Router $router){
+    $clientes = Cliente::all();
+    echo json_encode($clientes);
+    
+}
 
 
 

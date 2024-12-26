@@ -20,5 +20,15 @@ document.addEventListener('DOMContentLoaded', function () {
                 });
             });
         }
+
+
+        const listadoPonentes = document.querySelector('#listado-ponentes');
+
+        
+
+
+
+
+
     })();
 });
