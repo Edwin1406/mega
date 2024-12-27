@@ -42,8 +42,10 @@
         <table class="table" id="tabla">
             <thead class="table__thead">
                 <tr>
-                    <th scope="col" class="table__th">Nombre Cliente</th>
-                    <th scope="col" class="table__th">Nombre Prodcuto</th>
+                <th scope="col" class="table__th">Nombre Cliente</th>
+                    <th scope="col" class="table__th">Nombre Producto</th>
+                    <th scope="col" class="table__th">Codigo producto</th>
+                    <th scope="col" class="table__th">Estado</th>
                     <th scope="col" class="table__th">Archivo PDF</th>
                 </tr>
             </thead>
@@ -52,23 +54,29 @@
                     <tr class="table__tr">
                         <td class="table__td"><?php echo $maquina->nombre_cliente?></td>
                         <td class="table__td"><?php echo $maquina->nombre_producto?></td>
+                        <td class="table__td"><?php echo $visores->codigo_producto?></td>
+                        <td class="table__td" style="color: <?php echo ($visores->estado == 'pendiente') ? 'red' : 'green'; ?>">
+                            <?php echo $visores->estado; ?>
+                        </td>
                         <td class="table__td">
                             <?php 
-                            $rutaArchivo = "/src/visor/" . htmlspecialchars($maquina->pdf);
-                            $extension = pathinfo($maquina->pdf, PATHINFO_EXTENSION);
+                            $rutaArchivo = "/src/visor/" . htmlspecialchars($visores->pdf);
+                            $extension = pathinfo($visores->pdf, PATHINFO_EXTENSION);
 
                             if (in_array(strtolower($extension), ['jpg', 'jpeg', 'png', 'gif'])): ?>
                                 <!-- Mostrar miniatura para imágenes -->
                                 <img 
                                     src="<?php echo $rutaArchivo ?>" 
-                                    alt="Imagen" 
+                                    alt="pdf" 
                                     class="imagen-miniatura" 
                                     style="width: 100px; height: auto; cursor: pointer;" 
                                     onclick="mostrarImagen(this.src)">
                             <?php elseif (strtolower($extension) === 'pdf'): ?>
                                 <!-- Mostrar enlace para visualizar PDF -->
+                                <a href="<?php echo $rutaArchivo ?>" target="_blank" class="enlace-pdf">Ver PDF</a>
                                 <?php else: ?>
                                     <a href="<?php echo $rutaArchivo ?>" target="_blank" class="enlace-pdf">Ver PDF</a>
+
                             <?php endif; ?>
                         </td>
 
