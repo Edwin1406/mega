@@ -178,9 +178,9 @@
             console.log(error);
             
         }
-        visor = visor.map( visorActual => {
-               console.log(visorActual)
-            });
+        // visor = visor.map( visorActual => {
+        //        console.log(visorActual)
+        //     });
     }
 
 
