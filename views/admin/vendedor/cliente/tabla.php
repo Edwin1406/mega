@@ -146,7 +146,7 @@
 
     usarDatosDelVisor();
     async function usarDatosDelVisor() {
-    const datosVisor = await Apivisor(idVisor);
+    const datosVisor = await Apivisor();
     if (datosVisor) {
         console.log('Datos del visor:', datosVisor);
         // Procesar los datos aquí
