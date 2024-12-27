@@ -108,16 +108,16 @@
     // Escucha los clics en las celdas de la tabla
     document.addEventListener('dblclick', function(event) {
        
-            const idProducto = event.target.getAttribute('data-id');
-            console.log(idProducto);
-             Apivisor(idProducto);
+            const idVisor = event.target.getAttribute('data-id');
+            console.log(idVisor);
+             Apivisor(idVisor);
     });
 
 
 
-    async function Apivisor( idProducto) {
+    async function Apivisor( idVisor) {
         try {
-            const url =`${location.origin}/admin/api/nombreCliente?id=${idProducto}`
+            const url =`${location.origin}/admin/api/nombreCliente?id=${idVisor}`
             const resultado = await fetch(url);
             const visor = await resultado.json();
             console.log(visor);
