@@ -144,20 +144,19 @@
     try {
         // Obtiene los datos del visor
         const visor = await Apivisor(idVisor);
-        
-        if (visor) {
-            // Aquí puedes cambiar el estado o manipular la información
-            console.log("Datos del visor obtenidos:", visor);
 
-            // Simulación de cambio de estado
-            visor.estado = visor.estado; // Cambia el estado según tu lógica
-            console.log("Estado cambiado:", visor);
-        } else {
-            console.error("No se pudo obtener información del visor.");
-        }
+        const { id, estado } = visor[0];
+        const url = `${location.origin}/admin/api/nombreCliente?id=${id}`;
+        const data = {
+            id,
+            estado: estado === 'pendiente' ? 'completo' : 'pendiente'
+        };
     } catch (error) {
-        console.error("Error en cambiarEstado:", error);
+        console.log(error);
     }
+
+
+     
 }
 
 
