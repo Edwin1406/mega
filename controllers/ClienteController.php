@@ -4,6 +4,7 @@ namespace Controllers;
 use MVC\Router;
 use Model\Cliente;
 use Classes\Paginacion;
+use Model\Area;
 
 class ClienteController
 {
@@ -195,7 +196,11 @@ if (!empty($_FILES['pdf']['tmp_name'])) {
 
 
 public function nombreCliente (Router $router){
-    $clientes = Cliente::all();
+    $indefinidoId = $_GET['id'];
+    if(!$indefinidoId) header('Location: /');
+    $clientes = Area::where('url', $indefinidoId);
+    debuguear($clientes);
+
     echo json_encode($clientes);
 
 }

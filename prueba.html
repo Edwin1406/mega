@@ -85,6 +85,7 @@
                 <th>Corte Pedido 2</th>
                 <th>Metros Lineales</th>
                 <th>Cantidad restante P2</th>
+                <th>Acciones</th>
               
             </tr>
         </thead>
@@ -335,6 +336,11 @@ function mostrarResultadosEnTabla(resultados) {
             <td>${resultado.corteP2 || 0}</td>
             <td>${resultado.metrosLineales.toFixed(2)}</td>
             <td class="restante">${pedido2.cantidad - resultado.corteP2 || 0}</td>
+            <td>
+                <button onclick="alert('Editar pedido 1')">Editar P1</button>
+                <button onclick="alert('Editar pedido 2')">Editar P2</button>
+            </td>
+            
         `;
 
         // Colorear el sobrante según la condición
