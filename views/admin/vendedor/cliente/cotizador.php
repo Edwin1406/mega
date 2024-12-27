@@ -42,8 +42,8 @@
         <table class="table" id="tabla">
             <thead class="table__thead">
                 <tr>
-                    <th scope="col" class="table__th">Nombre Cliente</th>
-                    <th scope="col" class="table__th">Nombre producto</th>
+                <th scope="col" class="table__th">Nombre Cliente</th>
+                    <th scope="col" class="table__th">Nombre Producto</th>
                     <th scope="col" class="table__th">Codigo producto</th>
                     <th scope="col" class="table__th">Estado</th>
                     <th scope="col" class="table__th">Archivo PDF</th>
@@ -72,9 +72,11 @@
                                     style="width: 100px; height: auto; cursor: pointer;" 
                                     onclick="mostrarImagen(this.src)">
                             <?php elseif (strtolower($extension) === 'pdf'): ?>
+                                <!-- Mostrar enlace para visualizar PDF -->
                                 <a href="<?php echo $rutaArchivo ?>" target="_blank" class="enlace-pdf">Ver PDF</a>
                                 <?php else: ?>
                                     <a href="<?php echo $rutaArchivo ?>" target="_blank" class="enlace-pdf">Ver PDF</a>
+
                             <?php endif; ?>
                         </td>
 
