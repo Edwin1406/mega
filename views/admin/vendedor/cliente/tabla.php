@@ -104,15 +104,14 @@
 
 
 <script>
-    
-    
-    
-    function id() {
-        e.preventDefault();
-        const id= event.target.getAttribute('data-id');
-        id.addEventListener('click', function(event) {
-            console.log('ID del producto:', id);
-        });    
-        id();
-}
+    document.addEventListener('DOMContentLoaded', () => {
+        const $filtrosVentas = document.querySelector('#filtros_ventas');
+        $filtrosVentas.addEventListener('input', (e) => {
+            const texto = e.target.value.toLowerCase();
+            document.querySelectorAll('.table__tbody tr').forEach((fila) => {
+                fila.style.display = fila.textContent.toLowerCase().includes(texto) ? '' : 'none';
+            });
+        });
+    });
+
 </script>
