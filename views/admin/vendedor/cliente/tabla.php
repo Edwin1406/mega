@@ -139,16 +139,13 @@
 
 
     function mostrarAlerta(titulo,mensaje,tipo,color,fondo){
-        Swal.fire({ 
+        
+
+
+        Swal.fire({
             title: titulo,
-            // text: mensaje,
-            icon: tipo,
-            iconColor: color,  // Color del ícono
-            confirmButtonText: "Entendido",
-            confirmButtonColor: "#3085d6",
-            background: fondo, // Color de fondo del cuadro de alerta
-            color: "#000000", // Color del texto
-            timer: 3000,
+            text: mensaje,
+            icon: "question"
         });
        
     }
