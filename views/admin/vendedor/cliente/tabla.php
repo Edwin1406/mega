@@ -172,15 +172,15 @@
             });
             const resultado = await respuesta.json();
 
-            visor = visor.map( visorActual => {
-            //    console.log(visorActual)
-            });
+           
           
         } catch (error) {
             console.log(error);
             
         }
-        console.log(visor);
+        visor = visor.map( visorActual => {
+               console.log(visorActual)
+            });
     }
 
 
