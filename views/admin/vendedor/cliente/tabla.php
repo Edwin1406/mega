@@ -105,39 +105,31 @@
 
 
     <script>
-  (function() {
-    
-      
-      function darclick(event){
-        const ver = document.querySelector('data-id');
-        console.log(ver);
-        
-          const idProducto = event.target.getAttribute('data-id');
-          idProducto.ondblclick = function(){
-              console.log(idProducto);
-            }
-            
+    // Escucha los clics en las celdas de la tabla
+    document.addEventListener('click', function(event) {
+       
+            const idProducto = event.target.getAttribute('data-id');
+            console.log(idProducto);
+             Apivisor(idProducto);
+    });
+
+
+
+    async function Apivisor( idProducto) {
+        try {
+            const url =`${location.origin}/admin/api/nombreCliente?id=${idProducto}`
+            const resultado = await fetch(url);
+            const visor = await resultado.json();
+            console.log(visor);
+        } catch (error) {
+            console.log(error);
         }
         
-        
-        
-        
-        async function Apivisor( idProducto) {
-            try {
-                const url =`${location.origin}/admin/api/nombreCliente?id=${idProducto}`
-                const resultado = await fetch(url);
-                const visor = await resultado.json();
-                console.log(visor);
-            } catch (error) {
-                console.log(error);
-            }
-            
-        }
-        
-        
-        
-    })();
-        
+    }
+
+  
+
+
 
 </script>
 
