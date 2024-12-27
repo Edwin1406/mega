@@ -106,19 +106,8 @@
 <script>
 
 
-        const estado = document.querySelectorAll('[name="estado"]');
-       e.target.name === 'estado' ? e.target.style.color = 'red' : e.target.style.color = 'green';
-       console.log(e.target.name);
-
-
-    // // Escucha los clics en las celdas de la tabla
-    // document.addEventListener('click', function(event) {
-    //     // Verifica si el elemento clicado tiene la clase `table__td`
-    //     if (event.target.classList.contains('table__td')) {
-    //         // Obtiene el valor del atributo `data-id`
-    //         const idProducto = event.target.getAttribute('data-id');
-    //         console.log('ID del producto:', idProducto);
-    //         // Aquí puedes agregar más lógica, como enviar el ID a otra función o API
-    //     }
-    // });
+const id= event.target.getAttribute('data-id');
+id.addEventListener('click', function(event) {
+    console.log('ID del producto:', id);
+});    
 </script>
