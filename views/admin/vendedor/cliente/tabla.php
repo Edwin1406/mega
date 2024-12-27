@@ -120,9 +120,6 @@
 
 
     async function Apivisor( idProducto) {
-
-        idProducto = 102;
-
         try {
             const url =`${location.origin}/admin/api/nombreCliente?id=${idProducto}`
             const resultado = await fetch(url);
