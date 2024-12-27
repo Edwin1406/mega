@@ -54,8 +54,8 @@
                         <td class="table__td"><?php echo $maquina->nombre_producto?></td>
                         <td class="table__td">
                             <?php 
-                            $rutaArchivo = "/src/visor/" . htmlspecialchars($maquina->imagen);
-                            $extension = pathinfo($maquina->imagen, PATHINFO_EXTENSION);
+                            $rutaArchivo = "/src/visor/" . htmlspecialchars($maquina->pdf);
+                            $extension = pathinfo($maquina->pdf, PATHINFO_EXTENSION);
 
                             if (in_array(strtolower($extension), ['jpg', 'jpeg', 'png', 'gif'])): ?>
                                 <!-- Mostrar miniatura para imágenes -->
