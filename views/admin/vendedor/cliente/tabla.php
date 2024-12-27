@@ -163,7 +163,7 @@
         padding: "3em",
         position: "top-end",
         color: 'rgba(5, 3, 2, 0.61)',
-        background:'rgb(214, 97, 68)', 
+        background:'rgb(214, 154, 139)', 
         icon: "success",
         showConfirmButton: false, // Esto oculta el botón
         timer: 2000,
