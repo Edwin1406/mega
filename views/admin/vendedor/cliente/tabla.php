@@ -173,10 +173,7 @@
             const resultado = await respuesta.json();
 
             visor = visor.map( visorActual => {
-                if( visorActual.id === id){
-                    visorActual.estado = estado;
-                }
-                return visorActual;
+               console.log(visorActual)
             });
           
         } catch (error) {
