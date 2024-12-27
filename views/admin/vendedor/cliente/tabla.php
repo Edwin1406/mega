@@ -144,7 +144,17 @@
     try {
         // Obtiene los datos del visor
         const visor = await Apivisor(idVisor);
-       console.log (visor); 
+        
+        if (visor) {
+            // Aquí puedes cambiar el estado o manipular la información
+            console.log("Datos del visor obtenidos:", visor);
+
+            // Simulación de cambio de estado
+            visor.estado = "nuevoEstado"; // Cambia el estado según tu lógica
+            console.log("Estado cambiado:", visor);
+        } else {
+            console.error("No se pudo obtener información del visor.");
+        }
     } catch (error) {
         console.error("Error en cambiarEstado:", error);
     }
