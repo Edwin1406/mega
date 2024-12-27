@@ -86,7 +86,7 @@
 
                             <?php endif; ?>
                         </td>
-                        <td  name="id=<?php echo $visores->id; ?>"  class="table__td--acciones"><a class="table__accion table__accion--editar" href="/admin/vendedor/cliente/editar?id=<?php echo $visores->id; ?>"><i class="fa-solid fa-user-pen"></i>Editar</a>
+                        <td  class="table__td--acciones"><a class="table__accion table__accion--editar" href="/admin/vendedor/cliente/editar?id=<?php echo $visores->id; ?>"><i class="fa-solid fa-user-pen"></i>Editar</a>
 
 
                     </tr>
@@ -102,32 +102,20 @@
 
 <?php echo $paginacion; ?>
 
-<script>
-    function handleLinkClick(event) {
-        // Verifica si el enlace tiene la clase 'table__accion--editar'
-        if (event.target.closest('.table__accion--editar')) {
-            // Obtén el enlace del elemento clicado
-            const link = event.target.closest('a');
-            if (link) {
-                // Extrae el ID del atributo 'href' usando una expresión regular
-                const href = link.getAttribute('href');
-                const idMatch = href.match(/id=(\d+)/);
-                if (idMatch) {
-                    const id = idMatch[1];
-                    console.log('ID obtenido del href:', id);
-                    // Realiza acciones con el ID
-                    performActionWithID(id);
-                }
-            }
+
+
+    <script>
+    // Escucha los clics en las celdas de la tabla
+    document.addEventListener('click', function(event) {
+        // Verifica si el elemento clicado tiene la clase `table__td`
+        if (event.target.classList.contains('table__td')) {
+            // Obtiene el valor del atributo `data-id`
+            const idProducto = event.target.getAttribute('data-id');
+            console.log('ID del producto:', idProducto);
+            // Aquí puedes agregar más lógica, como enviar el ID a otra función o API
         }
-    }
-
-    // Función para realizar acciones con el ID
-    function performActionWithID(id) {
-        console.log('Realizando acción con el ID:', id);
-        // Agrega lógica adicional aquí
-    }
-
-    // Asocia el evento click al documento
-    document.addEventListener('click', handleLinkClick);
+    });
 </script>
+
+
+
