@@ -58,7 +58,7 @@
                 <?php foreach ($visor as $visores):?>
                     <tr class="table__tr">
                         <td class="table__td"><?php echo $visores->nombre_cliente?></td>
-                        <td class="table__td"><?php echo $visores->nombre_producto?></td>
+                        <td data-id="<?php echo $visores->id_producto; ?>" class="table__td"><?php echo $visores->nombre_producto?></td>
                         <td class="table__td"><?php echo $visores->codigo_producto?></td>
                         <td class="table__td" style="color: <?php echo ($visores->estado == 'pendiente') ? 'red' : 'green'; ?>">
                             <?php echo $visores->estado; ?>
@@ -86,7 +86,7 @@
 
                             <?php endif; ?>
                         </td>
-                        <td name="<?php echo $visores->id;?>" class="table__td--acciones"><a class="table__accion table__accion--editar" href="/admin/vendedor/cliente/editar?id=<?php echo $visores->id; ?>"><i class="fa-solid fa-user-pen"></i>Editar</a>
+                        <td  class="table__td--acciones"><a class="table__accion table__accion--editar" href="/admin/vendedor/cliente/editar?id=<?php echo $visores->id; ?>"><i class="fa-solid fa-user-pen"></i>Editar</a>
 
 
                     </tr>
@@ -105,8 +105,7 @@
 
 
 <script>
-    const  id_visor = document.querySelectorAll('.table__td--acciones');
-    console.log(id_visor);
+    
 
 
 </script>
