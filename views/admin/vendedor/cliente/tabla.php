@@ -116,6 +116,8 @@
         }
     });
 
+    console.log (idProducto);
+
     async function ApiEstado() {
         try {
             const url = `${location.origin}/admin/api/nombreCliente`;
