@@ -197,9 +197,14 @@ if (!empty($_FILES['pdf']['tmp_name'])) {
 
 public static function nombreCliente (Router $router){
     $cliente_id= $_GET['id'] ?? '';
+    $cliente_id =filter_var($cliente_id, FILTER_VALIDATE_INT);
+    
+    if(!$cliente_id){
+        echo json_encode([]);
+        return;
+        
+    }
 
-
-    echo json_encode($cliente_id);
 
 }
 
