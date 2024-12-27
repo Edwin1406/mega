@@ -147,6 +147,16 @@
 
 
     function actualizarEstado(visor){
+        const {id, estado} = visor;
+
+        const data = new FormData();
+        data.append('id', id);
+        data.append('estado', estado);
+
+
+        for (const [key, value] of data) {
+            console.log(`${key}: ${value}`);
+        }
         console.log(visor);
     }
 
