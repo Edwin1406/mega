@@ -60,7 +60,7 @@
                         <td class="table__td"><?php echo $visores->nombre_cliente?></td>
                         <td class="table__td"><?php echo $visores->nombre_producto?></td>
                         <td  class="table__td"><?php echo $visores->codigo_producto?></td>
-                        <td  data-id="<?php echo $visores->id; ?>" class="table__td" style="color: <?php echo ($visores->estado == 'pendiente') ? 'red' : 'green'; ?>">
+                        <td  name="<?php echo $visores->id; ?>" class="table__td" style="color: <?php echo ($visores->estado == 'pendiente') ? 'red' : 'green'; ?>">
                             <?php echo $visores->estado; ?>
                         </td>
 
@@ -104,15 +104,6 @@
 
 
 <script>
-    
-    
-    
-    id();
-    function id( e ) {
-        e.preventDefault();
-    const id= event.target.addEventListener('data-id');
-    id.addEventListener('click', function(event) {
-        console.log('ID del producto:', id);
-    });    
-}
+        const  liner = document.querySelector('[name="liner_id"]')
+
 </script>
