@@ -165,7 +165,7 @@
         color: 'rgba(5, 3, 2, 0.61)',
         background:'rgb(214, 97, 68)', 
         icon: "success",
-        button: none ,
+        showConfirmButton: false, // Esto oculta el botón
         timer: 2000,
         backdrop: `
           rgba(0,0,123,0.4)
