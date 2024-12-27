@@ -163,6 +163,8 @@
     position: "top-end",
     color: 'rgba(5, 3, 2, 0.61)',
     background: 'rgb(214, 97, 68)',
+    icon: "success",
+    timer: 2000,
     backdrop: `
       rgba(0,0,123,0.4)
       url("/gif.gif")
