@@ -155,9 +155,9 @@
     cambiarEstado();
 
     async function cambiarEstado (){
-        const bobinaInterna = await Apivisor();
+        const visores = await Apivisor();
 
-        console.log(bobinaInterna);
+        console.log(visor);
     }
 
 
