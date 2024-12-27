@@ -61,12 +61,12 @@
                         <td class="table__td"><?php echo $visores->nombre_cliente?></td>
                         <td class="table__td"><?php echo $visores->nombre_producto?></td>
                         <td  class="table__td"><?php echo $visores->codigo_producto?></td>
-                        <td data-id="<?php echo $maquina->id; ?>" class="table__td" style="color: 
+                        <td data-id="<?php echo $visores->id; ?>" class="table__td" style="color: 
                             <?php 
                                 echo ($visores->estado == 'ENVIADO') ? 'green' : 
                                     (($visores->estado == 'PAUSADO') ? 'red' : 
-                                    (($visores->estado == 'TERMINADO') ? 'orange' :''));
-                                    ?>;">
+                                    (($visores->estado == 'TERMINADO') ? 'orage' : ''));
+                            ?>;">
                                 <?php echo $visores->estado; ?>
                         </td>
                         <td class="table__td">
