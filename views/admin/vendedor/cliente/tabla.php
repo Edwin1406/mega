@@ -108,13 +108,24 @@
 
 
 (function(){ 
-cargarFunciones ();
-function cargarFunciones(){
-    clickVisor();
-}
+
+        cargarFunciones ();
+        function cargarFunciones(){
+            clickVisor();
+        }
 
 
-async function Apivisor( idVisor) {
+
+    function clickVisor(){
+
+        document.addEventListener('dblclick', function(event) {
+            const idVisor = event.target.getAttribute('data-id');
+            Apivisor(idVisor);
+        });
+
+    }
+
+    async function Apivisor( idVisor) {
         try {
             const url =`${location.origin}/admin/api/nombreCliente?id=${idVisor}`
             const resultado = await fetch(url);
@@ -123,18 +134,10 @@ async function Apivisor( idVisor) {
         } catch (error) {
             console.log(error);
         }
-}
+    }
 
 
-function clickVisor(){
 
-    document.addEventListener('dblclick', function(event) {
-        const idVisor = event.target.getAttribute('data-id');
-        Apivisor(idVisor);
-        // console.log(idVisor);
-    });
-    
-}
 
 
 
