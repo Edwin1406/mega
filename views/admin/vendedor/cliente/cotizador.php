@@ -1,93 +1,63 @@
-<h2 class="dashboard__heading"> <?php echo $titulo ?> </h2>
-
-
+<h2 class="dashboard__heading"><?php echo $titulo ?></h2>
 
 <!-- Campo de búsqueda -->
-<div class="dashboard__contenedor" 
-    style="
-        margin-bottom: 15px; 
-        padding: 20px; 
-        border-radius: 10px; 
-        border: 1px solid #ddd; 
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
-        background-color: #fff; 
-        transition: all 0.3s ease-in-out;
-    ">
+<div class="dashboard__contenedor mb-3 p-3 rounded border shadow-sm bg-white">
     <input 
         type="text" 
         id="filtros_ventas" 
-        class="dashboard__input" 
+        class="form-control" 
         placeholder="Filtrar por nombre cliente o nombre producto"
-        style="
-            margin-bottom: 0; 
-            padding: 12px 15px; 
-            width: 100%; 
-            box-sizing: border-box; 
-            border: 1px solid #ccc; 
-            border-radius: 8px; 
-            outline: none; 
-            font-size: 16px; 
-            background-color: #f9f9f9; 
-            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1); 
-            transition: all 0.2s ease-in-out;
-        "
-        onfocus="this.style.boxShadow='0 0 5px rgba(0, 123, 255, 0.5)'; this.style.borderColor='#007bff';"
-        onblur="this.style.boxShadow='inset 0 2px 4px rgba(0, 0, 0, 0.1)'; this.style.borderColor='#ccc';"
+        onfocus="this.classList.add('shadow-lg', 'border-primary');"
+        onblur="this.classList.remove('shadow-lg', 'border-primary');"
     >
 </div>
 
-
 <div class="dashboard__contenedor">
     <?php if (!empty($visor)): ?>
-        <table class="table" id="tabla">
-            <thead class="table__thead">
+        <table class="table table-striped table-hover">
+            <thead class="table-dark">
                 <tr>
-                    <th scope="col" class="table__th">Nombre Cliente</th>
-                    <th scope="col" class="table__th">Nombre producto</th>
-                    <th scope="col" class="table__th">Codigo producto</th>
-                    <th scope="col" class="table__th">Estado</th>
-                    <th scope="col" class="table__th">Archivo PDF</th>
+                    <th scope="col">Nombre Cliente</th>
+                    <th scope="col">Nombre Producto</th>
+                    <th scope="col">Archivo</th>
                 </tr>
             </thead>
-            <tbody class="table__tbody">
-                <?php foreach ($visor as $maquina):?>
-                    <tr class="table__tr">
-                        <td class="table__td"><?php echo $maquina->nombre_cliente?></td>
-                        <td class="table__td"><?php echo $maquina->nombre_producto?></td>
-                        <td class="table__td"><?php echo $maquina->codigo_producto?></td>
-                        <td class="table__td" style="color: <?php echo ($maquina->estado == 'pendiente') ? 'red' : 'green'; ?>">
-                            <?php echo $maquina->estado; ?>
-                        </td>
-                        <td class="table__td">
+            <tbody>
+                <?php foreach ($visor as $maquina): ?>
+                    <tr>
+                        <td><?php echo $maquina->nombre_cliente; ?></td>
+                        <td><?php echo $maquina->nombre_producto; ?></td>
+                        <td>
                             <?php 
-                            $rutaArchivo = "/src/visor/" . htmlspecialchars($maquina->pdf);
-                            $extension = pathinfo($maquina->pdf, PATHINFO_EXTENSION);
+                            $rutaArchivo = "/src/visor/" . htmlspecialchars($maquina->imagen);
+                            $extension = pathinfo($maquina->imagen, PATHINFO_EXTENSION);
+                            ?>
 
-                            if (in_array(strtolower($extension), ['jpg', 'jpeg', 'png', 'gif'])): ?>
-                                <!-- Mostrar miniatura para imágenes -->
+                            <?php if (in_array(strtolower($extension), ['jpg', 'jpeg', 'png', 'gif'])): ?>
                                 <img 
                                     src="<?php echo $rutaArchivo ?>" 
-                                    alt="pdf" 
-                                    class="imagen-miniatura" 
-                                    style="width: 100px; height: auto; cursor: pointer;" 
+                                    alt="Imagen" 
+                                    class="img-thumbnail" 
+                                    style="width: 100px; cursor: pointer;" 
                                     onclick="mostrarImagen(this.src)">
                             <?php elseif (strtolower($extension) === 'pdf'): ?>
-                                <a href="<?php echo $rutaArchivo ?>" target="_blank" class="enlace-pdf">Ver PDF</a>
-                                <?php else: ?>
-                                    <a href="<?php echo $rutaArchivo ?>" target="_blank" class="enlace-pdf">Ver PDF</a>
+                                <a href="<?php echo $rutaArchivo ?>" target="_blank" class="btn btn-sm btn-primary">Ver PDF</a>
+                            <?php else: ?>
+                                <span class="text-muted">Formato no soportado</span>
                             <?php endif; ?>
                         </td>
-
                     </tr>
-                <?php endforeach;?>
+                <?php endforeach; ?>
             </tbody>
         </table>
+
+        <!-- Paginación -->
+        <nav aria-label="Paginación de resultados">
+            <ul class="pagination justify-content-center">
+                <?php echo $paginacion; ?>
+            </ul>
+        </nav>
     <?php else: ?>
-        <a class="text-center"> No hay visor Aún</a>
+        <div class="alert alert-warning text-center">No hay visor aún</div>
     <?php endif; ?>
 </div>
-
-
-
-
-<?php echo $paginacion; ?>
