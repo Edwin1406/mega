@@ -162,15 +162,16 @@
         width: 600,
         padding: "3em",
         color: "#716add",
-        background: "#fff url(https://source.unsplash.com/random/800x600)",
+        background: "#fff url(/images/trees.png)",
         backdrop: `
           rgba(0,0,123,0.4)
-          url("https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif")
+          url("/gif.gif")
           left top
           no-repeat
         `
       });
     });
+
 
 
 })();
