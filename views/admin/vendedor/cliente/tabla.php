@@ -136,7 +136,7 @@
             const visor = await resultado.json();
             // 
 
-            const nuevoEstado = visor.estado === "pendiente" ? "ENVIADO" : "pendiente"  ;
+            const nuevoEstado = visor.estado === "ENVIADO" ? "PAUSADO" : "TERMIANDO";
             visor.estado = nuevoEstado;
 
             actualizarEstado(visor);
