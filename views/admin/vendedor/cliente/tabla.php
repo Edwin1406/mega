@@ -116,7 +116,6 @@ seleccionId();
             if (event.target.classList.contains('table__td')) {
                 // Obtiene el valor del atributo `data-id`
                 const idProducto = event.target.getAttribute('name');
-                idProducto = parseInt(idProducto);
                 idGlobal = idProducto
             }
         });
