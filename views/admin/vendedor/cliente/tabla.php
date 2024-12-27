@@ -131,7 +131,7 @@ function clickVisor(){
     document.addEventListener('dblclick', function(event) {
         const idVisor = event.target.getAttribute('data-id');
         Apivisor(idVisor);
-        console.log(idVisor);
+        // console.log(idVisor);
     });
     
 }
