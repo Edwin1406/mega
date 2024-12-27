@@ -150,7 +150,7 @@
             console.log("Datos del visor obtenidos:", visor);
 
             // Simulación de cambio de estado
-            visor.estado = "nuevoEstado"; // Cambia el estado según tu lógica
+            visor.estado = visor.estado; // Cambia el estado según tu lógica
             console.log("Estado cambiado:", visor);
         } else {
             console.error("No se pudo obtener información del visor.");
