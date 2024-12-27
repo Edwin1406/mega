@@ -196,12 +196,14 @@ if (!empty($_FILES['pdf']['tmp_name'])) {
 
 
 public static function nombreCliente (Router $router){
-    $indefinidoId = $_GET['id'];
-    // if(!$indefinidoId) header('Location: /');
-    $clientes = Area::where('url', $indefinidoId);
-    debuguear($clientes);
+    // $indefinidoId = $_GET['id'];
+    // // if(!$indefinidoId) header('Location: /');
+    // $clientes = Area::where('url', $indefinidoId);
+    // debuguear($clientes);
 
-    // echo json_encode($clientes);
+    $clientes = Cliente::all();
+
+    echo json_encode($clientes);
 
 }
 
