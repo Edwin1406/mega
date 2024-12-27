@@ -105,6 +105,9 @@
 
 <script>
         const  liner = document.querySelector('[name="id"]')
-        console.log(liner)
+        liner.addEventListener('click', (e) => {
+            const id = e.target.getAttribute('name')
+            console.log(id)
+        })
 
 </script>
