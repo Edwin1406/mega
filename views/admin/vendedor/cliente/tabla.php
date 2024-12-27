@@ -102,12 +102,32 @@
 
 <?php echo $paginacion; ?>
 
-
 <script>
-        const  liner = document.querySelector('[name="id"]')
-        liner.addEventListener('click', (e) => {
-            const id = e.target.getAttribute('name')
-            console.log(id)
-        })
+    function handleLinkClick(event) {
+        // Verifica si el enlace tiene la clase 'table__accion--editar'
+        if (event.target.closest('.table__accion--editar')) {
+            // Obtén el enlace del elemento clicado
+            const link = event.target.closest('a');
+            if (link) {
+                // Extrae el ID del atributo 'href' usando una expresión regular
+                const href = link.getAttribute('href');
+                const idMatch = href.match(/id=(\d+)/);
+                if (idMatch) {
+                    const id = idMatch[1];
+                    console.log('ID obtenido del href:', id);
+                    // Realiza acciones con el ID
+                    performActionWithID(id);
+                }
+            }
+        }
+    }
 
+    // Función para realizar acciones con el ID
+    function performActionWithID(id) {
+        console.log('Realizando acción con el ID:', id);
+        // Agrega lógica adicional aquí
+    }
+
+    // Asocia el evento click al documento
+    document.addEventListener('click', handleLinkClick);
 </script>
