@@ -61,7 +61,7 @@
                         <td class="table__td"><?php echo $visores->nombre_cliente?></td>
                         <td class="table__td"><?php echo $visores->nombre_producto?></td>
                         <td  class="table__td"><?php echo $visores->codigo_producto?></td>
-                        <td  data-id="<?php echo $visores->id; ?>" class="table__td" style="color: <?php echo ($visores->estado == 'pendiente') ? 'red' : 'green'; ?>">
+                        <td  data-id="<?php echo $visores->id; ?>" class="table__td" style="color: <?php echo ($visores->estado == 'ENVIADO') ? 'blue' : 'green'; ?>">
                             <?php echo $visores->estado; ?>
                         </td>
 
