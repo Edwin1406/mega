@@ -124,7 +124,7 @@ Apivisor();
 
         try {
             const url =`${location.origin}/admin/api/apibobina_externa?bobinaExterna_id=${idProducto}`
-            const visor = await respuesta.json();
+            const visor = await url.json();
             console.log(visor);
         } catch (error) {
             console.log(error);
