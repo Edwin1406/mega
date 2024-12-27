@@ -106,17 +106,6 @@
 
     <script>
 
-
-
-function clickVisor(){
-    document.addEventListener('dblclick', function(event) {
-        const idVisor = event.target.getAttribute('data-id');
-        // console.log(idVisor);
-        Apivisor(idVisor);
-    });
-    
-}
-
 async function Apivisor( idVisor) {
         try {
             const url =`${location.origin}/admin/api/nombreCliente?id=${idVisor}`
@@ -127,6 +116,17 @@ async function Apivisor( idVisor) {
             console.log(error);
         }
 }
+
+
+function clickVisor(){
+    document.addEventListener('dblclick', function(event) {
+        const idVisor = event.target.getAttribute('data-id');
+        Apivisor(idVisor);
+        console.log(idVisor);
+    });
+    
+}
+
 
 
 
