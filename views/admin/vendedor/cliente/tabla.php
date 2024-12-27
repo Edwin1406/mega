@@ -108,6 +108,11 @@
 
 
 (function(){ 
+cargarFunciones ();
+function cargarFunciones(){
+    clickVisor();
+}
+
 
 async function Apivisor( idVisor) {
         try {
@@ -122,6 +127,7 @@ async function Apivisor( idVisor) {
 
 
 function clickVisor(){
+
     document.addEventListener('dblclick', function(event) {
         const idVisor = event.target.getAttribute('data-id');
         Apivisor(idVisor);
