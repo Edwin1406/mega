@@ -215,30 +215,32 @@ public static function nombreCliente (Router $router){
 
 
     public static function estadoCliente (Router $router){
-    //    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    //        $cliente = Cliente::find($_POST['id']);
-    //        session_start();
+       if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+           $cliente = Cliente::find($_POST['id']);
+           session_start();
 
-    //        if(!$cliente || $cliente->id !== $_POST['id']){
-    //         $respuesta = [
-    //             'estado' => 'error',
-    //             'mensaje' => 'Error al actualizar el estado'
-    //         ];
+           if (!$cliente || (int)$cliente->id !== (int)$_POST['id']) {
+            $respuesta = [
+                'estado' => 'error',
+                'mensaje' => 'Error al actualizar el estado'
+            ];
+            echo json_encode($respuesta);
+            return;
+        }
+            $visor = new Cliente($_POST);
+            $visor->id = $cliente->id;
+            $resultado = $visor->guardar();
 
-    //         echo json_encode($respuesta);
-    //         return;
-    //     }
-    //         $visor = new Cliente($_POST);
-    //         $visor->id = $cliente->id;
-    //         $resultado = $visor->guardar();
-    //         echo json_encode(['respuesta' => $respuesta]);
-    //         // if($resultado){
-    //         //     $respuesta = [
-    //         //         'tipo' => 'correcto',
-    //         //         'mensaje' => 'Estado actualizado'
-    //         //     ];
-    //         // } 
-    //    }
+            $respuesta = $resultado ? [
+                'estado' => 'correcto',
+                'mensaje' => 'Estado actualizado'
+            ] : [
+                'estado' => 'error',
+                'mensaje' => 'No se pudo actualizar el estado'
+            ];
+    
+            echo json_encode($respuesta);
+        }
        
     }
 
