@@ -160,7 +160,7 @@
       Swal.fire({
         title: "Custom width, padding, color, background.",
         width: 1000,
-        padding: "3em",
+        padding: "6em",
         color: "#716add",
         background: "#fff url(/png.png)",
         backdrop: `
