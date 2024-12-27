@@ -107,22 +107,8 @@
 
 
         const estado = document.querySelectorAll('[name="estado"]');
-        estado.forEach((elemento) => {
-            elemento.addEventListener('change', (event) => {
-                const id = event.target.getAttribute('data-id');
-                const estado = event.target.value;
-
-                // Enviar petición AJAX
-                const xhr = new XMLHttpRequest();
-                xhr.open('POST', '/admin/vendedor/cliente/estado', true);
-                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-                xhr.onload = function() {
-                    if (xhr.status === 200) {
-                        console.log(xhr.responseText);
-                    }
-                };
-                xhr.send(`id=${id}&estado=${estado}`);
-            });
+        estado.addEventListener('change', function() {
+            console.log('Cambiando estado...');
         });
 
 
