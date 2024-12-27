@@ -116,6 +116,20 @@
         }
     });
 
+
+Apivisor();
+    async function Apivisor() {
+
+        try {
+            const respuesta = await fetch('/api/pedidos');
+            const visor = await respuesta.json();
+            console.log(visor);
+        } catch (error) {
+            console.log(error);
+        }
+        
+    }
+
   
 
 
