@@ -128,16 +128,17 @@ seleccionId();
      // Aquí puedes agregar más lógica, como enviar el ID a otra función o API   
      async function ApiEstado() {
             idGlobal= seleccionId();
-            try {
-            const url = `${location.origin}/admin/api/nombreClienteid=${idGlobal}`;
-            const resultado = await fetch(url);
-            const allpedidos = await resultado.json();
-            // console.log(allpedidos);
-            return allpedidos
-            } catch (e) {
-            console.log(e);
+            console.log(idGlobal);
+            // try {
+            // const url = `${location.origin}/admin/api/nombreClienteid=${idGlobal}`;
+            // const resultado = await fetch(url);
+            // const allpedidos = await resultado.json();
+            // // console.log(allpedidos);
+            // return allpedidos
+            // } catch (e) {
+            // console.log(e);
                 
-            }
+            // }
     }
 
    
