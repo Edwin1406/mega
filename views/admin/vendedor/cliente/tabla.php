@@ -65,7 +65,7 @@
                             <?php 
                                 echo ($visores->estado == 'ENVIADO') ? 'green' : 
                                     (($visores->estado == 'PAUSADO') ? 'red' : 
-                                    (($visores->estado == 'TERMINADO') ? 'orage' : ''));
+                                    (($visores->estado == 'TERMINADO') ? 'orange' : ''));
                             ?>;">
                                 <?php echo $visores->estado; ?>
                         </td>
