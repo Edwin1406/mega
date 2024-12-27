@@ -1,7 +1,5 @@
 <?php 
 namespace Controllers;
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
 
 use MVC\Router;
 use Model\Cliente;
@@ -221,9 +219,16 @@ public static function nombreCliente (Router $router){
            $cliente = Cliente::find($_POST['id']);
            session_start();
 
-           
+           if (!$cliente || (int)$cliente->id !== (int)$_POST['id']) {
+            $respuesta = [
+                'estado' => 'error',
+                'mensaje' => 'Error al actualizar el estado'
+            ];
+            echo json_encode($respuesta);
+            return;
+        }
             $visor = new Cliente($_POST);
-            // $visor->id = $cliente->id;
+            $visor->id = $cliente->id;
             $resultado = $visor->guardar();
 
             $respuesta = $resultado ? [
