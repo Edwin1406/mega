@@ -6,7 +6,7 @@
         REGRESAR A INICIO
     </a>
 </div>
-<button id="customAlertButton">Show Custom Alert</button>
+<button id="customAlertButton"> TOCAME </button>
 
 <!-- Campo de búsqueda -->
 <div class="dashboard__contenedor" 
@@ -165,8 +165,7 @@
         color: 'rgba(5, 3, 2, 0.61)',
         background:'rgb(226, 218, 216)', 
         icon: "success",
-        showConfirmButton: false, // Esto oculta el botón
-        timer: 2000,
+        showConfirmButton: false, 
         backdrop: `
           rgba(0,0,123,0.4)
           url("/gif.gif")
