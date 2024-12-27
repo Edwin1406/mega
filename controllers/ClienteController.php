@@ -195,7 +195,7 @@ if (!empty($_FILES['pdf']['tmp_name'])) {
 }
 
 
-public function nombreCliente (Router $router){
+public static function nombreCliente (Router $router){
     $indefinidoId = $_GET['id'];
     if(!$indefinidoId) header('Location: /');
     $clientes = Area::where('url', $indefinidoId);
