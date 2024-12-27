@@ -61,11 +61,14 @@
                         <td class="table__td"><?php echo $visores->nombre_cliente?></td>
                         <td class="table__td"><?php echo $visores->nombre_producto?></td>
                         <td  class="table__td"><?php echo $visores->codigo_producto?></td>
-                        <td  data-id="<?php echo $visores->id; ?>" class="table__td" style="color: <?php echo ($visores->estado == 'ENVIADO') ? 'blue' : 'green'; ?>">
-                            <?php echo $visores->estado; ?>
+                        <td data-id="<?php echo $visores->id; ?>" class="table__td" style="color: 
+                            <?php 
+                                echo ($visores->estado == 'ENVIADO') ? 'blue' : 
+                                    (($visores->estado == 'PAUSADO') ? 'orange' : 
+                                    (($visores->estado == 'TERMINADO') ? 'green' : 'black'));
+                            ?>;">
+                                <?php echo $visores->estado; ?>
                         </td>
-
-                        
                         <td class="table__td">
                             <?php 
                             $rutaArchivo = "/src/visor/" . htmlspecialchars($visores->pdf);
