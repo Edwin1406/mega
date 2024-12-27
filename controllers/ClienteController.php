@@ -216,24 +216,22 @@ public static function nombreCliente (Router $router){
 }
 
 
-public static function estadoCliente(Router $router) {
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        header('Content-Type: application/json');
-        session_start();
 
-        try {
-            $cliente = Cliente::find($_POST['id']);
+    public static function estadoCliente (Router $router){
+       if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+           $cliente = Cliente::find($_POST['id']);
+        //    session_start();
 
-            if (!$cliente || (int)$cliente->id !== (int)$_POST['id']) {
-                throw new Exception("Error al actualizar el estado");
-            }
-
-            $visor = new Cliente([
-                'id' => $cliente->id,
-                'campo_1' => $_POST['campo_1'] ?? null,
-                'campo_2' => $_POST['campo_2'] ?? null,
-            ]);
-
+           if (!$cliente || (int)$cliente->id !== (int)$_POST['id']) {
+            $respuesta = [
+                'estado' => 'error',
+                'mensaje' => 'Error al actualizar el estado'
+            ];
+            echo json_encode($respuesta);
+            return;
+        }
+            $visor = new Cliente($_POST);
+            $visor->id = $cliente->id;
             $resultado = $visor->guardar();
 
             $respuesta = $resultado ? [
@@ -243,18 +241,15 @@ public static function estadoCliente(Router $router) {
                 'estado' => 'error',
                 'mensaje' => 'No se pudo actualizar el estado'
             ];
+    // Esto causará problemas
+            echo "Debugging info"; 
 
-        } catch (Exception $e) {
-            $respuesta = [
-                'estado' => 'error',
-                'mensaje' => $e->getMessage()
-            ];
+
+            echo json_encode($respuesta);
+            exit;
         }
-
-        echo json_encode($respuesta);
+       
     }
-}
-
 
 
 }
