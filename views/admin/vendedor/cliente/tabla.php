@@ -130,7 +130,7 @@
             const url =`${location.origin}/admin/api/nombreCliente?id=${idVisor}`
             const resultado = await fetch(url);
             const visor = await resultado.json();
-            mostrarAlerta('Datos correctos ',`visor${visor} `,'success','#28a745','#d4edda');
+            mostrarAlerta('CAMBIASTE EL ESTADO  ',`visor${visor} `,'success','#28a745','#d4edda');
         } catch (error) {
             console.log(error);
         }
