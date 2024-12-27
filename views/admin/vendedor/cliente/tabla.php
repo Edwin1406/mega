@@ -111,6 +111,7 @@
         if (event.target.classList.contains('table__td')) {
             // Obtiene el valor del atributo `data-id`
             const idProducto = event.target.getAttribute('data-id');
+            console.log(idProducto);
             //  Apivisor(idProducto);
             // Aquí puedes agregar más lógica, como enviar el ID a otra función o API
         }
