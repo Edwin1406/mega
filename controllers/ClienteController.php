@@ -214,17 +214,24 @@ public static function nombreCliente (Router $router){
 
 
 
+    public static function estadoCliente (Router $router){
+        $cliente_id= $_GET['cliente_id'] ?? '';
+        $cliente_id =filter_var($cliente_id, FILTER_VALIDATE_INT);
+        
+        if(!$cliente_id){
+            echo json_encode([]);
+            return;
+            
+        }
 
+        $clientes= Cliente ::where('id',$cliente_id);
+        $cliente = $clientes[0];
+        $nuevoEstado = $cliente->estado === 'pendiente' ? 'completo' : 'pendiente';
+        $cliente->estado = $nuevoEstado;
+        $resultado = $cliente->guardar();
+        echo json_encode($resultado);
 
-    
-
-
-
-
-
-
-
-
+    }
 
 
 }

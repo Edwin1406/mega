@@ -75,10 +75,7 @@ $router->get('/admin/api/allpedidos', [ApiPedidos::class, 'Allpedidos']);
 $router->get('/admin/api/allpedidos2', [ApiPedidos::class, 'Allpedidos2']);
 
 $router->get('/admin/api/nombreCliente', [ClienteController::class, 'nombreCliente']);
-
-
-
-
+$router->post('/admin/api/estadoCliente', [ClienteController::class, 'estadoCliente']);
 
 
 

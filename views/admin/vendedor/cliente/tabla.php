@@ -146,7 +146,7 @@
     }
 
 
-    function actualizarEstado(visor){
+    async function  actualizarEstado(visor){
         const {id, estado} = visor;
 
         const data = new FormData();
@@ -157,8 +157,19 @@
         data.append('estado', estado);
 
 
-        for (const [key, value] of data) {
-            console.log(`${key}: ${value}`);
+        try {
+
+            const url = `${location.origin}/admin/api/estadoCliente`;
+            const resultado = await fetch(url, {
+                method: 'POST',
+                body: data
+            });
+
+            console.log(resultado);
+            
+        } catch (error) {
+            console.log(error);
+            
         }
         console.log(visor);
     }
