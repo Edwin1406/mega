@@ -1,9 +1,6 @@
 <?php 
-
-
 namespace Controllers;
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
+
 use MVC\Router;
 use Model\Cliente;
 use Classes\Paginacion;
@@ -220,7 +217,7 @@ public static function nombreCliente (Router $router){
     public static function estadoCliente (Router $router){
        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
            $cliente = Cliente::find($_POST['id']);
-        //    session_start();
+           session_start();
 
            if (!$cliente || (int)$cliente->id !== (int)$_POST['id']) {
             $respuesta = [
@@ -233,21 +230,14 @@ public static function nombreCliente (Router $router){
             $visor = new Cliente($_POST);
             $visor->id = $cliente->id;
             $resultado = $visor->guardar();
-
-            $respuesta = $resultado ? [
-                'estado' => 'correcto',
-                'mensaje' => 'Estado actualizado'
-            ] : [
-                'estado' => 'error',
-                'mensaje' => 'No se pudo actualizar el estado'
-            ];
-    // Esto causará problemas
-            echo "Debugging info"; 
-
-
-            echo json_encode($respuesta);
-            exit;
-        }
+            if($resultado){
+                $respuesta = [
+                    'tipo' => 'correcto',
+                    'mensaje' => 'Estado actualizado'
+                ];
+            } 
+            echo json_encode(['respuesta' => $respuesta]);
+       }
        
     }
 
