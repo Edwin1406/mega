@@ -169,10 +169,10 @@
                 body: data
             });
             const resultado = await respuesta.json();
-
-            if(resultado.respuesta.tipo === 'correcto'){
-                mostrarAlerta('Correcto', 'Estado Actualizado', 'success', '#4BB543', '#D4EDDA');
-            }
+            console.log(resultado);
+            // if(resultado.respuesta.tipo === 'correcto'){
+            //     mostrarAlerta('Correcto', 'Estado Actualizado', 'success', '#4BB543', '#D4EDDA');
+            // }
 
             console.log(resultado);
             
