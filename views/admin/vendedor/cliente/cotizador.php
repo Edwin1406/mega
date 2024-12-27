@@ -54,14 +54,14 @@
                     <tr class="table__tr">
                         <td class="table__td"><?php echo $maquina->nombre_cliente?></td>
                         <td class="table__td"><?php echo $maquina->nombre_producto?></td>
-                        <td class="table__td"><?php echo $visores->codigo_producto?></td>
-                        <td class="table__td" style="color: <?php echo ($visores->estado == 'pendiente') ? 'red' : 'green'; ?>">
-                            <?php echo $visores->estado; ?>
+                        <td class="table__td"><?php echo $maquina->codigo_producto?></td>
+                        <td class="table__td" style="color: <?php echo ($maquina->estado == 'pendiente') ? 'red' : 'green'; ?>">
+                            <?php echo $maquina->estado; ?>
                         </td>
                         <td class="table__td">
                             <?php 
-                            $rutaArchivo = "/src/visor/" . htmlspecialchars($visores->pdf);
-                            $extension = pathinfo($visores->pdf, PATHINFO_EXTENSION);
+                            $rutaArchivo = "/src/visor/" . htmlspecialchars($maquina->pdf);
+                            $extension = pathinfo($maquina->pdf, PATHINFO_EXTENSION);
 
                             if (in_array(strtolower($extension), ['jpg', 'jpeg', 'png', 'gif'])): ?>
                                 <!-- Mostrar miniatura para imágenes -->
