@@ -196,14 +196,18 @@ if (!empty($_FILES['pdf']['tmp_name'])) {
 
 
 public static function nombreCliente (Router $router){
-    $cliente_id= $_GET['id'] ?? '';
-    $cliente_id =filter_var($cliente_id, FILTER_VALIDATE_INT);
+    $visor_id= $_GET['id'] ?? '';
+    $visor_id =filter_var($visor_id, FILTER_VALIDATE_INT);
     
-    if(!$cliente_id){
+    if(!$visor_id){
         echo json_encode([]);
         return;
         
     }
+
+    $clientes= Cliente ::where('id',$visor_id);
+    echo json_encode($clientes);
+
 
 
 }
