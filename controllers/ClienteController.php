@@ -1,5 +1,7 @@
 <?php 
 namespace Controllers;
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 
 use MVC\Router;
 use Model\Cliente;
@@ -228,7 +230,7 @@ public static function nombreCliente (Router $router){
             return;
         }
             $visor = new Cliente($_POST);
-            $visor->id = $cliente->id;
+            // $visor->id = $cliente->id;
             $resultado = $visor->guardar();
 
             $respuesta = $resultado ? [
