@@ -108,7 +108,7 @@
   
 
 
-    function darclick(){
+    function darclick(event){
         const idProducto = event.target.getAttribute('data-id');
         idProducto.onclick = function(){
             console.log(idProducto);
