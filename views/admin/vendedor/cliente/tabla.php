@@ -145,7 +145,11 @@
         Swal.fire({
             title: titulo,
             text: mensaje,
-            icon: "question"
+            icon: "success",
+            position: "top-end",
+            confirmButtonColor: color,
+            background: fondo,
+
         });
        
     }
