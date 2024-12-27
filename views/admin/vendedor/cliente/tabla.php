@@ -123,7 +123,7 @@ Apivisor();
         idProducto = 102;
 
         try {
-            const url =`${location.origin}/admin/api/apibobina_externa?bobinaExterna_id=${bobinaExterna_id}`
+            const url =`${location.origin}/admin/api/apibobina_externa?bobinaExterna_id=${idProducto}`
             const visor = await respuesta.json();
             console.log(visor);
         } catch (error) {
