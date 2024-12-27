@@ -55,8 +55,13 @@
                         <td class="table__td"><?php echo $maquina->nombre_cliente?></td>
                         <td class="table__td"><?php echo $maquina->nombre_producto?></td>
                         <td class="table__td"><?php echo $maquina->codigo_producto?></td>
-                        <td class="table__td" style="color: <?php echo ($maquina->estado == 'pendiente') ? 'red' : 'green'; ?>">
-                            <?php echo $maquina->estado; ?>
+                        <td data-id="<?php echo $maquina->id; ?>" class="table__td" style="color: 
+                            <?php 
+                                echo ($maquina->estado == 'ENVIADO') ? 'green' : 
+                                    (($maquina->estado == 'PAUSADO') ? 'red' : 
+                                    (($maquina->estado == 'TERMINADO') ? 'orage' : 'black'));
+                            ?>;">
+                                <?php echo $maquina->estado; ?>
                         </td>
                         <td class="table__td">
                             <?php 
