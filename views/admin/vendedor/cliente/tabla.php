@@ -163,7 +163,7 @@
         padding: "6em",
         position: "top-end",
         color: "#716add",
-        background: "#fff", 
+        background:'#28a745', 
         backdrop: `
           rgba(0,0,123,0.4)
           url("/gif.gif")
