@@ -115,6 +115,23 @@
             // Aquí puedes agregar más lógica, como enviar el ID a otra función o API
         }
     });
+
+    async function ApiEstado() {
+        try {
+            const url = `${location.origin}/admin/api/nombreCliente`;
+            const resultado = await fetch(url);
+            const allpedidos = await resultado.json();
+            // console.log(allpedidos);
+            return allpedidos
+        } catch (e) {
+            console.log(e);
+                
+        }
+    }
+
+
+
+
 </script>
 
 
