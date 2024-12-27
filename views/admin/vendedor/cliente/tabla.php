@@ -133,6 +133,8 @@
             const visor = await resultado.json();
 
             const nuevoEstado = visor.estado === "pendiente" ? "completo" : "pendiente";
+            visor.estado = nuevoEstado;
+            
             console.log(nuevoEstado);
             console.log(visor);
            
