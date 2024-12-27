@@ -201,7 +201,7 @@ public static function nombreCliente (Router $router){
     $clientes = Area::where('url', $indefinidoId);
     debuguear($clientes);
 
-    echo json_encode($clientes);
+    // echo json_encode($clientes);
 
 }
 
