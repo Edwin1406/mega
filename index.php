@@ -74,6 +74,9 @@ $router->get('/admin/api/allpedidos', [ApiPedidos::class, 'Allpedidos']);
 
 $router->get('/admin/api/allpedidos2', [ApiPedidos::class, 'Allpedidos2']);
 
+$router->get('/admin/api/nombreCliente', [ClienteController::class, 'nombreCliente']);
+
+
 
 
 
@@ -128,7 +131,7 @@ $router->get('/admin/vendedor/cliente/editar', [ClienteController::class, 'edita
 $router->post('/admin/vendedor/cliente/editar', [ClienteController::class, 'editar']);
 $router->post('/admin/vendedor/cliente/eliminar', [ClienteController::class, 'eliminar']);
 
-$router->get('/admin/vendedor/cliente/nombreCliente', [ClienteController::class, 'nombreCliente']);
+
 
 
 
