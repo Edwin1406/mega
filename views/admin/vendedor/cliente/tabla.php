@@ -162,7 +162,7 @@
     padding: "6em",
     position: "top-end",
     color: 'rgba(5, 3, 2, 0.61)',
-    background: 'rgb(214, 97, 68)',
+    background: 'rgb(201, 125, 106)',
     icon: "success",
     timer: 2000,
     backdrop: `
