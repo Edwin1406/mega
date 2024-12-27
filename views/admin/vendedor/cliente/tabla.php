@@ -151,6 +151,9 @@
 
         const data = new FormData();
         data.append('id', id);
+        data.append('nombre_cliente', visor.nombre_cliente);
+        data.append('nombre_producto', visor.nombre_producto);
+        data.append('codigo_producto', visor.codigo_producto);
         data.append('estado', estado);
 
 
