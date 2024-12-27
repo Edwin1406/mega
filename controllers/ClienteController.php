@@ -233,7 +233,7 @@ public static function nombreCliente (Router $router){
             $resultado = $visor->guardar();
             if($resultado){
                 $respuesta = [
-                    'estado' => 'correcto',
+                    'tipo' => 'correcto',
                     'mensaje' => 'Estado actualizado'
                 ];
             } 
