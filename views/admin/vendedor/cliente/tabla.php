@@ -170,9 +170,9 @@
             });
             const resultado = await respuesta.json();
             console.log(resultado);
-            // if(resultado.respuesta.tipo === 'correcto'){
-            //     mostrarAlerta('Correcto', 'Estado Actualizado', 'success', '#4BB543', '#D4EDDA');
-            // }
+            if(resultado.respuesta.tipo === 'correcto'){
+                console.log('actualizado');
+            }
 
             console.log(resultado);
             
