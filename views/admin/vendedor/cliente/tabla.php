@@ -47,6 +47,7 @@
         <table class="table" id="tabla">
             <thead class="table__thead">
                 <tr>
+                    <th scope="col" class="table__th">ID</th>
                     <th scope="col" class="table__th">Nombre Cliente</th>
                     <th scope="col" class="table__th">Nombre Producto</th>
                     <th scope="col" class="table__th">Codigo producto</th>
@@ -58,6 +59,7 @@
             <tbody class="table__tbody">
                 <?php foreach ($visor as $visores):?>
                     <tr class="table__tr">
+                        <td class="table__td"><?php echo $visores->id?></td>
                         <td class="table__td"><?php echo $visores->nombre_cliente?></td>
                         <td class="table__td"><?php echo $visores->nombre_producto?></td>
                         <td  class="table__td"><?php echo $visores->codigo_producto?></td>
