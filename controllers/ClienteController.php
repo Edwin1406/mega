@@ -237,7 +237,7 @@ public static function nombreCliente (Router $router){
                     'mensaje' => 'Estado actualizado'
                 ];
             } 
-            echo json_encode(['respuesta' => $respuesta]);
+            echo json_encode(['resultado' => $resultado]);
        }
        
     }
