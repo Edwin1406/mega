@@ -6,6 +6,7 @@
         REGRESAR A INICIO
     </a>
 </div>
+<button id="customAlertButton">Show Custom Alert</button>
 
 <!-- Campo de búsqueda -->
 <div class="dashboard__contenedor" 
@@ -97,7 +98,6 @@
         <a class="text-center"> No hay visor Aún</a>
     <?php endif; ?>
 </div>
-<button id="customAlertButton">Show Custom Alert</button>
 
 
 
