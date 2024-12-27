@@ -152,6 +152,7 @@
         });
        
     }
+    cambiarEstado();
 
     async function cambiarEstado (){
         const bobinaInterna = await Apivisor();
