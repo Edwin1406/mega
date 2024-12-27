@@ -225,11 +225,12 @@ public static function nombreCliente (Router $router){
                 'mensaje' => 'Error al actualizar el estado'
             ];
 
-            $visor = new Cliente($_POST);
-
-            echo json_encode(['cliente' => $cliente]);
+            echo json_encode($respuesta);
             return;
         }
+            $visor = new Cliente($_POST);
+            $visor->id = $cliente->id;
+            echo json_encode(['cliente' => $cliente]);
        }
        
     }
