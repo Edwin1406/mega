@@ -221,14 +221,7 @@ public static function nombreCliente (Router $router){
            $cliente = Cliente::find($_POST['id']);
            session_start();
 
-           if (!$cliente || (int)$cliente->id !== (int)$_POST['id']) {
-            $respuesta = [
-                'estado' => 'error',
-                'mensaje' => 'Error al actualizar el estado'
-            ];
-            echo json_encode($respuesta);
-            return;
-        }
+           
             $visor = new Cliente($_POST);
             // $visor->id = $cliente->id;
             $resultado = $visor->guardar();
