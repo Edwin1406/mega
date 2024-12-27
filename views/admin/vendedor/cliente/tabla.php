@@ -105,17 +105,19 @@
 
 
     <script>
-    // Escucha los clics en las celdas de la tabla
+
+
+
+function clickVisor(){
     document.addEventListener('dblclick', function(event) {
-       
-            const idVisor = event.target.getAttribute('data-id');
-            console.log(idVisor);
-             Apivisor(idVisor);
+        const idVisor = event.target.getAttribute('data-id');
+        // console.log(idVisor);
+        Apivisor(idVisor);
     });
+    
+}
 
-
-
-    async function Apivisor( idVisor) {
+async function Apivisor( idVisor) {
         try {
             const url =`${location.origin}/admin/api/nombreCliente?id=${idVisor}`
             const resultado = await fetch(url);
@@ -124,10 +126,13 @@
         } catch (error) {
             console.log(error);
         }
-        
-    }
+}
 
-  
+
+
+
+
+
 
 
 
