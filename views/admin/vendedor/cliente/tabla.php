@@ -171,13 +171,14 @@
                 body: data
             });
             const resultado = await respuesta.json();
-            console.log(resultado);
-            // if(resultado.respuesta.tipo === 'correcto'){
-            //     console.log('actualizado');
-            // }
 
-            console.log(resultado);
-            
+            visor = visor.map( visorActual => {
+                if( visorActual.id === id){
+                    visorActual.estado = estado;
+                }
+                return visorActual;
+            });
+          
         } catch (error) {
             console.log(error);
             
