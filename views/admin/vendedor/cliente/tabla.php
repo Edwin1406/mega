@@ -108,7 +108,7 @@
 
 
     
-    function id(){
+    function id( e ) {
         e.preventDefault();
     const id= event.target.getAttribute('data-id');
     id.addEventListener('click', function(event) {
