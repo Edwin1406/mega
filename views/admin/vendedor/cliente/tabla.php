@@ -106,7 +106,7 @@
 
     <script>
     // Escucha los clics en las celdas de la tabla
-    document.addEventListener('click', function(event) {
+    document.addEventListener('dblclick', function(event) {
        
             const idProducto = event.target.getAttribute('data-id');
             console.log(idProducto);
