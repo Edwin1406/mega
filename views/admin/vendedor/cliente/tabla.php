@@ -160,11 +160,12 @@
       Swal.fire({
         title: "Alerta CAmbio de Estado",
         width: 600,
-        padding: "6em",
+        padding: "3em",
         position: "top-end",
         color: 'rgba(5, 3, 2, 0.61)',
         background:'rgb(214, 97, 68)', 
         icon: "success",
+        button: none ,
         timer: 2000,
         backdrop: `
           rgba(0,0,123,0.4)
