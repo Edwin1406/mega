@@ -215,22 +215,23 @@ public static function nombreCliente (Router $router){
 
 
     public static function estadoCliente (Router $router){
-        $cliente_id= $_GET['cliente_id'] ?? '';
-        $cliente_id =filter_var($cliente_id, FILTER_VALIDATE_INT);
-        
-        if(!$cliente_id){
-            echo json_encode([]);
+       if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+           $cliente = Cliente::find($_POST['id']);
+           session_start();
+
+           if(!$cliente || $cliente->id !== $_POST['id']){
+            $respuesta = [
+                'estado' => 'error',
+                'mensaje' => 'Error al actualizar el estado'
+            ];
+
+            $visor = new Cliente($_POST);
+
+            echo json_encode(['cliente' => $cliente]);
             return;
-            
         }
-
-        $clientes= Cliente ::where('id',$cliente_id);
-        $cliente = $clientes[0];
-        $nuevoEstado = $cliente->estado === 'pendiente' ? 'completo' : 'pendiente';
-        $cliente->estado = $nuevoEstado;
-        $resultado = $cliente->guardar();
-        echo json_encode($resultado);
-
+       }
+       
     }
 
 

@@ -160,10 +160,11 @@
         try {
 
             const url = `${location.origin}/admin/api/estadoCliente`;
-            const resultado = await fetch(url, {
+            const respuesta = await fetch(url, {
                 method: 'POST',
                 body: data
             });
+            const resultado = await respuesta.json();
 
             console.log(resultado);
             
