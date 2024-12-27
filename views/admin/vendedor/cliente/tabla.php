@@ -173,7 +173,7 @@
             const resultado = await respuesta.json();
 
             visor = visor.map( visorActual => {
-               console.log(visorActual)
+            //    console.log(visorActual)
             });
           
         } catch (error) {
