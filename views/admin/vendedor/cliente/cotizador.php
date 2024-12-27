@@ -59,8 +59,8 @@
                             <?php 
                                 echo ($maquina->estado == 'ENVIADO') ? 'green' : 
                                     (($maquina->estado == 'PAUSADO') ? 'red' : 
-                                    (($maquina->estado == 'TERMINADO') ? 'orage' : 'black'));
-                            ?>;">
+                                    (($maquina->estado == 'TERMINADO') ? 'orange' :''));
+                                    ?>;">
                                 <?php echo $maquina->estado; ?>
                         </td>
                         <td class="table__td">
