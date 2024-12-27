@@ -159,10 +159,10 @@
     document.getElementById('customAlertButton').addEventListener('click', function() {
       Swal.fire({
         title: "Custom width, padding, color, background.",
-        width: 1000,
+        width: 600,
         padding: "6em",
         color: "#716add",
-        background: "#fff url(/png.png)",
+        background: "#fff url(/png.png) no-repeat center right", 
         backdrop: `
           rgba(0,0,123,0.4)
           url("/gif.gif")
