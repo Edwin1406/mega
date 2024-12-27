@@ -169,13 +169,12 @@
                 body: data
             });
             const resultado = await respuesta.json();
-            // console.log(resultado);
-            // if(resultado.respuesta.tipo === 'correcto'){
-            //     console.log('actualizado');
-            // }
+            console.log(resultado);
+            if(resultado.respuesta.tipo === 'correcto'){
+                console.log('actualizado');
+            }
 
-// Convertir el resultado a JSON y mostrarlo en la consola
-console.log(JSON.stringify(resultado, null, 2));
+            console.log(resultado);
             
         } catch (error) {
             console.log(error);
