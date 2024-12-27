@@ -110,7 +110,7 @@
         // Verifica si el elemento clicado tiene la clase `table__td`
         if (event.target.classList.contains('table__td')) {
             // Obtiene el valor del atributo `data-id`
-            const idProducto = event.target.getAttribute('data-id');
+            const idProducto = event.target.getAttribute('name');
             console.log('ID del producto:', idProducto);
             // Aquí puedes agregar más lógica, como enviar el ID a otra función o API
         }
