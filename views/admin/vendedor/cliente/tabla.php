@@ -59,8 +59,8 @@
                     <tr class="table__tr">
                         <td class="table__td"><?php echo $visores->nombre_cliente?></td>
                         <td class="table__td"><?php echo $visores->nombre_producto?></td>
-                        <td data-id="<?php echo $visores->id; ?>"  class="table__td"><?php echo $visores->codigo_producto?></td>
-                        <td class="table__td" style="color: <?php echo ($visores->estado == 'pendiente') ? 'red' : 'green'; ?>">
+                        <td  class="table__td"><?php echo $visores->codigo_producto?></td>
+                        <td  data-id="<?php echo $visores->id; ?>" class="table__td" style="color: <?php echo ($visores->estado == 'pendiente') ? 'red' : 'green'; ?>">
                             <?php echo $visores->estado; ?>
                         </td>
 
@@ -104,14 +104,27 @@
 
 
 <script>
-    // Escucha los clics en las celdas de la tabla
-    document.addEventListener('click', function(event) {
-        // Verifica si el elemento clicado tiene la clase `table__td`
-        if (event.target.classList.contains('table__td')) {
-            // Obtiene el valor del atributo `data-id`
-            const idProducto = event.target.getAttribute('data-id');
-            console.log('ID del producto:', idProducto);
-            // Aquí puedes agregar más lógica, como enviar el ID a otra función o API
-        }
-    });
+
+
+        const estado = document.querySelectorAll('[name="estado"]');
+        estado.forEach((elemento) => {
+            elemento.addEventListener('change', (event) => {
+                const id = event.target.getAttribute('data-id');
+                const estado = event.target.value;
+
+                // Enviar petición AJAX
+                const xhr = new XMLHttpRequest();
+                xhr.open('POST', '/admin/vendedor/cliente/estado', true);
+                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                xhr.onload = function() {
+                    if (xhr.status === 200) {
+                        console.log(xhr.responseText);
+                    }
+                };
+                xhr.send(`id=${id}&estado=${estado}`);
+            });
+        });
+
+
+    
 </script>
