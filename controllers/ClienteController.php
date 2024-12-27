@@ -238,8 +238,12 @@ public static function nombreCliente (Router $router){
                 'estado' => 'error',
                 'mensaje' => 'No se pudo actualizar el estado'
             ];
-    
+    // Esto causará problemas
+            echo "Debugging info"; 
+
+
             echo json_encode($respuesta);
+            exit;
         }
        
     }
