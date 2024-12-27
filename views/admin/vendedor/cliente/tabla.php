@@ -170,6 +170,12 @@
             });
             const resultado = await respuesta.json();
 
+            if(resultado.respuesta.estado === 'correcto'){
+                mostrarAlerta('Correcto', 'Estado Actualizado', 'success', '#4BB543', '#D4EDDA');
+            } else {
+                mostrarAlerta('Error', 'Hubo un error', 'error', '#FF0000', '#F8D7DA');
+            }
+
             console.log(resultado);
             
         } catch (error) {
