@@ -231,13 +231,9 @@ public static function nombreCliente (Router $router){
             $visor = new Cliente($_POST);
             $visor->id = $cliente->id;
             $resultado = $visor->guardar();
-            if($resultado){
-                $respuesta = [
-                    'tipo' => 'correcto',
-                    'mensaje' => 'Estado actualizado'
-                ];
-                echo json_encode(['respuesta' => $respuesta]);
-            } 
+            header('Content-Type: application/json');
+            echo json_encode(['respuesta' => ['tipo' => 'correcto', 'mensaje' => 'Estado actualizado']]);
+            
        }
        
     }
