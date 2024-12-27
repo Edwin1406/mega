@@ -1,9 +1,9 @@
 <h2 class="dashboard__heading"><?php echo $titulo ?></h2>
-<!-- CSS de Bootstrap 5 -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-B0UglyR+LyTO1wDN3L0bq4Hr60PKlEcFca/J6p3VV9TgtGfSVGAn3UJf6p6N9Tw+" crossorigin="anonymous">
+<!-- Bootstrap CSS sin atributo integrity -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
-<!-- JavaScript de Bootstrap 5 (con Popper.js incluido) -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-64X6poAWajjw+JcQJ0UB+9P1Uu3oNSh4su6MFP9xx4BmN/z6jksEOVgq1ZrYZg+z" crossorigin="anonymous"></script>
+<!-- Bootstrap JS sin atributo integrity -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
 
 <!-- Campo de búsqueda -->
