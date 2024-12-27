@@ -153,7 +153,7 @@
 
 
     async function  actualizarEstado(visor){
-        const {id, estado} = visor;
+        const {id,nombre_cliente,nombre_producto,codigo_producto,estado} = visor;
 
         const data = new FormData();
         data.append('id', id);
