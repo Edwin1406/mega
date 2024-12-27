@@ -137,15 +137,18 @@
 
             const nuevoEstado = visor.estado === "pendiente" ? "completo" : "pendiente";
             visor.estado = nuevoEstado;
-            
-            console.log(nuevoEstado);
-            console.log(visor);
+
+            actualizarEstado(visor);
            
         } catch (error) {
             console.log(error);
         }
     }
 
+
+    function actualizarEstado(visor){
+        console.log(visor);
+    }
 
 
      
