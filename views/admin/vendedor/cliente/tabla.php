@@ -142,7 +142,7 @@
     function mostrarAlerta(titulo,mensaje,tipo,color,fondo){
         Swal.fire({ 
             title: titulo,
-            // text: mensaje,
+            text: mensaje,
             icon: tipo,
             iconColor: color,  // Color del ícono
             confirmButtonText: "Entendido",
