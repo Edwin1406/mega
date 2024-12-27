@@ -120,8 +120,10 @@
 Apivisor();
     async function Apivisor() {
 
+        idProducto = 102;
+
         try {
-            const respuesta = await fetch('/api/pedidos');
+            const respuesta = await fetch(`/api/pedidos?pedido_id=${idProducto}`);
             const visor = await respuesta.json();
             console.log(visor);
         } catch (error) {
