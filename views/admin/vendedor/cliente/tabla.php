@@ -106,6 +106,9 @@
 
     <script>
 
+
+(function(){ 
+
 async function Apivisor( idVisor) {
         try {
             const url =`${location.origin}/admin/api/nombreCliente?id=${idVisor}`
@@ -127,6 +130,9 @@ function clickVisor(){
     
 }
 
+
+
+})();
 
 
 
