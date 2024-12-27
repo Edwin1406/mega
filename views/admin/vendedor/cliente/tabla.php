@@ -123,7 +123,7 @@ Apivisor();
         idProducto = 102;
 
         try {
-            const url =`${location.origin}/admin/api/apibobina_externa?bobinaExterna_id=${idProducto}`
+            const url =`${location.origin}/admin/api/nombreCliente?id=${idProducto}`
             const resultado = await fetch(url);
             const visor = await resultado.json();
             console.log(visor);
