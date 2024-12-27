@@ -58,8 +58,8 @@
                 <?php foreach ($visor as $visores):?>
                     <tr class="table__tr">
                         <td class="table__td"><?php echo $visores->nombre_cliente?></td>
-                        <td data-id="<?php echo $visores->id_producto; ?>" class="table__td"><?php echo $visores->nombre_producto?></td>
-                        <td class="table__td"><?php echo $visores->codigo_producto?></td>
+                        <td class="table__td"><?php echo $visores->nombre_producto?></td>
+                        <td data-id="<?php echo $visores->id; ?>"  class="table__td"><?php echo $visores->codigo_producto?></td>
                         <td class="table__td" style="color: <?php echo ($visores->estado == 'pendiente') ? 'red' : 'green'; ?>">
                             <?php echo $visores->estado; ?>
                         </td>
