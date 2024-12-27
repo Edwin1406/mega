@@ -231,18 +231,12 @@ public static function nombreCliente (Router $router){
             $visor = new Cliente($_POST);
             $visor->id = $cliente->id;
             $resultado = $visor->guardar();
-            if ($resultado !== false) {
+            if($resultado){
                 $respuesta = [
                     'estado' => 'correcto',
                     'mensaje' => 'Estado actualizado'
                 ];
-            } else {
-                $respuesta = [
-                    'estado' => 'error',
-                    'mensaje' => 'No se pudo actualizar el estado'
-                ];
-            }
-            
+            } 
             echo json_encode(['respuesta' => $respuesta]);
        }
        
