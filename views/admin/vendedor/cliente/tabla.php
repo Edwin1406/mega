@@ -105,36 +105,36 @@
 
 
     <script>
-  
-
-        darclick();
-
-    function darclick(event){
-        const idProducto = event.target.getAttribute('data-id');
-        idProducto.onclick = function(){
-            console.log(idProducto);
-        }
-
-    }
-
-
-
-
-    async function Apivisor( idProducto) {
-        try {
-            const url =`${location.origin}/admin/api/nombreCliente?id=${idProducto}`
-            const resultado = await fetch(url);
-            const visor = await resultado.json();
-            console.log(visor);
-        } catch (error) {
-            console.log(error);
+  (function() {
+    
+      
+      function darclick(event){
+          const idProducto = event.target.getAttribute('data-id');
+          idProducto.ondblclick = function(){
+              console.log(idProducto);
+            }
+            
         }
         
-    }
-
-  
-
-
+        
+        
+        
+        async function Apivisor( idProducto) {
+            try {
+                const url =`${location.origin}/admin/api/nombreCliente?id=${idProducto}`
+                const resultado = await fetch(url);
+                const visor = await resultado.json();
+                console.log(visor);
+            } catch (error) {
+                console.log(error);
+            }
+            
+        }
+        
+        
+        
+    })();
+        
 
 </script>
 
