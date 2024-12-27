@@ -230,7 +230,8 @@ public static function nombreCliente (Router $router){
         }
             $visor = new Cliente($_POST);
             $visor->id = $cliente->id;
-            echo json_encode(['cliente' => $cliente]);
+            $resultado = $visor->guardar();
+            echo json_encode(['resultado' => $resultado]);
        }
        
     }
