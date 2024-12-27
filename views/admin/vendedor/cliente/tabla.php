@@ -158,7 +158,7 @@
 
     document.getElementById('customAlertButton').addEventListener('click', function() {
       Swal.fire({
-        title: "Custom width, padding, color, background.",
+        title: "Custom alert",
         width: 600,
         padding: "6em",
         color: "#716add",
