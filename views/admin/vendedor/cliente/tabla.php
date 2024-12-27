@@ -143,7 +143,7 @@
         }
     }
 
-
+    usarDatosDelVisor(idVisor);
     async function usarDatosDelVisor(idVisor) {
     const datosVisor = await Apivisor(idVisor);
     if (datosVisor) {
