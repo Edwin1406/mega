@@ -152,12 +152,12 @@
         });
        
     }
-    cambiarEstado();
+ 
 
     async function cambiarEstado (){
         const visores = await Apivisor();
 
-        console.log(visor);
+        console.log(visores);
     }
 
 
