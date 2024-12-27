@@ -130,13 +130,30 @@
             const url =`${location.origin}/admin/api/nombreCliente?id=${idVisor}`
             const resultado = await fetch(url);
             const visor = await resultado.json();
-            console.log(visor);
+            mostrarAlerta('Datos correctos ',`visor${visor} `,'success','#28a745','#d4edda');
         } catch (error) {
             console.log(error);
         }
     }
 
 
+
+    function mostrarAlerta(titulo,mensaje,tipo,color,fondo){
+        Swal.fire({ 
+            title: titulo,
+            text: mensaje,
+            icon: tipo,
+            iconColor: color,  // Color del ícono
+            confirmButtonText: "Entendido",
+            confirmButtonColor: "#3085d6",
+            background: fondo, // Color de fondo del cuadro de alerta
+            color: "#000000", // Color del texto
+            customClass: {
+                popup: 'swal-wide'  // Clase CSS personalizada para ajustar el ancho
+            },
+        });
+       
+    }
 
 
 
