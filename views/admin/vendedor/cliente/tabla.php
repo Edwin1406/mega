@@ -132,7 +132,8 @@
             const resultado = await fetch(url);
             const visor = await resultado.json();
 
-            console.log(visor);
+            const nuevoEstado = visor.estado === "pendiente" ? "completo" : "pendiente";
+            console.log(nuevoEstado);
            
         } catch (error) {
             console.log(error);
