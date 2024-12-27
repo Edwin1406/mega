@@ -63,9 +63,9 @@
                         <td  class="table__td"><?php echo $visores->codigo_producto?></td>
                         <td data-id="<?php echo $visores->id; ?>" class="table__td" style="color: 
                             <?php 
-                                echo ($visores->estado == 'ENVIADO') ? 'blue' : 
-                                    (($visores->estado == 'PAUSADO') ? 'orange' : 
-                                    (($visores->estado == 'TERMINADO') ? 'green' : 'black'));
+                                echo ($visores->estado == 'ENVIADO') ? 'green' : 
+                                    (($visores->estado == 'PAUSADO') ? 'red' : 
+                                    (($visores->estado == 'TERMINADO') ? 'orage' : 'black'));
                             ?>;">
                                 <?php echo $visores->estado; ?>
                         </td>
