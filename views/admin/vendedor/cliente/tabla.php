@@ -60,7 +60,7 @@
                         <td class="table__td"><?php echo $visores->nombre_cliente?></td>
                         <td class="table__td"><?php echo $visores->nombre_producto?></td>
                         <td  class="table__td"><?php echo $visores->codigo_producto?></td>
-                        <td  name="<?php echo $visores->id; ?>" class="table__td" style="color: <?php echo ($visores->estado == 'pendiente') ? 'red' : 'green'; ?>">
+                        <td  data-id="<?php echo $visores->id; ?>" class="table__td" style="color: <?php echo ($visores->estado == 'pendiente') ? 'red' : 'green'; ?>">
                             <?php echo $visores->estado; ?>
                         </td>
 
@@ -110,8 +110,8 @@
         // Verifica si el elemento clicado tiene la clase `table__td`
         if (event.target.classList.contains('table__td')) {
             // Obtiene el valor del atributo `data-id`
-            const idProducto = event.target.getAttribute('name');
-             Apivisor(idProducto);
+            const idProducto = event.target.getAttribute('data-id');
+            //  Apivisor(idProducto);
             // Aquí puedes agregar más lógica, como enviar el ID a otra función o API
         }
     });
