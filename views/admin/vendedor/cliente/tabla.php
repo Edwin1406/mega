@@ -155,23 +155,45 @@
        
     }
 
-
     document.getElementById('customAlertButton').addEventListener('click', function() {
-      Swal.fire({
-        title: "Alerta CAmbio de Estado",
-        width: 600,
-        padding: "6em",
-        position: "top-end",
-        color: 'rgba(5, 3, 2, 0.61)',
-        background:'rgb(214, 97, 68)', 
-        backdrop: `
-          rgba(0,0,123,0.4)
-          url("/gif.gif")
-          left top
-          no-repeat
-        `
-      });
-    });
+  Swal.fire({
+    title: "Alerta CAmbio de Estado",
+    width: 600,
+    padding: "6em",
+    position: "top-end",
+    color: 'rgba(5, 3, 2, 0.61)',
+    background: 'rgb(214, 97, 68)',
+    backdrop: `
+      rgba(0,0,123,0.4)
+      url("/gif.gif")
+      left top
+      no-repeat
+    `,
+    customClass: {
+      confirmButton: 'custom-button'
+    }
+  });
+});
+
+// Estilo en CSS
+const style = document.createElement('style');
+style.innerHTML = `
+  .custom-button {
+    font-size: 16px;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+  }
+
+  .custom-button:hover {
+    background-color: #0056b3;
+  }
+`;
+document.head.appendChild(style);
+
 
 
 
