@@ -106,8 +106,12 @@
 <script>
 
 
-const id= event.target.getAttribute('data-id');
-id.addEventListener('click', function(event) {
-    console.log('ID del producto:', id);
-});    
+    
+    function id(){
+        e.preventDefault();
+    const id= event.target.getAttribute('data-id');
+    id.addEventListener('click', function(event) {
+        console.log('ID del producto:', id);
+    });    
+}
 </script>
