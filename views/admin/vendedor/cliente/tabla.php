@@ -105,34 +105,42 @@
 
 
     <script>
-
-        idGlobal = 0
+ApiEstado();
+seleccionId();
+      
     // Escucha los clics en las celdas de la tabla
-    document.addEventListener('click', function(event) {
-        // Verifica si el elemento clicado tiene la clase `table__td`
-        if (event.target.classList.contains('table__td')) {
-            // Obtiene el valor del atributo `data-id`
-            const idProducto = event.target.getAttribute('name');
-            idProducto = parseInt(idProducto);
-            idGlobal = idProducto
-            // Aquí puedes agregar más lógica, como enviar el ID a otra función o API
-        }
-    });
+    function seleccionId(){
 
-    console.log (idGlobal);
+        document.addEventListener('click', function(event) {
+            // Verifica si el elemento clicado tiene la clase `table__td`
+            if (event.target.classList.contains('table__td')) {
+                // Obtiene el valor del atributo `data-id`
+                const idProducto = event.target.getAttribute('name');
+                idProducto = parseInt(idProducto);
+                idGlobal = idProducto
+            }
+        });
+    }
 
-    async function ApiEstado() {
-        try {
-            const url = `${location.origin}/admin/api/nombreCliente`;
+
+
+
+     // Aquí puedes agregar más lógica, como enviar el ID a otra función o API   
+     async function ApiEstado() {
+            idGlobal= seleccionId();
+            try {
+            const url = `${location.origin}/admin/api/nombreClienteid=${idGlobal}`;
             const resultado = await fetch(url);
             const allpedidos = await resultado.json();
             // console.log(allpedidos);
             return allpedidos
-        } catch (e) {
+            } catch (e) {
             console.log(e);
                 
-        }
+            }
     }
+
+   
 
 
 
