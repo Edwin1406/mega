@@ -126,42 +126,31 @@
 
     }
 
-
-
+    let visores = [];
+    
 
     async function Apivisor( idVisor) {
         try {
             const url =`${location.origin}/admin/api/nombreCliente?id=${idVisor}`
             const resultado = await fetch(url);
             const visor = await resultado.json();
-            // console.log(visor);
-            return visor;
-          
 
-          
+            const nuevoEstado = visor.estado === "pendiente" ? "completo" : "pendiente";
+            visor.estado = nuevoEstado;
+            
+            console.log(nuevoEstado);
+            console.log(visor);
+           
         } catch (error) {
             console.log(error);
         }
     }
 
-    usarDatosDelVisor();
-    async function usarDatosDelVisor() {
-    const datosVisor = await Apivisor();
-    if (datosVisor) {
-        console.log('Datos del visor:', datosVisor);
-        // Procesar los datos aquí
-    } else {
-        console.log('No se pudieron obtener los datos del visor');
-    }
-}
+
+
      
 
-  // const nuevoEstado = visor.estado === "pendiente" ? "completo" : "pendiente";
-            // visor.estado = nuevoEstado;
-            
-            // console.log(nuevoEstado);
-            // console.log(visor);
-           
+
 
     function mostrarAlerta(titulo,mensaje,tipo,color,fondo){
         Swal.fire({
