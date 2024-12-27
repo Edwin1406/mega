@@ -107,9 +107,8 @@
 
 
         const estado = document.querySelectorAll('[name="estado"]');
-       estado.addEventListener('click', function() {
-           console.log('Cambio de estado:', this.value);
-       });
+       e.target.name === 'estado' ? e.target.style.color = 'red' : e.target.style.color = 'green';
+       console.log(e.target.name);
 
 
     // // Escucha los clics en las celdas de la tabla
