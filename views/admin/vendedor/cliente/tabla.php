@@ -107,6 +107,7 @@
     <script>
   
 
+        darclick();
 
     function darclick(event){
         const idProducto = event.target.getAttribute('data-id');
@@ -116,7 +117,6 @@
 
     }
 
-    darclick();
 
 
 
