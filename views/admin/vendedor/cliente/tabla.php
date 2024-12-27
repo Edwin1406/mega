@@ -159,7 +159,7 @@
     document.getElementById('customAlertButton').addEventListener('click', function() {
       Swal.fire({
         title: "Alerta CAmbio de Estado",
-        width: 600,
+        width: 500,
         padding: "3em",
         position: "top-end",
         color: 'rgba(5, 3, 2, 0.61)',
