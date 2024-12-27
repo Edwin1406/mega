@@ -148,9 +148,7 @@
             confirmButtonColor: "#3085d6",
             background: fondo, // Color de fondo del cuadro de alerta
             color: "#000000", // Color del texto
-            customClass: {
-                popup: 'swal-wide'  // Clase CSS personalizada para ajustar el ancho
-            },
+            timer: 3000,
         });
        
     }
