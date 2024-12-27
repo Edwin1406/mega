@@ -109,6 +109,9 @@
     
       
       function darclick(event){
+        const ver = document.querySelector('data-id');
+        console.log(ver);
+        
           const idProducto = event.target.getAttribute('data-id');
           idProducto.ondblclick = function(){
               console.log(idProducto);
