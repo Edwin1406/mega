@@ -168,21 +168,21 @@
 
         try {
 
-            // const url = `${location.origin}/admin/api/actualizar`;
-            // const respuesta = await fetch(url, {
-            //     method: 'POST',
-            //     body: data
-            // });
-            // const resultado = await respuesta.json();
-            // if(resultado.respuesta.tipo === 'correcto'){
-            //     // actualizar el DOM
-            //     document.querySelector(`[data-id="${id}"]`).textContent = estado; 
-            //     // colores de estado
-            //     document.querySelector(`[data-id="${id}"]`).style.color = estado === 'ENVIADO' ? 'green' : estado === 'PAUSADO' ? 'red' : 'orange';
+            const url = `${location.origin}/admin/api/actualizar`;
+            const respuesta = await fetch(url, {
+                method: 'POST',
+                body: data
+            });
+            const resultado = await respuesta.json();
+            if(resultado.respuesta.tipo === 'correcto'){
+                // actualizar el DOM
+                document.querySelector(`[data-id="${id}"]`).textContent = estado; 
+                // colores de estado
+                document.querySelector(`[data-id="${id}"]`).style.color = estado === 'ENVIADO' ? 'green' : estado === 'PAUSADO' ? 'red' : 'orange';
 
                 
 
-            // }
+            }
 
                
 
