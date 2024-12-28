@@ -150,22 +150,22 @@
 
 
 
-    async function Apivisor( idVisor) {
-        try {
-            const url =`${location.origin}/admin/api/nombreCliente?id=${idVisor}`
-            const resultado = await fetch(url);
-            const visor = await resultado.json();
+    // async function Apivisor( idVisor) {
+    //     try {
+    //         const url =`${location.origin}/admin/api/nombreCliente?id=${idVisor}`
+    //         const resultado = await fetch(url);
+    //         const visor = await resultado.json();
             
 
-            const nuevoEstado = visor.estado === "ENVIADO" ? "PAUSADO" : "TERMINADO";
-            visor.estado = nuevoEstado;
+    //         const nuevoEstado = visor.estado === "ENVIADO" ? "PAUSADO" : "TERMINADO";
+    //         visor.estado = nuevoEstado;
 
-            actualizarEstado(visor);
+    //         actualizarEstado(visor);
            
-        } catch (error) {
-            console.log(error);
-        }
-    }
+    //     } catch (error) {
+    //         console.log(error);
+    //     }
+    // }
 
 
     async function  actualizarEstado(visor){
