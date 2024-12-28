@@ -169,36 +169,16 @@
                 method: 'POST',
                 body: data
             });
-          // Captura la posición del botón donde se hizo clic
-const boton = document.querySelector(`[data-id="${id}"]`);
-const rect = boton.getBoundingClientRect();
+            const resultado = await respuesta.json();
+            if(resultado.respuesta.tipo === 'correcto'){
+                // actualizar el DOM
+                document.querySelector(`[data-id="${id}"]`).textContent = estado; 
+                // colores de estado
+                document.querySelector(`[data-id="${id}"]`).style.color = estado === 'ENVIADO' ? 'green' : estado === 'PAUSADO' ? 'red' : 'orange';
 
-// Mostrar la alerta en la posición cercana
-Swal.fire({
-    title: "Alerta CAmbio de Estado",
-    width: 500,
-    padding: "3em",
-    position: "absolute", // Usa posición absoluta
-    icon: "success",
-    showConfirmButton: false,
-    color: 'rgba(5, 3, 2, 0.61)',
-    background: 'rgb(226, 218, 216)',
-    backdrop: `
-        rgba(0,0,123,0.4)
-        url("/gif.gif")
-        left top
-        no-repeat
-    `,
-    target: document.body, // Posicionar sobre el body
-    customClass: {
-        popup: 'custom-alert'
-    }
-});
+                
 
-// Ajustar la posición manualmente con CSS
-document.querySelector('.custom-alert').style.top = `${rect.top + window.scrollY}px`;
-document.querySelector('.custom-alert').style.left = `${rect.left + window.scrollX}px`;
-
+            }
 
                
 
@@ -233,6 +213,24 @@ document.querySelector('.custom-alert').style.left = `${rect.left + window.scrol
 
 
 
+    // document.getElementById('customAlertButton').addEventListener('click', function() {
+    //   Swal.fire({
+    //     title: "Alerta CAmbio de Estado",
+    //     width: 500,
+    //     padding: "3em",
+    //     position: "top-end",
+    //     color: 'rgba(5, 3, 2, 0.61)',
+    //     background:'rgb(226, 218, 216)', 
+    //     icon: "success",
+    //     showConfirmButton: false, 
+    //     backdrop: `
+    //       rgba(0,0,123,0.4)
+    //       url("/gif.gif")
+    //       left top
+    //       no-repeat
+    //     `
+    //   });
+    // });
 
 
 
