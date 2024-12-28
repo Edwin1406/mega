@@ -139,7 +139,7 @@
         try {
             const url =`${location.origin}/admin/api/nombreCliente?id=${idVisor}`
             const respuesta = await fetch(url);
-            const resultado = await resultado.json();
+            const resultado = await respuesta.json();
             visores = resultado.visor;
             console.log(visores);
            
