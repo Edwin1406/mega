@@ -131,15 +131,31 @@
 
     }
 
+
+
     let visores = [];
-    
+    apiVisor();
+    async function api( idVisor) {
+        try {
+            const url =`${location.origin}/admin/api/nombreCliente?id=${idVisor}`
+            const respuesta = await fetch(url);
+            const resultado = await resultado.json();
+            visores = resultado.visor;
+            console.log(visores);
+           
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+
 
     async function Apivisor( idVisor) {
         try {
             const url =`${location.origin}/admin/api/nombreCliente?id=${idVisor}`
             const resultado = await fetch(url);
             const visor = await resultado.json();
-            // 
+            
 
             const nuevoEstado = visor.estado === "ENVIADO" ? "PAUSADO" : "TERMINADO";
             visor.estado = nuevoEstado;
