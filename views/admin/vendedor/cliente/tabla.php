@@ -141,12 +141,12 @@
             const respuesta = await fetch(url);
             const resultado = await respuesta.json();
             visores = resultado.visor;
-            console.log(visores);
-           
+            
         } catch (error) {
             console.log(error);
         }
     }
+    console.log(visores);
 
 
 
