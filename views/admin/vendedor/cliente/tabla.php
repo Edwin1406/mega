@@ -173,6 +173,12 @@
             if(resultado.respuesta.tipo === 'correcto'){
                 mostrarAlerta('Correcto', 'Estado Actualizado', 'success', 'green', 'rgb(226, 218, 216)'); 
             }
+
+             // Actualizar el virtual DOM
+                const tdEstado = document.querySelector(`[data-id="${visor.id}"]`);
+                tdEstado.style.color = estado === 'ENVIADO' ? 'green' : estado === 'PAUSADO' ? 'red' : estado === 'TERMINADO' ? 'orange' : '';
+                tdEstado.textContent = estado;
+                
            
           
         } catch (error) {
