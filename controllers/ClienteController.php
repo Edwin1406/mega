@@ -214,7 +214,7 @@ public static function nombreCliente (Router $router){
 
 
 
-    public static function estadoCliente (Router $router){
+    public static function actualizar (Router $router){
        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
            $cliente = Cliente::find($_POST['id']);
            session_start();
