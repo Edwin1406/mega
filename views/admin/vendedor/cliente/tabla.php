@@ -176,6 +176,24 @@
                 // colores de estado
                 document.querySelector(`[data-id="${id}"]`).style.color = estado === 'ENVIADO' ? 'green' : estado === 'PAUSADO' ? 'red' : 'orange';
 
+                document.getElementById('customAlertButton').addEventListener('click', function() {
+      Swal.fire({
+        title: "Alerta CAmbio de Estado",
+        width: 500,
+        padding: "3em",
+        position: "top-end",
+        color: 'rgba(5, 3, 2, 0.61)',
+        background:'rgb(226, 218, 216)', 
+        icon: "success",
+        showConfirmButton: false, 
+        backdrop: `
+          rgba(0,0,123,0.4)
+          url("/gif.gif")
+          left top
+          no-repeat
+        `
+      });
+    });
                 
 
             }
@@ -213,24 +231,6 @@
 
 
 
-    document.getElementById('customAlertButton').addEventListener('click', function() {
-      Swal.fire({
-        title: "Alerta CAmbio de Estado",
-        width: 500,
-        padding: "3em",
-        position: "top-end",
-        color: 'rgba(5, 3, 2, 0.61)',
-        background:'rgb(226, 218, 216)', 
-        icon: "success",
-        showConfirmButton: false, 
-        backdrop: `
-          rgba(0,0,123,0.4)
-          url("/gif.gif")
-          left top
-          no-repeat
-        `
-      });
-    });
 
 
 
