@@ -181,7 +181,8 @@
         title: "Alerta CAmbio de Estado",
         width: 500,
         padding: "3em",
-        position: "top-end",
+        
+        position: "top-right",
         color: 'rgba(5, 3, 2, 0.61)',
         background:'rgb(226, 218, 216)', 
         icon: "success",

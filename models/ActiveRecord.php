@@ -87,19 +87,18 @@ class ActiveRecord {
     //     }
     //     return $sanitizado;
     // }
+   
+
+
     public function sanitizarAtributos() {
         $atributos = $this->atributos();
         $sanitizado = [];
         foreach($atributos as $key => $value) {
-            // Verificar si el valor es null antes de escapar
-            if ($value === null) {
-                $sanitizado[$key] = null; // O puedes asignar una cadena vacía: ''
-            } else {
-                $sanitizado[$key] = self::$db->escape_string($value);
-            }
+            $sanitizado[$key] = self::$db->escape_string($value ?? '');
         }
         return $sanitizado;
     }
+    
     
 
     // Sincroniza BD con Objetos en memoria
