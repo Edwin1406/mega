@@ -126,58 +126,39 @@
 
         document.addEventListener('dblclick', function(event) {
             const idVisor = event.target.getAttribute('data-id');
-            api(idVisor);
+            Apivisor(idVisor);
         });
 
     }
 
-
-
-    let visores = [];
     
-    async function api( idVisor) {
+
+    async function Apivisor( idVisor) {
         try {
             const url =`${location.origin}/admin/api/nombreCliente?id=${idVisor}`
-            const respuesta = await fetch(url);
-            const resultado = await respuesta.json();
-            visores.push(resultado);
-            console.log(resultado);
-            actualizarEstado(resultado);
-            
+            const resultado = await fetch(url);
+            const visor = await resultado.json();
+            // 
+
+            const nuevoEstado = visor.estado === "ENVIADO" ? "PAUSADO" : "TERMINADO";
+            visor.estado = nuevoEstado;
+
+            actualizarEstado(visor);
+           
         } catch (error) {
             console.log(error);
         }
     }
-    console.log(visores);
 
 
-
-    // async function Apivisor( idVisor) {
-    //     try {
-    //         const url =`${location.origin}/admin/api/nombreCliente?id=${idVisor}`
-    //         const resultado = await fetch(url);
-    //         const visor = await resultado.json();
-            
-
-    //         const nuevoEstado = visor.estado === "ENVIADO" ? "PAUSADO" : "TERMINADO";
-    //         visor.estado = nuevoEstado;
-
-    //         actualizarEstado(visor);
-           
-    //     } catch (error) {
-    //         console.log(error);
-    //     }
-    // }
-
-
-    async function  actualizarEstado(visores){
-        const {id,nombre_cliente,nombre_producto,codigo_producto,estado} = visores;
+    async function  actualizarEstado(visor){
+        const {id,nombre_cliente,nombre_producto,codigo_producto,estado} = visor;
 
         const data = new FormData();
         data.append('id', id);
-        data.append('nombre_cliente', visores.nombre_cliente);
-        data.append('nombre_producto', visores.nombre_producto);
-        data.append('codigo_producto', visores.codigo_producto);
+        data.append('nombre_cliente', visor.nombre_cliente);
+        data.append('nombre_producto', visor.nombre_producto);
+        data.append('codigo_producto', visor.codigo_producto);
         data.append('estado', estado);
 
 
