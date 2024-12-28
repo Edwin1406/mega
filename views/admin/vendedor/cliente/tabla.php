@@ -170,16 +170,20 @@
                 body: data
             });
             const resultado = await respuesta.json();
-
+            if(resultado.respuesta.tipo === 'exito'){
+                mostrarAlerta('Correcto', 'Estado Actualizado', 'success', 'green', 'rgb(226, 218, 216)');
+                setTimeout(() => {
+                    window.location.href = '/admin/vendedor/cliente/tabla';
+                }, 2000);
+            }
            
           
         } catch (error) {
             console.log(error);
             
         }
-        // visor = visor.map( visorActual => {
-        //        console.log(visorActual)
-        //     });
+      
+
     }
 
 
