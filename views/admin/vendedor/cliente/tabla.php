@@ -164,7 +164,7 @@
 
         try {
 
-            const url = `${location.origin}/admin/api/estadoCliente`;
+            const url = `${location.origin}/admin/api/actualizar`;
             const respuesta = await fetch(url, {
                 method: 'POST',
                 body: data
