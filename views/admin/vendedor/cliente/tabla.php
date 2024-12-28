@@ -176,7 +176,7 @@
                 // colores de estado
                 document.querySelector(`[data-id="${id}"]`).style.color = estado === 'ENVIADO' ? 'green' : estado === 'PAUSADO' ? 'red' : 'orange';
 
-                document.getElementById('customAlertButton').addEventListener('click', function() {
+                
       Swal.fire({
         title: "Alerta CAmbio de Estado",
         width: 500,
@@ -193,7 +193,6 @@
           no-repeat
         `
       });
-    });
                 
 
             }
