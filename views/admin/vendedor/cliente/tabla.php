@@ -171,8 +171,9 @@
             });
             const resultado = await respuesta.json();
             if(resultado.respuesta.tipo === 'correcto'){
-                // actualizar el DOM
-                document.querySelector(`[data-id="${id}"]`).textContent = estado;
+                // actualizar el DOM                // colores de estado
+                document.querySelector(`[data-id="${id}"]`).style.color = estado === 'ENVIADO' ? 'green' : estado === 'PAUSADO' ? 'red' : 'orange';
+
                 
 
             }
