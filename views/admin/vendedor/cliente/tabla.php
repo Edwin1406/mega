@@ -151,7 +151,7 @@
 
 
     async function  actualizarEstado(visor){
-        const {id,nombre_cliente,nombre_producto,codigo_producto,estado} = visor;
+        const {id,nombre_cliente,nombre_producto,codigo_producto,estado,pdf} = visor;
 
         const data = new FormData();
         data.append('id', id);
@@ -159,25 +159,30 @@
         data.append('nombre_producto', visor.nombre_producto);
         data.append('codigo_producto', visor.codigo_producto);
         data.append('estado', estado);
+        data.append('pdf', visor.pdf);
+
+        for (const [key, value] of data.entries()) {
+            console.log(`${key}: ${value}`);
+        }
 
 
         try {
 
-            const url = `${location.origin}/admin/api/actualizar`;
-            const respuesta = await fetch(url, {
-                method: 'POST',
-                body: data
-            });
-            const resultado = await respuesta.json();
-            if(resultado.respuesta.tipo === 'correcto'){
-                // actualizar el DOM
-                document.querySelector(`[data-id="${id}"]`).textContent = estado; 
-                // colores de estado
-                document.querySelector(`[data-id="${id}"]`).style.color = estado === 'ENVIADO' ? 'green' : estado === 'PAUSADO' ? 'red' : 'orange';
+            // const url = `${location.origin}/admin/api/actualizar`;
+            // const respuesta = await fetch(url, {
+            //     method: 'POST',
+            //     body: data
+            // });
+            // const resultado = await respuesta.json();
+            // if(resultado.respuesta.tipo === 'correcto'){
+            //     // actualizar el DOM
+            //     document.querySelector(`[data-id="${id}"]`).textContent = estado; 
+            //     // colores de estado
+            //     document.querySelector(`[data-id="${id}"]`).style.color = estado === 'ENVIADO' ? 'green' : estado === 'PAUSADO' ? 'red' : 'orange';
 
                 
 
-            }
+            // }
 
                
 
