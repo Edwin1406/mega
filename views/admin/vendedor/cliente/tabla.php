@@ -6,7 +6,6 @@
         REGRESAR A INICIO
     </a>
 </div>
-<button id="customAlertButton"> TOCAME </button>
 
 <!-- Campo de búsqueda -->
 <div class="dashboard__contenedor" 
