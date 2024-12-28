@@ -170,14 +170,14 @@
     // }
 
 
-    async function  actualizarEstado(visor){
-        const {id,nombre_cliente,nombre_producto,codigo_producto,estado} = visor;
+    async function  actualizarEstado(visores){
+        const {id,nombre_cliente,nombre_producto,codigo_producto,estado} = visores;
 
         const data = new FormData();
         data.append('id', id);
-        data.append('nombre_cliente', visor.nombre_cliente);
-        data.append('nombre_producto', visor.nombre_producto);
-        data.append('codigo_producto', visor.codigo_producto);
+        data.append('nombre_cliente', visores.nombre_cliente);
+        data.append('nombre_producto', visores.nombre_producto);
+        data.append('codigo_producto', visores.codigo_producto);
         data.append('estado', estado);
 
 
