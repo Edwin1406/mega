@@ -170,7 +170,7 @@
                 body: data
             });
             const resultado = await respuesta.json();
-            if(resultado.respuesta.tipo === 'exito'){
+            if(resultado.respuesta.tipo === 'correcto'){
                 mostrarAlerta('Correcto', 'Estado Actualizado', 'success', 'green', 'rgb(226, 218, 216)');
                 setTimeout(() => {
                     window.location.href = '/admin/vendedor/cliente/tabla';
