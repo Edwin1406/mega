@@ -134,7 +134,7 @@
 
 
     let visores = [];
-    apiVisor();
+    api();
     async function api( idVisor) {
         try {
             const url =`${location.origin}/admin/api/nombreCliente?id=${idVisor}`
