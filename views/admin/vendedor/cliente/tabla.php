@@ -142,9 +142,7 @@
             const resultado = await respuesta.json();
             visores = resultado.visor;
             console.log(visores);
-            visores = visores.map( visorActual => {
-                console.log(visorActual)
-            });
+            actualizarEstado(visores);
             
         } catch (error) {
             console.log(error);
