@@ -161,9 +161,9 @@
         data.append('estado', estado);
         data.append('pdf', visor.pdf);
 
-        for (const [key, value] of data.entries()) {
-            console.log(`${key}: ${value}`);
-        }
+        // for (const [key, value] of data.entries()) {
+        //     console.log(`${key}: ${value}`);
+        // }
 
 
         try {
