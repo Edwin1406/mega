@@ -182,7 +182,7 @@
         width: 500,
         padding: "3em",
         
-        position: "top-right",
+        position: "center",
         color: 'rgba(5, 3, 2, 0.61)',
         background:'rgb(226, 218, 216)', 
         icon: "success",
