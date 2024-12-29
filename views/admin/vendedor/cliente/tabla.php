@@ -169,12 +169,12 @@
 
         try {
 
-            const url = `${location.origin}/admin/api/actualizar`;
-            const respuesta = await fetch(url, {
-                method: 'POST',
-                body: data
-            });
-            const resultado = await respuesta.json();
+            // const url = `${location.origin}/admin/api/actualizar`;
+            // const respuesta = await fetch(url, {
+            //     method: 'POST',
+            //     body: data
+            // });
+            // const resultado = await respuesta.json();
             // if(resultado.respuesta.tipo === 'correcto'){
             //     // actualizar el DOM
             //     document.querySelector(`[data-id="${id}"]`).textContent = estado; 
@@ -217,25 +217,6 @@
  
 
 
-
-    // document.getElementById('customAlertButton').addEventListener('click', function() {
-    //   Swal.fire({
-    //     title: "Alerta CAmbio de Estado",
-    //     width: 500,
-    //     padding: "3em",
-    //     position: "top-end",
-    //     color: 'rgba(5, 3, 2, 0.61)',
-    //     background:'rgb(226, 218, 216)', 
-    //     icon: "success",
-    //     showConfirmButton: false, 
-    //     backdrop: `
-    //       rgba(0,0,123,0.4)
-    //       url("/gif.gif")
-    //       left top
-    //       no-repeat
-    //     `
-    //   });
-    // });
 
 
 
