@@ -196,11 +196,6 @@ public static function editar(Router $router)
 
 
 
-
-
-  
-
-
     // API para obtener el nombre del cliente
     public static function nombreCliente (Router $router){
         $visor_id= $_GET['id'] ?? '';
