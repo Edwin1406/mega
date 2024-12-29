@@ -231,7 +231,7 @@ public static function nombreCliente (Router $router){
             // $cliente->pdf = $_POST['pdf'] ?? $cliente->pdf;
             $visor->id = $cliente->id;
             $visor->pdf = $cliente->pdf;
-            debuguear($visor);
+            // debuguear($visor);
             $resultado = $visor->guardar();
             if($resultado){
                 $respuesta = [
