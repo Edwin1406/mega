@@ -172,6 +172,8 @@ public static function editar(Router $router)
                 $alertas[] = "Error al mover el archivo PDF. Verifica los permisos de la carpeta.";
             }
         }
+        debuguear($cliente);
+        debuguear($pdf_anterior);
 
         if (empty($alertas)) {
             // Guardar en la base de datos
@@ -182,8 +184,7 @@ public static function editar(Router $router)
             }
         }
 
-        debuguear($cliente);
-debuguear($pdf_anterior);
+      
 
     }
 
