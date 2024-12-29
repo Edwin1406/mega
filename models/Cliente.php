@@ -15,6 +15,7 @@ class Cliente extends ActiveRecord {
     public $codigo_producto;
     public $estado;
     public $pdf;
+    public $pdf_actual; // Definir la propiedad explícitamente
 
 
     public function __construct($args = [])
