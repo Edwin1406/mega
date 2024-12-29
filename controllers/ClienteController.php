@@ -143,6 +143,7 @@ public static function editar(Router $router)
 
       // Verificar si se subió un nuevo archivo PDF
         if (!empty($_FILES['pdf']['tmp_name'])) {
+            // $carpeta_pdfs = $_SERVER['DOCUMENT_ROOT'] . '/src/visor';
             $carpeta_pdfs = $_SERVER['DOCUMENT_ROOT'] . '/src/visor';
 
             // Crear carpeta si no existe
@@ -161,7 +162,7 @@ public static function editar(Router $router)
                 $pdf_actual = $cliente_actual->pdf;
 
                 debuguear($pdf_actual);
-
+                
                 if (!empty($pdf_actual)) {
                     $ruta_pdf_actual = $carpeta_pdfs . '/' . $pdf_actual;
                     if (file_exists($ruta_pdf_actual)) {
