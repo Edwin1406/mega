@@ -149,6 +149,15 @@
         }
     }
 
+    console.log('Datos antes de enviar:', { 
+    id, 
+    nombre_cliente, 
+    nombre_producto, 
+    codigo_producto, 
+    estado, 
+    pdf: visor.pdf 
+});
+
 
     async function  actualizarEstado(visor){
         const {id,nombre_cliente,nombre_producto,codigo_producto,estado,pdf} = visor;
