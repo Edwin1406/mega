@@ -183,7 +183,7 @@ public static function editar(Router $router)
         }
     }
 
-    $router->render('clientes/editar', [
+    $router->render('admin/vendedor/cliente/editar', [
         'cliente' => $cliente,
         'alertas' => $alertas
     ]);
