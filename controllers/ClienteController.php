@@ -173,7 +173,7 @@ public static function editar(Router $router)
             }
         }
         debuguear($cliente);
-        debuguear($pdf_anterior);
+        // debuguear($pdf_anterior);
 
         if (empty($alertas)) {
             // Guardar en la base de datos
