@@ -141,9 +141,7 @@ public static function editar(Router $router)
         $cliente->sincronizar($_POST);
         $alertas = $cliente->validar();
 
-      // Verificar si se subió un nuevo archivo PDF
         if (!empty($_FILES['pdf']['tmp_name'])) {
-            // $carpeta_pdfs = $_SERVER['DOCUMENT_ROOT'] . '/src/visor';
             $carpeta_pdfs = $_SERVER['DOCUMENT_ROOT'] . '/src/pruebas';
 
             // Crear carpeta si no existe
@@ -155,29 +153,21 @@ public static function editar(Router $router)
             $nombre_pdf = md5(uniqid(rand(), true)) . '.pdf';
             $ruta_destino = $carpeta_pdfs . '/' . $nombre_pdf;
 
-            // Intentar eliminar el archivo previo y mover el nuevo archivo
             if (move_uploaded_file($_FILES['pdf']['tmp_name'], $ruta_destino)) {
-                // Si el nuevo archivo se movió correctamente, eliminar el anterior
-                $cliente_actual = Cliente::find($id); // Obtener el cliente actual desde la BD
-               
-                
-                if (!empty($pdf)) {
-                    $pdf = $carpeta_pdfs . '/' . $pdf;
-                    if (file_exists($pdf)) {
-                        unlink($pdf); // Eliminar el archivo previo
-                    }
-                }
-                $cliente->pdf = "hola";
-                debuguear($cliente_actual);
+                // Obtener el archivo PDF actual del cliente
+                $pdf_anterior = $carpeta_pdfs . '/' . $cliente->pdf;
 
-                // Asignar el nuevo nombre del archivo al objeto cliente
-               
+                // Verificar si el archivo anterior existe y eliminarlo
+                if (!empty($cliente->pdf) && file_exists($pdf_anterior)) {
+                    unlink($pdf_anterior);
+                }
+
+                // Actualizar el nombre del archivo en el objeto cliente
+                $cliente->pdf = $nombre_pdf;
             } else {
                 $alertas[] = "Error al mover el archivo PDF. Verifica los permisos de la carpeta.";
             }
         }
-    
-
 
         if (empty($alertas)) {
             // Guardar en la base de datos
@@ -189,13 +179,14 @@ public static function editar(Router $router)
         }
     }
 
-    // Renderizar la vista
-    $router->render('admin/vendedor/cliente/editar', [
-        'titulo' => 'EDITAR REGISTRO',
-        'alertas' => $alertas,
-        'cliente' => $cliente
+    $router->render('clientes/editar', [
+        'cliente' => $cliente,
+        'alertas' => $alertas
     ]);
 }
+
+
+  
 
 
     // API para obtener el nombre del cliente
