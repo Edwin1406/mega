@@ -130,6 +130,10 @@ class ClienteController
     ]);
 }
 
+
+
+
+
 public static function editar(Router $router)
 {
     $id = $_GET['id'];
@@ -184,6 +188,14 @@ public static function editar(Router $router)
         'alertas' => $alertas
     ]);
 }
+
+
+
+
+
+
+
+
 
 
   
