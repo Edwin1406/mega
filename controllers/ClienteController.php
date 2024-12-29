@@ -230,6 +230,7 @@ public static function nombreCliente (Router $router){
             $visor = new Cliente($_POST);
             $cliente->pdf = $_POST['pdf'] ?? $cliente->pdf;
             $visor->id = $cliente->id;
+            debuguear($visor);
             $resultado = $visor->guardar();
             if($resultado){
                 $respuesta = [
