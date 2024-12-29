@@ -181,6 +181,10 @@ public static function editar(Router $router)
                 exit;
             }
         }
+
+        debuguear($cliente);
+debuguear($pdf_anterior);
+
     }
 
     $router->render('admin/vendedor/cliente/editar', [
