@@ -144,6 +144,7 @@ public static function editar(Router $router)
         $cliente->sincronizar($_POST); // Sincronizar datos del formulario
         $alertas = $cliente->validar(); // Validar datos
 
+        // Verificar si se subió un nuevo archivo PDF
         if (!empty($_FILES['pdf']['tmp_name'])) {
             $carpeta_pdfs = $_SERVER['DOCUMENT_ROOT'] . '/src/pruebas';
 
@@ -152,21 +153,24 @@ public static function editar(Router $router)
                 mkdir($carpeta_pdfs, 0755, true);
             }
 
-            // Verificar si existe un archivo previo y eliminarlo
+            // Verificar si existe un archivo previo
             if (!empty($cliente->pdf)) {
                 $pdf_anterior = $carpeta_pdfs . '/' . $cliente->pdf;
+
+                // Eliminar archivo anterior si existe
                 if (file_exists($pdf_anterior)) {
-                    unlink($pdf_anterior); // Eliminar archivo existente
+                    unlink($pdf_anterior);
                 }
             }
 
-            // Generar un nuevo nombre para el archivo PDF
+            // Generar un nuevo nombre único para el archivo PDF
             $nombre_pdf = md5(uniqid(rand(), true)) . '.pdf';
             $ruta_destino = $carpeta_pdfs . '/' . $nombre_pdf;
 
             // Mover el nuevo archivo a la carpeta
             if (move_uploaded_file($_FILES['pdf']['tmp_name'], $ruta_destino)) {
-                $cliente->pdf = $nombre_pdf; // Actualizar el campo en el cliente
+                // Actualizar el nombre del archivo en el objeto cliente
+                $cliente->pdf = $nombre_pdf;
             } else {
                 $alertas[] = "Error al mover el archivo PDF. Verifica los permisos de la carpeta.";
             }
@@ -182,17 +186,11 @@ public static function editar(Router $router)
         }
     }
 
-
-    $router->render('admin/vendedor/cliente/editar', [
+    $router->render('admin/vendedor/clientes/editar', [
         'cliente' => $cliente,
-        'alertas' => $alertas,
-        'titulo' => 'EDITAR REGISTRO'
+        'alertas' => $alertas
     ]);
 }
-
-
-
-
 
 
 
