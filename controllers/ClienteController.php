@@ -160,8 +160,14 @@ public static function editar(Router $router)
                 // Si el nuevo archivo se movió correctamente, eliminar el anterior
                 $cliente_actual = Cliente::find($id); // Obtener el cliente actual desde la BD
                 $pdf = $cliente_actual->pdf; // Obtener el nombre del archivo actual
+                // si existe eliminarlo
+                if (!empty($pdf)) {
+                    $pdf = $carpeta_pdfs . '/' . $pdf;
+                    if (file_exists($pdf)) {
+                        unlink($pdf);
+                    }
+                }
                 
-
                 debuguear($pdf);
                 
                 if (!empty($pdf)) {
