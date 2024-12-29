@@ -93,7 +93,7 @@ class ClienteController
         $alertas = $cliente->validar();
 
         if (!empty($_FILES['pdf']['tmp_name'])) {
-            $carpeta_pdfs = $_SERVER['DOCUMENT_ROOT'] . '/src/visor';
+            $carpeta_pdfs = $_SERVER['DOCUMENT_ROOT'] . '/src/pruebas';
             
             // Crear carpeta si no existe
             if (!is_dir($carpeta_pdfs)) {
@@ -177,7 +177,6 @@ public static function editar(Router $router)
             }
         }
     
-        debuguear();
 
 
         if (empty($alertas)) {
