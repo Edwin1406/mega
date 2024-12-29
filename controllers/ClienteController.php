@@ -155,18 +155,19 @@ public static function editar(Router $router)
             $nombre_pdf = md5(uniqid(rand(), true)) . '.pdf';
             $ruta_destino = $carpeta_pdfs . '/' . $nombre_pdf;
 
-            // Intentar mover el archivo cargado
+            // Intentar eliminar el archivo previo y mover el nuevo archivo
             if (move_uploaded_file($_FILES['pdf']['tmp_name'], $ruta_destino)) {
                 // Si el nuevo archivo se movió correctamente, eliminar el anterior
                 $cliente_actual = Cliente::find($id); // Obtener el cliente actual desde la BD
-                $pdf_actual = $cliente_actual->pdf;
-
-                debuguear($pdf_actual);
+                $pdf = $cliente_actual->pdf; // Obtener el nombre del archivo actual
                 
-                if (!empty($pdf_actual)) {
-                    $ruta_pdf_actual = $carpeta_pdfs . '/' . $pdf_actual;
-                    if (file_exists($ruta_pdf_actual)) {
-                        unlink($ruta_pdf_actual); // Eliminar el archivo previo
+
+                debuguear($pdf);
+                
+                if (!empty($pdf)) {
+                    $pdf = $carpeta_pdfs . '/' . $pdf;
+                    if (file_exists($pdf)) {
+                        unlink($pdf); // Eliminar el archivo previo
                     }
                 }
 
