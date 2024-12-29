@@ -149,7 +149,12 @@
         }
     }
 
-    console.log('Datos antes de enviar:', { 
+    
+
+    async function  actualizarEstado(visor){
+        const {id,nombre_cliente,nombre_producto,codigo_producto,estado,pdf} = visor;
+
+        console.log('Datos antes de enviar:', { 
     id, 
     nombre_cliente, 
     nombre_producto, 
@@ -159,20 +164,17 @@
 });
 
 
-    async function  actualizarEstado(visor){
-        const {id,nombre_cliente,nombre_producto,codigo_producto,estado,pdf} = visor;
+        // const data = new FormData();
+        // data.append('id', id);
+        // data.append('nombre_cliente', visor.nombre_cliente);
+        // data.append('nombre_producto', visor.nombre_producto);
+        // data.append('codigo_producto', visor.codigo_producto);
+        // data.append('estado', estado);
+        // data.append('pdf', visor.pdf);
 
-        const data = new FormData();
-        data.append('id', id);
-        data.append('nombre_cliente', visor.nombre_cliente);
-        data.append('nombre_producto', visor.nombre_producto);
-        data.append('codigo_producto', visor.codigo_producto);
-        data.append('estado', estado);
-        data.append('pdf', visor.pdf);
-
-        for (const [key, value] of data.entries()) {
-            console.log(`${key}: ${value}`);
-        }
+        // for (const [key, value] of data.entries()) {
+        //     console.log(`${key}: ${value}`);
+        // }
 
         
 
