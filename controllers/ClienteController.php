@@ -133,17 +133,16 @@ class ClienteController
 
 
 
-
 public static function editar(Router $router)
 {
     $id = $_GET['id'];
     $id = filter_var($id, FILTER_VALIDATE_INT);
-    $cliente = Cliente::find($id);
+    $cliente = Cliente::find($id); // Obtener cliente actual
     $alertas = Cliente::getAlertas();
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $cliente->sincronizar($_POST);
-        $alertas = $cliente->validar();
+        $cliente->sincronizar($_POST); // Sincronizar datos del formulario
+        $alertas = $cliente->validar(); // Validar datos
 
         if (!empty($_FILES['pdf']['tmp_name'])) {
             $carpeta_pdfs = $_SERVER['DOCUMENT_ROOT'] . '/src/pruebas';
@@ -153,27 +152,25 @@ public static function editar(Router $router)
                 mkdir($carpeta_pdfs, 0755, true);
             }
 
-            // Generar un nombre único para el nuevo archivo
+            // Verificar si existe un archivo previo y eliminarlo
+            if (!empty($cliente->pdf)) {
+                $pdf_anterior = $carpeta_pdfs . '/' . $cliente->pdf;
+                if (file_exists($pdf_anterior)) {
+                    unlink($pdf_anterior); // Eliminar archivo existente
+                }
+            }
+
+            // Generar un nuevo nombre para el archivo PDF
             $nombre_pdf = md5(uniqid(rand(), true)) . '.pdf';
             $ruta_destino = $carpeta_pdfs . '/' . $nombre_pdf;
 
+            // Mover el nuevo archivo a la carpeta
             if (move_uploaded_file($_FILES['pdf']['tmp_name'], $ruta_destino)) {
-                // Obtener el archivo PDF actual del cliente
-                $pdf_anterior = $carpeta_pdfs . '/' . $cliente->pdf;
-
-                // Verificar si el archivo anterior existe y eliminarlo
-                if (!empty($cliente->pdf) && file_exists($pdf_anterior)) {
-                    unlink($pdf_anterior);
-                }
-
-                // Actualizar el nombre del archivo en el objeto cliente
-                $cliente->pdf = $nombre_pdf;
+                $cliente->pdf = $nombre_pdf; // Actualizar el campo en el cliente
             } else {
                 $alertas[] = "Error al mover el archivo PDF. Verifica los permisos de la carpeta.";
             }
         }
-        debuguear($cliente);
-        // debuguear($pdf_anterior);
 
         if (empty($alertas)) {
             // Guardar en la base de datos
@@ -183,10 +180,8 @@ public static function editar(Router $router)
                 exit;
             }
         }
-
-      
-
     }
+
 
     $router->render('admin/vendedor/cliente/editar', [
         'cliente' => $cliente,
