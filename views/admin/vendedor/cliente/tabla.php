@@ -169,12 +169,12 @@
 
         try {
 
-            // const url = `${location.origin}/admin/api/actualizar`;
-            // const respuesta = await fetch(url, {
-            //     method: 'POST',
-            //     body: data
-            // });
-            // const resultado = await respuesta.json();
+            const url = `${location.origin}/admin/api/actualizar`;
+            const respuesta = await fetch(url, {
+                method: 'POST',
+                body: data
+            });
+            const resultado = await respuesta.json();
             // if(resultado.respuesta.tipo === 'correcto'){
             //     // actualizar el DOM
             //     document.querySelector(`[data-id="${id}"]`).textContent = estado; 
