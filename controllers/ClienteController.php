@@ -167,10 +167,11 @@ public static function editar(Router $router)
                         unlink($pdf); // Eliminar el archivo previo
                     }
                 }
+                $cliente->pdf = "hola";
                 debuguear($cliente_actual);
 
                 // Asignar el nuevo nombre del archivo al objeto cliente
-                $cliente->pdf = $nombre_pdf;
+               
             } else {
                 $alertas[] = "Error al mover el archivo PDF. Verifica los permisos de la carpeta.";
             }
