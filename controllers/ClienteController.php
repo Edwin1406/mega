@@ -160,7 +160,6 @@ public static function editar(Router $router)
                 // Si el nuevo archivo se movió correctamente, eliminar el anterior
                 $cliente_actual = Cliente::find($id); // Obtener el cliente actual desde la BD
                
-                debuguear($cliente_actual);
                 
                 if (!empty($pdf)) {
                     $pdf = $carpeta_pdfs . '/' . $pdf;
@@ -168,6 +167,7 @@ public static function editar(Router $router)
                         unlink($pdf); // Eliminar el archivo previo
                     }
                 }
+                debuguear($cliente_actual);
 
                 // Asignar el nuevo nombre del archivo al objeto cliente
                 $cliente->pdf = $nombre_pdf;
