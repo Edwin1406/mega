@@ -87,6 +87,7 @@ $router->get('/admin/produccion/registro_produccion', [ProduccionController::cla
 $router->get('/admin/produccion/cotizador/crear', [CotizadorController::class, 'cotizador']);
 $router->get('/admin/produccion/subirexcel/crear', [Subirexcel::class, 'subirexcel']);
 $router->post('/admin/produccion/subirexcel/crear', [Subirexcel::class, 'subirexcel']);
+$router->get('/admin/produccion/materia/crear', [Subirexcel::class, 'materia']);
 
 
 
