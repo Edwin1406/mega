@@ -45,9 +45,11 @@ class MateriaPrima extends ActiveRecord
 
     }
 
+
     public function sha1() {
-        $this->barcode = sha1($this->barcode);
+        $this->barcode = substr(md5(uniqid(mt_rand(), true)), 0, 15);
     }
+    
 
 
 
