@@ -3,11 +3,15 @@
 
 namespace Controllers;
 
+use MVC\Router;
+
 
 class MateriaPrimaController
 {
-   public static function materia()
+   public static function materia(Router $router)
    {
-        echo 'Desde el controlador de Materia Prima';
+       $router->render('admin/produccion/materia/crear' , [
+           'titulo' => 'MEGASTOCK-DESARROLLO'
+       ]);
    }
 }
