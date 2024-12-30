@@ -10,8 +10,11 @@ class MateriaPrimaController
 {
    public static function materia(Router $router)
    {
+
+      $alertas = [];
        $router->render('admin/produccion/materia/crear' , [
-           'titulo' => 'MEGASTOCK-MATERIA PRIMA'
+           'titulo' => 'MEGASTOCK-MATERIA PRIMA',
+             'alertas' => $alertas
        ]);
    }
 }
