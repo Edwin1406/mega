@@ -30,15 +30,15 @@ class MateriaPrima extends ActiveRecord
     public function validar() {
 
         if(!$this->tipo) {
-            self::$alertas['error'][] = 'El Campo Numero de Cuchillas es Obligatorio';
+            self::$alertas['error'][] = 'El Campo Tipo es Obligatorio';
         }
 
         if(!$this->ancho) {
-            self::$alertas['error'][] = 'El Campo Ancho Maximo es Obligatorio';
+            self::$alertas['error'][] = 'El Campo Ancho  es Obligatorio';
         }
-        
+
         if(!$this->peso) {
-            self::$alertas['error'][] = 'El Campo Gramaje Maximo es Obligatorio';
+            self::$alertas['error'][] = 'El Campo Peso es Obligatorio';
         }
 
         return self::$alertas;
