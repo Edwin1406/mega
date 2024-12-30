@@ -36,11 +36,7 @@ class MateriaPrima extends ActiveRecord
         if(!$this->ancho) {
             self::$alertas['error'][] = 'El Campo Ancho Maximo es Obligatorio';
         }
-
-        if(!$this->barcode) {
-            self::$alertas['error'][] = 'El Campo Gramaje Maximo es Obligatorio';
-        }
-
+        
         if(!$this->peso) {
             self::$alertas['error'][] = 'El Campo Gramaje Maximo es Obligatorio';
         }
