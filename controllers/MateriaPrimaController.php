@@ -17,8 +17,8 @@ class MateriaPrimaController
       if($_SERVER['REQUEST_METHOD'] === 'POST') {
          $materiaprima->sincronizar($_POST);
          $alertas = $materiaprima->validar();
-         
-         debuguear($materiaprima);
+
+         // debuguear($materiaprima);
 
       }
 
