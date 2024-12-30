@@ -7,6 +7,8 @@ use MVC\Router;
 use Model\MateriaPrima;
 
 
+
+
 class MateriaPrimaController
 {
    public static function materia(Router $router)
@@ -17,12 +19,10 @@ class MateriaPrimaController
       if($_SERVER['REQUEST_METHOD'] === 'POST') {
          $materiaprima->sincronizar($_POST);
          $alertas = $materiaprima->validar();
-         // generar codigo de barras md5
-         $materiaprima->barcode = md5($materiaprima->tipo);
-         
-
+         // generar qr
+         $contenidoQR = $materiaprima->nombre ?? uniqid();
+         $materiaprima->qr = MateriaPrima::generarQR($contenidoQR);
          debuguear($materiaprima);
-
       }
 
       $router->render('admin/produccion/materia/crear' , [
