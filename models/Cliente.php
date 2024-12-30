@@ -7,14 +7,13 @@ use Classes\ValidarCedula;
 class Cliente extends ActiveRecord {
 
     protected static $tabla = 'visor';
-    protected static $columnasDB = ['id', 'nombre_cliente','nombre_producto','codigo_producto','estado','pdf_modificado','pdf'];
+    protected static $columnasDB = ['id', 'nombre_cliente','nombre_producto','codigo_producto','estado','pdf'];
 
     public $id;
     public $nombre_cliente;
     public $nombre_producto;
     public $codigo_producto;
     public $estado;
-    public $estado_impresion;
     public $pdf;
     // public $pdf_actual; // Definir la propiedad explícitamente
 
