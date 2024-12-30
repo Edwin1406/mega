@@ -23,6 +23,7 @@ class MateriaPrimaController
          // $materiaprima->barcode = md5();
          // // generar codigo de barras sha1
          $materiaprima->barcode = sha1($materiaprima->barcode);
+         debuguear($materiaprima);
          
 
       }
