@@ -227,7 +227,6 @@ public static function editar(Router $router)
             return;
         }
             $visor = new Cliente($_POST);
-            // $cliente->pdf = $_POST['pdf'] ?? $cliente->pdf;
             $visor->id = $cliente->id;
             $visor->pdf = $cliente->pdf;
             // debuguear($visor);
