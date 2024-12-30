@@ -11,7 +11,7 @@ class MateriaPrimaController
    public static function materia(Router $router)
    {
        $router->render('admin/produccion/materia/crear' , [
-           'titulo' => 'MEGASTOCK-DESARROLLO'
+           'titulo' => 'MEGASTOCK-MATERIA PRIMA'
        ]);
    }
 }
