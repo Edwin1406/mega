@@ -51,7 +51,8 @@
                     <th scope="col" class="table__th">Nombre Producto</th>
                     <th scope="col" class="table__th">Codigo producto</th>
                     <th scope="col" class="table__th">Estado</th>
-                    <th scope="col" class="table__th">Estado</th>
+
+                    <th scope="col" class="table__th">Estado 2 </th>
 
                     <th scope="col" class="table__th">Archivo PDF</th>
                     <th scope="col" class="table__th">Acciones</th>
