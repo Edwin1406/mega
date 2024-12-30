@@ -48,24 +48,15 @@ class ComposerStaticInit6bd8d028eb80235c1c82baffbadecdb5
             'GuzzleHttp\\Psr7\\' => 16,
             'GrahamCampbell\\ResultType\\' => 26,
         ),
-        'E' => 
-        array (
-            'Endroid\\QrCode\\' => 15,
-        ),
         'D' => 
         array (
             'Dotenv\\' => 7,
-            'DASPRiD\\Enum\\' => 13,
         ),
         'C' => 
         array (
             'Controllers\\' => 12,
             'Complex\\' => 8,
             'Classes\\' => 8,
-        ),
-        'B' => 
-        array (
-            'BaconQrCode\\' => 12,
         ),
     );
 
@@ -135,17 +126,9 @@ class ComposerStaticInit6bd8d028eb80235c1c82baffbadecdb5
         array (
             0 => __DIR__ . '/..' . '/graham-campbell/result-type/src',
         ),
-        'Endroid\\QrCode\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/endroid/qr-code/src',
-        ),
         'Dotenv\\' => 
         array (
             0 => __DIR__ . '/..' . '/vlucas/phpdotenv/src',
-        ),
-        'DASPRiD\\Enum\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/dasprid/enum/src',
         ),
         'Controllers\\' => 
         array (
@@ -158,10 +141,6 @@ class ComposerStaticInit6bd8d028eb80235c1c82baffbadecdb5
         'Classes\\' => 
         array (
             0 => __DIR__ . '/../..' . '/classes',
-        ),
-        'BaconQrCode\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/bacon/bacon-qr-code/src',
         ),
     );
 

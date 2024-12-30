@@ -22,6 +22,9 @@ class MateriaPrimaController
          // generar qr
          $contenidoQR = $materiaprima->nombre ?? uniqid();
          $materiaprima->barcode = $contenidoQR . '.png';
+                     // Generar el QR y guardarlo como archivo PNG
+        
+
          debuguear($materiaprima);
       }
 

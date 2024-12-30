@@ -22,11 +22,8 @@ return array(
     'Intervention\\Image\\' => array($vendorDir . '/intervention/image/src/Intervention/Image'),
     'GuzzleHttp\\Psr7\\' => array($vendorDir . '/guzzlehttp/psr7/src'),
     'GrahamCampbell\\ResultType\\' => array($vendorDir . '/graham-campbell/result-type/src'),
-    'Endroid\\QrCode\\' => array($vendorDir . '/endroid/qr-code/src'),
     'Dotenv\\' => array($vendorDir . '/vlucas/phpdotenv/src'),
-    'DASPRiD\\Enum\\' => array($vendorDir . '/dasprid/enum/src'),
     'Controllers\\' => array($baseDir . '/controllers'),
     'Complex\\' => array($vendorDir . '/markbaker/complex/classes/src'),
     'Classes\\' => array($baseDir . '/classes'),
-    'BaconQrCode\\' => array($vendorDir . '/bacon/bacon-qr-code/src'),
 );
