@@ -18,7 +18,7 @@ class MateriaPrimaController
          $materiaprima->sincronizar($_POST);
          $alertas = $materiaprima->validar();
          // generar codigo de barras md5
-         $materiaprima->barcode = md5($materiaprima->tipo . $materiaprima->ancho . $materiaprima->peso);
+         $materiaprima->barcode = md5($materiaprima->tipo);
          
 
          debuguear($materiaprima);
