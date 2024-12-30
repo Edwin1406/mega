@@ -1,5 +1,5 @@
 <fieldset class="formulario__fieldset">
-    <legend class="formulario__legend">Información de la Papel</legend>
+    <legend class="formulario__legend">Información Materia Prima</legend>
     <div class="formulario__campo">
         <label class="formulario__label" for="tipo_papel">Tipo</label>
         <input
@@ -11,16 +11,6 @@
             value="<?php echo $papel->tipo_papel ?? '' ?>">
     </div>
     <div class="formulario__campo">
-        <label class="formulario__label" for="gramaje">Gramaje</label>
-        <input
-            type="text"
-            name="gramaje"
-            id="gramaje"
-            class="formulario__input"
-            placeholder="Gramaje del papel"
-            value="<?php echo $papel->gramaje ?? '' ?>">
-    </div>
-    <div class="formulario__campo">
         <label class="formulario__label" for="ancho">Ancho</label>
         <input
             type="text"
@@ -30,5 +20,16 @@
             placeholder="ancho del papel"
             value="<?php echo $papel->ancho ?? '' ?>">
     </div>
+    <div class="formulario__campo">
+        <label class="formulario__label" for="gramaje">peso</label>
+        <input
+            type="text"
+            name="gramaje"
+            id="gramaje"
+            class="formulario__input"
+            placeholder="Gramaje del papel"
+            value="<?php echo $papel->gramaje ?? '' ?>">
+    </div>
+    
 </fieldset>
 
