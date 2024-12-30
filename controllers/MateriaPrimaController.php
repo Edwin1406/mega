@@ -6,8 +6,8 @@ namespace Controllers;
 
 class MateriaPrimaController
 {
-    public function crear()
-    {
+   public static function crear()
+   {
         echo 'Desde el controlador de Materia Prima';
-    }
+   }
 }
