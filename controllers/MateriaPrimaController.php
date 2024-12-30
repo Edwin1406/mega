@@ -21,7 +21,7 @@ class MateriaPrimaController
          $alertas = $materiaprima->validar();
          // generar qr
          $contenidoQR = $materiaprima->nombre ?? uniqid();
-         $materiaprima->qr = $contenidoQR . '.png';
+         $materiaprima->barcode = $contenidoQR . '.png';
          debuguear($materiaprima);
       }
 
