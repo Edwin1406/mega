@@ -18,6 +18,7 @@ use Controllers\PapelController;
 use Controllers\ClienteController;
 use Controllers\MaquinaController;
 use Controllers\CotizadorController;
+use Controllers\MateriaPrimaController;
 use Controllers\ProduccionController;
 use Controllers\Subirexcel;
 
@@ -87,7 +88,7 @@ $router->get('/admin/produccion/registro_produccion', [ProduccionController::cla
 $router->get('/admin/produccion/cotizador/crear', [CotizadorController::class, 'cotizador']);
 $router->get('/admin/produccion/subirexcel/crear', [Subirexcel::class, 'subirexcel']);
 $router->post('/admin/produccion/subirexcel/crear', [Subirexcel::class, 'subirexcel']);
-$router->get('/admin/produccion/materia/crear', [Subirexcel::class, 'materia']);
+$router->get('/admin/produccion/materia/crear', [MateriaPrimaController::class, 'materia']);
 
 
 
