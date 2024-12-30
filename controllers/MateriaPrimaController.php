@@ -19,13 +19,12 @@ class MateriaPrimaController
       if($_SERVER['REQUEST_METHOD'] === 'POST') {
          $materiaprima->sincronizar($_POST);
          $alertas = $materiaprima->validar();
-         // generar qr
-         $contenidoQR = $materiaprima->nombre ?? uniqid();
-         $materiaprima->barcode = $contenidoQR . '.png';
-                     // Generar el QR y guardarlo como archivo PNG
-        
+         // // generar codigo de barras md5
+         // $materiaprima->barcode = md5();
+         // // generar codigo de barras sha1
+         $materiaprima->barcode = sha1($materiaprima->barcode);
+         
 
-         debuguear($materiaprima);
       }
 
       $router->render('admin/produccion/materia/crear' , [
