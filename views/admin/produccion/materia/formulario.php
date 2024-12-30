@@ -21,14 +21,14 @@
             value="<?php echo $papel->ancho ?? '' ?>">
     </div>
     <div class="formulario__campo">
-        <label class="formulario__label" for="gramaje">peso</label>
+        <label class="formulario__label" for="peso">peso</label>
         <input
             type="text"
-            name="gramaje"
-            id="gramaje"
+            name="peso"
+            id="peso"
             class="formulario__input"
-            placeholder="Gramaje del papel"
-            value="<?php echo $papel->gramaje ?? '' ?>">
+            placeholder="peso del papel"
+            value="<?php echo $papel->peso ?? '' ?>">
     </div>
     
 </fieldset>
