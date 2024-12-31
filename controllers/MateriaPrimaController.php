@@ -57,7 +57,7 @@ $digitoControl = calcularDigitoControl($codigoSinControl);
 $codigoEAN13 = $codigoSinControl . $digitoControl;
 
 // Paso 2: Generar el hash SHA-256
-$materiaprima = new stdClass(); // Simulando una instancia de materia prima
+$materiaprima = new MateriaPrima(); // Simulando una instancia de materia prima
 $materiaprima->barcode = $codigoEAN13; // Asignar el código generado
 $hashedBarcode = hash('sha256', $materiaprima->barcode);
 
