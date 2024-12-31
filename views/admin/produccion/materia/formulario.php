@@ -1,14 +1,14 @@
 <fieldset class="formulario__fieldset">
     <legend class="formulario__legend">Información Materia Prima</legend>
     <div class="formulario__campo">
-        <label class="formulario__label" for="tipo_papel">Tipo</label>
+        <label class="formulario__label" for="tipo">Tipo</label>
         <input
             type="text"
-            name="tipo_papel"
-            id="tipo_papel"
+            name="tipo"
+            id="tipo"
             class="formulario__input"
-            placeholder="Tipo de papel"
-            value="<?php echo $papel->tipo_papel ?? '' ?>">
+            placeholder="Tipo de materia prima"
+            value="<?php echo $papel->tipo ?? '' ?>">
     </div>
     <div class="formulario__campo">
         <label class="formulario__label" for="ancho">Ancho</label>
