@@ -23,11 +23,14 @@ class MateriaPrimaController
          // $materiaprima->barcode = md5();
          // // generar codigo de barras sha1
          $materiaprima->barcode = sha1($materiaprima->barcode);
-                  
-         
-         debuguear($materiaprima);
-            
 
+
+         if(empty($alertas)) {
+            $resultado = $materiaprima->guardar();
+            if($resultado) {
+               // header('Location: /admin');
+            }
+         }
       }
 
       $router->render('admin/produccion/materia/crear' , [
