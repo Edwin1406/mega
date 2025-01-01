@@ -67,7 +67,7 @@ class MateriaPrimaController
        // debuguear($maquinas);
        $router->render('admin/produccion/materia/tabla', [
            'titulo' => 'TABLA DE MATERIA PRIMA',
-           'maquinas' => $materias,
+           'materias' => $materias,
            'paginacion' => $paginacion->paginacion()
        ]);
    }
