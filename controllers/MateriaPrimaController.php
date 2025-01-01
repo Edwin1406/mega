@@ -3,6 +3,7 @@
 
 namespace Controllers;
 
+use Classes\Paginacion;
 use MVC\Router;
 use Model\MateriaPrima;
 
@@ -38,4 +39,43 @@ class MateriaPrimaController
          'alertas' => $alertas
       ]);
    }
+
+   public static function tabla(Router $router)
+   {
+
+       // PAGINACION DE MAQUINAS
+
+       $pagina_actual = $_GET['page'];
+       $pagina_actual = filter_var($pagina_actual, FILTER_VALIDATE_INT);
+       // debuguear($pagina_actual);
+
+       if(!$pagina_actual|| $pagina_actual <1){
+           header('Location: /admin/produccion/maquinas/tabla?page=1');
+           exit;
+       }
+       
+       $pagina_por_registros = 5;
+       $total = MateriaPrima:: total();
+       $paginacion = new Paginacion($pagina_actual, $pagina_por_registros, $total);
+       if($paginacion->total_paginas() < $pagina_actual){
+           header('Location: /admin/produccion/maquinas/tabla?page=1');
+       }
+   
+       $materias = MateriaPrima::paginar($pagina_por_registros, $paginacion->offset());
+
+       // $maquinas = Maquinas::all();
+       // debuguear($maquinas);
+       $router->render('admin/produccion/materia/tabla', [
+           'titulo' => 'TABLA DE MATERIA PRIMA',
+           'maquinas' => $materias,
+           'paginacion' => $paginacion->paginacion()
+       ]);
+   }
+
+
+
+
+
+
+
 }

@@ -92,6 +92,7 @@ $router->post('/admin/produccion/subirexcel/crear', [Subirexcel::class, 'subirex
 // Materia Prima Producción
 $router->get('/admin/produccion/materia/crear', [MateriaPrimaController::class, 'materia']);
 $router->post('/admin/produccion/materia/crear', [MateriaPrimaController::class, 'materia']);
+$router->get('/admin/produccion/materia/tabla', [MateriaPrimaController::class, 'tabla']);
 
 
 
