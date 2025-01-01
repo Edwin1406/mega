@@ -29,7 +29,7 @@ class MateriaPrimaController
          if(empty($alertas)) {
             $resultado = $materiaprima->guardar();
             if($resultado) {
-               header('Location: admin/produccion/materia/tabla');
+               header('Location: /admin/produccion/materia/tabla');
             }
          }
       }
@@ -50,7 +50,7 @@ class MateriaPrimaController
        // debuguear($pagina_actual);
 
        if(!$pagina_actual|| $pagina_actual <1){
-           header('Location: /admin/produccion/maquinas/tabla?page=1');
+           header('Location: /admin/produccion/materia/tabla?page=1');
            exit;
        }
        
@@ -58,7 +58,7 @@ class MateriaPrimaController
        $total = MateriaPrima:: total();
        $paginacion = new Paginacion($pagina_actual, $pagina_por_registros, $total);
        if($paginacion->total_paginas() < $pagina_actual){
-           header('Location: /admin/produccion/maquinas/tabla?page=1');
+           header('Location: /admin/produccion/materia/tabla?page=1');
        }
    
        $materias = MateriaPrima::paginar($pagina_por_registros, $paginacion->offset());
