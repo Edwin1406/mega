@@ -28,7 +28,7 @@ class MateriaPrimaController
          if(empty($alertas)) {
             $resultado = $materiaprima->guardar();
             if($resultado) {
-               // header('Location: /admin');
+               header('Location: admin/produccion/materia/tabla');
             }
          }
       }
