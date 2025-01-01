@@ -4,7 +4,7 @@ namespace Model;
 
 class MateriaPrima extends ActiveRecord
 {
-    protected static $tabla = 'materias_prima';
+    protected static $tabla = 'materia_prima';
     protected static $columnasDB = ['id', 'tipo', 'ancho','barcode','peso','created_at'];
 
     public $id;
