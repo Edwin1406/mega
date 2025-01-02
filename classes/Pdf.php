@@ -104,7 +104,7 @@ class Pdf extends TCPDF
     //     $this->write1DBarcode($datos['barcode'], 'C128', $x + 25, $y + 90, 50, 15, 0.4, $style, 'N');
     // }
     
-    public function generarEtiquetaModerna($datos)
+    public function generarPdf($datos)
     {
         // Agregar una nueva página
         $this->AddPage();
