@@ -129,7 +129,7 @@ class Pdf extends TCPDF
         $this->SetFont('helvetica', 'B', 14);
         $this->SetTextColor(255, 255, 255); // Blanco
         $this->SetXY($x, $y + 5);
-        $this->Cell($etiquetaWidth, 10, 'MEGASTOCK BOBINA INTERNA', 0, 1, 'C');
+        $this->Cell($etiquetaWidth, 10, 'MEGASTOCK', 0, 1, 'C');
     
         // Imagen del logo (centrado)
         $this->Image('src/img/logo2.png', $x + 43, $y + 2, 14, 14); // Tamaño y posición del logo
