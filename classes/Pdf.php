@@ -19,24 +19,58 @@ class Pdf extends TCPDF
         $this->Cell(0, 10, 'Página ' . $this->PageNo(), 0, 0, 'C');
     }
     
-    public function generarPdf($materias)
+    public function generarEtiqueta($datos)
     {
+        // Agregar una nueva página
         $this->AddPage();
-        $this->SetFont('helvetica', 'B', 12); // Cambia Arial por helvetica
-        $this->Cell(40, 10, 'Tipo de Papel', 1, 0, 'C');
-        $this->Cell(40, 10, 'Gramaje', 1, 0, 'C');
-        $this->Cell(40, 10, 'Ancho', 1, 0, 'C');
-        $this->Cell(40, 10, 'Fecha y Hora', 1, 0, 'C');
-        $this->Ln();
-        $this->SetFont('helvetica', '', 12); // Cambia Arial por helvetica
-        foreach ($materias as $materia) {
-            $this->Cell(40, 10, $materia->tipo, 1, 0, 'C');
-            $this->Cell(40, 10, $materia->ancho, 1, 0, 'C');
-            $this->Cell(40, 10, $materia->barcode, 1, 0, 'C');
-            $this->Cell(40, 10, $materia->created_at, 1, 0, 'C');
-            $this->Ln();
-        }
+    
+        // Establecer colores
+        $this->SetFillColor(255, 165, 0); // Naranja para el encabezado
+        $this->SetTextColor(0, 0, 0); // Negro para el texto
+    
+        // Agregar logo (opcional)
+        $this->Image('ruta_al_logo.png', 10, 10, 20, 20); // Ajusta la posición y tamaño del logo
+    
+        // Encabezado naranja
+        $this->SetFont('helvetica', 'B', 14);
+        $this->SetXY(10, 10); // Posición del encabezado
+        $this->Cell(190, 15, 'MEGASTOCK BOBINA INTERNA', 0, 1, 'C', true);
+    
+        // Texto principal
+        $this->SetFont('helvetica', '', 12);
+        $this->SetXY(10, 30);
+        $this->Cell(95, 10, 'TIPO: ' . $datos['tipo'], 0, 0, 'L');
+        $this->Cell(95, 10, 'CANTIDAD: ' . $datos['cantidad'], 0, 1, 'L');
+    
+        $this->Cell(95, 10, 'GRAMAJE: ' . $datos['gramaje'], 0, 0, 'L');
+        $this->Cell(95, 10, 'LINER: ' . $datos['liner'], 0, 1, 'L');
+    
+        $this->Cell(95, 10, 'ANCHO: ' . $datos['ancho'], 0, 0, 'L');
+        $this->Cell(95, 10, 'LARGO: ' . $datos['largo'], 0, 1, 'L');
+    
+        $this->Cell(95, 10, 'PESO: ' . $datos['peso'], 0, 1, 'L');
+    
+        // Código de barras (si es necesario)
+        $this->SetXY(10, 80);
+        $style = array(
+            'position' => '',
+            'align' => 'C',
+            'stretch' => false,
+            'fitwidth' => true,
+            'cellfitalign' => '',
+            'border' => false,
+            'hpadding' => 'auto',
+            'vpadding' => 'auto',
+            'fgcolor' => array(0, 0, 0),
+            'bgcolor' => false, // Ningún fondo
+            'text' => false, // No mostrar texto
+            'font' => 'helvetica',
+            'fontsize' => 8,
+            'stretchtext' => 4
+        );
+        $this->write1DBarcode('123456789012', 'C128', '', '', '', 18, 0.4, $style, 'N');
     }
+    
     
 
     public function descargarPdf($materias)
