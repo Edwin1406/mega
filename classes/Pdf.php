@@ -36,11 +36,11 @@ class Pdf extends TCPDF
         // Dibujar contenedor con bordes redondeados
         $this->SetDrawColor(0, 0, 0); // Color del borde
         $this->SetFillColor(255, 255, 255); // Fondo blanco
-        $this->RoundedRect($x, $y, $etiquetaWidth, $etiquetaHeight, 5, '1111', 'DF'); // Bordes redondeados
+        $this->RoundedRect($x, $y, $etiquetaWidth, $etiquetaHeight, 5, '1111', 'DF'); // Bordes redondeados para todo el contenedor
     
         // Encabezado Naranja
         $this->SetFillColor(255, 164, 27); // Color naranja
-        $this->RoundedRect($x, $y, $etiquetaWidth, 20, 5, '1000', 'F'); // Encabezado con bordes superiores redondeados
+        $this->RoundedRect($x, $y, $etiquetaWidth, 20, 5, '1111', 'F'); // Encabezado con esquinas superiores redondeadas
         $this->SetFont('helvetica', 'B', 12);
         $this->SetTextColor(0, 0, 0);
         $this->SetXY($x, $y + 5);
