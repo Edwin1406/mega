@@ -132,7 +132,7 @@ class Pdf extends TCPDF
         $this->Cell($etiquetaWidth, 10, 'MEGASTOCK', 0, 1, 'C');
     
         // Imagen del logo (centrado)
-        $this->Image('src/img/logo2.png', $x + 43, $y + 2, 14, 14); // Tamaño y posición del logo
+        $this->Image('src/img/logo2.png', $x + 53, $y + 2, 14, 14); // Tamaño y posición del logo
     
         // Datos principales con diseño moderno
         $this->SetFont('helvetica', '', 10);
