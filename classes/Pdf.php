@@ -8,7 +8,7 @@ class Pdf extends TCPDF
     public function Header()
     {
         $this->SetFont('helvetica', 'B', 12); // Cambia Arial por helvetica
-        $this->Cell(0, 10, 'Reporte de Papel', 0, 0, 'C');
+        $this->Cell(0, 10, 'Etiqueta', 0, 0, 'C');
         $this->Ln(20);
     }
     
@@ -31,7 +31,7 @@ class Pdf extends TCPDF
         $this->SetAutoPageBreak(false); // Evita que se cree una nueva página
         // boder radios
         $this->RoundedRect(10, 10, 90, 120, 2, '1111', 'DF');
-        
+
 
         $this->SetFillColor(255, 255, 255); // Fondo blanco
         $this->Rect(10, 10, 90, 120, 'DF'); // Contenedor de 90x120 mm
