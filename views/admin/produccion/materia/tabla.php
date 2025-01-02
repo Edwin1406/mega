@@ -29,7 +29,7 @@
                         <td class="table__td"><?php echo $materia->ancho?></td>
                         <td class="table__td"><?php echo $materia->peso?></td>
                         <td class="table__td"><?php echo $materia->created_at?></td>
-                        <td class="table__td--acciones"><a class="table__accion table__accion--editar" href="/admin/produccion/papel/pdf?id=<?php echo $materia->id; ?>"><i class="fa-solid fa-file-pdf"></i>pdf</a>
+                        <td class="table__td--acciones"><a class="table__accion table__accion--editar" href="/admin/produccion/materia/pdf?id=<?php echo $materia->id; ?>"><i class="fa-solid fa-file-pdf"></i>pdf</a>
                         </td>
 
 
