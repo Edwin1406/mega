@@ -7,28 +7,28 @@ class Pdf extends TCPDF
 {
     public function Header()
     {
-        $this->SetFont('Arial', 'B', 12);
+        $this->SetFont('helvetica', 'B', 12); // Cambia Arial por helvetica
         $this->Cell(0, 10, 'Reporte de Papel', 0, 0, 'C');
         $this->Ln(20);
     }
-
+    
     public function Footer()
     {
         $this->SetY(-15);
-        $this->SetFont('Arial', 'I', 8);
-        $this->Cell(0, 10, 'Pagina ' . $this->PageNo(), 0, 0, 'C');
+        $this->SetFont('helvetica', 'I', 8); // Cambia Arial por helvetica
+        $this->Cell(0, 10, 'Página ' . $this->PageNo(), 0, 0, 'C');
     }
-
+    
     public function generarPdf($materias)
     {
         $this->AddPage();
-        $this->SetFont('Arial', 'B', 12);
+        $this->SetFont('helvetica', 'B', 12); // Cambia Arial por helvetica
         $this->Cell(40, 10, 'Tipo de Papel', 1, 0, 'C');
         $this->Cell(40, 10, 'Gramaje', 1, 0, 'C');
         $this->Cell(40, 10, 'Ancho', 1, 0, 'C');
         $this->Cell(40, 10, 'Fecha y Hora', 1, 0, 'C');
         $this->Ln();
-        $this->SetFont('Arial', '', 12);
+        $this->SetFont('helvetica', '', 12); // Cambia Arial por helvetica
         foreach ($materias as $materia) {
             $this->Cell(40, 10, $materia->tipo, 1, 0, 'C');
             $this->Cell(40, 10, $materia->gramaje, 1, 0, 'C');
@@ -37,6 +37,7 @@ class Pdf extends TCPDF
             $this->Ln();
         }
     }
+    
 
     public function descargarPdf($materias)
     {
