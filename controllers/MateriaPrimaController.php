@@ -4,7 +4,7 @@
 namespace Controllers;
 
 use MVC\Router;
-use Pdf\Pdf;
+use Classes\Pdf;
 
 use Classes\Paginacion;
 use Model\MateriaPrima;
