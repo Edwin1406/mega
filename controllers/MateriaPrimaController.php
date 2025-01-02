@@ -3,8 +3,9 @@
 
 namespace Controllers;
 
-use Classes\Paginacion;
+use Pdf\Pdf;
 use MVC\Router;
+use Classes\Paginacion;
 use Model\MateriaPrima;
 
 
@@ -83,10 +84,12 @@ class MateriaPrimaController
             }
 
             // ver pdf 
-            $router->render('admin/produccion/materia/pdf', [
-                'titulo' => 'Materia Prima',
-                'materia' => $materia
-            ]);
+
+             // Genera el PDF
+    $pdf = new Pdf();
+    $pdf->verPdf([$materia]); // Llama al método de la clase Pdf
+
+    debuguear($materia);
    }
 
 
