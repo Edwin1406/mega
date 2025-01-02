@@ -86,11 +86,11 @@ class MateriaPrimaController
 
             $pdf = new Pdf();
             $datos = [
-                'tipo' => 'BOBINA INTERNA',
-                'ancho' => '1900',
-                'peso' => '1900KG',
-                'created_at' => '2025-01-01',
-                'barcode' => '123456789012'
+                'tipo' => $materia->tipo,
+                'ancho' => $materia->ancho,
+                'peso' => $materia->peso,
+                'created_at' => $materia->created_at,
+                'barcode' => $materia->barcode
             ];
             $pdf->generarPdf($datos);
             $pdf->Output('etiqueta.pdf', 'I');
