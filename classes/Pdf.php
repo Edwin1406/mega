@@ -79,7 +79,7 @@ class Pdf extends TCPDF
             'stretch' => false,
             'fitwidth' => true,
             'cellfitalign' => '',
-            'border' => false,
+            'border' => true,
             'hpadding' => 'auto',
             'vpadding' => 'auto',
             'fgcolor' => array(0, 0, 0), // Negro
