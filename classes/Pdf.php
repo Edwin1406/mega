@@ -24,62 +24,67 @@ class Pdf extends TCPDF
         // Agregar una nueva página
         $this->AddPage();
     
-        // Dibujar el contenedor principal de la etiqueta border radios y fondo blanco
-        $this->SetLineWidth(0.1); // Grosor de la línea
-        $this->SetDrawColor(0, 0, 0); // Color de la línea
-        $this->SetTextColor(0, 0, 0); // Color del texto
-        $this->SetAutoPageBreak(false); // Evita que se cree una nueva página
-        // boder radios
-        $this->RoundedRect(10, 10, 90, 120, 2, '1111', 'DF');
-
-
+        // Centrar el contenedor principal en la página
+        $pageWidth = $this->GetPageWidth();
+        $pageHeight = $this->GetPageHeight();
+    
+        $etiquetaWidth = 100; // Ancho de la etiqueta
+        $etiquetaHeight = 120; // Alto de la etiqueta
+        $x = ($pageWidth - $etiquetaWidth) / 2;
+        $y = ($pageHeight - $etiquetaHeight) / 2;
+    
+        // Dibujar contenedor con bordes redondeados
+        $this->SetDrawColor(0, 0, 0); // Color del borde
         $this->SetFillColor(255, 255, 255); // Fondo blanco
-        $this->Rect(10, 10, 90, 120, 'DF'); // Contenedor de 90x120 mm
+        $this->RoundedRect($x, $y, $etiquetaWidth, $etiquetaHeight, 5, '1111', 'DF'); // Bordes redondeados
     
         // Encabezado Naranja
         $this->SetFillColor(255, 164, 27); // Color naranja
-        $this->Rect(10, 10, 90, 20, 'F'); // Rectángulo para el encabezado
+        $this->RoundedRect($x, $y, $etiquetaWidth, 20, 5, '1000', 'F'); // Encabezado con bordes superiores redondeados
         $this->SetFont('helvetica', 'B', 12);
         $this->SetTextColor(0, 0, 0);
-        $this->SetXY(10, 12);
-        $this->Cell(90, 8, 'MEGASTOCK BOBINA INTERNA', 0, 1, 'C');
+        $this->SetXY($x, $y + 5);
+        $this->Cell($etiquetaWidth, 10, 'MEGASTOCK BOBINA INTERNA', 0, 1, 'C');
+    
+        // Imagen del logo
+        $this->Image('ruta_al_logo.png', $x + 5, $y + 3, 14, 14); // Ajusta la ruta y tamaño del logo
     
         // Datos principales
         $this->SetFont('helvetica', '', 10);
         $this->SetTextColor(0, 0, 0);
     
         // TIPO
-        $this->SetXY(12, 35);
+        $this->SetXY($x + 10, $y + 25);
         $this->Cell(40, 6, 'TIPO:', 0, 0, 'L');
         $this->SetFont('helvetica', 'B', 10);
         $this->Cell(40, 6, $datos['tipo'], 0, 1, 'L');
     
         // ANCHO
         $this->SetFont('helvetica', '', 10);
-        $this->SetXY(12, 45);
+        $this->SetXY($x + 10, $y + 35);
         $this->Cell(40, 6, 'ANCHO:', 0, 0, 'L');
         $this->SetFont('helvetica', 'B', 10);
         $this->Cell(40, 6, $datos['ancho'], 0, 1, 'L');
     
         // PESO
         $this->SetFont('helvetica', '', 10);
-        $this->SetXY(12, 55);
+        $this->SetXY($x + 10, $y + 45);
         $this->Cell(40, 6, 'PESO:', 0, 0, 'L');
         $this->SetFont('helvetica', 'B', 10);
         $this->Cell(40, 6, $datos['peso'], 0, 1, 'L');
     
         // FECHA
         $this->SetFont('helvetica', '', 10);
-        $this->SetXY(12, 65);
+        $this->SetXY($x + 10, $y + 55);
         $this->Cell(40, 6, 'FECHA:', 0, 0, 'L');
         $this->SetFont('helvetica', 'B', 10);
         $this->Cell(40, 6, $datos['created_at'], 0, 1, 'L');
     
         // Línea divisoria
-        $this->Line(10, 85, 100, 85);
+        $this->Line($x + 5, $y + 80, $x + $etiquetaWidth - 5, $y + 80);
     
         // Código de barras
-        $this->SetXY(10, 90);
+        $this->SetXY($x + 10, $y + 85);
         $style = array(
             'position' => '',
             'align' => 'C',
@@ -96,7 +101,7 @@ class Pdf extends TCPDF
             'fontsize' => 8,
             'stretchtext' => 4
         );
-        $this->write1DBarcode($datos['barcode'], 'C128', 30, 95, 50, 15, 0.4, $style, 'N');
+        $this->write1DBarcode($datos['barcode'], 'C128', $x + 25, $y + 90, 50, 15, 0.4, $style, 'N');
     }
     
 
