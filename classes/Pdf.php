@@ -28,8 +28,8 @@ class Pdf extends TCPDF
         $pageWidth = $this->GetPageWidth();
         $pageHeight = $this->GetPageHeight();
     
-        $etiquetaWidth = 100; // Ancho de la etiqueta
-        $etiquetaHeight = 120; // Alto de la etiqueta
+        $etiquetaWidth = 200; // Ancho de la etiqueta
+        $etiquetaHeight = 220; // Alto de la etiqueta
         $x = ($pageWidth - $etiquetaWidth) / 2;
         $y = ($pageHeight - $etiquetaHeight) / 2;
     
