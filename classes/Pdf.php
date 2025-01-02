@@ -47,7 +47,7 @@ class Pdf extends TCPDF
         $this->Cell($etiquetaWidth, 10, 'MEGASTOCK BOBINA INTERNA', 0, 1, 'C');
     
         // Imagen del logo
-        $this->Image('ruta_al_logo.png', $x + 5, $y + 3, 14, 14); // Ajusta la ruta y tamaño del logo
+        $this->Image('/src/img/logo2.png', $x + 5, $y + 3, 14, 14); // Ajusta la ruta y tamaño del logo
     
         // Datos principales
         $this->SetFont('helvetica', '', 10);
