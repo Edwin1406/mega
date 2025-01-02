@@ -3,10 +3,8 @@
 
 namespace Controllers;
 
-use MVC\Router;
-use Classes\Pdf;
-
 use Classes\Paginacion;
+use MVC\Router;
 use Model\MateriaPrima;
 
 
@@ -79,19 +77,17 @@ class MateriaPrimaController
             $alertas = [];
             $id = $_GET['id'];
             $id = filter_var($id, FILTER_VALIDATE_INT);
+
             $materia = MateriaPrima::find($id);
             if (!$materia) {
                 header('Location: /admin/produccion/materia/tabla');
             }
 
-            // ver pdf 
-
-             // Genera el PDF
-    $pdf = new Pdf();
-    $pdf->verPdf([$materia]); // Llama al método de la clase Pdf
-
-    debuguear($materia);
+            $pdf =verpdf($materia);
+            $pdf->Output('I', 'materia.pdf');
+            
    }
+
 
 
 

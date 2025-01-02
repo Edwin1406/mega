@@ -1,5 +1,5 @@
 <?php
-namespace Pdf;
+namespace Classes;
 
 use TCPDF;
 
