@@ -20,56 +20,66 @@ class Pdf extends TCPDF
     }
     
     public function generarPdf($datos)
-    {
-        // Agregar una nueva página
-        $this->AddPage();
-    
-        // Establecer colores
-        $this->SetFillColor(255, 165, 0); // Naranja para el encabezado
-        $this->SetTextColor(0, 0, 0); // Negro para el texto
-    
-        // Agregar logo (opcional)
-        $this->Image('ruta_al_logo.png', 10, 10, 20, 20); // Ajusta la posición y tamaño del logo
-    
-        // Encabezado naranja
-        $this->SetFont('helvetica', 'B', 14);
-        $this->SetXY(10, 10); // Posición del encabezado
-        $this->Cell(190, 15, 'MEGASTOCK BOBINA INTERNA', 0, 1, 'C', true);
-    
-        // Texto principal
-        $this->SetFont('helvetica', '', 12);
-        $this->SetXY(10, 30);
-        $this->Cell(95, 10, 'TIPO: ' . $datos['tipo'], 0, 0, 'L');
-        $this->Cell(95, 10, 'CANTIDAD: ' . $datos['cantidad'], 0, 1, 'L');
-    
-        $this->Cell(95, 10, 'GRAMAJE: ' . $datos['gramaje'], 0, 0, 'L');
-        $this->Cell(95, 10, 'LINER: ' . $datos['liner'], 0, 1, 'L');
-    
-        $this->Cell(95, 10, 'ANCHO: ' . $datos['ancho'], 0, 0, 'L');
-        $this->Cell(95, 10, 'LARGO: ' . $datos['largo'], 0, 1, 'L');
-    
-        $this->Cell(95, 10, 'PESO: ' . $datos['peso'], 0, 1, 'L');
-    
-        // Código de barras (si es necesario)
-        $this->SetXY(10, 80);
-        $style = array(
-            'position' => '',
-            'align' => 'C',
-            'stretch' => false,
-            'fitwidth' => true,
-            'cellfitalign' => '',
-            'border' => false,
-            'hpadding' => 'auto',
-            'vpadding' => 'auto',
-            'fgcolor' => array(0, 0, 0),
-            'bgcolor' => false, // Ningún fondo
-            'text' => false, // No mostrar texto
-            'font' => 'helvetica',
-            'fontsize' => 8,
-            'stretchtext' => 4
-        );
-        $this->write1DBarcode('123456789012', 'C128', '', '', '', 18, 0.4, $style, 'N');
-    }
+{
+    // Agregar una nueva página
+    $this->AddPage();
+
+    // Encabezado Naranja
+    $this->SetFillColor(255, 165, 0); // Naranja
+    $this->SetTextColor(0, 0, 0); // Negro
+    $this->SetFont('helvetica', 'B', 14);
+    $this->Cell(190, 20, 'MEGASTOCK BOBINA INTERNA', 0, 1, 'C', true);
+
+    // Espacio después del encabezado
+    $this->Ln(10);
+
+    // Datos del tipo
+    $this->SetFont('helvetica', '', 12);
+    $this->Cell(50, 10, 'TIPO:', 0, 0, 'L');
+    $this->SetFont('helvetica', 'B', 12);
+    $this->Cell(0, 10, $datos['tipo'], 0, 1, 'L'); // TIPO
+
+    // Datos del ancho
+    $this->SetFont('helvetica', '', 12);
+    $this->Cell(50, 10, 'ANCHO:', 0, 0, 'L');
+    $this->SetFont('helvetica', 'B', 12);
+    $this->Cell(0, 10, $datos['ancho'], 0, 1, 'L'); // ANCHO
+
+    // Datos del peso
+    $this->SetFont('helvetica', '', 12);
+    $this->Cell(50, 10, 'PESO:', 0, 0, 'L');
+    $this->SetFont('helvetica', 'B', 12);
+    $this->Cell(0, 10, $datos['peso'], 0, 1, 'L'); // PESO
+
+    // Datos de la fecha de creación
+    $this->SetFont('helvetica', '', 12);
+    $this->Cell(50, 10, 'FECHA:', 0, 0, 'L');
+    $this->SetFont('helvetica', 'B', 12);
+    $this->Cell(0, 10, $datos['created_at'], 0, 1, 'L'); // CREATED_AT
+
+    // Código de Barras
+    $this->Ln(10); // Espacio antes del código de barras
+    $style = array(
+        'position' => '',
+        'align' => 'C',
+        'stretch' => false,
+        'fitwidth' => true,
+        'cellfitalign' => '',
+        'border' => false,
+        'hpadding' => 'auto',
+        'vpadding' => 'auto',
+        'fgcolor' => array(0, 0, 0), // Negro
+        'bgcolor' => false, // Sin fondo
+        'text' => true, // Mostrar texto del código de barras
+        'font' => 'helvetica',
+        'fontsize' => 10,
+        'stretchtext' => 4
+    );
+
+    // Generar código de barras
+    $this->write1DBarcode($datos['barcode'], 'C128', '', '', '', 18, 0.4, $style, 'N');
+}
+
     
     
 
