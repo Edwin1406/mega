@@ -73,5 +73,5 @@ class Pdf extends TCPDF
         parent::__construct();
     }
 
-    
+
 }

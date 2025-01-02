@@ -3,7 +3,7 @@
 
 namespace Controllers;
 
-use Pdf\Pdf;
+use Classes\Pdf;
 use MVC\Router;
 use Classes\Paginacion;
 use Model\MateriaPrima;
