@@ -19,7 +19,7 @@ class Pdf extends TCPDF
         $this->Cell(0, 10, 'Página ' . $this->PageNo(), 0, 0, 'C');
     }
     
-    public function generarEtiqueta($datos)
+    public function generarPdf($datos)
     {
         // Agregar una nueva página
         $this->AddPage();
