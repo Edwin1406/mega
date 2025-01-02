@@ -24,8 +24,15 @@ class Pdf extends TCPDF
         // Agregar una nueva página
         $this->AddPage();
     
-        // Dibujar el contenedor principal de la etiqueta
-        $this->SetDrawColor(0, 0, 0); // Color del borde
+        // Dibujar el contenedor principal de la etiqueta border radios y fondo blanco
+        $this->SetLineWidth(0.1); // Grosor de la línea
+        $this->SetDrawColor(0, 0, 0); // Color de la línea
+        $this->SetTextColor(0, 0, 0); // Color del texto
+        $this->SetAutoPageBreak(false); // Evita que se cree una nueva página
+        // boder radios
+        $this->RoundedRect(10, 10, 90, 120, 2, '1111', 'DF');
+        
+
         $this->SetFillColor(255, 255, 255); // Fondo blanco
         $this->Rect(10, 10, 90, 120, 'DF'); // Contenedor de 90x120 mm
     
@@ -79,7 +86,7 @@ class Pdf extends TCPDF
             'stretch' => false,
             'fitwidth' => true,
             'cellfitalign' => '',
-            'border' => true,
+            'border' => false,
             'hpadding' => 'auto',
             'vpadding' => 'auto',
             'fgcolor' => array(0, 0, 0), // Negro
