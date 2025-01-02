@@ -23,7 +23,7 @@ class MateriaPrimaController
          $alertas = $materiaprima->validar();
          // // generar codigo de barras md5
          $materiaprima->barcode = md5(uniqid());
-            debuguear($materiaprima);
+            // debuguear($materiaprima);
 
          if(empty($alertas)) {
             $resultado = $materiaprima->guardar();
