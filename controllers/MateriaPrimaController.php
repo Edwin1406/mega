@@ -3,8 +3,9 @@
 
 namespace Controllers;
 
-use Classes\Paginacion;
 use MVC\Router;
+use Classes\Pdf;
+use Classes\Paginacion;
 use Model\MateriaPrima;
 
 
@@ -83,9 +84,11 @@ class MateriaPrimaController
                 header('Location: /admin/produccion/materia/tabla');
             }
 
-            $pdf =verpdf($materia);
-            $pdf->Output('I', 'materia.pdf');
-            
+            $pdf = new Pdf();
+            $pdf->verPdf([$materia]);
+
+          
+
    }
 
 
