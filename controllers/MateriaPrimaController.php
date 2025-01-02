@@ -43,8 +43,6 @@ class MateriaPrimaController
    public static function tabla(Router $router)
    {
 
-       // PAGINACION DE MAQUINAS
-
        $pagina_actual = $_GET['page'];
        $pagina_actual = filter_var($pagina_actual, FILTER_VALIDATE_INT);
        // debuguear($pagina_actual);
@@ -63,14 +61,34 @@ class MateriaPrimaController
    
        $materias = MateriaPrima::paginar($pagina_por_registros, $paginacion->offset());
 
-       // $maquinas = Maquinas::all();
-       // debuguear($maquinas);
+
+
        $router->render('admin/produccion/materia/tabla', [
            'titulo' => 'TABLA DE MATERIA PRIMA',
            'materias' => $materias,
            'paginacion' => $paginacion->paginacion()
        ]);
    }
+
+
+
+   public static function pdf(Router $router)
+   {
+            $alertas = [];
+            $id = $_GET['id'];
+            $id = filter_var($id, FILTER_VALIDATE_INT);
+            $materia = MateriaPrima::find($id);
+            if (!$materia) {
+                header('Location: /admin/produccion/materia/tabla');
+            }
+
+            // ver pdf 
+            $router->render('admin/produccion/materia/pdf', [
+                'titulo' => 'Materia Prima',
+                'materia' => $materia
+            ]);
+   }
+
 
 
 

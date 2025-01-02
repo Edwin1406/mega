@@ -93,6 +93,7 @@ $router->post('/admin/produccion/subirexcel/crear', [Subirexcel::class, 'subirex
 $router->get('/admin/produccion/materia/crear', [MateriaPrimaController::class, 'materia']);
 $router->post('/admin/produccion/materia/crear', [MateriaPrimaController::class, 'materia']);
 $router->get('/admin/produccion/materia/tabla', [MateriaPrimaController::class, 'tabla']);
+$router->get('/admin/produccion/materia/pdf', [MateriaPrimaController::class, 'pdf']);
 
 
 
@@ -108,6 +109,7 @@ $router->post('/admin/produccion/maquinas/crear', [MaquinaController::class, 'cr
 $router->get('/admin/produccion/maquinas/editar', [MaquinaController::class, 'editar']);
 $router->post('/admin/produccion/maquinas/editar', [MaquinaController::class, 'editar']);
 $router->post('/admin/produccion/maquinas/eliminar', [MaquinaController::class, 'eliminar']);
+
 
 
 

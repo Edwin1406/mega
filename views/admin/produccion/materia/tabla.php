@@ -29,16 +29,7 @@
                         <td class="table__td"><?php echo $materia->ancho?></td>
                         <td class="table__td"><?php echo $materia->peso?></td>
                         <td class="table__td"><?php echo $materia->created_at?></td>
-                        <td class="table__td--acciones"><a class="table__accion table__accion--editar" href="/admin/produccion/papel/editar?id=<?php echo $materia->id; ?>"><i class="fa-solid fa-user-pen"></i>Editar</a>
-                        <!-- pdf -->
-                        <a class="table__accion table__accion--pdf" href="/admin/produccion/papel/pdf?id=<?php echo $materia->id; ?>"><i class="fa-solid fa-file-pdf"></i></a>
-                        <form method="POST" action="/admin/produccion/papel/eliminar" class="table__formulario">
-                            <input type="hidden" name="id" value="<?php echo $materia->id; ?>">
-                            <button class="table__accion table__accion--eliminar" type="submit">
-                                <i class="fa-solid fa-user-slash"></i>
-                                    Eliminar
-                            </button>
-                        </form>
+                        <td class="table__td--acciones"><a class="table__accion table__accion--editar" href="/admin/produccion/papel/pdf?id=<?php echo $materia->id; ?>"><i class="fa-solid fa-file-pdf"></i>pdf</a>
                         </td>
 
 
