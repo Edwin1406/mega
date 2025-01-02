@@ -182,7 +182,7 @@ class Pdf extends TCPDF
             'vpadding' => 'auto',
             'fgcolor' => array(0, 0, 0), // Negro
             'bgcolor' => false, // Sin fondo
-            'text' => false, // Sin texto debajo
+            'text' => true, // Sin texto debajo
             'font' => 'helvetica',
             'fontsize' => 8,
             'stretchtext' => 4
