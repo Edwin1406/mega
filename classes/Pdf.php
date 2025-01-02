@@ -31,8 +31,8 @@ class Pdf extends TCPDF
         $this->SetFont('helvetica', '', 12); // Cambia Arial por helvetica
         foreach ($materias as $materia) {
             $this->Cell(40, 10, $materia->tipo, 1, 0, 'C');
-            $this->Cell(40, 10, $materia->gramaje, 1, 0, 'C');
             $this->Cell(40, 10, $materia->ancho, 1, 0, 'C');
+            $this->Cell(40, 10, $materia->barcode, 1, 0, 'C');
             $this->Cell(40, 10, $materia->created_at, 1, 0, 'C');
             $this->Ln();
         }
