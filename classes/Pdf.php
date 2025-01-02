@@ -20,65 +20,78 @@ class Pdf extends TCPDF
     }
     
     public function generarPdf($datos)
-{
-    // Agregar una nueva página
-    $this->AddPage();
-
-    // Encabezado Naranja
-    $this->SetFillColor(255, 165, 0); // Naranja
-    $this->SetTextColor(0, 0, 0); // Negro
-    $this->SetFont('helvetica', 'B', 14);
-    $this->Cell(190, 20, 'MEGASTOCK BOBINA INTERNA', 0, 1, 'C', true);
-
-    // Espacio después del encabezado
-    $this->Ln(10);
-
-    // Datos del tipo
-    $this->SetFont('helvetica', '', 12);
-    $this->Cell(50, 10, 'TIPO:', 0, 0, 'L');
-    $this->SetFont('helvetica', 'B', 12);
-    $this->Cell(0, 10, $datos['tipo'], 0, 1, 'L'); // TIPO
-
-    // Datos del ancho
-    $this->SetFont('helvetica', '', 12);
-    $this->Cell(50, 10, 'ANCHO:', 0, 0, 'L');
-    $this->SetFont('helvetica', 'B', 12);
-    $this->Cell(0, 10, $datos['ancho'], 0, 1, 'L'); // ANCHO
-
-    // Datos del peso
-    $this->SetFont('helvetica', '', 12);
-    $this->Cell(50, 10, 'PESO:', 0, 0, 'L');
-    $this->SetFont('helvetica', 'B', 12);
-    $this->Cell(0, 10, $datos['peso'], 0, 1, 'L'); // PESO
-
-    // Datos de la fecha de creación
-    $this->SetFont('helvetica', '', 12);
-    $this->Cell(50, 10, 'FECHA:', 0, 0, 'L');
-    $this->SetFont('helvetica', 'B', 12);
-    $this->Cell(0, 10, $datos['created_at'], 0, 1, 'L'); // CREATED_AT
-
-    // Código de Barras
-    $this->Ln(10); // Espacio antes del código de barras
-    $style = array(
-        'position' => '',
-        'align' => 'C',
-        'stretch' => false,
-        'fitwidth' => true,
-        'cellfitalign' => '',
-        'border' => false,
-        'hpadding' => 'auto',
-        'vpadding' => 'auto',
-        'fgcolor' => array(0, 0, 0), // Negro
-        'bgcolor' => false, // Sin fondo
-        'text' => true, // Mostrar texto del código de barras
-        'font' => 'helvetica',
-        'fontsize' => 10,
-        'stretchtext' => 4
-    );
-
-    // Generar código de barras
-    $this->write1DBarcode($datos['barcode'], 'C128', '', '', '', 18, 0.4, $style, 'N');
-}
+    {
+        // Agregar una nueva página
+        $this->AddPage();
+    
+        // Dibujar el contenedor principal de la etiqueta
+        $this->SetDrawColor(0, 0, 0); // Color del borde
+        $this->SetFillColor(255, 255, 255); // Fondo blanco
+        $this->Rect(10, 10, 90, 120, 'DF'); // Contenedor de 90x120 mm
+    
+        // Encabezado Naranja
+        $this->SetFillColor(255, 164, 27); // Color naranja
+        $this->Rect(10, 10, 90, 20, 'F'); // Rectángulo para el encabezado
+        $this->SetFont('helvetica', 'B', 12);
+        $this->SetTextColor(0, 0, 0);
+        $this->SetXY(10, 12);
+        $this->Cell(90, 8, 'MEGASTOCK BOBINA INTERNA', 0, 1, 'C');
+    
+        // Datos principales
+        $this->SetFont('helvetica', '', 10);
+        $this->SetTextColor(0, 0, 0);
+    
+        // TIPO
+        $this->SetXY(12, 35);
+        $this->Cell(40, 6, 'TIPO:', 0, 0, 'L');
+        $this->SetFont('helvetica', 'B', 10);
+        $this->Cell(40, 6, $datos['tipo'], 0, 1, 'L');
+    
+        // ANCHO
+        $this->SetFont('helvetica', '', 10);
+        $this->SetXY(12, 45);
+        $this->Cell(40, 6, 'ANCHO:', 0, 0, 'L');
+        $this->SetFont('helvetica', 'B', 10);
+        $this->Cell(40, 6, $datos['ancho'], 0, 1, 'L');
+    
+        // PESO
+        $this->SetFont('helvetica', '', 10);
+        $this->SetXY(12, 55);
+        $this->Cell(40, 6, 'PESO:', 0, 0, 'L');
+        $this->SetFont('helvetica', 'B', 10);
+        $this->Cell(40, 6, $datos['peso'], 0, 1, 'L');
+    
+        // FECHA
+        $this->SetFont('helvetica', '', 10);
+        $this->SetXY(12, 65);
+        $this->Cell(40, 6, 'FECHA:', 0, 0, 'L');
+        $this->SetFont('helvetica', 'B', 10);
+        $this->Cell(40, 6, $datos['created_at'], 0, 1, 'L');
+    
+        // Línea divisoria
+        $this->Line(10, 85, 100, 85);
+    
+        // Código de barras
+        $this->SetXY(10, 90);
+        $style = array(
+            'position' => '',
+            'align' => 'C',
+            'stretch' => false,
+            'fitwidth' => true,
+            'cellfitalign' => '',
+            'border' => false,
+            'hpadding' => 'auto',
+            'vpadding' => 'auto',
+            'fgcolor' => array(0, 0, 0), // Negro
+            'bgcolor' => false, // Sin fondo
+            'text' => true, // Mostrar texto del código de barras
+            'font' => 'helvetica',
+            'fontsize' => 8,
+            'stretchtext' => 4
+        );
+        $this->write1DBarcode($datos['barcode'], 'C128', 30, 95, 50, 15, 0.4, $style, 'N');
+    }
+    
 
     
     
