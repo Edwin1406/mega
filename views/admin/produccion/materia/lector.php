@@ -140,7 +140,7 @@
 
                 // Redirigir a la URL con el ID del producto después de 3 segundos
                 setTimeout(() => {
-                    window.location.href = `https://megawebsistem.com/admin/produccion/materia/editar?id=${producto.id}`, '_blank';
+                    window.open = `https://megawebsistem.com/admin/produccion/materia/editar?id=${producto.id}`, '_blank';
                 }, 3000);
             } else {
                 status.textContent = `Código ${codigo} no encontrado en la base de datos.`;
