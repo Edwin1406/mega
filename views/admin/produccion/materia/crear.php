@@ -1,8 +1,8 @@
 <h1 class="dashboard__heading"> <?php echo $titulo ?> </h1>
 <div class="dashboard__contenedor-boton">
     <a class="dashboard__boton" href="/admin/produccion/materia/tabla">
-        <i class="fa-solid fa-arrow-left"></i>
-        Volver a Materia Prima
+        <i class="fa-solid fa-arrow-rigth"></i>
+        Ver a Materia Prima
     </a>
 </div>
 
