@@ -19,6 +19,7 @@ class MateriaPrima extends ActiveRecord
     public $precio;
     public $created_at;
     public $updated_at;
+    public $menos_peso;
    
     public function __construct($args = [])
     {
