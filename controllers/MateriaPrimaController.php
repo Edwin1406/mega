@@ -124,7 +124,6 @@ class MateriaPrimaController
     $alertas = [];
     $materia = MateriaPrima::find($id);
     $materia->updated_at = date('Y-m-d H:i:s');
-    debuguear($materia);
     // tengo un campo menos_peso en el fromulario  quiero con lo que ingrese ahi se reste al peso actual
     if($_SERVER['REQUEST_METHOD']=='POST'){
         $materia->sincronizar($_POST);
