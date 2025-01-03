@@ -26,7 +26,7 @@ class MateriaPrimaController
          //    // debuguear($materiaprima);
 
          // Generar identificador único de 8 caracteres
-$barcode = substr(md5(uniqid()), 0, 8);
+$barcode = substr(md5(uniqid()), 0, 12);
 
 // Asegurar que los caracteres generados sean válidos para Code39
 $barcode = strtoupper(preg_replace('/[^A-Z0-9\-\/\.\$\+%\s]/', '', $barcode));
