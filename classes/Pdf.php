@@ -177,7 +177,7 @@ class Pdf extends TCPDF
 
     
         // Línea divisoria suave
-        $this->SetDrawColor(500, 500, 500);
+        $this->SetDrawColor(200, 200, 200);
         $this->Line($x + 10, $y + 80, $x + $etiquetaWidth - 10, $y + 80);
     
         // Código de barras centrado
@@ -196,7 +196,7 @@ class Pdf extends TCPDF
             'text' => true, // Sin texto debajo
             'font' => 'helvetica',
             'fontsize' => 10,
-            'stretchtext' => 4
+            'stretchtext' => 54
         );
         $this->write1DBarcode($datos['barcode'], 'C128', $x + 25, $y + 90, 50, 15, 0.4, $style, 'N');
     
