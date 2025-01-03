@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const filtroVentas = document.querySelector('#filtros_ventas');
     if (filtroVentas) {
         filtroVentas.addEventListener('input', function () {
-            const filtro = this.value.toLowerCase();
+            const filtro = this.value.toLowerCase().trim(); // Convertir a minúsculas y eliminar espacios
             const filas = document.querySelectorAll('#tabla .table__tr');
 
             filas.forEach(fila => {
@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 const codigoProducto = fila.cells[2].textContent.toLowerCase();
                 const estado = fila.cells[3].textContent.toLowerCase();
 
-                // Condición para mostrar u ocultar la fila
+                // Comparar si el filtro coincide con alguna columna
                 if (
                     nombreCliente.includes(filtro) || 
                     nombreProducto.includes(filtro) || 
