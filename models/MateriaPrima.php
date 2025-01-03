@@ -50,11 +50,10 @@ class MateriaPrima extends ActiveRecord
         if(!$this->ancho) {
             self::$alertas['error'][] = 'El Campo Ancho  es Obligatorio';
         }
-
-        // if(!$this->peso) {
-        //     self::$alertas['error'][] = 'El Campo Peso es Obligatorio';
-        // }
-
+        // quiero menos peso sea menor al peso actual caso contrario muestre un error
+        if($this->menos_peso > $this->peso){
+            self::$alertas['error'][] = 'El Campo Menos Peso no puede ser mayor al Peso Actual';
+        }
         if(!$this->gramaje) {
             self::$alertas['error'][] = 'El Campo Gramaje es Obligatorio';
         }
