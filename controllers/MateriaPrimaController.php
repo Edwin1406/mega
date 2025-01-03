@@ -124,7 +124,20 @@ class MateriaPrimaController
     $alertas = [];
     $materia = MateriaPrima::find($id);
     $materia->updated_at = date('Y-m-d H:i:s');
-    $materia->peso - $materia->menos_peso ?? 0;
+    // tengo un campo menos_peso en el fromulario  quiero con lo que ingrese ahi se reste al peso actual
+    if($_SERVER['REQUEST_METHOD']=='POST'){
+        $materia->sincronizar($_POST);
+        $materia->peso = $materia->peso - $_POST['menos_peso'];
+        // debuguear($papel);
+        $alertas = $materia->validar();
+        if(empty($alertas)){
+            $materia->actualizar();
+            header('Location: /admin/produccion/materia/tabla');
+        }
+
+    }
+
+
     debuguear($materia);
     if($_SERVER['REQUEST_METHOD']=='POST'){
         $materia->sincronizar($_POST);
