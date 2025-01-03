@@ -3,9 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Escáner de Código de Barras con Formulario</title>
+  <title>Escáner de Código de Barras</title>
   <script src="https://cdn.jsdelivr.net/npm/quagga/dist/quagga.min.js"></script>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -38,42 +37,6 @@
   <div id="scanner"></div>
   <p id="status">Escaneando...</p>
 
-  <!-- Modal con Formulario -->
-  <div class="modal fade" id="productModal" tabindex="-1" aria-labelledby="productModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="productModalLabel">Información del Producto</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <form id="productForm">
-            <div class="mb-3">
-              <label for="tipo_papel" class="form-label">Tipo de Papel</label>
-              <input type="text" id="tipo_papel" class="form-control" readonly>
-            </div>
-            <div class="mb-3">
-              <label for="gramaje" class="form-label">Gramaje</label>
-              <input type="text" id="gramaje" class="form-control" readonly>
-            </div>
-            <div class="mb-3">
-              <label for="ancho" class="form-label">Ancho</label>
-              <input type="text" id="ancho" class="form-control" readonly>
-            </div>
-            <div class="mb-3">
-              <label for="cantidad" class="form-label">Cantidad</label>
-              <input type="text" id="cantidad" class="form-control" readonly>
-            </div>
-          </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script>
     const apiUrl = "https://megawebsistem.com/admin/api/allbobinas";
     let productos = [];
@@ -128,24 +91,17 @@
       });
     }
 
-    // Manejar producto encontrado o no encontrado
+    // Manejar producto encontrado o redirigir
     function manejarProducto(codigo) {
       const producto = productos.find(p => p.qr === codigo);
       const status = document.getElementById("status");
 
       if (producto) {
-        status.textContent = `Producto ${codigo} encontrado.`;
+        status.textContent = `Producto ${codigo} encontrado. Redirigiendo...`;
         status.style.color = "#28a745";
 
-        // Rellenar los campos del formulario
-        document.getElementById("tipo_papel").value = producto.tipo_papel;
-        document.getElementById("gramaje").value = producto.gramaje;
-        document.getElementById("ancho").value = producto.ancho;
-        document.getElementById("cantidad").value = producto.cantidad;
-
-        // Mostrar el modal
-        const modal = new bootstrap.Modal(document.getElementById("productModal"));
-        modal.show();
+        // Redirigir a la URL con el ID del producto
+        window.location.href = `https://megawebsistem.com/admin/produccion/materia/editar=${producto.id}`;
       } else {
         status.textContent = `Código ${codigo} no encontrado en la base de datos.`;
         status.style.color = "#dc3545";
