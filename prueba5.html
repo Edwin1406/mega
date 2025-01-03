@@ -94,7 +94,7 @@
           status.style.color = "#28a745";
 
           // Redirigir a la URL con el ID del producto
-          window.location.href = `https://megawebsistem.com/admin/produccion/materia/editar=${producto.id}`;
+          window.location.href = `https://megawebsistem.com/admin/produccion/materia/editar?id=${producto.id}`;
         } else {
           status.textContent = `Código ${codigo} no encontrado en la base de datos.`;
           status.style.color = "#dc3545";

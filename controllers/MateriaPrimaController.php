@@ -112,6 +112,22 @@ class MateriaPrimaController
 
 
 
+   public static function editar(Router $router)
+   {
+    $id = $_GET['id'];
+    $id = filter_var($id, FILTER_VALIDATE_INT);
+    $materiaprima = MateriaPrima::find($id); // Obtener cliente actual
+    $alertas = MateriaPrima::getAlertas(); 
+
+    debuguear($materiaprima);
+
+
+  
+   }
+
+
+
+
 
 
 
