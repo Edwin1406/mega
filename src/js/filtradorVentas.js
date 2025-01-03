@@ -6,10 +6,10 @@ document.addEventListener('DOMContentLoaded', function () {
             const filas = document.querySelectorAll('#tabla .table__tr');
 
             filas.forEach(fila => {
-                const nombreCliente = fila.cells[0].textContent.toLowerCase();
-                const nombreProducto = fila.cells[1].textContent.toLowerCase();
-                const codigoProducto = fila.cells[2].textContent.toLowerCase();
-                const estado = fila.cells[3].textContent.toLowerCase();
+                const nombreCliente = fila.cells[1].textContent.toLowerCase();
+                const nombreProducto = fila.cells[2].textContent.toLowerCase();
+                const codigoProducto = fila.cells[3].textContent.toLowerCase();
+                const estado = fila.cells[4].textContent.toLowerCase();
 
                 // Comparar si el filtro coincide con alguna columna
                 if (
