@@ -1,27 +1,22 @@
-document.addEventListener('DOMContentLoaded', function () {
-    // Objetivo: Filtrar ventas en tiempo real
-    (function() {
-        // Filtro en tiempo real
-        const filtroVentas = document.querySelector('#filtros_ventas');
-        if (filtroVentas) {
-            filtroVentas.addEventListener('input', function () {
-                const filtro = this.value.toLowerCase();
-                const filas = document.querySelectorAll('#tabla .table__tr');
+filtroVentas.addEventListener('input', function () {
+    const filtro = this.value.toLowerCase();
+    const filas = document.querySelectorAll('#tabla .table__tr');
 
-                filas.forEach(fila => {
-                    const codigo = fila.cells[0].textContent.toLowerCase();
-                    const nombre = fila.cells[1].textContent.toLowerCase();
-                    const codigoCliente = fila.cells[2].textContent.toLowerCase();
+    filas.forEach(fila => {
+        const nombreCliente = fila.cells[0].textContent.toLowerCase();
+        const nombreProducto = fila.cells[1].textContent.toLowerCase();
+        const codigoProducto = fila.cells[2].textContent.toLowerCase();
+        const estado = fila.cells[3].textContent.toLowerCase();
 
-
-                    if (codigo.includes(filtro) || nombre.includes(filtro)  || codigoCliente.includes(filtro)) {
-                        fila.style.display = '';
-                    } else {
-                        fila.style.display = 'none';
-                    }
-                });
-            });
+        if (
+            nombreCliente.includes(filtro) || 
+            nombreProducto.includes(filtro) || 
+            codigoProducto.includes(filtro) || 
+            estado.includes(filtro)
+        ) {
+            fila.style.display = '';
+        } else {
+            fila.style.display = 'none';
         }
-
-    })();
+    });
 });
