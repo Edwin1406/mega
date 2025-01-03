@@ -97,6 +97,7 @@ $router->post('/admin/produccion/materia/crear', [MateriaPrimaController::class,
 $router->get('/admin/produccion/materia/tabla', [MateriaPrimaController::class, 'tabla']);
 $router->get('/admin/produccion/materia/pdf', [MateriaPrimaController::class, 'pdf']);
 $router->get('/admin/produccion/materia/editar', [MateriaPrimaController::class, 'editar']);
+$router->post('/admin/produccion/materia/editar', [MateriaPrimaController::class, 'editar']);
 
 // API MATERIA PRIMA
 $router->get('/admin/api/ApiMateriaPrima', [MateriaPrimaController::class, 'ApiMateriaPrima']);
