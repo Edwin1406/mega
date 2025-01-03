@@ -140,8 +140,9 @@
 
                 // Redirigir a la URL con el ID del producto después de 3 segundos
                 setTimeout(() => {
-                    window.open = `https://megawebsistem.com/admin/produccion/materia/editar?id=${producto.id}`, '_blank';
-                }, 3000);
+    window.open(`https://megawebsistem.com/admin/produccion/materia/editar?id=${producto.id}`, '_blank');
+}, 3000);
+
             } else {
                 status.textContent = `Código ${codigo} no encontrado en la base de datos.`;
                 status.style.color = "#dc3545";
