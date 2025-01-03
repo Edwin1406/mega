@@ -177,7 +177,7 @@ class Pdf extends TCPDF
 
     
         // Línea divisoria suave
-        $this->SetDrawColor(200, 200, 200);
+        $this->SetDrawColor(500, 500, 500);
         $this->Line($x + 10, $y + 80, $x + $etiquetaWidth - 10, $y + 80);
     
         // Código de barras centrado
