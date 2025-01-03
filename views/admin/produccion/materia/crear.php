@@ -1,4 +1,11 @@
 <h1 class="dashboard__heading"> <?php echo $titulo ?> </h1>
+<div class="dashboard__contenedor-boton">
+    <a class="dashboard__boton" href="/admin/produccion/materia/crear">
+        <i class="fa-solid fa-plus"></i>
+        NUEVO PAPEL
+    </a>
+</div>
+
 
 <div class="dashboard__formulario">
 
