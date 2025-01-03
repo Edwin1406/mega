@@ -87,7 +87,7 @@
         Notification.requestPermission()
           .then((permission) => {
             if (permission === "granted") {
-              console.log("Permisos concedidos para notificaciones.");
+              alert("Permisos concedidos para notificaciones.");
             }
           })
           .catch((error) => {
