@@ -124,7 +124,7 @@ class MateriaPrimaController
     $alertas = [];
     $materia = MateriaPrima::find($id);
     $materia->updated_at = date('Y-m-d H:i:s');
-    $materia->menos_peso = $materia->peso - 1;
+    $materia->menos_peso = $materia->peso;
     // se vulve a poner en el peso el valor restado
     $materia->peso = $materia->menos_peso;
 
