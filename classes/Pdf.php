@@ -136,7 +136,7 @@ class Pdf extends TCPDF
         $this->Image('src/img/logo2.png', $x + 13, $y + 2, 14, 14); // Tamaño y posición del logo
     
         // Datos principales con diseño moderno
-        $this->SetFont('helvetica', '', 10);
+        $this->SetFont('helvetica', '', 20);
         $this->SetTextColor(50, 50, 50); // Gris oscuro para texto
     
         // TIPO
@@ -146,28 +146,28 @@ class Pdf extends TCPDF
         $this->Cell(40, 6, $datos['tipo'], 0, 1, 'L');
     
         // ANCHO
-        $this->SetFont('helvetica', '', 10);
+        $this->SetFont('helvetica', '', 20);
         $this->SetXY($x + 10, $y + 35);
         $this->Cell(40, 6, 'ANCHO:', 0, 0, 'L');
         $this->SetFont('helvetica', 'B', 10);
         $this->Cell(40, 6, $datos['ancho'], 0, 1, 'L');
     
         // PESO
-        $this->SetFont('helvetica', '', 10);
+        $this->SetFont('helvetica', '', 20);
         $this->SetXY($x + 10, $y + 45);
         $this->Cell(40, 6, 'PESO:', 0, 0, 'L');
         $this->SetFont('helvetica', 'B', 10);
         $this->Cell(40, 6, $datos['peso'], 0, 1, 'L');
 
          //  GRAMAJE
-         $this->SetFont('helvetica', '', 10);
+         $this->SetFont('helvetica', '', 20);
          $this->SetXY($x + 10, $y + 65);
          $this->Cell(40, 6, 'GRAMAJE:', 0, 0, 'L');
          $this->SetFont('helvetica', 'B', 10);
          $this->Cell(40, 6, $datos['gramaje'], 0, 1, 'L');
     
         // FECHA
-        $this->SetFont('helvetica', '', 10);
+        $this->SetFont('helvetica', '', 20);
         $this->SetXY($x + 10, $y + 55);
         $this->Cell(40, 6, 'FECHA:', 0, 0, 'L');
         $this->SetFont('helvetica', 'B', 10);
@@ -195,7 +195,7 @@ class Pdf extends TCPDF
             'bgcolor' => false, // Sin fondo
             'text' => true, // Sin texto debajo
             'font' => 'helvetica',
-            'fontsize' => 8,
+            'fontsize' => 15,
             'stretchtext' => 4
         );
         $this->write1DBarcode($datos['barcode'], 'C128', $x + 25, $y + 90, 50, 15, 0.4, $style, 'N');
