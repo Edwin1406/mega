@@ -29,27 +29,28 @@
                 </tr>
             </thead>
             <tbody class="table__tbody">
-
-                <?php foreach ($materias as $materia):?>
+                <?php foreach ($materias as $materia): ?>
+                    <?php if ($materia->peso != 0): ?>
                     <tr class="table__tr">
-                        <td class="table__td"><?php echo $materia->nombre_rollo?></td>
-                        <td class="table__td"><?php echo $materia->tipo?></td>
-                        <td class="table__td"><?php echo $materia->ancho?></td>
-                        <td class="table__td"><?php echo $materia->peso?></td>
-                        <td class="table__td"><?php echo $materia->gramaje?></td>
-                        <td class="table__td"><?php echo $materia->ced?></td>
-                        <td class="table__td"><?php echo $materia->proveedor?></td>
-                        <td class="table__td"><?php echo $materia->created_at?></td>
-                        <td class="table__td"><?php echo $materia->updated_at?></td>
-
-                        <td class="table__td--acciones"><a class="table__accion table__accion--editar" href="/admin/produccion/materia/pdf?id=<?php echo $materia->id; ?>" target="_blank"><i class="fa-solid fa-file-pdf"></i>pdf</a>
+                        <td class="table__td"><?php echo $materia->nombre_rollo; ?></td>
+                        <td class="table__td"><?php echo $materia->tipo; ?></td>
+                        <td class="table__td"><?php echo $materia->ancho; ?></td>
+                        <td class="table__td"><?php echo $materia->peso; ?></td>
+                        <td class="table__td"><?php echo $materia->gramaje; ?></td>
+                        <td class="table__td"><?php echo $materia->ced; ?></td>
+                        <td class="table__td"><?php echo $materia->proveedor; ?></td>
+                        <td class="table__td"><?php echo $materia->created_at; ?></td>
+                        <td class="table__td"><?php echo $materia->updated_at; ?></td>
+                        <td class="table__td--acciones">
+                            <a class="table__accion table__accion--editar" href="/admin/produccion/materia/pdf?id=<?php echo $materia->id; ?>" target="_blank">
+                                <i class="fa-solid fa-file-pdf"></i>pdf
+                            </a>
                         </td>
-
-
                     </tr>
-                <?php endforeach;?>
-
+                    <?php endif; ?>
+                <?php endforeach; ?>
             </tbody>
+
 
         </table>
    
