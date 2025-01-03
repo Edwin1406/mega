@@ -109,103 +109,97 @@ class Pdf extends TCPDF
         // Agregar una nueva página
         $this->AddPage();
     
-        // Centrar el contenedor principal en la página
+        // Dimensiones de la página
         $pageWidth = $this->GetPageWidth();
         $pageHeight = $this->GetPageHeight();
     
-        $etiquetaWidth = 180; // Ancho de la etiqueta
-        $etiquetaHeight = 200; // Alto de la etiqueta
-        $x = ($pageWidth - $etiquetaWidth) / 2;
-        $y = ($pageHeight - $etiquetaHeight) / 2;
+        // Tamaño de la etiqueta (ocupando casi toda la hoja)
+        $etiquetaWidth = $pageWidth - 20; // Deja un margen de 10 a cada lado
+        $etiquetaHeight = $pageHeight - 20; // Deja un margen de 10 en la parte superior e inferior
+        $x = 10; // Margen izquierdo
+        $y = 10; // Margen superior
     
-        // Dibujar contenedor principal con bordes redondeados y sombra
-        $this->SetDrawColor(220, 220, 220); // Gris claro para el borde
-        // fondo blanco
+        // Dibujar el contenedor principal con bordes redondeados
+        $this->SetDrawColor(220, 220, 220);
         $this->SetFillColor(255, 255, 255); // Fondo blanco
         $this->RoundedRect($x, $y, $etiquetaWidth, $etiquetaHeight, 5, '1111', 'DF');
     
         // Encabezado con degradado
-        $this->SetFillColor(255, 140, 0); // Color degradado inicial
-        $this->RoundedRect($x, $y, $etiquetaWidth, 20, 5, '1111', 'F'); // Encabezado
+        $this->SetFillColor(255, 140, 0); // Color del encabezado
+        $this->RoundedRect($x, $y, $etiquetaWidth, 25, 5, '1111', 'F'); // Encabezado
         $this->SetFont('helvetica', 'B', 24);
-        $this->SetTextColor(255, 255, 255); // Blanco
+        $this->SetTextColor(255, 255, 255);
         $this->SetXY($x, $y + 5);
         $this->Cell($etiquetaWidth, 10, 'MEGASTOCK', 0, 1, 'C');
     
-        // Imagen del logo (centrado)
-        $this->Image('src/img/logo2.png', $x + 13, $y + 2, 14, 14); // Tamaño y posición del logo
+        // Imagen del logo (centrado en el encabezado)
+        $this->Image('src/img/logo2.png', $x + 15, $y + 5, 15, 15);
     
-        // Datos principales con diseño moderno
-        $this->SetFont('helvetica', '', 20);
-        $this->SetTextColor(50, 50, 50); // Gris oscuro para texto
+        // Datos principales con un diseño alineado
+        $this->SetFont('helvetica', '', 16);
+        $this->SetTextColor(50, 50, 50);
+    
+        // Ajuste de coordenadas y espacio entre líneas
+        $lineHeight = 12;
+        $dataStartY = $y + 35;
     
         // TIPO
-        $this->SetXY($x + 10, $y + 25);
+        $this->SetXY($x + 10, $dataStartY);
         $this->Cell(40, 6, 'TIPO:', 0, 0, 'L');
-        $this->SetFont('helvetica', 'B', 15);
+        $this->SetFont('helvetica', 'B', 16);
         $this->Cell(40, 6, $datos['tipo'], 0, 1, 'L');
     
         // ANCHO
-        $this->SetFont('helvetica', '', 20);
-        $this->SetXY($x + 10, $y + 35);
+        $this->SetFont('helvetica', '', 16);
+        $this->SetXY($x + 10, $dataStartY + $lineHeight);
         $this->Cell(40, 6, 'ANCHO:', 0, 0, 'L');
-        $this->SetFont('helvetica', 'B', 15);
+        $this->SetFont('helvetica', 'B', 16);
         $this->Cell(40, 6, $datos['ancho'], 0, 1, 'L');
     
         // PESO
-        $this->SetFont('helvetica', '', 20);
-        $this->SetXY($x + 10, $y + 45);
+        $this->SetFont('helvetica', '', 16);
+        $this->SetXY($x + 10, $dataStartY + 2 * $lineHeight);
         $this->Cell(40, 6, 'PESO:', 0, 0, 'L');
-        $this->SetFont('helvetica', 'B', 15);
+        $this->SetFont('helvetica', 'B', 16);
         $this->Cell(40, 6, $datos['peso'], 0, 1, 'L');
-
-         //  GRAMAJE
-         $this->SetFont('helvetica', '', 20);
-         $this->SetXY($x + 10, $y + 65);
-         $this->Cell(40, 6, 'GRAMAJE:', 0, 0, 'L');
-         $this->SetFont('helvetica', 'B', 15);
-         $this->Cell(40, 6, $datos['gramaje'], 0, 1, 'L');
     
-        // FECHA
-        $this->SetFont('helvetica', '', 20);
-        $this->SetXY($x + 10, $y + 55);
+        // GRAMAJE
+        $this->SetFont('helvetica', '', 16);
+        $this->SetXY($x + 10, $dataStartY + 3 * $lineHeight);
+        $this->Cell(40, 6, 'GRAMAJE:', 0, 0, 'L');
+        $this->SetFont('helvetica', 'B', 16);
+        $this->Cell(40, 6, $datos['gramaje'], 0, 1, 'L');
+    
+        // FECHA RECIBIDO
+        $this->SetFont('helvetica', '', 16);
+        $this->SetXY($x + 10, $dataStartY + 4 * $lineHeight);
         $this->Cell(40, 6, 'FECHA RECIBIDO:', 0, 0, 'L');
-        $this->SetFont('helvetica', 'B', 15);
+        $this->SetFont('helvetica', 'B', 16);
         $this->Cell(40, 6, $datos['created_at'], 0, 1, 'L');
-
-       
-
     
-        // Línea divisoria suave
+        // Línea divisoria
         $this->SetDrawColor(200, 200, 200);
-        $this->Line($x + 10, $y + 80, $x + $etiquetaWidth - 10, $y + 80);
+        $this->Line($x + 10, $dataStartY + 5 * $lineHeight, $x + $etiquetaWidth - 10, $dataStartY + 5 * $lineHeight);
     
-        // Código de barras centrado
-        $this->SetXY($x + 10, $y + 85);
+        // Código de barras
+        $this->SetXY($x + 10, $dataStartY + 5 * $lineHeight + 10);
         $style = array(
             'position' => '',
             'align' => 'C',
             'stretch' => false,
             'fitwidth' => true,
-            'cellfitalign' => '',
             'border' => false,
             'hpadding' => 'auto',
             'vpadding' => 'auto',
-            'fgcolor' => array(0, 0, 0), // Negro
-            'bgcolor' => false, // Sin fondo
-            'text' => true, // Sin texto debajo
+            'fgcolor' => array(0, 0, 0),
+            'bgcolor' => false,
+            'text' => true,
             'font' => 'helvetica',
-            'fontsize' => 10,
-            'stretchtext' => 54
+            'fontsize' => 12,
+            'stretchtext' => 4
         );
-        $this->write1DBarcode($datos['barcode'], 'C128', $x + 25, $y + 90, 50, 15, 0.4, $style, 'N');
-    
-        // Etiqueta estilizada con sombra
-        $this->SetDrawColor(220, 220, 220); // Sombra exterior clara
-        $this->RoundedRect($x + 1, $y + 1, $etiquetaWidth - 2, $etiquetaHeight - 2, 4, '1111');
+        $this->write1DBarcode($datos['barcode'], 'C128', $x + ($etiquetaWidth / 2) - 25, $dataStartY + 5 * $lineHeight + 15, 50, 20, 0.4, $style, 'N');
     }
-    
-    
     
 
     public function descargarPdf($materias)
