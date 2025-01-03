@@ -19,7 +19,7 @@ class MateriaPrima extends ActiveRecord
     public $precio;
     public $created_at;
     public $updated_at;
-    public $menos_peso;
+   
     public function __construct($args = [])
     {
         date_default_timezone_set('America/Guayaquil');
