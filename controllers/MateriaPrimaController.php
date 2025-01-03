@@ -134,6 +134,7 @@ class MateriaPrimaController
     // }
 
     $router->render('admin/produccion/materia/editar', [
+        'titulo' => 'Actualizar Materia Prima',
         'materiaprima' => $materiaprima,
         'alertas' => $alertas
     ]);
