@@ -32,6 +32,7 @@
             placeholder="ancho del papel"
             value="<?php echo $materia->ancho ?? '' ?>">
     </div>
+    
     <div class="formulario__campo">
         <label class="formulario__label" for="peso">Peso</label>
         <input

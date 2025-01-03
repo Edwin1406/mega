@@ -128,7 +128,11 @@ class MateriaPrimaController
     if($_SERVER['REQUEST_METHOD']=='POST'){
         $materia->sincronizar($_POST);
         // debuguear($materia);
-        $materia->peso = $materia->peso - $materia->menos_peso;
+        if($materia->menos_peso< $materia->peso){
+            $materia->peso = $materia->peso - $materia->menos_peso;
+        }else{
+            $alertas['error'][] = 'El peso a restar no puede ser mayor al peso actual';
+        }
         // debuguear($papel);
         $alertas = $materia->validar();
         if(empty($alertas)){
