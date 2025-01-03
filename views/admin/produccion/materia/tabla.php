@@ -13,10 +13,16 @@
         <table class="table">
             <thead class="table__thead">
                 <tr>
-                    <th scope="col" class="table__th">Tipo de Papel</th>
-                    <th scope="col" class="table__th">Gramaje</th>
+                    <th scope="col" class="table__th">Nombre del Rollo</th>
+                    <th scope="col" class="table__th">Tipo</th>
                     <th scope="col" class="table__th">Ancho</th>
-                    <th scope="col" class="table__th">Fecha y Hora </th>
+                    <th scope="col" class="table__th">Peso</th>
+                    <th scope="col" class="table__th">Gramaje</th>
+                    <th scope="col" class="table__th">CED</th>
+                    <th scope="col" class="table__th">Proveedor</th>
+                    <th scope="col" class="table__th">Fecha de Ingreso </th>
+                    <th scope="col" class="table__th">Fecha de Actualizacion</th>
+
                     <th scope="col" class="table__th"></th>
                 </tr>
             </thead>
