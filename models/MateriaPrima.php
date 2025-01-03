@@ -67,9 +67,7 @@ class MateriaPrima extends ActiveRecord
             self::$alertas['error'][] = 'El Campo Proveedor es Obligatorio';
         }
 
-        if(!$this->precio) {
-            self::$alertas['error'][] = 'El Campo Precio es Obligatorio';
-        }
+    
 
         return self::$alertas;
 
