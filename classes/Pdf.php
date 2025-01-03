@@ -120,7 +120,8 @@ class Pdf extends TCPDF
     
         // Dibujar contenedor principal con bordes redondeados y sombra
         $this->SetDrawColor(220, 220, 220); // Gris claro para el borde
-        $this->SetFillColor(245, 245, 245); // Fondo claro
+        // fondo blanco
+        $this->SetFillColor(255, 255, 255); // Fondo blanco
         $this->RoundedRect($x, $y, $etiquetaWidth, $etiquetaHeight, 5, '1111', 'DF');
     
         // Encabezado con degradado
