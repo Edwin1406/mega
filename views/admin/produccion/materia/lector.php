@@ -24,6 +24,7 @@
     #status {
       font-weight: bold;
       margin: 10px 0;
+      text-align: center;
     }
     #notificacion {
       position: fixed;
