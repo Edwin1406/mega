@@ -132,7 +132,7 @@ class MateriaPrimaController
         // debuguear($papel);
         $alertas = $materia->validar();
         if(empty($alertas)){
-            $materia->actualizar();
+            $materia->guardar();
             header('Location: /admin/produccion/materia/tabla');
         }
 
