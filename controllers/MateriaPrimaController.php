@@ -116,27 +116,27 @@ class MateriaPrimaController
    {
     $id = $_GET['id'];
     $id = filter_var($id, FILTER_VALIDATE_INT);
+    if (!$id) {
+        header('Location: /admin/produccion/papel/tabla');
+    }
     $alertas = [];
-    $materiaprima = MateriaPrima::find($id); 
+    $materia = MateriaPrima::find($id);
+    if($_SERVER['REQUEST_METHOD']=='POST'){
+        $materia->sincronizar($_POST);
+        // debuguear($papel);
+        $alertas = $materia->validar();
+        if(empty($alertas)){
+            $materia->actualizar();
+            header('Location: /admin/produccion/papel/tabla');
+        }
+
+    }
 
     // debuguear($materiaprima);
 
-    if($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $args = $_POST['materiaprima'];
-        $materiaprima->sincronizar($args);
-        // $alertas = $materiaprima->validar();
-        // if(empty($alertas)) {
-        //     $resultado = $materiaprima->guardar();
-        //     if($resultado) {
-        //         header('Location: /admin/produccion/materia/tabla');
-        //     }
-        // }
-    }
-
-
     $router->render('admin/produccion/materia/editar', [
         'titulo' => 'Actualizar Materia Prima',
-        'materiaprima' => $materiaprima,
+        'materia' => $materia,
         'alertas' => $alertas
     ]);
 
