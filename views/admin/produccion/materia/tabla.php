@@ -65,14 +65,10 @@
 
 
 
-
-<button id="enable" onclick="askNotificationPermission()">Habilitar notificaciones</button>
+<button id="enable" onclick="sendNotification('Título de ejemplo')">Mostrar notificación</button>
 
 
 <script>
-  // Vincula el botón en una variable
-  const notificationBtn = document.getElementById("enable");
-
   // Verifica si el navegador admite promesas en Notification
   function checkNotificationPromise() {
     try {
@@ -83,18 +79,6 @@
   }
 
   function askNotificationPermission() {
-    // Función para pedir permisos
-    function handlePermission(permission) {
-      if (permission === "granted") {
-        // Oculta el botón si se otorgan permisos
-        notificationBtn.style.display = "none";
-        sendNotification("Título de ejemplo"); // Llama a la notificación de ejemplo
-      } else {
-        // Muestra el botón si se deniega o está en estado por defecto
-        notificationBtn.style.display = "block";
-      }
-    }
-
     // Comprueba si el navegador admite notificaciones
     if (!("Notification" in window)) {
       console.log("Este navegador no admite notificaciones.");
@@ -102,30 +86,47 @@
       if (checkNotificationPromise()) {
         Notification.requestPermission()
           .then((permission) => {
-            handlePermission(permission);
+            if (permission === "granted") {
+              console.log("Permisos concedidos para notificaciones.");
+            }
           })
           .catch((error) => {
             console.error("Error al solicitar permisos:", error);
           });
       } else {
         Notification.requestPermission(function (permission) {
-          handlePermission(permission);
+          if (permission === "granted") {
+            console.log("Permisos concedidos para notificaciones.");
+          }
         });
       }
     }
   }
 
   function sendNotification(title) {
-    var img = "/to-do-notifications/img/icon-128.png"; // Ruta del icono
-    var text = '¡OYE! Tu tarea "' + title + '" ahora está vencida.';
-    var notification = new Notification("Lista de tareas", {
-      body: text,
-      icon: img,
-    });
+    if (!("Notification" in window)) {
+      alert("Este navegador no admite notificaciones.");
+      return;
+    }
 
-    // Opcional: agregar eventos al clic en la notificación
-    notification.onclick = function () {
-      window.open("https://tu-enlace.com"); // Enlace al que se redirige al hacer clic
-    };
+    if (Notification.permission === "granted") {
+      // Crear la notificación
+      var img = "/to-do-notifications/img/icon-128.png"; // Ruta del icono
+      var text = '¡OYE! Tu tarea "' + title + '" ahora está vencida.';
+      var notification = new Notification("Lista de tareas", {
+        body: text,
+        icon: img,
+      });
+
+      // Evento onclick de la notificación
+      notification.onclick = function () {
+        window.open("https://tu-enlace.com"); // Enlace al que se redirige al hacer clic
+      };
+    } else if (Notification.permission === "default" || Notification.permission === "denied") {
+      askNotificationPermission(); // Solicita permiso si no está concedido
+    }
   }
+
+  // Solicita permisos automáticamente al cargar la página (opcional)
+  askNotificationPermission();
 </script>
