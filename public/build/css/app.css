@@ -421,7 +421,7 @@
 .table__accion {
   all: unset;
   text-transform: uppercase;
-  font-size: 1.4rem;
+  font-size: 1.7rem;
   font-weight: 700;
 }
 .table__accion--editar {
