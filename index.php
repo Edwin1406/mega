@@ -75,6 +75,8 @@ $router->get('/admin/api/allpedidos', [ApiPedidos::class, 'Allpedidos']);
 
 $router->get('/admin/api/allpedidos2', [ApiPedidos::class, 'Allpedidos2']);
 
+
+// VENTAS 
 $router->get('/admin/api/nombreCliente', [ClienteController::class, 'nombreCliente']);
 $router->post('/admin/api/actualizar', [ClienteController::class, 'actualizar']);
 
@@ -94,6 +96,8 @@ $router->get('/admin/produccion/materia/crear', [MateriaPrimaController::class, 
 $router->post('/admin/produccion/materia/crear', [MateriaPrimaController::class, 'materia']);
 $router->get('/admin/produccion/materia/tabla', [MateriaPrimaController::class, 'tabla']);
 $router->get('/admin/produccion/materia/pdf', [MateriaPrimaController::class, 'pdf']);
+
+
 
 
 

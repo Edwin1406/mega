@@ -98,13 +98,14 @@ class MateriaPrimaController
             ];
             $pdf->generarPdf($datos);
             $pdf->Output('etiqueta.pdf', 'I');
-            
-
-
-
-          
-
    }
+
+   public static function ApiMateriaPrima()
+   {
+      $materias = MateriaPrima::all();
+      echo json_encode($materias);
+   }
+
 
 
 
