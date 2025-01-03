@@ -22,6 +22,8 @@
                     <th scope="col" class="table__th">Proveedor</th>
                     <th scope="col" class="table__th">Fecha de Ingreso </th>
                     <th scope="col" class="table__th">Fecha de Actualizacion</th>
+                    <th scope="col" class="table__th">PDF</th>
+
 
                     <th scope="col" class="table__th"></th>
                 </tr>
