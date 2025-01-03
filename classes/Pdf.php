@@ -169,7 +169,7 @@ class Pdf extends TCPDF
         // FECHA
         $this->SetFont('helvetica', '', 20);
         $this->SetXY($x + 10, $y + 55);
-        $this->Cell(40, 6, 'FECHA:', 0, 0, 'L');
+        $this->Cell(40, 6, 'FECHA RECIBIDO:', 0, 0, 'L');
         $this->SetFont('helvetica', 'B', 15);
         $this->Cell(40, 6, $datos['created_at'], 0, 1, 'L');
 
