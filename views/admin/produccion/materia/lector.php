@@ -12,8 +12,8 @@
     #scanner {
       position: relative;
       width: 90%;
-      max-width: 600px;
-      height: 350px;
+      max-width: 100%;
+      height: 100%;
       margin: 20px auto;
       border: 2px solid #ccc;
       border-radius: 10px;
