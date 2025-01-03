@@ -30,30 +30,46 @@
       font-weight: bold;
       margin: 10px 0;
     }
+    #notificacion {
+      position: fixed;
+      bottom: -100px; /* Oculta la notificación inicialmente */
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: #007bff;
+      color: white;
+      padding: 15px 20px;
+      border-radius: 5px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      font-size: 16px;
+      z-index: 1000;
+      transition: bottom 0.5s ease-in-out;
+    }
+    #notificacion.mostrar {
+      bottom: 20px; /* Muestra la notificación */
+    }
   </style>
 </head>
 <body>
   <h1>Escáner de Código de Barras</h1>
   <div id="scanner"></div>
   <p id="status">Escaneando...</p>
+  <div id="notificacion"></div>
 
   <script>
     const apiUrl = "https://megawebsistem.com/admin/api/ApiMateriaPrima"; // URL de la API
     let ultimaDeteccion = {}; // Almacena la última detección de códigos
     const bloqueoTiempo = 2000; // Tiempo de espera en milisegundos
 
-    // Solicitar permiso para notificaciones
-    if (Notification.permission !== "granted") {
-      Notification.requestPermission();
-    }
+    // Mostrar notificación en la parte inferior
+    function mostrarNotificacion(mensaje) {
+      const notificacion = document.getElementById("notificacion");
+      notificacion.textContent = mensaje;
+      notificacion.classList.add("mostrar");
 
-    // Enviar notificación
-    function enviarNotificacion(titulo, mensaje) {
-      if (Notification.permission === "granted") {
-        new Notification(titulo, { body: mensaje });
-      } else {
-        console.warn("Permiso de notificaciones no concedido.");
-      }
+      // Ocultar la notificación después de 3 segundos
+      setTimeout(() => {
+        notificacion.classList.remove("mostrar");
+      }, 3000);
     }
 
     // Inicializar el escáner
@@ -107,21 +123,27 @@
           status.textContent = `Producto ${codigo} encontrado. Redirigiendo...`;
           status.style.color = "#28a745";
 
-          // Enviar notificación antes de redirigir
-          enviarNotificacion("Producto encontrado", `Redirigiendo al producto con ID: ${producto.id}`);
+          // Mostrar notificación
+          mostrarNotificacion(`Producto encontrado: Redirigiendo al ID ${producto.id}`);
 
           // Redirigir a la URL con el ID del producto
           setTimeout(() => {
             window.location.href = `https://megawebsistem.com/admin/produccion/materia/editar?id=${producto.id}`;
-          }, 9000); // Espera 2 segundos para que el usuario vea la notificación
+          }, 3000); // Espera 3 segundos para que el usuario vea la notificación
         } else {
           status.textContent = `Código ${codigo} no encontrado en la base de datos.`;
           status.style.color = "#dc3545";
+
+          // Mostrar notificación
+          mostrarNotificacion(`Código ${codigo} no encontrado.`);
         }
       } catch (error) {
         console.error("Error al buscar el producto:", error);
         status.textContent = "Error al buscar el producto.";
         status.style.color = "#dc3545";
+
+        // Mostrar notificación
+        mostrarNotificacion("Error al buscar el producto.");
       }
     }
 
