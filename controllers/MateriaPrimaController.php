@@ -131,7 +131,8 @@ class MateriaPrimaController
         if($materia->menos_peso< $materia->peso){
             $materia->peso = $materia->peso - $materia->menos_peso;
         }else{
-            $alertas['error'][] = 'El peso a restar no puede ser mayor al peso actual';
+            $alertas['error'][] = 'El Campo Peso es Obligatorio';
+
         }
         // debuguear($papel);
         $alertas = $materia->validar();
