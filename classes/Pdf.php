@@ -127,7 +127,7 @@ class Pdf extends TCPDF
         // Encabezado con degradado
         $this->SetFillColor(255, 140, 0); // Color degradado inicial
         $this->RoundedRect($x, $y, $etiquetaWidth, 20, 5, '1111', 'F'); // Encabezado
-        $this->SetFont('helvetica', 'B', 14);
+        $this->SetFont('helvetica', 'B', 24);
         $this->SetTextColor(255, 255, 255); // Blanco
         $this->SetXY($x, $y + 5);
         $this->Cell($etiquetaWidth, 10, 'MEGASTOCK', 0, 1, 'C');
