@@ -41,7 +41,7 @@
             placeholder="peso del papel"
             value="<?php echo $materia->peso ?? '' ?>">
     </div>
-
+      <?php if (isset($materia->id)): ?>
     <div class="formulario__campo">
         <label class="formulario__label" for="menos_peso">Menos Peso</label>
         <input
@@ -52,6 +52,7 @@
             placeholder="menos peso del papel"
             value="<?php echo $materia->menos_peso ?? '' ?>">
     </div>
+    <?php endif; ?>
 
     <div class="formulario__campo">
         <label class="formulario__label" for="gramaje">Gramaje</label>
