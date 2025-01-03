@@ -158,6 +158,16 @@ class MateriaPrimaController
 
 
 
+    public static function lector(Router $router)
+    {
+        $router->render('admin/produccion/materia/lector', [
+            'titulo' => 'LECTOR DE CODIGO DE BARRAS'
+        ]);
+    }
+
+
+
+
 
 
 
