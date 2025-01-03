@@ -1,11 +1,11 @@
 <script src="https://cdn.jsdelivr.net/npm/quagga/dist/quagga.min.js"></script>
   <style>
-    body {
+    /* body {
       font-family: Arial, sans-serif;
       background-color: #f8f9fa;
       color: #333;
       text-align: center;
-    }
+    } */
     h1 {
       color: #007bff;
     }
