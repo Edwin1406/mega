@@ -1,3 +1,11 @@
+<div class="dashboard__contenedor-boton">
+    <a class="dashboard__boton" href="/admin/produccion/materia/crear">
+        <i class="fa-solid fa-plus"></i>
+        NUEVO PAPEL
+    </a>
+</div>
+
+
 <fieldset class="formulario__fieldset">
     <legend class="formulario__legend">Información Materia Prima</legend>
     <div class="formulario__campo">
