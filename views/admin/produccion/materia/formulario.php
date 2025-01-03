@@ -3,7 +3,7 @@
 <fieldset class="formulario__fieldset">
     <legend class="formulario__legend">Información Materia Prima</legend>
     <div class="formulario__campo">
-        <l class="formulario__label" for="nombre_rollo">Nombre del Material</label>
+        <label class="formulario__label" for="nombre_rollo">Nombre del Material</label>
         <input
             type="text"
             name="nombre_rollo"
