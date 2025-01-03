@@ -3,13 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Escáner de Código de Barras con Tabla</title>
+  <title>Escáner de Código de Barras con Formulario</title>
   <script src="https://cdn.jsdelivr.net/npm/quagga/dist/quagga.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
   <style>
     body {
       font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
       background-color: #f8f9fa;
       color: #333;
       text-align: center;
@@ -31,24 +30,6 @@
     #status {
       font-weight: bold;
       margin: 10px 0;
-      color: #28a745;
-    }
-    table {
-      width: 90%;
-      margin: 20px auto;
-      border-collapse: collapse;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    }
-    table, th, td {
-      border: 1px solid #ddd;
-    }
-    th, td {
-      padding: 10px;
-      text-align: center;
-    }
-    th {
-      background-color: #007bff;
-      color: white;
     }
   </style>
 </head>
@@ -57,23 +38,44 @@
   <div id="scanner"></div>
   <p id="status">Escaneando...</p>
 
-  <!-- Tabla para mostrar códigos -->
-  <table id="tabla-codigos">
-    <thead>
-      <tr>
-        <th>ID</th>
-        <th>Tipo Papel</th>
-        <th>Gramaje</th>
-        <th>Ancho</th>
-        <th>Cantidad</th>
-      </tr>
-    </thead>
-    <tbody></tbody>
-  </table>
+  <!-- Modal con Formulario -->
+  <div class="modal fade" id="productModal" tabindex="-1" aria-labelledby="productModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="productModalLabel">Información del Producto</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="productForm">
+            <div class="mb-3">
+              <label for="tipo_papel" class="form-label">Tipo de Papel</label>
+              <input type="text" id="tipo_papel" class="form-control" readonly>
+            </div>
+            <div class="mb-3">
+              <label for="gramaje" class="form-label">Gramaje</label>
+              <input type="text" id="gramaje" class="form-control" readonly>
+            </div>
+            <div class="mb-3">
+              <label for="ancho" class="form-label">Ancho</label>
+              <input type="text" id="ancho" class="form-control" readonly>
+            </div>
+            <div class="mb-3">
+              <label for="cantidad" class="form-label">Cantidad</label>
+              <input type="text" id="cantidad" class="form-control" readonly>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script>
     const apiUrl = "https://megawebsistem.com/admin/api/allbobinas";
-    let codigos = {};
     let productos = [];
     let ultimaDeteccion = {}; // Almacena la última detección de códigos
     const bloqueoTiempo = 2000; // Tiempo de espera en milisegundos
@@ -130,40 +132,24 @@
     function manejarProducto(codigo) {
       const producto = productos.find(p => p.qr === codigo);
       const status = document.getElementById("status");
-      const tabla = document.querySelector("#tabla-codigos tbody");
 
       if (producto) {
-        if (codigos[codigo]) {
-          codigos[codigo].cantidad += 1;
-        } else {
-          codigos[codigo] = {
-            id: producto.id,
-            tipo_papel: producto.tipo_papel,
-            gramaje: producto.gramaje,
-            ancho: producto.ancho,
-            cantidad: 1
-          };
-        }
-        status.textContent = `Producto ${codigo} actualizado.`;
+        status.textContent = `Producto ${codigo} encontrado.`;
         status.style.color = "#28a745";
+
+        // Rellenar los campos del formulario
+        document.getElementById("tipo_papel").value = producto.tipo_papel;
+        document.getElementById("gramaje").value = producto.gramaje;
+        document.getElementById("ancho").value = producto.ancho;
+        document.getElementById("cantidad").value = producto.cantidad;
+
+        // Mostrar el modal
+        const modal = new bootstrap.Modal(document.getElementById("productModal"));
+        modal.show();
       } else {
         status.textContent = `Código ${codigo} no encontrado en la base de datos.`;
         status.style.color = "#dc3545";
-        return;
       }
-
-      // Actualizar la tabla
-      tabla.innerHTML = "";
-      Object.keys(codigos).forEach(key => {
-        const row = `<tr>
-                      <td>${codigos[key].id}</td>
-                      <td>${codigos[key].tipo_papel}</td>
-                      <td>${codigos[key].gramaje}</td>
-                      <td>${codigos[key].ancho}</td>
-                      <td>${codigos[key].cantidad}</td>
-                    </tr>`;
-        tabla.insertAdjacentHTML("beforeend", row);
-      });
     }
 
     // Cargar datos y luego iniciar escáner
