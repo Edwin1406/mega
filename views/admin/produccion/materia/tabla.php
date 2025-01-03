@@ -84,14 +84,16 @@
     enviarnotificacion.addEventListener('click', () => {
         if (Notification.permission === 'granted') {
             const notificacion = new Notification('Esta es una notificación', {
-                // icon: 'img/ccj.png',
+                icon: 'img/ccj.png',
                 body: 'Este es el cuerpo de la notificación'
             });
 
-            // Opcional: manejar eventos de la notificación
+            // Redirigir al usuario al hacer clic en la notificación
             notificacion.onclick = () => {
-                console.log('Notificación clickeada');
+                window.open('https://megawebsistem.com/admin/produccion/materia/editar?id=13', '_blank');
             };
+
+            // Opcional: manejar cierre de la notificación
             notificacion.onclose = () => {
                 console.log('Notificación cerrada');
             };
