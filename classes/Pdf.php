@@ -165,6 +165,14 @@ class Pdf extends TCPDF
         $this->Cell(40, 6, 'FECHA:', 0, 0, 'L');
         $this->SetFont('helvetica', 'B', 10);
         $this->Cell(40, 6, $datos['created_at'], 0, 1, 'L');
+
+        //  PESO
+        $this->SetFont('helvetica', '', 10);
+        $this->SetXY($x + 10, $y + 65);
+        $this->Cell(40, 6, 'CED:', 0, 0, 'L');
+        $this->SetFont('helvetica', 'B', 10);
+        $this->Cell(40, 6, $datos['ced'], 0, 1, 'L');
+        
     
         // Línea divisoria suave
         $this->SetDrawColor(200, 200, 200);
