@@ -228,7 +228,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
                     console.log(codigo, nombre, nombreProducto);
 
-                    if (codigo.includes(filtro) || nombre.includes(filtro)) {
+                    if (codigo.includes(filtro) || nombre.includes(filtro)  || nombreProducto.includes(filtro)) {
                         fila.style.display = '';
                     } else {
                         fila.style.display = 'none';
