@@ -63,6 +63,9 @@
 
 <?php echo $paginacion; ?>
 
+
+
+
 <button id="enable" onclick="askNotificationPermission()">Habilitar notificaciones</button>
 
 
@@ -85,6 +88,7 @@
       if (permission === "granted") {
         // Oculta el botón si se otorgan permisos
         notificationBtn.style.display = "none";
+        sendNotification("Título de ejemplo"); // Llama a la notificación de ejemplo
       } else {
         // Muestra el botón si se deniega o está en estado por defecto
         notificationBtn.style.display = "block";
@@ -109,5 +113,19 @@
         });
       }
     }
+  }
+
+  function sendNotification(title) {
+    var img = "/to-do-notifications/img/icon-128.png"; // Ruta del icono
+    var text = '¡OYE! Tu tarea "' + title + '" ahora está vencida.';
+    var notification = new Notification("Lista de tareas", {
+      body: text,
+      icon: img,
+    });
+
+    // Opcional: agregar eventos al clic en la notificación
+    notification.onclick = function () {
+      window.open("https://tu-enlace.com"); // Enlace al que se redirige al hacer clic
+    };
   }
 </script>
