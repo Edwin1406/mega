@@ -43,9 +43,10 @@
     }
   </style>
 
+<h1 class="dashboard__heading"> <?php echo $titulo ?> </h1>
 
 
-<h1>Escáner de Código de Barras</h1>
+
   <div id="scanner"></div>
   <p id="status">Escaneando...</p>
   <div id="notificacion"></div>
