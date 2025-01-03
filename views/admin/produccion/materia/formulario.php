@@ -9,8 +9,7 @@
             id="nombre_rollo"
             class="formulario__input"
             placeholder="Nombre del rollo"
-            value="<?php echo $materia->nombre_rollo ?? '' ?>"
-            readonly>
+            value="<?php echo $materia->nombre_rollo ?? '' ?>">
     </div>
 
     <div class="formulario__campo">
@@ -21,8 +20,7 @@
             id="tipo"
             class="formulario__input"
             placeholder="Tipo de materia prima"
-            value="<?php echo $materia->tipo ?? '' ?>"
-            readonly>
+            value="<?php echo $materia->tipo ?? '' ?>">
     </div>
     <div class="formulario__campo">
         <label class="formulario__label" for="ancho">Ancho</label>
@@ -32,8 +30,7 @@
             id="ancho"
             class="formulario__input"
             placeholder="ancho del papel"
-            value="<?php echo $materia->ancho ?? '' ?>"
-            readonly>
+            value="<?php echo $materia->ancho ?? '' ?>">
     </div>
     <div class="formulario__campo">
         <label class="formulario__label" for="peso">Peso</label>
@@ -43,9 +40,9 @@
             id="peso"
             class="formulario__input"
             placeholder="peso del papel"
-            value="<?php echo $materia->peso ?? '' ?>"
-            readonly>
+            value="<?php echo $materia->peso ?? '' ?>">
     </div>
+      <?php if (isset($materia->id)): ?>
     <div class="formulario__campo">
         <label class="formulario__label" for="menos_peso">Menos Peso</label>
         <input
@@ -54,9 +51,10 @@
             id="menos_peso"
             class="formulario__input"
             placeholder="menos peso del papel"
-            value="<?php echo $materia->menos_peso ?? '' ?>"
-            <?php echo isset($materia->id) ? '' : 'readonly'; ?>>
+            value="<?php echo $materia->menos_peso ?? '' ?>">
     </div>
+    <?php endif; ?>
+
     <div class="formulario__campo">
         <label class="formulario__label" for="gramaje">Gramaje</label>
         <input
@@ -65,9 +63,9 @@
             id="gramaje"
             class="formulario__input"
             placeholder="gramaje del papel"
-            value="<?php echo $materia->gramaje ?? '' ?>"
-            readonly>
+            value="<?php echo $materia->gramaje ?? '' ?>">
     </div>
+
     <div class="formulario__campo">
         <label class="formulario__label" for="ced">CED</label>
         <input
@@ -76,9 +74,9 @@
             id="ced"
             class="formulario__input"
             placeholder="ced del papel"
-            value="<?php echo $materia->ced ?? '' ?>"
-            readonly>
+            value="<?php echo $materia->ced ?? '' ?>">
     </div>
+
     <div class="formulario__campo">
         <label class="formulario__label" for="proveedor">Proveedor</label>
         <input
@@ -87,9 +85,9 @@
             id="proveedor"
             class="formulario__input"
             placeholder="proveedor del papel"
-            value="<?php echo $materia->proveedor ?? '' ?>"
-            readonly>
+            value="<?php echo $materia->proveedor ?? '' ?>">
     </div>
+
     <div class="formulario__campo">
         <label class="formulario__label" for="precio">Precio</label>
         <input
@@ -98,8 +96,27 @@
             id="precio"
             class="formulario__input"
             placeholder="precio del papel"
-            value="<?php echo $materia->precio ?? '' ?>"
-            readonly>
+            value="<?php echo $materia->precio ?? '' ?>">
     </div>
     <?php endif; ?>
 </fieldset>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const url = window.location.href;
+        const isEditable = url.includes('editar');
+        const inputs = document.querySelectorAll('.formulario__input');
+
+        inputs.forEach(input => {
+            if (isEditable) {
+                // Solo el campo "menos_peso" será editable
+                if (input.id !== 'menos_peso') {
+                    input.setAttribute('readonly', true);
+                }
+            } else {
+                // Bloquear todos los campos si no es la URL correcta
+                input.setAttribute('readonly', true);
+            }
+        });
+    });
+</script>
