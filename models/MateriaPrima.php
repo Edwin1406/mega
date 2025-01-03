@@ -30,7 +30,7 @@ class MateriaPrima extends ActiveRecord
         $this->tipo = $args['tipo'] ?? '';
         $this->ancho = $args['ancho'] ?? '';
         $this->barcode = $args['barcode'] ?? '';
-        $this->peso = $args['peso'] ?? '';
+        $this->peso = $args['peso'] ?? '0';
         $this->gramaje = $args['gramaje'] ?? '';
         $this->ced = $args['ced'] ?? '';
         $this->proveedor = $args['proveedor'] ?? '';
