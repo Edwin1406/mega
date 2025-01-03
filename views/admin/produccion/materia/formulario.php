@@ -100,15 +100,18 @@
     </div>
 
 </fieldset>
-
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         const url = window.location.href;
         const isEditable = url.includes('editar');
+        const isCreating = url.includes('crear');
         const inputs = document.querySelectorAll('.formulario__input');
 
         inputs.forEach(input => {
-            if (isEditable) {
+            if (isCreating) {
+                // Habilitar todos los campos si la URL contiene 'crear'
+                input.removeAttribute('readonly');
+            } else if (isEditable) {
                 // Solo el campo "menos_peso" será editable
                 if (input.id !== 'menos_peso') {
                     input.setAttribute('readonly', true);
@@ -120,3 +123,4 @@
         });
     });
 </script>
+
