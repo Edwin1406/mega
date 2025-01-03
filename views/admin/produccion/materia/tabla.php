@@ -72,7 +72,7 @@
 
 <?php echo $paginacion; ?>
 
-
+<!-- 
 <button id="notificar">Activar notificaciones</button>
 <button id="enviarnotificacion">Enviar notificación</button>
 
@@ -110,4 +110,4 @@
             alert('Primero necesitas activar las notificaciones.');
         }
     });
-</script>
+</script> -->

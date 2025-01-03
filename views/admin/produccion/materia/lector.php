@@ -10,17 +10,27 @@
       color: #007bff;
     }
     #scanner {
-      position: relative;
-      width: 90%;
-      max-width: 100%;
-      height: 100%;
-      margin: 20px auto;
-      border: 2px solid #ccc;
-      border-radius: 10px;
-      overflow: hidden;
-      background-color: #000;
-      text-align: center;
-    }
+    position: relative;
+    width: 100%;
+    max-width: 100%;
+    height: 100%;
+    margin: 20px auto;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    overflow: hidden;
+    background-color: #000;
+    text-align: center;
+    display: flex; /* Añadido */
+    align-items: center; /* Añadido */
+    justify-content: center; /* Añadido */
+}
+
+#scanner img, #scanner video {
+    width: 100%; /* Ajusta a ancho completo */
+    height: 100%; /* Ajusta a altura completa */
+    object-fit: cover; /* Elimina espacios negros */
+}
+
     #status {
       font-weight: bold;
       margin: 10px 0;
