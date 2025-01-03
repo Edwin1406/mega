@@ -64,29 +64,39 @@
 <?php echo $paginacion; ?>
 
 
-
-<button id="notificar">Activar notificacione</button>
-<button id="enviarnotificacion">Enviar notificacion </button>
-
+<button id="notificar">Activar notificaciones</button>
+<button id="enviarnotificacion">Enviar notificación</button>
 
 <script>
+    const notificar = document.querySelector('#notificar');
+    notificar.addEventListener('click', () => {
+        Notification.requestPermission().then(result => {
+            console.log(`Permiso de notificación: ${result}`);
+            if (result === 'granted') {
+                alert('Permiso concedido. Puedes enviar notificaciones ahora.');
+            } else {
+                alert('Permiso denegado. No podrás recibir notificaciones.');
+            }
+        }).catch(error => console.error('Error al solicitar permisos:', error));
+    });
 
- const notificar = document.getElementById('notificar');
- notificar.addEventListener('click', () => {
-     Notification.requestPermission().then(function(result) {
-         console.log(result);
-     });
- });
-
-
- const enviarnotificacion = document.getElementById('enviarnotificacion');
+    const enviarnotificacion = document.querySelector('#enviarnotificacion');
     enviarnotificacion.addEventListener('click', () => {
         if (Notification.permission === 'granted') {
-            const notificacion = new Notification('Esta es una notificacion', {
-                icon: 'img/ccj.png',
-                body: 'Este es el cuerpo de la notificacion'
+            const notificacion = new Notification('Esta es una notificación', {
+                // icon: 'img/ccj.png',
+                body: 'Este es el cuerpo de la notificación'
             });
-        }});
 
-
+            // Opcional: manejar eventos de la notificación
+            notificacion.onclick = () => {
+                console.log('Notificación clickeada');
+            };
+            notificacion.onclose = () => {
+                console.log('Notificación cerrada');
+            };
+        } else {
+            alert('Primero necesitas activar las notificaciones.');
+        }
+    });
 </script>
