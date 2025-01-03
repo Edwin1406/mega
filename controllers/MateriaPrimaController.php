@@ -31,7 +31,7 @@ class MateriaPrimaController
          // Asignar el código al atributo
          $materiaprima->barcode = $barcode;
 
-         debuguear($materiaprima);
+        //  debuguear($materiaprima);
          
          if(empty($alertas)) {
             $resultado = $materiaprima->guardar();
