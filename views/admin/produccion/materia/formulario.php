@@ -1,4 +1,3 @@
-
 <fieldset class="formulario__fieldset">
     <legend class="formulario__legend">Información Materia Prima</legend>
     <div class="formulario__campo">
@@ -33,7 +32,7 @@
             value="<?php echo $materia->ancho ?? '' ?>">
     </div>
     <div class="formulario__campo">
-        <label class="formulario__label" for="peso">peso</label>
+        <label class="formulario__label" for="peso">Peso</label>
         <input
             type="text"
             name="peso"
@@ -44,7 +43,7 @@
     </div>
 
     <div class="formulario__campo">
-        <l class="formulario__label" for="menos_peso">Menos Peso</l>
+        <label class="formulario__label" for="menos_peso">Menos Peso</label>
         <input
             type="text"
             name="menos_peso"
@@ -77,7 +76,7 @@
     </div>
 
     <div class="formulario__campo">
-        <label class="formulario__label" for="proveedor">proveedor</label>
+        <label class="formulario__label" for="proveedor">Proveedor</label>
         <input
             type="text"
             name="proveedor"
@@ -88,7 +87,7 @@
     </div>
 
     <div class="formulario__campo">
-        <label class="formulario__label" for="precio">precio</label>
+        <label class="formulario__label" for="precio">Precio</label>
         <input
             type="text"
             name="precio"
@@ -97,7 +96,24 @@
             placeholder="precio del papel"
             value="<?php echo $materia->precio ?? '' ?>">
     </div>
-
-
 </fieldset>
 
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const url = window.location.href;
+        const isEditable = url.includes('editar');
+        const inputs = document.querySelectorAll('.formulario__input');
+
+        inputs.forEach(input => {
+            if (isEditable) {
+                // Solo el campo "menos_peso" será editable
+                if (input.id !== 'menos_peso') {
+                    input.setAttribute('readonly', true);
+                }
+            } else {
+                // Bloquear todos los campos si no es la URL correcta
+                input.setAttribute('readonly', true);
+            }
+        });
+    });
+</script>
