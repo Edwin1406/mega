@@ -1,5 +1,4 @@
 
-
 <fieldset class="formulario__fieldset">
     <legend class="formulario__legend">Información Materia Prima</legend>
     <div class="formulario__campo">
@@ -10,7 +9,7 @@
             id="nombre_rollo"
             class="formulario__input"
             placeholder="Nombre del rollo"
-            value="<?php echo $papel->nombre_rollo ?? '' ?>">
+            value="<?php echo $materia->nombre_rollo ?? '' ?>">
     </div>
 
     <div class="formulario__campo">
@@ -21,7 +20,7 @@
             id="tipo"
             class="formulario__input"
             placeholder="Tipo de materia prima"
-            value="<?php echo $papel->tipo ?? '' ?>">
+            value="<?php echo $materia->tipo ?? '' ?>">
     </div>
     <div class="formulario__campo">
         <label class="formulario__label" for="ancho">Ancho</label>
@@ -31,7 +30,7 @@
             id="ancho"
             class="formulario__input"
             placeholder="ancho del papel"
-            value="<?php echo $papel->ancho ?? '' ?>">
+            value="<?php echo $materia->ancho ?? '' ?>">
     </div>
     <div class="formulario__campo">
         <label class="formulario__label" for="peso">peso</label>
@@ -41,7 +40,7 @@
             id="peso"
             class="formulario__input"
             placeholder="peso del papel"
-            value="<?php echo $papel->peso ?? '' ?>">
+            value="<?php echo $materia->peso ?? '' ?>">
     </div>
 
     <div class="formulario__campo">
@@ -52,18 +51,18 @@
             id="gramaje"
             class="formulario__input"
             placeholder="gramaje del papel"
-            value="<?php echo $papel->gramaje ?? '' ?>">
+            value="<?php echo $materia->gramaje ?? '' ?>">
     </div>
 
     <div class="formulario__campo">
-        <label class="formulario__label" for="CED">CED</label>
+        <label class="formulario__label" for="ced">CED</label>
         <input
             type="text"
-            name="CED"
-            id="CED"
+            name="ced"
+            id="ced"
             class="formulario__input"
-            placeholder="CED del papel"
-            value="<?php echo $papel->CED ?? '' ?>">
+            placeholder="ced del papel"
+            value="<?php echo $materia->ced ?? '' ?>">
     </div>
 
     <div class="formulario__campo">
@@ -74,7 +73,7 @@
             id="proveedor"
             class="formulario__input"
             placeholder="proveedor del papel"
-            value="<?php echo $papel->proveedor ?? '' ?>">
+            value="<?php echo $materia->proveedor ?? '' ?>">
     </div>
 
     <div class="formulario__campo">
@@ -85,7 +84,7 @@
             id="precio"
             class="formulario__input"
             placeholder="precio del papel"
-            value="<?php echo $papel->precio ?? '' ?>">
+            value="<?php echo $materia->precio ?? '' ?>">
     </div>
 
 
