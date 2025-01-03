@@ -127,7 +127,7 @@ class MateriaPrimaController
     // tengo un campo menos_peso en el fromulario  quiero con lo que ingrese ahi se reste al peso actual
     if($_SERVER['REQUEST_METHOD']=='POST'){
         $materia->sincronizar($_POST);
-        debuguear($materia);
+        // debuguear($materia);
         $materia->peso = $materia->peso - $materia->menos_peso;
         // debuguear($papel);
         $alertas = $materia->validar();
