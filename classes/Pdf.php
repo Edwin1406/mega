@@ -104,94 +104,99 @@ class Pdf extends TCPDF
     //     $this->write1DBarcode($datos['barcode'], 'C128', $x + 25, $y + 90, 50, 15, 0.4, $style, 'N');
     // }
     public function generarPdf($datos)
-{
-    // Agregar una nueva página
-    $this->AddPage();
-
-    // Dimensiones de la página
-    $pageWidth = $this->GetPageWidth();
-    $pageHeight = $this->GetPageHeight();
-
-    // Tamaño de la etiqueta (ocupando casi toda la hoja)
-    $etiquetaWidth = $pageWidth - 20;
-    $etiquetaHeight = $pageHeight - 20;
-    $x = 10;
-    $y = 10;
-
-    // Dibujar el contenedor principal
-    $this->SetDrawColor(220, 220, 220);
-    $this->SetFillColor(255, 255, 255);
-    $this->RoundedRect($x, $y, $etiquetaWidth, $etiquetaHeight, 5, '1111', 'DF');
-
-    // Encabezado
-    $this->SetFillColor(255, 140, 0);
-    $this->RoundedRect($x, $y, $etiquetaWidth, 25, 5, '1111', 'F');
-    $this->SetFont('helvetica', 'B', 28);
-    $this->SetTextColor(255, 255, 255);
-    $this->SetXY($x, $y + 5);
-    $this->Cell($etiquetaWidth, 10, 'MEGASTOCK', 0, 1, 'C');
-
-    // Logo
-    $this->Image('src/img/logo2.png', $x + 15, $y + 5, 15, 15);
-
-    // Datos principales en dos columnas
-    $col1X = $x + 20; // Posición de la primera columna
-    $col2X = $x + ($etiquetaWidth / 2); // Posición de la segunda columna
-    $lineHeight = 12; // Espaciado entre líneas
-    $dataStartY = $y + 40;
-
-    // Configuración de texto
-    $this->SetFont('helvetica', '', 20);
-    $this->SetTextColor(50, 50, 50);
-
-    // Columna 1: Etiquetas
-    $this->SetXY($col1X, $dataStartY);
-    $this->Cell(40, 10, 'TIPO:', 0, 1, 'L');
-    $this->SetXY($col1X, $dataStartY + $lineHeight);
-    $this->Cell(40, 10, 'ANCHO:', 0, 1, 'L');
-    $this->SetXY($col1X, $dataStartY + 2 * $lineHeight);
-    $this->Cell(40, 10, 'PESO:', 0, 1, 'L');
-    $this->SetXY($col1X, $dataStartY + 3 * $lineHeight);
-    $this->Cell(40, 10, 'GRAMAJE:', 0, 1, 'L');
-    $this->SetXY($col1X, $dataStartY + 4 * $lineHeight);
-    $this->Cell(40, 10, 'FECHA:', 0, 1, 'L');
-
-    // Columna 2: Valores
-    $this->SetFont('helvetica', 'B', 22);
-    $this->SetXY($col2X, $dataStartY);
-    $this->Cell(40, 10, $datos['tipo'], 0, 1, 'L');
-    $this->SetXY($col2X, $dataStartY + $lineHeight);
-    $this->Cell(40, 10, $datos['ancho'], 0, 1, 'L');
-    $this->SetXY($col2X, $dataStartY + 2 * $lineHeight);
-    $this->Cell(40, 10, $datos['peso'], 0, 1, 'L');
-    $this->SetXY($col2X, $dataStartY + 3 * $lineHeight);
-    $this->Cell(40, 10, $datos['gramaje'], 0, 1, 'L');
-    $this->SetXY($col2X, $dataStartY + 4 * $lineHeight);
-    $this->Cell(40, 10, $datos['created_at'], 0, 1, 'L');
-
-    // Línea divisoria
-    $this->SetDrawColor(200, 200, 200);
-    $this->Line($x + 20, $dataStartY + 5 * $lineHeight + 5, $x + $etiquetaWidth - 20, $dataStartY + 5 * $lineHeight + 5);
-
-    // Código de barras
-    $this->SetXY($x + ($etiquetaWidth / 2) - 50, $dataStartY + 6 * $lineHeight);
-    $style = array(
-        'position' => '',
-        'align' => 'C',
-        'stretch' => false,
-        'fitwidth' => true,
-        'border' => false,
-        'hpadding' => 'auto',
-        'vpadding' => 'auto',
-        'fgcolor' => array(0, 0, 0),
-        'bgcolor' => false,
-        'text' => true,
-        'font' => 'helvetica',
-        'fontsize' => 12,
-        'stretchtext' => 4
-    );
-    $this->write1DBarcode($datos['barcode'], 'C128', $x + ($etiquetaWidth / 2) - 25, $dataStartY + 6 * $lineHeight + 10, 50, 20, 0.4, $style, 'N');
-}
+    {
+        // Agregar una nueva página
+        $this->AddPage();
+    
+        // Dimensiones de la página
+        $pageWidth = $this->GetPageWidth();
+        $pageHeight = $this->GetPageHeight();
+    
+        // Tamaño de la etiqueta (ocupando casi toda la hoja)
+        $etiquetaWidth = $pageWidth - 20;
+        $etiquetaHeight = $pageHeight - 20;
+        $x = 10;
+        $y = 10;
+    
+        // Dibujar el contenedor principal
+        $this->SetDrawColor(220, 220, 220);
+        $this->SetFillColor(255, 255, 255);
+        $this->RoundedRect($x, $y, $etiquetaWidth, $etiquetaHeight, 5, '1111', 'DF');
+    
+        // Encabezado
+        $this->SetFillColor(255, 140, 0);
+        $this->RoundedRect($x, $y, $etiquetaWidth, 25, 5, '1111', 'F');
+        $this->SetFont('helvetica', 'B', 28);
+        $this->SetTextColor(255, 255, 255);
+        $this->SetXY($x, $y + 5);
+        $this->Cell($etiquetaWidth, 10, 'MEGASTOCK', 0, 1, 'C');
+    
+        // Logo
+        $this->Image('src/img/logo2.png', $x + 15, $y + 5, 15, 15);
+    
+        // Datos principales en dos columnas
+        $col1X = $x + 20; // Posición de la primera columna
+        $col2X = $x + ($etiquetaWidth / 2); // Posición de la segunda columna
+        $lineHeight = 12; // Espaciado entre líneas
+        $dataStartY = $y + 40;
+    
+        // Configuración de texto
+        $this->SetFont('helvetica', '', 20);
+        $this->SetTextColor(50, 50, 50);
+    
+        // Columna 1: Etiquetas
+        $this->SetXY($col1X, $dataStartY);
+        $this->Cell(40, 10, 'TIPO:', 0, 1, 'L');
+        $this->SetXY($col1X, $dataStartY + $lineHeight);
+        $this->Cell(40, 10, 'ANCHO:', 0, 1, 'L');
+        $this->SetXY($col1X, $dataStartY + 2 * $lineHeight);
+        $this->Cell(40, 10, 'PESO:', 0, 1, 'L');
+        $this->SetXY($col1X, $dataStartY + 3 * $lineHeight);
+        $this->Cell(40, 10, 'GRAMAJE:', 0, 1, 'L');
+        $this->SetXY($col1X, $dataStartY + 4 * $lineHeight);
+        $this->Cell(40, 10, 'FECHA:', 0, 1, 'L');
+    
+        // Columna 2: Valores
+        $this->SetFont('helvetica', 'B', 22);
+        $this->SetXY($col2X, $dataStartY);
+        $this->Cell(40, 10, $datos['tipo'], 0, 1, 'L');
+        $this->SetXY($col2X, $dataStartY + $lineHeight);
+        $this->Cell(40, 10, $datos['ancho'], 0, 1, 'L');
+        $this->SetXY($col2X, $dataStartY + 2 * $lineHeight);
+        $this->Cell(40, 10, $datos['peso'], 0, 1, 'L');
+        $this->SetXY($col2X, $dataStartY + 3 * $lineHeight);
+        $this->Cell(40, 10, $datos['gramaje'], 0, 1, 'L');
+        $this->SetXY($col2X, $dataStartY + 4 * $lineHeight);
+        $this->Cell(40, 10, $datos['created_at'], 0, 1, 'L');
+    
+        // Línea divisoria
+        $this->SetDrawColor(200, 200, 200);
+        $this->Line($x + 20, $dataStartY + 5 * $lineHeight + 5, $x + $etiquetaWidth - 20, $dataStartY + 5 * $lineHeight + 5);
+    
+        // Código de barras grande
+        $barcodeWidth = 120; // Ancho del código de barras
+        $barcodeHeight = 30; // Alto del código de barras
+        $barcodeX = $x + ($etiquetaWidth / 2) - ($barcodeWidth / 2);
+        $barcodeY = $dataStartY + 6 * $lineHeight + 10;
+        $this->SetXY($barcodeX, $barcodeY);
+        $style = array(
+            'position' => '',
+            'align' => 'C',
+            'stretch' => false,
+            'fitwidth' => true,
+            'border' => false,
+            'hpadding' => 'auto',
+            'vpadding' => 'auto',
+            'fgcolor' => array(0, 0, 0),
+            'bgcolor' => false,
+            'text' => true,
+            'font' => 'helvetica',
+            'fontsize' => 14,
+            'stretchtext' => 4
+        );
+        $this->write1DBarcode($datos['barcode'], 'C128', $barcodeX, $barcodeY, $barcodeWidth, $barcodeHeight, 0.4, $style, 'N');
+    }
+    
 
 
     public function descargarPdf($materias)
