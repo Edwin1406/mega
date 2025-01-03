@@ -65,68 +65,28 @@
 
 
 
-<button id="enable" onclick="sendNotification('Título de ejemplo')">Mostrar notificación</button>
+<button id="notificar">Activar notificacione</button>
+<button id="enviarnotificacion">Enviar notificacion </button>
 
 
 <script>
-  // Verifica si el navegador admite promesas en Notification
-  function checkNotificationPromise() {
-    try {
-      return !!Notification.requestPermission().then;
-    } catch (e) {
-      return false;
-    }
-  }
 
-  function askNotificationPermission() {
-    // Comprueba si el navegador admite notificaciones
-    if (!("Notification" in window)) {
-      console.log("Este navegador no admite notificaciones.");
-    } else {
-      if (checkNotificationPromise()) {
-        Notification.requestPermission()
-          .then((permission) => {
-            if (permission === "granted") {
-              alert("Permisos concedidos para notificaciones.");
-            }
-          })
-          .catch((error) => {
-            console.error("Error al solicitar permisos:", error);
-          });
-      } else {
-        Notification.requestPermission(function (permission) {
-          if (permission === "granted") {
-            console.log("Permisos concedidos para notificaciones.");
-          }
-        });
-      }
-    }
-  }
+ const notificar = document.getElementById('notificar');
+ notificar.addEventListener('click', () => {
+     Notification.requestPermission().then(function(result) {
+         console.log(result);
+     });
+ });
 
-  function sendNotification(title) {
-    if (!("Notification" in window)) {
-      alert("Este navegador no admite notificaciones.");
-      return;
-    }
 
-    if (Notification.permission === "granted") {
-      // Crear la notificación
-      var img = "/to-do-notifications/img/icon-128.png"; // Ruta del icono
-      var text = '¡OYE! Tu tarea "' + title + '" ahora está vencida.';
-      var notification = new Notification("Lista de tareas", {
-        body: text,
-        icon: img,
-      });
+ const enviarnotificacion = document.getElementById('enviarnotificacion');
+    enviarnotificacion.addEventListener('click', () => {
+        if (Notification.permission === 'granted') {
+            const notificacion = new Notification('Esta es una notificacion', {
+                icon: 'img/ccj.png',
+                body: 'Este es el cuerpo de la notificacion'
+            });
+        }});
 
-      // Evento onclick de la notificación
-      notification.onclick = function () {
-        window.open("https://tu-enlace.com"); // Enlace al que se redirige al hacer clic
-      };
-    } else if (Notification.permission === "default" || Notification.permission === "denied") {
-      askNotificationPermission(); // Solicita permiso si no está concedido
-    }
-  }
 
-  // Solicita permisos automáticamente al cargar la página (opcional)
-  askNotificationPermission();
 </script>
