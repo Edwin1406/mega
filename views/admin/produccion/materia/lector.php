@@ -4,7 +4,7 @@
       font-family: Arial, sans-serif;
       background-color: #f8f9fa;
       color: #333;
-      text-align: center;
+     
     } */
     h1 {
       color: #007bff;
@@ -19,6 +19,7 @@
       border-radius: 10px;
       overflow: hidden;
       background-color: #000;
+      text-align: center;
     }
     #status {
       font-weight: bold;
