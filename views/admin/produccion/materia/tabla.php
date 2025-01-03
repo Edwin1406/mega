@@ -7,6 +7,15 @@
     </a>
 </div>
 
+<!-- lector -->
+
+<div class="dashboard__contenedor-boton">
+    <a class="dashboard__boton" href="/admin/produccion/materia/lector">
+        <i class="fa-solid fa-barcode"></i>
+        LECTOR
+    </a>
+</div>
+
 
 <div class="dashboard__contenedor">
     <?php if (!empty($materias)): ?>
