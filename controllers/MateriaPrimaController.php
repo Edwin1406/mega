@@ -95,7 +95,6 @@ class MateriaPrimaController
                 'tipo' => $materia->tipo,
                 'ancho' => $materia->ancho,
                 'peso' => $materia->peso,
-                'gramaje' => $materia->gramaje,
                 'created_at' => $materia->created_at,
                 'barcode' => $materia->barcode
             ];
