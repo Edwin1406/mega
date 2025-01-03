@@ -68,7 +68,7 @@
     if ('Notification' in window) {
     Notification.requestPermission().then(permission => {
         if (permission === 'granted') {
-            console.log('Permiso concedido para notificaciones');
+            displayNotification();
         } else {
             console.log('Permiso denegado para notificaciones');
         }
