@@ -1,93 +1,159 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lector de Código de Barras</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Escáner de Código de Barras con Formulario</title>
+  <script src="https://cdn.jsdelivr.net/npm/quagga/dist/quagga.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f8f9fa;
+      color: #333;
+      text-align: center;
+    }
+    h1 {
+      color: #007bff;
+    }
+    #scanner {
+      position: relative;
+      width: 90%;
+      max-width: 600px;
+      height: 350px;
+      margin: 20px auto;
+      border: 2px solid #ccc;
+      border-radius: 10px;
+      overflow: hidden;
+      background-color: #000;
+    }
+    #status {
+      font-weight: bold;
+      margin: 10px 0;
+    }
+  </style>
 </head>
 <body>
-    <div class="container mt-5">
-        <h1>Lector de Código de Barras</h1>
-        <div class="mb-3">
-            <label for="barcodeInput" class="form-label">Escanear o Ingresar Código de Barras</label>
-            <input type="text" id="barcodeInput" class="form-control" placeholder="Ingrese el código de barras">
-        </div>
-        <button id="searchBtn" class="btn btn-primary">Buscar Producto</button>
-    </div>
+  <h1>Escáner de Código de Barras</h1>
+  <div id="scanner"></div>
+  <p id="status">Escaneando...</p>
 
-    <!-- Modal -->
-    <div class="modal fade" id="productModal" tabindex="-1" aria-labelledby="productModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="productModalLabel">Información del Producto</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form id="productForm">
-                        <div class="mb-3">
-                            <label for="nombre" class="form-label">Nombre del Rollo</label>
-                            <input type="text" id="nombre" class="form-control" readonly>
-                        </div>
-                        <div class="mb-3">
-                            <label for="tipo" class="form-label">Tipo</label>
-                            <input type="text" id="tipo" class="form-control" readonly>
-                        </div>
-                        <div class="mb-3">
-                            <label for="ancho" class="form-label">Ancho</label>
-                            <input type="text" id="ancho" class="form-control" readonly>
-                        </div>
-                        <div class="mb-3">
-                            <label for="peso" class="form-label">Peso</label>
-                            <input type="text" id="peso" class="form-control" readonly>
-                        </div>
-                        <!-- Agregar más campos según la estructura -->
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                </div>
+  <!-- Modal con Formulario -->
+  <div class="modal fade" id="productModal" tabindex="-1" aria-labelledby="productModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="productModalLabel">Información del Producto</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="productForm">
+            <div class="mb-3">
+              <label for="tipo_papel" class="form-label">Tipo de Papel</label>
+              <input type="text" id="tipo_papel" class="form-control" readonly>
             </div>
+            <div class="mb-3">
+              <label for="gramaje" class="form-label">Gramaje</label>
+              <input type="text" id="gramaje" class="form-control" readonly>
+            </div>
+            <div class="mb-3">
+              <label for="ancho" class="form-label">Ancho</label>
+              <input type="text" id="ancho" class="form-control" readonly>
+            </div>
+            <div class="mb-3">
+              <label for="cantidad" class="form-label">Cantidad</label>
+              <input type="text" id="cantidad" class="form-control" readonly>
+            </div>
+          </form>
         </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        </div>
+      </div>
     </div>
+  </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Quagga/0.12.1/quagga.min.js"></script>
-    <script src="app.js"></script>
-</body>
-</html>
-<script>
-    document.getElementById('searchBtn').addEventListener('click', () => {
-    const barcode = document.getElementById('barcodeInput').value;
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    const apiUrl = "https://megawebsistem.com/admin/api/allbobinas";
+    let productos = [];
+    let ultimaDeteccion = {}; // Almacena la última detección de códigos
+    const bloqueoTiempo = 2000; // Tiempo de espera en milisegundos
 
-    if (!barcode) {
-        alert('Por favor, ingrese un código de barras.');
-        return;
+    // Cargar datos desde la API
+    async function cargarDatos() {
+      try {
+        const response = await fetch(apiUrl);
+        if (!response.ok) throw new Error("Error al cargar la API");
+        productos = await response.json();
+        console.log("Datos cargados:", productos);
+      } catch (error) {
+        console.error(error);
+      }
     }
 
-    // Llamada a la API para obtener los datos del producto
-    axios.get(`https://megawebsistem.com/admin/api/ApiMateriaPrima?barcode=${barcode}`)
-        .then(response => {
-            const product = response.data[0]; // Ajustar según el formato de la respuesta
-            if (product) {
-                // Prellenar el formulario con los datos
-                document.getElementById('nombre').value = product.nombre_rollo;
-                document.getElementById('tipo').value = product.tipo;
-                document.getElementById('ancho').value = product.ancho;
-                document.getElementById('peso').value = product.peso;
-                // Mostrar el modal
-                const modal = new bootstrap.Modal(document.getElementById('productModal'));
-                modal.show();
-            } else {
-                alert('Producto no encontrado.');
-            }
-        })
-        .catch(error => {
-            console.error('Error al buscar el producto:', error);
-            alert('Hubo un error al buscar el producto.');
-        });
-});
+    // Inicializar el escáner
+    function iniciarEscaner() {
+      Quagga.init({
+        inputStream: {
+          type: "LiveStream",
+          target: document.querySelector("#scanner"),
+          constraints: {
+            facingMode: "environment",
+            width: 400,
+            height: 250
+          }
+        },
+        decoder: { readers: ["code_128_reader"] }
+      }, function(err) {
+        if (err) {
+          console.error(err);
+          return;
+        }
+        Quagga.start();
+      });
 
-</script>
+      Quagga.onDetected(data => {
+        const codigoEscaneado = data.codeResult.code;
+        const ahora = new Date().getTime();
+
+        // Verificar si el código fue detectado recientemente
+        if (ultimaDeteccion[codigoEscaneado] && ahora - ultimaDeteccion[codigoEscaneado] < bloqueoTiempo) {
+          return; // Ignorar detección duplicada
+        }
+
+        ultimaDeteccion[codigoEscaneado] = ahora; // Actualizar tiempo de detección
+        console.log("Código detectado:", codigoEscaneado);
+        manejarProducto(codigoEscaneado);
+      });
+    }
+
+    // Manejar producto encontrado o no encontrado
+    function manejarProducto(codigo) {
+      const producto = productos.find(p => p.qr === codigo);
+      const status = document.getElementById("status");
+
+      if (producto) {
+        status.textContent = `Producto ${codigo} encontrado.`;
+        status.style.color = "#28a745";
+
+        // Rellenar los campos del formulario
+        document.getElementById("tipo_papel").value = producto.tipo_papel;
+        document.getElementById("gramaje").value = producto.gramaje;
+        document.getElementById("ancho").value = producto.ancho;
+        document.getElementById("cantidad").value = producto.cantidad;
+
+        // Mostrar el modal
+        const modal = new bootstrap.Modal(document.getElementById("productModal"));
+        modal.show();
+      } else {
+        status.textContent = `Código ${codigo} no encontrado en la base de datos.`;
+        status.style.color = "#dc3545";
+      }
+    }
+
+    // Cargar datos y luego iniciar escáner
+    cargarDatos().then(() => iniciarEscaner());
+  </script>
+</body>
+</html>
