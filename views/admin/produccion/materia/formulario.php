@@ -51,7 +51,7 @@
             id="menos_peso"
             class="formulario__input"
             placeholder="menos peso del papel"
-            value="<?echo $materia->menos_peso ?? '' ?>">
+            value="<?php echo $materia->menos_peso ?? '' ?>">
     </div>
 
     <div class="formulario__campo">
