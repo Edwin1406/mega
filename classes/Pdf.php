@@ -158,6 +158,13 @@ class Pdf extends TCPDF
         $this->Cell(40, 6, 'PESO:', 0, 0, 'L');
         $this->SetFont('helvetica', 'B', 10);
         $this->Cell(40, 6, $datos['peso'], 0, 1, 'L');
+
+         //  GRAMAJE
+         $this->SetFont('helvetica', '', 10);
+         $this->SetXY($x + 10, $y + 65);
+         $this->Cell(40, 6, 'gramaje:', 0, 0, 'L');
+         $this->SetFont('helvetica', 'B', 10);
+         $this->Cell(40, 6, $datos['gramaje'], 0, 1, 'L');
     
         // FECHA
         $this->SetFont('helvetica', '', 10);
@@ -166,13 +173,8 @@ class Pdf extends TCPDF
         $this->SetFont('helvetica', 'B', 10);
         $this->Cell(40, 6, $datos['created_at'], 0, 1, 'L');
 
-        //  PESO
-        $this->SetFont('helvetica', '', 10);
-        $this->SetXY($x + 10, $y + 65);
-        $this->Cell(40, 6, 'CED:', 0, 0, 'L');
-        $this->SetFont('helvetica', 'B', 10);
-        $this->Cell(40, 6, $datos['ced'], 0, 1, 'L');
-        
+       
+
     
         // Línea divisoria suave
         $this->SetDrawColor(200, 200, 200);
