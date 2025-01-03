@@ -225,10 +225,11 @@ document.addEventListener('DOMContentLoaded', function () {
                     const codigo = fila.cells[0].textContent.toLowerCase();
                     const nombre = fila.cells[1].textContent.toLowerCase();
                     const nombreProducto = fila.cells[2].textContent.toLowerCase();
+                    const estado = fila.cells[4].textContent.toLowerCase();
 
-                    console.log(codigo, nombre, nombreProducto);
+                    console.log(codigo, nombre, nombreProducto, estado);
 
-                    if (codigo.includes(filtro) || nombre.includes(filtro)  || nombreProducto.includes(filtro)) {
+                    if (codigo.includes(filtro) || nombre.includes(filtro)   || nombreProducto.includes(filtro) || estado.includes(filtro)) {
                         fila.style.display = '';
                     } else {
                         fila.style.display = 'none';
