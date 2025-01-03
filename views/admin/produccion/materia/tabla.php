@@ -60,41 +60,54 @@
         <a class="text-center"> No hay Papel Aún</a>
     <?php endif; ?>
 </div>
-<button id="enable">Habilitar notificaciones</button>
-
 
 <?php echo $paginacion; ?>
 
+<button id="enable" onclick="askNotificationPermission()">Habilitar notificaciones</button>
+
+
 <script>
- function askNotificationPermission() {
-  // función para pedir los permisos
-  function handlePermission(permission) {
-    // configura el botón para que se muestre u oculte, dependiendo de lo que
-    // responda el usuario
-    if (
-      Notification.permission === "denied" ||
-      Notification.permission === "default"
-    ) {
-      notificationBtn.style.display = "block";
-    } else {
-      notificationBtn.style.display = "none";
+  // Vincula el botón en una variable
+  const notificationBtn = document.getElementById("enable");
+
+  // Verifica si el navegador admite promesas en Notification
+  function checkNotificationPromise() {
+    try {
+      return !!Notification.requestPermission().then;
+    } catch (e) {
+      return false;
     }
   }
 
-  // Comprobemos si el navegador admite notificaciones.
-  if (!("Notification" in window)) {
-    console.log("Este navegador no admite notificaciones.");
-  } else {
-    if (checkNotificationPromise()) {
-      Notification.requestPermission().then((permission) => {
-        handlePermission(permission);
-      });
+  function askNotificationPermission() {
+    // Función para pedir permisos
+    function handlePermission(permission) {
+      if (permission === "granted") {
+        // Oculta el botón si se otorgan permisos
+        notificationBtn.style.display = "none";
+      } else {
+        // Muestra el botón si se deniega o está en estado por defecto
+        notificationBtn.style.display = "block";
+      }
+    }
+
+    // Comprueba si el navegador admite notificaciones
+    if (!("Notification" in window)) {
+      console.log("Este navegador no admite notificaciones.");
     } else {
-      Notification.requestPermission(function (permission) {
-        handlePermission(permission);
-      });
+      if (checkNotificationPromise()) {
+        Notification.requestPermission()
+          .then((permission) => {
+            handlePermission(permission);
+          })
+          .catch((error) => {
+            console.error("Error al solicitar permisos:", error);
+          });
+      } else {
+        Notification.requestPermission(function (permission) {
+          handlePermission(permission);
+        });
+      }
     }
   }
-}
-
 </script>
