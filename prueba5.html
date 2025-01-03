@@ -42,6 +42,20 @@
     let ultimaDeteccion = {}; // Almacena la última detección de códigos
     const bloqueoTiempo = 2000; // Tiempo de espera en milisegundos
 
+    // Solicitar permiso para notificaciones
+    if (Notification.permission !== "granted") {
+      Notification.requestPermission();
+    }
+
+    // Enviar notificación
+    function enviarNotificacion(titulo, mensaje) {
+      if (Notification.permission === "granted") {
+        new Notification(titulo, { body: mensaje });
+      } else {
+        console.warn("Permiso de notificaciones no concedido.");
+      }
+    }
+
     // Inicializar el escáner
     function iniciarEscaner() {
       Quagga.init({
@@ -93,8 +107,13 @@
           status.textContent = `Producto ${codigo} encontrado. Redirigiendo...`;
           status.style.color = "#28a745";
 
+          // Enviar notificación antes de redirigir
+          enviarNotificacion("Producto encontrado", `Redirigiendo al producto con ID: ${producto.id}`);
+
           // Redirigir a la URL con el ID del producto
-          window.location.href = `https://megawebsistem.com/admin/produccion/materia/editar?id=${producto.id}`;
+          setTimeout(() => {
+            window.location.href = `https://megawebsistem.com/admin/produccion/materia/editar?id=${producto.id}`;
+          }, 2000); // Espera 2 segundos para que el usuario vea la notificación
         } else {
           status.textContent = `Código ${codigo} no encontrado en la base de datos.`;
           status.style.color = "#dc3545";

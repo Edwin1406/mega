@@ -5,7 +5,7 @@ namespace Model;
 class MateriaPrima extends ActiveRecord
 {
     protected static $tabla = 'materia_prima';
-    protected static $columnasDB = ['id','nombre_rollo','tipo', 'ancho','barcode','peso','gramaje','ced','proveedor','created_at','updated_at'];
+    protected static $columnasDB = ['id','nombre_rollo','tipo', 'ancho','barcode','peso','gramaje','ced','proveedor','precio','created_at','updated_at'];
 
     public $id;
     public $nombre_rollo;
@@ -16,6 +16,7 @@ class MateriaPrima extends ActiveRecord
     public $gramaje;
     public $ced;
     public $proveedor;
+    public $precio;
     public $created_at;
     public $updated_at;
 
@@ -32,6 +33,7 @@ class MateriaPrima extends ActiveRecord
         $this->gramaje = $args['gramaje'] ?? '';
         $this->ced = $args['ced'] ?? '';
         $this->proveedor = $args['proveedor'] ?? '';
+        $this->precio = $args['precio'] ?? '';
         $this->created_at = $args['created_at'] ?? date('Y-m-d H:i:s');
     }
 
@@ -62,6 +64,10 @@ class MateriaPrima extends ActiveRecord
 
         if(!$this->proveedor) {
             self::$alertas['error'][] = 'El Campo Proveedor es Obligatorio';
+        }
+
+        if(!$this->precio) {
+            self::$alertas['error'][] = 'El Campo Precio es Obligatorio';
         }
 
         return self::$alertas;
