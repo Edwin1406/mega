@@ -138,18 +138,6 @@ class MateriaPrimaController
     }
 
 
-    debuguear($materia);
-    if($_SERVER['REQUEST_METHOD']=='POST'){
-        $materia->sincronizar($_POST);
-        // debuguear($papel);
-        $alertas = $materia->validar();
-        if(empty($alertas)){
-            $materia->actualizar();
-            header('Location: /admin/produccion/papel/tabla');
-        }
-
-    }
-
     // debuguear($materiaprima);
 
     $router->render('admin/produccion/materia/editar', [
