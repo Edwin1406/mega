@@ -44,6 +44,17 @@
     </div>
 
     <div class="formulario__campo">
+        <l class="formulario__label" for="menos_peso">Menos Peso</l>
+        <input
+            type="text"
+            name="menos_peso"
+            id="menos_peso"
+            class="formulario__input"
+            placeholder="menos peso del papel"
+            value="<?echo $materia->menos_peso ?? '' ?>">
+    </div>
+
+    <div class="formulario__campo">
         <label class="formulario__label" for="gramaje">Gramaje</label>
         <input
             type="text"

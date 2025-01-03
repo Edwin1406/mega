@@ -124,6 +124,9 @@ class MateriaPrimaController
     $alertas = [];
     $materia = MateriaPrima::find($id);
     $materia->updated_at = date('Y-m-d H:i:s');
+    $materia->menos_peso = $materia->peso - 1;
+    
+
     debuguear($materia);
     if($_SERVER['REQUEST_METHOD']=='POST'){
         $materia->sincronizar($_POST);
