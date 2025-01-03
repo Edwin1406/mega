@@ -38,22 +38,9 @@
   <p id="status">Escaneando...</p>
 
   <script>
-    const apiUrl = "https://megawebsistem.com/admin/api/ApiMateriaPrima";
-    let productos = [];
+    const apiUrl = "https://megawebsistem.com/admin/api/ApiMateriaPrima"; // URL de la API
     let ultimaDeteccion = {}; // Almacena la última detección de códigos
     const bloqueoTiempo = 2000; // Tiempo de espera en milisegundos
-
-    // Cargar datos desde la API
-    async function cargarDatos() {
-      try {
-        const response = await fetch(apiUrl);
-        if (!response.ok) throw new Error("Error al cargar la API");
-        productos = await response.json();
-        console.log("Datos cargados:", productos);
-      } catch (error) {
-        console.error(error);
-      }
-    }
 
     // Inicializar el escáner
     function iniciarEscaner() {
@@ -87,29 +74,40 @@
 
         ultimaDeteccion[codigoEscaneado] = ahora; // Actualizar tiempo de detección
         console.log("Código detectado:", codigoEscaneado);
-        manejarProducto(codigoEscaneado);
+        buscarProducto(codigoEscaneado);
       });
     }
 
-    // Manejar producto encontrado o redirigir
-    function manejarProducto(codigo) {
-      const producto = productos.find(p => p.qr === codigo);
+    // Buscar producto en la API
+    async function buscarProducto(codigo) {
       const status = document.getElementById("status");
+      try {
+        const response = await fetch(apiUrl);
+        if (!response.ok) throw new Error("Error al cargar la API");
+        const productos = await response.json();
 
-      if (producto) {
-        status.textContent = `Producto ${codigo} encontrado. Redirigiendo...`;
-        status.style.color = "#28a745";
+        // Buscar el producto que coincide con el código de barras
+        const producto = productos.find(p => p.barcode === codigo);
 
-        // Redirigir a la URL con el ID del producto
-        window.location.href = `https://megawebsistem.com/admin/produccion/materia/editar=${producto.id}`;
-      } else {
-        status.textContent = `Código ${codigo} no encontrado en la base de datos.`;
+        if (producto) {
+          status.textContent = `Producto ${codigo} encontrado. Redirigiendo...`;
+          status.style.color = "#28a745";
+
+          // Redirigir a la URL con el ID del producto
+          window.location.href = `https://megawebsistem.com/admin/produccion/materia/editar=${producto.id}`;
+        } else {
+          status.textContent = `Código ${codigo} no encontrado en la base de datos.`;
+          status.style.color = "#dc3545";
+        }
+      } catch (error) {
+        console.error("Error al buscar el producto:", error);
+        status.textContent = "Error al buscar el producto.";
         status.style.color = "#dc3545";
       }
     }
 
-    // Cargar datos y luego iniciar escáner
-    cargarDatos().then(() => iniciarEscaner());
+    // Iniciar el escáner
+    iniciarEscaner();
   </script>
 </body>
 </html>
