@@ -175,7 +175,7 @@ class Pdf extends TCPDF
     
         // Código de barras grande
         $barcodeWidth = 150; // Ancho del código de barras
-        $barcodeHeight = 30; // Alto del código de barras
+        $barcodeHeight = 100; // Alto del código de barras
         $barcodeX = $x + ($etiquetaWidth / 2) - ($barcodeWidth / 2);
         $barcodeY = $dataStartY + 6 * $lineHeight + 10;
         $this->SetXY($barcodeX, $barcodeY);
