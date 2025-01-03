@@ -162,7 +162,7 @@ class Pdf extends TCPDF
          //  GRAMAJE
          $this->SetFont('helvetica', '', 10);
          $this->SetXY($x + 10, $y + 65);
-         $this->Cell(40, 6, 'gramaje:', 0, 0, 'L');
+         $this->Cell(40, 6, 'GRAMAJE:', 0, 0, 'L');
          $this->SetFont('helvetica', 'B', 10);
          $this->Cell(40, 6, $datos['gramaje'], 0, 1, 'L');
     
