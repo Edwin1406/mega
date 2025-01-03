@@ -224,8 +224,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 filas.forEach(fila => {
                     const codigo = fila.cells[0].textContent.toLowerCase();
                     const nombre = fila.cells[1].textContent.toLowerCase();
+                    const nombreProducto = fila.cells[2].textContent.toLowerCase();
 
-                    console.log(codigo, nombre);
+                    console.log(codigo, nombre, nombreProducto);
 
                     if (codigo.includes(filtro) || nombre.includes(filtro)) {
                         fila.style.display = '';
