@@ -128,7 +128,7 @@ class MateriaPrimaController
     if($_SERVER['REQUEST_METHOD']=='POST'){
         $materia->sincronizar($_POST);
         debuguear($materia);
-        $materia->peso = $materia->peso - $_POST['menos_peso'];
+        $materia->peso = $materia->peso - $materia->menos_peso;
         // debuguear($papel);
         $alertas = $materia->validar();
         if(empty($alertas)){
