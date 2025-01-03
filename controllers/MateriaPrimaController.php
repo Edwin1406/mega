@@ -21,23 +21,16 @@ class MateriaPrimaController
       if($_SERVER['REQUEST_METHOD'] === 'POST') {
          $materiaprima->sincronizar($_POST);
          $alertas = $materiaprima->validar();
-         // // // generar codigo de barras md5
-         // $materiaprima->barcode = md5(uniqid());
-         //    // debuguear($materiaprima);
+         
+         // Generar identificador único de 12 caracteres
+         $barcode = substr(md5(uniqid()), 0, 12);
 
-         // Generar identificador único de 8 caracteres
-$barcode = substr(md5(uniqid()), 0, 12);
+         // Asegurar que los caracteres generados sean válidos para Code39
+         $barcode = strtoupper(preg_replace('/[^A-Z0-9\-\/\.\$\+%\s]/', '', $barcode));
 
-// Asegurar que los caracteres generados sean válidos para Code39
-$barcode = strtoupper(preg_replace('/[^A-Z0-9\-\/\.\$\+%\s]/', '', $barcode));
-
-// Asignar el código al atributo
-$materiaprima->barcode = $barcode;
-
-// Mostrar el resultado (opcional)
-echo "Código generado: " . $materiaprima->barcode;
-
-
+         // Asignar el código al atributo
+         $materiaprima->barcode = $barcode;
+         
          if(empty($alertas)) {
             $resultado = $materiaprima->guardar();
             if($resultado) {
