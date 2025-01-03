@@ -20,8 +20,7 @@ class ProduccionController
         ]);
     }
     public static function registro_produccion(Router $router)
-    {
-       
+    {   
         session_start();
         isAuth();
         $id= $_SESSION['id'];
@@ -31,10 +30,6 @@ class ProduccionController
             'escoge_registro' => $escoge_registro
         ]);
     }
-
-    
-
-
 }
 
 
