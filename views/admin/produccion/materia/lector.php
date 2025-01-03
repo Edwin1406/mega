@@ -1,3 +1,50 @@
+<script src="https://cdn.jsdelivr.net/npm/quagga/dist/quagga.min.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f8f9fa;
+      color: #333;
+      text-align: center;
+    }
+    h1 {
+      color: #007bff;
+    }
+    #scanner {
+      position: relative;
+      width: 90%;
+      max-width: 600px;
+      height: 350px;
+      margin: 20px auto;
+      border: 2px solid #ccc;
+      border-radius: 10px;
+      overflow: hidden;
+      background-color: #000;
+    }
+    #status {
+      font-weight: bold;
+      margin: 10px 0;
+    }
+    #notificacion {
+      position: fixed;
+      bottom: -100px; /* Oculta la notificación inicialmente */
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: #007bff;
+      color: white;
+      padding: 15px 20px;
+      border-radius: 5px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      font-size: 16px;
+      z-index: 1000;
+      transition: bottom 0.5s ease-in-out;
+    }
+    #notificacion.mostrar {
+      bottom: 20px; /* Muestra la notificación */
+    }
+  </style>
+
+
+
 <h1>Escáner de Código de Barras</h1>
   <div id="scanner"></div>
   <p id="status">Escaneando...</p>
