@@ -46,11 +46,9 @@
 
 
 <div class="contenedor">
+    <p id="status">Escaneando...</p>
     <div id="scanner">
-        <p id="status">Escaneando...</p>
-
     </div>
-    <p>Escanea el código de barras de un producto para buscarlo en la base de datos.</p>
     <div id="notificacion"></div>
 </div>
 
