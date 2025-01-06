@@ -1,3 +1,4 @@
+(function(){
 const apiUrl = `${location.origin}/admin/api/ApiMateriaPrima`; // URL de la API
 let ultimaDeteccion = {}; // Almacena la última detección de códigos
 const bloqueoTiempo = 2000; // Tiempo de espera en milisegundos
@@ -95,3 +96,5 @@ async function buscarProducto(codigo) {
 
 // Iniciar el escáner
 iniciarEscaner();
+
+} ) ();
