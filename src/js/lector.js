@@ -32,7 +32,7 @@ function iniciarEscaner() {
         },
         function (err) {
             if (err) {
-                console.error(err);
+                console.error("Error al iniciar Quagga:");
                 return;
             }
             Quagga.start();
