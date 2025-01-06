@@ -8,8 +8,9 @@
     width: 100%;
     height: auto;
     margin-top: 10rem;
-  
- } 
+    border-radius: 1rem;
+    
+} 
 .contenedor {
       display: flex;
       flex-direction: column;
@@ -20,6 +21,7 @@
     #status {
       font-weight: bold;
       margin: 10px 0;
+      font-size: 2rem;
     }
     #notificacion {
       position: fixed;
@@ -44,8 +46,11 @@
 
 
 <div class="contenedor">
-    <div id="scanner"></div>
-    <p id="status">Escaneando...</p>
+    <div id="scanner">
+        <p id="status">Escaneando...</p>
+
+    </div>
+    <p>Escanea el código de barras de un producto para buscarlo en la base de datos.</p>
     <div id="notificacion"></div>
 </div>
 

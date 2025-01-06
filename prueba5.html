@@ -18,8 +18,9 @@
   
 #scanner img, #scanner video {
     width: 100%;
-    height: auto;
-    margin-top: 10rem;
+    /* height: auto; */
+    /* padding-top: 10rem; */
+    border-radius: 1rem;
   
  } 
 .contenedor {
@@ -32,6 +33,7 @@
     #status {
       font-weight: bold;
       margin: 10px 0;
+      font-size: 2rem;
     }
     #notificacion {
       position: fixed;
@@ -55,8 +57,9 @@
 <body>
   <h1>Escáner de Código de Barras</h1>
   <div class="contenedor">
-    <div id="scanner"></div>
-    <p id="status">Escaneando...</p>
+    <div id="scanner">
+      <p id="status">Escaneando...</p>
+    </div>
     <div id="notificacion"></div>
   </div>
 
