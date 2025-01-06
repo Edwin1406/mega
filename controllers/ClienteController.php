@@ -178,12 +178,19 @@ public static function editar(Router $router)
 
         if (empty($alertas)) {
             // Guardar en la base de datos
-            $resultado = $cliente->guardar();
-            if ($resultado) {
-                header('Location: /admin/vendedor/cliente/tabla?page=1');
-                exit;
+            $existeCodigo = Cliente::where('codigo_producto', $cliente->codigo_producto);
+            if($existeCodigo) {
+                Cliente::setAlerta('error', 'El Codigo ya esta registrado');
+                $alertas = Cliente::getAlertas();
+            } else {
+                $resultado = $cliente->guardar();
+                if ($resultado) {
+                    header('Location: /admin/vendedor/cliente/tabla?page=1');
+                    exit;
+                }
             }
         }
+
     }
 
     $router->render('admin/vendedor/cliente/editar', [
