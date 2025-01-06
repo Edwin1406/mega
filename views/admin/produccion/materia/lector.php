@@ -1,40 +1,25 @@
 <script src="https://cdn.jsdelivr.net/npm/quagga/dist/quagga.min.js"></script>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f8f9fa;
-      color: #333;
-     
-    } 
-    h1 {
+      h1 {
       color: #007bff;
     }
-    #scanner {
-    position: relative;
-    width: 100%;
-    max-width: 100%;
-    height: 100%;
-    margin: 20px auto;
-    border: 2px solid #ccc;
-    border-radius: 10px;
-    overflow: hidden;
-    background-color: #000;
-    text-align: center;
-    display: flex; /* Añadido */
-    align-items: center; /* Añadido */
-    justify-content: center; /* Añadido */
-}
-
+  
 #scanner img, #scanner video {
-    width: 100%; /* Ajusta a ancho completo */
-    height: 100%; /* Ajusta a altura completa */
-    object-fit: cover; /* Elimina espacios negros */
-}
+    width: 100%;
+    height: auto;
+    margin-top: 10rem;
+  
+ } 
+.contenedor {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
 
     #status {
       font-weight: bold;
       margin: 10px 0;
-      text-align: center;
     }
     #notificacion {
       position: fixed;
@@ -58,10 +43,11 @@
 <h1 class="dashboard__heading"> <?php echo $titulo ?> </h1>
 
 
-
-  <div id="scanner"></div>
-  <p id="status">Escaneando...</p>
-  <div id="notificacion"></div>
+<div class="contenedor">
+    <div id="scanner"></div>
+    <p id="status">Escaneando...</p>
+    <div id="notificacion"></div>
+</div>
 
 
   <script>
