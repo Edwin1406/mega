@@ -21,7 +21,7 @@
     #status {
       font-weight: bold;
       margin: 10px 0;
-      font-size: 2rem;
+      font-size: 3rem;
     }
     #notificacion {
       position: fixed;
