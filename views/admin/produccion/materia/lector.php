@@ -54,7 +54,7 @@
 
 
   <script>
-    const apiUrl = "https://megawebsistem.com/admin/api/ApiMateriaPrima"; // URL de la API
+    const apiUrl = `${location.origin}/admin/api/ApiMateriaPrima`; // URL de la API
     let ultimaDeteccion = {}; // Almacena la última detección de códigos
     const bloqueoTiempo = 2000; // Tiempo de espera en milisegundos
 
@@ -129,7 +129,7 @@
 
                 // Redirigir a la URL con el ID del producto después de 3 segundos
                 setTimeout(() => {
-                    window.open(`https://megawebsistem.com/admin/produccion/materia/editar?id=${producto.id}`, '_blank');
+                    window.open(`${location.origin}/admin/produccion/materia/editar?id=${producto.id}`, '_blank');
                 }, 3000);
 
             } else {
