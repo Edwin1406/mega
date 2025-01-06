@@ -101,6 +101,7 @@
         text-transform: uppercase;
         font-weight: v.$bold;
         margin-top: 0.5rem;
+        text-align: center;
     }
 
     &__contenido{
@@ -109,7 +110,7 @@
         padding:1rem 1rem 3rem 1rem;
         overflow-y: scroll;
         @include m.tablet {
-           padding: 1rem 5rem 3rem 5rem;
+            padding: 1rem 5rem 3rem 5rem;
             
         }
     }
