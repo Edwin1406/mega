@@ -1,9 +1,4 @@
-<script src="https://cdn.jsdelivr.net/npm/quagga/dist/quagga.min.js"></script>
-
-
 <h1 class="dashboard__heading"> <?php echo $titulo ?> </h1>
-
-
 <div class="contenedor">
     <p id="status">Escaneando...</p>
     <div id="scanner">
