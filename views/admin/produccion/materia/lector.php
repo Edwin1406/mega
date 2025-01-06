@@ -1,11 +1,11 @@
 <script src="https://cdn.jsdelivr.net/npm/quagga/dist/quagga.min.js"></script>
   <style>
-    /* body {
+    body {
       font-family: Arial, sans-serif;
       background-color: #f8f9fa;
       color: #333;
      
-    } */
+    } 
     h1 {
       color: #007bff;
     }
@@ -140,8 +140,8 @@
 
                 // Redirigir a la URL con el ID del producto después de 3 segundos
                 setTimeout(() => {
-    window.open(`https://megawebsistem.com/admin/produccion/materia/editar?id=${producto.id}`, '_blank');
-}, 3000);
+                    window.open(`https://megawebsistem.com/admin/produccion/materia/editar?id=${producto.id}`, '_blank');
+                }, 3000);
 
             } else {
                 status.textContent = `Código ${codigo} no encontrado en la base de datos.`;
