@@ -134,8 +134,8 @@ class MateriaPrimaController
             $alertas['error'][] = 'El Campo Menos Peso no puede ser mayor al Peso Actual';
         }
         // debuguear($papel);
-        $alertas = $materia->validar_actualizar();
-        
+        $alertas = $materia->validarActualizar();
+
         if(empty($alertas)){
             $materia->guardar();
             header('Location: /admin/produccion/materia/tabla');

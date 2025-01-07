@@ -69,7 +69,7 @@ class MateriaPrima extends ActiveRecord
 
     }
 
-    public function validar_actualizar() {
+    public function validarActualizar() {
         if(!$this->nombre_rollo) {
             self::$alertas['error'][] = 'El Campo Nombre del Rollo es Obligatorio';
         }
