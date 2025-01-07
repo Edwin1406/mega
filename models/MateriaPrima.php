@@ -50,6 +50,36 @@ class MateriaPrima extends ActiveRecord
         if(!$this->ancho) {
             self::$alertas['error'][] = 'El Campo Ancho  es Obligatorio';
         }
+       
+        if(!$this->gramaje) {
+            self::$alertas['error'][] = 'El Campo Gramaje es Obligatorio';
+        }
+
+        if(!$this->ced) {
+            self::$alertas['error'][] = 'El Campo CED es Obligatorio';
+        }
+
+        if(!$this->proveedor) {
+            self::$alertas['error'][] = 'El Campo Proveedor es Obligatorio';
+        }
+
+    
+
+        return self::$alertas;
+
+    }
+
+    public function validar_actualizar() {
+        if(!$this->nombre_rollo) {
+            self::$alertas['error'][] = 'El Campo Nombre del Rollo es Obligatorio';
+        }
+        if(!$this->tipo) {
+            self::$alertas['error'][] = 'El Campo Tipo es Obligatorio';
+        }
+
+        if(!$this->ancho) {
+            self::$alertas['error'][] = 'El Campo Ancho  es Obligatorio';
+        }
         // quiero menos peso sea menor al peso actual caso contrario muestre un error
         if($this->menos_peso <= $this->peso){
             self::$alertas['error'][] = 'El Campo Menos Peso no puede ser mayor al Peso Actual';
