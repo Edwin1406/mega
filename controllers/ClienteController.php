@@ -106,33 +106,26 @@ class ClienteController
         if($id==1) {
             Cliente::setAlerta('exito', 'El Cliente se guardo correctamente');
         }
+        
 
-        $pagina_actual = $_GET['page'] ?? 1;
+        $pagina_actual = $_GET['page'];
         $pagina_actual = filter_var($pagina_actual, FILTER_VALIDATE_INT);
-    
-        if (!$pagina_actual || $pagina_actual < 1) {
+        // debuguear($pagina_actual);
+
+        if(!$pagina_actual|| $pagina_actual <1){
             header('Location: /admin/vendedor/cliente/tabla?page=1');
             exit;
         }
-
-
-        $registros_por_pagina = $_GET['per_page'] ?? 10; // Número de registros por página
-        if ($registros_por_pagina === 'all') {
-            $total = Cliente::total();
-            $registros_por_pagina = $total; // Muestra todos los registros
-        } else {
-            $registros_por_pagina = filter_var($registros_por_pagina, FILTER_VALIDATE_INT) ?: 10;
+        
+        $pagina_por_registros = 5000;
+        $total = Cliente:: total();
+        $paginacion = new Paginacion($pagina_actual, $pagina_por_registros, $total);
+        if($paginacion->total_paginas() < $pagina_actual){
+            header('Location: /admin/vendedor/cliente/tabla?page=1');
         }
     
-        $total = Cliente::total();
-        $paginacion = new Paginacion($pagina_actual, $registros_por_pagina, $total);
-    
-        if ($paginacion->total_paginas() < $pagina_actual) {
-            header('Location: /admin/vendedor/cliente/cotizador?page=1');
-            exit;
-        }
+        $visor = Cliente::paginar($pagina_por_registros, $paginacion->offset());
 
-        $visor = Cliente::paginar($registros_por_pagina, $paginacion->offset());
 
 
         $alertas = Cliente::getAlertas();
