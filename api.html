@@ -1,39 +1,124 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Alerta Posicionada</title>
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <meta charset="UTF-8">
+    <title>Tabla con Paginación y Filtrado</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+        .pagination {
+            margin-top: 10px;
+            text-align: center;
+        }
+        .pagination button {
+            margin: 0 2px;
+            padding: 5px 10px;
+        }
+    </style>
 </head>
 <body>
-  <button id="myButton">Haz clic aquí</button>
+    <h2>Tabla con Paginación y Filtrado</h2>
+    <input type="text" id="filterInput" placeholder="Filtrar por cliente o producto...">
+    <table id="dataTable">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Cliente</th>
+                <th>Producto</th>
+                <th>Código</th>
+                <th>Estado</th>
+                <th>PDF</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Las filas de datos se generarán dinámicamente aquí -->
+        </tbody>
+    </table>
+    <div class="pagination" id="paginationControls">
+        <!-- Los controles de paginación se generarán aquí -->
+    </div>
 
-  <script>
-    document.getElementById("myButton").addEventListener("click", function (event) {
-      // Obtener las coordenadas del clic
-      const { clientX, clientY } = event;
+    <script>
+        const apiUrl = 'https://megawebsistem.com/admin/api/apivisor';
+        const rowsPerPage = 10;
+        let currentPage = 1;
+        let data = [];
 
-      // Mostrar la alerta en las coordenadas del clic
-      Swal.fire({
-        title: '¡Hola!',
-        text: 'Esta alerta está posicionada donde hiciste clic.',
-        icon: 'info',
-        showConfirmButton: true,
-        timer: 3000,
-        // Personaliza la posición con estilos
-        customClass: {
-          popup: 'custom-swal-popup'
-        },
-        didOpen: () => {
-          // Accede al popup y ajusta las coordenadas
-          const popup = Swal.getPopup();
-          popup.style.position = 'absolute';
-          popup.style.left = `${clientX}px`;
-          popup.style.top = `${clientY}px`;
+        document.addEventListener('DOMContentLoaded', () => {
+            fetchData();
+            document.getElementById('filterInput').addEventListener('input', filterData);
+        });
+
+        async function fetchData() {
+            try {
+                const response = await fetch(apiUrl);
+                data = await response.json();
+                displayTable(data);
+                setupPagination(data);
+            } catch (error) {
+                console.error('Error al obtener los datos:', error);
+            }
         }
-      });
-    });
-  </script>
+
+        function displayTable(dataSubset) {
+            const tableBody = document.getElementById('dataTable').querySelector('tbody');
+            tableBody.innerHTML = '';
+
+            const start = (currentPage - 1) * rowsPerPage;
+            const end = start + rowsPerPage;
+            const paginatedData = dataSubset.slice(start, end);
+
+            paginatedData.forEach(item => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${item.id}</td>
+                    <td>${item.nombre_cliente}</td>
+                    <td>${item.nombre_producto}</td>
+                    <td>${item.codigo_producto}</td>
+                    <td>${item.estado}</td>
+                    <td><a href=" ${item.pdf}" target="_blank">Ver PDF</a></td>
+                `;
+                tableBody.appendChild(row);
+            });
+        }
+
+        function setupPagination(dataSubset) {
+            const paginationControls = document.getElementById('paginationControls');
+            paginationControls.innerHTML = '';
+
+            const totalPages = Math.ceil(dataSubset.length / rowsPerPage);
+
+            for (let i = 1; i <= totalPages; i++) {
+                const button = document.createElement('button');
+                button.textContent = i;
+                button.addEventListener('click', () => {
+                    currentPage = i;
+                    displayTable(dataSubset);
+                });
+                paginationControls.appendChild(button);
+            }
+        }
+
+        function filterData() {
+            const filterValue = document.getElementById('filterInput').value.toLowerCase();
+            const filteredData = data.filter(item =>
+                item.nombre_cliente.toLowerCase().includes(filterValue) ||
+                item.nombre_producto.toLowerCase().includes(filterValue)
+            );
+            currentPage = 1; // Reinicia a la primera página al filtrar
+            displayTable(filteredData);
+            setupPagination(filteredData);
+        }
+    </script>
 </body>
 </html>
