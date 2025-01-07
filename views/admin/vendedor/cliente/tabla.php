@@ -41,7 +41,7 @@
     >
 </div>
 
-<form method="GET" action="/admin/vendedor/cliente/cotizador">
+<form method="GET" action="/admin/vendedor/cliente/tabla">
     <input type="hidden" name="page" value="1">
     <label for="per_page">Registros por página:</label>
     <select name="per_page" id="per_page" onchange="this.form.submit()">
