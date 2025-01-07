@@ -1,124 +1,117 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <title>Tabla con Paginación y Filtrado</title>
-    <style>
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        th, td {
-            padding: 8px;
-            text-align: left;
-            border: 1px solid #ddd;
-        }
-        th {
-            background-color: #f4f4f4;
-        }
-        .pagination {
-            margin-top: 10px;
-            text-align: center;
-        }
-        .pagination button {
-            margin: 0 2px;
-            padding: 5px 10px;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - Materia Prima</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-    <h2>Tabla con Paginación y Filtrado</h2>
-    <input type="text" id="filterInput" placeholder="Filtrar por cliente o producto...">
-    <table id="dataTable">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Cliente</th>
-                <th>Producto</th>
-                <th>Código</th>
-                <th>Estado</th>
-                <th>PDF</th>
-            </tr>
-        </thead>
-        <tbody>
-            <!-- Las filas de datos se generarán dinámicamente aquí -->
-        </tbody>
-    </table>
-    <div class="pagination" id="paginationControls">
-        <!-- Los controles de paginación se generarán aquí -->
-    </div>
+<style>
+body {
+  font-family: Arial, sans-serif;
+  margin: 20px;
+}
 
-    <script>
-        const apiUrl = 'https://megawebsistem.com/admin/api/apivisor';
-        const rowsPerPage = 10;
-        let currentPage = 1;
-        let data = [];
+canvas {
+  margin-top: 20px;
+}
 
-        document.addEventListener('DOMContentLoaded', () => {
-            fetchData();
-            document.getElementById('filterInput').addEventListener('input', filterData);
-        });
 
-        async function fetchData() {
-            try {
-                const response = await fetch(apiUrl);
-                data = await response.json();
-                displayTable(data);
-                setupPagination(data);
-            } catch (error) {
-                console.error('Error al obtener los datos:', error);
-            }
-        }
+</style>
+  <div>
+    <h1>Dashboard - Materia Prima</h1>
+    <label for="startDate">Fecha de inicio:</label>
+    <input type="date" id="startDate">
+    <label for="endDate">Fecha de fin:</label>
+    <input type="date" id="endDate">
+    <button onclick="filterData()">Filtrar</button>
+  </div>
 
-        function displayTable(dataSubset) {
-            const tableBody = document.getElementById('dataTable').querySelector('tbody');
-            tableBody.innerHTML = '';
+  <canvas id="myChart" width="400" height="200"></canvas>
 
-            const start = (currentPage - 1) * rowsPerPage;
-            const end = start + rowsPerPage;
-            const paginatedData = dataSubset.slice(start, end);
-
-            paginatedData.forEach(item => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${item.id}</td>
-                    <td>${item.nombre_cliente}</td>
-                    <td>${item.nombre_producto}</td>
-                    <td>${item.codigo_producto}</td>
-                    <td>${item.estado}</td>
-                    <td><a href=" ${item.pdf}" target="_blank">Ver PDF</a></td>
-                `;
-                tableBody.appendChild(row);
-            });
-        }
-
-        function setupPagination(dataSubset) {
-            const paginationControls = document.getElementById('paginationControls');
-            paginationControls.innerHTML = '';
-
-            const totalPages = Math.ceil(dataSubset.length / rowsPerPage);
-
-            for (let i = 1; i <= totalPages; i++) {
-                const button = document.createElement('button');
-                button.textContent = i;
-                button.addEventListener('click', () => {
-                    currentPage = i;
-                    displayTable(dataSubset);
-                });
-                paginationControls.appendChild(button);
-            }
-        }
-
-        function filterData() {
-            const filterValue = document.getElementById('filterInput').value.toLowerCase();
-            const filteredData = data.filter(item =>
-                item.nombre_cliente.toLowerCase().includes(filterValue) ||
-                item.nombre_producto.toLowerCase().includes(filterValue)
-            );
-            currentPage = 1; // Reinicia a la primera página al filtrar
-            displayTable(filteredData);
-            setupPagination(filteredData);
-        }
-    </script>
 </body>
 </html>
+
+
+<script>
+// URL de la API
+const apiUrl = "https://megawebsistem.com/admin/api/ApiMateriaPrima";
+
+// Función para obtener datos de la API
+async function fetchData() {
+  try {
+    const response = await fetch(apiUrl);
+    const data = await response.json();
+    return data; // Devuelve los datos completos
+  } catch (error) {
+    console.error("Error al obtener los datos:", error);
+    return [];
+  }
+}
+
+// Filtrar datos por fecha
+async function filterData() {
+  const startDate = document.getElementById("startDate").value;
+  const endDate = document.getElementById("endDate").value;
+
+  if (!startDate || !endDate) {
+    alert("Selecciona ambas fechas para filtrar.");
+    return;
+  }
+
+  // Obtener datos de la API
+  const allData = await fetchData();
+
+  // Filtrar según las fechas seleccionadas
+  const filteredData = allData.filter(item => {
+    const itemDate = new Date(item.created_at);
+    return itemDate >= new Date(startDate) && itemDate <= new Date(endDate);
+  });
+
+  // Procesar datos para el gráfico
+  updateChart(filteredData);
+}
+
+// Crear y actualizar el gráfico
+let chart;
+
+function updateChart(data) {
+  const labels = data.map(item => item.nombre_rollo); // Ejemplo: nombres de los rollos
+  const values = data.map(item => parseInt(item.peso)); // Ejemplo: peso de los rollos
+
+  const ctx = document.getElementById("myChart").getContext("2d");
+
+  // Destruir el gráfico previo si ya existe
+  if (chart) {
+    chart.destroy();
+  }
+
+  // Crear nuevo gráfico
+  chart = new Chart(ctx, {
+    type: "bar", // Tipo de gráfico
+    data: {
+      labels: labels,
+      datasets: [{
+        label: "Peso de los rollos",
+        data: values,
+        backgroundColor: "rgba(75, 192, 192, 0.2)",
+        borderColor: "rgba(75, 192, 192, 1)",
+        borderWidth: 1
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: { position: "top" },
+        tooltip: { enabled: true }
+      }
+    }
+  });
+}
+
+// Inicializar el gráfico con todos los datos
+fetchData().then(updateChart);
+
+
+</script>
