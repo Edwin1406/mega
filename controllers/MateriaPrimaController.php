@@ -131,11 +131,7 @@ class MateriaPrimaController
         // debuguear($materia);
         if($materia->menos_peso<= $materia->peso){
             $materia->peso = $materia->peso - $materia->menos_peso;
-        }else{
-            $alertas['error'][] = 'El Campo Menos Peso no puede ser mayor al Peso Actual';
         }
-        // debuguear($papel);
-
         if(empty($alertas)){
             $materia->guardar();
             header('Location: /admin/produccion/materia/tabla');
