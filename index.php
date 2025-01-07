@@ -79,6 +79,8 @@ $router->get('/admin/api/allpedidos2', [ApiPedidos::class, 'Allpedidos2']);
 // VENTAS 
 $router->get('/admin/api/nombreCliente', [ClienteController::class, 'nombreCliente']);
 $router->post('/admin/api/actualizar', [ClienteController::class, 'actualizar']);
+$router->get('/admin/api/apivisor', [ClienteController::class, 'apivisor']);
+
 
 
 

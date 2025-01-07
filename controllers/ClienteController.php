@@ -249,6 +249,16 @@ public static function editar(Router $router)
     }
 
 
+    public static function apivisor(Router $router)
+    {
+        header("Access-Control-Allow-Origin: *");  // Permite solicitudes desde cualquier origen
+    header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS"); // Métodos permitidos
+    header("Access-Control-Allow-Headers: Content-Type, Authorization"); // Cabeceras permitidas
+        $clientes = Cliente::all();
+        header('Content-Type: application/json');
+        echo json_encode($clientes);
+    }
+
 }
 
 
