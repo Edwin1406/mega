@@ -127,6 +127,7 @@ class MateriaPrimaController
     // tengo un campo menos_peso en el fromulario  quiero con lo que ingrese ahi se reste al peso actual
     if($_SERVER['REQUEST_METHOD']=='POST'){
         $materia->sincronizar($_POST);
+        $alertas = $materia->validarActualizar();
         // debuguear($materia);
         if($materia->menos_peso<= $materia->peso){
             $materia->peso = $materia->peso - $materia->menos_peso;
@@ -134,7 +135,6 @@ class MateriaPrimaController
             $alertas['error'][] = 'El Campo Menos Peso no puede ser mayor al Peso Actual';
         }
         // debuguear($papel);
-        $alertas = $materia->validarActualizar();
 
         if(empty($alertas)){
             $materia->guardar();
