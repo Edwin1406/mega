@@ -25,7 +25,7 @@ class ClienteController
             exit;
         }
         
-        $pagina_por_registros = 1000;
+        $pagina_por_registros = 5000;
         $total = Cliente:: total();
         $paginacion = new Paginacion($pagina_actual, $pagina_por_registros, $total);
         if($paginacion->total_paginas() < $pagina_actual){
@@ -62,7 +62,7 @@ class ClienteController
             exit;
         }
         
-        $pagina_por_registros = 1000;
+        $pagina_por_registros = 5000;
         $total = Cliente:: total();
         $paginacion = new Paginacion($pagina_actual, $pagina_por_registros, $total);
         if($paginacion->total_paginas() < $pagina_actual){
@@ -133,7 +133,7 @@ class ClienteController
     $router->render('admin/vendedor/cliente/crear', [
         'titulo' => 'CREAR REGISTRO',
         'alertas' => $alertas,
-    ]);
+    ]);         
 }
 
 
