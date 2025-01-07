@@ -127,10 +127,12 @@ class MateriaPrimaController
     // tengo un campo menos_peso en el fromulario  quiero con lo que ingrese ahi se reste al peso actual
     if($_SERVER['REQUEST_METHOD']=='POST'){
         $materia->sincronizar($_POST);
-        $alertas = $materia->validarActualizar();
+        $alertas = $materia->validar();
         // debuguear($materia);
         if($materia->menos_peso<= $materia->peso){
             $materia->peso = $materia->peso - $materia->menos_peso;
+        }else{
+            $alertas['error'][] = 'El peso a restar no puede ser mayor al peso actual';
         }
         if(empty($alertas)){
             $materia->guardar();

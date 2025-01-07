@@ -37,10 +37,6 @@ class ActiveRecord {
         static::$alertas = [];
         return static::$alertas;
     }
-    public function validarActualizar() {
-        static::$alertas = [];
-        return static::$alertas;
-    }
 
     // Consulta SQL para crear un objeto en Memoria (Active Record)
     public static function consultarSQL($query) {
