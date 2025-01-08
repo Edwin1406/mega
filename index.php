@@ -102,8 +102,11 @@ $router->post('/admin/produccion/materia/editar', [MateriaPrimaController::class
 
 $router->get('/admin/produccion/materia/lector', [MateriaPrimaController::class, 'lector']);
 
+$router->get('/admin/produccion/materia/graficas', [MateriaPrimaController::class, 'graficas']);
+
 // API MATERIA PRIMA
 $router->get('/admin/api/ApiMateriaPrima', [MateriaPrimaController::class, 'ApiMateriaPrima']);
+
 
 
 

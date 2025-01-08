@@ -165,6 +165,14 @@ class MateriaPrimaController
     }
 
 
+    public static function graficas(Router $router)
+    {
+        $router->render('admin/produccion/materia/graficas', [
+            'titulo' => 'GRAFICAS DE MATERIA PRIMA'
+        ]);
+    }
+
+
 
 
 
