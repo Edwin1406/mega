@@ -5,15 +5,17 @@ namespace Model;
 class MateriaPrima extends ActiveRecord
 {
     protected static $tabla = 'materia_prima';
-    protected static $columnasDB = ['id','nombre_rollo','tipo', 'ancho','barcode','peso','gramaje','ced','proveedor','precio','created_at','updated_at'];
+    protected static $columnasDB = ['id','nombre_rollo','n_importacion','tipo', 'ancho','barcode','peso','gramaje','tipo_maquina','ced','proveedor','precio','created_at','updated_at'];
 
     public $id;
     public $nombre_rollo;
+    public $n_importacion;
     public $tipo;
     public $ancho;
     public $barcode;
     public $peso;
     public $gramaje;
+    public $tipo_maquina;
     public $ced;
     public $proveedor;
     public $precio;
@@ -27,11 +29,13 @@ class MateriaPrima extends ActiveRecord
 
         $this->id = $args['id'] ?? null;
         $this->nombre_rollo = $args['nombre_rollo'] ?? '';
+        $this->n_importacion = $args['n_importacion'] ?? '';
         $this->tipo = $args['tipo'] ?? '';
         $this->ancho = $args['ancho'] ?? '';
         $this->barcode = $args['barcode'] ?? '';
         $this->peso = $args['peso'] ?? '0';
         $this->gramaje = $args['gramaje'] ?? '';
+        $this->tipo_maquina = $args['tipo_maquina'] ?? '';
         $this->ced = $args['ced'] ?? '';
         $this->proveedor = $args['proveedor'] ?? '';
         $this->precio = $args['precio'] ?? '';

@@ -85,128 +85,143 @@
     <input type="date" id="endDate">
 
     <label for="weightFilter">Peso mínimo:</label>
-    <input type="number" id="weightFilter" placeholder="Ej: 50">
+    <input type="number" id="weightFilter" min="0" step="1">
 
-    <button onclick="filterData()">Filtrar</button>
-  </div>
+<button onclick="filterData()">Filtrar</button>
+</div>
 
-  <div class="charts-container">
-    <div id="barChart" class="chart"></div>
-    <div id="lineChart" class="chart"></div>
-    <div id="pieChart" class="chart"></div>
-    <div id="totalKgChart" class="chart"></div>
-  </div>
+<div class="charts-container">
+<div id="barChart" class="chart"></div>
+<div id="lineChart" class="chart"></div>
+<div id="pieChart" class="chart"></div>
+<div id="totalKgChart" class="chart"></div>
+<div id="zeroWeightChart" class="chart"></div>
+</div>
 
-  <script>
-    // URL de la API
-    const apiUrl = "https://megawebsistem.com/admin/api/ApiMateriaPrima";
+<script>
+// URL de la API
+const apiUrl = "https://megawebsistem.com/admin/api/ApiMateriaPrima";
 
-    // Función para obtener datos de la API
-    async function fetchData() {
-      try {
-        const response = await fetch(apiUrl);
-        const data = await response.json();
-        return data;
-      } catch (error) {
-        console.error("Error al obtener los datos:", error);
-        return [];
+// Función para obtener datos de la API
+async function fetchData() {
+  try {
+    const response = await fetch(apiUrl);
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error("Error al obtener los datos:", error);
+    return [];
+  }
+}
+
+// Filtrar datos por fecha y peso
+async function filterData() {
+  const startDate = document.getElementById("startDate").value;
+  const endDate = document.getElementById("endDate").value;
+  const weightFilter = document.getElementById("weightFilter").value;
+
+  if (!startDate || !endDate) {
+    alert("Selecciona ambas fechas para filtrar.");
+    return;
+  }
+
+  // Obtener datos de la API
+  const allData = await fetchData();
+
+  // Filtrar según las fechas y peso
+  const filteredData = allData.filter(item => {
+    const itemDate = new Date(item.created_at);
+    const itemWeight = parseInt(item.peso, 10);
+    return (
+      itemDate >= new Date(startDate) &&
+      itemDate <= new Date(endDate) &&
+      (!weightFilter || itemWeight >= weightFilter)
+    );
+  });
+
+  // Procesar datos para los gráficos
+  updateCharts(filteredData);
+}
+
+// Crear y actualizar los gráficos
+let barChart, lineChart, pieChart, totalKgChart, zeroWeightChart;
+
+function updateCharts(data) {
+  const labels = data.map(item => item.nombre_rollo);
+  const values = data.map(item => parseInt(item.peso));
+  const totalKg = values.reduce((sum, val) => sum + val, 0);
+  const zeroWeightCount = values.filter(val => val === 0).length;
+  const nonZeroWeightCount = values.length - zeroWeightCount;
+
+  // Gráfico de barras
+  const barOptions = {
+    series: [{ name: "Peso de los rollos", data: values }],
+    chart: { type: "bar", height: 350 },
+    xaxis: { categories: labels, title: { text: "Nombre de los rollos" } },
+    yaxis: { title: { text: "Peso (kg)" } }
+  };
+
+  if (barChart) barChart.destroy();
+  barChart = new ApexCharts(document.querySelector("#barChart"), barOptions);
+  barChart.render();
+
+  // Gráfico de líneas
+  const lineOptions = {
+    series: [{ name: "Peso de los rollos", data: values }],
+    chart: { type: "line", height: 350 },
+    xaxis: { categories: labels, title: { text: "Nombre de los rollos" } },
+    yaxis: { title: { text: "Peso (kg)" } }
+  };
+
+  if (lineChart) lineChart.destroy();
+  lineChart = new ApexCharts(document.querySelector("#lineChart"), lineOptions);
+  lineChart.render();
+
+  // Gráfico de pastel
+  const pieOptions = {
+    series: values,
+    chart: { type: "pie", height: 350 },
+    labels: labels
+  };
+
+  if (pieChart) pieChart.destroy();
+  pieChart = new ApexCharts(document.querySelector("#pieChart"), pieOptions);
+  pieChart.render();
+
+  // Gráfico de total de kilogramos
+  const totalKgOptions = {
+    series: [totalKg],
+    chart: { type: "radialBar", height: 350 },
+    plotOptions: {
+      radialBar: {
+        dataLabels: {
+          name: { show: true, fontSize: "16px" },
+          value: { fontSize: "24px", formatter: () => `${totalKg} kg` }
+        }
       }
-    }
+    },
+    labels: ["Total Kg"]
+  };
 
-    // Filtrar datos por fecha y peso
-    async function filterData() {
-      const startDate = document.getElementById("startDate").value;
-      const endDate = document.getElementById("endDate").value;
-      const weightFilter = document.getElementById("weightFilter").value;
+  if (totalKgChart) totalKgChart.destroy();
+  totalKgChart = new ApexCharts(document.querySelector("#totalKgChart"), totalKgOptions);
+  totalKgChart.render();
 
-      if (!startDate || !endDate) {
-        alert("Selecciona ambas fechas para filtrar.");
-        return;
-      }
+  // Gráfico de productos con peso cero
+  const zeroWeightOptions = {
+    series: [zeroWeightCount, nonZeroWeightCount],
+    chart: { type: "donut", height: 350 },
+    labels: ["Peso cero", "Peso no cero"],
+    colors: ["#ff4d4d", "#4caf50"]
+  };
 
-      // Obtener datos de la API
-      const allData = await fetchData();
+  if (zeroWeightChart) zeroWeightChart.destroy();
+  zeroWeightChart = new ApexCharts(document.querySelector("#zeroWeightChart"), zeroWeightOptions);
+  zeroWeightChart.render();
+}
 
-      // Filtrar según las fechas y peso
-      const filteredData = allData.filter(item => {
-        const itemDate = new Date(item.created_at);
-        const itemWeight = parseInt(item.peso, 10);
-        return (
-          itemDate >= new Date(startDate) &&
-          itemDate <= new Date(endDate) &&
-          (!weightFilter || itemWeight >= weightFilter)
-        );
-      });
-
-      // Procesar datos para los gráficos
-      updateCharts(filteredData);
-    }
-
-    // Crear y actualizar los gráficos
-    let barChart, lineChart, pieChart, totalKgChart;
-
-    function updateCharts(data) {
-      const labels = data.map(item => item.nombre_rollo);
-      const values = data.map(item => parseInt(item.peso));
-      const totalKg = values.reduce((sum, val) => sum + val, 0);
-
-      // Gráfico de barras
-      const barOptions = {
-        series: [{ name: "Peso de los rollos", data: values }],
-        chart: { type: "bar", height: 350 },
-        xaxis: { categories: labels, title: { text: "Nombre de los rollos" } },
-        yaxis: { title: { text: "Peso (kg)" } }
-      };
-
-      if (barChart) barChart.destroy();
-      barChart = new ApexCharts(document.querySelector("#barChart"), barOptions);
-      barChart.render();
-
-      // Gráfico de líneas
-      const lineOptions = {
-        series: [{ name: "Peso de los rollos", data: values }],
-        chart: { type: "line", height: 350 },
-        xaxis: { categories: labels, title: { text: "Nombre de los rollos" } },
-        yaxis: { title: { text: "Peso (kg)" } }
-      };
-
-      if (lineChart) lineChart.destroy();
-      lineChart = new ApexCharts(document.querySelector("#lineChart"), lineOptions);
-      lineChart.render();
-
-      // Gráfico de pastel
-      const pieOptions = {
-        series: values,
-        chart: { type: "pie", height: 350 },
-        labels: labels
-      };
-
-      if (pieChart) pieChart.destroy();
-      pieChart = new ApexCharts(document.querySelector("#pieChart"), pieOptions);
-      pieChart.render();
-
-      // Gráfico de total de kilogramos
-      const totalKgOptions = {
-        series: [totalKg],
-        chart: { type: "radialBar", height: 350 },
-        plotOptions: {
-          radialBar: {
-            dataLabels: {
-              name: { show: true, fontSize: "16px" },
-              value: { fontSize: "24px", formatter: () => `${totalKg} kg` }
-            }
-          }
-        },
-        labels: ["Total Kg"]
-      };
-
-      if (totalKgChart) totalKgChart.destroy();
-      totalKgChart = new ApexCharts(document.querySelector("#totalKgChart"), totalKgOptions);
-      totalKgChart.render();
-    }
-
-    // Inicializar gráficos con todos los datos
-    fetchData().then(updateCharts);
-  </script>
+// Inicializar gráficos con todos los datos
+fetchData().then(updateCharts);
+</script>
 </body>
 </html>

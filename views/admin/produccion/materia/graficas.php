@@ -193,6 +193,8 @@
 
     // Inicializar gráficos con todos los datos
     fetchData().then(updateCharts);
+
+    
   </script>
 
 
