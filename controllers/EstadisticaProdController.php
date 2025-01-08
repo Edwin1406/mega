@@ -13,6 +13,7 @@ class EstadisticaProdController {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $estadistica->sincronizar($_POST);
             $alertas = $estadistica->validar();
+            debuguear($estadistica);
             
         }
 
