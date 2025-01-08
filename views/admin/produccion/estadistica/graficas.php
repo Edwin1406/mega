@@ -151,7 +151,7 @@
       document.getElementById('totalOrders').innerText = data.length;
       document.getElementById('activeProjects').innerText = [...new Set(data.map(item => item.proyecto))].length;
       document.getElementById('averageTransit').innerText = `${Math.round(data.reduce((acc, item) => acc + parseInt(item.transito || 0), 0) / data.length)} días`;
-      document.getElementById('totalAmount').innerText = `${data.reduce((acc, item) => acc + parseFloat(item.total_item || 0), 0).toFixed(2)} €`;
+      document.getElementById('totalAmount').innerText = `${data.reduce((acc, item) => acc + parseFloat(item.total_item || 0), 0).toFixed(2)} $`;
 
       // Actualizar Gráficos
       renderBarChart(data);
