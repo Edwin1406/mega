@@ -117,6 +117,12 @@
 
     &__contenedor-boton{
         display: flex;
+        justify-content: flex-end;
+        // margin-bottom: 5rem;
+
+    }
+    &__contenedor-boton-izquierdo{
+        display: flex;
         justify-content: flex-start;
         // margin-bottom: 5rem;
 
