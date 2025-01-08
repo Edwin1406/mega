@@ -27,4 +27,20 @@ class EstadisticaProdController {
             'alertas' => $alertas,
             'estadistica' => $estadistica
         ]);      
-}}
+    }
+
+    public static function graficas(Router $router)
+    {
+        $router->render('admin/produccion/estadistica/graficas', [
+            'titulo' => 'Estadísticas de Producción'
+        ]);
+    }
+
+
+
+
+
+
+
+
+}
