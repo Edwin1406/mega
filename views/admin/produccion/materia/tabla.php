@@ -42,10 +42,12 @@
                     <?php if ($materia->peso != 0): ?>
                     <tr class="table__tr">
                         <td class="table__td"><?php echo $materia->nombre_rollo; ?></td>
+                        <td class="table__td"><?php echo $materia->n_importacion; ?></td>
                         <td class="table__td"><?php echo $materia->tipo; ?></td>
                         <td class="table__td"><?php echo $materia->ancho; ?></td>
                         <td class="table__td"><?php echo $materia->peso; ?></td>
                         <td class="table__td"><?php echo $materia->gramaje; ?></td>
+                        <td class="table__td"><?php echo $materia->tipo_maquina; ?></td>
                         <td class="table__td"><?php echo $materia->ced; ?></td>
                         <td class="table__td"><?php echo $materia->proveedor; ?></td>
                         <td class="table__td"><?php echo $materia->created_at; ?></td>
