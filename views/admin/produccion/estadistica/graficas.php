@@ -1,4 +1,6 @@
 <h2 class="dashboard__heading"> <?php echo $titulo ?> </h2>
+<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+
 <div id="dashboard">
   <!-- Filtros -->
   <div id="filters">
