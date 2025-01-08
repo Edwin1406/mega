@@ -18,6 +18,7 @@ class EstadisticaProdController {
 
         $router->render('admin/produccion/estadistica/crear', [
             'titulo' => 'Estadísticas de Producción',
-            'alertas' => $alertas
+            'alertas' => $alertas,
+            'estadistica' => $estadistica
         ]);      
 }}

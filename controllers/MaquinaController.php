@@ -65,7 +65,8 @@ use Classes\Paginacion;
 
          $router->render('admin/produccion/maquinas/crear', [
              'titulo' => 'CREAR MAQUINA',
-             'alertas' => $alertas
+             'alertas' => $alertas ,
+             'maquina' => $maquina
              
          ]);
      }
