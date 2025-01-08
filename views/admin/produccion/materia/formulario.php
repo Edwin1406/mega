@@ -13,6 +13,16 @@
     </div>
 
     <div class="formulario__campo">
+        <label class="formulario__label" for="n_importacion">Numero Importación</label>
+        <input
+            type="text"
+            name="n_importacion"
+            id="n_importacion"
+            class="formulario__input"
+            placeholder="Numero de Importación"
+            value="<?php echo $materia->n_importacion ?? '' ?>">
+    </div>
+    <div class="formulario__campo">
         <label class="formulario__label" for="tipo">Tipo</label>
         <input
             type="text"
