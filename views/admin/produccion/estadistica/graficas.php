@@ -6,12 +6,7 @@
   <title>Dashboard - Estadísticas</title>
   <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      background-color: #f9f9f9;
-    }
+    
     .container {
       width: 90%;
       margin: auto;
