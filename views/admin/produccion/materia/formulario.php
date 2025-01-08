@@ -65,14 +65,14 @@
     </div>
 
     <div class="formulario__campo">
-    <label class="formulario__label" for="tipo_maquina">Tipo Maquina</label>
-    <select
-        name="tipo_maquina"
-        id="tipo_maquina"
-        class="formulario__input">
-        <option value="">Selecciona una opción</option>
-        <option value="corrugador" <?php echo (isset($materia->tipo_maquina) && $materia->tipo_maquina == 'corrugador') ? 'selected' : ''; ?>>CORRUGADOR</option>
-        <option value="microcorrugador" <?php echo (isset($materia->tipo_maquina) && $materia->tipo_maquina == 'microcorrugador') ? 'selected' : ''; ?>>MICRO CORRUGADOR</option>
+        <label class="formulario__label" for="tipo_maquina">Tipo Maquina</label>
+        <select
+            name="tipo_maquina"
+            id="tipo_maquina"
+            class="formulario__input">
+            <option value="">Selecciona una opción</option>
+            <option value="corrugador" <?php echo (isset($materia->tipo_maquina) && $materia->tipo_maquina == 'corrugador') ? 'selected' : ''; ?>>CORRUGADOR</option>
+            <option value="microcorrugador" <?php echo (isset($materia->tipo_maquina) && $materia->tipo_maquina == 'microcorrugador') ? 'selected' : ''; ?>>MICRO CORRUGADOR</option>
         </select>
     </div>
 

@@ -13,6 +13,16 @@
     </div>
 
     <div class="formulario__campo">
+        <label class="formulario__label" for="n_importacion">Numero Importación</label>
+        <input
+            type="text"
+            name="n_importacion"
+            id="n_importacion"
+            class="formulario__input"
+            placeholder="Numero de Importación"
+            value="<?php echo $materia->n_importacion ?? '' ?>">
+    </div>
+    <div class="formulario__campo">
         <label class="formulario__label" for="tipo">Tipo</label>
         <input
             type="text"
@@ -65,6 +75,18 @@
             class="formulario__input"
             placeholder="gramaje del papel"
             value="<?php echo $materia->gramaje ?? '' ?>">
+    </div>
+
+    <div class="formulario__campo">
+        <label class="formulario__label" for="tipo_maquina">Tipo Maquina</label>
+        <select
+            name="tipo_maquina"
+            id="tipo_maquina"
+            class="formulario__input">
+            <option value="">Selecciona una opción</option>
+            <option value="corrugador" <?php echo (isset($materia->tipo_maquina) && $materia->tipo_maquina == 'corrugador') ? 'selected' : ''; ?>>CORRUGADOR</option>
+            <option value="microcorrugador" <?php echo (isset($materia->tipo_maquina) && $materia->tipo_maquina == 'microcorrugador') ? 'selected' : ''; ?>>MICRO CORRUGADOR</option>
+        </select>
     </div>
 
     <div class="formulario__campo">
