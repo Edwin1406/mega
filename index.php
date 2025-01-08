@@ -7,20 +7,21 @@ require_once __DIR__ . '/includes/app.php';
 
 
 use MVC\Router;
+use Controllers\ApiTest;
+use Controllers\ApiPedidos;
+use Controllers\Subirexcel;
 use Controllers\ApiMaquinas;
+use Controllers\ApiProductos;
 use Controllers\AreaController;
 use Controllers\AuthController;
 use Controllers\AdminController;
-use Controllers\ApiPedidos;
-use Controllers\ApiProductos;
-use Controllers\ApiTest;
 use Controllers\PapelController;
 use Controllers\ClienteController;
 use Controllers\MaquinaController;
 use Controllers\CotizadorController;
-use Controllers\MateriaPrimaController;
 use Controllers\ProduccionController;
-use Controllers\Subirexcel;
+use Controllers\MateriaPrimaController;
+use Controllers\EstadisticaProdController;
 
 $router = new Router();
 
@@ -92,6 +93,21 @@ $router->get('/admin/produccion/cotizador/crear', [CotizadorController::class, '
 $router->get('/admin/produccion/subirexcel/crear', [Subirexcel::class, 'subirexcel']);
 $router->post('/admin/produccion/subirexcel/crear', [Subirexcel::class, 'subirexcel']);
 
+// ARE DE ESTADISTICAS DE PRODUCCION
+$router->get('/admin/produccion/estadistica/crear', [EstadisticaProdController::class, 'crear']);
+$router->post('/admin/produccion/estadistica/crear', [EstadisticaProdController::class, 'crear']);
+$router->get('/admin/produccion/estadistica/tabla', [EstadisticaProdController::class, 'tabla']);
+$router->get('/admin/produccion/estadistica/editar', [EstadisticaProdController::class, 'editar']);
+$router->post('/admin/produccion/estadistica/editar', [EstadisticaProdController::class, 'editar']);
+
+
+
+
+
+
+
+
+
 // Materia Prima Producción
 $router->get('/admin/produccion/materia/crear', [MateriaPrimaController::class, 'materia']);
 $router->post('/admin/produccion/materia/crear', [MateriaPrimaController::class, 'materia']);
@@ -106,6 +122,7 @@ $router->get('/admin/produccion/materia/graficas', [MateriaPrimaController::clas
 
 // API MATERIA PRIMA
 $router->get('/admin/api/ApiMateriaPrima', [MateriaPrimaController::class, 'ApiMateriaPrima']);
+
 
 
 

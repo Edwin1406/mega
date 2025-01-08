@@ -34,7 +34,7 @@
                     $url = "/admin/produccion/estadistica/crear?id=".$id;
                 }
 
-                echo $url; // Muestra la URL específica
+                echo $url;
             ?>">
                 <?php 
                     // Asigna un ícono basado en el área
