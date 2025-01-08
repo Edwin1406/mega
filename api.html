@@ -96,6 +96,8 @@
 <div id="pieChart" class="chart"></div>
 <div id="totalKgChart" class="chart"></div>
 <div id="zeroWeightChart" class="chart"></div>
+<div id="totalCorrugadorWeightChart" class="chart"></div>
+<div id="totalLaminasWeightChart" class="chart"></div>
 </div>
 
 <script>
@@ -144,14 +146,81 @@ async function filterData() {
 }
 
 // Crear y actualizar los gráficos
-let barChart, lineChart, pieChart, totalKgChart, zeroWeightChart;
+let barChart, lineChart, pieChart, totalKgChart, zeroWeightChart,totalLaminasWeightChart , totalCorrugadorWeightChart;
 
 function updateCharts(data) {
   const labels = data.map(item => item.nombre_rollo);
   const values = data.map(item => parseInt(item.peso));
   const totalKg = values.reduce((sum, val) => sum + val, 0);
+
+// Peso total de los registros del tipo "corrugador"
+const corrugadorData = data.filter(item => item.tipo_maquina === "corrugador");
+const totalCorrugadorWeight = corrugadorData.reduce((sum, item) => {
+  const peso = parseInt(item.peso, 10) || 0; // Asegúrate de manejar valores no válidos
+  return sum + peso;
+}, 0);
+
+
+
+// peso total de los registros del tipo "microcorrugador"
+const laminasData = data.filter(item => item.tipo_maquina === "microcorrugador");
+const totalLaminasWeight = laminasData.reduce((sum, item) => { 
+  const peso=parseInt(item.peso, 10) || 0; 
+  return sum + peso;
+}, 0);
+
+
+// grafico de peso total para microcorrugador
+const laminasWeightOptions = {
+  series: [totalLaminasWeight],
+  chart: { type: "radialBar", height: 350 },
+  plotOptions: {
+    radialBar: {
+      dataLabels: {
+        name: { show: true, fontSize: "16px", text: "Peso Total Microcorrugador" },
+        value: { fontSize: "24px", formatter: () => `${totalLaminasWeight} kg` }
+      }
+    }
+  },
+
+  labels: ["Microcorrugador"]
+};
+if (totalLaminasWeightChart) totalLaminasWeightChart.destroy();
+totalLaminasWeightChart = new ApexCharts(document.querySelector("#totalLaminasWeightChart"), laminasWeightOptions);
+totalLaminasWeightChart.render();
+
+
+
+
+
   const zeroWeightCount = values.filter(val => val === 0).length;
   const nonZeroWeightCount = values.length - zeroWeightCount;
+
+
+  // grafico de peso total para corrugador
+  const corrugadorWeightOptions = {
+  series: [totalCorrugadorWeight],
+  chart: { type: "radialBar", height: 350 },
+  plotOptions: {
+    radialBar: {
+      dataLabels: {
+        name: { show: true, fontSize: "16px", text: "Peso Total Corrugador" },
+        value: { fontSize: "24px", formatter: () => `${totalCorrugadorWeight} kg` }
+      }
+    }
+  },
+  labels: ["Corrugador"]
+};
+
+if (totalCorrugadorWeightChart) totalCorrugadorWeightChart.destroy();
+totalCorrugadorWeightChart = new ApexCharts(document.querySelector("#totalCorrugadorWeightChart"), corrugadorWeightOptions);
+totalCorrugadorWeightChart.render();
+
+
+
+
+
+
 
   // Gráfico de barras
   const barOptions = {
@@ -164,6 +233,8 @@ function updateCharts(data) {
   if (barChart) barChart.destroy();
   barChart = new ApexCharts(document.querySelector("#barChart"), barOptions);
   barChart.render();
+
+
 
   // Gráfico de líneas
   const lineOptions = {

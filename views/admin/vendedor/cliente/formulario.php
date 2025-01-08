@@ -34,7 +34,19 @@
             value="<?php echo $cliente->codigo_producto ?? '' ?>">
     </div>
 
-
+    
+    <div class="formulario__campo">
+        <label class="formulario__label" for="estado">Estado</label>
+        <select
+            name="estado"
+            id="estado"
+            class="formulario__input">
+            <option value="">Selecciona una opción</option>
+            <option value="ENVIADO" <?php echo (isset($cliente->estado) && $cliente->estado == 'ENVIADO') ? 'selected' : ''; ?>>ENVIADO</option>
+            <option value="PAUSADO" <?php echo (isset($cliente->estado) && $cliente->estado == 'PAUSADO') ? 'selected' : ''; ?>>PAUSADO</option>
+            <option value="TERMINADO" <?php echo (isset($cliente->estado) && $cliente->estado == 'TERMINADO') ? 'selected' : ''; ?>>TERMINADO</option>
+        </select>
+    </div>
     <div class="formulario__campo">
     <label class="formulario__label" for="pdf">Subir PDF</label>
     <input
