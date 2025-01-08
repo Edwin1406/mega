@@ -3,29 +3,19 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboard - Estadísticas</title>
+  <title>Estadísticas de Producción</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
   <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
-  <style>
-    .card {
-      border-radius: 10px;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    }
-    .chart-container {
-      padding: 15px;
-    }
-    h1, h3 {
-      font-weight: bold;
-      color: #333;
-    }
-  </style>
 </head>
 <body>
   <div class="container my-4">
-    <!-- Título -->
-    <h1 class="text-center mb-4">Dashboard - Estadísticas</h1>
+    <!-- Encabezado -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h1>Estadísticas de Producción</h1>
+      <p class="text-muted">Visualización de datos en tiempo real</p>
+    </div>
 
-    <!-- Filtros -->
+    <!-- Panel de Filtros -->
     <div class="row mb-4">
       <div class="col-md-2">
         <label for="projectFilter" class="form-label">Proyecto</label>
@@ -60,29 +50,38 @@
       </div>
     </div>
 
+    <!-- Indicadores Clave (KPIs) -->
+    <div class="row text-center mb-4">
+      <div class="col-md-3">
+        <h3 id="totalOrders">0</h3>
+        <p>Pedidos Totales</p>
+      </div>
+      <div class="col-md-3">
+        <h3 id="activeProjects">0</h3>
+        <p>Proyectos Activos</p>
+      </div>
+      <div class="col-md-3">
+        <h3 id="averageTransit">0 días</h3>
+        <p>Tránsito Promedio</p>
+      </div>
+      <div class="col-md-3">
+        <h3 id="totalAmount">0 $</h3>
+        <p>Total Importes</p>
+      </div>
+    </div>
+
     <!-- Gráficos -->
     <div class="row">
       <div class="col-md-6">
-        <div class="card">
-          <div class="chart-container" id="barChart"></div>
-        </div>
+        <div id="barChart"></div>
       </div>
       <div class="col-md-6">
-        <div class="card">
-          <div class="chart-container" id="lineChart"></div>
-        </div>
+        <div id="pieChart"></div>
       </div>
     </div>
     <div class="row mt-4">
-      <div class="col-md-6">
-        <div class="card">
-          <div class="chart-container" id="pieChart"></div>
-        </div>
-      </div>
-      <div class="col-md-6">
-        <div class="card">
-          <div class="chart-container" id="donutChart"></div>
-        </div>
+      <div class="col-12">
+        <div id="lineChart"></div>
       </div>
     </div>
   </div>
@@ -101,7 +100,7 @@
         });
     }
 
-    // Poblar filtros dinámicamente
+    // Poblar los filtros dinámicamente
     function populateFilters(data) {
       const projectFilter = document.getElementById('projectFilter');
       const productFilter = document.getElementById('productFilter');
@@ -127,60 +126,77 @@
       });
     }
 
-    // Actualizar gráficos
+    // Filtrar datos
+    function filterData() {
+      const project = document.getElementById('projectFilter').value;
+      const product = document.getElementById('productFilter').value;
+      const brand = document.getElementById('brandFilter').value;
+      const trader = document.getElementById('traderFilter').value;
+      const startDate = document.getElementById('startDate').value;
+      const endDate = document.getElementById('endDate').value;
+
+      return originalData.filter(item => {
+        return (!project || item.proyecto === project) &&
+               (!product || item.producto === product) &&
+               (!brand || item.marca === brand) &&
+               (!trader || item.trader === trader) &&
+               (!startDate || new Date(item.fecha_solicitud) >= new Date(startDate)) &&
+               (!endDate || new Date(item.fecha_solicitud) <= new Date(endDate));
+      });
+    }
+
+    // Actualizar Dashboard
     function updateDashboard(data) {
+      // Actualizar KPIs
+      document.getElementById('totalOrders').innerText = data.length;
+      document.getElementById('activeProjects').innerText = [...new Set(data.map(item => item.proyecto))].length;
+      document.getElementById('averageTransit').innerText = `${Math.round(data.reduce((acc, item) => acc + parseInt(item.transito || 0), 0) / data.length)} días`;
+      document.getElementById('totalAmount').innerText = `${data.reduce((acc, item) => acc + parseFloat(item.total_item || 0), 0).toFixed(2)} $`;
+
+      // Actualizar Gráficos
       renderBarChart(data);
-      renderLineChart(data);
       renderPieChart(data);
-      renderDonutChart(data);
+      renderLineChart(data);
     }
 
     // Gráficos
     function renderBarChart(data) {
       const barChart = new ApexCharts(document.querySelector("#barChart"), {
-        chart: { type: 'bar', height: 300 },
-        series: [{ name: 'Cantidad', data: data.map(item => parseFloat(item.cantidad)) }],
-        xaxis: { categories: data.map(item => item.producto) },
-        title: { text: 'Cantidad por Producto', align: 'center' }
+        chart: { type: 'bar' },
+        series: [{ name: 'Cantidad', data: data.map(item => item.cantidad) }],
+        xaxis: { categories: data.map(item => item.producto) }
       });
       barChart.render();
     }
 
-    function renderLineChart(data) {
-      const lineChart = new ApexCharts(document.querySelector("#lineChart"), {
-        chart: { type: 'line', height: 300 },
-        series: [{ name: 'Total (€)', data: data.map(item => parseFloat(item.total_item)) }],
-        xaxis: { categories: data.map(item => item.fecha_solicitud) },
-        title: { text: 'Evolución de Importes', align: 'center' }
-      });
-      lineChart.render();
-    }
-
     function renderPieChart(data) {
       const pieChart = new ApexCharts(document.querySelector("#pieChart"), {
-        chart: { type: 'pie', height: 300 },
+        chart: { type: 'pie' },
         series: data.map(item => parseFloat(item.total_item)),
-        labels: data.map(item => item.producto),
-        title: { text: 'Distribución por Producto', align: 'center' }
+        labels: data.map(item => item.producto)
       });
       pieChart.render();
     }
 
-    function renderDonutChart(data) {
-      const donutChart = new ApexCharts(document.querySelector("#donutChart"), {
-        chart: { type: 'donut', height: 300 },
-        series: [
-          data.filter(item => parseFloat(item.transito) > 0).length,
-          data.filter(item => parseFloat(item.transito) <= 0).length
-        ],
-        labels: ['Tránsito Positivo', 'Tránsito Negativo'],
-        title: { text: 'Estado de Tránsito', align: 'center' }
+    function renderLineChart(data) {
+      const lineChart = new ApexCharts(document.querySelector("#lineChart"), {
+        chart: { type: 'line' },
+        series: [{ name: 'Importes', data: data.map(item => parseFloat(item.total_item)) }],
+        xaxis: { categories: data.map(item => item.fecha_solicitud) }
       });
-      donutChart.render();
+      lineChart.render();
     }
+
+    // Listeners de Filtros
+    document.getElementById('projectFilter').addEventListener('change', () => updateDashboard(filterData()));
+    document.getElementById('productFilter').addEventListener('change', () => updateDashboard(filterData()));
+    document.getElementById('brandFilter').addEventListener('change', () => updateDashboard(filterData()));
+    document.getElementById('traderFilter').addEventListener('change', () => updateDashboard(filterData()));
+    document.getElementById('startDate').addEventListener('change', () => updateDashboard(filterData()));
+    document.getElementById('endDate').addEventListener('change', () => updateDashboard(filterData()));
 
     // Inicializar
     fetchData();
-  </script>
+  </script>a
 </body>
 </html>
