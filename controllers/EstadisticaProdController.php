@@ -13,7 +13,12 @@ class EstadisticaProdController {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $estadistica->sincronizar($_POST);
             $alertas = $estadistica->validar();
-            debuguear($estadistica);
+            if (empty($alertas)) {
+                $resultado = $estadistica->guardar();
+                if ($resultado) {
+                    header('Location: /admin/produccion/estadistica/graficas');
+                }
+            }
             
         }
 
