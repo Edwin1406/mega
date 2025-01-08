@@ -28,8 +28,10 @@
                     $url = "/admin/produccion/papel/crear?id=".$id;
                 }elseif($area === 'proveedor'|| $area === 'PROVEEDOR') {
                     $url = "/admin/produccion/subirexcel/crear?id=".$id;
-                }elseif($area === 'producto'|| $area === 'MATERIA PRIMA') {
+                }elseif($area === 'materia prima'|| $area === 'MATERIA PRIMA') {
                     $url = "/admin/produccion/materia/crear?id=".$id;
+                }elseif($area === 'pedidos proyectos'|| $area === 'PEDIDOS PROYECTOS') {
+                    $url = "/admin/produccion/estadistica/crear?id=".$id;
                 }
 
                 echo $url; // Muestra la URL específica
@@ -44,6 +46,8 @@
                     } elseif($area === 'proveedor'|| $area === 'PROVEEDOR') {
                         $icono = '<i class="fa-solid fa-users"></i>'; // ícono de cotización
                     } elseif($area === 'producto'|| $area === 'MATERIA PRIMA') {
+                        $icono = '<i class="fa-solid fa-box"></i>'; // ícono de cotización
+                    } elseif($area === 'pedidos proyectos'|| $area === 'PEDIDOS PROYECTOS') {
                         $icono = '<i class="fa-solid fa-box"></i>'; // ícono de cotización
                     }
                     // Muestra el ícono y el nombre del área
