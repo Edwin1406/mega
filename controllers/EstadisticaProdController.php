@@ -37,6 +37,15 @@ class EstadisticaProdController {
     }
 
 
+    public static function apiestadisticas()
+    {
+        $estadistica = EstadisticaProd::all();
+        header('Content-Type: application/json');
+        echo json_encode($estadistica);
+
+    }
+
+
 
 
 
