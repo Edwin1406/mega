@@ -48,7 +48,8 @@
                     } elseif($area === 'producto'|| $area === 'MATERIA PRIMA') {
                         $icono = '<i class="fa-solid fa-box"></i>'; // ícono de cotización
                     } elseif($area === 'pedidos proyectos'|| $area === 'PEDIDOS PROYECTOS') {
-                        $icono = '<i class="fa-solid fa-box"></i>'; // ícono de cotización
+                        $icono = '<i class="fa-solid fa-file"></i>'; // Ícono de documento
+
                     }
                     // Muestra el ícono y el nombre del área
                     echo $icono . ' ' . $area;
