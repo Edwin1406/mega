@@ -1,18 +1,7 @@
 <h1 class="dashboard__heading"> <?php echo $titulo ?> </h1>
+<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 
-
-
-
-
-
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboard - Materia Prima</title>
-  <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
-  <style>
+<style>
    
 
     h1 {
@@ -72,8 +61,7 @@
       max-width: 500px;
     }
   </style>
-</head>
-<body>
+
   <h1>Dashboard - Materia Prima</h1>
   <div class="filter-container">
     <label for="startDate">Fecha de inicio:</label>
