@@ -72,7 +72,7 @@
         class="formulario__input">
         <option value="">Selecciona una opción</option>
         <option value="corrugador" <?php echo (isset($materia->tipo_maquina) && $materia->tipo_maquina == 'corrugador') ? 'selected' : ''; ?>>CORRUGADOR</option>
-        <option value="microcorrugador" <?php echo (isset($materia->tipo_maquina) && $materia->tipo_maquina == 'microcorrugador') ? 'selected' : ''; ?>>MICROCORRUGADOR</option>
+        <option value="microcorrugador" <?php echo (isset($materia->tipo_maquina) && $materia->tipo_maquina == 'microcorrugador') ? 'selected' : ''; ?>>MICRO CORRUGADOR</option>
         </select>
     </div>
 
