@@ -3,6 +3,7 @@
     <a class="dashboard__boton" href="/admin/produccion/registro_produccion" >
         <i class="fa-solid fa-circle-arrow-left"></i>
         Volver
+    </a>
 </div>
 
 <div class="dashboard__formulario">
