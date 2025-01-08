@@ -65,7 +65,7 @@
         <p>Tránsito Promedio</p>
       </div>
       <div class="col-md-3">
-        <h3 id="totalAmount">0 €</h3>
+        <h3 id="totalAmount">0 $</h3>
         <p>Total Importes</p>
       </div>
     </div>
