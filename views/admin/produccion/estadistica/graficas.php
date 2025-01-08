@@ -15,6 +15,41 @@
       <p class="text-muted">Visualización de datos en tiempo real</p>
     </div>
 
+    <!-- Panel de Filtros -->
+    <div class="row mb-4">
+      <div class="col-md-2">
+        <label for="projectFilter" class="form-label">Proyecto</label>
+        <select id="projectFilter" class="form-select">
+          <option value="">Todos</option>
+        </select>
+      </div>
+      <div class="col-md-2">
+        <label for="productFilter" class="form-label">Producto</label>
+        <select id="productFilter" class="form-select">
+          <option value="">Todos</option>
+        </select>
+      </div>
+      <div class="col-md-2">
+        <label for="brandFilter" class="form-label">Marca</label>
+        <select id="brandFilter" class="form-select">
+          <option value="">Todas</option>
+        </select>
+      </div>
+      <div class="col-md-2">
+        <label for="traderFilter" class="form-label">Trader</label>
+        <select id="traderFilter" class="form-select">
+          <option value="">Todos</option>
+        </select>
+      </div>
+      <div class="col-md-4">
+        <label for="dateFilter" class="form-label">Rango de Fechas</label>
+        <div class="d-flex">
+          <input type="date" id="startDate" class="form-control me-2">
+          <input type="date" id="endDate" class="form-control">
+        </div>
+      </div>
+    </div>
+
     <!-- Indicadores Clave (KPIs) -->
     <div class="row text-center mb-4">
       <div class="col-md-3">
@@ -49,75 +84,119 @@
         <div id="lineChart"></div>
       </div>
     </div>
-
-    <!-- Tabla -->
-    <div class="mt-4">
-      <h4>Detalles de los Pedidos</h4>
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <th>Proyecto</th>
-            <th>Producto</th>
-            <th>Cantidad</th>
-            <th>Precio</th>
-            <th>Total</th>
-            <th>Fecha Solicitud</th>
-          </tr>
-        </thead>
-        <tbody id="tableBody"></tbody>
-      </table>
-    </div>
   </div>
 
   <script>
-    // Ejemplo de conexión a la API
-    fetch('https://megawebsistem.com/admin/api/apiestadisticas')
-      .then(response => response.json())
-      .then(data => {
-        // Actualizar KPIs
-        document.getElementById('totalOrders').innerText = data.length;
-        document.getElementById('activeProjects').innerText = [...new Set(data.map(item => item.proyecto))].length;
-        document.getElementById('averageTransit').innerText = `${Math.round(data.reduce((acc, item) => acc + parseInt(item.transito || 0), 0) / data.length)} días`;
-        document.getElementById('totalAmount').innerText = `${data.reduce((acc, item) => acc + parseFloat(item.total_item || 0), 0).toFixed(2)} €`;
+    let originalData = [];
 
-        // Gráfico de Barras
-        var barChart = new ApexCharts(document.querySelector("#barChart"), {
-          chart: { type: 'bar' },
-          series: [{ name: 'Cantidad', data: data.map(item => item.cantidad) }],
-          xaxis: { categories: data.map(item => item.producto) }
+    // Función para cargar datos desde la API
+    function fetchData() {
+      fetch('https://megawebsistem.com/admin/api/apiestadisticas')
+        .then(response => response.json())
+        .then(data => {
+          originalData = data;
+          populateFilters(data);
+          updateDashboard(data);
         });
-        barChart.render();
+    }
 
-        // Gráfico Circular
-        var pieChart = new ApexCharts(document.querySelector("#pieChart"), {
-          chart: { type: 'pie' },
-          series: data.map(item => parseFloat(item.total_item)),
-          labels: data.map(item => item.producto)
-        });
-        pieChart.render();
+    // Poblar los filtros dinámicamente
+    function populateFilters(data) {
+      const projectFilter = document.getElementById('projectFilter');
+      const productFilter = document.getElementById('productFilter');
+      const brandFilter = document.getElementById('brandFilter');
+      const traderFilter = document.getElementById('traderFilter');
 
-        // Gráfico de Líneas
-        var lineChart = new ApexCharts(document.querySelector("#lineChart"), {
-          chart: { type: 'line' },
-          series: [{ name: 'Importes', data: data.map(item => parseFloat(item.total_item)) }],
-          xaxis: { categories: data.map(item => item.fecha_solicitud) }
-        });
-        lineChart.render();
+      const projects = [...new Set(data.map(item => item.proyecto))];
+      const products = [...new Set(data.map(item => item.producto))];
+      const brands = [...new Set(data.map(item => item.marca))];
+      const traders = [...new Set(data.map(item => item.trader))];
 
-        // Tabla
-        const tableBody = document.getElementById('tableBody');
-        data.forEach(item => {
-          const row = `<tr>
-            <td>${item.proyecto}</td>
-            <td>${item.producto}</td>
-            <td>${item.cantidad}</td>
-            <td>${item.precio}</td>
-            <td>${item.total_item}</td>
-            <td>${item.fecha_solicitud}</td>
-          </tr>`;
-          tableBody.innerHTML += row;
-        });
+      projects.forEach(project => {
+        projectFilter.innerHTML += `<option value="${project}">${project}</option>`;
       });
+      products.forEach(product => {
+        productFilter.innerHTML += `<option value="${product}">${product}</option>`;
+      });
+      brands.forEach(brand => {
+        brandFilter.innerHTML += `<option value="${brand}">${brand}</option>`;
+      });
+      traders.forEach(trader => {
+        traderFilter.innerHTML += `<option value="${trader}">${trader}</option>`;
+      });
+    }
+
+    // Filtrar datos
+    function filterData() {
+      const project = document.getElementById('projectFilter').value;
+      const product = document.getElementById('productFilter').value;
+      const brand = document.getElementById('brandFilter').value;
+      const trader = document.getElementById('traderFilter').value;
+      const startDate = document.getElementById('startDate').value;
+      const endDate = document.getElementById('endDate').value;
+
+      return originalData.filter(item => {
+        return (!project || item.proyecto === project) &&
+               (!product || item.producto === product) &&
+               (!brand || item.marca === brand) &&
+               (!trader || item.trader === trader) &&
+               (!startDate || new Date(item.fecha_solicitud) >= new Date(startDate)) &&
+               (!endDate || new Date(item.fecha_solicitud) <= new Date(endDate));
+      });
+    }
+
+    // Actualizar Dashboard
+    function updateDashboard(data) {
+      // Actualizar KPIs
+      document.getElementById('totalOrders').innerText = data.length;
+      document.getElementById('activeProjects').innerText = [...new Set(data.map(item => item.proyecto))].length;
+      document.getElementById('averageTransit').innerText = `${Math.round(data.reduce((acc, item) => acc + parseInt(item.transito || 0), 0) / data.length)} días`;
+      document.getElementById('totalAmount').innerText = `${data.reduce((acc, item) => acc + parseFloat(item.total_item || 0), 0).toFixed(2)} €`;
+
+      // Actualizar Gráficos
+      renderBarChart(data);
+      renderPieChart(data);
+      renderLineChart(data);
+    }
+
+    // Gráficos
+    function renderBarChart(data) {
+      const barChart = new ApexCharts(document.querySelector("#barChart"), {
+        chart: { type: 'bar' },
+        series: [{ name: 'Cantidad', data: data.map(item => item.cantidad) }],
+        xaxis: { categories: data.map(item => item.producto) }
+      });
+      barChart.render();
+    }
+
+    function renderPieChart(data) {
+      const pieChart = new ApexCharts(document.querySelector("#pieChart"), {
+        chart: { type: 'pie' },
+        series: data.map(item => parseFloat(item.total_item)),
+        labels: data.map(item => item.producto)
+      });
+      pieChart.render();
+    }
+
+    function renderLineChart(data) {
+      const lineChart = new ApexCharts(document.querySelector("#lineChart"), {
+        chart: { type: 'line' },
+        series: [{ name: 'Importes', data: data.map(item => parseFloat(item.total_item)) }],
+        xaxis: { categories: data.map(item => item.fecha_solicitud) }
+      });
+      lineChart.render();
+    }
+
+    // Listeners de Filtros
+    document.getElementById('projectFilter').addEventListener('change', () => updateDashboard(filterData()));
+    document.getElementById('productFilter').addEventListener('change', () => updateDashboard(filterData()));
+    document.getElementById('brandFilter').addEventListener('change', () => updateDashboard(filterData()));
+    document.getElementById('traderFilter').addEventListener('change', () => updateDashboard(filterData()));
+    document.getElementById('startDate').addEventListener('change', () => updateDashboard(filterData()));
+    document.getElementById('endDate').addEventListener('change', () => updateDashboard(filterData()));
+
+    // Inicializar
+    fetchData();
   </script>
 </body>
 </html>
