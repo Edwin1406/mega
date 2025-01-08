@@ -23,10 +23,12 @@
             <thead class="table__thead">
                 <tr>
                     <th scope="col" class="table__th">Nombre del Rollo</th>
+                    <th scope="col" class="table__th">Numero de Importación</th>
                     <th scope="col" class="table__th">Tipo</th>
                     <th scope="col" class="table__th">Ancho</th>
                     <th scope="col" class="table__th">Peso</th>
                     <th scope="col" class="table__th">Gramaje</th>
+                    <th scope="col" class="table__th">Tipo de Maquina</th>
                     <th scope="col" class="table__th">CED</th>
                     <th scope="col" class="table__th">Proveedor</th>
                     <th scope="col" class="table__th">Fecha de Ingreso </th>
