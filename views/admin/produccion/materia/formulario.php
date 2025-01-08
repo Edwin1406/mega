@@ -65,6 +65,19 @@
     </div>
 
     <div class="formulario__campo">
+    <label class="formulario__label" for="tipo_maquina">Tipo Maquina</label>
+    <select
+        name="tipo_maquina"
+        id="tipo_maquina"
+        class="formulario__input">
+        <option value="">Selecciona una opción</option>
+        <option value="tipo1" <?php echo (isset($materia->tipo_maquina) && $materia->tipo_maquina == 'tipo1') ? 'selected' : ''; ?>>Tipo 1</option>
+        <option value="tipo2" <?php echo (isset($materia->tipo_maquina) && $materia->tipo_maquina == 'tipo2') ? 'selected' : ''; ?>>Tipo 2</option>
+            <option value="tipo3" <?php echo (isset($materia->tipo_maquina) && $materia->tipo_maquina == 'tipo3') ? 'selected' : ''; ?>>Tipo 3</option>
+        </select>
+    </div>
+
+    <div class="formulario__campo">
         <label class="formulario__label" for="ced">CED</label>
         <input
             type="text"
