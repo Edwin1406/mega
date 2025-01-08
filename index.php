@@ -95,11 +95,12 @@ $router->post('/admin/produccion/subirexcel/crear', [Subirexcel::class, 'subirex
 
 // AREA DE ESTADISTICAS DE PRODUCCION
 $router->get('/admin/produccion/estadistica/crear', [EstadisticaProdController::class, 'crear']);
-$router->post('/admin/produccion/estadistica/crear', [EstadisticaProdController::class, 'crear']);
 $router->get('/admin/produccion/estadistica/tabla', [EstadisticaProdController::class, 'tabla']);
 $router->get('/admin/produccion/estadistica/editar', [EstadisticaProdController::class, 'editar']);
-$router->post('/admin/produccion/estadistica/editar', [EstadisticaProdController::class, 'editar']);
 $router->get('/admin/produccion/estadistica/graficas', [EstadisticaProdController::class, 'graficas']);
+
+$router->post('/admin/produccion/estadistica/crear', [EstadisticaProdController::class, 'crear']);
+$router->post('/admin/produccion/estadistica/editar', [EstadisticaProdController::class, 'editar']);
 
 
 
