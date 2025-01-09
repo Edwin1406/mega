@@ -1,4 +1,6 @@
-<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+<!-- Importar Chart.js desde CDN -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 <div id="dashboard">
   <h1>Dashboard Dinámico con Filtros</h1>
   
