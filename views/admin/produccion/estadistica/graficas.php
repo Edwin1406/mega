@@ -24,6 +24,7 @@
       display: flex;
       gap: 15px;
       align-items: center;
+      justify-content: center;
     }
 
     label {
@@ -55,7 +56,6 @@
       justify-content: space-around;
       align-items: center;
       width: 100%;
-      justify-content: center;
       max-width: 100%;
     }
 
