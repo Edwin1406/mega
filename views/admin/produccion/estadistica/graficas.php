@@ -55,7 +55,7 @@
       justify-content: space-around;
       align-items: center;
       width: 100%;
-      max-width: 800px;
+      max-width: 60%;
     }
 
     .total-productos, .total-general, .transito-positivo, .transito-negativo {
