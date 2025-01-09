@@ -89,6 +89,7 @@
 
   <script>
     let originalData = [];
+    let barChart, lineChart, pieChart, donutChart;
 
     // Función para cargar datos desde la API
     function fetchData() {
@@ -137,7 +138,8 @@
 
     // Gráficos
     function renderBarChart(data) {
-      const barChart = new ApexCharts(document.querySelector("#barChart"), {
+      if (barChart) barChart.destroy();
+      barChart = new ApexCharts(document.querySelector("#barChart"), {
         chart: { type: 'bar', height: 300 },
         series: [{ name: 'Cantidad', data: data.map(item => parseFloat(item.cantidad)) }],
         xaxis: { categories: data.map(item => item.producto) },
@@ -147,7 +149,8 @@
     }
 
     function renderLineChart(data) {
-      const lineChart = new ApexCharts(document.querySelector("#lineChart"), {
+      if (lineChart) lineChart.destroy();
+      lineChart = new ApexCharts(document.querySelector("#lineChart"), {
         chart: { type: 'line', height: 300 },
         series: [{ name: 'Total (€)', data: data.map(item => parseFloat(item.total_item)) }],
         xaxis: { categories: data.map(item => item.fecha_solicitud) },
@@ -157,7 +160,8 @@
     }
 
     function renderPieChart(data) {
-      const pieChart = new ApexCharts(document.querySelector("#pieChart"), {
+      if (pieChart) pieChart.destroy();
+      pieChart = new ApexCharts(document.querySelector("#pieChart"), {
         chart: { type: 'pie', height: 300 },
         series: data.map(item => parseFloat(item.total_item)),
         labels: data.map(item => item.producto),
@@ -167,7 +171,8 @@
     }
 
     function renderDonutChart(data) {
-      const donutChart = new ApexCharts(document.querySelector("#donutChart"), {
+      if (donutChart) donutChart.destroy();
+      donutChart = new ApexCharts(document.querySelector("#donutChart"), {
         chart: { type: 'donut', height: 300 },
         series: [
           data.filter(item => parseFloat(item.transito) > 0).length,
@@ -178,6 +183,26 @@
       });
       donutChart.render();
     }
+
+    // Filtrar datos por rango de fechas
+    function applyDateFilter() {
+      const startDate = document.getElementById('startDate').value;
+      const endDate = document.getElementById('endDate').value;
+
+      let filteredData = originalData;
+      if (startDate) {
+        filteredData = filteredData.filter(item => new Date(item.fecha_solicitud) >= new Date(startDate));
+      }
+      if (endDate) {
+        filteredData = filteredData.filter(item => new Date(item.fecha_solicitud) <= new Date(endDate));
+      }
+
+      updateDashboard(filteredData);
+    }
+
+    // Añadir event listeners a los inputs de fechas
+    document.getElementById('startDate').addEventListener('change', applyDateFilter);
+    document.getElementById('endDate').addEventListener('change', applyDateFilter);
 
     // Inicializar
     fetchData();
