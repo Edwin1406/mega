@@ -7,7 +7,7 @@
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
   <style>
-    /* body {
+    body {
       font-family: Arial, sans-serif;
       background-color: #f5f5f5;
       color: #333;
@@ -16,7 +16,7 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-    } */
+    }
 
     h1 {
       margin-top: 20px;
@@ -64,7 +64,7 @@
       justify-content: space-around;
       align-items: center;
       width: 100%;
-      max-width: 70%;
+      max-width: 800px;
     }
 
     .total-productos, .total-general, .transito-positivo, .transito-negativo {
@@ -166,6 +166,9 @@
   </div>
 
   <script>
+    let barChart;
+    let pieChart;
+
     function filterData() {
       const fechaInicio = document.getElementById('fechaInicio').value;
       const fechaFin = document.getElementById('fechaFin').value;
@@ -215,6 +218,10 @@
       const categories = Object.keys(productQuantities);
       const values = Object.values(productQuantities);
 
+      if (barChart) {
+        barChart.destroy();
+      }
+
       const options = {
         chart: {
           type: 'bar',
@@ -233,8 +240,8 @@
         }
       };
 
-      const chart = new ApexCharts(document.querySelector("#chart"), options);
-      chart.render();
+      barChart = new ApexCharts(document.querySelector("#chart"), options);
+      barChart.render();
     }
 
     function updateTransitStatus(data) {
@@ -260,6 +267,10 @@
       const categories = Object.keys(transitData);
       const values = Object.values(transitData);
 
+      if (pieChart) {
+        pieChart.destroy();
+      }
+
       const options = {
         chart: {
           type: 'pie',
@@ -273,7 +284,7 @@
         }
       };
 
-      const pieChart = new ApexCharts(document.querySelector("#pieChart"), options);
+      pieChart = new ApexCharts(document.querySelector("#pieChart"), options);
       pieChart.render();
     }
   </script>
