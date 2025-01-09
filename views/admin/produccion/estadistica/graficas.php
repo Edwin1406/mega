@@ -1,3 +1,5 @@
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <div id="filters">
   <h2>Filtros</h2>
   
