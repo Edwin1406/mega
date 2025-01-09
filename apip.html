@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dashboard de Procesos</title>
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -32,6 +31,7 @@
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
       display: flex;
       gap: 15px;
+      flex-wrap: wrap;
       align-items: center;
     }
 
@@ -39,7 +39,7 @@
       font-size: 14px;
     }
 
-    input, button {
+    input, select, button {
       padding: 8px 10px;
       border: 1px solid #ccc;
       border-radius: 5px;
@@ -67,7 +67,7 @@
       max-width: 800px;
     }
 
-    .total-productos, .total-general, .transito-positivo, .transito-negativo {
+    .total-productos, .total-general, .total-pedidos-urgentes {
       background: #fff;
       padding: 20px;
       border-radius: 10px;
@@ -79,44 +79,80 @@
       width: 200px;
     }
 
-    .total-productos img, .total-general img, .transito-positivo img, .transito-negativo img {
+    .total-productos img, .total-general img, .total-pedidos-urgentes img {
       width: 50px;
       height: auto;
       margin-bottom: 10px;
     }
 
-    .total-productos h2, .total-general h2, .transito-positivo h2, .transito-negativo h2 {
+    .total-productos h2, .total-general h2, .total-pedidos-urgentes h2 {
       margin: 0;
       font-size: 18px;
       color: #555;
     }
 
-    .total-productos p, .total-general p, .transito-positivo p, .transito-negativo p {
+    .total-productos p, .total-general p, .total-pedidos-urgentes p {
       margin: 5px 0 0;
       font-size: 32px;
       font-weight: bold;
       color: #007bff;
+      cursor: pointer;
     }
 
-    .chart-container {
-      margin-top: 40px;
-      width: 90%;
-      max-width: 800px;
-      background: #fff;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    /* Modal Styles */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0, 0, 0, 0.4);
     }
 
-    .pie-chart-container {
-      margin-top: 20px;
-      width: 90%;
-      max-width: 800px;
-      background: #fff;
+    .modal-content {
+      background-color: #fff;
+      margin: 15% auto;
       padding: 20px;
+      border: 1px solid #888;
       border-radius: 10px;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-      text-align: center;
+      width: 80%;
+      max-width: 600px;
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .modal-header h2 {
+      margin: 0;
+    }
+
+    .modal-close {
+      font-size: 24px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .modal-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
+
+    .modal-table th, .modal-table td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: left;
+    }
+
+    .modal-table th {
+      background-color: #007bff;
+      color: white;
     }
   </style>
 </head>
@@ -128,6 +164,33 @@
     
     <label for="fechaFin">Fecha de fin:</label>
     <input type="date" id="fechaFin">
+
+    <label for="marca">Marca:</label>
+    <select id="marca">
+      <option value="">Todas</option>
+      <option value="mondi">Mondi</option>
+      <option value="europcell">Europcell</option>
+    </select>
+
+    <label for="trader">Trader:</label>
+    <select id="trader">
+      <option value="">Todos</option>
+    </select>
+
+    <label for="producto">Producto:</label>
+    <select id="producto">
+      <option value="">Todos</option>
+    </select>
+
+    <label for="ancho">Ancho:</label>
+    <select id="ancho">
+      <option value="">Todos</option>
+    </select>
+
+    <label for="gms">GMS:</label>
+    <select id="gms">
+      <option value="">Todos</option>
+    </select>
 
     <button onclick="filterData()">Filtrar</button>
   </div>
@@ -143,35 +206,75 @@
       <h2>Total General</h2>
       <p id="totalGeneral">0.00 $</p>
     </div>
-    <div class="transito-positivo">
-      <img src="https://img.icons8.com/color/96/ok.png" alt="Icono de tránsito positivo">
-      <h2>Estado de Tránsito</h2>
-      <p>Positivo: <span id="transitoPositivo">0</span></p>
-    </div>
-    <div class="transito-negativo">
-      <img src="https://img.icons8.com/color/96/cancel.png" alt="Icono de tránsito negativo">
-      <h2>Estado de Tránsito</h2>
-      <p>Negativo: <span id="transitoNegativo">0</span></p>
+    <div class="total-pedidos-urgentes" onclick="showUrgentOrders()">
+      <img src="https://img.icons8.com/external-flatart-icons-lineal-color-flatarticons/64/000000/external-delivery-logistics-flatart-icons-lineal-color-flatarticons.png" alt="Icono de pedidos urgentes">
+      <h2>Total Pedido Urgente</h2>
+      <p id="totalPedidosUrgentes">0</p>
     </div>
   </div>
 
-  <div class="chart-container">
-    <h2>Cantidad por Producto</h2>
-    <div id="chart"></div>
-  </div>
-
-  <div class="pie-chart-container">
-    <h2>Estado de Tránsito con Nombre del Producto</h2>
-    <div id="pieChart"></div>
+  <!-- Modal -->
+  <div id="urgentModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Pedidos Urgentes</h2>
+        <span class="modal-close" onclick="closeModal()">&times;</span>
+      </div>
+      <table class="modal-table" id="urgentTable">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Producto</th>
+            <th>Marca</th>
+            <th>Cantidad</th>
+            <th>Observaciones</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
   </div>
 
   <script>
-    let barChart;
-    let pieChart;
+    document.addEventListener('DOMContentLoaded', loadFilters);
+
+    let filteredData = [];
+
+    function loadFilters() {
+      axios.get('https://megawebsistem.com/admin/api/apiestadisticas')
+        .then(response => {
+          const data = response.data;
+
+          populateFilter(data, 'trader', 'trader');
+          populateFilter(data, 'producto', 'producto');
+          populateFilter(data, 'ancho', 'ancho');
+          populateFilter(data, 'gms', 'gms');
+        })
+        .catch(error => {
+          console.error('Error al cargar los filtros:', error);
+        });
+    }
+
+    function populateFilter(data, elementId, key) {
+      const uniqueValues = [...new Set(data.map(item => item[key]))];
+      const selectElement = document.getElementById(elementId);
+
+      uniqueValues.forEach(value => {
+        const option = document.createElement('option');
+        option.value = value;
+        option.textContent = value;
+        selectElement.appendChild(option);
+      });
+    }
 
     function filterData() {
       const fechaInicio = document.getElementById('fechaInicio').value;
       const fechaFin = document.getElementById('fechaFin').value;
+      const marca = document.getElementById('marca').value;
+      const trader = document.getElementById('trader').value;
+      const producto = document.getElementById('producto').value;
+      const ancho = document.getElementById('ancho').value;
+      const gms = document.getElementById('gms').value;
 
       if (!fechaInicio || !fechaFin) {
         alert('Por favor, selecciona ambas fechas.');
@@ -181,15 +284,19 @@
       axios.get('https://megawebsistem.com/admin/api/apiestadisticas')
         .then(response => {
           const data = response.data;
-          const filteredData = data.filter(item => {
+          filteredData = data.filter(item => {
             const fechaSolicitud = new Date(item.fecha_solicitud);
-            return fechaSolicitud >= new Date(fechaInicio) && fechaSolicitud <= new Date(fechaFin);
+            const matchesFecha = fechaSolicitud >= new Date(fechaInicio) && fechaSolicitud <= new Date(fechaFin);
+            const matchesMarca = !marca || item.marca === marca;
+            const matchesTrader = !trader || item.trader === trader;
+            const matchesProducto = !producto || item.producto === producto;
+            const matchesAncho = !ancho || item.ancho === ancho;
+            const matchesGms = !gms || item.gms === gms;
+            return matchesFecha && matchesMarca && matchesTrader && matchesProducto && matchesAncho && matchesGms;
           });
 
           updateTotals(filteredData);
-          updateChart(filteredData);
-          updateTransitStatus(filteredData);
-          updatePieChart(filteredData);
+          updateTotalPedidosUrgentes(filteredData);
         })
         .catch(error => {
           console.error('Error al consumir la API:', error);
@@ -204,88 +311,36 @@
       document.getElementById('totalGeneral').textContent = totalGeneral.toFixed(2) + ' $';
     }
 
-    function updateChart(data) {
-      const productQuantities = {};
-
-      data.forEach(item => {
-        if (productQuantities[item.producto]) {
-          productQuantities[item.producto] += parseFloat(item.cantidad || 0);
-        } else {
-          productQuantities[item.producto] = parseFloat(item.cantidad || 0);
-        }
-      });
-
-      const categories = Object.keys(productQuantities);
-      const values = Object.values(productQuantities);
-
-      if (barChart) {
-        barChart.destroy();
-      }
-
-      const options = {
-        chart: {
-          type: 'bar',
-          height: 350
-        },
-        series: [{
-          name: 'Cantidad',
-          data: values
-        }],
-        xaxis: {
-          categories: categories
-        },
-        title: {
-          text: 'Cantidad por Producto',
-          align: 'center'
-        }
-      };
-
-      barChart = new ApexCharts(document.querySelector("#chart"), options);
-      barChart.render();
+    function updateTotalPedidosUrgentes(data) {
+      const totalUrgentes = data.filter(item => item.observaciones && item.observaciones.toLowerCase().includes("urgente")).length;
+      document.getElementById('totalPedidosUrgentes').textContent = totalUrgentes;
     }
 
-    function updateTransitStatus(data) {
-      const positivo = data.filter(item => parseFloat(item.transito) > 0).length;
-      const negativo = data.filter(item => parseFloat(item.transito) <= 0).length;
+    function showUrgentOrders() {
+      const urgentData = filteredData.filter(item => item.observaciones && item.observaciones.toLowerCase().includes("urgente"));
 
-      document.getElementById('transitoPositivo').textContent = positivo;
-      document.getElementById('transitoNegativo').textContent = negativo;
-    }
+      const tableBody = document.querySelector('#urgentTable tbody');
+      tableBody.innerHTML = '';
 
-    function updatePieChart(data) {
-      const transitData = {};
+      urgentData.forEach(order => {
+        const row = document.createElement('tr');
 
-      data.forEach(item => {
-        const key = `${item.producto} (${item.transito})`;
-        if (transitData[key]) {
-          transitData[key] += 1;
-        } else {
-          transitData[key] = 1;
-        }
+        row.innerHTML = `
+          <td>${order.id}</td>
+          <td>${order.producto}</td>
+          <td>${order.marca}</td>
+          <td>${order.cantidad}</td>
+          <td>${order.observaciones || 'N/A'}</td>
+        `;
+
+        tableBody.appendChild(row);
       });
 
-      const categories = Object.keys(transitData);
-      const values = Object.values(transitData);
+      document.getElementById('urgentModal').style.display = 'block';
+    }
 
-      if (pieChart) {
-        pieChart.destroy();
-      }
-
-      const options = {
-        chart: {
-          type: 'pie',
-          height: 350
-        },
-        series: values,
-        labels: categories,
-        title: {
-          text: 'Estado de Tránsito con Nombre del Producto',
-          align: 'center'
-        }
-      };
-
-      pieChart = new ApexCharts(document.querySelector("#pieChart"), options);
-      pieChart.render();
+    function closeModal() {
+      document.getElementById('urgentModal').style.display = 'none';
     }
   </script>
 </body>
