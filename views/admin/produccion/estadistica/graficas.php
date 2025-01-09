@@ -27,30 +27,6 @@
 
     <!-- Filtros -->
     <div class="row mb-4">
-      <div class="col-md-2">
-        <label for="projectFilter" class="form-label">Proyecto</label>
-        <select id="projectFilter" class="form-select">
-          <option value="">Todos</option>
-        </select>
-      </div>
-      <div class="col-md-2">
-        <label for="productFilter" class="form-label">Producto</label>
-        <select id="productFilter" class="form-select">
-          <option value="">Todos</option>
-        </select>
-      </div>
-      <div class="col-md-2">
-        <label for="brandFilter" class="form-label">Marca</label>
-        <select id="brandFilter" class="form-select">
-          <option value="">Todas</option>
-        </select>
-      </div>
-      <div class="col-md-2">
-        <label for="traderFilter" class="form-label">Trader</label>
-        <select id="traderFilter" class="form-select">
-          <option value="">Todos</option>
-        </select>
-      </div>
       <div class="col-md-4">
         <label for="dateFilter" class="form-label">Rango de Fechas</label>
         <div class="d-flex">
@@ -97,35 +73,8 @@
         .then(response => response.json())
         .then(data => {
           originalData = data;
-          populateFilters(data);
           updateDashboard(data);
         });
-    }
-
-    // Poblar filtros dinámicamente
-    function populateFilters(data) {
-      const projectFilter = document.getElementById('projectFilter');
-      const productFilter = document.getElementById('productFilter');
-      const brandFilter = document.getElementById('brandFilter');
-      const traderFilter = document.getElementById('traderFilter');
-
-      const projects = [...new Set(data.map(item => item.proyecto))];
-      const products = [...new Set(data.map(item => item.producto))];
-      const brands = [...new Set(data.map(item => item.marca))];
-      const traders = [...new Set(data.map(item => item.trader))];
-
-      projects.forEach(project => {
-        projectFilter.innerHTML += `<option value="${project}">${project}</option>`;
-      });
-      products.forEach(product => {
-        productFilter.innerHTML += `<option value="${product}">${product}</option>`;
-      });
-      brands.forEach(brand => {
-        brandFilter.innerHTML += `<option value="${brand}">${brand}</option>`;
-      });
-      traders.forEach(trader => {
-        traderFilter.innerHTML += `<option value="${trader}">${trader}</option>`;
-      });
     }
 
     // Actualizar gráficos
