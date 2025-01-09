@@ -55,6 +55,7 @@
       justify-content: space-around;
       align-items: center;
       width: 100%;
+      justify-content: center;
       max-width: 100%;
     }
 
