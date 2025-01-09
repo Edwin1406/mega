@@ -1,3 +1,6 @@
+<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+
+
 <div id="dashboard">
   <div id="filters">
     <label>Rango de Fechas:</label>
