@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard de Procesos</title>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f5f5f5;
+      color: #333;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    h1 {
+      margin-top: 20px;
+      font-size: 24px;
+      color: #222;
+    }
+
+    .filter-container {
+      margin: 20px 0;
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      display: flex;
+      gap: 15px;
+      align-items: center;
+    }
+
+    label {
+      font-size: 14px;
+    }
+
+    input, button {
+      padding: 8px 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 14px;
+    }
+
+    button {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    .result-container {
+      margin-top: 20px;
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      width: 80%;
+    }
+
+    .result-item {
+      margin-bottom: 15px;
+      padding: 10px;
+      border-bottom: 1px solid #ccc;
+    }
+  </style>
+</head>
+<body>
+  <h1>Dashboard de procesos</h1>
+  <div class="filter-container">
+    <label for="fechaInicio">Fecha de inicio:</label>
+    <input type="date" id="fechaInicio">
+    
+    <label for="fechaFin">Fecha de fin:</label>
+    <input type="date" id="fechaFin">
+
+    <button onclick="filterData()">Filtrar</button>
+  </div>
+
+  <div id="results" class="result-container">
+    <p>No hay datos para mostrar.</p>
+  </div>
+
+  <script>
+    function filterData() {
+      const fechaInicio = document.getElementById('fechaInicio').value;
+      const fechaFin = document.getElementById('fechaFin').value;
+
+      if (!fechaInicio || !fechaFin) {
+        alert('Por favor, selecciona ambas fechas.');
+        return;
+      }
+
+      axios.get('https://megawebsistem.com/admin/api/apiestadisticas')
+        .then(response => {
+          const data = response.data;
+          const filteredData = data.filter(item => {
+            const fechaSolicitud = new Date(item.fecha_solicitud);
+            return fechaSolicitud >= new Date(fechaInicio) && fechaSolicitud <= new Date(fechaFin);
+          });
+
+          displayResults(filteredData);
+        })
+        .catch(error => {
+          console.error('Error al consumir la API:', error);
+        });
+    }
+
+    function displayResults(data) {
+      const resultsContainer = document.getElementById('results');
+      resultsContainer.innerHTML = '';
+
+      if (data.length === 0) {
+        resultsContainer.innerHTML = '<p>No hay datos para mostrar.</p>';
+        return;
+      }
+
+      data.forEach(item => {
+        const div = document.createElement('div');
+        div.classList.add('result-item');
+        div.innerHTML = `
+          <p><strong>Proyecto:</strong> ${item.proyecto}</p>
+          <p><strong>Producto:</strong> ${item.producto}</p>
+          <p><strong>Fecha de Solicitud:</strong> ${item.fecha_solicitud}</p>
+          <p><strong>Cantidad:</strong> ${item.cantidad}</p>
+          <p><strong>Precio:</strong> ${item.precio}</p>
+          <p><strong>Total Item:</strong> ${item.total_item}</p>
+        `;
+        resultsContainer.appendChild(div);
+      });
+    }
+  </script>
+</body>
+</html>
