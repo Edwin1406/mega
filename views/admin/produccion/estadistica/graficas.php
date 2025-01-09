@@ -1,161 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - Estadísticas</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+  <style>
+    .card {
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    .chart-container {
+      padding: 15px;
+    }
+    h1, h3 {
+      font-weight: bold;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+  <div class="container my-4">
+    <!-- Título -->
+    <h1 class="text-center mb-4">Dashboard - Estadísticas</h1>
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<div id="filters">
-  <h2>Filtros</h2>
-  
-  <label>Fecha de Pedido</label>
-  <input type="date" id="startDate" placeholder="Desde">
-  <input type="date" id="endDate" placeholder="Hasta">
-  
-  <label>Proyecto</label>
-  <select id="projectFilter"></select>
+    <!-- Filtros -->
+    <div class="row mb-4">
+      <div class="col-md-2">
+        <label for="projectFilter" class="form-label">Proyecto</label>
+        <select id="projectFilter" class="form-select">
+          <option value="">Todos</option>
+        </select>
+      </div>
+      <div class="col-md-2">
+        <label for="productFilter" class="form-label">Producto</label>
+        <select id="productFilter" class="form-select">
+          <option value="">Todos</option>
+        </select>
+      </div>
+      <div class="col-md-2">
+        <label for="brandFilter" class="form-label">Marca</label>
+        <select id="brandFilter" class="form-select">
+          <option value="">Todas</option>
+        </select>
+      </div>
+      <div class="col-md-2">
+        <label for="traderFilter" class="form-label">Trader</label>
+        <select id="traderFilter" class="form-select">
+          <option value="">Todos</option>
+        </select>
+      </div>
+      <div class="col-md-4">
+        <label for="dateFilter" class="form-label">Rango de Fechas</label>
+        <div class="d-flex">
+          <input type="date" id="startDate" class="form-control me-2">
+          <input type="date" id="endDate" class="form-control">
+        </div>
+      </div>
+    </div>
 
-  <button id="applyFilters">Aplicar Filtros</button>
-</div>
+    <!-- Gráficos -->
+    <div class="row">
+      <div class="col-md-6">
+        <div class="card">
+          <div class="chart-container" id="barChart"></div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="card">
+          <div class="chart-container" id="lineChart"></div>
+        </div>
+      </div>
+    </div>
+    <div class="row mt-4">
+      <div class="col-md-6">
+        <div class="card">
+          <div class="chart-container" id="pieChart"></div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="card">
+          <div class="chart-container" id="donutChart"></div>
+        </div>
+      </div>
+    </div>
+  </div>
 
-<div id="charts">
-  <canvas id="productionChart"></canvas> <!-- Tiempo de Producción -->
-  <canvas id="transitChart"></canvas> <!-- Tiempo de Embarque y Tránsito -->
-  <canvas id="arrivalChart"></canvas> <!-- Tiempo Aproximado de Llegada al Puerto -->
-  <canvas id="plantArrivalChart"></canvas> <!-- Tiempo de Llegada a Planta -->
-</div>
-<style>
-#filters {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 20px;
-}
+  <script>
+    let originalData = [];
 
-#charts {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-  gap: 20px;
-}
+    // Función para cargar datos desde la API
+    function fetchData() {
+      fetch('https://megawebsistem.com/admin/api/apiestadisticas')
+        .then(response => response.json())
+        .then(data => {
+          originalData = data;
+          populateFilters(data);
+          updateDashboard(data);
+        });
+    }
 
-canvas {
-  max-width: 100%;
-  height: auto;
-}
+    // Poblar filtros dinámicamente
+    function populateFilters(data) {
+      const projectFilter = document.getElementById('projectFilter');
+      const productFilter = document.getElementById('productFilter');
+      const brandFilter = document.getElementById('brandFilter');
+      const traderFilter = document.getElementById('traderFilter');
 
+      const projects = [...new Set(data.map(item => item.proyecto))];
+      const products = [...new Set(data.map(item => item.producto))];
+      const brands = [...new Set(data.map(item => item.marca))];
+      const traders = [...new Set(data.map(item => item.trader))];
 
-</style>
+      projects.forEach(project => {
+        projectFilter.innerHTML += `<option value="${project}">${project}</option>`;
+      });
+      products.forEach(product => {
+        productFilter.innerHTML += `<option value="${product}">${product}</option>`;
+      });
+      brands.forEach(brand => {
+        brandFilter.innerHTML += `<option value="${brand}">${brand}</option>`;
+      });
+      traders.forEach(trader => {
+        traderFilter.innerHTML += `<option value="${trader}">${trader}</option>`;
+      });
+    }
 
-<script>
-  document.addEventListener("DOMContentLoaded", async () => {
-  const apiUrl = "https://megawebsistem.com/admin/api/apiestadisticas"; // URL de la API
-  let rawData = [];
-  let chartInstances = {}; // Para guardar las instancias de gráficos
+    // Actualizar gráficos
+    function updateDashboard(data) {
+      renderBarChart(data);
+      renderLineChart(data);
+      renderPieChart(data);
+      renderDonutChart(data);
+    }
 
-  // Fetch Data
-  const fetchData = async () => {
-    const response = await fetch(apiUrl);
-    rawData = await response.json();
-    populateFilters(rawData);
-    renderCharts(rawData); // Render inicial con todos los datos
-  };
+    // Gráficos
+    function renderBarChart(data) {
+      const barChart = new ApexCharts(document.querySelector("#barChart"), {
+        chart: { type: 'bar', height: 300 },
+        series: [{ name: 'Cantidad', data: data.map(item => parseFloat(item.cantidad)) }],
+        xaxis: { categories: data.map(item => item.producto) },
+        title: { text: 'Cantidad por Producto', align: 'center' }
+      });
+      barChart.render();
+    }
 
-  // Populate Filters
-  const populateFilters = (data) => {
-    const projectFilter = document.getElementById("projectFilter");
-    const projects = [...new Set(data.map(item => item.proyecto))];
+    function renderLineChart(data) {
+      const lineChart = new ApexCharts(document.querySelector("#lineChart"), {
+        chart: { type: 'line', height: 300 },
+        series: [{ name: 'Total (€)', data: data.map(item => parseFloat(item.total_item)) }],
+        xaxis: { categories: data.map(item => item.fecha_solicitud) },
+        title: { text: 'Evolución de Importes', align: 'center' }
+      });
+      lineChart.render();
+    }
 
-    projects.forEach(proj => {
-      projectFilter.innerHTML += `<option value="${proj}">${proj}</option>`;
-    });
-  };
+    function renderPieChart(data) {
+      const pieChart = new ApexCharts(document.querySelector("#pieChart"), {
+        chart: { type: 'pie', height: 300 },
+        series: data.map(item => parseFloat(item.total_item)),
+        labels: data.map(item => item.producto),
+        title: { text: 'Distribución por Producto', align: 'center' }
+      });
+      pieChart.render();
+    }
 
-  // Render Charts
-  const renderCharts = (data) => {
-    // Tiempo de Producción
-    const productionData = data.map(item => ({
-      label: item.proyecto,
-      value: parseInt(item.tiempo_produccion || 0)
-    }));
-    chartInstances["production"] = new Chart(document.getElementById("productionChart").getContext("2d"), {
-      type: "bar",
-      data: {
-        labels: productionData.map(d => d.label),
-        datasets: [{
-          label: "Tiempo de Producción (días)",
-          data: productionData.map(d => d.value),
-          backgroundColor: "blue"
-        }]
-      }
-    });
+    function renderDonutChart(data) {
+      const donutChart = new ApexCharts(document.querySelector("#donutChart"), {
+        chart: { type: 'donut', height: 300 },
+        series: [
+          data.filter(item => parseFloat(item.transito) > 0).length,
+          data.filter(item => parseFloat(item.transito) <= 0).length
+        ],
+        labels: ['Tránsito Positivo', 'Tránsito Negativo'],
+        title: { text: 'Estado de Tránsito', align: 'center' }
+      });
+      donutChart.render();
+    }
 
-    // Tiempo de Embarque y Tránsito
-    const transitData = data.map(item => ({
-      label: item.proyecto,
-      value: parseInt(item.tiempo_embarque || 0)
-    }));
-    chartInstances["transit"] = new Chart(document.getElementById("transitChart").getContext("2d"), {
-      type: "bar",
-      data: {
-        labels: transitData.map(d => d.label),
-        datasets: [{
-          label: "Tiempo de Tránsito (días)",
-          data: transitData.map(d => d.value),
-          backgroundColor: "orange"
-        }]
-      }
-    });
-
-    // Tiempo Aproximado de Llegada al Puerto
-    const arrivalData = data.map(item => ({
-      label: item.proyecto,
-      value: parseInt(item.tiempo_llegada_puerto || 0)
-    }));
-    chartInstances["arrival"] = new Chart(document.getElementById("arrivalChart").getContext("2d"), {
-      type: "line",
-      data: {
-        labels: arrivalData.map(d => d.label),
-        datasets: [{
-          label: "Tiempo de Llegada al Puerto (días)",
-          data: arrivalData.map(d => d.value),
-          borderColor: "green",
-          borderWidth: 2
-        }]
-      }
-    });
-
-    // Tiempo Total de Llegada a Planta
-    const plantArrivalData = data.map(item => ({
-      label: item.proyecto,
-      value: parseInt(item.tiempo_llegada_planta || 0)
-    }));
-    chartInstances["plantArrival"] = new Chart(document.getElementById("plantArrivalChart").getContext("2d"), {
-      type: "line",
-      data: {
-        labels: plantArrivalData.map(d => d.label),
-        datasets: [{
-          label: "Tiempo Total de Llegada a Planta (días)",
-          data: plantArrivalData.map(d => d.value),
-          borderColor: "red",
-          borderWidth: 2
-        }]
-      }
-    });
-  };
-
-  // Apply Filters
-  document.getElementById("applyFilters").addEventListener("click", () => {
-    const startDate = document.getElementById("startDate").value;
-    const endDate = document.getElementById("endDate").value;
-    const project = document.getElementById("projectFilter").value;
-
-    const filteredData = rawData.filter(item => {
-      const inDateRange =
-        (!startDate || item.fecha_pedido >= startDate) &&
-        (!endDate || item.fecha_pedido <= endDate);
-      const matchesProject = !project || item.proyecto === project;
-      return inDateRange && matchesProject;
-    });
-
-    Object.values(chartInstances).forEach(chart => chart.destroy()); // Limpiar gráficos
-    renderCharts(filteredData);
-  });
-
-  await fetchData();
-});
-
-</script>
+    // Inicializar
+    fetchData();
+  </script>
+</body>
+</html>
