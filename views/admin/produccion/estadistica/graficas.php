@@ -1,100 +1,212 @@
 <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
-
-<div id="filters-container">
-  <h2>Filtros</h2>
-  <!-- Filtros por fechas -->
-  <label>Fecha Solicitud</label>
-  <input type="date" id="startDate" placeholder="Desde">
-  <input type="date" id="endDate" placeholder="Hasta">
-
-  <!-- Filtros por texto -->
-  <label>Proyecto</label>
-  <select id="projectFilter"></select>
+<div id="dashboard">
+  <h1>Dashboard Dinámico con Filtros</h1>
   
-  <label>Trader</label>
-  <select id="traderFilter"></select>
-
-  <label>Marca</label>
-  <select id="brandFilter"></select>
-
-  <label>Producto</label>
-  <select id="productFilter"></select>
-
-  <!-- Filtros numéricos -->
-  <label>Cantidad</label>
-  <input type="number" id="minQuantity" placeholder="Mín">
-  <input type="number" id="maxQuantity" placeholder="Máx">
-
-  <label>Precio</label>
-  <input type="number" id="minPrice" placeholder="Mín">
-  <input type="number" id="maxPrice" placeholder="Máx">
-
-  <!-- Botón de aplicar -->
-  <button id="applyFilters">Aplicar Filtros</button>
+  <!-- Filtros -->
+  <div id="filters">
+    <label>Fecha Solicitud</label>
+    <input type="date" id="startDate" placeholder="Desde">
+    <input type="date" id="endDate" placeholder="Hasta">
+    
+    <label>Proyecto</label>
+    <select id="projectFilter"></select>
+    
+    <label>Trader</label>
+    <select id="traderFilter"></select>
+    
+    <label>Marca</label>
+    <select id="brandFilter"></select>
+    
+    <label>Producto</label>
+    <select id="productFilter"></select>
+    
+    <button id="applyFilters">Aplicar Filtros</button>
+  </div>
+  
+  <!-- Gráficos -->
+  <div id="charts">
+    <canvas id="chart1"></canvas> <!-- Gráfico de Fecha -->
+    <canvas id="chart2"></canvas> <!-- Gráfico de Proyecto -->
+    <canvas id="chart3"></canvas> <!-- Gráfico de Marca -->
+    <canvas id="chart4"></canvas> <!-- Gráfico de Producto -->
+  </div>
+  
+  <!-- Tabla -->
+  <div id="dataTable">
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Proyecto</th>
+          <th>Marca</th>
+          <th>Producto</th>
+          <th>Cantidad</th>
+          <th>Precio</th>
+          <th>Total</th>
+        </tr>
+      </thead>
+      <tbody id="tableBody"></tbody>
+    </table>
+  </div>
 </div>
-
 <style>
-  #dashboard {
+
+#dashboard {
   font-family: Arial, sans-serif;
   padding: 20px;
 }
+
 #filters {
   display: flex;
-  gap: 10px;
+  flex-wrap: wrap;
+  gap: 15px;
   margin-bottom: 20px;
 }
+
 #charts {
-  display: flex;
-  justify-content: space-around;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 20px;
   margin-bottom: 20px;
 }
+
 #dataTable {
-  max-height: 300px;
-  overflow-y: auto;
+  overflow-x: auto;
+  margin-top: 20px;
 }
-table {
-  width: 100%;
-  border-collapse: collapse;
-}
-table th, table td {
-  border: 1px solid #ddd;
-  padding: 8px;
-}
-table th {
-  background-color: #f4f4f4;
+
+canvas {
+  max-width: 100%;
+  height: auto;
 }
 
 </style>
+
+
 <script>
+
 document.addEventListener("DOMContentLoaded", async () => {
   const apiUrl = "https://megawebsistem.com/admin/api/apiestadisticas";
   let rawData = [];
+  let chartInstances = {}; // Para guardar instancias de gráficos
 
-  // Fetch Data
+  // Fetch data
   const fetchData = async () => {
     const response = await fetch(apiUrl);
     rawData = await response.json();
     populateFilters(rawData);
+    renderCharts(rawData); // Render inicial con todos los datos
+    renderTable(rawData);
   };
 
-  // Populate Filters
+  // Populate filters
   const populateFilters = (data) => {
     const projectFilter = document.getElementById("projectFilter");
     const traderFilter = document.getElementById("traderFilter");
     const brandFilter = document.getElementById("brandFilter");
     const productFilter = document.getElementById("productFilter");
 
-    // Unique values
-    const projects = [...new Set(data.map(item => item.proyecto))];
-    const traders = [...new Set(data.map(item => item.trader))];
-    const brands = [...new Set(data.map(item => item.marca))];
-    const products = [...new Set(data.map(item => item.producto))];
+    const unique = (key) => [...new Set(data.map(item => item[key]))];
 
-    // Populate dropdowns
-    projects.forEach(proj => projectFilter.innerHTML += `<option value="${proj}">${proj}</option>`);
-    traders.forEach(trader => traderFilter.innerHTML += `<option value="${trader}">${trader}</option>`);
-    brands.forEach(brand => brandFilter.innerHTML += `<option value="${brand}">${brand}</option>`);
-    products.forEach(product => productFilter.innerHTML += `<option value="${product}">${product}</option>`);
+    unique("proyecto").forEach(val => projectFilter.innerHTML += `<option value="${val}">${val}</option>`);
+    unique("trader").forEach(val => traderFilter.innerHTML += `<option value="${val}">${val}</option>`);
+    unique("marca").forEach(val => brandFilter.innerHTML += `<option value="${val}">${val}</option>`);
+    unique("producto").forEach(val => productFilter.innerHTML += `<option value="${val}">${val}</option>`);
+  };
+
+  // Render charts
+  const renderCharts = (data) => {
+    const ctx1 = document.getElementById("chart1").getContext("2d");
+    const ctx2 = document.getElementById("chart2").getContext("2d");
+    const ctx3 = document.getElementById("chart3").getContext("2d");
+    const ctx4 = document.getElementById("chart4").getContext("2d");
+
+    // Fecha Solicitud - Línea
+    chartInstances["fecha"] = new Chart(ctx1, {
+      type: "line",
+      data: {
+        labels: data.map(item => item.fecha_solicitud),
+        datasets: [{
+          label: "Cantidad",
+          data: data.map(item => parseInt(item.cantidad)),
+          borderColor: "blue",
+          borderWidth: 2
+        }]
+      },
+      options: { responsive: true }
+    });
+
+    // Proyecto - Barras
+    const proyectos = data.reduce((acc, curr) => {
+      acc[curr.proyecto] = (acc[curr.proyecto] || 0) + parseInt(curr.cantidad);
+      return acc;
+    }, {});
+    chartInstances["proyecto"] = new Chart(ctx2, {
+      type: "bar",
+      data: {
+        labels: Object.keys(proyectos),
+        datasets: [{
+          label: "Cantidad",
+          data: Object.values(proyectos),
+          backgroundColor: "green"
+        }]
+      },
+      options: { responsive: true }
+    });
+
+    // Marca - Pastel
+    const marcas = data.reduce((acc, curr) => {
+      acc[curr.marca] = (acc[curr.marca] || 0) + parseInt(curr.cantidad);
+      return acc;
+    }, {});
+    chartInstances["marca"] = new Chart(ctx3, {
+      type: "pie",
+      data: {
+        labels: Object.keys(marcas),
+        datasets: [{
+          label: "Cantidad",
+          data: Object.values(marcas),
+          backgroundColor: ["red", "yellow", "blue", "orange"]
+        }]
+      },
+      options: { responsive: true }
+    });
+
+    // Producto - Barras horizontales
+    const productos = data.reduce((acc, curr) => {
+      acc[curr.producto] = (acc[curr.producto] || 0) + parseFloat(curr.total_item);
+      return acc;
+    }, {});
+    chartInstances["producto"] = new Chart(ctx4, {
+      type: "horizontalBar",
+      data: {
+        labels: Object.keys(productos),
+        datasets: [{
+          label: "Total",
+          data: Object.values(productos),
+          backgroundColor: "purple"
+        }]
+      },
+      options: { responsive: true }
+    });
+  };
+
+  // Render table
+  const renderTable = (data) => {
+    const tableBody = document.getElementById("tableBody");
+    tableBody.innerHTML = "";
+    data.forEach(item => {
+      tableBody.innerHTML += `
+        <tr>
+          <td>${item.id}</td>
+          <td>${item.proyecto}</td>
+          <td>${item.marca}</td>
+          <td>${item.producto}</td>
+          <td>${item.cantidad}</td>
+          <td>${item.precio}</td>
+          <td>${item.total_item}</td>
+        </tr>`;
+    });
   };
 
   // Apply Filters
@@ -105,10 +217,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     const trader = document.getElementById("traderFilter").value;
     const brand = document.getElementById("brandFilter").value;
     const product = document.getElementById("productFilter").value;
-    const minQuantity = parseInt(document.getElementById("minQuantity").value) || 0;
-    const maxQuantity = parseInt(document.getElementById("maxQuantity").value) || Infinity;
-    const minPrice = parseFloat(document.getElementById("minPrice").value) || 0;
-    const maxPrice = parseFloat(document.getElementById("maxPrice").value) || Infinity;
 
     const filteredData = rawData.filter(item => {
       const inDateRange = (!startDate || item.fecha_solicitud >= startDate) &&
@@ -117,19 +225,15 @@ document.addEventListener("DOMContentLoaded", async () => {
       const matchesTrader = !trader || item.trader === trader;
       const matchesBrand = !brand || item.marca === brand;
       const matchesProduct = !product || item.producto === product;
-      const inQuantityRange = item.cantidad >= minQuantity && item.cantidad <= maxQuantity;
-      const inPriceRange = item.precio >= minPrice && item.precio <= maxPrice;
-
-      return inDateRange && matchesProject && matchesTrader &&
-             matchesBrand && matchesProduct && inQuantityRange && inPriceRange;
+      return inDateRange && matchesProject && matchesTrader && matchesBrand && matchesProduct;
     });
 
-    // Render charts or table with filteredData
-    console.log("Filtered Data: ", filteredData);
+    Object.values(chartInstances).forEach(chart => chart.destroy()); // Clear old charts
+    renderCharts(filteredData);
+    renderTable(filteredData);
   });
 
   await fetchData();
 });
-
 
 </script>
