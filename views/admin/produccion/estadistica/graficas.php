@@ -56,7 +56,7 @@
   <script>
     // Datos para el gráfico
     const pedidos = [
-      { id: "2024", transito: -26 },
+      { id: "2025", transito: -26 },
       { id: "2023", transito: -50 }
     ];
 
