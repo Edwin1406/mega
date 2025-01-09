@@ -1,173 +1,186 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Escáner de Código de Barras con Tabla</title>
-  <script src="https://cdn.jsdelivr.net/npm/quagga/dist/quagga.min.js"></script>
+  <title>Dashboard - Estadísticas</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      background-color: #f8f9fa;
-      color: #333;
-      text-align: center;
-    }
-    h1 {
-      color: #007bff;
-    }
-    #scanner {
-      position: relative;
-      width: 90%;
-      max-width: 600px;
-      height: 350px;
-      margin: 20px auto;
-      border: 2px solid #ccc;
+    .card {
       border-radius: 10px;
-      overflow: hidden;
-      background-color: #000;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
-    #status {
+    .chart-container {
+      padding: 15px;
+    }
+    h1, h3 {
       font-weight: bold;
-      margin: 10px 0;
-      color: #28a745;
-    }
-    table {
-      width: 90%;
-      margin: 20px auto;
-      border-collapse: collapse;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    }
-    table, th, td {
-      border: 1px solid #ddd;
-    }
-    th, td {
-      padding: 10px;
-      text-align: center;
-    }
-    th {
-      background-color: #007bff;
-      color: white;
+      color: #333;
     }
   </style>
 </head>
 <body>
-  <h1>Escáner de Código de Barras</h1>
-  <div id="scanner"></div>
-  <p id="status">Escaneando...</p>
+  <div class="container my-4">
+    <!-- Título -->
+    <h1 class="text-center mb-4">Dashboard - Estadísticas</h1>
 
-  <!-- Tabla para mostrar códigos -->
-  <table id="tabla-codigos">
-    <thead>
-      <tr>
-        <th>ID</th>
-        <th>Tipo Papel</th>
-        <th>Gramaje</th>
-        <th>Ancho</th>
-        <th>Cantidad</th>
-      </tr>
-    </thead>
-    <tbody></tbody>
-  </table>
+    <!-- Filtros -->
+    <div class="row mb-4">
+      <div class="col-md-2">
+        <label for="projectFilter" class="form-label">Proyecto</label>
+        <select id="projectFilter" class="form-select">
+          <option value="">Todos</option>
+        </select>
+      </div>
+      <div class="col-md-2">
+        <label for="productFilter" class="form-label">Producto</label>
+        <select id="productFilter" class="form-select">
+          <option value="">Todos</option>
+        </select>
+      </div>
+      <div class="col-md-2">
+        <label for="brandFilter" class="form-label">Marca</label>
+        <select id="brandFilter" class="form-select">
+          <option value="">Todas</option>
+        </select>
+      </div>
+      <div class="col-md-2">
+        <label for="traderFilter" class="form-label">Trader</label>
+        <select id="traderFilter" class="form-select">
+          <option value="">Todos</option>
+        </select>
+      </div>
+      <div class="col-md-4">
+        <label for="dateFilter" class="form-label">Rango de Fechas</label>
+        <div class="d-flex">
+          <input type="date" id="startDate" class="form-control me-2">
+          <input type="date" id="endDate" class="form-control">
+        </div>
+      </div>
+    </div>
+
+    <!-- Gráficos -->
+    <div class="row">
+      <div class="col-md-6">
+        <div class="card">
+          <div class="chart-container" id="barChart"></div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="card">
+          <div class="chart-container" id="lineChart"></div>
+        </div>
+      </div>
+    </div>
+    <div class="row mt-4">
+      <div class="col-md-6">
+        <div class="card">
+          <div class="chart-container" id="pieChart"></div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="card">
+          <div class="chart-container" id="donutChart"></div>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <script>
-    const apiUrl = "https://megawebsistem.com/admin/api/allbobinas";
-    let codigos = {};
-    let productos = [];
-    let ultimaDeteccion = {}; // Almacena la última detección de códigos
-    const bloqueoTiempo = 2000; // Tiempo de espera en milisegundos
+    let originalData = [];
 
-    // Cargar datos desde la API
-    async function cargarDatos() {
-      try {
-        const response = await fetch(apiUrl);
-        if (!response.ok) throw new Error("Error al cargar la API");
-        productos = await response.json();
-        console.log("Datos cargados:", productos);
-      } catch (error) {
-        console.error(error);
-      }
+    // Función para cargar datos desde la API
+    function fetchData() {
+      fetch('https://megawebsistem.com/admin/api/apiestadisticas')
+        .then(response => response.json())
+        .then(data => {
+          originalData = data;
+          populateFilters(data);
+          updateDashboard(data);
+        });
     }
 
-    // Inicializar el escáner
-    function iniciarEscaner() {
-      Quagga.init({
-        inputStream: {
-          type: "LiveStream",
-          target: document.querySelector("#scanner"),
-          constraints: {
-            facingMode: "environment",
-            width: 400,
-            height: 250
-          }
-        },
-        decoder: { readers: ["code_128_reader"] }
-      }, function(err) {
-        if (err) {
-          console.error(err);
-          return;
-        }
-        Quagga.start();
+    // Poblar filtros dinámicamente
+    function populateFilters(data) {
+      const projectFilter = document.getElementById('projectFilter');
+      const productFilter = document.getElementById('productFilter');
+      const brandFilter = document.getElementById('brandFilter');
+      const traderFilter = document.getElementById('traderFilter');
+
+      const projects = [...new Set(data.map(item => item.proyecto))];
+      const products = [...new Set(data.map(item => item.producto))];
+      const brands = [...new Set(data.map(item => item.marca))];
+      const traders = [...new Set(data.map(item => item.trader))];
+
+      projects.forEach(project => {
+        projectFilter.innerHTML += `<option value="${project}">${project}</option>`;
       });
-
-      Quagga.onDetected(data => {
-        const codigoEscaneado = data.codeResult.code;
-        const ahora = new Date().getTime();
-
-        // Verificar si el código fue detectado recientemente
-        if (ultimaDeteccion[codigoEscaneado] && ahora - ultimaDeteccion[codigoEscaneado] < bloqueoTiempo) {
-          return; // Ignorar detección duplicada
-        }
-
-        ultimaDeteccion[codigoEscaneado] = ahora; // Actualizar tiempo de detección
-        console.log("Código detectado:", codigoEscaneado);
-        manejarProducto(codigoEscaneado);
+      products.forEach(product => {
+        productFilter.innerHTML += `<option value="${product}">${product}</option>`;
+      });
+      brands.forEach(brand => {
+        brandFilter.innerHTML += `<option value="${brand}">${brand}</option>`;
+      });
+      traders.forEach(trader => {
+        traderFilter.innerHTML += `<option value="${trader}">${trader}</option>`;
       });
     }
 
-    // Manejar producto encontrado o no encontrado
-    function manejarProducto(codigo) {
-      const producto = productos.find(p => p.qr === codigo);
-      const status = document.getElementById("status");
-      const tabla = document.querySelector("#tabla-codigos tbody");
-
-      if (producto) {
-        if (codigos[codigo]) {
-          codigos[codigo].cantidad += 1;
-        } else {
-          codigos[codigo] = {
-            id: producto.id,
-            tipo_papel: producto.tipo_papel,
-            gramaje: producto.gramaje,
-            ancho: producto.ancho,
-            cantidad: 1
-          };
-        }
-        status.textContent = `Producto ${codigo} actualizado.`;
-        status.style.color = "#28a745";
-      } else {
-        status.textContent = `Código ${codigo} no encontrado en la base de datos.`;
-        status.style.color = "#dc3545";
-        return;
-      }
-
-      // Actualizar la tabla
-      tabla.innerHTML = "";
-      Object.keys(codigos).forEach(key => {
-        const row = `<tr>
-                      <td>${codigos[key].id}</td>
-                      <td>${codigos[key].tipo_papel}</td>
-                      <td>${codigos[key].gramaje}</td>
-                      <td>${codigos[key].ancho}</td>
-                      <td>${codigos[key].cantidad}</td>
-                    </tr>`;
-        tabla.insertAdjacentHTML("beforeend", row);
-      });
+    // Actualizar gráficos
+    function updateDashboard(data) {
+      renderBarChart(data);
+      renderLineChart(data);
+      renderPieChart(data);
+      renderDonutChart(data);
     }
 
-    // Cargar datos y luego iniciar escáner
-    cargarDatos().then(() => iniciarEscaner());
+    // Gráficos
+    function renderBarChart(data) {
+      const barChart = new ApexCharts(document.querySelector("#barChart"), {
+        chart: { type: 'bar', height: 300 },
+        series: [{ name: 'Cantidad', data: data.map(item => parseFloat(item.cantidad)) }],
+        xaxis: { categories: data.map(item => item.producto) },
+        title: { text: 'Cantidad por Producto', align: 'center' }
+      });
+      barChart.render();
+    }
+
+    function renderLineChart(data) {
+      const lineChart = new ApexCharts(document.querySelector("#lineChart"), {
+        chart: { type: 'line', height: 300 },
+        series: [{ name: 'Total (€)', data: data.map(item => parseFloat(item.total_item)) }],
+        xaxis: { categories: data.map(item => item.fecha_solicitud) },
+        title: { text: 'Evolución de Importes', align: 'center' }
+      });
+      lineChart.render();
+    }
+
+    function renderPieChart(data) {
+      const pieChart = new ApexCharts(document.querySelector("#pieChart"), {
+        chart: { type: 'pie', height: 300 },
+        series: data.map(item => parseFloat(item.total_item)),
+        labels: data.map(item => item.producto),
+        title: { text: 'Distribución por Producto', align: 'center' }
+      });
+      pieChart.render();
+    }
+
+    function renderDonutChart(data) {
+      const donutChart = new ApexCharts(document.querySelector("#donutChart"), {
+        chart: { type: 'donut', height: 300 },
+        series: [
+          data.filter(item => parseFloat(item.transito) > 0).length,
+          data.filter(item => parseFloat(item.transito) <= 0).length
+        ],
+        labels: ['Tránsito Positivo', 'Tránsito Negativo'],
+        title: { text: 'Estado de Tránsito', align: 'center' }
+      });
+      donutChart.render();
+    }
+
+    // Inicializar
+    fetchData();
   </script>
 </body>
 </html>

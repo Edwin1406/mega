@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboard - Materia Prima</title>
+  <title>Dashboard de Procesos</title>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
   <style>
     body {
@@ -57,242 +58,224 @@
       background-color: #0056b3;
     }
 
-    .charts-container {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 20px;
+    .result-container {
       margin-top: 20px;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      width: 100%;
+      max-width: 800px;
     }
 
-    .chart {
+    .total-productos, .total-general, .transito-positivo, .transito-negativo {
       background: #fff;
       padding: 20px;
       border-radius: 10px;
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-      width: 100%;
-      max-width: 500px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      width: 200px;
+    }
+
+    .total-productos img, .total-general img, .transito-positivo img, .transito-negativo img {
+      width: 50px;
+      height: auto;
+      margin-bottom: 10px;
+    }
+
+    .total-productos h2, .total-general h2, .transito-positivo h2, .transito-negativo h2 {
+      margin: 0;
+      font-size: 18px;
+      color: #555;
+    }
+
+    .total-productos p, .total-general p, .transito-positivo p, .transito-negativo p {
+      margin: 5px 0 0;
+      font-size: 32px;
+      font-weight: bold;
+      color: #007bff;
+    }
+
+    .chart-container {
+      margin-top: 40px;
+      width: 90%;
+      max-width: 800px;
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .pie-chart-container {
+      margin-top: 20px;
+      width: 90%;
+      max-width: 800px;
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      text-align: center;
     }
   </style>
 </head>
 <body>
-  <h1>Dashboard - Materia Prima</h1>
+  <h1>Dashboard de procesos</h1>
   <div class="filter-container">
-    <label for="startDate">Fecha de inicio:</label>
-    <input type="date" id="startDate">
+    <label for="fechaInicio">Fecha de inicio:</label>
+    <input type="date" id="fechaInicio">
     
-    <label for="endDate">Fecha de fin:</label>
-    <input type="date" id="endDate">
+    <label for="fechaFin">Fecha de fin:</label>
+    <input type="date" id="fechaFin">
 
-    <label for="weightFilter">Peso mínimo:</label>
-    <input type="number" id="weightFilter" min="0" step="1">
+    <button onclick="filterData()">Filtrar</button>
+  </div>
 
-<button onclick="filterData()">Filtrar</button>
-</div>
+  <div id="results" class="result-container">
+    <div class="total-productos">
+      <img src="https://img.icons8.com/color/96/box--v1.png" alt="Icono de productos">
+      <h2>Total Productos</h2>
+      <p id="totalProductos">0</p>
+    </div>
+    <div class="total-general">
+      <img src="https://img.icons8.com/color/96/accounting.png" alt="Icono de total general">
+      <h2>Total General</h2>
+      <p id="totalGeneral">0.00 $</p>
+    </div>
+    <div class="transito-positivo">
+      <img src="https://img.icons8.com/color/96/ok.png" alt="Icono de tránsito positivo">
+      <h2>Estado de Tránsito</h2>
+      <p>Positivo: <span id="transitoPositivo">0</span></p>
+    </div>
+    <div class="transito-negativo">
+      <img src="https://img.icons8.com/color/96/cancel.png" alt="Icono de tránsito negativo">
+      <h2>Estado de Tránsito</h2>
+      <p>Negativo: <span id="transitoNegativo">0</span></p>
+    </div>
+  </div>
 
-<div class="charts-container">
-<div id="barChart" class="chart"></div>
-<div id="lineChart" class="chart"></div>
-<div id="pieChart" class="chart"></div>
-<div id="totalKgChart" class="chart"></div>
-<div id="zeroWeightChart" class="chart"></div>
-<div id="totalCorrugadorWeightChart" class="chart"></div>
-<div id="totalLaminasWeightChart" class="chart"></div>
-</div>
+  <div class="chart-container">
+    <h2>Cantidad por Producto</h2>
+    <div id="chart"></div>
+  </div>
 
-<script>
-// URL de la API
-const apiUrl = "https://megawebsistem.com/admin/api/ApiMateriaPrima";
+  <div class="pie-chart-container">
+    <h2>Estado de Tránsito con Nombre del Producto</h2>
+    <div id="pieChart"></div>
+  </div>
 
-// Función para obtener datos de la API
-async function fetchData() {
-  try {
-    const response = await fetch(apiUrl);
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    console.error("Error al obtener los datos:", error);
-    return [];
-  }
-}
+  <script>
+    function filterData() {
+      const fechaInicio = document.getElementById('fechaInicio').value;
+      const fechaFin = document.getElementById('fechaFin').value;
 
-// Filtrar datos por fecha y peso
-async function filterData() {
-  const startDate = document.getElementById("startDate").value;
-  const endDate = document.getElementById("endDate").value;
-  const weightFilter = document.getElementById("weightFilter").value;
-
-  if (!startDate || !endDate) {
-    alert("Selecciona ambas fechas para filtrar.");
-    return;
-  }
-
-  // Obtener datos de la API
-  const allData = await fetchData();
-
-  // Filtrar según las fechas y peso
-  const filteredData = allData.filter(item => {
-    const itemDate = new Date(item.created_at);
-    const itemWeight = parseInt(item.peso, 10);
-    return (
-      itemDate >= new Date(startDate) &&
-      itemDate <= new Date(endDate) &&
-      (!weightFilter || itemWeight >= weightFilter)
-    );
-  });
-
-  // Procesar datos para los gráficos
-  updateCharts(filteredData);
-}
-
-// Crear y actualizar los gráficos
-let barChart, lineChart, pieChart, totalKgChart, zeroWeightChart,totalLaminasWeightChart , totalCorrugadorWeightChart;
-
-function updateCharts(data) {
-  const labels = data.map(item => item.nombre_rollo);
-  const values = data.map(item => parseInt(item.peso));
-  const totalKg = values.reduce((sum, val) => sum + val, 0);
-
-// Peso total de los registros del tipo "corrugador"
-const corrugadorData = data.filter(item => item.tipo_maquina === "corrugador");
-const totalCorrugadorWeight = corrugadorData.reduce((sum, item) => {
-  const peso = parseInt(item.peso, 10) || 0; // Asegúrate de manejar valores no válidos
-  return sum + peso;
-}, 0);
-
-
-
-// peso total de los registros del tipo "microcorrugador"
-const laminasData = data.filter(item => item.tipo_maquina === "microcorrugador");
-const totalLaminasWeight = laminasData.reduce((sum, item) => { 
-  const peso=parseInt(item.peso, 10) || 0; 
-  return sum + peso;
-}, 0);
-
-
-// grafico de peso total para microcorrugador
-const laminasWeightOptions = {
-  series: [totalLaminasWeight],
-  chart: { type: "radialBar", height: 350 },
-  plotOptions: {
-    radialBar: {
-      dataLabels: {
-        name: { show: true, fontSize: "16px", text: "Peso Total Microcorrugador" },
-        value: { fontSize: "24px", formatter: () => `${totalLaminasWeight} kg` }
+      if (!fechaInicio || !fechaFin) {
+        alert('Por favor, selecciona ambas fechas.');
+        return;
       }
+
+      axios.get('https://megawebsistem.com/admin/api/apiestadisticas')
+        .then(response => {
+          const data = response.data;
+          const filteredData = data.filter(item => {
+            const fechaSolicitud = new Date(item.fecha_solicitud);
+            return fechaSolicitud >= new Date(fechaInicio) && fechaSolicitud <= new Date(fechaFin);
+          });
+
+          updateTotals(filteredData);
+          updateChart(filteredData);
+          updateTransitStatus(filteredData);
+          updatePieChart(filteredData);
+        })
+        .catch(error => {
+          console.error('Error al consumir la API:', error);
+        });
     }
-  },
 
-  labels: ["Microcorrugador"]
-};
-if (totalLaminasWeightChart) totalLaminasWeightChart.destroy();
-totalLaminasWeightChart = new ApexCharts(document.querySelector("#totalLaminasWeightChart"), laminasWeightOptions);
-totalLaminasWeightChart.render();
+    function updateTotals(data) {
+      const totalProductos = data.length;
+      const totalGeneral = data.reduce((sum, item) => sum + parseFloat(item.total_item || 0), 0);
 
-
-
-
-
-  const zeroWeightCount = values.filter(val => val === 0).length;
-  const nonZeroWeightCount = values.length - zeroWeightCount;
-
-
-  // grafico de peso total para corrugador
-  const corrugadorWeightOptions = {
-  series: [totalCorrugadorWeight],
-  chart: { type: "radialBar", height: 350 },
-  plotOptions: {
-    radialBar: {
-      dataLabels: {
-        name: { show: true, fontSize: "16px", text: "Peso Total Corrugador" },
-        value: { fontSize: "24px", formatter: () => `${totalCorrugadorWeight} kg` }
-      }
+      document.getElementById('totalProductos').textContent = totalProductos;
+      document.getElementById('totalGeneral').textContent = totalGeneral.toFixed(2) + ' $';
     }
-  },
-  labels: ["Corrugador"]
-};
 
-if (totalCorrugadorWeightChart) totalCorrugadorWeightChart.destroy();
-totalCorrugadorWeightChart = new ApexCharts(document.querySelector("#totalCorrugadorWeightChart"), corrugadorWeightOptions);
-totalCorrugadorWeightChart.render();
+    function updateChart(data) {
+      const productQuantities = {};
 
-
-
-
-
-
-
-  // Gráfico de barras
-  const barOptions = {
-    series: [{ name: "Peso de los rollos", data: values }],
-    chart: { type: "bar", height: 350 },
-    xaxis: { categories: labels, title: { text: "Nombre de los rollos" } },
-    yaxis: { title: { text: "Peso (kg)" } }
-  };
-
-  if (barChart) barChart.destroy();
-  barChart = new ApexCharts(document.querySelector("#barChart"), barOptions);
-  barChart.render();
-
-
-
-  // Gráfico de líneas
-  const lineOptions = {
-    series: [{ name: "Peso de los rollos", data: values }],
-    chart: { type: "line", height: 350 },
-    xaxis: { categories: labels, title: { text: "Nombre de los rollos" } },
-    yaxis: { title: { text: "Peso (kg)" } }
-  };
-
-  if (lineChart) lineChart.destroy();
-  lineChart = new ApexCharts(document.querySelector("#lineChart"), lineOptions);
-  lineChart.render();
-
-  // Gráfico de pastel
-  const pieOptions = {
-    series: values,
-    chart: { type: "pie", height: 350 },
-    labels: labels
-  };
-
-  if (pieChart) pieChart.destroy();
-  pieChart = new ApexCharts(document.querySelector("#pieChart"), pieOptions);
-  pieChart.render();
-
-  // Gráfico de total de kilogramos
-  const totalKgOptions = {
-    series: [totalKg],
-    chart: { type: "radialBar", height: 350 },
-    plotOptions: {
-      radialBar: {
-        dataLabels: {
-          name: { show: true, fontSize: "16px" },
-          value: { fontSize: "24px", formatter: () => `${totalKg} kg` }
+      data.forEach(item => {
+        if (productQuantities[item.producto]) {
+          productQuantities[item.producto] += parseFloat(item.cantidad || 0);
+        } else {
+          productQuantities[item.producto] = parseFloat(item.cantidad || 0);
         }
-      }
-    },
-    labels: ["Total Kg"]
-  };
+      });
 
-  if (totalKgChart) totalKgChart.destroy();
-  totalKgChart = new ApexCharts(document.querySelector("#totalKgChart"), totalKgOptions);
-  totalKgChart.render();
+      const categories = Object.keys(productQuantities);
+      const values = Object.values(productQuantities);
 
-  // Gráfico de productos con peso cero
-  const zeroWeightOptions = {
-    series: [zeroWeightCount, nonZeroWeightCount],
-    chart: { type: "donut", height: 350 },
-    labels: ["Peso cero", "Peso no cero"],
-    colors: ["#ff4d4d", "#4caf50"]
-  };
+      const options = {
+        chart: {
+          type: 'bar',
+          height: 350
+        },
+        series: [{
+          name: 'Cantidad',
+          data: values
+        }],
+        xaxis: {
+          categories: categories
+        },
+        title: {
+          text: 'Cantidad por Producto',
+          align: 'center'
+        }
+      };
 
-  if (zeroWeightChart) zeroWeightChart.destroy();
-  zeroWeightChart = new ApexCharts(document.querySelector("#zeroWeightChart"), zeroWeightOptions);
-  zeroWeightChart.render();
-}
+      const chart = new ApexCharts(document.querySelector("#chart"), options);
+      chart.render();
+    }
 
-// Inicializar gráficos con todos los datos
-fetchData().then(updateCharts);
-</script>
+    function updateTransitStatus(data) {
+      const positivo = data.filter(item => parseFloat(item.transito) > 0).length;
+      const negativo = data.filter(item => parseFloat(item.transito) <= 0).length;
+
+      document.getElementById('transitoPositivo').textContent = positivo;
+      document.getElementById('transitoNegativo').textContent = negativo;
+    }
+
+    function updatePieChart(data) {
+      const transitData = {};
+
+      data.forEach(item => {
+        const key = `${item.producto} (${item.transito})`;
+        if (transitData[key]) {
+          transitData[key] += 1;
+        } else {
+          transitData[key] = 1;
+        }
+      });
+
+      const categories = Object.keys(transitData);
+      const values = Object.values(transitData);
+
+      const options = {
+        chart: {
+          type: 'pie',
+          height: 350
+        },
+        series: values,
+        labels: categories,
+        title: {
+          text: 'Estado de Tránsito con Nombre del Producto',
+          align: 'center'
+        }
+      };
+
+      const pieChart = new ApexCharts(document.querySelector("#pieChart"), options);
+      pieChart.render();
+    }
+  </script>
 </body>
 </html>
