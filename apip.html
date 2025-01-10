@@ -207,7 +207,7 @@
       <p id="totalGeneral">0.00 $</p>
     </div>
     <div class="total-pedidos-urgentes" onclick="showUrgentOrders()">
-      <img src="https://img.icons8.com/external-flatart-icons-lineal-color-flatarticons/64/000000/external-delivery-logistics-flatart-icons-lineal-color-flatarticons.png" alt="Icono de pedidos urgentes">
+      <img src="https://img.icons8.com/color/96/accounting.png" alt="Icono de pedidos urgentes">
       <h2>Total Pedido Urgente</h2>
       <p id="totalPedidosUrgentes">0</p>
     </div>
@@ -224,9 +224,17 @@
         <thead>
           <tr>
             <th>ID</th>
-            <th>Producto</th>
+            <th>Trader</th>
             <th>Marca</th>
+            <th>Producto</th>
+            <th>Ancho</th>
+            <th>GMS</th>
             <th>Cantidad</th>
+            <th>ETS</th>
+            <th>ETA</th>
+            <th>Transito</th>
+            <th>Total Item</th>
+            <th>Fecha en Planta</th>
             <th>Observaciones</th>
           </tr>
         </thead>
@@ -327,10 +335,19 @@
 
         row.innerHTML = `
           <td>${order.id}</td>
-          <td>${order.producto}</td>
+          <td>${order.trader}</td>
           <td>${order.marca}</td>
+          <td>${order.producto}</td>
+          <td>${order.ancho}</td>
+          <td>${order.gms}</td>
           <td>${order.cantidad}</td>
+          <td>${order.ets}</td>
+          <td>${order.eta}</td>
+          <td>${order.transito}</td>
+          <td>${order.total_item}</td>
+          <td>${order.fecha_en_planta}</td>
           <td>${order.observaciones || 'N/A'}</td>
+
         `;
 
         tableBody.appendChild(row);

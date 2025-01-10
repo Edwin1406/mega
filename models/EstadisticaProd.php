@@ -12,6 +12,7 @@ class EstadisticaProd extends ActiveRecord {
         'fecha_solicitud',
         'trader',
         'marca',
+        'linea',
         'producto',
         'gms',
         'ancho',
@@ -34,6 +35,7 @@ class EstadisticaProd extends ActiveRecord {
     public $fecha_solicitud;
     public $trader;
     public $marca;
+    public $linea;
     public $producto;
     public $gms;
     public $ancho;
@@ -61,6 +63,7 @@ class EstadisticaProd extends ActiveRecord {
         $this->fecha_solicitud = $args['fecha_solicitud'] ?? '';
         $this->trader = $args['trader'] ?? '';
         $this->marca = $args['marca'] ?? '';
+        $this->linea = $args['linea'] ?? '';
         $this->producto = $args['producto'] ?? '';
         $this->gms = $args['gms'] ?? '';
         $this->ancho = $args['ancho'] ?? '';
