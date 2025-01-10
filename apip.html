@@ -64,10 +64,10 @@
       justify-content: space-around;
       align-items: center;
       width: 100%;
-      max-width: 800px;
+      max-width: 70%;
     }
 
-    .total-productos, .total-general, .total-pedidos-urgentes {
+    .total-productos, .total-general, .total-pedidos-urgentes, .corrugador, .micro-corrugador {
       background: #fff;
       padding: 20px;
       border-radius: 10px;
@@ -79,19 +79,19 @@
       width: 200px;
     }
 
-    .total-productos img, .total-general img, .total-pedidos-urgentes img {
+    .total-productos img, .total-general img, .total-pedidos-urgentes img, .corrugador img, .micro-corrugador img {
       width: 50px;
       height: auto;
       margin-bottom: 10px;
     }
 
-    .total-productos h2, .total-general h2, .total-pedidos-urgentes h2 {
+    .total-productos h2, .total-general h2, .total-pedidos-urgentes h2, .corrugador h2, .micro-corrugador h2 {
       margin: 0;
       font-size: 18px;
       color: #555;
     }
 
-    .total-productos p, .total-general p, .total-pedidos-urgentes p {
+    .total-productos p, .total-general p, .total-pedidos-urgentes p, .corrugador p, .micro-corrugador p {
       margin: 5px 0 0;
       font-size: 32px;
       font-weight: bold;
@@ -119,7 +119,7 @@
       border: 1px solid #888;
       border-radius: 10px;
       width: 80%;
-      max-width: 600px;
+      /* max-width: 600px; */
     }
 
     .modal-header {
@@ -154,6 +154,36 @@
       background-color: #007bff;
       color: white;
     }
+
+    .table-container {
+      margin: 20px;
+      width: 90%;
+      overflow-x: auto;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    table th, table td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: left;
+    }
+
+    table th {
+      background-color: #007bff;
+      color: white;
+    }
+
+
+
+
   </style>
 </head>
 <body>
@@ -167,9 +197,7 @@
 
     <label for="marca">Marca:</label>
     <select id="marca">
-      <option value="">Todas</option>
-      <option value="mondi">Mondi</option>
-      <option value="europcell">Europcell</option>
+      <option value="">Todos</option>
     </select>
 
     <label for="trader">Trader:</label>
@@ -207,40 +235,137 @@
       <p id="totalGeneral">0.00 $</p>
     </div>
     <div class="total-pedidos-urgentes" onclick="showUrgentOrders()">
-      <img src="https://img.icons8.com/color/96/accounting.png" alt="Icono de pedidos urgentes">
+      <img src="https://img.icons8.com/color/96/000000/high-importance.png" alt="Icono de pedidos urgentes">
       <h2>Total Pedido Urgente</h2>
       <p id="totalPedidosUrgentes">0</p>
     </div>
+    <div class="total-pedidos-urgentes" onclick="showPeriodicoOrders()">
+      <img src="https://img.icons8.com/color/96/000000/high-importance.png" alt="Icono de Papel Periódico">
+      <h2>Total Papel Periódico</h2>
+      <p id="totalPeriodico">0</p>
+    </div>
+    <div class="corrugador" onclick="showCorrugadorOrders()">
+      <img src="https://img.icons8.com/color/96/000000/box--v1.png" alt="Icono de corrugador">
+      <h2>Corrugador</h2>
+      <p id="totalCorrugador">0</p>
+    </div>
+    <div class="micro-corrugador" onclick="showMicroCorrugadorOrders()">
+      <img src="https://img.icons8.com/color/96/000000/book--v1.png" alt="Icono de microcorrugador">
+      <h2>Micro Corrugador</h2>
+      <p id="totalMicroCorrugador">0</p>
+    </div>
   </div>
 
-  <!-- Modal -->
+  <!-- Modal para Pedidos Urgentes -->
   <div id="urgentModal" class="modal">
     <div class="modal-content">
       <div class="modal-header">
         <h2>Pedidos Urgentes</h2>
-        <span class="modal-close" onclick="closeModal()">&times;</span>
+        <span class="modal-close" onclick="closeModal('urgentModal')">&times;</span>
       </div>
       <table class="modal-table" id="urgentTable">
         <thead>
           <tr>
             <th>ID</th>
-            <th>Trader</th>
-            <th>Marca</th>
             <th>Producto</th>
-            <th>Ancho</th>
-            <th>GMS</th>
+            <th>Marca</th>
             <th>Cantidad</th>
-            <th>ETS</th>
-            <th>ETA</th>
-            <th>Transito</th>
-            <th>Total Item</th>
-            <th>Fecha en Planta</th>
+            <th>GRAMAJE</th>
             <th>Observaciones</th>
           </tr>
         </thead>
         <tbody></tbody>
       </table>
     </div>
+  </div>
+
+  <!-- Modal para Corrugador -->
+  <div id="corrugadorModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>CORRUGADOR</h2>
+        <span class="modal-close" onclick="closeModal('corrugadorModal')">&times;</span>
+      </div>
+      <table class="modal-table" id="corrugadorTable">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Producto</th>
+            <th>Marca</th>
+            <th>Cantidad</th>
+             <th>Total Item</th>
+            <th>GRAMAJE</th>
+            <th>Linea</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </div>
+  
+  <div id="microcorrugadorModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2> MICRO CORRUGADOR</h2>
+        <span class="modal-close" onclick="closeModal('microcorrugadorModal')">&times;</span>
+      </div>
+      <table class="modal-table" id="microcorrugadorTable">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Producto</th>
+            <th>Marca</th>
+            <th>Cantidad</th>
+            <th>Total Item</th>
+            <th>GRAMAJE</th>
+            <th>Linea</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div id="periodicoModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>PERIODICO</h2>
+        <span class="modal-close" onclick="closeModal('periodicoModal')">&times;</span>
+      </div>
+      <table class="modal-table" id="periodicoTable">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Producto</th>
+            <th>Marca</th>
+            <th>Cantidad</th>
+            <th>Total Item</th>
+            <th>GRAMAJE</th>
+            <th>Linea</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </div>
+
+
+  <div class="table-container">
+    <table id="filteredTable">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Producto</th>
+          <th>Marca</th>
+          <th>Trader</th>
+          <th>Ancho</th>
+          <th>GMS</th>
+          <th>Cantidad</th>
+          <th>Total Item</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
   </div>
 
   <script>
@@ -253,6 +378,7 @@
         .then(response => {
           const data = response.data;
 
+          populateFilter(data, 'marca', 'marca');
           populateFilter(data, 'trader', 'trader');
           populateFilter(data, 'producto', 'producto');
           populateFilter(data, 'ancho', 'ancho');
@@ -304,12 +430,51 @@
           });
 
           updateTotals(filteredData);
+          updateCorrugador(filteredData);
+          updatePeriodico(filteredData);
+          updateMicroCorrugador(filteredData);
           updateTotalPedidosUrgentes(filteredData);
+          updateFilteredTable(filteredData);
         })
         .catch(error => {
           console.error('Error al consumir la API:', error);
         });
     }
+
+    
+    function updateFilteredTable(data) {
+      const tableBody = document.querySelector('#filteredTable tbody');
+      tableBody.innerHTML = '';
+
+      data.forEach(item => {
+        const row = document.createElement('tr');
+
+        row.innerHTML = `
+          <td>${item.id}</td>
+          <td>${item.producto}</td>
+          <td>${item.marca}</td>
+          <td>${item.trader}</td>
+          <td>${item.ancho}</td>
+          <td>${item.gms}</td>
+          <td>${item.cantidad}</td>
+          <td>${item.total_item}</td>
+          `
+        ;
+
+        tableBody.appendChild(row);
+      });
+    }
+
+
+
+
+
+
+
+
+
+
+
 
     function updateTotals(data) {
       const totalProductos = data.length;
@@ -319,10 +484,26 @@
       document.getElementById('totalGeneral').textContent = totalGeneral.toFixed(2) + ' $';
     }
 
+    function updateCorrugador(data) {
+      const totalCorrugador = data.filter(item => item.linea && item.linea.toLowerCase().includes('cajas')).length;
+      document.getElementById('totalCorrugador').textContent = totalCorrugador;
+    }
+    function updatePeriodico(data) {
+      const totalPeriodico = data.filter(item => item.linea && item.linea.toLowerCase().includes('periodico')).length;
+      document.getElementById('totalPeriodico').textContent = totalPeriodico;
+    }
+
+    function updateMicroCorrugador(data) {
+      const totalMicroCorrugador = data.filter(item => item.linea && item.linea.toLowerCase().includes('micro')).length;
+      document.getElementById('totalMicroCorrugador').textContent = totalMicroCorrugador;
+    }
+
     function updateTotalPedidosUrgentes(data) {
       const totalUrgentes = data.filter(item => item.observaciones && item.observaciones.toLowerCase().includes("urgente")).length;
       document.getElementById('totalPedidosUrgentes').textContent = totalUrgentes;
     }
+
+    // Mostrar pedidos urgentes
 
     function showUrgentOrders() {
       const urgentData = filteredData.filter(item => item.observaciones && item.observaciones.toLowerCase().includes("urgente"));
@@ -335,29 +516,149 @@
 
         row.innerHTML = `
           <td>${order.id}</td>
-          <td>${order.trader}</td>
-          <td>${order.marca}</td>
           <td>${order.producto}</td>
-          <td>${order.ancho}</td>
-          <td>${order.gms}</td>
+          <td>${order.marca}</td>
           <td>${order.cantidad}</td>
-          <td>${order.ets}</td>
-          <td>${order.eta}</td>
-          <td>${order.transito}</td>
-          <td>${order.total_item}</td>
-          <td>${order.fecha_en_planta}</td>
+          <td>${order.gms}</td>
           <td>${order.observaciones || 'N/A'}</td>
+        `;
 
+        tableBody.appendChild(row);
+      });
+      document.getElementById('urgentModal').style.display = 'block';
+    }
+
+
+
+
+
+// Corrugador
+
+    function showCorrugadorOrders() {
+      const corrugadorData = filteredData.filter(item => item.linea && item.linea.toLowerCase().includes('cajas'));
+
+      const tableBody = document.querySelector('#corrugadorTable tbody');
+      tableBody.innerHTML = '';
+      let totalCantidad = 0; 
+      corrugadorData.forEach(order => {
+        // convertir en float 
+        totalCantidad += parseFloat(order.total_item || 0);
+      
+        const row = document.createElement('tr');
+
+        row.innerHTML = `
+          <td>${order.id}</td>
+          <td>${order.producto}</td>
+          <td>${order.marca}</td>
+          <td>${order.cantidad}</td>
+          <td>${order.total_item}</td>
+          <td>${order.gms}</td>
+          <td>${order.linea}</td>
         `;
 
         tableBody.appendChild(row);
       });
 
-      document.getElementById('urgentModal').style.display = 'block';
+       // Mostrar el total de la cantidad en una fila adicional
+    const totalRow = document.createElement('tr');
+    totalRow.innerHTML = `
+        <td colspan="4"><strong>Total</strong></td>
+        <td><strong>$ ${totalCantidad.toLocaleString()}</strong></td>
+        <td></td>
+        <td></td>
+    `;
+    tableBody.appendChild(totalRow);
+
+      document.getElementById('corrugadorModal').style.display = 'block';
     }
 
-    function closeModal() {
-      document.getElementById('urgentModal').style.display = 'none';
+
+// Periodico
+    function showPeriodicoOrders() {
+      const periodicoData = filteredData.filter(item => item.linea && item.linea.toLowerCase().includes('periodico'));
+
+      const tableBody = document.querySelector('#periodicoTable tbody');
+      tableBody.innerHTML = '';
+      let totalCantidad = 0; 
+
+      periodicoData.forEach(order => {
+        totalCantidad += parseFloat(order.total_item || 0);
+
+        const row = document.createElement('tr');
+
+        row.innerHTML = `
+          <td>${order.id}</td>
+          <td>${order.producto}</td>
+          <td>${order.marca}</td>
+          <td>${order.cantidad}</td>
+          <td>${order.total_item}</td>
+          <td>${order.gms}</td>
+          <td>${order.linea}</td>
+        `;
+
+        tableBody.appendChild(row);
+      });
+
+          // Mostrar el total de la cantidad en una fila adicional
+    const totalRow = document.createElement('tr');
+    totalRow.innerHTML = `
+        <td colspan="4"><strong>Total</strong></td>
+        <td><strong>$ ${totalCantidad.toLocaleString()}</strong></td>
+        <td></td>
+        <td></td>
+    `;
+    tableBody.appendChild(totalRow);
+
+      document.getElementById('periodicoModal').style.display = 'block';
+    }
+
+
+
+// Microcorrugador
+    function showMicroCorrugadorOrders() {
+
+      const corrugadorData = filteredData.filter(item => item.linea && item.linea.toLowerCase().includes('micro'));
+
+      const tableBody = document.querySelector('#microcorrugadorTable tbody');
+      tableBody.innerHTML = '';
+      let totalCantidad = 0; 
+
+      corrugadorData.forEach(order => {
+        totalCantidad += parseFloat(order.total_item || 0);
+
+        const row = document.createElement('tr');
+
+        row.innerHTML = `
+          <td>${order.id}</td>
+          <td>${order.producto}</td>
+          <td>${order.marca}</td>
+          <td>${order.cantidad}</td>
+          <td>${order.total_item}</td>
+          <td>${order.gms}</td>
+          <td>${order.linea}</td>
+        `;
+
+        tableBody.appendChild(row);
+      });
+
+          // Mostrar el total de la cantidad en una fila adicional
+    const totalRow = document.createElement('tr');
+    totalRow.innerHTML = `
+        <td colspan="4"><strong>Total</strong></td>
+        <td><strong>$ ${totalCantidad.toLocaleString()}</strong></td>
+        <td></td>
+        <td></td>
+    `;
+    tableBody.appendChild(totalRow);
+
+      document.getElementById('microcorrugadorModal').style.display = 'block';
+    }
+
+
+
+
+    function closeModal(modalId) {
+      document.getElementById(modalId).style.display = 'none';
     }
   </script>
 </body>

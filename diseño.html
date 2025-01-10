@@ -1,405 +1,582 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Procesar Bobinas y Pedidos</title>
-    <style>
-        /* Estilo general de la tabla */
-        .tabla-mejorada {
-            width: 100%;
-            border-collapse: collapse;
-            font-family: Arial, sans-serif;
-            margin-top: 20px;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard de Procesos</title>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f5f5f5;
+      color: #333;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
 
-        /* Encabezado de la tabla */
-        .tabla-mejorada thead {
-            background-color: #f4f4f4;
-            color: #333;
-            font-weight: bold;
-        }
+    h1 {
+      margin-top: 20px;
+      font-size: 24px;
+      color: #222;
+    }
 
-        .tabla-mejorada th {
-            padding: 10px;
-            text-align: center;
-            border: 1px solid #ddd;
-            font-size: 14px;
-        }
+    .filter-container {
+      margin: 20px 0;
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
 
-        /* Cuerpo de la tabla */
-        .tabla-mejorada td {
-            padding: 10px;
-            text-align: center;
-            border: 1px solid #ddd;
-            font-size: 13px;
-        }
+    label {
+      font-size: 14px;
+    }
 
-        /* Alternar colores en las filas */
-        .tabla-mejorada tbody tr:nth-child(odd) {
-            background-color: #f9f9f9;
-        }
+    input, select, button {
+      padding: 8px 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 14px;
+    }
 
-        .tabla-mejorada tbody tr:nth-child(even) {
-            background-color: #ffffff;
-        }
+    button {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
 
-        /* Hover efecto para filas */
-        .tabla-mejorada tbody tr:hover {
-            background-color: #eaf4fb;
-        }
+    button:hover {
+      background-color: #0056b3;
+    }
 
-        /* Espaciado y alineación en celdas con múltiples valores */
-        .tabla-mejorada td div {
-            margin-bottom: 5px;
-            text-align: left;
-        }
+    .result-container {
+      margin-top: 20px;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      width: 100%;
+      max-width: 70%;
+    }
 
-        /* Alineación vertical */
-        .tabla-mejorada td {
-            vertical-align: top;
-        }
+    .total-productos, .total-general, .total-pedidos-urgentes, .corrugador, .micro-corrugador {
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      width: 200px;
+    }
 
-        /* Responsividad */
-        @media (max-width: 768px) {
-            .tabla-mejorada {
-                font-size: 12px;
-            }
+    .total-productos img, .total-general img, .total-pedidos-urgentes img, .corrugador img, .micro-corrugador img {
+      width: 50px;
+      height: auto;
+      margin-bottom: 10px;
+    }
 
-            .tabla-mejorada th,
-            .tabla-mejorada td {
-                padding: 8px;
-            }
-        }
-    </style>
+    .total-productos h2, .total-general h2, .total-pedidos-urgentes h2, .corrugador h2, .micro-corrugador h2 {
+      margin: 0;
+      font-size: 18px;
+      color: #555;
+    }
+
+    .total-productos p, .total-general p, .total-pedidos-urgentes p, .corrugador p, .micro-corrugador p {
+      margin: 5px 0 0;
+      font-size: 32px;
+      font-weight: bold;
+      color: #007bff;
+      cursor: pointer;
+    }
+
+    /* Modal Styles */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0, 0, 0, 0.4);
+    }
+
+    .modal-content {
+      background-color: #fff;
+      margin: 15% auto;
+      padding: 20px;
+      border: 1px solid #888;
+      border-radius: 10px;
+      width: 80%;
+      /* max-width: 600px; */
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .modal-header h2 {
+      margin: 0;
+    }
+
+    .modal-close {
+      font-size: 24px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .modal-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
+
+    .modal-table th, .modal-table td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: left;
+    }
+
+    .modal-table th {
+      background-color: #007bff;
+      color: white;
+    }
+  </style>
 </head>
 <body>
-    <table class="tabla-mejorada">
+  <h1>Dashboard de procesos</h1>
+  <div class="filter-container">
+    <label for="fechaInicio">Fecha de inicio:</label>
+    <input type="date" id="fechaInicio">
+    
+    <label for="fechaFin">Fecha de fin:</label>
+    <input type="date" id="fechaFin">
+
+    <label for="marca">Marca:</label>
+    <select id="marca">
+      <option value="">Todas</option>
+      <option value="mondi">Mondi</option>
+      <option value="europcell">Europcell</option>
+    </select>
+
+    <label for="trader">Trader:</label>
+    <select id="trader">
+      <option value="">Todos</option>
+    </select>
+
+    <label for="producto">Producto:</label>
+    <select id="producto">
+      <option value="">Todos</option>
+    </select>
+
+    <label for="ancho">Ancho:</label>
+    <select id="ancho">
+      <option value="">Todos</option>
+    </select>
+
+    <label for="gms">GMS:</label>
+    <select id="gms">
+      <option value="">Todos</option>
+    </select>
+
+    <button onclick="filterData()">Filtrar</button>
+  </div>
+
+  <div id="results" class="result-container">
+    <div class="total-productos">
+      <img src="https://img.icons8.com/color/96/box--v1.png" alt="Icono de productos">
+      <h2>Total Productos</h2>
+      <p id="totalProductos">0</p>
+    </div>
+    <div class="total-general">
+      <img src="https://img.icons8.com/color/96/accounting.png" alt="Icono de total general">
+      <h2>Total General</h2>
+      <p id="totalGeneral">0.00 $</p>
+    </div>
+    <div class="total-pedidos-urgentes" onclick="showUrgentOrders()">
+      <img src="https://img.icons8.com/color/96/000000/high-importance.png" alt="Icono de pedidos urgentes">
+      <h2>Total Pedido Urgente</h2>
+      <p id="totalPedidosUrgentes">0</p>
+    </div>
+    <div class="total-pedidos-urgentes" onclick="showPeriodicoOrders()">
+      <img src="https://img.icons8.com/color/96/000000/high-importance.png" alt="Icono de Papel Periódico">
+      <h2>Total Papel Periódico</h2>
+      <p id="totalPeriodico">0</p>
+    </div>
+    <div class="corrugador" onclick="showCorrugadorOrders()">
+      <img src="https://img.icons8.com/color/96/000000/box--v1.png" alt="Icono de corrugador">
+      <h2>Corrugador</h2>
+      <p id="totalCorrugador">0</p>
+    </div>
+    <div class="micro-corrugador" onclick="showMicroCorrugadorOrders()">
+      <img src="https://img.icons8.com/color/96/000000/book--v1.png" alt="Icono de microcorrugador">
+      <h2>Micro Corrugador</h2>
+      <p id="totalMicroCorrugador">0</p>
+    </div>
+  </div>
+
+  <!-- Modal para Pedidos Urgentes -->
+  <div id="urgentModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Pedidos Urgentes</h2>
+        <span class="modal-close" onclick="closeModal('urgentModal')">&times;</span>
+      </div>
+      <table class="modal-table" id="urgentTable">
         <thead>
-            <tr>
-                <th>Bobina</th>
-                <th>Pedidos</th>
-                <th>Largos</th>
-                <th>Anchos</th>
-                <th>Suma (Anchos)</th>
-                <th>Desecho</th>
-                <th>Cantidad</th>
-                <th>Total Cantidad</th>
-                <th>Cavidad</th>
-                <th>Corte pedido 1</th>
-                <th>Corte pedido 2</th>
-                <th>Metros LinealesP1</th>
-                <th>Metros LinealesP2</th>
-            </tr>
+          <tr>
+            <th>ID</th>
+            <th>Producto</th>
+            <th>Marca</th>
+            <th>Cantidad</th>
+            <th>GRAMAJE</th>
+            <th>Observaciones</th>
+          </tr>
         </thead>
         <tbody></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Modal para Corrugador -->
+  <div id="corrugadorModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>CORRUGADOR</h2>
+        <span class="modal-close" onclick="closeModal('corrugadorModal')">&times;</span>
+      </div>
+      <table class="modal-table" id="corrugadorTable">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Producto</th>
+            <th>Marca</th>
+            <th>Cantidad</th>
+            <th>GRAMAJE</th>
+            <th>Linea</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </div>
+  
+  <div id="microcorrugadorModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2> MICRO CORRUGADOR</h2>
+        <span class="modal-close" onclick="closeModal('microcorrugadorModal')">&times;</span>
+      </div>
+      <table class="modal-table" id="microcorrugadorTable">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Producto</th>
+            <th>Marca</th>
+            <th>Cantidad</th>
+            <th>GRAMAJE</th>
+            <th>Linea</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div id="periodicoModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>PERIODICO</h2>
+        <span class="modal-close" onclick="closeModal('periodicoModal')">&times;</span>
+      </div>
+      <table class="modal-table" id="periodicoTable">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Producto</th>
+            <th>Marca</th>
+            <th>Cantidad</th>
+            <th>GRAMAJE</th>
+            <th>Linea</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </div>
+
+
+  <div class="table-container">
+    <table id="filteredTable">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Producto</th>
+          <th>Marca</th>
+          <th>Trader</th>
+          <th>Ancho</th>
+          <th>GMS</th>
+          <th>Cantidad</th>
+          <th>Total Item</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
     </table>
+  </div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', async function () {
-            try {
-                const pedidos = await obtenerPedidosFiltrados();
-                const pedidosPorTipo = await separarPedidosPorTipo(pedidos);
-                const resultados = await procesarPedidos(pedidosPorTipo["175-C"]);
-                mostrarResultadosEnTabla(resultados);
-            } catch (error) {
-                console.error("Error al inicializar la aplicación:", error);
-            }
-        });
+  <script>
+    document.addEventListener('DOMContentLoaded', loadFilters);
 
-        const bobinas = [1880, 1700, 1500, 1300, 1100, 900, 700, 500, 300];
+    let filteredData = [];
 
-        async function obtenerPedidosFiltrados() {
-            const url = 'https://serviacrilico.com/admin/api/allpedidos2';
-            const response = await fetch(url);
-            const pedidos = await response.json();
-            return pedidos.filter(pedido => pedido.estado_pedido === "pendiente");
-        }
+    function loadFilters() {
+      axios.get('https://megawebsistem.com/admin/api/apiestadisticas')
+        .then(response => {
+          const data = response.data;
 
-        function encontrarMejorCombinacion(pedidos, bobinas, refile) {
-    let mejorCombinacion = null;
-
-    // Ordenar pedidos de mayor a menor ancho
-    pedidos.sort((a, b) => b.ancho - a.ancho);
-
-    for (let bobina of bobinas) {
-        const bobinaDisponible = bobina - refile; // Calcular espacio disponible
-
-        for (let i = 0; i < pedidos.length; i++) {
-            const pedidoActual = pedidos[i];
-
-            // Evaluar combinaciones dobles
-            for (let j = i + 1; j < pedidos.length; j++) {
-                const suma = pedidoActual.ancho + pedidos[j].ancho;
-                if (suma <= bobinaDisponible) {
-                    const sobrante = bobinaDisponible - suma;
-
-                    if (!mejorCombinacion || sobrante < mejorCombinacion.sobrante) {
-                        // Calculamos los cortes y metros lineales
-                        const largoP1 = pedidoActual.largo / 1000;
-                        const largoP2 = pedidos[j].largo / 1000;
-                        const metrosLinealP1 = pedidoActual.cantidad * largoP1;
-
-                        const corteP1 = pedidoActual.cantidad;
-                        const corteP2 = Math.floor(metrosLinealP1 / largoP2);
-                        const metrosLineales = metrosLinealP1;
-                        const metrosLineale2 = pedidos[j].cantidad * largoP2;
-
-                        mejorCombinacion = {
-                            bobina,
-                            pedidos: [pedidoActual, pedidos[j]],
-                            suma,
-                            sobrante,
-                            cavidad: 2,
-                            corteP1,
-                            corteP2,
-                            metrosLineales,
-                            metrosLineale2
-                        };
-                    }
-                }
-            }
-
-            // Evaluar un único pedido si no hay combinación doble adecuada
-            if (pedidoActual.ancho <= bobinaDisponible) {
-                const sobrante = bobinaDisponible - pedidoActual.ancho;
-
-                if (!mejorCombinacion || sobrante < mejorCombinacion.sobrante) {
-                    // Calculamos los cortes y metros lineales
-                    const metrosLineales = (pedidoActual.cantidad * pedidoActual.largo) / 1000;
-
-                    mejorCombinacion = {
-                        bobina,
-                        pedidos: [pedidoActual],
-                        suma: pedidoActual.ancho,
-                        sobrante,
-                        cavidad: 1,
-                        corteP1: pedidoActual.cantidad,
-                        corteP2: 0,
-                        metrosLineales,
-                        metrosLineale2: 0
-                    };
-                }
-            }
-        }
-    }
-
-    // Si hay pedidos con cantidades sobrantes, crear un nuevo pedido
-    if (mejorCombinacion) {
-        mejorCombinacion.pedidos.forEach(pedido => {
-            const cantidadRestante = pedido.cantidad - mejorCombinacion.corteP1;
-
-            if (cantidadRestante > 0) {
-                const nuevoPedido = {
-                    ...pedido,
-                    cantidad: cantidadRestante
-                };
-                pedidos.push(nuevoPedido); // Agregar el nuevo pedido a la lista de pedidos
-            }
+          populateFilter(data, 'trader', 'trader');
+          populateFilter(data, 'producto', 'producto');
+          populateFilter(data, 'ancho', 'ancho');
+          populateFilter(data, 'gms', 'gms');
+        })
+        .catch(error => {
+          console.error('Error al cargar los filtros:', error);
         });
     }
 
-    return mejorCombinacion;
-}
+    function populateFilter(data, elementId, key) {
+      const uniqueValues = [...new Set(data.map(item => item[key]))];
+      const selectElement = document.getElementById(elementId);
 
-async function procesarPedidos(pedidos) {
-    const refile = 30;
-    let pedidosAnchos = pedidos.map(pedido => ({
-        ancho: parseFloat(pedido.ancho),
-        id: pedido.id,
-        cantidad: parseInt(pedido.cantidad),
-        largo: parseFloat(pedido.largo),
-        pedido: pedido
-    }));
-
-    const resultados = [];
-    const sobrantes = [];
-
-    while (pedidosAnchos.length > 0) {
-        let mejorCombinacion = encontrarMejorCombinacion(pedidosAnchos, bobinas, refile);
-        if (mejorCombinacion) {
-            resultados.push(mejorCombinacion);
-            pedidosAnchos = pedidosAnchos.filter(p => !mejorCombinacion.pedidos.includes(p));
-        } else {
-            // Si no se encontró combinación, mover el pedido a sobrantes
-            sobrantes.push(...pedidosAnchos);
-            break;
-        }
+      uniqueValues.forEach(value => {
+        const option = document.createElement('option');
+        option.value = value;
+        option.textContent = value;
+        selectElement.appendChild(option);
+      });
     }
 
-    console.log("Resultados:", resultados);
-    console.log("Sobrantes:", sobrantes);
+    function filterData() {
+      const fechaInicio = document.getElementById('fechaInicio').value;
+      const fechaFin = document.getElementById('fechaFin').value;
+      const marca = document.getElementById('marca').value;
+      const trader = document.getElementById('trader').value;
+      const producto = document.getElementById('producto').value;
+      const ancho = document.getElementById('ancho').value;
+      const gms = document.getElementById('gms').value;
 
-    // Agregar los sobrantes como una combinación especial
-    sobrantes.forEach(pedido => {
-        resultados.push({
-            bobina: "Sin combinar",
-            pedidos: [pedido],
-            suma: pedido.ancho,
-            sobrante: "N/A",
-            cavidad: "N/A",
-            corteP1: pedido.cantidad,
-            corteP2: 0,
-            metrosLineales: (pedido.cantidad * pedido.largo) / 1000,
-            metrosLineale2: 0
+      if (!fechaInicio || !fechaFin) {
+        alert('Por favor, selecciona ambas fechas.');
+        return;
+      }
+
+      axios.get('https://megawebsistem.com/admin/api/apiestadisticas')
+        .then(response => {
+          const data = response.data;
+          filteredData = data.filter(item => {
+            const fechaSolicitud = new Date(item.fecha_solicitud);
+            const matchesFecha = fechaSolicitud >= new Date(fechaInicio) && fechaSolicitud <= new Date(fechaFin);
+            const matchesMarca = !marca || item.marca === marca;
+            const matchesTrader = !trader || item.trader === trader;
+            const matchesProducto = !producto || item.producto === producto;
+            const matchesAncho = !ancho || item.ancho === ancho;
+            const matchesGms = !gms || item.gms === gms;
+            return matchesFecha && matchesMarca && matchesTrader && matchesProducto && matchesAncho && matchesGms;
+          });
+
+          updateTotals(filteredData);
+          updateCorrugador(filteredData);
+          updatePeriodico(filteredData);
+          updateMicroCorrugador(filteredData);
+          updateTotalPedidosUrgentes(filteredData);
+          updateFilteredTable(filteredData);
+        })
+        .catch(error => {
+          console.error('Error al consumir la API:', error);
         });
-    });
+    }
 
-    return resultados;
-}
+    
+    function updateFilteredTable(data) {
+      const tableBody = document.querySelector('#filteredTable tbody');
+      tableBody.innerHTML = '';
 
+      data.forEach(item => {
+        const row = document.createElement('tr');
 
-function actualizarDatos() {
-    const filas = document.querySelectorAll('tbody tr');
-
-    filas.forEach(fila => {
-        const inputBobina = fila.querySelector('.input-bobina');
-        const inputCavidad = fila.querySelector('.input-cavidad');
-
-        if (!inputBobina || !inputCavidad) return; // Verificar que los inputs existan
-
-        // Leer valores actuales
-        const bobina = parseFloat(inputBobina.value) || 0;
-        const cavidad = parseInt(inputCavidad.value) || 1; // Leer la cavidad ingresada
-
-        const cantidadesOriginales = Array.from(fila.querySelectorAll('.cantidad-original'))
-            .map(td => (td ? parseInt(td.textContent) || 0 : 0)); // Verificar existencia
-        const anchos = Array.from(fila.querySelectorAll('.ancho'))
-            .map(td => (td ? parseFloat(td.textContent) || 0 : 0)); // Verificar existencia
-
-        if (!cantidadesOriginales.length || !anchos.length) return; // Verificar que haya datos
-
-        // Dividir la cantidad según la cavidad
-        const cantidadesDivididas = cantidadesOriginales.map(cantidad => Math.floor(cantidad / cavidad));
-        const totalCantidad = cantidadesOriginales.reduce((acc, cantidad) => acc + cantidad, 0);
-        const cortes = cantidadesDivididas; // Los cortes son iguales a las cantidades divididas
-        const sumaAnchos = anchos.reduce((acc, ancho) => acc + ancho, 0);
-        const desecho = bobina - sumaAnchos;
-
-        // Actualizar valores en la tabla
-        const sumaAnchosElem = fila.querySelector('.suma-anchos');
-        if (sumaAnchosElem) sumaAnchosElem.textContent = sumaAnchos.toFixed(2);
-
-        const desechoElem = fila.querySelector('.desecho');
-        if (desechoElem) desechoElem.textContent = desecho >= 0 ? desecho.toFixed(2) : 'Error';
-
-        // Crear divisiones en cantidades para los pedidos restantes
-        const cantidadesDivididasHTML = cantidadesDivididas.map(cantidad => `<div>${cantidad}</div>`).join('');
-        const cortesHTML = cortes.map(corte => `<div>${corte}</div>`).join('');
-
-        const cantidadDivididaElem = fila.querySelector('.cantidad-dividida');
-        if (cantidadDivididaElem) cantidadDivididaElem.innerHTML = cantidadesDivididasHTML;
-
-        const corteElem = fila.querySelector('.corte');
-        if (corteElem) corteElem.innerHTML = cortesHTML;
-
-        // Calcular metros lineales
-        const largos = Array.from(fila.querySelectorAll('.largo'))
-            .map(td => (td ? parseFloat(td.textContent) / 1000 || 0 : 0)); // Verificar existencia
-        const metrosLineales = largos.map((largo, i) => (cantidadesDivididas[i] || 0) * largo);
-
-        const metrosLinealesP1Elem = fila.querySelector('.metros-lineales-p1');
-        if (metrosLinealesP1Elem) metrosLinealesP1Elem.textContent = metrosLineales[0] ? metrosLineales[0].toFixed(2) : '0.00';
-
-        const metrosLinealesP2Elem = fila.querySelector('.metros-lineales-p2');
-        if (metrosLinealesP2Elem) metrosLinealesP2Elem.textContent = metrosLineales[1] ? metrosLineales[1].toFixed(2) : '0.00';
-
-        const totalCantidadElem = fila.querySelector('.total-cantidad');
-        if (totalCantidadElem) totalCantidadElem.textContent = totalCantidad;
-    });
-}
-
-function inicializarEventos() {
-    const inputs = document.querySelectorAll('.input-bobina, .input-cavidad');
-    inputs.forEach(input => {
-        input.addEventListener('input', actualizarDatos);
-    });
-}
-
-function mostrarResultadosEnTabla(resultados) {
-    const tbody = document.querySelector('table tbody');
-    tbody.innerHTML = '';
-
-    resultados.forEach(resultado => {
-        const tr = document.createElement('tr');
-
-        // Generar cantidades divididas y cortes iniciales
-        const cantidadesDivididas = resultado.pedidos.map(p => Math.floor(p.cantidad / resultado.cavidad));
-        const cortes = cantidadesDivididas;
-
-        const cantidadesDivididasHTML = cantidadesDivididas.map(cantidad => `<div>${cantidad}</div>`).join('');
-        const cortesHTML = cortes.map(corte => `<div>${corte}</div>`).join('');
-
-        tr.innerHTML = `
-            <td>
-                <input type="number" class="input-bobina" value="${resultado.bobina}" />
-            </td>
-            <td>
-                ${resultado.pedidos.map(p => `<div>Pedido: ${p.pedido.nombre_producto} (ID: ${p.id})</div>`).join('')}
-            </td>
-            <td>
-                ${resultado.pedidos.map(p => `<div class="largo">${p.largo}</div>`).join('')}
-            </td>
-            <td>
-                ${resultado.pedidos.map(p => `<div class="ancho">${p.ancho}</div>`).join('')}
-            </td>
-            <td class="suma-anchos">${resultado.suma}</td>
-            <td class="desecho">${resultado.sobrante}</td>
-            <td>
-                ${resultado.pedidos.map(p => `<div class="cantidad-original">${p.cantidad}</div>`).join('')}
-            </td>
-            <td class="cantidad-dividida">${cantidadesDivididasHTML}</td>
-            <td>
-                <input type="number" class="input-cavidad" value="${resultado.cavidad}" />
-            </td>
-            <td class="corte">${cortesHTML}</td>
-            <td>${resultado.corteP2}</td>
-            <td class="metros-lineales-p1">${resultado.metrosLineales.toFixed(2)}</td>
-            <td class="metros-lineales-p2">${resultado.metrosLineale2.toFixed(2)}</td>
+        row.innerHTML = `
+          <td>${item.id}</td>
+          <td>${item.producto}</td>
+          <td>${item.marca}</td>
+          <td>${item.trader}</td>
+          <td>${item.ancho}</td>
+          <td>${item.gms}</td>
+          <td>${item.cantidad}</td>
+          <td>${item.total_item}</td>
         `;
-        tbody.appendChild(tr);
-    });
 
-    inicializarEventos(); // Agregar eventos después de renderizar
-}
-
-
-        
-    async function separarPedidosPorTipo(pedidos) {
-        const pedidosCj = pedidos.map(p => ({
-            ...p,
-            ...extraerDimensiones(p.nombre_producto)
-        }));
-    
-        const pedidosPorTipo = pedidosCj.reduce((acc, pedido) => {
-            const key = `${pedido.test}-${pedido.flauta}`;
-            if (!acc[key]) {
-                acc[key] = [];
-            }
-            acc[key].push(pedido);
-            return acc;
-        }, {});
-    
-        return pedidosPorTipo;
+        tableBody.appendChild(row);
+      });
     }
-    
-    function extraerDimensiones(nombreProducto) {
-        const regexDimensiones = /(\d+)\s*[Xx]\s*(\d+)\s*[Xx]?\s*(\d+)?\s*(CM|cm)?/;
-        const regexTipo = /\b(K\/K|B\/B|T\/T|B\/k)\b/i;
-        const regexTest = /\b(?:TEST|T)?\s?(\d{3})\b(?!.*\d{3})/i;
-        const regexFlauta = /\bFLAUTA (C|B)\b/i;
-    
-        const [_, largo, ancho, alto = 'N/A'] = regexDimensiones.exec(nombreProducto) || [];
-        const tipo = (regexTipo.exec(nombreProducto) || [])[1] || 'N/A';
-        const test = (regexTest.exec(nombreProducto) || [])[1] || 'N/A';
-        const flauta = (regexFlauta.exec(nombreProducto) || [])[1] || 'C';
-    
-        return { largo, ancho, alto, tipo, test, flauta };
+
+
+
+
+
+
+
+
+
+
+
+
+    function updateTotals(data) {
+      const totalProductos = data.length;
+      const totalGeneral = data.reduce((sum, item) => sum + parseFloat(item.total_item || 0), 0);
+
+      document.getElementById('totalProductos').textContent = totalProductos;
+      document.getElementById('totalGeneral').textContent = totalGeneral.toFixed(2) + ' $';
     }
-    </script>
+
+    function updateCorrugador(data) {
+      const totalCorrugador = data.filter(item => item.linea && item.linea.toLowerCase().includes('cajas')).length;
+      document.getElementById('totalCorrugador').textContent = totalCorrugador;
+    }
+    function updatePeriodico(data) {
+      const totalPeriodico = data.filter(item => item.linea && item.linea.toLowerCase().includes('periodico')).length;
+      document.getElementById('totalPeriodico').textContent = totalPeriodico;
+    }
+
+    function updateMicroCorrugador(data) {
+      const totalMicroCorrugador = data.filter(item => item.linea && item.linea.toLowerCase().includes('micro')).length;
+      document.getElementById('totalMicroCorrugador').textContent = totalMicroCorrugador;
+    }
+
+    function updateTotalPedidosUrgentes(data) {
+      const totalUrgentes = data.filter(item => item.observaciones && item.observaciones.toLowerCase().includes("urgente")).length;
+      document.getElementById('totalPedidosUrgentes').textContent = totalUrgentes;
+    }
+
+    function showUrgentOrders() {
+      const urgentData = filteredData.filter(item => item.observaciones && item.observaciones.toLowerCase().includes("urgente"));
+
+      const tableBody = document.querySelector('#urgentTable tbody');
+      tableBody.innerHTML = '';
+
+      urgentData.forEach(order => {
+        const row = document.createElement('tr');
+
+        row.innerHTML = `
+          <td>${order.id}</td>
+          <td>${order.producto}</td>
+          <td>${order.marca}</td>
+          <td>${order.cantidad}</td>
+          <td>${order.gms}</td>
+          <td>${order.observaciones || 'N/A'}</td>
+        `;
+
+        tableBody.appendChild(row);
+      });
+
+      document.getElementById('urgentModal').style.display = 'block';
+    }
+
+    function showCorrugadorOrders() {
+      const corrugadorData = filteredData.filter(item => item.linea && item.linea.toLowerCase().includes('cajas'));
+
+      const tableBody = document.querySelector('#corrugadorTable tbody');
+      tableBody.innerHTML = '';
+
+      corrugadorData.forEach(order => {
+        const row = document.createElement('tr');
+
+        row.innerHTML = `
+          <td>${order.id}</td>
+          <td>${order.producto}</td>
+          <td>${order.marca}</td>
+          <td>${order.cantidad}</td>
+          <td>${order.gms}</td>
+          <td>${order.linea}</td>
+        `;
+
+        tableBody.appendChild(row);
+      });
+
+      document.getElementById('corrugadorModal').style.display = 'block';
+    }
+
+
+
+    function showPeriodicoOrders() {
+      const periodicoData = filteredData.filter(item => item.linea && item.linea.toLowerCase().includes('periodico'));
+
+      const tableBody = document.querySelector('#periodicoTable tbody');
+      tableBody.innerHTML = '';
+
+      periodicoData.forEach(order => {
+        const row = document.createElement('tr');
+
+        row.innerHTML = `
+          <td>${order.id}</td>
+          <td>${order.producto}</td>
+          <td>${order.marca}</td>
+          <td>${order.cantidad}</td>
+          <td>${order.gms}</td>
+          <td>${order.linea}</td>
+        `;
+
+        tableBody.appendChild(row);
+      });
+
+      document.getElementById('periodicoModal').style.display = 'block';
+    }
+
+
+
+
+    function showMicroCorrugadorOrders() {
+      const corrugadorData = filteredData.filter(item => item.linea && item.linea.toLowerCase().includes('micro'));
+
+      const tableBody = document.querySelector('#microcorrugadorTable tbody');
+      tableBody.innerHTML = '';
+
+      corrugadorData.forEach(order => {
+        const row = document.createElement('tr');
+
+        row.innerHTML = `
+          <td>${order.id}</td>
+          <td>${order.producto}</td>
+          <td>${order.marca}</td>
+          <td>${order.cantidad}</td>
+          <td>${order.gms}</td>
+          <td>${order.linea}</td>
+        `;
+
+        tableBody.appendChild(row);
+      });
+
+      document.getElementById('microcorrugadorModal').style.display = 'block';
+    }
+
+
+
+
+    function closeModal(modalId) {
+      document.getElementById(modalId).style.display = 'none';
+    }
+  </script>
 </body>
 </html>
-
-
-
-
