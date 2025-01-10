@@ -419,8 +419,8 @@
         .then(response => {
           const data = response.data;
           filteredData = data.filter(item => {
-            const fechaSolicitud = new Date(item.fecha_solicitud);
-            const matchesFecha = fechaSolicitud >= new Date(fechaInicio) && fechaSolicitud <= new Date(fechaFin);
+            const fechaArribo = new Date(item.arribo_planta);
+            const matchesFecha = fechaArribo >= new Date(fechaInicio) && fechaArribo <= new Date(fechaFin);
             const matchesMarca = !marca || item.marca === marca;
             const matchesTrader = !trader || item.trader === trader;
             const matchesProducto = !producto || item.producto === producto;
