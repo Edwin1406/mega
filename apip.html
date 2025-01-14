@@ -449,7 +449,7 @@
 
 
       data.forEach(item => {
-        totalCantidad += parseFloat(order.total_item || 0);
+        totalCantidad += parseFloat(item.total_item || 0);
 
         const row = document.createElement('tr');
 
@@ -651,8 +651,6 @@
 
       document.getElementById('microcorrugadorModal').style.display = 'block';
     }
-
-
 
 
     function closeModal(modalId) {
