@@ -142,26 +142,6 @@
     </div>
 
     <div class="formulario__campo">
-        <label class="formulario__label" for="ets">ETS</label>
-        <input
-            type="date"
-            name="ets"
-            id="ets"
-            class="formulario__input"
-            value="<?php echo $pedido->ets ?? '' ?>">
-    </div>
-
-    <div class="formulario__campo">
-        <label class="formulario__label" for="eta">ETA</label>
-        <input
-            type="date"
-            name="eta"
-            id="eta"
-            class="formulario__input"
-            value="<?php echo $pedido->eta ?? '' ?>">
-    </div>
-
-    <div class="formulario__campo">
         <label class="formulario__label" for="arribo_planta">Arribo a Planta</label>
         <input
             type="date"
@@ -171,16 +151,6 @@
             value="<?php echo $pedido->arribo_planta ?? '' ?>">
     </div>
 
-    <div class="formulario__campo">
-        <label class="formulario__label" for="transito">Tránsito</label>
-        <input
-            type="number"
-            name="transito"
-            id="transito"
-            class="formulario__input"
-            placeholder="Días de Tránsito"
-            value="<?php echo $pedido->transito ?? '' ?>">
-    </div>
 
     <div class="formulario__campo">
         <label class="formulario__label" for="fecha_en_planta">Fecha en Planta</label>
@@ -199,6 +169,13 @@
             id="observaciones"
             class="formulario__input"
             placeholder="Observaciones"><?php echo $pedido->observaciones ?? '' ?></textarea>
+    </div>
+
+    <div class="formulario__campo">
+        <label class="formulario__label" for="estado">Estado</label>
+        <select name="estado" id="estado" class="formulario__input">
+            <option value="Pendiente" <?php echo $pedido->estado == 'Pendiente' ? 'selected' : '' ?>>Pendiente</option>
+        </select>
     </div>
 
 
