@@ -17,6 +17,7 @@ use Controllers\AuthController;
 use Controllers\AdminController;
 use Controllers\PapelController;
 use Controllers\ClienteController;
+use Controllers\ComercialController;
 use Controllers\MaquinaController;
 use Controllers\CotizadorController;
 use Controllers\ProduccionController;
@@ -105,7 +106,7 @@ $router->get('/admin/api/apiestadisticas', [EstadisticaProdController::class, 'a
 
 
 // AREA DE COMERCIAl
-$router->get('/admin/comercial/index', [AdminController::class, 'comercial']);
+$router->get('/admin/comercial/index', [ComercialController::class, 'comercial']);
 
 
 
