@@ -10,6 +10,7 @@ class Comercial extends ActiveRecord {
         'proyecto',
         'pedido_interno',
         'fecha_solicitud',
+        'puerto_destino',
         'trader',
         'marca',
         'linea',
@@ -34,6 +35,7 @@ class Comercial extends ActiveRecord {
     public $proyecto;
     public $pedido_interno;
     public $fecha_solicitud;
+    public $puerto_destino;
     public $trader;
     public $marca;
     public $linea;
@@ -63,6 +65,7 @@ class Comercial extends ActiveRecord {
         $this->proyecto = $args['proyecto'] ?? '';
         $this->pedido_interno = $args['pedido_interno'] ?? '';
         $this->fecha_solicitud = $args['fecha_solicitud'] ?? '';
+        $this->puerto_destino = $args['puerto_destino'] ?? '';
         $this->trader = $args['trader'] ?? '';
         $this->marca = $args['marca'] ?? '';
         $this->linea = $args['linea'] ?? '';
