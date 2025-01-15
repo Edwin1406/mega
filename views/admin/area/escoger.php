@@ -30,7 +30,7 @@
                 }elseif($area === 'ARTES') {
                     $url = "/admin/vendedor/cliente/crear?id=".$id;
                 } elseif($area === 'COMERCIAL') {
-                    $url = "/admin/comercial/index?id=".$id;
+                    $url = "/admin/comercial/crear?id=".$id;
                 }
 
                 echo $url; // Muestra la URL específica
