@@ -2,6 +2,7 @@
 
 namespace Controllers;
 
+use Model\Area;
 use MVC\Router;
 
 
@@ -16,7 +17,7 @@ class ComercialController {
         session_start();
         isAuth();
         $id= $_SESSION['id'];
-        $escoger_produccion = Produccion::belongsTo('propietarioId',$id);
+        $escoger_produccion = Area::belongsTo('propietarioId',$id);
         $router->render('admin/comercial/index', [
             'titulo' => 'Área Comercial',
             'escoger_produccion' => $escoger_produccion
@@ -28,7 +29,7 @@ class ComercialController {
         session_start();
         isAuth();
         $id= $_SESSION['id'];
-        $escoge_registro = UrlRegistro::belongsTo('propietarioId',$id);
+        $escoge_registro = Area::belongsTo('propietarioId',$id);
         $router->render('admin/comercial/registro_comercial', [
             'titulo' => 'REGISTRO DE PRODUCCION',
             'escoge_registro' => $escoge_registro
