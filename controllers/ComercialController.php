@@ -19,7 +19,7 @@ class ComercialController {
         $id= $_SESSION['id'];
         $escoger_produccion = Area::belongsTo('propietarioId',$id);
         $router->render('admin/comercial/crear', [
-            'titulo' => 'Área Comercial',
+            'titulo' => 'Crear Pedido',
             'escoger_produccion' => $escoger_produccion
         ]);
     }
