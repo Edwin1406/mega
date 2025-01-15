@@ -26,7 +26,11 @@ class ComercialController {
             $comercial->sincronizar($_POST);
             $alertas = $comercial->validar();
 
-            debuguear($comercial);
+           if (empty($alertas)) {
+                $comercial->guardar();
+                $alertas = $comercial->getAlertas();
+            }
+            
 
         }
 
