@@ -46,6 +46,20 @@ class ComercialController {
 
 
 
+    public static function tabla(Router $router)
+    {
+        session_start();
+        isAuth();
+        $id= $_SESSION['id'];
+        $comercial = Comercial::all($id);
+        $router->render('admin/comercial/tabla', [
+            'titulo' => 'ORDENES DE COMPRA',
+            'comercial' => $comercial
+        ]);
+    }
+
+
+
 }
 
 

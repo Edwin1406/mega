@@ -110,6 +110,8 @@ $router->get('/admin/api/apiestadisticas', [EstadisticaProdController::class, 'a
 $router->get('/admin/comercial/crear', [ComercialController::class, 'crear']);
 $router->post('/admin/comercial/crear', [ComercialController::class, 'crear']);
 
+$router->get('/admin/comercial/tabla', [ComercialController::class, 'tabla']);
+
 
 
 
