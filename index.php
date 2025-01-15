@@ -101,8 +101,11 @@ $router->get('/admin/produccion/estadistica/graficas', [EstadisticaProdControlle
 
 $router->post('/admin/produccion/estadistica/crear', [EstadisticaProdController::class, 'crear']);
 $router->post('/admin/produccion/estadistica/editar', [EstadisticaProdController::class, 'editar']);
-
 $router->get('/admin/api/apiestadisticas', [EstadisticaProdController::class, 'apiestadisticas']);
+
+
+// AREA DE COMERCIAl
+$router->get('/admin/comercial/index', [AdminController::class, 'comercial']);
 
 
 
