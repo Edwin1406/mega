@@ -209,7 +209,7 @@
 
 
 <video id="mainVideo" autoplay muted loop playsinline style="width: 100%; height: auto; object-fit: cover;">
-        <source src="/video.mp4" type="video/mp4">
+        <source src="https://megawebsistem.com/video.mp4" type="video/mp4">
         Your browser does not support the video tag.
       </video>
       <script>
