@@ -44,6 +44,17 @@
     </div>
 
     <div class="formulario__campo">
+        <label class="formulario__label" for="puerto_destino">Puerto Destino</label>
+        <input
+            type="text"
+            name="puerto_destino"
+            id="puerto_destino"
+            class="formulario__input"
+            placeholder="Puerto de Destino"
+            value="<?php echo $comercial->puerto_destino ?? '' ?>">
+    </div>
+
+    <div class="formulario__campo">
         <label class="formulario__label" for="trader">Trader</label>
         <input
             type="text"
