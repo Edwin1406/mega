@@ -40,7 +40,7 @@
         onblur="this.style.boxShadow='inset 0 2px 4px rgba(0, 0, 0, 0.1)'; this.style.borderColor='#ccc';"
     >
 </div>
-<form method="GET" action="/admin/vendedor/cliente/tabla">
+<form method="GET" action="/admin/comercial/tabla">
     <input type="hidden" name="page" value="1">
     <label for="per_page">Registros por página:</label>
     <select name="per_page" id="per_page" onchange="this.form.submit()">
@@ -68,24 +68,24 @@
                 </tr>
             </thead>
             <tbody class="table__tbody">
-                <?php foreach ($visor as $visores):?>
+                <?php foreach ($comercial as $comerciales):?>
                     <tr class="table__tr">
-                        <td class="table__td"><?php echo $visores->id?></td>
-                        <td class="table__td"><?php echo $visores->nombre_cliente?></td>
-                        <td class="table__td"><?php echo $visores->nombre_producto?></td>
-                        <td  class="table__td"><?php echo $visores->codigo_producto?></td>
+                        <td class="table__td"><?php echo $comerciales->id?></td>
+                        <td class="table__td"><?php echo $comerciales->nombre_cliente?></td>
+                        <td class="table__td"><?php echo $comerciales->nombre_producto?></td>
+                        <td  class="table__td"><?php echo $comerciales->codigo_producto?></td>
                         <td data-id="<?php echo $visores->id; ?>" class="table__td" style="color: 
                             <?php 
-                                echo ($visores->estado == 'ENVIADO') ? 'green' : 
-                                    (($visores->estado == 'PAUSADO') ? 'red' : 
-                                    (($visores->estado == 'TERMINADO') ? 'orange' : ''));
+                                echo ($comerciales->estado == 'ENVIADO') ? 'green' : 
+                                    (($comerciales->estado == 'PAUSADO') ? 'red' : 
+                                    (($comerciales->estado == 'TERMINADO') ? 'orange' : ''));
                             ?>;">
-                                <?php echo $visores->estado; ?>
+                                <?php echo $comerciales->estado; ?>
                         </td>
                         <td class="table__td">
                             <?php 
-                            $rutaArchivo = "/src/visor/" . htmlspecialchars($visores->pdf);
-                            $extension = pathinfo($visores->pdf, PATHINFO_EXTENSION);
+                            $rutaArchivo = "/src/visor/" . htmlspecialchars($comerciales->pdf);
+                            $extension = pathinfo($comerciales->pdf, PATHINFO_EXTENSION);
 
                             if (in_array(strtolower($extension), ['jpg', 'jpeg', 'png', 'gif'])): ?>
                                 <!-- Mostrar miniatura para imágenes -->
