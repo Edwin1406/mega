@@ -207,27 +207,3 @@
 
 
 
-
-<video id="mainVideo" autoplay muted loop playsinline style="width: 100%; height: auto; object-fit: cover;">
-        <source src="https://megawebsistem.com/video.mp4" type="video/mp4">
-        Your browser does not support the video tag.
-      </video>
-      <script>
-        document.addEventListener('DOMContentLoaded', function () {
-          const video = document.getElementById('mainVideo');
-          // Asegúrate de que el video esté silenciado
-          video.muted = true;
-      
-          // Intenta reproducir el video
-          video.play().then(() => {
-            console.log('Video reproduciéndose automáticamente.');
-          }).catch(error => {
-            console.warn('Reproducción bloqueada por el navegador. Intentando de nuevo...');
-            // Si falla, intenta nuevamente tras una breve espera
-            setTimeout(() => {
-              video.play().catch(err => console.error('Error al reproducir el video:', err));
-            }, 1000);
-          });
-        });
-      </script>
-            
