@@ -54,7 +54,7 @@
 
 
 <div class="dashboard__contenedor">
-    <?php if (!empty($visor)): ?>
+    <?php if (!empty($comercial)): ?>
         <table class="table" id="tabla">
             <thead class="table__thead">
                 <tr>
