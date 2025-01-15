@@ -29,7 +29,7 @@ class ComercialController {
            if (empty($alertas)) {
                 $comercial->guardar();
                 $alertas = $comercial->getAlertas();
-                header('Location: /admin/comercial/tabla?$propiedad=propietarioId&$id='.$id);
+                header('Location: /admin/comercial/tabla?id='.$id);
             }
 
 
