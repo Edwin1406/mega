@@ -29,6 +29,8 @@
                     $url = "/admin/producto-terminado/index?id=".$id;
                 }elseif($area === 'ARTES') {
                     $url = "/admin/vendedor/cliente/crear?id=".$id;
+                } elseif($area === 'COMERCIAL') {
+                    $url = "/admin/comercial/index?id=".$id;
                 }
 
                 echo $url; // Muestra la URL específica
@@ -52,6 +54,8 @@
                         $icono = '<i class="fas fa-box-open"></i>'; // ícono de producto terminado
                     }elseif($area === 'ARTES') {
                         $icono = '<i class="fas fa-user-tie"></i>'; // ícono de vendedor
+                    } elseif($area === 'COMERCIAL') {
+                        $icono = '<i class="fas fa-user-tie"></i>'; // ícono de comercial
                     }
 
                     // Muestra el ícono y el nombre del área
