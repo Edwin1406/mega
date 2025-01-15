@@ -18,23 +18,13 @@ class ComercialController {
         isAuth();
         $id= $_SESSION['id'];
         $escoger_produccion = Area::belongsTo('propietarioId',$id);
-        $router->render('admin/comercial/index', [
+        $router->render('admin/comercial/crear', [
             'titulo' => 'Área Comercial',
             'escoger_produccion' => $escoger_produccion
         ]);
     }
 
-    public static function registro_comercial(Router $router)
-    {   
-        session_start();
-        isAuth();
-        $id= $_SESSION['id'];
-        $escoge_registro = Area::belongsTo('propietarioId',$id);
-        $router->render('admin/comercial/registro_comercial', [
-            'titulo' => 'REGISTRO DE PRODUCCION',
-            'escoge_registro' => $escoge_registro
-        ]);
-    }
+
 
 }
 
