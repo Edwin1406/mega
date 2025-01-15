@@ -16,11 +16,13 @@ class ComercialController {
        
         session_start();
         isAuth();
+        $alertas = [];
         $id= $_SESSION['id'];
         $escoger_produccion = Area::belongsTo('propietarioId',$id);
         $router->render('admin/comercial/crear', [
             'titulo' => 'Crear Pedido',
-            'escoger_produccion' => $escoger_produccion
+            'escoger_produccion' => $escoger_produccion,
+            'alertas' => $alertas
         ]);
     }
 
