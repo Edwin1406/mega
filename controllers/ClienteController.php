@@ -175,7 +175,7 @@ class ClienteController
         $visor = Cliente::paginar($registros_por_pagina, $paginacion->offset());
     
         $alertas = Cliente::getAlertas();
-        $router->render('admin/comercial/tabla', [
+        $router->render('admin/vendedor/cliente/tabla', [
             'titulo' => 'VISOR DE CAJAS Y LAMINAR INTERNO',
             'id' => $id,
             'alertas' => $alertas,
