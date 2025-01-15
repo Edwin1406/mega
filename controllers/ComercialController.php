@@ -4,6 +4,7 @@ namespace Controllers;
 
 use Model\Area;
 use MVC\Router;
+use Model\Comercial;
 
 
 
@@ -18,7 +19,24 @@ class ComercialController {
         isAuth();
         $alertas = [];
         $id= $_SESSION['id'];
+        $comercial = new Comercial;
+
         $escoger_produccion = Area::belongsTo('propietarioId',$id);
+
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $comercial->sincronizar($_POST);
+            $alertas = $comercial->validar();
+
+            debuguear($comercial);
+
+        }
+
+
+
+
+
+
         $router->render('admin/comercial/crear', [
             'titulo' => 'Crear Pedido',
             'escoger_produccion' => $escoger_produccion,
