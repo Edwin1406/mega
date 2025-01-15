@@ -12,6 +12,24 @@ class ComercialController {
 
     
 
+    public static function index(Router $router)
+    {
+       
+        session_start();
+        isAuth();
+        $alertas = [];
+        $id= $_SESSION['id'];
+        $escoger_produccion = Area::belongsTo('propietarioId',$id);
+        $router->render('admin/comercial/crear', [
+            'titulo' => 'Crear Pedido',
+            'escoger_produccion' => $escoger_produccion,
+            'alertas' => $alertas
+        ]);
+    }
+
+
+
+    
     public static function crear(Router $router)
     {
        
@@ -31,10 +49,6 @@ class ComercialController {
             debuguear($comercial);
 
         }
-
-
-
-
 
 
         $router->render('admin/comercial/crear', [
