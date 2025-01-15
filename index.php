@@ -106,7 +106,7 @@ $router->get('/admin/api/apiestadisticas', [EstadisticaProdController::class, 'a
 
 
 // AREA DE COMERCIAl
-$router->get('/admin/comercial/index', [ComercialController::class, 'comercial']);
+$router->get('/admin/comercial/index', [ComercialController::class, 'index']);
 
 
 
