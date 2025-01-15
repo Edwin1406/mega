@@ -54,7 +54,8 @@ class ComercialController {
         $router->render('admin/comercial/crear', [
             'titulo' => 'Crear Pedido',
             'escoger_produccion' => $escoger_produccion,
-            'alertas' => $alertas
+            'alertas' => $alertas,
+            'comercial' => $comercial
         ]);
     }
 
