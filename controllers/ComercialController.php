@@ -11,7 +11,7 @@ class ComercialController {
 
     
 
-    public static function index(Router $router)
+    public static function crear(Router $router)
     {
        
         session_start();
