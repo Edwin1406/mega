@@ -77,6 +77,18 @@
     </div>
 
     <div class="formulario__campo">
+        <label class="formulario__label" for="linea">Linea</label>
+        <input
+            type="text"
+            name="linea"
+            id="linea"
+            class="formulario__input"
+            placeholder="Nombre de la Linea"
+            value="<?php echo $comercial->linea ?? '' ?>">
+    </div>
+
+
+    <div class="formulario__campo">
         <label class="formulario__label" for="producto">Producto</label>
         <input
             type="text"
