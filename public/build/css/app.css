@@ -442,43 +442,43 @@ h1 {
   color: #FFFFFF;
 }
 
-.table {
+.tables {
   width: 100%;
   border-collapse: collapse;
 }
-.table__thead {
+.tables__thead {
   background-color: #1E293B;
   color: #FFFFFF;
 }
-.table__tr:nth-of-type(even) {
+.tables__tr:nth-of-type(even) {
   background-color: #c5cace;
 }
-.table__th {
+.tables__th {
   padding: 1rem;
   text-align: left;
 }
-.table__td, .table__td--acciones {
+.tables__td, .tables__td--acciones {
   padding: 1.5rem 1rem;
 }
-.table__td--acciones {
+.tables__td--acciones {
   display: flex;
   justify-content: flex-end;
   gap: 2rem;
   align-items: center;
 }
-.table__accion {
+.tables__accion {
   all: unset;
   text-transform: uppercase;
   font-size: 1.7rem;
   font-weight: 700;
 }
-.table__accion--editar {
+.tables__accion--editar {
   color: #2563EB;
 }
-.table__accion--eliminar {
+.tables__accion--eliminar {
   color: rgb(227, 3, 3);
 }
-.table__accion:hover {
+.tables__accion:hover {
   cursor: pointer;
 }
 
