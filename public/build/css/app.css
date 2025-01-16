@@ -443,9 +443,13 @@ h1 {
   color: #FFFFFF;
 }
 
+.dashboard__contenedor {
+  overflow-x: auto; /* Habilita el scroll horizontal */
+  width: 100%; /* Asegúrate de que ocupe todo el ancho del contenedor */
+}
+
 .tables {
   width: 100%;
-  overflow-x: auto; /* Activa el scroll horizontal */
   border-collapse: collapse;
 }
 .tables__thead {

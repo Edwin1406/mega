@@ -1,9 +1,13 @@
 @use 'base/variables' as v;
 @use 'base/mixins' as m;
 
+.dashboard__contenedor {
+    overflow-x: auto; /* Habilita el scroll horizontal */
+    width: 100%; /* Asegúrate de que ocupe todo el ancho del contenedor */
+}
+
 .tables {
     width: 100%;
-    overflow-x: auto; /* Activa el scroll horizontal */
     border-collapse: collapse;
     &__thead{
         background-color: v.$gris-oscuro;
