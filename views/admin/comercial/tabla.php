@@ -60,10 +60,24 @@
                 <tr>
                     <th scope="col" class="table__th">Nro.Orden</th>
                     <th scope="col" class="table__th">Import</th>
-                    <th scope="col" class="table__th">Nombre Producto</th>
-                    <th scope="col" class="table__th">Codigo producto</th>
+                    <th scope="col" class="table__th">Proyecto</th>
+                    <th scope="col" class="table__th">Pedido Interno</th>
+                    <th scope="col" class="table__th">Fecha Solicitud</th>
+                    <th scope="col" class="table__th">Puerto Destino</th>
+                    <th scope="col" class="table__th">Trader</th>
+                    <th scope="col" class="table__th">Marca</th>
+                    <th scope="col" class="table__th">Linea</th>
+                    <th scope="col" class="table__th">Producto</th>
+                    <th scope="col" class="table__th">GMS</th>
+                    <th scope="col" class="table__th">Ancho</th>
+                    <th scope="col" class="table__th">Cantidad</th>
+                    <th scope="col" class="table__th">Precio</th>
+                    <th scope="col" class="table__th">Total Item</th>
+                    <th scope="col" class="table__th">Fecha Producción</th>
+                    <th scope="col" class="table__th">Arribo Planta</th>
+                    <th scope="col" class="table__th">Transito</th>
+                    <th scope="col" class="table__th">Fecha en Planta</th>
                     <th scope="col" class="table__th">Estado</th>
-                    <th scope="col" class="table__th">Archivo PDF</th>
                     <th scope="col" class="table__th">Acciones</th>
                 </tr>
             </thead>
@@ -71,38 +85,13 @@
                 <?php foreach ($comercial as $comerciales):?>
                     <tr class="table__tr">
                         <td class="table__td"><?php echo $comerciales->id?></td>
-                        <td class="table__td"><?php echo $comerciales->nombre_cliente?></td>
-                        <td class="table__td"><?php echo $comerciales->nombre_producto?></td>
-                        <td  class="table__td"><?php echo $comerciales->codigo_producto?></td>
-                        <td data-id="<?php echo $visores->id; ?>" class="table__td" style="color: 
-                            <?php 
-                                echo ($comerciales->estado == 'ENVIADO') ? 'green' : 
-                                    (($comerciales->estado == 'PAUSADO') ? 'red' : 
-                                    (($comerciales->estado == 'TERMINADO') ? 'orange' : ''));
-                            ?>;">
-                                <?php echo $comerciales->estado; ?>
-                        </td>
-                        <td class="table__td">
-                            <?php 
-                            $rutaArchivo = "/src/visor/" . htmlspecialchars($comerciales->pdf);
-                            $extension = pathinfo($comerciales->pdf, PATHINFO_EXTENSION);
-
-                            if (in_array(strtolower($extension), ['jpg', 'jpeg', 'png', 'gif'])): ?>
-                                <!-- Mostrar miniatura para imágenes -->
-                                <img 
-                                    src="<?php echo $rutaArchivo ?>" 
-                                    alt="pdf" 
-                                    class="imagen-miniatura" 
-                                    style="width: 100px; height: auto; cursor: pointer;" 
-                                    onclick="mostrarImagen(this.src)">
-                            <?php elseif (strtolower($extension) === 'pdf'): ?>
-                                <!-- Mostrar enlace para visualizar PDF -->
-                                <a href="<?php echo $rutaArchivo ?>" target="_blank" class="enlace-pdf">Ver PDF</a>
-                                <?php else: ?>
-                                    <a href="<?php echo $rutaArchivo ?>" target="_blank" class="enlace-pdf">Ver PDF</a>
-
-                            <?php endif; ?>
-                        </td>
+                        <td class="table__td"><?php echo $comerciales->import?></td>
+                        <td class="table__td"><?php echo $comerciales->proyecto?></td>
+                        <td class="table__td"><?php echo $comerciales->pedido_interno?></td>
+                        <td class="table__td"><?php echo $comerciales->fecha_solicitud?></td>
+                        <td class="table__td"><?php echo $comerciales->puerto_destino?></td>
+                        <td class="table__td"><?php echo $comerciales->trader?></td>
+                        
                         <td  class="table__td--acciones"><a class="table__accion table__accion--editar" href="/admin/vendedor/cliente/editar?id=<?php echo $visores->id; ?>"><i class="fa-solid fa-user-pen"></i>Editar</a>
 
 
