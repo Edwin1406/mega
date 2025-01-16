@@ -130,19 +130,50 @@ document.addEventListener('DOMContentLoaded', function () {
 
             filas.forEach(fila => {
                 const id = fila.cells[0].textContent.toLowerCase();
-                const nombreCliente = fila.cells[1].textContent.toLowerCase();
-                const nombreProducto = fila.cells[2].textContent.toLowerCase();
-                const codigoProducto = fila.cells[3].textContent.toLowerCase();
-                const estado = fila.cells[4].textContent.toLowerCase();
-
-                console.log(id, nombreCliente, nombreProducto, codigoProducto, estado);
+                const importa = fila.cells[1].textContent.toLowerCase();
+                const proyecto = fila.cells[2].textContent.toLowerCase();
+                const pedidoInterno = fila.cells[3].textContent.toLowerCase();
+                const fechaSolicitud = fila.cells[4].textContent.toLowerCase();
+                const puertoDestino = fila.cells[5].textContent.toLowerCase();
+                const trader = fila.cells[6].textContent.toLowerCase();
+                const marca = fila.cells[7].textContent.toLowerCase();
+                const linea = fila.cells[8].textContent.toLowerCase();
+                const producto = fila.cells[9].textContent.toLowerCase();
+                const gms = fila.cells[10].textContent.toLowerCase();
+                const ancho = fila.cells[11].textContent.toLowerCase();
+                const cantidad = fila.cells[12].textContent.toLowerCase();
+                const precio = fila.cells[13].textContent.toLowerCase();
+                const totalItem = fila.cells[14].textContent.toLowerCase();
+                const fechaProduccion = fila.cells[15].textContent.toLowerCase();
+                const arriboPlanta = fila.cells[16].textContent.toLowerCase();
+                const transito = fila.cells[17].textContent.toLowerCase();
+                const fechaEnPlanta = fila.cells[18].textContent.toLowerCase();
+                const estado = fila.cells[19].textContent.toLowerCase();
+            
+            
 
                 if (
                     id.includes(filtro) || 
-                    nombreCliente.includes(filtro) || 
-                    nombreProducto.includes(filtro) || 
-                    codigoProducto.includes(filtro) || 
+                    importa.includes(filtro) ||
+                    proyecto.includes(filtro) ||
+                    pedidoInterno.includes(filtro) ||   
+                    fechaSolicitud.includes(filtro) ||
+                    puertoDestino.includes(filtro) ||
+                    trader.includes(filtro) ||
+                    marca.includes(filtro) ||
+                    linea.includes(filtro) ||
+                    producto.includes(filtro) ||
+                    gms.includes(filtro) ||
+                    ancho.includes(filtro) ||
+                    cantidad.includes(filtro) ||
+                    precio.includes(filtro) ||
+                    totalItem.includes(filtro) ||
+                    fechaProduccion.includes(filtro) ||
+                    arriboPlanta.includes(filtro) ||
+                    transito.includes(filtro) ||
+                    fechaEnPlanta.includes(filtro) ||
                     estado.includes(filtro)
+                    
                 ) {
                     fila.style.display = ''; // Mostrar fila
                 } else {
