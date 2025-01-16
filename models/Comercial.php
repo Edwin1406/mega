@@ -134,9 +134,6 @@ class Comercial extends ActiveRecord {
             self::$alertas['error'][] = 'El Campo Precio es Obligatorio';
         }
 
-        if(!$this->total_item) {
-            self::$alertas['error'][] = 'El Campo Total Item es Obligatorio';
-        }
 
         if(!$this->fecha_produccion) {
             self::$alertas['error'][] = 'El Campo Fecha Producción es Obligatorio';
