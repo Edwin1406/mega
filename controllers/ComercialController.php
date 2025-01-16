@@ -96,15 +96,17 @@ class ComercialController {
 
     public static function editar(Router $router)
     {
-        session_start();
-        isAuth();
         $alertas = [];
-        $id = $_GET['id'];
-        $comercial = Comercial::find($id);
-        $id= $_SESSION['id'];
+            $id = $_GET['id'];
+            $id = filter_var($id, FILTER_VALIDATE_INT);
+            // validar que el id sea un entero
+            if (!$id) {
+                header('Location: /admin/comercial/tabla');
+            }
+            $comercial = Comercial::find($id);
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $comercial->sincronizar();
+            $comercial->sincronizar($_POST);
             $alertas = $comercial->validar();
             debuguear($comercial);
 
