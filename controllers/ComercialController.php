@@ -25,7 +25,7 @@ class ComercialController {
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $comercial->sincronizar($_POST);
-            $comercial->total_item = number_format($comercial->cantidad * $comercial->precio);
+            $comercial->total_item = $comercial->cantidad * $comercial->precio;
             $alertas = $comercial->validar();
 
             // debuguear($comercial);
