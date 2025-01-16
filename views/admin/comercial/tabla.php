@@ -129,7 +129,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const filas = document.querySelectorAll('#tabla .tables__tr');
 
             filas.forEach(fila => {
-                const id = fila.cells[0].textContent.toLowerCase();
+                // const id = fila.cells[0].textContent.toLowerCase();
                 const importa = fila.cells[1].textContent.toLowerCase();
                 const proyecto = fila.cells[2].textContent.toLowerCase();
                 const pedidoInterno = fila.cells[3].textContent.toLowerCase();
@@ -153,7 +153,7 @@ document.addEventListener('DOMContentLoaded', function () {
             
 
                 if (
-                    id.includes(filtro) || 
+                    // id.includes(filtro) || 
                     importa.includes(filtro) ||
                     proyecto.includes(filtro) ||
                     pedidoInterno.includes(filtro) ||   
@@ -173,7 +173,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     transito.includes(filtro) ||
                     fechaEnPlanta.includes(filtro) ||
                     estado.includes(filtro)
-                    
+
                 ) {
                     fila.style.display = ''; // Mostrar fila
                 } else {
