@@ -58,8 +58,8 @@
         <table class="table" id="tabla">
             <thead class="table__thead">
                 <tr>
-                    <th scope="col" class="table__th">ID</th>
-                    <th scope="col" class="table__th">Nombre Cliente</th>
+                    <th scope="col" class="table__th">Nro.Orden</th>
+                    <th scope="col" class="table__th">Import</th>
                     <th scope="col" class="table__th">Nombre Producto</th>
                     <th scope="col" class="table__th">Codigo producto</th>
                     <th scope="col" class="table__th">Estado</th>
