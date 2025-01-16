@@ -144,17 +144,6 @@
     </div>
 
     <div class="formulario__campo">
-        <label class="formulario__label" for="total_item">Total Item</label>
-        <input
-            type="text"
-            name="total_item"
-            id="total_item"
-            class="formulario__input"
-            placeholder="Total del Pedido"
-            value="<?php echo $comercial->total_item ?? '' ?>">
-    </div>
-
-    <div class="formulario__campo">
         <label class="formulario__label" for="fecha_produccion">Fecha Producción</label>
         <input
             type="date"

@@ -28,7 +28,7 @@ class ComercialController {
             $comercial->total_item = number_format($comercial->cantidad * $comercial->precio);
             $alertas = $comercial->validar();
 
-            debuguear($comercial);
+            // debuguear($comercial);
 
            if (empty($alertas)) {
                 $comercial->guardar();
