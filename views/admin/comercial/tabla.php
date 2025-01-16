@@ -44,7 +44,7 @@
     <input type="hidden" name="page" value="1">
     <label for="per_page">Registros por página:</label>
     <select name="per_page" id="per_page" onchange="this.form.submit()">
-        <option value="1" <?php echo ($_GET['per_page'] ?? '1') == '1' ? 'selected' : ''; ?>>1</option>
+        <option value="10" <?php echo ($_GET['per_page'] ?? '10') == '10' ? 'selected' : ''; ?>>10</option>
         <option value="25" <?php echo ($_GET['per_page'] ?? '') == '25' ? 'selected' : ''; ?>>25</option>
         <option value="50" <?php echo ($_GET['per_page'] ?? '') == '50' ? 'selected' : ''; ?>>50</option>
         <option value="all" <?php echo ($_GET['per_page'] ?? '') == 'all' ? 'selected' : ''; ?>>Todos</option>
