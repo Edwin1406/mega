@@ -281,7 +281,7 @@
   padding: 2rem;
   border-radius: 1rem;
   margin-top: 1rem;
-  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+  box-shadow: rgba(223, 16, 16, 0.25) 0px 54px 55px, rgba(216, 57, 57, 0.12) 0px -12px 30px, rgba(238, 52, 52, 0.12) 0px 4px 6px, rgba(228, 68, 68, 0.17) 0px 12px 13px, rgba(219, 82, 82, 0.09) 0px -3px 5px;
 }
 .dashboard__formulario {
   width: min(95%, 80rem);
