@@ -91,6 +91,38 @@ class ComercialController {
 
 
 
+    public static function editar(Router $router)
+    {
+        session_start();
+        isAuth();
+        $alertas = [];
+        $id = $_GET['id'];
+        $comercial = Comercial::find($id);
+        $id= $_SESSION['id'];
+        $escoger_produccion = Area::belongsTo('propietarioId',$id);
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $args = $_POST['comercial'];
+            $comercial->sincronizar($args);
+            $alertas = $comercial->validar();
+
+            if (empty($alertas)) {
+                $comercial->actualizar();
+                $alertas = $comercial->getAlertas();
+                header('Location: /admin/comercial/tabla?id='.$id);
+            }
+        }
+
+        $router->render('admin/comercial/editar', [
+            'titulo' => 'EDITAR ORDEN DE COMPRA',
+            'comercial' => $comercial,
+            'escoger_produccion' => $escoger_produccion,
+            'alertas' => $alertas
+        ]);
+    }
+
+
+
 }
 
 

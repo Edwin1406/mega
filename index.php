@@ -112,6 +112,9 @@ $router->post('/admin/comercial/crear', [ComercialController::class, 'crear']);
 
 $router->get('/admin/comercial/tabla', [ComercialController::class, 'tabla']);
 
+$router->get('/admin/comercial/editar', [ComercialController::class, 'editar']);
+
+$router->post('/admin/comercial/editar', [ComercialController::class, 'editar']);
 
 
 
