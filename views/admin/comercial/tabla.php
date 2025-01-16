@@ -125,22 +125,29 @@ document.addEventListener('DOMContentLoaded', function () {
     const filtroVentas = document.querySelector('#filtros_ventas');
     if (filtroVentas) {
         filtroVentas.addEventListener('input', function () {
-            const filtro = this.value.toLowerCase().trim();
+            const filtro = this.value.toLowerCase();
             const filas = document.querySelectorAll('#tabla .tables__tr');
 
             filas.forEach(fila => {
-                const celdas = fila.querySelectorAll('td');
-                let coincidencia = false;
+                const id = fila.cells[0].textContent.toLowerCase();
+                const nombreCliente = fila.cells[1].textContent.toLowerCase();
+                const nombreProducto = fila.cells[2].textContent.toLowerCase();
+                const codigoProducto = fila.cells[3].textContent.toLowerCase();
+                const estado = fila.cells[4].textContent.toLowerCase();
 
-                // Recorremos todas las celdas de la fila
-                celdas.forEach(celda => {
-                    if (celda.textContent.toLowerCase().includes(filtro)) {
-                        coincidencia = true; // Hay una coincidencia
-                    }
-                });
+                console.log(id, nombreCliente, nombreProducto, codigoProducto, estado);
 
-                // Mostrar u ocultar la fila según si hay coincidencia
-                fila.style.display = coincidencia ? '' : 'none';
+                if (
+                    id.includes(filtro) || 
+                    nombreCliente.includes(filtro) || 
+                    nombreProducto.includes(filtro) || 
+                    codigoProducto.includes(filtro) || 
+                    estado.includes(filtro)
+                ) {
+                    fila.style.display = ''; // Mostrar fila
+                } else {
+                    fila.style.display = 'none'; // Ocultar fila
+                }
             });
         });
     }
