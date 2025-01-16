@@ -445,6 +445,7 @@ h1 {
 
 .tables {
   width: 100%;
+  overflow-x: auto; /* Activa el scroll horizontal */
   border-collapse: collapse;
 }
 .tables__thead {

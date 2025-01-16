@@ -3,6 +3,7 @@
 
 .tables {
     width: 100%;
+    overflow-x: auto; /* Activa el scroll horizontal */
     border-collapse: collapse;
     &__thead{
         background-color: v.$gris-oscuro;
