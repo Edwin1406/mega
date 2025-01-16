@@ -104,8 +104,7 @@ class ComercialController {
         $id= $_SESSION['id'];
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $args = $_POST['comercial'];
-            $comercial->sincronizar($args);
+            $comercial->sincronizar();
             $alertas = $comercial->validar();
             debuguear($comercial);
 
