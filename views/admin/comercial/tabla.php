@@ -91,9 +91,20 @@
                         <td class="table__td"><?php echo $comerciales->fecha_solicitud?></td>
                         <td class="table__td"><?php echo $comerciales->puerto_destino?></td>
                         <td class="table__td"><?php echo $comerciales->trader?></td>
-                        
-                        <td  class="table__td--acciones"><a class="table__accion table__accion--editar" href="/admin/vendedor/cliente/editar?id=<?php echo $visores->id; ?>"><i class="fa-solid fa-user-pen"></i>Editar</a>
-
+                        <td class="table__td"><?php echo $comerciales->marca?></td>
+                        <td class="table__td"><?php echo $comerciales->linea?></td>
+                        <td class="table__td"><?php echo $comerciales->producto?></td>
+                        <td class="table__td"><?php echo $comerciales->gms?></td>
+                        <td class="table__td"><?php echo $comerciales->ancho?></td>
+                        <td class="table__td"><?php echo $comerciales->cantidad?></td>
+                        <td class="table__td"><?php echo $comerciales->precio?></td>
+                        <td class="table__td"><?php echo $comerciales->total_item?></td>
+                        <td class="table__td"><?php echo $comerciales->fecha_produccion?></td>
+                        <td class="table__td"><?php echo $comerciales->arribo_planta?></td>
+                        <td class="table__td"><?php echo $comerciales->transito?></td>
+                        <td class="table__td"><?php echo $comerciales->fecha_en_planta?></td>
+                        <td class="table__td"><?php echo $comerciales->estado?></td>
+                        <td  class="table__td--acciones"><a class="table__accion table__accion--editar" href="/admin/comercial/editar?id=<?php echo $comerciales->id; ?>"><i class="fa-solid fa-user-pen"></i>Editar</a>
 
                     </tr>
                 <?php endforeach;?>
