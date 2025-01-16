@@ -442,8 +442,34 @@ h1 {
   color: #FFFFFF;
 }
 
-.table {
+.tables {
   width: 100%;
+}
+.tables__thead {
+  background-color: #c5cace;
+  color: #FFFFFF;
+}
+.tables__th {
+  padding: 1rem;
+  text-align: center;
+}
+.tables__td {
+  padding: 1.5rem 1rem;
+}
+.tables__accion {
+  all: unset;
+  text-transform: uppercase;
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+.tables__accion--editar {
+  color: #2563EB;
+}
+.tables__accion--eliminar {
+  color: rgb(227, 3, 3);
+}
+.tables__accion:hover {
+  cursor: pointer;
 }
 
 .table {
