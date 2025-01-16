@@ -164,7 +164,10 @@ class Comercial extends ActiveRecord {
 }
      
 
-
+public function calcularTotal() {  
+    $this->total_item = $this->cantidad * $this->precio;
+    return $this->total_item;
+ }
 
 
 
