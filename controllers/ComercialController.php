@@ -108,15 +108,12 @@ class ComercialController {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $comercial->sincronizar($_POST);
             $alertas = $comercial->validar();
-            debuguear($comercial);
-
             if (empty($alertas)) {
                 $comercial->actualizar();
                 $alertas = $comercial->getAlertas();
                 header('Location: /admin/comercial/tabla?id='.$id);
             }
         }
-
         $router->render('admin/comercial/editar', [
             'titulo' => 'EDITAR ORDEN DE COMPRA',
             'comercial' => $comercial,
