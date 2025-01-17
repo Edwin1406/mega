@@ -56,4 +56,35 @@ class FinancieroController {
             'paginacion' => $paginacion->paginacion()
         ]);
     }
+
+
+    public static function editar(Router $router)
+    {
+        $alertas = [];
+        $id = $_GET['id'];
+        $id = filter_var($id, FILTER_VALIDATE_INT);
+        // validar que el id sea un entero
+        if (!$id) {
+            header('Location: /admin/comercial/tabla');
+        }
+        $financiero = Comercial::find($id);
+
+
+       
+        
+
+        $router->render('admin/financiero/editar', [
+            'titulo' => 'Editar Financiero',
+            'financiero' => $financiero,
+            'alertas' => $alertas
+        ]);
+    }
+
+
+
+
+
+
 }
+
+
