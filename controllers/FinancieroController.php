@@ -8,7 +8,7 @@ use MVC\Router;
 
 class ComercialController {
 
-    public static function crear(Router $router)
+    public static function tabla(Router $router)
     {
 
         $router->render('admin/financiero/tabla', [
