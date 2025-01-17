@@ -32,7 +32,7 @@
                 } elseif($area === 'COMERCIAL') {
                     $url = "/admin/comercial/crear?id=".$id;
                 } elseif($area === 'FINANCIERO') {
-                    $url = "/admin/financiero/index?id=".$id;
+                    $url = "/admin/financiero/tabla?id=".$id;
                 }
                     
 
