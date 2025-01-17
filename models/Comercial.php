@@ -98,9 +98,6 @@ class Comercial extends ActiveRecord {
             self::$alertas['error'][] = 'El Campo Pedido Interno es Obligatorio';
         }
 
-        if(!$this->fecha_solicitud) {
-            self::$alertas['error'][] = 'El Campo Fecha Solicitud es Obligatorio';
-        }
 
         if(!$this->puerto_destino) {
             self::$alertas['error'][] = 'El Campo Puerto Destino es Obligatorio';
