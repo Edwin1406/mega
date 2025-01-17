@@ -162,7 +162,7 @@
             class="formulario__input"
             value="<?php echo $comercial->arribo_planta ?? '' ?>">
     </div>
-
+<!-- 
 
     <div class="formulario__campo">
         <label class="formulario__label" for="fecha_en_planta">Fecha en Planta</label>
@@ -172,7 +172,7 @@
             id="fecha_en_planta"
             class="formulario__input"
             value="<?php echo $comercial->fecha_en_planta ?? '' ?>">
-    </div>
+    </div> -->
 
     <div class="formulario__campo">
         <label class="formulario__label" for="observaciones">Observaciones</label>
