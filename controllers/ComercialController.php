@@ -28,6 +28,7 @@ class ComercialController {
             $comercial->total_item = $comercial->cantidad * $comercial->precio;
             $comercial->transito = $comercial->fecha_produccion - $comercial->arribo_planta;
             $comercial->calcularTransito();
+
             // debuguear($comercial);
             $alertas = $comercial->validar();
 
