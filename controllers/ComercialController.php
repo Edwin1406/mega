@@ -49,6 +49,7 @@ if (!empty($comercial->fecha_produccion) && !empty($comercial->arribo_planta)) {
     // Si alguna fecha está vacía, maneja el error
     $comercial->transito = null; // O un valor predeterminado
 }
+var_dump($comercial);
 
 
 
