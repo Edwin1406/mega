@@ -163,6 +163,17 @@
             value="<?php echo $comercial->arribo_planta ?? '' ?>">
     </div>
 
+    <div class="formulario__campo">
+        <label class="formulario__label" for="transito">Transito</label>
+        <input
+            type="number"
+            name="transito"
+            id="transito"
+            class="formulario__input"
+            placeholder="Días de Transito"
+            value="<?php echo $comercial->transito ?? '' ?>">
+    </div>
+
 
     <div class="formulario__campo">
         <label class="formulario__label" for="observaciones">Observaciones</label>
