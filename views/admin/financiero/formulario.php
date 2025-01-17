@@ -193,7 +193,7 @@
             id="transito"
             class="formulario__input"
             placeholder="Días de Transito"
-            value="<?php echo $comercial->transito ?? '' ?>">
+            value="<?php echo $financiero->transito ?? '' ?>">
     </div>
    
     <div class="formulario__campo">
