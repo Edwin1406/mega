@@ -8,7 +8,7 @@
             id="import"
             class="formulario__input"
             placeholder="Número de Import"
-            value="<?php echo $comercial->import ?? '' ?>">
+            value="<?php echo $financiero->import ?? '' ?>">
     </div>
 
     <div class="formulario__campo">
@@ -19,7 +19,7 @@
             id="proyecto"
             class="formulario__input"
             placeholder="Número de Proyecto"
-            value="<?php echo $comercial->proyecto ?? '' ?>">
+            value="<?php echo $financiero->proyecto ?? '' ?>">
     </div>
 
     <div class="formulario__campo">
@@ -30,7 +30,7 @@
             id="pedido_interno"
             class="formulario__input"
             placeholder="Número de Pedido Interno"
-            value="<?php echo $comercial->pedido_interno ?? '' ?>">
+            value="<?php echo $financiero->pedido_interno ?? '' ?>">
     </div>
 
     <div class="formulario__campo">
@@ -40,7 +40,7 @@
             name="fecha_solicitud"
             id="fecha_solicitud"
             class="formulario__input"
-            value="<?php echo $comercial->fecha_solicitud ?? '' ?>">
+            value="<?php echo $financiero->fecha_solicitud ?? '' ?>">
     </div>
 
     <div class="formulario__campo">
@@ -51,7 +51,7 @@
             id="puerto_destino"
             class="formulario__input"
             placeholder="Puerto de Destino"
-            value="<?php echo $comercial->puerto_destino ?? '' ?>">
+            value="<?php echo $financiero->puerto_destino ?? '' ?>">
     </div>
 
     <div class="formulario__campo">
@@ -62,7 +62,7 @@
             id="trader"
             class="formulario__input"
             placeholder="Nombre del Trader"
-            value="<?php echo $comercial->trader ?? '' ?>">
+            value="<?php echo $financiero->trader ?? '' ?>">
     </div>
 
     <div class="formulario__campo">
@@ -73,7 +73,7 @@
             id="marca"
             class="formulario__input"
             placeholder="Nombre de la Marca"
-            value="<?php echo $comercial->marca ?? '' ?>">
+            value="<?php echo $financiero->marca ?? '' ?>">
     </div>
 
     <div class="formulario__campo">
@@ -84,7 +84,7 @@
             id="linea"
             class="formulario__input"
             placeholder="Nombre de la Linea"
-            value="<?php echo $comercial->linea ?? '' ?>">
+            value="<?php echo $financiero->linea ?? '' ?>">
     </div>
 
 
@@ -96,7 +96,7 @@
             id="producto"
             class="formulario__input"
             placeholder="Tipo de Producto"
-            value="<?php echo $comercial->producto ?? '' ?>">
+            value="<?php echo $financiero->producto ?? '' ?>">
     </div>
 
     <div class="formulario__campo">
@@ -107,7 +107,7 @@
             id="gms"
             class="formulario__input"
             placeholder="Gramaje (GMS)"
-            value="<?php echo $comercial->gms ?? '' ?>">
+            value="<?php echo $financiero->gms ?? '' ?>">
     </div>
 
     <div class="formulario__campo">
@@ -118,7 +118,7 @@
             id="ancho"
             class="formulario__input"
             placeholder="Ancho del Producto"
-            value="<?php echo $comercial->ancho ?? '' ?>">
+            value="<?php echo $financiero->ancho ?? '' ?>">
     </div>
 
     <div class="formulario__campo">
@@ -129,7 +129,7 @@
             id="cantidad"
             class="formulario__input"
             placeholder="Cantidad del Producto"
-            value="<?php echo $comercial->cantidad ?? '' ?>">
+            value="<?php echo $financiero->cantidad ?? '' ?>">
     </div>
 
     <div class="formulario__campo">
@@ -140,7 +140,7 @@
             id="precio"
             class="formulario__input"
             placeholder="Precio Unitario"
-            value="<?php echo $comercial->precio ?? '' ?>">
+            value="<?php echo $financiero->precio ?? '' ?>">
     </div>
 
     <div class="formulario__campo">
@@ -150,7 +150,7 @@
             name="fecha_produccion"
             id="fecha_produccion"
             class="formulario__input"
-            value="<?php echo $comercial->fecha_produccion ?? '' ?>">
+            value="<?php echo $financiero->fecha_produccion ?? '' ?>">
     </div>
 
     <div class="formulario__campo">
@@ -160,7 +160,7 @@
             name="arribo_planta"
             id="arribo_planta"
             class="formulario__input"
-            value="<?php echo $comercial->arribo_planta ?? '' ?>">
+            value="<?php echo $financiero->arribo_planta ?? '' ?>">
     </div>
 
 
@@ -171,7 +171,7 @@
             name="fecha_en_planta"
             id="fecha_en_planta"
             class="formulario__input"
-            value="<?php echo $comercial->fecha_en_planta ?? '' ?>">
+            value="<?php echo $financiero->fecha_en_planta ?? '' ?>">
     </div>
 
     <div class="formulario__campo">
@@ -180,15 +180,15 @@
             name="observaciones"
             id="observaciones"
             class="formulario__input"
-            placeholder="Observaciones"><?php echo $comercial->observaciones ?? '' ?></textarea>
+            placeholder="Observaciones"><?php echo $financiero->observaciones ?? '' ?></textarea>
     </div>
-<!-- 
+
     <div class="formulario__campo">
         <label class="formulario__label" for="estado">Estado</label>
         <select name="estado" id="estado" class="formulario__input">
             <option value="Pendiente" <?php echo $comercial->estado == 'Pendiente' ? 'selected' : '' ?>>Pendiente</option>
         </select>
-    </div> -->
+    </div>
 
 
 </fieldset>
