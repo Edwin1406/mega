@@ -31,7 +31,10 @@
                     $url = "/admin/vendedor/cliente/crear?id=".$id;
                 } elseif($area === 'COMERCIAL') {
                     $url = "/admin/comercial/crear?id=".$id;
+                } elseif($area === 'FINANCIERO') {
+                    $url = "/admin/financiero/index?id=".$id;
                 }
+                    
 
                 echo $url; // Muestra la URL específica
             ?>">
@@ -56,6 +59,8 @@
                         $icono = '<i class="fas fa-user-tie"></i>'; // ícono de vendedor
                     } elseif($area === 'COMERCIAL') {
                         $icono = '<i class="fas fa-user-tie"></i>'; // ícono de comercial
+                    } elseif($area === 'FINANCIERO') {
+                        $icono = '<i class="fas fa-money-check-alt"></i>'; // ícono de financiero
                     }
 
                     // Muestra el ícono y el nombre del área
