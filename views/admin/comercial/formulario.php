@@ -33,7 +33,7 @@
             value="<?php echo $comercial->pedido_interno ?? '' ?>">
     </div>
 
-    <div class="formulario__campo">
+    <!-- <div class="formulario__campo">
         <label class="formulario__label" for="fecha_solicitud">Fecha Solicitud</label>
         <input
             type="date"
@@ -41,7 +41,7 @@
             id="fecha_solicitud"
             class="formulario__input"
             value="<?php echo $comercial->fecha_solicitud ?? '' ?>">
-    </div>
+    </div> -->
 
     <div class="formulario__campo">
         <label class="formulario__label" for="puerto_destino">Puerto Destino</label>
