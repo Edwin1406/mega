@@ -103,7 +103,7 @@
                         <td class="tables__td"><?php echo $finanzas->transito?></td>
                         <td class="tables__td"><?php echo $finanzas->fecha_en_planta?></td>
                         <td class="tables__td"><?php echo $finanzas->estado?></td>
-                        <td  class="tables__td--acciones"><a class="tables__accion tables__accion--editar" href="/admin/comercial/editar?id=<?php echo $finanzas->id; ?>"><i class="fa-solid fa-user-pen"></i>Editar</a>
+                        <td  class="tables__td--acciones"><a class="tables__accion tables__accion--editar" href="/admin/financiero/editar?id=<?php echo $finanzas->id; ?>"><i class="fa-solid fa-user-pen"></i>Editar</a>
 
                     </tr>
                 <?php endforeach;?>
