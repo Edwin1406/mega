@@ -153,6 +153,28 @@
             value="<?php echo $financiero->fecha_produccion ?? '' ?>">
     </div>
 
+    
+    <div class="formulario__campo">
+        <label class="formulario__label" for="ets">Ets</label>
+        <input
+            type="date"
+            name="ets"
+            id="ets"
+            class="formulario__input"
+            value="<?php echo $comercial->ets ?? '' ?>">
+    </div>
+
+    <div class="formulario__campo">
+        <label class="formulario__label" for="eta">Eta</label>
+        <input
+            type="date"
+            name="eta"
+            id="eta"
+            class="formulario__input"
+            value="<?php echo $comercial->eta ?? '' ?>">
+    </div>
+
+
     <div class="formulario__campo">
         <label class="formulario__label" for="arribo_planta">Arribo a Planta</label>
         <input
