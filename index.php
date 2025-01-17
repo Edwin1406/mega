@@ -17,9 +17,10 @@ use Controllers\AuthController;
 use Controllers\AdminController;
 use Controllers\PapelController;
 use Controllers\ClienteController;
-use Controllers\ComercialController;
 use Controllers\MaquinaController;
+use Controllers\ComercialController;
 use Controllers\CotizadorController;
+use Controllers\FinancieroController;
 use Controllers\ProduccionController;
 use Controllers\MateriaPrimaController;
 use Controllers\EstadisticaProdController;
@@ -109,21 +110,22 @@ $router->get('/admin/api/apiestadisticas', [EstadisticaProdController::class, 'a
 // $router->get('/admin/comercial/index', [ComercialController::class, 'index']);
 $router->get('/admin/comercial/crear', [ComercialController::class, 'crear']);
 $router->post('/admin/comercial/crear', [ComercialController::class, 'crear']);
-
 $router->get('/admin/comercial/tabla', [ComercialController::class, 'tabla']);
-
 $router->get('/admin/comercial/editar', [ComercialController::class, 'editar']);
-
 $router->post('/admin/comercial/editar', [ComercialController::class, 'editar']);
 
 
-
-
-
 // AREA DE FINANCIERO
-$router->get('/admin/financiero/tabla', [ComercialController::class, 'tabla']);
-$router->get('/admin/financiero/editar', [ComercialController::class, 'editar']);
-$router->post('/admin/financiero/editar', [ComercialController::class, 'editar']);
+$router->get('/admin/financiero/tabla', [FinancieroController::class, 'tabla']);
+$router->get('/admin/financiero/editar', [FinancieroController::class, 'editar']);
+$router->post('/admin/financiero/editar', [FinancieroController::class, 'editar']);
+
+
+
+
+
+
+
 
 
 // Materia Prima Producción

@@ -6,7 +6,7 @@ use MVC\Router;
 
 
 
-class ComercialController {
+class FinancieroController {
 
     public static function tabla(Router $router)
     {
