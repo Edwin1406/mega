@@ -164,16 +164,7 @@
     </div>
 
 
-    <div class="formulario__campo">
-        <label class="formulario__label" for="fecha_en_planta">Fecha en Planta</label>
-        <input
-            type="date"
-            name="fecha_en_planta"
-            id="fecha_en_planta"
-            class="formulario__input"
-            value="<?php echo $financiero->fecha_en_planta ?? '' ?>">
-    </div>
-
+   
     <div class="formulario__campo">
         <label class="formulario__label" for="observaciones">Observaciones</label>
         <textarea
@@ -187,6 +178,8 @@
         <label class="formulario__label" for="estado">Estado</label>
         <select name="estado" id="estado" class="formulario__input">
             <option value="Pendiente" <?php echo $financiero->estado == 'Pendiente' ? 'selected' : '' ?>>Pendiente</option>
+            <option value="Confirmado" <?php echo $financiero->estado == 'Confirmado' ? 'selected' : '' ?>>Confirmado</option>
+            <option value="Transito" <?php echo $financiero->estado == 'Transito' ? 'selected' : '' ?>>Transito</option>
         </select>
     </div>
 
