@@ -26,16 +26,32 @@ class ComercialController {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $comercial->sincronizar($_POST);
             $comercial->total_item = $comercial->cantidad * $comercial->precio;
-           // Convierte las fechas en timestamps
-            $timestampProduccion = strtotime($comercial->fecha_produccion);
-            $timestampArribo = strtotime($comercial->arribo_planta);
+           
+// Verifica que las fechas existan y sean válidas
+if (!empty($comercial->fecha_produccion) && !empty($comercial->arribo_planta)) {
+    // Convierte las fechas en timestamps
+    $timestampProduccion = strtotime($comercial->fecha_produccion);
+    $timestampArribo = strtotime($comercial->arribo_planta);
 
-            // Calcula la diferencia en segundos y conviértela en días
-            $diferenciaSegundos = $timestampArribo - $timestampProduccion;
-            $diferenciaDias = $diferenciaSegundos / (60 * 60 * 24);
+    // Asegúrate de que las conversiones fueron exitosas
+    if ($timestampProduccion && $timestampArribo) {
+        // Calcula la diferencia en segundos y convierte a días
+        $diferenciaSegundos = $timestampArribo - $timestampProduccion;
+        $diferenciaDias = $diferenciaSegundos / (60 * 60 * 24);
 
-            // Asigna la diferencia de días al atributo 'transito'
-            $comercial->transito = (int)$diferenciaDias;
+        // Asigna la diferencia de días a 'transito'
+        $comercial->transito = (int)$diferenciaDias;
+    } else {
+        // Si las fechas no son válidas, establece transito como nulo o error
+        $comercial->transito = null; // O cualquier manejo de errores que prefieras
+    }
+} else {
+    // Si alguna fecha está vacía, maneja el error
+    $comercial->transito = null; // O un valor predeterminado
+}
+
+
+
 
 
             debuguear($comercial);
