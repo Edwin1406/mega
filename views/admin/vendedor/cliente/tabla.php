@@ -54,6 +54,8 @@
 
 
 
+
+
 <div class="dashboard__contenedor">
     <?php if (!empty($visor)): ?>
         <table class="table" id="tabla">
