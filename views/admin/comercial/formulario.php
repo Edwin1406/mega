@@ -11,7 +11,7 @@
             value="<?php echo $comercial->import ?? '' ?>">
     </div>
 
-    <div class="formulario__campo">
+    <!-- <div class="formulario__campo">
         <label class="formulario__label" for="proyecto">Proyecto</label>
         <input
             type="text"
@@ -20,7 +20,7 @@
             class="formulario__input"
             placeholder="Número de Proyecto"
             value="<?php echo $comercial->proyecto ?? '' ?>">
-    </div>
+    </div> -->
 
     <div class="formulario__campo">
         <label class="formulario__label" for="pedido_interno">Pedido Interno</label>

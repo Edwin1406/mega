@@ -90,9 +90,9 @@ class Comercial extends ActiveRecord {
             self::$alertas['error'][] = 'El Campo Import es Obligatorio';
         }
 
-        if(!$this->proyecto) {
-            self::$alertas['error'][] = 'El Campo Proyecto es Obligatorio';
-        }
+        // if(!$this->proyecto) {
+        //     self::$alertas['error'][] = 'El Campo Proyecto es Obligatorio';
+        // }
 
         if(!$this->pedido_interno) {
             self::$alertas['error'][] = 'El Campo Pedido Interno es Obligatorio';
