@@ -64,7 +64,7 @@ class Comercial extends ActiveRecord {
         $this->import = $args['import'] ?? '';
         $this->proyecto = $args['proyecto'] ?? '';
         $this->pedido_interno = $args['pedido_interno'] ?? '';
-        $this->fecha_solicitud = $args['fecha_solicitud'] ?? '';
+        $this->fecha_solicitud = date('Y-m-d H:i:s'); 
         $this->puerto_destino = $args['puerto_destino'] ?? '';
         $this->trader = $args['trader'] ?? '';
         $this->marca = $args['marca'] ?? '';
@@ -141,11 +141,6 @@ class Comercial extends ActiveRecord {
 
         if(!$this->arribo_planta) {
             self::$alertas['error'][] = 'El Campo Arribo Planta es Obligatorio';
-        }
-
-       
-        if(!$this->fecha_en_planta) {
-            self::$alertas['error'][] = 'El Campo Fecha en Planta es Obligatorio';
         }
 
         if(!$this->observaciones) {
