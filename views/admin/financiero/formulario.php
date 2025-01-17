@@ -11,7 +11,7 @@
             value="<?php echo $comercial->import ?? '' ?>">
     </div>
 
-    <!-- <div class="formulario__campo">
+    <div class="formulario__campo">
         <label class="formulario__label" for="proyecto">Proyecto</label>
         <input
             type="text"
@@ -20,7 +20,7 @@
             class="formulario__input"
             placeholder="Número de Proyecto"
             value="<?php echo $comercial->proyecto ?? '' ?>">
-    </div> -->
+    </div>
 
     <div class="formulario__campo">
         <label class="formulario__label" for="pedido_interno">Pedido Interno</label>
@@ -33,7 +33,7 @@
             value="<?php echo $comercial->pedido_interno ?? '' ?>">
     </div>
 
-    <!-- <div class="formulario__campo">
+    <div class="formulario__campo">
         <label class="formulario__label" for="fecha_solicitud">Fecha Solicitud</label>
         <input
             type="date"
@@ -41,7 +41,7 @@
             id="fecha_solicitud"
             class="formulario__input"
             value="<?php echo $comercial->fecha_solicitud ?? '' ?>">
-    </div> -->
+    </div>
 
     <div class="formulario__campo">
         <label class="formulario__label" for="puerto_destino">Puerto Destino</label>
@@ -162,7 +162,7 @@
             class="formulario__input"
             value="<?php echo $comercial->arribo_planta ?? '' ?>">
     </div>
-<!-- 
+
 
     <div class="formulario__campo">
         <label class="formulario__label" for="fecha_en_planta">Fecha en Planta</label>
@@ -172,7 +172,7 @@
             id="fecha_en_planta"
             class="formulario__input"
             value="<?php echo $comercial->fecha_en_planta ?? '' ?>">
-    </div> -->
+    </div>
 
     <div class="formulario__campo">
         <label class="formulario__label" for="observaciones">Observaciones</label>
@@ -182,13 +182,13 @@
             class="formulario__input"
             placeholder="Observaciones"><?php echo $comercial->observaciones ?? '' ?></textarea>
     </div>
-
+<!-- 
     <div class="formulario__campo">
         <label class="formulario__label" for="estado">Estado</label>
         <select name="estado" id="estado" class="formulario__input">
             <option value="Pendiente" <?php echo $comercial->estado == 'Pendiente' ? 'selected' : '' ?>>Pendiente</option>
         </select>
-    </div>
+    </div> -->
 
 
 </fieldset>
