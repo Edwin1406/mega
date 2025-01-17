@@ -120,7 +120,10 @@ $router->post('/admin/comercial/editar', [ComercialController::class, 'editar'])
 
 
 
-
+// AREA DE FINANCIERO
+$router->get('/admin/financiero/tabla', [ComercialController::class, 'tabla']);
+$router->get('/admin/financiero/editar', [ComercialController::class, 'editar']);
+$router->post('/admin/financiero/editar', [ComercialController::class, 'editar']);
 
 
 // Materia Prima Producción
