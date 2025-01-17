@@ -40,7 +40,7 @@
     <label for="per_page">Registros por página:</label>
     <select name="per_page" id="per_page" onchange="this.form.submit()">
         <option value="10" <?php echo ($_GET['per_page'] ?? '10') == '10' ? 'selected' : ''; ?>>10</option>
-        <option value="10">10</option>
+        <!-- <option value="10">10</option> -->
         <option value="25">25</option>
         <option value="50">50</option>
         <option value="all">Todos</option>
