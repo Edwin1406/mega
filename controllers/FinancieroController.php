@@ -12,9 +12,7 @@ class FinancieroController {
     {
 
         $router->render('admin/financiero/tabla', [
-            'titulo' => 'GENERAR ORDEN DE COMPRA',
-
-           
+            'titulo' => 'TABLA DE FINANCIERO',
         ]);
     }
 }
