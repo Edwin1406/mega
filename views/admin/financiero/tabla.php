@@ -53,7 +53,7 @@
 
 
 <div class="dashboard__contenedor">
-    <?php if (!empty($comercial)): ?>
+    <?php if (!empty($financiero)): ?>
         <table class="tables" id="tabla">
             <thead class="tables__thead">
                 <tr>
@@ -81,29 +81,29 @@
                 </tr>
             </thead>
             <tbody class="tables__tbody">
-                <?php foreach ($comercial as $comerciales):?>
+                <?php foreach ($financiero as $finanzas):?>
                     <tr class="tables__tr">
-                        <td class="tables__td"><?php echo $comerciales->id?></td>
-                        <td class="tables__td"><?php echo $comerciales->import?></td>
-                        <td class="tables__td"><?php echo $comerciales->proyecto?></td>
-                        <td class="tables__td"><?php echo $comerciales->pedido_interno?></td>
-                        <td class="tables__td"><?php echo $comerciales->fecha_solicitud?></td>
-                        <td class="tables__td"><?php echo $comerciales->puerto_destino?></td>
-                        <td class="tables__td"><?php echo $comerciales->trader?></td>
-                        <td class="tables__td"><?php echo $comerciales->marca?></td>
-                        <td class="tables__td"><?php echo $comerciales->linea?></td>
-                        <td class="tables__td"><?php echo $comerciales->producto?></td>
-                        <td class="tables__td"><?php echo $comerciales->gms?></td>
-                        <td class="tables__td"><?php echo $comerciales->ancho?></td>
-                        <td class="tables__td"><?php echo $comerciales->cantidad?></td>
-                        <td class="tables__td"><?php echo $comerciales->precio?></td>
-                        <td class="tables__td"><?php echo $comerciales->total_item?></td>
-                        <td class="tables__td"><?php echo $comerciales->fecha_produccion?></td>
-                        <td class="tables__td"><?php echo $comerciales->arribo_planta?></td>
-                        <td class="tables__td"><?php echo $comerciales->transito?></td>
-                        <td class="tables__td"><?php echo $comerciales->fecha_en_planta?></td>
-                        <td class="tables__td"><?php echo $comerciales->estado?></td>
-                        <td  class="tables__td--acciones"><a class="tables__accion tables__accion--editar" href="/admin/comercial/editar?id=<?php echo $comerciales->id; ?>"><i class="fa-solid fa-user-pen"></i>Editar</a>
+                        <td class="tables__td"><?php echo $finanzas->id?></td>
+                        <td class="tables__td"><?php echo $finanzas->import?></td>
+                        <td class="tables__td"><?php echo $finanzas->proyecto?></td>
+                        <td class="tables__td"><?php echo $finanzas->pedido_interno?></td>
+                        <td class="tables__td"><?php echo $finanzas->fecha_solicitud?></td>
+                        <td class="tables__td"><?php echo $finanzas->puerto_destino?></td>
+                        <td class="tables__td"><?php echo $finanzas->trader?></td>
+                        <td class="tables__td"><?php echo $finanzas->marca?></td>
+                        <td class="tables__td"><?php echo $finanzas->linea?></td>
+                        <td class="tables__td"><?php echo $finanzas->producto?></td>
+                        <td class="tables__td"><?php echo $finanzas->gms?></td>
+                        <td class="tables__td"><?php echo $finanzas->ancho?></td>
+                        <td class="tables__td"><?php echo $finanzas->cantidad?></td>
+                        <td class="tables__td"><?php echo $finanzas->precio?></td>
+                        <td class="tables__td"><?php echo $finanzas->total_item?></td>
+                        <td class="tables__td"><?php echo $finanzas->fecha_produccion?></td>
+                        <td class="tables__td"><?php echo $finanzas->arribo_planta?></td>
+                        <td class="tables__td"><?php echo $finanzas->transito?></td>
+                        <td class="tables__td"><?php echo $finanzas->fecha_en_planta?></td>
+                        <td class="tables__td"><?php echo $finanzas->estado?></td>
+                        <td  class="tables__td--acciones"><a class="tables__accion tables__accion--editar" href="/admin/comercial/editar?id=<?php echo $finanzas->id; ?>"><i class="fa-solid fa-user-pen"></i>Editar</a>
 
                     </tr>
                 <?php endforeach;?>
