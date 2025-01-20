@@ -19,7 +19,7 @@
                 <!-- nombre usuario -->
 
                 <form method="POST" action="/logout" class="dashboard__form">
-               <p class="nombre_header" ><?php 
+               <p class="enlace_header" ><?php 
                 session_start();
                 echo $_SESSION['nombre'] ?> </p> 
                 <input type="submit" value="Cerrar Sesión" class="dashboard__submit--logout">
