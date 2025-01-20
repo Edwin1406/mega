@@ -12,7 +12,7 @@
             .nombre_header {
                 color: white;
                 font-size: 1.5rem;
-                /* margin-right: 1rem; */
+                margin-right: 5rem;
             }
         </style>
         <nav class="dashboard__nav">
