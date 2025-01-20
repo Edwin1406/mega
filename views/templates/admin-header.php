@@ -8,10 +8,10 @@
         </a>
         <nav class="dashboard__nav">
                 <!-- nombre usuario -->
-                <p class="dashboard__usuario"> <?php 
-                session_start();
-                echo $_SESSION['nombre'] ?> </p>
-            <form method="POST" action="/logout" class="dashboard__form">
+             
+                <form method="POST" action="/logout" class="dashboard__form">
+                <span class="dashboard__usuario">
+                    <?php echo $_SESSION['email'] ?>
                 <input type="submit" value="Cerrar Sesión" class="dashboard__submit--logout">
             </form>
         </nav>
