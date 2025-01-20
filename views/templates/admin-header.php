@@ -17,6 +17,7 @@
                 justify-content: center;
                 align-items: center;
                 display: flex;
+                margin-left: 5rem;
             }
         </style>
         <nav class="dashboard__nav">
