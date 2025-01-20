@@ -6,11 +6,20 @@
                MEGASTOCK
             </h2>
         </a>
+
+
+        <style>
+            .nombre_header {
+                color: white;
+                font-size: 1.5rem;
+                margin-right: 1rem;
+            }
+        </style>
         <nav class="dashboard__nav">
                 <!-- nombre usuario -->
-             
+
                 <form method="POST" action="/logout" class="dashboard__form">
-               <p style="color: white;"><?php 
+               <p class="nombre_header" ><?php 
                 session_start();
                 echo $_SESSION['nombre'] ?> </p> 
                 <input type="submit" value="Cerrar Sesión" class="dashboard__submit--logout">
