@@ -53,6 +53,17 @@
 
     }
 
+    &__submit--name{
+
+        color: v.$blanco;
+        border: none;
+        background-color: transparent;
+        font-size: 1.5rem;
+        text-transform: uppercase;
+        font-weight: v.$bold;
+    
+    }
+
     &__grid{
         display: flex;
         flex: 1;

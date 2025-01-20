@@ -194,6 +194,14 @@
   border-bottom: 1px solid rgb(227, 3, 3);
   cursor: pointer;
 }
+.dashboard__submit--name {
+  color: #FFFFFF;
+  border: none;
+  background-color: transparent;
+  font-size: 1.5rem;
+  text-transform: uppercase;
+  font-weight: 700;
+}
 .dashboard__grid {
   display: flex;
   flex: 1;
