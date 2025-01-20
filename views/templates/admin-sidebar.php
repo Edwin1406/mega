@@ -9,7 +9,6 @@
 
        
         <?php 
-        session_start();
         
         if($_SESSION['email'] === 'produccion@megaecuador.com'): ?>
         <a href="/admin/area/crear" class="dashboard__enlace <?php echo pagina_actual_admin('/crear') ? 'dashboard__enlace--actual' :'' ?>">
