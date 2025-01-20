@@ -10,8 +10,9 @@
                 <!-- nombre usuario -->
              
                 <form method="POST" action="/logout" class="dashboard__form">
-                <span class="dashboard__usuario">
-                    <?php echo $_SESSION['email'] ?>
+                <?php 
+                session_start();
+                echo $_SESSION['nombre'] ?>
                 <input type="submit" value="Cerrar Sesión" class="dashboard__submit--logout">
             </form>
         </nav>
