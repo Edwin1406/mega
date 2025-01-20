@@ -8,13 +8,14 @@
         </a>
 
        
-
+        <?php if($_SESSION['email'] === 'produccion@megaecuador.com'): ?>
         <a href="/admin/area/crear" class="dashboard__enlace <?php echo pagina_actual_admin('/crear') ? 'dashboard__enlace--actual' :'' ?>">
             <i class="fa-duotone fa-solid fa-calendar-days dashboard__icono"></i>
             <span class="dashboard__menu--texto">
             Area
             </span>
         </a>
+        <?php endif; ?>
 
         <a href="/admin/area/escoger" class="dashboard__enlace <?php echo pagina_actual_admin('/escoger') ? 'dashboard__enlace--actual' :'' ?>">
             <i class="fa-duotone fa-solid fa-calendar-days dashboard__icono"></i>
