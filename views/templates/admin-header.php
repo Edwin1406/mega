@@ -7,7 +7,6 @@
             </h2>
         </a>
         <nav class="dashboard__nav"> 
-            <!-- <p class="dashboard__submit--name" ><?php session_start(); echo $_SESSION['nombre'] ?> </p>  -->
 
             <?php
 session_start();
