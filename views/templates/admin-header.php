@@ -13,7 +13,7 @@
                 color: white;
                 font-size: 1.5rem;
                 margin-right: 1rem;
-                gap: 1rem;
+                gap: 10rem;
             }
         </style>
         <nav class="dashboard__nav">
