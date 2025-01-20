@@ -15,6 +15,8 @@
                 /* margin-right: 5rem; */
                 /* text-align: center; */
                 justify-content: center;
+                align-items: center;
+                display: flex;
             }
         </style>
         <nav class="dashboard__nav">
