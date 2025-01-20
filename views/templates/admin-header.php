@@ -11,13 +11,8 @@
         <style>
             .nombre_header {
                 color: white;
-                font-size: 1.5rem;
-                /* margin-right: 5rem; */
-                /* text-align: center; */
-                justify-content: center;
-                align-items: center;
-                display: flex;
-                margin-left: 5rem;
+                font-size: 2rem;
+                margin-right: 5rem;
             }
         </style>
         <nav class="dashboard__nav">
