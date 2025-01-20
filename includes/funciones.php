@@ -56,3 +56,14 @@ function dias(){
 
 
 }
+
+
+
+function repeatSession():void{
+    if(!isset($_SESSION)){
+        session_start();
+    }
+    if(isset($_SESSION['nombre'])){
+        echo $_SESSION['nombre'];
+    }
+}

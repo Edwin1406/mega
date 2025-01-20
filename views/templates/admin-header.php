@@ -11,17 +11,8 @@
 
 
             <form method="POST" action="/logout" class="dashboard__form">
-            <p class="dashboard__submit--name fa fa-user">
-    <?php
-    if (session_status() == PHP_SESSION_NONE) {
-        session_start();
-    }
-    echo isset($_SESSION['nombre']) ? $_SESSION['nombre'] : 'Invitado';
-    ?>
-</p>
-
-             
-                <input type="submit" value="Cerrar Sesión" class="dashboard__submit--logout">
+            <p class="dashboard__submit--name fa fa-user"> <?php repeatSession(); ?> </p>
+            <input type="submit" value="Cerrar Sesión" class="dashboard__submit--logout">
             </form>
         </nav>
     </div>
