@@ -7,7 +7,7 @@
             </h2>
         </a>
         <nav class="dashboard__nav"> 
-            <p class="dashboard__submit--name" class="fa fa-user" ><?php session_start(); echo $_SESSION['nombre'] ?> </p> 
+            <p class="dashboard__submit--name fa fa-user" ><?php session_start(); echo $_SESSION['nombre'] ?> </p> 
 
                 <form method="POST" action="/logout" class="dashboard__form">
              
