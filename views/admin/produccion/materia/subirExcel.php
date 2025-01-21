@@ -10,7 +10,6 @@
             id="excel"
             class="formulario__input"
             placeholder="Excel"
-            accept=".xls,.xlsx"
-            value="<?php echo $materia->excel ?? '' ?>">
+            accept=".xls,.xlsx">
     </div>
 </fieldset>
