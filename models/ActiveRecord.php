@@ -465,8 +465,6 @@ public static function procesarArchivoExcel($filePath)
 
 
 
-
-
 public static function procesarArchivoExcelMateria($filePath)
 {
     $spreadsheet = IOFactory::load($filePath);
@@ -478,7 +476,7 @@ public static function procesarArchivoExcelMateria($filePath)
             id INT AUTO_INCREMENT PRIMARY KEY,
             almacen VARCHAR(255),
             codigo VARCHAR(255),
-            descripcion VARCHAR(255),
+            descripcion VARCHAR(500),
             existencia INT,
             costo DECIMAL(10, 2),
             promedio DECIMAL(10, 2),
@@ -492,6 +490,9 @@ public static function procesarArchivoExcelMateria($filePath)
     ";
     self::$db->query($queryCrearTabla);
 
+    // Configuración de codificación UTF-8 para asegurar correcta lectura
+    self::$db->set_charset('utf8mb4');
+
     foreach ($sheet->getRowIterator(2) as $row) {
         $data = [];
         $cellIterator = $row->getCellIterator();
@@ -501,7 +502,6 @@ public static function procesarArchivoExcelMateria($filePath)
             $data[] = $cell->getValue() ?? ''; // Captura valores nulos como cadenas vacías
         }
 
-
         // Mapear los datos a las columnas y asegurar que siempre haya suficientes valores
         list(
             $almacen, $codigo, $descripcion, $existencia, $costo,
@@ -510,9 +510,20 @@ public static function procesarArchivoExcelMateria($filePath)
         ) = array_pad(array_map(function ($value) {
             return trim($value ?? ''); // Captura valores nulos y elimina espacios
         }, $data), 12, null);
-      
-     
-    
+
+        // Normalizar el separador decimal
+        $costo = str_replace(',', '.', $costo);
+        $promedio = str_replace(',', '.', $promedio);
+
+        // Depuración: registro de valores procesados (desactivar en producción)
+        error_log("Procesando fila: descripcion = $descripcion, codigo = $codigo");
+
+        // Validar que la descripción no esté vacía
+        if (empty($descripcion)) {
+            error_log("Fila omitida: descripción vacía para código $codigo");
+            continue;
+        }
+
         // Comprobar si el registro ya existe en la base de datos
         $queryVerificar = "
             SELECT COUNT(*) as total 
@@ -570,8 +581,12 @@ public static function procesarArchivoExcelMateria($filePath)
             );
             $stmt->execute();
         }
+
+        // Verificar si hubo errores al ejecutar las consultas
+        if ($stmt->error) {
+            error_log("Error en la consulta: " . $stmt->error);
+        }
     }
-    
 
     return true;
 }
