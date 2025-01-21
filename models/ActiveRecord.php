@@ -460,7 +460,6 @@ public static function procesarArchivoExcel($filePath)
     return true;
 }
 
-
 public static function procesarArchivoExcelMateria($filePath)
 {
     $spreadsheet = IOFactory::load($filePath);
@@ -490,45 +489,44 @@ public static function procesarArchivoExcelMateria($filePath)
         $data = [];
         $cellIterator = $row->getCellIterator();
         $cellIterator->setIterateOnlyExistingCells(false);
-    
+
         foreach ($cellIterator as $cell) {
             $data[] = $cell->getValue() ?? ''; // Captura valores nulos como cadenas vacías
         }
 
-        // Mapear los datos a las columnas y asegurar que siempre haya suficientes valores
         list(
-            $almacen, $codigo, $descripcion, $existencia, $costo,
+            $almacen, $codigo, $descripcion, $existenciaNueva, $costo,
             $promedio, $talla, $linea, $gramaje, $proveedor,
             $sustrato, $ancho
         ) = array_pad(array_map(function ($value) {
             return trim($value ?? ''); // Captura valores nulos y elimina espacios
         }, $data), 12, null);
-        
-    
-        // Validar descripción y asignar valor predeterminado si está vacía
+
         if (empty($descripcion)) {
             $descripcion = 'Sin descripción'; // Valor predeterminado si está vacío
         }
-    
+
         if (empty($codigo)) {
-            // Si no hay código, omitir la fila
-            continue;
+            continue; // Omitir filas sin código
         }
-    
-        // Comprobar si el registro ya existe en la base de datos
+
+        // Verificar si el registro ya existe
         $queryVerificar = "
-            SELECT COUNT(*) as total 
+            SELECT existencia 
             FROM " . static::$tabla . " 
             WHERE codigo = ?
         ";
-    
+
         $stmt = self::$db->prepare($queryVerificar);
         $stmt->bind_param('s', $codigo);
         $stmt->execute();
         $resultado = $stmt->get_result()->fetch_assoc();
-    
-        if ($resultado['total'] > 0) {
-            // Actualizar el registro existente
+
+        if ($resultado) {
+            $existenciaActual = (int) $resultado['existencia'];
+            $existenciaFinal = $existenciaActual + (int) $existenciaNueva; // Ajuste de la existencia
+
+            // Actualizar registro existente
             $queryActualizar = "
                 UPDATE " . static::$tabla . "
                 SET 
@@ -545,11 +543,11 @@ public static function procesarArchivoExcelMateria($filePath)
                     ancho = ?
                 WHERE codigo = ?
             ";
-    
+
             $stmt = self::$db->prepare($queryActualizar);
             $stmt->bind_param(
                 'ssiddssssssd',
-                $almacen, $descripcion, $existencia, $costo, $promedio,
+                $almacen, $descripcion, $existenciaFinal, $costo, $promedio,
                 $talla, $linea, $gramaje, $proveedor, $sustrato, $ancho,
                 $codigo
             );
@@ -563,17 +561,16 @@ public static function procesarArchivoExcelMateria($filePath)
                     sustrato, ancho
                 ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
             ";
-    
+
             $stmt = self::$db->prepare($queryInsertar);
             $stmt->bind_param(
                 'ssiddssssssd',
-                $almacen, $codigo, $descripcion, $existencia, $costo, $promedio,
+                $almacen, $codigo, $descripcion, $existenciaNueva, $costo, $promedio,
                 $talla, $linea, $gramaje, $proveedor, $sustrato, $ancho
             );
             $stmt->execute();
         }
     }
-    
 
     return true;
 }
