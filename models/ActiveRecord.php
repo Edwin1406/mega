@@ -487,7 +487,7 @@ public static function procesarArchivoExcelMateria($filePath)
         list(
             $almacen, $codigo, $descripcion, $existencia, $costo,
             $promedio, $talla, $linea, $gramaje, $proveedor,
-            $sustrato, $created_at, $updated_at
+            $sustrato,$ancho,$created_at,$updated_at
         ) = array_map('trim', $data);
 
         // Comprobar si el registro ya existe en la base de datos
@@ -517,6 +517,7 @@ public static function procesarArchivoExcelMateria($filePath)
                     gramaje = ?,
                     proveedor = ?,
                     sustrato = ?,
+                    ancho = ?,
                     created_at = ?,
                     updated_at = ?
                 WHERE codigo = ?
@@ -526,7 +527,7 @@ public static function procesarArchivoExcelMateria($filePath)
             $stmt->bind_param(
                 'ssiddssssssss',
                 $almacen, $descripcion, $existencia, $costo, $promedio,
-                $talla, $linea, $gramaje, $proveedor, $sustrato,
+                $talla, $linea, $gramaje, $proveedor, $sustrato, $ancho,
                 $created_at, $updated_at, $codigo
             );
             $stmt->execute();
@@ -536,7 +537,7 @@ public static function procesarArchivoExcelMateria($filePath)
                 INSERT INTO " . static::$tabla . " (
                     almacen, codigo, descripcion, existencia, costo,
                     promedio, talla, linea, gramaje, proveedor,
-                    sustrato, created_at, updated_at
+                    sustrato,ancho, created_at, updated_at
                 ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
             ";
 
@@ -544,7 +545,7 @@ public static function procesarArchivoExcelMateria($filePath)
             $stmt->bind_param(
                 'ssiddssssssss',
                 $almacen, $codigo, $descripcion, $existencia, $costo, $promedio,
-                $talla, $linea, $gramaje, $proveedor, $sustrato,
+                $talla, $linea, $gramaje, $proveedor, $sustrato,$ancho,
                 $created_at, $updated_at
             );
             $stmt->execute();
