@@ -481,8 +481,8 @@ public static function procesarArchivoExcelMateria($filePath)
             gramaje VARCHAR(255),
             proveedor VARCHAR(255),
             sustrato VARCHAR(255),
-            ancho DECIMAL(10, 2),
-            )
+            ancho DECIMAL(10, 2)
+        )
     ";
     self::$db->query($queryCrearTabla);
 
