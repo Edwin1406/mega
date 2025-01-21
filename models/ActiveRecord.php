@@ -465,101 +465,89 @@ public static function procesarArchivoExcel($filePath)
 
 
 // Materia Prima Producción
-
 public static function procesarArchivoExcelMateria($filePath)
 {
     $spreadsheet = IOFactory::load($filePath);
     $sheet = $spreadsheet->getActiveSheet();
 
-    // Crear la tabla si no existe
-    $queryCrearTabla = "
-        CREATE TABLE IF NOT EXISTS " . static::$tabla . " (
-            almacen VARCHAR(255),
-            codigo  VARCHAR(255),
-            descripcion VARCHAR(255),
-            existencia INT,
-            costo DECIMAL(10, 2),
-            promedio DECIMAL(10, 2),
-            talla VARCHAR(255),
-            linea VARCHAR(255),
-            gramaje VARCHAR(255),
-            proveedor VARCHAR(255),
-            sustrato VARCHAR(255),
-            created_at DATE,
-            updated_at DATE,
-            PRIMARY KEY (codigo)  -- Asegúrate de tener una clave primaria
-        )
-    ";
+    // Asegúrate de que la tabla ya existe antes de ejecutar este código.
+    // Esto debería ser responsabilidad de un script de migración.
 
-    // Ejecutar la creación de la tabla
-    self::$db->query($queryCrearTabla);
-
-    // Insertar los datos de cada fila
+    // Procesar las filas del archivo Excel (a partir de la segunda fila para omitir encabezados)
     foreach ($sheet->getRowIterator(2) as $row) {
         $data = [];
         $cellIterator = $row->getCellIterator();
         $cellIterator->setIterateOnlyExistingCells(false);
 
         foreach ($cellIterator as $cell) {
-            $data[] = $cell->getValue(); // No usamos trim aquí, lo haremos más abajo
+            $data[] = $cell->getValue() ?? ''; // Captura valores nulos como cadenas vacías
         }
 
-        // Mapear los datos a las columnas con verificación para null
+        // Mapear los datos a las columnas
         list(
             $almacen, $codigo, $descripcion, $existencia, $costo,
             $promedio, $talla, $linea, $gramaje, $proveedor,
             $sustrato, $created_at, $updated_at
-        ) = array_map(function ($value) {
-            return trim($value ?? '');  // Verifica si el valor es null y aplica trim
-        }, $data);
+        ) = array_map('trim', $data);
 
-        // Comprobar si el nombre_producto comienza con alguno de los valores no deseados
-        if (preg_match('/^(LM|CIRELES|CHRYSAL|Z|GUANTE)/', $descripcion)) {
-            // Si coincide, se omite el registro
-            continue;
-        }
-
-        // Verificar si el registro ya existe
+        // Comprobar si el registro ya existe en la base de datos
         $queryVerificar = "
             SELECT COUNT(*) as total 
             FROM " . static::$tabla . " 
-            WHERE codigo = '$codigo'
+            WHERE codigo = ?
         ";
-        $resultado = self::$db->query($queryVerificar)->fetch_assoc();
+
+        $stmt = self::$db->prepare($queryVerificar);
+        $stmt->bind_param('s', $codigo);
+        $stmt->execute();
+        $resultado = $stmt->get_result()->fetch_assoc();
 
         if ($resultado['total'] > 0) {
             // Actualizar el registro existente
             $queryActualizar = "
                 UPDATE " . static::$tabla . "
                 SET 
-                    almacen = '$almacen',
-                    descripcion = '$descripcion',
-                    existencia = '$existencia',
-                    costo = '$costo',
-                    promedio = '$promedio',
-                    talla = '$talla',
-                    linea = '$linea',
-                    gramaje = '$gramaje',
-                    proveedor = '$proveedor',
-                    sustrato = '$sustrato',
-                    created_at = '$created_at',
-                    updated_at = '$updated,
+                    almacen = ?,
+                    descripcion = ?,
+                    existencia = ?,
+                    costo = ?,
+                    promedio = ?,
+                    talla = ?,
+                    linea = ?,
+                    gramaje = ?,
+                    proveedor = ?,
+                    sustrato = ?,
+                    created_at = ?,
+                    updated_at = ?
+                WHERE codigo = ?
             ";
-            self::$db->query($queryActualizar);
+
+            $stmt = self::$db->prepare($queryActualizar);
+            $stmt->bind_param(
+                'ssiddssssssss',
+                $almacen, $descripcion, $existencia, $costo, $promedio,
+                $talla, $linea, $gramaje, $proveedor, $sustrato,
+                $created_at, $updated_at, $codigo
+            );
+            $stmt->execute();
         } else {
             // Insertar un nuevo registro
             $queryInsertar = "
                 INSERT INTO " . static::$tabla . " (
-                    almacen, nombre_cliente, ruc_cliente, numero_pedido, fecha_pedido,
-                    vendedor, plazo_entrega, estado_pedido, codigo_producto, nombre_producto,
-                    cantidad, pvp, subtotal, total
-                ) VALUES (
-                    '$almacen','$codigo', '$descripcion', '$existencia', '$costo',
-                    '$promedio', '$talla', '$linea', '$gramaje', '$proveedor',
-                    '$sustrato', '$created_at', '$updated_at'
-                )
+                    almacen, codigo, descripcion, existencia, costo,
+                    promedio, talla, linea, gramaje, proveedor,
+                    sustrato, created_at, updated_at
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
             ";
-            self::$db->query($queryInsertar);
+
+            $stmt = self::$db->prepare($queryInsertar);
+            $stmt->bind_param(
+                'ssiddssssssss',
+                $almacen, $codigo, $descripcion, $existencia, $costo, $promedio,
+                $talla, $linea, $gramaje, $proveedor, $sustrato,
+                $created_at, $updated_at
+            );
+            $stmt->execute();
         }
     }
 
