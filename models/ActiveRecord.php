@@ -482,9 +482,7 @@ public static function procesarArchivoExcelMateria($filePath)
             proveedor VARCHAR(255),
             sustrato VARCHAR(255),
             ancho DECIMAL(10, 2),
-            created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-            updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-        )
+            )
     ";
     self::$db->query($queryCrearTabla);
 
