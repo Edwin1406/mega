@@ -30,7 +30,7 @@ class MateriaPrimaV extends ActiveRecord
         $this->id = $args['id'] ?? null;
         $this->almacen = $args['almacen'] ?? '';
         $this->codigo = $args['codigo'] ?? '';
-        // $this->descripcion = $args['descripcion'] ?? '';
+        $this->descripcion = $args['descripcion'] ?? '';
         $this->existencia = $args['existencia'] ?? '';
         $this->costo = $args['costo'] ?? '';
         $this->promedio = $args['promedio'] ?? '';
