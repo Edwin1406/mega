@@ -1,3 +1,7 @@
+
+<h1 class="dashboard__heading"> <?php echo $titulo ?> </h1>
+
+
 <div class="dashboard__formulario">
 
 <?php include_once __DIR__.'/../../../templates/alertas.php'  ?>
