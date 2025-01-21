@@ -464,6 +464,7 @@ public static function procesarArchivoExcel($filePath)
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
+
 public static function procesarArchivoExcelMateria($filePath)
 {
     $spreadsheet = IOFactory::load($filePath);
@@ -523,7 +524,6 @@ public static function procesarArchivoExcelMateria($filePath)
             echo "Descripción procesada: '$descripcion' para el código: $codigo\n";
         }
 
-
         $existencia = is_numeric($existencia) ? intval($existencia) : 0;
         $costo = is_numeric($costo) ? floatval($costo) : 0.0;
         $promedio = is_numeric($promedio) ? floatval($promedio) : 0.0;
@@ -563,12 +563,10 @@ public static function procesarArchivoExcelMateria($filePath)
             $stmt = self::$db->prepare($queryActualizar);
             $stmt->bind_param(
                 'ssiddssssssd',
-                $almacen, $descripcion, $existencia, $costo, $promedio,
-                $talla, $linea, $gramaje, $proveedor, $sustrato, $ancho,
-                $codigo
+                $almacen,  $codigo, $descripcion, $existencia, $costo, $promedio,
+                $talla, $linea, $gramaje, $proveedor, $sustrato, $ancho
+              
             );
-
-            // Depurar consulta SQL completa
 
             if (!$stmt->execute()) {
                 echo "Error al actualizar: " . $stmt->error . "\n";
@@ -589,8 +587,6 @@ public static function procesarArchivoExcelMateria($filePath)
                 $almacen, $codigo, $descripcion, $existencia, $costo, $promedio,
                 $talla, $linea, $gramaje, $proveedor, $sustrato, $ancho
             );
-
-            // Depurar consulta SQL completa
 
             if (!$stmt->execute()) {
                 echo "Error al insertar: " . $stmt->error . "\n";
