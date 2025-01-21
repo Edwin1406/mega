@@ -6,8 +6,8 @@
         <label class="formulario__label" for="excel">Excel</label>
         <input
             type="file"
-            name="excel"
-            id="excel"
+            name="file"
+            id="file"
             class="formulario__input"
             placeholder="Excel"
             accept=".xls,.xlsx">
