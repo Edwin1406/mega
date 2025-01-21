@@ -680,7 +680,6 @@ public static function procesarArchivoExcelMateria($filePath)
 
     return true;
 }
-
 // Método para registrar consumo
 public static function registrarConsumo($codigo, $cantidad_consumida)
 {
@@ -693,16 +692,16 @@ public static function registrarConsumo($codigo, $cantidad_consumida)
     $resultado = self::$db->query($queryConsultar)->fetch_assoc();
 
     if ($resultado) {
-        $consumo_actual = (int)$resultado['consumo_acumulado'];
+        $consumo_acumulado_actual = (int)$resultado['consumo_acumulado'];
         $existencia_inicial = (int)$resultado['existencia_inicial'];
 
         // Calcular el nuevo consumo acumulado
-        $nuevo_consumo_acumulado = $consumo_actual + $cantidad_consumida;
+        $nuevo_consumo_acumulado = $consumo_acumulado_actual + $cantidad_consumida;
 
         // Validar que no exceda la existencia inicial
         if ($nuevo_consumo_acumulado > $existencia_inicial) {
-            error_log("El consumo excede la existencia inicial para el código $codigo.");
-            return false;
+            error_log("Error: El consumo acumulado excede la existencia inicial para el código $codigo.");
+            return false; // Evitar un consumo mayor a lo disponible
         }
 
         // Actualizar el consumo acumulado
@@ -713,9 +712,12 @@ public static function registrarConsumo($codigo, $cantidad_consumida)
         ";
         self::$db->query($queryActualizarConsumo);
 
+        // Registrar en el log para verificar el cambio
+        error_log("Consumo actualizado: Código $codigo, Consumo acumulado $nuevo_consumo_acumulado");
+
         return true;
     } else {
-        error_log("El código $codigo no existe en la base de datos.");
+        error_log("Error: El código $codigo no existe en la base de datos.");
         return false;
     }
 }
