@@ -562,7 +562,7 @@ public static function procesarArchivoExcelMateria($filePath)
                     almacen, codigo, descripcion, existencia, costo,
                     promedio, talla, linea, gramaje, proveedor,
                     sustrato, ancho
-                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), NOW())
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
             ";
     
             $stmt = self::$db->prepare($queryInsertar);
