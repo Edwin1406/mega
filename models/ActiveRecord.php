@@ -465,6 +465,36 @@ public static function procesarArchivoExcel($filePath)
 
 
 
+public static function procesarArchivoExcelMateria($filePath)
+{
+    $spreadsheet = IOFactory::load($filePath);
+    $sheet = $spreadsheet->getActiveSheet();
+
+    // Crear la tabla si no existe
+    $queryCrearTabla = "
+        CREATE TABLE IF NOT EXISTS " . static::$tabla . " (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            almacen VARCHAR(255),
+            codigo VARCHAR(255),
+            descripcion VARCHAR(500),
+            existencia INT,
+            costo DECIMAL(10, 2),
+            promedio DECIMAL(10, 2),
+            talla VARCHAR(255),
+            linea VARCHAR(255),
+            gramaje VARCHAR(255),
+            proveedor VARCHAR(255),
+            sustrato VARCHAR(255),
+            ancho DECIMAL(10, 2)
+        )
+    ";
+    self::$db->query($queryCrearTabla);
+
+    // Configuración de codificación UTF-8 para asegurar correcta lectura
+    self::$db->set_charset('utf8mb4');
+
+   
+
 foreach ($sheet->getRowIterator(2) as $row) {
     $data = [];
     $cellIterator = $row->getCellIterator();
@@ -553,6 +583,11 @@ foreach ($sheet->getRowIterator(2) as $row) {
         }
     }
 }
+
+
+    return true;
+}
+
 
 
     
