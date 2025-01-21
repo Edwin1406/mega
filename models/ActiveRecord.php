@@ -495,6 +495,10 @@ public static function procesarArchivoExcelMateria($filePath)
             $data[] = $cell->getValue() ?? ''; // Captura valores nulos como cadenas vacías
         }
 
+        //
+        
+        var_dump($data);
+        
 
         // Mapear los datos a las columnas y asegurar que siempre haya suficientes valores
         list(
