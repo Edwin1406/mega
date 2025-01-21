@@ -510,7 +510,7 @@ foreach ($sheet->getRowIterator(2) as $row) {
         $sustrato, $ancho
     ) = array_pad(array_map(function ($value) {
         return trim($value ?? '');
-    }, $data), 12, null);
+    }, $data), 13, null);
 
     // Normalizar decimales
     $costo = str_replace(',', '.', $costo);
