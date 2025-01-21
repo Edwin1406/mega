@@ -461,190 +461,126 @@ public static function procesarArchivoExcel($filePath)
 }
 
 
+public static function procesarArchivoExcelMateria($filePath)
+{
+    $spreadsheet = IOFactory::load($filePath);
+    $sheet = $spreadsheet->getActiveSheet();
 
-
-
-
-
-foreach ($sheet->getRowIterator(2) as $row) {
-    $data = [];
-    $cellIterator = $row->getCellIterator();
-    $cellIterator->setIterateOnlyExistingCells(false);
-
-    foreach ($cellIterator as $cell) {
-        $data[] = $cell->getValue() ?? ''; // Captura valores nulos como cadenas vacías
-    }
-
-    // Mapear los datos a las columnas y asegurar que siempre haya suficientes valores
-    list(
-        $almacen, $codigo, $descripcion, $existencia, $costo,
-        $promedio, $talla, $linea, $gramaje, $proveedor,
-        $sustrato, $ancho
-    ) = array_pad(array_map(function ($value) {
-        return trim($value ?? ''); // Captura valores nulos y elimina espacios
-    }, $data), 12, null);
-
-    // Validar descripción y asignar valor predeterminado si está vacía
-    if (empty($descripcion)) {
-        $descripcion = 'Sin descripción'; // Valor predeterminado si está vacío
-    }
-
-    if (empty($codigo)) {
-        // Si no hay código, omitir la fila
-        continue;
-    }
-
-    // Comprobar si el registro ya existe en la base de datos
-    $queryVerificar = "
-        SELECT COUNT(*) as total 
-        FROM " . static::$tabla . " 
-        WHERE codigo = ?
+    // Crear la tabla si no existe
+    $queryCrearTabla = "
+        CREATE TABLE IF NOT EXISTS " . static::$tabla . " (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            almacen VARCHAR(255),
+            codigo VARCHAR(255),
+            descripcion VARCHAR(255),
+            existencia INT,
+            costo DECIMAL(10, 2),
+            promedio DECIMAL(10, 2),
+            talla VARCHAR(255),
+            linea VARCHAR(255),
+            gramaje VARCHAR(255),
+            proveedor VARCHAR(255),
+            sustrato VARCHAR(255),
+            ancho DECIMAL(10, 2),
+            created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+            updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+        )
     ";
-
-    $stmt = self::$db->prepare($queryVerificar);
-    $stmt->bind_param('s', $codigo);
-    $stmt->execute();
-    $resultado = $stmt->get_result()->fetch_assoc();
-
-    if ($resultado['total'] > 0) {
-        // Actualizar el registro existente
-        $queryActualizar = "
-            UPDATE " . static::$tabla . "
-            SET 
-                almacen = ?,
-                descripcion = ?,
-                existencia = ?,
-                costo = ?,
-                promedio = ?,
-                talla = ?,
-                linea = ?,
-                gramaje = ?,
-                proveedor = ?,
-                sustrato = ?,
-                ancho = ?,
-                updated_at = NOW()
+    self::$db->query($queryCrearTabla);
+    foreach ($sheet->getRowIterator(2) as $row) {
+        $data = [];
+        $cellIterator = $row->getCellIterator();
+        $cellIterator->setIterateOnlyExistingCells(false);
+    
+        foreach ($cellIterator as $cell) {
+            $data[] = $cell->getValue() ?? ''; // Captura valores nulos como cadenas vacías
+        }
+    
+        // Mapear los datos a las columnas y asegurar que siempre haya suficientes valores
+        list(
+            $almacen, $codigo, $descripcion, $existencia, $costo,
+            $promedio, $talla, $linea, $gramaje, $proveedor,
+            $sustrato, $ancho
+        ) = array_pad(array_map(function ($value) {
+            return trim($value ?? ''); // Captura valores nulos y elimina espacios
+        }, $data), 12, null);
+    
+        // Validar descripción y asignar valor predeterminado si está vacía
+        if (empty($descripcion)) {
+            $descripcion = 'Sin descripción'; // Valor predeterminado si está vacío
+        }
+    
+        if (empty($codigo)) {
+            // Si no hay código, omitir la fila
+            continue;
+        }
+    
+        // Comprobar si el registro ya existe en la base de datos
+        $queryVerificar = "
+            SELECT COUNT(*) as total 
+            FROM " . static::$tabla . " 
             WHERE codigo = ?
         ";
-
-        $stmt = self::$db->prepare($queryActualizar);
-        $stmt->bind_param(
-            'ssiddssssssd',
-            $almacen, $descripcion, $existencia, $costo, $promedio,
-            $talla, $linea, $gramaje, $proveedor, $sustrato, $ancho,
-            $codigo
-        );
+    
+        $stmt = self::$db->prepare($queryVerificar);
+        $stmt->bind_param('s', $codigo);
         $stmt->execute();
-    } else {
-        // Insertar un nuevo registro
-        $queryInsertar = "
-            INSERT INTO " . static::$tabla . " (
-                almacen, codigo, descripcion, existencia, costo,
-                promedio, talla, linea, gramaje, proveedor,
-                sustrato, ancho, created_at, updated_at
-            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), NOW())
-        ";
-
-        $stmt = self::$db->prepare($queryInsertar);
-        $stmt->bind_param(
-            'ssiddssssssd',
-            $almacen, $codigo, $descripcion, $existencia, $costo, $promedio,
-            $talla, $linea, $gramaje, $proveedor, $sustrato, $ancho
-        );
-        $stmt->execute();
+        $resultado = $stmt->get_result()->fetch_assoc();
+    
+        if ($resultado['total'] > 0) {
+            // Actualizar el registro existente
+            $queryActualizar = "
+                UPDATE " . static::$tabla . "
+                SET 
+                    almacen = ?,
+                    descripcion = ?,
+                    existencia = ?,
+                    costo = ?,
+                    promedio = ?,
+                    talla = ?,
+                    linea = ?,
+                    gramaje = ?,
+                    proveedor = ?,
+                    sustrato = ?,
+                    ancho = ?,
+                    updated_at = NOW()
+                WHERE codigo = ?
+            ";
+    
+            $stmt = self::$db->prepare($queryActualizar);
+            $stmt->bind_param(
+                'ssiddssssssd',
+                $almacen, $descripcion, $existencia, $costo, $promedio,
+                $talla, $linea, $gramaje, $proveedor, $sustrato, $ancho,
+                $codigo
+            );
+            $stmt->execute();
+        } else {
+            // Insertar un nuevo registro
+            $queryInsertar = "
+                INSERT INTO " . static::$tabla . " (
+                    almacen, codigo, descripcion, existencia, costo,
+                    promedio, talla, linea, gramaje, proveedor,
+                    sustrato, ancho, created_at, updated_at
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), NOW())
+            ";
+    
+            $stmt = self::$db->prepare($queryInsertar);
+            $stmt->bind_param(
+                'ssiddssssssd',
+                $almacen, $codigo, $descripcion, $existencia, $costo, $promedio,
+                $talla, $linea, $gramaje, $proveedor, $sustrato, $ancho
+            );
+            $stmt->execute();
+        }
     }
+    
+
+    return true;
 }
 
 
-// Procesar un archivo Excel-----------------------------------------------------------------------------------------------------------------------------------
 
-
-foreach ($sheet->getRowIterator(2) as $row) {
-    $data = [];
-    $cellIterator = $row->getCellIterator();
-    $cellIterator->setIterateOnlyExistingCells(false);
-
-    foreach ($cellIterator as $cell) {
-        $data[] = $cell->getValue() ?? ''; // Captura valores nulos como cadenas vacías
-    }
-
-    // Mapear los datos a las columnas y asegurar que siempre haya suficientes valores
-    list(
-        $almacen, $codigo, $descripcion, $existencia, $costo,
-        $promedio, $talla, $linea, $gramaje, $proveedor,
-        $sustrato, $ancho
-    ) = array_pad(array_map(function ($value) {
-        return trim($value ?? ''); // Captura valores nulos y elimina espacios
-    }, $data), 12, null);
-
-    // Validar descripción y asignar valor predeterminado si está vacía
-    if (empty($descripcion)) {
-        $descripcion = 'Sin descripción'; // Valor predeterminado si está vacío
-    }
-
-    if (empty($codigo)) {
-        // Si no hay código, omitir la fila
-        continue;
-    }
-
-    // Comprobar si el registro ya existe en la base de datos
-    $queryVerificar = "
-        SELECT COUNT(*) as total 
-        FROM " . static::$tabla . " 
-        WHERE codigo = ?
-    ";
-
-    $stmt = self::$db->prepare($queryVerificar);
-    $stmt->bind_param('s', $codigo);
-    $stmt->execute();
-    $resultado = $stmt->get_result()->fetch_assoc();
-
-    if ($resultado['total'] > 0) {
-        // Actualizar el registro existente
-        $queryActualizar = "
-            UPDATE " . static::$tabla . "
-            SET 
-                almacen = ?,
-                descripcion = ?,
-                existencia = ?,
-                costo = ?,
-                promedio = ?,
-                talla = ?,
-                linea = ?,
-                gramaje = ?,
-                proveedor = ?,
-                sustrato = ?,
-                ancho = ?,
-                updated_at = NOW()
-            WHERE codigo = ?
-        ";
-
-        $stmt = self::$db->prepare($queryActualizar);
-        $stmt->bind_param(
-            'ssiddssssssd',
-            $almacen, $descripcion, $existencia, $costo, $promedio,
-            $talla, $linea, $gramaje, $proveedor, $sustrato, $ancho,
-            $codigo
-        );
-        $stmt->execute();
-    } else {
-        // Insertar un nuevo registro
-        $queryInsertar = "
-            INSERT INTO " . static::$tabla . " (
-                almacen, codigo, descripcion, existencia, costo,
-                promedio, talla, linea, gramaje, proveedor,
-                sustrato, ancho, created_at, updated_at
-            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), NOW())
-        ";
-
-        $stmt = self::$db->prepare($queryInsertar);
-        $stmt->bind_param(
-            'ssiddssssssd',
-            $almacen, $codigo, $descripcion, $existencia, $costo, $promedio,
-            $talla, $linea, $gramaje, $proveedor, $sustrato, $ancho
-        );
-        $stmt->execute();
-    }
-}
 
 
     
