@@ -5,7 +5,7 @@
     <form method="POST" action="/admin/produccion/materia/crear"  class="formulario" enctype="multipart/form-data">
 
      
-    <?php include_once __DIR__.'/formulario.php'  ?>
+    <?php include_once __DIR__.'/subirExcel.php'  ?>
 
         <input class="formulario__submit formulario__submit--registrar" type="submit" value="Registrar Materia Prima">
 
