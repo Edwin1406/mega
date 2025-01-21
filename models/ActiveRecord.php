@@ -465,8 +465,6 @@ public static function procesarArchivoExcel($filePath)
 
 
 
-
-
 public static function procesarArchivoExcelMateria($filePath)
 {
     $spreadsheet = IOFactory::load($filePath);
@@ -492,53 +490,53 @@ public static function procesarArchivoExcelMateria($filePath)
     ";
     self::$db->query($queryCrearTabla);
 
+    // Asegurar que el archivo está limpio
+    $spreadsheet->garbageCollect();
+
     foreach ($sheet->getRowIterator(2) as $row) {
         $data = [];
         $cellIterator = $row->getCellIterator();
         $cellIterator->setIterateOnlyExistingCells(false);
-    
-        foreach ($cellIterator as $cell) {
-            $data[] = $cell->getValue() ?? ''; // Captura valores nulos como cadenas vacías
-        }
 
-	 // Aquí imprimimos los datos para depurar
-      	echo '<pre>';
-      	print_r($data); // Esto mostrará los datos de cada fila del Excel
-      	echo '</pre>';
-  
+        foreach ($cellIterator as $cell) {
+            $value = $cell->getValue();
+            $data[] = trim($value ?? ''); // Captura valores nulos como cadenas vacías y elimina espacios
+        }
 
         // Mapear los datos a las columnas y asegurar que siempre haya suficientes valores
         list(
             $almacen, $codigo, $descripcion, $existencia, $costo,
             $promedio, $talla, $linea, $gramaje, $proveedor,
             $sustrato, $ancho
-        ) = array_pad(array_map(function ($value) {
-            return trim($value ?? ''); // Captura valores nulos y elimina espacios
-        }, $data), 12, null);
-        
-    
-        // Validar descripción y asignar valor predeterminado si está vacía
-        if (empty($descripcion)) {
-            $descripcion = 'Sin descripción'; // Valor predeterminado si está vacío
-        }
-    
+        ) = array_pad($data, 12, '');
+
+        // Validar los datos esenciales
         if (empty($codigo)) {
-            // Si no hay código, omitir la fila
-            continue;
+            echo "Fila ignorada por falta de código: " . print_r($data, true) . "\n";
+            continue; // Ignora la fila si no hay código
         }
-    
+
+        if (empty($descripcion)) {
+            $descripcion = 'Sin descripción'; // Valor predeterminado si la descripción está vacía
+        }
+
+        $existencia = is_numeric($existencia) ? intval($existencia) : 0;
+        $costo = is_numeric($costo) ? floatval($costo) : 0.0;
+        $promedio = is_numeric($promedio) ? floatval($promedio) : 0.0;
+        $ancho = is_numeric($ancho) ? floatval($ancho) : 0.0;
+
         // Comprobar si el registro ya existe en la base de datos
         $queryVerificar = "
             SELECT COUNT(*) as total 
             FROM " . static::$tabla . " 
             WHERE codigo = ?
         ";
-    
+
         $stmt = self::$db->prepare($queryVerificar);
         $stmt->bind_param('s', $codigo);
         $stmt->execute();
         $resultado = $stmt->get_result()->fetch_assoc();
-    
+
         if ($resultado['total'] > 0) {
             // Actualizar el registro existente
             $queryActualizar = "
@@ -557,7 +555,7 @@ public static function procesarArchivoExcelMateria($filePath)
                     ancho = ?
                 WHERE codigo = ?
             ";
-    
+
             $stmt = self::$db->prepare($queryActualizar);
             $stmt->bind_param(
                 'ssiddssssssd',
@@ -565,7 +563,10 @@ public static function procesarArchivoExcelMateria($filePath)
                 $talla, $linea, $gramaje, $proveedor, $sustrato, $ancho,
                 $codigo
             );
-            $stmt->execute();
+
+            if (!$stmt->execute()) {
+                echo "Error al actualizar: " . $stmt->error . "\n";
+            }
         } else {
             // Insertar un nuevo registro
             $queryInsertar = "
@@ -575,22 +576,22 @@ public static function procesarArchivoExcelMateria($filePath)
                     sustrato, ancho
                 ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
             ";
-    
+
             $stmt = self::$db->prepare($queryInsertar);
             $stmt->bind_param(
                 'ssiddssssssd',
                 $almacen, $codigo, $descripcion, $existencia, $costo, $promedio,
                 $talla, $linea, $gramaje, $proveedor, $sustrato, $ancho
             );
-            $stmt->execute();
+
+            if (!$stmt->execute()) {
+                echo "Error al insertar: " . $stmt->error . "\n";
+            }
         }
     }
-    
 
     return true;
 }
-
-
 
 
 
