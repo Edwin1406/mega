@@ -487,6 +487,7 @@ public static function procesarArchivoExcelMateria($filePath)
         )
     ";
     self::$db->query($queryCrearTabla);
+
     foreach ($sheet->getRowIterator(2) as $row) {
         $data = [];
         $cellIterator = $row->getCellIterator();
@@ -495,6 +496,11 @@ public static function procesarArchivoExcelMateria($filePath)
         foreach ($cellIterator as $cell) {
             $data[] = $cell->getValue() ?? ''; // Captura valores nulos como cadenas vacías
         }
+
+           // Aquí imprimimos los datos para depurar
+    echo '<pre>';
+    print_r($data); // Esto mostrará los datos de cada fila del Excel
+    echo '</pre>';
     
         // Mapear los datos a las columnas y asegurar que siempre haya suficientes valores
         list(
