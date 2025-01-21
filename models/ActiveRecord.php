@@ -464,10 +464,11 @@ public static function procesarArchivoExcel($filePath)
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
+
+
+
 public static function procesarArchivoExcelMateria($filePath)
 {
-    ob_start(); // Inicia el buffer de salida
-
     $spreadsheet = IOFactory::load($filePath);
     $sheet = $spreadsheet->getActiveSheet();
 
@@ -491,61 +492,53 @@ public static function procesarArchivoExcelMateria($filePath)
     ";
     self::$db->query($queryCrearTabla);
 
-    // Asegurar que el archivo está limpio
-    $spreadsheet->garbageCollect();
-
     foreach ($sheet->getRowIterator(2) as $row) {
         $data = [];
         $cellIterator = $row->getCellIterator();
         $cellIterator->setIterateOnlyExistingCells(false);
-
+    
         foreach ($cellIterator as $cell) {
-            $value = $cell->getValue();
-            $data[] = trim($value ?? ''); // Captura valores nulos como cadenas vacías y elimina espacios
+            $data[] = $cell->getValue() ?? ''; // Captura valores nulos como cadenas vacías
         }
+
+	 // Aquí imprimimos los datos para depurar
+      	echo '<pre>';
+      	print_r($data); // Esto mostrará los datos de cada fila del Excel
+      	echo '</pre>';
+  
 
         // Mapear los datos a las columnas y asegurar que siempre haya suficientes valores
         list(
             $almacen, $codigo, $descripcion, $existencia, $costo,
             $promedio, $talla, $linea, $gramaje, $proveedor,
             $sustrato, $ancho
-        ) = array_pad($data, 12, '');
-
-        // Validar los datos esenciales
-        if (empty($codigo)) {
-            echo "Fila ignorada por falta de código: " . print_r($data, true) . "\n";
-            continue; // Ignora la fila si no hay código
-        }
-
-        // Depuración del valor de descripción antes de procesarlo
+        ) = array_pad(array_map(function ($value) {
+            return trim($value ?? ''); // Captura valores nulos y elimina espacios
+        }, $data), 12, null);
+        
+    
+        // Validar descripción y asignar valor predeterminado si está vacía
         if (empty($descripcion)) {
-            echo "Descripción vacía detectada para el código: $codigo\n";
-            $descripcion = 'Sin descripción'; // Valor predeterminado si la descripción está vacía
-        } else {
-            echo "Descripción procesada: '$descripcion' para el código: $codigo\n";
+            $descripcion = 'Sin descripción'; // Valor predeterminado si está vacío
         }
-
-        // Debugging: Verificar los valores antes de la inserción o actualización
-        echo "Valores procesados para la fila: \n";
-        echo "Almacén: $almacen, Código: $codigo, Descripción: $descripcion, Existencia: $existencia, Costo: $costo, Promedio: $promedio, Talla: $talla, Línea: $linea, Gramaje: $gramaje, Proveedor: $proveedor, Sustrato: $sustrato, Ancho: $ancho\n";
-
-        $existencia = is_numeric($existencia) ? intval($existencia) : 0;
-        $costo = is_numeric($costo) ? floatval($costo) : 0.0;
-        $promedio = is_numeric($promedio) ? floatval($promedio) : 0.0;
-        $ancho = is_numeric($ancho) ? floatval($ancho) : 0.0;
-
+    
+        if (empty($codigo)) {
+            // Si no hay código, omitir la fila
+            continue;
+        }
+    
         // Comprobar si el registro ya existe en la base de datos
         $queryVerificar = "
             SELECT COUNT(*) as total 
             FROM " . static::$tabla . " 
             WHERE codigo = ?
         ";
-
+    
         $stmt = self::$db->prepare($queryVerificar);
         $stmt->bind_param('s', $codigo);
         $stmt->execute();
         $resultado = $stmt->get_result()->fetch_assoc();
-
+    
         if ($resultado['total'] > 0) {
             // Actualizar el registro existente
             $queryActualizar = "
@@ -564,7 +557,7 @@ public static function procesarArchivoExcelMateria($filePath)
                     ancho = ?
                 WHERE codigo = ?
             ";
-
+    
             $stmt = self::$db->prepare($queryActualizar);
             $stmt->bind_param(
                 'ssiddssssssd',
@@ -572,13 +565,7 @@ public static function procesarArchivoExcelMateria($filePath)
                 $talla, $linea, $gramaje, $proveedor, $sustrato, $ancho,
                 $codigo
             );
-
-            // Depurar consulta SQL completa
-            echo "Consulta de actualización SQL: $queryActualizar\nValores: [Almacén: $almacen, Descripción: $descripcion, Existencia: $existencia, Costo: $costo, Promedio: $promedio, Talla: $talla, Línea: $linea, Gramaje: $gramaje, Proveedor: $proveedor, Sustrato: $sustrato, Ancho: $ancho, Código: $codigo]\n";
-
-            if (!$stmt->execute()) {
-                echo "Error al actualizar: " . $stmt->error . "\n";
-            }
+            $stmt->execute();
         } else {
             // Insertar un nuevo registro
             $queryInsertar = "
@@ -588,26 +575,21 @@ public static function procesarArchivoExcelMateria($filePath)
                     sustrato, ancho
                 ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
             ";
-
+    
             $stmt = self::$db->prepare($queryInsertar);
             $stmt->bind_param(
                 'ssiddssssssd',
                 $almacen, $codigo, $descripcion, $existencia, $costo, $promedio,
                 $talla, $linea, $gramaje, $proveedor, $sustrato, $ancho
             );
-
-            // Depurar consulta SQL completa
-            echo "Consulta de inserción SQL: $queryInsertar\nValores: [Almacén: $almacen, Descripción: $descripcion, Existencia: $existencia, Costo: $costo, Promedio: $promedio, Talla: $talla, Línea: $linea, Gramaje: $gramaje, Proveedor: $proveedor, Sustrato: $sustrato, Ancho: $ancho]\n";
-
-            if (!$stmt->execute()) {
-                echo "Error al insertar: " . $stmt->error . "\n";
-            }
+            $stmt->execute();
         }
     }
+    
 
-    ob_end_flush(); // Libera y envía el contenido del buffer
     return true;
 }
+
 
 
     
