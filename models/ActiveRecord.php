@@ -461,8 +461,6 @@ public static function procesarArchivoExcel($filePath)
 }
 
 
-
-
 // Materia Prima Producción
 public static function procesarArchivoExcelMateria($filePath)
 {
@@ -472,8 +470,9 @@ public static function procesarArchivoExcelMateria($filePath)
     // Crear la tabla si no existe
     $queryCrearTabla = "
         CREATE TABLE IF NOT EXISTS " . static::$tabla . " (
+            id INT AUTO_INCREMENT PRIMARY KEY,
             almacen VARCHAR(255),
-            codigo VARCHAR(255) PRIMARY KEY,
+            codigo VARCHAR(255),
             descripcion VARCHAR(255),
             existencia INT,
             costo DECIMAL(10, 2),
@@ -574,6 +573,7 @@ public static function procesarArchivoExcelMateria($filePath)
 
     return true;
 }
+
 
 
 
