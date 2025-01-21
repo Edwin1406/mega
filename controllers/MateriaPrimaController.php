@@ -172,51 +172,51 @@ class MateriaPrimaController
 
 
 
-
-
     public static function excel(Router $router)
     {
         $alertas = [];
+    
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $archivo = $_FILES['file'];
-            $nombreArchivo = $archivo['name'];
-            $tipoArchivo = $archivo['type'];
-            $tamanoArchivo = $archivo['size'];
-            $tempArchivo = $archivo['tmp_name'];
-            $error = $archivo['error'];
-
-            // Validación del archivo
-            if ($error === 0) {
+            // Verificar si existe el archivo en la solicitud
+            if (isset($_FILES['file']) && $_FILES['file']['error'] === UPLOAD_ERR_OK) {
+                $archivo = $_FILES['file'];
+                $nombreArchivo = $archivo['name'];
+                $tipoArchivo = $archivo['type'];
+                $tamanoArchivo = $archivo['size'];
+                $tempArchivo = $archivo['tmp_name'];
+    
+                // Validación del archivo
                 $ext = pathinfo($nombreArchivo, PATHINFO_EXTENSION);
-                if ($ext === 'xlsx' || $ext === 'xls') {
+                if (in_array($ext, ['xlsx', 'xls'])) {
                     // Mover el archivo a la carpeta de subidas
                     $rutaDestino = __DIR__ . "/../materiaprima/$nombreArchivo";
-                    move_uploaded_file($tempArchivo, $rutaDestino);
-                    echo 'Archivo subido correctamente';
-
-                    // Llamar al método de Producto para procesar el archivo
-                    if (MateriaPrimaV::procesarArchivoExcelMateria($rutaDestino)) {
-                        echo 'Datos importados correctamente';
+                    if (move_uploaded_file($tempArchivo, $rutaDestino)) {
+                        echo 'Archivo subido correctamente';
+    
+                        // Llamar al método de Producto para procesar el archivo
+                        if (MateriaPrimaV::procesarArchivoExcelMateria($rutaDestino)) {
+                            echo 'Datos importados correctamente';
+                        } else {
+                            echo 'Hubo un error al procesar el archivo Excel';
+                        }
                     } else {
-                        echo 'Hubo un error al procesar el archivo Excel';
+                        echo 'No se pudo mover el archivo al destino';
                     }
                 } else {
                     echo 'Solo se permiten archivos de Excel (.xlsx, .xls)';
                 }
             } else {
-                echo 'Hubo un error al subir el archivo';
+                // Mensaje de error si no se recibe un archivo válido
+                echo 'No se envió un archivo válido o hubo un error al subirlo.';
             }
         }
-
-
+    
         $router->render('admin/produccion/materia/excel', [
             'titulo' => 'SUBIR EXCEL',
             'alertas' => $alertas
         ]);
     }
-
-
-
+    
 
 
 
