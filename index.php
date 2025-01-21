@@ -140,8 +140,14 @@ $router->get('/admin/produccion/materia/lector', [MateriaPrimaController::class,
 
 $router->get('/admin/produccion/materia/graficas', [MateriaPrimaController::class, 'graficas']);
 
+
+$router->get('/admin/produccion/materia/excel', [MateriaPrimaController::class, 'excel']);
+
+
+
 // API MATERIA PRIMA
 $router->get('/admin/api/ApiMateriaPrima', [MateriaPrimaController::class, 'ApiMateriaPrima']);
+
 
 
 
