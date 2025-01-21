@@ -496,7 +496,11 @@ public static function procesarArchivoExcelMateria($filePath)
         }
 
  
-    
+      // Aquí imprimimos los datos para depurar
+      echo '<pre>';
+      print_r($data); // Esto mostrará los datos de cada fila del Excel
+      echo '</pre>';
+  
         // Mapear los datos a las columnas y asegurar que siempre haya suficientes valores
         list(
             $almacen, $codigo, $descripcion, $existencia, $costo,
