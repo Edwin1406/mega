@@ -33,7 +33,7 @@
     </li>
     <li class="areas-produccion">
         <a href="/admin/produccion/materia/periodico">
-            <i class="fas fa-truck"></i> PERIODICO 
+            <i class="fas fa-newspaper"></i> PERIODICO 
         </a>
     </li>
 </ul>
