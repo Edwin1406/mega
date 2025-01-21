@@ -461,7 +461,6 @@ public static function procesarArchivoExcel($filePath)
 }
 
 
-// Materia Prima Producción
 public static function procesarArchivoExcelMateria($filePath)
 {
     $spreadsheet = IOFactory::load($filePath);
@@ -504,7 +503,14 @@ public static function procesarArchivoExcelMateria($filePath)
             $almacen, $codigo, $descripcion, $existencia, $costo,
             $promedio, $talla, $linea, $gramaje, $proveedor,
             $sustrato, $ancho
-        ) = array_pad(array_map('trim', $data), 12, null);
+        ) = array_pad(array_map(function ($value) {
+            return trim($value ?? ''); // Captura valores nulos y elimina espacios
+        }, $data), 12, null);
+
+        // Validar descripción
+        if (empty($descripcion)) {
+            $descripcion = 'Sin descripción'; // Valor por defecto si está vacío
+        }
 
         if (empty($codigo)) {
             // Si no hay código, omitir la fila
