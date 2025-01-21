@@ -516,9 +516,17 @@ public static function procesarArchivoExcelMateria($filePath)
             continue; // Ignora la fila si no hay código
         }
 
+        // Depuración del valor de descripción antes de procesarlo
         if (empty($descripcion)) {
+            echo "Descripción vacía detectada para el código: $codigo\n";
             $descripcion = 'Sin descripción'; // Valor predeterminado si la descripción está vacía
+        } else {
+            echo "Descripción procesada: '$descripcion' para el código: $codigo\n";
         }
+
+        // Debugging: Verificar los valores antes de la inserción o actualización
+        echo "Valores procesados para la fila: \n";
+        echo "Almacén: $almacen, Código: $codigo, Descripción: $descripcion, Existencia: $existencia, Costo: $costo, Promedio: $promedio, Talla: $talla, Línea: $linea, Gramaje: $gramaje, Proveedor: $proveedor, Sustrato: $sustrato, Ancho: $ancho\n";
 
         $existencia = is_numeric($existencia) ? intval($existencia) : 0;
         $costo = is_numeric($costo) ? floatval($costo) : 0.0;
@@ -592,7 +600,6 @@ public static function procesarArchivoExcelMateria($filePath)
 
     return true;
 }
-
 
 
 
