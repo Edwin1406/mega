@@ -475,7 +475,19 @@ public static function procesarArchivoExcelMateria($filePath)
     $queryCrearTabla = "
         CREATE TABLE IF NOT EXISTS " . static::$tabla . " (
             almacen VARCHAR(255),
-            
+            codigo  VARCHAR(255),
+            descripcion VARCHAR(255),
+            existencia INT,
+            costo DECIMAL(10, 2),
+            promedio DECIMAL(10, 2),
+            talla VARCHAR(255),
+            linea VARCHAR(255),
+            gramaje VARCHAR(255),
+            proveedor VARCHAR(255),
+            sustrato VARCHAR(255),
+            created_at DATE,
+            updated_at DATE,
+            PRIMARY KEY (codigo)  -- Asegúrate de tener una clave primaria
         )
     ";
 
@@ -494,15 +506,15 @@ public static function procesarArchivoExcelMateria($filePath)
 
         // Mapear los datos a las columnas con verificación para null
         list(
-            $almacen, $nombre_cliente, $ruc_cliente, $numero_pedido, $fecha_pedido,
-            $vendedor, $plazo_entrega, $estado_pedido, $codigo_producto, $nombre_producto,
-            $cantidad, $pvp, $subtotal, $total
+            $almacen, $codigo, $descripcion, $existencia, $costo,
+            $promedio, $talla, $linea, $gramaje, $proveedor,
+            $sustrato, $created_at, $updated_at
         ) = array_map(function ($value) {
             return trim($value ?? '');  // Verifica si el valor es null y aplica trim
         }, $data);
 
         // Comprobar si el nombre_producto comienza con alguno de los valores no deseados
-        if (preg_match('/^(LM|CIRELES|CHRYSAL|Z|GUANTE)/', $nombre_producto)) {
+        if (preg_match('/^(LM|CIRELES|CHRYSAL|Z|GUANTE)/', $descripcion)) {
             // Si coincide, se omite el registro
             continue;
         }
@@ -511,7 +523,7 @@ public static function procesarArchivoExcelMateria($filePath)
         $queryVerificar = "
             SELECT COUNT(*) as total 
             FROM " . static::$tabla . " 
-            WHERE numero_pedido = '$numero_pedido' AND codigo_producto = '$codigo_producto'
+            WHERE codigo = '$codigo'
         ";
         $resultado = self::$db->query($queryVerificar)->fetch_assoc();
 
@@ -521,17 +533,17 @@ public static function procesarArchivoExcelMateria($filePath)
                 UPDATE " . static::$tabla . "
                 SET 
                     almacen = '$almacen',
-                    nombre_cliente = '$nombre_cliente',
-                    ruc_cliente = '$ruc_cliente',
-                    fecha_pedido = '$fecha_pedido',
-                    vendedor = '$vendedor',
-                    plazo_entrega = '$plazo_entrega',
-                    nombre_producto = '$nombre_producto',
-                    cantidad = '$cantidad',
-                    pvp = '$pvp',
-                    subtotal = '$subtotal',
-                    total = '$total'
-                WHERE numero_pedido = '$numero_pedido' AND codigo_producto = '$codigo_producto'
+                    descripcion = '$descripcion',
+                    existencia = '$existencia',
+                    costo = '$costo',
+                    promedio = '$promedio',
+                    talla = '$talla',
+                    linea = '$linea',
+                    gramaje = '$gramaje',
+                    proveedor = '$proveedor',
+                    sustrato = '$sustrato',
+                    created_at = '$created_at',
+                    updated_at = '$updated,
             ";
             self::$db->query($queryActualizar);
         } else {
@@ -542,9 +554,9 @@ public static function procesarArchivoExcelMateria($filePath)
                     vendedor, plazo_entrega, estado_pedido, codigo_producto, nombre_producto,
                     cantidad, pvp, subtotal, total
                 ) VALUES (
-                    '$almacen', '$nombre_cliente', '$ruc_cliente', '$numero_pedido', '$fecha_pedido',
-                    '$vendedor', '$plazo_entrega', '$estado_pedido', '$codigo_producto', '$nombre_producto',
-                    '$cantidad', '$pvp', '$subtotal', '$total'
+                    '$almacen','$codigo', '$descripcion', '$existencia', '$costo',
+                    '$promedio', '$talla', '$linea', '$gramaje', '$proveedor',
+                    '$sustrato', '$created_at', '$updated_at'
                 )
             ";
             self::$db->query($queryInsertar);

@@ -7,9 +7,7 @@ use MVC\Router;
 use Classes\Pdf;
 use Classes\Paginacion;
 use Model\MateriaPrima;
-
-
-
+use Model\MateriaPrimaV;
 
 class MateriaPrimaController
 {
@@ -192,12 +190,12 @@ class MateriaPrimaController
                 $ext = pathinfo($nombreArchivo, PATHINFO_EXTENSION);
                 if ($ext === 'xlsx' || $ext === 'xls') {
                     // Mover el archivo a la carpeta de subidas
-                    $rutaDestino = __DIR__ . "/../uploads/$nombreArchivo";
+                    $rutaDestino = __DIR__ . "/../materiaprima/$nombreArchivo";
                     move_uploaded_file($tempArchivo, $rutaDestino);
                     echo 'Archivo subido correctamente';
 
                     // Llamar al método de Producto para procesar el archivo
-                    if (Producto::procesarArchivoExcel($rutaDestino)) {
+                    if (MateriaPrimaV::procesarArchivoExcelMateria($rutaDestino)) {
                         echo 'Datos importados correctamente';
                     } else {
                         echo 'Hubo un error al procesar el archivo Excel';
