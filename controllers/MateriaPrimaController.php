@@ -216,6 +216,32 @@ class MateriaPrimaController
     }
 
 
+    public static function corrugador(Router $router)
+    {
+        $router->render('admin/produccion/materia/corrugador', [
+            'titulo' => 'CORRUGADOR'
+        ]);
+    }
+
+
+    public static function microcorrugador(Router $router)
+    {
+        $router->render('admin/produccion/materia/microcorrugador', [
+            'titulo' => 'MICRO CORRUGADOR'
+        ]);
+    }
+
+
+
+    public static function periodico(Router $router)
+    {
+        $router->render('admin/produccion/materia/periodico', [
+            'titulo' => 'PERIODICO'
+        ]);
+    }
+
+    
+
 
 
 
