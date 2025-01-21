@@ -472,6 +472,7 @@ public static function procesarArchivoExcelMateria($filePath)
     // Crear la tabla si no existe
     $queryCrearTabla = "
         CREATE TABLE IF NOT EXISTS " . static::$tabla . " (
+            id INT AUTO_INCREMENT,
             almacen VARCHAR(255),
             codigo VARCHAR(255),
             descripcion VARCHAR(500),
