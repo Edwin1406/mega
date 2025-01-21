@@ -462,6 +462,8 @@ public static function procesarArchivoExcel($filePath)
 
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
 public static function procesarArchivoExcelMateria($filePath)
 {
     $spreadsheet = IOFactory::load($filePath);
@@ -489,7 +491,7 @@ public static function procesarArchivoExcelMateria($filePath)
     // Ejecutar la creación de la tabla
     self::$db->query($queryCrearTabla);
 
-    // Insertar o actualizar los datos de cada fila
+    // Procesar cada fila del Excel
     foreach ($sheet->getRowIterator(2) as $row) {
         $data = [];
         $cellIterator = $row->getCellIterator();
@@ -499,7 +501,7 @@ public static function procesarArchivoExcelMateria($filePath)
             $data[] = $cell->getValue(); // Obtener el valor de la celda
         }
 
-        // Mapear los datos a las columnas con verificación
+        // Mapear los datos a las columnas
         list(
             $almacen, $codigo, $descripcion, $nueva_existencia, $costo,
             $promedio, $talla, $linea, $gramaje, $proveedor,
@@ -508,7 +510,7 @@ public static function procesarArchivoExcelMateria($filePath)
             return trim($value ?? '');  // Limpia los valores y reemplaza null con cadena vacía
         }, $data);
 
-        // Normalizar el separador decimal (si usa coma en lugar de punto)
+        // Normalizar el separador decimal
         $costo = str_replace(',', '.', $costo);
         $promedio = str_replace(',', '.', $promedio);
 
@@ -521,20 +523,21 @@ public static function procesarArchivoExcelMateria($filePath)
         $resultado = self::$db->query($queryVerificar)->fetch_assoc();
 
         if ($resultado) {
-            // Si existe el registro, calcular la nueva existencia
+            // Si existe el registro, calcular la diferencia
             $existencia_actual = (int)$resultado['existencia'];
             $nueva_existencia = (int)$nueva_existencia;
 
-            // Si la nueva existencia es mayor a la actual, se calcula la diferencia
-            if ($nueva_existencia > $existencia_actual) {
+            if ($nueva_existencia != $existencia_actual) {
+                // Calcular la nueva existencia como la diferencia
                 $diferencia = $nueva_existencia - $existencia_actual;
 
+                // Actualizar la existencia en la base de datos
                 $queryActualizar = "
                     UPDATE " . static::$tabla . "
                     SET 
                         almacen = '$almacen',
                         descripcion = '$descripcion',
-                        existencia = existencia + $diferencia, -- Aumentar la diferencia
+                        existencia = $diferencia, -- Actualizar con la diferencia
                         costo = '$costo',
                         promedio = '$promedio',
                         talla = '$talla',
@@ -547,7 +550,7 @@ public static function procesarArchivoExcelMateria($filePath)
                 ";
                 self::$db->query($queryActualizar);
             } else {
-                // Si la existencia no cambia, no se realiza actualización
+                // No hacer nada si la existencia es igual
                 error_log("La existencia para el código $codigo no cambió.");
             }
         } else {
@@ -569,7 +572,6 @@ public static function procesarArchivoExcelMateria($filePath)
 
     return true;
 }
-
 
 
     
