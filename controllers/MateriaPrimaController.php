@@ -196,7 +196,7 @@ class MateriaPrimaController
 
                     // Llamar al método de Producto para procesar el archivo
                     if (MateriaPrimaV::procesarArchivoExcelMateria($rutaDestino)) {
-                        echo 'Datos importados correctamente';
+                        header('Location: /admin/produccion/materia/crear');
                     } else {
                         echo 'Hubo un error al procesar el archivo Excel';
                     }
