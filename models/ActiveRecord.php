@@ -573,7 +573,6 @@ public static function procesarArchivoExcel($filePath)
 //     return true;
 // }
 
-
 public static function procesarArchivoExcelMateria($filePath)
 {
     $spreadsheet = IOFactory::load($filePath);
@@ -589,6 +588,7 @@ public static function procesarArchivoExcelMateria($filePath)
             existencia_inicial INT,
             consumo_acumulado INT DEFAULT 0,
             existencia_actual INT GENERATED ALWAYS AS (existencia_inicial - consumo_acumulado) STORED,
+            sin_stock BOOLEAN GENERATED ALWAYS AS (existencia_actual <= 0) STORED,
             costo DECIMAL(10, 2),
             promedio DECIMAL(10, 2),
             talla VARCHAR(255),
@@ -681,6 +681,44 @@ public static function procesarArchivoExcelMateria($filePath)
     return true;
 }
 
+// Método para registrar consumo
+public static function registrarConsumo($codigo, $cantidad_consumida)
+{
+    // Consultar el registro actual
+    $queryConsultar = "
+        SELECT consumo_acumulado, existencia_inicial 
+        FROM " . static::$tabla . " 
+        WHERE codigo = '$codigo'
+    ";
+    $resultado = self::$db->query($queryConsultar)->fetch_assoc();
+
+    if ($resultado) {
+        $consumo_actual = (int)$resultado['consumo_acumulado'];
+        $existencia_inicial = (int)$resultado['existencia_inicial'];
+
+        // Calcular el nuevo consumo acumulado
+        $nuevo_consumo_acumulado = $consumo_actual + $cantidad_consumida;
+
+        // Validar que no exceda la existencia inicial
+        if ($nuevo_consumo_acumulado > $existencia_inicial) {
+            error_log("El consumo excede la existencia inicial para el código $codigo.");
+            return false;
+        }
+
+        // Actualizar el consumo acumulado
+        $queryActualizarConsumo = "
+            UPDATE " . static::$tabla . "
+            SET consumo_acumulado = $nuevo_consumo_acumulado
+            WHERE codigo = '$codigo'
+        ";
+        self::$db->query($queryActualizarConsumo);
+
+        return true;
+    } else {
+        error_log("El código $codigo no existe en la base de datos.");
+        return false;
+    }
+}
 
 
 
