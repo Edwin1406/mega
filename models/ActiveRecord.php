@@ -548,8 +548,7 @@ public static function procesarArchivoExcelMateria($filePath)
                     gramaje = ?,
                     proveedor = ?,
                     sustrato = ?,
-                    ancho = ?,
-                    updated_at = NOW()
+                    ancho = ?
                 WHERE codigo = ?
             ";
     
@@ -567,7 +566,7 @@ public static function procesarArchivoExcelMateria($filePath)
                 INSERT INTO " . static::$tabla . " (
                     almacen, codigo, descripcion, existencia, costo,
                     promedio, talla, linea, gramaje, proveedor,
-                    sustrato, ancho, created_at, updated_at
+                    sustrato, ancho
                 ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), NOW())
             ";
     
