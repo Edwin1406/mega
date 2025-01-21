@@ -572,7 +572,6 @@ public static function procesarArchivoExcel($filePath)
 
 //     return true;
 // }
-
 public static function procesarArchivoExcelMateria($filePath)
 {
     $spreadsheet = IOFactory::load($filePath);
@@ -585,9 +584,7 @@ public static function procesarArchivoExcelMateria($filePath)
             almacen VARCHAR(255),
             codigo VARCHAR(255) UNIQUE,
             descripcion VARCHAR(500),
-            existencia_inicial INT,
-            consumo_acumulado INT DEFAULT 0,
-            existencia_actual INT GENERATED ALWAYS AS (existencia_inicial - consumo_acumulado) STORED,
+            existencia_actual INT,
             costo DECIMAL(10, 2),
             promedio DECIMAL(10, 2),
             talla VARCHAR(255),
@@ -614,7 +611,7 @@ public static function procesarArchivoExcelMateria($filePath)
 
         // Mapear los datos a las columnas
         list(
-            $almacen, $codigo, $descripcion, $nueva_existencia_inicial, $costo,
+            $almacen, $codigo, $descripcion, $nueva_existencia_actual, $costo,
             $promedio, $talla, $linea, $gramaje, $proveedor,
             $sustrato, $ancho
         ) = array_map(function ($value) {
@@ -627,24 +624,24 @@ public static function procesarArchivoExcelMateria($filePath)
 
         // Verificar si el registro ya existe
         $queryVerificar = "
-            SELECT existencia_inicial, consumo_acumulado 
+            SELECT existencia_actual 
             FROM " . static::$tabla . " 
             WHERE codigo = '$codigo'
         ";
         $resultado = self::$db->query($queryVerificar)->fetch_assoc();
 
         if ($resultado) {
-            // Si existe, actualizar la existencia inicial si es diferente
-            $existencia_inicial_actual = (int)$resultado['existencia_inicial'];
-            $nueva_existencia_inicial = (int)$nueva_existencia_inicial;
+            // Si el producto existe, actualizamos la existencia actual
+            $existencia_actual_actual = (int)$resultado['existencia_actual'];
 
-            if ($nueva_existencia_inicial != $existencia_inicial_actual) {
+            // Actualizar la existencia solo si la del Excel es diferente
+            if ($existencia_actual_actual != (int)$nueva_existencia_actual) {
                 $queryActualizar = "
                     UPDATE " . static::$tabla . "
                     SET 
                         almacen = '$almacen',
                         descripcion = '$descripcion',
-                        existencia_inicial = $nueva_existencia_inicial,
+                        existencia_actual = $nueva_existencia_actual,
                         costo = '$costo',
                         promedio = '$promedio',
                         talla = '$talla',
@@ -656,18 +653,16 @@ public static function procesarArchivoExcelMateria($filePath)
                     WHERE codigo = '$codigo'
                 ";
                 self::$db->query($queryActualizar);
-            } else {
-                error_log("No se modificó la existencia inicial para el código $codigo.");
             }
         } else {
             // Insertar un nuevo registro si no existe
             $queryInsertar = "
                 INSERT INTO " . static::$tabla . " (
-                    almacen, codigo, descripcion, existencia_inicial, consumo_acumulado,
+                    almacen, codigo, descripcion, existencia_actual,
                     costo, promedio, talla, linea, gramaje, proveedor,
                     sustrato, ancho
                 ) VALUES (
-                    '$almacen', '$codigo', '$descripcion', '$nueva_existencia_inicial', 0,
+                    '$almacen', '$codigo', '$descripcion', $nueva_existencia_actual,
                     '$costo', '$promedio', '$talla', '$linea', '$gramaje', '$proveedor',
                     '$sustrato', '$ancho'
                 )
@@ -684,35 +679,34 @@ public static function registrarConsumo($codigo, $cantidad_consumida)
 {
     // Consultar el registro actual
     $queryConsultar = "
-        SELECT consumo_acumulado, existencia_inicial 
+        SELECT existencia_actual 
         FROM " . static::$tabla . " 
         WHERE codigo = '$codigo'
     ";
     $resultado = self::$db->query($queryConsultar)->fetch_assoc();
 
     if ($resultado) {
-        $consumo_acumulado_actual = (int)$resultado['consumo_acumulado'];
-        $existencia_inicial = (int)$resultado['existencia_inicial'];
+        $existencia_actual = (int)$resultado['existencia_actual'];
 
-        // Calcular el nuevo consumo acumulado
-        $nuevo_consumo_acumulado = $consumo_acumulado_actual + $cantidad_consumida;
-
-        // Validar que no exceda la existencia inicial
-        if ($nuevo_consumo_acumulado > $existencia_inicial) {
-            error_log("Error: El consumo acumulado excede la existencia inicial para el código $codigo.");
+        // Validar que la cantidad consumida no exceda la existencia actual
+        if ($cantidad_consumida > $existencia_actual) {
+            error_log("Error: El consumo excede la existencia actual para el código $codigo.");
             return false; // Evitar un consumo mayor a lo disponible
         }
 
-        // Actualizar el consumo acumulado
+        // Calcular la nueva existencia actual
+        $nueva_existencia_actual = $existencia_actual - $cantidad_consumida;
+
+        // Actualizar la existencia actual en la base de datos
         $queryActualizarConsumo = "
             UPDATE " . static::$tabla . "
-            SET consumo_acumulado = $nuevo_consumo_acumulado
+            SET existencia_actual = $nueva_existencia_actual
             WHERE codigo = '$codigo'
         ";
         self::$db->query($queryActualizarConsumo);
 
         // Registrar en el log para verificar el cambio
-        error_log("Consumo actualizado: Código $codigo, Consumo acumulado $nuevo_consumo_acumulado");
+        error_log("Consumo registrado: Código $codigo, Existencia actual $nueva_existencia_actual");
 
         return true;
     } else {
@@ -720,6 +714,7 @@ public static function registrarConsumo($codigo, $cantidad_consumida)
         return false;
     }
 }
+
 
 
 
