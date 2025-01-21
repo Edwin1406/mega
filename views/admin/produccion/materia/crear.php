@@ -22,24 +22,31 @@
 
 <ul class="lista-areas-produccion">
     <li class="areas-produccion">
-        <i class="fas fa-cogs"></i> Maquinas
+        <a href="maquinas.html">
+            <i class="fas fa-cogs"></i> Maquinas
+        </a>
     </li>
     <li class="areas-produccion">
-        <i class="fas fa-scroll"></i> Papel
+        <a href="papel.html">
+            <i class="fas fa-scroll"></i> Papel
+        </a>
     </li>
     <li class="areas-produccion">
-        <i class="fas fa-truck"></i> Proveedor
+        <a href="proveedor.html">
+            <i class="fas fa-truck"></i> Proveedor
+        </a>
     </li>
     <li class="areas-produccion">
-        <i class="fas fa-boxes"></i> Materia Prima
+        <a href="materia-prima.html">
+            <i class="fas fa-boxes"></i> Materia Prima
+        </a>
     </li>
     <li class="areas-produccion">
-        <i class="fas fa-project-diagram"></i> Pedidos Proyectos
+        <a href="pedidos-proyectos.html">
+            <i class="fas fa-project-diagram"></i> Pedidos Proyectos
+        </a>
     </li>
 </ul>
-
-
-
 
 
 
