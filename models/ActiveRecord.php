@@ -462,7 +462,6 @@ public static function procesarArchivoExcel($filePath)
 
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
 public static function procesarArchivoExcelMateria($filePath)
 {
     $spreadsheet = IOFactory::load($filePath);
@@ -502,7 +501,7 @@ public static function procesarArchivoExcelMateria($filePath)
 
         // Mapear los datos a las columnas con verificación
         list(
-            $almacen, $codigo, $descripcion, $existencia, $costo,
+            $almacen, $codigo, $descripcion, $nueva_existencia, $costo,
             $promedio, $talla, $linea, $gramaje, $proveedor,
             $sustrato, $ancho
         ) = array_map(function ($value) {
@@ -515,40 +514,51 @@ public static function procesarArchivoExcelMateria($filePath)
 
         // Verificar si el registro ya existe
         $queryVerificar = "
-            SELECT COUNT(*) as total 
+            SELECT existencia 
             FROM " . static::$tabla . " 
             WHERE codigo = '$codigo'
         ";
         $resultado = self::$db->query($queryVerificar)->fetch_assoc();
 
-        if ($resultado['total'] > 0) {
-            // Actualizar el registro existente
-            $queryActualizar = "
-                UPDATE " . static::$tabla . "
-                SET 
-                    almacen = '$almacen',
-                    descripcion = '$descripcion',
-                    existencia = '$existencia',
-                    costo = '$costo',
-                    promedio = '$promedio',
-                    talla = '$talla',
-                    linea = '$linea',
-                    gramaje = '$gramaje',
-                    proveedor = '$proveedor',
-                    sustrato = '$sustrato',
-                    ancho = '$ancho'
-                WHERE codigo = '$codigo'
-            ";
-            self::$db->query($queryActualizar);
+        if ($resultado) {
+            // Si existe el registro, calcular la nueva existencia
+            $existencia_actual = (int)$resultado['existencia'];
+            $nueva_existencia = (int)$nueva_existencia;
+
+            // Si la nueva existencia es mayor a la actual, se calcula la diferencia
+            if ($nueva_existencia > $existencia_actual) {
+                $diferencia = $nueva_existencia - $existencia_actual;
+
+                $queryActualizar = "
+                    UPDATE " . static::$tabla . "
+                    SET 
+                        almacen = '$almacen',
+                        descripcion = '$descripcion',
+                        existencia = existencia + $diferencia, -- Aumentar la diferencia
+                        costo = '$costo',
+                        promedio = '$promedio',
+                        talla = '$talla',
+                        linea = '$linea',
+                        gramaje = '$gramaje',
+                        proveedor = '$proveedor',
+                        sustrato = '$sustrato',
+                        ancho = '$ancho'
+                    WHERE codigo = '$codigo'
+                ";
+                self::$db->query($queryActualizar);
+            } else {
+                // Si la existencia no cambia, no se realiza actualización
+                error_log("La existencia para el código $codigo no cambió.");
+            }
         } else {
-            // Insertar un nuevo registro
+            // Insertar un nuevo registro si no existe
             $queryInsertar = "
                 INSERT INTO " . static::$tabla . " (
                     almacen, codigo, descripcion, existencia, costo,
                     promedio, talla, linea, gramaje, proveedor,
                     sustrato, ancho
                 ) VALUES (
-                    '$almacen', '$codigo', '$descripcion', '$existencia', '$costo',
+                    '$almacen', '$codigo', '$descripcion', '$nueva_existencia', '$costo',
                     '$promedio', '$talla', '$linea', '$gramaje', '$proveedor',
                     '$sustrato', '$ancho'
                 )
