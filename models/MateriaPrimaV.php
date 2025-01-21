@@ -5,7 +5,7 @@ namespace Model;
 class MateriaPrimaV extends ActiveRecord
 {   
     protected static $tabla = 'materia_prima_v';
-    protected static $columnasDB = ['id','almacen', 'codigo','descripcion','existencia','costo','promedio','talla','linea','gramaje','proveedor','sustrato','ancho','created_at','updated_at'];
+    protected static $columnasDB = ['id','almacen', 'codigo','descripcion','existencia','costo','promedio','talla','linea','gramaje','proveedor','sustrato','ancho'];
 
     public $id;
     public $almacen;
@@ -30,7 +30,7 @@ class MateriaPrimaV extends ActiveRecord
         $this->id = $args['id'] ?? null;
         $this->almacen = $args['almacen'] ?? '';
         $this->codigo = $args['codigo'] ?? '';
-        $this->descripcion = $args['descripcion'] ?? '';
+        // $this->descripcion = $args['descripcion'] ?? '';
         $this->existencia = $args['existencia'] ?? '';
         $this->costo = $args['costo'] ?? '';
         $this->promedio = $args['promedio'] ?? '';
