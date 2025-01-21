@@ -7,7 +7,7 @@
      
     <?php include_once __DIR__.'/subirExcel.php'  ?>
 
-        <input class="formulario__submit formulario__submit--registrar" type="submit" value="Registrar Materia Prima">
+        <input class="formulario__submit formulario__submit--registrar" type="submit" value="Subir Excel">
 
         
     </form>
