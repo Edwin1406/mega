@@ -509,6 +509,7 @@ public static function procesarArchivoExcelMateria($filePath)
         ) = array_pad(array_map(function ($value) {
             return trim($value ?? ''); // Captura valores nulos y elimina espacios
         }, $data), 12, null);
+        
     
         // Validar descripción y asignar valor predeterminado si está vacía
         if (empty($descripcion)) {
