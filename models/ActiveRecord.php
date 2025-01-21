@@ -496,9 +496,11 @@ public static function procesarArchivoExcelMateria($filePath)
         }
 
         //
-        
+
+        // como json 
+        json_encode($data);
         var_dump($data);
-        
+
 
         // Mapear los datos a las columnas y asegurar que siempre haya suficientes valores
         list(
