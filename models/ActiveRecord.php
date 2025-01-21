@@ -478,7 +478,7 @@ public static function procesarArchivoExcelMateria($filePath)
             id INT AUTO_INCREMENT PRIMARY KEY,
             almacen VARCHAR(255),
             codigo VARCHAR(255),
-            descripcion VARCHAR(255),
+            nombre VARCHAR(255),
             existencia INT,
             costo DECIMAL(10, 2),
             promedio DECIMAL(10, 2),
@@ -504,7 +504,7 @@ public static function procesarArchivoExcelMateria($filePath)
 
         // Mapear los datos a las columnas y asegurar que siempre haya suficientes valores
         list(
-            $almacen, $codigo, $descripcion, $existencia, $costo,
+            $almacen, $codigo, $nombre, $existencia, $costo,
             $promedio, $talla, $linea, $gramaje, $proveedor,
             $sustrato, $ancho
         ) = array_pad(array_map(function ($value) {
@@ -512,14 +512,10 @@ public static function procesarArchivoExcelMateria($filePath)
         }, $data), 12, null);
       
         // Validar descripción y asignar valor predeterminado si está vacía
-        if (empty($descripcion)) {
-            $descripcion = 'Sin descripción'; // Valor predeterminado si está vacío
+        if (empty($nombre)) {
+            $nombre = 'Sin descripción'; // Valor predeterminado si está vacío
         }
 
-        echo '<pre>';
-        var_dump($descripcion);
-        echo '</pre>';
-    
         if (empty($codigo)) {
             // Si no hay código, omitir la fila
             continue;
@@ -543,7 +539,7 @@ public static function procesarArchivoExcelMateria($filePath)
                 UPDATE " . static::$tabla . "
                 SET 
                     almacen = ?,
-                    descripcion = ?,
+                    nombre = ?,
                     existencia = ?,
                     costo = ?,
                     promedio = ?,
@@ -559,7 +555,7 @@ public static function procesarArchivoExcelMateria($filePath)
             $stmt = self::$db->prepare($queryActualizar);
             $stmt->bind_param(
                 'ssiddssssssd',
-                $almacen, $descripcion, $existencia, $costo, $promedio,
+                $almacen, $nombre, $existencia, $costo, $promedio,
                 $talla, $linea, $gramaje, $proveedor, $sustrato, $ancho,
                 $codigo
             );
@@ -568,7 +564,7 @@ public static function procesarArchivoExcelMateria($filePath)
             // Insertar un nuevo registro
             $queryInsertar = "
                 INSERT INTO " . static::$tabla . " (
-                    almacen, codigo, descripcion, existencia, costo,
+                    almacen, codigo, nombre, existencia, costo,
                     promedio, talla, linea, gramaje, proveedor,
                     sustrato, ancho
                 ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
@@ -577,7 +573,7 @@ public static function procesarArchivoExcelMateria($filePath)
             $stmt = self::$db->prepare($queryInsertar);
             $stmt->bind_param(
                 'ssiddssssssd',
-                $almacen, $codigo, $descripcion, $existencia, $costo, $promedio,
+                $almacen, $codigo, $nombre, $existencia, $costo, $promedio,
                 $talla, $linea, $gramaje, $proveedor, $sustrato, $ancho
             );
             $stmt->execute();
