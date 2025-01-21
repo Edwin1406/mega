@@ -588,7 +588,6 @@ public static function procesarArchivoExcelMateria($filePath)
             existencia_inicial INT,
             consumo_acumulado INT DEFAULT 0,
             existencia_actual INT GENERATED ALWAYS AS (existencia_inicial - consumo_acumulado) STORED,
-            sin_stock BOOLEAN GENERATED ALWAYS AS (existencia_actual <= 0) STORED,
             costo DECIMAL(10, 2),
             promedio DECIMAL(10, 2),
             talla VARCHAR(255),
@@ -635,9 +634,8 @@ public static function procesarArchivoExcelMateria($filePath)
         $resultado = self::$db->query($queryVerificar)->fetch_assoc();
 
         if ($resultado) {
-            // Si existe, actualizar la existencia inicial, sin modificar el consumo acumulado
+            // Si existe, actualizar la existencia inicial si es diferente
             $existencia_inicial_actual = (int)$resultado['existencia_inicial'];
-            $consumo_acumulado_actual = (int)$resultado['consumo_acumulado'];
             $nueva_existencia_inicial = (int)$nueva_existencia_inicial;
 
             if ($nueva_existencia_inicial != $existencia_inicial_actual) {
@@ -680,6 +678,7 @@ public static function procesarArchivoExcelMateria($filePath)
 
     return true;
 }
+
 // Método para registrar consumo
 public static function registrarConsumo($codigo, $cantidad_consumida)
 {
@@ -721,7 +720,6 @@ public static function registrarConsumo($codigo, $cantidad_consumida)
         return false;
     }
 }
-
 
 
 
