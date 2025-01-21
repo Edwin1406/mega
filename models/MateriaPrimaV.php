@@ -20,8 +20,7 @@ class MateriaPrimaV extends ActiveRecord
     public $proveedor;
     public $sustrato;
     public $ancho;
-    public $created_at;
-    public $updated_at;
+  
 
 
     public function __construct($args = [])
@@ -41,7 +40,6 @@ class MateriaPrimaV extends ActiveRecord
         $this->proveedor = $args['proveedor'] ?? '';
         $this->sustrato = $args['sustrato'] ?? '';
         $this->ancho = $args['ancho'] ?? '';
-        $this->created_at = $args['created_at'] ?? date('Y-m-d H:i:s');
     }
 
 

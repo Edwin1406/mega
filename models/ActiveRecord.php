@@ -487,7 +487,7 @@ public static function procesarArchivoExcelMateria($filePath)
         list(
             $almacen, $codigo, $descripcion, $existencia, $costo,
             $promedio, $talla, $linea, $gramaje, $proveedor,
-            $sustrato,$ancho,$created_at,$updated_at
+            $sustrato,$ancho
         ) = array_map('trim', $data);
 
         // Comprobar si el registro ya existe en la base de datos
@@ -517,9 +517,7 @@ public static function procesarArchivoExcelMateria($filePath)
                     gramaje = ?,
                     proveedor = ?,
                     sustrato = ?,
-                    ancho = ?,
-                    created_at = ?,
-                    updated_at = ?
+                    ancho = ?
                 WHERE codigo = ?
             ";
 
@@ -537,16 +535,15 @@ public static function procesarArchivoExcelMateria($filePath)
                 INSERT INTO " . static::$tabla . " (
                     almacen, codigo, descripcion, existencia, costo,
                     promedio, talla, linea, gramaje, proveedor,
-                    sustrato,ancho, created_at, updated_at
-                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                    sustrato,ancho
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)
             ";
 
             $stmt = self::$db->prepare($queryInsertar);
             $stmt->bind_param(
                 'ssiddssssssss',
                 $almacen, $codigo, $descripcion, $existencia, $costo, $promedio,
-                $talla, $linea, $gramaje, $proveedor, $sustrato,$ancho,
-                $created_at, $updated_at
+                $talla, $linea, $gramaje, $proveedor, $sustrato,$ancho
             );
             $stmt->execute();
         }
