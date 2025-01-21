@@ -20,26 +20,23 @@
 </div>
 
 
-
 <ul class="lista-areas-produccion">
     <li class="areas-produccion">
-        <button>Maquinas</button>
+        <i class="fas fa-cogs"></i> Maquinas
     </li>
     <li class="areas-produccion">
-        <button>Papel</button>
+        <i class="fas fa-scroll"></i> Papel
     </li>
     <li class="areas-produccion">
-        <button>Proveedor</button>
+        <i class="fas fa-truck"></i> Proveedor
     </li>
     <li class="areas-produccion">
-        <button>Materia Prima</button>
+        <i class="fas fa-boxes"></i> Materia Prima
     </li>
     <li class="areas-produccion">
-        <button>Pedidos Proyectos</button>
+        <i class="fas fa-project-diagram"></i> Pedidos Proyectos
     </li>
 </ul>
-
-
 
 
 
