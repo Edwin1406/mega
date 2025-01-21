@@ -524,7 +524,7 @@ public static function procesarArchivoExcelMateria($filePath)
 
         if ($resultado) {
             $existenciaActual = (int) $resultado['existencia'];
-            $existenciaFinal = $existenciaActual + (int) $existenciaNueva; // Ajuste de la existencia
+            $existenciaFinal = $existenciaActual -(int) $existenciaNueva; // Ajuste de la existencia
 
             // Actualizar registro existente
             $queryActualizar = "
