@@ -467,6 +467,8 @@ public static function procesarArchivoExcel($filePath)
 
 public static function procesarArchivoExcelMateria($filePath)
 {
+    ob_start(); // Inicia el buffer de salida
+
     $spreadsheet = IOFactory::load($filePath);
     $sheet = $spreadsheet->getActiveSheet();
 
@@ -594,7 +596,10 @@ public static function procesarArchivoExcelMateria($filePath)
         }
     }
 
+
+    ob_end_flush(); // Libera y envía el contenido del buffer
     return true;
+
 }
 
 
