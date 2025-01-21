@@ -463,15 +463,32 @@ public static function procesarArchivoExcel($filePath)
 
 
 
-
 // Materia Prima Producción
 public static function procesarArchivoExcelMateria($filePath)
 {
     $spreadsheet = IOFactory::load($filePath);
     $sheet = $spreadsheet->getActiveSheet();
 
-    // Asegúrate de que la tabla ya existe antes de ejecutar este código.
-    // Esto debería ser responsabilidad de un script de migración.
+    // Crear la tabla si no existe
+    $queryCrearTabla = "
+        CREATE TABLE IF NOT EXISTS " . static::$tabla . " (
+            almacen VARCHAR(255),
+            codigo VARCHAR(255) PRIMARY KEY,
+            descripcion VARCHAR(255),
+            existencia INT,
+            costo DECIMAL(10, 2),
+            promedio DECIMAL(10, 2),
+            talla VARCHAR(255),
+            linea VARCHAR(255),
+            gramaje VARCHAR(255),
+            proveedor VARCHAR(255),
+            sustrato VARCHAR(255),
+            ancho DECIMAL(10, 2),
+            created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+            updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+        )
+    ";
+    self::$db->query($queryCrearTabla);
 
     // Procesar las filas del archivo Excel (a partir de la segunda fila para omitir encabezados)
     foreach ($sheet->getRowIterator(2) as $row) {
@@ -483,12 +500,17 @@ public static function procesarArchivoExcelMateria($filePath)
             $data[] = $cell->getValue() ?? ''; // Captura valores nulos como cadenas vacías
         }
 
-        // Mapear los datos a las columnas
+        // Mapear los datos a las columnas y asegurar que siempre haya suficientes valores
         list(
             $almacen, $codigo, $descripcion, $existencia, $costo,
             $promedio, $talla, $linea, $gramaje, $proveedor,
-            $sustrato,$ancho
-        ) = array_map('trim', $data);
+            $sustrato, $ancho
+        ) = array_pad(array_map('trim', $data), 12, null);
+
+        if (empty($codigo)) {
+            // Si no hay código, omitir la fila
+            continue;
+        }
 
         // Comprobar si el registro ya existe en la base de datos
         $queryVerificar = "
@@ -517,16 +539,17 @@ public static function procesarArchivoExcelMateria($filePath)
                     gramaje = ?,
                     proveedor = ?,
                     sustrato = ?,
-                    ancho = ?
+                    ancho = ?,
+                    updated_at = NOW()
                 WHERE codigo = ?
             ";
 
             $stmt = self::$db->prepare($queryActualizar);
             $stmt->bind_param(
-                'ssiddssssssss',
+                'ssiddssssssd',
                 $almacen, $descripcion, $existencia, $costo, $promedio,
                 $talla, $linea, $gramaje, $proveedor, $sustrato, $ancho,
-                $created_at, $updated_at, $codigo
+                $codigo
             );
             $stmt->execute();
         } else {
@@ -535,15 +558,15 @@ public static function procesarArchivoExcelMateria($filePath)
                 INSERT INTO " . static::$tabla . " (
                     almacen, codigo, descripcion, existencia, costo,
                     promedio, talla, linea, gramaje, proveedor,
-                    sustrato,ancho
-                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)
+                    sustrato, ancho, created_at, updated_at
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), NOW())
             ";
 
             $stmt = self::$db->prepare($queryInsertar);
             $stmt->bind_param(
-                'ssiddssssssss',
+                'ssiddssssssd',
                 $almacen, $codigo, $descripcion, $existencia, $costo, $promedio,
-                $talla, $linea, $gramaje, $proveedor, $sustrato,$ancho
+                $talla, $linea, $gramaje, $proveedor, $sustrato, $ancho
             );
             $stmt->execute();
         }
@@ -551,10 +574,6 @@ public static function procesarArchivoExcelMateria($filePath)
 
     return true;
 }
-
-
-
-
 
 
 
