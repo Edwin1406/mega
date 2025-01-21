@@ -178,6 +178,7 @@ class MateriaPrimaController
 
     public static function excel(Router $router)
     {
+        $alertas = [];
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $archivo = $_FILES['file'];
             $nombreArchivo = $archivo['name'];
@@ -211,7 +212,8 @@ class MateriaPrimaController
 
 
         $router->render('admin/produccion/materia/excel', [
-            'titulo' => 'SUBIR EXCEL'
+            'titulo' => 'SUBIR EXCEL',
+            'alertas' => $alertas
         ]);
     }
 
