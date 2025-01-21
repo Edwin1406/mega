@@ -523,9 +523,6 @@ public static function procesarArchivoExcelMateria($filePath)
             echo "Descripción procesada: '$descripcion' para el código: $codigo\n";
         }
 
-        // Debugging: Verificar los valores antes de la inserción o actualización
-        echo "Valores procesados para la fila: \n";
-        echo "Almacén: $almacen, Código: $codigo, Descripción: $descripcion, Existencia: $existencia, Costo: $costo, Promedio: $promedio, Talla: $talla, Línea: $linea, Gramaje: $gramaje, Proveedor: $proveedor, Sustrato: $sustrato, Ancho: $ancho\n";
 
         $existencia = is_numeric($existencia) ? intval($existencia) : 0;
         $costo = is_numeric($costo) ? floatval($costo) : 0.0;
@@ -572,7 +569,6 @@ public static function procesarArchivoExcelMateria($filePath)
             );
 
             // Depurar consulta SQL completa
-            echo "Consulta de actualización SQL: $queryActualizar\nValores: [Almacén: $almacen, Descripción: $descripcion, Existencia: $existencia, Costo: $costo, Promedio: $promedio, Talla: $talla, Línea: $linea, Gramaje: $gramaje, Proveedor: $proveedor, Sustrato: $sustrato, Ancho: $ancho, Código: $codigo]\n";
 
             if (!$stmt->execute()) {
                 echo "Error al actualizar: " . $stmt->error . "\n";
@@ -595,7 +591,6 @@ public static function procesarArchivoExcelMateria($filePath)
             );
 
             // Depurar consulta SQL completa
-            echo "Consulta de inserción SQL: $queryInsertar\nValores: [Almacén: $almacen, Descripción: $descripcion, Existencia: $existencia, Costo: $costo, Promedio: $promedio, Talla: $talla, Línea: $linea, Gramaje: $gramaje, Proveedor: $proveedor, Sustrato: $sustrato, Ancho: $ancho]\n";
 
             if (!$stmt->execute()) {
                 echo "Error al insertar: " . $stmt->error . "\n";
