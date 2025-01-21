@@ -510,16 +510,15 @@ public static function procesarArchivoExcelMateria($filePath)
         ) = array_pad(array_map(function ($value) {
             return trim($value ?? ''); // Captura valores nulos y elimina espacios
         }, $data), 12, null);
-        	 // Aquí imprimimos los datos para depurar
-      	echo '<pre>';
-      	print_r($data); // Esto mostrará los datos de cada fila del Excel
-      	echo '</pre>';
-  
-    
+      
         // Validar descripción y asignar valor predeterminado si está vacía
         if (empty($descripcion)) {
             $descripcion = 'Sin descripción'; // Valor predeterminado si está vacío
         }
+
+        echo '<pre>';
+        var_dump($descripcion);
+        echo '</pre>';
     
         if (empty($codigo)) {
             // Si no hay código, omitir la fila
