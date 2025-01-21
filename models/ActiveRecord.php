@@ -463,7 +463,6 @@ public static function procesarArchivoExcel($filePath)
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-
 public static function procesarArchivoExcelMateria($filePath)
 {
     $spreadsheet = IOFactory::load($filePath);
@@ -472,9 +471,9 @@ public static function procesarArchivoExcelMateria($filePath)
     // Crear la tabla si no existe
     $queryCrearTabla = "
         CREATE TABLE IF NOT EXISTS " . static::$tabla . " (
-            id INT AUTO_INCREMENT,
+            id INT AUTO_INCREMENT PRIMARY KEY,
             almacen VARCHAR(255),
-            codigo VARCHAR(255),
+            codigo VARCHAR(255) UNIQUE,
             descripcion VARCHAR(500),
             existencia INT,
             costo DECIMAL(10, 2),
@@ -484,8 +483,7 @@ public static function procesarArchivoExcelMateria($filePath)
             gramaje VARCHAR(255),
             proveedor VARCHAR(255),
             sustrato VARCHAR(255),
-            ancho DECIMAL(10, 2),
-            PRIMARY KEY (codigo)  -- Clave primaria para evitar duplicados
+            ancho DECIMAL(10, 2)
         )
     ";
 
