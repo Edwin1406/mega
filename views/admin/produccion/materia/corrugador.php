@@ -106,3 +106,22 @@
 <?php else: ?>
     <p>No se encontraron resultados.</p>
 <?php endif; ?>
+
+
+
+<canvas id="myChart"></canvas>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    const ctx = document.getElementById('myChart').getContext('2d');
+    const myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['40', '41', '42', '...'], // Etiquetas dinámicas
+            datasets: [{
+                label: 'Cantidad',
+                data: [1200, 1300, 1400, ...], // Datos obtenidos dinámicamente
+                borderWidth: 1
+            }]
+        }
+    });
+</script>
