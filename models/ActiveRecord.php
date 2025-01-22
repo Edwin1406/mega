@@ -136,7 +136,7 @@ class ActiveRecord {
     
         // Agrega una cláusula WHERE si se proporciona un valor para $linea
         if ($linea !== null) {
-            $query .= " WHERE linea = '" . addslashes($linea) . "'";
+            $query .= " WHERE linea LIKE '%" . addslashes($linea) . "%'";
         }
     
         // Agrega la cláusula ORDER BY
@@ -146,7 +146,6 @@ class ActiveRecord {
         $resultado = self::consultarSQL($query);
         return $resultado;
     }
-    
     
 
 
