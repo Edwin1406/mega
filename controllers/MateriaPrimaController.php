@@ -218,7 +218,7 @@ class MateriaPrimaController
 
     public static function corrugador(Router $router)
     {
-        $corrugador = MateriaPrimaV::where('linea', 'CAJA');
+        $corrugador = MateriaPrimaV::where('linea', 'CAJA-KRAFT');
 
         // Depura el resultado
         debuguear($corrugador);
