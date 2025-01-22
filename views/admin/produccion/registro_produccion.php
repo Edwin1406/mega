@@ -33,7 +33,7 @@
                 }elseif($area === 'pedidos proyectos'|| $area === 'PEDIDOS PROYECTOS') {
                     $url = "/admin/produccion/estadistica/crear?id=".$id;
                 } elseif($area === 'planifico'|| $area === 'PLANIFICO'){
-                    $url = "/admin/produccion/planificacion/index?id=".$id;
+                    $url = "/admin/produccion/planifico/index?id=".$id;
                 }
 
                 echo $url;
