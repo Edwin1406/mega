@@ -228,14 +228,11 @@ class MateriaPrimaController
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $gramaje = !empty($_POST['gramaje']) ? $_POST['gramaje'] : null;
         
-            // // Imprimir para depuración
-            // var_dump($gramaje);
         
-            $materias = MateriaPrima::filtrarPorGramaje($gramaje);
-        
+            // Llamar al método del modelo para filtrar
+            $materias = MateriaPrima::filtrarPorGramajeYAncho( $gramaje);
             debuguear($materias);
-        }
-        
+        } 
         
 
         // $materias = MateriaPrimaV::filtrarPorGramajeYAncho('45', '58');
