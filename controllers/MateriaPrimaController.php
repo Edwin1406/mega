@@ -221,6 +221,8 @@ class MateriaPrimaController
         $corrugador = MateriaPrimaV::allc('DESC', 'CAJA');
         
         $totalRegistros = MateriaPrimaV::countByLinea('CAJA');
+        // sumar la exitencia de todos los registros 
+        $totalRegistros = MateriaPrimaV::sumarExistencia('CAJA');
 
         
       
