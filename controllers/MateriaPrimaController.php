@@ -225,7 +225,12 @@ class MateriaPrimaController
         // con deciamles 
         $totalExistencia = number_format($totalExistencia, 2, '.', ',');
 
-        
+      
+
+$materias = MateriaPrimaV::filtrarPorGramajeYAncho('45', '58');
+
+ debuguear($materias);
+
         
     
         $router->render('admin/produccion/materia/corrugador', [
@@ -239,9 +244,11 @@ class MateriaPrimaController
 
 
     public static function apicorrugador (){
+        
         header("Access-Control-Allow-Origin: *");  // Permite solicitudes desde cualquier origen
         header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS"); // Métodos permitidos
         header("Access-Control-Allow-Headers: Content-Type, Authorization"); // Cabeceras permitidas
+
         $corrugador = MateriaPrimaV::allc('DESC', 'CAJA');
         echo json_encode($corrugador);
     }
