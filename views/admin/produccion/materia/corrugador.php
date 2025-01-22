@@ -31,7 +31,7 @@
     
     <div>
         <label for="existencia">Existencia</label>
-        <input type="number" name="exixtencia" id="existencia" placeholder="Ingrese la exixtencia">
+        <input type="number" name="existencia" id="existencia" placeholder="Ingrese la exixtencia">
     </div>
     
     <div>
