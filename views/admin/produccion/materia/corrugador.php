@@ -54,7 +54,7 @@
             <option value="350">350</option>
             <option value="360">360</option>
             <option value="370">370</option>
-            <option value="380">380</option>
+            <option value="45">45</option>
             <option value="390">390</option>
             <option value="400">400</option>
             <option value="410">410</option>
@@ -71,6 +71,7 @@
             <option value="520">520</option>
         
     </div>
+
     <div>
         <label for="ancho">Ancho:</label>
         <input type="number" name="ancho" id="ancho" placeholder="Ingrese el ancho">
