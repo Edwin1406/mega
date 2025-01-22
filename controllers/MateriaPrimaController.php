@@ -229,6 +229,8 @@ class MateriaPrimaController
             $gramaje = !empty($_POST['gramaje']) ? $_POST['gramaje'] : null;
             $materias = MateriaPrima::filtrarPorGramaje($gramaje);
 
+            debuguear($materias);
+
         } 
         
 
