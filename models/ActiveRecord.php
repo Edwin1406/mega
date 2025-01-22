@@ -157,7 +157,7 @@ class ActiveRecord {
     //     $resultado = self::consultarSQL($query);
     //     return $resultado;
     // }
-    public static function filtrarPorGramajeYAncho($gramaje = null, $ancho = null, $orden = 'DESC') {
+    public static function filtrarPorGramajeYAncho($gramaje = null, $ancho = null, $sustrato = null, $existencia = null, $orden = 'DESC') {
         // Construir la base de la consulta
         $query = "SELECT * FROM " . static::$tabla;
     
@@ -171,6 +171,14 @@ class ActiveRecord {
         if (!empty($ancho)) {
             $condiciones[] = "ancho = '" . self::escape($ancho) . "'";
         }
+        if (!empty($existencia)) {
+            $condiciones[] = "existencia = '" . self::escape($existencia) . "'";
+        }
+        if (!empty($sustrato)) {
+            $condiciones[] = "sustrato = '" . self::escape($sustrato) . "'";
+        }
+
+
     
         // Si hay condiciones, añadirlas a la consulta
         if (!empty($condiciones)) {
