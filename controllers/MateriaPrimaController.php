@@ -241,7 +241,8 @@ class MateriaPrimaController
             'titulo' => 'CORRUGADOR',
             'corrugador' => $corrugador,
             'totalRegistros' => $totalRegistros,
-            'totalExistencia' => $totalExistencia
+            'totalExistencia' => $totalExistencia,
+            'materias' => $materias ?? []
             
         ]);
 
