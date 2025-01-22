@@ -157,7 +157,7 @@ class ActiveRecord {
         }
     
         // Ejecuta la consulta y obtiene el resultado
-        $resultado = self::consultarSQL($query);
+        $resultado = self::consultarSQL1($query);
     
         // Devuelve el total si existe en el resultado
         if (is_array($resultado) && isset($resultado[0]['total'])) {
@@ -168,6 +168,14 @@ class ActiveRecord {
         return 0;
     }
     
+    public static function consultarSQL1($query) {
+        $resultado = self::$db->query($query);
+        $array = [];
+        while ($registro = $resultado->fetch_assoc()) {
+            $array[] = $registro;
+        }
+        return $array;
+    }
     
     
 
