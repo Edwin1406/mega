@@ -4,7 +4,7 @@
 <ul class="lista-areas-produccion">
     <li class="areas-produccion">
         <a href="#">
-            <i class="fas fa-industry">  </i> TOTAL CORRUGADOR :
+            <i class="fas fa-industry">  </i> TOTAL REGISTROS :
             <?php if($totalRegistros > 0) : ?>
                 <span class="areas-produccion__numero"> <?php echo $totalRegistros ?> </span>
             <?php endif; ?> 
@@ -12,7 +12,7 @@
     </li>
     <li class="areas-produccion">
         <a href="#">
-            <i class="fas fa-scroll"></i> TOTAL EN KILOGRAMOS:
+            <i class="fas fa-scroll"></i> TOTAL EXISTENCIA :
             <?php if($totalExistencia > 0) : ?>
                 <span class="areas-produccion__numero"> <?php echo $totalExistencia ?> KG </span>
             <?php endif; ?> 
