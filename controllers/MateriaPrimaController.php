@@ -225,15 +225,12 @@ class MateriaPrimaController
         // con deciamles 
         $totalExistencia = number_format($totalExistencia, 2, '.', ',');
 
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $gramaje = !empty($_POST['gramaje']) ? $_POST['gramaje'] : null;
-        
-        
-            // Llamar al método del modelo para filtrar
-            $materias = MateriaPrima::filtrarPorGramajeYAncho( $gramaje);
-            debuguear($materias);
-        } 
-        
+      if($_SERVER['REQUEST_METHOD'] === 'POST'){
+          $gramaje = $_POST['gramaje'];
+          $ancho = $_POST['ancho'];
+          $materias = MateriaPrimaV::filtrarPorGramajeYAncho($gramaje, $ancho);
+          // debuguear($materias);
+      }
 
         // $materias = MateriaPrimaV::filtrarPorGramajeYAncho('45', '58');
 

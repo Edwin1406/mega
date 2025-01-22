@@ -141,7 +141,9 @@ class ActiveRecord {
         if (!is_null($gramaje)) {
             $condiciones[] = "gramaje = '" . self::escape($gramaje) . "'";
         }
-       
+        if (!is_null($ancho)) {
+            $condiciones[] = "ancho = '" . self::escape($ancho) . "'";
+        }
     
         // Si hay condiciones, añadirlas a la consulta
         if (!empty($condiciones)) {
