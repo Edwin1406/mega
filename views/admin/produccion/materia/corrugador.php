@@ -119,7 +119,7 @@
             labels: ['40', '41', '42', '...'], // Etiquetas dinámicas
             datasets: [{
                 label: 'Cantidad',
-                data: [1200, 1300, 1400, ...], // Datos obtenidos dinámicamente
+                data: [1200, 1300, 1400,''], // Datos obtenidos dinámicamente
                 borderWidth: 1
             }]
         }
