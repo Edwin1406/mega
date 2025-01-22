@@ -39,7 +39,10 @@
         <button type="submit">Filtrar</button>
     </div>
 </form>
+<!-- Canvas para el gráfico -->
+<canvas id="myChart"></canvas>
 
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <script>
     const materias = <?php echo json_encode($materias); ?>;
@@ -60,5 +63,12 @@
                 borderWidth: 1
             }]
         }
+    });
+
+
+
+      // Manejar envío del formulario
+      document.getElementById('filterForm').addEventListener('submit', function (e) {
+        // Permitir recarga para obtener datos actualizados desde PHP
     });
 </script>
