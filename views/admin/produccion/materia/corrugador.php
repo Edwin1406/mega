@@ -4,7 +4,7 @@
 <ul class="lista-areas-produccion">
     <li class="areas-produccion">
         <a href="/admin/produccion/materia/corrugador">
-            <i class="fas fa-industry">  </i> Total Corrugador
+            <i class="fas fa-industry">  </i> Total Corrugador :
             <?php if($totalRegistros > 0) : ?>
                 <span class="areas-produccion__numero"> <?php echo $totalRegistros ?> </span>
             <?php endif; ?> 
