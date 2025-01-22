@@ -145,15 +145,22 @@ $router->get('/admin/produccion/materia/graficas', [MateriaPrimaController::clas
 $router->get('/admin/produccion/materia/excel', [MateriaPrimaController::class, 'excel']);
 $router->post('/admin/produccion/materia/excel', [MateriaPrimaController::class, 'excel']);
 
-
+// corrugador 
 $router->get('/admin/produccion/materia/corrugador', [MateriaPrimaController::class, 'corrugador']);
+// api corrugador
+$router->get('/admin/api/apicorrugador', [MateriaPrimaController::class, 'apicorrugador']);
+
+
+// microcorrugador
 $router->get('/admin/produccion/materia/microcorrugador', [MateriaPrimaController::class, 'microcorrugador']);
+// periodico
 $router->get('/admin/produccion/materia/periodico', [MateriaPrimaController::class, 'periodico']);
 
 
 
 // API MATERIA PRIMA
 $router->get('/admin/api/ApiMateriaPrima', [MateriaPrimaController::class, 'ApiMateriaPrima']);
+
 
 
 

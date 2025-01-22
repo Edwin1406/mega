@@ -224,6 +224,8 @@ class MateriaPrimaController
         $totalExistencia = MateriaPrimaV::sumarExistencia('CAJA');
         // con deciamles 
         $totalExistencia = number_format($totalExistencia, 2, '.', ',');
+
+        
         
     
         $router->render('admin/produccion/materia/corrugador', [
@@ -232,6 +234,16 @@ class MateriaPrimaController
             'totalRegistros' => $totalRegistros,
             'totalExistencia' => $totalExistencia
         ]);
+    }
+
+
+
+    public static function apicorrugador (){
+        header("Access-Control-Allow-Origin: *");  // Permite solicitudes desde cualquier origen
+        header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS"); // Métodos permitidos
+        header("Access-Control-Allow-Headers: Content-Type, Authorization"); // Cabeceras permitidas
+        $corrugador = MateriaPrimaV::allc('DESC', 'CAJA');
+        echo json_encode($corrugador);
     }
 
 
