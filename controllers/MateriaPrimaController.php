@@ -222,7 +222,8 @@ class MateriaPrimaController
         
         $totalRegistros = MateriaPrimaV::countByLinea('CAJA');
         $totalExistencia = MateriaPrimaV::sumarExistencia('CAJA');
-       
+        // con deciamles 
+        $totalExistencia = number_format($totalExistencia, 2, '.', '');
         
         
       

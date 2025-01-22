@@ -14,7 +14,7 @@
         <a href="#">
             <i class="fas fa-scroll"></i> TOTAL EN KILOGRAMOS:
             <?php if($totalExistencia > 0) : ?>
-                <span class="areas-produccion__numero"> <?php number_format($totalExistencia, 2); ?> </span>
+                <span class="areas-produccion__numero"> <?php echo $totalExistencia ?> </span>
             <?php endif; ?> 
         </a>
     </li>
