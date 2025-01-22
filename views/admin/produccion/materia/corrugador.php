@@ -10,4 +10,9 @@
             <?php endif; ?> 
         </a>
     </li>
+    <li class="areas-produccion">
+        <a href="/admin/produccion/materia/microcorrugador">
+            <i class="fas fa-scroll"></i> TOTAL EN KILOGRAMOS
+        </a>
+    </li>
 </ul>
