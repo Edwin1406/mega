@@ -130,38 +130,22 @@ class ActiveRecord {
         return $resultado;
     }
 
-    public static function filtrarPorGramajeYAncho($gramaje = null, $ancho = null, $orden = 'DESC') {
-        // Construir la base de la consulta
-        $query = "SELECT * FROM " . static::$tabla;
-    
-        // Crear un array para las condiciones
-        $condiciones = [];
-    
-        // Agregar condiciones según los parámetros recibidos
-        if (!is_null($gramaje)) {
-            $condiciones[] = "gramaje = '" . self::escape($gramaje) . "'";
-        }
-        if (!is_null($ancho)) {
-            $condiciones[] = "ancho = '" . self::escape($ancho) . "'";
-        }
-    
-        // Si hay condiciones, añadirlas a la consulta
-        if (!empty($condiciones)) {
-            $query .= " WHERE " . implode(' AND ', $condiciones);
-        }
-    
-        // Agregar orden
-        $query .= " ORDER BY id {$orden}";
-    
-        // Ejecutar la consulta y devolver los resultados
-        $resultado = self::consultarSQL($query);
-        return $resultado;
-    }
-    
 
 
-    protected static function escape($valor) {
-        return mysqli_real_escape_string(self::$db, $valor);
+
+
+    public static function filtrarPorGramaje($gramaje, $orden = 'DESC') {
+        $query = "SELECT * FROM " . static::$tabla . " WHERE gramaje = ? ORDER BY id {$orden}";
+        $stmt = self::$db->prepare($query);
+        $stmt->bind_param('i', $gramaje); // Asegúrate de que gramaje sea del tipo correcto, en este caso entero
+        $stmt->execute();
+        $resultado = $stmt->get_result();
+        $registros = [];
+        while ($row = $resultado->fetch_assoc()) {
+            $registros[] = $row;
+        }
+        $stmt->close();
+        return $registros;
     }
     
 
