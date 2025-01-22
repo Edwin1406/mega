@@ -24,6 +24,7 @@ use Controllers\FinancieroController;
 use Controllers\ProduccionController;
 use Controllers\MateriaPrimaController;
 use Controllers\EstadisticaProdController;
+use Controllers\PlanificoController;
 
 $router = new Router();
 
@@ -203,7 +204,7 @@ $router->post('/admin/vendedor/cliente/eliminar', [ClienteController::class, 'el
 
 // planifico 
 
-$router->get('/admin/produccion/planificacion/index', [ProduccionController::class, 'planificacion']);
+$router->get('/admin/produccion/planificacion/index', [PlanificoController::class, 'planificacion']);
 
 
 
