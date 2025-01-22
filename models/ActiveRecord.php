@@ -171,6 +171,7 @@ class ActiveRecord {
 
 
 
+
     // Obtener todos los Registros con una condición caja
     public static function allc($orden = 'DESC', $linea = null) {
         // Construye la consulta SQL base
