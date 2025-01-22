@@ -13,6 +13,9 @@
     <li class="areas-produccion">
         <a href="/admin/produccion/materia/microcorrugador">
             <i class="fas fa-scroll"></i> TOTAL EN KILOGRAMOS
+            <?php if($totalExistencia > 0) : ?>
+                <span class="areas-produccion__numero"> <?php echo $totalExistencia ?> </span>
+            <?php endif; ?> 
         </a>
     </li>
 </ul>

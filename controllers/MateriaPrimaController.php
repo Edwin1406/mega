@@ -222,7 +222,7 @@ class MateriaPrimaController
         
         $totalRegistros = MateriaPrimaV::countByLinea('CAJA');
         $totalExistencia = MateriaPrimaV::sumarExistencia('CAJA');
-        echo "Total de existencia para registros con 'CAJA': $totalExistencia";
+       
         
         
       
@@ -232,7 +232,8 @@ class MateriaPrimaController
         $router->render('admin/produccion/materia/corrugador', [
             'titulo' => 'CORRUGADOR',
             'corrugador' => $corrugador,
-            'totalRegistros' => $totalRegistros
+            'totalRegistros' => $totalRegistros,
+            'totalExistencia' => $totalExistencia
         ]);
     }
 
