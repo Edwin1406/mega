@@ -232,17 +232,14 @@ class MateriaPrimaController
           // debuguear($materias);
       }
 
-        // $materias = MateriaPrimaV::filtrarPorGramajeYAncho('45', '58');
-
-        // debuguear($materias);
-
+        $materias = MateriaPrimaV::filtrarPorGramajeYAncho(0, 0);
         
         $router->render('admin/produccion/materia/corrugador', [
             'titulo' => 'CORRUGADOR',
             'corrugador' => $corrugador,
             'totalRegistros' => $totalRegistros,
             'totalExistencia' => $totalExistencia,
-            // 'materias' => $materias
+            'materias' => $materias
             
         ]);
 
