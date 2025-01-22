@@ -158,17 +158,17 @@ class ActiveRecord {
     //     return $resultado;
     // }
     public static function filtrarPorGramajeYAncho($gramaje = null, $ancho = null, $orden = 'DESC') {
-        // Construir la base de la consulta con los campos necesarios
-        $query = "SELECT id, almacen, codigo, descripcion, existencia, costo, promedio, talla, linea, gramaje, proveedor, sustrato, ancho FROM " . static::$tabla;
+        // Construir la base de la consulta
+        $query = "SELECT * FROM " . static::$tabla;
     
         // Crear un array para las condiciones
         $condiciones = [];
     
         // Agregar condiciones según los parámetros recibidos
-        if (!is_null($gramaje)) {
+        if (!empty($gramaje)) {
             $condiciones[] = "gramaje = '" . self::escape($gramaje) . "'";
         }
-        if (!is_null($ancho)) {
+        if (!empty($ancho)) {
             $condiciones[] = "ancho = '" . self::escape($ancho) . "'";
         }
     
