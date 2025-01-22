@@ -147,6 +147,8 @@ $router->post('/admin/produccion/materia/excel', [MateriaPrimaController::class,
 
 // CORRUGADOR 
 $router->get('/admin/produccion/materia/corrugador', [MateriaPrimaController::class, 'corrugador']);
+$router->post('/admin/produccion/materia/corrugador', [MateriaPrimaController::class, 'corrugador']);
+
 // API CORRUGADOR 
 $router->get('/admin/api/apicorrugador', [MateriaPrimaController::class, 'apicorrugador']);
 
