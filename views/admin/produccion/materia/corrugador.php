@@ -68,6 +68,7 @@
                 <th>Almacén</th>
                 <th>Código</th>
                 <th>Descripción</th>
+                <th>linea</th>
                 <th>Existencia</th>
                 <th>Costo</th>
                 <th>Promedio</th>
@@ -86,6 +87,7 @@
                     <td><?php echo htmlspecialchars($materia->almacen); ?></td>
                     <td><?php echo htmlspecialchars($materia->codigo); ?></td>
                     <td><?php echo htmlspecialchars($materia->descripcion); ?></td>
+                    <td><?php echo htmlspecialchars($materia->linea); ?></td>
                     <td><?php echo htmlspecialchars($materia->existencia); ?></td>
                     <td><?php echo htmlspecialchars($materia->costo); ?></td>
                     <td><?php echo htmlspecialchars($materia->promedio); ?></td>
