@@ -71,6 +71,7 @@
             <option value="520">520</option>
         
     </div>
+    <br>
 
     <div>
         <label for="ancho">Ancho:</label>
