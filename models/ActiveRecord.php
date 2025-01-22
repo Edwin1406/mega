@@ -130,6 +130,25 @@ class ActiveRecord {
         return $resultado;
     }
 
+    public static function allcorrugador($orden = 'DESC', $linea = null) {
+        // Construye la consulta SQL base
+        $query = "SELECT * FROM " . static::$tabla;
+    
+        // Agrega la condición si se proporciona un valor para $linea
+        if ($linea) {
+            $query .= " WHERE linea = '" . self::escapeSQL($linea) . "'";
+        }
+    
+        // Agrega el orden
+        $query .= " ORDER BY id {$orden}";
+    
+        // Ejecuta la consulta y devuelve el resultado
+        $resultado = self::consultarSQL($query);
+        return $resultado;
+    }
+    
+
+
     // Busca un registro por su id
     public static function find($id) {
         $query = "SELECT * FROM " . static::$tabla  ." WHERE id = {$id}";
