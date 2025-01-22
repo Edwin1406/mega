@@ -22,7 +22,54 @@
 <form action="/admin/produccion/materia/corrugador" method="POST">
     <div>
         <label for="gramaje">Gramaje:</label>
-        <input type="number" name="gramaje" id="gramaje" placeholder="Ingrese el gramaje">
+        <!-- un select -->
+        <select name="gramaje" id="gramaje">
+            <option value="0">Seleccione</option>
+            <option value="90">90</option>
+            <option value="100">100</option>
+            <option value="110">110</option>
+            <option value="120">120</option>
+            <option value="130">130</option>
+            <option value="140">140</option>
+            <option value="150">150</option>
+            <option value="160">160</option>
+            <option value="170">170</option>
+            <option value="180">180</option>
+            <option value="190">190</option>
+            <option value="200">200</option>
+            <option value="210">210</option>
+            <option value="220">220</option>
+            <option value="230">230</option>
+            <option value="240">240</option>
+            <option value="250">250</option>
+            <option value="260">260</option>
+            <option value="270">270</option>
+            <option value="280">280</option>
+            <option value="290">290</option>
+            <option value="300">300</option>
+            <option value="310">310</option>
+            <option value="320">320</option>
+            <option value="330">330</option>
+            <option value="340">340</option>
+            <option value="350">350</option>
+            <option value="360">360</option>
+            <option value="370">370</option>
+            <option value="380">380</option>
+            <option value="390">390</option>
+            <option value="400">400</option>
+            <option value="410">410</option>
+            <option value="420">420</option>
+            <option value="430">430</option>
+            <option value="440">440</option>
+            <option value="450">450</option>
+            <option value="460">460</option>
+            <option value="470">470</option>
+            <option value="480">480</option>
+            <option value="490">490</option>
+            <option value="500">500</option>
+            <option value="510">510</option>
+            <option value="520">520</option>
+        
     </div>
     <div>
         <label for="ancho">Ancho:</label>
