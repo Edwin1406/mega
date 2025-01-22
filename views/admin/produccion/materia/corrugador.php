@@ -95,14 +95,16 @@
 
 
 <!-- Formulario de filtro -->
-<form action="/admin/produccion/materia/corrugador" method="POST">
+<form id="filterForm" method="POST">
     <div>
-        <label for="gramajeMin">Gramaje Mínimo:</label>
-        <input type="number" name="gramajeMin" id="gramajeMin" placeholder="Mínimo">
-    </div>
-    <div>
-        <label for="gramajeMax">Gramaje Máximo:</label>
-        <input type="number" name="gramajeMax" id="gramajeMax" placeholder="Máximo">
+        <label for="gramaje">Gramaje:</label>
+        <select name="gramaje" id="gramaje">
+            <option value="0">Seleccione</option>
+            <option value="45">45</option>
+            <option value="150">150</option>
+            <option value="175">175</option>
+            <option value="254">254</option>
+        </select>
     </div>
     <br>
     <div>
@@ -113,7 +115,6 @@
         <button type="submit">Filtrar</button>
     </div>
 </form>
-
 
 <!-- Canvas para el gráfico -->
 <canvas id="myChart"></canvas>

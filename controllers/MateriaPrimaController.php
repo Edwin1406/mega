@@ -265,13 +265,15 @@ public static function corrugador(Router $router)
 
         $materias = MateriaPrimaV::filtrarPorGramajeYAncho($gramajeMin, $gramajeMax, $ancho);
     }
-    
+    $jsonMaterias = json_encode($materias);
+
     $router->render('admin/produccion/materia/corrugador', [
         'titulo' => 'CORRUGADOR',
         'corrugador' => $corrugador,
         'totalRegistros' => $totalRegistros,
         'totalExistencia' => $totalExistencia,
-        'materias' => $materias
+        'materias' => $materias,
+        'jsonMaterias' => $jsonMaterias
     ]);
 }
 
