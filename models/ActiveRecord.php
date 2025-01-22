@@ -130,8 +130,6 @@ class ActiveRecord {
         return $resultado;
     }
 
-
-
     public static function filtrarPorGramajeYAncho($gramaje = null, $ancho = null, $orden = 'DESC') {
         // Construir la base de la consulta
         $query = "SELECT * FROM " . static::$tabla;
@@ -140,10 +138,10 @@ class ActiveRecord {
         $condiciones = [];
     
         // Agregar condiciones según los parámetros recibidos
-        if ($gramaje !== null) {
+        if (!is_null($gramaje)) {
             $condiciones[] = "gramaje = '" . self::escape($gramaje) . "'";
         }
-        if ($ancho !== null) {
+        if (!is_null($ancho)) {
             $condiciones[] = "ancho = '" . self::escape($ancho) . "'";
         }
     
@@ -165,7 +163,6 @@ class ActiveRecord {
         return htmlspecialchars(mysqli_real_escape_string(self::$db, $valor));
     }
     
-
 
 
 
