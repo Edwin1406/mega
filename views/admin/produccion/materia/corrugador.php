@@ -38,7 +38,6 @@
         <thead>
             <tr>
                 <th>ID</th>
-                <th>Nombre</th>
                 <th>Gramaje</th>
                 <th>Ancho</th>
                 <th>Acciones</th>
