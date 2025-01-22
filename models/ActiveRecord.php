@@ -131,28 +131,66 @@ class ActiveRecord {
     }
 
   
-    public static function filtrarPorGramajeYAncho($gramaje = null, $ancho = null, $orden = 'DESC') {
+    // public static function filtrarPorGramajeYAncho($gramaje = null, $ancho = null, $orden = 'DESC') {
+    //     // Construir la base de la consulta
+    //     $query = "SELECT * FROM " . static::$tabla;
+    
+    //     // Crear un array para las condiciones
+    //     $condiciones = [];
+    
+    //     // Agregar condiciones según los parámetros recibidos
+    //     if (!empty($gramaje)) {
+    //         $condiciones[] = "gramaje = '" . self::escape($gramaje) . "'";
+    //     }
+    //     if (!empty($ancho)) {
+    //         $condiciones[] = "ancho = '" . self::escape($ancho) . "'";
+    //     }
+    //     // Si hay condiciones, añadirlas a la consulta
+    //     if (!empty($condiciones)) {
+    //         $query .= " WHERE " . implode(' AND ', $condiciones);
+    //     }
+    
+    //     // Agregar orden
+    //     $query .= " ORDER BY id {$orden}";
+    
+    //     // Ejecutar la consulta y devolver los resultados
+    //     $resultado = self::consultarSQL($query);
+    //     return $resultado;
+    // }
+    
+
+    // protected static function escape($valor) {
+    //     return mysqli_real_escape_string(self::$db, $valor);
+    // }
+    
+
+
+    public static function filtrarPorGramajeYAncho($gramajeMin = null, $gramajeMax = null, $ancho = null, $orden = 'DESC') {
         // Construir la base de la consulta
         $query = "SELECT * FROM " . static::$tabla;
     
         // Crear un array para las condiciones
         $condiciones = [];
     
-        // Agregar condiciones según los parámetros recibidos
-        if (!empty($gramaje)) {
-            $condiciones[] = "gramaje = '" . self::escape($gramaje) . "'";
+        // Agregar condiciones para el rango de gramajes
+        if (!empty($gramajeMin) && !empty($gramajeMax)) {
+            $condiciones[] = "gramaje BETWEEN '" . self::escape($gramajeMin) . "' AND '" . self::escape($gramajeMax) . "'";
         }
+    
+        // Agregar condición para gramaje mínimo (en caso de que solo se pase uno)
+        if (!empty($gramajeMin) && empty($gramajeMax)) {
+            $condiciones[] = "gramaje >= '" . self::escape($gramajeMin) . "'";
+        }
+    
+        // Agregar condición para gramaje máximo (en caso de que solo se pase uno)
+        if (empty($gramajeMin) && !empty($gramajeMax)) {
+            $condiciones[] = "gramaje <= '" . self::escape($gramajeMax) . "'";
+        }
+    
+        // Agregar condiciones para el ancho
         if (!empty($ancho)) {
             $condiciones[] = "ancho = '" . self::escape($ancho) . "'";
         }
-        // if (!empty($existencia)) {
-        //     $condiciones[] = "existencia = '" . self::escape($existencia) . "'";
-        // }
-        // if (!empty($sustrato)) {
-        //     $condiciones[] = "sustrato = '" . self::escape($sustrato) . "'";
-        // }
-
-
     
         // Si hay condiciones, añadirlas a la consulta
         if (!empty($condiciones)) {
@@ -167,15 +205,6 @@ class ActiveRecord {
         return $resultado;
     }
     
-
-
-    protected static function escape($valor) {
-        return mysqli_real_escape_string(self::$db, $valor);
-    }
-    
-
-
-
 
 
 

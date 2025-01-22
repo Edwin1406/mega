@@ -216,39 +216,64 @@ class MateriaPrimaController
     }
 
 
-    public static function corrugador(Router $router)
-    {
-        $corrugador = MateriaPrimaV::allc('DESC', 'CAJA');
+//     public static function corrugador(Router $router)
+//     {
+//         $corrugador = MateriaPrimaV::allc('DESC', 'CAJA');
         
-        $totalRegistros = MateriaPrimaV::countByLinea('CAJA');
-        $totalExistencia = MateriaPrimaV::sumarExistencia('CAJA');
-        // con deciamles 
-        $totalExistencia = number_format($totalExistencia, 2, '.', ',');
-        $materias = [];
+//         $totalRegistros = MateriaPrimaV::countByLinea('CAJA');
+//         $totalExistencia = MateriaPrimaV::sumarExistencia('CAJA');
+//         // con deciamles 
+//         $totalExistencia = number_format($totalExistencia, 2, '.', ',');
+//         $materias = [];
 
-      if($_SERVER['REQUEST_METHOD'] === 'POST'){
-          $gramaje = $_POST['gramaje'];
-          $ancho = $_POST['ancho'];
-          $materias = MateriaPrimaV::filtrarPorGramajeYAncho($gramaje, $ancho);
-          // debuguear($materias);
-      }
-// Convierte el array de materias filtradas a JSON
-$jsonMaterias = json_encode($materias);
+//       if($_SERVER['REQUEST_METHOD'] === 'POST'){
+//           $gramaje = $_POST['gramaje'];
+//           $ancho = $_POST['ancho'];
+//           $materias = MateriaPrimaV::filtrarPorGramajeYAncho($gramaje, $ancho);
+//           // debuguear($materias);
+//       }
+// // Convierte el array de materias filtradas a JSON
+// $jsonMaterias = json_encode($materias);
 
 
         
-        $router->render('admin/produccion/materia/corrugador', [
-            'titulo' => 'CORRUGADOR',
-            'corrugador' => $corrugador,
-            'totalRegistros' => $totalRegistros,
-            'totalExistencia' => $totalExistencia,
-            'materias' => $materias,
-            'jsonMaterias' => $jsonMaterias
+//         $router->render('admin/produccion/materia/corrugador', [
+//             'titulo' => 'CORRUGADOR',
+//             'corrugador' => $corrugador,
+//             'totalRegistros' => $totalRegistros,
+//             'totalExistencia' => $totalExistencia,
+//             'materias' => $materias,
+//             'jsonMaterias' => $jsonMaterias
             
-        ]);
+//         ]);
 
+//     }
+
+public static function corrugador(Router $router)
+{
+    $corrugador = MateriaPrimaV::allc('DESC', 'CAJA');
+    
+    $totalRegistros = MateriaPrimaV::countByLinea('CAJA');
+    $totalExistencia = MateriaPrimaV::sumarExistencia('CAJA');
+    $totalExistencia = number_format($totalExistencia, 2, '.', ',');
+    $materias = [];
+
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $gramajeMin = $_POST['gramajeMin'] ?? null;
+        $gramajeMax = $_POST['gramajeMax'] ?? null;
+        $ancho = $_POST['ancho'] ?? null;
+
+        $materias = MateriaPrimaV::filtrarPorGramajeYAncho($gramajeMin, $gramajeMax, $ancho);
     }
-
+    
+    $router->render('admin/produccion/materia/corrugador', [
+        'titulo' => 'CORRUGADOR',
+        'corrugador' => $corrugador,
+        'totalRegistros' => $totalRegistros,
+        'totalExistencia' => $totalExistencia,
+        'materias' => $materias
+    ]);
+}
 
 
     public static function apicorrugador (){
