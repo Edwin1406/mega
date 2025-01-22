@@ -32,6 +32,8 @@
                     $url = "/admin/produccion/materia/crear?id=".$id;
                 }elseif($area === 'pedidos proyectos'|| $area === 'PEDIDOS PROYECTOS') {
                     $url = "/admin/produccion/estadistica/crear?id=".$id;
+                } elseif($area === 'planifico'|| $area === 'PLANIFICO'){
+                    $url = "/admin/produccion/planificacion/index?id=".$id;
                 }
 
                 echo $url;
@@ -50,6 +52,8 @@
                     } elseif($area === 'pedidos proyectos'|| $area === 'PEDIDOS PROYECTOS') {
                         $icono = '<i class="fa-solid fa-file"></i>'; // Ícono de documento
 
+                    } elseif($area === 'planifico'|| $area === 'PLANIFICO') {
+                        $icono = '<i class="fa-solid fa-calendar"></i>'; // Ícono de documento
                     }
                     // Muestra el ícono y el nombre del área
                     echo $icono . ' ' . $area;
