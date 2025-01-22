@@ -34,3 +34,34 @@
         <button type="submit">Filtrar</button>
     </div>
 </form>
+
+<?php if (!empty($materias)): ?>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Gramaje</th>
+                <th>Ancho</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($materias as $materia): ?>
+                <tr>
+                    <td><?php echo htmlspecialchars($materia['id']); ?></td>
+                    <td><?php echo htmlspecialchars($materia['nombre']); ?></td>
+                    <td><?php echo htmlspecialchars($materia['gramaje']); ?></td>
+                    <td><?php echo htmlspecialchars($materia['ancho']); ?></td>
+                    <td>
+                        <!-- Botones de acción, como Editar o Eliminar -->
+                        <a href="/admin/produccion/materia/editar/<?php echo $materia['id']; ?>">Editar</a>
+                        <a href="/admin/produccion/materia/eliminar/<?php echo $materia['id']; ?>" onclick="return confirm('¿Está seguro de eliminar este registro?')">Eliminar</a>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+<?php else: ?>
+    <p>No se encontraron resultados.</p>
+<?php endif; ?>
