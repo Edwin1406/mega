@@ -76,6 +76,11 @@
         <label for="ancho">Ancho:</label>
         <input type="number" name="ancho" id="ancho" placeholder="Ingrese el ancho">
     </div>
+
+    <div>
+        <label for="ancho">Ancho:</label>
+        <input type="number" name="ancho" id="ancho" placeholder="Ingrese el ancho">
+    </div>
     
     <div>
         <label for="existencia">Existencia</label>

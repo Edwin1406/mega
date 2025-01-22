@@ -40,6 +40,7 @@ class MateriaPrimaV extends ActiveRecord
         $this->proveedor = $args['proveedor'] ?? '';
         $this->sustrato = $args['sustrato'] ?? '';
         $this->ancho = $args['ancho'] ?? '';
+        
     }
 
 
