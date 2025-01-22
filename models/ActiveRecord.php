@@ -186,9 +186,13 @@ class ActiveRecord {
             $query .= " WHERE linea LIKE '%" . addslashes($linea) . "%'";
         }
     
+        // Depurar la consulta SQL
+        echo $query;
+    
         // Ejecutar la consulta usando `consultarValor`
         return (float) self::consultarSQL1($query);
     }
+    
     
     
 
