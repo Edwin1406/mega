@@ -38,6 +38,15 @@
         <thead>
             <tr>
                 <th>ID</th>
+                <th>Almacén</th>
+                <th>Código</th>
+                <th>Descripción</th>
+                <th>Existencia</th>
+                <th>Costo</th>
+                <th>Promedio</th>
+                <th>Talla</th>
+                <th>Proveedor</th>
+                <th>Sustrato</th>
                 <th>Gramaje</th>
                 <th>Ancho</th>
                 <th>Acciones</th>
@@ -48,6 +57,14 @@
                 <tr>
                     <td><?php echo htmlspecialchars($materia->id); ?></td>
                     <td><?php echo htmlspecialchars($materia->almacen); ?></td>
+                    <td><?php echo htmlspecialchars($materia->codigo); ?></td>
+                    <td><?php echo htmlspecialchars($materia->descripcion); ?></td>
+                    <td><?php echo htmlspecialchars($materia->existencia); ?></td>
+                    <td><?php echo htmlspecialchars($materia->costo); ?></td>
+                    <td><?php echo htmlspecialchars($materia->promedio); ?></td>
+                    <td><?php echo htmlspecialchars($materia->talla); ?></td>
+                    <td><?php echo htmlspecialchars($materia->proveedor); ?></td>
+                    <td><?php echo htmlspecialchars($materia->sustrato); ?></td>
                     <td><?php echo htmlspecialchars($materia->gramaje); ?></td>
                     <td><?php echo htmlspecialchars($materia->ancho); ?></td>
                     <td>
