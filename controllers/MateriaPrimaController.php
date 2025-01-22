@@ -219,6 +219,7 @@ class MateriaPrimaController
     public static function corrugador(Router $router)
     {
         $corrugador = MateriaPrimaV::allc('DESC', 'CAJA');
+        debuguear($corrugador);
         
         $totalRegistros = MateriaPrimaV::countByLinea('CAJA');
         $totalExistencia = MateriaPrimaV::sumarExistencia('CAJA');
@@ -238,6 +239,7 @@ class MateriaPrimaController
     public static function microcorrugador(Router $router)
     {
         $microcorrugador = MateriaPrimaV::allc('DESC', 'MICRO');
+        
         
         $totalRegistros = MateriaPrimaV::countByLinea('MICRO');
         $totalExistencia = MateriaPrimaV::sumarExistencia('MICRO');
