@@ -187,7 +187,7 @@ class ActiveRecord {
         }
     
         // Ejecutar la consulta usando `consultarValor`
-        return (float) self::consultarSQL($query);
+        return (float) self::consultarSQL1($query);
     }
     
     
