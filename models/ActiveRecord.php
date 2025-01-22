@@ -148,6 +148,26 @@ class ActiveRecord {
     }
     
 
+    public static function contarR($linea = null) {
+        // Construye la consulta base
+        $query = "SELECT COUNT(*) as total FROM " . static::$tabla;
+    
+        // Agrega una cláusula WHERE si se proporciona un valor para $linea
+        if ($linea !== null) {
+            $query .= " WHERE linea LIKE '%" . addslashes($linea) . "%'";
+        }
+    
+        // Ejecuta la consulta y obtiene el resultado
+        $resultado = self::consultarSQL($query);
+    
+        // Devuelve el total (el primer elemento del resultado)
+        return $resultado[0]['total'] ?? 0;
+    }
+    
+
+
+
+
 
     // Busca un registro por su id
     public static function find($id) {
