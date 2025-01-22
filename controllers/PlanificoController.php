@@ -5,7 +5,7 @@ namespace Controllers;
 
 class PlanificoController
 {
-    public function index()
+    public static function index()
     {
         echo 'Desde el index de Planifico';
     }
