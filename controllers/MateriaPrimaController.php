@@ -224,6 +224,7 @@ class MateriaPrimaController
         $totalExistencia = MateriaPrimaV::sumarExistencia('CAJA');
         // con deciamles 
         $totalExistencia = number_format($totalExistencia, 2, '.', ',');
+        $materias = [];
 
       if($_SERVER['REQUEST_METHOD'] === 'POST'){
           $gramaje = $_POST['gramaje'];
