@@ -1,10 +1,23 @@
 <h1 class="dashboard__heading"> <?php echo $titulo ?> </h1>
 
-<!-- ver total corrugador en tarjeta  -->
 
-<div class="dashboard__contenedor-tarjeta">
-    <div class="dashboard__tarjeta">
-        <h2 class="dashboard__tarjeta-titulo">Total Corrugador</h2>
-        <p class="dashboard__tarjeta-dato"><?php echo $totalRegistros ?></p>
-    </div>
-</div>
+<ul class="lista-areas-produccion">
+    <li class="areas-produccion">
+        <a href="/admin/produccion/materia/corrugador">
+            <i class="fas fa-industry">  </i> CORRUGADOR
+            <?php if($totalRegistros > 0) : ?>
+                <span class="areas-produccion__numero"> <?php echo $totalRegistros ?> </span>
+            <?php endif; ?> 
+        </a>
+    </li>
+    <li class="areas-produccion">
+        <a href="/admin/produccion/materia/microcorrugador">
+            <i class="fas fa-scroll"></i> MICRO CORRUGADOR
+        </a>
+    </li>
+    <li class="areas-produccion">
+        <a href="/admin/produccion/materia/periodico">
+            <i class="fas fa-newspaper"></i> PERIODICO 
+        </a>
+    </li>
+</ul>
