@@ -225,11 +225,7 @@ class MateriaPrimaController
         // con deciamles 
         $totalExistencia = number_format($totalExistencia, 2, '.', ',');
         
-        
-      
-        
-
-
+    
         $router->render('admin/produccion/materia/corrugador', [
             'titulo' => 'CORRUGADOR',
             'corrugador' => $corrugador,
@@ -241,8 +237,18 @@ class MateriaPrimaController
 
     public static function microcorrugador(Router $router)
     {
+        $microcorrugador = MateriaPrimaV::allc('DESC', 'MICRO');
+        
+        $totalRegistros = MateriaPrimaV::countByLinea('MICRO');
+        $totalExistencia = MateriaPrimaV::sumarExistencia('MICRO');
+        // con deciamles 
+        $totalExistencia = number_format($totalExistencia, 2, '.', ',');
+        
         $router->render('admin/produccion/materia/microcorrugador', [
-            'titulo' => 'MICRO CORRUGADOR'
+            'titulo' => 'MICRO CORRUGADOR',
+            'microcorrugador' => $microcorrugador,
+            'totalRegistros' => $totalRegistros,
+            'totalExistencia' => $totalExistencia
         ]);
     }
 
@@ -250,8 +256,19 @@ class MateriaPrimaController
 
     public static function periodico(Router $router)
     {
+
+        $periodico = MateriaPrimaV::allc('DESC', 'PERIODICO');
+        
+        $totalRegistros = MateriaPrimaV::countByLinea('PERIODICO');
+        $totalExistencia = MateriaPrimaV::sumarExistencia('PERIODICO');
+        // con deciamles 
+        $totalExistencia = number_format($totalExistencia, 2, '.', ',');
+        
         $router->render('admin/produccion/materia/periodico', [
-            'titulo' => 'PERIODICO'
+            'titulo' => 'PERIODICO',
+            'periodico' => $periodico,
+            'totalRegistros' => $totalRegistros,
+            'totalExistencia' => $totalExistencia
         ]);
     }
 
