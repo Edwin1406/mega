@@ -109,7 +109,6 @@
     <p>No se encontraron resultados.</p>
 <?php endif; ?>
 
-
 <!-- Filtros para Gramaje y Ancho -->
 <label for="gramajeFilter">Filtrar por gramaje:</label>
 <select id="gramajeFilter">
@@ -152,6 +151,21 @@
                 backgroundColor: 'rgba(75, 192, 192, 0.2)',
                 borderColor: 'rgba(75, 192, 192, 1)'
             }]
+        },
+        options: {
+            responsive: true,
+            onClick: (event, elements) => {
+                if (elements.length > 0) {
+                    // Obtener el índice de la barra clickeada
+                    const index = elements[0].index;
+                    const gramaje = originalData.gramajes[index];
+                    const ancho = originalData.anchos[index];
+                    
+                    // Redirigir a otra página con detalles
+                    const url = `detalles.php?gramaje=${gramaje}&ancho=${ancho}`;
+                    window.location.href = url;
+                }
+            }
         }
     });
 
