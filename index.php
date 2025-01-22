@@ -204,7 +204,7 @@ $router->post('/admin/vendedor/cliente/eliminar', [ClienteController::class, 'el
 
 // planifico 
 
-$router->get('/admin/produccion/planificacion/index', [PlanificoController::class, 'planificacion']);
+$router->get('/admin/produccion/planificacion/index', [PlanificoController::class, 'index']);
 
 
 
