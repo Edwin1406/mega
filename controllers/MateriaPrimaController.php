@@ -221,7 +221,7 @@ class MateriaPrimaController
         // $corrugador = MateriaPrimaV::allc('DESC', 'CAJA');
         
         $totalRegistros = MateriaPrimaV::countByLinea('CAJA');
-echo "Total de registros con 'CAJA': $totalRegistros";
+        debuguear($totalRegistros);
 
         
       

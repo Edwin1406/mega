@@ -130,6 +130,7 @@ class ActiveRecord {
         return $resultado;
     }
 
+    // Obtener todos los Registros con una condición caja
     public static function allc($orden = 'DESC', $linea = null) {
         // Construye la consulta SQL base
         $query = "SELECT * FROM " . static::$tabla;
@@ -146,25 +147,22 @@ class ActiveRecord {
         $resultado = self::consultarSQL($query);
         return $resultado;
     }
+
     
+    // contador de registro por linea
     public static function countByLinea($linea = null) {
         // Construye la consulta base
         $query = "SELECT COUNT(*) as total FROM " . static::$tabla;
-    
         // Agrega una cláusula WHERE si se proporciona un valor para $linea
         if ($linea !== null) {
             $query .= " WHERE linea LIKE '%" . addslashes($linea) . "%'";
         }
-    
         // Ejecuta la consulta y obtiene el resultado
         $resultado = self::consultarSQL1($query);
-    
         // Devuelve el total si existe en el resultado
         if (is_array($resultado) && isset($resultado[0]['total'])) {
             return (int) $resultado[0]['total'];
         }
-    
-        // Retorna 0 si no hay registros
         return 0;
     }
     
