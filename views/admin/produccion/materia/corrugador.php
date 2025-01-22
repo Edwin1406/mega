@@ -28,6 +28,21 @@
         <label for="ancho">Ancho:</label>
         <input type="number" name="ancho" id="ancho" placeholder="Ingrese el ancho">
     </div>
+    
+    <div>
+        <label for="existencia">Existencia</label>
+        <input type="number" name="exixtencia" id="existencia" placeholder="Ingrese la exixtencia">
+    </div>
+    
+    <div>
+        <label for="sustrato">sustrato</label>
+        <input type="text" name="sustrato" id="sustrato" placeholder="Ingrese la exixtencia">
+    </div>
+
+    
+
+
+
     <div>
         <button type="submit">Filtrar</button>
     </div>
