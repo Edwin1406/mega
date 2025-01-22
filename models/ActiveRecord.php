@@ -190,10 +190,26 @@ class ActiveRecord {
         echo $query;
     
         // Ejecutar la consulta usando `consultarValor`
-        return (float) self::consultarSQL1($query);
+        return (float) self::consultarValor($query);
     }
     
     
+    public static function consultarValor($query) {
+        // Ejecutar la consulta
+        $resultado = self::$db->query($query);
+    
+        // Obtener la primera fila del resultado
+        $fila = $resultado->fetch_assoc();
+    
+        // Depurar el valor de la fila
+        var_dump($fila);
+    
+        // Liberar la memoria
+        $resultado->free();
+    
+        // Retornar el primer valor (primer columna de la fila)
+        return $fila ? array_values($fila)[0] : 0;
+    }
     
 
 
