@@ -218,6 +218,10 @@ class MateriaPrimaController
 
     public static function corrugador(Router $router)
     {
+        $corrugador = MateriaPrimaV::all();
+        debuguear($corrugador);
+
+
         $router->render('admin/produccion/materia/corrugador', [
             'titulo' => 'CORRUGADOR'
         ]);
