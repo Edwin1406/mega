@@ -193,13 +193,8 @@ class ActiveRecord {
     public static function consultarValor($query) {
         // Ejecutar la consulta
         $resultado = self::$db->query($query);
-    
         // Obtener la primera fila del resultado
         $fila = $resultado->fetch_assoc();
-    
-        // Depurar el valor de la fila
-        var_dump($fila);
-    
         // Liberar la memoria
         $resultado->free();
     
