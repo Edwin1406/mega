@@ -108,20 +108,84 @@
 <?php endif; ?>
 
 
+<!-- Filtro para las etiquetas -->
+<label for="filter">Filtrar por rango:</label>
+<select id="filter">
+    <option value="all">Todos</option>
+    <option value="low">Bajo (40-50)</option>
+    <option value="medium">Medio (51-70)</option>
+    <option value="high">Alto (71+)</option>
+</select>
 
+<!-- Canvas para el gráfico -->
 <canvas id="myChart"></canvas>
+
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
+    // Datos originales
+    const originalData = {
+        labels: ['40', '41', '42', '52', '53', '74', '75', '87', '100'], // Etiquetas dinámicas
+        data: [1200, 1300, 1400, 1100, 1000, 800, 700, 600, 500] // Valores dinámicos
+    };
+
+    // Configuración inicial del gráfico
     const ctx = document.getElementById('myChart').getContext('2d');
-    const myChart = new Chart(ctx, {
+    let myChart = new Chart(ctx, {
         type: 'bar',
         data: {
-            labels: ['40', '41', '42', '...'], // Etiquetas dinámicas
+            labels: originalData.labels,
             datasets: [{
                 label: 'Cantidad',
-                data: [1200, 1300, 1400,''], // Datos obtenidos dinámicamente
-                borderWidth: 1
+                data: originalData.data,
+                borderWidth: 1,
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                borderColor: 'rgba(75, 192, 192, 1)'
             }]
         }
     });
+
+    // Función para actualizar el gráfico según el filtro
+    function updateChart(filter) {
+        let filteredLabels = [];
+        let filteredData = [];
+
+        // Aplica el filtro
+        if (filter === 'low') {
+            originalData.labels.forEach((label, index) => {
+                if (label >= 40 && label <= 50) {
+                    filteredLabels.push(label);
+                    filteredData.push(originalData.data[index]);
+                }
+            });
+        } else if (filter === 'medium') {
+            originalData.labels.forEach((label, index) => {
+                if (label >= 51 && label <= 70) {
+                    filteredLabels.push(label);
+                    filteredData.push(originalData.data[index]);
+                }
+            });
+        } else if (filter === 'high') {
+            originalData.labels.forEach((label, index) => {
+                if (label >= 71) {
+                    filteredLabels.push(label);
+                    filteredData.push(originalData.data[index]);
+                }
+            });
+        } else {
+            // "Todos" (sin filtro)
+            filteredLabels = originalData.labels;
+            filteredData = originalData.data;
+        }
+
+        // Actualiza el gráfico
+        myChart.data.labels = filteredLabels;
+        myChart.data.datasets[0].data = filteredData;
+        myChart.update();
+    }
+
+    // Evento para el filtro
+    document.getElementById('filter').addEventListener('change', function () {
+        updateChart(this.value);
+    });
 </script>
+
