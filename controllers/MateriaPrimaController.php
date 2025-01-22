@@ -225,20 +225,26 @@ class MateriaPrimaController
         // con deciamles 
         $totalExistencia = number_format($totalExistencia, 2, '.', ',');
 
-      
+      if($_SERVER['REQUEST_METHOD'] === 'POST'){
+          $gramaje = $_POST['gramaje'];
+          $ancho = $_POST['ancho'];
+          $materias = MateriaPrimaV::filtrarPorGramajeYAncho($gramaje, $ancho);
+          // debuguear($materias);
+      }
 
-$materias = MateriaPrimaV::filtrarPorGramajeYAncho('45', '58');
+        // $materias = MateriaPrimaV::filtrarPorGramajeYAncho('45', '58');
 
- debuguear($materias);
+        // debuguear($materias);
 
         
-    
         $router->render('admin/produccion/materia/corrugador', [
             'titulo' => 'CORRUGADOR',
             'corrugador' => $corrugador,
             'totalRegistros' => $totalRegistros,
-            'totalExistencia' => $totalExistencia
+            'totalExistencia' => $totalExistencia,
+            'materias' => $materias
         ]);
+
     }
 
 
