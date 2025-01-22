@@ -218,10 +218,9 @@ class MateriaPrimaController
 
     public static function corrugador(Router $router)
     {
-        // $corrugador = MateriaPrimaV::allc('DESC', 'CAJA');
+        $corrugador = MateriaPrimaV::allc('DESC', 'CAJA');
         
         $totalRegistros = MateriaPrimaV::countByLinea('CAJA');
-        debuguear($totalRegistros);
 
         
       
@@ -229,7 +228,9 @@ class MateriaPrimaController
 
 
         $router->render('admin/produccion/materia/corrugador', [
-            'titulo' => 'CORRUGADOR'
+            'titulo' => 'CORRUGADOR',
+            'corrugador' => $corrugador,
+            'totalRegistros' => $totalRegistros
         ]);
     }
 
