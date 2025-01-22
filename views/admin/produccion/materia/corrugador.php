@@ -19,8 +19,6 @@
         </a>
     </li>
 </ul>
-
-
 <form action="/admin/produccion/materia/corrugador" method="POST">
     <div>
         <label for="gramaje">Gramaje:</label>
@@ -49,14 +47,14 @@
         <tbody>
             <?php foreach ($materias as $materia): ?>
                 <tr>
-                    <td><?php echo htmlspecialchars($materia['id']); ?></td>
-                    <td><?php echo htmlspecialchars($materia['nombre']); ?></td>
-                    <td><?php echo htmlspecialchars($materia['gramaje']); ?></td>
-                    <td><?php echo htmlspecialchars($materia['ancho']); ?></td>
+                    <td><?php echo htmlspecialchars($materia->id); ?></td>
+                    <td><?php echo htmlspecialchars($materia->nombre); ?></td>
+                    <td><?php echo htmlspecialchars($materia->gramaje); ?></td>
+                    <td><?php echo htmlspecialchars($materia->ancho); ?></td>
                     <td>
                         <!-- Botones de acción, como Editar o Eliminar -->
-                        <a href="/admin/produccion/materia/editar/<?php echo $materia['id']; ?>">Editar</a>
-                        <a href="/admin/produccion/materia/eliminar/<?php echo $materia['id']; ?>" onclick="return confirm('¿Está seguro de eliminar este registro?')">Eliminar</a>
+                        <a href="/admin/produccion/materia/editar/<?php echo $materia->id; ?>">Editar</a>
+                        <a href="/admin/produccion/materia/eliminar/<?php echo $materia->id; ?>" onclick="return confirm('¿Está seguro de eliminar este registro?')">Eliminar</a>
                     </td>
                 </tr>
             <?php endforeach; ?>
