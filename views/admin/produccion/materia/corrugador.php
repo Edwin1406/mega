@@ -20,16 +20,15 @@
     </li>
 </ul>
 
-
-<!-- Formulario de filtro -->
 <form action="/admin/produccion/materia/corrugador" method="POST">
     <div>
-        <label for="gramajeMin">Gramaje Mínimo:</label>
-        <input type="number" name="gramajeMin" id="gramajeMin" placeholder="Mínimo">
-    </div>
-    <div>
-        <label for="gramajeMax">Gramaje Máximo:</label>
-        <input type="number" name="gramajeMax" id="gramajeMax" placeholder="Máximo">
+        <label for="gramaje">Rango de Gramaje:</label>
+        <select name="gramaje" id="gramaje">
+            <option value="0-0">Seleccione</option>
+            <option value="0-100">0 - 100</option>
+            <option value="100-200">100 - 200</option>
+            <option value="200-300">200 - 300</option>
+        </select>
     </div>
     <br>
     <div>
@@ -42,36 +41,24 @@
 </form>
 
 
-<!-- Canvas para el gráfico -->
-<canvas id="myChart"></canvas>
-
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-    // Obtener datos desde PHP
-    const materias = <?php echo $jsonMaterias; ?>;
+    const materias = <?php echo json_encode($materias); ?>;
 
-    // Formatear datos para el gráfico
     const labels = materias.map(materia => materia.descripcion);
     const data = materias.map(materia => parseFloat(materia.existencia));
 
-    // Crear el gráfico
     const ctx = document.getElementById('myChart').getContext('2d');
     let myChart = new Chart(ctx, {
         type: 'bar',
         data: {
-            labels: labels, // Descripciones de las materias
+            labels: labels,
             datasets: [{
                 label: 'Existencia',
-                data: data, // Existencia de cada materia
+                data: data,
                 backgroundColor: 'rgba(75, 192, 192, 0.2)',
                 borderColor: 'rgba(75, 192, 192, 1)',
                 borderWidth: 1
             }]
         }
-    });
-
-    // Manejar envío del formulario
-    document.getElementById('filterForm').addEventListener('submit', function (e) {
-        // Permitir recarga para obtener datos actualizados desde PHP
     });
 </script>

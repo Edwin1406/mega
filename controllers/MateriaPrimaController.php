@@ -259,23 +259,21 @@ public static function corrugador(Router $router)
     $materias = [];
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $gramajeMin = $_POST['gramajeMin'] ?? null;
-        $gramajeMax = $_POST['gramajeMax'] ?? null;
+        $gramajeRango = $_POST['gramaje'] ?? null;
         $ancho = $_POST['ancho'] ?? null;
 
-        $materias = MateriaPrimaV::filtrarPorGramajeYAncho($gramajeMin, $gramajeMax, $ancho);
+        $materias = MateriaPrimaV::filtrarPorGramajeYAncho($gramajeRango, $ancho);
     }
-    $jsonMaterias = json_encode($materias);
-
+    
     $router->render('admin/produccion/materia/corrugador', [
         'titulo' => 'CORRUGADOR',
         'corrugador' => $corrugador,
         'totalRegistros' => $totalRegistros,
         'totalExistencia' => $totalExistencia,
-        'materias' => $materias,
-        'jsonMaterias' => $jsonMaterias
+        'materias' => $materias
     ]);
 }
+
 
 
     public static function apicorrugador (){

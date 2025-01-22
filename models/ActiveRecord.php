@@ -164,27 +164,17 @@ class ActiveRecord {
     }
     
 
-
-    public static function filtrarPorGramajeYAncho($gramajeMin = null, $gramajeMax = null, $ancho = null, $orden = 'DESC') {
+    public static function filtrarPorGramajeYAncho($gramajeRango = null, $ancho = null, $orden = 'DESC') {
         // Construir la base de la consulta
         $query = "SELECT * FROM " . static::$tabla;
     
         // Crear un array para las condiciones
         $condiciones = [];
     
-        // Agregar condiciones para el rango de gramajes
-        if (!empty($gramajeMin) && !empty($gramajeMax)) {
+        // Descomponer el rango de gramaje
+        if (!empty($gramajeRango)) {
+            [$gramajeMin, $gramajeMax] = explode('-', $gramajeRango);
             $condiciones[] = "gramaje BETWEEN '" . self::escape($gramajeMin) . "' AND '" . self::escape($gramajeMax) . "'";
-        }
-    
-        // Agregar condición para gramaje mínimo (en caso de que solo se pase uno)
-        if (!empty($gramajeMin) && empty($gramajeMax)) {
-            $condiciones[] = "gramaje >= '" . self::escape($gramajeMin) . "'";
-        }
-    
-        // Agregar condición para gramaje máximo (en caso de que solo se pase uno)
-        if (empty($gramajeMin) && !empty($gramajeMax)) {
-            $condiciones[] = "gramaje <= '" . self::escape($gramajeMax) . "'";
         }
     
         // Agregar condiciones para el ancho
@@ -205,7 +195,6 @@ class ActiveRecord {
         return $resultado;
     }
     
-
 
 
     // Obtener todos los Registros con una condición caja
