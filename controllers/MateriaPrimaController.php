@@ -229,9 +229,9 @@ class MateriaPrimaController
       if($_SERVER['REQUEST_METHOD'] === 'POST'){
           $gramaje = $_POST['gramaje'];
           $ancho = $_POST['ancho'];
-          $existencia = $_POST['existencia'];
-          $sustrato = $_POST['sustrato'];
-          $materias = MateriaPrimaV::filtrarPorGramajeYAncho($gramaje, $ancho, $existencia, $sustrato);
+        //   $existencia = $_POST['existencia'];
+        //   $sustrato = $_POST['sustrato'];
+          $materias = MateriaPrimaV::filtrarPorGramajeYAncho($gramaje, $ancho);
           // debuguear($materias);
       }
         
