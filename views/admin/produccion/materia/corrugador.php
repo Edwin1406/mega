@@ -109,13 +109,28 @@
     <p>No se encontraron resultados.</p>
 <?php endif; ?>
 
+
+
+
+
+
+
 <!-- Filtros para Gramaje y Ancho -->
 <label for="gramajeFilter">Filtrar por gramaje:</label>
 <select id="gramajeFilter">
     <option value="all">Todos</option>
-    <option value="low">Bajo (40-60)</option>
-    <option value="medium">Medio (61-100)</option>
-    <option value="high">Alto (101+)</option>
+    <option value="150">150</option>
+    <option value="151">151</option>
+    <option value="160">160</option>
+    <option value="161">161</option>
+    <option value="170">170</option>
+    <option value="186">186</option>
+    <option value="200">200</option>
+    <option value="205">205</option>
+    <option value="225">225</option>
+    <option value="230">230</option>
+    <option value="250">250</option>
+    <option value="254">254</option>
 </select>
 
 <label for="anchoFilter">Filtrar por ancho:</label>
@@ -131,11 +146,11 @@
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-    // Datos originales
+    // Datos originales limitados a los gramajes válidos
     const originalData = {
-        gramajes: ['40', '41', '42', '52', '53', '74', '75', '87', '100'], // Gramajes dinámicos
-        anchos: [800, 1200, 500, 2000, 1800, 3000, 2200, 1500, 4000], // Anchos dinámicos
-        cantidades: [1200, 1300, 1400, 1100, 1000, 800, 700, 600, 500] // Cantidades
+        gramajes: ['150', '151', '160', '161', '170', '186', '200', '205', '225', '230', '250', '254'],
+        anchos: [800, 1200, 500, 2000, 1800, 3000, 2200, 1500, 1000, 1800, 4000, 2500],
+        cantidades: [1200, 1300, 1400, 1100, 1000, 800, 700, 600, 900, 850, 950, 1050]
     };
 
     // Configuración inicial del gráfico
@@ -182,11 +197,7 @@
             const cantidad = originalData.cantidades[index];
 
             // Filtrar por gramaje
-            let gramajeMatch = false;
-            if (gramajeFilter === 'low' && gramaje >= 40 && gramaje <= 60) gramajeMatch = true;
-            if (gramajeFilter === 'medium' && gramaje >= 61 && gramaje <= 100) gramajeMatch = true;
-            if (gramajeFilter === 'high' && gramaje > 100) gramajeMatch = true;
-            if (gramajeFilter === 'all') gramajeMatch = true;
+            let gramajeMatch = (gramajeFilter === 'all' || gramaje === gramajeFilter);
 
             // Filtrar por ancho
             let anchoMatch = false;
