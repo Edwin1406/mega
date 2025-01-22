@@ -218,7 +218,7 @@ class MateriaPrimaController
 
     public static function corrugador(Router $router)
     {
-        $corrugador = MateriaPrimaV::all('DESC', 'CAJA');
+        $corrugador = MateriaPrimaV::allc('DESC', 'CAJA');
 debuguear($corrugador);
 
         
