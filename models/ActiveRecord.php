@@ -133,19 +133,23 @@ class ActiveRecord {
 
 
 
-
-    public static function filtrarPorGramaje($gramaje, $orden = 'DESC') {
-        $query = "SELECT * FROM " . static::$tabla . " WHERE gramaje = ? ORDER BY id {$orden}";
-        $stmt = self::$db->prepare($query);
-        $stmt->bind_param('i', $gramaje); // Asegúrate de que gramaje sea del tipo correcto, en este caso entero
-        $stmt->execute();
-        $resultado = $stmt->get_result();
-        $registros = [];
-        while ($row = $resultado->fetch_assoc()) {
-            $registros[] = $row;
+    public static function filtrarPorGramaje($gramaje = null, $orden = 'DESC') {
+        if ($gramaje === null) {
+            $query = "SELECT * FROM " . static::$tabla . " ORDER BY id {$orden}";
+            return self::consultarSQL($query);
+        } else {
+            $query = "SELECT * FROM " . static::$tabla . " WHERE gramaje = ? ORDER BY id {$orden}";
+            $stmt = self::$db->prepare($query);
+            $stmt->bind_param('i', $gramaje);
+            $stmt->execute();
+            $resultado = $stmt->get_result();
+            $registros = [];
+            while ($row = $resultado->fetch_assoc()) {
+                $registros[] = $row;
+            }
+            $stmt->close();
+            return $registros;
         }
-        $stmt->close();
-        return $registros;
     }
     
 
