@@ -147,9 +147,8 @@ class ActiveRecord {
         return $resultado;
     }
     
-
-    public static function contarR($linea = null) {
-        // Construye la consulta base
+    public static function countByLinea($linea = null) {
+        // Construye la consulta SQL base
         $query = "SELECT COUNT(*) as total FROM " . static::$tabla;
     
         // Agrega una cláusula WHERE si se proporciona un valor para $linea
@@ -160,9 +159,15 @@ class ActiveRecord {
         // Ejecuta la consulta y obtiene el resultado
         $resultado = self::consultarSQL($query);
     
-        // Devuelve el total (el primer elemento del resultado)
-        return $resultado[0]['total'] ?? 0;
+        // Verifica que el resultado sea un array y devuelve el total
+        if (is_array($resultado) && isset($resultado[0]['total'])) {
+            return $resultado[0]['total'];
+        }
+    
+        // Si no se obtiene un resultado válido, retorna 0 como valor predeterminado
+        return 0;
     }
+    
     
 
 
