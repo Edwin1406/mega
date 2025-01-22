@@ -47,6 +47,7 @@
             <?php foreach ($materias as $materia): ?>
                 <tr>
                     <td><?php echo htmlspecialchars($materia->id); ?></td>
+                    <td><?php echo htmlspecialchars($materia->almacen); ?></td>
                     <td><?php echo htmlspecialchars($materia->gramaje); ?></td>
                     <td><?php echo htmlspecialchars($materia->ancho); ?></td>
                     <td>
