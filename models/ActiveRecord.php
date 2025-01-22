@@ -157,7 +157,7 @@ class ActiveRecord {
     //     $resultado = self::consultarSQL($query);
     //     return $resultado;
     // }
-    public static function filtrarPorGramajeYAncho($gramaje = null, $ancho = null, $sustrato = null, $existencia = null, $orden = 'DESC') {
+    public static function filtrarPorGramajeYAncho($gramaje = null, $ancho = null, $existencia = null,$sustrato = null, $orden = 'DESC') {
         // Construir la base de la consulta
         $query = "SELECT * FROM " . static::$tabla;
     
