@@ -158,11 +158,6 @@ class ActiveRecord {
         return $resultado;
     }
     
-    // Método para evitar inyección SQL
-    private static function escape($valor) {
-        return htmlspecialchars(mysqli_real_escape_string(self::$db, $valor));
-    }
-    
 
 
 
