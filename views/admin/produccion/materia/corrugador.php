@@ -108,13 +108,21 @@
 <?php endif; ?>
 
 
-<!-- Filtro para las etiquetas -->
-<label for="filter">Filtrar por rango:</label>
-<select id="filter">
+<!-- Filtros para Gramaje y Ancho -->
+<label for="gramajeFilter">Filtrar por gramaje:</label>
+<select id="gramajeFilter">
     <option value="all">Todos</option>
-    <option value="low">Bajo (40-50)</option>
-    <option value="medium">Medio (51-70)</option>
-    <option value="high">Alto (71+)</option>
+    <option value="low">Bajo (40-60)</option>
+    <option value="medium">Medio (61-100)</option>
+    <option value="high">Alto (101+)</option>
+</select>
+
+<label for="anchoFilter">Filtrar por ancho:</label>
+<select id="anchoFilter">
+    <option value="all">Todos</option>
+    <option value="narrow">Estrecho (0-1000)</option>
+    <option value="medium">Medio (1001-2000)</option>
+    <option value="wide">Ancho (2001+)</option>
 </select>
 
 <!-- Canvas para el gráfico -->
@@ -124,8 +132,9 @@
 <script>
     // Datos originales
     const originalData = {
-        labels: ['40', '41', '42', '52', '53', '74', '75', '87', '100'], // Etiquetas dinámicas
-        data: [1200, 1300, 1400, 1100, 1000, 800, 700, 600, 500] // Valores dinámicos
+        gramajes: ['40', '41', '42', '52', '53', '74', '75', '87', '100'], // Gramajes dinámicos
+        anchos: [800, 1200, 500, 2000, 1800, 3000, 2200, 1500, 4000], // Anchos dinámicos
+        cantidades: [1200, 1300, 1400, 1100, 1000, 800, 700, 600, 500] // Cantidades
     };
 
     // Configuración inicial del gráfico
@@ -133,10 +142,10 @@
     let myChart = new Chart(ctx, {
         type: 'bar',
         data: {
-            labels: originalData.labels,
+            labels: originalData.gramajes,
             datasets: [{
                 label: 'Cantidad',
-                data: originalData.data,
+                data: originalData.cantidades,
                 borderWidth: 1,
                 backgroundColor: 'rgba(75, 192, 192, 0.2)',
                 borderColor: 'rgba(75, 192, 192, 1)'
@@ -144,48 +153,46 @@
         }
     });
 
-    // Función para actualizar el gráfico según el filtro
-    function updateChart(filter) {
+    // Función para aplicar filtros
+    function updateChart() {
+        const gramajeFilter = document.getElementById('gramajeFilter').value;
+        const anchoFilter = document.getElementById('anchoFilter').value;
+
         let filteredLabels = [];
         let filteredData = [];
 
-        // Aplica el filtro
-        if (filter === 'low') {
-            originalData.labels.forEach((label, index) => {
-                if (label >= 40 && label <= 50) {
-                    filteredLabels.push(label);
-                    filteredData.push(originalData.data[index]);
-                }
-            });
-        } else if (filter === 'medium') {
-            originalData.labels.forEach((label, index) => {
-                if (label >= 51 && label <= 70) {
-                    filteredLabels.push(label);
-                    filteredData.push(originalData.data[index]);
-                }
-            });
-        } else if (filter === 'high') {
-            originalData.labels.forEach((label, index) => {
-                if (label >= 71) {
-                    filteredLabels.push(label);
-                    filteredData.push(originalData.data[index]);
-                }
-            });
-        } else {
-            // "Todos" (sin filtro)
-            filteredLabels = originalData.labels;
-            filteredData = originalData.data;
-        }
+        originalData.gramajes.forEach((gramaje, index) => {
+            const ancho = originalData.anchos[index];
+            const cantidad = originalData.cantidades[index];
 
-        // Actualiza el gráfico
+            // Filtrar por gramaje
+            let gramajeMatch = false;
+            if (gramajeFilter === 'low' && gramaje >= 40 && gramaje <= 60) gramajeMatch = true;
+            if (gramajeFilter === 'medium' && gramaje >= 61 && gramaje <= 100) gramajeMatch = true;
+            if (gramajeFilter === 'high' && gramaje > 100) gramajeMatch = true;
+            if (gramajeFilter === 'all') gramajeMatch = true;
+
+            // Filtrar por ancho
+            let anchoMatch = false;
+            if (anchoFilter === 'narrow' && ancho <= 1000) anchoMatch = true;
+            if (anchoFilter === 'medium' && ancho > 1000 && ancho <= 2000) anchoMatch = true;
+            if (anchoFilter === 'wide' && ancho > 2000) anchoMatch = true;
+            if (anchoFilter === 'all') anchoMatch = true;
+
+            // Si cumple ambas condiciones, incluirlo
+            if (gramajeMatch && anchoMatch) {
+                filteredLabels.push(gramaje);
+                filteredData.push(cantidad);
+            }
+        });
+
+        // Actualizar el gráfico
         myChart.data.labels = filteredLabels;
         myChart.data.datasets[0].data = filteredData;
         myChart.update();
     }
 
-    // Evento para el filtro
-    document.getElementById('filter').addEventListener('change', function () {
-        updateChart(this.value);
-    });
+    // Eventos para los filtros
+    document.getElementById('gramajeFilter').addEventListener('change', updateChart);
+    document.getElementById('anchoFilter').addEventListener('change', updateChart);
 </script>
-
