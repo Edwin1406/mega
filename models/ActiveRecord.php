@@ -130,22 +130,23 @@ class ActiveRecord {
         return $resultado;
     }
 
-    public static function allcorrugador($orden = 'DESC', $linea = null) {
+    public static function allc($orden = 'DESC', $linea = null) {
         // Construye la consulta SQL base
         $query = "SELECT * FROM " . static::$tabla;
     
-        // Agrega la condición si se proporciona un valor para $linea
-        if ($linea) {
-            $query .= " WHERE linea = '" . self::escapeSQL($linea) . "'";
+        // Agrega una cláusula WHERE si se proporciona un valor para $linea
+        if ($linea !== null) {
+            $query .= " WHERE linea = '" . addslashes($linea) . "'";
         }
     
-        // Agrega el orden
+        // Agrega la cláusula ORDER BY
         $query .= " ORDER BY id {$orden}";
     
         // Ejecuta la consulta y devuelve el resultado
         $resultado = self::consultarSQL($query);
         return $resultado;
     }
+    
     
 
 
