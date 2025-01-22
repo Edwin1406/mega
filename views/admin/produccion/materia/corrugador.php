@@ -19,3 +19,18 @@
         </a>
     </li>
 </ul>
+
+
+<form action="/admin/produccion/materia/corrugador" method="POST">
+    <div>
+        <label for="gramaje">Gramaje:</label>
+        <input type="number" name="gramaje" id="gramaje" placeholder="Ingrese el gramaje">
+    </div>
+    <div>
+        <label for="ancho">Ancho:</label>
+        <input type="number" name="ancho" id="ancho" placeholder="Ingrese el ancho">
+    </div>
+    <div>
+        <button type="submit">Filtrar</button>
+    </div>
+</form>
