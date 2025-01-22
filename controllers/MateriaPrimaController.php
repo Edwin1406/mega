@@ -232,13 +232,18 @@ class MateriaPrimaController
           $materias = MateriaPrimaV::filtrarPorGramajeYAncho($gramaje, $ancho);
           // debuguear($materias);
       }
+// Convierte el array de materias filtradas a JSON
+$jsonMaterias = json_encode($materias);
+
+
         
         $router->render('admin/produccion/materia/corrugador', [
             'titulo' => 'CORRUGADOR',
             'corrugador' => $corrugador,
             'totalRegistros' => $totalRegistros,
             'totalExistencia' => $totalExistencia,
-            'materias' => $materias
+            'materias' => $materias,
+            'jsonMaterias' => $jsonMaterias
             
         ]);
 
