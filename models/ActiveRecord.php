@@ -159,9 +159,9 @@ class ActiveRecord {
     // }
     
 
-    // protected static function escape($valor) {
-    //     return mysqli_real_escape_string(self::$db, $valor);
-    // }
+    protected static function escape($valor) {
+        return mysqli_real_escape_string(self::$db, $valor);
+    }
     
 
 
