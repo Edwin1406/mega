@@ -268,21 +268,24 @@ class MateriaPrimaController
         $corrugador = MateriaPrimaV::allc('DESC', 'CAJA');
         $jsoncorrugador = json_encode($corrugador);
         $data = json_decode($jsoncorrugador, true);
-
-        // Organiza datos para Chart.js
+    
+        // Organiza datos para ApexCharts
         $lineas = [];
         foreach ($data as $item) {
             $linea = $item['linea'];
             $gramaje = $item['gramaje'];
-
-            // Agrupa datos por línea
+            $ancho = $item['ancho'];
+    
             if (!isset($lineas[$linea])) {
-                $lineas[$linea] = ['labels' => [], 'data' => []];
+                $lineas[$linea] = ['labels' => [], 'data' => [], 'gramajes' => [], 'anchos' => []];
             }
+    
             $lineas[$linea]['labels'][] = $gramaje;
             $lineas[$linea]['data'][] = $item['existencia'];
+            $lineas[$linea]['gramajes'][] = $gramaje;
+            $lineas[$linea]['anchos'][] = $ancho;
         }
-
+    
         // Envía la respuesta JSON
         header('Content-Type: application/json');
         echo json_encode($lineas);

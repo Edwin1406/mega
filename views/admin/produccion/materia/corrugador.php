@@ -19,41 +19,148 @@
         </a>
     </li>
 </ul>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<canvas id="graficaCorrugador" width="400" height="200"></canvas>
+
+
+
+
+
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+
+
+
+<h1>Dashboard Corrugador</h1>
+
+<!-- Filtros -->
+<div>
+    <label for="filterGramaje">Filtrar por Gramaje:</label>
+    <select id="filterGramaje">
+        <option value="">Todos</option>
+    </select>
+
+    <label for="filterAncho">Filtrar por Ancho:</label>
+    <select id="filterAncho">
+        <option value="">Todos</option>
+    </select>
+</div>
+
+<!-- Gráfica -->
+<div id="chart"></div>
 
 <script>
-    // Obtén los datos del backend
+    // Variables globales
+    let chart; // Gráfico de ApexCharts
+    let originalData; // Datos originales desde el backend
+
+    // Cargar datos desde el backend
     fetch('https://megawebsistem.com/admin/api/apicorrugador')
         .then(response => response.json())
         .then(data => {
-            const ctx = document.getElementById('graficaCorrugador').getContext('2d');
+            originalData = data; // Guardar datos originales
+            initializeFilters(data); // Inicializar filtros dinámicos
+            renderChart(data); // Renderizar gráfico inicial
+        });
 
-            // Prepara los datasets
-            const datasets = Object.keys(data).map(linea => ({
-                label: linea,
-                data: data[linea].data,
-                backgroundColor: `rgba(${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, 0.5)`,
-                borderColor: `rgba(${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, 1)`,
-                borderWidth: 1
-            }));
+    // Inicializar los filtros
+    function initializeFilters(data) {
+        const gramajes = new Set();
+        const anchos = new Set();
 
-            // Renderiza el gráfico
-            new Chart(ctx, {
+        Object.values(data).forEach(linea => {
+            linea.gramajes.forEach(g => gramajes.add(g));
+            linea.anchos.forEach(a => anchos.add(a));
+        });
+
+        populateFilter('filterGramaje', Array.from(gramajes));
+        populateFilter('filterAncho', Array.from(anchos));
+    }
+
+    function populateFilter(filterId, values) {
+        const select = document.getElementById(filterId);
+        values.forEach(value => {
+            const option = document.createElement('option');
+            option.value = value;
+            option.textContent = value;
+            select.appendChild(option);
+        });
+    }
+
+    // Renderizar gráfico
+    function renderChart(data) {
+        const series = Object.keys(data).map(linea => ({
+            name: linea,
+            data: data[linea].data
+        }));
+
+        const labels = data[Object.keys(data)[0]].labels;
+
+        const options = {
+            series: series,
+            chart: {
                 type: 'bar',
-                data: {
-                    labels: data[Object.keys(data)[0]].labels, // Usamos etiquetas del primer conjunto
-                    datasets: datasets
-                },
-                options: {
-                    responsive: true,
-                    plugins: {
-                        legend: { position: 'top' },
-                        title: { display: true, text: 'Existencias por Línea y Gramaje' }
-                    },
-                    scales: { y: { beginAtZero: true } }
+                height: 350
+            },
+            plotOptions: {
+                bar: {
+                    horizontal: false,
+                    columnWidth: '55%',
+                    endingShape: 'rounded'
+                }
+            },
+            dataLabels: {
+                enabled: false
+            },
+            xaxis: {
+                categories: labels
+            },
+            title: {
+                text: 'Existencias por Línea y Gramaje'
+            }
+        };
+
+        if (chart) {
+            chart.destroy();
+        }
+
+        chart = new ApexCharts(document.querySelector("#chart"), options);
+        chart.render();
+    }
+
+    // Filtros dinámicos
+    document.getElementById('filterGramaje').addEventListener('change', applyFilters);
+    document.getElementById('filterAncho').addEventListener('change', applyFilters);
+
+    function applyFilters() {
+        const selectedGramaje = document.getElementById('filterGramaje').value;
+        const selectedAncho = document.getElementById('filterAncho').value;
+
+        const filteredData = {};
+
+        Object.keys(originalData).forEach(linea => {
+            const labels = [];
+            const data = [];
+
+            originalData[linea].labels.forEach((gramaje, index) => {
+                const ancho = originalData[linea].anchos[index];
+                if (
+                    (selectedGramaje === '' || gramaje == selectedGramaje) &&
+                    (selectedAncho === '' || ancho == selectedAncho)
+                ) {
+                    labels.push(gramaje);
+                    data.push(originalData[linea].data[index]);
                 }
             });
-        })
-        .catch(error => console.error('Error al cargar datos:', error));
+
+            if (data.length > 0) {
+                filteredData[linea] = { labels, data };
+            }
+        });
+
+        renderChart(filteredData);
+    }
 </script>
