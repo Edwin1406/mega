@@ -20,15 +20,13 @@
     </li>
 </ul>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
 <canvas id="graficaCorrugador" width="400" height="200"></canvas>
 
 <script>
-    // Obtén datos desde PHP
-    fetch('ruta_datos_php.php') // Cambia a la ruta real del archivo PHP
+    // Obtén los datos del backend
+    fetch('https://megawebsistem.com/admin/api/apicorrugador')
         .then(response => response.json())
         .then(data => {
-            // Configuración de Chart.js
             const ctx = document.getElementById('graficaCorrugador').getContext('2d');
 
             // Prepara los datasets
@@ -44,26 +42,18 @@
             new Chart(ctx, {
                 type: 'bar',
                 data: {
-                    labels: data[Object.keys(data)[0]].labels, // Usamos las etiquetas del primer conjunto
+                    labels: data[Object.keys(data)[0]].labels, // Usamos etiquetas del primer conjunto
                     datasets: datasets
                 },
                 options: {
                     responsive: true,
                     plugins: {
-                        legend: {
-                            position: 'top'
-                        },
-                        title: {
-                            display: true,
-                            text: 'Existencias por Línea y Gramaje'
-                        }
+                        legend: { position: 'top' },
+                        title: { display: true, text: 'Existencias por Línea y Gramaje' }
                     },
-                    scales: {
-                        y: {
-                            beginAtZero: true
-                        }
-                    }
+                    scales: { y: { beginAtZero: true } }
                 }
             });
-        });
+        })
+        .catch(error => console.error('Error al cargar datos:', error));
 </script>
