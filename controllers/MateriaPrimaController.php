@@ -277,6 +277,7 @@ class MateriaPrimaController
         $ancho = $item['ancho'];
         $existencia = $item['existencia'];
 
+        // Inicializar la estructura si no existe
         if (!isset($lineas[$linea])) {
             $lineas[$linea] = [
                 'labels' => [],
@@ -286,11 +287,13 @@ class MateriaPrimaController
             ];
         }
 
-        // Asegúrate de que las etiquetas, gramajes y anchos correspondan correctamente
-        $lineas[$linea]['labels'][] = $gramaje; // Usar gramaje como etiqueta
-        $lineas[$linea]['data'][] = $existencia; // Existencia como valor
-        $lineas[$linea]['gramajes'][] = $gramaje;
-        $lineas[$linea]['anchos'][] = $ancho;
+        // Solo agregar si el gramaje y ancho no están duplicados en los labels
+        if (!in_array($gramaje, $lineas[$linea]['labels'])) {
+            $lineas[$linea]['labels'][] = $gramaje; // Gramaje como etiqueta
+            $lineas[$linea]['data'][] = $existencia; // Existencia como valor
+            $lineas[$linea]['gramajes'][] = $gramaje; // Gramaje adicional
+            $lineas[$linea]['anchos'][] = $ancho; // Ancho adicional
+        }
     }
 
     // Envía la respuesta JSON
