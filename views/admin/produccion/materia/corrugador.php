@@ -12,7 +12,7 @@
     </li>
     <li class="areas-produccion">
         <a href="#">
-            <i class="fas fa-scroll"></i> TOTAL EXISTENCIA GENERAL :
+            <i class="fas fa-scroll"></i> TOTAL EXISTENCIA :
             <?php if ($totalExistencia > 0) : ?>
                 <span class="areas-produccion__numero"> <?php echo $totalExistencia ?> KG </span>
             <?php endif; ?>
@@ -22,7 +22,7 @@
 
     <li class="areas-produccion">
         <a href="#">
-            <i class="fas fa-shopping-cart"></i> TOTAL COSTO GENERAL :
+            <i class="fas fa-shopping-cart"></i> TOTAL COSTO :
             <?php if ($totalCosto > 0) : ?>
                 <span class="areas-produccion__numero"> <?php echo $totalCosto ?> $ </span>
             <?php endif; ?>
