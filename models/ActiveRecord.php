@@ -153,7 +153,7 @@ class ActiveRecord {
         }
     
         if ($cantidadMinima !== null) {
-            $condiciones[] = "existencia < {$cantidadMinima}";
+            $condiciones[] = "existencia <= {$cantidadMinima}";
         }
     
         if (!empty($condiciones)) {
