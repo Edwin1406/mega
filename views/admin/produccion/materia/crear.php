@@ -26,12 +26,12 @@
             <i class="fas fa-industry"></i> CORRUGADOR
         </a>
     </li>
-    <li class="areas-produccion">
+    <li class="areas-produccion-craft">
         <a href="/admin/produccion/materia/microcorrugador">
             <i class="fas fa-scroll"></i> MICRO CORRUGADOR
         </a>
     </li>
-    <li class="areas-produccion">
+    <li class="areas-produccion-medium">
         <a href="/admin/produccion/materia/periodico">
             <i class="fas fa-newspaper"></i> PERIODICO 
         </a>
@@ -43,7 +43,7 @@
 
 
 <ul class="lista-areas-produccion">
-    <li class="areas-produccion-craft">
+    <li class="areas-produccion">
         <a >
             <i class="fas fa-industry"></i> TOTAL EXISTENCIA CORRUGADOR :
             <?php if ($totalExistencia > 0) : ?>
@@ -62,7 +62,7 @@
 
     </li>
 
-    <li class="areas-produccion-craft">
+    <li class="areas-produccion-medium">
         <a>
             <i class="fas fa-newspaper"></i> TOTAL EXISTENCIA PERIODICO :
             <?php if ($totalExistenciaPeriodico > 0) : ?>
