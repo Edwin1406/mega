@@ -138,22 +138,22 @@
 }
 .areas-produccion:hover {
   background-color: rgb(221.4251968504, 142.4744094488, 9.0748031496);
-  font-size: 2rem;
+  font-size: 1.8rem;
 }
 
 .areas-produccion-blanco:hover {
   background-color: rgb(59.2352941176, 142.2352941176, 219.2352941176);
-  font-size: 2rem;
+  font-size: 1.8rem;
 }
 
 .areas-produccion-craft:hover {
   background-color: rgb(64.2352941176, 197.2352941176, 164.2352941176);
-  font-size: 2rem;
+  font-size: 1.8rem;
 }
 
 .areas-produccion-medium:hover {
   background-color: rgb(209.2352941176, 95.2352941176, 224.2352941176);
-  font-size: 2rem;
+  font-size: 1.8rem;
 }
 
 
