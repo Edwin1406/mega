@@ -141,6 +141,30 @@ class ActiveRecord {
         $resultado = self::consultarSQL($query);
         return $resultado;
     }
+
+
+    public static function sinstock($orden = 'DESC', $filtro = null, $cantidadMinima = null) { 
+        $query = "SELECT * FROM " . static::$tabla;
+    
+        // Verifica si hay filtros
+        $condiciones = [];
+        if ($filtro) {
+            $condiciones[] = "linea LIKE '%{$filtro}%'";
+        }
+    
+        if ($cantidadMinima !== null) {
+            $condiciones[] = "existencia < {$cantidadMinima}";
+        }
+    
+        if (!empty($condiciones)) {
+            $query .= " WHERE " . implode(" AND ", $condiciones);
+        }
+    
+        $query .= " ORDER BY id {$orden}";
+        $resultado = self::consultarSQL($query);
+        return $resultado;
+    }
+    
     
     
 
