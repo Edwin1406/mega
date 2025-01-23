@@ -108,9 +108,7 @@
             margin-bottom: 20px;
         }
     </style>
-</head>
-<body>
-    <h1>Dashboard Corrugador</h1>
+
 
     <div class="dashboard-container">
         <!-- Filtros -->
@@ -288,5 +286,3 @@
             renderChart(filteredData);
         }
     </script>
-</body>
-</html>
