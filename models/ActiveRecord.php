@@ -130,19 +130,22 @@ class ActiveRecord {
         return $resultado;
     }
 
+
+
     public static function datoscompletos($orden = 'DESC', $filtro = null) {
         $query = "SELECT * FROM " . static::$tabla;
-        
-        // Agregar una cláusula WHERE si se proporciona un filtro
         if ($filtro) {
             $query .= " WHERE linea LIKE '%{$filtro}%'";
         }
-        
         $query .= " ORDER BY id {$orden}";
+        
+        // Depuración: muestra la consulta SQL
+        var_dump($query);
         
         $resultado = self::consultarSQL($query);
         return $resultado;
     }
+    
     
 
   
