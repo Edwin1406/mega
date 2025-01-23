@@ -143,27 +143,13 @@ class ActiveRecord {
     }
 
 
-    public static function sinstock($orden = 'DESC', $filtro = null, $cantidadMinima = null) { 
-        $query = "SELECT * FROM " . static::$tabla;
-    
-        // Verifica si hay filtros
-        $condiciones = [];
-        if ($filtro) {
-            $condiciones[] = "linea LIKE '%{$filtro}%'";
-        }
-    
-        if ($cantidadMinima !== null) {
-            $condiciones[] = "existencia <= {$cantidadMinima}";
-        }
-    
-        if (!empty($condiciones)) {
-            $query .= " WHERE " . implode(" AND ", $condiciones);
-        }
-    
-        $query .= " ORDER BY id {$orden}";
-        $resultado = self::consultarSQL($query);
-        return $resultado;
-    }
+    // Obtener todos los registros con menos de 100 en existencia
+public static function menosDeCien($orden = 'DESC') {
+    $query = "SELECT * FROM " . static::$tabla . " WHERE existencia <= 100 ORDER BY id {$orden}";
+    $resultado = self::consultarSQL($query);
+    return $resultado;
+}
+
     
     
     

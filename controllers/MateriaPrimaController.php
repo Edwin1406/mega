@@ -284,7 +284,7 @@ class MateriaPrimaController
         $totalCostoM = MateriaPrimaV::sumarCosto('CAJA-MEDIUM');
 
         // stock de corrugador
-        $cajablanco = MateriaPrimaV::sinstock('DESC', 'CAJA-BLANCO', 100);
+        $cajablanco = MateriaPrimaV::menosDeCien('DESC');
 
         debuguear($cajablanco);
 
