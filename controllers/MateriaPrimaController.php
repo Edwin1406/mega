@@ -252,13 +252,13 @@ class MateriaPrimaController
 public static function corrugador(Router $router)
 {
     $corrugador = MateriaPrimaV::allc('DESC', 'CAJA');
+    $jsoncorrugador = json_encode($corrugador);
     
     $totalRegistros = MateriaPrimaV::countByLinea('CAJA');
     $totalExistencia = MateriaPrimaV::sumarExistencia('CAJA');
     $totalExistencia = number_format($totalExistencia, 2, '.', ',');
     $materias = [];
 
-    $jsonMaterias = json_encode($corrugador);
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $gramajeRango = $_POST['gramaje'] ?? null;
@@ -268,7 +268,7 @@ public static function corrugador(Router $router)
         // debuguear($materias);
     }
 
-    debuguear($corrugador);
+    debuguear($jsoncorrugador);
     // $jsonMaterias = json_encode($materias);
 
     $router->render('admin/produccion/materia/corrugador', [
