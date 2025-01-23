@@ -91,17 +91,9 @@
 
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <style>
-        /* Estilos generales */
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f4f6f9;
-            margin: 0;
-            padding: 0;
-        }
-
+      
         h1 {
             text-align: center;
-            color: #4CAF50;
             margin-top: 30px;
             font-size: 2.5rem;
             font-weight: 600;
