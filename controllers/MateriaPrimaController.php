@@ -272,6 +272,7 @@ class MateriaPrimaController
         // Organiza datos para ApexCharts
         $lineas = [];
         foreach ($data as $item) {
+            $id = $item['id'];
             $linea = $item['linea'];
             $gramaje = $item['gramaje'];
             $ancho = $item['ancho'];
@@ -291,10 +292,12 @@ class MateriaPrimaController
             }
     
             // Agregar la etiqueta y los datos correspondientes
+            
             $lineas[$linea]['labels'][] = $etiqueta;
             $lineas[$linea]['data'][] = $existencia;
             $lineas[$linea]['gramajes'][] = $gramaje;
             $lineas[$linea]['anchos'][] = $ancho;
+
         }
     
         // Envía la respuesta JSON
