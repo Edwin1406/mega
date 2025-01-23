@@ -17,8 +17,8 @@ class MateriaPrimaController
       $materiaprima = new MateriaPrima;
 
       $totalExistencia = MateriaPrimaV::sumarExistencia('CAJA');
-      $totalExistencia = MateriaPrimaV::sumarExistencia('MICRO');
-      $totalExistencia = MateriaPrimaV::sumarExistencia('PERIODICO');
+      $totalExistenciaMicro = MateriaPrimaV::sumarExistencia('MICRO');
+      $totalExistenciaPeriodico = MateriaPrimaV::sumarExistencia('PERIODICO');
 
 
 
@@ -49,6 +49,8 @@ class MateriaPrimaController
          'titulo' => 'MEGASTOCK-MATERIA PRIMA',
          'alertas' => $alertas,
             'totalExistencia' => $totalExistencia,
+            'totalExistenciaMicro' => $totalExistenciaMicro,
+            'totalExistenciaPeriodico' => $totalExistenciaPeriodico
       ]);
    }
 
