@@ -20,6 +20,12 @@
     </li>
 </ul>
 
+
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -28,6 +34,8 @@
     <title>Dashboard Corrugador</title>
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <style>
+        
+
         h1 {
             text-align: center;
             color: #4CAF50;
@@ -35,6 +43,7 @@
             font-size: 2rem;
         }
 
+        /* Contenedor del Dashboard */
         .dashboard-container {
             max-width: 1200px;
             margin: 0 auto;
@@ -44,6 +53,7 @@
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         }
 
+        /* Filtros */
         .filters {
             display: flex;
             justify-content: center;
@@ -64,26 +74,17 @@
             font-weight: bold;
         }
 
-        .charts {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 20px;
+        /* Contenedor del Gráfico */
+        #chart {
+            margin: 0 auto;
         }
 
-        .chart-container {
-            width: 45%;
-            background-color: #f9f9f9;
-            border-radius: 10px;
-            padding: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-
-        .chart-container h2 {
+        /* Estilo de Mensajes */
+        .message {
             text-align: center;
+            color: #e74c3c;
             font-size: 1.2rem;
-            margin-bottom: 10px;
-            color: #333;
+            font-weight: bold;
         }
     </style>
 </head>
@@ -108,43 +109,25 @@
             </div>
         </div>
 
-        <!-- Gráficas -->
-        <div class="charts">
-            <!-- Gráfico de Barras -->
-            <div class="chart-container">
-                <h2>Existencias por Línea</h2>
-                <div id="chart-bar"></div>
-            </div>
-
-            <!-- Gráfico de Pastel CAJA-KRAFT -->
-            <div class="chart-container">
-                <h2>Existencias de CAJA-KRAFT</h2>
-                <div id="chart-pie-kraft"></div>
-            </div>
-
-            <!-- Gráfico de Pastel CAJA-BLANCO -->
-            <div class="chart-container">
-                <h2>Existencias de CAJA-BLANCO</h2>
-                <div id="chart-pie-blanco"></div>
-            </div>
-        </div>
+        <!-- Gráfico -->
+        <div id="chart"></div>
     </div>
 
     <script>
-        let barChart, pieChartKraft, pieChartBlanco;
-        let originalData;
+        let chart; // Variable para el gráfico
+        let originalData; // Datos originales desde el backend
 
         // Cargar datos desde el backend
-        fetch('https://megawebsistem.com/admin/api/apicorrugador')
+        fetch('https://megawebsistem.com/admin/api/apicorrugador') // Cambia a la ruta correcta de tu API
             .then(response => response.json())
             .then(data => {
-                originalData = data;
-                initializeFilters(data);
-                renderCharts(data);
+                originalData = data; // Guardar datos originales
+                initializeFilters(data); // Inicializar filtros
+                renderChart(data); // Renderizar gráfica inicial
             })
             .catch(error => console.error('Error al cargar datos:', error));
 
-        // Inicializar los filtros
+        // Inicializar los filtros con valores únicos
         function initializeFilters(data) {
             const gramajes = new Set();
             const anchos = new Set();
@@ -169,59 +152,76 @@
             });
         }
 
-        // Renderizar las gráficas
-        function renderCharts(data) {
-            // Gráfico de Barras
-            const barSeries = Object.keys(data).map(linea => ({
+        // Renderizar la gráfica
+        function renderChart(data) {
+            const series = Object.keys(data).map(linea => ({
                 name: linea,
                 data: data[linea].data
             }));
 
-            const labels = Array.from(new Set(Object.values(data).flatMap(linea => linea.labels)));
+            const labels = [];
+            Object.values(data).forEach(linea => {
+                linea.labels.forEach(label => {
+                    if (!labels.includes(label)) {
+                        labels.push(label); // Evitar duplicados
+                    }
+                });
+            });
 
-            const barOptions = {
-                series: barSeries,
-                chart: { type: 'bar', height: 400 },
-                xaxis: { categories: labels },
-                title: { text: 'Existencias por Línea y Gramaje/Ancho', align: 'center' },
-                colors: ['#1E90FF', '#28B463', '#F39C12']
-            };
+            const hasData = series.some(serie => serie.data.length > 0);
 
-            if (barChart) barChart.destroy();
-            barChart = new ApexCharts(document.querySelector("#chart-bar"), barOptions);
-            barChart.render();
-
-            // Gráfico de Pastel CAJA-KRAFT
-            renderPieChart('CAJA-KRAFT', data, '#chart-pie-kraft');
-
-            // Gráfico de Pastel CAJA-BLANCO
-            renderPieChart('CAJA-BLANCO', data, '#chart-pie-blanco');
-        }
-
-        // Función para renderizar gráficos de pastel
-        function renderPieChart(linea, data, chartId) {
-            const lineaData = data[linea] || { labels: [], data: [] };
+            if (!hasData) {
+                if (chart) chart.destroy();
+                document.querySelector("#chart").innerHTML = "<div class='message'>No hay datos para cargar</div>";
+                return;
+            }
 
             const options = {
-                series: lineaData.data,
-                chart: { type: 'pie', height: 300 },
-                labels: lineaData.labels,
-                title: { text: `Existencias de ${linea}`, align: 'center' },
-                colors: linea === 'CAJA-KRAFT' ? ['#3498db', '#e67e22', '#2ecc71'] : ['#9b59b6', '#e74c3c', '#1abc9c']
+                series: series,
+                chart: {
+                    type: 'bar',
+                    height: 400,
+                    toolbar: {
+                        show: true
+                    }
+                },
+                plotOptions: {
+                    bar: {
+                        horizontal: false,
+                        columnWidth: '55%',
+                        endingShape: 'rounded'
+                    }
+                },
+                dataLabels: {
+                    enabled: false
+                },
+                xaxis: {
+                    categories: labels
+                },
+                title: {
+                    text: 'Existencias por Línea y Gramaje/Ancho',
+                    align: 'center',
+                    style: {
+                        fontSize: '18px',
+                        color: '#333'
+                    }
+                },
+                colors: ['#1E90FF', '#28B463', '#F39C12'], // Colores modernos
+                tooltip: {
+                    theme: 'dark'
+                }
             };
 
-            if (linea === 'CAJA-KRAFT') {
-                if (pieChartKraft) pieChartKraft.destroy();
-                pieChartKraft = new ApexCharts(document.querySelector(chartId), options);
-                pieChartKraft.render();
-            } else if (linea === 'CAJA-BLANCO') {
-                if (pieChartBlanco) pieChartBlanco.destroy();
-                pieChartBlanco = new ApexCharts(document.querySelector(chartId), options);
-                pieChartBlanco.render();
-            }
+            if (chart) chart.destroy();
+            document.querySelector("#chart").innerHTML = "";
+            chart = new ApexCharts(document.querySelector("#chart"), options);
+            chart.render();
         }
 
-        // Aplicar filtros
+        // Aplicar filtros dinámicos
+        document.getElementById('filterGramaje').addEventListener('change', applyFilters);
+        document.getElementById('filterAncho').addEventListener('change', applyFilters);
+
         function applyFilters() {
             const selectedGramaje = document.getElementById('filterGramaje').value;
             const selectedAncho = document.getElementById('filterAncho').value;
@@ -250,11 +250,10 @@
                 }
             });
 
-            renderCharts(filteredData);
+            renderChart(filteredData);
         }
 
-        document.getElementById('filterGramaje').addEventListener('change', applyFilters);
-        document.getElementById('filterAncho').addEventListener('change', applyFilters);
+        
     </script>
 </body>
-</html>
+
