@@ -78,7 +78,7 @@
     grid-template-columns: repeat(3, 1fr);
   }
 }
-.lista-areas-produccion .areas-produccion {
+.lista-areas-produccion .areas-produccion .areas-produccion-craft {
   background-color: #F59E0B;
   min-height: 12rem;
   padding: 2rem;
