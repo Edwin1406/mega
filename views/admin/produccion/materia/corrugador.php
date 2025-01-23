@@ -21,7 +21,7 @@
    
 
     <li class="areas-produccion">
-        <a href="#">
+        <a href="">
             <i class="fas fa-scroll"></i> TOTAL EXISTENCIA CAJA-KRAFT :
             <?php if($totalExistenciaK > 0) : ?>
                 <span class="areas-produccion__numero"> <?php echo $totalExistenciaK ?> KG</span>
