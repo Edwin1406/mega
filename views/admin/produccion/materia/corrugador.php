@@ -36,7 +36,7 @@
             <?php endif; ?> 
         </a>
     </li>
-    <li class="areas-produccion">
+    <li class="areas-produccion-medium">
         <a href="#">
             <i class="fas fa-scroll"></i> TOTAL EXISTENCIA CAJA-MEDIUM :
             <?php if($totalExistenciaM > 0): ?>
@@ -71,7 +71,7 @@
         </a>
     </li>
 
-    <li class="areas-produccion">
+    <li class="areas-produccion-medium">
         <a href="#">
         <i class="fas fa-shopping-cart"></i> TOTAL COSTO MEDIUM :
             <?php if($totalCostoM > 0) : ?>
