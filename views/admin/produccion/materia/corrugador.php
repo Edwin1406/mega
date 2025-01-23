@@ -93,7 +93,7 @@
             <?php if (isset($totalCostoM) && $totalCostoM > 0) : ?>
                 <span class="areas-produccion__numero"> <?php echo $totalCostoM ?> $ </span>
             <?php else : ?>
-                <span class="areas-produccion__numero"> Sin datos </span>
+                <span class="areas-produccion__numero"> $ 0  </span>
             <?php endif; ?>
         </a>
     </li>
