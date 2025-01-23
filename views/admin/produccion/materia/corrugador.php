@@ -12,7 +12,7 @@
     </li>
     <li class="areas-produccion">
         <a href="#">
-            <i class="fas fa-scroll"></i> TOTAL EXISTENCIA :
+            <i class="fas fa-scroll"></i> TOTAL EXISTENCIA GENERAL :
             <?php if($totalExistencia > 0) : ?>
                 <span class="areas-produccion__numero"> <?php echo $totalExistencia ?> KG </span>
             <?php endif; ?> 
@@ -47,9 +47,18 @@
 
     <li class="areas-produccion">
         <a href="#">
-        <i class="fas fa-shopping-cart"></i> TOTAL COSTO :
+        <i class="fas fa-shopping-cart"></i> TOTAL COSTO GENERAL :
             <?php if($totalCosto > 0) : ?>
                 <span class="areas-produccion__numero"> <?php echo $totalCosto ?> $ </span>
+            <?php endif; ?> 
+        </a>
+    </li>
+
+    <li class="areas-produccion">
+        <a href="#">
+        <i class="fas fa-shopping-cart"></i> TOTAL COSTO KRAFT :
+            <?php if($totalCostoK > 0) : ?>
+                <span class="areas-produccion__numero"> <?php echo $totalCostoK ?> $ </span>
             <?php endif; ?> 
         </a>
     </li>
