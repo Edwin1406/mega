@@ -294,6 +294,7 @@ class MateriaPrimaController
     
             // Agregar la etiqueta y los datos correspondientes
 
+            $lineas[$linea]['id'][] = $id;
             $lineas[$linea]['labels'][] = $etiqueta;
             $lineas[$linea]['data'][] = $existencia;
             $lineas[$linea]['gramajes'][] = $gramaje;
