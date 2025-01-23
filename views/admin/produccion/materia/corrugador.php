@@ -23,9 +23,6 @@
 
 
 
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -34,8 +31,6 @@
     <title>Dashboard Corrugador</title>
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <style>
-        
-
         h1 {
             text-align: center;
             color: #4CAF50;
@@ -196,7 +191,18 @@
                     enabled: false
                 },
                 xaxis: {
-                    categories: labels
+                    categories: labels,
+                    tickPlacement: 'on',
+                    scrollbar: {
+                        enabled: true
+                    },
+                    labels: {
+                        rotate: -45,
+                        style: {
+                            fontSize: '12px'
+                        }
+                    },
+                    max: 10 // Mostrar un máximo de 10 categorías al mismo tiempo
                 },
                 title: {
                     text: 'Existencias por Línea y Gramaje/Ancho',
@@ -252,8 +258,6 @@
 
             renderChart(filteredData);
         }
-
-        
     </script>
 </body>
-
+</html>
