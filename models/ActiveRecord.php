@@ -246,7 +246,7 @@ class ActiveRecord {
 
     public static function sumarExistencia($linea = null) {
         // Construye la consulta SQL base
-        $query = "SELECT SUM(existencia) as total FROM " . static::$tabla;
+        $query = "SELECT  SUM(existencia) as total FROM " . static::$tabla;
     
         // Agrega una cláusula WHERE si se proporciona un valor para $linea
         if ($linea !== null) {
@@ -255,6 +255,29 @@ class ActiveRecord {
         // Ejecutar la consulta usando `consultarValor`
         return (float) self::consultarValor($query);
     }
+
+
+    public static function sumarExiste($linea = null) {
+        // Construye la consulta SQL base
+        $query = "SELECT almacen, SUM(existencia) as total FROM " . static::$tabla;
+        
+        // Agrega una cláusula WHERE si se proporciona un valor para $linea
+        if ($linea !== null) {
+            $query .= " WHERE linea LIKE '%" . addslashes($linea) . "%'";
+        }
+        
+        // Agrega un GROUP BY para la columna `nombre`
+        $query .= " GROUP BY almacen";
+        
+        // Ejecutar la consulta usando `consultarValor`
+        return self::consultarValor($query);
+    }
+    
+
+
+
+
+
 
     // sumar costo
     public static function sumarCosto($linea = null) {

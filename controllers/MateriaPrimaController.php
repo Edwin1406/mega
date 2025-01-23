@@ -269,6 +269,11 @@ class MateriaPrimaController
         $totalCostoM = MateriaPrimaV::sumarCosto('CAJA-MEDIUM');
 
 
+        $prueba = MateriaPrimaV::sumarExiste('CAJA-BLANCO');
+
+        debuguear($prueba);
+
+
         // con deciamles
         $totalExistencia = number_format($totalExistencia, 2, '.', ',');
         $totalExistenciaK = number_format($totalExistenciaK, 2, '.', ',');
