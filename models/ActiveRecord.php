@@ -130,6 +130,21 @@ class ActiveRecord {
         return $resultado;
     }
 
+    public static function todo($orden = 'DESC', $filtro = null) {
+        $query = "SELECT * FROM " . static::$tabla;
+        
+        // Agregar una cláusula WHERE si se proporciona un filtro
+        if ($filtro) {
+            $query .= " WHERE linea LIKE '%{$filtro}%'";
+        }
+        
+        $query .= " ORDER BY id {$orden}";
+        
+        $resultado = self::consultarSQL($query);
+        return $resultado;
+    }
+    
+
   
     // public static function filtrarPorGramajeYAncho($gramaje = null, $ancho = null, $orden = 'DESC') {
     //     // Construir la base de la consulta
