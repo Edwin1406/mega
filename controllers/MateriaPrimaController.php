@@ -284,7 +284,7 @@ class MateriaPrimaController
             // Inicializar la estructura si no existe
             if (!isset($lineas[$linea])) {
                 $lineas[$linea] = [
-                    'id' => $id,
+                    'id' => [],
                     'labels' => [],
                     'data' => [],
                     'gramajes' => [],
@@ -298,7 +298,7 @@ class MateriaPrimaController
             $lineas[$linea]['data'][] = $existencia;
             $lineas[$linea]['gramajes'][] = $gramaje;
             $lineas[$linea]['anchos'][] = $ancho;
-            
+
 
         }
     
