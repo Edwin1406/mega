@@ -36,13 +36,6 @@
             <i class="fas fa-newspaper"></i> PERIODICO 
         </a>
     </li>
-</ul>
-
-
-
-
-
-<ul class="lista-areas-produccion">
     <li class="areas-produccion">
         <a >
             <i class="fas fa-industry"></i> TOTAL EXISTENCIA CORRUGADOR :
@@ -71,7 +64,13 @@
         </a>
     </li>
 
+
+
+
 </ul>
+
+
+
 
 
 <!-- 

@@ -149,8 +149,18 @@ $router->post('/admin/produccion/materia/excel', [MateriaPrimaController::class,
 $router->get('/admin/produccion/materia/corrugador', [MateriaPrimaController::class, 'corrugador']);
 $router->post('/admin/produccion/materia/corrugador', [MateriaPrimaController::class, 'corrugador']);
 
-// EXISTENCIA CAJA-CRAFT
+// CARPETA CORRUGADOR EXISTENCIA 
 $router->get('/admin/produccion/materia/corrugador/cajacraft', [MateriaPrimaController::class, 'cajacraft']);
+// CARPETA MICRO CORRUGADOR EXISTENCIA
+$router->get('/admin/produccion/materia/microcorrugador/cajacraft', [MateriaPrimaController::class, 'cajacraftMicro']);
+
+// CARPETA PERIODICO EXISTENCIA 
+
+
+
+
+
+
 
 // API CORRUGADOR 
 $router->get('/admin/api/apicorrugador', [MateriaPrimaController::class, 'apicorrugador']);
