@@ -416,6 +416,39 @@ class MateriaPrimaController
 
         ]);
     }
+
+
+    public static function cajablanco(Router $router)
+    {
+        $cajablanco = MateriaPrimaV::datoscompletos('DESC', 'CAJA-BLANCO');
+
+        $totalCostoB = MateriaPrimaV::sumarCosto('CAJA-BLANCO');
+
+        $totalCostoB = number_format($totalCostoB, 2, '.', ',');
+
+        $router->render('admin/produccion/materia/corrugador/cajablanco', [
+            'titulo' => 'CAJA BLANCO',
+            'cajablanco' => $cajablanco,
+            'totalCostoB' => $totalCostoB
+        ]);
+    }
+
+
+
+    public static function cajamedium(Router $router)
+    {
+        $cajamedium = MateriaPrimaV::datoscompletos('DESC', 'CAJA-MEDIUM');
+
+        $totalCostoM = MateriaPrimaV::sumarCosto('CAJA-MEDIUM');
+
+        $totalCostoM = number_format($totalCostoM, 2, '.', ',');
+
+        $router->render('admin/produccion/materia/corrugador/cajamedium', [
+            'titulo' => 'CAJA MEDIUM',
+            'cajamedium' => $cajamedium,
+            'totalCostoM' => $totalCostoM
+        ]);
+    }
     
 
 
