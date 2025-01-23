@@ -251,16 +251,21 @@ class MateriaPrimaController
 
     public static function corrugador(Router $router)
     {
+        // GENERAL
         $totalRegistros = MateriaPrimaV::countByLinea('CAJA');
         $totalExistencia = MateriaPrimaV::sumarExistencia('CAJA');
         $totalCosto = MateriaPrimaV::sumarCosto('CAJA');
-        $totalExistenciaK = MateriaPrimaV::sumarCosto('CAJA-KRAFT');
+
+        // KRAFT
+        $totalExistenciaK = MateriaPrimaV::sumarExistencia('CAJA-KRAFT');
         $totalCostoK = MateriaPrimaV::sumarCosto('CAJA-KRAFT');
 
-        $totalExistenciaB = MateriaPrimaV::sumarCosto('CAJA-BLANCO');
+        // BLANCO
+        $totalExistenciaB = MateriaPrimaV::sumarExistencia('CAJA-BLANCO');
         $totalCostoB = MateriaPrimaV::sumarCosto('CAJA-BLANCA');
 
-        $totalExistenciaM = MateriaPrimaV::sumarCosto('CAJA-MEDIUM');
+        // MEDIUM
+        $totalExistenciaM = MateriaPrimaV::sumarExistencia('CAJA-MEDIUM');
         $totalCostoM = MateriaPrimaV::sumarCosto('CAJA-MEDIUM');
 
 
