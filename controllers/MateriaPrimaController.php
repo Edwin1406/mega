@@ -258,14 +258,18 @@ public static function corrugador(Router $router)
     $totalExistencia = number_format($totalExistencia, 2, '.', ',');
     $materias = [];
 
+    $jsonMaterias = json_encode($corrugador);
+
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $gramajeRango = $_POST['gramaje'] ?? null;
         $ancho = $_POST['ancho'] ?? null;
 
         $materias = MateriaPrimaV::filtrarPorGramajeYAncho('100-200', $ancho);
-        debuguear($materias);
+        // debuguear($materias);
     }
-    $jsonMaterias = json_encode($materias);
+
+    debuguear($jsonMaterias);
+    // $jsonMaterias = json_encode($materias);
 
     $router->render('admin/produccion/materia/corrugador', [
         'titulo' => 'CORRUGADOR',
