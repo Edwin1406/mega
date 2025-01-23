@@ -100,6 +100,15 @@
     </li>
   </ul>
 
+  <li class="areas-produccion">
+        <a href="/admin/produccion/materia/corrugador/cajacraft">
+            <i class="fas fa-scroll"></i> TOTAL EXISTENCIA CAJA-KRAFT :
+            <?php if ($totalExistenciaK > 0) : ?>
+                <span class="areas-produccion__numero"> <?php echo $totalExistenciaK ?> KG</span>
+            <?php endif; ?>
+        </a>
+    </li>
+
   <!-- SVG para las líneas -->
   <svg class="svg-line">
     <line x1="50" y1="100" x2="150" y2="200" class="line"></line>
