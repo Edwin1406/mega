@@ -76,46 +76,6 @@
 
 
 
-<div style="position: relative;">
-
-  <!-- Bloques -->
-  <ul class="lista-areas-produccion">
-    <li class="areas-produccion">
-      <a href="#">
-        <i class="fas fa-industry"> </i> TOTAL EXISTENCIA CORRUGADOR:
-        <span class="areas-produccion__numero">6,366 KG</span>
-      </a>
-    </li>
-    <li class="areas-produccion">
-      <a href="#">
-        <i class="fas fa-scroll"></i> TOTAL EXISTENCIA MICRO CORRUGADOR:
-        <span class="areas-produccion__numero">45,797 KG</span>
-      </a>
-    </li>
-    <li class="areas-produccion">
-      <a href="#">
-        <i class="fas fa-shopping-cart"></i> TOTAL EXISTENCIA PERIÓDICO:
-        <span class="areas-produccion__numero">4,366 KG</span>
-      </a>
-    </li>
-  </ul>
-
-  <li class="areas-produccion-craft">
-        <a href="/admin/produccion/materia/corrugador/cajacraft">
-            <i class="fas fa-scroll"></i> TOTAL EXISTENCIA CAJA-KRAFT :
-            <?php if ($totalExistenciaK > 0) : ?>
-                <span class="areas-produccion__numero"> <?php echo $totalExistenciaK ?> KG</span>
-            <?php endif; ?>
-        </a>
-    </li>
-
-  <!-- SVG para las líneas -->
-  <svg class="svg-line">
-    <line x1="50" y1="100" x2="150" y2="200" class="line"></line>
-    <line x1="150" y1="200" x2="250" y2="300" class="line"></line>
-  </svg>
-
-</div>
 
 
 
