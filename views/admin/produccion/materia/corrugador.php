@@ -90,11 +90,14 @@
     <li class="areas-produccion-medium">
         <a href="#">
             <i class="fas fa-shopping-cart"></i> TOTAL COSTO MEDIUM :
-            <?php if ($totalCostoM > 0) : ?>
+            <?php if (isset($totalCostoM) && $totalCostoM > 0) : ?>
                 <span class="areas-produccion__numero"> <?php echo $totalCostoM ?> $ </span>
+            <?php else : ?>
+                <span class="areas-produccion__numero"> Sin datos </span>
             <?php endif; ?>
         </a>
     </li>
+
 </ul>
 
 
