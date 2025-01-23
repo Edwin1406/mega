@@ -48,7 +48,7 @@
     </li>
 
     <li class="areas-produccion-blanco">
-        <a href="#">
+        <a href="/admin/produccion/materia/corrugador/cajablanco">
             <i class="fas fa-scroll"></i> TOTAL EXISTENCIA CAJA-BLANCO :
             <?php if ($totalExistenciaB > 0) : ?>
                 <span class="areas-produccion__numero"> <?php echo $totalExistenciaB ?> KG </span>
@@ -58,7 +58,7 @@
 
 
     <li class="areas-produccion-medium">
-        <a href="#">
+        <a href="/admin/produccion/materia/corrugador/cajamedium">
             <i class="fas fa-shopping-cart"></i> TOTAL EXISTENCIA CAJA-MEDIUM :
             <?php if (isset($totalExistenciaM) && $totalExistenciaM > 0) : ?>
                 <span class="areas-produccion__numero"> <?php echo $totalExistenciaM ?> $ </span>
