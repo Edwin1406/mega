@@ -266,30 +266,37 @@ class MateriaPrimaController
 
     public static function apicorrugador (){
         $corrugador = MateriaPrimaV::allc('DESC', 'CAJA');
-        $jsoncorrugador = json_encode($corrugador);
-        $data = json_decode($jsoncorrugador, true);
-    
-        // Organiza datos para ApexCharts
-        $lineas = [];
-        foreach ($data as $item) {
-            $linea = $item['linea'];
-            $gramaje = $item['gramaje'];
-            $ancho = $item['ancho'];
-    
-            if (!isset($lineas[$linea])) {
-                $lineas[$linea] = ['labels' => [], 'data' => [], 'gramajes' => [], 'anchos' => []];
-            }
-    
-            $lineas[$linea]['labels'][] = $gramaje;
-            $lineas[$linea]['data'][] = $item['existencia'];
-            $lineas[$linea]['gramajes'][] = $gramaje;
-            $lineas[$linea]['anchos'][] = $ancho;
+    $jsoncorrugador = json_encode($corrugador);
+    $data = json_decode($jsoncorrugador, true);
+
+    // Organiza datos para ApexCharts
+    $lineas = [];
+    foreach ($data as $item) {
+        $linea = $item['linea'];
+        $gramaje = $item['gramaje'];
+        $ancho = $item['ancho'];
+        $existencia = $item['existencia'];
+
+        if (!isset($lineas[$linea])) {
+            $lineas[$linea] = [
+                'labels' => [],
+                'data' => [],
+                'gramajes' => [],
+                'anchos' => []
+            ];
         }
-    
-        // Envía la respuesta JSON
-        header('Content-Type: application/json');
-        echo json_encode($lineas);
-        exit;
+
+        // Asegúrate de que las etiquetas, gramajes y anchos correspondan correctamente
+        $lineas[$linea]['labels'][] = $gramaje; // Usar gramaje como etiqueta
+        $lineas[$linea]['data'][] = $existencia; // Existencia como valor
+        $lineas[$linea]['gramajes'][] = $gramaje;
+        $lineas[$linea]['anchos'][] = $ancho;
+    }
+
+    // Envía la respuesta JSON
+    header('Content-Type: application/json');
+    echo json_encode($lineas);
+    exit;
         
     }
 
