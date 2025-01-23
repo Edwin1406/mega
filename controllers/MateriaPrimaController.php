@@ -269,10 +269,15 @@ class MateriaPrimaController
         $totalCostoM = MateriaPrimaV::sumarCosto('CAJA-MEDIUM');
 
 
-        
-
-
+        // con deciamles
         $totalExistencia = number_format($totalExistencia, 2, '.', ',');
+        $totalExistenciaK = number_format($totalExistenciaK, 2, '.', ',');
+        $totalExistenciaB = number_format($totalExistenciaB, 2, '.', ',');
+        $totalExistenciaM = number_format($totalExistenciaM, 2, '.', ',');
+        $totalCosto = number_format($totalCosto, 2, '.', ',');
+        $totalCostoK = number_format($totalCostoK, 2, '.', ',');
+        $totalCostoB = number_format($totalCostoB, 2, '.', ',');
+        $totalCostoM = number_format($totalCostoM, 2, '.', ',');
 
         $router->render('admin/produccion/materia/corrugador', [
             'titulo' => 'CORRUGADOR',
