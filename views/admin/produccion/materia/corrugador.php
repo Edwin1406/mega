@@ -47,7 +47,7 @@
         <a href="#">
             <i class="fas fa-scroll"></i> TOTAL EXISTENCIA MEDIUM :
             <?php if($totalExistenciaM > 0) : ?>
-                <span class="areas-produccion__numero"> <?php echo $totalExistenciaM ?> $ </span>
+                <span class="areas-produccion__numero"> <?php echo $totalExistenciaM ?? 0 ?> $ </span>
             <?php endif; ?> 
         </a>
     </li>
