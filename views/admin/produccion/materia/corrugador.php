@@ -33,8 +33,7 @@
 <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 </head>
-<body>
-    <h1 style="color: blue;">Dashboard Corrugador</h1>
+
 
     <!-- Filtros -->
     <div>
