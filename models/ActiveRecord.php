@@ -255,6 +255,8 @@ class ActiveRecord {
         // Ejecutar la consulta usando `consultarValor`
         return (float) self::consultarValor($query);
     }
+
+    // sumar costo
     public static function sumarCosto($linea = null) {
         // Construye la consulta SQL base
         $query = "SELECT SUM(costo) as total FROM " . static::$tabla;

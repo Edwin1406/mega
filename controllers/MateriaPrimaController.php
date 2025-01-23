@@ -254,6 +254,8 @@ class MateriaPrimaController
         $totalRegistros = MateriaPrimaV::countByLinea('CAJA');
         $totalExistencia = MateriaPrimaV::sumarExistencia('CAJA');
         $totalCosto = MateriaPrimaV::sumarCosto('CAJA');
+        $totalCostoK = MateriaPrimaV::sumarCosto('CAJA-KRAFT');
+        debuguear($totalCostoK);
 
 
         $totalExistencia = number_format($totalExistencia, 2, '.', ',');
