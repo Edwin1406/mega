@@ -90,57 +90,87 @@
                 select.appendChild(option);
             });
         }
+// Renderizar la gráfica inicial
+function renderChart(data) {
+    // Crear las series para cada línea
+    const series = Object.keys(data).map(linea => ({
+        name: linea, // Nombre de la línea (e.g., CAJA-KRAFT, CAJA-BLANCO)
+        data: data[linea].data // Datos de existencias para cada etiqueta
+    }));
 
-        // Renderizar la gráfica
-        function renderChart(data) {
-            const series = Object.keys(data).map(linea => ({
-                name: linea,
-                data: data[linea].data
-            }));
-
-            const labels = data[Object.keys(data)[0]]?.labels || [];
-
-            // Verificar si hay datos
-            const hasData = series.some(serie => serie.data.length > 0);
-
-            // Mostrar mensaje si no hay datos
-            if (!hasData) {
-                if (chart) chart.destroy();
-                document.querySelector("#chart").innerHTML = "<p style='text-align: center; color: red;'>No hay datos para cargar</p>";
-                return;
+    // Crear las etiquetas para el eje X (usando las etiquetas de la primera línea como referencia)
+    const labels = [];
+    Object.values(data).forEach(linea => {
+        linea.labels.forEach(label => {
+            if (!labels.includes(label)) {
+                labels.push(label); // Evitar duplicados
             }
+        });
+    });
 
-            // Configuración del gráfico
-            const options = {
-                series: series,
-                chart: {
-                    type: 'bar',
-                    height: 350
-                },
-                plotOptions: {
-                    bar: {
-                        horizontal: false,
-                        columnWidth: '55%',
-                        endingShape: 'rounded'
-                    }
-                },
-                dataLabels: {
-                    enabled: false
-                },
-                xaxis: {
-                    categories: labels
-                },
-                title: {
-                    text: 'Existencias por Línea y Gramaje/Ancho'
-                }
-            };
-
-            // Crear o actualizar gráfico
-            if (chart) chart.destroy();
-            document.querySelector("#chart").innerHTML = ""; // Limpiar contenido previo
-            chart = new ApexCharts(document.querySelector("#chart"), options);
-            chart.render();
+    // Configurar las opciones del gráfico
+    const options = {
+        series: series,
+        chart: {
+            type: 'bar',
+            height: 350
+        },
+        plotOptions: {
+            bar: {
+                horizontal: false,
+                columnWidth: '55%',
+                endingShape: 'rounded'
+            }
+        },
+        dataLabels: {
+            enabled: false
+        },
+        xaxis: {
+            categories: labels // Etiquetas únicas combinadas
+        },
+        title: {
+            text: 'Existencias por Línea y Gramaje/Ancho'
         }
+    };
+
+    // Crear o actualizar gráfico
+    if (chart) chart.destroy();
+    document.querySelector("#chart").innerHTML = ""; // Limpiar contenido previo
+    chart = new ApexCharts(document.querySelector("#chart"), options);
+    chart.render();
+}
+
+// Aplicar filtros
+function applyFilters() {
+    const selectedGramaje = document.getElementById('filterGramaje').value;
+    const selectedAncho = document.getElementById('filterAncho').value;
+
+    const filteredData = {};
+
+    Object.keys(originalData).forEach(linea => {
+        const labels = [];
+        const data = [];
+
+        originalData[linea].labels.forEach((etiqueta, index) => {
+            const gramaje = originalData[linea].gramajes[index];
+            const ancho = originalData[linea].anchos[index];
+
+            if (
+                (selectedGramaje === '' || gramaje == selectedGramaje) &&
+                (selectedAncho === '' || ancho == selectedAncho)
+            ) {
+                labels.push(etiqueta);
+                data.push(originalData[linea].data[index]);
+            }
+        });
+
+        if (data.length > 0) {
+            filteredData[linea] = { labels, data };
+        }
+    });
+
+    renderChart(filteredData);
+}
 
         // Aplicar filtros
         document.getElementById('filterGramaje').addEventListener('change', applyFilters);
