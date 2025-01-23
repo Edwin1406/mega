@@ -142,18 +142,10 @@ class ActiveRecord {
         // Depuración: muestra la consulta SQL
         var_dump($query);
         
-        $resultado = self::consultarSL($query);
+        $resultado = self::consultarSQL($query);
         return $resultado;
     }
     
-    public static function consultarSL($query) {
-        global $db; // Si usas una conexión global
-        $resultado = $db->query($query);
-        if (!$resultado) {
-            echo "Error SQL: " . $db->error;
-        }
-        return $resultado->fetch_all(MYSQLI_ASSOC);
-    }
     
 
   
