@@ -23,66 +23,82 @@
 
 
 
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gráfico de Área - Existencias</title>
+    <title>Dashboard Corrugador</title>
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <style>
+        /* Estilo General */
         body {
             font-family: Arial, sans-serif;
-            background-color: #2c3e50;
             margin: 0;
             padding: 0;
-            color: #fff;
-        }
-
-        .chart-container {
-            max-width: 800px;
-            margin: 50px auto;
-            padding: 20px;
-            background-color: #34495e;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-        }
-
-        #chart {
-            margin-top: 20px;
+            background-color: #f4f4f4;
+            color: #333;
         }
 
         h1 {
             text-align: center;
+            color: #4CAF50;
+            margin-top: 20px;
             font-size: 2rem;
-            color: #1abc9c;
         }
 
+        /* Contenedor del Dashboard */
+        .dashboard-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Filtros */
         .filters {
             display: flex;
             justify-content: center;
             gap: 20px;
+            margin-bottom: 20px;
         }
 
         .filters select {
             padding: 10px;
+            border: 1px solid #ccc;
             border-radius: 5px;
-            border: 1px solid #ddd;
-            background-color: #fff;
             font-size: 1rem;
-            color: #333;
+            background-color: #fff;
         }
 
         .filters label {
             font-size: 1rem;
-            color: #ecf0f1;
+            font-weight: bold;
+        }
+
+        /* Contenedor del Gráfico */
+        #chart {
+            margin: 0 auto;
+        }
+
+        /* Estilo de Mensajes */
+        .message {
+            text-align: center;
+            color: #e74c3c;
+            font-size: 1.2rem;
             font-weight: bold;
         }
     </style>
 </head>
 <body>
-    <h1>Dashboard - Existencias por Gramaje y Ancho</h1>
-    <div class="chart-container">
+    <h1>Dashboard Corrugador</h1>
+
+    <div class="dashboard-container">
         <!-- Filtros -->
         <div class="filters">
             <div>
@@ -146,8 +162,8 @@
         // Renderizar la gráfica
         function renderChart(data) {
             const series = Object.keys(data).map(linea => ({
-                name: linea, // Nombre de la línea (e.g., CAJA-KRAFT, CAJA-BLANCO)
-                data: data[linea].data // Datos de existencias para cada etiqueta
+                name: linea,
+                data: data[linea].data
             }));
 
             const labels = [];
@@ -170,61 +186,41 @@
             const options = {
                 series: series,
                 chart: {
+                    type: 'bar',
                     height: 400,
-                    type: 'area',
                     toolbar: {
                         show: true
                     }
                 },
-                stroke: {
-                    curve: 'smooth'
+                plotOptions: {
+                    bar: {
+                        horizontal: false,
+                        columnWidth: '55%',
+                        endingShape: 'rounded'
+                    }
+                },
+                dataLabels: {
+                    enabled: false
                 },
                 xaxis: {
-                    categories: labels, // Etiquetas únicas combinadas
-                    labels: {
-                        style: {
-                            colors: '#fff'
-                        }
-                    }
-                },
-                yaxis: {
-                    labels: {
-                        style: {
-                            colors: '#fff'
-                        }
-                    }
+                    categories: labels
                 },
                 title: {
                     text: 'Existencias por Línea y Gramaje/Ancho',
                     align: 'center',
                     style: {
                         fontSize: '18px',
-                        color: '#fff'
+                        color: '#333'
                     }
                 },
-                fill: {
-                    type: 'gradient',
-                    gradient: {
-                        shade: 'dark',
-                        type: 'vertical',
-                        shadeIntensity: 0.5,
-                        gradientToColors: ['#1abc9c'], // Color de degradado
-                        inverseColors: false,
-                        opacityFrom: 0.7,
-                        opacityTo: 0.3,
-                    }
-                },
-                colors: ['#3498db', '#e67e22'], // Colores de las líneas y áreas
+                colors: ['#1E90FF', '#28B463', '#F39C12'], // Colores modernos
                 tooltip: {
-                    theme: 'dark',
-                },
-                grid: {
-                    borderColor: '#34495e',
-                    strokeDashArray: 4
+                    theme: 'dark'
                 }
             };
 
             if (chart) chart.destroy();
+            document.querySelector("#chart").innerHTML = "";
             chart = new ApexCharts(document.querySelector("#chart"), options);
             chart.render();
         }
