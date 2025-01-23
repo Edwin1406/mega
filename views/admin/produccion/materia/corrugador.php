@@ -4,28 +4,28 @@
 <ul class="lista-areas-produccion">
     <li class="areas-produccion">
         <a href="#">
-            <i class="fas fa-industry">  </i> TOTAL REGISTROS :
-            <?php if($totalRegistros > 0) : ?>
+            <i class="fas fa-industry"> </i> TOTAL REGISTROS :
+            <?php if ($totalRegistros > 0) : ?>
                 <span class="areas-produccion__numero"> <?php echo $totalRegistros ?> </span>
-            <?php endif; ?> 
+            <?php endif; ?>
         </a>
     </li>
     <li class="areas-produccion">
         <a href="#">
             <i class="fas fa-scroll"></i> TOTAL EXISTENCIA GENERAL :
-            <?php if($totalExistencia > 0) : ?>
+            <?php if ($totalExistencia > 0) : ?>
                 <span class="areas-produccion__numero"> <?php echo $totalExistencia ?> KG </span>
-            <?php endif; ?> 
+            <?php endif; ?>
         </a>
     </li>
 
-    
+
     <li class="areas-produccion">
         <a href="#">
-        <i class="fas fa-shopping-cart"></i> TOTAL COSTO GENERAL :
-            <?php if($totalCosto > 0) : ?>
+            <i class="fas fa-shopping-cart"></i> TOTAL COSTO GENERAL :
+            <?php if ($totalCosto > 0) : ?>
                 <span class="areas-produccion__numero"> <?php echo $totalCosto ?> $ </span>
-            <?php endif; ?> 
+            <?php endif; ?>
         </a>
     </li>
 </ul>
@@ -38,65 +38,61 @@
 
 
 
-<li class="areas-produccion-craft">
+    <li class="areas-produccion-craft">
         <a href="/admin/produccion/materia/kraft/cajacraft">
             <i class="fas fa-scroll"></i> TOTAL EXISTENCIA CAJA-KRAFT :
-            <?php if($totalExistenciaK > 0) : ?>
+            <?php if ($totalExistenciaK > 0) : ?>
                 <span class="areas-produccion__numero"> <?php echo $totalExistenciaK ?> KG</span>
-            <?php endif; ?> 
-        </a>
-    </li>
-    
-    <li class="areas-produccion-craft">
-        <a href="#">
-        <i class="fas fa-shopping-cart"></i> TOTAL COSTO KRAFT :
-            <?php if($totalCostoK > 0) : ?>
-                <span class="areas-produccion__numero"> <?php echo $totalCostoK ?> $ </span>
-            <?php endif; ?> 
+            <?php endif; ?>
         </a>
     </li>
 
-</ul>
-
-<ul class="lista-areas-produccion">
-
-<li class="areas-produccion-blanco">
-        <a href="#">
-            <i class="fas fa-scroll"></i> TOTAL EXISTENCIA CAJA-BLANCO :
-            <?php if($totalExistenciaB > 0) : ?>
-                <span class="areas-produccion__numero"> <?php echo $totalExistenciaB ?> KG </span>
-            <?php endif; ?> 
-        </a>
-    </li>
-    
     <li class="areas-produccion-blanco">
         <a href="#">
-        <i class="fas fa-shopping-cart"></i> TOTAL COSTO BLANCO :
-            <?php if($totalCostoB > 0) : ?>
-                <span class="areas-produccion__numero"> <?php echo $totalCostoB ?> $ </span>
-            <?php endif; ?> 
+            <i class="fas fa-scroll"></i> TOTAL EXISTENCIA CAJA-BLANCO :
+            <?php if ($totalExistenciaB > 0) : ?>
+                <span class="areas-produccion__numero"> <?php echo $totalExistenciaB ?> KG </span>
+            <?php endif; ?>
+        </a>
+    </li>
+
+    
+    <li class="areas-produccion-medium">
+        <a href="#">
+            <i class="fas fa-scroll"></i> TOTAL EXISTENCIA CAJA-MEDIUM :
+            <?php if ($totalExistenciaM > 0): ?>
+                <span class="areas-produccion__numero"> <?php echo $totalExistenciaM ?> KG</span>
+            <?php endif; ?>
         </a>
     </li>
 
 
 </ul>
+
 <ul class="lista-areas-produccion">
 
    
-<li class="areas-produccion-medium">
+
+    <li class="areas-produccion-blanco">
         <a href="#">
-            <i class="fas fa-scroll"></i> TOTAL EXISTENCIA CAJA-MEDIUM :
-            <?php if($totalExistenciaM > 0): ?>
-                <span class="areas-produccion__numero"> <?php echo $totalExistenciaM ?> KG</span>
-            <?php endif; ?> 
+            <i class="fas fa-shopping-cart"></i> TOTAL COSTO BLANCO :
+            <?php if ($totalCostoB > 0) : ?>
+                <span class="areas-produccion__numero"> <?php echo $totalCostoB ?> $ </span>
+            <?php endif; ?>
         </a>
     </li>
+
+
+</ul>
+<ul class="lista-areas-produccion">
+
+
     <li class="areas-produccion-medium">
         <a href="#">
-        <i class="fas fa-shopping-cart"></i> TOTAL COSTO MEDIUM :
-            <?php if($totalCostoM > 0) : ?>
+            <i class="fas fa-shopping-cart"></i> TOTAL COSTO MEDIUM :
+            <?php if ($totalCostoM > 0) : ?>
                 <span class="areas-produccion__numero"> <?php echo $totalCostoM ?> $ </span>
-            <?php endif; ?> 
+            <?php endif; ?>
         </a>
     </li>
 </ul>
@@ -104,6 +100,7 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -192,7 +189,7 @@
             padding: 20px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
-        
+
         .chart-card .title {
             font-size: 1.5rem;
             font-weight: 600;
@@ -201,8 +198,9 @@
         }
     </style>
 </head>
+
 <body>
-   
+
     <div class="dashboard-container">
         <!-- Filtros -->
         <div class="filters">
@@ -334,7 +332,7 @@
                 tooltip: {
                     theme: 'dark',
                     y: {
-                        formatter: function (val) {
+                        formatter: function(val) {
                             return val !== undefined ? val : "Sin Datos"; // Manejar undefined en el tooltip
                         }
                     }
@@ -375,7 +373,10 @@
                 });
 
                 if (data.length > 0) {
-                    filteredData[linea] = { labels, data };
+                    filteredData[linea] = {
+                        labels,
+                        data
+                    };
                 }
             });
 
@@ -383,4 +384,5 @@
         }
     </script>
 </body>
+
 </html>
