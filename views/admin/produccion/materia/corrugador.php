@@ -20,7 +20,7 @@
     </li>
    
 
-    <li class="areas-produccion">
+    <li class="areas-produccion-craft">
         <a href="/admin/produccion/materia/cajacraft">
             <i class="fas fa-scroll"></i> TOTAL EXISTENCIA CAJA-KRAFT :
             <?php if($totalExistenciaK > 0) : ?>

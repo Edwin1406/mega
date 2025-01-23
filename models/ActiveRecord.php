@@ -138,10 +138,6 @@ class ActiveRecord {
             $query .= " WHERE linea LIKE '%{$filtro}%'";
         }
         $query .= " ORDER BY id {$orden}";
-        
-        // Depuración: muestra la consulta SQL
-        var_dump($query);
-        
         $resultado = self::consultarSQL($query);
         return $resultado;
     }
