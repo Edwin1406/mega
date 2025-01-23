@@ -103,6 +103,28 @@
 }
 
 
+/* blanco */
+
+.lista-areas-produccion .areas-produccion-blanco {
+  background-color: #3b8edb;
+  min-height: 12rem;
+  padding: 2rem;
+  padding-top: 4rem;
+  text-align: center;
+  border-radius: 1rem;
+}
+
+
+/* medium */
+.lista-areas-produccion .areas-produccion-medium {
+  background-color: #d15fe0;
+  min-height: 12rem;
+  padding: 2rem;
+  padding-top: 4rem;
+  text-align: center;
+  border-radius: 1rem;
+}
+
 .areas-produccion {
   border-radius: 1rem;
 }

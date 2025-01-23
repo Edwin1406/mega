@@ -28,7 +28,7 @@
             <?php endif; ?> 
         </a>
     </li>
-    <li class="areas-produccion">
+    <li class="areas-produccion-blanco">
         <a href="#">
             <i class="fas fa-scroll"></i> TOTAL EXISTENCIA CAJA-BLANCO :
             <?php if($totalExistenciaB > 0) : ?>
@@ -62,7 +62,7 @@
             <?php endif; ?> 
         </a>
     </li>
-    <li class="areas-produccion">
+    <li class="areas-produccion-blanco">
         <a href="#">
         <i class="fas fa-shopping-cart"></i> TOTAL COSTO BLANCO :
             <?php if($totalCostoB > 0) : ?>
