@@ -150,7 +150,7 @@ $router->get('/admin/produccion/materia/corrugador', [MateriaPrimaController::cl
 $router->post('/admin/produccion/materia/corrugador', [MateriaPrimaController::class, 'corrugador']);
 
 // EXISTENCIA CAJA-CRAFT
-$router->get('/admin/produccion/materia/cajacraft', [MateriaPrimaController::class, 'cajacraft']);
+$router->get('/admin/produccion/materia/karaft/cajacraft', [MateriaPrimaController::class, 'cajacraft']);
 
 // API CORRUGADOR 
 $router->get('/admin/api/apicorrugador', [MateriaPrimaController::class, 'apicorrugador']);
