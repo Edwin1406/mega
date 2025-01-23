@@ -57,6 +57,7 @@
     fetch('https://megawebsistem.com/admin/api/apicorrugador')
         .then(response => response.json())
         .then(data => {
+            originalData = data; // Guardar datos originales
             initializeFilters(data); // Inicializar filtros dinámicos
             renderChart(data); // Renderizar gráfico inicial
         });
