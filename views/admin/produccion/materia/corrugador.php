@@ -32,10 +32,6 @@
 
 <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 
-
-
-<h1>Dashboard Corrugador</h1>
-
 <!-- Filtros -->
 <div>
     <label for="filterGramaje">Filtrar por Gramaje:</label>
