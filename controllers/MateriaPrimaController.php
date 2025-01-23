@@ -389,8 +389,8 @@ class MateriaPrimaController
     {
         $cajacraft = MateriaPrimaV::datoscompletos('DESC', 'CAJA-KRAFT');
         
-        debuguear($cajacraft);
-        $router->render('admin/produccion/materia/cajacraft', [
+        // debuguear($cajacraft);
+        $router->render('admin/produccion/materia/karaft/cajacraft', [
             'titulo' => 'CAJA CRAFT',
             'cajacraft' => $cajacraft
         ]);
