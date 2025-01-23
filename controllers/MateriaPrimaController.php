@@ -17,6 +17,8 @@ class MateriaPrimaController
       $materiaprima = new MateriaPrima;
 
       $totalExistencia = MateriaPrimaV::sumarExistencia('CAJA');
+      $totalExistencia = MateriaPrimaV::sumarExistencia('MICRO');
+      $totalExistencia = MateriaPrimaV::sumarExistencia('PERIODICO');
 
 
 
