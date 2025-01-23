@@ -92,6 +92,14 @@
   color: #FFFFFF;
 }
 
+.lista-areas-produccion .areas-produccion-blanco a{
+  color: #FFFFFF;
+}
+
+.lista-areas-produccion .areas-produccion-medium a{
+  color: #FFFFFF;
+}
+
 /* craft */
 .lista-areas-produccion .areas-produccion-craft {
   background-color: #40c5a4;
