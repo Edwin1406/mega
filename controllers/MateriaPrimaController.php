@@ -253,6 +253,8 @@ public static function corrugador(Router $router)
 {
     $corrugador = MateriaPrimaV::allc('DESC', 'CAJA');
     $jsoncorrugador = json_encode($corrugador);
+    $data = json_decode($jsoncorrugador, true); // Convertir JSON a array asociativo
+    debuguear($data);
     
     $totalRegistros = MateriaPrimaV::countByLinea('CAJA');
     $totalExistencia = MateriaPrimaV::sumarExistencia('CAJA');
@@ -268,7 +270,7 @@ public static function corrugador(Router $router)
         // debuguear($materias);
     }
 
-    debuguear($jsoncorrugador);
+
     // $jsonMaterias = json_encode($materias);
 
     $router->render('admin/produccion/materia/corrugador', [
