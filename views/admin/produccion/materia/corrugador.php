@@ -59,7 +59,7 @@
 
     <li class="areas-produccion-medium">
         <a href="#">
-            <i class="fas fa-shopping-cart"></i>TOTAL EXISTENCIA CAJA-MEDIUM :
+            <i class="fas fa-shopping-cart"></i> TOTAL EXISTENCIA CAJA-MEDIUM :
             <?php if (isset($totalExistenciaM) && $totalExistenciaM > 0) : ?>
                 <span class="areas-produccion__numero"> <?php echo $totalExistenciaM ?> $ </span>
             <?php else : ?>
