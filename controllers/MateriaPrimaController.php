@@ -265,25 +265,9 @@ class MateriaPrimaController
 
 
     public static function apicorrugador (){
-        $corrugador = MateriaPrimaV::allc('DESC', 'CAJA');
-        $jsoncorrugador = json_encode($corrugador);
-        $data = json_decode($jsoncorrugador, true);
-
-        // Organiza datos para Chart.js
-        $lineas = [];
-        foreach ($data as $item) {
-            $linea = $item['linea'];
-            $gramaje = $item['gramaje'];
-
-            // Agrupa datos por línea
-            if (!isset($lineas[$linea])) {
-                $lineas[$linea] = ['labels' => [], 'data' => []];
-            }
-            $lineas[$linea]['labels'][] = $gramaje;
-            $lineas[$linea]['data'][] = $item['existencia'];
-        }
-
-        echo json_encode($lineas);
+        $corrugador = MateriaPrimaV::all();
+        echo json_encode($corrugador);
+        
        
         
     }
