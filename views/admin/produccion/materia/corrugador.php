@@ -90,46 +90,61 @@
         });
     }
 
-    // Renderizar gráfico
     function renderChart(data) {
-        const series = Object.keys(data).map(linea => ({
-            name: linea,
-            data: data[linea].data
-        }));
+    const series = Object.keys(data).map(linea => ({
+        name: linea,
+        data: data[linea].data
+    }));
 
-        const labels = data[Object.keys(data)[0]].labels;
+    const labels = data[Object.keys(data)[0]]?.labels || [];
 
-        const options = {
-            series: series,
-            chart: {
-                type: 'bar',
-                height: 350
-            },
-            plotOptions: {
-                bar: {
-                    horizontal: false,
-                    columnWidth: '55%',
-                    endingShape: 'rounded'
-                }
-            },
-            dataLabels: {
-                enabled: false
-            },
-            xaxis: {
-                categories: labels
-            },
-            title: {
-                text: 'Existencias por Línea y Gramaje'
-            }
-        };
+    // Verificar si hay datos
+    const hasData = series.some(serie => serie.data.length > 0);
 
+    // Si no hay datos, mostrar mensaje
+    if (!hasData) {
         if (chart) {
-            chart.destroy();
+            chart.destroy(); // Destruir gráfico previo si existe
         }
-
-        chart = new ApexCharts(document.querySelector("#chart"), options);
-        chart.render();
+        document.querySelector("#chart").innerHTML = "<p style='text-align: center; color: red;'>No hay datos para cargar</p>";
+        return;
     }
+
+    // Opciones del gráfico
+    const options = {
+        series: series,
+        chart: {
+            type: 'bar',
+            height: 350
+        },
+        plotOptions: {
+            bar: {
+                horizontal: false,
+                columnWidth: '55%',
+                endingShape: 'rounded'
+            }
+        },
+        dataLabels: {
+            enabled: false
+        },
+        xaxis: {
+            categories: labels
+        },
+        title: {
+            text: 'Existencias por Línea y Gramaje'
+        }
+    };
+
+    // Renderizar gráfico
+    if (chart) {
+        chart.destroy(); // Destruir gráfico previo si existe
+    }
+
+    document.querySelector("#chart").innerHTML = ""; // Limpiar contenido previo
+    chart = new ApexCharts(document.querySelector("#chart"), options);
+    chart.render();
+}
+
 
     // Filtros dinámicos
     document.getElementById('filterGramaje').addEventListener('change', applyFilters);
