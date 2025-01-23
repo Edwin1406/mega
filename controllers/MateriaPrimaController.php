@@ -20,6 +20,10 @@ class MateriaPrimaController
       $totalExistenciaMicro = MateriaPrimaV::sumarExistencia('MICRO');
       $totalExistenciaPeriodico = MateriaPrimaV::sumarExistencia('PERIODICO');
 
+      $totalExistencia = number_format($totalExistencia, 0, '.', ',');
+
+       
+
 
 
       if($_SERVER['REQUEST_METHOD'] === 'POST') {
