@@ -145,33 +145,33 @@
     // Filtros dinámicos
     document.getElementById('filterGramaje').addEventListener('change', applyFilters);
     document.getElementById('filterAncho').addEventListener('change', applyFilters);
-
     function applyFilters() {
-        const selectedGramaje = document.getElementById('filterGramaje').value;
-        const selectedAncho = document.getElementById('filterAncho').value;
+    const selectedGramaje = document.getElementById('filterGramaje').value;
+    const selectedAncho = document.getElementById('filterAncho').value;
 
-        const filteredData = {};
+    const filteredData = {};
 
-        Object.keys(originalData).forEach(linea => {
-            const labels = [];
-            const data = [];
+    Object.keys(originalData).forEach(linea => {
+        const labels = [];
+        const data = [];
 
-            originalData[linea].labels.forEach((gramaje, index) => {
-                const ancho = originalData[linea].anchos[index];
-                if (
-                    (selectedGramaje === '' || gramaje == selectedGramaje) &&
-                    (selectedAncho === '' || ancho == selectedAncho)
-                ) {
-                    labels.push(gramaje);
-                    data.push(originalData[linea].data[index]);
-                }
-            });
-
-            if (data.length > 0) {
-                filteredData[linea] = { labels, data };
+        originalData[linea].labels.forEach((gramaje, index) => {
+            const ancho = originalData[linea].anchos[index];
+            if (
+                (selectedGramaje === '' || gramaje == selectedGramaje) &&
+                (selectedAncho === '' || ancho == selectedAncho)
+            ) {
+                labels.push(gramaje);
+                data.push(originalData[linea].data[index]);
             }
         });
 
-        renderChart(filteredData);
-    }
+        if (data.length > 0) {
+            filteredData[linea] = { labels, data };
+        }
+    });
+
+    renderChart(filteredData);
+}
+
 </script>
