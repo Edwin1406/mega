@@ -30,7 +30,7 @@
     </li>
     <li class="areas-produccion">
         <a href="#">
-            <i class="fas fa-scroll"></i> TOTAL CAJA-BLANCO :
+            <i class="fas fa-scroll"></i> TOTAL EXISTENCIA CAJA-BLANCO :
             <?php if($totalExistenciaB > 0) : ?>
                 <span class="areas-produccion__numero"> <?php echo $totalExistenciaB ?> KG </span>
             <?php endif; ?> 
@@ -38,7 +38,7 @@
     </li>
     <li class="areas-produccion">
         <a href="#">
-            <i class="fas fa-scroll"></i> TOTAL EXISTENCIA MEDIUM :
+            <i class="fas fa-scroll"></i> TOTAL EXISTENCIA CAJA-MEDIUM :
             <?php if($totalExistenciaM > 0): ?>
                 <span class="areas-produccion__numero"> <?php echo $totalExistenciaM ?> KG</span>
             <?php endif; ?> 
