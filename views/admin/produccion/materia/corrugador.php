@@ -20,9 +20,6 @@
     </li>
 </ul>
 
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -195,38 +192,36 @@
             barChart.render();
 
             // Gráfico de Pastel CAJA-KRAFT
-            const kraftData = data['CAJA-KRAFT'] || { labels: [], data: [] };
-            const kraftOptions = {
-                series: kraftData.data,
-                chart: { type: 'pie', height: 300 },
-                labels: kraftData.labels,
-                title: { text: 'Existencias de CAJA-KRAFT', align: 'center' },
-                colors: ['#3498db', '#e67e22', '#2ecc71']
-            };
-
-            if (pieChartKraft) pieChartKraft.destroy();
-            pieChartKraft = new ApexCharts(document.querySelector("#chart-pie-kraft"), kraftOptions);
-            pieChartKraft.render();
+            renderPieChart('CAJA-KRAFT', data, '#chart-pie-kraft');
 
             // Gráfico de Pastel CAJA-BLANCO
-            const blancoData = data['CAJA-BLANCO'] || { labels: [], data: [] };
-            const blancoOptions = {
-                series: blancoData.data,
+            renderPieChart('CAJA-BLANCO', data, '#chart-pie-blanco');
+        }
+
+        // Función para renderizar gráficos de pastel
+        function renderPieChart(linea, data, chartId) {
+            const lineaData = data[linea] || { labels: [], data: [] };
+
+            const options = {
+                series: lineaData.data,
                 chart: { type: 'pie', height: 300 },
-                labels: blancoData.labels,
-                title: { text: 'Existencias de CAJA-BLANCO', align: 'center' },
-                colors: ['#9b59b6', '#e74c3c', '#1abc9c']
+                labels: lineaData.labels,
+                title: { text: `Existencias de ${linea}`, align: 'center' },
+                colors: linea === 'CAJA-KRAFT' ? ['#3498db', '#e67e22', '#2ecc71'] : ['#9b59b6', '#e74c3c', '#1abc9c']
             };
 
-            if (pieChartBlanco) pieChartBlanco.destroy();
-            pieChartBlanco = new ApexCharts(document.querySelector("#chart-pie-blanco"), blancoOptions);
-            pieChartBlanco.render();
+            if (linea === 'CAJA-KRAFT') {
+                if (pieChartKraft) pieChartKraft.destroy();
+                pieChartKraft = new ApexCharts(document.querySelector(chartId), options);
+                pieChartKraft.render();
+            } else if (linea === 'CAJA-BLANCO') {
+                if (pieChartBlanco) pieChartBlanco.destroy();
+                pieChartBlanco = new ApexCharts(document.querySelector(chartId), options);
+                pieChartBlanco.render();
+            }
         }
 
         // Aplicar filtros
-        document.getElementById('filterGramaje').addEventListener('change', applyFilters);
-        document.getElementById('filterAncho').addEventListener('change', applyFilters);
-
         function applyFilters() {
             const selectedGramaje = document.getElementById('filterGramaje').value;
             const selectedAncho = document.getElementById('filterAncho').value;
@@ -257,6 +252,9 @@
 
             renderCharts(filteredData);
         }
+
+        document.getElementById('filterGramaje').addEventListener('change', applyFilters);
+        document.getElementById('filterAncho').addEventListener('change', applyFilters);
     </script>
 </body>
 </html>
