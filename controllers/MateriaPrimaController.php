@@ -283,8 +283,6 @@ class MateriaPrimaController
             $lineas[$linea]['data'][] = $item['existencia'];
         }
 
-        // Envía la respuesta JSON
-        header('Content-Type: application/json');
         echo json_encode($lineas);
        
         
