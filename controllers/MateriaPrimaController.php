@@ -254,7 +254,7 @@ public static function corrugador(Router $router)
     $corrugador = MateriaPrimaV::allc('DESC', 'CAJA');
     $jsoncorrugador = json_encode($corrugador);
     $data = json_decode($jsoncorrugador, true); // Convertir JSON a array asociativo
-    debuguear($data);
+   
     
     $totalRegistros = MateriaPrimaV::countByLinea('CAJA');
     $totalExistencia = MateriaPrimaV::sumarExistencia('CAJA');
@@ -262,14 +262,24 @@ public static function corrugador(Router $router)
     $materias = [];
 
 
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $gramajeRango = $_POST['gramaje'] ?? null;
-        $ancho = $_POST['ancho'] ?? null;
+    
+// Organiza datos para Chart.js
+$lineas = [];
+foreach ($data as $item) {
+    $linea = $item['linea'];
+    $gramaje = $item['gramaje'];
+    $ancho = $item['ancho'];
 
-        $materias = MateriaPrimaV::filtrarPorGramajeYAncho('100-200', $ancho);
-        // debuguear($materias);
+    // Agrupa datos por línea
+    if (!isset($lineas[$linea])) {
+        $lineas[$linea] = ['labels' => [], 'data' => []];
     }
+    $lineas[$linea]['labels'][] = $gramaje;
+    $lineas[$linea]['data'][] = $item['existencia'];
+}
 
+// Convierte a formato JSON para JavaScript
+echo json_encode($lineas);
 
     // $jsonMaterias = json_encode($materias);
 
@@ -279,7 +289,7 @@ public static function corrugador(Router $router)
         'totalRegistros' => $totalRegistros,
         'totalExistencia' => $totalExistencia,
         'materias' => $materias,
-        'jsonMaterias' => $jsonMaterias
+        
     ]);
 }
 

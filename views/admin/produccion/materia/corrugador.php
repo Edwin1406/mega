@@ -19,56 +19,51 @@
         </a>
     </li>
 </ul>
-
-<form action="/admin/produccion/materia/corrugador" method="POST">
-    <div>
-        <label for="gramaje">Rango de Gramaje:</label>
-        <select name="gramaje" id="gramaje">
-            <option value="0-0">Seleccione</option>
-            <option value="0-100">0 - 100</option>
-            <option value="100-200">100 - 200</option>
-            <option value="200-300">200 - 300</option>
-        </select>
-    </div>
-    <br>
-    <div>
-        <label for="ancho">Ancho:</label>
-        <input type="number" name="ancho" id="ancho" placeholder="Ingrese el ancho">
-    </div>
-    <div>
-        <button type="submit">Filtrar</button>
-    </div>
-</form>
-<!-- Canvas para el gráfico -->
-<canvas id="myChart"></canvas>
-
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
+<canvas id="graficaCorrugador" width="400" height="200"></canvas>
+
 <script>
-    const materias = <?php echo json_encode($materias); ?>;
+    // Obtén datos desde PHP
+    fetch('ruta_datos_php.php') // Cambia a la ruta real del archivo PHP
+        .then(response => response.json())
+        .then(data => {
+            // Configuración de Chart.js
+            const ctx = document.getElementById('graficaCorrugador').getContext('2d');
 
-    const labels = materias.map(materia => materia.descripcion);
-    const data = materias.map(materia => parseFloat(materia.existencia));
-
-    const ctx = document.getElementById('myChart').getContext('2d');
-    let myChart = new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: labels,
-            datasets: [{
-                label: 'Existencia',
-                data: data,
-                backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                borderColor: 'rgba(75, 192, 192, 1)',
+            // Prepara los datasets
+            const datasets = Object.keys(data).map(linea => ({
+                label: linea,
+                data: data[linea].data,
+                backgroundColor: `rgba(${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, 0.5)`,
+                borderColor: `rgba(${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, 1)`,
                 borderWidth: 1
-            }]
-        }
-    });
+            }));
 
-
-
-      // Manejar envío del formulario
-      document.getElementById('filterForm').addEventListener('submit', function (e) {
-        // Permitir recarga para obtener datos actualizados desde PHP
-    });
+            // Renderiza el gráfico
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: data[Object.keys(data)[0]].labels, // Usamos las etiquetas del primer conjunto
+                    datasets: datasets
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'top'
+                        },
+                        title: {
+                            display: true,
+                            text: 'Existencias por Línea y Gramaje'
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        });
 </script>
