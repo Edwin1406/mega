@@ -249,60 +249,45 @@ class MateriaPrimaController
 
 //     }
 
-public static function corrugador(Router $router)
-{
-    $corrugador = MateriaPrimaV::allc('DESC', 'CAJA');
-    $jsoncorrugador = json_encode($corrugador);
-    $data = json_decode($jsoncorrugador, true); // Convertir JSON a array asociativo
-   
-    
-    $totalRegistros = MateriaPrimaV::countByLinea('CAJA');
-    $totalExistencia = MateriaPrimaV::sumarExistencia('CAJA');
-    $totalExistencia = number_format($totalExistencia, 2, '.', ',');
-    $materias = [];
+    public static function corrugador(Router $router)
+    {
+        $totalRegistros = MateriaPrimaV::countByLinea('CAJA');
+        $totalExistencia = MateriaPrimaV::sumarExistencia('CAJA');
+        $totalExistencia = number_format($totalExistencia, 2, '.', ',');
 
-
-    
-// Organiza datos para Chart.js
-$lineas = [];
-foreach ($data as $item) {
-    $linea = $item['linea'];
-    $gramaje = $item['gramaje'];
-    $ancho = $item['ancho'];
-
-    // Agrupa datos por línea
-    if (!isset($lineas[$linea])) {
-        $lineas[$linea] = ['labels' => [], 'data' => []];
+        $router->render('admin/produccion/materia/corrugador', [
+            'titulo' => 'CORRUGADOR',
+            'totalRegistros' => $totalRegistros,
+            'totalExistencia' => $totalExistencia,
+        ]);
     }
-    $lineas[$linea]['labels'][] = $gramaje;
-    $lineas[$linea]['data'][] = $item['existencia'];
-}
-
-// Convierte a formato JSON para JavaScript
-echo json_encode($lineas);
-
-    // $jsonMaterias = json_encode($materias);
-
-    $router->render('admin/produccion/materia/corrugador', [
-        'titulo' => 'CORRUGADOR',
-        'corrugador' => $corrugador,
-        'totalRegistros' => $totalRegistros,
-        'totalExistencia' => $totalExistencia,
-        'materias' => $materias,
-        
-    ]);
-}
 
 
 
     public static function apicorrugador (){
-        
-        header("Access-Control-Allow-Origin: *");  // Permite solicitudes desde cualquier origen
-        header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS"); // Métodos permitidos
-        header("Access-Control-Allow-Headers: Content-Type, Authorization"); // Cabeceras permitidas
-
         $corrugador = MateriaPrimaV::allc('DESC', 'CAJA');
-        echo json_encode($corrugador);
+        $jsoncorrugador = json_encode($corrugador);
+        $data = json_decode($jsoncorrugador, true);
+
+        // Organiza datos para Chart.js
+        $lineas = [];
+        foreach ($data as $item) {
+            $linea = $item['linea'];
+            $gramaje = $item['gramaje'];
+
+            // Agrupa datos por línea
+            if (!isset($lineas[$linea])) {
+                $lineas[$linea] = ['labels' => [], 'data' => []];
+            }
+            $lineas[$linea]['labels'][] = $gramaje;
+            $lineas[$linea]['data'][] = $item['existencia'];
+        }
+
+        // Envía la respuesta JSON
+        header('Content-Type: application/json');
+        echo json_encode($lineas);
+        exit;
+        
     }
 
 
