@@ -21,10 +21,21 @@
 </ul>
 
 
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Corrugador</title>
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <style>
-      
+        /* Estilos generales */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f6f9;
+            margin: 0;
+            padding: 0;
+        }
 
         h1 {
             text-align: center;
@@ -108,7 +119,9 @@
             margin-bottom: 20px;
         }
     </style>
-
+</head>
+<body>
+    <h1>Dashboard Corrugador</h1>
 
     <div class="dashboard-container">
         <!-- Filtros -->
@@ -184,9 +197,7 @@
             const labels = [];
             Object.values(data).forEach(linea => {
                 linea.labels.forEach(label => {
-                    if (!labels.includes(label)) {
-                        labels.push(label); // Evitar duplicados
-                    }
+                    labels.push(label || "Sin Datos"); // Evitar undefined y asignar un valor por defecto
                 });
             });
 
@@ -241,7 +252,12 @@
                 },
                 colors: ['#1E90FF', '#28B463', '#F39C12'], // Colores modernos
                 tooltip: {
-                    theme: 'dark'
+                    theme: 'dark',
+                    y: {
+                        formatter: function (val) {
+                            return val !== undefined ? val : "Sin Datos"; // Manejar undefined en el tooltip
+                        }
+                    }
                 }
             };
 
@@ -273,8 +289,8 @@
                         (selectedGramaje === '' || gramaje == selectedGramaje) &&
                         (selectedAncho === '' || ancho == selectedAncho)
                     ) {
-                        labels.push(etiqueta);
-                        data.push(originalData[linea].data[index]);
+                        labels.push(etiqueta || "Sin Datos");
+                        data.push(originalData[linea].data[index] || 0); // Evitar datos vacíos
                     }
                 });
 
@@ -286,3 +302,5 @@
             renderChart(filteredData);
         }
     </script>
+</body>
+</html>
