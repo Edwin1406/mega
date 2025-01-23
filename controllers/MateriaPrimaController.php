@@ -262,7 +262,7 @@ class MateriaPrimaController
 
         // BLANCO
         $totalExistenciaB = MateriaPrimaV::sumarExistencia('CAJA-BLANCO');
-        $totalCostoB = MateriaPrimaV::sumarCosto('CAJA-BLANCA');
+        $totalCostoB = MateriaPrimaV::sumarCosto('CAJA-BLANCO');
 
         // MEDIUM
         $totalExistenciaM = MateriaPrimaV::sumarExistencia('CAJA-MEDIUM');

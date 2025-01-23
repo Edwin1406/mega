@@ -22,7 +22,7 @@
 
     <li class="areas-produccion">
         <a href="#">
-            <i class="fas fa-scroll"></i> TOTAL EXISTENCIA KRAFT :
+            <i class="fas fa-scroll"></i> TOTAL EXISTENCIA CAJA-KRAFT :
             <?php if($totalExistenciaK > 0) : ?>
                 <span class="areas-produccion__numero"> <?php echo $totalExistenciaK ?> KG</span>
             <?php endif; ?> 
@@ -30,7 +30,7 @@
     </li>
     <li class="areas-produccion">
         <a href="#">
-            <i class="fas fa-scroll"></i> TOTAL EXISTENCIA BLANCO :
+            <i class="fas fa-scroll"></i> TOTAL CAJA-BLANCO :
             <?php if($totalExistenciaB > 0) : ?>
                 <span class="areas-produccion__numero"> <?php echo $totalExistenciaB ?> KG </span>
             <?php endif; ?> 
@@ -59,6 +59,23 @@
         <i class="fas fa-shopping-cart"></i> TOTAL COSTO KRAFT :
             <?php if($totalCostoK > 0) : ?>
                 <span class="areas-produccion__numero"> <?php echo $totalCostoK ?> $ </span>
+            <?php endif; ?> 
+        </a>
+    </li>
+    <li class="areas-produccion">
+        <a href="#">
+        <i class="fas fa-shopping-cart"></i> TOTAL COSTO BLANCO :
+            <?php if($totalCostoB > 0) : ?>
+                <span class="areas-produccion__numero"> <?php echo $totalCostoB ?> $ </span>
+            <?php endif; ?> 
+        </a>
+    </li>
+
+    <li class="areas-produccion">
+        <a href="#">
+        <i class="fas fa-shopping-cart"></i> TOTAL COSTO MEDIUM :
+            <?php if($totalCostoM > 0) : ?>
+                <span class="areas-produccion__numero"> <?php echo $totalCostoM ?> $ </span>
             <?php endif; ?> 
         </a>
     </li>
