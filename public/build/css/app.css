@@ -92,6 +92,10 @@
 
 .areas-produccion-craft{
   background-color: aqua;
+  min-height: 12rem;
+  padding: 2rem;
+  padding-top: 4rem;
+  text-align: center;
 }
 
 .areas-produccion {
