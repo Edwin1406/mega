@@ -26,6 +26,20 @@
             <?php endif; ?> 
         </a>
     </li>
+
+    <li class="areas-produccion">
+        <a href="#">
+            <i class="fas fa-scroll"></i> TOTAL EXISTENCIA KRAFT :
+            <?php if($totalCostoK > 0) : ?>
+                <span class="areas-produccion__numero"> <?php echo $totalCostoK ?> $ </span>
+            <?php endif; ?> 
+        </a>
+    </li>
+
+
+
+
+
 </ul>
 
 
