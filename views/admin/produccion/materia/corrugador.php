@@ -26,7 +26,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Corrugador</title>
+
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <style>
         /* Estilos generales */
@@ -121,8 +121,7 @@
     </style>
 </head>
 <body>
-    <h1>Dashboard Corrugador</h1>
-
+   
     <div class="dashboard-container">
         <!-- Filtros -->
         <div class="filters">
