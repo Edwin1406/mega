@@ -286,7 +286,7 @@ class MateriaPrimaController
         // Envía la respuesta JSON
         header('Content-Type: application/json');
         echo json_encode($lineas);
-        exit;
+       
         
     }
 
