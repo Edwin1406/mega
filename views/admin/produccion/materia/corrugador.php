@@ -31,7 +31,7 @@
         <a href="#">
             <i class="fas fa-scroll"></i> TOTAL EXISTENCIA KRAFT :
             <?php if($totalCostoK > 0) : ?>
-                <span class="areas-produccion__numero"> <?php echo $totalCostoK ?> $ </span>
+                <span class="areas-produccion__numero"> <?php echo $totalCostoK ?> KG</span>
             <?php endif; ?> 
         </a>
     </li>
@@ -39,15 +39,15 @@
         <a href="#">
             <i class="fas fa-scroll"></i> TOTAL EXISTENCIA BLANCO :
             <?php if($totalExistenciaB > 0) : ?>
-                <span class="areas-produccion__numero"> <?php echo $totalExistenciaB ?> $ </span>
+                <span class="areas-produccion__numero"> <?php echo $totalExistenciaB ?> KG </span>
             <?php endif; ?> 
         </a>
     </li>
     <li class="areas-produccion">
         <a href="#">
             <i class="fas fa-scroll"></i> TOTAL EXISTENCIA MEDIUM :
-            <?php if($totalExistenciaM > 0) : ?>
-                <span class="areas-produccion__numero"> <?php echo $totalExistenciaM ?? 0 ?> $ </span>
+            <?php if($totalExistenciaM > 0): ?>
+                <span class="areas-produccion__numero"> <?php echo $totalExistenciaM ?> KG</span>
             <?php endif; ?> 
         </a>
     </li>
