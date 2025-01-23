@@ -253,12 +253,16 @@ class MateriaPrimaController
     {
         $totalRegistros = MateriaPrimaV::countByLinea('CAJA');
         $totalExistencia = MateriaPrimaV::sumarExistencia('CAJA');
+        $totalCosto = MateriaPrimaV::sumarCosto('CAJA');
+
+
         $totalExistencia = number_format($totalExistencia, 2, '.', ',');
 
         $router->render('admin/produccion/materia/corrugador', [
             'titulo' => 'CORRUGADOR',
             'totalRegistros' => $totalRegistros,
             'totalExistencia' => $totalExistencia,
+            'totalCosto' => $totalCosto
         ]);
     }
 

@@ -255,6 +255,17 @@ class ActiveRecord {
         // Ejecutar la consulta usando `consultarValor`
         return (float) self::consultarValor($query);
     }
+    public static function sumarCosto($linea = null) {
+        // Construye la consulta SQL base
+        $query = "SELECT SUM(costo) as total FROM " . static::$tabla;
+    
+        // Agrega una cláusula WHERE si se proporciona un valor para $linea
+        if ($linea !== null) {
+            $query .= " WHERE linea LIKE '%" . addslashes($linea) . "%'";
+        }
+        // Ejecutar la consulta usando `consultarValor`
+        return (float) self::consultarValor($query);
+    }
     
     
     public static function consultarValor($query) {
