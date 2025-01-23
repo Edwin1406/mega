@@ -269,9 +269,6 @@ class MateriaPrimaController
         $totalCostoM = MateriaPrimaV::sumarCosto('CAJA-MEDIUM');
 
 
-        $prueba = MateriaPrimaV::obtenerRegistrosPorLinea('CAJA-KRAFT');
-
-        debuguear($prueba);
 
 
         // con deciamles
