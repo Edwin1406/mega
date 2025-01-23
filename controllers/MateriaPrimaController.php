@@ -387,7 +387,7 @@ class MateriaPrimaController
 
     public static function cajacraft(Router $router)
     {
-        $cajacraft = MateriaPrimaV::all('DESC', 'CAJA-CRAFT');
+        $cajacraft = MateriaPrimaV::datoscompletos('DESC', 'CAJA-CRAFT');
         
         debuguear($cajacraft);
         $router->render('admin/produccion/materia/cajacraft', [

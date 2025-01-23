@@ -130,7 +130,7 @@ class ActiveRecord {
         return $resultado;
     }
 
-    public static function todo($orden = 'DESC', $filtro = null) {
+    public static function datoscompletos($orden = 'DESC', $filtro = null) {
         $query = "SELECT * FROM " . static::$tabla;
         
         // Agregar una cláusula WHERE si se proporciona un filtro
