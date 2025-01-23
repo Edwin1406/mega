@@ -141,6 +141,27 @@
   font-size: 2rem;
 }
 
+.areas-produccion-blanco:hover {
+  background-color: rgb(59.2352941176, 142.2352941176, 219.2352941176);
+  font-size: 2rem;
+}
+
+.areas-produccion-craft:hover {
+  background-color: rgb(64.2352941176, 197.2352941176, 164.2352941176);
+  font-size: 2rem;
+}
+
+.areas-produccion-medium:hover {
+  background-color: rgb(209.2352941176, 95.2352941176, 224.2352941176);
+  font-size: 2rem;
+}
+
+
+
+
+
+
+
 .lista-areas-registro {
   list-style: none;
   padding: 0;
