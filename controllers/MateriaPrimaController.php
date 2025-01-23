@@ -268,7 +268,7 @@ public static function corrugador(Router $router)
         // debuguear($materias);
     }
 
-    debuguear($jsonMaterias);
+    debuguear($corrugador);
     // $jsonMaterias = json_encode($materias);
 
     $router->render('admin/produccion/materia/corrugador', [
