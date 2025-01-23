@@ -54,7 +54,7 @@
         </a>
     </li>
 
-    <li class="areas-produccion">
+    <li class="areas-produccion-craft">
         <a href="#">
         <i class="fas fa-shopping-cart"></i> TOTAL COSTO KRAFT :
             <?php if($totalCostoK > 0) : ?>
