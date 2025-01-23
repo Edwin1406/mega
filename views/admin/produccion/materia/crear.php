@@ -45,7 +45,7 @@
 <ul class="lista-areas-produccion">
     <li class="areas-produccion-craft">
         <a >
-            <i class="fas fa-scroll"></i> TOTAL EXISTENCIA CORRUGADOR :
+            <i class="fas fa-industry"></i> TOTAL EXISTENCIA CORRUGADOR :
             <?php if ($totalExistencia > 0) : ?>
                 <span class="areas-produccion__numero"> <?php echo $totalExistencia ?> KG</span>
             <?php endif; ?>
@@ -64,7 +64,7 @@
 
     <li class="areas-produccion-craft">
         <a>
-            <i class="fas fa-scroll"></i> TOTAL EXISTENCIA PERIODICO :
+            <i class="fas fa-newspaper"></i> TOTAL EXISTENCIA PERIODICO :
             <?php if ($totalExistenciaPeriodico > 0) : ?>
                 <span class="areas-produccion__numero"> <?php echo $totalExistenciaPeriodico ?> KG</span>
             <?php endif; ?>
