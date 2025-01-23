@@ -269,7 +269,7 @@ class MateriaPrimaController
         $totalCostoM = MateriaPrimaV::sumarCosto('CAJA-MEDIUM');
 
 
-        $prueba = MateriaPrimaV::obtenerRegistrosPorLinea('CAJA-BLANCO');
+        $prueba = MateriaPrimaV::obtenerRegistrosPorLinea('CAJA-KRAFT');
 
         debuguear($prueba);
 
