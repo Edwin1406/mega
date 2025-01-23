@@ -257,24 +257,25 @@ class ActiveRecord {
     }
 
 
-    public static function sumarExiste($linea = null) {
+    public static function obtenerRegistrosPorLinea($linea = null) {
         // Construye la consulta SQL base
-        $query = "SELECT almacen, SUM(existencia) as total FROM " . static::$tabla;
-        
+        $query = "SELECT id, existencia FROM " . static::$tabla;
+    
         // Agrega una cláusula WHERE si se proporciona un valor para $linea
         if ($linea !== null) {
             $query .= " WHERE linea LIKE '%" . addslashes($linea) . "%'";
         }
-        
-        // Agrega un GROUP BY para la columna `nombre`
-        $query .= " GROUP BY almacen";
-        
-        // Ejecutar la consulta usando `consultarValor`
-        return self::consultarValor($query);
+    
+        // Ejecutar la consulta y devolver los resultados
+        return self::consultarFila($query); // Este método debería devolver todos los registros como un array.
     }
     
 
-
+    protected static function consultarFila($query) {
+        $resultado = static::$db->query($query); // Asumiendo que `$db` es tu conexión a la base de datos
+        return $resultado->fetch_assoc(); // Devuelve un array asociativo
+    }
+    
 
 
 
