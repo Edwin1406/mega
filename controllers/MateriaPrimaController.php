@@ -16,6 +16,10 @@ class MateriaPrimaController
       $alertas = [];
       $materiaprima = new MateriaPrima;
 
+      $totalExistencia = MateriaPrimaV::sumarExistencia('CAJA');
+
+
+
       if($_SERVER['REQUEST_METHOD'] === 'POST') {
          $materiaprima->sincronizar($_POST);
          $alertas = $materiaprima->validar();
@@ -41,7 +45,8 @@ class MateriaPrimaController
 
       $router->render('admin/produccion/materia/crear' , [
          'titulo' => 'MEGASTOCK-MATERIA PRIMA',
-         'alertas' => $alertas
+         'alertas' => $alertas,
+            'totalExistencia' => $totalExistencia,
       ]);
    }
 
