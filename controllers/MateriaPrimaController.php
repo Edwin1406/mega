@@ -409,7 +409,7 @@ class MateriaPrimaController
         
         
         // debuguear($cajacraft);
-        $router->render('admin/produccion/materia/kraft/cajacraft', [
+        $router->render('admin/produccion/materia/corrugador/cajacraft', [
             'titulo' => 'CAJA CRAFT',
             'cajacraft' => $cajacraft,
             'totalCostoK' => $totalCostoK
