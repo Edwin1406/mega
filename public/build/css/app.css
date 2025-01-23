@@ -85,7 +85,10 @@
   padding-top: 4rem;
   text-align: center;
 }
-.lista-areas-produccion .areas-produccion .areas-produccion-craft a {
+.lista-areas-produccion .areas-produccion a  {
+  color: #FFFFFF;
+}
+.lista-areas-produccion .areas-produccion-craft a  {
   color: #FFFFFF;
 }
 
