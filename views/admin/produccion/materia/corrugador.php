@@ -22,7 +22,6 @@
 
 
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -31,55 +30,94 @@
     <title>Dashboard Corrugador</title>
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <style>
+        /* Estilos generales */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f6f9;
+            margin: 0;
+            padding: 0;
+        }
+
         h1 {
             text-align: center;
             color: #4CAF50;
-            margin-top: 20px;
-            font-size: 2rem;
+            margin-top: 30px;
+            font-size: 2.5rem;
+            font-weight: 600;
         }
 
-        /* Contenedor del Dashboard */
+        /* Contenedor principal */
         .dashboard-container {
             max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #fff;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            margin: 30px auto;
+            padding: 30px;
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
         }
 
         /* Filtros */
         .filters {
             display: flex;
-            justify-content: center;
+            justify-content: space-between;
             gap: 20px;
-            margin-bottom: 20px;
+            margin-bottom: 30px;
         }
 
-        .filters select {
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            font-size: 1rem;
-            background-color: #fff;
+        .filters div {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
         }
 
         .filters label {
             font-size: 1rem;
-            font-weight: bold;
+            font-weight: 500;
+            margin-bottom: 5px;
+            color: #333;
         }
 
-        /* Contenedor del Gráfico */
+        .filters select {
+            padding: 12px 16px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 1rem;
+            background-color: #f9f9f9;
+            width: 150px;
+            transition: all 0.3s ease;
+        }
+
+        .filters select:hover {
+            border-color: #4CAF50;
+            background-color: #f1fdf1;
+        }
+
+        /* Contenedor del gráfico */
         #chart {
             margin: 0 auto;
         }
 
-        /* Estilo de Mensajes */
+        /* Estilo de mensajes */
         .message {
             text-align: center;
             color: #e74c3c;
-            font-size: 1.2rem;
-            font-weight: bold;
+            font-size: 1.4rem;
+            font-weight: 600;
+        }
+
+        /* Estilos de las tarjetas de gráficos */
+        .chart-card {
+            background-color: #fff;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .chart-card .title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 20px;
         }
     </style>
 </head>
@@ -104,8 +142,11 @@
             </div>
         </div>
 
-        <!-- Gráfico -->
-        <div id="chart"></div>
+        <!-- Contenedor de gráfico -->
+        <div class="chart-card">
+            <div class="title">Existencias por Línea y Gramaje/Ancho</div>
+            <div id="chart"></div>
+        </div>
     </div>
 
     <script>
