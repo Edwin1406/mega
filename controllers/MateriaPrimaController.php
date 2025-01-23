@@ -258,7 +258,7 @@ class MateriaPrimaController
 
         // KRAFT
         $totalExistenciaK = MateriaPrimaV::sumarExistencia('CAJA-KRAFT');
-        $totalCostoK = MateriaPrimaV::sumarCosto('CAJA-KRAFT');
+       
 
         // BLANCO
         $totalExistenciaB = MateriaPrimaV::sumarExistencia('CAJA-BLANCO');
@@ -277,7 +277,6 @@ class MateriaPrimaController
         $totalExistenciaB = number_format($totalExistenciaB, 2, '.', ',');
         $totalExistenciaM = number_format($totalExistenciaM, 2, '.', ',');
         $totalCosto = number_format($totalCosto, 2, '.', ',');
-        $totalCostoK = number_format($totalCostoK, 2, '.', ',');
         $totalCostoB = number_format($totalCostoB, 2, '.', ',');
         $totalCostoM = number_format($totalCostoM, 2, '.', ',');
 
@@ -287,7 +286,6 @@ class MateriaPrimaController
             'totalExistencia' => $totalExistencia,
             'totalCosto' => $totalCosto,
             'totalExistenciaK' => $totalExistenciaK,
-            'totalCostoK' => $totalCostoK,
             'totalExistenciaB' => $totalExistenciaB,
             'totalCostoB' => $totalCostoB,
             'totalExistenciaM' => $totalExistenciaM,
@@ -388,11 +386,19 @@ class MateriaPrimaController
     public static function cajacraft(Router $router)
     {
         $cajacraft = MateriaPrimaV::datoscompletos('DESC', 'CAJA-KRAFT');
+
+        $totalCostoK = MateriaPrimaV::sumarCosto('CAJA-KRAFT');
+
+        $totalCostoK = number_format($totalCostoK, 2, '.', ',');
+
+        
         
         // debuguear($cajacraft);
         $router->render('admin/produccion/materia/kraft/cajacraft', [
             'titulo' => 'CAJA CRAFT',
-            'cajacraft' => $cajacraft
+            'cajacraft' => $cajacraft,
+            'totalCostoK' => $totalCostoK
+
         ]);
     }
     
