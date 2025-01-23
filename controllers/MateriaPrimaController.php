@@ -262,7 +262,7 @@ public static function corrugador(Router $router)
         $gramajeRango = $_POST['gramaje'] ?? null;
         $ancho = $_POST['ancho'] ?? null;
 
-        $materias = MateriaPrimaV::filtrarPorGramajeYAncho('0-100', $ancho);
+        $materias = MateriaPrimaV::filtrarPorGramajeYAncho('100-200', $ancho);
         debuguear($materias);
     }
     $jsonMaterias = json_encode($materias);
