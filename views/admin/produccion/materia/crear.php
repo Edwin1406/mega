@@ -52,6 +52,25 @@
         </a>
     </li>
 
+    <li class="areas-produccion-craft">
+        <a href="/admin/produccion/materia/kraft/cajacraft">
+            <i class="fas fa-scroll"></i> TOTAL EXISTENCIA MICRO CORRUGADOR :
+            <?php if ($totalExistenciaMicro > 0) : ?>
+                <span class="areas-produccion__numero"> <?php echo $totalExistenciaMicro ?> KG</span>
+            <?php endif; ?>
+        </a>
+
+    </li>
+
+    <li class="areas-produccion-craft">
+        <a href="/admin/produccion/materia/kraft/cajacraft">
+            <i class="fas fa-scroll"></i> TOTAL EXISTENCIA PERIODICO :
+            <?php if ($totalExistenciaPeriodico > 0) : ?>
+                <span class="areas-produccion__numero"> <?php echo $totalExistenciaPeriodico ?> KG</span>
+            <?php endif; ?>
+        </a>
+    </li>
+
 </ul>
 
 
