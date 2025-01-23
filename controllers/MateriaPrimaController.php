@@ -254,8 +254,17 @@ class MateriaPrimaController
         $totalRegistros = MateriaPrimaV::countByLinea('CAJA');
         $totalExistencia = MateriaPrimaV::sumarExistencia('CAJA');
         $totalCosto = MateriaPrimaV::sumarCosto('CAJA');
+        $totalExistenciaK = MateriaPrimaV::sumarCosto('CAJA-KRAFT');
         $totalCostoK = MateriaPrimaV::sumarCosto('CAJA-KRAFT');
-        debuguear($totalCostoK);
+
+        $totalExistenciaB = MateriaPrimaV::sumarCosto('CAJA-BLANCA');
+        $totalCostoB = MateriaPrimaV::sumarCosto('CAJA-BLANCA');
+
+        $totalExistenciaM = MateriaPrimaV::sumarCosto('CAJA-MEDIUM');
+        $totalCostoM = MateriaPrimaV::sumarCosto('CAJA-MEDIUM');
+
+
+        
 
 
         $totalExistencia = number_format($totalExistencia, 2, '.', ',');
@@ -264,7 +273,13 @@ class MateriaPrimaController
             'titulo' => 'CORRUGADOR',
             'totalRegistros' => $totalRegistros,
             'totalExistencia' => $totalExistencia,
-            'totalCosto' => $totalCosto
+            'totalCosto' => $totalCosto,
+            'totalExistenciaK' => $totalExistenciaK,
+            'totalCostoK' => $totalCostoK,
+            'totalExistenciaB' => $totalExistenciaB,
+            'totalCostoB' => $totalCostoB,
+            'totalExistenciaM' => $totalExistenciaM,
+            'totalCostoM' => $totalCostoM
         ]);
     }
 
