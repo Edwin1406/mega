@@ -266,40 +266,41 @@ class MateriaPrimaController
 
     public static function apicorrugador (){
         $corrugador = MateriaPrimaV::allc('DESC', 'CAJA');
-    $jsoncorrugador = json_encode($corrugador);
-    $data = json_decode($jsoncorrugador, true);
-
-    // Organiza datos para ApexCharts
-    $lineas = [];
-    foreach ($data as $item) {
-        $linea = $item['linea'];
-        $gramaje = $item['gramaje'];
-        $ancho = $item['ancho'];
-        $existencia = $item['existencia'];
-
-        // Inicializar la estructura si no existe
-        if (!isset($lineas[$linea])) {
-            $lineas[$linea] = [
-                'labels' => [],
-                'data' => [],
-                'gramajes' => [],
-                'anchos' => []
-            ];
+        $jsoncorrugador = json_encode($corrugador);
+        $data = json_decode($jsoncorrugador, true);
+    
+        // Organiza datos para ApexCharts
+        $lineas = [];
+        foreach ($data as $item) {
+            $linea = $item['linea'];
+            $gramaje = $item['gramaje'];
+            $ancho = $item['ancho'];
+            $existencia = $item['existencia'];
+    
+            // Crear etiqueta única combinando gramaje y ancho
+            $etiqueta = "$gramaje / $ancho";
+    
+            // Inicializar la estructura si no existe
+            if (!isset($lineas[$linea])) {
+                $lineas[$linea] = [
+                    'labels' => [],
+                    'data' => [],
+                    'gramajes' => [],
+                    'anchos' => []
+                ];
+            }
+    
+            // Agregar la etiqueta y los datos correspondientes
+            $lineas[$linea]['labels'][] = $etiqueta;
+            $lineas[$linea]['data'][] = $existencia;
+            $lineas[$linea]['gramajes'][] = $gramaje;
+            $lineas[$linea]['anchos'][] = $ancho;
         }
-
-        // Solo agregar si el gramaje y ancho no están duplicados en los labels
-        if (!in_array($gramaje, $lineas[$linea]['labels'])) {
-            $lineas[$linea]['labels'][] = $gramaje; // Gramaje como etiqueta
-            $lineas[$linea]['data'][] = $existencia; // Existencia como valor
-            $lineas[$linea]['gramajes'][] = $gramaje; // Gramaje adicional
-            $lineas[$linea]['anchos'][] = $ancho; // Ancho adicional
-        }
-    }
-
-    // Envía la respuesta JSON
-    header('Content-Type: application/json');
-    echo json_encode($lineas);
-    exit;
+    
+        // Envía la respuesta JSON
+        header('Content-Type: application/json');
+        echo json_encode($lineas);
+        exit;
         
     }
 
