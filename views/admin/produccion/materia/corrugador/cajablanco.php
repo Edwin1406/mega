@@ -87,7 +87,7 @@
     </div>
 
     <script>
-        const apiUrl = 'URL_DE_TU_API'; // Reemplaza con la URL real de tu API
+        const apiUrl = 'https://megawebsistem.com/admin/api/apicajablanco'; // Reemplaza con la URL real de tu API
 
         let originalData; // Almacena los datos originales
 
