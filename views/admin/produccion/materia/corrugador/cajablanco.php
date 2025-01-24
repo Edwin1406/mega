@@ -17,7 +17,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Stacked Bar Chart from API</title>
+  <title>Gráfico de Barras Apiladas</title>
   <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 </head>
 <body>
@@ -25,90 +25,80 @@
   <div id="chart" style="max-width: 800px; margin: auto;"></div>
 
   <script>
-    // URL de la API
-    const apiUrl = "https://megawebsistem.com/admin/api/apicajablanco";
+    // Datos simulados (reemplázalos con los de tu API)
+    const apiData = [
+      { ancho: "188", gramaje: "175", existencia: 44, nombre: "PRODUCT A" },
+      { ancho: "188", gramaje: "150", existencia: 13, nombre: "PRODUCT B" },
+      { ancho: "188", gramaje: "140", existencia: 11, nombre: "PRODUCT C" },
+      { ancho: "188", gramaje: "130", existencia: 21, nombre: "PRODUCT D" },
 
-    // Función para obtener datos de la API y procesarlos para el gráfico
-    async function fetchDataAndRenderChart() {
-      try {
-        const response = await fetch(apiUrl);
-        const data = await response.json();
+      { ancho: "155", gramaje: "175", existencia: 55, nombre: "PRODUCT A" },
+      { ancho: "155", gramaje: "150", existencia: 23, nombre: "PRODUCT B" },
+      { ancho: "155", gramaje: "140", existencia: 17, nombre: "PRODUCT C" },
+      { ancho: "155", gramaje: "130", existencia: 7, nombre: "PRODUCT D" },
 
-        // Procesar los datos para el gráfico
-        const categories = data.map(item => item.descripcion); // Nombres en el eje X
-        const productA = data.map(item => parseFloat(item.costo)); // Datos de 'PRODUCT A'
-        const productB = data.map(item => parseFloat(item.promedio)); // Datos de 'PRODUCT B'
-        const productC = data.map(item => parseFloat(item.existencia)); // Datos de 'PRODUCT C'
-        const productD = data.map(item => parseFloat(item.ancho)); // Datos de 'PRODUCT D'
+      { ancho: "58", gramaje: "175", existencia: 41, nombre: "PRODUCT A" },
+      { ancho: "58", gramaje: "150", existencia: 20, nombre: "PRODUCT B" },
+      { ancho: "58", gramaje: "140", existencia: 15, nombre: "PRODUCT C" },
+      { ancho: "58", gramaje: "130", existencia: 25, nombre: "PRODUCT D" },
+    ];
 
-        // Configuración del gráfico
-        const options = {
-          series: [
-            { name: 'PRODUCT A', data: productA },
-            { name: 'PRODUCT B', data: productB },
-            { name: 'PRODUCT C', data: productC },
-            { name: 'PRODUCT D', data: productD },
-          ],
-          chart: {
-            type: 'bar',
-            height: 350,
-            stacked: true,
-            toolbar: {
-              show: true,
-            },
-            zoom: {
-              enabled: true,
-            },
-          },
-          responsive: [
-            {
-              breakpoint: 480,
-              options: {
-                legend: {
-                  position: 'bottom',
-                  offsetX: -10,
-                  offsetY: 0,
-                },
-              },
-            },
-          ],
-          plotOptions: {
-            bar: {
-              horizontal: false,
-              borderRadius: 10,
-              dataLabels: {
-                total: {
-                  enabled: true,
-                  style: {
-                    fontSize: '13px',
-                    fontWeight: 900,
-                  },
-                },
-              },
-            },
-          },
-          xaxis: {
-            categories: categories,
-          },
-          legend: {
-            position: 'right',
-            offsetY: 40,
-          },
-          fill: {
-            opacity: 1,
-          },
-        };
+    // Procesar datos para el gráfico
+    const categories = [...new Set(apiData.map(item => item.ancho))]; // Anchos únicos en el eje X
+    const seriesNames = [...new Set(apiData.map(item => item.nombre))]; // Nombres únicos
+    const series = seriesNames.map(name => ({
+      name: name,
+      data: categories.map(category => {
+        const item = apiData.find(
+          entry => entry.nombre === name && entry.ancho === category
+        );
+        return item ? item.existencia : 0;
+      }),
+    }));
 
-        // Renderizar el gráfico
-        const chart = new ApexCharts(document.querySelector("#chart"), options);
-        chart.render();
-      } catch (error) {
-        console.error("Error al obtener datos de la API:", error);
-      }
-    }
+    // Configuración del gráfico
+    const options = {
+      series: series,
+      chart: {
+        type: 'bar',
+        height: 350,
+        stacked: true,
+        toolbar: {
+          show: true,
+        },
+      },
+      plotOptions: {
+        bar: {
+          horizontal: false,
+          borderRadius: 4,
+        },
+      },
+      dataLabels: {
+        enabled: true,
+        formatter: (val, opts) => val, // Muestra los valores sobre las barras
+      },
+      xaxis: {
+        categories: categories, // Anchos en el eje X
+        title: {
+          text: 'ANCHOS',
+        },
+      },
+      yaxis: {
+        title: {
+          text: 'Existencia Total',
+        },
+      },
+      legend: {
+        position: 'right',
+      },
+      fill: {
+        opacity: 1,
+      },
+    };
 
-    // Llamar a la función para obtener datos y renderizar el gráfico
-    fetchDataAndRenderChart();
+    // Renderizar el gráfico
+    const chart = new ApexCharts(document.querySelector("#chart"), options);
+    chart.render();
   </script>
 </body>
 </html>
