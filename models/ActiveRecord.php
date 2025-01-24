@@ -238,30 +238,21 @@ public static function menosDeCien($orden = 'DESC') {
         $resultado = self::consultarSQL($query);
         return $resultado;
     }
-
-
- // Obtener gramajes, anchos únicos y suma total de existencia con filtro "MICRO"
-public static function obtenerDetallesMicro($orden = 'DESC', $linea = 'MICRO') {
-    // Construye la consulta SQL base
-    $query = "SELECT gramaje, ancho, SUM(existencia) as total_existencia 
-              FROM " . static::$tabla;
-
-    // Agrega una cláusula WHERE para filtrar por "linea" (ejemplo: "MICRO")
-    $query .= " WHERE linea LIKE '%" . addslashes($linea) . "%'";
-
-    // Agrupa por gramaje y ancho
-    $query .= " GROUP BY gramaje, ancho";
-
-    // Agrega la cláusula ORDER BY
-    $query .= " ORDER BY gramaje {$orden}, ancho {$orden}";
-
-    // Ejecuta la consulta y devuelve el resultado
-    $resultado = self::consultarSQL($query);
-
-    // Convierte el resultado a formato JSON
-    return json_encode($resultado);
-}
-
+    public static function obtenerDetallesMicro($orden = 'DESC', $linea = 'MICRO') {
+        // Construye la consulta SQL para obtener solo las columnas necesarias
+        $query = "SELECT gramaje, ancho, SUM(existencia) as total_existencia 
+                  FROM " . static::$tabla . "
+                  WHERE linea LIKE '%" . addslashes($linea) . "%'
+                  GROUP BY gramaje, ancho
+                  ORDER BY gramaje {$orden}, ancho {$orden}";
+    
+        // Ejecuta la consulta y devuelve el resultado
+        $resultado = self::consultarSQL($query);
+    
+        // Retorna el resultado directamente como un array
+        return $resultado;
+    }
+    
 
     
     // contador de registro por linea
