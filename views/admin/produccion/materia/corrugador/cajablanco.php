@@ -11,199 +11,229 @@
 
 
 </ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gráfico con Filtros y Tabla</title>
+  <title>Gráfico y Tabla Mejorados</title>
   <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
-  <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
-
+  <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css">
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.3.1/dist/tailwind.min.css" rel="stylesheet">
   <style>
-    #filters {
-      display: flex;
-      justify-content: space-between;
+    body {
+      background-color: #f3f4f6;
+      font-family: 'Inter', sans-serif;
+    }
+    .container {
+      max-width: 1200px;
       margin: 20px auto;
-      max-width: 800px;
+      background-color: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      padding: 20px;
     }
-    #filters select {
-      padding: 5px;
-      font-size: 16px;
+    .filters {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 20px;
     }
-    table {
-      margin-top: 20px;
+    select {
+      padding: 10px;
+      border: 1px solid #d1d5db;
+      border-radius: 8px;
+      font-size: 1rem;
+    }
+    select:focus {
+      outline: 2px solid #2563eb;
+    }
+    #chart {
+      margin-bottom: 20px;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      padding: 15px;
     }
   </style>
 </head>
 <body>
-  <h1>Gráfico de Existencias con Filtros</h1>
-  <div id="filters">
-    <div>
-      <label for="filterGramaje">Filtrar por Gramaje:</label>
-      <select id="filterGramaje">
-        <option value="all">Todos</option>
-      </select>
+  <div class="container">
+    <div class="filters">
+      <div>
+        <label for="gramajeFilter" class="block text-gray-700 font-semibold mb-1">Filtrar por Gramaje:</label>
+        <select id="gramajeFilter">
+          <option value="">Todos</option>
+        </select>
+      </div>
+      <div>
+        <label for="anchoFilter" class="block text-gray-700 font-semibold mb-1">Filtrar por Ancho:</label>
+        <select id="anchoFilter">
+          <option value="">Todos</option>
+        </select>
+      </div>
+      <button id="applyFilter" class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded shadow">
+        Aplicar Filtro
+      </button>
     </div>
-    <div>
-      <label for="filterAncho">Filtrar por Ancho:</label>
-      <select id="filterAncho">
-        <option value="all">Todos</option>
-      </select>
-    </div>
+
+    <div id="chart" style="width: 100%; height: 400px;"></div>
+
+    <table id="dataTable" class="display w-full">
+      <thead>
+        <tr>
+          <th>Línea</th>
+          <th>Gramaje</th>
+          <th>Ancho</th>
+          <th>Existencias</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
   </div>
-  <div id="chart" style="max-width: 800px; margin: auto;"></div>
-  <table id="dataTable" class="display" style="width:100%">
-    <thead>
-      <tr>
-        <th>Ancho</th>
-        <th>Gramaje</th>
-        <th>Existencia</th>
-        <th>Descripción</th>
-      </tr>
-    </thead>
-    <tbody></tbody>
-  </table>
 
   <script>
-    const apiUrl = "https://megawebsistem.com/admin/api/apicajablanco";
-    let originalData = [];
-    let chart;
+    $(document).ready(function () {
+      const apiUrl = "https://megawebsistem.com/admin/api/apicajablanco";
 
-    async function fetchData() {
-      try {
-        const response = await fetch(apiUrl);
-        const data = await response.json();
-        originalData = data;
-        populateFilters(data);
-        renderChart(data);
-        renderTable(data);
-      } catch (error) {
-        console.error("Error al obtener los datos de la API:", error);
-      }
-    }
+      // Función para actualizar el gráfico
+      function updateChart(chart, data) {
+        const chartData = data.map((item) => ({
+          x: `${item.gramaje} / ${item.ancho}`,
+          y: parseInt(item.existencia),
+        }));
 
-    function populateFilters(data) {
-      const gramajes = [...new Set(data.map(item => item.gramaje))];
-      const anchos = [...new Set(data.map(item => item.ancho))];
-
-      const gramajeSelect = document.getElementById("filterGramaje");
-      gramajes.forEach(gramaje => {
-        const option = document.createElement("option");
-        option.value = gramaje;
-        option.textContent = gramaje;
-        gramajeSelect.appendChild(option);
-      });
-
-      const anchoSelect = document.getElementById("filterAncho");
-      anchos.forEach(ancho => {
-        const option = document.createElement("option");
-        option.value = ancho;
-        option.textContent = ancho;
-        anchoSelect.appendChild(option);
-      });
-    }
-
-    function filterData() {
-      const selectedGramaje = document.getElementById("filterGramaje").value;
-      const selectedAncho = document.getElementById("filterAncho").value;
-
-      let filteredData = originalData;
-
-      if (selectedGramaje !== "all") {
-        filteredData = filteredData.filter(item => item.gramaje === selectedGramaje);
-      }
-      if (selectedAncho !== "all") {
-        filteredData = filteredData.filter(item => item.ancho === selectedAncho);
+        chart.updateSeries([
+          {
+            name: "Existencias",
+            data: chartData,
+          },
+        ]);
       }
 
-      renderChart(filteredData);
-      renderTable(filteredData);
-    }
+      // Fetch inicial de datos
+      function fetchData(chart, dataTable, filters = {}) {
+        fetch(apiUrl)
+          .then((response) => response.json())
+          .then((data) => {
+            // Aplicar filtros
+            const filteredData = data.filter((item) => {
+              const gramajeMatch = !filters.gramaje || item.gramaje == filters.gramaje;
+              const anchoMatch = !filters.ancho || item.ancho == filters.ancho;
+              return gramajeMatch && anchoMatch;
+            });
 
-    function renderChart(data) {
-      const gramajes = [...new Set(data.map(item => item.gramaje))];
-      const anchos = [...new Set(data.map(item => item.ancho))];
+            // Actualizar tabla
+            const tableData = filteredData.map((item) => [
+              item.linea,
+              item.gramaje,
+              item.ancho,
+              item.existencia,
+            ]);
+            dataTable.clear().rows.add(tableData).draw();
 
-      const series = anchos.map(ancho => ({
-        name: `Ancho ${ancho}`,
-        data: gramajes.map(gramaje => {
-          const items = data.filter(item => item.ancho === ancho && item.gramaje === gramaje);
-          return items.reduce((sum, item) => sum + parseFloat(item.existencia), 0);
-        }),
-      }));
+            // Actualizar gráfico
+            updateChart(chart, filteredData);
 
-      const options = {
-        series: series,
+            // Rellenar filtros dinámicos
+            if (!filters.initialized) {
+              const gramajes = [...new Set(data.map((item) => item.gramaje))];
+              const anchos = [...new Set(data.map((item) => item.ancho))];
+
+              gramajes.forEach((gramaje) => {
+                $("#gramajeFilter").append(
+                  `<option value="${gramaje}">${gramaje}</option>`
+                );
+              });
+
+              anchos.forEach((ancho) => {
+                $("#anchoFilter").append(
+                  `<option value="${ancho}">${ancho}</option>`
+                );
+              });
+            }
+          })
+          .catch((error) => console.error("Error fetching data:", error));
+      }
+
+      // Inicializar gráfico
+      const chart = new ApexCharts(document.querySelector("#chart"), {
         chart: {
-          type: 'bar',
+          type: "bar",
           height: 400,
-          stacked: true,
           toolbar: {
             show: true,
           },
         },
-        plotOptions: {
-          bar: {
-            horizontal: false,
-            borderRadius: 4,
+        series: [
+          {
+            name: "Existencias",
+            data: [],
           },
-        },
-        dataLabels: {
-          enabled: true,
-        },
+        ],
         xaxis: {
-          categories: gramajes,
-          title: {
-            text: 'Gramajes',
+          type: "category",
+          labels: {
+            rotate: -45,
           },
         },
         yaxis: {
-          title: {
-            text: 'Existencias Totales',
+          labels: {
+            formatter: (val) => parseInt(val),
           },
         },
-        legend: {
-          position: 'top',
+        dataLabels: {
+          enabled: false,
         },
-        fill: {
-          opacity: 1,
+        tooltip: {
+          enabled: true,
         },
-      };
+      });
+      chart.render();
 
-      if (chart) {
-        chart.updateOptions(options);
-      } else {
-        chart = new ApexCharts(document.querySelector("#chart"), options);
-        chart.render();
-      }
-    }
-
-    function renderTable(data) {
-      const table = $("#dataTable").DataTable();
-      table.clear();
-
-      data.forEach(item => {
-        table.row.add([
-          item.ancho,
-          item.gramaje,
-          item.existencia,
-          item.descripcion,
-        ]);
+      // Inicializar DataTable
+      const dataTable = $("#dataTable").DataTable({
+        columns: [
+          { title: "Línea" },
+          { title: "Gramaje" },
+          { title: "Ancho" },
+          { title: "Existencias" },
+        ],
       });
 
-      table.draw();
-    }
+      // Obtener datos iniciales
+      fetchData(chart, dataTable, { initialized: false });
 
-    document.getElementById("filterGramaje").addEventListener("change", filterData);
-    document.getElementById("filterAncho").addEventListener("change", filterData);
+      // Aplicar filtros
+      $("#applyFilter").on("click", function () {
+        const gramaje = $("#gramajeFilter").val();
+        const ancho = $("#anchoFilter").val();
 
-    $(document).ready(() => {
-      $("#dataTable").DataTable();
-      fetchData();
+        fetchData(chart, dataTable, {
+          gramaje: gramaje,
+          ancho: ancho,
+          initialized: true,
+        });
+      });
     });
   </script>
 </body>
