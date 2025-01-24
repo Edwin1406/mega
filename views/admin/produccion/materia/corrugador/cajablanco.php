@@ -11,17 +11,16 @@
 
 
 </ul>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gráfico de Barras Apiladas desde API</title>
+  <title>Gráfico de Barras Apiladas</title>
   <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 </head>
 <body>
-  <h1>Gráfico de Barras Apiladas</h1>
+  <h1>Gráfico de Existencias por Ancho</h1>
   <div id="chart" style="max-width: 800px; margin: auto;"></div>
 
   <script>
@@ -33,17 +32,16 @@
         const response = await fetch(apiUrl);
         const data = await response.json();
 
-        // Procesar datos para el gráfico
-        const categories = [...new Set(data.map(item => item.ancho))]; // Valores únicos de 'ancho' para el eje X
+        // Obtener categorías únicas (anchos) y gramajes únicos
+        const categories = [...new Set(data.map(item => item.ancho))]; // Anchos únicos
         const gramajes = [...new Set(data.map(item => item.gramaje))]; // Gramajes únicos
-        console.log(categories);
-        console.log(gramajes);
+
         // Crear series para cada gramaje
         const series = gramajes.map(gramaje => ({
           name: `Gramaje ${gramaje}`,
           data: categories.map(ancho => {
-            const items = data.filter(item => item.ancho === ancho && item.gramaje === gramaje);
-            return items.length > 0 ? parseInt(items[0].existencia, 10) : 0; // Suma las existencias
+            const item = data.find(entry => entry.ancho === ancho && entry.gramaje === gramaje);
+            return item ? parseInt(item.existencia, 10) : 0; // Existencias
           })
         }));
 
@@ -71,12 +69,12 @@
           xaxis: {
             categories: categories, // Anchos en el eje X
             title: {
-              text: 'ANCHOS',
+              text: 'Anchos',
             },
           },
           yaxis: {
             title: {
-              text: 'Existencia Total',
+              text: 'Existencias Totales',
             },
           },
           legend: {
