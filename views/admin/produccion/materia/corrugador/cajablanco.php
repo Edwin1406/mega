@@ -18,33 +18,36 @@
 
 
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gráfico Mejorado con ApexCharts</title>
+    <title>Gráfico Horizontal Mejorado</title>
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <style>
         body {
             font-family: Arial, sans-serif;
             margin: 20px;
-            background-color: #f4f4f4;
+            background-color: #f4f4f9;
         }
         .filters {
             display: flex;
-            justify-content: center;
-            gap: 15px;
+            gap: 10px;
             margin-bottom: 20px;
         }
         select {
             padding: 8px;
-            font-size: 14px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
         }
         .chart-container {
             width: 90%;
             margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
         }
     </style>
 </head>
@@ -66,7 +69,7 @@
     </div>
 
     <script>
-        const apiUrl = 'https://megawebsistem.com/admin/api/apicajablanco'; // Cambia con la URL real de tu API
+        const apiUrl = 'https://megawebsistem.com/admin/api/apicajablanco'; // Reemplaza con la URL real de tu API
 
         let originalData; // Almacena los datos originales
         let chart; // Referencia al gráfico
@@ -84,57 +87,157 @@
         // Poblar los filtros de gramaje y ancho
         function populateFilters(data) {
             const gramajes = new Set();
-
-            data.forEach(item => gramajes.add(item.gramaje));
-            document.getElementById('filterGramaje').innerHTML += [...gramajes].map(gramaje => `<option value="${gramaje}">${gramaje}</option>`).join('');
-
             const anchos = new Set();
-            data.forEach(item => anchos.add(item.ancho));
-            document.getElementById('filterAncho').innerHTML += [...anchos].map(ancho => `<option value="${ancho}">${ancho}</option>`).join('');
+
+            Object.values(data).forEach(lineaData => {
+                lineaData.gramajes.forEach(gramaje => gramajes.add(gramaje));
+                lineaData.anchos.forEach(ancho => anchos.add(ancho));
+            });
+
+            const filterGramaje = document.getElementById('filterGramaje');
+            const filterAncho = document.getElementById('filterAncho');
+
+            gramajes.forEach(gramaje => {
+                const option = document.createElement('option');
+                option.value = gramaje;
+                option.textContent = gramaje;
+                filterGramaje.appendChild(option);
+            });
+
+            anchos.forEach(ancho => {
+                const option = document.createElement('option');
+                option.value = ancho;
+                option.textContent = ancho;
+                filterAncho.appendChild(option);
+            });
+
+            filterGramaje.addEventListener('change', applyFilters);
+            filterAncho.addEventListener('change', applyFilters);
         }
 
+        // Aplicar los filtros y actualizar el gráfico
+        function applyFilters() {
+            const selectedGramaje = document.getElementById('filterGramaje').value;
+            const selectedAncho = document.getElementById('filterAncho').value;
 
-        // Renderizar el gráfico
-        function renderChart(data) {
-            chart = new ApexCharts(document.getElementById('chart'), {
-                chart: {
-                    type: 'bar',
-                    height: 350
-                },
-                series: [{
-                    name: 'Costo',
-                    data: data.map(item => item.costo)
-                }],
-                xaxis: {
-                    categories: data.map(item => `${item.gramaje} - ${item.ancho}`)
+            const filteredData = JSON.parse(JSON.stringify(originalData));
+
+            Object.keys(filteredData).forEach(linea => {
+                const lineaData = filteredData[linea];
+
+                // Filtrar por gramaje
+                if (selectedGramaje !== 'Todos') {
+                    const indices = lineaData.gramajes
+                        .map((gramaje, index) => gramaje == selectedGramaje ? index : null)
+                        .filter(index => index !== null);
+
+                    lineaData.labels = indices.map(index => lineaData.labels[index]);
+                    lineaData.data = indices.map(index => lineaData.data[index]);
+                    lineaData.gramajes = indices.map(index => lineaData.gramajes[index]);
+                    lineaData.anchos = indices.map(index => lineaData.anchos[index]);
+                }
+
+                // Filtrar por ancho
+                if (selectedAncho !== 'Todos') {
+                    const indices = lineaData.anchos
+                        .map((ancho, index) => ancho == selectedAncho ? index : null)
+                        .filter(index => index !== null);
+
+                    lineaData.labels = indices.map(index => lineaData.labels[index]);
+                    lineaData.data = indices.map(index => lineaData.data[index]);
+                    lineaData.gramajes = indices.map(index => lineaData.gramajes[index]);
+                    lineaData.anchos = indices.map(index => lineaData.anchos[index]);
                 }
             });
 
+            renderChart(filteredData);
+        }
+
+        // Renderizar el gráfico con ApexCharts
+        function renderChart(data) {
+            const labels = [];
+            const gramajeData = [];
+            const anchoData = [];
+
+            Object.keys(data).forEach(linea => {
+                const lineaData = data[linea];
+                lineaData.labels.forEach((label, index) => {
+                    labels.push(`${linea} (${label})`);
+                    gramajeData.push(lineaData.gramajes[index]);
+                    anchoData.push(lineaData.anchos[index]);
+                });
+            });
+
+            const options = {
+                series: [
+                    {
+                        name: 'Gramaje',
+                        data: gramajeData
+                    },
+                    {
+                        name: 'Ancho',
+                        data: anchoData
+                    }
+                ],
+                chart: {
+                    type: 'bar',
+                    height: Math.max(400, labels.length * 30), // Altura dinámica basada en los datos
+                    zoom: {
+                        enabled: true // Habilitar zoom para explorar datos
+                    },
+                    toolbar: {
+                        show: true
+                    }
+                },
+                plotOptions: {
+                    bar: {
+                        horizontal: true,
+                        distributed: true, // Colores distribuidos automáticamente
+                        dataLabels: {
+                            position: 'center'
+                        }
+                    }
+                },
+                dataLabels: {
+                    enabled: true,
+                    formatter: function (val) {
+                        return val;
+                    }
+                },
+                xaxis: {
+                    categories: labels,
+                    title: {
+                        text: 'Cantidad'
+                    },
+                    labels: {
+                        rotate: -45, // Rota etiquetas si son largas
+                        formatter: function (val) {
+                            return val.length > 20 ? val.slice(0, 20) + '...' : val; // Truncar etiquetas largas
+                        }
+                    }
+                },
+                yaxis: {
+                    title: {
+                        text: 'Líneas'
+                    }
+                },
+                title: {
+                    text: 'Gramaje y Ancho por Línea',
+                    align: 'center'
+                },
+                legend: {
+                    position: 'top'
+                }
+            };
+
+            // Destruir el gráfico anterior si existe
+            if (chart) {
+                chart.destroy();
+            }
+
+            chart = new ApexCharts(document.querySelector("#chart"), options);
             chart.render();
         }
-
-        // Filtrar los datos y actualizar el gráfico
-
-        document.getElementById('filterGramaje').addEventListener('change', filterData);
-        document.getElementById('filterAncho').addEventListener('change', filterData);
-
-        function filterData() {
-            const gramaje = document.getElementById('filterGramaje').value;
-            const ancho = document.getElementById('filterAncho').value;
-
-            let filteredData = originalData;
-
-            if (gramaje !== 'Todos') {
-                filteredData = filteredData.filter(item => item.gramaje === gramaje);
-            }
-
-            if (ancho !== 'Todos') {
-                filteredData = filteredData.filter(item => item.ancho === ancho);
-            }
-
-            chart.updateSeries([{
-                data: filteredData.map(item => item.costo)
-            }], true);
-        }
-
     </script>
+</body>
+</html>
