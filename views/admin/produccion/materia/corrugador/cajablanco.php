@@ -20,65 +20,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tabla Interactiva</title>
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+    <title>Tabla con Clases Personalizadas</title>
+    <link rel="stylesheet" href="URL_DE_TU_CSS_PERSONALIZADO"> <!-- Reemplaza con la ruta a tu archivo CSS -->
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
     <style>
-      
-        .filters {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-        select {
-            padding: 8px;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-            background: white;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-        }
-        table th, table td {
-            padding: 10px;
-            text-align: center;
-            border: 1px solid #ddd;
-        }
-        table thead {
-            background: #f4f4f9;
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f9;
         }
     </style>
 </head>
 <body>
-    <div class="filters">
-        <label for="filterGramaje">Filtrar por Gramaje:</label>
-        <select id="filterGramaje">
-            <option value="Todos">Todos</option>
-        </select>
+    <div class="dashboard__contenedor">
+        <div class="filters">
+            <label for="filterGramaje">Filtrar por Gramaje:</label>
+            <select id="filterGramaje" class="filter__select">
+                <option value="Todos">Todos</option>
+            </select>
 
-        <label for="filterAncho">Filtrar por Ancho:</label>
-        <select id="filterAncho">
-            <option value="Todos">Todos</option>
-        </select>
+            <label for="filterAncho">Filtrar por Ancho:</label>
+            <select id="filterAncho" class="filter__select">
+                <option value="Todos">Todos</option>
+            </select>
+        </div>
+
+        <table class="table">
+            <thead class="table__thead">
+                <tr>
+                    <th scope="col" class="table__th">Línea</th>
+                    <th scope="col" class="table__th">Gramaje</th>
+                    <th scope="col" class="table__th">Ancho</th>
+                    <th scope="col" class="table__th">Existencias</th>
+                </tr>
+            </thead>
+            <tbody class="table__tbody" id="dataTable">
+                <!-- Contenido dinámico -->
+            </tbody>
+        </table>
     </div>
-
-    <table id="dataTable">
-        <thead>
-            <tr>
-                <th>Línea</th>
-                <th>Gramaje</th>
-                <th>Ancho</th>
-                <th>Existencias</th>
-            </tr>
-        </thead>
-        <tbody>
-            <!-- Contenido dinámico -->
-        </tbody>
-    </table>
 
     <script>
         const apiUrl = 'https://megawebsistem.com/admin/api/apicajablanco'; // Reemplaza con la URL real de tu API
@@ -92,7 +72,6 @@
                 originalData = data;
                 populateFilters(data);
                 populateTable(data);
-                initializeDataTable();
             })
             .catch(error => console.error('Error al cargar los datos:', error));
 
@@ -129,7 +108,7 @@
 
         // Poblar la tabla
         function populateTable(data) {
-            const tableBody = document.getElementById('dataTable').querySelector('tbody');
+            const tableBody = document.getElementById('dataTable');
             tableBody.innerHTML = ''; // Limpiar contenido previo
 
             Object.keys(data).forEach(linea => {
@@ -141,7 +120,6 @@
                     const existencia = lineaData.data[index];
 
                     const row = document.createElement('tr');
-                    // CLASE AL TR
                     row.classList.add('table__tr');
                     row.innerHTML = `
                         <td class="table__td">${linea}</td>
@@ -159,13 +137,11 @@
             const selectedGramaje = document.getElementById('filterGramaje').value;
             const selectedAncho = document.getElementById('filterAncho').value;
 
-            const filteredData = JSON.parse(JSON.stringify(originalData));
-
-            const tableBody = document.getElementById('dataTable').querySelector('tbody');
+            const tableBody = document.getElementById('dataTable');
             tableBody.innerHTML = ''; // Limpiar contenido previo
 
-            Object.keys(filteredData).forEach(linea => {
-                const lineaData = filteredData[linea];
+            Object.keys(originalData).forEach(linea => {
+                const lineaData = originalData[linea];
 
                 lineaData.labels.forEach((label, index) => {
                     const gramaje = lineaData.gramajes[index];
@@ -175,26 +151,15 @@
                     if ((selectedGramaje === 'Todos' || gramaje == selectedGramaje) &&
                         (selectedAncho === 'Todos' || ancho == selectedAncho)) {
                         const row = document.createElement('tr');
+                        row.classList.add('table__tr');
                         row.innerHTML = `
-                            <td>${linea}</td>
-                            <td>${gramaje}</td>
-                            <td>${ancho}</td>
-                            <td>${existencia}</td>
+                            <td class="table__td">${linea}</td>
+                            <td class="table__td">${gramaje}</td>
+                            <td class="table__td">${ancho}</td>
+                            <td class="table__td">${existencia}</td>
                         `;
                         tableBody.appendChild(row);
                     }
-                });
-            });
-        }
-
-        // Inicializar DataTables
-        function initializeDataTable() {
-            $(document).ready(function () {
-                $('#dataTable').DataTable({
-                    paging: true,
-                    searching: true,
-                    ordering: true,
-                    responsive: true
                 });
             });
         }
