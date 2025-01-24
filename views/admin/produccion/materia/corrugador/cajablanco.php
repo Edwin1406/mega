@@ -36,7 +36,8 @@
         // Procesar datos para el gráfico
         const categories = [...new Set(data.map(item => item.ancho))]; // Valores únicos de 'ancho' para el eje X
         const gramajes = [...new Set(data.map(item => item.gramaje))]; // Gramajes únicos
-
+        console.log(categories);
+        console.log(gramajes);
         // Crear series para cada gramaje
         const series = gramajes.map(gramaje => ({
           name: `Gramaje ${gramaje}`,
