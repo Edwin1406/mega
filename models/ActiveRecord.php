@@ -240,18 +240,16 @@ public static function menosDeCien($orden = 'DESC') {
     }
 
 
-    // Obtener gramajes, anchos únicos y suma total de existencia
-public static function obtenerDetallesUnicos($orden = 'DESC', $gramaje = null) {
+ // Obtener gramajes, anchos únicos y suma total de existencia con filtro "MICRO"
+public static function obtenerDetallesMicro($orden = 'DESC', $linea = 'MICRO') {
     // Construye la consulta SQL base
     $query = "SELECT gramaje, ancho, SUM(existencia) as total_existencia 
               FROM " . static::$tabla;
 
-    // Agrega una cláusula WHERE si se proporciona un valor para $gramaje
-    if ($gramaje !== null) {
-        $query .= " WHERE gramaje = " . intval($gramaje);
-    }
+    // Agrega una cláusula WHERE para filtrar por "linea" (ejemplo: "MICRO")
+    $query .= " WHERE linea LIKE '%" . addslashes($linea) . "%'";
 
-    // Agrupa por gramaje y ancho para evitar duplicados
+    // Agrupa por gramaje y ancho
     $query .= " GROUP BY gramaje, ancho";
 
     // Agrega la cláusula ORDER BY
@@ -259,7 +257,9 @@ public static function obtenerDetallesUnicos($orden = 'DESC', $gramaje = null) {
 
     // Ejecuta la consulta y devuelve el resultado
     $resultado = self::consultarSQL($query);
-    return $resultado;
+
+    // Convierte el resultado a formato JSON
+    return json_encode($resultado);
 }
 
 

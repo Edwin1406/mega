@@ -418,7 +418,7 @@ class MateriaPrimaController
         header("Access-Control-Allow-Origin: *");
         header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
         header("Access-Control-Allow-Headers: Content-Type, Authorization");
-        $corrugador = MateriaPrimaV::obtenerDetallesUnicos('ASC', 'MICRO');
+        $corrugador = MateriaPrimaV::obtenerDetallesMicro('ASC', 'MICRO');
          echo json_encode($corrugador);
          exit;
          
