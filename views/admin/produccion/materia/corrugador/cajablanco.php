@@ -13,21 +13,31 @@
 </ul>
 
 
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tabla con Clases Personalizadas</title>
-    <link rel="stylesheet" href="URL_DE_TU_CSS_PERSONALIZADO"> <!-- Reemplaza con la ruta a tu archivo CSS -->
+    <title>Tabla Interactiva con Clases Personalizadas</title>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <link rel="stylesheet" href="URL_DE_TU_CSS_PERSONALIZADO"> <!-- Reemplaza con la ruta a tu archivo CSS -->
     <style>
         body {
             font-family: Arial, sans-serif;
             margin: 20px;
             background-color: #f4f4f9;
+        }
+        .filters {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        select {
+            padding: 8px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
         }
     </style>
 </head>
@@ -45,7 +55,7 @@
             </select>
         </div>
 
-        <table class="table">
+        <table class="table" id="dataTable">
             <thead class="table__thead">
                 <tr>
                     <th scope="col" class="table__th">Línea</th>
@@ -54,7 +64,7 @@
                     <th scope="col" class="table__th">Existencias</th>
                 </tr>
             </thead>
-            <tbody class="table__tbody" id="dataTable">
+            <tbody class="table__tbody">
                 <!-- Contenido dinámico -->
             </tbody>
         </table>
@@ -72,6 +82,7 @@
                 originalData = data;
                 populateFilters(data);
                 populateTable(data);
+                initializeDataTable();
             })
             .catch(error => console.error('Error al cargar los datos:', error));
 
@@ -108,7 +119,7 @@
 
         // Poblar la tabla
         function populateTable(data) {
-            const tableBody = document.getElementById('dataTable');
+            const tableBody = document.querySelector('#dataTable .table__tbody');
             tableBody.innerHTML = ''; // Limpiar contenido previo
 
             Object.keys(data).forEach(linea => {
@@ -137,7 +148,7 @@
             const selectedGramaje = document.getElementById('filterGramaje').value;
             const selectedAncho = document.getElementById('filterAncho').value;
 
-            const tableBody = document.getElementById('dataTable');
+            const tableBody = document.querySelector('#dataTable .table__tbody');
             tableBody.innerHTML = ''; // Limpiar contenido previo
 
             Object.keys(originalData).forEach(linea => {
@@ -159,6 +170,36 @@
                             <td class="table__td">${existencia}</td>
                         `;
                         tableBody.appendChild(row);
+                    }
+                });
+            });
+
+            // Actualizar DataTables
+            $('#dataTable').DataTable().clear().destroy(); // Limpiar configuración previa
+            initializeDataTable();
+        }
+
+        // Inicializar DataTables
+        function initializeDataTable() {
+            $(document).ready(function () {
+                $('#dataTable').DataTable({
+                    paging: true,
+                    searching: true,
+                    ordering: true,
+                    responsive: true,
+                    language: {
+                        lengthMenu: "Mostrar _MENU_ registros por página",
+                        zeroRecords: "No se encontraron resultados",
+                        info: "Mostrando _START_ a _END_ de _TOTAL_ registros",
+                        infoEmpty: "No hay registros disponibles",
+                        infoFiltered: "(filtrado de _MAX_ registros totales)",
+                        search: "Buscar:",
+                        paginate: {
+                            first: "Primero",
+                            last: "Último",
+                            next: "Siguiente",
+                            previous: "Anterior"
+                        },
                     }
                 });
             });
