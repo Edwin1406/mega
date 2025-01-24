@@ -12,7 +12,6 @@
 
 </ul>
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -23,33 +22,102 @@
   <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f9;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+    .container {
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      max-width: 1200px;
+      width: 100%;
+      margin: 20px;
+    }
+    #chart {
+      margin-bottom: 20px;
+    }
+    table.dataTable {
+      border-collapse: collapse;
+      width: 100%;
+      border: 1px solid #ddd;
+    }
+    table.dataTable thead th {
+      background-color: #f9fafb;
+      color: #333;
+      font-weight: bold;
+      padding: 10px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+    table.dataTable tbody td {
+      padding: 10px;
+      border-bottom: 1px solid #ddd;
+      color: #555;
+    }
+    table.dataTable tbody tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+    label {
+      font-size: 14px;
+      font-weight: bold;
+      margin-right: 10px;
+      color: #555;
+    }
+    select {
+      padding: 5px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      background-color: #fff;
+      color: #333;
+    }
+    select:focus {
+      outline: none;
+      border-color: #007bff;
+    }
+    #chart {
+      background-color: #f9fafb;
+      padding: 15px;
+      border-radius: 8px;
+    }
+  </style>
 </head>
 <body>
-  <div>
-    <label for="gramajeFilter">Filtrar por Gramaje:</label>
-    <select id="gramajeFilter">
-      <option value="">Todos</option>
-    </select>
+  <div class="container">
+    <div>
+      <label for="gramajeFilter">Filtrar por Gramaje:</label>
+      <select id="gramajeFilter">
+        <option value="">Todos</option>
+      </select>
 
-    <label for="anchoFilter">Filtrar por Ancho:</label>
-    <select id="anchoFilter">
-      <option value="">Todos</option>
-    </select>
+      <label for="anchoFilter">Filtrar por Ancho:</label>
+      <select id="anchoFilter">
+        <option value="">Todos</option>
+      </select>
+    </div>
+
+    <div id="chart" style="width: 100%; height: 400px;"></div>
+
+    <table id="dataTable" class="display" style="width:100%">
+      <thead>
+        <tr>
+          <th>Línea</th>
+          <th>Gramaje</th>
+          <th>Ancho</th>
+          <th>Existencias</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
   </div>
-
-  <div id="chart" style="width: 100%; height: 400px;"></div>
-
-  <table id="dataTable" class="display" style="width:100%">
-    <thead>
-      <tr>
-        <th>Línea</th>
-        <th>Gramaje</th>
-        <th>Ancho</th>
-        <th>Existencias</th>
-      </tr>
-    </thead>
-    <tbody></tbody>
-  </table>
 
   <script>
     $(document).ready(function () {
@@ -157,6 +225,3 @@
   </script>
 </body>
 </html>
-
-
-
