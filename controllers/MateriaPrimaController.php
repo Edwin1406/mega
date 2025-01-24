@@ -415,8 +415,6 @@ class MateriaPrimaController
 
     public static function apicajablanco (){
         $corrugador = MateriaPrimaV::allc('DESC', 'MICRO');
-
-       
          echo json_encode($corrugador);
          exit;
          
