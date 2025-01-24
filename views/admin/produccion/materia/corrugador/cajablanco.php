@@ -114,7 +114,7 @@
 </body>
 </html>
 <script>
-   document.addEventListener('DOMContentLoaded', function () {
+  document.addEventListener('DOMContentLoaded', function () {
     const apiUrl = "https://megawebsistem.com/admin/api/apicajablanco";
     const gramajeContainer = document.getElementById('gramajeContainer');
     const infoModal = document.getElementById('infoModal');
@@ -174,18 +174,21 @@
                     const anchoSelect = this.previousElementSibling;
                     const anchoSeleccionado = anchoSelect.value;
 
-                    // Buscar los datos específicos de la API
-                    const categoria = Object.values(data).find(categoria =>
-                        categoria.gramajes.includes(parseInt(gramaje)) &&
-                        categoria.anchos.includes(anchoSeleccionado)
-                    );
+                    // Buscar los datos específicos del gramaje y ancho
+                    let existencia = null;
+                    for (const tipo in data) {
+                        if (data.hasOwnProperty(tipo)) {
+                            const { gramajes, anchos, data: existencias } = data[tipo];
+                            gramajes.forEach((g, index) => {
+                                if (g == gramaje && anchos[index] == anchoSeleccionado) {
+                                    existencia = existencias[index];
+                                }
+                            });
+                        }
+                    }
 
-                    if (categoria) {
-                        const existencia = categoria.data.find((_, i) =>
-                            categoria.gramajes[i] == gramaje &&
-                            categoria.anchos[i] == anchoSeleccionado
-                        );
-
+                    // Validar si se encontró la información
+                    if (existencia !== null) {
                         // Mostrar información en el modal
                         modalContent.innerHTML = `
                             <p><strong>Gramaje:</strong> ${gramaje}</p>
@@ -194,6 +197,8 @@
                         `;
                         infoModal.style.display = 'block';
                         modalOverlay.style.display = 'block';
+                    } else {
+                        alert('No se encontró información para la combinación seleccionada.');
                     }
                 });
             });
