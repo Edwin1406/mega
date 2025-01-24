@@ -17,8 +17,6 @@
 
 
 
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -136,15 +134,15 @@
         .then((response) => response.json())
         .then((data) => {
           // Prepare data for the chart and table
-          const chartData = [];
+          const seriesData = [];
           const uniqueGramajes = new Set();
           const uniqueAnchos = new Set();
           const tableData = [];
 
           data.forEach((item) => {
-            chartData.push({
-              x: `${item.gramaje} / ${item.ancho}`,
-              y: parseInt(item.existencia),
+            seriesData.push({
+              name: item.linea,
+              data: [{ x: `${item.gramaje} / ${item.ancho}`, y: parseInt(item.existencia) }],
             });
             uniqueGramajes.add(item.gramaje);
             uniqueAnchos.add(item.ancho);
@@ -172,34 +170,17 @@
           // Initialize chart
           const chart = new ApexCharts(document.querySelector("#chart"), {
             chart: {
-              type: "bar",
+              type: "line",
               height: 400,
               toolbar: {
                 show: true,
-                tools: {
-                  download: true,
-                  zoom: true,
-                  zoomin: true,
-                  zoomout: true,
-                  pan: true,
-                  reset: true,
-                },
-                autoSelected: 'zoom',
               },
             },
-            series: [
-              {
-                name: "Existencias",
-                data: chartData,
-              },
-            ],
+            series: seriesData,
             xaxis: {
               type: "category",
               labels: {
                 rotate: -45,
-              },
-              scrollbar: {
-                enabled: true,
               },
             },
             yaxis: {
@@ -211,11 +192,6 @@
             },
             dataLabels: {
               enabled: false,
-            },
-            plotOptions: {
-              bar: {
-                horizontal: false,
-              },
             },
             tooltip: {
               enabled: true,
@@ -250,19 +226,17 @@
             ).draw();
 
             // Filter chart
-            const filteredChartData = chartData.filter((data) => {
-              const [gramaje, ancho] = data.x.split(" / ");
-              const gramajeMatch = !selectedGramaje || gramaje == selectedGramaje;
-              const anchoMatch = !selectedAncho || ancho == selectedAncho;
-              return gramajeMatch && anchoMatch;
-            });
+            const filteredSeriesData = seriesData.map((series) => ({
+              name: series.name,
+              data: series.data.filter((point) => {
+                const [gramaje, ancho] = point.x.split(" / ");
+                const gramajeMatch = !selectedGramaje || gramaje == selectedGramaje;
+                const anchoMatch = !selectedAncho || ancho == selectedAncho;
+                return gramajeMatch && anchoMatch;
+              }),
+            }));
 
-            chart.updateSeries([
-              {
-                name: "Existencias",
-                data: filteredChartData,
-              },
-            ]);
+            chart.updateSeries(filteredSeriesData);
           });
         })
         .catch((error) => console.error("Error fetching data:", error));
