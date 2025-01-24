@@ -12,6 +12,15 @@
 
 </ul>
 
+
+
+
+
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -87,6 +96,7 @@
       background-color: #f9fafb;
       padding: 15px;
       border-radius: 8px;
+      overflow-x: auto;
     }
   </style>
 </head>
@@ -186,6 +196,9 @@
               type: "category",
               labels: {
                 rotate: -45,
+              },
+              scrollbar: {
+                enabled: true,
               },
             },
             yaxis: {
