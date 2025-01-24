@@ -17,143 +17,175 @@
 
 
 
-
-
-
-
-
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Representación de Datos</title>
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <title>Selector de Gramajes y Anchos</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .gramaje-container {
+            display: flex;
+            gap: 20px;
+        }
+        .gramaje-box {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
+            text-align: center;
+            width: 150px;
+        }
+        .ancho-select {
+            margin-top: 10px;
+            width: 100%;
+            padding: 5px;
+        }
+        .btn-ver-info {
+            margin-top: 10px;
+            padding: 5px 10px;
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .btn-ver-info:hover {
+            background-color: #0056b3;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1000;
+            background: #fff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 20px;
+            width: 300px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .modal-header {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .modal-close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+            font-size: 18px;
+            color: #333;
+        }
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+        }
+    </style>
 </head>
 <body>
-    <h1>Visualización de Datos</h1>
+    <h1>Lista de Gramajes</h1>
+    <div class="gramaje-container" id="gramajeContainer">
+        <!-- Los gramajes se generarán dinámicamente -->
+    </div>
 
-    <h2>Gráfica: Existencia por Gramaje y Ancho</h2>
-    <canvas id="graficoBarras" width="800" height="400"></canvas>
+    <!-- Modal -->
+    <div class="overlay" id="modalOverlay"></div>
+    <div class="modal" id="infoModal">
+        <span class="modal-close" id="closeModal">&times;</span>
+        <div class="modal-header">Información</div>
+        <div id="modalContent">
+            <!-- Aquí se mostrará la información -->
+        </div>
+    </div>
 
-    <h2>Tabla Detallada</h2>
-    <table id="tablaDatos" class="display" style="width:100%">
-        <thead>
-            <tr>
-                <th>Categoría</th>
-                <th>Gramaje</th>
-                <th>Total Existencia</th>
-                <th>Detalles</th>
-            </tr>
-        </thead>
-        <tbody>
-        </tbody>
-    </table>
+    <script src="script.js"></script>
 </body>
 </html>
-<SCRIpt>
-    $(document).ready(function () {
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
     const apiUrl = "https://megawebsistem.com/admin/api/apicajablanco";
+    const gramajeContainer = document.getElementById('gramajeContainer');
+    const infoModal = document.getElementById('infoModal');
+    const modalContent = document.getElementById('modalContent');
+    const modalOverlay = document.getElementById('modalOverlay');
+    const closeModal = document.getElementById('closeModal');
 
+    // Cargar datos desde la API
     fetch(apiUrl)
         .then(response => response.json())
         .then(data => {
-            const labels = [];
-            const datasets = [];
-            const tablaData = [];
-
             // Procesar los datos por categoría
             for (const tipo in data) {
                 if (data.hasOwnProperty(tipo)) {
-                    const { gramajes, anchos, data: existencias, labels: etiquetas } = data[tipo];
+                    const { gramajes, anchos, data: existencias } = data[tipo];
 
-                    // Acumular datos para la gráfica
+                    // Crear una caja para cada gramaje
                     gramajes.forEach((gramaje, index) => {
-                        const ancho = anchos[index];
-                        const existencia = existencias[index];
+                        const gramajeBox = document.createElement('div');
+                        gramajeBox.classList.add('gramaje-box');
 
-                        // Si no existe el gramaje en la gráfica, inicializar
-                        if (!datasets[gramaje]) {
-                            datasets[gramaje] = { label: `Gramaje ${gramaje}`, data: [], backgroundColor: randomColor() };
-                            labels.push(ancho); // Añadir anchos como etiquetas
-                        }
+                        gramajeBox.innerHTML = `
+                            <h3>Gramaje ${gramaje}</h3>
+                            <select class="ancho-select" data-gramaje="${gramaje}">
+                                ${anchos
+                                    .filter((_, i) => gramajes[i] === gramaje)
+                                    .map(ancho => `<option value="${ancho}">${ancho}</option>`)
+                                    .join('')}
+                            </select>
+                            <button class="btn-ver-info" data-gramaje="${gramaje}">Ver Información</button>
+                        `;
 
-                        // Añadir existencia al gramaje correspondiente
-                        datasets[gramaje].data.push(existencia);
-
-                        // Añadir fila a la tabla
-                        tablaData.push({
-                            tipo,
-                            gramaje,
-                            ancho,
-                            existencia
-                        });
+                        gramajeContainer.appendChild(gramajeBox);
                     });
                 }
             }
 
-            // Configurar la gráfica
-            const ctx = document.getElementById('graficoBarras').getContext('2d');
-            const chart = new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: labels, // Los anchos
-                    datasets: Object.values(datasets)
-                },
-                options: {
-                    responsive: true,
-                    plugins: {
-                        legend: { display: true }
-                    },
-                    scales: {
-                        x: { stacked: true },
-                        y: { stacked: true, beginAtZero: true }
-                    }
-                }
-            });
+            // Agregar evento a los botones de información
+            document.querySelectorAll('.btn-ver-info').forEach(button => {
+                button.addEventListener('click', function () {
+                    const gramaje = this.getAttribute('data-gramaje');
+                    const anchoSelect = this.previousElementSibling;
+                    const anchoSeleccionado = anchoSelect.value;
 
-            // Configurar la tabla con detalles
-            const tabla = $('#tablaDatos').DataTable({
-                data: tablaData,
-                columns: [
-                    { data: 'tipo' },
-                    { data: 'gramaje' },
-                    { 
-                        data: 'existencia',
-                        render: function (data, type, row) {
-                            return `<strong>${data}</strong>`;
-                        }
-                    },
-                    { 
-                        data: null,
-                        render: function (data, type, row) {
-                            return `<button class="btnDetalles" data-tipo="${row.tipo}" data-gramaje="${row.gramaje}">Ver Anchos</button>`;
-                        }
-                    }
-                ]
-            });
+                    const existencia = data[tipo].data.find((_, i) => {
+                        return data[tipo].gramajes[i] == gramaje && data[tipo].anchos[i] == anchoSeleccionado;
+                    });
 
-            // Evento para mostrar detalles
-            $('#tablaDatos tbody').on('click', '.btnDetalles', function () {
-                const gramaje = $(this).data('gramaje');
-                const tipo = $(this).data('tipo');
-                const detalles = tablaData.filter(item => item.gramaje == gramaje && item.tipo == tipo);
-
-                // Mostrar los detalles en un modal o una subtabla
-                alert(`Detalles para ${tipo} - Gramaje ${gramaje}:\n` + 
-                    detalles.map(d => `Ancho: ${d.ancho}, Existencia: ${d.existencia}`).join('\n'));
+                    // Mostrar información en el modal
+                    modalContent.innerHTML = `
+                        <p><strong>Gramaje:</strong> ${gramaje}</p>
+                        <p><strong>Ancho:</strong> ${anchoSeleccionado}</p>
+                        <p><strong>Existencia:</strong> ${existencia}</p>
+                    `;
+                    infoModal.style.display = 'block';
+                    modalOverlay.style.display = 'block';
+                });
             });
         })
-        .catch(error => console.error('Error al cargar datos de la API:', error));
+        .catch(error => console.error('Error al cargar datos:', error));
 
-    // Función para generar colores aleatorios
-    function randomColor() {
-        return `rgba(${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, 0.6)`;
-    }
+    // Cerrar el modal
+    closeModal.addEventListener('click', function () {
+        infoModal.style.display = 'none';
+        modalOverlay.style.display = 'none';
+    });
+
+    modalOverlay.addEventListener('click', function () {
+        infoModal.style.display = 'none';
+        modalOverlay.style.display = 'none';
+    });
 });
 
-</SCRIpt>
+</script>
