@@ -412,18 +412,27 @@ class MateriaPrimaController
         
     }
 
-
-    public static function apicajablanco (){
-        // cors
+    public static function apicajablanco() {
+        // CORS
         header("Access-Control-Allow-Origin: *");
         header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
         header("Access-Control-Allow-Headers: Content-Type, Authorization");
+        header("Content-Type: application/json"); // Asegura que el contenido sea JSON
+    
+        // Obtén los datos
         $corrugador = MateriaPrimaV::obtenerDetallesMicro('ASC', 'MICRO');
-         echo json_encode($corrugador);
-         exit;
-         
+    
+        // Verifica si $corrugador ya es un JSON
+        if (is_string($corrugador)) {
+            // Si ya está en formato JSON, lo imprimes directamente
+            echo $corrugador;
+        } else {
+            // Si no es un JSON, lo codificas
+            echo json_encode($corrugador);
+        }
+        exit;
     }
-
+    
 
 
 
