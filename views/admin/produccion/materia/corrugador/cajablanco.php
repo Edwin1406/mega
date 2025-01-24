@@ -25,11 +25,7 @@
     <title>Gráfico Filtrado</title>
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-            background-color: #f4f4f9;
-        }
+       
         .filters {
             display: flex;
             gap: 10px;
