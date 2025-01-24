@@ -11,6 +11,7 @@
 
 
 </ul>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -20,7 +21,7 @@
   <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 </head>
 <body>
-  <h1>Gráfico de Existencias por Ancho</h1>
+  <h1>Gráfico de Existencias por Gramaje</h1>
   <div id="chart" style="max-width: 800px; margin: auto;"></div>
 
   <script>
@@ -32,17 +33,17 @@
         const response = await fetch(apiUrl);
         const data = await response.json();
 
-        // Obtener categorías únicas (anchos) y gramajes únicos
-        const categories = [...new Set(data.map(item => item.ancho))]; // Anchos únicos
+        // Obtener categorías únicas (gramajes) y series por anchos
         const gramajes = [...new Set(data.map(item => item.gramaje))]; // Gramajes únicos
+        const anchos = [...new Set(data.map(item => item.ancho))]; // Anchos únicos
 
-        // Crear series para cada gramaje
-        const series = gramajes.map(gramaje => ({
-          name: `Gramaje ${gramaje}`,
-          data: categories.map(ancho => {
+        // Crear series para cada ancho
+        const series = anchos.map(ancho => ({
+          name: `Ancho ${ancho}`,
+          data: gramajes.map(gramaje => {
             const item = data.find(entry => entry.ancho === ancho && entry.gramaje === gramaje);
             return item ? parseInt(item.existencia, 10) : 0; // Existencias
-          })
+          }),
         }));
 
         // Configuración del gráfico
@@ -58,7 +59,7 @@
           },
           plotOptions: {
             bar: {
-              horizontal: false,
+              horizontal: true, // Barras horizontales
               borderRadius: 4,
             },
           },
@@ -67,19 +68,18 @@
             formatter: (val) => val, // Mostrar valores en las barras
           },
           xaxis: {
-            categories: categories, // Anchos en el eje X
+            categories: gramajes, // Gramajes en el eje X
             title: {
-              text: 'Anchos',
+              text: 'Gramajes',
             },
           },
           yaxis: {
             title: {
-              text: 'Existencias Totales',
+              text: 'Anchos',
             },
           },
           legend: {
-            position: 'right',
-            offsetY: 40,
+            position: 'top',
           },
           fill: {
             opacity: 1,
