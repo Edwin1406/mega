@@ -85,9 +85,6 @@
 
 
 
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -270,12 +267,7 @@
                 data: data[linea].data
             }));
 
-            const labels = [];
-            Object.values(data).forEach(linea => {
-                linea.labels.forEach(label => {
-                    labels.push(label || "Sin Datos");
-                });
-            });
+            const labels = Object.keys(data).flatMap(linea => data[linea].labels);
 
             const options = {
                 series: series,
