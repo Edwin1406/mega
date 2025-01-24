@@ -165,6 +165,7 @@ $router->get('/admin/produccion/materia/corrugador/cajamedium', [MateriaPrimaCon
 
 // API CORRUGADOR 
 $router->get('/admin/api/apicorrugador', [MateriaPrimaController::class, 'apicorrugador']);
+$router->get('/admin/api/apicajacraft', [MateriaPrimaController::class, 'apicajacraft']);
 
 
 // MICROCORRUGADOR
