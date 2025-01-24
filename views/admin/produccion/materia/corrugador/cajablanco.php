@@ -166,7 +166,7 @@
                 enabled: true,
                 easing: "linear",
                 dynamicAnimation: {
-                  speed: 1000,
+                  speed: 100,
                 },
               },
               toolbar: {
@@ -218,7 +218,7 @@
                   },
                 ]);
               });
-          }, 5000);
+          }, 500);
 
           // Initialize DataTable
           const dataTable = $("#dataTable").DataTable({
