@@ -13,9 +13,6 @@
 </ul>
 
 
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -27,7 +24,16 @@
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
   <style>
-   
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f9;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
     .container {
       background-color: #fff;
       border-radius: 8px;
@@ -119,30 +125,93 @@
     $(document).ready(function () {
       const apiUrl = "https://megawebsistem.com/admin/api/apicajablanco";
 
-      // Fetch data from API
+      const chart = new ApexCharts(document.querySelector("#chart"), {
+        chart: {
+          type: "bar",
+          height: 400,
+          animations: {
+            enabled: true,
+            easing: "easeinout",
+            speed: 800,
+            animateGradually: {
+              enabled: true,
+              delay: 150,
+            },
+            dynamicAnimation: {
+              enabled: true,
+              speed: 350,
+            },
+          },
+        },
+        series: [
+          {
+            name: "Existencias",
+            data: [],
+          },
+        ],
+        xaxis: {
+          type: "category",
+          labels: {
+            rotate: -45,
+          },
+        },
+        yaxis: {
+          labels: {
+            formatter: function (val) {
+              return parseInt(val);
+            },
+          },
+        },
+        dataLabels: {
+          enabled: false,
+        },
+        tooltip: {
+          enabled: true,
+        },
+      });
+
+      chart.render();
+
+      function updateChart() {
+        fetch(apiUrl)
+          .then((response) => response.json())
+          .then((data) => {
+            const chartData = data.map((item) => ({
+              x: `${item.gramaje} / ${item.ancho}`,
+              y: parseInt(item.existencia),
+            }));
+
+            chart.updateSeries([
+              {
+                name: "Existencias",
+                data: chartData,
+              },
+            ]);
+          })
+          .catch((error) => console.error("Error fetching data:", error));
+      }
+
+      // Update chart every 5 seconds
+      setInterval(updateChart, 5000);
+
+      // Fetch initial data for the table and chart
       fetch(apiUrl)
         .then((response) => response.json())
         .then((data) => {
-          // Prepare data for the chart and table
-          const seriesData = [];
+          const tableData = [];
           const uniqueGramajes = new Set();
           const uniqueAnchos = new Set();
-          const tableData = [];
 
           data.forEach((item) => {
-            seriesData.push({
-              x: `${item.gramaje} / ${item.ancho}`,
-              y: parseInt(item.existencia),
-            });
-            uniqueGramajes.add(item.gramaje);
-            uniqueAnchos.add(item.ancho);
-
             tableData.push([
               item.linea,
               item.gramaje,
               item.ancho,
               item.existencia,
             ]);
+
+            uniqueGramajes.add(item.gramaje);
+            uniqueAnchos.add(item.ancho);
           });
 
           // Populate filters
@@ -156,69 +225,6 @@
               `<option value="${ancho}">${ancho}</option>`
             );
           });
-
-          // Initialize chart
-          const chart = new ApexCharts(document.querySelector("#chart"), {
-            chart: {
-              type: "bar",
-              height: 400,
-              animations: {
-                enabled: true,
-                easing: "linear",
-                dynamicAnimation: {
-                  speed: 100,
-                },
-              },
-              toolbar: {
-                show: true,
-              },
-            },
-            series: [
-              {
-                name: "Existencias",
-                data: seriesData,
-              },
-            ],
-            xaxis: {
-              type: "category",
-              labels: {
-                rotate: -45,
-              },
-            },
-            yaxis: {
-              labels: {
-                formatter: function (val) {
-                  return parseInt(val);
-                },
-              },
-            },
-            dataLabels: {
-              enabled: false,
-            },
-            tooltip: {
-              enabled: true,
-            },
-          });
-          chart.render();
-
-          // Simulate real-time updates
-          setInterval(() => {
-            fetch(apiUrl)
-              .then((response) => response.json())
-              .then((updatedData) => {
-                const updatedSeriesData = updatedData.map((item) => ({
-                  x: `${item.gramaje} / ${item.ancho}`,
-                  y: parseInt(item.existencia),
-                }));
-
-                chart.updateSeries([
-                  {
-                    name: "Existencias",
-                    data: updatedSeriesData,
-                  },
-                ]);
-              });
-          }, 500);
 
           // Initialize DataTable
           const dataTable = $("#dataTable").DataTable({
@@ -236,7 +242,6 @@
             const selectedGramaje = $("#gramajeFilter").val();
             const selectedAncho = $("#anchoFilter").val();
 
-            // Filter table
             dataTable.clear().rows.add(
               tableData.filter((row) => {
                 const gramajeMatch =
@@ -245,21 +250,6 @@
                 return gramajeMatch && anchoMatch;
               })
             ).draw();
-
-            // Filter chart
-            const filteredSeriesData = seriesData.filter((data) => {
-              const [gramaje, ancho] = data.x.split(" / ");
-              const gramajeMatch = !selectedGramaje || gramaje == selectedGramaje;
-              const anchoMatch = !selectedAncho || ancho == selectedAncho;
-              return gramajeMatch && anchoMatch;
-            });
-
-            chart.updateSeries([
-              {
-                name: "Existencias",
-                data: filteredSeriesData,
-              },
-            ]);
           });
         })
         .catch((error) => console.error("Error fetching data:", error));
