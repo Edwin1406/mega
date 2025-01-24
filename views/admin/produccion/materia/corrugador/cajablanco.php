@@ -24,11 +24,7 @@
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
     <link rel="stylesheet" href="URL_DE_TU_CSS_PERSONALIZADO"> <!-- Reemplaza con la ruta a tu archivo CSS -->
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-            background-color: #f4f4f9;
-        }
+    
         .filters {
             display: flex;
             gap: 10px;
