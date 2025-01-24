@@ -89,6 +89,7 @@
   color: #FFFFFF;
 }
 .lista-areas-produccion .areas-produccion-craft {
+  border-radius: 1rem;
   background-color: #40c5a4;
   min-height: 12rem;
   padding: 2rem;
