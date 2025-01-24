@@ -238,20 +238,6 @@ public static function menosDeCien($orden = 'DESC') {
         $resultado = self::consultarSQL($query);
         return $resultado;
     }
-    public static function obtenerDetallesMicro($orden = 'DESC', $linea = 'MICRO') {
-        // Construye la consulta SQL para obtener solo las columnas necesarias
-        $query = "SELECT gramaje, ancho, SUM(existencia) as total_existencia 
-                  FROM " . static::$tabla . "
-                  WHERE linea LIKE '%" . addslashes($linea) . "%'
-                  GROUP BY gramaje, ancho
-                  ORDER BY gramaje {$orden}, ancho {$orden}";
-    
-        // Ejecuta la consulta y devuelve el resultado
-        $resultado = self::consultarSQL($query);
-    
-        // Retorna el resultado directamente como un array
-        return $resultado;
-    }
     
 
     
