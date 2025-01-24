@@ -141,6 +141,8 @@
                     const existencia = lineaData.data[index];
 
                     const row = document.createElement('tr');
+                    // CLASE AL TR
+                    row.classList.add('table__tr');
                     row.innerHTML = `
                         <td class="table__td">${linea}</td>
                         <td class="table__td">${gramaje}</td>
