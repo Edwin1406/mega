@@ -202,6 +202,9 @@
             $('#dataTable').DataTable().clear().destroy(); // Eliminar la instancia previa
             initializeDataTable(); // Reinicializar DataTables
         }
+        console.log('Selected Gramaje:', selectedGramaje);
+console.log('Selected Ancho:', selectedAncho);
+console.log('Data Gramajes:', gramaje, 'Data Anchos:', ancho);
 
         // Inicializar DataTables
         function initializeDataTable() {
