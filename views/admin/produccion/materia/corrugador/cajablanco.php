@@ -16,7 +16,6 @@
 
 
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -141,8 +140,8 @@
 
           data.forEach((item) => {
             seriesData.push({
-              name: item.linea,
-              data: [{ x: `${item.gramaje} / ${item.ancho}`, y: parseInt(item.existencia) }],
+              x: `${item.gramaje} / ${item.ancho}`,
+              y: parseInt(item.existencia),
             });
             uniqueGramajes.add(item.gramaje);
             uniqueAnchos.add(item.ancho);
@@ -170,13 +169,25 @@
           // Initialize chart
           const chart = new ApexCharts(document.querySelector("#chart"), {
             chart: {
-              type: "line",
+              type: "bar",
               height: 400,
+              animations: {
+                enabled: true,
+                easing: "linear",
+                dynamicAnimation: {
+                  speed: 1000,
+                },
+              },
               toolbar: {
                 show: true,
               },
             },
-            series: seriesData,
+            series: [
+              {
+                name: "Existencias",
+                data: seriesData,
+              },
+            ],
             xaxis: {
               type: "category",
               labels: {
@@ -198,6 +209,25 @@
             },
           });
           chart.render();
+
+          // Simulate real-time updates
+          setInterval(() => {
+            fetch(apiUrl)
+              .then((response) => response.json())
+              .then((updatedData) => {
+                const updatedSeriesData = updatedData.map((item) => ({
+                  x: `${item.gramaje} / ${item.ancho}`,
+                  y: parseInt(item.existencia),
+                }));
+
+                chart.updateSeries([
+                  {
+                    name: "Existencias",
+                    data: updatedSeriesData,
+                  },
+                ]);
+              });
+          }, 5000);
 
           // Initialize DataTable
           const dataTable = $("#dataTable").DataTable({
@@ -226,17 +256,19 @@
             ).draw();
 
             // Filter chart
-            const filteredSeriesData = seriesData.map((series) => ({
-              name: series.name,
-              data: series.data.filter((point) => {
-                const [gramaje, ancho] = point.x.split(" / ");
-                const gramajeMatch = !selectedGramaje || gramaje == selectedGramaje;
-                const anchoMatch = !selectedAncho || ancho == selectedAncho;
-                return gramajeMatch && anchoMatch;
-              }),
-            }));
+            const filteredSeriesData = seriesData.filter((data) => {
+              const [gramaje, ancho] = data.x.split(" / ");
+              const gramajeMatch = !selectedGramaje || gramaje == selectedGramaje;
+              const anchoMatch = !selectedAncho || ancho == selectedAncho;
+              return gramajeMatch && anchoMatch;
+            });
 
-            chart.updateSeries(filteredSeriesData);
+            chart.updateSeries([
+              {
+                name: "Existencias",
+                data: filteredSeriesData,
+              },
+            ]);
           });
         })
         .catch((error) => console.error("Error fetching data:", error));
