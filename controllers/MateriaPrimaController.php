@@ -315,7 +315,7 @@ class MateriaPrimaController
 
 
     public static function apicorrugador (){
-        $corrugador = MateriaPrimaV::allc('DESC', 'CAJA-KRAFT');
+        $corrugador = MateriaPrimaV::all();
         $jsoncorrugador = json_encode($corrugador);
         $data = json_decode($jsoncorrugador, true);
     
