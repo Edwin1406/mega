@@ -20,18 +20,25 @@
 
 
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gráfico Horizontal con API</title>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <title>Gráfico Horizontal con ApexCharts</title>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <style>
         body {
             font-family: Arial, sans-serif;
             margin: 20px;
+        }
+        .filters {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        select {
+            padding: 5px;
         }
         .chart-container {
             width: 80%;
@@ -40,81 +47,183 @@
     </style>
 </head>
 <body>
+    <div class="filters">
+        <label for="filterGramaje">Filtrar por Gramaje:</label>
+        <select id="filterGramaje">
+            <option value="Todos">Todos</option>
+        </select>
+
+        <label for="filterAncho">Filtrar por Ancho:</label>
+        <select id="filterAncho">
+            <option value="Todos">Todos</option>
+        </select>
+    </div>
+
     <div class="chart-container">
-        <canvas id="horizontalChart"></canvas>
+        <div id="chart"></div>
     </div>
 
     <script>
-        // URL de tu API
-        const apiUrl = 'https://megawebsistem.com/admin/api/apicajablanco';
+        const apiUrl = 'https://megawebsistem.com/admin/api/apicajablanco'; // Cambia con la URL real de tu API
 
-        // Llamar a la API
+        let originalData; // Almacena los datos originales
+        let chart; // Referencia al gráfico
+
+        // Llamar a la API y cargar los datos
         fetch(apiUrl)
             .then(response => response.json())
             .then(data => {
-                // Preparar datos para Chart.js
-                const labels = [];
-                const gramajeData = [];
-                const anchoData = [];
-
-                Object.keys(data).forEach(linea => {
-                    const lineaData = data[linea];
-
-                    // Para cada línea, obtener datos de gramaje y ancho
-                    lineaData.labels.forEach((label, index) => {
-                        labels.push(`${linea} (${label})`); // Combina línea y etiqueta
-                        gramajeData.push(lineaData.gramajes[index]); // Gramaje
-                        anchoData.push(lineaData.anchos[index]); // Ancho
-                    });
-                });
-
-                // Configuración del gráfico
-                const config = {
-                    type: 'bar',
-                    data: {
-                        labels: labels, // Etiquetas con la combinación de línea y gramaje/ancho
-                        datasets: [
-                            {
-                                label: 'Gramaje',
-                                data: gramajeData,
-                                backgroundColor: 'rgba(54, 162, 235, 0.5)',
-                                borderColor: 'rgba(54, 162, 235, 1)',
-                                borderWidth: 1
-                            },
-                            {
-                                label: 'Ancho',
-                                data: anchoData,
-                                backgroundColor: 'rgba(75, 192, 192, 0.5)',
-                                borderColor: 'rgba(75, 192, 192, 1)',
-                                borderWidth: 1
-                            }
-                        ]
-                    },
-                    options: {
-                        indexAxis: 'y', // Barras horizontales
-                        responsive: true,
-                        plugins: {
-                            legend: {
-                                position: 'top',
-                            },
-                            title: {
-                                display: true,
-                                text: 'Gramaje y Ancho por Línea'
-                            }
-                        },
-                        scales: {
-                            x: {
-                                beginAtZero: true
-                            }
-                        }
-                    }
-                };
-
-                // Renderizar el gráfico
-                const ctx = document.getElementById('horizontalChart').getContext('2d');
-                new Chart(ctx, config);
+                originalData = data;
+                populateFilters(data);
+                renderChart(data);
             })
             .catch(error => console.error('Error al cargar los datos:', error));
+
+        // Poblar los filtros de gramaje y ancho
+        function populateFilters(data) {
+            const gramajes = new Set();
+            const anchos = new Set();
+
+            Object.values(data).forEach(lineaData => {
+                lineaData.gramajes.forEach(gramaje => gramajes.add(gramaje));
+                lineaData.anchos.forEach(ancho => anchos.add(ancho));
+            });
+
+            const filterGramaje = document.getElementById('filterGramaje');
+            const filterAncho = document.getElementById('filterAncho');
+
+            gramajes.forEach(gramaje => {
+                const option = document.createElement('option');
+                option.value = gramaje;
+                option.textContent = gramaje;
+                filterGramaje.appendChild(option);
+            });
+
+            anchos.forEach(ancho => {
+                const option = document.createElement('option');
+                option.value = ancho;
+                option.textContent = ancho;
+                filterAncho.appendChild(option);
+            });
+
+            filterGramaje.addEventListener('change', applyFilters);
+            filterAncho.addEventListener('change', applyFilters);
+        }
+
+        // Aplicar los filtros y actualizar el gráfico
+        function applyFilters() {
+            const selectedGramaje = document.getElementById('filterGramaje').value;
+            const selectedAncho = document.getElementById('filterAncho').value;
+
+            const filteredData = JSON.parse(JSON.stringify(originalData));
+
+            Object.keys(filteredData).forEach(linea => {
+                const lineaData = filteredData[linea];
+
+                // Filtrar por gramaje
+                if (selectedGramaje !== 'Todos') {
+                    const indices = lineaData.gramajes
+                        .map((gramaje, index) => gramaje == selectedGramaje ? index : null)
+                        .filter(index => index !== null);
+
+                    lineaData.labels = indices.map(index => lineaData.labels[index]);
+                    lineaData.data = indices.map(index => lineaData.data[index]);
+                    lineaData.gramajes = indices.map(index => lineaData.gramajes[index]);
+                    lineaData.anchos = indices.map(index => lineaData.anchos[index]);
+                }
+
+                // Filtrar por ancho
+                if (selectedAncho !== 'Todos') {
+                    const indices = lineaData.anchos
+                        .map((ancho, index) => ancho == selectedAncho ? index : null)
+                        .filter(index => index !== null);
+
+                    lineaData.labels = indices.map(index => lineaData.labels[index]);
+                    lineaData.data = indices.map(index => lineaData.data[index]);
+                    lineaData.gramajes = indices.map(index => lineaData.gramajes[index]);
+                    lineaData.anchos = indices.map(index => lineaData.anchos[index]);
+                }
+            });
+
+            renderChart(filteredData);
+        }
+
+        // Renderizar el gráfico con ApexCharts
+        function renderChart(data) {
+            const labels = [];
+            const gramajeData = [];
+            const anchoData = [];
+
+            Object.keys(data).forEach(linea => {
+                const lineaData = data[linea];
+                lineaData.labels.forEach((label, index) => {
+                    labels.push(`${linea} (${label})`);
+                    gramajeData.push(lineaData.gramajes[index]);
+                    anchoData.push(lineaData.anchos[index]);
+                });
+            });
+
+            const options = {
+                series: [
+                    {
+                        name: 'Gramaje',
+                        data: gramajeData
+                    },
+                    {
+                        name: 'Ancho',
+                        data: anchoData
+                    }
+                ],
+                chart: {
+                    type: 'bar',
+                    height: 400,
+                    stacked: false,
+                    toolbar: {
+                        show: true
+                    }
+                },
+                plotOptions: {
+                    bar: {
+                        horizontal: true,
+                        dataLabels: {
+                            position: 'center'
+                        }
+                    }
+                },
+                dataLabels: {
+                    enabled: true,
+                    formatter: function (val) {
+                        return val;
+                    }
+                },
+                xaxis: {
+                    categories: labels,
+                    title: {
+                        text: 'Cantidad'
+                    }
+                },
+                yaxis: {
+                    title: {
+                        text: 'Líneas'
+                    }
+                },
+                legend: {
+                    position: 'top'
+                },
+                title: {
+                    text: 'Gramaje y Ancho por Línea',
+                    align: 'center'
+                }
+            };
+
+            // Destruir el gráfico anterior si existe
+            if (chart) {
+                chart.destroy();
+            }
+
+            chart = new ApexCharts(document.querySelector("#chart"), options);
+            chart.render();
+        }
     </script>
 </body>
 </html>
