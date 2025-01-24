@@ -154,57 +154,58 @@
             });
         }
 
-        // Aplicar filtros
         function applyFilters() {
-            const selectedGramaje = document.getElementById('filterGramaje').value;
-            const selectedAncho = document.getElementById('filterAncho').value;
+    const selectedGramaje = document.getElementById('filterGramaje').value;
+    const selectedAncho = document.getElementById('filterAncho').value;
 
-            const tableBody = document.querySelector('#dataTable .table__tbody');
-            tableBody.innerHTML = ''; // Limpiar contenido previo
+    const tableBody = document.querySelector('#dataTable .table__tbody');
+    tableBody.innerHTML = ''; // Limpiar contenido previo
 
-            let rowsAdded = 0; // Contador para verificar si se agregan filas
+    let rowsAdded = 0; // Contador para verificar si se agregan filas
 
-            Object.keys(originalData).forEach(linea => {
-                const lineaData = originalData[linea];
+    Object.keys(originalData).forEach(linea => {
+        const lineaData = originalData[linea];
 
-                lineaData.labels.forEach((label, index) => {
-                    const gramaje = lineaData.gramajes[index];
-                    const ancho = lineaData.anchos[index];
-                    const existencia = lineaData.data[index];
+        lineaData.labels.forEach((label, index) => {
+            const gramaje = lineaData.gramajes[index];
+            const ancho = lineaData.anchos[index];
+            const existencia = lineaData.data[index];
 
-                    if ((selectedGramaje === 'Todos' || parseInt(gramaje) == parseInt(selectedGramaje)) &&
-                        (selectedAncho === 'Todos' || parseInt(ancho) == parseInt(selectedAncho))) {
-                        const row = document.createElement('tr');
-                        row.classList.add('table__tr');
-                        row.innerHTML = `
-                            <td class="table__td">${linea}</td>
-                            <td class="table__td">${gramaje}</td>
-                            <td class="table__td">${ancho}</td>
-                            <td class="table__td">${existencia}</td>
-                        `;
-                        tableBody.appendChild(row);
-                        rowsAdded++;
-                    }
-                });
-            });
+            // Convertir valores para comparación segura
+            const gramajeSeleccionado = selectedGramaje === 'Todos' ? null : parseInt(selectedGramaje);
+            const anchoSeleccionado = selectedAncho === 'Todos' ? null : parseFloat(selectedAncho);
 
-            // Mostrar un mensaje si no hay resultados
-            if (rowsAdded === 0) {
+            if ((gramajeSeleccionado === null || gramajeSeleccionado === parseInt(gramaje)) &&
+                (anchoSeleccionado === null || anchoSeleccionado === parseFloat(ancho))) {
                 const row = document.createElement('tr');
                 row.classList.add('table__tr');
                 row.innerHTML = `
-                    <td class="table__td" colspan="4">No se encontraron resultados</td>
+                    <td class="table__td">${linea}</td>
+                    <td class="table__td">${gramaje}</td>
+                    <td class="table__td">${ancho}</td>
+                    <td class="table__td">${existencia}</td>
                 `;
                 tableBody.appendChild(row);
+                rowsAdded++;
             }
+        });
+    });
 
-            // Actualizar DataTables
-            $('#dataTable').DataTable().clear().destroy(); // Eliminar la instancia previa
-            initializeDataTable(); // Reinicializar DataTables
-        }
-        console.log('Selected Gramaje:', selectedGramaje);
-console.log('Selected Ancho:', selectedAncho);
-console.log('Data Gramajes:', gramaje, 'Data Anchos:', ancho);
+    // Mostrar un mensaje si no hay resultados
+    if (rowsAdded === 0) {
+        const row = document.createElement('tr');
+        row.classList.add('table__tr');
+        row.innerHTML = `
+            <td class="table__td" colspan="4">No se encontraron resultados</td>
+        `;
+        tableBody.appendChild(row);
+    }
+
+    // Actualizar DataTables
+    $('#dataTable').DataTable().clear().destroy(); // Eliminar la instancia previa
+    initializeDataTable(); // Reinicializar DataTables
+}
+
 
         // Inicializar DataTables
         function initializeDataTable() {
