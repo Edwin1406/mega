@@ -422,7 +422,8 @@ class MateriaPrimaController
         }
 
         // Convertir los resultados a JSON
-        echo json_encode($resultados);
+        $json = json_encode($resultados);
+        debuguear($json);
         
          
     }
