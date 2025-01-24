@@ -1,86 +1,110 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gráfico de Barras - ApexCharts</title>
-    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gráfico de Barras Apiladas en Tiempo Real</title>
+  <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 </head>
 <body>
-    <div id="chart" style="max-width: 800px; margin: auto;"></div>
+  <h1>Existencias por Gramaje y Ancho (Tiempo Real)</h1>
+  <div id="chart" style="max-width: 800px; margin: auto;"></div>
 
-    <script>
-        var options = {
-            chart: {
-                type: 'bar',
-                height: 400,
-                toolbar: {
-                    show: true,
-                    tools: {
-                        download: true,
-                        selection: true,
-                        zoom: true,
-                        zoomin: true,
-                        zoomout: true,
-                        pan: true,
-                        reset: true
-                    },
-                },
-                animations: {
-                    enabled: true,
-                    easing: 'easeinout',
-                    speed: 800,
-                },
-            },
-            series: [
-                {
-                    name: 'Ventas 2024',
-                    data: [450, 560, 740, 820, 600, 500, 780]
-                },
-                {
-                    name: 'Ventas 2023',
-                    data: [400, 520, 700, 750, 580, 480, 720]
-                }
-            ],
+  <script>
+    const apiUrl = "https://megawebsistem.com/admin/api/apicajablanco";
+
+    let chart; // Variable global para el gráfico
+
+    // Configuración inicial del gráfico
+    const options = {
+      series: [], // Se llenará dinámicamente
+      chart: {
+        type: 'bar',
+        height: 400,
+        stacked: true,
+        toolbar: {
+          show: true,
+        },
+      },
+      plotOptions: {
+        bar: {
+          horizontal: false,
+          borderRadius: 4,
+        },
+      },
+      dataLabels: {
+        enabled: true,
+        formatter: (val) => val.toFixed(2),
+      },
+      xaxis: {
+        categories: [], // Se llenará dinámicamente
+        title: {
+          text: 'Gramajes',
+        },
+      },
+      yaxis: {
+        title: {
+          text: 'Existencias Totales',
+        },
+      },
+      legend: {
+        position: 'top',
+      },
+      fill: {
+        opacity: 1,
+      },
+      tooltip: {
+        y: {
+          formatter: (val) => `${val.toFixed(2)} unidades`,
+        },
+      },
+    };
+
+    // Función para obtener los datos de la API y actualizar el gráfico
+    async function fetchAndUpdateChart() {
+      try {
+        const response = await fetch(apiUrl);
+        const data = await response.json();
+
+        // Obtener gramajes y anchos únicos
+        const gramajes = [...new Set(data.map(item => item.gramaje))];
+        const anchos = [...new Set(data.map(item => item.ancho))];
+
+        // Crear series para cada ancho
+        const series = anchos.map(ancho => ({
+          name: `Ancho ${ancho}`,
+          data: gramajes.map(gramaje => {
+            const items = data.filter(item => item.ancho === ancho && item.gramaje === gramaje);
+            const totalExistencia = items.reduce((sum, item) => sum + parseFloat(item.existencia), 0);
+            return totalExistencia;
+          }),
+        }));
+
+        // Actualizar categorías y series del gráfico
+        if (chart) {
+          chart.updateOptions({
             xaxis: {
-                categories: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio'],
-                title: {
-                    text: 'Meses',
-                }
+              categories: gramajes,
             },
-            yaxis: {
-                title: {
-                    text: 'Ventas (en miles)',
-                },
-            },
-            plotOptions: {
-                bar: {
-                    horizontal: false,
-                    columnWidth: '50%',
-                    endingShape: 'rounded'
-                }
-            },
-            colors: ['#008FFB', '#FF4560'],
-            dataLabels: {
-                enabled: true,
-                formatter: function (val) {
-                    return val + 'k';
-                }
-            },
-            legend: {
-                position: 'top',
-            },
-            tooltip: {
-                y: {
-                    formatter: function (val) {
-                        return val + 'k';
-                    }
-                }
-            }
-        };
+            series: series,
+          });
+        } else {
+          // Crear el gráfico la primera vez
+          options.xaxis.categories = gramajes;
+          options.series = series;
+          chart = new ApexCharts(document.querySelector("#chart"), options);
+          chart.render();
+        }
+      } catch (error) {
+        console.error("Error al obtener los datos de la API:", error);
+      }
+    }
 
-        var chart = new ApexCharts(document.querySelector("#chart"), options);
-        chart.render();
-    </script>
+    // Llamar a la función por primera vez
+    fetchAndUpdateChart();
+
+    // Actualizar el gráfico cada 5 segundos
+    setInterval(fetchAndUpdateChart, 5000);
+  </script>
 </body>
 </html>

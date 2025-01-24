@@ -414,6 +414,10 @@ class MateriaPrimaController
 
 
     public static function apicajablanco (){
+        // cors
+        header("Access-Control-Allow-Origin: *");
+        header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
+        header("Access-Control-Allow-Headers: Content-Type, Authorization");
         $corrugador = MateriaPrimaV::allc('ASC', 'MICRO');
          echo json_encode($corrugador);
          exit;
