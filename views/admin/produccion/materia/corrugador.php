@@ -83,6 +83,8 @@
 
 
 
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -267,6 +269,8 @@
 
             const labels = Object.keys(data).flatMap(linea => data[linea].labels);
 
+            const uniqueLabels = [...new Set(labels)];
+
             const options = {
                 series: series,
                 chart: {
@@ -287,7 +291,7 @@
                     enabled: false
                 },
                 xaxis: {
-                    categories: labels,
+                    categories: uniqueLabels,
                     labels: {
                         formatter: function (value) {
                             return value || "Sin Datos";
