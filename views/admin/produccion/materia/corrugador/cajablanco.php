@@ -59,7 +59,7 @@
           },
           plotOptions: {
             bar: {
-              horizontal: true, // Barras horizontales
+              horizontal: false, // Barras verticales
               borderRadius: 4,
             },
           },
@@ -75,7 +75,7 @@
           },
           yaxis: {
             title: {
-              text: 'Anchos',
+              text: 'Existencias Totales',
             },
           },
           legend: {
