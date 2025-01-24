@@ -24,12 +24,17 @@
 
 
 
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tabla Interactiva con Filtros</title>
+    <title>Tabla Interactiva con Clases Personalizadas</title>
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
@@ -82,7 +87,7 @@
     </div>
 
     <script>
-        const apiUrl = 'https://megawebsistem.com/admin/api/apicajablanco'; // URL de tu API
+        const apiUrl = 'URL_DE_TU_API'; // Reemplaza con la URL real de tu API
 
         let originalData; // Almacena los datos originales
 
@@ -154,58 +159,41 @@
             });
         }
 
+        // Aplicar filtros
         function applyFilters() {
-    const selectedGramaje = document.getElementById('filterGramaje').value;
-    const selectedAncho = document.getElementById('filterAncho').value;
+            const selectedGramaje = document.getElementById('filterGramaje').value;
+            const selectedAncho = document.getElementById('filterAncho').value;
 
-    const tableBody = document.querySelector('#dataTable .table__tbody');
-    tableBody.innerHTML = ''; // Limpiar contenido previo
+            const tableBody = document.querySelector('#dataTable .table__tbody');
+            tableBody.innerHTML = ''; // Limpiar contenido previo
 
-    let rowsAdded = 0; // Contador para verificar si se agregan filas
+            Object.keys(originalData).forEach(linea => {
+                const lineaData = originalData[linea];
 
-    Object.keys(originalData).forEach(linea => {
-        const lineaData = originalData[linea];
+                lineaData.labels.forEach((label, index) => {
+                    const gramaje = lineaData.gramajes[index];
+                    const ancho = lineaData.anchos[index];
+                    const existencia = lineaData.data[index];
 
-        lineaData.labels.forEach((label, index) => {
-            const gramaje = lineaData.gramajes[index];
-            const ancho = lineaData.anchos[index];
-            const existencia = lineaData.data[index];
+                    if ((selectedGramaje === 'Todos' || gramaje == selectedGramaje) &&
+                        (selectedAncho === 'Todos' || ancho == selectedAncho)) {
+                        const row = document.createElement('tr');
+                        row.classList.add('table__tr');
+                        row.innerHTML = `
+                            <td class="table__td">${linea}</td>
+                            <td class="table__td">${gramaje}</td>
+                            <td class="table__td">${ancho}</td>
+                            <td class="table__td">${existencia}</td>
+                        `;
+                        tableBody.appendChild(row);
+                    }
+                });
+            });
 
-            // Convertir valores para comparación segura
-            const gramajeSeleccionado = selectedGramaje === 'Todos' ? null : parseInt(selectedGramaje);
-            const anchoSeleccionado = selectedAncho === 'Todos' ? null : parseFloat(selectedAncho);
-
-            if ((gramajeSeleccionado === null || gramajeSeleccionado === parseInt(gramaje)) &&
-                (anchoSeleccionado === null || anchoSeleccionado === parseFloat(ancho))) {
-                const row = document.createElement('tr');
-                row.classList.add('table__tr');
-                row.innerHTML = `
-                    <td class="table__td">${linea}</td>
-                    <td class="table__td">${gramaje}</td>
-                    <td class="table__td">${ancho}</td>
-                    <td class="table__td">${existencia}</td>
-                `;
-                tableBody.appendChild(row);
-                rowsAdded++;
-            }
-        });
-    });
-
-    // Mostrar un mensaje si no hay resultados
-    if (rowsAdded === 0) {
-        const row = document.createElement('tr');
-        row.classList.add('table__tr');
-        row.innerHTML = `
-            <td class="table__td" colspan="4">No se encontraron resultados</td>
-        `;
-        tableBody.appendChild(row);
-    }
-
-    // Actualizar DataTables
-    $('#dataTable').DataTable().clear().destroy(); // Eliminar la instancia previa
-    initializeDataTable(); // Reinicializar DataTables
-}
-
+            // Actualizar DataTables
+            $('#dataTable').DataTable().clear().destroy(); // Limpiar configuración previa
+            initializeDataTable();
+        }
 
         // Inicializar DataTables
         function initializeDataTable() {
