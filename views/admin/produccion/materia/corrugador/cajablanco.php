@@ -114,7 +114,7 @@
 </body>
 </html>
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
+   document.addEventListener('DOMContentLoaded', function () {
     const apiUrl = "https://megawebsistem.com/admin/api/apicajablanco";
     const gramajeContainer = document.getElementById('gramajeContainer');
     const infoModal = document.getElementById('infoModal');
@@ -126,31 +126,46 @@
     fetch(apiUrl)
         .then(response => response.json())
         .then(data => {
+            // Objeto para almacenar gramajes únicos
+            const gramajesUnicos = {};
+
             // Procesar los datos por categoría
             for (const tipo in data) {
                 if (data.hasOwnProperty(tipo)) {
                     const { gramajes, anchos, data: existencias } = data[tipo];
 
-                    // Crear una caja para cada gramaje
                     gramajes.forEach((gramaje, index) => {
-                        const gramajeBox = document.createElement('div');
-                        gramajeBox.classList.add('gramaje-box');
+                        // Si el gramaje no está en el objeto, inicializar
+                        if (!gramajesUnicos[gramaje]) {
+                            gramajesUnicos[gramaje] = new Set();
+                        }
 
-                        gramajeBox.innerHTML = `
-                            <h3>Gramaje ${gramaje}</h3>
-                            <select class="ancho-select" data-gramaje="${gramaje}">
-                                ${anchos
-                                    .filter((_, i) => gramajes[i] === gramaje)
-                                    .map(ancho => `<option value="${ancho}">${ancho}</option>`)
-                                    .join('')}
-                            </select>
-                            <button class="btn-ver-info" data-gramaje="${gramaje}">Ver Información</button>
-                        `;
-
-                        gramajeContainer.appendChild(gramajeBox);
+                        // Agregar anchos únicos al gramaje
+                        gramajesUnicos[gramaje].add(anchos[index]);
                     });
                 }
             }
+
+            // Generar las tarjetas de gramaje
+            Object.keys(gramajesUnicos).forEach(gramaje => {
+                const gramajeBox = document.createElement('div');
+                gramajeBox.classList.add('gramaje-box');
+
+                // Crear opciones únicas de anchos
+                const opcionesAnchos = Array.from(gramajesUnicos[gramaje])
+                    .map(ancho => `<option value="${ancho}">${ancho}</option>`)
+                    .join('');
+
+                gramajeBox.innerHTML = `
+                    <h3>Gramaje ${gramaje}</h3>
+                    <select class="ancho-select" data-gramaje="${gramaje}">
+                        ${opcionesAnchos}
+                    </select>
+                    <button class="btn-ver-info" data-gramaje="${gramaje}">Ver Información</button>
+                `;
+
+                gramajeContainer.appendChild(gramajeBox);
+            });
 
             // Agregar evento a los botones de información
             document.querySelectorAll('.btn-ver-info').forEach(button => {
@@ -159,18 +174,27 @@
                     const anchoSelect = this.previousElementSibling;
                     const anchoSeleccionado = anchoSelect.value;
 
-                    const existencia = data[tipo].data.find((_, i) => {
-                        return data[tipo].gramajes[i] == gramaje && data[tipo].anchos[i] == anchoSeleccionado;
-                    });
+                    // Buscar los datos específicos de la API
+                    const categoria = Object.values(data).find(categoria =>
+                        categoria.gramajes.includes(parseInt(gramaje)) &&
+                        categoria.anchos.includes(anchoSeleccionado)
+                    );
 
-                    // Mostrar información en el modal
-                    modalContent.innerHTML = `
-                        <p><strong>Gramaje:</strong> ${gramaje}</p>
-                        <p><strong>Ancho:</strong> ${anchoSeleccionado}</p>
-                        <p><strong>Existencia:</strong> ${existencia}</p>
-                    `;
-                    infoModal.style.display = 'block';
-                    modalOverlay.style.display = 'block';
+                    if (categoria) {
+                        const existencia = categoria.data.find((_, i) =>
+                            categoria.gramajes[i] == gramaje &&
+                            categoria.anchos[i] == anchoSeleccionado
+                        );
+
+                        // Mostrar información en el modal
+                        modalContent.innerHTML = `
+                            <p><strong>Gramaje:</strong> ${gramaje}</p>
+                            <p><strong>Ancho:</strong> ${anchoSeleccionado}</p>
+                            <p><strong>Existencia:</strong> ${existencia}</p>
+                        `;
+                        infoModal.style.display = 'block';
+                        modalOverlay.style.display = 'block';
+                    }
                 });
             });
         })
