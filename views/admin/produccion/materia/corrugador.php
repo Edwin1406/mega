@@ -83,8 +83,6 @@
 
 
 
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -289,7 +287,12 @@
                     enabled: false
                 },
                 xaxis: {
-                    categories: labels
+                    categories: labels,
+                    labels: {
+                        formatter: function (value) {
+                            return value || "Sin Datos";
+                        }
+                    }
                 },
                 title: {
                     text: 'Existencias por Línea y Gramaje/Ancho',
