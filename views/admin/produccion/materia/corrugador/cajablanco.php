@@ -15,34 +15,45 @@
 
 
 
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gráfico Filtrado</title>
-    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <title>Tabla Interactiva</title>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
     <style>
-       
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f9;
+        }
         .filters {
             display: flex;
             gap: 10px;
             margin-bottom: 20px;
         }
-        .message {
-            text-align: center;
-            color: #666;
-            font-size: 18px;
+        select {
+            padding: 8px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
         }
-        .chart-container {
-            width: 90%;
-            margin: auto;
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
             background: white;
-            padding: 20px;
-            border-radius: 8px;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        table th, table td {
+            padding: 10px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+        table thead {
+            background: #f4f4f9;
         }
     </style>
 </head>
@@ -59,17 +70,24 @@
         </select>
     </div>
 
-    <div id="message" class="message">Seleccione gramaje y/o ancho para visualizar los datos.</div>
-
-    <div class="chart-container" id="chartContainer" style="display: none;">
-        <div id="chart"></div>
-    </div>
+    <table id="dataTable">
+        <thead>
+            <tr>
+                <th>Línea</th>
+                <th>Gramaje</th>
+                <th>Ancho</th>
+                <th>Existencias</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Contenido dinámico -->
+        </tbody>
+    </table>
 
     <script>
         const apiUrl = 'https://megawebsistem.com/admin/api/apicajablanco'; // Reemplaza con la URL real de tu API
 
-        let originalData; // Datos originales de la API
-        let chart; // Referencia al gráfico
+        let originalData; // Almacena los datos originales
 
         // Cargar datos de la API
         fetch(apiUrl)
@@ -77,10 +95,12 @@
             .then(data => {
                 originalData = data;
                 populateFilters(data);
+                populateTable(data);
+                initializeDataTable();
             })
             .catch(error => console.error('Error al cargar los datos:', error));
 
-        // Poblar los filtros de gramaje y ancho
+        // Poblar los filtros
         function populateFilters(data) {
             const gramajes = new Set();
             const anchos = new Set();
@@ -111,92 +131,74 @@
             filterAncho.addEventListener('change', applyFilters);
         }
 
-        // Aplicar filtros y actualizar el gráfico
-        function applyFilters() {
-            const selectedGramaje = document.getElementById('filterGramaje').value;
-            const selectedAncho = document.getElementById('filterAncho').value;
+        // Poblar la tabla
+        function populateTable(data) {
+            const tableBody = document.getElementById('dataTable').querySelector('tbody');
+            tableBody.innerHTML = ''; // Limpiar contenido previo
 
-            const filteredData = [];
-            const labels = [];
-            const gramajeData = [];
-            const anchoData = [];
-
-            Object.keys(originalData).forEach(linea => {
-                const lineaData = originalData[linea];
+            Object.keys(data).forEach(linea => {
+                const lineaData = data[linea];
 
                 lineaData.labels.forEach((label, index) => {
                     const gramaje = lineaData.gramajes[index];
                     const ancho = lineaData.anchos[index];
+                    const existencia = lineaData.data[index];
 
-                    // Filtrar por gramaje y ancho
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${linea}</td>
+                        <td>${gramaje}</td>
+                        <td>${ancho}</td>
+                        <td>${existencia}</td>
+                    `;
+                    tableBody.appendChild(row);
+                });
+            });
+        }
+
+        // Aplicar filtros
+        function applyFilters() {
+            const selectedGramaje = document.getElementById('filterGramaje').value;
+            const selectedAncho = document.getElementById('filterAncho').value;
+
+            const filteredData = JSON.parse(JSON.stringify(originalData));
+
+            const tableBody = document.getElementById('dataTable').querySelector('tbody');
+            tableBody.innerHTML = ''; // Limpiar contenido previo
+
+            Object.keys(filteredData).forEach(linea => {
+                const lineaData = filteredData[linea];
+
+                lineaData.labels.forEach((label, index) => {
+                    const gramaje = lineaData.gramajes[index];
+                    const ancho = lineaData.anchos[index];
+                    const existencia = lineaData.data[index];
+
                     if ((selectedGramaje === 'Todos' || gramaje == selectedGramaje) &&
                         (selectedAncho === 'Todos' || ancho == selectedAncho)) {
-                        labels.push(`${linea} (${label})`);
-                        gramajeData.push(gramaje);
-                        anchoData.push(ancho);
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td>${linea}</td>
+                            <td>${gramaje}</td>
+                            <td>${ancho}</td>
+                            <td>${existencia}</td>
+                        `;
+                        tableBody.appendChild(row);
                     }
                 });
             });
-
-            if (labels.length === 0) {
-                document.getElementById('message').style.display = 'block';
-                document.getElementById('chartContainer').style.display = 'none';
-            } else {
-                document.getElementById('message').style.display = 'none';
-                document.getElementById('chartContainer').style.display = 'block';
-                renderChart(labels, gramajeData, anchoData);
-            }
         }
 
-        // Renderizar el gráfico
-        function renderChart(labels, gramajeData, anchoData) {
-            const options = {
-                series: [
-                    {
-                        name: 'Gramaje',
-                        data: gramajeData
-                    },
-                    {
-                        name: 'Ancho',
-                        data: anchoData
-                    }
-                ],
-                chart: {
-                    type: 'bar',
-                    height: Math.max(400, labels.length * 30),
-                    toolbar: {
-                        show: true
-                    }
-                },
-                plotOptions: {
-                    bar: {
-                        horizontal: true,
-                        dataLabels: {
-                            position: 'center'
-                        }
-                    }
-                },
-                xaxis: {
-                    categories: labels,
-                    title: {
-                        text: 'Cantidad'
-                    }
-                },
-                title: {
-                    text: 'Datos Filtrados',
-                    align: 'center'
-                },
-                legend: {
-                    position: 'top'
-                }
-            };
-
-            if (chart) {
-                chart.destroy();
-            }
-
-            chart = new ApexCharts(document.querySelector("#chart"), options);
-            chart.render();
+        // Inicializar DataTables
+        function initializeDataTable() {
+            $(document).ready(function () {
+                $('#dataTable').DataTable({
+                    paging: true,
+                    searching: true,
+                    ordering: true,
+                    responsive: true
+                });
+            });
         }
     </script>
 </body>
