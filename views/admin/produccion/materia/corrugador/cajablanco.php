@@ -141,34 +141,54 @@
 
         // Aplicar filtros
         function applyFilters() {
-            const selectedGramaje = document.getElementById('filterGramaje').value;
-            const selectedAncho = document.getElementById('filterAncho').value;
+    const selectedGramaje = document.getElementById('filterGramaje').value;
+    const selectedAncho = document.getElementById('filterAncho').value;
 
-            const tableBody = document.querySelector('#dataTable .table__tbody');
-            tableBody.innerHTML = ''; // Limpiar contenido previo
+    const tableBody = document.querySelector('#dataTable .table__tbody');
+    tableBody.innerHTML = ''; // Limpiar contenido previo
 
-            Object.keys(originalData).forEach(linea => {
-                const lineaData = originalData[linea];
+    let rowsAdded = 0; // Contador para verificar si se agregan filas
 
-                lineaData.labels.forEach((label, index) => {
-                    const gramaje = lineaData.gramajes[index];
-                    const ancho = lineaData.anchos[index];
-                    const existencia = lineaData.data[index];
+    Object.keys(originalData).forEach(linea => {
+        const lineaData = originalData[linea];
 
-                    if ((selectedGramaje === 'Todos' || gramaje == selectedGramaje) &&
-                        (selectedAncho === 'Todos' || ancho == selectedAncho)) {
-                        const row = document.createElement('tr');
-                        row.classList.add('table__tr');
-                        row.innerHTML = `
-                            <td class="table__td">${linea}</td>
-                            <td class="table__td">${gramaje}</td>
-                            <td class="table__td">${ancho}</td>
-                            <td class="table__td">${existencia}</td>
-                        `;
-                        tableBody.appendChild(row);
-                    }
-                });
-            });
+        lineaData.labels.forEach((label, index) => {
+            const gramaje = lineaData.gramajes[index];
+            const ancho = lineaData.anchos[index];
+            const existencia = lineaData.data[index];
+
+            // Filtrar por gramaje y ancho
+            if ((selectedGramaje === 'Todos' || parseInt(gramaje) == parseInt(selectedGramaje)) &&
+                (selectedAncho === 'Todos' || parseInt(ancho) == parseInt(selectedAncho))) {
+                const row = document.createElement('tr');
+                row.classList.add('table__tr');
+                row.innerHTML = `
+                    <td class="table__td">${linea}</td>
+                    <td class="table__td">${gramaje}</td>
+                    <td class="table__td">${ancho}</td>
+                    <td class="table__td">${existencia}</td>
+                `;
+                tableBody.appendChild(row);
+                rowsAdded++;
+            }
+        });
+    });
+
+    // Mostrar un mensaje si no hay resultados
+    if (rowsAdded === 0) {
+        const row = document.createElement('tr');
+        row.classList.add('table__tr');
+        row.innerHTML = `
+            <td class="table__td" colspan="4">No se encontraron resultados</td>
+        `;
+        tableBody.appendChild(row);
+    }
+
+    // Actualizar DataTables
+    $('#dataTable').DataTable().clear().destroy(); // Eliminar la instancia previa
+    initializeDataTable(); // Reinicializar DataTables
+}
+
 
             // Actualizar DataTables
             $('#dataTable').DataTable().clear().destroy(); // Limpiar configuración previa
