@@ -190,11 +190,6 @@
 }
 
 
-            // Actualizar DataTables
-            $('#dataTable').DataTable().clear().destroy(); // Limpiar configuración previa
-            initializeDataTable();
-        }
-
         // Inicializar DataTables
         function initializeDataTable() {
             $(document).ready(function () {
