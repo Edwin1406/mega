@@ -27,16 +27,7 @@
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f4f4f9;
-      margin: 0;
-      padding: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-    }
+   
     .container {
       background-color: #fff;
       border-radius: 8px;
