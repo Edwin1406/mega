@@ -17,13 +17,12 @@
 
 
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gráfico Horizontal Mejorado</title>
+    <title>Gráfico Filtrado</title>
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <style>
         body {
@@ -36,10 +35,10 @@
             gap: 10px;
             margin-bottom: 20px;
         }
-        select {
-            padding: 8px;
-            border-radius: 5px;
-            border: 1px solid #ccc;
+        .message {
+            text-align: center;
+            color: #666;
+            font-size: 18px;
         }
         .chart-container {
             width: 90%;
@@ -64,23 +63,24 @@
         </select>
     </div>
 
-    <div class="chart-container">
+    <div id="message" class="message">Seleccione gramaje y/o ancho para visualizar los datos.</div>
+
+    <div class="chart-container" id="chartContainer" style="display: none;">
         <div id="chart"></div>
     </div>
 
     <script>
         const apiUrl = 'https://megawebsistem.com/admin/api/apicajablanco'; // Reemplaza con la URL real de tu API
 
-        let originalData; // Almacena los datos originales
+        let originalData; // Datos originales de la API
         let chart; // Referencia al gráfico
 
-        // Llamar a la API y cargar los datos
+        // Cargar datos de la API
         fetch(apiUrl)
             .then(response => response.json())
             .then(data => {
                 originalData = data;
                 populateFilters(data);
-                renderChart(data);
             })
             .catch(error => console.error('Error al cargar los datos:', error));
 
@@ -115,59 +115,45 @@
             filterAncho.addEventListener('change', applyFilters);
         }
 
-        // Aplicar los filtros y actualizar el gráfico
+        // Aplicar filtros y actualizar el gráfico
         function applyFilters() {
             const selectedGramaje = document.getElementById('filterGramaje').value;
             const selectedAncho = document.getElementById('filterAncho').value;
 
-            const filteredData = JSON.parse(JSON.stringify(originalData));
-
-            Object.keys(filteredData).forEach(linea => {
-                const lineaData = filteredData[linea];
-
-                // Filtrar por gramaje
-                if (selectedGramaje !== 'Todos') {
-                    const indices = lineaData.gramajes
-                        .map((gramaje, index) => gramaje == selectedGramaje ? index : null)
-                        .filter(index => index !== null);
-
-                    lineaData.labels = indices.map(index => lineaData.labels[index]);
-                    lineaData.data = indices.map(index => lineaData.data[index]);
-                    lineaData.gramajes = indices.map(index => lineaData.gramajes[index]);
-                    lineaData.anchos = indices.map(index => lineaData.anchos[index]);
-                }
-
-                // Filtrar por ancho
-                if (selectedAncho !== 'Todos') {
-                    const indices = lineaData.anchos
-                        .map((ancho, index) => ancho == selectedAncho ? index : null)
-                        .filter(index => index !== null);
-
-                    lineaData.labels = indices.map(index => lineaData.labels[index]);
-                    lineaData.data = indices.map(index => lineaData.data[index]);
-                    lineaData.gramajes = indices.map(index => lineaData.gramajes[index]);
-                    lineaData.anchos = indices.map(index => lineaData.anchos[index]);
-                }
-            });
-
-            renderChart(filteredData);
-        }
-
-        // Renderizar el gráfico con ApexCharts
-        function renderChart(data) {
+            const filteredData = [];
             const labels = [];
             const gramajeData = [];
             const anchoData = [];
 
-            Object.keys(data).forEach(linea => {
-                const lineaData = data[linea];
+            Object.keys(originalData).forEach(linea => {
+                const lineaData = originalData[linea];
+
                 lineaData.labels.forEach((label, index) => {
-                    labels.push(`${linea} (${label})`);
-                    gramajeData.push(lineaData.gramajes[index]);
-                    anchoData.push(lineaData.anchos[index]);
+                    const gramaje = lineaData.gramajes[index];
+                    const ancho = lineaData.anchos[index];
+
+                    // Filtrar por gramaje y ancho
+                    if ((selectedGramaje === 'Todos' || gramaje == selectedGramaje) &&
+                        (selectedAncho === 'Todos' || ancho == selectedAncho)) {
+                        labels.push(`${linea} (${label})`);
+                        gramajeData.push(gramaje);
+                        anchoData.push(ancho);
+                    }
                 });
             });
 
+            if (labels.length === 0) {
+                document.getElementById('message').style.display = 'block';
+                document.getElementById('chartContainer').style.display = 'none';
+            } else {
+                document.getElementById('message').style.display = 'none';
+                document.getElementById('chartContainer').style.display = 'block';
+                renderChart(labels, gramajeData, anchoData);
+            }
+        }
+
+        // Renderizar el gráfico
+        function renderChart(labels, gramajeData, anchoData) {
             const options = {
                 series: [
                     {
@@ -181,10 +167,7 @@
                 ],
                 chart: {
                     type: 'bar',
-                    height: Math.max(400, labels.length * 30), // Altura dinámica basada en los datos
-                    zoom: {
-                        enabled: true // Habilitar zoom para explorar datos
-                    },
+                    height: Math.max(400, labels.length * 30),
                     toolbar: {
                         show: true
                     }
@@ -192,37 +175,19 @@
                 plotOptions: {
                     bar: {
                         horizontal: true,
-                        distributed: true, // Colores distribuidos automáticamente
                         dataLabels: {
                             position: 'center'
                         }
-                    }
-                },
-                dataLabels: {
-                    enabled: true,
-                    formatter: function (val) {
-                        return val;
                     }
                 },
                 xaxis: {
                     categories: labels,
                     title: {
                         text: 'Cantidad'
-                    },
-                    labels: {
-                        rotate: -45, // Rota etiquetas si son largas
-                        formatter: function (val) {
-                            return val.length > 20 ? val.slice(0, 20) + '...' : val; // Truncar etiquetas largas
-                        }
-                    }
-                },
-                yaxis: {
-                    title: {
-                        text: 'Líneas'
                     }
                 },
                 title: {
-                    text: 'Gramaje y Ancho por Línea',
+                    text: 'Datos Filtrados',
                     align: 'center'
                 },
                 legend: {
@@ -230,7 +195,6 @@
                 }
             };
 
-            // Destruir el gráfico anterior si existe
             if (chart) {
                 chart.destroy();
             }
