@@ -74,10 +74,6 @@
 
 
 
-
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -344,6 +340,8 @@
             Object.keys(originalData).forEach(linea => {
                 const labels = [];
                 const data = [];
+                const gramajes = [];
+                const anchos = [];
 
                 originalData[linea].labels.forEach((etiqueta, index) => {
                     const gramaje = originalData[linea].gramajes[index];
@@ -354,20 +352,53 @@
                         (selectedAncho === '' || ancho == selectedAncho)
                     ) {
                         labels.push(etiqueta || "Sin Datos");
-                        data.push(originalData[linea].data[index] || 0); // Evitar datos vacíos
+                        data.push(originalData[linea].data[index] || 0);
+                        gramajes.push(gramaje || "Sin Datos");
+                        anchos.push(ancho || "Sin Datos");
                     }
                 });
 
                 if (data.length > 0) {
                     filteredData[linea] = {
                         labels,
-                        data
+                        data,
+                        gramajes,
+                        anchos
                     };
                 }
             });
 
             renderChart(filteredData);
-            renderTable(filteredData);
+            renderFilteredTable(filteredData);
+        }
+
+        function renderFilteredTable(data) {
+            const tbody = document.querySelector("#data-table tbody");
+            tbody.innerHTML = ""; // Limpiar tabla
+
+            Object.keys(data).forEach(linea => {
+                data[linea].labels.forEach((label, index) => {
+                    const row = document.createElement("tr");
+
+                    const lineaCell = document.createElement("td");
+                    lineaCell.textContent = linea;
+                    row.appendChild(lineaCell);
+
+                    const gramajeCell = document.createElement("td");
+                    gramajeCell.textContent = data[linea].gramajes[index] || "Sin Datos";
+                    row.appendChild(gramajeCell);
+
+                    const anchoCell = document.createElement("td");
+                    anchoCell.textContent = data[linea].anchos[index] || "Sin Datos";
+                    row.appendChild(anchoCell);
+
+                    const existenciasCell = document.createElement("td");
+                    existenciasCell.textContent = data[linea].data[index] || 0;
+                    row.appendChild(existenciasCell);
+
+                    tbody.appendChild(row);
+                });
+            });
         }
     </script>
 </body>
