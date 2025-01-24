@@ -414,17 +414,13 @@ class MateriaPrimaController
 
 
     public static function apicajablanco (){
-        $resultados = MateriaPrimaV::obtenerDetallesUnicos('ASC', 175);
-
-        // Mostrar los resultados en pantalla
-        foreach ($resultados as $fila) {
-            echo "Gramaje: " . $fila['gramaje'] . " | Ancho: " . $fila['ancho'] . " | Total existencia: " . $fila['total_existencia'] . "<br>";
-        }
-
-        // Convertir los resultados a JSON
-        $json = json_encode($resultados);
-        debuguear($json);
-        
+        // cors
+        header("Access-Control-Allow-Origin: *");
+        header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
+        header("Access-Control-Allow-Headers: Content-Type, Authorization");
+        $corrugador = MateriaPrimaV::obtenerDetallesUnicos('ASC', 'MICRO');
+         echo json_encode($corrugador);
+         exit;
          
     }
 
