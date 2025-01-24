@@ -286,7 +286,7 @@ class MateriaPrimaController
         // stock de corrugador
         $cajablanco = MateriaPrimaV::menosDeCien('DESC');
 
-        debuguear($cajablanco);
+        // debuguear($cajablanco);
 
 
 
