@@ -78,77 +78,16 @@
     grid-template-columns: repeat(3, 1fr);
   }
 }
-.lista-areas-produccion .areas-produccion  {
+.lista-areas-produccion .areas-produccion {
   background-color: #F59E0B;
   min-height: 12rem;
   padding: 2rem;
   padding-top: 4rem;
   text-align: center;
 }
-.lista-areas-produccion .areas-produccion a  {
+.lista-areas-produccion .areas-produccion a {
   color: #FFFFFF;
 }
-.lista-areas-produccion .areas-produccion-craft a  {
-  color: #FFFFFF;
-}
-
-.lista-areas-produccion .areas-produccion-blanco a{
-  color: #FFFFFF;
-}
-
-.lista-areas-produccion .areas-produccion-medium a{
-  color: #FFFFFF;
-}
-
-/* craft */
-.lista-areas-produccion .areas-produccion-craft {
-  background-color: #40c5a4;
-  min-height: 12rem;
-  padding: 2rem;
-  padding-top: 4rem;
-  text-align: center;
-  border-radius: 1rem;
-}
-
-
-/* blanco */
-
-.lista-areas-produccion .areas-produccion-blanco {
-  background-color: #3b8edb;
-  min-height: 12rem;
-  padding: 2rem;
-  padding-top: 4rem;
-  text-align: center;
-  border-radius: 1rem;
-}
-
-
-/* medium */
-.lista-areas-produccion .areas-produccion-medium {
-  background-color: #d15fe0;
-  min-height: 12rem;
-  padding: 2rem;
-  padding-top: 4rem;
-  text-align: center;
-  border-radius: 1rem;
-}
-
-
-.svg-line {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none; /* Evita que las líneas interfieran con los clics */
-}
-
-.line {
-  stroke: black; /* Color de la línea */
-  stroke-width: 2; /* Grosor de la línea */
-  fill: none;
-}
-
 
 .areas-produccion {
   border-radius: 1rem;
@@ -157,27 +96,6 @@
   background-color: rgb(221.4251968504, 142.4744094488, 9.0748031496);
   font-size: 2rem;
 }
-
-.areas-produccion-blanco:hover {
-  background-color: rgb(42, 101, 156);
-  font-size: 2rem;
-}
-
-.areas-produccion-craft:hover {
-  background-color: rgb(51, 145, 121);
-  font-size: 2rem;
-}
-
-.areas-produccion-medium:hover {
-  background-color: rgb(133, 59, 143);
-  font-size: 2rem;
-}
-
-
-
-
-
-
 
 .lista-areas-registro {
   list-style: none;
