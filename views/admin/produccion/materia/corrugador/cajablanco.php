@@ -27,7 +27,7 @@
 
     <script>
         // Llamar a la API y obtener los datos
-        fetch('URL_DE_TU_API')
+        fetch('https://megawebsistem.com/admin/api/apicajablanco')
             .then(response => response.json())
             .then(data => {
                 const lineas = Object.keys(data); // Obtiene las líneas (CAJA-KRAFT, CAJA-BLANCO, etc.)
