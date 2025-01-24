@@ -78,8 +78,6 @@
 
 
 
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -140,11 +138,62 @@
             color: #333;
             margin-bottom: 20px;
         }
+
+        .filters {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .filters div {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .filters label {
+            font-size: 1rem;
+            font-weight: 500;
+            margin-bottom: 5px;
+            color: #333;
+        }
+
+        .filters select {
+            padding: 12px 16px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 1rem;
+            background-color: #f9f9f9;
+            width: 150px;
+            transition: all 0.3s ease;
+        }
+
+        .filters select:hover {
+            border-color: #4CAF50;
+            background-color: #f1fdf1;
+        }
     </style>
 </head>
 
 <body>
     <div class="dashboard-container">
+        <div class="filters">
+            <div>
+                <label for="filterGramaje">Filtrar por Gramaje:</label>
+                <select id="filterGramaje">
+                    <option value="">Todos</option>
+                </select>
+            </div>
+
+            <div>
+                <label for="filterAncho">Filtrar por Ancho:</label>
+                <select id="filterAncho">
+                    <option value="">Todos</option>
+                </select>
+            </div>
+        </div>
+
         <div class="chart-card">
             <div class="title">Existencias por Línea y Gramaje/Ancho</div>
             <div id="chart"></div>
@@ -173,10 +222,36 @@
             .then(response => response.json())
             .then(data => {
                 originalData = data; // Guardar datos originales
+                initializeFilters(data); // Inicializar filtros
                 renderChart(data); // Renderizar gráfica inicial
                 renderTable(data); // Renderizar tabla inicial
             })
             .catch(error => console.error('Error al cargar datos:', error));
+
+        // Inicializar los filtros con valores únicos
+        function initializeFilters(data) {
+            const gramajes = new Set();
+            const anchos = new Set();
+
+            Object.values(data).forEach(linea => {
+                linea.gramajes.forEach(g => gramajes.add(g));
+                linea.anchos.forEach(a => anchos.add(a));
+            });
+
+            populateFilter('filterGramaje', Array.from(gramajes));
+            populateFilter('filterAncho', Array.from(anchos));
+        }
+
+        // Llenar los selectores con opciones
+        function populateFilter(filterId, values) {
+            const select = document.getElementById(filterId);
+            values.forEach(value => {
+                const option = document.createElement('option');
+                option.value = value;
+                option.textContent = value;
+                select.appendChild(option);
+            });
+        }
 
         // Renderizar la gráfica
         function renderChart(data) {
@@ -254,6 +329,45 @@
                     tbody.appendChild(row);
                 });
             });
+        }
+
+        // Aplicar filtros dinámicos
+        document.getElementById('filterGramaje').addEventListener('change', applyFilters);
+        document.getElementById('filterAncho').addEventListener('change', applyFilters);
+
+        function applyFilters() {
+            const selectedGramaje = document.getElementById('filterGramaje').value;
+            const selectedAncho = document.getElementById('filterAncho').value;
+
+            const filteredData = {};
+
+            Object.keys(originalData).forEach(linea => {
+                const labels = [];
+                const data = [];
+
+                originalData[linea].labels.forEach((etiqueta, index) => {
+                    const gramaje = originalData[linea].gramajes[index];
+                    const ancho = originalData[linea].anchos[index];
+
+                    if (
+                        (selectedGramaje === '' || gramaje == selectedGramaje) &&
+                        (selectedAncho === '' || ancho == selectedAncho)
+                    ) {
+                        labels.push(etiqueta || "Sin Datos");
+                        data.push(originalData[linea].data[index] || 0); // Evitar datos vacíos
+                    }
+                });
+
+                if (data.length > 0) {
+                    filteredData[linea] = {
+                        labels,
+                        data
+                    };
+                }
+            });
+
+            renderChart(filteredData);
+            renderTable(filteredData);
         }
     </script>
 </body>
