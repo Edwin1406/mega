@@ -142,10 +142,10 @@
 
                     const row = document.createElement('tr');
                     row.innerHTML = `
-                        <td>${linea}</td>
-                        <td>${gramaje}</td>
-                        <td>${ancho}</td>
-                        <td>${existencia}</td>
+                        <td class="table__td">${linea}</td>
+                        <td class="table__td">${gramaje}</td>
+                        <td class="table__td">${ancho}</td>
+                        <td class="table__td">${existencia}</td>
                     `;
                     tableBody.appendChild(row);
                 });
