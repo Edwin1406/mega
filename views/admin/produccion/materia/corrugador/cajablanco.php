@@ -17,204 +17,82 @@
 
 
 
+<?php
+// URL de la API
+$apiUrl = "https://megawebsistem.com/admin/api/apicajablanco";
+
+// Obtener datos de la API
+$ch = curl_init();
+curl_setopt($ch, CURLOPT_URL, $apiUrl);
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+$response = curl_exec($ch);
+curl_close($ch);
+
+$data = json_decode($response, true);
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Selector de Gramajes y Anchos</title>
+    <title>Tabla Interactiva</title>
+    <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-        }
-        .gramaje-container {
-            display: flex;
-            gap: 20px;
-        }
-        .gramaje-box {
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            padding: 10px;
-            text-align: center;
-            width: 150px;
-        }
-        .ancho-select {
-            margin-top: 10px;
+        table {
+            border-collapse: collapse;
             width: 100%;
-            padding: 5px;
         }
-        .btn-ver-info {
-            margin-top: 10px;
-            padding: 5px 10px;
-            background-color: #007BFF;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
         }
-        .btn-ver-info:hover {
-            background-color: #0056b3;
+        th {
+            background-color: #f2f2f2;
+            text-align: left;
         }
-        .modal {
+        .hidden {
             display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 1000;
-            background: #fff;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            padding: 20px;
-            width: 300px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        }
-        .modal-header {
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
-        .modal-close {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            cursor: pointer;
-            font-size: 18px;
-            color: #333;
-        }
-        .overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            z-index: 999;
         }
     </style>
 </head>
 <body>
-    <h1>Lista de Gramajes</h1>
-    <div class="gramaje-container" id="gramajeContainer">
-        <!-- Los gramajes se generarán dinámicamente -->
-    </div>
+    <h1>Tabla Interactiva de Anchos y Gramajes</h1>
+    <table id="tablaDatos">
+        <thead>
+            <tr>
+                <th>Gramajes</th>
+                <th>Anchos</th>
+                <th>Datos</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($data as $tipoCaja => $info): ?>
+                <tr>
+                    <td colspan="3" style="background-color: #ddd; font-weight: bold;"><?php echo $tipoCaja; ?></td>
+                </tr>
+                <?php foreach ($info['gramajes'] as $index => $gramaje): ?>
+                    <tr class="parent-row" data-gramaje="<?php echo $gramaje; ?>">
+                        <td><?php echo $gramaje; ?></td>
+                        <td><?php echo $info['anchos'][$index]; ?></td>
+                        <td><?php echo $info['data'][$index]; ?></td>
+                    </tr>
+                    <!-- Fila oculta -->
+                    <tr class="child-row hidden" data-parent="<?php echo $gramaje; ?>">
+                        <td colspan="3">Detalles adicionales para el gramaje <?php echo $gramaje; ?></td>
+                    </tr>
+                <?php endforeach; ?>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
 
-    <!-- Modal -->
-    <div class="overlay" id="modalOverlay"></div>
-    <div class="modal" id="infoModal">
-        <span class="modal-close" id="closeModal">&times;</span>
-        <div class="modal-header">Información</div>
-        <div id="modalContent">
-            <!-- Aquí se mostrará la información -->
-        </div>
-    </div>
-
-    <script src="script.js"></script>
+    <script>
+        $(document).ready(function () {
+            $(".parent-row").on("click", function () {
+                const gramaje = $(this).data("gramaje");
+                $(`.child-row[data-parent="${gramaje}"]`).toggleClass("hidden");
+            });
+        });
+    </script>
 </body>
 </html>
-<script>
-  document.addEventListener('DOMContentLoaded', function () {
-    const apiUrl = "https://megawebsistem.com/admin/api/apicajablanco";
-    const gramajeContainer = document.getElementById('gramajeContainer');
-    const infoModal = document.getElementById('infoModal');
-    const modalContent = document.getElementById('modalContent');
-    const modalOverlay = document.getElementById('modalOverlay');
-    const closeModal = document.getElementById('closeModal');
-
-    // Cargar datos desde la API
-    fetch(apiUrl)
-        .then(response => response.json())
-        .then(data => {
-            // Objeto para almacenar gramajes únicos
-            const gramajesUnicos = {};
-
-            // Procesar los datos por categoría
-            for (const tipo in data) {
-                if (data.hasOwnProperty(tipo)) {
-                    const { gramajes, anchos, data: existencias } = data[tipo];
-
-                    gramajes.forEach((gramaje, index) => {
-                        // Si el gramaje no está en el objeto, inicializar
-                        if (!gramajesUnicos[gramaje]) {
-                            gramajesUnicos[gramaje] = new Set();
-                        }
-
-                        // Agregar anchos únicos al gramaje
-                        gramajesUnicos[gramaje].add(anchos[index]);
-                    });
-                }
-            }
-
-            // Generar las tarjetas de gramaje
-            Object.keys(gramajesUnicos).forEach(gramaje => {
-                const gramajeBox = document.createElement('div');
-                gramajeBox.classList.add('gramaje-box');
-
-                // Crear opciones únicas de anchos
-                const opcionesAnchos = Array.from(gramajesUnicos[gramaje])
-                    .map(ancho => `<option value="${ancho}">${ancho}</option>`)
-                    .join('');
-
-                gramajeBox.innerHTML = `
-                    <h3>Gramaje ${gramaje}</h3>
-                    <select class="ancho-select" data-gramaje="${gramaje}">
-                        ${opcionesAnchos}
-                    </select>
-                    <button class="btn-ver-info" data-gramaje="${gramaje}">Ver Información</button>
-                `;
-
-                gramajeContainer.appendChild(gramajeBox);
-            });
-
-            // Agregar evento a los botones de información
-            document.querySelectorAll('.btn-ver-info').forEach(button => {
-                button.addEventListener('click', function () {
-                    const gramaje = this.getAttribute('data-gramaje');
-                    const anchoSelect = this.previousElementSibling;
-                    const anchoSeleccionado = anchoSelect.value;
-
-                    // Buscar los datos específicos del gramaje y ancho
-                    let existencia = null;
-                    for (const tipo in data) {
-                        if (data.hasOwnProperty(tipo)) {
-                            const { gramajes, anchos, data: existencias } = data[tipo];
-                            gramajes.forEach((g, index) => {
-                                if (g == gramaje && anchos[index] == anchoSeleccionado) {
-                                    existencia = existencias[index];
-                                }
-                            });
-                        }
-                    }
-
-                    // Validar si se encontró la información
-                    if (existencia !== null) {
-                        // Mostrar información en el modal
-                        modalContent.innerHTML = `
-                            <p><strong>Gramaje:</strong> ${gramaje}</p>
-                            <p><strong>Ancho:</strong> ${anchoSeleccionado}</p>
-                            <p><strong>Existencia:</strong> ${existencia}</p>
-                        `;
-                        infoModal.style.display = 'block';
-                        modalOverlay.style.display = 'block';
-                    } else {
-                        alert('No se encontró información para la combinación seleccionada.');
-                    }
-                });
-            });
-        })
-        .catch(error => console.error('Error al cargar datos:', error));
-
-    // Cerrar el modal
-    closeModal.addEventListener('click', function () {
-        infoModal.style.display = 'none';
-        modalOverlay.style.display = 'none';
-    });
-
-    modalOverlay.addEventListener('click', function () {
-        infoModal.style.display = 'none';
-        modalOverlay.style.display = 'none';
-    });
-});
-
-</script>
