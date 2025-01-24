@@ -239,6 +239,30 @@ public static function menosDeCien($orden = 'DESC') {
         return $resultado;
     }
 
+
+    // Obtener gramajes, anchos únicos y suma total de existencia
+public static function obtenerDetallesUnicos($orden = 'DESC', $gramaje = null) {
+    // Construye la consulta SQL base
+    $query = "SELECT gramaje, ancho, SUM(existencia) as total_existencia 
+              FROM " . static::$tabla;
+
+    // Agrega una cláusula WHERE si se proporciona un valor para $gramaje
+    if ($gramaje !== null) {
+        $query .= " WHERE gramaje = " . intval($gramaje);
+    }
+
+    // Agrupa por gramaje y ancho para evitar duplicados
+    $query .= " GROUP BY gramaje, ancho";
+
+    // Agrega la cláusula ORDER BY
+    $query .= " ORDER BY gramaje {$orden}, ancho {$orden}";
+
+    // Ejecuta la consulta y devuelve el resultado
+    $resultado = self::consultarSQL($query);
+    return $resultado;
+}
+
+
     
     // contador de registro por linea
     public static function countByLinea($linea = null) {
