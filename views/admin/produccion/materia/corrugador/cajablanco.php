@@ -13,7 +13,7 @@
 </ul>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -21,29 +21,29 @@
   <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 </head>
 <body>
-  <h1>Gráfico de Existencias por Gramaje</h1>
+  <h1>Existencias por Gramaje y Ancho</h1>
   <div id="chart" style="max-width: 800px; margin: auto;"></div>
 
   <script>
     const apiUrl = "https://megawebsistem.com/admin/api/apicajablanco";
 
-    // Función para obtener los datos de la API y renderizar el gráfico
     async function fetchAndRenderChart() {
       try {
         const response = await fetch(apiUrl);
         const data = await response.json();
 
-        // Obtener categorías únicas (gramajes) y series por anchos
-        const gramajes = [...new Set(data.map(item => item.gramaje))]; // Gramajes únicos
-        const anchos = [...new Set(data.map(item => item.ancho))]; // Anchos únicos
+        // Obtener gramajes y anchos únicos
+        const gramajes = [...new Set(data.map(item => item.gramaje))];
+        const anchos = [...new Set(data.map(item => item.ancho))];
 
         // Crear series para cada ancho
         const series = anchos.map(ancho => ({
           name: `Ancho ${ancho}`,
           data: gramajes.map(gramaje => {
-            const item = data.find(entry => entry.ancho === ancho && entry.gramaje === gramaje);
-            return item ? parseInt(item.existencia, 10) : 0; // Existencias
-          }),
+            const items = data.filter(item => item.ancho === ancho && item.gramaje === gramaje);
+            const totalExistencia = items.reduce((sum, item) => sum + parseFloat(item.existencia), 0);
+            return totalExistencia;
+          })
         }));
 
         // Configuración del gráfico
@@ -59,16 +59,16 @@
           },
           plotOptions: {
             bar: {
-              horizontal: false, // Barras verticales
+              horizontal: false,
               borderRadius: 4,
             },
           },
           dataLabels: {
             enabled: true,
-            formatter: (val) => val, // Mostrar valores en las barras
+            formatter: (val) => val.toFixed(2), // Mostrar valores con dos decimales
           },
           xaxis: {
-            categories: gramajes, // Gramajes en el eje X
+            categories: gramajes,
             title: {
               text: 'Gramajes',
             },
@@ -86,7 +86,7 @@
           },
           tooltip: {
             y: {
-              formatter: (val) => `${val} unidades`,
+              formatter: (val) => `${val.toFixed(2)} unidades`,
             },
           },
         };
@@ -99,7 +99,6 @@
       }
     }
 
-    // Llamar a la función para obtener datos y renderizar el gráfico
     fetchAndRenderChart();
   </script>
 </body>
