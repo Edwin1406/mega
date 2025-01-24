@@ -91,7 +91,7 @@
         let chart; // Referencia al gráfico
 
         // Llamar a la API y obtener los datos
-        fetch('URL_DE_TU_API')
+        fetch('https://megawebsistem.com/admin/api/apicajablanco')
             .then(response => response.json())
             .then(data => {
                 originalData = data; // Guardar los datos originales
