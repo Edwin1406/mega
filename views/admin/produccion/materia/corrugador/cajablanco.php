@@ -17,7 +17,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ApexCharts Stacked Bar Chart</title>
+  <title>100% Stacked Bar Chart</title>
   <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 </head>
 <body>
@@ -26,51 +26,63 @@
   <script>
     var options = {
       series: [
-        { name: "PRODUCT A", data: [44, 55, 41, 67, 22, 43] },
-        { name: "PRODUCT B", data: [13, 23, 20, 8, 13, 22] },
-        { name: "PRODUCT C", data: [11, 17, 15, 25, 21, 27] },
-        { name: "PRODUCT D", data: [21, 7, 25, 13, 22, 8] },
+        {
+          name: 'Marine Sprite',
+          data: [44, 55, 41, 37, 22, 43, 21]
+        },
+        {
+          name: 'Striking Calf',
+          data: [53, 32, 33, 52, 13, 43, 32]
+        },
+        {
+          name: 'Tank Picture',
+          data: [12, 17, 11, 9, 15, 11, 20]
+        },
+        {
+          name: 'Bucket Slope',
+          data: [9, 7, 5, 8, 6, 9, 4]
+        },
+        {
+          name: 'Reborn Kid',
+          data: [25, 12, 19, 32, 25, 24, 10]
+        },
       ],
       chart: {
         type: 'bar',
         height: 350,
         stacked: true,
-        toolbar: {
-          show: true,
-        },
-        zoom: {
-          enabled: true,
-        },
+        stackType: '100%' // Asegura que sea un gráfico apilado al 100%.
       },
-      responsive: [
-        {
-          breakpoint: 640,
-          options: {
-            legend: {
-              position: 'bottom',
-              offsetX: -10,
-              offsetY: 0,
-            },
-          },
-        },
-      ],
       plotOptions: {
         bar: {
-          horizontal: false,
-          borderRadius: 4,
+          horizontal: true, // Las barras serán horizontales.
         },
       },
-      xaxis: {
-        categories: ["Jan '11", "02 Jan", "03 Jan", "04 Jan", "05 Jan", "06 Jan"],
+      stroke: {
+        width: 1,
+        colors: ['#fff'] // Bordes blancos entre las barras.
       },
-      legend: {
-        position: 'right',
-        offsetY: 40,
+      title: {
+        text: '100% Stacked Bar'
+      },
+      xaxis: {
+        categories: [2008, 2009, 2010, 2011, 2012, 2013, 2014],
+      },
+      tooltip: {
+        y: {
+          formatter: function (val) {
+            return val + "K"; // Agrega una "K" al valor mostrado en el tooltip.
+          }
+        }
       },
       fill: {
-        opacity: 1,
+        opacity: 1
       },
-      colors: ['#008FFB', '#00E396', '#FEB019', '#FF4560'], // Colores para cada producto
+      legend: {
+        position: 'top', // Coloca la leyenda en la parte superior.
+        horizontalAlign: 'left',
+        offsetX: 40
+      }
     };
 
     var chart = new ApexCharts(document.querySelector("#chart"), options);
