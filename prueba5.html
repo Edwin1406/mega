@@ -1,162 +1,86 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Escáner de Código de Barras</title>
-  <script src="https://cdn.jsdelivr.net/npm/quagga/dist/quagga.min.js"></script>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f8f9fa;
-      color: #333;
-      text-align: center;
-    }
-    h1 {
-      color: #007bff;
-    }
-  
-#scanner img, #scanner video {
-    width: 100%;
-    /* height: auto; */
-    /* padding-top: 10rem; */
-    border-radius: 1rem;
-  
- } 
-.contenedor {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-    }
-
-    #status {
-      font-weight: bold;
-      margin: 10px 0;
-      font-size: 2rem;
-    }
-    #notificacion {
-      position: fixed;
-      bottom: -100px; /* Oculta la notificación inicialmente */
-      left: 50%;
-      transform: translateX(-50%);
-      background-color: #007bff;
-      color: white;
-      padding: 15px 20px;
-      border-radius: 5px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-      font-size: 16px;
-      z-index: 1000;
-      transition: bottom 0.5s ease-in-out;
-    }
-    #notificacion.mostrar {
-      bottom: 20px; /* Muestra la notificación */
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gráfico de Barras - ApexCharts</title>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 </head>
 <body>
-  <h1>Escáner de Código de Barras</h1>
-  <div class="contenedor">
-    <div id="scanner">
-      <p id="status">Escaneando...</p>
-    </div>
-    <div id="notificacion"></div>
-  </div>
+    <div id="chart" style="max-width: 800px; margin: auto;"></div>
 
-  <script>
-    const apiUrl = "https://megawebsistem.com/admin/api/ApiMateriaPrima"; // URL de la API
-    let ultimaDeteccion = {}; // Almacena la última detección de códigos
-    const bloqueoTiempo = 2000; // Tiempo de espera en milisegundos
+    <script>
+        var options = {
+            chart: {
+                type: 'bar',
+                height: 400,
+                toolbar: {
+                    show: true,
+                    tools: {
+                        download: true,
+                        selection: true,
+                        zoom: true,
+                        zoomin: true,
+                        zoomout: true,
+                        pan: true,
+                        reset: true
+                    },
+                },
+                animations: {
+                    enabled: true,
+                    easing: 'easeinout',
+                    speed: 800,
+                },
+            },
+            series: [
+                {
+                    name: 'Ventas 2024',
+                    data: [450, 560, 740, 820, 600, 500, 780]
+                },
+                {
+                    name: 'Ventas 2023',
+                    data: [400, 520, 700, 750, 580, 480, 720]
+                }
+            ],
+            xaxis: {
+                categories: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio'],
+                title: {
+                    text: 'Meses',
+                }
+            },
+            yaxis: {
+                title: {
+                    text: 'Ventas (en miles)',
+                },
+            },
+            plotOptions: {
+                bar: {
+                    horizontal: false,
+                    columnWidth: '50%',
+                    endingShape: 'rounded'
+                }
+            },
+            colors: ['#008FFB', '#FF4560'],
+            dataLabels: {
+                enabled: true,
+                formatter: function (val) {
+                    return val + 'k';
+                }
+            },
+            legend: {
+                position: 'top',
+            },
+            tooltip: {
+                y: {
+                    formatter: function (val) {
+                        return val + 'k';
+                    }
+                }
+            }
+        };
 
-    // Mostrar notificación en la parte inferior
-    function mostrarNotificacion(mensaje) {
-      const notificacion = document.getElementById("notificacion");
-      notificacion.textContent = mensaje;
-      notificacion.classList.add("mostrar");
-
-      // Ocultar la notificación después de 3 segundos
-      setTimeout(() => {
-        notificacion.classList.remove("mostrar");
-      }, 3000);
-    }
-
-    // Inicializar el escáner
-    function iniciarEscaner() {
-      Quagga.init({
-        inputStream: {
-          type: "LiveStream",
-          target: document.querySelector("#scanner"),
-          constraints: {
-            facingMode: "environment",
-            width: 400,
-            height: 250
-          }
-        },
-        decoder: { readers: ["code_128_reader"] }
-      }, function(err) {
-        if (err) {
-          console.error(err);
-          return;
-        }
-        Quagga.start();
-      });
-
-      Quagga.onDetected(data => {
-        const codigoEscaneado = data.codeResult.code;
-        const ahora = new Date().getTime();
-
-        // Verificar si el código fue detectado recientemente
-        if (ultimaDeteccion[codigoEscaneado] && ahora - ultimaDeteccion[codigoEscaneado] < bloqueoTiempo) {
-          return; // Ignorar detección duplicada
-        }
-
-        ultimaDeteccion[codigoEscaneado] = ahora; // Actualizar tiempo de detección
-        console.log("Código detectado:", codigoEscaneado);
-        buscarProducto(codigoEscaneado);
-      });
-    }
-
-    // Buscar producto en la API
-    async function buscarProducto(codigo) {
-      const status = document.getElementById("status");
-      try {
-        const response = await fetch(apiUrl);
-        if (!response.ok) throw new Error("Error al cargar la API");
-        const productos = await response.json();
-
-        // Buscar el producto que coincide con el código de barras
-        const producto = productos.find(p => p.barcode === codigo);
-
-        if (producto) {
-          status.textContent = `Producto ${codigo} encontrado. Redirigiendo...`;
-          status.style.color = "#28a745";
-
-          // Mostrar notificación
-          mostrarNotificacion(`Producto encontrado: Redirigiendo al ID ${producto.id}`);
-
-          // Redirigir a la URL con el ID del producto
-          setTimeout(() => {
-    window.open(`https://megawebsistem.com/admin/produccion/materia/editar?id=${producto.id}`, "_blank");
-    }, 3000); // Espera 3 segundos para que el usuario vea la notificación
-        } else {
-          status.textContent = `Código ${codigo} no encontrado en la base de datos.`;
-          status.style.color = "#dc3545";
-
-          // Mostrar notificación
-          mostrarNotificacion(`Código ${codigo} no encontrado.`);
-        }
-      } catch (error) {
-        console.error("Error al buscar el producto:", error);
-        status.textContent = "Error al buscar el producto.";
-        status.style.color = "#dc3545";
-
-        // Mostrar notificación
-        mostrarNotificacion("Error al buscar el producto.");
-      }
-    }
-
-    // Iniciar el escáner
-    iniciarEscaner();
-  </script>
+        var chart = new ApexCharts(document.querySelector("#chart"), options);
+        chart.render();
+    </script>
 </body>
 </html>

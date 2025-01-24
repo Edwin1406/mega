@@ -19,8 +19,6 @@
 
 
 
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -179,11 +177,14 @@
               toolbar: {
                 show: true,
                 tools: {
-                  zoom: false,
+                  download: true,
+                  zoom: true,
+                  zoomin: true,
+                  zoomout: true,
                   pan: true,
                   reset: true,
                 },
-                autoSelected: 'pan',
+                autoSelected: 'zoom',
               },
             },
             series: [
