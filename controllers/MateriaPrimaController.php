@@ -413,23 +413,23 @@ class MateriaPrimaController
     }
 
 
-    public static function apicajablanco (){
+    public static function apicajablanco() {
         // CORS
         header("Access-Control-Allow-Origin: *");
         header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
     
-        // Obtiene los datos de la consulta base
+        // Obtén los datos desde la consulta base
         $corrugador = MateriaPrimaV::allc('ASC', 'MICRO');
     
         // Procesa los datos para agrupar por gramaje y ancho
         $agregados = [];
         foreach ($corrugador as $item) {
-            $key = $item['gramaje'] . '-' . $item['ancho']; // Llave única basada en gramaje y ancho
+            $key = $item->gramaje . '-' . $item->ancho; // Llave única basada en gramaje y ancho
             if (!isset($agregados[$key])) {
-                $agregados[$key] = $item;
-                $agregados[$key]['existencia'] = intval($item['existencia']); // Asegúrate de manejar las existencias como enteros
+                $agregados[$key] = $item; // Almacena el objeto original
+                $agregados[$key]->existencia = intval($item->existencia); // Inicializa la existencia como entero
             } else {
-                $agregados[$key]['existencia'] += intval($item['existencia']); // Suma las existencias
+                $agregados[$key]->existencia += intval($item->existencia); // Suma las existencias
             }
         }
     
@@ -443,7 +443,7 @@ class MateriaPrimaController
     
 
 
-
+    
     // public static function apicajablanco (){
     //     // cors
     //     header("Access-Control-Allow-Origin: *");
