@@ -459,7 +459,9 @@
   <div id="chart20"></div>
   
   <script>
-    const url = 'https://megawebsistem.com/admin/api/apicajablanco';
+    api();
+    async function api(params) {
+      const url = 'https://megawebsistem.com/admin/api/apicajablanco';
       const respuesta = await fetch(url);
       const resultado = await respuesta.json();
       console.log(resultado);
@@ -483,7 +485,9 @@
     };
 
     var chart20 = new ApexCharts(document.querySelector("#chart20"), options);
-    chart20.render();
+    chart20.render();  
+    }
+    
   </script>
 </body>
 </html>
