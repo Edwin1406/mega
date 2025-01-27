@@ -1,5 +1,5 @@
 (function(){
-    const apiUrl = "https://megawebsistem.com/admin/api/apicajablanco";
+    const apiUrl = `${location.origin}/admin/api/apicajablanco`;
     let originalData = [];
     let chart;
 
