@@ -2,7 +2,7 @@
 
 
 <ul class="lista-areas-produccion">
-    <li class="areas-produccion">
+    <li class="areas-produccion-estatico">
         <a href="#">
             <i class="fas fa-industry"> </i> TOTAL REGISTROS :
             <?php if ($totalRegistros > 0) : ?>
@@ -10,7 +10,7 @@
             <?php endif; ?>
         </a>
     </li>
-    <li class="areas-produccion">
+    <li class="areas-produccion-estatico">
         <a href="#">
             <i class="fas fa-scroll"></i> TOTAL EXISTENCIA :
             <?php if ($totalExistencia > 0) : ?>
@@ -20,7 +20,7 @@
     </li>
 
 
-    <li class="areas-produccion">
+    <li class="areas-produccion-estatico">
         <a href="#">
             <i class="fas fa-shopping-cart"></i> TOTAL COSTO :
             <?php if ($totalCosto > 0) : ?>
@@ -38,7 +38,7 @@
 
 
 
-    <li class="areas-produccion-estatico-craft">
+    <li class="areas-produccion-craft">
         <a href="/admin/produccion/materia/corrugador/cajacraft">
             <i class="fas fa-scroll"></i> TOTAL EXISTENCIA CAJA-KRAFT :
             <?php if ($totalExistenciaK > 0) : ?>
@@ -47,7 +47,7 @@
         </a>
     </li>
 
-    <li class="areas-produccion-estatico-blanco">
+    <li class="areas-produccion-blanco">
         <a href="/admin/produccion/materia/corrugador/cajablanco">
             <i class="fas fa-scroll"></i> TOTAL EXISTENCIA CAJA-BLANCO :
             <?php if ($totalExistenciaB > 0) : ?>
@@ -57,7 +57,7 @@
     </li>
 
 
-    <li class="areas-produccion-estatico-medium">
+    <li class="areas-produccion-medium">
         <a href="/admin/produccion/materia/corrugador/cajamedium">
             <i class="fas fa-shopping-cart"></i> TOTAL EXISTENCIA CAJA-MEDIUM :
             <?php if (isset($totalExistenciaM) && $totalExistenciaM > 0) : ?>
