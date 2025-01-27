@@ -241,6 +241,7 @@
       },
       series: resultado.map(item => item.existencia), // Datos a graficar
       labels: resultado.map(item => item.ancho), // Etiquetas para cada segmento
+
       title: {
         text: 'Existencia de Caja Blanca',
         align: 'center',
@@ -252,7 +253,9 @@
       dataLabels: {
         enabled: true,
         formatter: function (val, opts) {
-          return val.toFixed(1) + '%'; // Formato para mostrar el porcentaje
+        //  gramaje
+          return opts.w.config.series[opts.seriesIndex];
+          
         },
         style: {
           fontSize: '14px',
