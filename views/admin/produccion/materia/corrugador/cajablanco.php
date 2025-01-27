@@ -267,4 +267,106 @@
 
 
   }
+
+  // Segundo gráfico: Pie
+  const ctx2 = document.getElementById('myChart2');
+  if(ctx2){
+    new Chart(ctx2, {
+      type: 'pie',
+      data: {
+        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+        datasets: [{
+          label: '# of Votes',
+          data: [12, 19, 3, 5, 2, 3],
+          backgroundColor: ['red', 'blue', 'yellow', 'green', 'purple', 'orange'],
+          borderWidth: 1
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
+  }
+
+  // Tercer gráfico: Line
+  const ctx3 = document.getElementById('myChart3');
+  if(ctx3){
+    new Chart(ctx3, {
+      type: 'line',
+      data: {
+        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+        datasets: [{
+          label: '# of Votes',
+          data: [12, 19, 3, 5, 2, 3],
+          backgroundColor: ['red', 'blue', 'yellow', 'green', 'purple', 'orange'],
+          borderWidth: 1
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
+  }
+
+
+  // Cuarto gráfico: Radar
+  const ctx4 = document.getElementById('myChart4');
+  if(ctx4){
+    new Chart(ctx4, {
+      type: 'radar',
+      data: {
+        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+        datasets: [{
+          label: '# of Votes',
+          data: [12, 19, 3, 5, 2, 3],
+          backgroundColor: ['red', 'blue', 'yellow', 'green', 'purple', 'orange'],
+          borderWidth: 1
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
+  }
+
+
+  // Quinto gráfico: Doughnut
+  const ctx5 = document.getElementById('myChart5');
+  if(ctx5){
+    new Chart(ctx5, {
+      type: 'doughnut',
+      data: {
+        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+        datasets: [{
+          label: '# of Votes',
+          data: [12, 19, 3, 5, 2, 3],
+          backgroundColor: ['red', 'blue', 'yellow', 'green', 'purple', 'orange'],
+          borderWidth: 1
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
+  }
+
+</script>
+
+
  
