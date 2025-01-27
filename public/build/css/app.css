@@ -350,6 +350,7 @@
 
 #filters {
   display: flex;
+  justify-content: space-between;
 }
 
 .graficas_blancas {
