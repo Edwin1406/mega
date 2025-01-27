@@ -1,6 +1,6 @@
 <h1 class="dashboard__heading"> <?php echo $titulo ?> </h1>
 
-<div class="dashboard__contenedor-boton-izquierdo">
+<!-- <div class="dashboard__contenedor-boton-izquierdo">
     <a class="dashboard__boton" href="/admin/produccion/materia/graficas">
         <i class="fa-solid fa-arrow-right"></i>
         Ver Graficas
@@ -11,7 +11,7 @@
         <i class="fa-solid fa-arrow-right"></i>
         Ver a Materia Prima
     </a>
-</div>
+</div> -->
 <div class="dashboard__contenedor-boton">
     <a class="dashboard__boton" href="/admin/produccion/materia/excel">
         <i class="fa-solid fa-arrow-right"></i>
