@@ -26,21 +26,7 @@
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
 
-  <!-- <style>
-    #filters {
-      display: flex;
-      justify-content: space-between;
-      margin: 20px auto;
-      max-width: 800px;
-    }
-    #filters select {
-      padding: 5px;
-      font-size: 16px;
-    }
-    table {
-      margin-top: 20px;
-    }
-  </style> -->
+
 
   
     <div id="filters">
