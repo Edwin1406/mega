@@ -363,22 +363,32 @@
 
 
 
-    // Opciones del gráfico de pastel
-    let options = {
-      chart: {
-        type: 'pie' // Tipo de gráfico: pastel
-      },
-      series: resultado.map(resultado => resultado.existencia), // Datos a graficar
-      labels: resultado.map(resultado => resultado.ancho), // Etiquetas para cada segmento
-      title: {
-        text: 'Distribución de Ventas', // Título del gráfico
-        align: 'center'
-      }
-    };
 
-    // Inicializar el gráfico
-    let chart = new ApexCharts(document.querySelector("#chart"), options);
-    chart.render();
+
+      // Opciones del gráfico de barras
+      let options = {
+        chart: {
+          type: 'bar' // Tipo de gráfico: barras
+        },
+        series: [{ // Datos a graficar
+          name: 'Existencia Total',
+          data: resultado.map(resultado => resultado.existencia)
+        }],
+        xaxis: { // Etiquetas en el eje X
+          categories: resultado.map(resultado => resultado.ancho)
+        },
+        title: {
+          text: 'Existencia de Productos', // Título del gráfico
+          align: 'center'
+        }
+      };
+
+      // Inicializar el gráfico
+      let chart2 = new ApexCharts(document.querySelector("#chart"), options);
+      chart.render();
+
+
+
 
 
     } catch (error) {
