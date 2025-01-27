@@ -166,7 +166,7 @@
 
     &__grafico{
         display: flex;
-        gap: 2rem;
+        gap: 7rem;
         grid-template-columns: repeat(3, 1fr);
         @include m.contenedor-md;
         // @extend .dashboard__contenedor;
