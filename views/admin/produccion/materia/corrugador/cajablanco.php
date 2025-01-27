@@ -142,7 +142,7 @@
       const anchos = [...new Set(data.map(item => item.ancho))];
 
       const series = anchos.map(ancho => ({
-        name: `Ancho : ${ancho}m Existencia:`,
+        name: `Ancho : ${ancho}m`,
         data: gramajes.map(gramaje => {
           const items = data.filter(item => item.ancho === ancho && item.gramaje === gramaje);
           return items.reduce((sum, item) => sum + parseFloat(item.existencia), 0);
