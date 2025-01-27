@@ -349,10 +349,8 @@
 }
 .dashboard__grafico {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: min(95%, 140rem);
-  margin: 0 auto;
+  gap: 2rem;
+  grid-template-columns: repeat(1, 1fr);
   width: min(95%, 80rem);
   margin: 0 auto;
 }
