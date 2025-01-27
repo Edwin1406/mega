@@ -89,16 +89,18 @@
   color: #FFFFFF;
 }
 .lista-areas-produccion .areas-produccion-estatico {
-  background-color: #839691;
-  min-height: 12rem;
+  background-color: #556B6F; /* Fondo oscuro */
+  color: #FFFFFF; /* Texto blanco */
+  min-height: 12rem; /* Altura mínima */
   padding: 2rem;
   padding-top: 4rem;
   text-align: center;
-  transform: scale(1.05); /* Aumenta ligeramente al pasar el ratón */
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-}
-.lista-areas-produccion .areas-produccion-estatico a {
-  color: #FFFFFF;
+  font-family: "Roboto", sans-serif; /* Fuente moderna */
+  font-size: 1.5rem; /* Tamaño de texto */
+  font-weight: bold; /* Texto en negrita */
+  border-radius: 50px 0 0 50px; /* Esquina redondeada izquierda y cuadrada derecha */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s; /* Animación */
 }
 .lista-areas-produccion .areas-produccion-craft {
   border-radius: 1rem;
