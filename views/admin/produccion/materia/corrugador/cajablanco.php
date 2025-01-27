@@ -216,22 +216,6 @@
 
 
 
-<div class="grafica">
-  <div class="tamaño">
-    <canvas id="producto-grafica"></canvas>
-  </div>
-  <div class="tamaño">
-    <canvas id="myChart2"></canvas>
-  </div>
-  <div class="tamaño">
-    <canvas id="myChart3"></canvas>
-  </div>
-  <div class="tamaño">
-    <canvas id="myChart5"></canvas>
-  </div>
-</div>
-
-
 
 
 
