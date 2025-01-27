@@ -165,12 +165,9 @@
 
 
     &__grafico {
-        display: flex;
-        gap: 7rem;
-        flex-wrap: wrap; // Si necesitas que los gráficos bajen de línea en pantallas más pequeñas
-        @include m.contenedor-md;
-        @include m.grid(2, 2rem);
-        @extend .dashboard__contenedor;
+       display: grid;
+       gap: 2rem;
+         grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
       }
       
 

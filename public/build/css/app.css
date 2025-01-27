@@ -336,7 +336,7 @@
     margin-bottom: 2rem;
   }
 }
-.dashboard__contenedor, .dashboard__grafico, .dashboard__formulario {
+.dashboard__contenedor, .dashboard__formulario {
   background-color: #FFFFFF;
   padding: 2rem;
   border-radius: 1rem;
@@ -348,14 +348,9 @@
   margin: 0 auto;
 }
 .dashboard__grafico {
-  display: flex;
-  gap: 7rem;
-  flex-wrap: wrap;
-  width: min(95%, 80rem);
-  margin: 0 auto;
   display: grid;
   gap: 2rem;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
 }
 
 .grafica {
