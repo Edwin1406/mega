@@ -175,7 +175,11 @@
     justify-content: space-between;
     align-items: center;
     margin-top: 2rem;
-    @include m.contenedor;
+    
+    .select{
+        width: 100%;
+        margin-right: 1rem;
+    }
 }
 
 
