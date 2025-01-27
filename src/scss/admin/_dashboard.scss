@@ -170,6 +170,8 @@
 
 #filters {
     display: flex;
+    @include m.contenedor;
+
     justify-content: space-between;
     align-items: center;
     padding-bottom: 2rem;
