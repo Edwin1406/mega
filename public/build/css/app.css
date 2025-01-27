@@ -349,27 +349,43 @@
 }
 
 .graficas_blancas {
+  padding: 0;
+  margin-top: 3rem;
+  display: flex;
+  align-items: center;
+  width: min(95%, 140rem);
+  margin: 0 auto;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px; /* Espaciado entre columnas */
+  gap: 2rem;
+  grid-template-columns: repeat(1, 1fr);
 }
 @media (min-width: 768px) {
   .graficas_blancas {
+    display: grid;
+    gap: 2rem;
     grid-template-columns: repeat(2, 1fr);
   }
 }
-@media (min-width: 480px) {
+@media (min-width: 1024px) {
   .graficas_blancas {
-    grid-template-columns: repeat(1, 1fr);
+    display: grid;
+    gap: 2rem;
+    grid-template-columns: repeat(3, 1fr);
   }
 }
-
-.tamaño {
-  width: 100%;
-  height: 300px; /* Ajusta el tamaño según lo necesites */
-  background-color: #f0f0f0; /* Fondo para identificar los contenedores */
-  border: 1px solid #ccc; /* Opcional: borde para visualización */
-  border-radius: 8px; /* Bordes redondeados */
+.graficas_blancas .tamaño {
+  background-color: #FFFFFF;
+  min-height: 12rem;
+  border-radius: 1rem;
+  padding: 2rem;
+  padding-top: 4rem;
+  text-align: center;
+}
+.graficas_blancas .tamaño a {
+  color: #FFFFFF;
+}
+.graficas_blancas .tamaño:hover {
+  background-color: rgb(242.25, 242.25, 242.25);
 }
 
 .grafica {
