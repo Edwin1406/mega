@@ -443,7 +443,18 @@
       title: {
         text: 'Existencia de Caja Blanca',
         align: 'center'
-      }
+      },
+      responsive: [{
+        breakpoint: 480,
+        options: {
+          chart: {
+            width: 200
+          },
+          legend: {
+            position: 'bottom'
+          }
+        }
+      }]
     };
 
     // Renderiza los gráficos en cada contenedor
