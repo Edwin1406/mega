@@ -256,8 +256,8 @@
   #dataTable tr:hover {
     background-color: v.$gris-claro;
 }
-    #dataTable th {
-    color: v.$blanco;
+    #dataTable th:hover {
+    background-color: aquamarine;
     }
 
 

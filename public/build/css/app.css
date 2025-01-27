@@ -426,8 +426,8 @@
   background-color: #c5cace;
 }
 
-#dataTable th {
-  color: #FFFFFF;
+#dataTable th:hover {
+  background-color: aquamarine;
 }
 
 .grafica {
