@@ -17,4 +17,15 @@
             <?php endif; ?> 
         </a>
     </li>
+
+    <li class="areas-produccion">
+        <a href="#">
+            <i class="fas fa-shopping-cart"></i> TOTAL COSTO :
+            <?php if($totalCosto > 0) : ?>
+                <span class="areas-produccion__numero"> <?php echo $totalCosto ?> $ </span>
+            <?php endif; ?> 
+        </a>
+    </li>
+
+
 </ul>
