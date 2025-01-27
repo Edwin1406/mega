@@ -170,10 +170,10 @@
         text-align: center;
         @include m.grid(3, 2rem);
         @include m.tablet {
-            grid-template-columns: 1fr 1fr;
+            @include m.grid(2, 2rem);
         }
         @include m.telefono {
-            grid-template-columns: 1fr;
+            @include m.grid(1, 2rem);
         }
         
         .tamaño{
