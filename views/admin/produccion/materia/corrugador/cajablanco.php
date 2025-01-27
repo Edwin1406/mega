@@ -214,3 +214,57 @@
   </script>
 </body>
 </html>
+
+
+
+<div class="grafica">
+  <div class="tamaño">
+    <canvas id="producto-grafica"></canvas>
+  </div>
+  <div class="tamaño">
+    <canvas id="myChart2"></canvas>
+  </div>
+  <div class="tamaño">
+    <canvas id="myChart3"></canvas>
+  </div>
+  <div class="tamaño">
+    <canvas id="myChart4"></canvas>
+  </div>
+  <div class="tamaño">
+    <canvas id="myChart5"></canvas>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+  // Primer gráfico: Bar
+  const grafica = document.querySelector('#producto-grafica');
+
+  if(grafica){
+
+        const ctx1 = document.getElementById('producto-grafica');
+      new Chart(ctx1, {
+        type: 'bar',
+        data: {
+          labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+          datasets: [{
+            label: '# of Votes',
+            data: [12, 19, 3, 5, 2, 3],
+            backgroundColor: ['red', 'blue', 'yellow', 'green', 'purple', 'orange'],
+            borderWidth: 1
+          }]
+        },
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true
+            }
+          }
+        }
+      });
+
+
+
+  }
+ 
