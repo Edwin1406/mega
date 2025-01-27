@@ -368,8 +368,8 @@
       chart: {
         type: 'pie' // Tipo de gráfico: pastel
       },
-      series: [44, 55, 41, 17, 15], // Datos para cada segmento
-      labels: ['Ventas A', 'Ventas B', 'Ventas C', 'Ventas D', 'Ventas E'], // Etiquetas para cada segmento
+      series: resultado.map(resultado => resultado.existencia), // Datos a graficar
+      labels: resultado.map(resultado => resultado.ancho), // Etiquetas para cada segmento
       title: {
         text: 'Distribución de Ventas', // Título del gráfico
         align: 'center'
