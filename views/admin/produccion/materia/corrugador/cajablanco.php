@@ -62,7 +62,7 @@
     </div>
   </div>
   <div id="chart" class="tamaño" style="max-width: 800px; margin: auto;"></div>
-  <table id="dataTable" class="display" style="width:100%">
+  <table id="dataTable"  style="width:100%">
     <thead>
       <tr>
         <th>Ancho</th>
