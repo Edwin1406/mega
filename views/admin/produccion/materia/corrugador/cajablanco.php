@@ -228,9 +228,6 @@
     <canvas id="myChart3"></canvas>
   </div>
   <div class="tamaño">
-    <canvas id="myChart4"></canvas>
-  </div>
-  <div class="tamaño">
     <canvas id="myChart5"></canvas>
   </div>
 </div>
@@ -386,33 +383,6 @@
     }
   }
 
-
-
-
-
-  // Cuarto gráfico: Radar
-  const ctx4 = document.getElementById('myChart4');
-  if(ctx4){
-    new Chart(ctx4, {
-      type: 'radar',
-      data: {
-        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-        datasets: [{
-          label: '# of Votes',
-          data: [12, 19, 3, 5, 2, 3],
-          backgroundColor: ['red', 'blue', 'yellow', 'green', 'purple', 'orange'],
-          borderWidth: 1
-        }]
-      },
-      options: {
-        scales: {
-          y: {
-            beginAtZero: true
-          }
-        }
-      }
-    });
-  }
 
 
   // Quinto gráfico: Doughnut
