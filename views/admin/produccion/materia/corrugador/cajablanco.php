@@ -441,7 +441,7 @@
       series: resultado.map(item => item.existencia), // Datos a graficar
       labels: resultado.map(item => item.ancho), // Etiquetas para cada segmento
       title: {
-        text: 'Distribución de Ventas', // Título del gráfico
+        text: 'Existencia de Caja Blanca',
         align: 'center'
       }
     };
