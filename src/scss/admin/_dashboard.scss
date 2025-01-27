@@ -197,6 +197,9 @@
         &:hover{
             // background-color: darken(v.$gris-oscuro, 5%);
             background-color: color.adjust(v.$cyan, $lightness: -5%);
+            label{
+                color: v.$blanco;
+            }
             
         }
 

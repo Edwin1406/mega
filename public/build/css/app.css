@@ -387,6 +387,9 @@
 .grafica .tamaño:hover {
   background-color: rgb(6.9032258065, 125.1209677419, 153.5967741935);
 }
+.grafica .tamaño:hover label {
+  color: #FFFFFF;
+}
 
 h1 {
   color: #007bff;
