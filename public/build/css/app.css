@@ -350,7 +350,7 @@
 .dashboard__grafico {
   display: flex;
   gap: 7rem;
-  grid-template-columns: repeat(3, 1fr);
+  flex-wrap: wrap;
   width: min(95%, 80rem);
   margin: 0 auto;
 }

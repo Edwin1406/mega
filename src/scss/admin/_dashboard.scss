@@ -164,15 +164,13 @@
     }
 
 
-    &__grafico{
+    &__grafico {
         display: flex;
         gap: 7rem;
-        grid-template-columns: repeat(3, 1fr);
+        flex-wrap: wrap; // Si necesitas que los gráficos bajen de línea en pantallas más pequeñas
         @include m.contenedor-md;
-        // @extend .dashboard__contenedor;
+      }
       
-
-    }
 
   
 }
