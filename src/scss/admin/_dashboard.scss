@@ -163,8 +163,21 @@
         @extend .dashboard__contenedor;
     }
 
+
+    &__grafico{
+        @include m.contenedor-md;
+    }
+
   
 }
+
+
+
+
+
+
+
+
 
 .grafica{
     padding: 0;

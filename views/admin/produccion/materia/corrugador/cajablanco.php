@@ -416,9 +416,11 @@
 
 
 
+<style>
+  
+</style>
 
-
-  <div class="grafica">
+  <div class="dashboard__grafico">
 
     <div id="chart20" class="tamaño"></div>
   </div>
