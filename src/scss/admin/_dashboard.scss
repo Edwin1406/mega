@@ -230,14 +230,14 @@
     border-collapse: collapse;
     width: 100%;
     text-align: left;
-    background-color: v.$blanco;
+    // background-color: v.$blanco;
 
   }
 
   #dataTable_wrapper {
     background-color: v.$blanco;
-    padding: 1rem; 
-    border-radius: 5px; /* Opcional: Esquinas redondeadas */
+    padding: 2rem; 
+    border-radius: 1rem;
   }
 
 
