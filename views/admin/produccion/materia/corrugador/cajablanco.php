@@ -321,26 +321,16 @@
 
 
 
-
-
-
-
-    } catch (error) {
-      console.error('Error al obtener los datos de la API:', error);
-    }
-  }
-
-
   // Tercer gráfico: Line
   const ctx3 = document.getElementById('myChart3');
   if(ctx3){
     new Chart(ctx3, {
       type: 'line',
       data: {
-        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+        labels: resultado.map(resultado => resultado.ancho),
         datasets: [{
           label: '',
-          data: [12, 19, 3, 5, 2, 3],
+          data: resultado.map(resultado => resultado.existencia),
           backgroundColor: [
           '#ea580c',
           '#84cc16',
@@ -363,6 +353,16 @@
         }
       }
     });
+  }
+
+
+
+
+
+
+    } catch (error) {
+      console.error('Error al obtener los datos de la API:', error);
+    }
   }
 
 
