@@ -484,8 +484,13 @@
       }
     };
 
-    var chart20 = new ApexCharts(document.querySelector("#chart22"), options);
+    var chart20 = new ApexCharts(document.querySelector("#chart20"), options);
     chart20.render();  
+
+
+
+
+    
     
     var chart20 = new ApexCharts(document.querySelector("#chart21"), options);
     chart20.render();  
@@ -511,7 +516,8 @@
     chart20.render();  
     
 
-    
+    var chart20 = new ApexCharts(document.querySelector("#chart22"), options);
+    chart20.render(); 
     var options = {
       chart: {
         type: 'line',
