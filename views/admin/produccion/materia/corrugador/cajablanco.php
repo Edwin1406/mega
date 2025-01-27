@@ -253,9 +253,9 @@
       dataLabels: {
         enabled: true,
         formatter: function (val, opts) {
-        //  gramaje
-          return opts.w.config.series[opts.seriesIndex];
-          
+          // Mostrar gramaje (existencia) en lugar del porcentaje
+          const index = opts.seriesIndex;
+          return `${resultado[index].gramaje} g`;
         },
         style: {
           fontSize: '14px',
