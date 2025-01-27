@@ -224,7 +224,7 @@ public static function menosDeCien($orden = 'DESC') {
     // Obtener todos los Registros con una condición caja
     public static function allc($orden = 'DESC', $linea = null) {
         // Construye la consulta SQL base
-        $query = "SELECT * FROM " . static::$tabla;
+        $query = "SELECT id,existencia,linea,gramaje,proveedor,sustrato,ancho " . static::$tabla;
     
         // Agrega una cláusula WHERE si se proporciona un valor para $linea
         if ($linea !== null) {
