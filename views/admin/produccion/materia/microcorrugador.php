@@ -1,7 +1,7 @@
 <h1 class="dashboard__heading"> <?php echo $titulo ?> </h1>
 
 <ul class="lista-areas-produccion">
-    <li class="areas-produccion">
+    <li class="areas-produccion-estatico">
         <a href="#">
             <i class="fas fa-industry">  </i> TOTAL REGISTROS :
             <?php if($totalRegistros > 0) : ?>
