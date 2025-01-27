@@ -248,18 +248,14 @@
       const respuesta = await fetch(url);
       const resultado = await respuesta.json();
       console.log(resultado);
-    } catch (error) {
-      console.error('Error al obtener los datos de la API:', error);
-    }
-  }
 
-  if(grafica){
+      if(grafica){
 
         const ctx1 = document.getElementById('producto-grafica');
-      new Chart(ctx1, {
+        new Chart(ctx1, {
         type: 'bar',
         data: {
-          labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+          labels: resultado.map(resultado => resultado.ancho),
           datasets: [{
             label: '# of Votes',
             data: [12, 19, 3, 5, 2, 3],
@@ -290,11 +286,20 @@
             
           }
         }
-      });
+        });
 
 
 
+      }
+
+
+
+    } catch (error) {
+      console.error('Error al obtener los datos de la API:', error);
+    }
   }
+
+
 
   // Segundo gráfico: Pie
   const ctx2 = document.getElementById('myChart2');
