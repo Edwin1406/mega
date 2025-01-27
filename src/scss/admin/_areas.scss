@@ -92,19 +92,17 @@
 
         
     }
-    .areas-produccion-estatico{
-        background-color: #839691;;
-        min-height: 12rem;
-        
-        padding: 2rem;
-        padding-top: 4rem;
-        text-align: center;
-        a{
-            color: v.$blanco;
-        }
-
-        
+    .areas-produccion-estatico {
+        border-radius: 8px; /* Bordes redondeados */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombras para efecto 3D */
+        transition: transform 0.2s ease-in-out, box-shadow 0.2s;
     }
+    
+    .areas-produccion-estatico:hover {
+        transform: scale(1.05); /* Aumenta ligeramente al pasar el ratón */
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    }
+    
     .areas-produccion-craft{
         border-radius: 1rem;
         background-color: #40c5a4;
