@@ -41,9 +41,7 @@
       margin-top: 20px;
     }
   </style>
-</head>
-<body>
-  <h1>Gráfico de Existencias con Filtros</h1>
+
   <div class="grafica">
     <div id="filters">
       <div>
@@ -221,79 +219,6 @@
       fetchData();
     });
   </script>
-</body>
-</html>
 
 
 
-
-
-
-<div class="graficas_blancas">
-  <div id="chart20" class="tamaño"></div>
-  <div id="chart21" class="tamaño"></div>
-  <div id="chart22" class="tamaño"></div>
-  <div id="chart_pie" class="tamaño"></div> <!-- Contenedor para el gráfico de pastel -->
-</div>
-<script>
-  api();
-  async function api() {
-    const url = 'https://megawebsistem.com/admin/api/apicajablanco';
-    const respuesta = await fetch(url);
-    const resultado = await respuesta.json();
-    console.log(resultado);
-
-    // Opciones del gráfico de pastel
-    let pieOptions = {
-      chart: {
-        type: 'pie',
-        height: 350,
-      },
-      series: resultado.map(item => item.existencia), // Datos a graficar
-      labels: resultado.map(item => item.ancho), // Etiquetas para cada segmento
-
-      title: {
-        text: 'Existencia de Caja Blanca',
-        align: 'center',
-        style: {
-          fontSize: '20px',
-          fontWeight: 'bold',
-        },
-      },
-      dataLabels: {
-        enabled: true,
-        formatter: function (val, opts) {
-          // Mostrar gramaje (existencia) en lugar del porcentaje
-          const index = opts.seriesIndex;
-          return `${resultado[index].gramaje} g`;
-        },
-        style: {
-          fontSize: '14px',
-          colors: ['#FFFFFF'],
-        },
-      },
-      legend: {
-        position: 'right',
-        labels: {
-          colors: ['#000000'],
-        },
-      },
-      colors: ['#008FFB', '#00E396', '#FEB019', '#FF4560'], // Colores personalizados
-      responsive: [{
-        breakpoint: 480,
-        options: {
-          chart: {
-            width: 300,
-          },
-          legend: {
-            position: 'bottom',
-          },
-        },
-      }],
-    };
-
-    // Renderiza el gráfico de pastel en su contenedor
-    const chartPie = new ApexCharts(document.querySelector("#chart_pie"), pieOptions);
-    chartPie.render();
-  }
-</script>
