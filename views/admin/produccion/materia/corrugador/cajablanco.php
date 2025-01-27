@@ -216,6 +216,21 @@
 
 
 
+<div class="grafica">
+  <div class="tamaño">
+    <canvas id="producto-grafica"></canvas>
+  </div>
+  <div class="tamaño">
+    <canvas id="myChart2"></canvas>
+  </div>
+  <div class="tamaño">
+    <canvas id="myChart3"></canvas>
+  </div>
+  <div class="tamaño">
+    <canvas id="myChart5"></canvas>
+  </div>
+</div>
+
 
 
 
@@ -233,55 +248,6 @@
     const respuesta = await fetch(url);
     const resultado = await respuesta.json();
     console.log(resultado);
-
-
-    if(grafica){
-
-const ctx1 = document.getElementById('producto-grafica');
-new Chart(ctx1, {
-type: 'bar',
-data: {
-  labels: resultado.map(resultado => resultado.ancho),
-  datasets: [{
-    label: 'Existencia Total',
-    data: resultado.map(resultado => resultado.existencia),
-    backgroundColor: [
-      '#ea580c',
-      '#84cc16',
-      '#22d3ee',
-      '#a855f7',
-      '#ef4444',
-      '#14b8a6',
-      '#db2777',
-      '#e11d48',
-      '#7e22ce'
-    ],
-    borderWidth: 1
-  }]
-},
-options: {
-  scales: {
-    y: {
-      beginAtZero: true
-    }
-  },
-  plugins: {
-    legend: {
-      display: false
-    }
-    
-  }
-}
-});
-
-}
-
-
-
-
-
-
-
 
     // Opciones del gráfico de línea
     let options = {
