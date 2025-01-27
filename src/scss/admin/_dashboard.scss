@@ -173,7 +173,7 @@
         @include m.tablet {
             grid-template-columns: 1fr 1fr;
         }
-        @include m.mobile {
+        @include m.telefono {
             grid-template-columns: 1fr;
         }
     }
