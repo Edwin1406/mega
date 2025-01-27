@@ -435,9 +435,9 @@
 
     const options = {
       chart: {
-  stacked: true,
-  stackType: "100%"
-},
+        type: 'line',
+        height: 350
+      },
       series: [{
         name: 'EXISTENCIA',
         data: resultado.map(item => item.existencia)
