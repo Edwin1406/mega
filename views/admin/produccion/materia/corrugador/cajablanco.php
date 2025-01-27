@@ -44,18 +44,21 @@
 </head>
 <body>
   <h1>Gráfico de Existencias con Filtros</h1>
-  <div id="filters">
-    <div>
-      <label for="filterGramaje">Filtrar por Gramaje:</label>
-      <select id="filterGramaje">
-        <option value="all">Todos</option>
-      </select>
-    </div>
-    <div>
-      <label for="filterAncho">Filtrar por Ancho:</label>
-      <select id="filterAncho">
-        <option value="all">Todos</option>
-      </select>
+  <div class="grafica">
+
+    <div id="filters">
+      <div>
+        <label for="filterGramaje">Filtrar por Gramaje:</label>
+        <select id="filterGramaje">
+          <option value="all">Todos</option>
+        </select>
+      </div>
+      <div>
+        <label for="filterAncho">Filtrar por Ancho:</label>
+        <select id="filterAncho">
+          <option value="all">Todos</option>
+        </select>
+      </div>
     </div>
   </div>
   <div id="chart" style="max-width: 800px; margin: auto;"></div>
