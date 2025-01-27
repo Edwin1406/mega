@@ -45,7 +45,6 @@
 <body>
   <h1>Gráfico de Existencias con Filtros</h1>
   <div class="grafica">
-
     <div id="filters">
       <div>
         <label for="filterGramaje">Filtrar por Gramaje:</label>
@@ -61,7 +60,18 @@
       </div>
     </div>
   </div>
-  <div id="chart" class="tamaño" style="max-width: 800px; margin: auto;"></div>
+
+
+  
+<div class="graficas_blancas">
+  <div id="chart" class="tamaño"></div>
+</div>
+
+
+
+
+
+
   <table id="dataTable"  style="width:100%">
     <thead>
       <tr>
