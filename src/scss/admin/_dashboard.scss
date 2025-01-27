@@ -175,10 +175,14 @@
     justify-content: space-between;
     align-items: center;
     padding-bottom: 2rem;
+    flex-direction: row;
+
     @include m.tablet{
         flex-direction: column;
         gap: 1rem;
     }
+
+
     
     .select{
         width: 100%;
