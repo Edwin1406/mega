@@ -417,12 +417,13 @@
 
 
 <style>
-  
+
 </style>
 
   <div class="dashboard__grafico">
 
     <div id="chart20" class="tamaño"></div>
+    <div id="chart21" class="tamaño"></div>
   </div>
   
   <script>
@@ -452,6 +453,26 @@
     };
 
     var chart20 = new ApexCharts(document.querySelector("#chart20"), options);
+    chart20.render();  
+    var options = {
+      chart: {
+        type: 'line',
+        height: 350
+      },
+      series: [{
+        name: 'EXISTENICA',
+        data: resultado.map(resultado => resultado.existencia)
+      }],
+      xaxis: {
+        categories: resultado.map(resultado => resultado.ancho)
+      },
+      title: {
+        text: 'Existencia de Caja Blanca',
+        align: 'center'
+      }
+    };
+
+    var chart20 = new ApexCharts(document.querySelector("#chart21"), options);
     chart20.render();  
     }
     
