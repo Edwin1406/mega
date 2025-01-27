@@ -179,19 +179,19 @@
 
 .areas-produccion-blanco:hover {
   border-radius: 1rem;
-  background-color: rgb(42, 101, 156);
+  background-color: rgb(76, 131, 182);
   font-size: 2rem;
 }
 
 .areas-produccion-craft:hover {
   border-radius: 1rem;
-  background-color: rgb(51, 145, 121);
+  background-color: rgb(64, 179, 150);
   font-size: 2rem;
 }
 
 .areas-produccion-medium:hover {
   border-radius: 1rem;
-  background-color: rgb(133, 59, 143);
+  background-color: rgb(164, 90, 173);
   font-size: 2rem;
 }
 
