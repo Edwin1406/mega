@@ -253,8 +253,8 @@
     font-weight: bold;
   }
 
-  #dataTable tr:hover , #dataTable tr:nth-child(even):hover {
-    background-color: v.$gris-oscuro;
+  #dataTable tr:hover , #dataTable td {
+    background-color: v.$gris-claro;
     color: v.$blanco;
   }
 
