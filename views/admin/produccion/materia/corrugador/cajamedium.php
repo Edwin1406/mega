@@ -1,7 +1,7 @@
 <h1 class="dashboard__heading"> <?php echo $titulo ?> </h1>
 
 <ul class="lista-areas-produccion">
-    <li class="areas-produccion-medium">
+    <li class="areas-produccion-estatico-medium">
         <a href="#">
             <i class="fas fa-shopping-cart"></i> TOTAL COSTO MEDIUM :
             <?php if (isset($totalCostoM) && $totalCostoM > 0) : ?>
