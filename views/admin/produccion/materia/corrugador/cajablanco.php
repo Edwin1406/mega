@@ -240,6 +240,18 @@
 <script>
   // Primer gráfico: Bar
   const grafica = document.querySelector('#producto-grafica');
+  obtenerDatos();
+
+  async function obtenerDatos() {
+    try {
+      const url = 'https://megawebsistem.com/admin/api/apicajablanco';
+      const respuesta = await fetch(url);
+      const resultado = await respuesta.json();
+      console.log(resultado);
+    } catch (error) {
+      console.error('Error al obtener los datos de la API:', error);
+    }
+  }
 
   if(grafica){
 
