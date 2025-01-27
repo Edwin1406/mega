@@ -459,6 +459,11 @@
   <div id="chart"></div>
   
   <script>
+    const url = 'https://megawebsistem.com/admin/api/apicajablanco';
+      const respuesta = await fetch(url);
+      const resultado = await respuesta.json();
+      console.log(resultado);
+
     var options = {
       chart: {
         type: 'line',
@@ -466,10 +471,10 @@
       },
       series: [{
         name: 'Ventas',
-        data: [10, 41, 35, 51, 49, 62, 69, 91, 148]
+        data: resultado.map(resultado => resultado.existencia)
       }],
       xaxis: {
-        categories: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep']
+        categories: resultado.map(resultado => resultado.ancho)
       },
       title: {
         text: 'Gráfico de Ventas Mensuales',
