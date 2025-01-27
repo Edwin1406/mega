@@ -56,7 +56,7 @@
 
 
 
-  <table id="dataTable"  style="width:100%">
+  <table id="dataTable" >
     <thead>
       <tr>
         <th>Ancho</th>
