@@ -233,7 +233,7 @@
 </div>
 
 
-<div id="chart" style="max-width: 600px; margin: 0 auto;"></div>
+
 
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -409,6 +409,7 @@
   <div id="chart20" class="tamaño"></div>
   <div id="chart21" class="tamaño"></div>
   <div id="chart22" class="tamaño"></div>
+  <div id="chart" class="tamano"></div>
 </div>
 <script>
   api();
