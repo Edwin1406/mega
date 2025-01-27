@@ -236,7 +236,7 @@
 </div>
 
 
-<div id="chart20" style="max-width: 600px; margin: 0 auto;"></div>
+<div id="chart" style="max-width: 600px; margin: 0 auto;"></div>
 
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -379,33 +379,6 @@
     // Inicializar el gráfico
     let chart = new ApexCharts(document.querySelector("#chart"), options);
     chart.render();
-
-
-
-    
-
-    var options = {
-      chart: {
-          stacked: true,
-          stackType: "100%"
-        },
-      series: [{
-        name: 'Ventas',
-        data: [10, 41, 35, 51, 49, 62, 69, 91, 148]
-      }],
-      xaxis: {
-        categories: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep']
-      },
-      title: {
-        text: 'Gráfico de Ventas Mensuales',
-        align: 'center'
-      }
-    };
-
-    var chart = new ApexCharts(document.querySelector("#chart20"), options);
-    chart.render();
-
-
 
 
     } catch (error) {
