@@ -288,16 +288,8 @@
         }
         });
 
-
-
       }
 
-
-
-    } catch (error) {
-      console.error('Error al obtener los datos de la API:', error);
-    }
-  }
 
 
 
@@ -307,10 +299,10 @@
     new Chart(ctx2, {
       type: 'pie',
       data: {
-        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+        labels:resultado.map(resultado => resultado.ancho),
         datasets: [{
           label: '# of Votes',
-          data: [12, 19, 3, 5, 2, 3],
+          data: resultado.map(resultado => resultado.existencia),
           backgroundColor: ['red', 'blue', 'yellow', 'green', 'purple', 'orange'],
           borderWidth: 1
         }]
@@ -324,6 +316,20 @@
       }
     });
   }
+
+
+
+
+
+
+
+
+
+    } catch (error) {
+      console.error('Error al obtener los datos de la API:', error);
+    }
+  }
+
 
   // Tercer gráfico: Line
   const ctx3 = document.getElementById('myChart3');
