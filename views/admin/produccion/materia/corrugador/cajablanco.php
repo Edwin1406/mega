@@ -415,7 +415,7 @@
  
 
 
-
+<!-- 
 <style>
   .dashboard__grafico {
     display: grid;
@@ -430,7 +430,7 @@
     border: 1px solid #ccc; /* Opcional: borde para visualización */
     border-radius: 8px; /* Bordes redondeados */
   }
-</style>
+</style> -->
 
 <div class="dashboard__grafico">
   <div id="chart20" class="tamaño"></div>
