@@ -351,6 +351,10 @@
 #filters {
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  margin-top: 2rem;
+  width: min(95%, 140rem);
+  margin: 0 auto;
 }
 
 .graficas_blancas {
