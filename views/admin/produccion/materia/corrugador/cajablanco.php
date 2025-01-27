@@ -51,7 +51,7 @@
 
 <script>
   (function(){
-    const apiUrl = `${location.origin}/admin/api/apicajacraft`;
+    const apiUrl = `${location.origin}/admin/api/apicajablanco`;
     let originalData = [];
     let chart;
 
