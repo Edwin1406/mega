@@ -456,7 +456,11 @@
   <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 </head>
 <body>
-  <div id="chart20"></div>
+
+  <div class="grafica">
+
+    <div id="chart20" class="tamaño"></div>
+  </div>
   
   <script>
     api();
