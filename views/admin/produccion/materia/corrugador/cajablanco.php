@@ -201,10 +201,10 @@
     document.getElementById("filterAncho").addEventListener("change", filterData);
 
     $(document).ready(() => {
-  $("#dataTable").DataTable({
-    language: {
-      url: "//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json" // URL para cargar el idioma en español
-    }
+      $("#dataTable").DataTable({
+        language: {
+          url: "//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json" 
+        }
       });
       fetchData();
     });
