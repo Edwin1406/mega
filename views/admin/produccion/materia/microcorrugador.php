@@ -18,7 +18,7 @@
         </a>
     </li>
 
-    <li class="areas-estatico-medium">
+    <li class="areas-n">
         <a href="#">
             <i class="fas fa-shopping-cart"></i> TOTAL COSTO :
             <?php if($totalCosto > 0) : ?>
