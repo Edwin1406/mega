@@ -258,7 +258,7 @@
           labels: resultado.map(resultado => resultado.ancho),
           datasets: [{
             label: '# of Votes',
-            data: [12, 19, 3, 5, 2, 3],
+            data: resultado.map(resultado => resultado.existencia),
             backgroundColor: [
               '#ea580c',
               '#84cc16',
