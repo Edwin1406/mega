@@ -89,18 +89,15 @@
   color: #FFFFFF;
 }
 .lista-areas-produccion .areas-produccion-estatico {
-  background-color: #556B6F; /* Fondo oscuro */
-  color: #FFFFFF; /* Texto blanco */
-  min-height: 12rem; /* Altura mínima */
+  background-color: #839691;
+  min-height: 12rem;
   padding: 2rem;
   padding-top: 4rem;
   text-align: center;
-  font-family: "Roboto", sans-serif; /* Fuente moderna */
-  font-size: 1.5rem; /* Tamaño de texto */
-  font-weight: bold; /* Texto en negrita */
-  border-radius: 50px 0 50px 0; /* Esquina redondeada izquierda y cuadrada derecha */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
-  transition: transform 0.2s ease-in-out, box-shadow 0.2s; /* Animación */
+  border-radius: 50px 0 50px 0;
+}
+.lista-areas-produccion .areas-produccion-estatico a {
+  color: #FFFFFF;
 }
 .lista-areas-produccion .areas-produccion-craft {
   border-radius: 1rem;
