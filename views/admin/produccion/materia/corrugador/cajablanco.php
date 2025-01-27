@@ -216,187 +216,7 @@
 
 
 
-<div class="grafica">
-  <div class="tamaño">
-    <canvas id="producto-grafica"></canvas>
-  </div>
-  <div class="tamaño">
-    <canvas id="myChart2"></canvas>
-  </div>
-  <div class="tamaño">
-    <canvas id="myChart3"></canvas>
-  </div>
-  <div class="tamaño">
-    <canvas id="myChart5"></canvas>
-  </div>
-</div>
 
-
-
-
-
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-<script>
-  // Primer gráfico: Bar
-  const grafica = document.querySelector('#producto-grafica');
-  obtenerDatos();
-
-  async function obtenerDatos() {
-    try {
-      const url = 'https://megawebsistem.com/admin/api/apicajablanco';
-      const respuesta = await fetch(url);
-      const resultado = await respuesta.json();
-      console.log(resultado);
-
-      if(grafica){
-
-        const ctx1 = document.getElementById('producto-grafica');
-        new Chart(ctx1, {
-        type: 'bar',
-        data: {
-          labels: resultado.map(resultado => resultado.ancho),
-          datasets: [{
-            label: 'Existencia Total',
-            data: resultado.map(resultado => resultado.existencia),
-            backgroundColor: [
-              '#ea580c',
-              '#84cc16',
-              '#22d3ee',
-              '#a855f7',
-              '#ef4444',
-              '#14b8a6',
-              '#db2777',
-              '#e11d48',
-              '#7e22ce'
-            ],
-            borderWidth: 1
-          }]
-        },
-        options: {
-          scales: {
-            y: {
-              beginAtZero: true
-            }
-          },
-          plugins: {
-            legend: {
-              display: false
-            }
-            
-          }
-        }
-        });
-
-      }
-
-
-
-
-  // Segundo gráfico: Pie
-  const ctx2 = document.getElementById('myChart2');
-  if(ctx2){
-    new Chart(ctx2, {
-      type: 'pie',
-      data: {
-        labels:resultado.map(resultado => resultado.ancho),
-        datasets: [{
-          label: '# of Votes',
-          data: resultado.map(resultado => resultado.existencia),
-          backgroundColor: ['red', 'blue', 'yellow', 'green', 'purple', 'orange'],
-          borderWidth: 1
-        }]
-      },
-      options: {
-        scales: {
-          y: {
-            beginAtZero: true
-          }
-        }
-      }
-    });
-  }
-
-
-
-
-
-  // Tercer gráfico: Line
-  const ctx3 = document.getElementById('myChart3');
-  if(ctx3){
-    new Chart(ctx3, {
-      type: 'line',
-      data: {
-        labels: resultado.map(resultado => resultado.ancho),
-        datasets: [{
-          label: '',
-          data: resultado.map(resultado => resultado.existencia),
-          backgroundColor: [
-          '#ea580c',
-          '#84cc16',
-          '#22d3ee',
-          '#a855f7',
-          '#ef4444',
-          '#14b8a6',
-          '#db2777',
-          '#e11d48',
-          '#7e22ce'
-          ],
-          borderWidth: 1
-        }]
-      },
-      options: {
-        scales: {
-          y: {
-            beginAtZero: true
-          }
-        }
-      }
-    });
-  }
-
-
-
-
-
-   
-
-
-    } catch (error) {
-      console.error('Error al obtener los datos de la API:', error);
-    }
-  }
-
-
-
-  // Quinto gráfico: Doughnut
-  const ctx5 = document.getElementById('myChart5');
-  if(ctx5){
-    new Chart(ctx5, {
-      type: 'doughnut',
-      data: {
-        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-        datasets: [{
-          label: '# of Votes',
-          data: [12, 19, 3, 5, 2, 3],
-          backgroundColor: ['red', 'blue', 'yellow', 'green', 'purple', 'orange'],
-          borderWidth: 1
-        }]
-      },
-      options: {
-        scales: {
-          y: {
-            beginAtZero: true
-          }
-        }
-      }
-    });
-  }
-
-</script>
-
-
- 
 
 
 <div class="graficas_blancas">
@@ -404,6 +224,9 @@
   <div id="chart21" class="tamaño"></div>
   <div id="chart22" class="tamaño"></div>
   <div id="chart_pie" class="tamaño"></div> <!-- Contenedor para el gráfico de pastel -->
+  <div class="tamaño">
+    <canvas id="producto-grafica"></canvas>
+  </div>
 </div>
 <script>
   api();
@@ -412,6 +235,55 @@
     const respuesta = await fetch(url);
     const resultado = await respuesta.json();
     console.log(resultado);
+
+
+    if(grafica){
+
+const ctx1 = document.getElementById('producto-grafica');
+new Chart(ctx1, {
+type: 'bar',
+data: {
+  labels: resultado.map(resultado => resultado.ancho),
+  datasets: [{
+    label: 'Existencia Total',
+    data: resultado.map(resultado => resultado.existencia),
+    backgroundColor: [
+      '#ea580c',
+      '#84cc16',
+      '#22d3ee',
+      '#a855f7',
+      '#ef4444',
+      '#14b8a6',
+      '#db2777',
+      '#e11d48',
+      '#7e22ce'
+    ],
+    borderWidth: 1
+  }]
+},
+options: {
+  scales: {
+    y: {
+      beginAtZero: true
+    }
+  },
+  plugins: {
+    legend: {
+      display: false
+    }
+    
+  }
+}
+});
+
+}
+
+
+
+
+
+
+
 
     // Opciones del gráfico de línea
     let options = {
