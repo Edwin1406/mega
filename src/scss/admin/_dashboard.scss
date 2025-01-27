@@ -234,6 +234,14 @@
 
   }
 
+  #dataTable_wrapper {
+    background-color: white; /* Fondo blanco del contenedor si usa DataTables */
+    padding: 10px; /* Opcional: Añadir un poco de espacio alrededor */
+    border-radius: 5px; /* Opcional: Esquinas redondeadas */
+  }
+
+
+
   #dataTable th, #dataTable td {
     border: 1px solid #ddd;
     padding: 8px;
