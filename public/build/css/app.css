@@ -426,7 +426,7 @@
   background-color: #c5cace;
 }
 
-#dataTable td:hover {
+#dataTable th {
   color: #FFFFFF;
 }
 
