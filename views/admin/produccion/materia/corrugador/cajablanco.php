@@ -444,7 +444,7 @@
         categories: resultado.map(resultado => resultado.ancho)
       },
       title: {
-        text: 'Gráfico de Ventas Mensuales',
+        text: 'Existencia de Caja Blanca',
         align: 'center'
       }
     };
