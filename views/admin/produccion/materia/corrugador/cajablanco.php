@@ -219,14 +219,12 @@
 
 
 
+
 <div class="graficas_blancas">
   <div id="chart20" class="tamaño"></div>
   <div id="chart21" class="tamaño"></div>
   <div id="chart22" class="tamaño"></div>
   <div id="chart_pie" class="tamaño"></div> <!-- Contenedor para el gráfico de pastel -->
-  <div class="tamaño">
-    <canvas id="producto-grafica"></canvas>
-  </div>
 </div>
 <script>
   api();
