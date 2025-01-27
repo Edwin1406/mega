@@ -230,22 +230,22 @@
     border-collapse: collapse;
     width: 100%;
     text-align: left;
-    color: v.$blanco;
+    
+}
 
-  }
-
-  #dataTable_wrapper {
+#dataTable_wrapper {
     background-color: v.$blanco;
     padding: 2rem; 
     border-radius: 1rem;
-  }
+}
 
 
 
-  #dataTable th, #dataTable td {
+#dataTable th, #dataTable td {
     border: 1px solid v.$gris;
+    color: v.$blanco;
     padding: 8px;
-    color: black;
+    // color: black;
   }
 
   #dataTable th {
