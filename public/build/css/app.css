@@ -88,6 +88,16 @@
 .lista-areas-produccion .areas-produccion a {
   color: #FFFFFF;
 }
+.lista-areas-produccion .areas-produccion-estatico {
+  background-color: #F59E0B;
+  min-height: 12rem;
+  padding: 2rem;
+  padding-top: 4rem;
+  text-align: center;
+}
+.lista-areas-produccion .areas-produccion-estatico a {
+  color: #FFFFFF;
+}
 .lista-areas-produccion .areas-produccion-craft {
   border-radius: 1rem;
   background-color: #40c5a4;
@@ -97,6 +107,17 @@
   text-align: center;
 }
 .lista-areas-produccion .areas-produccion-craft a {
+  color: #FFFFFF;
+}
+.lista-areas-produccion .areas-produccion-estatico-craft {
+  border-radius: 1rem;
+  background-color: #40c5a4;
+  min-height: 12rem;
+  padding: 2rem;
+  padding-top: 4rem;
+  text-align: center;
+}
+.lista-areas-produccion .areas-produccion-estatico-craft a {
   color: #FFFFFF;
 }
 .lista-areas-produccion .areas-produccion-blanco {
@@ -110,6 +131,17 @@
 .lista-areas-produccion .areas-produccion-blanco a {
   color: #FFFFFF;
 }
+.lista-areas-produccion .areas-produccion-estatico-blanco {
+  border-radius: 1rem;
+  background-color: #3b8edb;
+  min-height: 12rem;
+  padding: 2rem;
+  padding-top: 4rem;
+  text-align: center;
+}
+.lista-areas-produccion .areas-produccion-estatico-blanco a {
+  color: #FFFFFF;
+}
 .lista-areas-produccion .areas-produccion-medium {
   border-radius: 1rem;
   background-color: #d15fe0;
@@ -119,6 +151,17 @@
   text-align: center;
 }
 .lista-areas-produccion .areas-produccion-medium a {
+  color: #FFFFFF;
+}
+.lista-areas-produccion .areas-produccion-estatico-medium {
+  border-radius: 1rem;
+  background-color: #d15fe0;
+  min-height: 12rem;
+  padding: 2rem;
+  padding-top: 4rem;
+  text-align: center;
+}
+.lista-areas-produccion .areas-produccion-estatico-medium a {
   color: #FFFFFF;
 }
 

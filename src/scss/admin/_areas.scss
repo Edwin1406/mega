@@ -92,7 +92,34 @@
 
         
     }
+    .areas-produccion-estatico{
+        background-color: v.$naranja;
+        min-height: 12rem;
+        
+        padding: 2rem;
+        padding-top: 4rem;
+        text-align: center;
+        a{
+            color: v.$blanco;
+        }
+
+        
+    }
     .areas-produccion-craft{
+        border-radius: 1rem;
+        background-color: #40c5a4;
+        min-height: 12rem;
+        
+        padding: 2rem;
+        padding-top: 4rem;
+        text-align: center;
+        a{
+            color: v.$blanco;
+        }
+
+        
+    }
+    .areas-produccion-estatico-craft{
         border-radius: 1rem;
         background-color: #40c5a4;
         min-height: 12rem;
@@ -120,7 +147,35 @@
 
         
     }
+    .areas-produccion-estatico-blanco{
+        border-radius: 1rem;
+        background-color: #3b8edb;
+        min-height: 12rem;
+        
+        padding: 2rem;
+        padding-top: 4rem;
+        text-align: center;
+        a{
+            color: v.$blanco;
+        }
+
+        
+    }
     .areas-produccion-medium{
+        border-radius: 1rem;
+        background-color: #d15fe0;
+        min-height: 12rem;
+        
+        padding: 2rem;
+        padding-top: 4rem;
+        text-align: center;
+        a{
+            color: v.$blanco;
+        }
+
+        
+    }
+    .areas-produccion-estatico-medium{
         border-radius: 1rem;
         background-color: #d15fe0;
         min-height: 12rem;
@@ -165,6 +220,7 @@
     background-color: rgb(133, 59, 143);
     font-size: 2rem;
   }
+
 
 
 

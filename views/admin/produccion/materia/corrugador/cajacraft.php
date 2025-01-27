@@ -1,13 +1,7 @@
 <h1 class="dashboard__heading"> <?php echo $titulo ?> </h1>
 
-<style>
-    .lista-areas-produccion .areas-produccion:hover {
-    all: unset; /* Restablece todas las propiedades heredadas o especificadas */
-}
-
-</style>
 <ul class="lista-areas-produccion">
-    <li class="areas-produccion-craft">
+    <li class="areas-produccion-estatico-craft">
         <a href="#">
             <i class="fas fa-shopping-cart"></i> TOTAL COSTO KRAFT :
             <?php if ($totalCostoK > 0) : ?>
