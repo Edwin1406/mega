@@ -417,15 +417,6 @@
 
 
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gráfico de Líneas - ApexCharts</title>
-  <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
-</head>
-<body>
 
   <div class="grafica">
 
@@ -463,5 +454,3 @@
     }
     
   </script>
-</body>
-</html>
