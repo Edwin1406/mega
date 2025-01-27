@@ -413,8 +413,8 @@
 
 #dataTable th, #dataTable td {
   border: 1px solid #64748B;
-  color: #FFFFFF;
   padding: 8px;
+  color: black;
 }
 
 #dataTable th {
