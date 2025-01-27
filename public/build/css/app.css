@@ -359,6 +359,11 @@
     grid-template-columns: 1fr 1fr;
   }
 }
+@media (min-width: 480px) {
+  .dashboard__grafico {
+    grid-template-columns: 1fr;
+  }
+}
 
 .grafica {
   padding: 0;
