@@ -165,8 +165,10 @@
 
 
     &__grafico{
+        display: flex;
         @include m.contenedor-md;
         @extend .dashboard__contenedor;
+
     }
 
   

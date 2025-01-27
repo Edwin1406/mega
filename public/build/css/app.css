@@ -348,6 +348,7 @@
   margin: 0 auto;
 }
 .dashboard__grafico {
+  display: flex;
   width: min(95%, 80rem);
   margin: 0 auto;
 }
