@@ -354,9 +354,17 @@
   align-items: center;
   padding-bottom: 2rem;
 }
-#filters .label {
+
+#filters label {
   font-size: 1.5rem;
-  color: #FFFFFF;
+  color: white; /* Cambié a un color válido. Ajusta según tu diseño */
+}
+
+#filters select {
+  font-size: 1rem;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
 }
 
 .graficas_blancas {
