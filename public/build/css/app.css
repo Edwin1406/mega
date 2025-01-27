@@ -98,7 +98,7 @@
   font-family: "Roboto", sans-serif; /* Fuente moderna */
   font-size: 1.5rem; /* Tamaño de texto */
   font-weight: bold; /* Texto en negrita */
-  border-radius: 50px 0 0 50px; /* Esquina redondeada izquierda y cuadrada derecha */
+  border-radius: 50px 0 50px 0; /* Esquina redondeada izquierda y cuadrada derecha */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
   transition: transform 0.2s ease-in-out, box-shadow 0.2s; /* Animación */
 }
