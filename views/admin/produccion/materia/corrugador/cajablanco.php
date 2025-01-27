@@ -443,3 +443,42 @@
 
 
  
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gráfico de Líneas - ApexCharts</title>
+  <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+</head>
+<body>
+  <div id="chart"></div>
+  
+  <script>
+    var options = {
+      chart: {
+        type: 'line',
+        height: 350
+      },
+      series: [{
+        name: 'Ventas',
+        data: [10, 41, 35, 51, 49, 62, 69, 91, 148]
+      }],
+      xaxis: {
+        categories: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep']
+      },
+      title: {
+        text: 'Gráfico de Ventas Mensuales',
+        align: 'center'
+      }
+    };
+
+    var chart20 = new ApexCharts(document.querySelector("#chart"), options);
+    chart20.render();
+  </script>
+</body>
+</html>
