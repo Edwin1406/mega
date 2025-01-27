@@ -243,8 +243,9 @@
 
 
   #dataTable th, #dataTable td {
-    border: 1px solid v.$blanco;
+    border: 1px solid v.$gris;
     padding: 8px;
+    color: black;
   }
 
   #dataTable th {
