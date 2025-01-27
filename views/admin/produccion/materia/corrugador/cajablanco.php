@@ -235,6 +235,10 @@
   </div>
 </div>
 
+
+<div id="chart" style="max-width: 600px; margin: 0 auto;"></div>
+
+
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <script>
@@ -359,11 +363,31 @@
 
 
 
+    // Opciones del gráfico de pastel
+    let options = {
+      chart: {
+        type: 'pie' // Tipo de gráfico: pastel
+      },
+      series: [44, 55, 41, 17, 15], // Datos para cada segmento
+      labels: ['Ventas A', 'Ventas B', 'Ventas C', 'Ventas D', 'Ventas E'], // Etiquetas para cada segmento
+      title: {
+        text: 'Distribución de Ventas', // Título del gráfico
+        align: 'center'
+      }
+    };
+
+    // Inicializar el gráfico
+    let chart = new ApexCharts(document.querySelector("#chart"), options);
+    chart.render();
+
 
     } catch (error) {
       console.error('Error al obtener los datos de la API:', error);
     }
   }
+
+
+
 
 
   // Cuarto gráfico: Radar
