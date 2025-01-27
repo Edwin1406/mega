@@ -447,7 +447,8 @@ class MateriaPrimaController
     public static function microcorrugador(Router $router)
     {
         $microcorrugador = MateriaPrimaV::allc('DESC', 'MICRO');
-        
+        $totalCosto = MateriaPrimaV::sumarCosto('MICRO');
+
         
         $totalRegistros = MateriaPrimaV::countByLinea('MICRO');
         $totalExistencia = MateriaPrimaV::sumarExistencia('MICRO');
@@ -458,7 +459,8 @@ class MateriaPrimaController
             'titulo' => 'MICRO CORRUGADOR',
             'microcorrugador' => $microcorrugador,
             'totalRegistros' => $totalRegistros,
-            'totalExistencia' => $totalExistencia
+            'totalExistencia' => $totalExistencia,
+            'totalCosto' => $totalCosto
         ]);
     }
 
