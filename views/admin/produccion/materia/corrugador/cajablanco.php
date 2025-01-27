@@ -437,26 +437,25 @@
   <div id="chart21" class="tamaño"></div>
   <div id="chart22" class="tamaño"></div>
 </div>
+<script>
+  api();
+  async function api() {
+    const url = 'https://megawebsistem.com/admin/api/apicajablanco';
+    const respuesta = await fetch(url);
+    const resultado = await respuesta.json();
+    console.log(resultado);
 
-  <script>
-    api();
-    async function api(params) {
-      const url = 'https://megawebsistem.com/admin/api/apicajablanco';
-      const respuesta = await fetch(url);
-      const resultado = await respuesta.json();
-      console.log(resultado);
-
-    var options = {
+    const options = {
       chart: {
         type: 'line',
         height: 350
       },
       series: [{
-        name: 'EXISTENICA',
-        data: resultado.map(resultado => resultado.existencia)
+        name: 'EXISTENCIA',
+        data: resultado.map(item => item.existencia)
       }],
       xaxis: {
-        categories: resultado.map(resultado => resultado.ancho)
+        categories: resultado.map(item => item.ancho)
       },
       title: {
         text: 'Existencia de Caja Blanca',
@@ -464,80 +463,15 @@
       }
     };
 
-    var chart20 = new ApexCharts(document.querySelector("#chart20"), options);
-    chart20.render();  
-    var options = {
-      chart: {
-        type: 'line',
-        height: 350
-      },
-      series: [{
-        name: 'EXISTENICA',
-        data: resultado.map(resultado => resultado.existencia)
-      }],
-      xaxis: {
-        categories: resultado.map(resultado => resultado.ancho)
-      },
-      title: {
-        text: 'Existencia de Caja Blanca',
-        align: 'center'
-      }
-    };
+    // Renderiza los gráficos en cada contenedor
+    const chart20 = new ApexCharts(document.querySelector("#chart20"), options);
+    chart20.render();
 
-    var chart20 = new ApexCharts(document.querySelector("#chart20"), options);
-    chart20.render();  
+    const chart21 = new ApexCharts(document.querySelector("#chart21"), options);
+    chart21.render();
 
-
-
-
-    
-    
-    var chart20 = new ApexCharts(document.querySelector("#chart21"), options);
-    chart20.render();  
-    var options = {
-      chart: {
-        type: 'line',
-        height: 350
-      },
-      series: [{
-        name: 'EXISTENICA',
-        data: resultado.map(resultado => resultado.existencia)
-      }],
-      xaxis: {
-        categories: resultado.map(resultado => resultado.ancho)
-      },
-      title: {
-        text: 'Existencia de Caja Blanca',
-        align: 'center'
-      }
-    };
-
-    var chart20 = new ApexCharts(document.querySelector("#chart21"), options);
-    chart20.render();  
-    
-
-    var chart20 = new ApexCharts(document.querySelector("#chart22"), options);
-    chart20.render(); 
-    var options = {
-      chart: {
-        type: 'line',
-        height: 350
-      },
-      series: [{
-        name: 'EXISTENICA',
-        data: resultado.map(resultado => resultado.existencia)
-      }],
-      xaxis: {
-        categories: resultado.map(resultado => resultado.ancho)
-      },
-      title: {
-        text: 'Existencia de Caja Blanca',
-        align: 'center'
-      }
-    };
-
-    var chart20 = new ApexCharts(document.querySelector("#chart22"), options);
-    chart20.render();  
+    const chart22 = new ApexCharts(document.querySelector("#chart22"), options);
+    chart22.render();
   }
-    
-  </script>
+</script>
+
