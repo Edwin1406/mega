@@ -1,6 +1,6 @@
 <h1 class="dashboard__heading"> <?php echo $titulo ?> </h1>
 <ul class="lista-areas-produccion">
-    <li class="areas-produccion-blanco">
+    <li class="areas-produccion-estatico">
         <a href="#">
             <i class="fas fa-shopping-cart"></i> TOTAL COSTO BLANCO :
             <?php if ($totalCostoB > 0) : ?>
