@@ -26,7 +26,7 @@
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
 
-  <style>
+  <!-- <style>
     #filters {
       display: flex;
       justify-content: space-between;
@@ -40,9 +40,9 @@
     table {
       margin-top: 20px;
     }
-  </style>
+  </style> -->
 
-  <div class="grafica">
+  
     <div id="filters">
       <div>
         <label for="filterGramaje">Filtrar por Gramaje:</label>
@@ -57,7 +57,7 @@
         </select>
       </div>
     </div>
-  </div>
+
 
 
   
