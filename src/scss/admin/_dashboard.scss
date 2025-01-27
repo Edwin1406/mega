@@ -175,17 +175,6 @@
     justify-content: space-between;
     align-items: center;
     padding-bottom: 2rem;
-//    destop
-    @include m.desktop{
-        display: flex;
-        padding-bottom: 0;
-    }
-
-    @include m.tablet{
-        flex-direction: column;
-        gap: 1rem;
-    }
-
 
     
     .select{
