@@ -360,22 +360,7 @@
 
 
 
-    // Opciones del gráfico de pastel
-    let options = {
-      chart: {
-        type: 'pie' // Tipo de gráfico: pastel
-      },
-      series: resultado.map(resultado => resultado.existencia), // Datos a graficar
-      labels: resultado.map(resultado => resultado.ancho), // Etiquetas para cada segmento
-      title: {
-        text: 'Distribución de Ventas', // Título del gráfico
-        align: 'center'
-      }
-    };
-
-    // Inicializar el gráfico
-    let chart = new ApexCharts(document.querySelector("#chart"), options);
-    chart.render();
+   
 
 
     } catch (error) {
@@ -433,7 +418,7 @@
     const resultado = await respuesta.json();
     console.log(resultado);
 
-    const options = {
+    let options = {
       chart: {
         type: 'line',
         height: 350
@@ -450,6 +435,32 @@
         align: 'center'
       }
     };
+
+    
+
+     // Opciones del gráfico de pastel
+     
+     let option = {
+      chart: {
+        type: 'pie' // Tipo de gráfico: pastel
+      },
+      series: resultado.map(resultado => resultado.existencia), // Datos a graficar
+      labels: resultado.map(resultado => resultado.ancho), // Etiquetas para cada segmento
+      title: {
+        text: 'Distribución de Ventas', // Título del gráfico
+        align: 'center'
+      }
+    };
+
+    // Inicializar el gráfico
+    let chart = new ApexCharts(document.querySelector("#chart"), option);
+    chart.render();
+
+
+
+
+
+
 
     // Renderiza los gráficos en cada contenedor
     const chart20 = new ApexCharts(document.querySelector("#chart20"), options);
