@@ -68,7 +68,6 @@
         <th>Ancho</th>
         <th>Gramaje</th>
         <th>Existencia</th>
-        <th>Descripción</th>
       </tr>
     </thead>
     <tbody></tbody>
