@@ -253,12 +253,12 @@
     font-weight: bold;
   }
 
-  #dataTable tr:hover , #dataTable td {
+  #dataTable tr:hover {
     background-color: v.$gris-claro;
+}
+    #dataTable td:hover {
     color: v.$blanco;
-  }
-
-
+    }
 
 
 

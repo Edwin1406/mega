@@ -422,8 +422,11 @@
   font-weight: bold;
 }
 
-#dataTable tr:hover, #dataTable td {
+#dataTable tr:hover {
   background-color: #c5cace;
+}
+
+#dataTable td:hover {
   color: #FFFFFF;
 }
 
