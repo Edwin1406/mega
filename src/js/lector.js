@@ -34,7 +34,7 @@ function iniciarEscaner() {
         function (err) {
             if (err) {
                 console.error(err);
-                // return;
+                return;
             }
             Quagga.start();
         }
