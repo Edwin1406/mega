@@ -233,58 +233,51 @@
     const resultado = await respuesta.json();
     console.log(resultado);
 
-    // Opciones del gráfico de línea
-    let options = {
-      chart: {
-        type: 'line',
-        height: 350
-      },
-      series: [{
-        name: 'EXISTENCIA',
-        data: resultado.map(item => item.existencia)
-      }],
-      xaxis: {
-        categories: resultado.map(item => item.ancho)
-      },
-      title: {
-        text: 'Existencia de Caja Blanca',
-        align: 'center'
-      }
-    };
-
     // Opciones del gráfico de pastel
     let pieOptions = {
       chart: {
-        type: 'pie' // Tipo de gráfico: pastel
+        type: 'pie',
+        height: 350,
       },
       series: resultado.map(item => item.existencia), // Datos a graficar
       labels: resultado.map(item => item.ancho), // Etiquetas para cada segmento
       title: {
         text: 'Existencia de Caja Blanca',
-        align: 'center'
+        align: 'center',
+        style: {
+          fontSize: '20px',
+          fontWeight: 'bold',
+        },
       },
+      dataLabels: {
+        enabled: true,
+        formatter: function (val, opts) {
+          return val.toFixed(1) + '%'; // Formato para mostrar el porcentaje
+        },
+        style: {
+          fontSize: '14px',
+          colors: ['#FFFFFF'],
+        },
+      },
+      legend: {
+        position: 'right',
+        labels: {
+          colors: ['#000000'],
+        },
+      },
+      colors: ['#008FFB', '#00E396', '#FEB019', '#FF4560'], // Colores personalizados
       responsive: [{
         breakpoint: 480,
         options: {
           chart: {
-            width: 300
+            width: 300,
           },
           legend: {
-            position: 'bottom'
-          }
-        }
-      }]
+            position: 'bottom',
+          },
+        },
+      }],
     };
-
-    // Renderiza los gráficos en cada contenedor
-    const chart20 = new ApexCharts(document.querySelector("#chart20"), options);
-    chart20.render();
-
-    const chart21 = new ApexCharts(document.querySelector("#chart21"), options);
-    chart21.render();
-
-    const chart22 = new ApexCharts(document.querySelector("#chart22"), options);
-    chart22.render();
 
     // Renderiza el gráfico de pastel en su contenedor
     const chartPie = new ApexCharts(document.querySelector("#chart_pie"), pieOptions);
