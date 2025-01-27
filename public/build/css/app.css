@@ -403,6 +403,8 @@
   border-collapse: collapse;
   width: 100%;
   text-align: left;
+  width: min(95%, 140rem);
+  margin: 0 auto;
 }
 
 #dataTable th, #dataTable td {
