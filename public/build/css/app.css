@@ -355,22 +355,12 @@
   align-items: center;
   width: min(95%, 140rem);
   margin: 0 auto;
-  display: grid;
-  gap: 2rem;
-  grid-template-columns: repeat(1, 1fr);
-}
-@media (min-width: 768px) {
-  .graficas_blancas {
-    display: grid;
-    gap: 2rem;
-    grid-template-columns: repeat(2, 1fr);
-  }
 }
 @media (min-width: 1024px) {
   .graficas_blancas {
     display: grid;
     gap: 2rem;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(1, 1fr);
   }
 }
 .graficas_blancas .tamaño {

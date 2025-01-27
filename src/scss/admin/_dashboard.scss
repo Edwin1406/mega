@@ -176,15 +176,9 @@
     display: flex;
     align-items: center;
     @include m.contenedor;
-    // para que se vea en columnas
-    @include m.grid(1, 2rem);
-    // para que se vea 2 columnas
-    @include m.tablet{
-        @include m.grid(2,2rem);
-    }
     // para que se vea 3 columnas
     @include m.desktop{
-        @include m.grid(3,2rem);
+        @include m.grid(1,2rem);
     }
 
     
