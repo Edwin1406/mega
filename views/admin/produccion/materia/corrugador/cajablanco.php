@@ -433,23 +433,21 @@
     const resultado = await respuesta.json();
     console.log(resultado);
 
-    const options = {
-      chart: {
-  stacked: true,
-  stackType: "100%"
-},
-      series: [{
-        name: 'EXISTENCIA',
-        data: resultado.map(item => item.existencia)
-      }],
-      xaxis: {
-        categories: resultado.map(item => item.ancho)
-      },
-      title: {
-        text: 'Existencia de Caja Blanca',
-        align: 'center'
-      }
-    };
+    // Configuración de los gráficos
+    options = {
+  chart: {
+    type: 'bar'
+  },
+  plotOptions: {
+    bar: {
+      horizontal: true
+    }
+  },
+  series: [{
+    data: 
+    resultado.map(resultado => resultado.existencia)
+  }]
+}
 
     // Renderiza los gráficos en cada contenedor
     const chart20 = new ApexCharts(document.querySelector("#chart20"), options);
