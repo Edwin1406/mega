@@ -472,7 +472,7 @@
         height: 350
       },
       series: [{
-        name: 'Ventas',
+        name: 'EXISTENICA',
         data: resultado.map(resultado => resultado.existencia)
       }],
       xaxis: {
