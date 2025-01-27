@@ -162,27 +162,25 @@
         @include m.contenedor-md;
         @extend .dashboard__contenedor;
     }
-
-    &__grafico{
+    &__grafico {
         display: grid;
-        grid-gap: 20px;
+        grid-template-columns: repeat(3, 1fr); /* Tres columnas en pantallas grandes */
+        grid-gap: 20px; /* Espacio entre columnas */
         margin-top: 20px;
         text-align: center;
-        @include m.grid(3, 2rem);
+    
         @include m.tablet {
-            @include m.grid(2, 2rem);
+            grid-template-columns: repeat(2, 1fr); /* Dos columnas en pantallas medianas */
         }
         @include m.telefono {
-            @include m.grid(1, 2rem);
+            grid-template-columns: 1fr; /* Una columna en pantallas pequeñas */
         }
-        
-        .tamaño{
+    
+        .tamaño {
             @extend .dashboard__contenedor;
-
         }
     }
-
-
+    
       
 
   
