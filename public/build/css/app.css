@@ -351,6 +351,7 @@
   display: flex;
   width: min(95%, 80rem);
   margin: 0 auto;
+  gap: 2rem;
 }
 
 .grafica {

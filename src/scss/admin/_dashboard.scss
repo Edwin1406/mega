@@ -168,6 +168,7 @@
         display: flex;
         @include m.contenedor-md;
         @extend .dashboard__contenedor;
+        gap: 2rem;
 
     }
 
