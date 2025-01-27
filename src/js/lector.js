@@ -1,4 +1,8 @@
 (function(){
+    document.addEventListener("DOMContentLoaded", () => {
+        iniciarEscaner();
+    });
+    
 
 const apiUrl = `${location.origin}/admin/api/ApiMateriaPrima`; // URL de la API
 let ultimaDeteccion = {}; // Almacena la última detección de códigos
@@ -95,7 +99,6 @@ async function buscarProducto(codigo) {
     }
 }
 
-// Iniciar el escáner
-iniciarEscaner();
+
 
 } ) ();
