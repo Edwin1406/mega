@@ -400,16 +400,11 @@
  
 
 
-
-<style>
- 
-</style>
-
 <div class="graficas_blancas">
   <div id="chart20" class="tamaño"></div>
   <div id="chart21" class="tamaño"></div>
   <div id="chart22" class="tamaño"></div>
-  <div id="chart" class="tamano"></div>
+  <div id="chart_pie" class="tamaño"></div> <!-- Contenedor para el gráfico de pastel -->
 </div>
 <script>
   api();
@@ -419,6 +414,7 @@
     const resultado = await respuesta.json();
     console.log(resultado);
 
+    // Opciones del gráfico de línea
     let options = {
       chart: {
         type: 'line',
@@ -437,31 +433,18 @@
       }
     };
 
-    
-
-     // Opciones del gráfico de pastel
-     
-     let option = {
+    // Opciones del gráfico de pastel
+    let pieOptions = {
       chart: {
         type: 'pie' // Tipo de gráfico: pastel
       },
-      series: resultado.map(resultado => resultado.existencia), // Datos a graficar
-      labels: resultado.map(resultado => resultado.ancho), // Etiquetas para cada segmento
+      series: resultado.map(item => item.existencia), // Datos a graficar
+      labels: resultado.map(item => item.ancho), // Etiquetas para cada segmento
       title: {
         text: 'Distribución de Ventas', // Título del gráfico
         align: 'center'
       }
     };
-
-    // Inicializar el gráfico
-    let chart = new ApexCharts(document.querySelector("#chart"), option);
-    chart.render();
-
-
-
-
-
-
 
     // Renderiza los gráficos en cada contenedor
     const chart20 = new ApexCharts(document.querySelector("#chart20"), options);
@@ -472,6 +455,9 @@
 
     const chart22 = new ApexCharts(document.querySelector("#chart22"), options);
     chart22.render();
+
+    // Renderiza el gráfico de pastel en su contenedor
+    const chartPie = new ApexCharts(document.querySelector("#chart_pie"), pieOptions);
+    chartPie.render();
   }
 </script>
-
