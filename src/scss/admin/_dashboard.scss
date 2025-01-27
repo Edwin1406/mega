@@ -162,26 +162,8 @@
         @include m.contenedor-md;
         @extend .dashboard__contenedor;
     }
-    &__grafico {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr); /* Tres columnas en pantallas grandes */
-        grid-gap: 20px; /* Espacio entre columnas */
-        margin-top: 20px;
-        text-align: center;
+
     
-        @include m.tablet {
-            grid-template-columns: repeat(2, 1fr); /* Dos columnas en pantallas medianas */
-        }
-        @include m.telefono {
-            grid-template-columns: 1fr; /* Una columna en pantallas pequeñas */
-        }
-    
-        .tamaño {
-            @extend .dashboard__contenedor;
-        }
-    }
-    
-      
 
   
 }

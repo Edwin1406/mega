@@ -416,9 +416,23 @@
 
 
 
+<style>
+  .dashboard__grafico {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px; /* Espaciado entre columnas */
+  }
+
+  .tamaño {
+    width: 100%;
+    height: 300px; /* Ajusta el tamaño según lo necesites */
+    background-color: #f0f0f0; /* Fondo para identificar los contenedores */
+    border: 1px solid #ccc; /* Opcional: borde para visualización */
+    border-radius: 8px; /* Bordes redondeados */
+  }
+</style>
 
 <div class="dashboard__grafico">
-  
   <div id="chart20" class="tamaño"></div>
   <div id="chart21" class="tamaño"></div>
   <div id="chart22" class="tamaño"></div>
