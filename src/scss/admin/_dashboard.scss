@@ -169,7 +169,6 @@
         grid-gap: 20px;
         margin-top: 20px;
         text-align: center;
-        @extend .dashboard__contenedor;
         // desktop
         @include m.desktop {
             grid-template-columns: 1fr 1fr;
@@ -179,6 +178,11 @@
         }
         @include m.telefono {
             grid-template-columns: 1fr;
+        }
+        
+        .tamaño{
+            @extend .dashboard__contenedor;
+
         }
     }
 

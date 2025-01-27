@@ -418,9 +418,10 @@
 
 
 <div class="dashboard__grafico">
-  <div id="chart20" ></div>
-  <div id="chart21" ></div>
-  <div id="chart22"></div>
+  
+  <div id="chart20" class="tamaño"></div>
+  <div id="chart21" class="tamaño"></div>
+  <div id="chart22" class="tamaño"></div>
 </div>
 <script>
   api();

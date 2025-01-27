@@ -336,7 +336,7 @@
     margin-bottom: 2rem;
   }
 }
-.dashboard__contenedor, .dashboard__grafico, .dashboard__formulario {
+.dashboard__contenedor, .dashboard__grafico .tamaño, .dashboard__formulario {
   background-color: #FFFFFF;
   padding: 2rem;
   border-radius: 1rem;
@@ -369,7 +369,6 @@
     grid-template-columns: 1fr;
   }
 }
-
 .grafica {
   padding: 0;
   margin-top: 3rem;
