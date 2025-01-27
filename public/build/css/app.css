@@ -349,9 +349,12 @@
 }
 .dashboard__grafico {
   display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: min(95%, 140rem);
+  margin: 0 auto;
   width: min(95%, 80rem);
   margin: 0 auto;
-  gap: 2rem;
 }
 
 .grafica {
