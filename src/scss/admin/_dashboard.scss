@@ -166,6 +166,7 @@
 
     &__grafico{
         @include m.contenedor-md;
+        @extend .dashboard__contenedor;
     }
 
   
