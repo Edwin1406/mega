@@ -456,7 +456,7 @@
   <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 </head>
 <body>
-  <div id="chart"></div>
+  <div id="chart20"></div>
   
   <script>
     const url = 'https://megawebsistem.com/admin/api/apicajablanco';
@@ -482,7 +482,7 @@
       }
     };
 
-    var chart20 = new ApexCharts(document.querySelector("#chart"), options);
+    var chart20 = new ApexCharts(document.querySelector("#chart20"), options);
     chart20.render();
   </script>
 </body>
