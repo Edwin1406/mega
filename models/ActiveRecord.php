@@ -829,6 +829,9 @@ public static function procesarArchivoExcelComercial($filePath)
             $data[] = $cell->getValue(); // Obtener el valor de la celda
         }
 
+        var_dump($data);
+        exit;
+
         // Mapear los datos a las columnas
         list(
             $import, $proyecto, $pedido_interno, $fecha_solicitud, $puerto_destino,

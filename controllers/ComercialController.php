@@ -148,7 +148,7 @@ class ComercialController {
                     $rutaDestino = __DIR__ . "/../compras/$nombreArchivo";
                     move_uploaded_file($tempArchivo, $rutaDestino);
                     echo 'Archivo subido correctamente';
-
+                 
                     // Llamar al método de Producto para procesar el archivo
                     if (Comercial::procesarArchivoExcelComercial($rutaDestino)) {
                         header('Location: /admin/comercial/crear');
