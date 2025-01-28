@@ -687,7 +687,7 @@ public static function procesarArchivoExcelMateria($filePath)
             gramaje VARCHAR(255),
             proveedor VARCHAR(255),
             sustrato VARCHAR(255),
-            ancho DECIMAL(10, 2)
+            ancho VARCHAR(255)
         )
     ";
 
@@ -799,8 +799,8 @@ public static function procesarArchivoExcelComercial($filePath)
             marca VARCHAR(255),
             linea VARCHAR(255),
             producto VARCHAR(500),
-            gms DECIMAL(10,2),
-            ancho DECIMAL(10,2),
+            gms VARCHAR(255),
+            ancho VARCHAR(255),
             cantidad VARCHAR(255),
             precio VARCHAR(255),
             total_item VARCHAR(255),
