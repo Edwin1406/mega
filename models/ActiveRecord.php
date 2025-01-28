@@ -820,11 +820,8 @@ public static function procesarArchivoExcelComercial($filePath)
     for ($row = 2; $row <= $highestRow; $row++) {
         $data = [];
         for ($col = 'A'; $col <= 'U'; $col++) { // Asegura el rango correcto de columnas
-            $data[] = trim($sheet->getCell($col . $row)->getValue() ?? '');
+            $data[] = trim($sheet->getCell($col . $row)->getFormattedValue() ?? '');
         }
-        
-        var_dump($data);
-       
 
         list(
             $import, $proyecto, $pedido_interno, $fecha_solicitud,
@@ -833,36 +830,47 @@ public static function procesarArchivoExcelComercial($filePath)
             $arribo_planta, $transito, $fecha_en_planta, $estado
         ) = array_map(fn($value) => is_numeric($value) ? str_replace(',', '.', $value) : $value, $data);
 
-        $queryVerificar = "SELECT id FROM " . static::$tabla . " WHERE pedido_interno = '$pedido_interno'";
-        $resultado = self::$db->query($queryVerificar)->fetch_assoc();
+        // Convertir fechas al formato correcto
+        $fecha_solicitud = date('Y-m-d', strtotime($fecha_solicitud));
+        $fecha_produccion = date('Y-m-d', strtotime($fecha_produccion));
+        $ets = date('Y-m-d', strtotime($ets));
+        $eta = date('Y-m-d', strtotime($eta));
+        $arribo_planta = date('Y-m-d', strtotime($arribo_planta));
+        $fecha_en_planta = date('Y-m-d', strtotime($fecha_en_planta));
 
-        if ($resultado) {
-            $queryActualizar = "
-                UPDATE " . static::$tabla . " SET 
-                    import = '$import', proyecto = '$proyecto', fecha_solicitud = '$fecha_solicitud',
-                    trader = '$trader', marca = '$marca', linea = '$linea', producto = '$producto',
-                    gms = '$gms', ancho = '$ancho', cantidad = '$cantidad', precio = '$precio',
-                    total_item = '$total_item', fecha_produccion = '$fecha_produccion',
-                    ets = '$ets', eta = '$eta', arribo_planta = '$arribo_planta', transito = '$transito',
-                    fecha_en_planta = '$fecha_en_planta', estado = '$estado'
-                WHERE pedido_interno = '$pedido_interno'
-            ";
-            self::$db->query($queryActualizar);
-        } else {
-            $queryInsertar = "
-                INSERT INTO " . static::$tabla . " (
-                    import, proyecto, pedido_interno, fecha_solicitud, trader, marca, linea, producto,
-                    gms, ancho, cantidad, precio, total_item, fecha_produccion, ets, eta,
-                    arribo_planta, transito, fecha_en_planta, estado
-                ) VALUES (
-                    '$import', '$proyecto', '$pedido_interno', '$fecha_solicitud', '$trader',
-                    '$marca', '$linea', '$producto', '$gms', '$ancho', '$cantidad',
-                    '$precio', '$total_item', '$fecha_produccion', '$ets', '$eta',
-                    '$arribo_planta', '$transito', '$fecha_en_planta', '$estado'
-                )
-            ";
-            self::$db->query($queryInsertar);
-        }
+        $queryInsertar = "
+            INSERT INTO " . static::$tabla . " (
+                import, proyecto, pedido_interno, fecha_solicitud, trader, marca, linea, producto,
+                gms, ancho, cantidad, precio, total_item, fecha_produccion, ets, eta,
+                arribo_planta, transito, fecha_en_planta, estado
+            ) VALUES (
+                '$import', '$proyecto', '$pedido_interno', '$fecha_solicitud', '$trader',
+                '$marca', '$linea', '$producto', '$gms', '$ancho', '$cantidad',
+                '$precio', '$total_item', '$fecha_produccion', '$ets', '$eta',
+                '$arribo_planta', '$transito', '$fecha_en_planta', '$estado'
+            )
+            ON DUPLICATE KEY UPDATE 
+                import = VALUES(import),
+                proyecto = VALUES(proyecto),
+                fecha_solicitud = VALUES(fecha_solicitud),
+                trader = VALUES(trader),
+                marca = VALUES(marca),
+                linea = VALUES(linea),
+                producto = VALUES(producto),
+                gms = VALUES(gms),
+                ancho = VALUES(ancho),
+                cantidad = VALUES(cantidad),
+                precio = VALUES(precio),
+                total_item = VALUES(total_item),
+                fecha_produccion = VALUES(fecha_produccion),
+                ets = VALUES(ets),
+                eta = VALUES(eta),
+                arribo_planta = VALUES(arribo_planta),
+                transito = VALUES(transito),
+                fecha_en_planta = VALUES(fecha_en_planta),
+                estado = VALUES(estado)
+        ";
+        self::$db->query($queryInsertar);
     }
 
     return true;
