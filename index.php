@@ -115,6 +115,11 @@ $router->get('/admin/comercial/tabla', [ComercialController::class, 'tabla']);
 $router->get('/admin/comercial/editar', [ComercialController::class, 'editar']);
 $router->post('/admin/comercial/editar', [ComercialController::class, 'editar']);
 
+$router->get('/admin/comercial/excel', [ComercialController::class, 'excel']);
+$router->post('/admin/comercial/excel', [ComercialController::class, 'excel']);
+
+
+
 
 // AREA DE FINANCIERO
 $router->get('/admin/financiero/tabla', [FinancieroController::class, 'tabla']);
