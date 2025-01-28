@@ -782,12 +782,11 @@ public static function procesarArchivoExcelMateria($filePath)
 
 
 // ----------------------------------------------------------------------------EXCEL COMERCIAL---------------------------------------------------------------------------
-
 public static function procesarArchivoExcelComercial($filePath)
 {
     $spreadsheet = IOFactory::load($filePath);
     $sheet = $spreadsheet->getActiveSheet();
-
+    
     // Crear la tabla si no existe
     $queryCrearTabla = "
         CREATE TABLE IF NOT EXISTS " . static::$tabla . " (
@@ -796,7 +795,6 @@ public static function procesarArchivoExcelComercial($filePath)
             proyecto VARCHAR(255),
             pedido_interno VARCHAR(255),
             fecha_solicitud DATE,
-            puerto_destino VARCHAR(255),
             trader VARCHAR(255),
             marca VARCHAR(255),
             linea VARCHAR(255),
@@ -815,86 +813,47 @@ public static function procesarArchivoExcelComercial($filePath)
             estado VARCHAR(255)
         )
     ";
-
-    // Ejecutar la creación de la tabla
+    
     self::$db->query($queryCrearTabla);
 
-    // Procesar cada fila del Excel
-    foreach ($sheet->getRowIterator(2) as $row) {
+    $highestRow = $sheet->getHighestRow();
+    for ($row = 2; $row <= $highestRow; $row++) {
         $data = [];
-        $cellIterator = $row->getCellIterator();
-        $cellIterator->setIterateOnlyExistingCells(false);
-
-        foreach ($cellIterator as $cell) {
-            $data[] = $cell->getValue(); // Obtener el valor de la celda
+        for ($col = 'A'; $col <= 'U'; $col++) { // Asegura el rango correcto de columnas
+            $data[] = trim($sheet->getCell($col . $row)->getValue() ?? '');
         }
 
-        var_dump($data);
-        exit;
-
-        // Mapear los datos a las columnas
         list(
-            $import, $proyecto, $pedido_interno, $fecha_solicitud, $puerto_destino,
+            $import, $proyecto, $pedido_interno, $fecha_solicitud,
             $trader, $marca, $linea, $producto, $gms, $ancho, $cantidad,
             $precio, $total_item, $fecha_produccion, $ets, $eta,
             $arribo_planta, $transito, $fecha_en_planta, $estado
-        ) = array_map(function ($value) {
-            return trim($value ?? '');  // Limpia los valores y reemplaza null con cadena vacía
-        }, $data);
+        ) = array_map(fn($value) => is_numeric($value) ? str_replace(',', '.', $value) : $value, $data);
 
-        // Normalizar el separador decimal
-        $gms = str_replace(',', '.', $gms);
-        $ancho = str_replace(',', '.', $ancho);
-        $precio = str_replace(',', '.', $precio);
-        $total_item = str_replace(',', '.', $total_item);
-
-        // Verificar si el registro ya existe
-        $queryVerificar = "
-            SELECT id 
-            FROM " . static::$tabla . " 
-            WHERE pedido_interno = '$pedido_interno'
-        ";
+        $queryVerificar = "SELECT id FROM " . static::$tabla . " WHERE pedido_interno = '$pedido_interno'";
         $resultado = self::$db->query($queryVerificar)->fetch_assoc();
 
         if ($resultado) {
-            // Si existe el registro, actualizar los datos
             $queryActualizar = "
-                UPDATE " . static::$tabla . "
-                SET 
-                    import = '$import',
-                    proyecto = '$proyecto',
-                    fecha_solicitud = '$fecha_solicitud',
-                    puerto_destino = '$puerto_destino',
-                    trader = '$trader',
-                    marca = '$marca',
-                    linea = '$linea',
-                    producto = '$producto',
-                    gms = '$gms',
-                    ancho = '$ancho',
-                    cantidad = '$cantidad',
-                    precio = '$precio',
-                    total_item = '$total_item',
-                    fecha_produccion = '$fecha_produccion',
-                    ets = '$ets',
-                    eta = '$eta',
-                    arribo_planta = '$arribo_planta',
-                    transito = '$transito',
-                    fecha_en_planta = '$fecha_en_planta',
-                    estado = '$estado'
+                UPDATE " . static::$tabla . " SET 
+                    import = '$import', proyecto = '$proyecto', fecha_solicitud = '$fecha_solicitud',
+                    trader = '$trader', marca = '$marca', linea = '$linea', producto = '$producto',
+                    gms = '$gms', ancho = '$ancho', cantidad = '$cantidad', precio = '$precio',
+                    total_item = '$total_item', fecha_produccion = '$fecha_produccion',
+                    ets = '$ets', eta = '$eta', arribo_planta = '$arribo_planta', transito = '$transito',
+                    fecha_en_planta = '$fecha_en_planta', estado = '$estado'
                 WHERE pedido_interno = '$pedido_interno'
             ";
             self::$db->query($queryActualizar);
         } else {
-            // Insertar un nuevo registro si no existe
             $queryInsertar = "
                 INSERT INTO " . static::$tabla . " (
-                    import, proyecto, pedido_interno, fecha_solicitud, puerto_destino,
-                    trader, marca, linea, producto, gms, ancho, cantidad,
-                    precio, total_item, fecha_produccion, ets, eta,
+                    import, proyecto, pedido_interno, fecha_solicitud, trader, marca, linea, producto,
+                    gms, ancho, cantidad, precio, total_item, fecha_produccion, ets, eta,
                     arribo_planta, transito, fecha_en_planta, estado
                 ) VALUES (
-                    '$import', '$proyecto', '$pedido_interno', '$fecha_solicitud', '$puerto_destino',
-                    '$trader', '$marca', '$linea', '$producto', '$gms', '$ancho', '$cantidad',
+                    '$import', '$proyecto', '$pedido_interno', '$fecha_solicitud', '$trader',
+                    '$marca', '$linea', '$producto', '$gms', '$ancho', '$cantidad',
                     '$precio', '$total_item', '$fecha_produccion', '$ets', '$eta',
                     '$arribo_planta', '$transito', '$fecha_en_planta', '$estado'
                 )
@@ -905,6 +864,7 @@ public static function procesarArchivoExcelComercial($filePath)
 
     return true;
 }
+
 
     
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------

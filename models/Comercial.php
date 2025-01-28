@@ -157,7 +157,10 @@ public function calcularTotal() {
  }
 
 
-
+ public  static function convertirFechaExcel($fechaExcel) {
+    $fecha = date('Y-m-d', ($fechaExcel - 25569) * 86400);
+    return $fecha;
+}
 
 
 
