@@ -105,6 +105,13 @@
         font-size: 12px;
         color: #999;
     }
+    .chart {
+            width: 100%;
+            height: 50px;
+            background: linear-gradient(to top, #ddd, #8a5ba3);
+            border-radius: 5px;
+            margin-top: 10px;
+        }
 
     .amount {
         font-size: 24px;
