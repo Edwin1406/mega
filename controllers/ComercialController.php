@@ -150,7 +150,7 @@ class ComercialController {
                     echo 'Archivo subido correctamente';
 
                     // Llamar al método de Producto para procesar el archivo
-                    if (Comercial::procesarArchivoExcelMateria($rutaDestino)) {
+                    if (Comercial::procesarArchivoExcelComercial($rutaDestino)) {
                         header('Location: /admin/comercial/crear');
                     } else {
                         echo 'Hubo un error al procesar el archivo Excel';

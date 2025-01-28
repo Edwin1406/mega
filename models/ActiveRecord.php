@@ -783,7 +783,7 @@ public static function procesarArchivoExcelMateria($filePath)
 
 // ----------------------------------------------------------------------------EXCEL COMERCIAL---------------------------------------------------------------------------
 
-public static function procesarArchivoExcelMateria($filePath)
+public static function procesarArchivoExcelComercial($filePath)
 {
     $spreadsheet = IOFactory::load($filePath);
     $sheet = $spreadsheet->getActiveSheet();
