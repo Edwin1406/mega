@@ -318,6 +318,9 @@ class MateriaPrimaController
 
 
     public static function apicorrugador (){
+        // CORS
+        header("Access-Control-Allow-Origin: *");
+        header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
         $corrugador = MateriaPrimaV::allc('DESC', 'CAJA');
         $jsoncorrugador = json_encode($corrugador);
         $data = json_decode($jsoncorrugador, true);
