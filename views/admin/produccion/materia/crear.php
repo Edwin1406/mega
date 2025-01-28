@@ -78,7 +78,46 @@
 
 
 
+<style>
+    .card {
+        width: 300px;
+        height: 200px;
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        display: flex;
+        overflow: hidden;
+    }
 
+    .side-bar {
+        width: 50px;
+        background-color: #f1f1f1;
+    }
+
+    .content {
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .percentage {
+        font-size: 12px;
+        color: #999;
+    }
+
+    .amount {
+        font-size: 24px;
+        font-weight: 600;
+        margin-top: 5px;
+    }
+
+    .label {
+        font-size: 12px;
+        color: #999;
+        margin-top: 5px;
+    }
+</style>
 
 <!-- 
 
