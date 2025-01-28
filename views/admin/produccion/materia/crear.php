@@ -71,7 +71,7 @@
         <div class="side-bar"></div>
         <div class="content">
             <div class="percentage">TOTAL KILOGRAMOS</div>
-            <div class="amount">$ 861.686.000</div>
+            <div class="amount"><?php $allkilos?></div>
             <div class="label">KG</div>
         </div>
     </div>
