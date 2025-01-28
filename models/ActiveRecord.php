@@ -311,7 +311,7 @@ public static function menosDeCien($orden = 'DESC') {
         $query = "SELECT SUM(existencia) AS total FROM " . static::$tabla;
         
         // Ejecutar la consulta
-        $resultado = self::consultarSQL($query);
+        $resultado = self::consultarValor($query);
         
         // Validar que la consulta devuelva datos
         if ($resultado && isset($resultado[0]['total'])) {
