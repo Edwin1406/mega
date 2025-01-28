@@ -174,9 +174,9 @@ class ComercialController {
     {
         $comercial = Comercial::all();
         header('Content-Type: application/json');
-        // convertir  ancho m a mm 
+        // convertir  ancho mm a m 
         $convertir = array_map(function($comercial){
-            $comercial->ancho = $comercial->ancho * 1000;
+            $comercial->ancho = $comercial->ancho / 1000;
             return $comercial;
         }, $comercial);
         echo json_encode($comercial);
