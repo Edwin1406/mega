@@ -170,6 +170,13 @@ class ComercialController {
         ]);
     }
 
+    public static function apicomercial(Router $router)
+    {
+        $comercial = Comercial::all();
+        header('Content-Type: application/json');
+        echo json_encode($comercial);
+    }
+
 
 
 

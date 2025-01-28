@@ -118,6 +118,8 @@ $router->post('/admin/comercial/editar', [ComercialController::class, 'editar'])
 $router->get('/admin/comercial/excel', [ComercialController::class, 'excel']);
 $router->post('/admin/comercial/excel', [ComercialController::class, 'excel']);
 
+// Api Comercial
+$router->get('/admin/api/apicomercial', [ComercialController::class, 'apicomercial']);
 
 
 
