@@ -3,7 +3,7 @@
 
 <ul class="lista-areas-produccion">
     <li class="areas-produccion-estatico">
-        <a href="#">
+        <a>
             <i class="fas fa-industry"> </i> TOTAL REGISTROS :
             <?php if ($totalRegistros > 0) : ?>
                 <span class="areas-produccion__numero"> <?php echo $totalRegistros ?> </span>
@@ -11,7 +11,7 @@
         </a>
     </li>
     <li class="areas-produccion-estatico">
-        <a href="#">
+        <a >
             <i class="fas fa-scroll"></i> TOTAL EXISTENCIA :
             <?php if ($totalExistencia > 0) : ?>
                 <span class="areas-produccion__numero"> <?php echo $totalExistencia ?> KG </span>
@@ -21,7 +21,7 @@
 
 
     <li class="areas-produccion-estatico">
-        <a href="#">
+        <a>
             <i class="fas fa-shopping-cart"></i> TOTAL COSTO :
             <?php if ($totalCosto > 0) : ?>
                 <span class="areas-produccion__numero"> <?php echo $totalCosto ?> $ </span>
