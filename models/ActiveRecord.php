@@ -822,6 +822,9 @@ public static function procesarArchivoExcelComercial($filePath)
         for ($col = 'A'; $col <= 'U'; $col++) { // Asegura el rango correcto de columnas
             $data[] = trim($sheet->getCell($col . $row)->getValue() ?? '');
         }
+        echo ' <pre>';
+        var_dump($data);
+        echo '</pre>';
 
         list(
             $import, $proyecto, $pedido_interno, $fecha_solicitud,
