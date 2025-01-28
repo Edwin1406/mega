@@ -78,21 +78,13 @@
 
 
 
-
-
-
-
-
-
-
-
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard de Existencias</title>
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <style>
         h1 {
@@ -224,18 +216,22 @@
 
     <script>
         let chart; // Variable para el gráfico
-        let originalData; // Datos originales desde el backend
+        let originalData = {}; // Datos originales desde el backend
 
         // Cargar datos desde el backend
-        fetch('https://megawebsistem.com/admin/api/apicorrugador') // Cambia a la ruta correcta de tu API
-            .then(response => response.json())
-            .then(data => {
-                originalData = data; // Guardar datos originales
-                initializeFilters(data); // Inicializar filtros
-                renderChart(data); // Renderizar gráfica inicial
-                renderTable(data); // Renderizar tabla inicial
-            })
-            .catch(error => console.error('Error al cargar datos:', error));
+        async function loadData() {
+            try {
+                const response = await fetch('https://megawebsistem.com/admin/api/apicorrugador'); // Cambia a la ruta correcta de tu API
+                if (!response.ok) throw new Error('Error al cargar datos');
+                originalData = await response.json();
+                initializeFilters(originalData);
+                renderChart(originalData);
+                renderTable(originalData);
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Hubo un error al cargar los datos. Por favor, intenta de nuevo.');
+            }
+        }
 
         // Inicializar los filtros con valores únicos
         function initializeFilters(data) {
@@ -270,7 +266,6 @@
             }));
 
             const labels = Object.keys(data).flatMap(linea => data[linea].labels);
-
             const uniqueLabels = [...new Set(labels)];
 
             const options = {
@@ -321,25 +316,21 @@
                 data[linea].labels.forEach((label, index) => {
                     const row = document.createElement("tr");
 
-                    const lineaCell = document.createElement("td");
-                    lineaCell.textContent = linea;
-                    row.appendChild(lineaCell);
-
-                    const gramajeCell = document.createElement("td");
-                    gramajeCell.textContent = data[linea].gramajes[index] || "Sin Datos";
-                    row.appendChild(gramajeCell);
-
-                    const anchoCell = document.createElement("td");
-                    anchoCell.textContent = data[linea].anchos[index] || "Sin Datos";
-                    row.appendChild(anchoCell);
-
-                    const existenciasCell = document.createElement("td");
-                    existenciasCell.textContent = data[linea].data[index] || 0;
-                    row.appendChild(existenciasCell);
+                    row.appendChild(createTableCell(linea));
+                    row.appendChild(createTableCell(data[linea].gramajes[index] || "Sin Datos"));
+                    row.appendChild(createTableCell(data[linea].anchos[index] || "Sin Datos"));
+                    row.appendChild(createTableCell(data[linea].data[index] || 0));
 
                     tbody.appendChild(row);
                 });
             });
+        }
+
+        // Crear una celda de tabla
+        function createTableCell(content) {
+            const cell = document.createElement("td");
+            cell.textContent = content;
+            return cell;
         }
 
         // Aplicar filtros dinámicos
@@ -350,72 +341,43 @@
             const selectedGramaje = document.getElementById('filterGramaje').value;
             const selectedAncho = document.getElementById('filterAncho').value;
 
-            const filteredData = {};
+            const filteredData = Object.keys(originalData).reduce((acc, linea) => {
+                const filtered = originalData[linea].labels
+                    .map((label, index) => ({
+                        label,
+                        gramaje: originalData[linea].gramajes[index],
+                        ancho: originalData[linea].anchos[index],
+                        data: originalData[linea].data[index]
+                    }))
+                    .filter(item =>
+                        (selectedGramaje === '' || item.gramaje == selectedGramaje) &&
+                        (selectedAncho === '' || item.ancho == selectedAncho)
+                    );
 
-            Object.keys(originalData).forEach(linea => {
-                const labels = [];
-                const data = [];
-                const gramajes = [];
-                const anchos = [];
-
-                originalData[linea].labels.forEach((etiqueta, index) => {
-                    const gramaje = originalData[linea].gramajes[index];
-                    const ancho = originalData[linea].anchos[index];
-
-                    if (
-                        (selectedGramaje === '' || gramaje == selectedGramaje) &&
-                        (selectedAncho === '' || ancho == selectedAncho)
-                    ) {
-                        labels.push(etiqueta || "Sin Datos");
-                        data.push(originalData[linea].data[index] || 0);
-                        gramajes.push(gramaje || "Sin Datos");
-                        anchos.push(ancho || "Sin Datos");
-                    }
-                });
-
-                if (data.length > 0) {
-                    filteredData[linea] = {
-                        labels,
-                        data,
-                        gramajes,
-                        anchos
+                if (filtered.length > 0) {
+                    acc[linea] = {
+                        labels: filtered.map(item => item.label),
+                        data: filtered.map(item => item.data),
+                        gramajes: filtered.map(item => item.gramaje),
+                        anchos: filtered.map(item => item.ancho)
                     };
                 }
-            });
+
+                return acc;
+            }, {});
 
             renderChart(filteredData);
-            renderFilteredTable(filteredData);
+            renderTable(filteredData);
         }
 
-        function renderFilteredTable(data) {
-            const tbody = document.querySelector("#data-table tbody");
-            tbody.innerHTML = ""; // Limpiar tabla
-
-            Object.keys(data).forEach(linea => {
-                data[linea].labels.forEach((label, index) => {
-                    const row = document.createElement("tr");
-
-                    const lineaCell = document.createElement("td");
-                    lineaCell.textContent = linea;
-                    row.appendChild(lineaCell);
-
-                    const gramajeCell = document.createElement("td");
-                    gramajeCell.textContent = data[linea].gramajes[index] || "Sin Datos";
-                    row.appendChild(gramajeCell);
-
-                    const anchoCell = document.createElement("td");
-                    anchoCell.textContent = data[linea].anchos[index] || "Sin Datos";
-                    row.appendChild(anchoCell);
-
-                    const existenciasCell = document.createElement("td");
-                    existenciasCell.textContent = data[linea].data[index] || 0;
-                    row.appendChild(existenciasCell);
-
-                    tbody.appendChild(row);
-                });
-            });
-        }
+        // Iniciar la carga de datos
+        loadData();
     </script>
 </body>
 
 </html>
+
+
+
+
+
