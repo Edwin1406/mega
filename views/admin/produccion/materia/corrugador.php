@@ -24,7 +24,7 @@
 
     <li class="areas-produccion-estatico">
         <a>
-            <i class="fas fa-industry"> </i> TOTAL REGISTROS :
+            <i class="fas fa-industry"> </i> TIEMPO PROMEDIO DE ROTACIÓN :
             <?php if ($totalRegistros > 0) : ?>
                 <span class="areas-produccion__numero"> <?php echo $totalRegistros ?> </span>
             <?php endif; ?>
