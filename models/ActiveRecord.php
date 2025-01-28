@@ -292,11 +292,6 @@ public static function menosDeCien($orden = 'DESC') {
 
 
 
-
-
-
-    
-
     // sumar costo
     public static function sumarCosto($linea = null) {
         // Construye la consulta SQL base
@@ -309,7 +304,15 @@ public static function menosDeCien($orden = 'DESC') {
         // Ejecutar la consulta usando `consultarValor`
         return (float) self::consultarValor($query);
     }
-    
+
+
+    // sumar kilogramos total de todos las lineas 
+    public static function allkilogramos($orden = 'DESC') {
+        $query = "SELECT * FROM " . static::$tabla . " ORDER BY id {$orden}";
+        $resultado = self::consultarSQL($query);
+        return $resultado;
+    }
+
     
     public static function consultarValor($query) {
         // Ejecutar la consulta

@@ -286,8 +286,9 @@ class MateriaPrimaController
         // stock de corrugador
         $cajablanco = MateriaPrimaV::menosDeCien('DESC');
 
-        // debuguear($cajablanco);
+        $allkilos = MateriaPrimaV::allkilogramos('DESC');
 
+        debuguear($allkilos);
 
 
         // con deciamles
