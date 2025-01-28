@@ -6,6 +6,13 @@
     </a>
 </div>
 
+<div class="dashboard__contenedor-boton">
+    <a class="dashboard__boton" href="/admin/produccion/materia/excel">
+        <i class="fa-solid fa-arrow-right"></i>
+        SUBIR EXCEL
+    </a>
+</div>
+
 <div class="dashboard__formulario">
 
 <?php include_once __DIR__.'/../../templates/alertas.php'  ?>
