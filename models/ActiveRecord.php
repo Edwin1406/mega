@@ -306,12 +306,22 @@ public static function menosDeCien($orden = 'DESC') {
     }
 
 
-    // sumar kilogramos total de todos las lineas 
-    public static function allkilogramos($orden = 'DESC') {
-        $query = "SELECT SUM(existencia) as total FROM " . static::$tabla;
+    public static function allKilogramos() {
+        // Query para sumar la columna "existencia"
+        $query = "SELECT SUM(existencia) AS total FROM " . static::$tabla;
+        
+        // Ejecutar la consulta
         $resultado = self::consultarSQL($query);
-        return $resultado;
+        
+        // Validar que la consulta devuelva datos
+        if ($resultado && isset($resultado[0]['total'])) {
+            return (float)$resultado[0]['total']; // Convertir el resultado a float si es necesario
+        }
+        
+        // Devolver 0 en caso de no obtener un resultado válido
+        return 0;
     }
+    
 
     
     public static function consultarValor($query) {
