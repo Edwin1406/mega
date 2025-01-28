@@ -6,8 +6,7 @@ use Model\Area;
 use MVC\Router;
 use Model\Comercial;
 use Classes\Paginacion;
-
-
+use GuzzleHttp\Psr7\Header;
 
 class ComercialController {
 
@@ -175,8 +174,7 @@ class ComercialController {
         $comercial = Comercial::all();
         header('Content-Type: application/json');
         header('Access-Control-Allow-Origin: *');
-        
-
+        Header('Access-Control-Allow-Methods: GET');
         // convertir  ancho mm a m 
         $convertir = array_map(function($comercial){
             $comercial->ancho = $comercial->ancho / 1000;
