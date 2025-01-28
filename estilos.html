@@ -78,3 +78,75 @@
 
 </body>
 </html>
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comparar APIs</title>
+</head>
+<body>
+    <h1>Comparación de datos entre APIs</h1>
+    <button id="compareBtn">Comparar APIs</button>
+    <div id="result" style="margin-top: 20px;"></div>
+
+    <script>
+        const apiComercial = 'https://megawebsistem.com/admin/api/apicomercial';
+        const apiCorrugador = 'https://megawebsistem.com/admin/api/apicorrugador';
+
+        document.getElementById('compareBtn').addEventListener('click', async () => {
+            try {
+                // Fetch data from both APIs
+                const [comercialResponse, corrugadorResponse] = await Promise.all([
+                    fetch(apiComercial),
+                    fetch(apiCorrugador)
+                ]);
+
+                if (!comercialResponse.ok || !corrugadorResponse.ok) {
+                    throw new Error('Error al obtener los datos de las APIs');
+                }
+
+                const comercialData = await comercialResponse.json();
+                const corrugadorData = await corrugadorResponse.json();
+
+                console.log("Datos recibidos de API Comercial:", comercialData);
+                console.log("Datos recibidos de API Corrugador:", corrugadorData);
+
+                // Extraer los valores de los objetos si no son arrays
+                const corrugadorItems = Object.values(corrugadorData).flat();
+                const comercialItems = Object.values(comercialData).flat();
+
+                // Extract matching items
+                const matches = [];
+
+                comercialItems.forEach(comercialItem => {
+                    corrugadorItems.forEach(corrugadorItem => {
+                        if (
+                            comercialItem.ancho === corrugadorItem.ancho &&
+                            comercialItem.gramaje === corrugadorItem.gramaje &&
+                            comercialItem.linea === corrugadorItem.linea
+                        ) {
+                            matches.push({
+                                ancho: comercialItem.ancho,
+                                gramaje: comercialItem.gramaje,
+                                linea: comercialItem.linea
+                            });
+                        }
+                    });
+                });
+
+                // Display the results
+                const resultDiv = document.getElementById('result');
+                resultDiv.innerHTML = matches.length > 0 
+                    ? `<h3>Datos coincidentes:</h3><pre>${JSON.stringify(matches, null, 2)}</pre>`
+                    : '<h3>No se encontraron coincidencias.</h3>';
+            } catch (error) {
+                console.error('Error al comparar las APIs:', error);
+                document.getElementById('result').innerHTML = '<h3>Error al obtener los datos de las APIs.</h3>';
+            }
+        });
+    </script>
+</body>
+</html>

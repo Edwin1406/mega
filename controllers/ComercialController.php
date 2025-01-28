@@ -170,17 +170,19 @@ class ComercialController {
     }
 
     public static function apicomercial(Router $router)
-    {
-        $comercial = Comercial::all();
+    {$comercial = Comercial::all();
         header('Content-Type: application/json');
         header('Access-Control-Allow-Origin: *');
-        Header('Access-Control-Allow-Methods: GET');
-        // convertir  ancho mm a m 
-        $convertir = array_map(function($comercial){
-            $comercial->ancho = $comercial->ancho / 1000;
-            return $comercial;
-        }, $comercial);
+        header('Access-Control-Allow-Methods: GET');
+        
+        // Convertir ancho de mm a m
+        $comercial = $comercial->map(function ($item) {
+            $item->ancho = number_format($item->ancho / 1000, 2, '.', '');
+            return $item;
+        });
+        
         echo json_encode($comercial);
+        
     }
 
 
