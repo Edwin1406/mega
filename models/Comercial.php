@@ -26,7 +26,6 @@ class Comercial extends ActiveRecord {
         'arribo_planta',
         'transito',
         'fecha_en_planta',
-        'observaciones',
         'estado'
     ];
 
@@ -51,7 +50,6 @@ class Comercial extends ActiveRecord {
     public $arribo_planta;
     public $transito;
     public $fecha_en_planta;
-    public $observaciones;
     public $estado;
 
 
@@ -79,7 +77,6 @@ class Comercial extends ActiveRecord {
         $this->arribo_planta = $args['arribo_planta'] ?? '';
         $this->transito = $args['transito'] ?? '';
         $this->fecha_en_planta = $args['fecha_en_planta'] ?? '';
-        $this->observaciones = $args['observaciones'] ?? '';
         $this->estado = $args['estado'] ?? '';
     }
 
@@ -135,10 +132,6 @@ class Comercial extends ActiveRecord {
 
         if(!$this->arribo_planta) {
             self::$alertas['error'][] = 'El Campo Arribo Planta es Obligatorio';
-        }
-
-        if(!$this->observaciones) {
-            self::$alertas['error'][] = 'El Campo Observaciones es Obligatorio';
         }
 
         if(!$this->estado) {
