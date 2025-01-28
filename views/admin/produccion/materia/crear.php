@@ -137,6 +137,12 @@
             margin-top: 5px;
             text-align: center;
         }
+        .chart .bar {
+            width: 50%;
+            height: 100%;
+            background: red;
+            border-radius: 5px;
+        }
 </style>
 
 <!-- 
