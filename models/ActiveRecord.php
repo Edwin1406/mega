@@ -810,7 +810,8 @@ public static function procesarArchivoExcelComercial($filePath)
             arribo_planta DATE,
             transito INT,
             fecha_en_planta DATE,
-            estado VARCHAR(255)
+            estado VARCHAR(255),
+            UNIQUE KEY (import, proyecto, pedido_interno, fecha_solicitud, trader, marca, linea, producto, gms, ancho, cantidad, precio, total_item, fecha_produccion, ets, eta, arribo_planta, transito, fecha_en_planta, estado)
         )
     ";
     
