@@ -25,7 +25,7 @@ class MateriaPrimaController
       $totalExistenciaPeriodico = number_format($totalExistenciaPeriodico, 0, '.', ',');
 
       $allkilos = MateriaPrimaV::allkilogramos('DESC');
-
+        debuguear($allkilos);
 
       if($_SERVER['REQUEST_METHOD'] === 'POST') {
          $materiaprima->sincronizar($_POST);
