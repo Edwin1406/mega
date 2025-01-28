@@ -174,6 +174,8 @@ class ComercialController {
     {
         $comercial = Comercial::all();
         header('Content-Type: application/json');
+        $registro = $comercial->ancho ;
+        debuguear($registro);
         echo json_encode($comercial);
     }
 
