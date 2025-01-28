@@ -79,7 +79,6 @@
 </body>
 </html>
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -114,28 +113,29 @@
                 console.log("Datos recibidos de API Comercial:", comercialData);
                 console.log("Datos recibidos de API Corrugador:", corrugadorData);
 
-                // Extraer los valores de los objetos si no son arrays
-                const corrugadorItems = Object.values(corrugadorData).flat();
-                const comercialItems = Object.values(comercialData).flat();
+                // Extraer valores de API Comercial
+                const comercialItems = comercialData.map(item => ({
+                    ancho: item.ancho.trim(),
+                    gramaje: item.gms.toString().trim(),
+                    linea: item.linea.trim()
+                }));
 
-                // Extract matching items
-                const matches = [];
-
-                comercialItems.forEach(comercialItem => {
-                    corrugadorItems.forEach(corrugadorItem => {
-                        if (
-                            comercialItem.ancho === corrugadorItem.ancho &&
-                            comercialItem.gramaje === corrugadorItem.gramaje &&
-                            comercialItem.linea === corrugadorItem.linea
-                        ) {
-                            matches.push({
-                                ancho: comercialItem.ancho,
-                                gramaje: comercialItem.gramaje,
-                                linea: comercialItem.linea
-                            });
-                        }
+                // Extraer valores de API Corrugador
+                let corrugadorItems = [];
+                Object.keys(corrugadorData).forEach(key => {
+                    const item = corrugadorData[key];
+                    item.anchos.forEach((ancho, index) => {
+                        corrugadorItems.push({
+                            ancho: ancho.trim(),
+                            gramaje: item.gramajes[index].toString().trim(),
+                            linea: key.trim()
+                        });
                     });
                 });
+
+                // Crear sets para comparación eficiente
+                const comercialSet = new Set(comercialItems.map(i => `${i.ancho}-${i.gramaje}-${i.linea}`));
+                const matches = corrugadorItems.filter(i => comercialSet.has(`${i.ancho}-${i.gramaje}-${i.linea}`));
 
                 // Display the results
                 const resultDiv = document.getElementById('result');
