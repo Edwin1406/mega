@@ -5,6 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tarjeta de Ejecución</title>
     <style>
+
+        .centrar {
+            display: flex;
+            justify-content: center;
+        }	
       
         .card {
             display: flex;
@@ -58,5 +63,18 @@
 </head>
 <body>
   
+<!--  -->
+    <div class="centrar">
+        
+        <div class="card">
+            <div class="side-bar"></div>
+            <div class="content">
+                <div class="percentage">TOTAL KILOGRAMOS</div>
+                <div class="amount"><?php echo $allkilos?> KG</div>
+                <div class="label">KG</div>
+            </div>
+        </div>
+    </div>
+
 </body>
 </html>

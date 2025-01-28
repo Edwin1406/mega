@@ -66,8 +66,9 @@
 </ul>
 
 
+<div class="centrar">
 
-<div class="card">
+    <div class="card">
         <div class="side-bar"></div>
         <div class="content">
             <div class="percentage">TOTAL KILOGRAMOS</div>
@@ -75,10 +76,18 @@
             <div class="label">KG</div>
         </div>
     </div>
+</div>
 
 
 
 <style>
+
+
+.centrar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
    
    .card {
             display: flex;
