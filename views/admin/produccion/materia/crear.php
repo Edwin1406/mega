@@ -63,11 +63,18 @@
             <?php endif; ?>
         </a>
     </li>
-
-
-
-
 </ul>
+
+
+
+<div class="card">
+        <div class="side-bar"></div>
+        <div class="content">
+            <div class="percentage">TOTAL KILOGRAMOS</div>
+            <div class="amount">$ 861.686.000</div>
+            <div class="label">KG</div>
+        </div>
+    </div>
 
 
 
