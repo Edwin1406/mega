@@ -831,12 +831,12 @@ public static function procesarArchivoExcelComercial($filePath)
         ) = array_map(fn($value) => is_numeric($value) ? str_replace(',', '.', $value) : $value, $data);
 
         // Convertir fechas al formato correcto
-        $fecha_solicitud = date('Y-m-d', strtotime($fecha_solicitud));
-        $fecha_produccion = date('Y-m-d', strtotime($fecha_produccion));
-        $ets = date('Y-m-d', strtotime($ets));
-        $eta = date('Y-m-d', strtotime($eta));
-        $arribo_planta = date('Y-m-d', strtotime($arribo_planta));
-        $fecha_en_planta = date('Y-m-d', strtotime($fecha_en_planta));
+        $fecha_solicitud = date('d-m-Y', strtotime($fecha_solicitud));
+        $fecha_produccion = date('d-m-Y', strtotime($fecha_produccion));
+        $ets = date('d-m-Y', strtotime($ets));
+        $eta = date('d-m-Y', strtotime($eta));
+        $arribo_planta = date('d-m-Y', strtotime($arribo_planta));
+        $fecha_en_planta = date('d-m-Y', strtotime($fecha_en_planta));
 
         $queryInsertar = "
             INSERT INTO " . static::$tabla . " (
