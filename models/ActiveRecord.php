@@ -799,8 +799,8 @@ public static function procesarArchivoExcelComercial($filePath)
             marca VARCHAR(255),
             linea VARCHAR(255),
             producto VARCHAR(500),
-            gms DECIMAL(10, 2),
-            ancho DECIMAL(10, 2),
+            gms DECIMAL(10,2),
+            ancho DECIMAL(10,2),
             cantidad VARCHAR(255),
             precio VARCHAR(255),
             total_item VARCHAR(255),
@@ -814,13 +814,13 @@ public static function procesarArchivoExcelComercial($filePath)
             UNIQUE KEY (import, proyecto, pedido_interno, fecha_solicitud, trader, marca, linea, producto, gms, ancho, cantidad, precio, total_item, fecha_produccion, ets, eta, arribo_planta, transito, fecha_en_planta, estado)
         )
     ";
-    
+
     self::$db->query($queryCrearTabla);
 
     $highestRow = $sheet->getHighestRow();
     for ($row = 2; $row <= $highestRow; $row++) {
         $data = [];
-        for ($col = 'A'; $col <= 'U'; $col++) { // Asegura el rango correcto de columnas
+        for ($col = 'A'; $col <= 'U'; $col++) {
             $data[] = trim($sheet->getCell($col . $row)->getFormattedValue() ?? '');
         }
 
@@ -829,49 +829,64 @@ public static function procesarArchivoExcelComercial($filePath)
             $trader, $marca, $linea, $producto, $gms, $ancho, $cantidad,
             $precio, $total_item, $fecha_produccion, $ets, $eta,
             $arribo_planta, $transito, $fecha_en_planta, $estado
-        ) = array_map(fn($value) => is_numeric($value) ? str_replace(',', '.', $value) : $value, $data);
+        ) = array_map(fn($value) => is_numeric(str_replace(',', '.', $value)) ? str_replace(',', '.', $value) : trim($value), $data);
 
-        // Convertir fechas al formato correcto
-        $fecha_solicitud = date('Y-m-d', strtotime($fecha_solicitud));
-        $fecha_produccion = date('Y-m-d', strtotime($fecha_produccion));
-        $ets = date('Y-m-d', strtotime($ets));
-        $eta = date('Y-m-d', strtotime($eta));
-        $arribo_planta = date('Y-m-d', strtotime($arribo_planta));
-        $fecha_en_planta = date('Y-m-d', strtotime($fecha_en_planta));
+        // Validación de fechas
+        $fechas = ['fecha_solicitud', 'fecha_produccion', 'ets', 'eta', 'arribo_planta', 'fecha_en_planta'];
+        foreach ($fechas as $fecha) {
+            if (!empty($$fecha) && strtotime($$fecha) !== false) {
+                $$fecha = date('Y-m-d', strtotime($$fecha));
+            } else {
+                $$fecha = null; // Evita insertar valores inválidos
+            }
+        }
 
-        $queryInsertar = "
-            INSERT INTO " . static::$tabla . " (
-                import, proyecto, pedido_interno, fecha_solicitud, trader, marca, linea, producto,
-                gms, ancho, cantidad, precio, total_item, fecha_produccion, ets, eta,
-                arribo_planta, transito, fecha_en_planta, estado
-            ) VALUES (
-                '$import', '$proyecto', '$pedido_interno', '$fecha_solicitud', '$trader',
-                '$marca', '$linea', '$producto', '$gms', '$ancho', '$cantidad',
-                '$precio', '$total_item', '$fecha_produccion', '$ets', '$eta',
-                '$arribo_planta', '$transito', '$fecha_en_planta', '$estado'
-            )
-            ON DUPLICATE KEY UPDATE 
-                import = VALUES(import),
-                proyecto = VALUES(proyecto),
-                fecha_solicitud = VALUES(fecha_solicitud),
-                trader = VALUES(trader),
-                marca = VALUES(marca),
-                linea = VALUES(linea),
-                producto = VALUES(producto),
-                gms = VALUES(gms),
-                ancho = VALUES(ancho),
-                cantidad = VALUES(cantidad),
-                precio = VALUES(precio),
-                total_item = VALUES(total_item),
-                fecha_produccion = VALUES(fecha_produccion),
-                ets = VALUES(ets),
-                eta = VALUES(eta),
-                arribo_planta = VALUES(arribo_planta),
-                transito = VALUES(transito),
-                fecha_en_planta = VALUES(fecha_en_planta),
-                estado = VALUES(estado)
+        // Asegurar que `gms` y `ancho` sean numéricos
+        $gms = is_numeric($gms) ? floatval($gms) : null;
+        $ancho = is_numeric($ancho) ? floatval($ancho) : null;
+
+        // **Verificar si el registro ya existe antes de insertarlo**
+        $queryExistente = "
+            SELECT id FROM " . static::$tabla . "
+            WHERE import = '$import' 
+            AND proyecto = '$proyecto'
+            AND pedido_interno = '$pedido_interno'
+            AND fecha_solicitud = '$fecha_solicitud'
+            AND trader = '$trader'
+            AND marca = '$marca'
+            AND linea = '$linea'
+            AND producto = '$producto'
+            AND gms = '$gms'
+            AND ancho = '$ancho'
+            AND cantidad = '$cantidad'
+            AND precio = '$precio'
+            AND total_item = '$total_item'
+            AND fecha_produccion = '$fecha_produccion'
+            AND ets = '$ets'
+            AND eta = '$eta'
+            AND arribo_planta = '$arribo_planta'
+            AND transito = '$transito'
+            AND fecha_en_planta = '$fecha_en_planta'
+            AND estado = '$estado'
         ";
-        self::$db->query($queryInsertar);
+
+        $resultado = self::$db->query($queryExistente);
+        if ($resultado->num_rows == 0) {
+            // Solo insertar si NO existe
+            $queryInsertar = "
+                INSERT INTO " . static::$tabla . " (
+                    import, proyecto, pedido_interno, fecha_solicitud, trader, marca, linea, producto,
+                    gms, ancho, cantidad, precio, total_item, fecha_produccion, ets, eta,
+                    arribo_planta, transito, fecha_en_planta, estado
+                ) VALUES (
+                    '$import', '$proyecto', '$pedido_interno', '$fecha_solicitud', '$trader',
+                    '$marca', '$linea', '$producto', '$gms', '$ancho', '$cantidad',
+                    '$precio', '$total_item', '$fecha_produccion', '$ets', '$eta',
+                    '$arribo_planta', '$transito', '$fecha_en_planta', '$estado'
+                )
+            ";
+            self::$db->query($queryInsertar);
+        }
     }
 
     return true;
