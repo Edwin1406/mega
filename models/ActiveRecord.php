@@ -310,7 +310,6 @@ public static function menosDeCien($orden = 'DESC') {
     public static function allKilogramos() {
         // Construye la consulta SQL base
         $query = "SELECT SUM(existencia) as total FROM " . static::$tabla;
-    
         // Ejecutar la consulta usando `consultarValor`
         return (float) self::consultarValor($query);
     }

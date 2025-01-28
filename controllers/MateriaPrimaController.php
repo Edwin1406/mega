@@ -24,8 +24,7 @@ class MateriaPrimaController
       $totalExistenciaMicro = number_format($totalExistenciaMicro, 0, '.', ',');
       $totalExistenciaPeriodico = number_format($totalExistenciaPeriodico, 0, '.', ',');
 
-       
-
+      $allkilos = MateriaPrimaV::allkilogramos('DESC');
 
 
       if($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -56,7 +55,8 @@ class MateriaPrimaController
          'alertas' => $alertas,
             'totalExistencia' => $totalExistencia,
             'totalExistenciaMicro' => $totalExistenciaMicro,
-            'totalExistenciaPeriodico' => $totalExistenciaPeriodico
+            'totalExistenciaPeriodico' => $totalExistenciaPeriodico,
+            'allkilos' => $allkilos
       ]);
    }
 
@@ -286,9 +286,7 @@ class MateriaPrimaController
         // stock de corrugador
         $cajablanco = MateriaPrimaV::menosDeCien('DESC');
 
-        $allkilos = MateriaPrimaV::allkilogramos('DESC');
-
-        debuguear($allkilos);
+     
 
 
         // con deciamles
