@@ -308,7 +308,7 @@ public static function menosDeCien($orden = 'DESC') {
 
     // sumar kilogramos total de todos las lineas 
     public static function allkilogramos($orden = 'DESC') {
-        $query = "SELECT SUM(exitencia) as total FROM " . static::$tabla;
+        $query = "SELECT SUM(existencia) as total FROM " . static::$tabla;
         $resultado = self::consultarSQL($query);
         return $resultado;
     }
