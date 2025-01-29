@@ -372,6 +372,142 @@
 
         // Iniciar la carga de datos
         loadData();
+
+
+
+
+
+
+
+
+
+
+
+
+
+        let todasLasCoincidencias = [];
+
+// Función para obtener datos de la API de corrugador
+async function apicorru() {
+    try {
+        const url = "https://megawebsistem.com/admin/api/apicorrugador2";
+        const resultado = await fetch(url);
+        return await resultado.json();
+    } catch (e) {
+        console.error("Error en apicorru:", e);
+        return [];
+    }
+}
+
+// Función para obtener datos de la API comercial
+async function apicomercial() {
+    try {
+        const url = "https://megawebsistem.com/admin/api/apicomercial";
+        const resultado = await fetch(url);
+        return await resultado.json();
+    } catch (e) {
+        console.error("Error en apicomercial:", e);
+        return [];
+    }
+}
+
+// Función para cargar los valores de filtro dinámicamente
+
+
+// Función para procesar y comparar los datos de ambas APIs
+async function desgloza() {
+    const corru = await apicorru();
+    const comercial = await apicomercial();
+
+    todasLasCoincidencias = [];
+
+    corru.forEach(corrugador => {
+        const { gramaje, ancho, descripcion: descCorru = "Sin descripción" } = corrugador;
+
+        // Busca registros en comercial donde el gramaje y el ancho coincidan
+        const match = comercial.find(com => 
+            Number(com.gramaje) === Number(gramaje) && 
+            Number(com.ancho) === Number(ancho)
+        );
+
+        if (match) {
+            todasLasCoincidencias.push({
+                gramaje,
+                ancho,
+                descCorru,
+                descComercial: match.linea || match.producto || "Sin descripción",
+                cantidad: match.cantidad || "No especificada",
+                fecha_produccion: match.fecha_produccion || "No especificada",
+                ets: match.ets || "No especificada",
+                eta: match.eta || "No especificada",
+                arribo_planta: match.arribo_planta || "No especificada"
+            });
+        }
+    });
+
+    mostrarTabla(todasLasCoincidencias);
+}
+
+// Función para mostrar las coincidencias en la tabla
+function mostrarTabla(coincidencias) {
+    const tabla = document.getElementById("tabla-coincidencias");
+    const tbody = tabla.querySelector("tbody");
+
+    tbody.innerHTML = ""; // Limpiar contenido previo
+
+    if (coincidencias.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="5" class="sin-datos">No se encontraron coincidencias</td></tr>`;
+        return;
+    }
+
+    coincidencias.forEach(({ gramaje, ancho, descCorru, descComercial, cantidad,fecha_produccion,ets,eta,arribo_planta }) => {
+        const fila = `
+            <tr>
+                <td>${gramaje}</td>
+                <td>${ancho}</td>
+                <td>${descCorru}</td>
+                <td>${descComercial}</td>
+                <td>${cantidad}</td>
+                <td>${fecha_produccion}</td>
+                <td>${ets}</td>
+                <td>${eta}</td>
+                <td>${arribo_planta}</td>
+            </tr>
+        `;
+        tbody.innerHTML += fila;
+    });
+}
+
+// Función para aplicar los filtros
+function aplicarFiltros() {
+    const filtroGramaje = document.getElementById("filterGramaje").value;
+    const filtroAncho = document.getElementById("filterAncho").value;
+
+    let resultadosFiltrados = todasLasCoincidencias;
+
+    if (filtroGramaje) {
+        resultadosFiltrados = resultadosFiltrados.filter(item => Number(item.gramaje) === Number(filtroGramaje));
+    }
+
+    if (filtroAncho) {
+        resultadosFiltrados = resultadosFiltrados.filter(item => Number(item.ancho) === Number(filtroAncho));
+    }
+
+    mostrarTabla(resultadosFiltrados);
+}
+
+// Escucha de eventos para los filtros
+document.getElementById("filterGramaje").addEventListener("change", aplicarFiltros);
+document.getElementById("filterAncho").addEventListener("change", aplicarFiltros);
+
+// Ejecutar las funciones al cargar la página
+document.addEventListener("DOMContentLoaded", async () => {
+    await cargarFiltros();
+    await desgloza();
+});
+
+
+
     </script>
 </body>
 
@@ -446,150 +582,7 @@
     </table>
 
     <script>
-        let todasLasCoincidencias = [];
-
-        // Función para obtener datos de la API de corrugador
-        async function apicorru() {
-            try {
-                const url = "https://megawebsistem.com/admin/api/apicorrugador2";
-                const resultado = await fetch(url);
-                return await resultado.json();
-            } catch (e) {
-                console.error("Error en apicorru:", e);
-                return [];
-            }
-        }
-
-        // Función para obtener datos de la API comercial
-        async function apicomercial() {
-            try {
-                const url = "https://megawebsistem.com/admin/api/apicomercial";
-                const resultado = await fetch(url);
-                return await resultado.json();
-            } catch (e) {
-                console.error("Error en apicomercial:", e);
-                return [];
-            }
-        }
-
-        // // Función para cargar los valores de filtro dinámicamente
-        // async function cargarFiltros() {
-        //     const corru = await apicorru();
-
-        //     // Extraer gramajes y anchos únicos
-        //     const gramajesUnicos = [...new Set(corru.map(item => item.gramaje))];
-        //     const anchosUnicos = [...new Set(corru.map(item => item.ancho))];
-
-        //     // Llenar el select de gramaje
-        //     const selectGramaje = document.getElementById("filterGramaje");
-        //     gramajesUnicos.forEach(gramaje => {
-        //         const option = document.createElement("option");
-        //         option.value = gramaje;
-        //         option.textContent = gramaje;
-        //         selectGramaje.appendChild(option);
-        //     });
-
-        //     // Llenar el select de ancho
-        //     const selectAncho = document.getElementById("filterAncho");
-        //     anchosUnicos.forEach(ancho => {
-        //         const option = document.createElement("option");
-        //         option.value = ancho;
-        //         option.textContent = ancho;
-        //         selectAncho.appendChild(option);
-        //     });
-        // }
-
-        // Función para procesar y comparar los datos de ambas APIs
-        async function desgloza() {
-            const corru = await apicorru();
-            const comercial = await apicomercial();
-
-            todasLasCoincidencias = [];
-
-            corru.forEach(corrugador => {
-                const { gramaje, ancho, descripcion: descCorru = "Sin descripción" } = corrugador;
-
-                // Busca registros en comercial donde el gramaje y el ancho coincidan
-                const match = comercial.find(com => 
-                    Number(com.gramaje) === Number(gramaje) && 
-                    Number(com.ancho) === Number(ancho)
-                );
-
-                if (match) {
-                    todasLasCoincidencias.push({
-                        gramaje,
-                        ancho,
-                        descCorru,
-                        descComercial: match.linea || match.producto || "Sin descripción",
-                        cantidad: match.cantidad || "No especificada",
-                        fecha_produccion: match.fecha_produccion || "No especificada",
-                        ets: match.ets || "No especificada",
-                        eta: match.eta || "No especificada",
-                        arribo_planta: match.arribo_planta || "No especificada"
-                    });
-                }
-            });
-
-            mostrarTabla(todasLasCoincidencias);
-        }
-
-        // Función para mostrar las coincidencias en la tabla
-        function mostrarTabla(coincidencias) {
-            const tabla = document.getElementById("tabla-coincidencias");
-            const tbody = tabla.querySelector("tbody");
-
-            tbody.innerHTML = ""; // Limpiar contenido previo
-
-            if (coincidencias.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="5" class="sin-datos">No se encontraron coincidencias</td></tr>`;
-                return;
-            }
-
-            coincidencias.forEach(({ gramaje, ancho, descCorru, descComercial, cantidad,fecha_produccion,ets,eta,arribo_planta }) => {
-                const fila = `
-                    <tr>
-                        <td>${gramaje}</td>
-                        <td>${ancho}</td>
-                        <td>${descCorru}</td>
-                        <td>${descComercial}</td>
-                        <td>${cantidad}</td>
-                        <td>${fecha_produccion}</td>
-                        <td>${ets}</td>
-                        <td>${eta}</td>
-                        <td>${arribo_planta}</td>
-                    </tr>
-                `;
-                tbody.innerHTML += fila;
-            });
-        }
-
-        // Función para aplicar los filtros
-        function aplicarFiltros() {
-            const filtroGramaje = document.getElementById("filterGramaje").value;
-            const filtroAncho = document.getElementById("filterAncho").value;
-
-            let resultadosFiltrados = todasLasCoincidencias;
-
-            if (filtroGramaje) {
-                resultadosFiltrados = resultadosFiltrados.filter(item => Number(item.gramaje) === Number(filtroGramaje));
-            }
-
-            if (filtroAncho) {
-                resultadosFiltrados = resultadosFiltrados.filter(item => Number(item.ancho) === Number(filtroAncho));
-            }
-
-            mostrarTabla(resultadosFiltrados);
-        }
-
-        // Escucha de eventos para los filtros
-        document.getElementById("filterGramaje").addEventListener("change", aplicarFiltros);
-        document.getElementById("filterAncho").addEventListener("change", aplicarFiltros);
-
-        // Ejecutar las funciones al cargar la página
-        document.addEventListener("DOMContentLoaded", async () => {
-            await cargarFiltros();
-            await desgloza();
-        });
+       
     </script>
 
 </body>
