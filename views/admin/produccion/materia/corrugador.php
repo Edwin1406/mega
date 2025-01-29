@@ -75,9 +75,6 @@
 
 
 
-
-
-
 <!DOCTYPE html>
 <html lang="es">
 
@@ -174,6 +171,34 @@
             border-color: #4CAF50;
             background-color: #f1fdf1;
         }
+
+        #tabla-coincidencias {
+            width: 100%;
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+            text-align: left;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        #tabla-coincidencias th, #tabla-coincidencias td {
+            padding: 8px;
+            border: 1px solid #ddd;
+        }
+
+        #tabla-coincidencias tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        #tabla-coincidencias th {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .sin-datos {
+            color: #999;
+            font-style: italic;
+        }
     </style>
 </head>
 
@@ -198,58 +223,97 @@
         <div class="chart-card">
             <div class="title">Existencias por Línea y Gramaje/Ancho</div>
             <div id="chart"></div>
-            <table id="data-table">
+            <table id="tabla-coincidencias">
                 <thead>
                     <tr>
-                        <th>Línea</th>
                         <th>Gramaje</th>
                         <th>Ancho</th>
-                        <th>Existencias</th>
+                        <th>Descripción Corrugador</th>
+                        <th>Descripción Comercial</th>
+                        <th>Cantidad</th>
+                        <th>Fecha de Producción</th>
+                        <th>Ets</th>
+                        <th>Eta</th>
+                        <th>Arribo planta</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <!-- Las filas de datos se llenarán dinámicamente -->
+                    <tr><td colspan="9" class="sin-datos">Cargando datos...</td></tr>
                 </tbody>
             </table>
         </div>
     </div>
 
     <script>
-        let chart; // Variable para el gráfico
-        let originalData = {}; // Datos originales desde el backend
+        let chart;
+        let todasLasCoincidencias = [];
 
-        // Cargar datos desde el backend
-        async function loadData() {
+        async function apicorru() {
             try {
-                const response = await fetch('https://megawebsistem.com/admin/api/apicorrugador'); // Cambia a la ruta correcta de tu API
-                if (!response.ok) throw new Error('Error al cargar datos');
-                originalData = await response.json();
-                initializeFilters(originalData);
-                renderChart(originalData);
-                renderTable(originalData);
-            } catch (error) {
-                console.error('Error:', error);
-                alert('Hubo un error al cargar los datos. Por favor, intenta de nuevo.');
+                const url = "https://megawebsistem.com/admin/api/apicorrugador2";
+                const resultado = await fetch(url);
+                return await resultado.json();
+            } catch (e) {
+                console.error("Error en apicorru:", e);
+                return [];
             }
         }
 
-        // Inicializar los filtros con valores únicos
-        function initializeFilters(data) {
+        async function apicomercial() {
+            try {
+                const url = "https://megawebsistem.com/admin/api/apicomercial";
+                const resultado = await fetch(url);
+                return await resultado.json();
+            } catch (e) {
+                console.error("Error en apicomercial:", e);
+                return [];
+            }
+        }
+
+        async function cargarFiltros() {
+            const corru = await apicorru();
+            const comercial = await apicomercial();
+
+            todasLasCoincidencias = [];
             const gramajes = new Set();
             const anchos = new Set();
 
-            Object.values(data).forEach(linea => {
-                linea.gramajes.forEach(g => gramajes.add(g));
-                linea.anchos.forEach(a => anchos.add(a));
+            corru.forEach(corrugador => {
+                const { gramaje, ancho, descripcion: descCorru = "Sin descripción" } = corrugador;
+
+                const match = comercial.find(com =>
+                    Number(com.gramaje) === Number(gramaje) &&
+                    Number(com.ancho) === Number(ancho)
+                );
+
+                if (match) {
+                    todasLasCoincidencias.push({
+                        gramaje,
+                        ancho,
+                        descCorru,
+                        descComercial: match.linea || match.producto || "Sin descripción",
+                        cantidad: match.cantidad || "No especificada",
+                        fecha_produccion: match.fecha_produccion || "No especificada",
+                        ets: match.ets || "No especificada",
+                        eta: match.eta || "No especificada",
+                        arribo_planta: match.arribo_planta || "No especificada"
+                    });
+
+                    gramajes.add(gramaje);
+                    anchos.add(ancho);
+                }
             });
 
             populateFilter('filterGramaje', Array.from(gramajes));
             populateFilter('filterAncho', Array.from(anchos));
+
+            mostrarTabla(todasLasCoincidencias);
+            renderChart(todasLasCoincidencias);
         }
 
-        // Llenar los selectores con opciones
         function populateFilter(filterId, values) {
             const select = document.getElementById(filterId);
+            select.innerHTML = '<option value="">Todos</option>';
             values.forEach(value => {
                 const option = document.createElement('option');
                 option.value = value;
@@ -258,15 +322,49 @@
             });
         }
 
-        // Renderizar la gráfica
-        function renderChart(data) {
-            const series = Object.keys(data).map(linea => ({
+        function mostrarTabla(coincidencias) {
+            const tbody = document.querySelector("#tabla-coincidencias tbody");
+            tbody.innerHTML = "";
+
+            if (coincidencias.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="9" class="sin-datos">No se encontraron coincidencias</td></tr>`;
+                return;
+            }
+
+            coincidencias.forEach(({ gramaje, ancho, descCorru, descComercial, cantidad, fecha_produccion, ets, eta, arribo_planta }) => {
+                const fila = `
+                    <tr>
+                        <td>${gramaje}</td>
+                        <td>${ancho}</td>
+                        <td>${descCorru}</td>
+                        <td>${descComercial}</td>
+                        <td>${cantidad}</td>
+                        <td>${fecha_produccion}</td>
+                        <td>${ets}</td>
+                        <td>${eta}</td>
+                        <td>${arribo_planta}</td>
+                    </tr>
+                `;
+                tbody.innerHTML += fila;
+            });
+        }
+
+        function renderChart(coincidencias) {
+            const datosPorLinea = coincidencias.reduce((acc, item) => {
+                if (!acc[item.descComercial]) {
+                    acc[item.descComercial] = { labels: [], data: [] };
+                }
+                acc[item.descComercial].labels.push(`${item.gramaje} - ${item.ancho}`);
+                acc[item.descComercial].data.push(Number(item.cantidad) || 0);
+                return acc;
+            }, {});
+
+            const series = Object.keys(datosPorLinea).map(linea => ({
                 name: linea,
-                data: data[linea].data
+                data: datosPorLinea[linea].data
             }));
 
-            const labels = Object.keys(data).flatMap(linea => data[linea].labels);
-            const uniqueLabels = [...new Set(labels)];
+            const labels = [...new Set(coincidencias.map(item => `${item.gramaje} - ${item.ancho}`))];
 
             const options = {
                 series: series,
@@ -288,7 +386,7 @@
                     enabled: false
                 },
                 xaxis: {
-                    categories: uniqueLabels,
+                    categories: labels,
                     labels: {
                         formatter: function (value) {
                             return value || "Sin Datos";
@@ -307,283 +405,29 @@
             chart.render();
         }
 
-        // Renderizar la tabla
-        function renderTable(data) {
-            const tbody = document.querySelector("#data-table tbody");
-            tbody.innerHTML = ""; // Limpiar tabla
+        function aplicarFiltros() {
+            const filtroGramaje = document.getElementById("filterGramaje").value;
+            const filtroAncho = document.getElementById("filterAncho").value;
 
-            Object.keys(data).forEach(linea => {
-                data[linea].labels.forEach((label, index) => {
-                    const row = document.createElement("tr");
+            let resultadosFiltrados = todasLasCoincidencias;
 
-                    row.appendChild(createTableCell(linea));
-                    row.appendChild(createTableCell(data[linea].gramajes[index] || "Sin Datos"));
-                    row.appendChild(createTableCell(data[linea].anchos[index] || "Sin Datos"));
-                    row.appendChild(createTableCell(data[linea].data[index] || 0));
+            if (filtroGramaje) {
+                resultadosFiltrados = resultadosFiltrados.filter(item => Number(item.gramaje) === Number(filtroGramaje));
+            }
 
-                    tbody.appendChild(row);
-                });
-            });
+            if (filtroAncho) {
+                resultadosFiltrados = resultadosFiltrados.filter(item => Number(item.ancho) === Number(filtroAncho));
+            }
+
+            mostrarTabla(resultadosFiltrados);
+            renderChart(resultadosFiltrados);
         }
 
-        // Crear una celda de tabla
-        function createTableCell(content) {
-            const cell = document.createElement("td");
-            cell.textContent = content;
-            return cell;
-        }
+        document.getElementById("filterGramaje").addEventListener("change", aplicarFiltros);
+        document.getElementById("filterAncho").addEventListener("change", aplicarFiltros);
 
-        // Aplicar filtros dinámicos
-        document.getElementById('filterGramaje').addEventListener('change', applyFilters);
-        document.getElementById('filterAncho').addEventListener('change', applyFilters);
-
-        function applyFilters() {
-            const selectedGramaje = document.getElementById('filterGramaje').value;
-            const selectedAncho = document.getElementById('filterAncho').value;
-
-            const filteredData = Object.keys(originalData).reduce((acc, linea) => {
-                const filtered = originalData[linea].labels
-                    .map((label, index) => ({
-                        label,
-                        gramaje: originalData[linea].gramajes[index],
-                        ancho: originalData[linea].anchos[index],
-                        data: originalData[linea].data[index]
-                    }))
-                    .filter(item =>
-                        (selectedGramaje === '' || item.gramaje == selectedGramaje) &&
-                        (selectedAncho === '' || item.ancho == selectedAncho)
-                    );
-
-                if (filtered.length > 0) {
-                    acc[linea] = {
-                        labels: filtered.map(item => item.label),
-                        data: filtered.map(item => item.data),
-                        gramajes: filtered.map(item => item.gramaje),
-                        anchos: filtered.map(item => item.ancho)
-                    };
-                }
-
-                return acc;
-            }, {});
-
-            renderChart(filteredData);
-            renderTable(filteredData);
-        }
-
-        // Iniciar la carga de datos
-        loadData();
-
-
-
-
-
-
-
-
-
-
-
-
-
-        let todasLasCoincidencias = [];
-
-// Función para obtener datos de la API de corrugador
-async function apicorru() {
-    try {
-        const url = "https://megawebsistem.com/admin/api/apicorrugador2";
-        const resultado = await fetch(url);
-        return await resultado.json();
-    } catch (e) {
-        console.error("Error en apicorru:", e);
-        return [];
-    }
-}
-
-// Función para obtener datos de la API comercial
-async function apicomercial() {
-    try {
-        const url = "https://megawebsistem.com/admin/api/apicomercial";
-        const resultado = await fetch(url);
-        return await resultado.json();
-    } catch (e) {
-        console.error("Error en apicomercial:", e);
-        return [];
-    }
-}
-
-// Función para cargar los valores de filtro dinámicamente
-
-
-// Función para procesar y comparar los datos de ambas APIs
-async function desgloza() {
-    const corru = await apicorru();
-    const comercial = await apicomercial();
-
-    todasLasCoincidencias = [];
-
-    corru.forEach(corrugador => {
-        const { gramaje, ancho, descripcion: descCorru = "Sin descripción" } = corrugador;
-
-        // Busca registros en comercial donde el gramaje y el ancho coincidan
-        const match = comercial.find(com => 
-            Number(com.gramaje) === Number(gramaje) && 
-            Number(com.ancho) === Number(ancho)
-        );
-
-        if (match) {
-            todasLasCoincidencias.push({
-                gramaje,
-                ancho,
-                descCorru,
-                descComercial: match.linea || match.producto || "Sin descripción",
-                cantidad: match.cantidad || "No especificada",
-                fecha_produccion: match.fecha_produccion || "No especificada",
-                ets: match.ets || "No especificada",
-                eta: match.eta || "No especificada",
-                arribo_planta: match.arribo_planta || "No especificada"
-            });
-        }
-    });
-
-    mostrarTabla(todasLasCoincidencias);
-}
-
-// Función para mostrar las coincidencias en la tabla
-function mostrarTabla(coincidencias) {
-    const tabla = document.getElementById("tabla-coincidencias");
-    const tbody = tabla.querySelector("tbody");
-
-    tbody.innerHTML = ""; // Limpiar contenido previo
-
-    if (coincidencias.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="5" class="sin-datos">No se encontraron coincidencias</td></tr>`;
-        return;
-    }
-
-    coincidencias.forEach(({ gramaje, ancho, descCorru, descComercial, cantidad,fecha_produccion,ets,eta,arribo_planta }) => {
-        const fila = `
-            <tr>
-                <td>${gramaje}</td>
-                <td>${ancho}</td>
-                <td>${descCorru}</td>
-                <td>${descComercial}</td>
-                <td>${cantidad}</td>
-                <td>${fecha_produccion}</td>
-                <td>${ets}</td>
-                <td>${eta}</td>
-                <td>${arribo_planta}</td>
-            </tr>
-        `;
-        tbody.innerHTML += fila;
-    });
-}
-
-// Función para aplicar los filtros
-function aplicarFiltros() {
-    const filtroGramaje = document.getElementById("filterGramaje").value;
-    const filtroAncho = document.getElementById("filterAncho").value;
-
-    let resultadosFiltrados = todasLasCoincidencias;
-
-    if (filtroGramaje) {
-        resultadosFiltrados = resultadosFiltrados.filter(item => Number(item.gramaje) === Number(filtroGramaje));
-    }
-
-    if (filtroAncho) {
-        resultadosFiltrados = resultadosFiltrados.filter(item => Number(item.ancho) === Number(filtroAncho));
-    }
-
-    mostrarTabla(resultadosFiltrados);
-}
-
-// Escucha de eventos para los filtros
-document.getElementById("filterGramaje").addEventListener("change", aplicarFiltros);
-document.getElementById("filterAncho").addEventListener("change", aplicarFiltros);
-
-// Ejecutar las funciones al cargar la página
-document.addEventListener("DOMContentLoaded", async () => {
-    await cargarFiltros();
-    await desgloza();
-});
-
-
-
+        document.addEventListener("DOMContentLoaded", cargarFiltros);
     </script>
 </body>
 
-</html>
-
-
-
-<style>
-        #tabla-coincidencias {
-            width: 100%;
-            font-family: Arial, sans-serif;
-            font-size: 14px;
-            text-align: left;
-            border-collapse: collapse;
-        }
-
-        #tabla-coincidencias th, #tabla-coincidencias td {
-            padding: 8px;
-            border: 1px solid #ddd;
-        }
-
-        #tabla-coincidencias tr:nth-child(even) {
-            background-color: #f9f9f9;
-        }
-
-        #tabla-coincidencias th {
-            background-color: #4CAF50;
-            color: white;
-        }
-
-        .filtros {
-            margin-bottom: 20px;
-        }
-
-        .filtros label {
-            margin-right: 10px;
-        }
-
-        .filtros select {
-            padding: 5px;
-            margin-right: 20px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-
-        .sin-datos {
-            color: #999;
-            font-style: italic;
-        }
-    </style>
-</head>
-<body>
-
-    <table id="tabla-coincidencias">
-        <thead>
-            <tr>
-                <th>Gramaje</th>
-                <th>Ancho</th>
-                <th>Descripción Corrugador</th>
-                <th>Descripción Comercial</th>
-                <th>Cantidad</th>
-                <th>Fecha de Producción</th>
-                <th>Ets</th>
-                <th>Eta</th>
-                <th>Arribo planta</th>
-
-            </tr>
-        </thead>
-        <tbody>
-            <tr><td colspan="5" class="sin-datos">Cargando datos...</td></tr>
-        </tbody>
-    </table>
-
-    <script>
-       
-    </script>
-
-</body>
 </html>
