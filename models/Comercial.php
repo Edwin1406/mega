@@ -15,7 +15,7 @@ class Comercial extends ActiveRecord {
         'marca',
         'linea',
         'producto',
-        'gms',
+        'gramaje',
         'ancho',
         'cantidad',
         'precio',
@@ -39,7 +39,7 @@ class Comercial extends ActiveRecord {
     public $marca;
     public $linea;
     public $producto;
-    public $gms;
+    public $gramaje;
     public $ancho;
     public $cantidad;
     public $precio;
@@ -68,7 +68,7 @@ class Comercial extends ActiveRecord {
         $this->marca = $args['marca'] ?? '';
         $this->linea = $args['linea'] ?? '';
         $this->producto = $args['producto'] ?? '';
-        $this->gms = $args['gms'] ?? '';
+        $this->gramaje = $args['gramaje'] ?? '';
         $this->ancho = $args['ancho'] ?? '';
         $this->cantidad = $args['cantidad'] ?? '';
         $this->precio = $args['precio'] ?? '';
@@ -109,7 +109,7 @@ class Comercial extends ActiveRecord {
             self::$alertas['error'][] = 'El Campo Producto es Obligatorio';
         }
 
-        if(!$this->gms) {
+        if(!$this->gramaje) {
             self::$alertas['error'][] = 'El Campo GMS es Obligatorio';
         }
 
