@@ -77,46 +77,90 @@
     </div>
 
 <script>
-
-    apicomercial();
-    apicorru();
-
-async function apicorru(){
-        
-        try {
-            const url = "https://megawebsistem.com/admin/api/apicorrugador2"
-            const resultado = await fetch(url);
-            const apipedidos = await resultado.json();
-            console.log(apipedidos);
-            return apipedidos
-        } catch (e) {
-            console.log(e);
-                
-        }
+async function apicorru() {
+    try {
+        const url = "https://megawebsistem.com/admin/api/apicorrugador2";
+        const resultado = await fetch(url);
+        return await resultado.json();
+    } catch (e) {
+        console.error("Error en apicorru:", e);
+        return [];
     }
+}
 
-
-    async function apicomercial(){
-        
-        try {
-            const url = "https://megawebsistem.com/admin/api/apicomercial";
-            const resultado = await fetch(url);
-            const apipedidos = await resultado.json();
-            console.log(apipedidos);
-            return apipedidos
-        } catch (e) {
-            console.log(e);
-                
-        }
+async function apicomercial() {
+    try {
+        const url = "https://megawebsistem.com/admin/api/apicomercial";
+        const resultado = await fetch(url);
+        return await resultado.json();
+    } catch (e) {
+        console.error("Error en apicomercial:", e);
+        return [];
     }
+}
 
-
-    async function desgloza() {
-  const corru = await apicorru(); 
+async function desgloza() {
+    const corru = await apicorru();
     const comercial = await apicomercial();
-        corrugador = corru
 
+    const coincidencias = [];
+
+    corru.forEach(corrugador => {
+        const { gramaje, ancho } = corrugador;
+
+        const match = comercial.find(com => com.gramaje === gramaje && com.ancho === ancho);
+
+        if (match) {
+            coincidencias.push({
+                gramaje,
+                ancho,
+                corrugador,
+                comercial: match
+            });
+        }
+    });
+
+    mostrarTabla(coincidencias);
+}
+
+function mostrarTabla(coincidencias) {
+    const tabla = document.getElementById("tabla-coincidencias");
+    const tbody = tabla.querySelector("tbody");
+
+    tbody.innerHTML = ""; // Limpiar contenido previo
+
+    if (coincidencias.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="4">No se encontraron coincidencias</td></tr>`;
+        return;
     }
 
+    coincidencias.forEach(({ gramaje, ancho, corrugador, comercial }) => {
+        const fila = `
+            <tr>
+                <td>${gramaje}</td>
+                <td>${ancho}</td>
+                <td>${JSON.stringify(corrugador)}</td>
+                <td>${JSON.stringify(comercial)}</td>
+            </tr>
+        `;
+        tbody.innerHTML += fila;
+    });
+}
+
+document.addEventListener("DOMContentLoaded", desgloza);
 
 </script>
+
+<table border="1" id="tabla-coincidencias">
+    <thead>
+        <tr>
+            <th>Gramaje</th>
+            <th>Ancho</th>
+            <th>Corrugador</th>
+            <th>Comercial</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr><td colspan="4">Cargando...</td></tr>
+    </tbody>
+</table>

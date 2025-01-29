@@ -94,7 +94,7 @@
                         <td class="tables__td"><?php echo $comerciales->marca?></td>
                         <td class="tables__td"><?php echo $comerciales->linea?></td>
                         <td class="tables__td"><?php echo $comerciales->producto?></td>
-                        <td class="tables__td"><?php echo $comerciales->gms?></td>
+                        <td class="tables__td"><?php echo $comerciales->gramaje?></td>
                         <td class="tables__td"><?php echo $comerciales->ancho?></td>
                         <td class="tables__td"><?php echo $comerciales->cantidad?></td>
                         <td class="tables__td"><?php echo $comerciales->precio?></td>
