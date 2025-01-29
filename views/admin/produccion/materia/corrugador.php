@@ -428,20 +428,7 @@
 </head>
 <body>
 
-    <h1>Comparación de Coincidencias con Filtros Dinámicos</h1>
-
-    <!-- Controles de filtro -->
-    <div class="filtros">
-        <label for="filterGramaje">Filtrar por Gramaje:</label>
-        <select id="filterGramaje">
-            <option value="">Todos</option>
-        </select>
-
-        <label for="filterAncho">Filtrar por Ancho:</label>
-        <select id="filterAncho">
-            <option value="">Todos</option>
-        </select>
-    </div>
+   
 
     <table id="tabla-coincidencias">
         <thead>
