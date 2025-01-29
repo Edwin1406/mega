@@ -3,164 +3,218 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tarjeta de Ejecución</title>
+    <title>Comparación de Coincidencias con Filtros</title>
     <style>
-
-        .centrar {
-            display: flex;
-            justify-content: center;
-        }	
-      
-        .card {
-            display: flex;
-            align-items: center;
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            padding: 15px;
-            width: 30%;
-            position: relative;
-            justify-content: center;
-        }
-        .side-bar {
-            background: red;
-            width: 10px;
-            height: 100%;
-            position: absolute;
-            left: 0;
-            top: 0;
-            border-radius: 10px 0 0 10px;
-        }
-        .content {
-            display: flex;
-            flex-direction: column;
-            margin-left: 15px;
-        }
-        .percentage {
-            color: red;
-            font-size: 16px;
-            font-weight: bold;
-        }
-        .amount {
-            font-size: 22px;
-            font-weight: bold;
-            text-align: center;
-        }
-        .chart {
+        #tabla-coincidencias {
             width: 100%;
-            height: 50px;
-            background: linear-gradient(to top, #ddd, #8a5ba3);
-            border-radius: 5px;
-            margin-top: 10px;
-        }
-        .label {
+            font-family: Arial, sans-serif;
             font-size: 14px;
-            color: gray;
-            margin-top: 5px;
-            text-align: center;
+            text-align: left;
+            border-collapse: collapse;
+        }
+
+        #tabla-coincidencias th, #tabla-coincidencias td {
+            padding: 8px;
+            border: 1px solid #ddd;
+        }
+
+        #tabla-coincidencias tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        #tabla-coincidencias th {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .filtros {
+            margin-bottom: 20px;
+        }
+
+        .filtros label {
+            margin-right: 10px;
+        }
+
+        .filtros select {
+            padding: 5px;
+            margin-right: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .sin-datos {
+            color: #999;
+            font-style: italic;
         }
     </style>
 </head>
 <body>
-  
-<!--  -->
-    <div class="centrar">
-        
-        <div class="card">
-            <div class="side-bar"></div>
-            <div class="content">
-                <div class="percentage">TOTAL KILOGRAMOS</div>
-                <div class="amount">1000000 KG</div>
-                <div class="label">KG</div>
-            </div>
-        </div>
+
+    <h1>Comparación de Coincidencias con Filtros Dinámicos</h1>
+
+    <!-- Controles de filtro -->
+    <div class="filtros">
+        <label for="filtro-gramaje">Filtrar por Gramaje:</label>
+        <select id="filtro-gramaje">
+            <option value="">Todos</option>
+        </select>
+
+        <label for="filtro-ancho">Filtrar por Ancho:</label>
+        <select id="filtro-ancho">
+            <option value="">Todos</option>
+        </select>
     </div>
 
-<script>
-async function apicorru() {
-    try {
-        const url = "https://megawebsistem.com/admin/api/apicorrugador2";
-        const resultado = await fetch(url);
-        return await resultado.json();
-    } catch (e) {
-        console.error("Error en apicorru:", e);
-        return [];
-    }
-}
+    <table id="tabla-coincidencias">
+        <thead>
+            <tr>
+                <th>Gramaje</th>
+                <th>Ancho</th>
+                <th>Descripción Corrugador</th>
+                <th>Descripción Comercial</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr><td colspan="4" class="sin-datos">Cargando datos...</td></tr>
+        </tbody>
+    </table>
 
-async function apicomercial() {
-    try {
-        const url = "https://megawebsistem.com/admin/api/apicomercial";
-        const resultado = await fetch(url);
-        return await resultado.json();
-    } catch (e) {
-        console.error("Error en apicomercial:", e);
-        return [];
-    }
-}
+    <script>
+        let todasLasCoincidencias = [];
 
-async function desgloza() {
-    const corru = await apicorru();
-    const comercial = await apicomercial();
+        // Función para obtener datos de la API de corrugador
+        async function apicorru() {
+            try {
+                const url = "https://megawebsistem.com/admin/api/apicorrugador2";
+                const resultado = await fetch(url);
+                return await resultado.json();
+            } catch (e) {
+                console.error("Error en apicorru:", e);
+                return [];
+            }
+        }
 
-    const coincidencias = [];
+        // Función para obtener datos de la API comercial
+        async function apicomercial() {
+            try {
+                const url = "https://megawebsistem.com/admin/api/apicomercial";
+                const resultado = await fetch(url);
+                return await resultado.json();
+            } catch (e) {
+                console.error("Error en apicomercial:", e);
+                return [];
+            }
+        }
 
-    corru.forEach(corrugador => {
-        const { gramaje, ancho } = corrugador;
+        // Función para cargar los valores de filtro dinámicamente
+        async function cargarFiltros() {
+            const corru = await apicorru();
 
-        const match = comercial.find(com => com.gramaje === gramaje && com.ancho === ancho);
+            // Extraer gramajes y anchos únicos
+            const gramajesUnicos = [...new Set(corru.map(item => item.gramaje))];
+            const anchosUnicos = [...new Set(corru.map(item => item.ancho))];
 
-        if (match) {
-            coincidencias.push({
-                gramaje,
-                ancho,
-                corrugador,
-                comercial: match
+            // Llenar el select de gramaje
+            const selectGramaje = document.getElementById("filtro-gramaje");
+            gramajesUnicos.forEach(gramaje => {
+                const option = document.createElement("option");
+                option.value = gramaje;
+                option.textContent = gramaje;
+                selectGramaje.appendChild(option);
+            });
+
+            // Llenar el select de ancho
+            const selectAncho = document.getElementById("filtro-ancho");
+            anchosUnicos.forEach(ancho => {
+                const option = document.createElement("option");
+                option.value = ancho;
+                option.textContent = ancho;
+                selectAncho.appendChild(option);
             });
         }
-    });
 
-    mostrarTabla(coincidencias);
-}
+        // Función para procesar y comparar los datos de ambas APIs
+        async function desgloza() {
+            const corru = await apicorru();
+            const comercial = await apicomercial();
 
-function mostrarTabla(coincidencias) {
-    const tabla = document.getElementById("tabla-coincidencias");
-    const tbody = tabla.querySelector("tbody");
+            todasLasCoincidencias = [];
 
-    tbody.innerHTML = ""; // Limpiar contenido previo
+            corru.forEach(corrugador => {
+                const { gramaje, ancho, descripcion: descCorru = "Sin descripción" } = corrugador;
 
-    if (coincidencias.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="4">No se encontraron coincidencias</td></tr>`;
-        return;
-    }
+                // Busca registros en comercial donde el gramaje y el ancho coincidan
+                const match = comercial.find(com => 
+                    Number(com.gramaje) === Number(gramaje) && 
+                    Number(com.ancho) === Number(ancho)
+                );
 
-    coincidencias.forEach(({ gramaje, ancho, corrugador, comercial }) => {
-        const fila = `
-            <tr>
-                <td>${gramaje}</td>
-                <td>${ancho}</td>
-                <td>${JSON.stringify(corrugador)}</td>
-                <td>${JSON.stringify(comercial)}</td>
-            </tr>
-        `;
-        tbody.innerHTML += fila;
-    });
-}
+                if (match) {
+                    todasLasCoincidencias.push({
+                        gramaje,
+                        ancho,
+                        descCorru,
+                        descComercial: match.producto || "Sin descripción"
+                    });
+                }
+            });
 
-document.addEventListener("DOMContentLoaded", desgloza);
+            mostrarTabla(todasLasCoincidencias);
+        }
 
-</script>
+        // Función para mostrar las coincidencias en la tabla
+        function mostrarTabla(coincidencias) {
+            const tabla = document.getElementById("tabla-coincidencias");
+            const tbody = tabla.querySelector("tbody");
 
-<table border="1" id="tabla-coincidencias">
-    <thead>
-        <tr>
-            <th>Gramaje</th>
-            <th>Ancho</th>
-            <th>Corrugador</th>
-            <th>Comercial</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr><td colspan="4">Cargando...</td></tr>
-    </tbody>
-</table>
+            tbody.innerHTML = ""; // Limpiar contenido previo
+
+            if (coincidencias.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="4" class="sin-datos">No se encontraron coincidencias</td></tr>`;
+                return;
+            }
+
+            coincidencias.forEach(({ gramaje, ancho, descCorru, descComercial }) => {
+                const fila = `
+                    <tr>
+                        <td>${gramaje}</td>
+                        <td>${ancho}</td>
+                        <td>${descCorru}</td>
+                        <td>${descComercial}</td>
+                    </tr>
+                `;
+                tbody.innerHTML += fila;
+            });
+        }
+
+        // Función para aplicar los filtros
+        function aplicarFiltros() {
+            const filtroGramaje = document.getElementById("filtro-gramaje").value;
+            const filtroAncho = document.getElementById("filtro-ancho").value;
+
+            let resultadosFiltrados = todasLasCoincidencias;
+
+            if (filtroGramaje) {
+                resultadosFiltrados = resultadosFiltrados.filter(item => Number(item.gramaje) === Number(filtroGramaje));
+            }
+
+            if (filtroAncho) {
+                resultadosFiltrados = resultadosFiltrados.filter(item => Number(item.ancho) === Number(filtroAncho));
+            }
+
+            mostrarTabla(resultadosFiltrados);
+        }
+
+        // Escucha de eventos para los filtros
+        document.getElementById("filtro-gramaje").addEventListener("change", aplicarFiltros);
+        document.getElementById("filtro-ancho").addEventListener("change", aplicarFiltros);
+
+        // Ejecutar las funciones al cargar la página
+        document.addEventListener("DOMContentLoaded", async () => {
+            await cargarFiltros();
+            await desgloza();
+        });
+    </script>
+
+</body>
+</html>
