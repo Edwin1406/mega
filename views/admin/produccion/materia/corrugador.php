@@ -379,10 +379,7 @@
 
 
 
-
-
-<title>Comparación de Coincidencias con Filtros</title>
-    <style>
+<style>
         #tabla-coincidencias {
             width: 100%;
             font-family: Arial, sans-serif;
@@ -428,8 +425,6 @@
 </head>
 <body>
 
-   
-
     <table id="tabla-coincidencias">
         <thead>
             <tr>
@@ -437,10 +432,16 @@
                 <th>Ancho</th>
                 <th>Descripción Corrugador</th>
                 <th>Descripción Comercial</th>
+                <th>Cantidad</th>
+                <th>Fecha de Producción</th>
+                <th>Ets</th>
+                <th>Eta</th>
+                <th>Arribo planta</th>
+
             </tr>
         </thead>
         <tbody>
-            <tr><td colspan="4" class="sin-datos">Cargando datos...</td></tr>
+            <tr><td colspan="5" class="sin-datos">Cargando datos...</td></tr>
         </tbody>
     </table>
 
@@ -519,7 +520,12 @@
                         gramaje,
                         ancho,
                         descCorru,
-                        descComercial: match.producto || "Sin descripción"
+                        descComercial: match.linea || match.producto || "Sin descripción",
+                        cantidad: match.cantidad || "No especificada",
+                        fecha_produccion: match.fecha_produccion || "No especificada",
+                        ets: match.ets || "No especificada",
+                        eta: match.eta || "No especificada",
+                        arribo_planta: match.arribo_planta || "No especificada"
                     });
                 }
             });
@@ -535,17 +541,22 @@
             tbody.innerHTML = ""; // Limpiar contenido previo
 
             if (coincidencias.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="4" class="sin-datos">No se encontraron coincidencias</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="5" class="sin-datos">No se encontraron coincidencias</td></tr>`;
                 return;
             }
 
-            coincidencias.forEach(({ gramaje, ancho, descCorru, descComercial }) => {
+            coincidencias.forEach(({ gramaje, ancho, descCorru, descComercial, cantidad,fecha_produccion,ets,eta,arribo_planta }) => {
                 const fila = `
                     <tr>
                         <td>${gramaje}</td>
                         <td>${ancho}</td>
                         <td>${descCorru}</td>
                         <td>${descComercial}</td>
+                        <td>${cantidad}</td>
+                        <td>${fecha_produccion}</td>
+                        <td>${ets}</td>
+                        <td>${eta}</td>
+                        <td>${arribo_planta}</td>
                     </tr>
                 `;
                 tbody.innerHTML += fila;
@@ -580,3 +591,6 @@
             await desgloza();
         });
     </script>
+
+</body>
+</html>

@@ -73,6 +73,11 @@
                 <th>Descripción Corrugador</th>
                 <th>Descripción Comercial</th>
                 <th>Cantidad</th>
+                <th>Fecha de Producción</th>
+                <th>Ets</th>
+                <th>Eta</th>
+                <th>Arribo planta</th>
+
             </tr>
         </thead>
         <tbody>
@@ -156,7 +161,11 @@
                         ancho,
                         descCorru,
                         descComercial: match.linea || match.producto || "Sin descripción",
-                        cantidad: match.cantidad || "No especificada"
+                        cantidad: match.cantidad || "No especificada",
+                        fecha_produccion: match.fecha_produccion || "No especificada",
+                        ets: match.ets || "No especificada",
+                        eta: match.eta || "No especificada",
+                        arribo_planta: match.arribo_planta || "No especificada"
                     });
                 }
             });
@@ -176,7 +185,7 @@
                 return;
             }
 
-            coincidencias.forEach(({ gramaje, ancho, descCorru, descComercial, cantidad }) => {
+            coincidencias.forEach(({ gramaje, ancho, descCorru, descComercial, cantidad,fecha_produccion,ets,eta,arribo_planta }) => {
                 const fila = `
                     <tr>
                         <td>${gramaje}</td>
@@ -184,6 +193,10 @@
                         <td>${descCorru}</td>
                         <td>${descComercial}</td>
                         <td>${cantidad}</td>
+                        <td>${fecha_produccion}</td>
+                        <td>${ets}</td>
+                        <td>${eta}</td>
+                        <td>${arribo_planta}</td>
                     </tr>
                 `;
                 tbody.innerHTML += fila;
