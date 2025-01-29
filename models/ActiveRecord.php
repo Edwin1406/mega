@@ -240,6 +240,26 @@ public static function menosDeCien($orden = 'DESC') {
         $resultado = self::consultarSQL($query);
         return $resultado;
     }
+
+    // Obtener todos los Registros con una condición caja
+    public static function allcc($orden = 'DESC', $linea = null) {
+        // Construye la consulta SQL base
+        // $query = "SELECT * FROM " . static::$tabla;
+        $query = "SELECT * FROM " . static::$tabla;
+
+    
+        // Agrega una cláusula WHERE si se proporciona un valor para $linea
+        if ($linea !== null) {
+            $query .= " WHERE linea LIKE '%" . addslashes($linea) . "%'";
+        }
+    
+        // Agrega la cláusula ORDER BY
+        $query .= " ORDER BY id {$orden}";
+    
+        // Ejecuta la consulta y devuelve el resultado
+        $resultado = self::consultarSQL($query);
+        return $resultado;
+    }
     
 
 
