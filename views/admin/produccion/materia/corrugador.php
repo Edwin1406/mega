@@ -74,6 +74,7 @@
 </ul>
 
 
+
 <!DOCTYPE html>
 <html lang="es">
 
@@ -171,6 +172,29 @@
             background-color: #f1fdf1;
         }
 
+        #tabla-coincidencias {
+            width: 100%;
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+            text-align: left;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        #tabla-coincidencias th, #tabla-coincidencias td {
+            padding: 8px;
+            border: 1px solid #ddd;
+        }
+
+        #tabla-coincidencias tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        #tabla-coincidencias th {
+            background-color: #4CAF50;
+            color: white;
+        }
+
         .sin-datos {
             color: #999;
             font-style: italic;
@@ -180,7 +204,6 @@
 
 <body>
     <div class="dashboard-container">
-        <!-- Filtros -->
         <div class="filters">
             <div>
                 <label for="filterGramaje">Filtrar por Gramaje:</label>
@@ -197,33 +220,9 @@
             </div>
         </div>
 
-        <!-- Gráfica -->
         <div class="chart-card">
             <div class="title">Existencias por Línea y Gramaje/Ancho</div>
             <div id="chart"></div>
-        </div>
-
-        <!-- Tabla de datos original -->
-        <div class="chart-card">
-            <div class="title">Datos Generales</div>
-            <table id="data-table">
-                <thead>
-                    <tr>
-                        <th>Línea</th>
-                        <th>Gramaje</th>
-                        <th>Ancho</th>
-                        <th>Existencias</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr><td colspan="4" class="sin-datos">Cargando datos...</td></tr>
-                </tbody>
-            </table>
-        </div>
-
-        <!-- Tabla de coincidencias -->
-        <div class="chart-card">
-            <div class="title">Coincidencias</div>
             <table id="tabla-coincidencias">
                 <thead>
                     <tr>
@@ -248,7 +247,6 @@
     <script>
         let chart;
         let todasLasCoincidencias = [];
-        let originalData = {};
 
         async function apicorru() {
             try {
@@ -309,7 +307,7 @@
             populateFilter('filterGramaje', Array.from(gramajes));
             populateFilter('filterAncho', Array.from(anchos));
 
-            mostrarTabla(todasLasCoincidencias, "tabla-coincidencias");
+            mostrarTabla(todasLasCoincidencias);
             renderChart(todasLasCoincidencias);
         }
 
@@ -324,27 +322,27 @@
             });
         }
 
-        function mostrarTabla(datos, tablaId) {
-            const tbody = document.querySelector(`#${tablaId} tbody`);
+        function mostrarTabla(coincidencias) {
+            const tbody = document.querySelector("#tabla-coincidencias tbody");
             tbody.innerHTML = "";
 
-            if (datos.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="9" class="sin-datos">No se encontraron datos</td></tr>`;
+            if (coincidencias.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="9" class="sin-datos">No se encontraron coincidencias</td></tr>`;
                 return;
             }
 
-            datos.forEach(item => {
+            coincidencias.forEach(({ gramaje, ancho, descCorru, descComercial, cantidad, fecha_produccion, ets, eta, arribo_planta }) => {
                 const fila = `
                     <tr>
-                        <td>${item.gramaje}</td>
-                        <td>${item.ancho}</td>
-                        <td>${item.descCorru || item.linea || "Sin descripción"}</td>
-                        <td>${item.descComercial || "Sin descripción"}</td>
-                        <td>${item.cantidad || 0}</td>
-                        <td>${item.fecha_produccion || "No especificada"}</td>
-                        <td>${item.ets || "No especificada"}</td>
-                        <td>${item.eta || "No especificada"}</td>
-                        <td>${item.arribo_planta || "No especificada"}</td>
+                        <td>${gramaje}</td>
+                        <td>${ancho}</td>
+                        <td>${descCorru}</td>
+                        <td>${descComercial}</td>
+                        <td>${cantidad}</td>
+                        <td>${fecha_produccion}</td>
+                        <td>${ets}</td>
+                        <td>${eta}</td>
+                        <td>${arribo_planta}</td>
                     </tr>
                 `;
                 tbody.innerHTML += fila;
@@ -421,7 +419,7 @@
                 resultadosFiltrados = resultadosFiltrados.filter(item => Number(item.ancho) === Number(filtroAncho));
             }
 
-            mostrarTabla(resultadosFiltrados, "tabla-coincidencias");
+            mostrarTabla(resultadosFiltrados);
             renderChart(resultadosFiltrados);
         }
 

@@ -149,25 +149,25 @@
             corru.forEach(corrugador => {
                 const { gramaje, ancho, descripcion: descCorru = "Sin descripción" } = corrugador;
 
-                // Busca registros en comercial donde el gramaje y el ancho coincidan
-                const match = comercial.find(com => 
-                    Number(com.gramaje) === Number(gramaje) && 
-                    Number(com.ancho) === Number(ancho)
-                );
+                const matches = comercial.filter(com => 
+    Number(com.gramaje) === Number(gramaje) && 
+    Number(com.ancho) === Number(ancho)
+);
 
-                if (match) {
-                    todasLasCoincidencias.push({
-                        gramaje,
-                        ancho,
-                        descCorru,
-                        descComercial: match.linea || match.producto || "Sin descripción",
-                        cantidad: match.cantidad || "No especificada",
-                        fecha_produccion: match.fecha_produccion || "No especificada",
-                        ets: match.ets || "No especificada",
-                        eta: match.eta || "No especificada",
-                        arribo_planta: match.arribo_planta || "No especificada"
-                    });
-                }
+matches.forEach(match => {
+    todasLasCoincidencias.push({
+        gramaje,
+        ancho,
+        descCorru,
+        descComercial: match.linea || match.producto || "Sin descripción",
+        cantidad: match.cantidad || "No especificada",
+        fecha_produccion: match.fecha_produccion || "No especificada",
+        ets: match.ets || "No especificada",
+        eta: match.eta || "No especificada",
+        arribo_planta: match.arribo_planta || "No especificada"
+    });
+});
+
             });
 
             mostrarTabla(todasLasCoincidencias);
