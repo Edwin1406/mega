@@ -63,7 +63,7 @@
                     <th scope="col" class="tables__th">Proyecto</th>
                     <th scope="col" class="tables__th">Pedido Interno</th>
                     <th scope="col" class="tables__th">Fecha Solicitud</th>
-                    <th scope="col" class="tables__th">Puerto Destino</th>
+                    <!-- <th scope="col" class="tables__th">Puerto Destino</th> -->
                     <th scope="col" class="tables__th">Trader</th>
                     <th scope="col" class="tables__th">Marca</th>
                     <th scope="col" class="tables__th">Linea</th>
@@ -89,7 +89,7 @@
                         <td class="tables__td"><?php echo $comerciales->proyecto?></td>
                         <td class="tables__td"><?php echo $comerciales->pedido_interno?></td>
                         <td class="tables__td"><?php echo $comerciales->fecha_solicitud?></td>
-                        <td class="tables__td"><?php echo $comerciales->puerto_destino?></td>
+                        <!-- <td class="tables__td"><?php echo $comerciales->puerto_destino?></td> -->
                         <td class="tables__td"><?php echo $comerciales->trader?></td>
                         <td class="tables__td"><?php echo $comerciales->marca?></td>
                         <td class="tables__td"><?php echo $comerciales->linea?></td>
