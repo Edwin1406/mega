@@ -472,32 +472,32 @@
             }
         }
 
-        // Función para cargar los valores de filtro dinámicamente
-        async function cargarFiltros() {
-            const corru = await apicorru();
+        // // Función para cargar los valores de filtro dinámicamente
+        // async function cargarFiltros() {
+        //     const corru = await apicorru();
 
-            // Extraer gramajes y anchos únicos
-            const gramajesUnicos = [...new Set(corru.map(item => item.gramaje))];
-            const anchosUnicos = [...new Set(corru.map(item => item.ancho))];
+        //     // Extraer gramajes y anchos únicos
+        //     const gramajesUnicos = [...new Set(corru.map(item => item.gramaje))];
+        //     const anchosUnicos = [...new Set(corru.map(item => item.ancho))];
 
-            // Llenar el select de gramaje
-            const selectGramaje = document.getElementById("filterGramaje");
-            gramajesUnicos.forEach(gramaje => {
-                const option = document.createElement("option");
-                option.value = gramaje;
-                option.textContent = gramaje;
-                selectGramaje.appendChild(option);
-            });
+        //     // Llenar el select de gramaje
+        //     const selectGramaje = document.getElementById("filterGramaje");
+        //     gramajesUnicos.forEach(gramaje => {
+        //         const option = document.createElement("option");
+        //         option.value = gramaje;
+        //         option.textContent = gramaje;
+        //         selectGramaje.appendChild(option);
+        //     });
 
-            // Llenar el select de ancho
-            const selectAncho = document.getElementById("filterAncho");
-            anchosUnicos.forEach(ancho => {
-                const option = document.createElement("option");
-                option.value = ancho;
-                option.textContent = ancho;
-                selectAncho.appendChild(option);
-            });
-        }
+        //     // Llenar el select de ancho
+        //     const selectAncho = document.getElementById("filterAncho");
+        //     anchosUnicos.forEach(ancho => {
+        //         const option = document.createElement("option");
+        //         option.value = ancho;
+        //         option.textContent = ancho;
+        //         selectAncho.appendChild(option);
+        //     });
+        // }
 
         // Función para procesar y comparar los datos de ambas APIs
         async function desgloza() {
