@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Comparación de Coincidencias con Filtros</title>
+    <title>Comparación de Coincidencias con Filtros Dinámicos</title>
     <style>
         #tabla-coincidencias {
             width: 100%;
@@ -72,10 +72,11 @@
                 <th>Ancho</th>
                 <th>Descripción Corrugador</th>
                 <th>Descripción Comercial</th>
+                <th>Cantidad</th>
             </tr>
         </thead>
         <tbody>
-            <tr><td colspan="4" class="sin-datos">Cargando datos...</td></tr>
+            <tr><td colspan="5" class="sin-datos">Cargando datos...</td></tr>
         </tbody>
     </table>
 
@@ -154,7 +155,8 @@
                         gramaje,
                         ancho,
                         descCorru,
-                        descComercial: match.producto || "Sin descripción"
+                        descComercial: match.linea || match.producto || "Sin descripción",
+                        cantidad: match.cantidad || "No especificada"
                     });
                 }
             });
@@ -170,17 +172,18 @@
             tbody.innerHTML = ""; // Limpiar contenido previo
 
             if (coincidencias.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="4" class="sin-datos">No se encontraron coincidencias</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="5" class="sin-datos">No se encontraron coincidencias</td></tr>`;
                 return;
             }
 
-            coincidencias.forEach(({ gramaje, ancho, descCorru, descComercial }) => {
+            coincidencias.forEach(({ gramaje, ancho, descCorru, descComercial, cantidad }) => {
                 const fila = `
                     <tr>
                         <td>${gramaje}</td>
                         <td>${ancho}</td>
                         <td>${descCorru}</td>
                         <td>${descComercial}</td>
+                        <td>${cantidad}</td>
                     </tr>
                 `;
                 tbody.innerHTML += fila;

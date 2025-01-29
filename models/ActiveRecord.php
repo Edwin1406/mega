@@ -241,6 +241,14 @@ public static function menosDeCien($orden = 'DESC') {
         return $resultado;
     }
 
+
+
+
+
+
+
+    
+
     // Obtener todos los Registros con una condición caja
     public static function allcc($orden = 'DESC', $linea = null) {
         // Construye la consulta SQL base
