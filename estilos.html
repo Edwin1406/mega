@@ -76,79 +76,86 @@
         </div>
     </div>
 
-</body>
-</html>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Comparar APIs</title>
-</head>
-<body>
-    <h1>Comparación de datos entre APIs</h1>
-    <button id="compareBtn">Comparar APIs</button>
-    <div id="result" style="margin-top: 20px;"></div>
 
-    <script>
-        const apiComercial = 'https://megawebsistem.com/admin/api/apicomercial';
-        const apiCorrugador = 'https://megawebsistem.com/admin/api/apicorrugador2';
-
-        document.getElementById('compareBtn').addEventListener('click', async () => {
-            try {
-                // Fetch data from both APIs
-                const [comercialResponse, corrugadorResponse] = await Promise.all([
-                    fetch(apiComercial),
-                    fetch(apiCorrugador)
-                ]);
-
-                if (!comercialResponse.ok || !corrugadorResponse.ok) {
-                    throw new Error('Error al obtener los datos de las APIs');
-                }
-
-                const comercialData = await comercialResponse.json();
-                const corrugadorData = await corrugadorResponse.json();
-
-                console.log("Datos recibidos de API Comercial:", comercialData);
-                console.log("Datos recibidos de API Corrugador:", corrugadorData);
-
-                // Extraer valores de API Comercial
-                const comercialItems = comercialData.map(item => ({
-                    ancho: item.ancho.trim(),
-                    gramaje: item.gms.toString().trim(),
-                    linea: item.linea.trim()
-                }));
-
-                // Extraer valores de API Corrugador
-                let corrugadorItems = [];
-                Object.keys(corrugadorData).forEach(key => {
-                    const item = corrugadorData[key];
-                    item.anchos.forEach((ancho, index) => {
-                        corrugadorItems.push({
-                            ancho: ancho.trim(),
-                            gramaje: item.gramajes[index].toString().trim(),
-                            linea: key.trim()
+    <!DOCTYPE html>
+    <html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Comparar APIs</title>
+    </head>
+    <body>
+        <h1>Comparación de datos entre APIs</h1>
+        <button id="compareBtn">Comparar APIs</button>
+        <div id="result" style="margin-top: 20px;"></div>
+    
+        <script>
+            const apiComercial = 'https://megawebsistem.com/admin/api/apicomercial';
+            const apiCorrugador = 'https://megawebsistem.com/admin/api/apicorrugador2';
+    
+            document.getElementById('compareBtn').addEventListener('click', async () => {
+                try {
+                    // Obtener datos de ambas APIs
+                    const [comercialResponse, corrugadorResponse] = await Promise.all([
+                        fetch(apiComercial),
+                        fetch(apiCorrugador)
+                    ]);
+    
+                    if (!comercialResponse.ok || !corrugadorResponse.ok) {
+                        throw new Error('Error al obtener los datos de las APIs');
+                    }
+    
+                    const comercialData = await comercialResponse.json();
+                    const corrugadorData = await corrugadorResponse.json();
+    
+                    console.log("Datos recibidos de API Comercial:", comercialData);
+                    console.log("Datos recibidos de API Corrugador:", corrugadorData);
+    
+                    // Función para normalizar los valores antes de la comparación
+                    function normalizeString(value) {
+                        return value.toString().trim().toLowerCase();
+                    }
+    
+                    // Extraer y normalizar datos de la API Comercial
+                    const comercialItems = comercialData.map(item => ({
+                        ancho: normalizeString(item.ancho),
+                        gramaje: normalizeString(item.gms), // gms en API Comercial
+                        linea: normalizeString(item.linea)
+                    }));
+    
+                    // Extraer y normalizar datos de la API Corrugador
+                    const corrugadorItems = corrugadorData.map(item => ({
+                        ancho: normalizeString(item.ancho),
+                        gramaje: normalizeString(item.gramaje), // gramaje en API Corrugador
+                        linea: normalizeString(item.linea)
+                    }));
+    
+                    // Crear un Set con los datos de Comercial para comparación eficiente
+                    const comercialSet = new Set(comercialItems.map(i => `${i.ancho}-${i.gramaje}-${i.linea}`));
+    
+                    // Buscar coincidencias en la API Corrugador
+                    const matches = corrugadorItems.filter(i => comercialSet.has(`${i.ancho}-${i.gramaje}-${i.linea}`));
+    
+                    // Mostrar los resultados en la página
+                    const resultDiv = document.getElementById('result');
+                    if (matches.length > 0) {
+                        let tableHTML = "<h3>Datos coincidentes:</h3><table border='1'><tr><th>Ancho</th><th>Gramaje</th><th>Línea</th></tr>";
+                        matches.forEach(item => {
+                            tableHTML += `<tr><td>${item.ancho}</td><td>${item.gramaje}</td><td>${item.linea}</td></tr>`;
                         });
-                    });
-                });
-
-                // Crear sets para comparación eficiente
-                const comercialSet = new Set(comercialItems.map(i => `${i.ancho}-${i.gramaje}-${i.linea}`));
-                const matches = corrugadorItems.filter(i => comercialSet.has(`${i.ancho}-${i.gramaje}-${i.linea}`));
-
-                // Display the results
-                const resultDiv = document.getElementById('result');
-                resultDiv.innerHTML = matches.length > 0 
-                    ? `<h3>Datos coincidentes:</h3><pre>${JSON.stringify(matches, null, 2)}</pre>`
-                    : '<h3>No se encontraron coincidencias.</h3>';
-            } catch (error) {
-                console.error('Error al comparar las APIs:', error);
-                document.getElementById('result').innerHTML = '<h3>Error al obtener los datos de las APIs.</h3>';
-            }
-        });
-    </script>
-</body>
-</html>
-
-
+                        tableHTML += "</table>";
+                        resultDiv.innerHTML = tableHTML;
+                    } else {
+                        resultDiv.innerHTML = '<h3>No se encontraron coincidencias.</h3>';
+                    }
+    
+                } catch (error) {
+                    console.error('Error al comparar las APIs:', error);
+                    document.getElementById('result').innerHTML = '<h3>Error al obtener los datos de las APIs.</h3>';
+                }
+            });
+        </script>
+    </body>
+    </html>
+    

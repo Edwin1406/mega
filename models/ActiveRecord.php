@@ -819,7 +819,7 @@ public static function procesarArchivoExcelComercial($filePath)
             marca VARCHAR(255),
             linea VARCHAR(255),
             producto VARCHAR(500),
-            gms VARCHAR(255),
+            gramaje VARCHAR(255),
             ancho VARCHAR(255),
             cantidad VARCHAR(255),
             precio VARCHAR(255),
@@ -831,7 +831,7 @@ public static function procesarArchivoExcelComercial($filePath)
             transito INT,
             fecha_en_planta DATE,
             estado VARCHAR(255),
-            UNIQUE KEY (import, proyecto, pedido_interno, fecha_solicitud, trader, marca, linea, producto, gms, ancho, cantidad, precio, total_item, fecha_produccion, ets, eta, arribo_planta, transito, fecha_en_planta, estado)
+            UNIQUE KEY (import, proyecto, pedido_interno, fecha_solicitud, trader, marca, linea, producto, gramaje, ancho, cantidad, precio, total_item, fecha_produccion, ets, eta, arribo_planta, transito, fecha_en_planta, estado)
         )
     ";
 
@@ -846,7 +846,7 @@ public static function procesarArchivoExcelComercial($filePath)
 
         list(
             $import, $proyecto, $pedido_interno, $fecha_solicitud,
-            $trader, $marca, $linea, $producto, $gms, $ancho, $cantidad,
+            $trader, $marca, $linea, $producto, $gramaje, $ancho, $cantidad,
             $precio, $total_item, $fecha_produccion, $ets, $eta,
             $arribo_planta, $transito, $fecha_en_planta, $estado
         ) = array_map(fn($value) => is_numeric(str_replace(',', '.', $value)) ? str_replace(',', '.', $value) : trim($value), $data);
@@ -862,7 +862,7 @@ public static function procesarArchivoExcelComercial($filePath)
         }
 
         // Asegurar que `gms` y `ancho` sean numéricos
-        $gms = is_numeric($gms) ? floatval($gms) : null;
+        $gramaje = is_numeric($gramaje) ? floatval($gramaje) : null;
         $ancho = is_numeric($ancho) ? floatval($ancho) : null;
 
         // **Verificar si el registro ya existe antes de insertarlo**
@@ -876,7 +876,7 @@ public static function procesarArchivoExcelComercial($filePath)
             AND marca = '$marca'
             AND linea = '$linea'
             AND producto = '$producto'
-            AND gms = '$gms'
+            AND gramaje = '$gramaje'
             AND ancho = '$ancho'
             AND cantidad = '$cantidad'
             AND precio = '$precio'
@@ -896,11 +896,11 @@ public static function procesarArchivoExcelComercial($filePath)
             $queryInsertar = "
                 INSERT INTO " . static::$tabla . " (
                     import, proyecto, pedido_interno, fecha_solicitud, trader, marca, linea, producto,
-                    gms, ancho, cantidad, precio, total_item, fecha_produccion, ets, eta,
+                    gramaje, ancho, cantidad, precio, total_item, fecha_produccion, ets, eta,
                     arribo_planta, transito, fecha_en_planta, estado
                 ) VALUES (
                     '$import', '$proyecto', '$pedido_interno', '$fecha_solicitud', '$trader',
-                    '$marca', '$linea', '$producto', '$gms', '$ancho', '$cantidad',
+                    '$marca', '$linea', '$producto', '$gramaje', '$ancho', '$cantidad',
                     '$precio', '$total_item', '$fecha_produccion', '$ets', '$eta',
                     '$arribo_planta', '$transito', '$fecha_en_planta', '$estado'
                 )
