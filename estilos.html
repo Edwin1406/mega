@@ -150,3 +150,29 @@
     </script>
 </body>
 </html>
+
+
+
+
+
+<script>
+
+    getData();
+
+    async function getData() {
+    const url = 'https://megawebsistem.com/admin/api/apicomercial';
+    const response = await fetch(url);
+    const data = await response.json();
+    console.log(data);
+    return data;
+    }
+
+    obtenerDatos();
+
+    async function obtenerDatos(data) {
+    const response = await getData();
+    const data = response;
+    console.log(data);
+    }
+
+</script>
