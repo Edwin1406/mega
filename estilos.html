@@ -3,234 +3,232 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Comparación de Coincidencias con Filtros Dinámicos</title>
+    <title>Dashboard Comercial y Corrugador</title>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <style>
-        #tabla-coincidencias {
-            width: 100%;
+        body {
             font-family: Arial, sans-serif;
-            font-size: 14px;
-            text-align: left;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 20px;
+        }
+        table {
             border-collapse: collapse;
+            margin: 20px;
+            width: 45%;
         }
-
-        #tabla-coincidencias th, #tabla-coincidencias td {
+        table, th, td {
+            border: 1px solid #ccc;
+        }
+        th, td {
             padding: 8px;
-            border: 1px solid #ddd;
+            text-align: center;
         }
-
-        #tabla-coincidencias tr:nth-child(even) {
-            background-color: #f9f9f9;
+        .table-container {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
         }
-
-        #tabla-coincidencias th {
-            background-color: #4CAF50;
-            color: white;
-        }
-
-        .filtros {
+        .filters {
             margin-bottom: 20px;
         }
-
-        .filtros label {
+        .filters label, .filters select {
             margin-right: 10px;
         }
-
-        .filtros select {
-            padding: 5px;
-            margin-right: 20px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-
-        .sin-datos {
-            color: #999;
-            font-style: italic;
+        #chart {
+            margin-top: 20px;
+            width: 800px;
         }
     </style>
 </head>
 <body>
+    <!-- <h1>Relación entre Comercial y Corrugador</h1> -->
 
-    <h1>Comparación de Coincidencias con Filtros Dinámicos</h1>
-
-    <!-- Controles de filtro -->
-    <div class="filtros">
-        <label for="filtro-gramaje">Filtrar por Gramaje:</label>
-        <select id="filtro-gramaje">
+    <div class="filters">
+        <label for="filter-ancho">Filtrar por Ancho:</label>
+        <select id="filter-ancho">
             <option value="">Todos</option>
         </select>
 
-        <label for="filtro-ancho">Filtrar por Ancho:</label>
-        <select id="filtro-ancho">
+        <label for="filter-gramaje">Filtrar por Gramaje:</label>
+        <select id="filter-gramaje">
             <option value="">Todos</option>
         </select>
+
+        <button id="apply-filters">Aplicar Filtros</button>
     </div>
 
-    <table id="tabla-coincidencias">
-        <thead>
-            <tr>
-                <th>Gramaje</th>
-                <th>Ancho</th>
-                <th>Descripción Corrugador</th>
-                <th>Descripción Comercial</th>
-                <th>Cantidad</th>
-                <th>Fecha de Producción</th>
-                <th>Ets</th>
-                <th>Eta</th>
-                <th>Arribo planta</th>
+    <div class="table-container">
+        <div>
+            <h2>Pedidos (Comercial)</h2>
+            <table id="comercial-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Producto</th>
+                        <th>Ancho (mm)</th>
+                        <th>Gramaje (g/m²)</th>
+                        <th>Cantidad</th>
+                        <th>Estado</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
 
-            </tr>
-        </thead>
-        <tbody>
-            <tr><td colspan="5" class="sin-datos">Cargando datos...</td></tr>
-        </tbody>
-    </table>
+        <div>
+            <h2>Existencias (Corrugador)</h2>
+            <table id="corrugador-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Descripción</th>
+                        <th>Ancho (mm)</th>
+                        <th>Gramaje (g/m²)</th>
+                        <th>Existencias</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+
+    <div id="chart"></div>
 
     <script>
-        let todasLasCoincidencias = [];
-
-        // Función para obtener datos de la API de corrugador
-        async function apicorru() {
+        async function fetchData(url) {
             try {
-                const url = "https://megawebsistem.com/admin/api/apicorrugador2";
-                const resultado = await fetch(url);
-                return await resultado.json();
-            } catch (e) {
-                console.error("Error en apicorru:", e);
+                const response = await fetch(url);
+                if (!response.ok) throw new Error('Error en la solicitud');
+                return await response.json();
+            } catch (error) {
+                console.error('Error al obtener los datos:', error);
                 return [];
             }
         }
 
-        // Función para obtener datos de la API comercial
-        async function apicomercial() {
-            try {
-                const url = "https://megawebsistem.com/admin/api/apicomercial";
-                const resultado = await fetch(url);
-                return await resultado.json();
-            } catch (e) {
-                console.error("Error en apicomercial:", e);
-                return [];
-            }
-        }
+        function populateTables(comercialData, corrugadorData) {
+            const comercialTable = document.querySelector('#comercial-table tbody');
+            const corrugadorTable = document.querySelector('#corrugador-table tbody');
 
-        // Función para cargar los valores de filtro dinámicamente
-        async function cargarFiltros() {
-            const corru = await apicorru();
+            comercialTable.innerHTML = '';
+            corrugadorTable.innerHTML = '';
 
-            // Extraer gramajes y anchos únicos
-            const gramajesUnicos = [...new Set(corru.map(item => item.gramaje))];
-            const anchosUnicos = [...new Set(corru.map(item => item.ancho))];
-
-            // Llenar el select de gramaje
-            const selectGramaje = document.getElementById("filtro-gramaje");
-            gramajesUnicos.forEach(gramaje => {
-                const option = document.createElement("option");
-                option.value = gramaje;
-                option.textContent = gramaje;
-                selectGramaje.appendChild(option);
+            // Rellenar la tabla de comercial
+            comercialData.forEach(item => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${item.id}</td>
+                    <td>${item.producto}</td>
+                    <td>${item.ancho}</td>
+                    <td>${item.gramaje}</td>
+                    <td>${item.cantidad}</td>
+                    <td>${item.estado}</td>
+                `;
+                comercialTable.appendChild(row);
             });
 
-            // Llenar el select de ancho
-            const selectAncho = document.getElementById("filtro-ancho");
-            anchosUnicos.forEach(ancho => {
-                const option = document.createElement("option");
+            // Rellenar la tabla de corrugador
+            corrugadorData.forEach(item => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${item.id}</td>
+                    <td>${item.descripcion}</td>
+                    <td>${item.ancho}</td>
+                    <td>${item.gramaje}</td>
+                    <td>${item.existencia}</td>
+                `;
+                corrugadorTable.appendChild(row);
+            });
+        }
+
+        function generateChart(comercialData, corrugadorData) {
+            const categories = comercialData.map(item => `Pedido ${item.id}`);
+            const cantidades = comercialData.map(item => item.cantidad);
+            const existencias = comercialData.map(pedido => {
+                const match = corrugadorData.find(
+                    item => item.ancho === pedido.ancho && item.gramaje === pedido.gramaje
+                );
+                return match ? match.existencia : 0;
+            });
+
+            const options = {
+                chart: {
+                    type: 'bar'
+                },
+                series: [
+                    {
+                        name: 'Cantidad Pedida',
+                        data: cantidades
+                    },
+                    {
+                        name: 'Existencias',
+                        data: existencias
+                    }
+                ],
+                xaxis: {
+                    categories: categories
+                },
+                title: {
+                    text: 'Comparación de Cantidades y Existencias'
+                }
+            };
+
+            const chart = new ApexCharts(document.querySelector("#chart"), options);
+            chart.render();
+        }
+
+        function applyFilters(comercialData, corrugadorData) {
+            const filterAncho = document.getElementById('filter-ancho').value;
+            const filterGramaje = document.getElementById('filter-gramaje').value;
+
+            const filteredComercial = comercialData.filter(item => 
+                (filterAncho === '' || item.ancho === filterAncho) &&
+                (filterGramaje === '' || item.gramaje === filterGramaje)
+            );
+
+            const filteredCorrugador = corrugadorData.filter(item => 
+                (filterAncho === '' || item.ancho === filterAncho) &&
+                (filterGramaje === '' || item.gramaje === filterGramaje)
+            );
+
+            populateTables(filteredComercial, filteredCorrugador);
+            generateChart(filteredComercial, filteredCorrugador);
+        }
+
+        async function init() {
+            const comercialData = await fetchData('https://megawebsistem.com/admin/api/apicomercial');
+            const corrugadorData = await fetchData('https://megawebsistem.com/admin/api/apicorrugador2');
+
+            // Poblar selectores de filtros
+            const uniqueAnchos = [...new Set([...comercialData.map(item => item.ancho), ...corrugadorData.map(item => item.ancho)])];
+            const uniqueGramajes = [...new Set([...comercialData.map(item => item.gramaje), ...corrugadorData.map(item => item.gramaje)])];
+
+            const filterAnchoSelect = document.getElementById('filter-ancho');
+            const filterGramajeSelect = document.getElementById('filter-gramaje');
+
+            uniqueAnchos.forEach(ancho => {
+                const option = document.createElement('option');
                 option.value = ancho;
                 option.textContent = ancho;
-                selectAncho.appendChild(option);
-            });
-        }
-
-        // Función para procesar y comparar los datos de ambas APIs
-        async function desgloza() {
-            const corru = await apicorru();
-            const comercial = await apicomercial();
-
-            todasLasCoincidencias = [];
-
-            corru.forEach(corrugador => {
-                const { gramaje, ancho, descripcion: descCorru = "Sin descripción" } = corrugador;
-
-                const matches = comercial.filter(com => 
-    Number(com.gramaje) === Number(gramaje) && 
-    Number(com.ancho) === Number(ancho)
-);
-
-matches.forEach(match => {
-    todasLasCoincidencias.push({
-        gramaje,
-        ancho,
-        descCorru,
-        descComercial: match.linea || match.producto || "Sin descripción",
-        cantidad: match.cantidad || "No especificada",
-        fecha_produccion: match.fecha_produccion || "No especificada",
-        ets: match.ets || "No especificada",
-        eta: match.eta || "No especificada",
-        arribo_planta: match.arribo_planta || "No especificada"
-    });
-});
-
+                filterAnchoSelect.appendChild(option);
             });
 
-            mostrarTabla(todasLasCoincidencias);
-        }
-
-        // Función para mostrar las coincidencias en la tabla
-        function mostrarTabla(coincidencias) {
-            const tabla = document.getElementById("tabla-coincidencias");
-            const tbody = tabla.querySelector("tbody");
-
-            tbody.innerHTML = ""; // Limpiar contenido previo
-
-            if (coincidencias.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="5" class="sin-datos">No se encontraron coincidencias</td></tr>`;
-                return;
-            }
-
-            coincidencias.forEach(({ gramaje, ancho, descCorru, descComercial, cantidad,fecha_produccion,ets,eta,arribo_planta }) => {
-                const fila = `
-                    <tr>
-                        <td>${gramaje}</td>
-                        <td>${ancho}</td>
-                        <td>${descCorru}</td>
-                        <td>${descComercial}</td>
-                        <td>${cantidad}</td>
-                        <td>${fecha_produccion}</td>
-                        <td>${ets}</td>
-                        <td>${eta}</td>
-                        <td>${arribo_planta}</td>
-                    </tr>
-                `;
-                tbody.innerHTML += fila;
+            uniqueGramajes.forEach(gramaje => {
+                const option = document.createElement('option');
+                option.value = gramaje;
+                option.textContent = gramaje;
+                filterGramajeSelect.appendChild(option);
             });
+
+            document.getElementById('apply-filters').addEventListener('click', () => applyFilters(comercialData, corrugadorData));
+
+            populateTables(comercialData, corrugadorData);
+            generateChart(comercialData, corrugadorData);
         }
 
-        // Función para aplicar los filtros
-        function aplicarFiltros() {
-            const filtroGramaje = document.getElementById("filtro-gramaje").value;
-            const filtroAncho = document.getElementById("filtro-ancho").value;
-
-            let resultadosFiltrados = todasLasCoincidencias;
-
-            if (filtroGramaje) {
-                resultadosFiltrados = resultadosFiltrados.filter(item => Number(item.gramaje) === Number(filtroGramaje));
-            }
-
-            if (filtroAncho) {
-                resultadosFiltrados = resultadosFiltrados.filter(item => Number(item.ancho) === Number(filtroAncho));
-            }
-
-            mostrarTabla(resultadosFiltrados);
-        }
-
-        // Escucha de eventos para los filtros
-        document.getElementById("filtro-gramaje").addEventListener("change", aplicarFiltros);
-        document.getElementById("filtro-ancho").addEventListener("change", aplicarFiltros);
-
-        // Ejecutar las funciones al cargar la página
-        document.addEventListener("DOMContentLoaded", async () => {
-            await cargarFiltros();
-            await desgloza();
-        });
+        init();
     </script>
-
 </body>
 </html>
