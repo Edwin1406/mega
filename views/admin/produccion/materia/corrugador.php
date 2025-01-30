@@ -77,6 +77,10 @@
 <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+
+
+
+
 <div id="filters">
     <div>
       <label for="filterGramaje">Filtrar por Gramaje:</label>
@@ -270,39 +274,41 @@
     }
 
     function renderTables(comercialData, corrugadorData) {
-        const comercialTable = document.querySelector("#comercialTable tbody");
         const corrugadorTable = $("#dataTable").DataTable();
+        const comercialTable = $("#comercialTable").DataTable();
 
-        comercialTable.innerHTML = '';
+        // Limpiar tablas
         corrugadorTable.clear();
+        comercialTable.clear();
 
+        // Llenar tabla de comercial
         comercialData.forEach(item => {
-            const row = document.createElement('tr');
-            row.innerHTML = `
-                <td>${item.id}</td>
-                <td>${item.producto}</td>
-                <td>${item.ancho}</td>
-                <td>${item.gramaje}</td>
-                <td>${item.cantidad}</td>
-                <td>${item.estado}</td>
-            `;
-            comercialTable.appendChild(row);
+            comercialTable.row.add([
+                item.id,
+                item.producto,
+                item.ancho,
+                item.gramaje,
+                item.cantidad,
+                item.estado
+            ]);
         });
 
+        // Llenar tabla de corrugador
         corrugadorData.forEach(item => {
             corrugadorTable.row.add([
                 item.ancho,
                 item.gramaje,
                 item.linea,
-                item.existencia,
+                item.existencia
             ]);
         });
 
+        // Dibujar tablas
+        comercialTable.draw();
         corrugadorTable.draw();
     }
 
     $(document).ready(() => {
-        // Inicializar tablas
         if (!$.fn.DataTable.isDataTable("#dataTable")) {
             $("#dataTable").DataTable({
                 language: {
@@ -322,10 +328,8 @@
             });
         }
 
-        // Cargar datos
         fetchData();
 
-        // Asignar eventos
         document.getElementById("filterGramaje").addEventListener("change", filterData);
         document.getElementById("filterAncho").addEventListener("change", filterData);
         document.getElementById("filterLinea").addEventListener("change", filterData);
