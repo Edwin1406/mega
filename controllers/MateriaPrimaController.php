@@ -318,51 +318,7 @@ class MateriaPrimaController
 
 
     public static function apicorrugador (){
-        // CORS
-        header("Access-Control-Allow-Origin: *");
-        header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
-        $corrugador = MateriaPrimaV::allc('DESC', 'CAJA');
-        $jsoncorrugador = json_encode($corrugador);
-        $data = json_decode($jsoncorrugador, true);
-    
-        // Organiza datos para ApexCharts
-        $lineas = [];
-        foreach ($data as $item) {
-            $id = $item['id'];
-            $linea = $item['linea'];
-            $gramaje = $item['gramaje'];
-            $ancho = $item['ancho'];
-            $existencia = $item['existencia'];
-    
-            // Crear etiqueta única combinando gramaje y ancho
-            $etiqueta = "$gramaje / $ancho";
-    
-            // Inicializar la estructura si no existe
-            if (!isset($lineas[$linea])) {
-                $lineas[$linea] = [
-                    'id' => [],
-                    'labels' => [],
-                    'data' => [],
-                    'gramajes' => [],
-                    'anchos' => []
-                ];
-            }
-    
-            // Agregar la etiqueta y los datos correspondientes
-
-            $lineas[$linea]['id'][] = $id;
-            $lineas[$linea]['labels'][] = $etiqueta;
-            $lineas[$linea]['data'][] = $existencia;
-            $lineas[$linea]['gramajes'][] = $gramaje;
-            $lineas[$linea]['anchos'][] = $ancho;
-
-
-        }
-    
-        // Envía la respuesta JSON
-        header('Content-Type: application/json');
-        echo json_encode($lineas);
-        exit;
+       
         
     }
 
