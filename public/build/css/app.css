@@ -470,16 +470,16 @@
   color: black;
 }
 
-#dataTable th {
+.dataTables th {
   background-color: #FFFFFF;
   font-weight: bold;
 }
 
-#dataTable tr:hover {
+.dataTables tr:hover {
   background-color: #c5cace;
 }
 
-#dataTable th:hover {
+.dataTables th:hover {
   background-color: aquamarine;
 }
 

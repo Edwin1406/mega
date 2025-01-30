@@ -255,15 +255,15 @@
     color: black;
   }
 
-  #dataTable th {
+  .dataTables th {
     background-color: v.$blanco;
     font-weight: bold;
   }
 
-  #dataTable tr:hover {
+  .dataTables tr:hover {
     background-color: v.$gris-claro;
 }
-    #dataTable th:hover {
+    .dataTables th:hover {
     background-color: aquamarine    ;
     }
 // ddddd
