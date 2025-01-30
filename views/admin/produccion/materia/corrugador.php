@@ -305,6 +305,29 @@
     })();
 
 
+    $(document).ready(() => {
+    // Configurar la tabla de datos comercial
+    $("#comercialTable").DataTable({
+        language: {
+            url: "//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json",
+        },
+        paging: true,
+        searching: true,
+        ordering: true,
+    });
+
+    // Configurar la tabla de corrugador
+    $("#dataTable").DataTable({
+        language: {
+            url: "//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json",
+        },
+    });
+
+    fetchData();
+});
+
+
+
 
   </script>
 
