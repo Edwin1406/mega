@@ -119,35 +119,27 @@
    
 
 
-  (function () {
+   (function () {
       const apiComercialUrl = `${location.origin}/admin/api/apicomercial`;
-      const apiCorrugadorUrl = `${location.origin}/admin/api/apicorrugador`;
       let originalComercialData = [];
-      let originalCorrugadorData = [];
       let chart;
 
       async function fetchData() {
         try {
-          const [comercialResponse, corrugadorResponse] = await Promise.all([
-            fetch(apiComercialUrl),
-            fetch(apiCorrugadorUrl)
-          ]);
-
+          const comercialResponse = await fetch(apiComercialUrl);
           originalComercialData = await comercialResponse.json();
-          originalCorrugadorData = await corrugadorResponse.json();
 
-          populateFilters(originalComercialData, originalCorrugadorData);
-          renderChart(originalCorrugadorData);
-          renderTables(originalComercialData, originalCorrugadorData);
+          populateFilters(originalComercialData);
+          renderChart(originalComercialData);
+          renderTable(originalComercialData);
         } catch (error) {
           console.error("Error al obtener los datos de la API:", error);
         }
       }
 
-      function populateFilters(comercialData, corrugadorData) {
-        const gramajes = [...new Set([...comercialData.map(item => item.gramaje), ...corrugadorData.map(item => item.gramaje)])];
-        const anchos = [...new Set([...comercialData.map(item => item.ancho), ...corrugadorData.map(item => item.ancho)])];
-        const lineas = [...new Set(corrugadorData.map(item => item.linea))];
+      function populateFilters(comercialData) {
+        const gramajes = [...new Set(comercialData.map(item => item.gramaje))];
+        const anchos = [...new Set(comercialData.map(item => item.ancho))];
 
         const gramajeSelect = document.getElementById("filterGramaje");
         gramajes.forEach(gramaje => {
@@ -164,38 +156,23 @@
           option.textContent = ancho;
           anchoSelect.appendChild(option);
         });
-
-        const lineaSelect = document.getElementById("filterLinea");
-        lineas.forEach(linea => {
-          const option = document.createElement("option");
-          option.value = linea;
-          option.textContent = linea;
-          lineaSelect.appendChild(option);
-        });
       }
 
       function filterData() {
         const selectedGramaje = document.getElementById("filterGramaje").value;
         const selectedAncho = document.getElementById("filterAncho").value;
-        const selectedLinea = document.getElementById("filterLinea").value;
 
         let filteredComercial = originalComercialData;
-        let filteredCorrugador = originalCorrugadorData;
 
         if (selectedGramaje !== "all") {
           filteredComercial = filteredComercial.filter(item => item.gramaje === selectedGramaje);
-          filteredCorrugador = filteredCorrugador.filter(item => item.gramaje === selectedGramaje);
         }
         if (selectedAncho !== "all") {
           filteredComercial = filteredComercial.filter(item => item.ancho === selectedAncho);
-          filteredCorrugador = filteredCorrugador.filter(item => item.ancho === selectedAncho);
-        }
-        if (selectedLinea !== "all") {
-          filteredCorrugador = filteredCorrugador.filter(item => item.linea === selectedLinea);
         }
 
-        renderChart(filteredCorrugador);
-        renderTables(filteredComercial, filteredCorrugador);
+        renderChart(filteredComercial);
+        renderTable(filteredComercial);
       }
 
       function renderChart(data) {
@@ -206,7 +183,7 @@
           name: `Ancho: ${ancho}mm`,
           data: gramajes.map(gramaje => {
             const items = data.filter(item => item.ancho === ancho && item.gramaje === gramaje);
-            return items.reduce((sum, item) => sum + parseFloat(item.existencia), 0);
+            return items.reduce((sum, item) => sum + parseFloat(item.cantidad || 0), 0);
           }),
         }));
 
@@ -237,7 +214,7 @@
           },
           yaxis: {
             title: {
-              text: 'Existencias Totales',
+              text: 'Cantidades Totales',
             },
           },
           legend: {
@@ -256,46 +233,29 @@
         }
       }
 
-      function renderTables(comercialData, corrugadorData) {
-        const comercialTable = document.querySelector("#comercialTable tbody");
-        const corrugadorTable = $("#dataTable").DataTable();
+      function renderTable(data) {
+        const comercialTable = $("#comercialTable").DataTable();
+        comercialTable.clear();
 
-        comercialTable.innerHTML = '';
-        corrugadorTable.clear();
-
-        // Llenar tabla de comercial
-        comercialData.forEach(item => {
-          const row = document.createElement('tr');
-          row.innerHTML = `
-            <td>${item.id}</td>
-            <td>${item.producto}</td>
-            <td>${item.ancho}</td>
-            <td>${item.gramaje}</td>
-            <td>${item.cantidad}</td>
-            <td>${item.estado}</td>
-          `;
-          comercialTable.appendChild(row);
-        });
-
-        // Llenar tabla de corrugador
-        corrugadorData.forEach(item => {
-          corrugadorTable.row.add([
+        data.forEach(item => {
+          comercialTable.row.add([
+            item.id,
+            item.producto,
             item.ancho,
             item.gramaje,
-            item.linea,
-            item.existencia,
+            item.cantidad,
+            item.estado,
           ]);
         });
 
-        corrugadorTable.draw();
+        comercialTable.draw();
       }
 
       document.getElementById("filterGramaje").addEventListener("change", filterData);
       document.getElementById("filterAncho").addEventListener("change", filterData);
-      document.getElementById("filterLinea").addEventListener("change", filterData);
 
       $(document).ready(() => {
-        $("#dataTable").DataTable({
+        $("#comercialTable").DataTable({
           language: {
             url: "//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json",
           },
@@ -303,7 +263,6 @@
         fetchData();
       });
     })();
-
 
 
   </script>
@@ -327,17 +286,3 @@
     </table>
 </div>
 
-<div>
-    <h2>Existencias (Corrugador)</h2>
-    <table id="dataTable">
-        <thead>
-            <tr>
-                <th>Ancho</th>
-                <th>Gramaje</th>
-                <th>Línea</th>
-                <th>Existencia</th>
-            </tr>
-        </thead>
-        <tbody></tbody>
-    </table>
-</div>
