@@ -119,7 +119,7 @@
 </table>
 
 <div>
-    <h2>Pedidos (Comercial)</h2>
+    <h2 class="titulo_pedido">Pedidos (Comercial)</h2>
     <table id="comercialTable" class="dataTables">
         <thead>
             <tr>

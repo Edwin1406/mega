@@ -470,6 +470,10 @@
   color: black;
 }
 
+.titulo_pedido {
+  text-align: center;
+}
+
 .dataTables th {
   background-color: #FFFFFF;
   font-weight: bold;
