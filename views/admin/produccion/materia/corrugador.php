@@ -306,7 +306,7 @@
         DOM.comercialTableDT.clear().rows.add(
             comercialData.map(item => [
                 item.id,
-                item.producto,
+                item.linea,
                 item.ancho,
                 item.gramaje,
                 item.cantidad,
