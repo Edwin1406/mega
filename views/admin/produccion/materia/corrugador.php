@@ -44,7 +44,7 @@
 
 
 
-    <li class="areas-produccion-craft" data-aos="fade-up">
+    <li class="areas-produccion-craft" data-aos="flip-left">
         <a href="/admin/produccion/materia/corrugador/cajacraft">
             <i class="fas fa-scroll"></i> TOTAL EXISTENCIA CAJA-KRAFT :
             <?php if ($totalExistenciaK > 0) : ?>
@@ -53,7 +53,7 @@
         </a>
     </li>
 
-    <li class="areas-produccion-blanco" data-aos="fade-up">
+    <li class="areas-produccion-blanco"data-aos="flip-left">
         <a href="/admin/produccion/materia/corrugador/cajablanco">
             <i class="fas fa-scroll"></i> TOTAL EXISTENCIA CAJA-BLANCO :
             <?php if ($totalExistenciaB > 0) : ?>
@@ -63,7 +63,7 @@
     </li>
 
 
-    <li class="areas-produccion-medium" data-aos="fade-up">
+    <li class="areas-produccion-medium" data-aos="flip-left">
         <a href="/admin/produccion/materia/corrugador/cajamedium">
             <i class="fas fa-shopping-cart"></i> TOTAL EXISTENCIA CAJA-MEDIUM :
             <?php if (isset($totalExistenciaM) && $totalExistenciaM > 0) : ?>
