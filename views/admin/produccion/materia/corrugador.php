@@ -136,6 +136,7 @@
     </table>
 </div>
 
+<!-- Mantenemos el mismo HTML para estructura -->
 <script>
 (function () {
     const apiComercialUrl = `${location.origin}/admin/api/apicomercial`;
@@ -144,147 +145,166 @@
     let originalCorrugadorData = [];
     let chart;
 
-    async function fetchData() {
-        try {
-            const [comercialResponse, corrugadorResponse] = await Promise.all([
-                fetch(apiComercialUrl),
-                fetch(apiCorrugadorUrl)
-            ]);
+    // Cache de elementos DOM
+    const DOM = {
+        filterGramaje: document.getElementById("filterGramaje"),
+        filterAncho: document.getElementById("filterAncho"),
+        filterLinea: document.getElementById("filterLinea"),
+        chart: document.querySelector("#chart"),
+        dataTable: document.getElementById("dataTable"),
+        comercialTable: document.getElementById("comercialTable")
+    };
 
-            originalComercialData = await comercialResponse.json();
-            originalCorrugadorData = await corrugadorResponse.json();
-
-            populateFilters(originalComercialData, originalCorrugadorData);
-            renderChart(originalCorrugadorData);
-            renderTables(originalComercialData, originalCorrugadorData);
-        } catch (error) {
-            console.error("Error al obtener los datos de la API:", error);
-        }
-    }
-
-    function populateFilters(comercialData, corrugadorData) {
-        const gramajes = [...new Set([...comercialData.map(item => item.gramaje), ...corrugadorData.map(item => item.gramaje)])];
-        const anchos = [...new Set([...comercialData.map(item => item.ancho), ...corrugadorData.map(item => item.ancho)])];
-        const lineas = [...new Set(corrugadorData.map(item => item.linea))];
-
-        const gramajeSelect = document.getElementById("filterGramaje");
-        gramajes.forEach(gramaje => {
-            const option = document.createElement("option");
-            option.value = gramaje;
-            option.textContent = gramaje;
-            gramajeSelect.appendChild(option);
-        });
-
-        const anchoSelect = document.getElementById("filterAncho");
-        anchos.forEach(ancho => {
-            const option = document.createElement("option");
-            option.value = ancho;
-            option.textContent = ancho;
-            anchoSelect.appendChild(option);
-        });
-
-        const lineaSelect = document.getElementById("filterLinea");
-        lineas.forEach(linea => {
-            const option = document.createElement("option");
-            option.value = linea;
-            option.textContent = linea;
-            lineaSelect.appendChild(option);
-        });
-    }
-
-    function filterData() {
-        const selectedGramaje = document.getElementById("filterGramaje").value;
-        const selectedAncho = document.getElementById("filterAncho").value;
-        const selectedLinea = document.getElementById("filterLinea").value;
-
-        let filteredComercial = originalComercialData;
-        let filteredCorrugador = originalCorrugadorData;
-
-        if (selectedGramaje !== "all") {
-            filteredComercial = filteredComercial.filter(item => item.gramaje === selectedGramaje);
-            filteredCorrugador = filteredCorrugador.filter(item => item.gramaje === selectedGramaje);
-        }
-        if (selectedAncho !== "all") {
-            filteredComercial = filteredComercial.filter(item => item.ancho === selectedAncho);
-            filteredCorrugador = filteredCorrugador.filter(item => item.ancho === selectedAncho);
-        }
-        if (selectedLinea !== "all") {
-            filteredCorrugador = filteredCorrugador.filter(item => item.linea === selectedLinea);
-        }
-
-        renderChart(filteredCorrugador);
-        renderTables(filteredComercial, filteredCorrugador);
-    }
-
-    function renderChart(data) {
-        const gramajes = [...new Set(data.map(item => item.gramaje))];
-        const anchos = [...new Set(data.map(item => item.ancho))];
-
-        const series = anchos.map(ancho => ({
-            name: `Ancho: ${ancho}mm`,
-            data: gramajes.map(gramaje => {
-                const items = data.filter(item => item.ancho === ancho && item.gramaje === gramaje);
-                return items.reduce((sum, item) => sum + parseFloat(item.existencia), 0);
-            }),
-        }));
-
-        const options = {
-            series: series,
+    // Configuración reutilizable
+    const config = {
+        dataTableOptions: {
+            language: { url: "//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json" },
+            autoWidth: false,
+            responsive: true
+        },
+        chartOptions: {
             chart: {
                 type: 'bar',
                 height: 400,
                 stacked: true,
-                toolbar: {
-                    show: true,
-                },
+                toolbar: { show: true }
             },
-            plotOptions: {
-                bar: {
-                    horizontal: false,
-                    borderRadius: 4,
-                },
-            },
-            dataLabels: {
-                enabled: true,
-            },
-            xaxis: {
-                categories: gramajes,
-                title: {
-                    text: 'Gramajes',
-                },
-            },
-            yaxis: {
-                title: {
-                    text: 'Existencias Totales',
-                },
-            },
-            legend: {
-                position: 'top',
-            },
-            fill: {
-                opacity: 1,
-            },
+            plotOptions: { bar: { horizontal: false, borderRadius: 4 } },
+            dataLabels: { enabled: true },
+            legend: { position: 'top' },
+            fill: { opacity: 1 }
+        }
+    };
+
+    async function fetchData() {
+        try {
+            const [comercial, corrugador] = await Promise.all([
+                fetch(apiComercialUrl).then(res => res.json()),
+                fetch(apiCorrugadorUrl).then(res => res.json())
+            ]);
+            
+            originalComercialData = comercial;
+            originalCorrugadorData = corrugador;
+
+            populateFilters(comercial, corrugador);
+            initDataTables();
+            updateVisualization();
+        } catch (error) {
+            console.error("Error fetching data:", error);
+        }
+    }
+
+    function populateFilters(comercialData, corrugadorData) {
+        const getUnique = (data, key) => [...new Set(data.map(item => item[key]))];
+        
+        const addOptions = (select, values) => {
+            const fragment = document.createDocumentFragment();
+            values.forEach(value => {
+                const option = document.createElement("option");
+                option.value = value;
+                option.textContent = value;
+                fragment.appendChild(option);
+            });
+            select.appendChild(fragment);
+        };
+
+        addOptions(DOM.filterGramaje, ['all', ...getUnique([...comercialData, ...corrugadorData], 'gramaje')]);
+        addOptions(DOM.filterAncho, ['all', ...getUnique([...comercialData, ...corrugadorData], 'ancho')]);
+        addOptions(DOM.filterLinea, ['all', ...getUnique(corrugadorData, 'linea')]);
+    }
+
+    function initDataTables() {
+        if ($.fn.DataTable.isDataTable(DOM.dataTable)) {
+            $(DOM.dataTable).DataTable().destroy();
+        }
+        if ($.fn.DataTable.isDataTable(DOM.comercialTable)) {
+            $(DOM.comercialTable).DataTable().destroy();
+        }
+
+        DOM.dataTableDT = $(DOM.dataTable).DataTable({
+            ...config.dataTableOptions,
+            columns: [
+                { title: "Ancho" },
+                { title: "Gramaje" },
+                { title: "Línea" },
+                { title: "Existencia" }
+            ]
+        });
+
+        DOM.comercialTableDT = $(DOM.comercialTable).DataTable({
+            ...config.dataTableOptions,
+            columns: [
+                { title: "ID" },
+                { title: "Producto" },
+                { title: "Ancho (mm)" },
+                { title: "Gramaje (g/m²)" },
+                { title: "Cantidad" },
+                { title: "Estado" },
+                { title: "Arribo Planta" }
+            ],
+            paging: true
+        });
+    }
+
+    function updateVisualization() {
+        const filters = {
+            gramaje: DOM.filterGramaje.value,
+            ancho: DOM.filterAncho.value,
+            linea: DOM.filterLinea.value
+        };
+
+        // Filtrar datos en un solo paso
+        const filterCondition = (item, type) => {
+            const conditions = [
+                filters.gramaje === 'all' || item.gramaje === filters.gramaje,
+                filters.ancho === 'all' || item.ancho === filters.ancho,
+                type === 'corrugador' ? (filters.linea === 'all' || item.linea === filters.linea) : true
+            ];
+            return conditions.every(c => c);
+        };
+
+        const filteredComercial = originalComercialData.filter(item => filterCondition(item, 'comercial'));
+        const filteredCorrugador = originalCorrugadorData.filter(item => filterCondition(item, 'corrugador'));
+
+        updateChart(filteredCorrugador);
+        updateTables(filteredComercial, filteredCorrugador);
+    }
+
+    function updateChart(data) {
+        // Agrupación optimizada de datos
+        const groupedData = data.reduce((acc, item) => {
+            const key = `${item.ancho}-${item.gramaje}`;
+            acc[key] = (acc[key] || 0) + parseFloat(item.existencia);
+            return acc;
+        }, {});
+
+        const gramajes = [...new Set(data.map(item => item.gramaje))].sort();
+        const anchos = [...new Set(data.map(item => item.ancho))].sort((a, b) => a - b);
+
+        const series = anchos.map(ancho => ({
+            name: `Ancho: ${ancho}mm`,
+            data: gramajes.map(gramaje => groupedData[`${ancho}-${gramaje}`] || 0)
+        }));
+
+        const chartConfig = {
+            ...config.chartOptions,
+            series: series,
+            xaxis: { categories: gramajes, title: { text: 'Gramajes' } },
+            yaxis: { title: { text: 'Existencias Totales' } }
         };
 
         if (chart) {
-            chart.updateOptions(options);
+            chart.updateOptions(chartConfig);
         } else {
-            chart = new ApexCharts(document.querySelector("#chart"), options);
+            chart = new ApexCharts(DOM.chart, chartConfig);
             chart.render();
         }
     }
 
-    function renderTables(comercialData, corrugadorData) {
-        const corrugadorTable = $("#dataTable").DataTable();
-        const comercialTable = $("#comercialTable").DataTable();
-
-        // Limpiar tablas
-        corrugadorTable.clear();
-        comercialTable.clear();
-
-        // Llenar tabla de comercial
-        comercialData.forEach(item => {
-            comercialTable.row.add([
+    function updateTables(comercialData, corrugadorData) {
+        // Actualización optimizada de tablas
+        DOM.comercialTableDT.clear().rows.add(
+            comercialData.map(item => [
                 item.id,
                 item.producto,
                 item.ancho,
@@ -292,49 +312,28 @@
                 item.cantidad,
                 item.estado,
                 item.arribo_planta
-            ]);
-        });
+            ])
+        ).draw();
 
-        // Llenar tabla de corrugador
-        corrugadorData.forEach(item => {
-            corrugadorTable.row.add([
+        DOM.dataTableDT.clear().rows.add(
+            corrugadorData.map(item => [
                 item.ancho,
                 item.gramaje,
                 item.linea,
                 item.existencia
-            ]);
-        });
-
-        // Dibujar tablas
-        comercialTable.draw();
-        corrugadorTable.draw();
+            ])
+        ).draw();
     }
 
+    // Event listeners
+    [DOM.filterGramaje, DOM.filterAncho, DOM.filterLinea].forEach(select => {
+        select.addEventListener('change', () => updateVisualization());
+    });
+
+    // Inicialización
     $(document).ready(() => {
-        if (!$.fn.DataTable.isDataTable("#dataTable")) {
-            $("#dataTable").DataTable({
-                language: {
-                    url: "//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json",
-                },
-            });
-        }
-
-        if (!$.fn.DataTable.isDataTable("#comercialTable")) {
-            $("#comercialTable").DataTable({
-                language: {
-                    url: "//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json",
-                },
-                paging: true,
-                searching: true,
-                ordering: true,
-            });
-        }
-
         fetchData();
-
-        document.getElementById("filterGramaje").addEventListener("change", filterData);
-        document.getElementById("filterAncho").addEventListener("change", filterData);
-        document.getElementById("filterLinea").addEventListener("change", filterData);
+        $(DOM.dataTable).closest('table').wrap('<div class="table-responsive"></div>');
     });
 })();
 </script>
