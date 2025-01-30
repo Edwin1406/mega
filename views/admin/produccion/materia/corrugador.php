@@ -35,7 +35,9 @@
 </ul>
 
 
-
+<script>
+  AOS.init();
+</script>
 
 
 <ul class="lista-areas-produccion">
