@@ -36,7 +36,7 @@
             <i class="fas fa-newspaper"></i> PERIODICO 
         </a>
     </li>
-    <li class="areas-produccion-estatico" data-aos="flip-left">
+    <li class="areas-produccion-estatico"  data-aos="flip-up">
         <a >
             <i class="fas fa-industry"></i> TOTAL EXISTENCIA CORRUGADOR :
             <?php if ($totalExistencia > 0) : ?>
@@ -45,7 +45,7 @@
         </a>
     </li>
 
-    <li class="areas-produccion-estatico-craft" data-aos="flip-left">
+    <li class="areas-produccion-estatico-craft"  data-aos="flip-up">
         <a >
             <i class="fas fa-scroll"></i> TOTAL EXISTENCIA MICRO CORRUGADOR :
             <?php if ($totalExistenciaMicro > 0) : ?>
@@ -55,7 +55,7 @@
 
     </li>
 
-    <li class="areas-produccion-estatico-medium" data-aos="flip-left">
+    <li class="areas-produccion-estatico-medium"  data-aos="flip-up">
         <a>
             <i class="fas fa-newspaper"></i> TOTAL EXISTENCIA PERIODICO :
             <?php if ($totalExistenciaPeriodico > 0) : ?>
