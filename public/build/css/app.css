@@ -452,6 +452,12 @@
   text-align: left;
 }
 
+.dataTable {
+  border-collapse: collapse;
+  width: 100%;
+  text-align: left;
+}
+
 #dataTable_wrapper {
   background-color: #FFFFFF;
   padding: 2rem;

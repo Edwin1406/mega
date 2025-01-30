@@ -312,7 +312,7 @@
 
 <div>
     <h2>Pedidos (Comercial)</h2>
-    <table id="comercialTable" id="dataTable">
+    <table id="comercialTable" class="dataTable">
         <thead>
             <tr>
                 <th>ID</th>
