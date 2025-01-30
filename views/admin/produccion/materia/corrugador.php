@@ -277,17 +277,17 @@
           comercialTable.appendChild(row);
         });
 
-        // Llenar tabla de corrugador
-        corrugadorData.forEach(item => {
-          corrugadorTable.row.add([
-            item.ancho,
-            item.gramaje,
-            item.linea,
-            item.existencia,
-          ]);
-        });
+        // // Llenar tabla de corrugador
+        // corrugadorData.forEach(item => {
+        //   corrugadorTable.row.add([
+        //     item.ancho,
+        //     item.gramaje,
+        //     item.linea,
+        //     item.existencia,
+        //   ]);
+        // });
 
-        corrugadorTable.draw();
+        // corrugadorTable.draw();
       }
 
       document.getElementById("filterGramaje").addEventListener("change", filterData);
