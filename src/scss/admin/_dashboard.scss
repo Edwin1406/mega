@@ -232,12 +232,42 @@
     text-align: left;
     
 }
-  .dataTable {
+  .dataTables {
     border-collapse: collapse;
     width: 100%;
     text-align: left;
     
 }
+
+
+.dataTables_wrapper {
+    background-color: v.$blanco;
+    padding: 2rem; 
+    border-radius: 1rem;
+}
+
+
+
+.dataTables th, .dataTables td {
+    border: 1px solid v.$gris;
+    // color: v.$blanco;
+    padding: 8px;
+    color: black;
+  }
+
+  #dataTable th {
+    background-color: v.$blanco;
+    font-weight: bold;
+  }
+
+  #dataTable tr:hover {
+    background-color: v.$gris-claro;
+}
+    #dataTable th:hover {
+    background-color: aquamarine    ;
+    }
+// ddddd
+
 
 #dataTable_wrapper {
     background-color: v.$blanco;
