@@ -15,9 +15,9 @@
     </li>
 
 
-    <li class="areas-produccion-estatico">
+    <li class="areas-produccion-estatico"  data-aos="fade-up">
         <a>
-            <i class="fas fa-shopping-cart" data-aos="fade-up"></i> TOTAL COSTO :
+            <i class="fas fa-shopping-cart"></i> TOTAL COSTO :
             <?php if ($totalCosto > 0) : ?>
                 <span class="areas-produccion__numero"> <?php echo $totalCosto ?> $ </span>
             <?php endif; ?>
