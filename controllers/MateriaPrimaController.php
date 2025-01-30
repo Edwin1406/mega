@@ -321,47 +321,27 @@ class MateriaPrimaController
         // CORS
         header("Access-Control-Allow-Origin: *");
         header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
-        $corrugador = MateriaPrimaV::allc('DESC', 'CAJA');
-        $jsoncorrugador = json_encode($corrugador);
-        $data = json_decode($jsoncorrugador, true);
     
-        // Organiza datos para ApexCharts
-        $lineas = [];
-        foreach ($data as $item) {
-            $id = $item['id'];
-            $linea = $item['linea'];
-            $gramaje = $item['gramaje'];
-            $ancho = $item['ancho'];
-            $existencia = $item['existencia'];
+        // Obtén los datos desde la consulta base
+        $corrugador = MateriaPrimaV::allc('ASC', 'CAJA');
     
-            // Crear etiqueta única combinando gramaje y ancho
-            $etiqueta = "$gramaje / $ancho";
-    
-            // Inicializar la estructura si no existe
-            if (!isset($lineas[$linea])) {
-                $lineas[$linea] = [
-                    'id' => [],
-                    'labels' => [],
-                    'data' => [],
-                    'gramajes' => [],
-                    'anchos' => []
-                ];
+        // Procesa los datos para agrupar por gramaje y ancho
+        $agregados = [];
+        foreach ($corrugador as $item) {
+            $key = $item->gramaje . '-' . $item->ancho; // Llave única basada en gramaje y ancho
+            if (!isset($agregados[$key])) {
+                $agregados[$key] = $item; // Almacena el objeto original
+                $agregados[$key]->existencia = intval($item->existencia); // Inicializa la existencia como entero
+            } else {
+                $agregados[$key]->existencia += intval($item->existencia); // Suma las existencias
             }
-    
-            // Agregar la etiqueta y los datos correspondientes
-
-            $lineas[$linea]['id'][] = $id;
-            $lineas[$linea]['labels'][] = $etiqueta;
-            $lineas[$linea]['data'][] = $existencia;
-            $lineas[$linea]['gramajes'][] = $gramaje;
-            $lineas[$linea]['anchos'][] = $ancho;
-
-
         }
     
-        // Envía la respuesta JSON
-        header('Content-Type: application/json');
-        echo json_encode($lineas);
+        // Convierte el arreglo asociativo a un índice simple
+        $resultadosFinales = array_values($agregados);
+    
+        // Devuelve los datos procesados como JSON
+        echo json_encode($resultadosFinales);
         exit;
         
     }
