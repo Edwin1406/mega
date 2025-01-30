@@ -85,19 +85,19 @@
     <div>
       <label for="filterGramaje">Filtrar por Gramaje:</label>
       <select id="filterGramaje">
-        <option value="all">Todos</option>
+        <option value="all"></option>
       </select>
     </div>
     <div>
       <label for="filterAncho">Filtrar por Ancho:</label>
       <select id="filterAncho">
-        <option value="all">Todos</option>
+        <option value="all"></option>
       </select>
     </div>
     <div>
       <label for="filterLinea">Filtrar por Línea:</label>
       <select id="filterLinea">
-        <option value="all">Todos</option>
+        <option value="all"></option>
       </select>
     </div>
 </div>
