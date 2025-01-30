@@ -493,7 +493,7 @@
   border-radius: 1rem;
 }
 
-th.shorting {
+.dataTables.shorting {
   background-color: #64748B;
 }
 
