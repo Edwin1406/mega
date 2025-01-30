@@ -68,7 +68,7 @@
 
 <div class="centrar">
 
-    <div class="card">
+    <div class="card" data-aos="zoom-in">
         <div class="side-bar"></div>
         <div class="content">
             <div class="percentage">TOTAL KILOGRAMOS</div>
