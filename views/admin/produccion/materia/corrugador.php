@@ -464,3 +464,37 @@
 
 
   </script>
+
+
+
+<div>
+    <h2>Pedidos (Comercial)</h2>
+    <table id="comercialTable">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Producto</th>
+                <th>Ancho (mm)</th>
+                <th>Gramaje (g/m²)</th>
+                <th>Cantidad</th>
+                <th>Estado</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+</div>
+
+<div>
+    <h2>Existencias (Corrugador)</h2>
+    <table id="dataTable">
+        <thead>
+            <tr>
+                <th>Ancho</th>
+                <th>Gramaje</th>
+                <th>Línea</th>
+                <th>Existencia</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+</div>
