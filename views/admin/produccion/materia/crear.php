@@ -20,23 +20,23 @@
 </div>
 
 
-<ul class="lista-areas-produccion">
+<ul class="lista-areas-produccion" data-aos="flip-left">
     <li class="areas-produccion">
         <a href="/admin/produccion/materia/corrugador">
             <i class="fas fa-industry"></i> CORRUGADOR
         </a>
     </li>
-    <li class="areas-produccion-craft">
+    <li class="areas-produccion-craft" data-aos="flip-left">
         <a href="/admin/produccion/materia/microcorrugador">
             <i class="fas fa-scroll"></i> MICRO CORRUGADOR
         </a>
     </li>
-    <li class="areas-produccion-medium">
+    <li class="areas-produccion-medium" data-aos="flip-left">
         <a href="/admin/produccion/materia/periodico">
             <i class="fas fa-newspaper"></i> PERIODICO 
         </a>
     </li>
-    <li class="areas-produccion-estatico">
+    <li class="areas-produccion-estatico" data-aos="flip-left">
         <a >
             <i class="fas fa-industry"></i> TOTAL EXISTENCIA CORRUGADOR :
             <?php if ($totalExistencia > 0) : ?>
@@ -45,7 +45,7 @@
         </a>
     </li>
 
-    <li class="areas-produccion-estatico-craft">
+    <li class="areas-produccion-estatico-craft" data-aos="flip-left">
         <a >
             <i class="fas fa-scroll"></i> TOTAL EXISTENCIA MICRO CORRUGADOR :
             <?php if ($totalExistenciaMicro > 0) : ?>
@@ -55,7 +55,7 @@
 
     </li>
 
-    <li class="areas-produccion-estatico-medium">
+    <li class="areas-produccion-estatico-medium" data-aos="flip-left">
         <a>
             <i class="fas fa-newspaper"></i> TOTAL EXISTENCIA PERIODICO :
             <?php if ($totalExistenciaPeriodico > 0) : ?>
