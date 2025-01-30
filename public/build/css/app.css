@@ -493,8 +493,12 @@
   border-radius: 1rem;
 }
 
-.dataTables.shorting {
-  background-color: #64748B;
+.dataTables thead th {
+  background-color: #f0f0f0; /* Cambia este color por el que desees */
+  color: #333; /* Color del texto */
+  font-weight: bold;
+  padding: 10px;
+  text-align: center;
 }
 
 #dataTable th, #dataTable td {

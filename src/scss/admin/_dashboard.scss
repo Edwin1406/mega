@@ -281,9 +281,14 @@
 
 
 
-.dataTables.shorting{
-    background-color: v.$gris;
+.dataTables thead th {
+    background-color: #f0f0f0; /* Cambia este color por el que desees */
+    color: #333;              /* Color del texto */
+    font-weight: bold;
+    padding: 10px;
+    text-align: center;
 }
+
 
 #dataTable th, #dataTable td {
     border: 1px solid v.$gris;
