@@ -194,25 +194,63 @@
         }
     }
 
-    function populateFilters(comercialData, corrugadorData) {
-        const getUnique = (data, key) => [...new Set(data.map(item => item[key]))];
+    // function populateFilters(comercialData, corrugadorData) {
+    //     const getUnique = (data, key) => [...new Set(data.map(item => item[key]))];
         
-        const addOptions = (select, values) => {
-            const fragment = document.createDocumentFragment();
-            values.forEach(value => {
-                const option = document.createElement("option");
-                option.value = value;
-                option.textContent = value;
-                fragment.appendChild(option);
-            });
-            select.appendChild(fragment);
-        };
+    //     const addOptions = (select, values) => {
+    //         const fragment = document.createDocumentFragment();
+    //         values.forEach(value => {
+    //             const option = document.createElement("option");
+    //             option.value = value;
+    //             option.textContent = value;
+    //             fragment.appendChild(option);
+    //         });
+    //         select.appendChild(fragment);
+    //     };
 
-        addOptions(DOM.filterGramaje, ['all', ...getUnique([...comercialData, ...corrugadorData], 'gramaje')]);
-        addOptions(DOM.filterAncho, ['all', ...getUnique([...comercialData, ...corrugadorData], 'ancho')]);
-        addOptions(DOM.filterLinea, ['all', ...getUnique(corrugadorData, 'linea')]);
-    }
+    //     addOptions(DOM.filterGramaje, ['all', ...getUnique([...comercialData, ...corrugadorData], 'gramaje')]);
+    //     addOptions(DOM.filterAncho, ['all', ...getUnique([...comercialData, ...corrugadorData], 'ancho')]);
+    //     addOptions(DOM.filterLinea, ['all', ...getUnique(corrugadorData, 'linea')]);
+    // }
 
+    function populateFilters(comercialData, corrugadorData) {
+    const getUniqueValidValues = (data, key) => {
+        // Filtrar valores numéricos y excluir 'all' y 'todos'
+        return [...new Set(data.map(item => item[key]))]
+            .filter(value => !isNaN(value) && value !== 'all' && value !== 'todos')
+            .sort((a, b) => a - b);
+    };
+
+    const addOptions = (select, values) => {
+        const fragment = document.createDocumentFragment();
+        
+        // Opción "Todos" inicial
+        const defaultOption = document.createElement("option");
+        defaultOption.value = "all"; // Valor interno
+        defaultOption.textContent = "Todos"; // Etiqueta visible
+        fragment.appendChild(defaultOption);
+
+        // Agregar valores numéricos
+        values.forEach(value => {
+            const option = document.createElement("option");
+            option.value = value;
+            option.textContent = value;
+            fragment.appendChild(option);
+        });
+        
+        select.replaceChildren(fragment); // Reemplazar todo el contenido
+    };
+
+    // Obtener valores únicos y válidos
+    const gramajes = getUniqueValidValues([...comercialData, ...corrugadorData], 'gramaje');
+    const anchos = getUniqueValidValues([...comercialData, ...corrugadorData], 'ancho');
+    const lineas = getUniqueValidValues(corrugadorData, 'linea');
+
+    // Poblar los selectores
+    addOptions(DOM.filterGramaje, gramajes);
+    addOptions(DOM.filterAncho, anchos);
+    addOptions(DOM.filterLinea, lineas);
+}
     function initDataTables() {
         if ($.fn.DataTable.isDataTable(DOM.dataTable)) {
             $(DOM.dataTable).DataTable().destroy();
