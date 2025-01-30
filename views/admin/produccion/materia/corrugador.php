@@ -119,7 +119,7 @@
    
 
 
-   (function () {
+ (function () {
       const apiComercialUrl = `${location.origin}/admin/api/apicomercial`;
       let originalComercialData = [];
       let chart;
