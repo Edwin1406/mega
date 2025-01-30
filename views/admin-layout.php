@@ -13,7 +13,11 @@
     <link rel="icon" href="/public/build/img/megastock.jpg" type="image/png">
     <link rel="stylesheet" href="/public/build/css/app.css">
    
-   
+   <!-- srcool -->
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+
 </head>
 
 <body class="dashboard">
@@ -41,6 +45,9 @@
 
   <script src="https://cdn.jsdelivr.net/npm/quagga/dist/quagga.min.js"></script>
 
+  <script>
+  AOS.init();
+</script>
 
  
 </html>
