@@ -20,8 +20,8 @@
 </div>
 
 
-<ul class="lista-areas-produccion" data-aos="flip-left">
-    <li class="areas-produccion">
+<ul class="lista-areas-produccion">
+    <li class="areas-produccion"  data-aos="flip-left">
         <a href="/admin/produccion/materia/corrugador">
             <i class="fas fa-industry"></i> CORRUGADOR
         </a>
