@@ -129,6 +129,7 @@
                 <th>Gramaje (g/m²)</th>
                 <th>Cantidad</th>
                 <th>Estado</th>
+                <th>Arribo Planta </th>
             </tr>
         </thead>
         <tbody></tbody>
@@ -289,7 +290,8 @@
                 item.ancho,
                 item.gramaje,
                 item.cantidad,
-                item.estado
+                item.estado,
+                item.arribo_planta
             ]);
         });
 
