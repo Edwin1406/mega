@@ -3,7 +3,7 @@
 
 <ul class="lista-areas-produccion">
    
-    <li class="areas-produccion-estatico">
+    <li class="areas-produccion-estatico" data-aos="fade-up">
         <a >
             <i class="fas fa-scroll"></i> TOTAL EXISTENCIA :
             <?php if ($totalExistencia > 0) : ?>
@@ -79,6 +79,7 @@
 <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+
 <div id="filters">
     <div>
       <label for="filterGramaje">Filtrar por Gramaje:</label>

@@ -201,14 +201,119 @@
 
 
 
-   function encontrarMejorCombinacion(pedidos, bobinas, refile) {
+//    function encontrarMejorCombinacion(pedidos, bobinas, refile) {
+//     let mejorCombinacion = null;
+
+//     // Función para buscar combinaciones de dos pedidos que encajen en una bobina
+//     function procesarPedidos(pedidos, bobinas) {
+//         let mejorCombinacionLocal = null;
+
+//         // Ordenar los pedidos de mayor a menor ancho y, si tienen el mismo ancho, de menor a mayor cantidad
+//         pedidos.sort((a, b) => b.ancho - a.ancho || a.cantidad - b.cantidad);
+
+//         for (const bobina of bobinas) {
+//             const disponible = bobina - refile;
+
+//             for (let i = 0; i < pedidos.length; i++) {
+//                 const pedidoActual = pedidos[i];
+
+//                 // Evaluar combinaciones dobles
+//                 for (let j = i + 1; j < pedidos.length; j++) {
+//                     const otroPedido = pedidos[j];
+//                     const suma = pedidoActual.ancho + otroPedido.ancho;
+
+//                     // Verificar si la suma de anchos no supera el ancho disponible de la bobina
+//                     if (suma <= disponible) {
+//                         const sobrante = disponible - suma;
+
+//                         // Asegurarse de que dentro de la dupla, el pedido con menor cantidad sea el primero
+//                         // Si las cantidades son iguales, el de menor largo va primero
+//                         let pedido1 = pedidoActual;
+//                         let pedido2 = otroPedido;
+
+//                         if (
+//                             pedido2.cantidad < pedido1.cantidad ||
+//                             (pedido2.cantidad === pedido1.cantidad && pedido2.largo < pedido1.largo)
+//                         ) {
+//                             [pedido1, pedido2] = [pedido2, pedido1];
+//                         }
+
+//                         if (!mejorCombinacionLocal || sobrante < mejorCombinacionLocal.sobrante) {
+//                             let largosinredondeo = pedido2.largo / 1000;
+//                             let metrosLineales = (pedido1.cantidad * pedido1.largo) / 1000;
+//                             let corte2 = metrosLineales / largosinredondeo;
+
+//                             mejorCombinacionLocal = {
+//                                 bobina,
+//                                 pedidos: [pedido1, pedido2],
+//                                 suma,
+//                                 sobrante,
+//                                 cavidad: "1<br>1",
+//                                 corteP1: pedido1.cantidad,
+//                                 corteP2: parseInt(corte2),
+//                                 metrosLineales,
+//                             };
+//                         }
+//                     }
+//                 }
+
+//                 // Evaluar un único pedido
+//                 if (pedidoActual.ancho <= disponible) {
+//                     const sobrante = disponible - pedidoActual.ancho;
+
+//                     if (!mejorCombinacionLocal || sobrante < mejorCombinacionLocal.sobrante) {
+//                         mejorCombinacionLocal = {
+//                             bobina,
+//                             pedidos: [pedidoActual],
+//                             suma: pedidoActual.ancho,
+//                             sobrante,
+//                             cavidad: 1,
+//                             corteP1: pedidoActual.cantidad,
+//                             corteP2: 0,
+//                             metrosLineales: (pedidoActual.cantidad * pedidoActual.largo) / 1000
+//                         };
+//                     }
+//                 }
+//             }
+//         }
+
+//         return mejorCombinacionLocal;
+//     }
+
+//     // Procesar pedidos y buscar la mejor combinación
+//     const mejorCombinacionResultante = procesarPedidos(pedidos, bobinas);
+
+//     if (mejorCombinacionResultante) {
+//         mejorCombinacion = mejorCombinacionResultante;
+
+//         // Actualizar la cantidad de los pedidos seleccionados
+//         const pedidosRestantes = mejorCombinacion.pedidos.map((pedido, index) => {
+//             const cantidadRestante = index === 1
+//                 ? pedido.cantidad - mejorCombinacion.corteP2
+//                 : pedido.cantidad - mejorCombinacion.corteP1;
+
+//             if (cantidadRestante > 0) {
+//                 return { ...pedido, cantidad: cantidadRestante };
+//             }
+//             return null;
+//         }).filter(p => p !== null);
+
+//         pedidos.push(...pedidosRestantes);
+//     }
+
+//     return mejorCombinacion;
+// }
+
+
+
+
+
+
+function encontrarMejorCombinacion(pedidos, bobinas, refile) {
     let mejorCombinacion = null;
 
-    // Función para buscar combinaciones de dos pedidos que encajen en una bobina
     function procesarPedidos(pedidos, bobinas) {
         let mejorCombinacionLocal = null;
-
-        // Ordenar los pedidos de mayor a menor ancho y, si tienen el mismo ancho, de menor a mayor cantidad
         pedidos.sort((a, b) => b.ancho - a.ancho || a.cantidad - b.cantidad);
 
         for (const bobina of bobinas) {
@@ -217,32 +322,27 @@
             for (let i = 0; i < pedidos.length; i++) {
                 const pedidoActual = pedidos[i];
 
-                // Evaluar combinaciones dobles
                 for (let j = i + 1; j < pedidos.length; j++) {
                     const otroPedido = pedidos[j];
                     const suma = pedidoActual.ancho + otroPedido.ancho;
 
-                    // Verificar si la suma de anchos no supera el ancho disponible de la bobina
                     if (suma <= disponible) {
-                        const sobrante = disponible - suma;
-
-                        // Asegurarse de que dentro de la dupla, el pedido con menor cantidad sea el primero
-                        // Si las cantidades son iguales, el de menor largo va primero
                         let pedido1 = pedidoActual;
                         let pedido2 = otroPedido;
 
-                        if (
-                            pedido2.cantidad < pedido1.cantidad ||
-                            (pedido2.cantidad === pedido1.cantidad && pedido2.largo < pedido1.largo)
-                        ) {
+                        // Reorganizar si es necesario
+                        if (pedido2.cantidad < pedido1.cantidad) {
                             [pedido1, pedido2] = [pedido2, pedido1];
                         }
 
-                        if (!mejorCombinacionLocal || sobrante < mejorCombinacionLocal.sobrante) {
-                            let largosinredondeo = pedido2.largo / 1000;
-                            let metrosLineales = (pedido1.cantidad * pedido1.largo) / 1000;
-                            let corte2 = metrosLineales / largosinredondeo;
+                        const sobrante = disponible - suma;
+                        const metrosLineales = (pedido1.cantidad * pedido1.largo) / 1000;
+                        const corte2 = metrosLineales / (pedido2.largo / 1000);
 
+                        // Verificar si hay negativos e invertir
+                        if (corte2 < 0) continue;
+
+                        if (!mejorCombinacionLocal || sobrante < mejorCombinacionLocal.sobrante) {
                             mejorCombinacionLocal = {
                                 bobina,
                                 pedidos: [pedido1, pedido2],
@@ -250,14 +350,13 @@
                                 sobrante,
                                 cavidad: "1<br>1",
                                 corteP1: pedido1.cantidad,
-                                corteP2: parseInt(corte2),
+                                corteP2: Math.max(0, parseInt(corte2)),
                                 metrosLineales,
                             };
                         }
                     }
                 }
 
-                // Evaluar un único pedido
                 if (pedidoActual.ancho <= disponible) {
                     const sobrante = disponible - pedidoActual.ancho;
 
@@ -280,13 +379,11 @@
         return mejorCombinacionLocal;
     }
 
-    // Procesar pedidos y buscar la mejor combinación
     const mejorCombinacionResultante = procesarPedidos(pedidos, bobinas);
 
     if (mejorCombinacionResultante) {
         mejorCombinacion = mejorCombinacionResultante;
 
-        // Actualizar la cantidad de los pedidos seleccionados
         const pedidosRestantes = mejorCombinacion.pedidos.map((pedido, index) => {
             const cantidadRestante = index === 1
                 ? pedido.cantidad - mejorCombinacion.corteP2
@@ -303,6 +400,12 @@
 
     return mejorCombinacion;
 }
+
+
+
+
+
+
 
 
 
