@@ -510,7 +510,7 @@ class MateriaPrimaController
     {
         $cajamedium = MateriaPrimaV::datoscompletos('DESC', 'MEDIUM');
 
-        $totalCostoM = MateriaPrimaV::sumarCosto('CAJA-MEDIUM');
+        $totalCostoM = MateriaPrimaV::sumarCosto('MEDIUM');
 
         $totalCostoM = number_format($totalCostoM, 2, '.', ',');
 
