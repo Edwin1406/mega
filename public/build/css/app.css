@@ -520,6 +520,16 @@
   background-color: aquamarine;
 }
 
+.display {
+  display: flex;
+  flex-direction: 1fr 1fr;
+  gap: 1rem;
+}
+
+.titulo_existencia {
+  text-align: center;
+}
+
 .grafica {
   padding: 0;
   margin-top: 3rem;

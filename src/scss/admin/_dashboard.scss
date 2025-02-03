@@ -290,6 +290,8 @@
 }
 
 
+
+
 #dataTable th, #dataTable td {
     border: 1px solid v.$gris;
     // color: v.$blanco;
@@ -308,6 +310,22 @@
     #dataTable th:hover {
     background-color: aquamarine    ;
     }
+
+
+// tablas display flex 
+.display {
+    display: flex;
+    flex-direction: 1fr 1fr;
+    gap: 1rem;
+}
+
+.titulo_existencia{
+    text-align: center;;
+}
+
+
+
+
 
 
 

@@ -106,17 +106,6 @@
     <div id="chart" class="tamaño"></div>
 </div>
 
-<style>
-    .display {
-        display: flex;
-        flex-direction: 1fr 1fr;
-        gap: 1rem;
-    }
-
-    .titulo_existencia{
-        text-align: center;;
-    }
-</style>
 
 <div class="display">
     <div>
