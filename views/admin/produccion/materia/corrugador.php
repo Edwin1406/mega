@@ -119,29 +119,24 @@
         </div>
         <div id="chart" class="tamaño"></div>
     </div>
-    <div class="graficas_blancas">
-        <div id="filters">
-            <div>
-                <label for="filterGramaje">Filtrar por Gramaje:</label>
-                <select id="filterGramaje">
-                    <option value="all">Todos</option>
-                </select>
-            </div>
-            <div>
-                <label for="filterAncho">Filtrar por Ancho:</label>
-                <select id="filterAncho">
-                    <option value="all">Todos</option>
-                </select>
-            </div>
-            <div>
-                <label for="filterLinea">Filtrar por Línea:</label>
-                <select id="filterLinea">
-                    <option value="all">Todos</option>
-                </select>
-            </div>
-        </div>
-        <div id="chart" class="tamaño"></div>
+
+    <div>
+        <h2 class="titulo_existencia">Existencia (Corrugador)</h2>
+        <table id="dataTable">
+            <thead>
+                <tr>
+                    <th>Ancho</th>
+                    <th>Gramaje</th>
+                    <th>Línea</th>
+                    <th>Existencia</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
     </div>
+
+
+
 
 </div>
 
