@@ -221,16 +221,41 @@ public static function menosDeCien($orden = 'DESC') {
     
 
 
-    // Obtener todos los Registros con una condición caja
-    public static function allc($orden = 'DESC', $linea = null) {
-        // Construye la consulta SQL base
-        // $query = "SELECT * FROM " . static::$tabla;
-        $query = "SELECT id,existencia,linea,gramaje,proveedor,sustrato,ancho FROM " . static::$tabla;
+    // // Obtener todos los Registros con una condición caja
+    // public static function allc($orden = 'DESC', $linea = null) {
+    //     // Construye la consulta SQL base
+    //     // $query = "SELECT * FROM " . static::$tabla;
+    //     $query = "SELECT id,existencia,linea,gramaje,proveedor,sustrato,ancho FROM " . static::$tabla;
 
     
-        // Agrega una cláusula WHERE si se proporciona un valor para $linea
+    //     // Agrega una cláusula WHERE si se proporciona un valor para $linea
+    //     if ($linea !== null) {
+    //         $query .= " WHERE linea LIKE '%" . addslashes($linea) . "%'";
+    //     }
+    
+    //     // Agrega la cláusula ORDER BY
+    //     $query .= " ORDER BY id {$orden}";
+    
+    //     // Ejecuta la consulta y devuelve el resultado
+    //     $resultado = self::consultarSQL($query);
+    //     return $resultado;
+    // }
+
+
+    public static function allc($orden = 'DESC', $linea = null) {
+        // Construye la consulta base
+        $query = "SELECT id, existencia, linea, gramaje, proveedor, sustrato, ancho FROM " . static::$tabla;
+    
+        // Manejar múltiples líneas
         if ($linea !== null) {
-            $query .= " WHERE linea LIKE '%" . addslashes($linea) . "%'";
+            if (is_array($linea)) {
+                // Si es un array, construir cláusula IN
+                $lineasEscapadas = array_map('addslashes', $linea);
+                $query .= " WHERE linea IN ('" . implode("', '", $lineasEscapadas) . "')";
+            } else {
+                // Si es un string, aplicar filtro normal
+                $query .= " WHERE linea LIKE '%" . addslashes($linea) . "%'";
+            }
         }
     
         // Agrega la cláusula ORDER BY
@@ -240,9 +265,7 @@ public static function menosDeCien($orden = 'DESC') {
         $resultado = self::consultarSQL($query);
         return $resultado;
     }
-
-
-
+    
 
 
 
