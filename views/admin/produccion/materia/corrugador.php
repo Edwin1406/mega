@@ -102,10 +102,23 @@
     </div>
 </div>
 
-<div class="graficas_blancas">
-    <div id="chart" class="tamaño"></div>
-</div>
 
+<style>
+    .grafica_dual{
+        display: flex;
+        justify-content: space-between;
+        
+
+    }
+</style>
+<div class="grafica_dual">
+
+    
+    <div class="graficas_blancas">
+        <div id="chart" class="tamaño"></div>
+    </div>
+    
+</div>
 
 <div class="display">
     <div>
