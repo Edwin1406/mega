@@ -508,7 +508,7 @@ class MateriaPrimaController
 
     public static function cajamedium(Router $router)
     {
-        $cajamedium = MateriaPrimaV::datoscompletos('DESC', 'CAJA-MEDIUM');
+        $cajamedium = MateriaPrimaV::datoscompletos('DESC', 'MEDIUM');
 
         $totalCostoM = MateriaPrimaV::sumarCosto('CAJA-MEDIUM');
 
