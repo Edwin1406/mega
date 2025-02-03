@@ -87,7 +87,8 @@
 <style>
     .grafica_dual{
         display: flex;
-        justify-content: space-between;
+        flex-direction: 1fr 1fr;
+        gap: 1rem;
 
 
     }
