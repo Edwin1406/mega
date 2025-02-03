@@ -251,7 +251,7 @@
             const anchos = [...new Set(data.map(item => item.ancho))];
 
             const series = anchos.map(ancho => ({
-                name: `Ancho: ${ancho}mm`,
+                name: `Ancho: ${ancho} mm`,
                 data: gramajes.map(gramaje => {
                     const items = data.filter(item => item.ancho === ancho && item.gramaje === gramaje);
                     return items.reduce((sum, item) => sum + parseFloat(item.existencia), 0);
