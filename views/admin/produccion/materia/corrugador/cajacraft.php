@@ -24,7 +24,7 @@
 <style>
   .original{
     display: flex;
-    justify-content: space-between;
+    justify-content: 1fr 1fr;
     gap: 1rem;
 
   }
