@@ -106,19 +106,28 @@
     <div id="chart" class="tamaño"></div>
 </div>
 
-<table id="dataTable">
-    <thead>
-      <tr>
-        <th>Ancho</th>
-        <th>Gramaje</th>
-        <th>Línea</th>
-        <th>Existencia</th>
-      </tr>
-    </thead>
-    <tbody></tbody>
-</table>
+<style>
+    .display {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+</style>
 
-
+<div class="display">
+    <table id="dataTable">
+        <thead>
+            <tr>
+                <th>Ancho</th>
+                <th>Gramaje</th>
+                <th>Línea</th>
+                <th>Existencia</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+    
+    
     <h2 class="titulo_pedido">Pedidos (Comercial)</h2>
     <table id="comercialTable" class="dataTables">
         <thead>
@@ -134,7 +143,8 @@
         </thead>
         <tbody></tbody>
     </table>
-
+    
+</div>
 
 <script>
 (function () {
