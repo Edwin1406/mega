@@ -241,19 +241,20 @@ public static function menosDeCien($orden = 'DESC') {
     //     return $resultado;
     // }
 
-
     public static function allc($orden = 'DESC', $lineas = null) {
         // Construye la consulta base
         $query = "SELECT id, existencia, linea, gramaje, proveedor, sustrato, ancho FROM " . static::$tabla;
     
-        // Filtrar por múltiples líneas si se proporcionan
+        // Manejar múltiples líneas con coincidencias parciales
         if ($lineas !== null) {
             if (is_array($lineas)) {
-                // Si es un array, construir la cláusula WHERE con IN
-                $lineasEscapadas = array_map('addslashes', $lineas);
-                $query .= " WHERE linea IN ('" . implode("', '", $lineasEscapadas) . "')";
+                // Crear condiciones con LIKE para cada línea
+                $condiciones = array_map(function($linea) {
+                    return "linea LIKE '%" . addslashes($linea) . "%'";
+                }, $lineas);
+                $query .= " WHERE " . implode(" OR ", $condiciones);
             } else {
-                // Si es un string, aplicar filtro con LIKE
+                // Aplicar filtro normal si es solo un string
                 $query .= " WHERE linea LIKE '%" . addslashes($lineas) . "%'";
             }
         }
