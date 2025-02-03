@@ -109,7 +109,7 @@
 <style>
     .display {
         display: flex;
-        flex-direction: column;
+        flex-direction: 1fr 1fr;
         gap: 1rem;
     }
 </style>
