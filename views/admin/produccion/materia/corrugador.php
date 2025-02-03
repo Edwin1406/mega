@@ -81,7 +81,22 @@
 
 
 
-<div id="filters">
+
+
+
+<style>
+    .grafica_dual{
+        display: flex;
+        justify-content: space-between;
+
+
+    }
+</style>
+<div class="grafica_dual">
+
+    
+    <div class="graficas_blancas">
+    <div id="filters">
     <div>
       <label for="filterGramaje">Filtrar por Gramaje:</label>
       <select id="filterGramaje">
@@ -101,20 +116,6 @@
       </select>
     </div>
 </div>
-
-
-<style>
-    .grafica_dual{
-        display: flex;
-        justify-content: space-between;
-        
-
-    }
-</style>
-<div class="grafica_dual">
-
-    
-    <div class="graficas_blancas">
         <div id="chart" class="tamaño"></div>
     </div>
     
