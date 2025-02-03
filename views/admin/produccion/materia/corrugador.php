@@ -127,22 +127,24 @@
         <tbody></tbody>
     </table>
     
-    
-    <h2 class="titulo_pedido">Pedidos (Comercial)</h2>
-    <table id="comercialTable" class="dataTables">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Producto</th>
-                <th>Ancho (mm)</th>
-                <th>Gramaje (g/m²)</th>
-                <th>Cantidad</th>
-                <th>Estado</th>
-                <th>Arribo Planta </th>
-            </tr>
-        </thead>
-        <tbody></tbody>
-    </table>
+    <div>
+
+        <h2 class="titulo_pedido">Pedidos (Comercial)</h2>
+        <table id="comercialTable" class="dataTables">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Producto</th>
+                    <th>Ancho (mm)</th>
+                    <th>Gramaje (g/m²)</th>
+                    <th>Cantidad</th>
+                    <th>Estado</th>
+                    <th>Arribo Planta </th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
     
 </div>
 
