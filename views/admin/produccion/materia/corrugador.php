@@ -121,18 +121,7 @@
     </div>
 
     <div>
-        <h2 class="titulo_existencia">Existencia (Corrugador)</h2>
-        <table id="dataTable">
-            <thead>
-                <tr>
-                    <th>Ancho</th>
-                    <th>Gramaje</th>
-                    <th>Línea</th>
-                    <th>Existencia</th>
-                </tr>
-            </thead>
-            <tbody></tbody>
-        </table>
+        
     </div>
 
 
