@@ -1,14 +1,14 @@
 <h1 class="dashboard__heading"> <?php echo $titulo ?> </h1>
 
 <ul class="lista-areas-produccion">
-    <li class="areas-produccion-estatico-craft">
-        <a href="#">
-            <i class="fas fa-shopping-cart"></i> TOTAL COSTO KRAFT :
-            <?php if ($totalCostoK > 0) : ?>
-                <span class="areas-produccion__numero"> <?php echo $totalCostoK ?> $ </span>
-            <?php endif; ?>
-        </a>
-    </li>
+  <li class="areas-produccion-estatico-craft">
+    <a href="#">
+      <i class="fas fa-shopping-cart"></i> TOTAL COSTO KRAFT :
+      <?php if ($totalCostoK > 0) : ?>
+        <span class="areas-produccion__numero"> <?php echo $totalCostoK ?> $ </span>
+      <?php endif; ?>
+    </a>
+  </li>
 </ul>
 
 
@@ -19,27 +19,41 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
 
-    <div id="filters">
-      <div>
-        <label for="filterGramaje">Filtrar por Gramaje:</label>
-        <select id="filterGramaje">
-          <option value="all">Todos</option>
-        </select>
-      </div>
-      <div>
-        <label for="filterAncho">Filtrar por Ancho:</label>
-        <select id="filterAncho">
-          <option value="all">Todos</option>
-        </select>
-      </div>
-    </div>
+
+
+<style>
+  .original{
+    display: flex;
+    justify-content: space-between;
+    
+  }
+</style>
+
+<div class="original">
+
 
 <div class="graficas_blancas">
+
+  <div id="filters">
+    <div>
+      <label for="filterGramaje">Filtrar por Gramaje:</label>
+      <select id="filterGramaje">
+        <option value="all">Todos</option>
+      </select>
+    </div>
+    <div>
+      <label for="filterAncho">Filtrar por Ancho:</label>
+      <select id="filterAncho">
+        <option value="all">Todos</option>
+      </select>
+    </div>
+  </div>
   <div id="chart" class="tamaño"></div>
 </div>
 
+<div>
 
-  <table id="dataTable" >
+  <table id="dataTable">
     <thead>
       <tr>
         <th>Ancho</th>
@@ -49,10 +63,13 @@
     </thead>
     <tbody></tbody>
   </table>
+</div>
+
+</div>
 
 
-  <script>
-  (function(){
+<script>
+  (function() {
     const apiUrl = `${location.origin}/admin/api/apicajacraft`;
     let originalData = [];
     let chart;
@@ -188,12 +205,12 @@
     $(document).ready(() => {
       $("#dataTable").DataTable({
         language: {
-          url: "//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json" 
+          url: "//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json"
         }
       });
       fetchData();
     });
-    
 
-})();
+
+  })();
 </script>
