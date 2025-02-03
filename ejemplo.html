@@ -1,97 +1,213 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Combinación de Bobinas</title>
+    <title>estilos</title>
 </head>
 <body>
+    
 
-    <p>Los 10 mejores anchos se usarán para calcular combinaciones óptimas.</p>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+        }
 
-    <button onclick="calcularCombinaciones()">Calcular Combinaciones</button>
+        .padre{
+            margin-top: 1rem;
+            display: flex;
+            flex-direction: 1fr 1fr 1fr;
+            gap: 1rem;
+         
+            
+            
+        }
+        .hijo{
+            border-radius: 0.5rem;
+            background-color: rgb(145, 184, 101);
+            text-align: center;
+            color: white;
+            margin: 0.5rem;
+            
+        }
+        
+        .hijo2{
+            margin: 0.5rem;
+            border-radius: 0.5rem;
+            background-color: blue;
+            text-align: center;
+            color: white;
+            
+        }
+        .hijo3{
+            border-radius: 0.5rem;
+            color: white;
+            background-color: green;
+            text-align: center;
+            margin: 0.5rem;
+        } 
 
-    <h2>Resultados</h2>
-    <ul id="resultados"></ul>
 
-    <h3>Frecuencia de Uso de las Bobinas</h3>
-    <ul id="frecuenciaBobinas"></ul>
+        .dos_parrafos{
+            display: flex;
+            flex-direction: 1fr 1fr;
+            gap: 1rem;
+            text-align: center;
+            margin: 0.5rem;
+            border-radius: 0.5rem;
+            
+        }
+        
+        .hijo__parrafo{
+            display: flex;
+            background-color: aqua;
+            border-radius: 1rem;
+            gap: 2rem;
+        }
 
-    <script>
-        // Los 10 mejores anchos y sus frecuencias
-        const anchos = [573, 613, 632, 678, 760, 783, 893, 914, 1041, 1064];
-        const maxBobina = 1980;
-        const minBobina = 200;
 
-        function calcularCombinaciones() {
-            const resultados = [];
-            const usado = new Set();
-            const contadorBobinas = {}; // Objeto para contar las bobinas recomendadas
-
-            // Calcular todas las combinaciones posibles (todos contra todos)
-            for (let i = 0; i < anchos.length; i++) {
-                for (let j = 0; j < anchos.length; j++) {
-                    // Evitar combinaciones repetidas
-                    if (i !== j) {
-                        let suma = anchos[i] + anchos[j];
-
-                        // Agregar 30 a la suma
-                        suma += 30;
-
-                        // Verificar si la suma está dentro del rango permitido
-                        if (suma >= minBobina && suma <= maxBobina) {
-                            // Redondear al múltiplo de 100 más cercano, pero no superar el máximo de 1980
-                            let recomendada = Math.ceil(suma / 50) * 50;
-                            if (recomendada > maxBobina) {
-                                recomendada = maxBobina; // Ajustar si excede el límite
-                            }
-
-                            // Calcular desperdicio
-                            const desperdicio = suma - recomendada;
-
-                            const claveCombinacion = `${anchos[i]}+${anchos[j]}`;
-
-                            if (!usado.has(claveCombinacion)) {
-                                resultados.push({
-                                    combinacion: `${anchos[i]} + ${anchos[j]} = ${suma}`,
-                                    bobinaRecomendada: recomendada,
-                                    desperdicio: desperdicio
-                                });
-                                usado.add(claveCombinacion);
-
-                                // Contar cuántas veces aparece cada bobina recomendada
-                                if (contadorBobinas[recomendada]) {
-                                    contadorBobinas[recomendada]++;
-                                } else {
-                                    contadorBobinas[recomendada] = 1;
-                                }
-                            }
-                        }
-                    }
-                }
+        li:hover{
+            background-color: rgb(108, 177, 119);
+            border-radius: 1rem;
+            padding: 1rem;
+        
+        }
+        
+        
+        /* celular */
+        @media screen and (max-width: 768px){
+            .padre{
+                flex-direction: column;
             }
 
-            // Mostrar los resultados en el HTML
-            const resultadosLista = document.getElementById('resultados');
-            resultadosLista.innerHTML = ''; // Limpiar resultados previos
-            resultados.forEach(resultado => {
-                const li = document.createElement('li');
-                li.textContent = `${resultado.combinacion} - Bobina Recomendada: ${resultado.bobinaRecomendada} - Desperdicio: ${resultado.desperdicio}`;
-                resultadosLista.appendChild(li);
-            });
+            .header{
+                flex-direction: column;
+                text-align: center;
+            }
 
-            // Mostrar la frecuencia de uso de cada bobina
-            const frecuenciaLista = document.getElementById('frecuenciaBobinas');
-            frecuenciaLista.innerHTML = ''; // Limpiar la lista previa
-            for (const bobina in contadorBobinas) {
-                const li = document.createElement('li');
-                li.textContent = `La bobina utilizada es: ${bobina} (usada ${contadorBobinas[bobina]} veces)`;
-                frecuenciaLista.appendChild(li);
+            .nav{
+                display: flex;
+                justify-content: center;
+            }
+            .nav ul{ 
+               
+                flex-direction: column;
+                text-align: center;
+
+
+            }
+
+            .logo{
+                margin: 1rem
+            }
+
+
+
+            li:hover{
+                background-color: rgb(108, 177, 119);
+                padding: 0.2rem;
+                border-radius: 1rem;
+                justify-items: center;
             }
         }
-    </script>
+
+        .header{
+            display: flex;
+            justify-content: space-between; 
+            padding-top: 1rem;
+            padding-bottom: 1rem;
+            background-color: rgb(224, 110, 110);
+            
+            
+        }
+        
+        nav {
+            display: flex;
+            align-items: center; /* Centrar verticalmente */
+            
+            }
+
+        
+        .nav ul{
+            display: flex;
+            gap: 1rem;
+            list-style: none;
+            margin: 1rem;
+            font-size: 1.5rem;
+            
+        }
+        
+        
+        
+        .nav ul li a{
+            text-decoration: none;
+            color: black;
+        }
+
+        .logo{
+            margin-left: 1rem;
+            scale: 1;
+           box-shadow: 0.5rem 0.5rem 0.5rem rgba(0, 0, 0, 0.5);
+           background-color: rgb(184, 181, 181);
+              border-radius: 1rem;
+              padding: 1rem;
+        }
+
+
+        /* .nav:hover  a{
+            background-color: red;
+            padding: 0.5rem;
+            border-radius: 1rem;
+        } */
+    </style>
+
+
+
+
+<header class="header">
+    <div class="logo">
+        <img src="https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png" alt="">
+    </div>
+    <nav class="nav">
+        <ul>
+            <li><a href="#">Inicio</a></li>
+            <li><a href="#">Servicios</a></li>
+            <li><a href="#">Contacto</a></li>
+        </ul>
+    </nav>
+</header>
+
+<div class="padre">
+    <div class="hijo">
+        <h1>Relación entre Comercial y Corrugador</h1>
+        <p> Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam vel laboriosam numquam veritatis sint cupiditate fugit quam, ea omnis, amet ut reiciendis odit ab harum totam tempore! Corrupti, earum perferendis?</p>
+
+    </div>
+
+    
+    <div class="hijo2">
+        <h1>Relación entre Comercial y Corrugador</h1>
+        <p> Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam vel laboriosam numquam veritatis sint cupiditate fugit quam, ea omnis, amet ut reiciendis odit ab harum totam tempore! Corrupti, earum perferendis?</p>
+
+    </div>
+    <div class="hijo3">
+        <h1>Relación entre Comercial y Corrugador</h1>
+        <div class="dos_parrafos">
+            <div class="hijo__parrafo">
+                <p> Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam vel laboriosam numquam veritatis sint cupiditate fugit quam, ea omnis, amet ut reiciendis odit ab harum totam tempore! Corrupti, earum perferendis?</p>
+            </div>
+            <div class="hijo__parrafo1">
+                <p> Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam vel laboriosam numquam veritatis sint cupiditate fugit quam, ea omnis, amet ut reiciendis odit ab harum totam tempore! Corrupti, earum perferendis?</p>
+            </div>
+            
+        </div>
+
+    </div>
+
+</div>
+
 </body>
 </html>
-
-
-

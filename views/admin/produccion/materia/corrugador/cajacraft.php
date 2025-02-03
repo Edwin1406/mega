@@ -22,7 +22,7 @@
 
 
 <style>
-  .original{
+  .original {
     display: flex;
     justify-content: 1fr 1fr;
     gap: 1rem;
@@ -33,38 +33,38 @@
 <div class="original">
 
 
-<div class="graficas_blancas">
+  <div class="graficas_blancas">
 
-  <div id="filters">
-    <div>
-      <label for="filterGramaje">Filtrar por Gramaje:</label>
-      <select id="filterGramaje">
-        <option value="all">Todos</option>
-      </select>
+    <div id="filters">
+      <div>
+        <label for="filterGramaje">Filtrar por Gramaje:</label>
+        <select id="filterGramaje">
+          <option value="all">Todos</option>
+        </select>
+      </div>
+      <div>
+        <label for="filterAncho">Filtrar por Ancho:</label>
+        <select id="filterAncho">
+          <option value="all">Todos</option>
+        </select>
+      </div>
     </div>
-    <div>
-      <label for="filterAncho">Filtrar por Ancho:</label>
-      <select id="filterAncho">
-        <option value="all">Todos</option>
-      </select>
-    </div>
+    <div id="chart" class="tamaño"></div>
   </div>
-  <div id="chart" class="tamaño"></div>
-</div>
 
-<div>
+  <div>
 
-  <table id="dataTable">
-    <thead>
-      <tr>
-        <th>Ancho</th>
-        <th>Gramaje</th>
-        <th>Existencia</th>
-      </tr>
-    </thead>
-    <tbody></tbody>
-  </table>
-</div>
+    <table id="dataTable">
+      <thead>
+        <tr>
+          <th>Ancho</th>
+          <th>Gramaje</th>
+          <th>Existencia</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
 
 </div>
 
