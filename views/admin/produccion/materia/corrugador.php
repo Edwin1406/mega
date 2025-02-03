@@ -118,7 +118,7 @@
     <tbody></tbody>
 </table>
 
-<div>
+
     <h2 class="titulo_pedido">Pedidos (Comercial)</h2>
     <table id="comercialTable" class="dataTables">
         <thead>
@@ -134,7 +134,7 @@
         </thead>
         <tbody></tbody>
     </table>
-</div>
+
 
 <script>
 (function () {
