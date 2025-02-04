@@ -7,6 +7,7 @@ use MVC\Router;
 use Model\Comercial;
 use Classes\Paginacion;
 use GuzzleHttp\Psr7\Header;
+use Model\Ubicaciones;
 
 class ComercialController {
 
@@ -189,7 +190,7 @@ class ComercialController {
 
     public static function ubicaciones (Router $router)
     {
-        $ubicaciones = Comercial::all('ASC');
+        $ubicaciones = Ubicaciones::all('ASC');
         echo json_encode($ubicaciones);
        
     }
