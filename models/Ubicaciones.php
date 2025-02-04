@@ -4,7 +4,7 @@ namespace Model;
 
 class Ubicaciones extends ActiveRecord {
 
-    protected static $tabla = 'ubicaiones';
+    protected static $tabla = 'ubicaciones';
     protected static $columnasDB = ['id', 'camion_id','latitud', 'longitud', 'velocidad','hora_registro'];
 
     public $id;
