@@ -165,7 +165,13 @@
     </div>
 
 </div>
+<style>
+    .apexcharts-legend {
+    max-height: 80px;
+    overflow-y: auto;
+}
 
+</style>
 <script>
     (function() {
         const apiComercialUrl = `${location.origin}/admin/api/apicomercial`;
