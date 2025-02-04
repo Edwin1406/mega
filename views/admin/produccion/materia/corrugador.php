@@ -248,7 +248,7 @@
 
         function renderChart(data) {
     const gramajes = [...new Set(data.map(item => item.gramaje))].slice(0, 20);  // Limita a 20 gramajes
-    const anchos = [...new Set(data.map(item => item.ancho))];
+    const anchos = [...new Set(data.map(item => item.ancho))].slice(0, 15);  // Opcional: limitar a 15 anchos
 
     const series = anchos.map(ancho => ({
         name: `Ancho: ${ancho} mm`,
@@ -259,47 +259,53 @@
     }));
 
     const options = {
-    series: series,
-    chart: {
-        type: 'bar',
-        height: 400,
-        stacked: true,
-        toolbar: {
-            show: true,
+        series: series,
+        chart: {
+            type: 'bar',
+            height: 400,
+            stacked: true,
+            toolbar: {
+                show: true,
+            },
         },
-    },
-    plotOptions: {
-        bar: {
-            horizontal: false,
-            borderRadius: 4,
+        plotOptions: {
+            bar: {
+                horizontal: false,
+                borderRadius: 4,
+            },
         },
-    },
-    dataLabels: {
-        enabled: true,
-    },
-    xaxis: {
-        categories: gramajes.slice(0, 20), // Limita a 20 categorías
-        title: {
-            text: 'Gramajes',
+        dataLabels: {
+            enabled: true,
         },
-    },
-    yaxis: {
-        title: {
-            text: 'Existencias Totales',
+        xaxis: {
+            categories: gramajes,
+            title: {
+                text: 'Gramajes',
+            },
         },
-    },
-    legend: {
-        position: 'top',
-        horizontalAlign: 'center',
-        floating: false,
-        maxHeight: 100,  // Limitar la altura máxima
-        scrollable: true,  // Hace la leyenda desplazable
-    },
-    fill: {
-        opacity: 1,
-    },
-};
-
+        yaxis: {
+            title: {
+                text: 'Existencias Totales',
+            },
+        },
+        legend: {
+            position: 'top',
+            horizontalAlign: 'center',
+            floating: false,
+            maxHeight: 80,
+            itemMargin: {
+                horizontal: 10,
+                vertical: 5,
+            },
+            formatter: function(seriesName) {
+                // Limitar longitud del nombre para mejorar visualización
+                return seriesName.length > 20 ? seriesName.substring(0, 17) + '...' : seriesName;
+            },
+        },
+        fill: {
+            opacity: 1,
+        },
+    };
 
     if (chart) {
         chart.updateOptions(options);
@@ -308,6 +314,7 @@
         chart.render();
     }
 }
+
 
 
         function renderTables(comercialData, corrugadorData) {
