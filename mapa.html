@@ -26,14 +26,6 @@
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(map);
 
-        // Definir un icono personalizado para los camiones
-        var truckIcon = L.icon({
-            iconUrl: 'https://cdn-icons-png.flaticon.com/512/2286/2286690.png',  // URL del icono (puedes cambiarla)
-            iconSize: [32, 32],  // Tamaño del icono
-            iconAnchor: [16, 32],  // Punto de anclaje (centro del icono)
-            popupAnchor: [0, -32]  // Desplazamiento del popup
-        });
-
         // Almacenar los marcadores actuales
         var markers = {};
 
@@ -49,7 +41,7 @@
 
                     // Agregar los nuevos marcadores
                     data.forEach(camion => {
-                        var marker = L.marker([camion.latitud, camion.longitud], { icon: truckIcon }).addTo(map);
+                        var marker = L.marker([camion.latitud, camion.longitud]).addTo(map);
                         marker.bindPopup(`<b>Camión ${camion.camion_id}</b><br>Velocidad: ${camion.velocidad} km/h.<br>Hora: ${camion.hora_registro}`);
                         markers[camion.camion_id] = marker;
                     });
