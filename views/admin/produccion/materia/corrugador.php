@@ -247,62 +247,63 @@
         }
 
         function renderChart(data) {
-            const gramajes = [...new Set(data.map(item => item.gramaje))];
-            const anchos = [...new Set(data.map(item => item.ancho))];
+    const gramajes = [...new Set(data.map(item => item.gramaje))].slice(0, 20);  // Limita a 20 gramajes
+    const anchos = [...new Set(data.map(item => item.ancho))];
 
-            const series = anchos.map(ancho => ({
-                name: `Ancho: ${ancho} mm`,
-                data: gramajes.map(gramaje => {
-                    const items = data.filter(item => item.ancho === ancho && item.gramaje === gramaje);
-                    return items.reduce((sum, item) => sum + parseFloat(item.existencia), 0);
-                }),
-            }));
+    const series = anchos.map(ancho => ({
+        name: `Ancho: ${ancho} mm`,
+        data: gramajes.map(gramaje => {
+            const items = data.filter(item => item.ancho === ancho && item.gramaje === gramaje);
+            return items.reduce((sum, item) => sum + parseFloat(item.existencia), 0);
+        }),
+    }));
 
-            const options = {
-                series: series,
-                chart: {
-                    type: 'bar',
-                    height: 400,
-                    stacked: true,
-                    toolbar: {
-                        show: true,
-                    },
-                },
-                plotOptions: {
-                    bar: {
-                        horizontal: false,
-                        borderRadius: 4,
-                    },
-                },
-                dataLabels: {
-                    enabled: true,
-                },
-                xaxis: {
-                    categories: gramajes,
-                    title: {
-                        text: 'Gramajes',
-                    },
-                },
-                yaxis: {
-                    title: {
-                        text: 'Existencias Totales',
-                    },
-                },
-                legend: {
-                    position: 'top',
-                },
-                fill: {
-                    opacity: 1,
-                },
-            };
+    const options = {
+        series: series,
+        chart: {
+            type: 'bar',
+            height: 400,
+            stacked: true,
+            toolbar: {
+                show: true,
+            },
+        },
+        plotOptions: {
+            bar: {
+                horizontal: false,
+                borderRadius: 4,
+            },
+        },
+        dataLabels: {
+            enabled: true,
+        },
+        xaxis: {
+            categories: gramajes,
+            title: {
+                text: 'Gramajes',
+            },
+        },
+        yaxis: {
+            title: {
+                text: 'Existencias Totales',
+            },
+        },
+        legend: {
+            position: 'top',
+        },
+        fill: {
+            opacity: 1,
+        },
+    };
 
-            if (chart) {
-                chart.updateOptions(options);
-            } else {
-                chart = new ApexCharts(document.querySelector("#chart"), options);
-                chart.render();
-            }
-        }
+    if (chart) {
+        chart.updateOptions(options);
+    } else {
+        chart = new ApexCharts(document.querySelector("#chart"), options);
+        chart.render();
+    }
+}
+
 
         function renderTables(comercialData, corrugadorData) {
             const corrugadorTable = $("#dataTable").DataTable();
