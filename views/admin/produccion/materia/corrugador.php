@@ -259,42 +259,47 @@
     }));
 
     const options = {
-        series: series,
-        chart: {
-            type: 'bar',
-            height: 400,
-            stacked: true,
-            toolbar: {
-                show: true,
-            },
+    series: series,
+    chart: {
+        type: 'bar',
+        height: 400,
+        stacked: true,
+        toolbar: {
+            show: true,
         },
-        plotOptions: {
-            bar: {
-                horizontal: false,
-                borderRadius: 4,
-            },
+    },
+    plotOptions: {
+        bar: {
+            horizontal: false,
+            borderRadius: 4,
         },
-        dataLabels: {
-            enabled: true,
+    },
+    dataLabels: {
+        enabled: true,
+    },
+    xaxis: {
+        categories: gramajes.slice(0, 20), // Limita a 20 categorías
+        title: {
+            text: 'Gramajes',
         },
-        xaxis: {
-            categories: gramajes,
-            title: {
-                text: 'Gramajes',
-            },
+    },
+    yaxis: {
+        title: {
+            text: 'Existencias Totales',
         },
-        yaxis: {
-            title: {
-                text: 'Existencias Totales',
-            },
-        },
-        legend: {
-            position: 'top',
-        },
-        fill: {
-            opacity: 1,
-        },
-    };
+    },
+    legend: {
+        position: 'top',
+        horizontalAlign: 'center',
+        floating: false,
+        maxHeight: 100,  // Limitar la altura máxima
+        scrollable: true,  // Hace la leyenda desplazable
+    },
+    fill: {
+        opacity: 1,
+    },
+};
+
 
     if (chart) {
         chart.updateOptions(options);
