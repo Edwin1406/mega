@@ -1,127 +1,58 @@
-<!-- Sistema para Conductores (Mobile-First) -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>App Conductor</title>
-    <style>
-        /* Estilos específicos para conductores */
-        body { font-family: Arial, sans-serif; margin: 0; padding: 15px; }
-        .gps-section, .document-section { margin-bottom: 20px; padding: 15px; background: #f8f9fa; border-radius: 8px; }
-        .camera-preview { width: 100%; height: 200px; background: #ddd; margin: 10px 0; }
-        button { padding: 12px 20px; background: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer; }
-        .coordinates { margin: 10px 0; }
-    </style>
-</head>
-<body>
-    <div class="gps-section">
-        <h2>Ubicación Actual</h2>
-        <div class="coordinates">Lat: <span id="latitude">-</span></div>
-        <div class="coordinates">Lon: <span id="longitude">-</span></div>
-        <div class="coordinates">Precisión: <span id="accuracy">-</span> m</div>
-    </div>
-
-    <div class="document-section">
-        <h2>Registrar Guía</h2>
-        <div class="camera-preview" id="cameraPreview"></div>
-        <input type="file" id="docInput" accept="image/*" capture="environment">
-        <button onclick="uploadDocument()">Subir Documento</button>
-    </div>
-
-    <script>
-        // Geolocalización en tiempo real
-        let currentPosition = null;
-        
-        function trackPosition() {
-            if(navigator.geolocation) {
-                navigator.geolocation.watchPosition(position => {
-                    currentPosition = position;
-                    document.getElementById('latitude').textContent = position.coords.latitude.toFixed(6);
-                    document.getElementById('longitude').textContent = position.coords.longitude.toFixed(6);
-                    document.getElementById('accuracy').textContent = position.coords.accuracy.toFixed(0);
-                    sendPositionToServer(position);
-                }, handleGeoError, {enableHighAccuracy: true});
-            }
-        }
-
-        async function uploadDocument() {
-            const fileInput = document.getElementById('docInput');
-            const file = fileInput.files[0];
-            
-            if(file && currentPosition) {
-                const formData = new FormData();
-                formData.append('document', file);
-                formData.append('latitude', currentPosition.coords.latitude);
-                formData.append('longitude', currentPosition.coords.longitude);
-                formData.append('timestamp', new Date().toISOString());
-
-                try {
-                    const response = await fetch('/api/upload', {
-                        method: 'POST',
-                        body: formData
-                    });
-                    alert('Documento registrado con ubicación');
-                } catch(error) {
-                    console.error('Error:', error);
-                }
-            }
-        }
-
-        function handleGeoError(error) {
-            console.error('Error de geolocalización:', error);
-        }
-
-        // Iniciar seguimiento al cargar
-        window.onload = trackPosition;
-    </script>
-</body>
-</html>
-
-
-<!-- Sistema de Monitoreo (Dashboard Admin) -->
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>Monitoreo de Flota</title>
-    <style>
-        #map { height: 600px; width: 100%; }
-        .truck-info { position: absolute; top: 20px; right: 20px; background: white; padding: 20px; z-index: 1000; }
-    </style>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css">
-</head>
-<body>
-    <div id="map"></div>
-    <div class="truck-info" id="truckInfo"></div>
-
+    <title>Seguimiento de Camiones</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <style>
+        #map {
+            height: 500px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <h1>Seguimiento en Tiempo Real de Camiones</h1>
+    <div id="map"></div>
+
     <script>
-        // Mapa base
-        const map = L.map('map').setView([19.4326, -99.1332], 12);
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+        // Inicializar el mapa
+        var map = L.map('map').setView([19.4326, -99.1332], 12);  // Coordenadas iniciales (Ciudad de México)
 
-        // Marcadores dinámicos
-        const truckMarkers = {};
+        // Cargar tiles de OpenStreetMap
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
 
-        function updateTruckPositions() {
-            fetch('/api/trucks')
+        // Almacenar los marcadores actuales
+        var markers = {};
+
+        // Función para cargar las ubicaciones de los camiones
+        function cargarCamiones() {
+            fetch('api/obtener-ubicaciones.php')  // Endpoint para obtener los datos
                 .then(response => response.json())
-                .then(trucks => {
-                    trucks.forEach(truck => {
-                        if(!truckMarkers[truck.id]) {
-                            truckMarkers[truck.id] = L.marker([truck.lat, truck.lng])
-                                .bindPopup(`<b>Camion ${truck.id}</b>`)
-                                .addTo(map);
-                        } else {
-                            truckMarkers[truck.id].setLatLng([truck.lat, truck.lng]);
-                        }
+                .then(data => {
+                    // Eliminar marcadores anteriores
+                    for (var id in markers) {
+                        map.removeLayer(markers[id]);
+                    }
+
+                    // Agregar los nuevos marcadores
+                    data.forEach(camion => {
+                        var marker = L.marker([camion.latitud, camion.longitud]).addTo(map);
+                        marker.bindPopup(`<b>Camión ${camion.id}</b><br>Velocidad: ${camion.velocidad} km/h.`);
+                        markers[camion.id] = marker;
                     });
                 });
         }
 
-        // Actualizar cada 5 segundos
-        setInterval(updateTruckPositions, 5000);
+        // Cargar ubicaciones de camiones al cargar la página
+        cargarCamiones();
+
+        // Actualizar las ubicaciones cada 10 segundos
+        setInterval(cargarCamiones, 10000);
     </script>
 </body>
 </html>

@@ -193,7 +193,7 @@ $router->get('/admin/api/ApiMateriaPrima', [MateriaPrimaController::class, 'ApiM
 
 
 
-
+$router->get('/admin/api/ubicaciones', [ComercialController::class, 'ubicaciones']);
 
 
 

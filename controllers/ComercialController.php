@@ -187,6 +187,12 @@ class ComercialController {
 
 
 
+    public static function ubicaciones (Router $router)
+    {
+        $ubicaciones = Comercial::all('ASC');
+        echo json_encode($ubicaciones);
+       
+    }
 
 
 
