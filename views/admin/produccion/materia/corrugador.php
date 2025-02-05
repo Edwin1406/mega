@@ -157,7 +157,7 @@
  
     .tablageneral {
         display: flex;
-        flex-direction: column;
+        flex-direction: row;
         gap: 0.5rem;
         background-color: rgb(214, 234, 248);
         padding: 1rem;
