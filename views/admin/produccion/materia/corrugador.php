@@ -141,7 +141,7 @@
         <div id="totalExistencia" class="total-display">Total de Existencia: 0</div>
     </div>
 
-
+    <div class="display">
     
 <div id="filters-otros">
     <div>
@@ -164,7 +164,7 @@
     </div>
 </div>
 
-<div class="display">
+
     <h2 class="titulo_existencia">Existencia (Otros Anchos)</h2>
     <table id="dataTableOtros">
         <thead>
