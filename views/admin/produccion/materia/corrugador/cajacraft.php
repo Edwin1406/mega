@@ -32,7 +32,6 @@
 
 <div class="original">
 
-
   <div class="graficas_blancas">
 
     <div id="filters">
