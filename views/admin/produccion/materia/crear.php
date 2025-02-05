@@ -147,7 +147,7 @@
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
-<div class="dashboard__grafica" data-aos="fade-up">
+<div class="dashboard__grafica">
     <canvas id="existenciaChart" width="400" height="200"></canvas>
 
 </div>
