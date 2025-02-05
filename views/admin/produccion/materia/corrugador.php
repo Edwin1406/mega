@@ -413,6 +413,8 @@
 <script>
     (function() {
         const apiOtrosAnchosUrl = `${location.origin}/admin/api/apiotrosanchos`;
+
+        console.log(apiOtrosAnchosUrl);
         let originalOtrosData = [];
 
         async function fetchDataOtros() {
