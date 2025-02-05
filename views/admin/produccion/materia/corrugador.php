@@ -329,65 +329,33 @@
         }
 
         function renderChart(data) {
-    const gramajes = [...new Set(data.map(item => item.gramaje))].slice(0, 20);
-    const anchos = [...new Set(data.map(item => item.ancho))].slice(0, 15);
+    // Agrupar datos por gramaje
+    const groupedData = data.reduce((acc, item) => {
+        acc[item.gramaje] = (acc[item.gramaje] || 0) + parseFloat(item.existencia);
+        return acc;
+    }, {});
 
-    const series = anchos.map(ancho => ({
-        name: `Ancho: ${ancho} mm`,
-        data: gramajes.map(gramaje => {
-            const items = data.filter(item => item.ancho === ancho && item.gramaje === gramaje);
-            return items.reduce((sum, item) => sum + parseFloat(item.existencia), 0);
-        }),
-    }));
+    // Extraer categorías y valores
+    const gramajes = Object.keys(groupedData);
+    const existencias = Object.values(groupedData);
 
+    // Configurar gráfico de pastel
     const options = {
-        series: series,
+        series: existencias,
         chart: {
-            type: 'bar',
+            type: 'pie',
             height: 400,
-            stacked: true,
-            toolbar: {
-                show: true,
-            },
         },
-        plotOptions: {
-            bar: {
-                horizontal: false,
-                borderRadius: 4,
-            },
+        labels: gramajes,
+        legend: {
+            position: 'top',
         },
         dataLabels: {
             enabled: true,
         },
-        xaxis: {
-            categories: gramajes,
-            title: {
-                text: 'Gramajes',
-            },
-        },
-        yaxis: {
-            title: {
-                text: 'Existencias Totales',
-            },
-        },
-        legend: {
-            position: 'top',
-            horizontalAlign: 'center',
-            floating: false,
-            maxHeight: 80,
-            itemMargin: {
-                horizontal: 10,
-                vertical: 5,
-            },
-            formatter: function(seriesName) {
-                return seriesName.length > 20 ? seriesName.substring(0, 17) + '...' : seriesName;
-            },
-        },
-        fill: {
-            opacity: 1,
-        },
     };
 
+    // Renderizar el gráfico
     if (chart) {
         chart.updateOptions(options);
     } else {
