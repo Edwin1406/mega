@@ -357,7 +357,17 @@
             // Dibujar tablas
             comercialTable.draw();
             corrugadorTable.draw();
+           // Agregar fila de total a la tabla de comercial
+    comercialTable.row.add([
+        "", "TOTAL", "", "", totalCantidad, "", ""
+    ]).draw();
+
+    // Agregar fila de total a la tabla de corrugador
+    corrugadorTable.row.add([
+        "", "TOTAL", "", totalExistencia
+    ]).draw();
         }
+
 
         $(document).ready(() => {
             if (!$.fn.DataTable.isDataTable("#dataTable")) {
