@@ -1,145 +1,63 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Seguimiento de Camiones</title>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
-    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
-    <style>
-        #map {
-            height: 500px;
-            width: 100%;
-        }
-    </style>
-</head>
-<body>
-    <h1>Seguimiento en Tiempo Real de Camiones</h1>
-    <div id="map"></div>
 
-    <script>
-        // Inicializar el mapa centrado en Cayambe
-        var map = L.map('map').setView([-0.040593, -78.145236], 12);
+<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
 
-        // Cargar tiles de OpenStreetMap
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        }).addTo(map);
 
-        // Almacenar los marcadores actuales
-        var markers = {};
+<div class="grafica_dual">
+    <div id="chart1880" class="chart-container"></div>
+    <div id="chart1100" class="chart-container"></div>
+</div>
 
-        // Función para determinar el color del marcador según el estado
-        function obtenerColorPorEstado(estado) {
-            switch (estado) {
-                case 'salida': return 'blue';       // Color azul para salida
-                case 'en ruta': return 'orange';     // Color naranja para en ruta
-                case 'llegada': return 'green';      // Color verde para llegada
-                case 'planta': return 'red';         // Color rojo para planta
-                default: return 'gray';              // Color gris por defecto
-            }
-        }
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Datos simulados para los dos anchos
+        const data1880 = [
+            { gramaje: "80g", porcentaje: 30 },
+            { gramaje: "100g", porcentaje: 25 },
+            { gramaje: "120g", porcentaje: 20 },
+            { gramaje: "150g", porcentaje: 15 },
+            { gramaje: "200g", porcentaje: 10 }
+        ];
 
-        // Función para crear un ícono personalizado
-        function crearIconoPersonalizado(color) {
-            return L.divIcon({
-                className: 'custom-icon',
-                html: `<div style="background-color: ${color}; width: 20px; height: 20px; border-radius: 50%;"></div>`,
-                iconSize: [20, 20]
-            });
-        }
+        const data1100 = [
+            { gramaje: "70g", porcentaje: 40 },
+            { gramaje: "90g", porcentaje: 30 },
+            { gramaje: "110g", porcentaje: 20 },
+            { gramaje: "130g", porcentaje: 10 }
+        ];
 
-        // Función para cargar las ubicaciones de los camiones
-        function cargarCamiones() {
-            fetch('https://megawebsistem.com/admin/api/ubicaciones')  // URL de tu API
-                .then(response => response.json())
-                .then(data => {
-                    // Eliminar marcadores anteriores
-                    for (var id in markers) {
-                        map.removeLayer(markers[id]);
+        function renderPieChart(containerId, data) {
+            const chartData = data.map(item => item.porcentaje);
+            const labels = data.map(item => item.gramaje);
+
+            const options = {
+                series: chartData,
+                chart: {
+                    type: 'pie',
+                    height: 350
+                },
+                labels: labels,
+                responsive: [{
+                    breakpoint: 480,
+                    options: {
+                        chart: {
+                            width: 300
+                        },
+                        legend: {
+                            position: 'bottom'
+                        }
                     }
+                }]
+            };
 
-                    // Agregar los nuevos marcadores
-                    data.forEach(camion => {
-                        var color = obtenerColorPorEstado(camion.estado);
-                        var icono = crearIconoPersonalizado(color);
-
-                        var marker = L.marker([camion.latitud, camion.longitud], { icon: icono }).addTo(map);
-                        marker.bindPopup(`<b>Camión ${camion.camion_id}</b><br>Velocidad: ${camion.velocidad} km/h.<br>Hora: ${camion.hora_registro}`);
-                        markers[camion.camion_id] = marker;
-                    });
-                })
-                .catch(error => {
-                    console.error('Error al cargar las ubicaciones:', error);
-                });
+            const chart = new ApexCharts(document.querySelector(`#${containerId}`), options);
+            chart.render();
         }
 
-        // Cargar ubicaciones de camiones al cargar la página
-        cargarCamiones();
-
-        // Actualizar las ubicaciones cada 10 segundos
-        setInterval(cargarCamiones, 10000);
-    </script>
-</body>
-</html>
-
-
-
-
-
-
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Datos del Teléfono</title>
-</head>
-<body>
-    <h1>Datos en tiempo real</h1>
-    <p id="latitud">Latitud: Cargando...</p>
-    <p id="longitud">Longitud: Cargando...</p>
-    <p id="velocidad">Velocidad: Cargando...</p>
-    <p id="hora">Hora de registro: Cargando...</p>
-
-    <script>
-        // Verificar si el navegador soporta geolocalización
-        if ("geolocation" in navigator) {
-            // Obtener ubicación y velocidad en tiempo real
-            navigator.geolocation.watchPosition(
-                (position) => {
-                    const latitud = position.coords.latitude.toFixed(8);
-                    const longitud = position.coords.longitude.toFixed(8);
-                    const velocidad = (position.coords.speed || 0).toFixed(2); // Velocidad en m/s
-                    const horaRegistro = new Date().toISOString();
-
-                    // Mostrar los datos en pantalla
-                    document.getElementById("latitud").innerText = `Latitud: ${latitud}`;
-                    document.getElementById("longitud").innerText = `Longitud: ${longitud}`;
-                    document.getElementById("velocidad").innerText = `Velocidad: ${velocidad} m/s`;
-                    document.getElementById("hora").innerText = `Hora de registro: ${horaRegistro}`;
-
-                    // También puedes ver los datos en la consola
-                    console.log({
-                        latitud: latitud,
-                        longitud: longitud,
-                        velocidad: velocidad,
-                        hora_registro: horaRegistro
-                    });
-                },
-                (error) => {
-                    console.error('Error al obtener la ubicación:', error);
-                },
-                {
-                    enableHighAccuracy: true, // Mejor precisión posible
-                    timeout: 10000,
-                    maximumAge: 0
-                }
-            );
-        } else {
-            console.error("Geolocalización no soportada en este navegador");
-            alert("Tu navegador no soporta geolocalización.");
-        }
-    </script>
-</body>
-</html>
+        // Renderizar los dos gráficos de pastel
+        renderPieChart('chart1880', data1880);
+        renderPieChart('chart1100', data1100);
+    });
+</script>
