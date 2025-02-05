@@ -244,41 +244,6 @@
         <div id="totalExistenciaOtros" class="total-display">Total de Existencia: 0</div>
     </div>
 
-    <div class="tablaotro">
-        <div id="filters-otros" class="filters">
-            <div>
-                <label for="filterGramajeOtros">Filtrar por Gramaje:</label>
-                <select id="filterGramajeOtros">
-                    <option value="all">Todos</option>
-                </select>
-            </div>
-            <div>
-                <label for="filterAnchoOtros">Filtrar por Ancho:</label>
-                <select id="filterAnchoOtros">
-                    <option value="all">Todos</option>
-                </select>
-            </div>
-            <div>
-                <label for="filterLineaOtros">Filtrar por Línea:</label>
-                <select id="filterLineaOtros">
-                    <option value="all">Todos</option>
-                </select>
-            </div>
-        </div>
-        <h2 class="titulo_existencia">Existencia (Otros Anchos)</h2>
-        <table id="dataTableOtros">
-            <thead>
-                <tr>
-                    <th>Ancho</th>
-                    <th>Gramaje</th>
-                    <th>Línea</th>
-                    <th>Existencia</th>
-                </tr>
-            </thead>
-            <tbody></tbody>
-        </table>
-        <div id="totalExistenciaOtros" class="total-display">Total de Existencia: 0</div>
-    </div>
 </div>
 
 <script>
