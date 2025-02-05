@@ -69,13 +69,13 @@
 
 <canvas id="existenciaChart" width="400" height="200"></canvas>
     <script>
-        const existenciaCorrugadorTotal1 = document.querySelector('#valor1').textContent;
-        const existenciaCorrugadorMicroTotal1 = document.querySelector('#valor2').textContent;
-        const existenciaPeriodicaTotal1 = document.querySelector('#valor3').textContent;
+        const existenciaCorrugadorTotal = document.querySelector('#valor1').textContent;
+        const existenciaCorrugadorMicroTotal = document.querySelector('#valor2').textContent;
+        const existenciaPeriodicaTotal = document.querySelector('#valor3').textContent;
         // quitar el texto ' KG' y convertirlo a número
-        const existenciaCorrugadorTotal = parseFloat(existenciaCorrugadorTotal);
-        const existenciaCorrugadorMicroTotal = parseFloat(existenciaCorrugadorMicroTotal);
-        const existenciaPeriodicaTotal = parseFloat(existenciaPeriodicaTotal);
+        existenciaCorrugadorTotal = parseFloat(existenciaCorrugadorTotal);
+        existenciaCorrugadorMicroTotal = parseFloat(existenciaCorrugadorMicroTotal);
+        existenciaPeriodicaTotal = parseFloat(existenciaPeriodicaTotal);
       console.log(existenciaCorrugadorTotal)
 
         // Calcular el total y los porcentajes
