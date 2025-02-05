@@ -70,19 +70,32 @@
 
 
 </ul>
+
+
+
 <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+
+
+
+
+
+
 
 <style>
     .grafica_dual {
         display: flex;
         flex-direction: 1fr 1fr;
         gap: 1rem;
+
+
     }
 </style>
 <div class="grafica_dual">
+
+
     <div class="graficas_blancas">
         <div id="filters">
             <div>
@@ -91,9 +104,29 @@
                     <option value="all">Todos</option>
                 </select>
             </div>
+            <div>
+                <label for="filterAncho">Filtrar por Ancho:</label>
+                <select id="filterAncho">
+                    <option value="all">Todos</option>
+                </select>
+            </div>
+            <div>
+                <label for="filterLinea">Filtrar por Línea:</label>
+                <select id="filterLinea">
+                    <option value="all">Todos</option>
+                </select>
+            </div>
         </div>
         <div id="chart" class="tamaño"></div>
     </div>
+
+    <div>
+        
+    </div>
+
+
+
+
 </div>
 
 <div class="display">
@@ -113,6 +146,7 @@
     </div>
 
     <div>
+
         <h2 class="titulo_pedido">Pedidos (Comercial)</h2>
         <table id="comercialTable" class="dataTables">
             <thead>
@@ -130,27 +164,13 @@
         </table>
     </div>
 
-    <div>
-        <h2 class="titulo_otros">Otros Anchos</h2>
-        <table id="otrosAnchosTable" class="dataTables">
-            <thead>
-                <tr>
-                    <th>Ancho</th>
-                    <th>Gramaje</th>
-                    <th>Línea</th>
-                    <th>Existencia</th>
-                </tr>
-            </thead>
-            <tbody></tbody>
-        </table>
-    </div>
 </div>
-
 <style>
     .apexcharts-legend {
-        max-height: 80px;
-        overflow-y: auto;
-    }
+    max-height: 80px;
+    overflow-y: auto;
+}
+
 </style>
 <script>
     (function() {
@@ -170,20 +190,19 @@
                 originalComercialData = await comercialResponse.json();
                 originalCorrugadorData = await corrugadorResponse.json();
 
-                // Filtrar solo los anchos 1880 y 1100 en los datos iniciales
-                originalCorrugadorData = originalCorrugadorData.filter(item => item.ancho === 1880 || item.ancho === 1100);
-                originalComercialData = originalComercialData.filter(item => item.ancho === 1880 || item.ancho === 1100);
-
-                populateFilters();
-                renderChart();
-                renderTables();
+                populateFilters(originalComercialData, originalCorrugadorData);
+                renderChart(originalCorrugadorData);
+                renderTables(originalComercialData, originalCorrugadorData);
             } catch (error) {
                 console.error("Error al obtener los datos de la API:", error);
             }
         }
 
-        function populateFilters() {
-            const gramajes = [...new Set(originalCorrugadorData.map(item => item.gramaje))];
+        function populateFilters(comercialData, corrugadorData) {
+            const gramajes = [...new Set([...comercialData.map(item => item.gramaje), ...corrugadorData.map(item => item.gramaje)])];
+            const anchos = [...new Set([...comercialData.map(item => item.ancho), ...corrugadorData.map(item => item.ancho)])];
+            const lineas = [...new Set(corrugadorData.map(item => item.linea))];
+
             const gramajeSelect = document.getElementById("filterGramaje");
             gramajes.forEach(gramaje => {
                 const option = document.createElement("option");
@@ -192,90 +211,119 @@
                 gramajeSelect.appendChild(option);
             });
 
-            document.getElementById("filterGramaje").addEventListener("change", filterData);
+            const anchoSelect = document.getElementById("filterAncho");
+            anchos.forEach(ancho => {
+                const option = document.createElement("option");
+                option.value = ancho;
+                option.textContent = ancho;
+                anchoSelect.appendChild(option);
+            });
+
+            const lineaSelect = document.getElementById("filterLinea");
+            lineas.forEach(linea => {
+                const option = document.createElement("option");
+                option.value = linea;
+                option.textContent = linea;
+                lineaSelect.appendChild(option);
+            });
         }
 
         function filterData() {
             const selectedGramaje = document.getElementById("filterGramaje").value;
+            const selectedAncho = document.getElementById("filterAncho").value;
+            const selectedLinea = document.getElementById("filterLinea").value;
+
+            let filteredComercial = originalComercialData;
             let filteredCorrugador = originalCorrugadorData;
 
             if (selectedGramaje !== "all") {
-                filteredCorrugador = filteredCorrugador.filter(item => item.gramaje == selectedGramaje);
+                filteredComercial = filteredComercial.filter(item => item.gramaje === selectedGramaje);
+                filteredCorrugador = filteredCorrugador.filter(item => item.gramaje === selectedGramaje);
+            }
+            if (selectedAncho !== "all") {
+                filteredComercial = filteredComercial.filter(item => item.ancho === selectedAncho);
+                filteredCorrugador = filteredCorrugador.filter(item => item.ancho === selectedAncho);
+            }
+            if (selectedLinea !== "all") {
+                filteredCorrugador = filteredCorrugador.filter(item => item.linea === selectedLinea);
             }
 
             renderChart(filteredCorrugador);
-            renderTables(filteredCorrugador);
+            renderTables(filteredComercial, filteredCorrugador);
         }
 
-        function renderChart(data = originalCorrugadorData) {
-            const gramajes = [...new Set(data.map(item => item.gramaje))];
-            const anchos = [1880, 1100];
+        function renderChart(data) {
+    const gramajes = [...new Set(data.map(item => item.gramaje))].slice(0, 20);  // Limita a 20 gramajes
+    const anchos = [...new Set(data.map(item => item.ancho))].slice(0, 15);  // Opcional: limitar a 15 anchos
 
-            const series = anchos.map(ancho => ({
-                name: `Ancho: ${ancho} mm`,
-                data: gramajes.map(gramaje => {
-                    const items = data.filter(item => item.ancho === ancho && item.gramaje === gramaje);
-                    return items.reduce((sum, item) => sum + parseFloat(item.existencia), 0);
-                }),
-            }));
+    const series = anchos.map(ancho => ({
+        name: `Ancho: ${ancho} mm`,
+        data: gramajes.map(gramaje => {
+            const items = data.filter(item => item.ancho === ancho && item.gramaje === gramaje);
+            return items.reduce((sum, item) => sum + parseFloat(item.existencia), 0);
+        }),
+    }));
 
-            const options = {
-                series: series,
-                chart: {
-                    type: 'bar',
-                    height: 400,
-                    stacked: true,
-                    toolbar: {
-                        show: true,
-                    },
-                },
-                plotOptions: {
-                    bar: {
-                        horizontal: false,
-                        borderRadius: 4,
-                    },
-                },
-                dataLabels: {
-                    enabled: true,
-                },
-                xaxis: {
-                    categories: gramajes,
-                    title: {
-                        text: 'Gramajes',
-                    },
-                },
-                yaxis: {
-                    title: {
-                        text: 'Existencias Totales',
-                    },
-                },
-                legend: {
-                    position: 'top',
-                    horizontalAlign: 'center',
-                    floating: false,
-                    maxHeight: 80,
-                    itemMargin: {
-                        horizontal: 10,
-                        vertical: 5,
-                    },
-                    formatter: function(seriesName) {
-                        return seriesName.length > 20 ? seriesName.substring(0, 17) + '...' : seriesName;
-                    },
-                },
-                fill: {
-                    opacity: 1,
-                },
-            };
+    const options = {
+        series: series,
+        chart: {
+            type: 'bar',
+            height: 400,
+            stacked: true,
+            toolbar: {
+                show: true,
+            },
+        },
+        plotOptions: {
+            bar: {
+                horizontal: false,
+                borderRadius: 4,
+            },
+        },
+        dataLabels: {
+            enabled: true,
+        },
+        xaxis: {
+            categories: gramajes,
+            title: {
+                text: 'Gramajes',
+            },
+        },
+        yaxis: {
+            title: {
+                text: 'Existencias Totales',
+            },
+        },
+        legend: {
+            position: 'top',
+            horizontalAlign: 'center',
+            floating: false,
+            maxHeight: 80,
+            itemMargin: {
+                horizontal: 10,
+                vertical: 5,
+            },
+            formatter: function(seriesName) {
+                // Limitar longitud del nombre para mejorar visualización
+                return seriesName.length > 20 ? seriesName.substring(0, 17) + '...' : seriesName;
+            },
+        },
+        fill: {
+            opacity: 1,
+        },
+    };
 
-            if (chart) {
-                chart.updateOptions(options);
-            } else {
-                chart = new ApexCharts(document.querySelector("#chart"), options);
-                chart.render();
-            }
-        }
+    if (chart) {
+        chart.updateOptions(options);
+    } else {
+        chart = new ApexCharts(document.querySelector("#chart"), options);
+        chart.render();
+    }
+}
 
-        function renderTables(data = originalCorrugadorData) {
+
+
+        function renderTables(comercialData, corrugadorData) {
             const corrugadorTable = $("#dataTable").DataTable();
             const comercialTable = $("#comercialTable").DataTable();
 
@@ -283,18 +331,8 @@
             corrugadorTable.clear();
             comercialTable.clear();
 
-            // Llenar tabla de corrugador
-            data.forEach(item => {
-                corrugadorTable.row.add([
-                    item.ancho,
-                    item.gramaje,
-                    item.linea,
-                    item.existencia
-                ]);
-            });
-
             // Llenar tabla de comercial
-            originalComercialData.forEach(item => {
+            comercialData.forEach(item => {
                 comercialTable.row.add([
                     item.id,
                     item.producto,
@@ -306,9 +344,19 @@
                 ]);
             });
 
+            // Llenar tabla de corrugador
+            corrugadorData.forEach(item => {
+                corrugadorTable.row.add([
+                    item.ancho,
+                    item.gramaje,
+                    item.linea,
+                    item.existencia
+                ]);
+            });
+
             // Dibujar tablas
-            corrugadorTable.draw();
             comercialTable.draw();
+            corrugadorTable.draw();
         }
 
         $(document).ready(() => {
@@ -332,6 +380,10 @@
             }
 
             fetchData();
+
+            document.getElementById("filterGramaje").addEventListener("change", filterData);
+            document.getElementById("filterAncho").addEventListener("change", filterData);
+            document.getElementById("filterLinea").addEventListener("change", filterData);
         });
     })();
 </script>
