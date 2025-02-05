@@ -158,7 +158,7 @@
 
 
 <div class="grafica_dual">
-    <div class="graficas_blancas">
+    < class="graficas_blancas">
         <div id="filters">
             <div>
                 <label for="filterGramaje">Filtrar por Gramaje:</label>
@@ -179,10 +179,8 @@
                 </select>
             </div>
         </div>
-        <div class="graficas_blancas">
     <div id="chart1880" class="tamaño"></div>
     <div id="chart1100" class="tamaño"></div>
-</div>
 
 
     </div>
