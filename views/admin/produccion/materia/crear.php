@@ -69,19 +69,13 @@
 <script>
 // Selecciona el elemento con id "valor"
 const valorElemento = document.querySelector('#valor');
+const valorNumero = parseFloat(valorTexto.split(' ')[0]);
 
-// Verifica si el elemento existe y obtiene el valor
-if (valorElemento) {
-    const valorTexto = valorElemento.textContent.trim();  // Ejemplo: "100 KG"
-    
-    // Si necesitas solo el número sin "KG"
-    const valorNumero = parseFloat(valorTexto.split(' ')[0]);
 
     console.log('Valor completo:', valorTexto);
     console.log('Valor numérico:', valorNumero);
-} else {
-    console.log('No se encontró el elemento con el id "valor".');
-}
+
+
 
 
 </script>
