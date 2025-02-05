@@ -156,13 +156,11 @@
 <style>
     .tablageneral {
         display: flex;
-    justify-content: center; /* Centrar horizontalmente */
-    align-items: center; /* Centrar verticalmente si es necesario */
-    gap: 2rem; /* Espacio entre los elementos */
-    background-color: red;
-    padding: 2rem;
-    border-radius: 1rem;
-    margin-bottom: 2rem;
+        flex-direction: 1fr 1fr;
+        gap: 1rem;
+        background-color: red;
+        padding: 1rem;
+        border-radius: 1rem;
 
     }
 </style>
