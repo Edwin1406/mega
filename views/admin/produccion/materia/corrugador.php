@@ -170,15 +170,15 @@
         padding: 1rem;
     }
 
-    #filters-otros label {
+    /* #filters-otros label {
         font-size: 0.9rem;
-    }
+    } */
 
-    #filters-otros select {
+    /* #filters-otros select {
         font-size: 0.9rem;
         padding: 0.2rem;
         margin-bottom: 0.5rem;
-    }
+    } */
 
     h2.titulo_existencia {
         font-size: 1.2rem;
