@@ -147,8 +147,8 @@
 
 
 
-
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
 
 <!-- Canvas para la gráfica -->
 <canvas id="existenciaChart" width="400" height="200"></canvas>
