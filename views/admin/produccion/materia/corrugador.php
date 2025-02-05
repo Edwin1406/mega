@@ -129,12 +129,7 @@
         text-align: center;
     }
 </style>
-
-<div class="grafica_dual">
-    <!-- Primera columna: Filtros -->
-    <div class="columna_filtros">
-        <h2 class="titulo_existencia">Filtros</h2>
-        <div id="filters">
+<div id="filters">
             <div>
                 <label for="filterGramaje">Filtrar por Gramaje (Gráficas):</label>
                 <select id="filterGramaje">
@@ -154,6 +149,13 @@
                 </select>
             </div>
         </div>
+<div class="grafica_dual">
+    <!-- Primera columna: Filtros -->
+    <div class="columna_filtros">
+        <h2 class="titulo_existencia">Filtros</h2>
+        <div class="graficas_blancas">
+            <div id="chart1880" class="tamaño"></div>
+        </div>
     </div>
 
     <!-- Segunda columna: Gráficas -->
@@ -162,9 +164,7 @@
         <div class="graficas_blancas">
             <div id="chart1100" class="tamaño"></div>
         </div>
-        <div class="graficas_blancas">
-            <div id="chart1880" class="tamaño"></div>
-        </div>
+       
     </div>
 
     <!-- Tercera columna: Tabla -->
