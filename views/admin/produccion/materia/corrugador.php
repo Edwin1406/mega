@@ -91,18 +91,6 @@
                     <option value="all">Todos</option>
                 </select>
             </div>
-            <div>
-                <label for="filterAncho">Filtrar por Ancho:</label>
-                <select id="filterAncho">
-                    <option value="all">Todos</option>
-                </select>
-            </div>
-            <div>
-                <label for="filterLinea">Filtrar por Línea:</label>
-                <select id="filterLinea">
-                    <option value="all">Todos</option>
-                </select>
-            </div>
         </div>
         <div id="chart" class="tamaño"></div>
     </div>
@@ -182,19 +170,20 @@
                 originalComercialData = await comercialResponse.json();
                 originalCorrugadorData = await corrugadorResponse.json();
 
-                populateFilters(originalComercialData, originalCorrugadorData);
-                renderChart(originalCorrugadorData);
-                renderTables(originalComercialData, originalCorrugadorData);
+                // Filtrar solo los anchos 1880 y 1100 en los datos iniciales
+                originalCorrugadorData = originalCorrugadorData.filter(item => item.ancho === 1880 || item.ancho === 1100);
+                originalComercialData = originalComercialData.filter(item => item.ancho === 1880 || item.ancho === 1100);
+
+                populateFilters();
+                renderChart();
+                renderTables();
             } catch (error) {
                 console.error("Error al obtener los datos de la API:", error);
             }
         }
 
-        function populateFilters(comercialData, corrugadorData) {
-            const gramajes = [...new Set([...comercialData.map(item => item.gramaje), ...corrugadorData.map(item => item.gramaje)])];
-            const anchos = [...new Set([...comercialData.map(item => item.ancho), ...corrugadorData.map(item => item.ancho)])];
-            const lineas = [...new Set(corrugadorData.map(item => item.linea))];
-
+        function populateFilters() {
+            const gramajes = [...new Set(originalCorrugadorData.map(item => item.gramaje))];
             const gramajeSelect = document.getElementById("filterGramaje");
             gramajes.forEach(gramaje => {
                 const option = document.createElement("option");
@@ -203,56 +192,29 @@
                 gramajeSelect.appendChild(option);
             });
 
-            const anchoSelect = document.getElementById("filterAncho");
-            anchos.forEach(ancho => {
-                const option = document.createElement("option");
-                option.value = ancho;
-                option.textContent = ancho;
-                anchoSelect.appendChild(option);
-            });
-
-            const lineaSelect = document.getElementById("filterLinea");
-            lineas.forEach(linea => {
-                const option = document.createElement("option");
-                option.value = linea;
-                option.textContent = linea;
-                lineaSelect.appendChild(option);
-            });
+            document.getElementById("filterGramaje").addEventListener("change", filterData);
         }
 
         function filterData() {
             const selectedGramaje = document.getElementById("filterGramaje").value;
-            const selectedAncho = document.getElementById("filterAncho").value;
-            const selectedLinea = document.getElementById("filterLinea").value;
-
-            let filteredComercial = originalComercialData;
             let filteredCorrugador = originalCorrugadorData;
 
             if (selectedGramaje !== "all") {
-                filteredComercial = filteredComercial.filter(item => item.gramaje === selectedGramaje);
-                filteredCorrugador = filteredCorrugador.filter(item => item.gramaje === selectedGramaje);
-            }
-            if (selectedAncho !== "all") {
-                filteredComercial = filteredComercial.filter(item => item.ancho === selectedAncho);
-                filteredCorrugador = filteredCorrugador.filter(item => item.ancho === selectedAncho);
-            }
-            if (selectedLinea !== "all") {
-                filteredCorrugador = filteredCorrugador.filter(item => item.linea === selectedLinea);
+                filteredCorrugador = filteredCorrugador.filter(item => item.gramaje == selectedGramaje);
             }
 
             renderChart(filteredCorrugador);
-            renderTables(filteredComercial, filteredCorrugador);
+            renderTables(filteredCorrugador);
         }
 
-        function renderChart(data) {
-            const filteredData = data.filter(item => item.ancho === 1880 || item.ancho === 1100);
-            const gramajes = [...new Set(filteredData.map(item => item.gramaje))].slice(0, 20);
+        function renderChart(data = originalCorrugadorData) {
+            const gramajes = [...new Set(data.map(item => item.gramaje))];
             const anchos = [1880, 1100];
 
             const series = anchos.map(ancho => ({
                 name: `Ancho: ${ancho} mm`,
                 data: gramajes.map(gramaje => {
-                    const items = filteredData.filter(item => item.ancho === ancho && item.gramaje === gramaje);
+                    const items = data.filter(item => item.ancho === ancho && item.gramaje === gramaje);
                     return items.reduce((sum, item) => sum + parseFloat(item.existencia), 0);
                 }),
             }));
@@ -313,18 +275,26 @@
             }
         }
 
-        function renderTables(comercialData, corrugadorData) {
+        function renderTables(data = originalCorrugadorData) {
             const corrugadorTable = $("#dataTable").DataTable();
             const comercialTable = $("#comercialTable").DataTable();
-            const otrosAnchosTable = $("#otrosAnchosTable").DataTable();
 
             // Limpiar tablas
             corrugadorTable.clear();
             comercialTable.clear();
-            otrosAnchosTable.clear();
+
+            // Llenar tabla de corrugador
+            data.forEach(item => {
+                corrugadorTable.row.add([
+                    item.ancho,
+                    item.gramaje,
+                    item.linea,
+                    item.existencia
+                ]);
+            });
 
             // Llenar tabla de comercial
-            comercialData.forEach(item => {
+            originalComercialData.forEach(item => {
                 comercialTable.row.add([
                     item.id,
                     item.producto,
@@ -336,30 +306,9 @@
                 ]);
             });
 
-            // Llenar tabla de corrugador (solo anchos 1880 y 1100)
-            corrugadorData.filter(item => item.ancho === 1880 || item.ancho === 1100).forEach(item => {
-                corrugadorTable.row.add([
-                    item.ancho,
-                    item.gramaje,
-                    item.linea,
-                    item.existencia
-                ]);
-            });
-
-            // Llenar tabla de otros anchos
-            corrugadorData.filter(item => item.ancho !== 1880 && item.ancho !== 1100).forEach(item => {
-                otrosAnchosTable.row.add([
-                    item.ancho,
-                    item.gramaje,
-                    item.linea,
-                    item.existencia
-                ]);
-            });
-
             // Dibujar tablas
-            comercialTable.draw();
             corrugadorTable.draw();
-            otrosAnchosTable.draw();
+            comercialTable.draw();
         }
 
         $(document).ready(() => {
@@ -382,22 +331,7 @@
                 });
             }
 
-            if (!$.fn.DataTable.isDataTable("#otrosAnchosTable")) {
-                $("#otrosAnchosTable").DataTable({
-                    language: {
-                        url: "//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json",
-                    },
-                    paging: true,
-                    searching: true,
-                    ordering: true,
-                });
-            }
-
             fetchData();
-
-            document.getElementById("filterGramaje").addEventListener("change", filterData);
-            document.getElementById("filterAncho").addEventListener("change", filterData);
-            document.getElementById("filterLinea").addEventListener("change", filterData);
         });
     })();
 </script>
