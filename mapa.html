@@ -29,6 +29,26 @@
         // Almacenar los marcadores actuales
         var markers = {};
 
+        // Función para determinar el color del marcador según el estado
+        function obtenerColorPorEstado(estado) {
+            switch (estado) {
+                case 'salida': return 'blue';       // Color azul para salida
+                case 'en ruta': return 'orange';     // Color naranja para en ruta
+                case 'llegada': return 'green';      // Color verde para llegada
+                case 'planta': return 'red';         // Color rojo para planta
+                default: return 'gray';              // Color gris por defecto
+            }
+        }
+
+        // Función para crear un ícono personalizado
+        function crearIconoPersonalizado(color) {
+            return L.divIcon({
+                className: 'custom-icon',
+                html: `<div style="background-color: ${color}; width: 20px; height: 20px; border-radius: 50%;"></div>`,
+                iconSize: [20, 20]
+            });
+        }
+
         // Función para cargar las ubicaciones de los camiones
         function cargarCamiones() {
             fetch('https://megawebsistem.com/admin/api/ubicaciones')  // URL de tu API
@@ -41,7 +61,10 @@
 
                     // Agregar los nuevos marcadores
                     data.forEach(camion => {
-                        var marker = L.marker([camion.latitud, camion.longitud]).addTo(map);
+                        var color = obtenerColorPorEstado(camion.estado);
+                        var icono = crearIconoPersonalizado(color);
+
+                        var marker = L.marker([camion.latitud, camion.longitud], { icon: icono }).addTo(map);
                         marker.bindPopup(`<b>Camión ${camion.camion_id}</b><br>Velocidad: ${camion.velocidad} km/h.<br>Hora: ${camion.hora_registro}`);
                         markers[camion.camion_id] = marker;
                     });
@@ -56,6 +79,67 @@
 
         // Actualizar las ubicaciones cada 10 segundos
         setInterval(cargarCamiones, 10000);
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Datos del Teléfono</title>
+</head>
+<body>
+    <h1>Datos en tiempo real</h1>
+    <p id="latitud">Latitud: Cargando...</p>
+    <p id="longitud">Longitud: Cargando...</p>
+    <p id="velocidad">Velocidad: Cargando...</p>
+    <p id="hora">Hora de registro: Cargando...</p>
+
+    <script>
+        // Verificar si el navegador soporta geolocalización
+        if ("geolocation" in navigator) {
+            // Obtener ubicación y velocidad en tiempo real
+            navigator.geolocation.watchPosition(
+                (position) => {
+                    const latitud = position.coords.latitude.toFixed(8);
+                    const longitud = position.coords.longitude.toFixed(8);
+                    const velocidad = (position.coords.speed || 0).toFixed(2); // Velocidad en m/s
+                    const horaRegistro = new Date().toISOString();
+
+                    // Mostrar los datos en pantalla
+                    document.getElementById("latitud").innerText = `Latitud: ${latitud}`;
+                    document.getElementById("longitud").innerText = `Longitud: ${longitud}`;
+                    document.getElementById("velocidad").innerText = `Velocidad: ${velocidad} m/s`;
+                    document.getElementById("hora").innerText = `Hora de registro: ${horaRegistro}`;
+
+                    // También puedes ver los datos en la consola
+                    console.log({
+                        latitud: latitud,
+                        longitud: longitud,
+                        velocidad: velocidad,
+                        hora_registro: horaRegistro
+                    });
+                },
+                (error) => {
+                    console.error('Error al obtener la ubicación:', error);
+                },
+                {
+                    enableHighAccuracy: true, // Mejor precisión posible
+                    timeout: 10000,
+                    maximumAge: 0
+                }
+            );
+        } else {
+            console.error("Geolocalización no soportada en este navegador");
+            alert("Tu navegador no soporta geolocalización.");
+        }
     </script>
 </body>
 </html>
