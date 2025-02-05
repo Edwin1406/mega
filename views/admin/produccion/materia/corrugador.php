@@ -205,6 +205,15 @@
     label {
         font-weight: bold;
     }
+
+     .dataTables_wrapper .dataTables_filter {
+    font-size: 1.2rem;
+}
+
+
+
+
+
 </style>
 <div id="filters">
     <div>
