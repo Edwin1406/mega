@@ -81,7 +81,7 @@
         display: flex;
         flex-direction: row;
         gap: 0.5rem;
-        background-color: rgb(214, 234, 248);
+        background-color: #64748B;
         padding: 1rem;
         border-radius: 0.5rem;
         width: 100%;
@@ -133,7 +133,7 @@
         justify-content: space-around;
         align-items: stretch;
         gap: 2rem;
-        background-color: rgb(214, 234, 248);
+        background-color: #64748B;
         padding: 2rem;
         border-radius: 1rem;
         margin-bottom: 2rem;
