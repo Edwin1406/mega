@@ -69,10 +69,12 @@
 
 <canvas id="existenciaChart" width="400" height="200"></canvas>
     <script>
-        // Valores iniciales
-        const existenciaCorrugadorTotal = 42580;
-        const existenciaCorrugadorMicroTotal = 45797;
-        const existenciaPeriodicaTotal = 4866;
+
+
+document.getElementById('valor1').innerHTML =  <?php echo $totalExistencia ?> + " KG";
+document.getElementById('valor2').innerHTML =  <?php echo $totalExistenciaMicro ?> + " KG";
+document.getElementById('valor3').innerHTML =  <?php echo $totalExistenciaPeriodico ?> + " KG";
+      
 
         // Calcular el total y los porcentajes
         const total = existenciaCorrugadorTotal + existenciaCorrugadorMicroTotal + existenciaPeriodicaTotal;
