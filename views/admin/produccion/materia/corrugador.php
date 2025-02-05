@@ -158,14 +158,15 @@
         display: flex;
         flex-direction: 1fr 1fr;
         gap: 1rem;
-        background-color: red;
+        background-color: rgb(214, 234, 248);
         padding: 2rem;
         border-radius: 1rem;
+
 
     }
 
     .tablaotro{
-        padding: 1rem;
+        padding: 2rem;
     }
 </style>
 
