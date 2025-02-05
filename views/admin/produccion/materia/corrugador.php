@@ -360,7 +360,7 @@ function renderTables(comercialData, corrugadorData) {
 
     // Agregar fila de total con clase especial
     comercialTable.row.add([
-        "", "<strong>TOTAL</strong>", "", "", `<strong>${totalCantidad}</strong>`, "", ""
+        "", "<strong>TOTAL</strong>", "", "", `<strong>${totalCantidad}</strong>`
     ]).node().classList.add('total-row');
 
     corrugadorTable.row.add([
