@@ -144,20 +144,22 @@
             border-radius: 5px;
         }
 
-        .index_graficas{
+        .index_graficas {
+    display: flex;
+    justify-content: center;     /* Centrado horizontal */
+    align-items: center;         /* Centrado vertical */
+    margin: 20px auto;           /* Margen superior e inferior de 20px y centrado horizontal */
+    width: 60%;
+    height: 400px;               /* Asegura una altura para centrar */
+    background-color: #ddd;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Corrección */
+    border-radius: 1rem;
+}
 
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-top: 20px;
-            width: 60%;
-            background-color: #ddd;
-            shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            border-radius: 1rem;
-        }
-        #existenciaChart{
-            padding: 2rem;
-        }
+#existenciaChart {
+    padding: 1rem;               /* Ajusta el padding si es necesario */
+    text-align: center;          /* Centrado del contenido interno */
+}
 
       
 </style>
