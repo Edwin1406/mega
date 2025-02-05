@@ -64,6 +64,8 @@
         </a>
     </li>
 </ul>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 
 <canvas id="existenciaChart" width="400" height="200"></canvas>
     <script>
