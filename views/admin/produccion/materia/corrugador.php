@@ -167,7 +167,7 @@
 
 
 <div class="tablageneral">
-    <div>
+    <div class="graficas_blancas">
         <div id="filters-otros" class="filters">
             <div>
                 <label for="filterGramajeOtros">Filtrar por Gramaje:</label>
