@@ -145,11 +145,17 @@
         }
 
         .index_graficas{
+
             display: flex;
             justify-content: center;
             align-items: center;
             margin-top: 20px;
             width: 40%;
+        }
+
+        #existenciaChart{
+            width: 100%;
+            height: 100%;
         }
 </style>
 
