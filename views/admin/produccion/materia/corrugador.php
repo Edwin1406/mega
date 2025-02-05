@@ -335,17 +335,19 @@
 
         function renderChart(data) {
     // Filtrar los datos por cada ancho
-    const data1880 = data.filter(item => item.ancho === 1880);
-    const data1100 = data.filter(item => item.ancho === 1100);
+    const data1880 = data.filter(item => item.ancho == 1880);
+    const data1100 = data.filter(item => item.ancho == 1100);
 
     // Agrupar existencias por gramaje para el ancho 1880
     const grouped1880 = data1880.reduce((acc, item) => {
+        if (!item.gramaje || !item.existencia) return acc;
         acc[item.gramaje] = (acc[item.gramaje] || 0) + parseFloat(item.existencia);
         return acc;
     }, {});
 
     // Agrupar existencias por gramaje para el ancho 1100
     const grouped1100 = data1100.reduce((acc, item) => {
+        if (!item.gramaje || !item.existencia) return acc;
         acc[item.gramaje] = (acc[item.gramaje] || 0) + parseFloat(item.existencia);
         return acc;
     }, {});
@@ -356,6 +358,12 @@
 
     const gramajes1100 = Object.keys(grouped1100);
     const existencias1100 = Object.values(grouped1100);
+
+    // Verificar que haya datos para los gráficos
+    if (gramajes1880.length === 0 || gramajes1100.length === 0) {
+        console.warn("No hay datos disponibles para mostrar en los gráficos.");
+        return;
+    }
 
     // Configurar gráfico de pastel para ancho 1880
     const options1880 = {
