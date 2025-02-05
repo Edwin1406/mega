@@ -191,6 +191,9 @@ table {
                 </select>
             </div>
         </div>
+        <div class="graficas_blancas">
+            <div id="chart1100" class="tamaño"></div>
+        </div>
     </div>
 
     <!-- Segunda columna: Gráficas -->
