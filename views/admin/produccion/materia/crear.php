@@ -146,19 +146,19 @@
 
         .index_graficas {
     display: flex;
-    justify-content: center;     /* Centrado horizontal */
-    align-items: center;         /* Centrado vertical */
-    margin: 20px auto;           /* Margen superior e inferior de 20px y centrado horizontal */
+    justify-content: center;    
+    align-items: center;         
+    margin: 20px auto;           
     width: 70%;
-    height: 70%;               /* Asegura una altura para centrar */
+    height: 70%;              
     background-color: #ddd;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Corrección */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     border-radius: 1rem;
 }
 
 #existenciaChart {
-    padding: 1rem;               /* Ajusta el padding si es necesario */
-    text-align: center;          /* Centrado del contenido interno */
+    padding: 1rem;         
+    text-align: center;          
 }
 
       

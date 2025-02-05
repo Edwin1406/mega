@@ -71,31 +71,19 @@
 
 </ul>
 
-
-
 <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
-
-
-
-
-
-
 
 <style>
     .grafica_dual {
         display: flex;
         flex-direction: 1fr 1fr;
         gap: 1rem;
-
-
     }
 </style>
 <div class="grafica_dual">
-
-
     <div class="graficas_blancas">
         <div id="filters">
             <div>
@@ -119,14 +107,6 @@
         </div>
         <div id="chart" class="tamaño"></div>
     </div>
-
-    <div>
-        
-    </div>
-
-
-
-
 </div>
 
 <div class="display">
@@ -146,7 +126,6 @@
     </div>
 
     <div>
-
         <h2 class="titulo_pedido">Pedidos (Comercial)</h2>
         <table id="comercialTable" class="dataTables">
             <thead>
@@ -164,13 +143,27 @@
         </table>
     </div>
 
+    <div>
+        <h2 class="titulo_otros">Otros Anchos</h2>
+        <table id="otrosAnchosTable" class="dataTables">
+            <thead>
+                <tr>
+                    <th>Ancho</th>
+                    <th>Gramaje</th>
+                    <th>Línea</th>
+                    <th>Existencia</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
 </div>
+
 <style>
     .apexcharts-legend {
-    max-height: 80px;
-    overflow-y: auto;
-}
-
+        max-height: 80px;
+        overflow-y: auto;
+    }
 </style>
 <script>
     (function() {
@@ -253,83 +246,83 @@
         }
 
         function renderChart(data) {
-    const gramajes = [...new Set(data.map(item => item.gramaje))].slice(0, 20);  // Limita a 20 gramajes
-    const anchos = [...new Set(data.map(item => item.ancho))].slice(0, 15);  // Opcional: limitar a 15 anchos
+            const filteredData = data.filter(item => item.ancho === 1880 || item.ancho === 1100);
+            const gramajes = [...new Set(filteredData.map(item => item.gramaje))].slice(0, 20);
+            const anchos = [1880, 1100];
 
-    const series = anchos.map(ancho => ({
-        name: `Ancho: ${ancho} mm`,
-        data: gramajes.map(gramaje => {
-            const items = data.filter(item => item.ancho === ancho && item.gramaje === gramaje);
-            return items.reduce((sum, item) => sum + parseFloat(item.existencia), 0);
-        }),
-    }));
+            const series = anchos.map(ancho => ({
+                name: `Ancho: ${ancho} mm`,
+                data: gramajes.map(gramaje => {
+                    const items = filteredData.filter(item => item.ancho === ancho && item.gramaje === gramaje);
+                    return items.reduce((sum, item) => sum + parseFloat(item.existencia), 0);
+                }),
+            }));
 
-    const options = {
-        series: series,
-        chart: {
-            type: 'bar',
-            height: 400,
-            stacked: true,
-            toolbar: {
-                show: true,
-            },
-        },
-        plotOptions: {
-            bar: {
-                horizontal: false,
-                borderRadius: 4,
-            },
-        },
-        dataLabels: {
-            enabled: true,
-        },
-        xaxis: {
-            categories: gramajes,
-            title: {
-                text: 'Gramajes',
-            },
-        },
-        yaxis: {
-            title: {
-                text: 'Existencias Totales',
-            },
-        },
-        legend: {
-            position: 'top',
-            horizontalAlign: 'center',
-            floating: false,
-            maxHeight: 80,
-            itemMargin: {
-                horizontal: 10,
-                vertical: 5,
-            },
-            formatter: function(seriesName) {
-                // Limitar longitud del nombre para mejorar visualización
-                return seriesName.length > 20 ? seriesName.substring(0, 17) + '...' : seriesName;
-            },
-        },
-        fill: {
-            opacity: 1,
-        },
-    };
+            const options = {
+                series: series,
+                chart: {
+                    type: 'bar',
+                    height: 400,
+                    stacked: true,
+                    toolbar: {
+                        show: true,
+                    },
+                },
+                plotOptions: {
+                    bar: {
+                        horizontal: false,
+                        borderRadius: 4,
+                    },
+                },
+                dataLabels: {
+                    enabled: true,
+                },
+                xaxis: {
+                    categories: gramajes,
+                    title: {
+                        text: 'Gramajes',
+                    },
+                },
+                yaxis: {
+                    title: {
+                        text: 'Existencias Totales',
+                    },
+                },
+                legend: {
+                    position: 'top',
+                    horizontalAlign: 'center',
+                    floating: false,
+                    maxHeight: 80,
+                    itemMargin: {
+                        horizontal: 10,
+                        vertical: 5,
+                    },
+                    formatter: function(seriesName) {
+                        return seriesName.length > 20 ? seriesName.substring(0, 17) + '...' : seriesName;
+                    },
+                },
+                fill: {
+                    opacity: 1,
+                },
+            };
 
-    if (chart) {
-        chart.updateOptions(options);
-    } else {
-        chart = new ApexCharts(document.querySelector("#chart"), options);
-        chart.render();
-    }
-}
-
-
+            if (chart) {
+                chart.updateOptions(options);
+            } else {
+                chart = new ApexCharts(document.querySelector("#chart"), options);
+                chart.render();
+            }
+        }
 
         function renderTables(comercialData, corrugadorData) {
             const corrugadorTable = $("#dataTable").DataTable();
             const comercialTable = $("#comercialTable").DataTable();
+            const otrosAnchosTable = $("#otrosAnchosTable").DataTable();
 
             // Limpiar tablas
             corrugadorTable.clear();
             comercialTable.clear();
+            otrosAnchosTable.clear();
 
             // Llenar tabla de comercial
             comercialData.forEach(item => {
@@ -344,9 +337,19 @@
                 ]);
             });
 
-            // Llenar tabla de corrugador
-            corrugadorData.forEach(item => {
+            // Llenar tabla de corrugador (solo anchos 1880 y 1100)
+            corrugadorData.filter(item => item.ancho === 1880 || item.ancho === 1100).forEach(item => {
                 corrugadorTable.row.add([
+                    item.ancho,
+                    item.gramaje,
+                    item.linea,
+                    item.existencia
+                ]);
+            });
+
+            // Llenar tabla de otros anchos
+            corrugadorData.filter(item => item.ancho !== 1880 && item.ancho !== 1100).forEach(item => {
+                otrosAnchosTable.row.add([
                     item.ancho,
                     item.gramaje,
                     item.linea,
@@ -357,6 +360,7 @@
             // Dibujar tablas
             comercialTable.draw();
             corrugadorTable.draw();
+            otrosAnchosTable.draw();
         }
 
         $(document).ready(() => {
@@ -370,6 +374,17 @@
 
             if (!$.fn.DataTable.isDataTable("#comercialTable")) {
                 $("#comercialTable").DataTable({
+                    language: {
+                        url: "//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json",
+                    },
+                    paging: true,
+                    searching: true,
+                    ordering: true,
+                });
+            }
+
+            if (!$.fn.DataTable.isDataTable("#otrosAnchosTable")) {
+                $("#otrosAnchosTable").DataTable({
                     language: {
                         url: "//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json",
                     },
