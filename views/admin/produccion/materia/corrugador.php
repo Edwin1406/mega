@@ -179,7 +179,12 @@
                 </select>
             </div>
         </div>
-        <div id="chart" class="tamaño"></div>
+        <div class="graficas_blancas">
+    <div id="chart1880" class="tamaño"></div>
+    <div id="chart1100" class="tamaño"></div>
+</div>
+
+
     </div>
 
 
@@ -329,43 +334,75 @@
         }
 
         function renderChart(data) {
-    // Agrupar las existencias por gramaje correctamente
-    const groupedData = data.reduce((acc, item) => {
-        if (!acc[item.gramaje]) {
-            acc[item.gramaje] = 0;
-        }
-        acc[item.gramaje] += parseFloat(item.existencia);
+    // Filtrar los datos por cada ancho
+    const data1880 = data.filter(item => item.ancho === 1880);
+    const data1100 = data.filter(item => item.ancho === 1100);
+
+    // Agrupar existencias por gramaje para el ancho 1880
+    const grouped1880 = data1880.reduce((acc, item) => {
+        acc[item.gramaje] = (acc[item.gramaje] || 0) + parseFloat(item.existencia);
         return acc;
     }, {});
 
-    // Obtener categorías y valores
-    const gramajes = Object.keys(groupedData);
-    const existencias = Object.values(groupedData);
+    // Agrupar existencias por gramaje para el ancho 1100
+    const grouped1100 = data1100.reduce((acc, item) => {
+        acc[item.gramaje] = (acc[item.gramaje] || 0) + parseFloat(item.existencia);
+        return acc;
+    }, {});
 
-    // Configurar gráfico de pastel
-    const options = {
-        series: existencias,
+    // Obtener categorías y valores para cada gráfico
+    const gramajes1880 = Object.keys(grouped1880);
+    const existencias1880 = Object.values(grouped1880);
+
+    const gramajes1100 = Object.keys(grouped1100);
+    const existencias1100 = Object.values(grouped1100);
+
+    // Configurar gráfico de pastel para ancho 1880
+    const options1880 = {
+        series: existencias1880,
         chart: {
             type: 'pie',
             height: 400,
         },
-        labels: gramajes.map(g => `${g}g`), // Mostrar el gramaje con unidad
+        labels: gramajes1880.map(g => `${g}g`),
         legend: {
             position: 'top',
         },
+        title: {
+            text: 'Ancho 1880',
+            align: 'center',
+        },
         dataLabels: {
             enabled: true,
-            formatter: (val, opts) => `${opts.w.globals.labels[opts.seriesIndex]}: ${val.toFixed(1)}%`,
         },
     };
 
-    // Renderizar el gráfico
-    if (chart) {
-        chart.updateOptions(options);
-    } else {
-        chart = new ApexCharts(document.querySelector("#chart"), options);
-        chart.render();
-    }
+    // Configurar gráfico de pastel para ancho 1100
+    const options1100 = {
+        series: existencias1100,
+        chart: {
+            type: 'pie',
+            height: 400,
+        },
+        labels: gramajes1100.map(g => `${g}g`),
+        legend: {
+            position: 'top',
+        },
+        title: {
+            text: 'Ancho 1100',
+            align: 'center',
+        },
+        dataLabels: {
+            enabled: true,
+        },
+    };
+
+    // Renderizar ambos gráficos
+    const chart1880 = new ApexCharts(document.querySelector("#chart1880"), options1880);
+    const chart1100 = new ApexCharts(document.querySelector("#chart1100"), options1100);
+
+    chart1880.render();
+    chart1100.render();
 }
 
         function renderTable(corrugadorData) {
