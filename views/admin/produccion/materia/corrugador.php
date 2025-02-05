@@ -124,6 +124,16 @@
     </div>
 
 
+    <style>
+        .display {
+            display: flex;
+            flex-direction: column;
+            margin-left: 15px;
+        }
+
+    </style>
+
+
     <div class="display">
         <div>
             <h2 class="titulo_existencia">Existencia (Corrugador)</h2>
