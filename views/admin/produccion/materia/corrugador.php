@@ -79,8 +79,6 @@
 <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
 
 
-
-
 <style>
     .grafica_dual {
         display: flex;
@@ -142,62 +140,36 @@
         </table>
         <div id="totalExistencia" class="total-display">Total de Existencia: 0</div>
     </div>
-
-    <div>
-        <h2 class="titulo_pedido">Pedidos (Comercial)</h2>
-        <table id="comercialTable" class="dataTables">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Producto</th>
-                    <th>Ancho (mm)</th>
-                    <th>Gramaje (g/m²)</th>
-                    <th>Cantidad</th>
-                    <th>Estado</th>
-                    <th>Arribo Planta</th>
-                </tr>
-            </thead>
-            <tbody></tbody>
-        </table>
-        <div id="totalPedidos" class="total-display">Total de Cantidad: 0</div>
-    </div>
 </div>
 
 <script>
     (function() {
-        const apiComercialUrl = `${location.origin}/admin/api/apicomercial`;
         const apiCorrugadorUrl = `${location.origin}/admin/api/apicorrugador`;
-        let originalComercialData = [];
         let originalCorrugadorData = [];
         let chart;
 
         async function fetchData() {
             try {
-                const [comercialResponse, corrugadorResponse] = await Promise.all([
-                    fetch(apiComercialUrl),
-                    fetch(apiCorrugadorUrl)
-                ]);
-
-                originalComercialData = await comercialResponse.json();
+                const corrugadorResponse = await fetch(apiCorrugadorUrl);
                 originalCorrugadorData = await corrugadorResponse.json();
 
-                populateFilters(originalComercialData, originalCorrugadorData);
+                populateFilters(originalCorrugadorData);
                 renderChart(originalCorrugadorData);
-                renderTables(originalComercialData, originalCorrugadorData);
+                renderTable(originalCorrugadorData);
             } catch (error) {
                 console.error("Error al obtener los datos de la API:", error);
             }
         }
 
-        function populateFilters(comercialData, corrugadorData) {
+        function populateFilters(corrugadorData) {
             // Limpiar opciones anteriores
             document.getElementById("filterGramaje").innerHTML = '<option value="all">Todos</option>';
             document.getElementById("filterAncho").innerHTML = '<option value="all">Todos</option>';
             document.getElementById("filterLinea").innerHTML = '<option value="all">Todos</option>';
 
             // Obtener conjuntos únicos de valores
-            const gramajes = [...new Set([...comercialData.map(item => item.gramaje), ...corrugadorData.map(item => item.gramaje)])];
-            const anchos = [...new Set([...comercialData.map(item => item.ancho), ...corrugadorData.map(item => item.ancho)])];
+            const gramajes = [...new Set(corrugadorData.map(item => item.gramaje))];
+            const anchos = [...new Set(corrugadorData.map(item => item.ancho))];
             const lineas = [...new Set(corrugadorData.map(item => item.linea))];
 
             // Poblar selectores
@@ -231,15 +203,12 @@
             const selectedAncho = document.getElementById("filterAncho").value;
             const selectedLinea = document.getElementById("filterLinea").value;
 
-            let filteredComercial = originalComercialData;
             let filteredCorrugador = originalCorrugadorData;
 
             if (selectedGramaje !== "all") {
-                filteredComercial = filteredComercial.filter(item => item.gramaje === selectedGramaje);
                 filteredCorrugador = filteredCorrugador.filter(item => item.gramaje === selectedGramaje);
             }
             if (selectedAncho !== "all") {
-                filteredComercial = filteredComercial.filter(item => item.ancho === selectedAncho);
                 filteredCorrugador = filteredCorrugador.filter(item => item.ancho === selectedAncho);
             }
             if (selectedLinea !== "all") {
@@ -247,7 +216,7 @@
             }
 
             renderChart(filteredCorrugador);
-            renderTables(filteredComercial, filteredCorrugador);
+            renderTable(filteredCorrugador);
         }
 
         function renderChart(data) {
@@ -318,30 +287,13 @@
             }
         }
 
-        function renderTables(comercialData, corrugadorData) {
+        function renderTable(corrugadorData) {
             const corrugadorTable = $("#dataTable").DataTable();
-            const comercialTable = $("#comercialTable").DataTable();
 
-            // Limpiar tablas
+            // Limpiar tabla
             corrugadorTable.clear();
-            comercialTable.clear();
 
             let totalExistencia = 0;
-            let totalPedidos = 0;
-
-            // Llenar tabla de comercial y calcular total de cantidad
-            comercialData.forEach(item => {
-                totalPedidos += parseFloat(item.cantidad || 0);
-                comercialTable.row.add([
-                    item.id,
-                    item.producto,
-                    item.ancho,
-                    item.gramaje,
-                    item.cantidad,
-                    item.estado,
-                    item.arribo_planta
-                ]);
-            });
 
             // Llenar tabla de corrugador y calcular total de existencia
             corrugadorData.forEach(item => {
@@ -354,13 +306,11 @@
                 ]);
             });
 
-            // Dibujar tablas
-            comercialTable.draw();
+            // Dibujar tabla
             corrugadorTable.draw();
 
-            // Actualizar los totales en el DOM
+            // Actualizar el total en el DOM
             document.getElementById("totalExistencia").textContent = `Total de Existencia: ${totalExistencia}`;
-            document.getElementById("totalPedidos").textContent = `Total de Cantidad: ${totalPedidos}`;
         }
 
         $(document).ready(() => {
@@ -369,17 +319,6 @@
                     language: {
                         url: "//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json",
                     },
-                });
-            }
-
-            if (!$.fn.DataTable.isDataTable("#comercialTable")) {
-                $("#comercialTable").DataTable({
-                    language: {
-                        url: "//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json",
-                    },
-                    paging: true,
-                    searching: true,
-                    ordering: true,
                 });
             }
 
