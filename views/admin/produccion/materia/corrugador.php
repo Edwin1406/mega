@@ -229,17 +229,17 @@
     <!-- Primera columna: Filtros -->
     <div class="columna_filtros">
         <h2 class="titulo_existencia">Filtros</h2>
-        <div class="graficas_blancas">
+     
             <div id="chart1880" class="tamaño"></div>
-        </div>
+      
     </div>
 
     <!-- Segunda columna: Gráficas -->
     <div class="columna_graficas">
         <h2 class="titulo_existencia">Gráficas</h2>
-        <div class="graficas_blancas">
+        
             <div id="chart1100" class="tamaño"></div>
-        </div>
+        
        
     </div>
 
