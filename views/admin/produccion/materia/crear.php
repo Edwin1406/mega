@@ -149,8 +149,8 @@
     justify-content: center;     /* Centrado horizontal */
     align-items: center;         /* Centrado vertical */
     margin: 20px auto;           /* Margen superior e inferior de 20px y centrado horizontal */
-    width: 60%;
-    height: 60%;               /* Asegura una altura para centrar */
+    width: 70%;
+    height: 70%;               /* Asegura una altura para centrar */
     background-color: #ddd;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Corrección */
     border-radius: 1rem;
