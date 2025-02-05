@@ -329,13 +329,16 @@
         }
 
         function renderChart(data) {
-    // Agrupar datos por gramaje
+    // Agrupar las existencias por gramaje correctamente
     const groupedData = data.reduce((acc, item) => {
-        acc[item.gramaje] = (acc[item.gramaje] || 0) + parseFloat(item.existencia);
+        if (!acc[item.gramaje]) {
+            acc[item.gramaje] = 0;
+        }
+        acc[item.gramaje] += parseFloat(item.existencia);
         return acc;
     }, {});
 
-    // Extraer categorías y valores
+    // Obtener categorías y valores
     const gramajes = Object.keys(groupedData);
     const existencias = Object.values(groupedData);
 
@@ -346,12 +349,13 @@
             type: 'pie',
             height: 400,
         },
-        labels: gramajes,
+        labels: gramajes.map(g => `${g}g`), // Mostrar el gramaje con unidad
         legend: {
             position: 'top',
         },
         dataLabels: {
             enabled: true,
+            formatter: (val, opts) => `${opts.w.globals.labels[opts.seriesIndex]}: ${val.toFixed(1)}%`,
         },
     };
 
