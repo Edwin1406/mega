@@ -40,7 +40,7 @@
 
     <li class="areas-produccion-craft" data-aos="flip-left">
         <a href="/admin/produccion/materia/corrugador/cajacraft">
-            <i class="fas fa-scroll"></i> TOTAL  CAJA-KRAFT :
+            <i class="fas fa-scroll"></i> TOTAL CAJA-KRAFT :
             <?php if ($totalExistenciaK > 0) : ?>
                 <span class="areas-produccion__numero"> <?php echo $totalExistenciaK ?> KG</span>
             <?php endif; ?>
@@ -49,7 +49,7 @@
 
     <li class="areas-produccion-blanco" data-aos="flip-left">
         <a href="/admin/produccion/materia/corrugador/cajablanco">
-            <i class="fas fa-scroll"></i> TOTAL  CAJA-BLANCO :
+            <i class="fas fa-scroll"></i> TOTAL CAJA-BLANCO :
             <?php if ($totalExistenciaB > 0) : ?>
                 <span class="areas-produccion__numero"> <?php echo $totalExistenciaB ?> KG </span>
             <?php endif; ?>
@@ -59,7 +59,7 @@
 
     <li class="areas-produccion-medium" data-aos="flip-left">
         <a href="/admin/produccion/materia/corrugador/cajamedium">
-            <i class="fas fa-shopping-cart"></i> TOTAL  CAJA-MEDIUM :
+            <i class="fas fa-shopping-cart"></i> TOTAL CAJA-MEDIUM :
             <?php if (isset($totalExistenciaM) && $totalExistenciaM > 0) : ?>
                 <span class="areas-produccion__numero"> <?php echo $totalExistenciaM ?> $ </span>
             <?php else : ?>
@@ -140,19 +140,10 @@
         </table>
         <div id="totalExistencia" class="total-display">Total de Existencia: 0</div>
     </div>
-
-    <div class="display">
-
-    <style>
-        .filters {
-            display: flex;
-            gap: 1rem;
-            margin-bottom: 20px;
-        }
+</div>
+<div class="display">
 
 
-    </style>
-    
 <div id="filters-otros" class="filters">
     <div>
         <label for="filterGramajeOtros">Filtrar por Gramaje:</label>
@@ -175,24 +166,19 @@
 </div>
 
 
-    <h2 class="titulo_existencia">Existencia (Otros Anchos)</h2>
-    <table id="dataTableOtros">
-        <thead>
-            <tr>
-                <th>Ancho</th>
-                <th>Gramaje</th>
-                <th>Línea</th>
-                <th>Existencia</th>
-            </tr>
-        </thead>
-        <tbody></tbody>
-    </table>
-    <div id="totalExistenciaOtros" class="total-display">Total de Existencia: 0</div>
-</div>
-
-
-
-
+<h2 class="titulo_existencia">Existencia (Otros Anchos)</h2>
+<table id="dataTableOtros">
+    <thead>
+        <tr>
+            <th>Ancho</th>
+            <th>Gramaje</th>
+            <th>Línea</th>
+            <th>Existencia</th>
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+<div id="totalExistenciaOtros" class="total-display">Total de Existencia: 0</div>
 </div>
 
 <script>
