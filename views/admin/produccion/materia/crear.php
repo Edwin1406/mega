@@ -149,7 +149,7 @@
             justify-content: center;
             align-items: center;
             margin-top: 20px;
-            width: 100%;
+            width: 10%;
         }
 </style>
 
