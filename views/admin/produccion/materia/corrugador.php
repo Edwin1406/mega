@@ -163,11 +163,15 @@
         border-radius: 1rem;
 
     }
+
+    .tablaotro{
+        padding: 1rem;
+    }
 </style>
 
 
 <div class="tablageneral">
-    <div class="graficas_blancas">
+    <div class="tablaotro">
         <div id="filters-otros" class="filters">
             <div>
                 <label for="filterGramajeOtros">Filtrar por Gramaje:</label>
