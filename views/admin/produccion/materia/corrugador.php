@@ -77,43 +77,52 @@
 <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
-<div class="original">
 
-  <div class="graficas_blancas">
 
-    <div id="filters">
-      <div>
-        <label for="filterGramaje">Filtrar por Gramaje:</label>
-        <select id="filterGramaje">
-          <option value="all">Todos</option>
-        </select>
-      </div>
-      <div>
-        <label for="filterAncho">Filtrar por Ancho:</label>
-        <select id="filterAncho">
-          <option value="all">Todos</option>
-        </select>
-      </div>
+<style>
+    .grafica_dual {
+        display: flex;
+        flex-direction: 1fr 1fr;
+        gap: 1rem;
+    }
+
+    .apexcharts-legend {
+        max-height: 80px;
+        overflow-y: auto;
+    }
+
+    .total-display {
+        margin-top: 10px;
+        font-weight: bold;
+        font-size: 3rem;
+    }
+</style>
+
+<div class="grafica_dual">
+    <div class="graficas_blancas">
+        <div id="filters">
+            <div>
+                <label for="filterGramaje">Filtrar por Gramaje:</label>
+                <select id="filterGramaje">
+                    <option value="all">Todos</option>
+                </select>
+            </div>
+            <div>
+                <label for="filterAncho">Filtrar por Ancho:</label>
+                <select id="filterAncho">
+                    <option value="all">Todos</option>
+                </select>
+            </div>
+            <div>
+                <label for="filterLinea">Filtrar por Línea:</label>
+                <select id="filterLinea">
+                    <option value="all">Todos</option>
+                </select>
+            </div>
+        </div>
+        <div id="chart" class="tamaño"></div>
     </div>
-    <div id="chart" class="tamaño"></div>
-  </div>
-
-  <div>
-
-    <table id="dataTable">
-      <thead>
-        <tr>
-          <th>Ancho</th>
-          <th>Gramaje</th>
-          <th>Existencia</th>
-        </tr>
-      </thead>
-      <tbody></tbody>
-    </table>
-  </div>
-
 </div>
-
 
 <div class="display">
     <div>
