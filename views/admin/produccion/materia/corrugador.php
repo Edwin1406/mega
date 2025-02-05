@@ -160,7 +160,8 @@
         gap: 1rem;
         background-color: red;
         padding: 1rem;
-        
+        border-radius: 1rem;
+
     }
 </style>
 
