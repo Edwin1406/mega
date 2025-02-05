@@ -261,39 +261,59 @@
             renderTable(filteredData);
         }
 
-        function renderCharts(data) {
-            const data1100 = data.filter(item => item.ancho == 1100);
-            const data1880 = data.filter(item => item.ancho == 1880);
+        let chart1100Instance = null;
+let chart1880Instance = null;
 
-            const grouped1100 = data1100.reduce((acc, item) => {
-                acc[item.gramaje] = (acc[item.gramaje] || 0) + parseFloat(item.existencia);
-                return acc;
-            }, {});
+function renderCharts(data) {
+    // Filtrar los datos por cada ancho
+    const data1100 = data.filter(item => item.ancho == 1100);
+    const data1880 = data.filter(item => item.ancho == 1880);
 
-            const grouped1880 = data1880.reduce((acc, item) => {
-                acc[item.gramaje] = (acc[item.gramaje] || 0) + parseFloat(item.existencia);
-                return acc;
-            }, {});
+    // Agrupar existencias por gramaje
+    const grouped1100 = data1100.reduce((acc, item) => {
+        acc[item.gramaje] = (acc[item.gramaje] || 0) + parseFloat(item.existencia);
+        return acc;
+    }, {});
 
-            const options1100 = {
-                series: Object.values(grouped1100),
-                chart: { type: 'pie', height: 400 },
-                labels: Object.keys(grouped1100).map(g => `${g}g`),
-                title: { text: 'Ancho 1100', align: 'center' },
-                dataLabels: { enabled: true },
-            };
+    const grouped1880 = data1880.reduce((acc, item) => {
+        acc[item.gramaje] = (acc[item.gramaje] || 0) + parseFloat(item.existencia);
+        return acc;
+    }, {});
 
-            const options1880 = {
-                series: Object.values(grouped1880),
-                chart: { type: 'pie', height: 400 },
-                labels: Object.keys(grouped1880).map(g => `${g}g`),
-                title: { text: 'Ancho 1880', align: 'center' },
-                dataLabels: { enabled: true },
-            };
+    // Destruir gráficos anteriores si existen
+    if (chart1100Instance) {
+        chart1100Instance.destroy();
+    }
+    if (chart1880Instance) {
+        chart1880Instance.destroy();
+    }
 
-            new ApexCharts(document.querySelector("#chart1100"), options1100).render();
-            new ApexCharts(document.querySelector("#chart1880"), options1880).render();
-        }
+    // Configurar gráficos
+    const options1100 = {
+        series: Object.values(grouped1100),
+        chart: { type: 'pie', height: 400 },
+        labels: Object.keys(grouped1100).map(g => `${g}g`),
+        title: { text: 'Ancho 1100', align: 'center' },
+        dataLabels: { enabled: true },
+    };
+
+    const options1880 = {
+        series: Object.values(grouped1880),
+        chart: { type: 'pie', height: 400 },
+        labels: Object.keys(grouped1880).map(g => `${g}g`),
+        title: { text: 'Ancho 1880', align: 'center' },
+        dataLabels: { enabled: true },
+    };
+
+    // Renderizar gráficos nuevos
+    chart1100Instance = new ApexCharts(document.querySelector("#chart1100"), options1100);
+    chart1880Instance = new ApexCharts(document.querySelector("#chart1880"), options1880);
+
+    chart1100Instance.render();
+    chart1880Instance.render();
+}
+
+
 
         function renderTable(data) {
             const table = $("#dataTable").DataTable();
