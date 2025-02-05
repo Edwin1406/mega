@@ -387,3 +387,261 @@
         });
     })();
 </script>
+
+
+
+<style>
+    .grafica_dual {
+        display: flex;
+        flex-direction: 1fr 1fr;
+        gap: 1rem;
+    }
+</style>
+<div class="grafica_dual">
+    <div class="graficas_blancas">
+        <div id="filters">
+            <div>
+                <label for="filterGramaje">Filtrar por Gramaje:</label>
+                <select id="filterGramaje">
+                    <option value="all">Todos</option>
+                </select>
+            </div>
+        </div>
+        <div id="chart" class="tamaño"></div>
+    </div>
+</div>
+
+<div class="display">
+    <div>
+        <h2 class="titulo_existencia">Existencia (Corrugador)</h2>
+        <table id="dataTable">
+            <thead>
+                <tr>
+                    <th>Ancho</th>
+                    <th>Gramaje</th>
+                    <th>Línea</th>
+                    <th>Existencia</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+
+    <div>
+        <h2 class="titulo_pedido">Pedidos (Comercial)</h2>
+        <table id="comercialTable" class="dataTables">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Producto</th>
+                    <th>Ancho (mm)</th>
+                    <th>Gramaje (g/m²)</th>
+                    <th>Cantidad</th>
+                    <th>Estado</th>
+                    <th>Arribo Planta </th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+
+    <div>
+        <h2 class="titulo_otros">Otros Anchos</h2>
+        <table id="otrosAnchosTable" class="dataTables">
+            <thead>
+                <tr>
+                    <th>Ancho</th>
+                    <th>Gramaje</th>
+                    <th>Línea</th>
+                    <th>Existencia</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+</div>
+
+<style>
+    .apexcharts-legend {
+        max-height: 80px;
+        overflow-y: auto;
+    }
+</style>
+<script>
+    (function() {
+        const apiComercialUrl = `${location.origin}/admin/api/apicomercial`;
+        const apiCorrugadorUrl = `${location.origin}/admin/api/apicorrugador`;
+        let originalComercialData = [];
+        let originalCorrugadorData = [];
+        let chart;
+
+        async function fetchData() {
+            try {
+                const [comercialResponse, corrugadorResponse] = await Promise.all([
+                    fetch(apiComercialUrl),
+                    fetch(apiCorrugadorUrl)
+                ]);
+
+                originalComercialData = await comercialResponse.json();
+                originalCorrugadorData = await corrugadorResponse.json();
+
+                renderChart();
+                renderTables();
+            } catch (error) {
+                console.error("Error al obtener los datos de la API:", error);
+            }
+        }
+
+        function renderChart() {
+            const filteredData = originalCorrugadorData.filter(item => item.ancho === 1880 || item.ancho === 1100);
+            const gramajes = [...new Set(filteredData.map(item => item.gramaje))];
+            const anchos = [1880, 1100];
+
+            const series = anchos.map(ancho => ({
+                name: `Ancho: ${ancho} mm`,
+                data: gramajes.map(gramaje => {
+                    const items = filteredData.filter(item => item.ancho === ancho && item.gramaje === gramaje);
+                    return items.reduce((sum, item) => sum + parseFloat(item.existencia), 0);
+                }),
+            }));
+
+            const options = {
+                series: series,
+                chart: {
+                    type: 'bar',
+                    height: 400,
+                    stacked: true,
+                    toolbar: {
+                        show: true,
+                    },
+                },
+                plotOptions: {
+                    bar: {
+                        horizontal: false,
+                        borderRadius: 4,
+                    },
+                },
+                dataLabels: {
+                    enabled: true,
+                },
+                xaxis: {
+                    categories: gramajes,
+                    title: {
+                        text: 'Gramajes',
+                    },
+                },
+                yaxis: {
+                    title: {
+                        text: 'Existencias Totales',
+                    },
+                },
+                legend: {
+                    position: 'top',
+                    horizontalAlign: 'center',
+                    floating: false,
+                    maxHeight: 80,
+                    itemMargin: {
+                        horizontal: 10,
+                        vertical: 5,
+                    },
+                    formatter: function(seriesName) {
+                        return seriesName.length > 20 ? seriesName.substring(0, 17) + '...' : seriesName;
+                    },
+                },
+                fill: {
+                    opacity: 1,
+                },
+            };
+
+            if (chart) {
+                chart.updateOptions(options);
+            } else {
+                chart = new ApexCharts(document.querySelector("#chart"), options);
+                chart.render();
+            }
+        }
+
+        function renderTables() {
+            const corrugadorTable = $("#dataTable").DataTable();
+            const comercialTable = $("#comercialTable").DataTable();
+            const otrosAnchosTable = $("#otrosAnchosTable").DataTable();
+
+            // Limpiar tablas
+            corrugadorTable.clear();
+            comercialTable.clear();
+            otrosAnchosTable.clear();
+
+            // Llenar tabla de comercial
+            originalComercialData.forEach(item => {
+                comercialTable.row.add([
+                    item.id,
+                    item.producto,
+                    item.ancho,
+                    item.gramaje,
+                    item.cantidad,
+                    item.estado,
+                    item.arribo_planta
+                ]);
+            });
+
+            // Llenar tabla de corrugador (solo anchos 1880 y 1100)
+            originalCorrugadorData.filter(item => item.ancho === 1880 || item.ancho === 1100).forEach(item => {
+                corrugadorTable.row.add([
+                    item.ancho,
+                    item.gramaje,
+                    item.linea,
+                    item.existencia
+                ]);
+            });
+
+            // Llenar tabla de otros anchos
+            originalCorrugadorData.filter(item => item.ancho !== 1880 && item.ancho !== 1100).forEach(item => {
+                otrosAnchosTable.row.add([
+                    item.ancho,
+                    item.gramaje,
+                    item.linea,
+                    item.existencia
+                ]);
+            });
+
+            // Dibujar tablas
+            comercialTable.draw();
+            corrugadorTable.draw();
+            otrosAnchosTable.draw();
+        }
+
+        $(document).ready(() => {
+            if (!$.fn.DataTable.isDataTable("#dataTable")) {
+                $("#dataTable").DataTable({
+                    language: {
+                        url: "//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json",
+                    },
+                });
+            }
+
+            if (!$.fn.DataTable.isDataTable("#comercialTable")) {
+                $("#comercialTable").DataTable({
+                    language: {
+                        url: "//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json",
+                    },
+                    paging: true,
+                    searching: true,
+                    ordering: true,
+                });
+            }
+
+            if (!$.fn.DataTable.isDataTable("#otrosAnchosTable")) {
+                $("#otrosAnchosTable").DataTable({
+                    language: {
+                        url: "//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json",
+                    },
+                    paging: true,
+                    searching: true,
+                    ordering: true,
+                });
+            }
+
+            fetchData();
+        });
+    })();
+</script>
