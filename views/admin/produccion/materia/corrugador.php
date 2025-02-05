@@ -475,7 +475,7 @@
     .total-display {
         margin-top: 10px;
         font-weight: bold;
-        font-size: 3rem;
+        font-size: 2rem;
     }
 
     #filters-otros {
