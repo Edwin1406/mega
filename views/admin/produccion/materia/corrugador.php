@@ -154,20 +154,56 @@
 
 
 <style>
+   <style>
     .tablageneral {
         display: flex;
-        flex-direction: 1fr 1fr;
-        gap: 1rem;
+        flex-direction: column;
+        gap: 0.5rem;
         background-color: rgb(214, 234, 248);
-        padding: 2rem;
-        border-radius: 1rem;
-
-
+        padding: 1rem;
+        border-radius: 0.5rem;
+        width: 80%;
+        margin: auto;
     }
 
-    .tablaotro{
-        padding: 2rem;
+    .tablaotro {
+        padding: 1rem;
     }
+
+    #filters-otros label {
+        font-size: 0.9rem;
+    }
+
+    #filters-otros select {
+        font-size: 0.9rem;
+        padding: 0.2rem;
+        margin-bottom: 0.5rem;
+    }
+
+    h2.titulo_existencia {
+        font-size: 1.2rem;
+        text-align: center;
+    }
+
+    #dataTableOtros {
+        width: 100%;
+        font-size: 0.85rem;
+        border-collapse: collapse;
+    }
+
+    #dataTableOtros th, #dataTableOtros td {
+        border: 1px solid #ccc;
+        padding: 0.5rem;
+        text-align: center;
+    }
+
+    #totalExistenciaOtros {
+        font-size: 1rem;
+        text-align: right;
+        margin-top: 0.5rem;
+    }
+</style>
+
 </style>
 
 
