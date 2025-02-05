@@ -331,7 +331,6 @@
     })();
 </script>
 
-
 <style>
     .total-display {
         margin-top: 10px;
@@ -352,20 +351,20 @@
 
 <div id="filters">
     <div>
-        <label for="filterGramaje">Filtrar por Gramaje:</label>
-        <select id="filterGramaje">
+        <label for="filterGramajeCorr">Filtrar por Gramaje:</label>
+        <select id="filterGramajeCorr">
             <option value="all">Todos</option>
         </select>
     </div>
     <div>
-        <label for="filterAncho">Filtrar por Ancho:</label>
-        <select id="filterAncho">
+        <label for="filterAnchoCorr">Filtrar por Ancho:</label>
+        <select id="filterAnchoCorr">
             <option value="all">Todos</option>
         </select>
     </div>
     <div>
-        <label for="filterLinea">Filtrar por Línea:</label>
-        <select id="filterLinea">
+        <label for="filterLineaCorr">Filtrar por Línea:</label>
+        <select id="filterLineaCorr">
             <option value="all">Todos</option>
         </select>
     </div>
@@ -406,9 +405,9 @@
 
         function populateFilters(corrugadorData) {
             // Limpiar opciones anteriores
-            document.getElementById("filterGramaje").innerHTML = '<option value="all">Todos</option>';
-            document.getElementById("filterAncho").innerHTML = '<option value="all">Todos</option>';
-            document.getElementById("filterLinea").innerHTML = '<option value="all">Todos</option>';
+            document.getElementById("filterGramajeCorr").innerHTML = '<option value="all">Todos</option>';
+            document.getElementById("filterAnchoCorr").innerHTML = '<option value="all">Todos</option>';
+            document.getElementById("filterLineaCorr").innerHTML = '<option value="all">Todos</option>';
 
             // Obtener conjuntos únicos de valores
             const gramajes = [...new Set(corrugadorData.map(item => item.gramaje))];
@@ -416,7 +415,7 @@
             const lineas = [...new Set(corrugadorData.map(item => item.linea))];
 
             // Poblar selectores
-            const gramajeSelect = document.getElementById("filterGramaje");
+            const gramajeSelect = document.getElementById("filterGramajeCorr");
             gramajes.forEach(gramaje => {
                 const option = document.createElement("option");
                 option.value = gramaje;
@@ -424,7 +423,7 @@
                 gramajeSelect.appendChild(option);
             });
 
-            const anchoSelect = document.getElementById("filterAncho");
+            const anchoSelect = document.getElementById("filterAnchoCorr");
             anchos.forEach(ancho => {
                 const option = document.createElement("option");
                 option.value = ancho;
@@ -432,7 +431,7 @@
                 anchoSelect.appendChild(option);
             });
 
-            const lineaSelect = document.getElementById("filterLinea");
+            const lineaSelect = document.getElementById("filterLineaCorr");
             lineas.forEach(linea => {
                 const option = document.createElement("option");
                 option.value = linea;
@@ -442,9 +441,9 @@
         }
 
         function filterData() {
-            const selectedGramaje = document.getElementById("filterGramaje").value;
-            const selectedAncho = document.getElementById("filterAncho").value;
-            const selectedLinea = document.getElementById("filterLinea").value;
+            const selectedGramaje = document.getElementById("filterGramajeCorr").value;
+            const selectedAncho = document.getElementById("filterAnchoCorr").value;
+            const selectedLinea = document.getElementById("filterLineaCorr").value;
 
             let filteredCorrugador = originalCorrugadorData;
 
@@ -498,9 +497,9 @@
 
             fetchData();
 
-            document.getElementById("filterGramaje").addEventListener("change", filterData);
-            document.getElementById("filterAncho").addEventListener("change", filterData);
-            document.getElementById("filterLinea").addEventListener("change", filterData);
+            document.getElementById("filterGramajeCorr").addEventListener("change", filterData);
+            document.getElementById("filterAnchoCorr").addEventListener("change", filterData);
+            document.getElementById("filterLineaCorr").addEventListener("change", filterData);
         });
     })();
 </script>
