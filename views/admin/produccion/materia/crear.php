@@ -69,18 +69,11 @@
 
 <canvas id="existenciaChart" width="400" height="200"></canvas>
     <script>
-
-
-document.getElementById('valor1').innerHTML =  <?php echo $totalExistencia ?> + " KG";
-document.getElementById('valor2').innerHTML =  <?php echo $totalExistenciaMicro ?> + " KG";
-document.getElementById('valor3').innerHTML =  <?php echo $totalExistenciaPeriodico ?> + " KG";
-
-        const existenciaCorrugadorTotal = <?php echo $totalExistencia ?>; // Total de existencia de corrugador
-        const existenciaCorrugadorMicroTotal = <?php echo $totalExistenciaMicro ?>; // Total de existencia de microcorrugador
-        const existenciaPeriodicaTotal = <?php echo $totalExistenciaPeriodico ?>; // Total de existencia de periodico
-
-        console.log(existenciaCorrugadorTotal, existenciaCorrugadorMicroTotal, existenciaPeriodicaTotal);
-      
+        const existenciaCorrugadorTotal = document.querySelector('#valor1').textContent;
+        const existenciaCorrugadorMicroTotal = document.querySelector('#valor2').textContent;
+        const existenciaPeriodicaTotal = document.querySelector('#valor3').textContent;
+        // Valores iniciales
+      console.log(existenciaCorrugadorTotal)
 
         // Calcular el total y los porcentajes
         const total = existenciaCorrugadorTotal + existenciaCorrugadorMicroTotal + existenciaPeriodicaTotal;
