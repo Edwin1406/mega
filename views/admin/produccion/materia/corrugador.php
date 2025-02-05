@@ -187,7 +187,7 @@
 
     #dataTableOtros {
         width: 100%;
-        font-size: 0.85rem;
+        font-size: 1rem;
         border-collapse: collapse;
     }
 
