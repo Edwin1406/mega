@@ -166,6 +166,9 @@
 
 <div class="tablageneral" > 
 
+   
+
+    <div>
     <div id="filters-otros" class="filters">
         <div>
             <label for="filterGramajeOtros">Filtrar por Gramaje:</label>
@@ -186,8 +189,6 @@
             </select>
         </div>
     </div>
-
-    <div>
         <h2 class="titulo_existencia">Existencia (Otros Anchos)</h2>
         <table id="dataTableOtros">
             <thead>
