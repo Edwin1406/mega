@@ -76,8 +76,9 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
 
+
 <style>
-    .tablageneral {
+       .tablageneral {
         display: flex;
         flex-direction: row;
         gap: 0.5rem;
@@ -125,9 +126,7 @@
     th.sorting {
         font-size: 1.5rem;
     }
-</style>
 
-<style>
     .grafica_dual {
         display: flex;
         justify-content: space-around;
@@ -179,6 +178,32 @@
         font-weight: bold;
         text-align: center;
     }
+
+
+    .total-display {
+        margin-top: 10px;
+        font-weight: bold;
+        font-size: 2rem;
+    }
+
+    .total-display1 {
+        margin-top: 10px;
+        font-weight: bold;
+        font-size: 2rem;
+    }
+
+
+
+    #filters-otros {
+        display: flex;
+        gap: 1rem;
+        margin-bottom: 20px;
+    }
+
+    label {
+        font-weight: bold;
+    }
+
 </style>
 <div id="filters">
             <div>
@@ -400,52 +425,6 @@ function renderCharts(data) {
 
 
 
-<script>
-
-
-    // total de existencia
-    const existenciaCorrugadorTotal = parseFloat(document.querySelector('#valor1').textContent.replace(' KG', '').replace('.', '').replace(',', '.'));
-    const existenciaCorrugadorMicroTotal = parseFloat(document.querySelector('#valor2').textContent.replace(' KG', '').replace('.', '').replace(',', '.'));
-    
-    console.log(existenciaCorrugadorTotal);
-    console.log(existenciaCorrugadorMicroTotal);
-
-
-
-</script>
-
-
-
-
-
-
-
-
-<style>
-    .total-display {
-        margin-top: 10px;
-        font-weight: bold;
-        font-size: 2rem;
-    }
-
-    .total-display1 {
-        margin-top: 10px;
-        font-weight: bold;
-        font-size: 2rem;
-    }
-
-
-
-    #filters-otros {
-        display: flex;
-        gap: 1rem;
-        margin-bottom: 20px;
-    }
-
-    label {
-        font-weight: bold;
-    }
-</style>
 
 
 
