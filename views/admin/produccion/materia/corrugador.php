@@ -82,7 +82,7 @@
         display: flex;
         flex-direction: row;
         gap: 0.5rem;
-        background-color: #64748B;
+        background-color: #c5cace;
         padding: 1rem;
         border-radius: 0.5rem;
         width: 100%;
@@ -132,7 +132,7 @@
         justify-content: space-around;
         align-items: stretch;
         gap: 2rem;
-        background-color: rgb(100, 116, 110);
+        background-color: #c5cace;
         padding: 2rem;
         border-radius: 1rem;
         margin-bottom: 2rem;
