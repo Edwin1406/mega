@@ -79,39 +79,6 @@
 <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
 
 
-<style>
-.grafica_dual {
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    gap: 2rem;
-    background-color: rgb(214, 234, 248);
-    padding: 2rem;
-    border-radius: 1rem;
-    margin-bottom: 2rem;
-}
-
-#filters {
-    display: flex;
-    justify-content: space-between;
-    gap: 1rem;
-    margin-bottom: 1.5rem;
-}
-
-#filters div {
-    flex: 1;
-}
-
-.graficas_blancas {
-    margin-bottom: 1rem;
-}
-
-table {
-    width: 100%;
-}
-
-
-</style>
 
 
 
@@ -165,6 +132,56 @@ table {
     th.sorting {
         font-size: 1.5rem;
     }
+</style>
+
+
+<style>
+.grafica_dual {
+    display: flex;
+    justify-content: center;
+    align-items: stretch; /* Asegura que todas las columnas tengan la misma altura */
+    gap: 2rem;
+    background-color: rgb(214, 234, 248);
+    padding: 2rem;
+    border-radius: 1rem;
+    margin-bottom: 2rem;
+}
+
+.columna_filtros, .columna_graficas, .columna_tabla {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex: 1;
+    background-color: white; /* Fondo blanco para mejor contraste */
+    padding: 1rem;
+    border-radius: 1rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+#filters {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+#filters div {
+    flex: 1;
+}
+
+.graficas_blancas {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+}
+
+table {
+    width: 100%;
+    margin-top: 1rem;
+}
+
 </style>
 
 <div class="grafica_dual">
