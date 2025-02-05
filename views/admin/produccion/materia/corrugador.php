@@ -192,11 +192,18 @@ table {
             </div>
         </div>
         <div class="graficas_blancas">
+            <div id="chart1100" class="tamaño"></div>
+        </div>
+    </div>
+
+    <!-- Segunda columna: Gráficas -->
+    <div class="columna_graficas">
+        <h2 class="titulo_existencia">Gráficas</h2>
+        <div class="graficas_blancas">
             <div id="chart1880" class="tamaño"></div>
             <div id="chart1100" class="tamaño"></div>
         </div>
     </div>
-<!--  -->
 
     <!-- Tercera columna: Tabla -->
     <div class="columna_tabla">
