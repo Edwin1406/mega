@@ -175,6 +175,15 @@
     overflow-y: auto;
 }
 
+
+
+    .total-display {
+        margin-top: 10px;
+        font-weight: bold;
+        font-size: 1.1rem;
+    }
+
+
 </style>
 <script>
     (function() {
