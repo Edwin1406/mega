@@ -154,41 +154,37 @@
 
 
 <style>
-    .tablageneral{
+    .tablageneral {
         display: flex;
         flex-direction: 1fr 1fr;
         gap: 1rem;
+        background-color: red;
     }
-
-
 </style>
 
 
-<div class="tablageneral" > 
-
-   
-
+<div class="tablageneral">
     <div>
-    <div id="filters-otros" class="filters">
-        <div>
-            <label for="filterGramajeOtros">Filtrar por Gramaje:</label>
-            <select id="filterGramajeOtros">
-                <option value="all">Todos</option>
-            </select>
+        <div id="filters-otros" class="filters">
+            <div>
+                <label for="filterGramajeOtros">Filtrar por Gramaje:</label>
+                <select id="filterGramajeOtros">
+                    <option value="all">Todos</option>
+                </select>
+            </div>
+            <div>
+                <label for="filterAnchoOtros">Filtrar por Ancho:</label>
+                <select id="filterAnchoOtros">
+                    <option value="all">Todos</option>
+                </select>
+            </div>
+            <div>
+                <label for="filterLineaOtros">Filtrar por Línea:</label>
+                <select id="filterLineaOtros">
+                    <option value="all">Todos</option>
+                </select>
+            </div>
         </div>
-        <div>
-            <label for="filterAnchoOtros">Filtrar por Ancho:</label>
-            <select id="filterAnchoOtros">
-                <option value="all">Todos</option>
-            </select>
-        </div>
-        <div>
-            <label for="filterLineaOtros">Filtrar por Línea:</label>
-            <select id="filterLineaOtros">
-                <option value="all">Todos</option>
-            </select>
-        </div>
-    </div>
         <h2 class="titulo_existencia">Existencia (Otros Anchos)</h2>
         <table id="dataTableOtros">
             <thead>
