@@ -153,6 +153,9 @@
             width: 60%;
             background-color: #ddd;
         }
+        #existenciaChart{
+            padding-top: 2rem;
+        }
 
       
 </style>
