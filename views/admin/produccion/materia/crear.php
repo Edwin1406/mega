@@ -145,6 +145,81 @@
         }
 </style>
 
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<!-- Canvas para la gráfica -->
+<canvas id="existenciaChart" width="400" height="200"></canvas>
+
+<script>
+    // Obtener los valores del DOM y convertirlos en números
+    const existenciaCorrugadorTotal = parseFloat(document.querySelector('#valor1').textContent.replace(' KG', '').replace('.', '').replace(',', '.'));
+    const existenciaCorrugadorMicroTotal = parseFloat(document.querySelector('#valor2').textContent.replace(' KG', '').replace('.', '').replace(',', '.'));
+    const existenciaPeriodicaTotal = parseFloat(document.querySelector('#valor3').textContent.replace(' KG', '').replace('.', '').replace(',', '.'));
+
+    // Calcular el total
+    const total = existenciaCorrugadorTotal + existenciaCorrugadorMicroTotal + existenciaPeriodicaTotal;
+
+    // Calcular los porcentajes
+    const datos = [
+        (existenciaCorrugadorTotal / total) * 100,
+        (existenciaCorrugadorMicroTotal / total) * 100,
+        (existenciaPeriodicaTotal / total) * 100
+    ];
+
+    // Configuración de la gráfica
+    const ctx = document.getElementById('existenciaChart').getContext('2d');
+    new Chart(ctx, {
+        type: 'doughnut',  // Cambiado de pie a doughnut (gráfica más estética)
+        data: {
+            labels: ['Corrugador Total', 'Micro Corrugador Total', 'Periódico Total'],
+            datasets: [{
+                label: 'Porcentaje de Existencias',
+                data: datos,
+                backgroundColor: ['#6c757d', '#20c997', '#d63384'], // Colores personalizados
+                hoverBackgroundColor: ['#495057', '#17a2b8', '#c82373'], // Colores al pasar el cursor
+                borderWidth: 2,
+                borderColor: '#fff'
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'top',
+                    labels: {
+                        font: {
+                            size: 14,
+                            family: 'Arial',
+                            weight: 'bold'
+                        },
+                        color: '#333'
+                    }
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(tooltipItem) {
+                            return `${tooltipItem.label}: ${tooltipItem.raw.toFixed(2)}%`;
+                        }
+                    },
+                    backgroundColor: '#000',
+                    titleColor: '#fff',
+                    bodyColor: '#fff',
+                    borderColor: '#666',
+                    borderWidth: 1
+                }
+            },
+            animation: {
+                animateScale: true,
+                animateRotate: true
+            }
+        }
+    });
+</script>
+
+
 <!-- 
 
 <div class="dashboard__formulario">
