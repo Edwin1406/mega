@@ -154,7 +154,7 @@
 
 
 <style>
-   <style>
+ 
     .tablageneral {
         display: flex;
         flex-direction: column;
@@ -202,7 +202,7 @@
         text-align: right;
         margin-top: 0.5rem;
     }
-</style>
+
 
 </style>
 
