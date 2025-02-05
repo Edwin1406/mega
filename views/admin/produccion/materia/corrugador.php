@@ -400,7 +400,19 @@ function renderCharts(data) {
 
 
 
+<script>
 
+
+    // total de existencia
+    const existenciaCorrugadorTotal = parseFloat(document.querySelector('#valor1').textContent.replace(' KG', '').replace('.', '').replace(',', '.'));
+    const existenciaCorrugadorMicroTotal = parseFloat(document.querySelector('#valor2').textContent.replace(' KG', '').replace('.', '').replace(',', '.'));
+    
+    console.log(existenciaCorrugadorTotal);
+    console.log(existenciaCorrugadorMicroTotal);
+
+
+
+</script>
 
 
 
