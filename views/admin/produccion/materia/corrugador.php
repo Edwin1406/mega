@@ -412,7 +412,7 @@
 
 <script>
     (function() {
-        const apiOtrosAnchosUrl = `${location.origin}/admin/api/apiotrosanchos`;
+        const apiOtrosAnchosUrl = "https://megawebsistem.com/admin/api/apiAnchossobrantes";
 
         console.log(apiOtrosAnchosUrl);
         let originalOtrosData = [];
