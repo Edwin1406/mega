@@ -125,7 +125,7 @@
             </div>
         </div>
         <div id="chart" class="tamaño"></div>
-    </div>
+   
 
 
     <div>
@@ -144,6 +144,7 @@
             </table>
             <div id="totalExistencia" class="total-display">Total de Existencia: 0</div>
         </div>
+    </div>
     </div>
 
 </div>
