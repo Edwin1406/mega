@@ -388,7 +388,7 @@
 
 <script>
     (function() {
-        const apiCorrugadorUrl = `${location.origin}/admin/api/apicorrugador`;
+        const apiCorrugadorUrl = `${location.origin}/admin/api/apiAnchossobrantes`;
         let originalCorrugadorData = [];
 
         async function fetchData() {
