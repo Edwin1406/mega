@@ -162,7 +162,7 @@
         background-color: rgb(214, 234, 248);
         padding: 1rem;
         border-radius: 0.5rem;
-        width: 80%;
+        width: 90%;
         margin: auto;
     }
 
