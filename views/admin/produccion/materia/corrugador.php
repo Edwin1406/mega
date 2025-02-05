@@ -322,42 +322,44 @@
 }
 
 
+function renderTables(comercialData, corrugadorData) {
+    const corrugadorTable = $("#dataTable").DataTable();
+    const comercialTable = $("#comercialTable").DataTable();
 
-        function renderTables(comercialData, corrugadorData) {
-            const corrugadorTable = $("#dataTable").DataTable();
-            const comercialTable = $("#comercialTable").DataTable();
+    // Limpiar tablas
+    corrugadorTable.clear();
+    comercialTable.clear();
 
-            // Limpiar tablas
-            corrugadorTable.clear();
-            comercialTable.clear();
+    // Variables para totales
+    let totalExistencia = 0;
+    let totalCantidad = 0;
 
-            // Llenar tabla de comercial
-            comercialData.forEach(item => {
-                comercialTable.row.add([
-                    item.id,
-                    item.producto,
-                    item.ancho,
-                    item.gramaje,
-                    item.cantidad,
-                    item.estado,
-                    item.arribo_planta
-                ]);
-            });
+    // Llenar tabla de comercial
+    comercialData.forEach(item => {
+        totalCantidad += parseFloat(item.cantidad);
+        comercialTable.row.add([
+            item.id,
+            item.producto,
+            item.ancho,
+            item.gramaje,
+            item.cantidad,
+            item.estado,
+            item.arribo_planta
+        ]);
+    });
 
-            // Llenar tabla de corrugador
-            corrugadorData.forEach(item => {
-                corrugadorTable.row.add([
-                    item.ancho,
-                    item.gramaje,
-                    item.linea,
-                    item.existencia
-                ]);
-            });
+    // Llenar tabla de corrugador
+    corrugadorData.forEach(item => {
+        totalExistencia += parseFloat(item.existencia);
+        corrugadorTable.row.add([
+            item.ancho,
+            item.gramaje,
+            item.linea,
+            item.existencia
+        ]);
+    });
 
-            // Dibujar tablas
-            comercialTable.draw();
-            corrugadorTable.draw();
-           // Agregar fila de total a la tabla de comercial
+    // Agregar fila de total a la tabla de comercial
     comercialTable.row.add([
         "", "TOTAL", "", "", totalCantidad, "", ""
     ]).draw();
@@ -366,7 +368,8 @@
     corrugadorTable.row.add([
         "", "TOTAL", "", totalExistencia
     ]).draw();
-        }
+}
+
 
 
         $(document).ready(() => {
