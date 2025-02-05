@@ -188,19 +188,6 @@ class ComercialController {
 
 
 
-    public static function ubicaciones (Router $router)
-    {
-        
-        header('Content-Type: application/json');
-        header('Access-Control-Allow-Origin: *');
-        Header('Access-Control-Allow-Methods: GET');
-        $ubicaciones = Ubicaciones::all('ASC');
-        echo json_encode($ubicaciones);
-       
-    }
-
-
-
 
 
 
