@@ -253,7 +253,7 @@
             </thead>
             <tbody></tbody>
         </table>
-        <div id="totalExistenciaOtros" class="total-display">Total de Existencia: 0</div>
+        <div id="totalExistenciaOtros" class="total-display1">Total de Existencia: 0</div>
     </div>
 
 </div>
@@ -472,7 +472,12 @@
 
 
 <style>
-    .total-display , .totalExistenciaOtros {
+    .total-display {
+        margin-top: 10px;
+        font-weight: bold;
+        font-size: 2rem;
+    }
+    .total-display1 {
         margin-top: 10px;
         font-weight: bold;
         font-size: 2rem;
