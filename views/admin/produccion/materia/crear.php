@@ -64,59 +64,7 @@
         </a>
     </li>
 </ul>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-
-<canvas id="existenciaChart" width="400" height="200"></canvas>
-    <script>
-        const existenciaCorrugadorTotal = document.querySelector('#valor1').textContent;
-        const existenciaCorrugadorMicroTotal = document.querySelector('#valor2').textContent;
-        const existenciaPeriodicaTotal = document.querySelector('#valor3').textContent;
-        // quitar el texto ' KG' y convertirlo a número
-        const totalCorrugador = parseFloat(existenciaCorrugadorTotal);
-        const totalMicroCorrugador = parseFloat(existenciaCorrugadorMicroTotal);
-        const totalPeriodico = parseFloat(existenciaPeriodicaTotal);
-        const allkilos = totalCorrugador + totalMicroCorrugador + totalPeriodico;
-        console.log(allkilos);
-        // Calcular el total y los porcentajes
-        const total = existenciaCorrugadorTotal + existenciaCorrugadorMicroTotal + existenciaPeriodicaTotal;
-
-        const datos = [
-            (existenciaCorrugadorTotal / total) * 100,
-            (existenciaCorrugadorMicroTotal / total) * 100,
-            (existenciaPeriodicaTotal / total) * 100
-        ];
-
-        // Configuración de la gráfica
-        const ctx = document.getElementById('existenciaChart').getContext('2d');
-        new Chart(ctx, {
-            type: 'pie',
-            data: {
-                labels: ['Corrugador Total', 'Micro Corrugador Total', 'Periódico Total'],
-                datasets: [{
-                    label: 'Porcentaje de Existencias',
-                    data: datos,
-                    backgroundColor: ['#6c757d', '#20c997', '#d63384'], // Colores personalizados
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                responsive: true,
-                plugins: {
-                    legend: {
-                        position: 'top'
-                    },
-                    tooltip: {
-                        callbacks: {
-                            label: function(tooltipItem) {
-                                return `${tooltipItem.label}: ${tooltipItem.raw.toFixed(2)}%`;
-                            }
-                        }
-                    }
-                }
-            }
-        });
-    </script>
 
 <div class="centrar">
 
