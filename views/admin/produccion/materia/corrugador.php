@@ -321,7 +321,6 @@
     }
 }
 
-
 function renderTables(comercialData, corrugadorData) {
     const corrugadorTable = $("#dataTable").DataTable();
     const comercialTable = $("#comercialTable").DataTable();
@@ -336,6 +335,7 @@ function renderTables(comercialData, corrugadorData) {
 
     // Llenar tabla de comercial
     comercialData.forEach(item => {
+        totalCantidad += parseFloat(item.cantidad);
         comercialTable.row.add([
             item.id,
             item.producto,
@@ -345,29 +345,31 @@ function renderTables(comercialData, corrugadorData) {
             item.estado,
             item.arribo_planta
         ]);
-        totalCantidad += parseFloat(item.cantidad);
     });
 
     // Llenar tabla de corrugador
     corrugadorData.forEach(item => {
+        totalExistencia += parseFloat(item.existencia);
         corrugadorTable.row.add([
             item.ancho,
             item.gramaje,
             item.linea,
             item.existencia
         ]);
-        totalExistencia += parseFloat(item.existencia);
     });
 
-    // Agregar fila de total a la tabla de comercial
+    // Agregar fila de total con clase especial
     comercialTable.row.add([
-        "", "TOTAL", "", "", totalCantidad, "", ""
-    ]).draw();
+        "", "<strong>TOTAL</strong>", "", "", `<strong>${totalCantidad}</strong>`, "", ""
+    ]).node().classList.add('total-row');
 
-    // Agregar fila de total a la tabla de corrugador
     corrugadorTable.row.add([
-        "", "TOTAL", "", totalExistencia
-    ]).draw();
+        "<strong>TOTAL</strong>", "", "", `<strong>${totalExistencia}</strong>`
+    ]).node().classList.add('total-row');
+
+    // Dibujar tablas
+    comercialTable.draw();
+    corrugadorTable.draw();
 }
 
 
