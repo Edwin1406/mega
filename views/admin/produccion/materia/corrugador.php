@@ -78,7 +78,7 @@
 
 
 <style>
-       .tablageneral {
+    .tablageneral {
         display: flex;
         flex-direction: row;
         gap: 0.5rem;
@@ -138,7 +138,9 @@
         margin-bottom: 2rem;
     }
 
-    .columna_filtros, .columna_graficas, .columna_tabla {
+    .columna_filtros,
+    .columna_graficas,
+    .columna_tabla {
         display: flex;
         flex-direction: column;
         justify-content: space-between;
@@ -203,44 +205,43 @@
     label {
         font-weight: bold;
     }
-
 </style>
 <div id="filters">
-            <div>
-                <label for="filterGramaje">Filtrar por Gramaje (Gráficas):</label>
-                <select id="filterGramaje">
-                    <option value="all">Todos</option>
-                </select>
-            </div>
-            <div>
-                <label for="filterAncho">Filtrar por Ancho (Tabla):</label>
-                <select id="filterAncho">
-                    <option value="all">Todos</option>
-                </select>
-            </div>
-            <div>
-                <label for="filterLinea">Filtrar por Línea (Tabla):</label>
-                <select id="filterLinea">
-                    <option value="all">Todos</option>
-                </select>
-            </div>
-        </div>
+    <div>
+        <label for="filterGramaje">Filtrar por Gramaje (Gráficas):</label>
+        <select id="filterGramaje">
+            <option value="all">Todos</option>
+        </select>
+    </div>
+    <div>
+        <label for="filterAncho">Filtrar por Ancho (Tabla):</label>
+        <select id="filterAncho">
+            <option value="all">Todos</option>
+        </select>
+    </div>
+    <div>
+        <label for="filterLinea">Filtrar por Línea (Tabla):</label>
+        <select id="filterLinea">
+            <option value="all">Todos</option>
+        </select>
+    </div>
+</div>
 <div class="grafica_dual">
     <!-- Primera columna: Filtros -->
     <div class="columna_filtros">
-        <h2 class="titulo_existencia">Filtros</h2>
-     
-            <div id="chart1880" class="tamaño"></div>
-      
+        <h2 class="titulo_existencia">Gráfica 1</h2>
+
+        <div id="chart1880" class="tamaño"></div>
+
     </div>
 
     <!-- Segunda columna: Gráficas -->
     <div class="columna_graficas">
-        <h2 class="titulo_existencia">Gráficas</h2>
-        
-            <div id="chart1100" class="tamaño"></div>
-        
-       
+        <h2 class="titulo_existencia">Gráfica 2</h2>
+
+        <div id="chart1100" class="tamaño"></div>
+
+
     </div>
 
     <!-- Tercera columna: Tabla -->
@@ -338,56 +339,72 @@
         }
 
         let chart1100Instance = null;
-let chart1880Instance = null;
+        let chart1880Instance = null;
 
-function renderCharts(data) {
-    // Filtrar los datos por cada ancho
-    const data1100 = data.filter(item => item.ancho == 1100);
-    const data1880 = data.filter(item => item.ancho == 1880);
+        function renderCharts(data) {
+            // Filtrar los datos por cada ancho
+            const data1100 = data.filter(item => item.ancho == 1100);
+            const data1880 = data.filter(item => item.ancho == 1880);
 
-    // Agrupar existencias por gramaje
-    const grouped1100 = data1100.reduce((acc, item) => {
-        acc[item.gramaje] = (acc[item.gramaje] || 0) + parseFloat(item.existencia);
-        return acc;
-    }, {});
+            // Agrupar existencias por gramaje
+            const grouped1100 = data1100.reduce((acc, item) => {
+                acc[item.gramaje] = (acc[item.gramaje] || 0) + parseFloat(item.existencia);
+                return acc;
+            }, {});
 
-    const grouped1880 = data1880.reduce((acc, item) => {
-        acc[item.gramaje] = (acc[item.gramaje] || 0) + parseFloat(item.existencia);
-        return acc;
-    }, {});
+            const grouped1880 = data1880.reduce((acc, item) => {
+                acc[item.gramaje] = (acc[item.gramaje] || 0) + parseFloat(item.existencia);
+                return acc;
+            }, {});
 
-    // Destruir gráficos anteriores si existen
-    if (chart1100Instance) {
-        chart1100Instance.destroy();
-    }
-    if (chart1880Instance) {
-        chart1880Instance.destroy();
-    }
+            // Destruir gráficos anteriores si existen
+            if (chart1100Instance) {
+                chart1100Instance.destroy();
+            }
+            if (chart1880Instance) {
+                chart1880Instance.destroy();
+            }
 
-    // Configurar gráficos
-    const options1100 = {
-        series: Object.values(grouped1100),
-        chart: { type: 'pie', height: 400 },
-        labels: Object.keys(grouped1100).map(g => `${g}g`),
-        title: { text: 'Ancho 1100', align: 'center' },
-        dataLabels: { enabled: true },
-    };
+            // Configurar gráficos
+            const options1100 = {
+                series: Object.values(grouped1100),
+                chart: {
+                    type: 'pie',
+                    height: 400
+                },
+                labels: Object.keys(grouped1100).map(g => `${g}g`),
+                title: {
+                    text: 'Ancho 1100',
+                    align: 'center'
+                },
+                dataLabels: {
+                    enabled: true
+                },
+            };
 
-    const options1880 = {
-        series: Object.values(grouped1880),
-        chart: { type: 'pie', height: 400 },
-        labels: Object.keys(grouped1880).map(g => `${g}g`),
-        title: { text: 'Ancho 1880', align: 'center' },
-        dataLabels: { enabled: true },
-    };
+            const options1880 = {
+                series: Object.values(grouped1880),
+                chart: {
+                    type: 'pie',
+                    height: 400
+                },
+                labels: Object.keys(grouped1880).map(g => `${g}g`),
+                title: {
+                    text: 'Ancho 1880',
+                    align: 'center'
+                },
+                dataLabels: {
+                    enabled: true
+                },
+            };
 
-    // Renderizar gráficos nuevos
-    chart1100Instance = new ApexCharts(document.querySelector("#chart1100"), options1100);
-    chart1880Instance = new ApexCharts(document.querySelector("#chart1880"), options1880);
+            // Renderizar gráficos nuevos
+            chart1100Instance = new ApexCharts(document.querySelector("#chart1100"), options1100);
+            chart1880Instance = new ApexCharts(document.querySelector("#chart1880"), options1880);
 
-    chart1100Instance.render();
-    chart1880Instance.render();
-}
+            chart1100Instance.render();
+            chart1880Instance.render();
+        }
 
 
 
@@ -407,7 +424,9 @@ function renderCharts(data) {
 
         $(document).ready(() => {
             $("#dataTable").DataTable({
-                language: { url: "//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json" },
+                language: {
+                    url: "//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json"
+                },
             });
 
             fetchData();
