@@ -68,7 +68,8 @@
 
 <script>
 const  valor = document.querySelectorAll('#valor');
-console.log(valor);
+const resultado = valor.value;
+console.log(resultado);
 
 </script>
 
