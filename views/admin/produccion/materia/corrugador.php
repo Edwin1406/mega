@@ -87,6 +87,7 @@
         background-color: red;
         padding: 1rem;
         border-radius: 1rem;
+        margin-bottom: 2rem;
     }
 
     .apexcharts-legend {
