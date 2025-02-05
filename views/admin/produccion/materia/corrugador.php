@@ -159,8 +159,10 @@
         font-size: 1.5rem;
     }
 </style>
-   <!-- Primera columna: Filtros -->
-   <div class="columna_filtros">
+
+<div class="grafica_dual">
+    <!-- Primera columna: Filtros -->
+    <div class="columna_filtros">
         <h2 class="titulo_existencia">Filtros</h2>
         <div id="filters">
             <div>
@@ -183,8 +185,6 @@
             </div>
         </div>
     </div>
-<div class="grafica_dual">
- 
 
     <!-- Segunda columna: Gráficas -->
     <div class="columna_graficas">
