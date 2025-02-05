@@ -150,7 +150,7 @@
             justify-content: center;
             align-items: center;
             margin-top: 20px;
-            /* width: 40%; */
+            width: 60%;
             background-color: #ddd;
         }
 
