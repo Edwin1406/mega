@@ -201,7 +201,6 @@ table {
         <h2 class="titulo_existencia">Gráficas</h2>
         <div class="graficas_blancas">
             <div id="chart1880" class="tamaño"></div>
-            <div id="chart1100" class="tamaño"></div>
         </div>
     </div>
 
