@@ -496,7 +496,7 @@
 }
 
 .dataTables th:hover {
-  background-color: aquamarine;
+  background-color: #64748B;
 }
 
 #dataTable_wrapper {
@@ -529,7 +529,7 @@
 }
 
 #dataTable th:hover {
-  background-color: aquamarine;
+  background-color: #64748B;
 }
 
 .display {
