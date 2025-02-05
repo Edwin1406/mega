@@ -330,3 +330,177 @@
         });
     })();
 </script>
+
+
+<style>
+    .total-display {
+        margin-top: 10px;
+        font-weight: bold;
+        font-size: 3rem;
+    }
+
+    #filters {
+        display: flex;
+        gap: 1rem;
+        margin-bottom: 20px;
+    }
+
+    label {
+        font-weight: bold;
+    }
+</style>
+
+<div id="filters">
+    <div>
+        <label for="filterGramaje">Filtrar por Gramaje:</label>
+        <select id="filterGramaje">
+            <option value="all">Todos</option>
+        </select>
+    </div>
+    <div>
+        <label for="filterAncho">Filtrar por Ancho:</label>
+        <select id="filterAncho">
+            <option value="all">Todos</option>
+        </select>
+    </div>
+    <div>
+        <label for="filterLinea">Filtrar por Línea:</label>
+        <select id="filterLinea">
+            <option value="all">Todos</option>
+        </select>
+    </div>
+</div>
+
+<div class="display">
+    <h2 class="titulo_existencia">Existencia (Corrugador)</h2>
+    <table id="dataTable">
+        <thead>
+            <tr>
+                <th>Ancho</th>
+                <th>Gramaje</th>
+                <th>Línea</th>
+                <th>Existencia</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+    <div id="totalExistencia" class="total-display">Total de Existencia: 0</div>
+</div>
+
+<script>
+    (function() {
+        const apiCorrugadorUrl = `${location.origin}/admin/api/apicorrugador`;
+        let originalCorrugadorData = [];
+
+        async function fetchData() {
+            try {
+                const corrugadorResponse = await fetch(apiCorrugadorUrl);
+                originalCorrugadorData = await corrugadorResponse.json();
+
+                populateFilters(originalCorrugadorData);
+                renderTable(originalCorrugadorData);
+            } catch (error) {
+                console.error("Error al obtener los datos de la API:", error);
+            }
+        }
+
+        function populateFilters(corrugadorData) {
+            // Limpiar opciones anteriores
+            document.getElementById("filterGramaje").innerHTML = '<option value="all">Todos</option>';
+            document.getElementById("filterAncho").innerHTML = '<option value="all">Todos</option>';
+            document.getElementById("filterLinea").innerHTML = '<option value="all">Todos</option>';
+
+            // Obtener conjuntos únicos de valores
+            const gramajes = [...new Set(corrugadorData.map(item => item.gramaje))];
+            const anchos = [...new Set(corrugadorData.map(item => item.ancho))];
+            const lineas = [...new Set(corrugadorData.map(item => item.linea))];
+
+            // Poblar selectores
+            const gramajeSelect = document.getElementById("filterGramaje");
+            gramajes.forEach(gramaje => {
+                const option = document.createElement("option");
+                option.value = gramaje;
+                option.textContent = gramaje;
+                gramajeSelect.appendChild(option);
+            });
+
+            const anchoSelect = document.getElementById("filterAncho");
+            anchos.forEach(ancho => {
+                const option = document.createElement("option");
+                option.value = ancho;
+                option.textContent = ancho;
+                anchoSelect.appendChild(option);
+            });
+
+            const lineaSelect = document.getElementById("filterLinea");
+            lineas.forEach(linea => {
+                const option = document.createElement("option");
+                option.value = linea;
+                option.textContent = linea;
+                lineaSelect.appendChild(option);
+            });
+        }
+
+        function filterData() {
+            const selectedGramaje = document.getElementById("filterGramaje").value;
+            const selectedAncho = document.getElementById("filterAncho").value;
+            const selectedLinea = document.getElementById("filterLinea").value;
+
+            let filteredCorrugador = originalCorrugadorData;
+
+            if (selectedGramaje !== "all") {
+                filteredCorrugador = filteredCorrugador.filter(item => item.gramaje === selectedGramaje);
+            }
+            if (selectedAncho !== "all") {
+                filteredCorrugador = filteredCorrugador.filter(item => item.ancho === selectedAncho);
+            }
+            if (selectedLinea !== "all") {
+                filteredCorrugador = filteredCorrugador.filter(item => item.linea === selectedLinea);
+            }
+
+            renderTable(filteredCorrugador);
+        }
+
+        function renderTable(corrugadorData) {
+            const corrugadorTable = $("#dataTable").DataTable();
+
+            // Limpiar tabla
+            corrugadorTable.clear();
+
+            let totalExistencia = 0;
+
+            // Llenar tabla de corrugador y calcular total de existencia
+            corrugadorData.forEach(item => {
+                totalExistencia += parseFloat(item.existencia || 0);
+                corrugadorTable.row.add([
+                    item.ancho,
+                    item.gramaje,
+                    item.linea,
+                    item.existencia
+                ]);
+            });
+
+            // Dibujar tabla
+            corrugadorTable.draw();
+
+            // Actualizar el total en el DOM
+            document.getElementById("totalExistencia").textContent = `Total de Existencia: ${totalExistencia}`;
+        }
+
+        $(document).ready(() => {
+            if (!$.fn.DataTable.isDataTable("#dataTable")) {
+                $("#dataTable").DataTable({
+                    language: {
+                        url: "//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json",
+                    },
+                });
+            }
+
+            fetchData();
+
+            document.getElementById("filterGramaje").addEventListener("change", filterData);
+            document.getElementById("filterAncho").addEventListener("change", filterData);
+            document.getElementById("filterLinea").addEventListener("change", filterData);
+        });
+    })();
+</script>
