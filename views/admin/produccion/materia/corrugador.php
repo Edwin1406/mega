@@ -143,6 +143,8 @@
             </thead>
             <tbody></tbody>
         </table>
+        <div id="totalExistencia" class="total-display">Total de Existencia: 0</div> <!-- Contenedor para el total de existencia -->
+
     </div>
 
     <div>
@@ -162,6 +164,8 @@
             </thead>
             <tbody></tbody>
         </table>
+        <div id="totalPedidos" class="total-display">Total de Cantidad: 0</div> <!-- Contenedor para el total de pedidos -->
+
     </div>
 
 </div>
@@ -321,43 +325,51 @@
     }
 }
 
+function renderTables(comercialData, corrugadorData) {
+    const corrugadorTable = $("#dataTable").DataTable();
+    const comercialTable = $("#comercialTable").DataTable();
 
+    // Limpiar tablas
+    corrugadorTable.clear();
+    comercialTable.clear();
 
-        function renderTables(comercialData, corrugadorData) {
-            const corrugadorTable = $("#dataTable").DataTable();
-            const comercialTable = $("#comercialTable").DataTable();
+    let totalExistencia = 0;
+    let totalPedidos = 0;
 
-            // Limpiar tablas
-            corrugadorTable.clear();
-            comercialTable.clear();
+    // Llenar tabla de comercial y calcular total de cantidad
+    comercialData.forEach(item => {
+        totalPedidos += parseFloat(item.cantidad || 0);  // Sumar cantidades
+        comercialTable.row.add([
+            item.id,
+            item.producto,
+            item.ancho,
+            item.gramaje,
+            item.cantidad,
+            item.estado,
+            item.arribo_planta
+        ]);
+    });
 
-            // Llenar tabla de comercial
-            comercialData.forEach(item => {
-                comercialTable.row.add([
-                    item.id,
-                    item.producto,
-                    item.ancho,
-                    item.gramaje,
-                    item.cantidad,
-                    item.estado,
-                    item.arribo_planta
-                ]);
-            });
+    // Llenar tabla de corrugador y calcular total de existencia
+    corrugadorData.forEach(item => {
+        totalExistencia += parseFloat(item.existencia || 0);  // Sumar existencias
+        corrugadorTable.row.add([
+            item.ancho,
+            item.gramaje,
+            item.linea,
+            item.existencia
+        ]);
+    });
 
-            // Llenar tabla de corrugador
-            corrugadorData.forEach(item => {
-                corrugadorTable.row.add([
-                    item.ancho,
-                    item.gramaje,
-                    item.linea,
-                    item.existencia
-                ]);
-            });
+    // Dibujar tablas
+    comercialTable.draw();
+    corrugadorTable.draw();
 
-            // Dibujar tablas
-            comercialTable.draw();
-            corrugadorTable.draw();
-        }
+    // Actualizar los totales en el DOM
+    document.getElementById("totalExistencia").textContent = `Total de Existencia: ${totalExistencia}`;
+    document.getElementById("totalPedidos").textContent = `Total de Cantidad: ${totalPedidos}`;
+}
+
 
         $(document).ready(() => {
             if (!$.fn.DataTable.isDataTable("#dataTable")) {
