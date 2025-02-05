@@ -203,17 +203,7 @@
 
 
 
-    #totalExistenciaOtros {
-        font-size: 1rem;
-        text-align: right;
-        margin-top: 0.5rem;
-    }
-
-    .totalExistenciaOtros{
-        font-size: 1rem;
-        text-align: right;
-        margin-top: 0.5rem;
-    }
+    
 
 
 </style>
