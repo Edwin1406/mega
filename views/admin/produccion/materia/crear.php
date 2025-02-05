@@ -40,7 +40,7 @@
         <a >
             <i class="fas fa-industry"></i> TOTAL EXISTENCIA CORRUGADOR :
             <?php if ($totalExistencia > 0) : ?>
-                <span class="areas-produccion__numero"> <?php echo $totalExistencia ?> KG</span>
+                <span id="valor1"  class="areas-produccion__numero"> <?php echo $totalExistencia ?> KG</span>
             <?php endif; ?>
         </a>
     </li>
@@ -49,7 +49,7 @@
         <a >
             <i class="fas fa-scroll"></i> TOTAL EXISTENCIA MICRO CORRUGADOR :
             <?php if ($totalExistenciaMicro > 0) : ?>
-                <span class="areas-produccion__numero"> <?php echo $totalExistenciaMicro ?> KG</span>
+                <span id="valor2"  class="areas-produccion__numero"> <?php echo $totalExistenciaMicro ?> KG</span>
             <?php endif; ?>
         </a>
 
@@ -59,7 +59,7 @@
         <a>
             <i class="fas fa-newspaper"></i> TOTAL EXISTENCIA PERIODICO :
             <?php if ($totalExistenciaPeriodico > 0) : ?>
-                <span id="valor" class="areas-produccion__numero"> <?php echo $totalExistenciaPeriodico ?> KG</span>
+                <span id="valor3" class="areas-produccion__numero"> <?php echo $totalExistenciaPeriodico ?> KG</span>
             <?php endif; ?>
         </a>
     </li>
@@ -67,15 +67,18 @@
 
 
 <script>
-// Selecciona el elemento con id "valor"
-const valorElemento = document.querySelector('#valor');
-const valorNumero = parseFloat(valorTexto.split(' ')[0]);
 
+const existenciacorrugadorTotal = document.querySelector('#valor1');
+const existenciacorrugadorMicroTotal = document.querySelector('#valor2');
+const existenciacorrugadorPeriodicoTotal = document.querySelector('#valor3');
 
-    console.log('Valor completo:', valorTexto);
-    console.log('Valor numérico:', valorNumero);
-
-
+// Verifica si el elemento existe y obtiene el valor
+if (existenciacorrugadorTotal) {
+    const valor1 = existenciacorrugadorTotal.textContent;
+    existenciacorrugadorTotal.textContent = valor1;
+} else {
+    console.log('No existe el elemento');
+}
 
 
 </script>
