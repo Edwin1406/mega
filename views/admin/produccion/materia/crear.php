@@ -65,23 +65,52 @@
     </li>
 </ul>
 
+<canvas id="existenciaChart" width="400" height="200"></canvas>
+    <script>
+        // Valores iniciales
+        const existenciaCorrugadorTotal = 42580;
+        const existenciaCorrugadorMicroTotal = 45797;
+        const existenciaPeriodicaTotal = 4866;
 
-<script>
+        // Calcular el total y los porcentajes
+        const total = existenciaCorrugadorTotal + existenciaCorrugadorMicroTotal + existenciaPeriodicaTotal;
 
-const existenciacorrugadorTotal = document.querySelector('#valor1');
-const existenciacorrugadorMicroTotal = document.querySelector('#valor2');
-const existenciacorrugadorPeriodicoTotal = document.querySelector('#valor3');
+        const datos = [
+            (existenciaCorrugadorTotal / total) * 100,
+            (existenciaCorrugadorMicroTotal / total) * 100,
+            (existenciaPeriodicaTotal / total) * 100
+        ];
 
-// Verifica si el elemento existe y obtiene el valor
-if (existenciacorrugadorTotal) {
-    const valor1 = existenciacorrugadorTotal.textContent;
-    existenciacorrugadorTotal.textContent = valor1;
-} else {
-    console.log('No existe el elemento');
-}
-
-
-</script>
+        // Configuración de la gráfica
+        const ctx = document.getElementById('existenciaChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: ['Corrugador Total', 'Micro Corrugador Total', 'Periódico Total'],
+                datasets: [{
+                    label: 'Porcentaje de Existencias',
+                    data: datos,
+                    backgroundColor: ['#6c757d', '#20c997', '#d63384'], // Colores personalizados
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top'
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(tooltipItem) {
+                                return `${tooltipItem.label}: ${tooltipItem.raw.toFixed(2)}%`;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    </script>
 
 <div class="centrar">
 
