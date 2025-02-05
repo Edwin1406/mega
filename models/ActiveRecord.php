@@ -266,6 +266,46 @@ public static function menosDeCien($orden = 'DESC') {
         $resultado = self::consultarSQL($query);
         return $resultado;
     }
+
+
+
+
+
+    public static function allcorrugador($orden = 'DESC', $lineas = null) {
+        // Construye la consulta base
+        $query = "SELECT id, existencia, linea, gramaje, proveedor, sustrato, ancho FROM " . static::$tabla;
+    
+        // Manejar múltiples líneas con coincidencias parciales
+        $filtros = [];
+    
+        if ($lineas !== null) {
+            if (is_array($lineas)) {
+                // Crear condiciones con LIKE para cada línea
+                $condiciones = array_map(function($linea) {
+                    return "linea LIKE '%" . addslashes($linea) . "%'";
+                }, $lineas);
+                $filtros[] = "(" . implode(" OR ", $condiciones) . ")";
+            } else {
+                $filtros[] = "linea LIKE '%" . addslashes($lineas) . "%'";
+            }
+        }
+    
+        // Filtro adicional para los anchos específicos
+        $filtros[] = "(ancho = 1880 OR ancho = 1100)";
+    
+        // Si hay filtros, agrégalos a la consulta
+        if (!empty($filtros)) {
+            $query .= " WHERE " . implode(" AND ", $filtros);
+        }
+    
+        // Agrega la cláusula ORDER BY
+        $query .= " ORDER BY id {$orden}";
+    
+        // Ejecuta la consulta y devuelve el resultado
+        $resultado = self::consultarSQL($query);
+        return $resultado;
+    }
+    
     
 
 

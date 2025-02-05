@@ -324,7 +324,7 @@ class MateriaPrimaController
     
         // Obtén los datos desde la consulta base
         // $corrugador = MateriaPrimaV::allc('ASC', 'CAJA');
-        $corrugador = MateriaPrimaV::allc('ASC', ['CAJA', 'MEDIUM']);
+        $corrugador = MateriaPrimaV::allcorrugador('ASC', ['CAJA', 'MEDIUM']);
 
         // Procesa los datos para agrupar por gramaje y ancho
         $agregados = [];
