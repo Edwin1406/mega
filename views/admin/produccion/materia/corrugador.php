@@ -80,26 +80,22 @@
 
 
 <style>
-    .grafica_dual {
-        display: flex;
-        flex-direction: 1fr 1fr;
-        gap: 1rem;
-        background-color: red;
-        padding: 1rem;
-        border-radius: 1rem;
-        margin-bottom: 2rem;
-    }
+  .grafica_dual {
+    display: flex;
+    justify-content: center; /* Centrar horizontalmente */
+    align-items: center; /* Centrar verticalmente si es necesario */
+    gap: 2rem; /* Espacio entre los elementos */
+    background-color: red;
+    padding: 2rem;
+    border-radius: 1rem;
+    margin-bottom: 2rem;
+}
 
-    .apexcharts-legend {
-        max-height: 80px;
-        overflow-y: auto;
-    }
+.graficas_blancas, table {
+    flex: 1; /* Para que ambos elementos ocupen el mismo espacio */
+    text-align: center; /* Opcional: centrar el contenido interno */
+}
 
-    .total-display {
-        margin-top: 10px;
-        font-weight: bold;
-        font-size: 3rem;
-    }
 </style>
 
 <div class="grafica_dual">
@@ -125,7 +121,7 @@
             </div>
         </div>
         <div id="chart" class="tamaño"></div>
-   
+    </div>
 
 
     <div>
@@ -144,7 +140,6 @@
             </table>
             <div id="totalExistencia" class="total-display">Total de Existencia: 0</div>
         </div>
-    </div>
     </div>
 
 </div>
