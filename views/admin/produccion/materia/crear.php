@@ -147,8 +147,10 @@
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
+<div class="dashboard__grafica" data-aos="fade-up">
+    <canvas id="existenciaChart" width="400" height="200"></canvas>
 
-<canvas id="existenciaChart" width="400" height="200"></canvas>
+</div>
 
 <script>
     // Obtener los valores del DOM y convertirlos en números
