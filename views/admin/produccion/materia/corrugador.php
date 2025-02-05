@@ -180,7 +180,7 @@
     .total-display {
         margin-top: 10px;
         font-weight: bold;
-        font-size: 5rem;
+        font-size: 3rem;
     }
 
 
