@@ -80,20 +80,28 @@
 
 
 <style>
-  .grafica_dual {
+   .grafica_dual {
     display: flex;
     justify-content: center; /* Centrar horizontalmente */
-    align-items: center; /* Centrar verticalmente si es necesario */
-    gap: 2rem; /* Espacio entre los elementos */
+    align-items: flex-start; /* Alinear elementos al principio */
+    gap: 2rem; /* Espacio entre las columnas */
     background-color: rgb(214, 234, 248);
     padding: 2rem;
     border-radius: 1rem;
     margin-bottom: 2rem;
 }
 
+.grafica_dual > div {
+    flex: 1; /* Cada columna ocupa el mismo ancho */
+}
+
 .graficas_blancas, table {
-    flex: 1; /* Para que ambos elementos ocupen el mismo espacio */
     text-align: center; /* Opcional: centrar el contenido interno */
+}
+
+.titulo_existencia {
+    text-align: center;
+    margin-bottom: 1rem;
 }
 
 </style>
@@ -102,7 +110,6 @@
 
 
 <style>
- 
     .tablageneral {
         display: flex;
         flex-direction: row;
@@ -139,26 +146,24 @@
         border-collapse: collapse;
     }
 
-    #dataTableOtros th, #dataTableOtros td {
+    #dataTableOtros th,
+    #dataTableOtros td {
         border: 1px solid #ccc;
         padding: 0.5rem;
         text-align: center;
     }
 
-    table.dataTable tbody th, table.dataTable tbody td ,th.sorting{
-    font-size: 1.5rem;
-}
-
-
-
-    
-
-
+    table.dataTable tbody th,
+    table.dataTable tbody td,
+    th.sorting {
+        font-size: 1.5rem;
+    }
 </style>
 
-
 <div class="grafica_dual">
-    <div class="graficas_blancas">
+    <!-- Primera columna: Filtros -->
+    <div class="columna_filtros">
+        <h2 class="titulo_existencia">Filtros</h2>
         <div id="filters">
             <div>
                 <label for="filterGramaje">Filtrar por Gramaje:</label>
@@ -179,34 +184,35 @@
                 </select>
             </div>
         </div>
-      <div class="graficas_blancas">
-    <div id="chart1880" class="tamaño"></div>
-    <div id="chart1100" class="tamaño"></div>
-</div>
-
-
     </div>
 
-
-    <div>
-        <div>
-            <h2 class="titulo_existencia">Existencia (Corrugador)</h2>
-            <table id="dataTable">
-                <thead>
-                    <tr>
-                        <th>Ancho</th>
-                        <th>Gramaje</th>
-                        <th>Línea</th>
-                        <th>Existencia</th>
-                    </tr>
-                </thead>
-                <tbody></tbody>
-            </table>
-            <div id="totalExistencia" class="total-display">Total de Existencia: 0</div>
+    <!-- Segunda columna: Gráficas -->
+    <div class="columna_graficas">
+        <h2 class="titulo_existencia">Gráficas</h2>
+        <div class="graficas_blancas">
+            <div id="chart1880" class="tamaño"></div>
+            <div id="chart1100" class="tamaño"></div>
         </div>
     </div>
 
+    <!-- Tercera columna: Tabla -->
+    <div class="columna_tabla">
+        <h2 class="titulo_existencia">Existencia (Corrugador)</h2>
+        <table id="dataTable">
+            <thead>
+                <tr>
+                    <th>Ancho</th>
+                    <th>Gramaje</th>
+                    <th>Línea</th>
+                    <th>Existencia</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+        <div id="totalExistencia" class="total-display">Total de Existencia: 0</div>
+    </div>
 </div>
+
 
 
 
@@ -334,84 +340,84 @@
         }
 
         function renderChart(data) {
-    // Filtrar los datos por cada ancho
-    const data1880 = data.filter(item => item.ancho == 1880);
-    const data1100 = data.filter(item => item.ancho == 1100);
+            // Filtrar los datos por cada ancho
+            const data1880 = data.filter(item => item.ancho == 1880);
+            const data1100 = data.filter(item => item.ancho == 1100);
 
-    // Agrupar existencias por gramaje para el ancho 1880
-    const grouped1880 = data1880.reduce((acc, item) => {
-        if (!item.gramaje || !item.existencia) return acc;
-        acc[item.gramaje] = (acc[item.gramaje] || 0) + parseFloat(item.existencia);
-        return acc;
-    }, {});
+            // Agrupar existencias por gramaje para el ancho 1880
+            const grouped1880 = data1880.reduce((acc, item) => {
+                if (!item.gramaje || !item.existencia) return acc;
+                acc[item.gramaje] = (acc[item.gramaje] || 0) + parseFloat(item.existencia);
+                return acc;
+            }, {});
 
-    // Agrupar existencias por gramaje para el ancho 1100
-    const grouped1100 = data1100.reduce((acc, item) => {
-        if (!item.gramaje || !item.existencia) return acc;
-        acc[item.gramaje] = (acc[item.gramaje] || 0) + parseFloat(item.existencia);
-        return acc;
-    }, {});
+            // Agrupar existencias por gramaje para el ancho 1100
+            const grouped1100 = data1100.reduce((acc, item) => {
+                if (!item.gramaje || !item.existencia) return acc;
+                acc[item.gramaje] = (acc[item.gramaje] || 0) + parseFloat(item.existencia);
+                return acc;
+            }, {});
 
-    // Obtener categorías y valores para cada gráfico
-    const gramajes1880 = Object.keys(grouped1880);
-    const existencias1880 = Object.values(grouped1880);
+            // Obtener categorías y valores para cada gráfico
+            const gramajes1880 = Object.keys(grouped1880);
+            const existencias1880 = Object.values(grouped1880);
 
-    const gramajes1100 = Object.keys(grouped1100);
-    const existencias1100 = Object.values(grouped1100);
+            const gramajes1100 = Object.keys(grouped1100);
+            const existencias1100 = Object.values(grouped1100);
 
-    // Verificar que haya datos para los gráficos
-    if (gramajes1880.length === 0 || gramajes1100.length === 0) {
-        console.warn("No hay datos disponibles para mostrar en los gráficos.");
-        return;
-    }
+            // Verificar que haya datos para los gráficos
+            if (gramajes1880.length === 0 || gramajes1100.length === 0) {
+                console.warn("No hay datos disponibles para mostrar en los gráficos.");
+                return;
+            }
 
-    // Configurar gráfico de pastel para ancho 1880
-    const options1880 = {
-        series: existencias1880,
-        chart: {
-            type: 'pie',
-            height: 400,
-        },
-        labels: gramajes1880.map(g => `${g}g`),
-        legend: {
-            position: 'top',
-        },
-        title: {
-            text: 'Ancho 1880',
-            align: 'center',
-        },
-        dataLabels: {
-            enabled: true,
-        },
-    };
+            // Configurar gráfico de pastel para ancho 1880
+            const options1880 = {
+                series: existencias1880,
+                chart: {
+                    type: 'pie',
+                    height: 400,
+                },
+                labels: gramajes1880.map(g => `${g}g`),
+                legend: {
+                    position: 'top',
+                },
+                title: {
+                    text: 'Ancho 1880',
+                    align: 'center',
+                },
+                dataLabels: {
+                    enabled: true,
+                },
+            };
 
-    // Configurar gráfico de pastel para ancho 1100
-    const options1100 = {
-        series: existencias1100,
-        chart: {
-            type: 'pie',
-            height: 400,
-        },
-        labels: gramajes1100.map(g => `${g}g`),
-        legend: {
-            position: 'top',
-        },
-        title: {
-            text: 'Ancho 1100',
-            align: 'center',
-        },
-        dataLabels: {
-            enabled: true,
-        },
-    };
+            // Configurar gráfico de pastel para ancho 1100
+            const options1100 = {
+                series: existencias1100,
+                chart: {
+                    type: 'pie',
+                    height: 400,
+                },
+                labels: gramajes1100.map(g => `${g}g`),
+                legend: {
+                    position: 'top',
+                },
+                title: {
+                    text: 'Ancho 1100',
+                    align: 'center',
+                },
+                dataLabels: {
+                    enabled: true,
+                },
+            };
 
-    // Renderizar ambos gráficos
-    const chart1880 = new ApexCharts(document.querySelector("#chart1880"), options1880);
-    const chart1100 = new ApexCharts(document.querySelector("#chart1100"), options1100);
+            // Renderizar ambos gráficos
+            const chart1880 = new ApexCharts(document.querySelector("#chart1880"), options1880);
+            const chart1100 = new ApexCharts(document.querySelector("#chart1100"), options1100);
 
-    chart1880.render();
-    chart1100.render();
-}
+            chart1880.render();
+            chart1100.render();
+        }
 
         function renderTable(corrugadorData) {
             const corrugadorTable = $("#dataTable").DataTable();
@@ -487,6 +493,7 @@
         font-weight: bold;
         font-size: 2rem;
     }
+
     .total-display1 {
         margin-top: 10px;
         font-weight: bold;

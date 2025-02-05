@@ -534,7 +534,7 @@
 
 .display {
   display: flex;
-  flex-direction: 1fr 1fr 1fr;
+  flex-direction: 1fr 1fr;
   gap: 1rem;
 }
 
