@@ -73,11 +73,11 @@
         const existenciaCorrugadorMicroTotal = document.querySelector('#valor2').textContent;
         const existenciaPeriodicaTotal = document.querySelector('#valor3').textContent;
         // quitar el texto ' KG' y convertirlo a número
-        existenciaCorrugadorTotal = parseFloat(existenciaCorrugadorTotal);
-        existenciaCorrugadorMicroTotal = parseFloat(existenciaCorrugadorMicroTotal);
-        existenciaPeriodicaTotal = parseFloat(existenciaPeriodicaTotal);
-      console.log(existenciaCorrugadorTotal)
-
+        const totalCorrugador = parseFloat(existenciaCorrugadorTotal);
+        const totalMicroCorrugador = parseFloat(existenciaCorrugadorMicroTotal);
+        const totalPeriodico = parseFloat(existenciaPeriodicaTotal);
+        const allkilos = totalCorrugador + totalMicroCorrugador + totalPeriodico;
+        console.log(allkilos);
         // Calcular el total y los porcentajes
         const total = existenciaCorrugadorTotal + existenciaCorrugadorMicroTotal + existenciaPeriodicaTotal;
 
