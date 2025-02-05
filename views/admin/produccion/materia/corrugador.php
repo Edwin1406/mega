@@ -81,21 +81,26 @@
 
 
 
-
-
-
 <style>
     .grafica_dual {
         display: flex;
         flex-direction: 1fr 1fr;
         gap: 1rem;
+    }
 
+    .apexcharts-legend {
+        max-height: 80px;
+        overflow-y: auto;
+    }
 
+    .total-display {
+        margin-top: 10px;
+        font-weight: bold;
+        font-size: 3rem;
     }
 </style>
+
 <div class="grafica_dual">
-
-
     <div class="graficas_blancas">
         <div id="filters">
             <div>
@@ -119,14 +124,6 @@
         </div>
         <div id="chart" class="tamaño"></div>
     </div>
-
-    <div>
-        
-    </div>
-
-
-
-
 </div>
 
 <div class="display">
@@ -143,12 +140,10 @@
             </thead>
             <tbody></tbody>
         </table>
-        <div id="totalExistencia" class="total-display">Total de Existencia: 0</div> <!-- Contenedor para el total de existencia -->
-
+        <div id="totalExistencia" class="total-display">Total de Existencia: 0</div>
     </div>
 
     <div>
-
         <h2 class="titulo_pedido">Pedidos (Comercial)</h2>
         <table id="comercialTable" class="dataTables">
             <thead>
@@ -159,32 +154,15 @@
                     <th>Gramaje (g/m²)</th>
                     <th>Cantidad</th>
                     <th>Estado</th>
-                    <th>Arribo Planta </th>
+                    <th>Arribo Planta</th>
                 </tr>
             </thead>
             <tbody></tbody>
         </table>
-        <div id="totalPedidos" class="total-display">Total de Cantidad: 0</div> <!-- Contenedor para el total de pedidos -->
-
+        <div id="totalPedidos" class="total-display">Total de Cantidad: 0</div>
     </div>
-
 </div>
-<style>
-    .apexcharts-legend {
-    max-height: 80px;
-    overflow-y: auto;
-}
 
-
-
-    .total-display {
-        margin-top: 10px;
-        font-weight: bold;
-        font-size: 3rem;
-    }
-
-
-</style>
 <script>
     (function() {
         const apiComercialUrl = `${location.origin}/admin/api/apicomercial`;
@@ -212,10 +190,17 @@
         }
 
         function populateFilters(comercialData, corrugadorData) {
+            // Limpiar opciones anteriores
+            document.getElementById("filterGramaje").innerHTML = '<option value="all">Todos</option>';
+            document.getElementById("filterAncho").innerHTML = '<option value="all">Todos</option>';
+            document.getElementById("filterLinea").innerHTML = '<option value="all">Todos</option>';
+
+            // Obtener conjuntos únicos de valores
             const gramajes = [...new Set([...comercialData.map(item => item.gramaje), ...corrugadorData.map(item => item.gramaje)])];
             const anchos = [...new Set([...comercialData.map(item => item.ancho), ...corrugadorData.map(item => item.ancho)])];
             const lineas = [...new Set(corrugadorData.map(item => item.linea))];
 
+            // Poblar selectores
             const gramajeSelect = document.getElementById("filterGramaje");
             gramajes.forEach(gramaje => {
                 const option = document.createElement("option");
@@ -266,119 +251,117 @@
         }
 
         function renderChart(data) {
-    const gramajes = [...new Set(data.map(item => item.gramaje))].slice(0, 20);  // Limita a 20 gramajes
-    const anchos = [...new Set(data.map(item => item.ancho))].slice(0, 15);  // Opcional: limitar a 15 anchos
+            const gramajes = [...new Set(data.map(item => item.gramaje))].slice(0, 20);
+            const anchos = [...new Set(data.map(item => item.ancho))].slice(0, 15);
 
-    const series = anchos.map(ancho => ({
-        name: `Ancho: ${ancho} mm`,
-        data: gramajes.map(gramaje => {
-            const items = data.filter(item => item.ancho === ancho && item.gramaje === gramaje);
-            return items.reduce((sum, item) => sum + parseFloat(item.existencia), 0);
-        }),
-    }));
+            const series = anchos.map(ancho => ({
+                name: `Ancho: ${ancho} mm`,
+                data: gramajes.map(gramaje => {
+                    const items = data.filter(item => item.ancho === ancho && item.gramaje === gramaje);
+                    return items.reduce((sum, item) => sum + parseFloat(item.existencia), 0);
+                }),
+            }));
 
-    const options = {
-        series: series,
-        chart: {
-            type: 'bar',
-            height: 400,
-            stacked: true,
-            toolbar: {
-                show: true,
-            },
-        },
-        plotOptions: {
-            bar: {
-                horizontal: false,
-                borderRadius: 4,
-            },
-        },
-        dataLabels: {
-            enabled: true,
-        },
-        xaxis: {
-            categories: gramajes,
-            title: {
-                text: 'Gramajes',
-            },
-        },
-        yaxis: {
-            title: {
-                text: 'Existencias Totales',
-            },
-        },
-        legend: {
-            position: 'top',
-            horizontalAlign: 'center',
-            floating: false,
-            maxHeight: 80,
-            itemMargin: {
-                horizontal: 10,
-                vertical: 5,
-            },
-            formatter: function(seriesName) {
-                // Limitar longitud del nombre para mejorar visualización
-                return seriesName.length > 20 ? seriesName.substring(0, 17) + '...' : seriesName;
-            },
-        },
-        fill: {
-            opacity: 1,
-        },
-    };
+            const options = {
+                series: series,
+                chart: {
+                    type: 'bar',
+                    height: 400,
+                    stacked: true,
+                    toolbar: {
+                        show: true,
+                    },
+                },
+                plotOptions: {
+                    bar: {
+                        horizontal: false,
+                        borderRadius: 4,
+                    },
+                },
+                dataLabels: {
+                    enabled: true,
+                },
+                xaxis: {
+                    categories: gramajes,
+                    title: {
+                        text: 'Gramajes',
+                    },
+                },
+                yaxis: {
+                    title: {
+                        text: 'Existencias Totales',
+                    },
+                },
+                legend: {
+                    position: 'top',
+                    horizontalAlign: 'center',
+                    floating: false,
+                    maxHeight: 80,
+                    itemMargin: {
+                        horizontal: 10,
+                        vertical: 5,
+                    },
+                    formatter: function(seriesName) {
+                        return seriesName.length > 20 ? seriesName.substring(0, 17) + '...' : seriesName;
+                    },
+                },
+                fill: {
+                    opacity: 1,
+                },
+            };
 
-    if (chart) {
-        chart.updateOptions(options);
-    } else {
-        chart = new ApexCharts(document.querySelector("#chart"), options);
-        chart.render();
-    }
-}
+            if (chart) {
+                chart.updateOptions(options);
+            } else {
+                chart = new ApexCharts(document.querySelector("#chart"), options);
+                chart.render();
+            }
+        }
 
-function renderTables(comercialData, corrugadorData) {
-    const corrugadorTable = $("#dataTable").DataTable();
-    const comercialTable = $("#comercialTable").DataTable();
+        function renderTables(comercialData, corrugadorData) {
+            const corrugadorTable = $("#dataTable").DataTable();
+            const comercialTable = $("#comercialTable").DataTable();
 
-    // Limpiar tablas
-    corrugadorTable.clear();
-    comercialTable.clear();
+            // Limpiar tablas
+            corrugadorTable.clear();
+            comercialTable.clear();
 
-    let totalExistencia = 0;
-    let totalPedidos = 0;
+            let totalExistencia = 0;
+            let totalPedidos = 0;
 
-    // Llenar tabla de comercial y calcular total de cantidad
-    comercialData.forEach(item => {
-        totalPedidos += parseFloat(item.cantidad || 0);  // Sumar cantidades
-        comercialTable.row.add([
-            item.id,
-            item.producto,
-            item.ancho,
-            item.gramaje,
-            item.cantidad,
-            item.estado,
-            item.arribo_planta
-        ]);
-    });
+            // Llenar tabla de comercial y calcular total de cantidad
+            comercialData.forEach(item => {
+                totalPedidos += parseFloat(item.cantidad || 0);
+                comercialTable.row.add([
+                    item.id,
+                    item.producto,
+                    item.ancho,
+                    item.gramaje,
+                    item.cantidad,
+                    item.estado,
+                    item.arribo_planta
+                ]);
+            });
 
-    // Llenar tabla de corrugador y calcular total de existencia
-    corrugadorData.forEach(item => {
-        totalExistencia += parseFloat(item.existencia || 0);  // Sumar existencias
-        corrugadorTable.row.add([
-            item.ancho,
-            item.gramaje,
-            item.linea,
-            item.existencia
-        ]);
-    });
+            // Llenar tabla de corrugador y calcular total de existencia
+            corrugadorData.forEach(item => {
+                totalExistencia += parseFloat(item.existencia || 0);
+                corrugadorTable.row.add([
+                    item.ancho,
+                    item.gramaje,
+                    item.linea,
+                    item.existencia
+                ]);
+            });
 
-    // Dibujar tablas
-    comercialTable.draw();
-    corrugadorTable.draw();
+            // Dibujar tablas
+            comercialTable.draw();
+            corrugadorTable.draw();
 
-    // Actualizar los totales en el DOM
-    document.getElementById("totalExistencia").textContent = `Total de Existencia: ${totalExistencia}`;
-    document.getElementById("totalPedidos").textContent = `Total de Cantidad: ${totalPedidos}`;
-}
-
+            // Actualizar los totales en el DOM
+            document.getElementById("totalExistencia").textContent = `Total de Existencia: ${totalExistencia}`;
+            document.getElementById("totalPedidos").textContent = `Total de Cantidad: ${totalPedidos}`;
+        }
 
         $(document).ready(() => {
             if (!$.fn.DataTable.isDataTable("#dataTable")) {
@@ -408,5 +391,3 @@ function renderTables(comercialData, corrugadorData) {
         });
     })();
 </script>
-
-
