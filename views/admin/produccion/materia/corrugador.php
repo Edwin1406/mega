@@ -85,7 +85,7 @@
     justify-content: center; /* Centrar horizontalmente */
     align-items: center; /* Centrar verticalmente si es necesario */
     gap: 2rem; /* Espacio entre los elementos */
-    background-color: red;
+    background-color: rgb(214, 234, 248);
     padding: 2rem;
     border-radius: 1rem;
     margin-bottom: 2rem;
