@@ -59,12 +59,18 @@
         <a>
             <i class="fas fa-newspaper"></i> TOTAL EXISTENCIA PERIODICO :
             <?php if ($totalExistenciaPeriodico > 0) : ?>
-                <span class="areas-produccion__numero"> <?php echo $totalExistenciaPeriodico ?> KG</span>
+                <span id="valor" class="areas-produccion__numero"> <?php echo $totalExistenciaPeriodico ?> KG</span>
             <?php endif; ?>
         </a>
     </li>
 </ul>
 
+
+<script>
+const  valor = document.querySelectorAll('#valor');
+console.log(valor);
+
+</script>
 
 <div class="centrar">
 
