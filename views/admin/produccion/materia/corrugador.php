@@ -77,6 +77,57 @@
 <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
 
 <style>
+    .tablageneral {
+        display: flex;
+        flex-direction: row;
+        gap: 0.5rem;
+        background-color: rgb(214, 234, 248);
+        padding: 1rem;
+        border-radius: 0.5rem;
+        width: 100%;
+        margin: auto;
+    }
+
+    .tablaotro {
+        padding: 1rem;
+    }
+
+    /* #filters-otros label {
+        font-size: 0.9rem;
+    } */
+
+    /* #filters-otros select {
+        font-size: 0.9rem;
+        padding: 0.2rem;
+        margin-bottom: 0.5rem;
+    } */
+
+    h2.titulo_existencia {
+        font-size: 1.2rem;
+        text-align: center;
+    }
+
+    #dataTableOtros {
+        width: 100%;
+        font-size: 1rem;
+        border-collapse: collapse;
+    }
+
+    #dataTableOtros th,
+    #dataTableOtros td {
+        border: 1px solid #ccc;
+        padding: 0.5rem;
+        text-align: center;
+    }
+
+    table.dataTable tbody th,
+    table.dataTable tbody td,
+    th.sorting {
+        font-size: 1.5rem;
+    }
+</style>
+
+<style>
     .grafica_dual {
         display: flex;
         justify-content: space-around;
