@@ -80,29 +80,36 @@
 
 
 <style>
-   .grafica_dual {
+.grafica_dual {
     display: flex;
-    justify-content: center; /* Centrar horizontalmente */
-    align-items: flex-start; /* Alinear elementos al principio */
-    gap: 2rem; /* Espacio entre las columnas */
+    justify-content: center;
+    align-items: flex-start;
+    gap: 2rem;
     background-color: rgb(214, 234, 248);
     padding: 2rem;
     border-radius: 1rem;
     margin-bottom: 2rem;
 }
 
-.grafica_dual > div {
-    flex: 1; /* Cada columna ocupa el mismo ancho */
+#filters {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
 }
 
-.graficas_blancas, table {
-    text-align: center; /* Opcional: centrar el contenido interno */
+#filters div {
+    flex: 1;
 }
 
-.titulo_existencia {
-    text-align: center;
+.graficas_blancas {
     margin-bottom: 1rem;
 }
+
+table {
+    width: 100%;
+}
+
 
 </style>
 
