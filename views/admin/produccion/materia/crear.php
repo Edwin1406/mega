@@ -151,12 +151,10 @@
             align-items: center;
             margin-top: 20px;
             /* width: 40%; */
+            background-color: #ddd;
         }
 
-        #existenciaChart{
-            width: 50%;
-            height: 50%;
-        }
+      
 </style>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
