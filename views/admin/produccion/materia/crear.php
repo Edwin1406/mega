@@ -78,7 +78,8 @@ document.getElementById('valor3').innerHTML =  <?php echo $totalExistenciaPeriod
         const existenciaCorrugadorTotal = <?php echo $totalExistencia ?>; // Total de existencia de corrugador
         const existenciaCorrugadorMicroTotal = <?php echo $totalExistenciaMicro ?>; // Total de existencia de microcorrugador
         const existenciaPeriodicaTotal = <?php echo $totalExistenciaPeriodico ?>; // Total de existencia de periodico
-        
+
+        console.log(existenciaCorrugadorTotal, existenciaCorrugadorMicroTotal, existenciaPeriodicaTotal);
       
 
         // Calcular el total y los porcentajes
