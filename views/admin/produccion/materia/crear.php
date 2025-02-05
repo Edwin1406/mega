@@ -143,11 +143,18 @@
             background: red;
             border-radius: 5px;
         }
+
+        .index_graficas{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+        }
 </style>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
-<div class="graficas_blancas">
+<div class="index_graficas">
     <canvas id="existenciaChart" width="400" height="200"></canvas>
 
 </div>
