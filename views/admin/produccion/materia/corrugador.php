@@ -336,7 +336,6 @@ function renderTables(comercialData, corrugadorData) {
 
     // Llenar tabla de comercial
     comercialData.forEach(item => {
-        totalCantidad += parseFloat(item.cantidad);
         comercialTable.row.add([
             item.id,
             item.producto,
@@ -346,17 +345,18 @@ function renderTables(comercialData, corrugadorData) {
             item.estado,
             item.arribo_planta
         ]);
+        totalCantidad += parseFloat(item.cantidad);
     });
 
     // Llenar tabla de corrugador
     corrugadorData.forEach(item => {
-        totalExistencia += parseFloat(item.existencia);
         corrugadorTable.row.add([
             item.ancho,
             item.gramaje,
             item.linea,
             item.existencia
         ]);
+        totalExistencia += parseFloat(item.existencia);
     });
 
     // Agregar fila de total a la tabla de comercial
