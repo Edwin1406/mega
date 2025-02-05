@@ -347,6 +347,37 @@ class MateriaPrimaController
         
     }
 
+
+
+    public static function apiAnchossobrantes(){
+        
+          // CORS
+          header("Access-Control-Allow-Origin: *");
+          header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
+      
+          // Obtén los datos desde la consulta base
+          // $corrugador = MateriaPrimaV::allc('ASC', 'CAJA');
+          $corrugador = MateriaPrimaV::allcorrugadorsobrante('ASC', ['CAJA', 'MEDIUM']);
+  
+          // Procesa los datos para agrupar por gramaje y ancho
+          $agregados = [];
+          foreach ($corrugador as $item) {
+              $key = $item->gramaje . '-' . $item->ancho; // Llave única basada en gramaje y ancho
+              if (!isset($agregados[$key])) {
+                  $agregados[$key] = $item; // Almacena el objeto original
+                  $agregados[$key]->existencia = intval($item->existencia); // Inicializa la existencia como entero
+              } else {
+                  $agregados[$key]->existencia += intval($item->existencia); // Suma las existencias
+              }
+          }
+      
+          // Convierte el arreglo asociativo a un índice simple
+          $resultadosFinales = array_values($agregados);
+      
+          // Devuelve los datos procesados como JSON
+          echo json_encode($resultadosFinales);
+          exit;
+    }
     
 
     public static function apicajacraft (){

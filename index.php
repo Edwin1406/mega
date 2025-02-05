@@ -173,6 +173,7 @@ $router->get('/admin/produccion/materia/corrugador/cajamedium', [MateriaPrimaCon
 // API CORRUGADOR 
 $router->get('/admin/api/apicorrugador', [MateriaPrimaController::class, 'apicorrugador']);
 $router->get('/admin/api/apicorrugador2', [MateriaPrimaController::class, 'apicorrugador2']);
+$router->get('/admin/api/apiAnchossobrantes', [MateriaPrimaController::class, 'apiAnchossobrantes']);
 $router->get('/admin/api/apicajacraft', [MateriaPrimaController::class, 'apicajacraft']);
 $router->get('/admin/api/apicajablanco', [MateriaPrimaController::class, 'apicajablanco']);
 $router->get('/admin/api/apicajamedium', [MateriaPrimaController::class, 'apicajamedium']);
