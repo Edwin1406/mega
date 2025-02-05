@@ -331,6 +331,30 @@
     })();
 </script>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <style>
     .total-display {
         margin-top: 10px;
@@ -338,7 +362,7 @@
         font-size: 3rem;
     }
 
-    #filters {
+    #filters-otros {
         display: flex;
         gap: 1rem;
         margin-bottom: 20px;
@@ -349,30 +373,30 @@
     }
 </style>
 
-<div id="filters">
+<div id="filters-otros">
     <div>
-        <label for="filterGramajeCorr">Filtrar por Gramaje:</label>
-        <select id="filterGramajeCorr">
+        <label for="filterGramajeOtros">Filtrar por Gramaje:</label>
+        <select id="filterGramajeOtros">
             <option value="all">Todos</option>
         </select>
     </div>
     <div>
-        <label for="filterAnchoCorr">Filtrar por Ancho:</label>
-        <select id="filterAnchoCorr">
+        <label for="filterAnchoOtros">Filtrar por Ancho:</label>
+        <select id="filterAnchoOtros">
             <option value="all">Todos</option>
         </select>
     </div>
     <div>
-        <label for="filterLineaCorr">Filtrar por Línea:</label>
-        <select id="filterLineaCorr">
+        <label for="filterLineaOtros">Filtrar por Línea:</label>
+        <select id="filterLineaOtros">
             <option value="all">Todos</option>
         </select>
     </div>
 </div>
 
 <div class="display">
-    <h2 class="titulo_existencia">Existencia (Corrugador)</h2>
-    <table id="dataTable">
+    <h2 class="titulo_existencia">Existencia (Otros Anchos)</h2>
+    <table id="dataTableOtros">
         <thead>
             <tr>
                 <th>Ancho</th>
@@ -383,39 +407,39 @@
         </thead>
         <tbody></tbody>
     </table>
-    <div id="totalExistencia" class="total-display">Total de Existencia: 0</div>
+    <div id="totalExistenciaOtros" class="total-display">Total de Existencia: 0</div>
 </div>
 
 <script>
     (function() {
-        const apiCorrugadorUrl = `${location.origin}/admin/api/apiAnchossobrantes`;
-        let originalCorrugadorData = [];
+        const apiOtrosAnchosUrl = `${location.origin}/admin/api/apiotrosanchos`;
+        let originalOtrosData = [];
 
-        async function fetchData() {
+        async function fetchDataOtros() {
             try {
-                const corrugadorResponse = await fetch(apiCorrugadorUrl);
-                originalCorrugadorData = await corrugadorResponse.json();
+                const otrosResponse = await fetch(apiOtrosAnchosUrl);
+                originalOtrosData = await otrosResponse.json();
 
-                populateFilters(originalCorrugadorData);
-                renderTable(originalCorrugadorData);
+                populateFiltersOtros(originalOtrosData);
+                renderTableOtros(originalOtrosData);
             } catch (error) {
                 console.error("Error al obtener los datos de la API:", error);
             }
         }
 
-        function populateFilters(corrugadorData) {
+        function populateFiltersOtros(otrosData) {
             // Limpiar opciones anteriores
-            document.getElementById("filterGramajeCorr").innerHTML = '<option value="all">Todos</option>';
-            document.getElementById("filterAnchoCorr").innerHTML = '<option value="all">Todos</option>';
-            document.getElementById("filterLineaCorr").innerHTML = '<option value="all">Todos</option>';
+            document.getElementById("filterGramajeOtros").innerHTML = '<option value="all">Todos</option>';
+            document.getElementById("filterAnchoOtros").innerHTML = '<option value="all">Todos</option>';
+            document.getElementById("filterLineaOtros").innerHTML = '<option value="all">Todos</option>';
 
             // Obtener conjuntos únicos de valores
-            const gramajes = [...new Set(corrugadorData.map(item => item.gramaje))];
-            const anchos = [...new Set(corrugadorData.map(item => item.ancho))];
-            const lineas = [...new Set(corrugadorData.map(item => item.linea))];
+            const gramajes = [...new Set(otrosData.map(item => item.gramaje))];
+            const anchos = [...new Set(otrosData.map(item => item.ancho))];
+            const lineas = [...new Set(otrosData.map(item => item.linea))];
 
             // Poblar selectores
-            const gramajeSelect = document.getElementById("filterGramajeCorr");
+            const gramajeSelect = document.getElementById("filterGramajeOtros");
             gramajes.forEach(gramaje => {
                 const option = document.createElement("option");
                 option.value = gramaje;
@@ -423,7 +447,7 @@
                 gramajeSelect.appendChild(option);
             });
 
-            const anchoSelect = document.getElementById("filterAnchoCorr");
+            const anchoSelect = document.getElementById("filterAnchoOtros");
             anchos.forEach(ancho => {
                 const option = document.createElement("option");
                 option.value = ancho;
@@ -431,7 +455,7 @@
                 anchoSelect.appendChild(option);
             });
 
-            const lineaSelect = document.getElementById("filterLineaCorr");
+            const lineaSelect = document.getElementById("filterLineaOtros");
             lineas.forEach(linea => {
                 const option = document.createElement("option");
                 option.value = linea;
@@ -440,38 +464,38 @@
             });
         }
 
-        function filterData() {
-            const selectedGramaje = document.getElementById("filterGramajeCorr").value;
-            const selectedAncho = document.getElementById("filterAnchoCorr").value;
-            const selectedLinea = document.getElementById("filterLineaCorr").value;
+        function filterDataOtros() {
+            const selectedGramaje = document.getElementById("filterGramajeOtros").value;
+            const selectedAncho = document.getElementById("filterAnchoOtros").value;
+            const selectedLinea = document.getElementById("filterLineaOtros").value;
 
-            let filteredCorrugador = originalCorrugadorData;
+            let filteredOtros = originalOtrosData;
 
             if (selectedGramaje !== "all") {
-                filteredCorrugador = filteredCorrugador.filter(item => item.gramaje === selectedGramaje);
+                filteredOtros = filteredOtros.filter(item => item.gramaje === selectedGramaje);
             }
             if (selectedAncho !== "all") {
-                filteredCorrugador = filteredCorrugador.filter(item => item.ancho === selectedAncho);
+                filteredOtros = filteredOtros.filter(item => item.ancho === selectedAncho);
             }
             if (selectedLinea !== "all") {
-                filteredCorrugador = filteredCorrugador.filter(item => item.linea === selectedLinea);
+                filteredOtros = filteredOtros.filter(item => item.linea === selectedLinea);
             }
 
-            renderTable(filteredCorrugador);
+            renderTableOtros(filteredOtros);
         }
 
-        function renderTable(corrugadorData) {
-            const corrugadorTable = $("#dataTable").DataTable();
+        function renderTableOtros(otrosData) {
+            const otrosTable = $("#dataTableOtros").DataTable();
 
             // Limpiar tabla
-            corrugadorTable.clear();
+            otrosTable.clear();
 
             let totalExistencia = 0;
 
-            // Llenar tabla de corrugador y calcular total de existencia
-            corrugadorData.forEach(item => {
+            // Llenar tabla y calcular total de existencia
+            otrosData.forEach(item => {
                 totalExistencia += parseFloat(item.existencia || 0);
-                corrugadorTable.row.add([
+                otrosTable.row.add([
                     item.ancho,
                     item.gramaje,
                     item.linea,
@@ -480,26 +504,26 @@
             });
 
             // Dibujar tabla
-            corrugadorTable.draw();
+            otrosTable.draw();
 
             // Actualizar el total en el DOM
-            document.getElementById("totalExistencia").textContent = `Total de Existencia: ${totalExistencia}`;
+            document.getElementById("totalExistenciaOtros").textContent = `Total de Existencia: ${totalExistencia}`;
         }
 
         $(document).ready(() => {
-            if (!$.fn.DataTable.isDataTable("#dataTable")) {
-                $("#dataTable").DataTable({
+            if (!$.fn.DataTable.isDataTable("#dataTableOtros")) {
+                $("#dataTableOtros").DataTable({
                     language: {
                         url: "//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json",
                     },
                 });
             }
 
-            fetchData();
+            fetchDataOtros();
 
-            document.getElementById("filterGramajeCorr").addEventListener("change", filterData);
-            document.getElementById("filterAnchoCorr").addEventListener("change", filterData);
-            document.getElementById("filterLineaCorr").addEventListener("change", filterData);
+            document.getElementById("filterGramajeOtros").addEventListener("change", filterDataOtros);
+            document.getElementById("filterAnchoOtros").addEventListener("change", filterDataOtros);
+            document.getElementById("filterLineaOtros").addEventListener("change", filterDataOtros);
         });
     })();
 </script>
