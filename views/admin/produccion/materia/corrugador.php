@@ -142,8 +142,18 @@
     </div>
 
     <div class="display">
+
+    <style>
+        .filters {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 20px;
+        }
+
+
+    </style>
     
-<div id="filters-otros">
+<div id="filters-otros" class="filters">
     <div>
         <label for="filterGramajeOtros">Filtrar por Gramaje:</label>
         <select id="filterGramajeOtros">
