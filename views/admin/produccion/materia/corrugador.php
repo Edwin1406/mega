@@ -197,7 +197,19 @@
         text-align: center;
     }
 
+    table.dataTable tbody th, table.dataTable tbody td ,th.sorting{
+    font-size: 1.5rem;
+}
+
+
+
     #totalExistenciaOtros {
+        font-size: 1rem;
+        text-align: right;
+        margin-top: 0.5rem;
+    }
+
+    .totalExistenciaOtros{
         font-size: 1rem;
         text-align: right;
         margin-top: 0.5rem;
