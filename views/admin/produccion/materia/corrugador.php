@@ -153,10 +153,18 @@
 
 
 
+<style>
+    .tablageneral{
+        display: flex;
+        flex-direction: 1fr 1fr;
+        gap: 1rem;
+    }
 
 
+</style>
 
-<div > 
+
+<div class="tablageneral" > 
 
     <div id="filters-otros" class="filters">
         <div>
