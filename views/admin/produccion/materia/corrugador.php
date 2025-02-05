@@ -132,7 +132,7 @@
         justify-content: space-around;
         align-items: stretch;
         gap: 2rem;
-        background-color: rgb(100, 116, 139);
+        background-color: rgb(100, 116, 110);
         padding: 2rem;
         border-radius: 1rem;
         margin-bottom: 2rem;
