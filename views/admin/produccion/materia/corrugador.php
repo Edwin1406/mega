@@ -82,7 +82,7 @@
         display: flex;
         flex-direction: row;
         gap: 0.5rem;
-        background-color: #c5cace;
+        background-color: rgb(208, 212, 215);
         padding: 1rem;
         border-radius: 0.5rem;
         width: 100%;
