@@ -472,18 +472,13 @@
 
 
 <style>
-    .total-display {
+    .total-display , .totalExistenciaOtros {
         margin-top: 10px;
         font-weight: bold;
         font-size: 2rem;
     }
 
 
-    .totalExistenciaOtros{
-        font-size: 1rem;
-        text-align: right;
-        margin-top: 0.5rem;
-    }
 
     #filters-otros {
         display: flex;
