@@ -478,6 +478,13 @@
         font-size: 2rem;
     }
 
+
+    .totalExistenciaOtros{
+        font-size: 1rem;
+        text-align: right;
+        margin-top: 0.5rem;
+    }
+
     #filters-otros {
         display: flex;
         gap: 1rem;
