@@ -152,6 +152,8 @@
             margin-top: 20px;
             width: 60%;
             background-color: #ddd;
+            shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 1rem;
         }
         #existenciaChart{
             padding: 2rem;
