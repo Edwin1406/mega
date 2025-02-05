@@ -145,12 +145,9 @@
         }
 </style>
 
-
-
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
 
-<!-- Canvas para la gráfica -->
 <canvas id="existenciaChart" width="400" height="200"></canvas>
 
 <script>
@@ -172,14 +169,14 @@
     // Configuración de la gráfica
     const ctx = document.getElementById('existenciaChart').getContext('2d');
     new Chart(ctx, {
-        type: 'doughnut',  // Cambiado de pie a doughnut (gráfica más estética)
+        type: 'doughnut',  // Gráfica tipo doughnut
         data: {
             labels: ['Corrugador Total', 'Micro Corrugador Total', 'Periódico Total'],
             datasets: [{
                 label: 'Porcentaje de Existencias',
                 data: datos,
                 backgroundColor: ['#6c757d', '#20c997', '#d63384'], // Colores personalizados
-                hoverBackgroundColor: ['#495057', '#17a2b8', '#c82373'], // Colores al pasar el cursor
+                hoverBackgroundColor: ['#495057', '#17a2b8', '#c82373'],
                 borderWidth: 2,
                 borderColor: '#fff'
             }]
@@ -203,19 +200,25 @@
                         label: function(tooltipItem) {
                             return `${tooltipItem.label}: ${tooltipItem.raw.toFixed(2)}%`;
                         }
+                    }
+                },
+                datalabels: {
+                    color: '#fff',
+                    font: {
+                        size: 16,
+                        weight: 'bold'
                     },
-                    backgroundColor: '#000',
-                    titleColor: '#fff',
-                    bodyColor: '#fff',
-                    borderColor: '#666',
-                    borderWidth: 1
+                    formatter: (value) => `${value.toFixed(2)}%`,
+                    anchor: 'center',
+                    align: 'center'
                 }
             },
             animation: {
                 animateScale: true,
                 animateRotate: true
             }
-        }
+        },
+        plugins: [ChartDataLabels]
     });
 </script>
 
