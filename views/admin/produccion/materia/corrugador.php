@@ -159,7 +159,7 @@
         flex-direction: 1fr 1fr;
         gap: 1rem;
         background-color: red;
-        padding: 1rem;
+        padding: 2rem;
         border-radius: 1rem;
 
     }
