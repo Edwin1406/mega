@@ -238,86 +238,47 @@
 </div>
 
 <style>
-    .grafica_dual {
+    .horizontal{
         display: flex;
-        flex-direction: column;
-        align-items: center;
+        flex-direction: row;
+
         gap: 1rem;
     }
 
-    .horizontal {
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
-        gap: 2rem;
-    }
-
-    .columna_grafica {
-        flex: 1;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .grafica_titulo {
-        font-size: 1.2rem;
-        margin-bottom: 0.5rem;
-    }
-
     #totalExistencia {
-        font-size: 1.5rem;
-        font-weight: bold;
-        padding: 0.5rem 1rem;
-        border: 2px solid #000;
-        border-radius: 10px;
-        background-color: #f0f0f0;
-        text-align: center;
-    }
-
-    .columna_tabla {
         margin-top: 1rem;
-        width: 80%;
-    }
-
-    table {
-        width: 100%;
-        border-collapse: collapse;
-    }
-
-    th, td {
-        border: 1px solid #ddd;
-        padding: 8px;
-        text-align: center;
-    }
-
-    th {
-        background-color: #f2f2f2;
         font-weight: bold;
+        text-align: center;
     }
 </style>
-
 <div class="grafica_dual">
+    <!-- Primera columna: Filtros -->
+
     <div class="horizontal">
-        <!-- Primera columna: Gráfica 1 -->
-        <div class="columna_grafica">
-            <h2 class="grafica_titulo">Gráfica 1</h2>
+
+        <div class="columna_filtros">
+            <h2 class="titulo_existencia">Gráfica 1</h2>
+            
             <div id="chart1880" class="tamaño"></div>
+            
         </div>
-
-        <!-- Total de Existencia en el centro -->
-        <div id="totalExistencia">Total de Existencia: 210531</div>
-
-        <!-- Segunda columna: Gráfica 2 -->
-        <div class="columna_grafica">
-            <h2 class="grafica_titulo">Gráfica 2</h2>
+        
+        <!-- Segunda columna: Gráficas -->
+        <div class="columna_graficas">
+            <h2 class="titulo_existencia">Gráfica 2</h2>
+            
             <div id="chart1100" class="tamaño"></div>
+            
+            
         </div>
+        <div id="totalExistencia" class="total-display">Total de Existencia: 0</div>
     </div>
+        
 
-    <!-- Tercera columna: Tabla de existencia -->
+
+    <!-- Tercera columna: Tabla -->
     <div class="columna_tabla">
-        <h2 class="grafica_titulo">Existencia (Corrugador)</h2>
+        <h2 class="titulo_existencia">Existencia (Corrugador)</h2>
         <table id="dataTable">
             <thead>
                 <tr>
