@@ -24,6 +24,10 @@ class MateriaPrimaController
       $totalExistenciaMicro = number_format($totalExistenciaMicro, 0, '.', ',');
       $totalExistenciaPeriodico = number_format($totalExistenciaPeriodico, 0, '.', ',');
 
+
+      $suma= $totalExistencia + $totalExistenciaMicro + $totalExistenciaPeriodico;
+      debuguear($suma);
+
       $allkilos = MateriaPrimaV::allkilogramos('DESC');
         // debuguear($allkilos);
 
