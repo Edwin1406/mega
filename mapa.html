@@ -1,63 +1,73 @@
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    
+    html,
+    body,
+    .container {
+       height: 40%;
+       width: 100%;
+       justify-content: center;
+    }
+    
+    body {
+      display: flex;
+      padding: 10px;
+    }
+    
+    .item {
+      background-color: #24292d;
+      color: #f8f2f2;
+      /* border-bottom-right-radius: 1rem; */
+      padding: 10px 15px;
+        transition: all 0.5s;
+    }
+    
+    .container {
+      display: flex;
+      /* gap: 20px; */
+      flex-direction: row;
+      /* border-radius:2rem */
 
-<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
-<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+    }
+    
+    .item:nth-child(1) {
+      width: 10%;
+    }
+    
+    .item:nth-child(2) {
+      width: 10%;
+    }
+    
+    .item:nth-child(3) {
+      width: 10%;
+    }
+    
+    .item:nth-child(4) {
+      width: 10%;
+    }
+    
+    .item:nth-child(5) {
+      width: 10%;
+    }
 
-
-<div class="grafica_dual">
-    <div id="chart1880" class="chart-container"></div>
-    <div id="chart1100" class="chart-container"></div>
+    .item:hover {
+      background-color: #ac5353;
+      scale: 1.1;
+      text-align: center;
+      
+    }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="item"><a href="https://www.google.com/?hl=es"></a>CLICK</div>
+  <div class="item"><a href="https://www.google.com/?hl=es"></a>CLICK</div>
+  <div class="item"><a href="https://www.google.com/?hl=es"></a>CLICK</div>
+  <div class="item"><a href="https://www.google.com/?hl=es"></a>CLICK</div>
+  <div class="item"><a href="https://www.google.com/?hl=es"></a>CLICK</div>
 </div>
-
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        // Datos simulados para los dos anchos
-        const data1880 = [
-            { gramaje: "80g", porcentaje: 30 },
-            { gramaje: "100g", porcentaje: 25 },
-            { gramaje: "120g", porcentaje: 20 },
-            { gramaje: "150g", porcentaje: 15 },
-            { gramaje: "200g", porcentaje: 10 }
-        ];
-
-        const data1100 = [
-            { gramaje: "70g", porcentaje: 40 },
-            { gramaje: "90g", porcentaje: 30 },
-            { gramaje: "110g", porcentaje: 20 },
-            { gramaje: "130g", porcentaje: 10 }
-        ];
-
-        function renderPieChart(containerId, data) {
-            const chartData = data.map(item => item.porcentaje);
-            const labels = data.map(item => item.gramaje);
-
-            const options = {
-                series: chartData,
-                chart: {
-                    type: 'pie',
-                    height: 350
-                },
-                labels: labels,
-                responsive: [{
-                    breakpoint: 480,
-                    options: {
-                        chart: {
-                            width: 300
-                        },
-                        legend: {
-                            position: 'bottom'
-                        }
-                    }
-                }]
-            };
-
-            const chart = new ApexCharts(document.querySelector(`#${containerId}`), options);
-            chart.render();
-        }
-
-        // Renderizar los dos gráficos de pastel
-        renderPieChart('chart1880', data1880);
-        renderPieChart('chart1100', data1100);
-    });
-</script>
+</body>
