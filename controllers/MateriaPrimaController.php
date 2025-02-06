@@ -21,7 +21,7 @@ class MateriaPrimaController
       $totalExistenciaPeriodico = MateriaPrimaV::sumarExistencia('PERIODICO');
       
             $suma= $totalExistencia + $totalExistenciaMicro + $totalExistenciaPeriodico;
-            debuguear($suma);
+            // debuguear($suma);
       
       $totalExistencia = number_format($totalExistencia, 0, '.', ',');
       $totalExistenciaMicro = number_format($totalExistenciaMicro, 0, '.', ',');
