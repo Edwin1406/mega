@@ -238,7 +238,9 @@
 </div>
 <div class="grafica_dual">
     <!-- Primera columna: Filtros -->
+
     <div>
+
         <div class="columna_filtros">
             <h2 class="titulo_existencia">Gráfica 1</h2>
             
