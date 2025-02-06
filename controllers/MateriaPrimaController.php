@@ -19,14 +19,14 @@ class MateriaPrimaController
       $totalExistencia = MateriaPrimaV::sumarExistencia('CAJA');
       $totalExistenciaMicro = MateriaPrimaV::sumarExistencia('MICRO');
       $totalExistenciaPeriodico = MateriaPrimaV::sumarExistencia('PERIODICO');
-
+      
+            $suma= $totalExistencia + $totalExistenciaMicro + $totalExistenciaPeriodico;
+            debuguear($suma);
+      
       $totalExistencia = number_format($totalExistencia, 0, '.', ',');
       $totalExistenciaMicro = number_format($totalExistenciaMicro, 0, '.', ',');
       $totalExistenciaPeriodico = number_format($totalExistenciaPeriodico, 0, '.', ',');
 
-
-      $suma= $totalExistencia + $totalExistenciaMicro + $totalExistenciaPeriodico;
-      debuguear($suma);
 
       $allkilos = MateriaPrimaV::allkilogramos('DESC');
         // debuguear($allkilos);
