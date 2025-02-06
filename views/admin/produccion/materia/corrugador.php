@@ -236,25 +236,10 @@
         </select>
     </div>
 </div>
-
-<style>
-    .horizontal{
-        display: flex;
-        flex-direction: row;
-
-        gap: 1rem;
-    }
-
-    #totalExistencia {
-        margin-top: 1rem;
-        font-weight: bold;
-        text-align: center;
-    }
-</style>
 <div class="grafica_dual">
     <!-- Primera columna: Filtros -->
 
-    <div class="horizontal">
+    <div>
 
         <div class="columna_filtros">
             <h2 class="titulo_existencia">Gráfica 1</h2>
@@ -269,11 +254,11 @@
             
             <div id="chart1100" class="tamaño"></div>
             
+            <div id="totalExistencia" class="total-display">Total de Existencia: 0</div>
             
         </div>
-        <div id="totalExistencia" class="total-display">Total de Existencia: 0</div>
     </div>
-        
+
 
 
     <!-- Tercera columna: Tabla -->
