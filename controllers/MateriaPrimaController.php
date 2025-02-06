@@ -278,6 +278,9 @@ class MateriaPrimaController
         $totalExistencia = MateriaPrimaV::sumarExistencia('CAJA');
         $totalCosto = MateriaPrimaV::sumarCosto('CAJA');
 
+        debuguear($totalCosto);
+        
+
         // KRAFT
         $totalExistenciaK = MateriaPrimaV::sumarExistencia('CAJA-KRAFT');
        
