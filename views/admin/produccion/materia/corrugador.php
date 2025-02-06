@@ -243,6 +243,12 @@
         flex-direction: row;
         gap: 1rem;
     }
+
+    #totalExistencia {
+        margin-top: 1rem;
+        font-weight: bold;
+        text-align: center;
+    }
 </style>
 <div class="grafica_dual">
     <!-- Primera columna: Filtros -->
