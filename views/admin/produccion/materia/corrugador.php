@@ -238,23 +238,27 @@
 </div>
 <div class="grafica_dual">
     <!-- Primera columna: Filtros -->
-    <div class="columna_filtros">
-        <h2 class="titulo_existencia">Gráfica 1</h2>
 
-        <div id="chart1880" class="tamaño"></div>
+    <div>
 
-    </div>
-
-    <!-- Segunda columna: Gráficas -->
-    <div class="columna_graficas">
-        <h2 class="titulo_existencia">Gráfica 2</h2>
-
-        <div id="chart1100" class="tamaño"></div>
-
+        <div class="columna_filtros">
+            <h2 class="titulo_existencia">Gráfica 1</h2>
+            
+            <div id="chart1880" class="tamaño"></div>
+            
+        </div>
+        
+        <!-- Segunda columna: Gráficas -->
+        <div class="columna_graficas">
+            <h2 class="titulo_existencia">Gráfica 2</h2>
+            
+            <div id="chart1100" class="tamaño"></div>
+            
+            
+        </div>
         <div id="totalExistencia" class="total-display">Total de Existencia: 0</div>
-
     </div>
-
+        
 
 
     <!-- Tercera columna: Tabla -->
