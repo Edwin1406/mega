@@ -177,14 +177,16 @@
     const existenciaCorrugadorMicroTotal = parseFloat(document.querySelector('#valor2').textContent.replace(' KG', '').replace('.', '').replace(',', '.'));
     const existenciaPeriodicaTotal = parseFloat(document.querySelector('#valor3').textContent.replace(' KG', '').replace('.', '').replace(',', '.'));
 
+    const total1 = allkilos = parseFloat(document.querySelector('.amount').textContent.replace(' KG', '').replace('.', '').replace(',', '.'));
+
     // Calcular el total
     const total = existenciaCorrugadorTotal + existenciaCorrugadorMicroTotal + existenciaPeriodicaTotal;
 
     // Calcular los porcentajes
     const datos = [
-        (existenciaCorrugadorTotal / total) * 100,
-        (existenciaCorrugadorMicroTotal / total) * 100,
-        (existenciaPeriodicaTotal / total) * 100
+        (existenciaCorrugadorTotal / total1) * 100,
+        (existenciaCorrugadorMicroTotal / total1) * 100,
+        (existenciaPeriodicaTotal / total1) * 100
     ];
 
     // Configuración de la gráfica
