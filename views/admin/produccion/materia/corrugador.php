@@ -236,10 +236,18 @@
         </select>
     </div>
 </div>
+
+<style>
+    .horizontal{
+        display: flex;
+        flex-direction: row;
+        gap: 1rem;
+    }
+</style>
 <div class="grafica_dual">
     <!-- Primera columna: Filtros -->
 
-    <div>
+    <div class="horizontal">
 
         <div class="columna_filtros">
             <h2 class="titulo_existencia">Gráfica 1</h2>
