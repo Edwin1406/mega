@@ -238,7 +238,7 @@
 </div>
 
 <style>
-       .grafica_dual {
+    .grafica_dual {
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -254,7 +254,7 @@
     }
 
     .columna_grafica {
-        flex: 3;
+        flex: 1;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -296,34 +296,28 @@
         font-weight: bold;
     }
 </style>
+
 <div class="grafica_dual">
-    <!-- Primera columna: Filtros -->
-
     <div class="horizontal">
-
-        <div class="columna_filtros">
-            <h2 class="titulo_existencia">Gráfica 1</h2>
-            
+        <!-- Primera columna: Gráfica 1 -->
+        <div class="columna_grafica">
+            <h2 class="grafica_titulo">Gráfica 1</h2>
             <div id="chart1880" class="tamaño"></div>
-            
         </div>
-        
-        <!-- Segunda columna: Gráficas -->
-        <div class="columna_graficas">
-            <h2 class="titulo_existencia">Gráfica 2</h2>
-            
+
+        <!-- Total de Existencia en el centro -->
+        <div id="totalExistencia">Total de Existencia: 210531</div>
+
+        <!-- Segunda columna: Gráfica 2 -->
+        <div class="columna_grafica">
+            <h2 class="grafica_titulo">Gráfica 2</h2>
             <div id="chart1100" class="tamaño"></div>
-            
-            
         </div>
-        <div id="totalExistencia" class="total-display">Total de Existencia: 0</div>
     </div>
-        
 
-
-    <!-- Tercera columna: Tabla -->
+    <!-- Tercera columna: Tabla de existencia -->
     <div class="columna_tabla">
-        <h2 class="titulo_existencia">Existencia (Corrugador)</h2>
+        <h2 class="grafica_titulo">Existencia (Corrugador)</h2>
         <table id="dataTable">
             <thead>
                 <tr>
