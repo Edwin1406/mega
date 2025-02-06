@@ -19,8 +19,6 @@ class MateriaPrimaController
       $totalExistencia = MateriaPrimaV::sumarExistencia('CAJA');
       $totalExistenciaMedium = MateriaPrimaV::sumarExistencia('MEDIUM');      
       
-    //   debuguear($totalExistenciaMedium);
-    //   sumar totalExistencia + totalExistenciaMedium
         $totalExistencia = $totalExistencia + $totalExistenciaMedium;
         
         
