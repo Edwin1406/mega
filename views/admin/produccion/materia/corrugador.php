@@ -254,6 +254,9 @@
 
     </div>
 
+    <div id="totalExistencia" class="total-display">Total de Existencia: 0</div>
+
+
     <!-- Tercera columna: Tabla -->
     <div class="columna_tabla">
         <h2 class="titulo_existencia">Existencia (Corrugador)</h2>
@@ -268,7 +271,6 @@
             </thead>
             <tbody></tbody>
         </table>
-        <div id="totalExistencia" class="total-display">Total de Existencia: 0</div>
     </div>
 </div>
 
