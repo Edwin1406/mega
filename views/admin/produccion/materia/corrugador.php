@@ -238,16 +238,62 @@
 </div>
 
 <style>
-    .horizontal{
+       .grafica_dual {
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
+        align-items: center;
         gap: 1rem;
     }
 
+    .horizontal {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        gap: 2rem;
+    }
+
+    .columna_grafica {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .grafica_titulo {
+        font-size: 1.2rem;
+        margin-bottom: 0.5rem;
+    }
+
     #totalExistencia {
-        margin-top: 1rem;
+        font-size: 1.5rem;
         font-weight: bold;
+        padding: 0.5rem 1rem;
+        border: 2px solid #000;
+        border-radius: 10px;
+        background-color: #f0f0f0;
         text-align: center;
+    }
+
+    .columna_tabla {
+        margin-top: 1rem;
+        width: 80%;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    th, td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: center;
+    }
+
+    th {
+        background-color: #f2f2f2;
+        font-weight: bold;
     }
 </style>
 <div class="grafica_dual">
