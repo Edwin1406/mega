@@ -352,3 +352,70 @@
     </form>
 
 </div> -->
+
+
+
+
+
+
+
+
+
+
+
+<style>
+	
+			html,
+			body,
+			.container {
+			   height: 100%;
+			   width: 100%;
+         display: flex;
+         padding: 10px;
+			}
+	
+			
+			.item {
+			  background-color: #859aac;
+			  color: #fff;
+			  border-radius: 10px;
+			  padding: 10px 15px;
+			}
+			
+			.container {
+			  display: grid;
+			  grid-template-columns: 1fr 1fr 1fr;
+			  grid-template-rows: 1fr 1fr 1fr;
+			  gap: 1rem 1rem;
+			}
+			
+			.item:nth-child(1) {
+			  grid-area: 1 / 1 / 2 / 2;
+			}
+			
+			.item:nth-child(2) {
+			  grid-area: 1 / 2 / 2 / 3;
+			}
+			
+			.item:nth-child(3) {
+			  grid-area: 1 / 3 / 2 / 4;
+			  width: auto;
+			  height: 300%;
+			}
+			
+			.item:nth-child(4) {
+			  grid-area: 2 / 1 / 3 / 2;
+			  width: 197%;
+			  height: 195%;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="container">
+		  <div class="item">1</div>
+		  <div class="item">2</div>
+		  <div class="item">3</div>
+		  <div class="item">4</div>
+		</div>
+	</body>
+</html>
