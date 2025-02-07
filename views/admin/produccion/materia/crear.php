@@ -147,6 +147,14 @@
 
 <style>
 
+#index_graficas {
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+}
+
+body.loaded .index_graficas {
+    opacity: 1;
+}
 
 .centrar {
     display: flex;
