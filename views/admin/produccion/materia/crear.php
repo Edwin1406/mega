@@ -30,17 +30,27 @@
       text-decoration: none;
       display: block;
     }
-    @media (max-width: 768px) {
-    .item {
-        width: 20%; /* Aumenta el ancho en pantallas pequeñas */
+    @media (min-width: 1024px) {
+    .item:nth-child(1) {
+      width: 20%;
     }
-}
-
-@media (max-width: 480px) {
-    .item {
-        width: 50%; /* En pantallas muy pequeñas, cada item ocupará el 50% */
+    
+    .item:nth-child(2) {
+      width: 20%;
     }
-}
+    
+    .item:nth-child(3) {
+      width: 20%;
+    }
+    
+    .item:nth-child(4) {
+      width: 20%;
+    }
+    
+    .item:nth-child(5) {
+      width: 20%;
+    }
+  }
 
 </style>
 
