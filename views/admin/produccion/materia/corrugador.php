@@ -17,6 +17,7 @@
       /* gap: 20px; */
       flex-direction: row;
       /* border-radius:2rem */
+      justify-content: center;
 
     }
     
