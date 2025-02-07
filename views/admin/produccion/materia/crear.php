@@ -209,28 +209,29 @@
             border-radius: 5px;
         }
 
-      
-.index_graficas {
+        .index_graficas {
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    margin: 20px auto;
-    padding: 20px;
+    justify-content: center;    
+    align-items: center;         
+    margin: 20px auto;           
+    width: 70%;
+    height: 70%;              
+    /* background-color: #ddd; */
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     border-radius: 1rem;
 }
 
 #existenciaChart {
-    flex: 1;
-    max-width: 60%;
+    max-width: 70%;
     height: auto;
+    padding: 0;
 }
 
-#cantidadInfo {
-    min-width: 250px;
-    margin-left: 20px;
+#cantidadInfo{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 1rem;
     padding: 1rem;
     background-color: #fff;
     border-radius: 1rem;
@@ -239,13 +240,11 @@
     font-weight: bold;
     color: #333;
 }
-
       
 </style>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
-
 <div class="index_graficas">
     <canvas id="existenciaChart"></canvas>
     <div id="cantidadInfo">
