@@ -375,7 +375,7 @@
 			}
 	
 			
-			.item {
+			.items {
 			  background-color: #859aac;
 			  color: #fff;
 			  border-radius: 10px;
@@ -412,10 +412,10 @@
 	</head>
 	<body>
 		<div class="containers">
-		  <div class="item">1</div>
-		  <div class="item">2</div>
-		  <div class="item">3</div>
-		  <div class="item">4</div>
+		  <div class="items">1</div>
+		  <div class="items">2</div>
+		  <div class="items">3</div>
+		  <div class="items">4</div>
 		</div>
 	</body>
 </html>
