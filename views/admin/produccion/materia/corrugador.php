@@ -187,7 +187,7 @@
         }
 
         .items {
-            background-color: transparent !important;
+            background-color: #859aac transparent;
             color: #fff;
             border-radius: 10px;
             padding: 20px;
