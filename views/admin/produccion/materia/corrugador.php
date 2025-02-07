@@ -221,6 +221,7 @@
     position: fixed; /* Fijo para que siempre esté visible */
     top: 10px;      /* A 10px desde la parte superior */
     right: 10px;    /* A 10px desde la parte derecha */
+    bottom: 10%;
     background-color: rgba(0, 0, 0, 0.7); /* Fondo semitransparente */
     color: white;   /* Texto en blanco */
     padding: 10px;  /* Espaciado interno */
