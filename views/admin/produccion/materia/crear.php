@@ -307,11 +307,21 @@
             .existenciaChart{
                padding: 0;
             }
+
+
+            .items{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+
 		</style>
 	</head>
 	<body>
 		<div class="containers">
 		  <div class="items">
+            <div>como esas</div>
           <canvas id="existenciaChart"></canvas>
           </div>
 		  <div class="items">2</div>
