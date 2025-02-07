@@ -367,11 +367,11 @@
 	
 			html,
 			body,
-			.container {
-			   /* height: 100%;
-			   width: 100%; */
-         display: flex;
-         padding: 10px;
+			.containers {
+			   height: 100%;
+			   width: 100%;
+         /* display: flex;
+         padding: 10px; */
 			}
 	
 			
