@@ -55,11 +55,11 @@
 </style>
 
 <div class="container">
-  <div class="item"><a href="/admin/produccion/materia/corrugador/cajacraft">KRAFT</a></div>
-  <div class="item"><a href="/admin/produccion/materia/crear?id=8080">INICIO</a></div>
-  <div class="item"><a href="/admin/produccion/materia/corrugador">CORRUGADOR</a></div>
-  <div class="item"><a href="https://www.google.com/?hl=es">CLICK</a></div>
-  <div class="item"><a href="https://www.google.com/?hl=es">CLICK</a></div>
+    <div class="item"><a href="/admin/produccion/materia/crear?id=8080">INICIO</a></div>
+    <div class="item"><a href="/admin/produccion/materia/corrugador">CORRUGADOR</a></div>
+  <div class="item"><a href="/admin/produccion/materia/microcorrugador">MICRO CORRUGADOR</a></div>
+  <div class="item"><a href="/admin/produccion/materia/periodico">PERIÓDICO</a></div>
+  <div class="item"><a href="/admin/produccion/materia/excel"><i class="fa-solid fa-arrow-right"></i>SUBIR EXCEL</a></div>
 </div>
 
 <!-- <div class="dashboard__contenedor-boton-izquierdo">
