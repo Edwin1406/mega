@@ -241,8 +241,8 @@
         }
 
     </style>
-</head>
-<body>
+
+
 <div id="filters">
     <div>
         <label for="filterGramaje">Filtrar por Gramaje (Gráficas):</label>
@@ -299,8 +299,7 @@
             </div>
         </div>
     </div>
-</body>
-</html>
+
 
 
 
