@@ -219,6 +219,25 @@
     font-size: 1.2rem;
 }
 
+.columna_graficas {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    height: auto;
+    max-height: 600px;  /* Controlar la altura máxima */
+}
+
+.tamaño {
+    width: 300px;
+    height: 300px;
+}
+
+.total-display {
+    margin-top: auto;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
 
 
 
@@ -260,11 +279,12 @@
 
         <div id="chart1100" class="tamaño"></div>
 
-        
+        <div id="totalExistencia" class="total-display">Total de Existencia: 0</div>
+
     </div>
-    
-    
-    
+
+
+
     <!-- Tercera columna: Tabla -->
     <div class="columna_tabla">
         <h2 class="titulo_existencia">Existencia (Corrugador)</h2>
@@ -280,17 +300,8 @@
             <tbody></tbody>
         </table>
     </div>
-    <style>
-        .total-display{
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 1.5rem;
-        }
-        </style>
-
+    
 </div>
-<div id="totalExistencia" class="total-display">Total de Existencia: 0</div>
 
 <script>
     (function() {
