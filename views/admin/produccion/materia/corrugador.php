@@ -127,7 +127,7 @@
         font-size: 1.5rem;
     }
 
-    /* .grafica_dual {
+    .grafica_dual {
         display: flex;
         justify-content: space-around;
         align-items: stretch;
@@ -136,18 +136,9 @@
         padding: 2rem;
         border-radius: 1rem;
         margin-bottom: 2rem;
-    } */
+    }
 
-    .grafica_dual {
-    display: flex;
-    justify-content: space-around;
-    align-items: flex-start; /* Cambiado de stretch a flex-start */
-    gap: 2rem;
-    background-color: rgb(208, 212, 215);
-    padding: 2rem;
-    border-radius: 1rem;
-    margin-bottom: 2rem;
-}
+
 /* 
     .columna_filtros,
     .columna_graficas,
