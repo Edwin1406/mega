@@ -183,11 +183,11 @@
     }
 
 
-    /* .total-display {
+    .total-display {
         margin-top: 10px;
         font-weight: bold;
         font-size: 2rem;
-    } */
+    }
 
     .total-display1 {
         margin-top: 10px;
@@ -210,23 +210,6 @@
      .dataTables_wrapper .dataTables_filter {
     font-size: 1.2rem;
 }
-
-
-.total-display {
-    position: fixed;
-    bottom: 10px;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: rgba(255, 255, 255, 0.9);
-    padding: 1rem;
-    font-weight: bold;
-    font-size: 1.5rem;
-    text-align: center;
-    box-shadow: 0 0 6px rgba(0, 0, 0, 0.2);
-    border-radius: 0.5rem;
-}
-
-
 
 
 
@@ -269,10 +252,10 @@
 
         <div id="chart1100" class="tamaño"></div>
 
-        
         <div id="totalExistencia" class="total-display">Total de Existencia: 0</div>
+
     </div>
-    
+
 
 
     <!-- Tercera columna: Tabla -->
