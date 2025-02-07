@@ -147,6 +147,69 @@
 
 <style>
 
+
+.centrar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+   
+   .card {
+            display: flex;
+            align-items: center;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 15px;
+            width: 30%;
+            position: relative;
+            justify-content: center;
+        }
+        .side-bar {
+            background: red;
+            width: 10px;
+            height: 100%;
+            position: absolute;
+            left: 0;
+            top: 0;
+            border-radius: 10px 0 0 10px;
+        }
+        .content {
+            display: flex;
+            flex-direction: column;
+            margin-left: 15px;
+        }
+        .percentage {
+            color: red;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        .amount {
+            font-size: 22px;
+            font-weight: bold;
+            text-align: center;
+        }
+        .chart {
+            width: 100%;
+            height: 50px;
+            background: linear-gradient(to top, #ddd, #8a5ba3);
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+        .label {
+            font-size: 14px;
+            color: gray;
+            margin-top: 5px;
+            text-align: center;
+        }
+        .chart .bar {
+            width: 50%;
+            /* height: 100%; */
+            background: red;
+            border-radius: 5px;
+        }
+
+      
 .index_graficas {
     display: flex;
     flex-direction: row;
@@ -177,22 +240,21 @@
     color: #333;
 }
 
+      
 </style>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
 
 <div class="index_graficas">
-    <div style="flex: 1;">
-        <canvas id="existenciaChart"></canvas>
-    </div>
+    <canvas id="existenciaChart"></canvas>
     <div id="cantidadInfo">
-        <div>TOTAL CORRU : <?php echo $totalExistencia ?> KG</div>
-        <div>TOTAL MICRO : <?php echo $totalExistenciaMicro ?> KG</div>
-        <div>TOTAL PERIÓDICO : <?php echo $totalExistenciaPeriodico ?> KG</div>
+        <div>TOTAL CORRU&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: <?php echo $totalExistencia ?> KG</div>
+        <div>TOTAL MICRO&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: <?php echo $totalExistenciaMicro ?> KG</div>
+        <div>TOTAL PERIÓDICO: <?php echo $totalExistenciaPeriodico ?> KG</div>
     </div>
-</div>
 
+</div>
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
