@@ -168,6 +168,11 @@
 <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
 <div class="index_graficas">
     <canvas id="existenciaChart"></canvas>
+    <div id="cantidadInfo">
+        <div>Corrugador Total: 25,000 KG</div>
+        <div>Micro Corrugador Total: 27,000 KG</div>
+        <div>Periódico Total: 10,000 KG</div>
+    </div>
 
 </div>
 
