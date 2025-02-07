@@ -216,7 +216,7 @@
 
         .itemn {
             margin-top: 20px;
-            background-color: #4d687d;
+            background-color: #cbd2d7;
             color: #fff;
             border-radius: 10px;
             padding: 15px;
