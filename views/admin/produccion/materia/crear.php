@@ -243,15 +243,18 @@
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
-<div class="index_graficas">
-    <canvas id="existenciaChart"></canvas>
-    <div id="cantidadInfo">
-        <div>TOTAL CORRU&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: <?php echo $totalExistencia ?> KG</div>
-        <div>TOTAL MICRO&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: <?php echo $totalExistenciaMicro ?> KG</div>
-        <div>TOTAL PERIÓDICO: <?php echo $totalExistenciaPeriodico ?> KG</div>
-    </div>
 
+<div class="index_graficas">
+    <div style="flex: 1;">
+        <canvas id="existenciaChart"></canvas>
+    </div>
+    <div id="cantidadInfo">
+        <div>TOTAL CORRU : <?php echo $totalExistencia ?> KG</div>
+        <div>TOTAL MICRO : <?php echo $totalExistenciaMicro ?> KG</div>
+        <div>TOTAL PERIÓDICO : <?php echo $totalExistenciaPeriodico ?> KG</div>
+    </div>
 </div>
+
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
