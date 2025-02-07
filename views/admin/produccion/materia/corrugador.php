@@ -212,6 +212,18 @@
 }
 
 
+.tamaño {
+    width: 300px;
+    height: 300px;
+}
+
+.total-display {
+    margin-top: auto;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+
 
 
 
