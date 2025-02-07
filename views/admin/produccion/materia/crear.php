@@ -164,7 +164,6 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
     margin: 1rem;
     padding: 1rem;
     background-color: #fff;
@@ -182,9 +181,9 @@
 <div class="index_graficas">
     <canvas id="existenciaChart"></canvas>
     <div id="cantidadInfo">
-        <div>Corrugador Total: <?php echo $totalExistencia ?> KG</div>
-        <div>Micro Corrugador Total: <?php echo $totalExistenciaMicro ?> KG</div>
-        <div>Periódico Total: <?php echo $totalExistenciaPeriodico ?> KG</div>
+        <div> Total Corrugador: <?php echo $totalExistencia ?> KG</div>
+        <div>Total MicroCorrugador:<?php echo $totalExistenciaMicro ?> KG</div>
+        <div>Total Periódico:<?php echo $totalExistenciaPeriodico ?> KG</div>
     </div>
 
 </div>
