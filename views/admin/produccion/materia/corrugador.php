@@ -247,6 +247,7 @@
         /* Posiciones específicas de los elementos en la cuadrícula */
         .items:nth-child(1) {
             grid-area: 1 / 1 / 2 / 2; /* Fila 1, Columna 1 */
+            width: 100%;
         }
 
         .items:nth-child(2) {
