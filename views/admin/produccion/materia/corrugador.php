@@ -211,6 +211,11 @@
     font-size: 1.2rem;
 }
 
+.tamaño {
+    width: 300px;
+    height: 300px;
+}
+
 
 #totalExistencia {
     position: fixed; /* Fijo para que siempre esté visible */
