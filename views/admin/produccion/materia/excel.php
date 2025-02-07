@@ -64,7 +64,7 @@
   <div class="item"><a href="/admin/produccion/materia/periodico">  <i class="fas fa-newspaper"></i> PERIÓDICO</a></div>
   <div class="item"><a href="/admin/produccion/materia/excel"><i class="fa-solid fa-arrow-right"></i> SUBIR EXCEL</a></div>
 </div>
-
+<br><br>
 
 <div class="dashboard__formulario">
 
