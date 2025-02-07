@@ -103,7 +103,7 @@
     </li> -->
     <li class="areas-produccion-estatico"  data-aos="flip-up">
         <a >
-            <i class="fas fa-industry"></i> TOTAL EXISTENCIA CORRUGADOR :
+            <i class="fas fa-industry"></i> EXISTENCIA CORRUGADOR :
             <?php if ($totalExistencia > 0) : ?>
                 <span id="valor1"  class="areas-produccion__numero"> <?php echo $totalExistencia ?> KG</span>
             <?php endif; ?>
@@ -112,7 +112,7 @@
 
     <li class="areas-produccion-estatico-craft"  data-aos="flip-up">
         <a >
-            <i class="fas fa-scroll"></i> TOTAL EXISTENCIA MICRO CORRUGADOR :
+            <i class="fas fa-scroll"></i> EXISTENCIA MICRO CORRUGADOR :
             <?php if ($totalExistenciaMicro > 0) : ?>
                 <span id="valor2"  class="areas-produccion__numero"> <?php echo $totalExistenciaMicro ?> KG</span>
             <?php endif; ?>
@@ -122,7 +122,7 @@
 
     <li class="areas-produccion-estatico-medium"  data-aos="flip-up">
         <a>
-            <i class="fas fa-newspaper"></i> TOTAL EXISTENCIA PERIODICO :
+            <i class="fas fa-newspaper"></i> EXISTENCIA PERIODICO :
             <?php if ($totalExistenciaPeriodico > 0) : ?>
                 <span id="valor3" class="areas-produccion__numero"> <?php echo $totalExistenciaPeriodico ?> KG</span>
             <?php endif; ?>
