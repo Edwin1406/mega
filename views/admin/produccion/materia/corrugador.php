@@ -326,7 +326,6 @@
         <h2 class="titulo_existencia">Gráfica 2</h2>
 
 
-        <div id="totalExistencia" class="total-display">Total de Existencia: 0</div>
 
     </div>
 
@@ -438,7 +437,10 @@
             <div id="chart1100" class="tamaño"></div>
 
             </div>
-            <div class="items">3</div> <!-- He corregido la numeración para mayor coherencia -->
+            <div class="items">
+            <div id="totalExistencia" class="total-display">Total de Existencia: 0</div>
+
+            </div> <!-- He corregido la numeración para mayor coherencia -->
         </div>
         <br><br><br>
         <div class="nuevo">
