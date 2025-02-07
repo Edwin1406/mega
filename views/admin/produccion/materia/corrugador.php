@@ -333,7 +333,7 @@
 
 
     <!-- Tercera columna: Tabla -->
-    <div class="columna_tabla">
+    <!-- <div class="columna_tabla">
         <h2 class="titulo_existencia">Existencia (Corrugador)</h2>
         <table id="dataTable">
             <thead>
@@ -346,7 +346,7 @@
             </thead>
             <tbody></tbody>
         </table>
-    </div>
+    </div> -->
 </div>
 
 
