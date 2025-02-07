@@ -74,12 +74,12 @@
         Ver a Materia Prima
     </a>
 </div> -->
-<div class="dashboard__contenedor-boton">
+<!-- <div class="dashboard__contenedor-boton">
     <a class="dashboard__boton" href="/admin/produccion/materia/excel">
         <i class="fa-solid fa-arrow-right"></i>
         SUBIR EXCEL
     </a>
-</div>
+</div> -->
 
 
 <ul class="lista-areas-produccion">
