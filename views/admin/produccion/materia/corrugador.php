@@ -31,19 +31,37 @@
       text-decoration: none;
       display: block;
     }
+    @media (min-width: 1024px) {
+    .item:nth-child(1) {
+      width: 20%;
+    }
+    
+    .item:nth-child(2) {
+      width: 20%;
+    }
+    
+    .item:nth-child(3) {
+      width: 20%;
+    }
+    
+    .item:nth-child(4) {
+      width: 20%;
+    }
+    
+    .item:nth-child(5) {
+      width: 20%;
+    }
+  }
+
 </style>
 
 <div class="container">
-    <div class="item"><a href="/admin/produccion/materia/corrugador">INICIO</a></div>
-  <div class="item"><a href="/admin/produccion/materia/corrugador/cajacraft">KRAFT</a></div>
-  <div class="item"><a href="https://www.google.com/?hl=es">CLICK</a></div>
-  <div class="item"><a href="https://www.google.com/?hl=es">CLICK</a></div>
-  <div class="item"><a href="https://www.google.com/?hl=es">CLICK</a></div>
+    <div class="item"><a href="/admin/produccion/materia/crear?id=8080">INICIO</a></div>
+    <div class="item"><a href="/admin/produccion/materia/corrugador/cajacraft"> <i class="fas fa-industry"></i> KRAFT</a></div>
+  <div class="item"><a href="/admin/produccion/materia/microcorrugador/cajablanco"> <i class="fas fa-scroll"></i>BLANCO</a></div>
+  <div class="item"><a href="/admin/produccion/materia/periodico/cajamedium">  <i class="fas fa-newspaper"></i> MEDIUM</a></div>
+
 </div>
-
-
-
-
 
 
 
