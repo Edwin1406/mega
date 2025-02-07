@@ -318,7 +318,6 @@
     <div class="columna_filtros">
         <h2 class="titulo_existencia">Gráfica 1</h2>
 
-        <div id="chart1880" class="tamaño"></div>
 
     </div>
 
@@ -350,6 +349,100 @@
         </table>
     </div>
 </div>
+
+
+
+
+
+<style>
+	
+			html,
+			body,
+			.containers {
+			   height: 100%;
+			   width: 100%;
+         /* display: flex;
+         padding: 10px; */
+			}
+	
+			
+			.items {
+			  background-color: #859aac;
+			  color: #fff;
+			  border-radius: 10px;
+			  padding: 10px 15px;
+			}
+			
+			.containers {
+			  display: grid;
+			  grid-template-columns: 1fr 1fr 1fr;
+			  grid-template-rows: 1fr 1fr 1fr;
+			  gap: 1rem 1rem;
+			}
+			
+			.items:nth-child(1) {
+			  grid-area: 1 / 1 / 2 / 2;
+			}
+			
+			.items:nth-child(2) {
+			  grid-area: 1 / 2 / 2 / 3;
+			}
+			
+			.items:nth-child(3) {
+			  grid-area: 1 / 3 / 2 / 4;
+			  width: auto;
+			  height: 300%;
+			}
+			
+			.items:nth-child(4) {
+			  grid-area: 2 / 1 / 3 / 2;
+			  width: 200%;
+			  height: 195%;
+			}
+            .existenciaChart{
+               padding: 0;
+            }
+		</style>
+	</head>
+	<body>
+		<div class="containers">
+		  <div class="items">
+          <div id="chart1880" class="tamaño"></div>
+
+          </div>
+		  <div class="items">2</div>
+		  <div class="items">3</div>
+		  <div class="items">4</div>
+		</div>
+	</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 <script>
     (function() {
