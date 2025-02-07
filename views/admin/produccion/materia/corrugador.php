@@ -35,7 +35,7 @@
 
 <div class="container">
   <div class="item"><a href="/admin/produccion/materia/corrugador/cajacraft">KRAFT</a></div>
-  <div class="item"><a href="https://www.google.com/?hl=es">CLICK</a></div>
+  <div class="item"><a href="/admin/produccion/materia/corrugador">INICIO</a></div>
   <div class="item"><a href="https://www.google.com/?hl=es">CLICK</a></div>
   <div class="item"><a href="https://www.google.com/?hl=es">CLICK</a></div>
   <div class="item"><a href="https://www.google.com/?hl=es">CLICK</a></div>
