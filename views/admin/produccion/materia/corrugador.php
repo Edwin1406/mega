@@ -318,7 +318,6 @@
     <div class="columna_filtros">
         <h2 class="titulo_existencia">Gráfica 1</h2>
 
-        <div id="chart1880" class="tamaño"></div>
 
     </div>
 
@@ -350,6 +349,133 @@
         </table>
     </div>
 </div>
+
+
+
+
+
+
+
+
+<style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html, body {
+            /* height: 100%;
+            width: 100%; */
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+
+        .display {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            padding: 20px;
+        }
+
+        .containers {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 1fr 1fr;
+            gap: 1rem;
+            width: 80%;
+            max-width: 600px;
+            /* background-color: #e6e6e6; */
+            padding: 20px;
+            border-radius: 10px;
+            /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
+        }
+
+        .items {
+            background-color: #859aac;
+            color: #fff;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        /* Posiciones específicas de los elementos en la cuadrícula */
+        .items:nth-child(1) {
+            grid-area: 1 / 1 / 2 / 2; /* Fila 1, Columna 1 */
+        }
+
+        .items:nth-child(2) {
+            grid-area: 1 / 2 / 2 / 3; /* Fila 1, Columna 2 */
+        }
+
+        .items:nth-child(3) {
+            grid-area: 2 / 1 / 3 / 3; /* Fila 2, ocupa dos columnas */
+        }
+
+        .itemn {
+            margin-top: 20px;
+            background-color: #4d687d;
+            color: #fff;
+            border-radius: 10px;
+            padding: 15px;
+            font-size: 1.2rem;
+            text-align: center;
+            width: 100%;
+            height: 100%;
+        }
+
+        .nuevo {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 50%;
+            height: 20%;
+        }
+    </style>
+</head>
+<body>
+    <div class="display">
+        <div class="containers">
+            <div class="items">
+            <div id="chart1880" class="tamaño"></div>
+
+
+            </div>
+            <div class="items">2</div>
+            <div class="items">3</div> <!-- He corregido la numeración para mayor coherencia -->
+        </div>
+        <div class="nuevo">
+            <div class="itemn">4</div>
+        </div>
+    </div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 <script>
     (function() {
