@@ -51,7 +51,7 @@
 
 
 <div class="container">
-  <div class="item"><a href="https://www.google.com/?hl=es"></a>CLICK</div>
+  <div class="item"><a href="/admin/produccion/materia/corrugador/cajacraft"></a>KARFT</div>
   <div class="item"><a href="https://www.google.com/?hl=es"></a>CLICK</div>
   <div class="item"><a href="https://www.google.com/?hl=es"></a>CLICK</div>
   <div class="item"><a href="https://www.google.com/?hl=es"></a>CLICK</div>
