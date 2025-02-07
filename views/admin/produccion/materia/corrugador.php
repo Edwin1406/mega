@@ -3,41 +3,20 @@
 
 
 <style>
-    
     .item {
       background-color: #24292d;
       color: #f8f2f2;
-      /* border-bottom-right-radius: 1rem; */
       padding: 10px 15px;
-        transition: all 0.5s;
+      transition: all 0.5s;
     }
     
     .container {
       display: flex;
-      /* gap: 20px; */
       flex-direction: row;
-      /* border-radius:2rem */
       justify-content: center;
-
     }
     
-    .item:nth-child(1) {
-      width: 10%;
-    }
-    
-    .item:nth-child(2) {
-      width: 10%;
-    }
-    
-    .item:nth-child(3) {
-      width: 10%;
-    }
-    
-    .item:nth-child(4) {
-      width: 10%;
-    }
-    
-    .item:nth-child(5) {
+    .item:nth-child(1), .item:nth-child(2), .item:nth-child(3), .item:nth-child(4), .item:nth-child(5) {
       width: 10%;
     }
 
@@ -45,17 +24,21 @@
       background-color: #ac5353;
       scale: 1.1;
       text-align: center;
-      
+    }
+
+    .item a {
+      color: inherit;
+      text-decoration: none;
+      display: block;
     }
 </style>
 
-
 <div class="container">
-  <div class="item"><a href="/admin/produccion/materia/corrugador/cajacraft"></a>KARFT</div>
-  <div class="item"><a href="https://www.google.com/?hl=es"></a>CLICK</div>
-  <div class="item"><a href="https://www.google.com/?hl=es"></a>CLICK</div>
-  <div class="item"><a href="https://www.google.com/?hl=es"></a>CLICK</div>
-  <div class="item"><a href="https://www.google.com/?hl=es"></a>CLICK</div>
+  <div class="item"><a href="/admin/produccion/materia/corrugador/cajacraft">KRAFT</a></div>
+  <div class="item"><a href="https://www.google.com/?hl=es">CLICK</a></div>
+  <div class="item"><a href="https://www.google.com/?hl=es">CLICK</a></div>
+  <div class="item"><a href="https://www.google.com/?hl=es">CLICK</a></div>
+  <div class="item"><a href="https://www.google.com/?hl=es">CLICK</a></div>
 </div>
 
 
