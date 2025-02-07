@@ -300,6 +300,8 @@
         <br><br><br>
         <div class="nuevo">
             <div class="itemn">
+            <h2 class="titulo_existencia">Existencia (Corrugador)</h2>
+
             <table id="dataTable">
             <thead>
                 <tr>
