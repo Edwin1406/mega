@@ -30,6 +30,18 @@
       text-decoration: none;
       display: block;
     }
+    @media (max-width: 768px) {
+    .item {
+        width: 20%; /* Aumenta el ancho en pantallas pequeñas */
+    }
+}
+
+@media (max-width: 480px) {
+    .item {
+        width: 50%; /* En pantallas muy pequeñas, cada item ocupará el 50% */
+    }
+}
+
 </style>
 
 <div class="container">
@@ -221,7 +233,7 @@
 <div class="index_graficas">
     <canvas id="existenciaChart"></canvas>
     <div id="cantidadInfo">
-        <div>TOTAL CORRU&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:                  <?php echo $totalExistencia ?> KG</div>
+        <div>TOTAL CORRU&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: <?php echo $totalExistencia ?> KG</div>
         <div>TOTAL MICRO&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: <?php echo $totalExistenciaMicro ?> KG</div>
         <div>TOTAL PERIÓDICO: <?php echo $totalExistenciaPeriodico ?> KG</div>
     </div>
