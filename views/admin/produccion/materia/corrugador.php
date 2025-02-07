@@ -262,8 +262,7 @@
     </style>
 </head>
 <body>
-    <div class="display">
-    <div id="filters">
+<div id="filters">
     <div>
         <label for="filterGramaje">Filtrar por Gramaje (Gráficas):</label>
         <select id="filterGramaje">
@@ -283,6 +282,8 @@
         </select>
     </div>
 </div>
+    <div class="display">
+        
         <div class="containers">
             <div class="items">
             <div id="chart1880" class="tamaño"></div>
