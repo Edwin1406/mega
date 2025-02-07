@@ -365,7 +365,7 @@
 
 <style>
 	
-			html,
+			/* html,
 			body,
 			.container {
 			   height: 100%;
@@ -373,7 +373,7 @@
          display: flex;
          padding: 10px;
 			}
-	
+	 */
 			
 			.items {
 			  background-color: #859aac;
