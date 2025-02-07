@@ -159,26 +159,7 @@
 
 
 </style>
-<div id="filters">
-    <div>
-        <label for="filterGramaje">Filtrar por Gramaje (Gráficas):</label>
-        <select id="filterGramaje">
-            <option value="all">Todos</option>
-        </select>
-    </div>
-    <div>
-        <label for="filterAncho">Filtrar por Ancho (Tabla):</label>
-        <select id="filterAncho">
-            <option value="all">Todos</option>
-        </select>
-    </div>
-    <div>
-        <label for="filterLinea">Filtrar por Línea (Tabla):</label>
-        <select id="filterLinea">
-            <option value="all">Todos</option>
-        </select>
-    </div>
-</div>
+
 <div class="grafica_dual">
     <!-- Primera columna: Filtros -->
      
@@ -282,6 +263,26 @@
 </head>
 <body>
     <div class="display">
+    <div id="filters">
+    <div>
+        <label for="filterGramaje">Filtrar por Gramaje (Gráficas):</label>
+        <select id="filterGramaje">
+            <option value="all">Todos</option>
+        </select>
+    </div>
+    <div>
+        <label for="filterAncho">Filtrar por Ancho (Tabla):</label>
+        <select id="filterAncho">
+            <option value="all">Todos</option>
+        </select>
+    </div>
+    <div>
+        <label for="filterLinea">Filtrar por Línea (Tabla):</label>
+        <select id="filterLinea">
+            <option value="all">Todos</option>
+        </select>
+    </div>
+</div>
         <div class="containers">
             <div class="items">
             <div id="chart1880" class="tamaño"></div>
