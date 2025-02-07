@@ -2,7 +2,51 @@
 
 
 
+<style>
+    
+    .item {
+      background-color: #24292d;
+      color: #f8f2f2;
+      /* border-bottom-right-radius: 1rem; */
+      padding: 10px 15px;
+        transition: all 0.5s;
+    }
+    
+    .container {
+      display: flex;
+      /* gap: 20px; */
+      flex-direction: row;
+      /* border-radius:2rem */
 
+    }
+    
+    .item:nth-child(1) {
+      width: 10%;
+    }
+    
+    .item:nth-child(2) {
+      width: 10%;
+    }
+    
+    .item:nth-child(3) {
+      width: 10%;
+    }
+    
+    .item:nth-child(4) {
+      width: 10%;
+    }
+    
+    .item:nth-child(5) {
+      width: 10%;
+    }
+
+    .item:hover {
+      background-color: #ac5353;
+      scale: 1.1;
+      text-align: center;
+      
+    }
+</style>
 
 
 <div class="container">
