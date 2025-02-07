@@ -1,5 +1,37 @@
 <h1 class="dashboard__heading"> <?php echo $titulo ?> </h1>
 
+
+
+
+
+
+<div class="container">
+  <div class="item"><a href="https://www.google.com/?hl=es"></a>CLICK</div>
+  <div class="item"><a href="https://www.google.com/?hl=es"></a>CLICK</div>
+  <div class="item"><a href="https://www.google.com/?hl=es"></a>CLICK</div>
+  <div class="item"><a href="https://www.google.com/?hl=es"></a>CLICK</div>
+  <div class="item"><a href="https://www.google.com/?hl=es"></a>CLICK</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <ul class="lista-areas-produccion">
 
     <li class="areas-produccion-estatico" data-aos="fade-up">
