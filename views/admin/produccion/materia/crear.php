@@ -208,15 +208,14 @@
             background: red;
             border-radius: 5px;
         }
-
         .index_graficas {
+    position: relative;
     display: flex;
-    justify-content: center;    
-    align-items: center;         
-    margin: 20px auto;           
+    justify-content: center;
+    align-items: center;
+    margin: 20px auto;
     width: 70%;
-    height: 70%;              
-    /* background-color: #ddd; */
+    height: 70%;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     border-radius: 1rem;
 }
