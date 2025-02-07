@@ -223,13 +223,7 @@
     font-weight: bold;
 }
 
-
-.columna_graficas {
-  
-    align-items: center;
-    height: auto;
-    max-height: 600px;  /* Controlar la altura máxima */
-}
+/*  */
 
 
 </style>
@@ -269,9 +263,9 @@
 
         <div id="chart1100" class="tamaño"></div>
 
-        <div id="totalExistencia" class="total-display">Total de Existencia: 0</div>
-
+        
     </div>
+    <div id="totalExistencia" class="total-display">Total de Existencia: 0</div>
 
 
 
