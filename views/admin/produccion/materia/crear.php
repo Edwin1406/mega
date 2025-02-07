@@ -79,171 +79,177 @@
 </div>
 
 
-
 <style>
-
-
 .centrar {
     display: flex;
     justify-content: center;
     align-items: center;
 }
-   
-   .card {
-            display: flex;
-            align-items: center;
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            padding: 15px;
-            width: 30%;
-            position: relative;
-            justify-content: center;
-        }
-        .side-bar {
-            background: red;
-            width: 10px;
-            height: 100%;
-            position: absolute;
-            left: 0;
-            top: 0;
-            border-radius: 10px 0 0 10px;
-        }
-        .content {
-            display: flex;
-            flex-direction: column;
-            margin-left: 15px;
-        }
-        .percentage {
-            color: red;
-            font-size: 16px;
-            font-weight: bold;
-        }
-        .amount {
-            font-size: 22px;
-            font-weight: bold;
-            text-align: center;
-        }
-        .chart {
-            width: 100%;
-            height: 50px;
-            background: linear-gradient(to top, #ddd, #8a5ba3);
-            border-radius: 5px;
-            margin-top: 10px;
-        }
-        .label {
-            font-size: 14px;
-            color: gray;
-            margin-top: 5px;
-            text-align: center;
-        }
-        .chart .bar {
-            width: 50%;
-            height: 100%;
-            background: red;
-            border-radius: 5px;
-        }
 
-        .index_graficas {
+.card {
     display: flex;
-    justify-content: center;    
-    align-items: center;         
-    margin: 20px auto;           
+    align-items: center;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    width: 30%;
+    position: relative;
+    justify-content: center;
+}
+
+.side-bar {
+    background: red;
+    width: 10px;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    border-radius: 10px 0 0 10px;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    margin-left: 15px;
+}
+
+.percentage {
+    color: red;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.amount {
+    font-size: 22px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.chart {
+    width: 100%;
+    height: 50px;
+    background: linear-gradient(to top, #ddd, #8a5ba3);
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+.label {
+    font-size: 14px;
+    color: gray;
+    margin-top: 5px;
+    text-align: center;
+}
+
+.chart .bar {
+    width: 50%;
+    height: 100%;
+    background: red;
+    border-radius: 5px;
+}
+
+.index_graficas {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px auto;
     width: 70%;
-    height: 70%;              
+    height: 70%;
     background-color: #ddd;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     border-radius: 1rem;
 }
 
 #existenciaChart {
-    padding: 1rem;         
-    text-align: center;          
+    padding: 1rem;
+    text-align: center;
 }
 
-      
+#cantidadInfo {
+    margin-left: 20px;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
 </style>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
+
 <div class="index_graficas">
     <canvas id="existenciaChart"></canvas>
-
+    <div id="cantidadInfo">
+        <div>Corrugador Total: 25,000 KG</div>
+        <div>Micro Corrugador Total: 27,000 KG</div>
+        <div>Periódico Total: 10,000 KG</div>
+    </div>
 </div>
 
 <script>
-    // Obtener los valores del DOM y convertirlos en números
-    const existenciaCorrugadorTotal = parseFloat(document.querySelector('#valor1').textContent.replace(' KG', '').replace('.', '').replace(',', '.'));
-    const existenciaCorrugadorMicroTotal = parseFloat(document.querySelector('#valor2').textContent.replace(' KG', '').replace('.', '').replace(',', '.'));
-    const existenciaPeriodicaTotal = parseFloat(document.querySelector('#valor3').textContent.replace(' KG', '').replace('.', '').replace(',', '.'));
-    
-    
+const datos = [30920, 62310, 6770];
+const total = datos.reduce((acc, val) => acc + val, 0);
 
-    // Calcular el total
-    const total = existenciaCorrugadorTotal + existenciaCorrugadorMicroTotal + existenciaPeriodicaTotal;
+// Calcular los porcentajes
+const porcentajes = datos.map(value => (value / total) * 100);
 
-
-    // Calcular los porcentajes
-    const datos = [
-        (existenciaCorrugadorTotal / total) * 100,
-        (existenciaCorrugadorMicroTotal / total) * 100,
-        (existenciaPeriodicaTotal / total) * 100
-    ];
-
-    // Configuración de la gráfica
-    const ctx = document.getElementById('existenciaChart').getContext('2d');
-    new Chart(ctx, {
-        type: 'doughnut',  // Gráfica tipo doughnut
-        data: {
-            labels: ['Corrugador Total', 'Micro Corrugador Total', 'Periódico Total'],
-            datasets: [{
-                label: 'Porcentaje de Existencias',
-                data: datos,
-                backgroundColor: ['#6c757d', '#20c997', '#d63384'], // Colores personalizados
-                hoverBackgroundColor: ['#495057', '#17a2b8', '#c82373'],
-                borderWidth: 2,
-                borderColor: '#fff'
-            }]
-        },
-        options: {
-            responsive: true,
-            plugins: {
-                legend: {
-                    position: 'top',
-                    labels: {
-                        font: {
-                            size: 14,
-                            family: 'Arial',
-                            weight: 'bold'
-                        },
-                        color: '#333'
-                    }
-                },
-                tooltip: {
-                    callbacks: {
-                        label: function(tooltipItem) {
-                            return `${tooltipItem.label}: ${tooltipItem.raw.toFixed(2)}%`;
-                        }
-                    }
-                },
-                datalabels: {
-                    color: '#fff',
+// Configuración de la gráfica
+const ctx = document.getElementById('existenciaChart').getContext('2d');
+new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+        labels: ['Corrugador Total', 'Micro Corrugador Total', 'Periódico Total'],
+        datasets: [{
+            label: 'Porcentaje de Existencias',
+            data: porcentajes,
+            backgroundColor: ['#6c757d', '#20c997', '#d63384'],
+            hoverBackgroundColor: ['#495057', '#17a2b8', '#c82373'],
+            borderWidth: 2,
+            borderColor: '#fff'
+        }]
+    },
+    options: {
+        responsive: true,
+        plugins: {
+            legend: {
+                position: 'top',
+                labels: {
                     font: {
-                        size: 16,
+                        size: 14,
+                        family: 'Arial',
                         weight: 'bold'
                     },
-                    formatter: (value) => `${value.toFixed(2)}%`,
-                    anchor: 'center',
-                    align: 'center'
+                    color: '#333'
                 }
             },
-            animation: {
-                animateScale: true,
-                animateRotate: true
+            tooltip: {
+                callbacks: {
+                    label: function(tooltipItem) {
+                        return `${tooltipItem.label}: ${tooltipItem.raw.toFixed(2)}%`;
+                    }
+                }
+            },
+            datalabels: {
+                color: '#fff',
+                font: {
+                    size: 16,
+                    weight: 'bold'
+                },
+                formatter: (value) => `${value.toFixed(2)}%`,
+                anchor: 'center',
+                align: 'center'
             }
         },
-        plugins: [ChartDataLabels]
-    });
+        animation: {
+            animateScale: true,
+            animateRotate: true
+        }
+    },
+    plugins: [ChartDataLabels]
+});
 </script>
 
 
