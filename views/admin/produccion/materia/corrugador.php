@@ -160,35 +160,6 @@
 
 </style>
 
-<div class="grafica_dual">
-    <!-- Primera columna: Filtros -->
-     
-    <div class="columna_filtros">
-        <h2 class="titulo_existencia">Gráfica 1</h2>
-
-
-    </div>
-
-    <!-- Segunda columna: Gráficas -->
-    <div class="columna_graficas">
-        <h2 class="titulo_existencia">Gráfica 2</h2>
-
-
-
-    </div>
-
-
-
-    <!-- Tercera columna: Tabla -->
-    <div class="columna_tabla">
-        <h2 class="titulo_existencia">Existencia (Corrugador)</h2>
-       
-    </div>
-</div>
-
-
-
-
 
 
 
