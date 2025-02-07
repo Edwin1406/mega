@@ -225,10 +225,10 @@
     padding: 1rem;         
     text-align: center;          
 }
-#cantidadInfo {
-    display: grid;
-    grid-template-columns: auto auto;
-    gap: 5px 20px; /* Ajusta el espacio entre filas y columnas */
+#cantidadInfo{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     margin: 1rem;
     padding: 1rem;
     background-color: #fff;
@@ -237,9 +237,7 @@
     font-size: 1.5rem;
     font-weight: bold;
     color: #333;
-    text-align: left;
 }
-
       
 </style>
 
@@ -248,14 +246,18 @@
 <div class="index_graficas">
     <canvas id="existenciaChart"></canvas>
     <div id="cantidadInfo">
-        <div>TOTAL CORRU <?php echo $totalExistencia ?> KG</div>
-        <div>TOTAL MICRO<?php echo $totalExistenciaMicro ?> KG</div>
+        <div>TOTAL CORRU&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: <?php echo $totalExistencia ?> KG</div>
+        <div>TOTAL MICRO&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: <?php echo $totalExistenciaMicro ?> KG</div>
         <div>TOTAL PERIÓDICO: <?php echo $totalExistenciaPeriodico ?> KG</div>
     </div>
 
 </div>
 
 <script>
+    document.addEventListener('DOMContentLoaded', function () {
+    document.body.classList.add('loaded');
+});
+
     // Obtener los valores del DOM y convertirlos en números
     const existenciaCorrugadorTotal = parseFloat(document.querySelector('#valor1').textContent.replace(' KG', '').replace('.', '').replace(',', '.'));
     const existenciaCorrugadorMicroTotal = parseFloat(document.querySelector('#valor2').textContent.replace(' KG', '').replace('.', '').replace(',', '.'));
