@@ -194,6 +194,9 @@
             text-align: center;
             font-size: 1.5rem;
             font-weight: bold;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
         /* Posiciones específicas de los elementos en la cuadrícula */
