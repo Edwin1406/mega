@@ -182,9 +182,9 @@
 <div class="index_graficas">
     <canvas id="existenciaChart"></canvas>
     <div id="cantidadInfo">
-        <div>Corrugador Total: 25,000 KG</div>
-        <div>Micro Corrugador Total: 27,000 KG</div>
-        <div>Periódico Total: 10,000 KG</div>
+        <div>Corrugador Total: <?php echo $totalExistencia ?> KG</div>
+        <div>Micro Corrugador Total: <?php echo $totalExistenciaMicro ?> KG</div>
+        <div>Periódico Total: <?php echo $totalExistenciaPeriodico ?> KG</div>
     </div>
 
 </div>
