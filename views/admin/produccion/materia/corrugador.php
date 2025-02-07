@@ -412,6 +412,7 @@
             padding: 15px;
             font-size: 1.2rem;
             text-align: center;
+            margin-left: 10rem;
             width: 100%;
             /* height: 100%; */
         }
