@@ -313,6 +313,8 @@
                 display: flex;
                 justify-content: center;
                 align-items: center;
+                /* quitar los estilos de lista */
+                list-style: none;
             }
 
 
