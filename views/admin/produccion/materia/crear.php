@@ -222,7 +222,7 @@
 }
 
 #existenciaChart {
-    max-width: 70%;
+    max-width: 60%;
     height: auto;
     padding: 0;
 }
