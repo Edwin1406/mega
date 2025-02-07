@@ -507,7 +507,17 @@
 
 
 
+<style>
 
+#filters-otros {
+    display: flex;
+    width: min(95%, 140rem);
+    margin: 0 auto;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 2rem;
+}
+</style>
 
 
 
