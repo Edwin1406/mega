@@ -336,17 +336,7 @@
     <!-- Tercera columna: Tabla -->
     <div class="columna_tabla">
         <h2 class="titulo_existencia">Existencia (Corrugador)</h2>
-        <table id="dataTable">
-            <thead>
-                <tr>
-                    <th>Ancho</th>
-                    <th>Gramaje</th>
-                    <th>Línea</th>
-                    <th>Existencia</th>
-                </tr>
-            </thead>
-            <tbody></tbody>
-        </table>
+       
     </div>
 </div>
 
@@ -448,7 +438,19 @@
             <div class="items">3</div> <!-- He corregido la numeración para mayor coherencia -->
         </div>
         <div class="nuevo">
-            <div class="itemn">4</div>
+            <div class="itemn">
+            <table id="dataTable">
+            <thead>
+                <tr>
+                    <th>Ancho</th>
+                    <th>Gramaje</th>
+                    <th>Línea</th>
+                    <th>Existencia</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+            </div>
         </div>
     </div>
 </body>
