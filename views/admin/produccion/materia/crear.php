@@ -365,15 +365,15 @@
 
 <style>
 	
-			/* html,
+			html,
 			body,
 			.container {
-			   height: 100%;
-			   width: 100%;
+			   /* height: 100%;
+			   width: 100%; */
          display: flex;
          padding: 10px;
 			}
-	 */
+	
 			
 			.items {
 			  background-color: #859aac;
