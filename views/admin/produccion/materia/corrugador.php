@@ -260,12 +260,11 @@
 
         <div id="chart1100" class="tamaño"></div>
 
-        <div id="totalExistencia" class="total-display">Total de Existencia: 0</div>
-
+        
     </div>
-
-
-
+    
+    
+    
     <!-- Tercera columna: Tabla -->
     <div class="columna_tabla">
         <h2 class="titulo_existencia">Existencia (Corrugador)</h2>
@@ -281,6 +280,8 @@
             <tbody></tbody>
         </table>
     </div>
+    <div id="totalExistencia" class="total-display">Total de Existencia: 0</div>
+
 </div>
 
 <script>
