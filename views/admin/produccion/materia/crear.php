@@ -405,7 +405,7 @@
 			
 			.items:nth-child(4) {
 			  grid-area: 2 / 1 / 3 / 2;
-			  width: 197%;
+			  width: 200%;
 			  height: 195%;
 			}
 		</style>
