@@ -224,7 +224,12 @@
 }
 
 
-
+.columna_graficas {
+  
+    align-items: center;
+    height: auto;
+    max-height: 600px;  /* Controlar la altura máxima */
+}
 
 
 </style>
