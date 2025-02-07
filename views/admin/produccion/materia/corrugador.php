@@ -148,9 +148,144 @@
 </ul>
 
 <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
-<!-- <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css"> -->
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+
+
+<style>
+    .tablageneral {
+        display: flex;
+        flex-direction: row;
+        gap: 0.5rem;
+        background-color: rgb(208, 212, 215);
+        padding: 1rem;
+        border-radius: 0.5rem;
+        width: 100%;
+        margin: auto;
+    }
+
+    .tablaotro {
+        padding: 1rem;
+    }
+
+    /* #filters-otros label {
+        font-size: 0.9rem;
+    } */
+
+    /* #filters-otros select {
+        font-size: 0.9rem;
+        padding: 0.2rem;
+        margin-bottom: 0.5rem;
+    } */
+
+    h2.titulo_existencia {
+        font-size: 1.2rem;
+        text-align: center;
+    }
+
+    #dataTableOtros {
+        width: 100%;
+        font-size: 1rem;
+        border-collapse: collapse;
+    }
+
+    #dataTableOtros th,
+    #dataTableOtros td {
+        border: 1px solid #ccc;
+        padding: 0.5rem;
+        text-align: center;
+    }
+
+    table.dataTable tbody th,
+    table.dataTable tbody td,
+    th.sorting {
+        font-size: 1.5rem;
+    }
+
+    .grafica_dual {
+        display: flex;
+        justify-content: space-around;
+        align-items: stretch;
+        gap: 2rem;
+        background-color: rgb(208, 212, 215);
+        padding: 2rem;
+        border-radius: 1rem;
+        margin-bottom: 2rem;
+    }
+
+    .columna_filtros,
+    .columna_graficas,
+    .columna_tabla {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        flex: 1;
+        background-color: white;
+        padding: 1rem;
+        height: 50%;
+        border-radius: 1rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    #filters {
+        display: flex;
+        justify-content: space-between;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+    }
+
+    #filters div {
+        flex: 1;
+    }
+
+    .graficas_blancas {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 1rem;
+    }
+
+    table {
+        width: 100%;
+        margin-top: 1rem;
+    }
+
+    .total-display {
+        margin-top: 1rem;
+        font-weight: bold;
+        text-align: center;
+    }
+
+
+    .total-display {
+        margin-top: 10px;
+        font-weight: bold;
+        font-size: 2rem;
+    }
+
+    .total-display1 {
+        margin-top: 10px;
+        font-weight: bold;
+        font-size: 2rem;
+    }
+
+
+
+    #filters-otros {
+        display: flex;
+        gap: 1rem;
+        margin-bottom: 20px;
+    }
+
+    label {
+        font-weight: bold;
+    }
+
+     .dataTables_wrapper .dataTables_filter {
+    font-size: 1.2rem;
+}
 
 
 
@@ -183,6 +318,7 @@
     <div class="columna_filtros">
         <h2 class="titulo_existencia">Gráfica 1</h2>
 
+        <div id="chart1880" class="tamaño"></div>
 
     </div>
 
@@ -190,81 +326,18 @@
     <div class="columna_graficas">
         <h2 class="titulo_existencia">Gráfica 2</h2>
 
-        
+        <div id="chart1100" class="tamaño"></div>
+
         <div id="totalExistencia" class="total-display">Total de Existencia: 0</div>
 
     </div>
 
 
 
-</div>
-
-
-
-
-
-<style>
-	
-			html,
-			body,
-			.containers {
-			   height: 100%;
-			   width: 100%;
-         /* display: flex;
-         padding: 10px; */
-			}
-	
-			
-			.items {
-			  background-color: #859aac;
-			  color: #fff;
-			  border-radius: 10px;
-			  padding: 10px 15px;
-			}
-			
-			.containers {
-			  display: grid;
-			  grid-template-columns: 1fr 1fr 1fr;
-			  grid-template-rows: 1fr 1fr 1fr;
-			  gap: 1rem 1rem;
-			}
-			
-			.items:nth-child(1) {
-			  grid-area: 1 / 1 / 2 / 2;
-			}
-			
-			.items:nth-child(2) {
-			  grid-area: 1 / 2 / 2 / 3;
-			}
-			
-			.items:nth-child(3) {
-			  grid-area: 1 / 3 / 2 / 4;
-			  width: auto;
-			  height: 300%;
-			}
-			
-			.items:nth-child(4) {
-			  grid-area: 2 / 1 / 3 / 2;
-			  width: 200%;
-			  height: 195%;
-			}
-            .existenciaChart{
-               padding: 0;
-            }
-		</style>
-	</head>
-	<body>
-		<div class="containers">
-		  <div class="items">
-          <div id="chart1880" class="tamaño"></div>
-
-          </div>
-		  <div class="items">
-          <div id="chart1100" class="tamaño"></div>
-
-          </div>
-		  <div class="items">
-          <table id="dataTable">
+    <!-- Tercera columna: Tabla -->
+    <div class="columna_tabla">
+        <h2 class="titulo_existencia">Existencia (Corrugador)</h2>
+        <table id="dataTable">
             <thead>
                 <tr>
                     <th>Ancho</th>
@@ -275,43 +348,8 @@
             </thead>
             <tbody></tbody>
         </table>
-
-          
-          </div>
-		  <div class="items">
-          <div id="totalExistencia" class="total-display">Total de Existencia: 0</div>
-
-          </div>
-		</div>
-	</body>
-</html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    </div>
+</div>
 
 <script>
     (function() {
