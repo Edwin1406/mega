@@ -221,7 +221,7 @@
 <div class="index_graficas">
     <canvas id="existenciaChart"></canvas>
     <div id="cantidadInfo">
-        <div>&nbsp;&nbsp;TOTAL CORRU:<?php echo $totalExistencia ?> KG</div>
+        <div>TOTAL CORRU:&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $totalExistencia ?> KG</div>
         <div>TOTAL MICRO:<?php echo $totalExistenciaMicro ?> KG</div>
         <div>TOTAL PERIÓDICO:<?php echo $totalExistenciaPeriodico ?> KG</div>
     </div>
