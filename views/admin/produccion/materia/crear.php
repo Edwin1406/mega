@@ -223,7 +223,7 @@
     <div id="cantidadInfo">
         <div>TOTAL CORRU:    <?php echo $totalExistencia ?> KG</div>
         <div>TOTAL MICRO:    <?php echo $totalExistenciaMicro ?> KG</div>
-        <div>TOTAL PERIODICO:<?php echo $totalExistenciaPeriodico ?> KG</div>
+        <div>TOTAL PERIÓDICO:<?php echo $totalExistenciaPeriodico ?> KG</div>
     </div>
 
 </div>
