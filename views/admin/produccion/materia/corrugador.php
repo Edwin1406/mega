@@ -212,18 +212,21 @@
 }
 
 
-.tamaño {
-    width: 300px;
-    height: 300px;
+#totalExistencia {
+    position: fixed; /* Fijo para que siempre esté visible */
+    top: 10px;      /* A 10px desde la parte superior */
+    right: 10px;    /* A 10px desde la parte derecha */
+    background-color: rgba(0, 0, 0, 0.7); /* Fondo semitransparente */
+    color: white;   /* Texto en blanco */
+    padding: 10px;  /* Espaciado interno */
+    font-size: 18px; /* Tamaño de texto */
+    z-index: 9999;  /* Aparecerá encima de todo */
+    border-radius: 8px; /* Bordes redondeados */
 }
 
-.total-display {
-    margin-top: auto;
-    font-size: 1.5rem;
-    font-weight: bold;
-}
 
-/*  */
+
+
 
 
 </style>
@@ -265,8 +268,8 @@
 
         
     </div>
+    
     <div id="totalExistencia" class="total-display">Total de Existencia: 0</div>
-
 
 
     <!-- Tercera columna: Tabla -->
