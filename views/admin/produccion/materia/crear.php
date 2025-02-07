@@ -191,7 +191,7 @@
     margin: 20px auto;           
     width: 70%;
     height: 70%;              
-    background-color: #ddd;
+    /* background-color: #ddd; */
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     border-radius: 1rem;
 }
