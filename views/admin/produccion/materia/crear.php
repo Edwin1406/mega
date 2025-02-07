@@ -147,88 +147,27 @@
 
 <style>
 
-
-.centrar {
+.index_graficas {
     display: flex;
-    justify-content: center;
+    flex-direction: row;
+    justify-content: space-between;
     align-items: center;
-}
-   
-   .card {
-            display: flex;
-            align-items: center;
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            padding: 15px;
-            width: 30%;
-            position: relative;
-            justify-content: center;
-        }
-        .side-bar {
-            background: red;
-            width: 10px;
-            height: 100%;
-            position: absolute;
-            left: 0;
-            top: 0;
-            border-radius: 10px 0 0 10px;
-        }
-        .content {
-            display: flex;
-            flex-direction: column;
-            margin-left: 15px;
-        }
-        .percentage {
-            color: red;
-            font-size: 16px;
-            font-weight: bold;
-        }
-        .amount {
-            font-size: 22px;
-            font-weight: bold;
-            text-align: center;
-        }
-        .chart {
-            width: 100%;
-            height: 50px;
-            background: linear-gradient(to top, #ddd, #8a5ba3);
-            border-radius: 5px;
-            margin-top: 10px;
-        }
-        .label {
-            font-size: 14px;
-            color: gray;
-            margin-top: 5px;
-            text-align: center;
-        }
-        .chart .bar {
-            width: 50%;
-            /* height: 100%; */
-            background: red;
-            border-radius: 5px;
-        }
-        .index_graficas {
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    width: 100%;
     margin: 20px auto;
-    width: 70%;
-    height: 70%;
+    padding: 20px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     border-radius: 1rem;
 }
 
 #existenciaChart {
-    padding: 1rem;         
-    text-align: center;          
+    flex: 1;
+    max-width: 60%;
+    height: auto;
 }
-#cantidadInfo{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    margin: 1rem;
+
+#cantidadInfo {
+    min-width: 250px;
+    margin-left: 20px;
     padding: 1rem;
     background-color: #fff;
     border-radius: 1rem;
@@ -237,7 +176,7 @@
     font-weight: bold;
     color: #333;
 }
-      
+
 </style>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
