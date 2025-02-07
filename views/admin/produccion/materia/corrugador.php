@@ -439,6 +439,7 @@
             </div>
             <div class="items">3</div> <!-- He corregido la numeración para mayor coherencia -->
         </div>
+        <br><br><br>
         <div class="nuevo">
             <div class="itemn">
             <table id="dataTable">
