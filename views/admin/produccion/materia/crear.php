@@ -190,7 +190,7 @@
 </div>
 
 <script>
-const datos = [30920, 62310, 6770];
+const datos = [30920, , 6770];
 const total = datos.reduce((acc, val) => acc + val, 0);
 
 // Calcular los porcentajes
