@@ -214,7 +214,7 @@
 
 #totalExistencia {
     position: absolute; /* O usa 'fixed' si quieres que esté siempre visible */
-    top: 20px;        /* Ajusta esta posición vertical */
+    top: 550px;        /* Ajusta esta posición vertical */
     left: 20px;       /* Ajusta esta posición horizontal */
     background-color: rgba(0, 0, 0, 0.7); /* Fondo semitransparente */
     color: white;
