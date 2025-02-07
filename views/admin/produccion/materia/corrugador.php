@@ -247,10 +247,10 @@
         padding: 1rem;
     }
 
-    table {
+    /* table {
         width: 100%;
         margin-top: 1rem;
-    }
+    } */
 
     .total-display {
         margin-top: 1rem;
