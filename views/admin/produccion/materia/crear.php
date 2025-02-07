@@ -389,21 +389,21 @@
 			  gap: 1rem 1rem;
 			}
 			
-			.item:nth-child(1) {
+			.items:nth-child(1) {
 			  grid-area: 1 / 1 / 2 / 2;
 			}
 			
-			.item:nth-child(2) {
+			.items:nth-child(2) {
 			  grid-area: 1 / 2 / 2 / 3;
 			}
 			
-			.item:nth-child(3) {
+			.items:nth-child(3) {
 			  grid-area: 1 / 3 / 2 / 4;
 			  width: auto;
 			  height: 300%;
 			}
 			
-			.item:nth-child(4) {
+			.items:nth-child(4) {
 			  grid-area: 2 / 1 / 3 / 2;
 			  width: 197%;
 			  height: 195%;
