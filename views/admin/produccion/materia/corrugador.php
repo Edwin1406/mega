@@ -183,11 +183,11 @@
     }
 
 
-    .total-display {
+    /* .total-display {
         margin-top: 10px;
         font-weight: bold;
         font-size: 2rem;
-    }
+    } */
 
     .total-display1 {
         margin-top: 10px;
@@ -212,16 +212,18 @@
 }
 
 
-#totalExistencia {
-    position: absolute; /* O usa 'fixed' si quieres que esté siempre visible */
-    top: 590px;        /* Ajusta esta posición vertical */
-    left: 470px;       /* Ajusta esta posición horizontal */
-    background-color: rgba(0, 0, 0, 0.7); /* Fondo semitransparente */
-    color: white;
-    padding: 10px;
-    font-size: 18px;
-    z-index: 9999;
-    border-radius: 8px;
+.total-display {
+    position: fixed;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 1rem;
+    font-weight: bold;
+    font-size: 1.5rem;
+    text-align: center;
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.2);
+    border-radius: 0.5rem;
 }
 
 
