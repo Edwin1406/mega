@@ -210,20 +210,15 @@
      .dataTables_wrapper .dataTables_filter {
     font-size: 1.2rem;
 }
-
-
 .total-display {
-    position: fixed;
-    bottom: 10px;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: rgba(255, 255, 255, 0.9);
+    position: sticky;
+    bottom: 0;  /* Se mantiene al final de la columna */
+    background-color: white;
     padding: 1rem;
     font-weight: bold;
     font-size: 1.5rem;
     text-align: center;
-    box-shadow: 0 0 6px rgba(0, 0, 0, 0.2);
-    border-radius: 0.5rem;
+    box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
 }
 
 
