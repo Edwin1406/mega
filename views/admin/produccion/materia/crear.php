@@ -1,5 +1,45 @@
 <h1 class="dashboard__heading"> <?php echo $titulo ?> </h1>
 
+
+<style>
+    .item {
+      background-color: #24292d;
+      color: #f8f2f2;
+      padding: 10px 15px;
+      transition: all 0.5s;
+    }
+    
+    .container {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+    }
+    
+    .item:nth-child(1), .item:nth-child(2), .item:nth-child(3), .item:nth-child(4), .item:nth-child(5) {
+      width: 10%;
+    }
+
+    .item:hover {
+      background-color: #ac5353;
+      scale: 1.1;
+      text-align: center;
+    }
+
+    .item a {
+      color: inherit;
+      text-decoration: none;
+      display: block;
+    }
+</style>
+
+<div class="container">
+  <div class="item"><a href="/admin/produccion/materia/corrugador/cajacraft">KRAFT</a></div>
+  <div class="item"><a href="/admin/produccion/materia/crear?id=8080">INICIO</a></div>
+  <div class="item"><a href="https://www.google.com/?hl=es">CLICK</a></div>
+  <div class="item"><a href="https://www.google.com/?hl=es">CLICK</a></div>
+  <div class="item"><a href="https://www.google.com/?hl=es">CLICK</a></div>
+</div>
+
 <!-- <div class="dashboard__contenedor-boton-izquierdo">
     <a class="dashboard__boton" href="/admin/produccion/materia/graficas">
         <i class="fa-solid fa-arrow-right"></i>
