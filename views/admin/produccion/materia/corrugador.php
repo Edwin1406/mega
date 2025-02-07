@@ -153,12 +153,7 @@
         border-radius: 1rem;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     } */
-    .columna_filtros, .columna_graficas, .columna_tabla {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start; /* Cambiado de space-between */
-    flex: 1;
-}
+
 
     #filters {
         display: flex;
