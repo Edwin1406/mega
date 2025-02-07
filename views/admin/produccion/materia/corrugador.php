@@ -153,7 +153,165 @@
 <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
 
 
+<style>
+    .tablageneral {
+        display: flex;
+        flex-direction: row;
+        gap: 0.5rem;
+        background-color: rgb(208, 212, 215);
+        padding: 1rem;
+        border-radius: 0.5rem;
+        width: 100%;
+        margin: auto;
+    }
 
+    .tablaotro {
+        padding: 1rem;
+    }
+
+    /* #filters-otros label {
+        font-size: 0.9rem;
+    } */
+
+    /* #filters-otros select {
+        font-size: 0.9rem;
+        padding: 0.2rem;
+        margin-bottom: 0.5rem;
+    } */
+
+    h2.titulo_existencia {
+        font-size: 1.2rem;
+        text-align: center;
+    }
+
+    #dataTableOtros {
+        width: 100%;
+        font-size: 1rem;
+        border-collapse: collapse;
+    }
+
+    #dataTableOtros th,
+    #dataTableOtros td {
+        border: 1px solid #ccc;
+        padding: 0.5rem;
+        text-align: center;
+    }
+
+    table.dataTable tbody th,
+    table.dataTable tbody td,
+    th.sorting {
+        font-size: 1.5rem;
+    }
+
+    .grafica_dual {
+        display: flex;
+        justify-content: space-around;
+        align-items: stretch;
+        gap: 2rem;
+        background-color: rgb(208, 212, 215);
+        padding: 2rem;
+        border-radius: 1rem;
+        margin-bottom: 2rem;
+    }
+
+    .columna_filtros,
+    .columna_graficas,
+    .columna_tabla {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        flex: 1;
+        background-color: white;
+        padding: 1rem;
+        height: 50%;
+        border-radius: 1rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    #filters {
+        display: flex;
+        justify-content: space-between;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+    }
+
+    #filters div {
+        flex: 1;
+    }
+
+    .graficas_blancas {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 1rem;
+    }
+
+    table {
+        width: 100%;
+        margin-top: 1rem;
+    }
+
+    .total-display {
+        margin-top: 1rem;
+        font-weight: bold;
+        text-align: center;
+    }
+
+
+    .total-display {
+        margin-top: 10px;
+        font-weight: bold;
+        font-size: 2rem;
+    }
+
+    .total-display1 {
+        margin-top: 10px;
+        font-weight: bold;
+        font-size: 2rem;
+    }
+
+
+
+    #filters-otros {
+        display: flex;
+        gap: 1rem;
+        margin-bottom: 20px;
+    }
+
+    label {
+        font-weight: bold;
+    }
+
+     .dataTables_wrapper .dataTables_filter {
+    font-size: 1.2rem;
+}
+
+
+
+
+
+</style>
+<div id="filters">
+    <div>
+        <label for="filterGramaje">Filtrar por Gramaje (Gráficas):</label>
+        <select id="filterGramaje">
+            <option value="all">Todos</option>
+        </select>
+    </div>
+    <div>
+        <label for="filterAncho">Filtrar por Ancho (Tabla):</label>
+        <select id="filterAncho">
+            <option value="all">Todos</option>
+        </select>
+    </div>
+    <div>
+        <label for="filterLinea">Filtrar por Línea (Tabla):</label>
+        <select id="filterLinea">
+            <option value="all">Todos</option>
+        </select>
+    </div>
+</div>
 <div class="grafica_dual">
     <!-- Primera columna: Filtros -->
      
@@ -236,26 +394,6 @@
 		</style>
 	</head>
 	<body>
-    <div id="filters">
-    <div>
-        <label for="filterGramaje">Filtrar por Gramaje (Gráficas):</label>
-        <select id="filterGramaje">
-            <option value="all">Todos</option>
-        </select>
-    </div>
-    <div>
-        <label for="filterAncho">Filtrar por Ancho (Tabla):</label>
-        <select id="filterAncho">
-            <option value="all">Todos</option>
-        </select>
-    </div>
-    <div>
-        <label for="filterLinea">Filtrar por Línea (Tabla):</label>
-        <select id="filterLinea">
-            <option value="all">Todos</option>
-        </select>
-    </div>
-</div>
 		<div class="containers">
 		  <div class="items">
           <div id="chart1880" class="tamaño"></div>
@@ -266,18 +404,8 @@
 
           </div>
 		  <div class="items">
-          <table id="dataTable">
-            <thead>
-                <tr>
-                    <th>Ancho</th>
-                    <th>Gramaje</th>
-                    <th>Línea</th>
-                    <th>Existencia</th>
-                </tr>
-            </thead>
-            <tbody></tbody>
-        </table>
 
+          
           </div>
 		  <div class="items">4</div>
 		</div>
