@@ -210,15 +210,20 @@
      .dataTables_wrapper .dataTables_filter {
     font-size: 1.2rem;
 }
+
+
 .total-display {
-    position: sticky;
-    bottom: 0;  /* Se mantiene al final de la columna */
-    background-color: white;
+    position: fixed;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(255, 255, 255, 0.9);
     padding: 1rem;
     font-weight: bold;
     font-size: 1.5rem;
     text-align: center;
-    box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.2);
+    border-radius: 0.5rem;
 }
 
 
@@ -265,9 +270,9 @@
         <div id="chart1100" class="tamaño"></div>
 
         
+        <div id="totalExistencia" class="total-display">Total de Existencia: 0</div>
     </div>
     
-    <div id="totalExistencia" class="total-display">Total de Existencia: 0</div>
 
 
     <!-- Tercera columna: Tabla -->
