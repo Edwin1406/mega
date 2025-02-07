@@ -325,8 +325,7 @@
     <div class="columna_graficas">
         <h2 class="titulo_existencia">Gráfica 2</h2>
 
-        <div id="chart1100" class="tamaño"></div>
-
+        
         <div id="totalExistencia" class="total-display">Total de Existencia: 0</div>
 
     </div>
@@ -410,7 +409,10 @@
           <div id="chart1880" class="tamaño"></div>
 
           </div>
-		  <div class="items">2</div>
+		  <div class="items">
+          <div id="chart1100" class="tamaño"></div>
+
+          </div>
 		  <div class="items">3</div>
 		  <div class="items">4</div>
 		</div>
