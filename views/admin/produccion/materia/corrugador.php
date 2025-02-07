@@ -280,7 +280,6 @@
             <tbody></tbody>
         </table>
     </div>
-    <div id="totalExistencia" class="total-display">Total de Existencia: 0</div>
     <style>
         .total-display{
             display: flex;
@@ -288,9 +287,10 @@
             align-items: center;
             font-size: 1.5rem;
         }
-    </style>
+        </style>
 
 </div>
+<div id="totalExistencia" class="total-display">Total de Existencia: 0</div>
 
 <script>
     (function() {
