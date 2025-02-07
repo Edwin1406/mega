@@ -221,11 +221,11 @@
     border-radius: 1rem;
 }
 
-#existenciaChart {
+/* #existenciaChart {
     max-width: 60%;
     height: auto;
     padding: 0;
-}
+} */
 
 #cantidadInfo{
     display: flex;
