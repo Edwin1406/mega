@@ -83,7 +83,7 @@
 
 
 <ul class="lista-areas-produccion">
-    <li class="areas-produccion"  data-aos="flip-left">
+    <!-- <li class="areas-produccion"  data-aos="flip-left">
         <a href="/admin/produccion/materia/corrugador">
             <i class="fas fa-industry"></i> CORRUGADOR
         </a>
@@ -97,7 +97,7 @@
         <a href="/admin/produccion/materia/periodico">
             <i class="fas fa-newspaper"></i> PERIODICO 
         </a>
-    </li>
+    </li> -->
     <li class="areas-produccion-estatico"  data-aos="flip-up">
         <a >
             <i class="fas fa-industry"></i> TOTAL EXISTENCIA CORRUGADOR :
