@@ -246,7 +246,7 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
 <div class="index_graficas">
-    <canvas id="existenciaChart"></canvas>
+   
     <div id="cantidadInfo">
         <div>TOTAL CORRU&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: <?php echo $totalExistencia ?> KG</div>
         <div>TOTAL MICRO&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: <?php echo $totalExistenciaMicro ?> KG</div>
@@ -412,7 +412,9 @@
 	</head>
 	<body>
 		<div class="containers">
-		  <div class="items">1</div>
+		  <div class="items">
+          <canvas id="existenciaChart"></canvas>
+          </div>
 		  <div class="items">2</div>
 		  <div class="items">3</div>
 		  <div class="items">4</div>
