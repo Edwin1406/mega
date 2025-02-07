@@ -307,29 +307,11 @@
             .existenciaChart{
                padding: 0;
             }
-
-
-            .items{
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                /* quitar los estilos de lista */
-                list-style: none;
-            }
-
-
 		</style>
 	</head>
 	<body>
 		<div class="containers">
 		  <div class="items">
-            <div>
-                <li>
-                    <a> corrugador: <?php echo $totalExistencia ?> KG</a>
-                    <a href="/admin/produccion/materia/corrugador/cajacraft">KRAFT</a>
-                    <a href="/admin/produccion/materia/corrugador/cajacraft">KRAFT</a>
-                </li>
-            </div>
           <canvas id="existenciaChart"></canvas>
           </div>
 		  <div class="items">2</div>
