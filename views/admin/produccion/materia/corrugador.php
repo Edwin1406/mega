@@ -218,7 +218,7 @@
 
 
 #totalExistencia {
-    position: fixed; /* Fijo para que siempre esté visible */
+    position: absolute;
     top: 10px;      /* A 10px desde la parte superior */
     right: 10px;    /* A 10px desde la parte derecha */
     bottom: 10%;
