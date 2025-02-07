@@ -259,6 +259,12 @@
             width: 50%;
             height: 20%;
         }
+        label {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #24292d;
+        }
+
     </style>
 </head>
 <body>
