@@ -50,6 +50,9 @@
     .item:nth-child(5) {
       width: 20%;
     }
+
+
+    
   }
 
 </style>
@@ -222,10 +225,10 @@
     padding: 1rem;         
     text-align: center;          
 }
-#cantidadInfo{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+#cantidadInfo {
+    display: grid;
+    grid-template-columns: auto auto;
+    gap: 5px 20px; /* Ajusta el espacio entre filas y columnas */
     margin: 1rem;
     padding: 1rem;
     background-color: #fff;
@@ -234,7 +237,9 @@
     font-size: 1.5rem;
     font-weight: bold;
     color: #333;
+    text-align: left;
 }
+
       
 </style>
 
