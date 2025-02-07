@@ -200,7 +200,7 @@
     padding: 1rem;         
     text-align: center;          
 }
-#cantidadInfo{
+#cantidadInfo {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -213,6 +213,13 @@
     font-weight: bold;
     color: #333;
 }
+
+.cantidad {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
       
 </style>
 
@@ -221,10 +228,11 @@
 <div class="index_graficas">
     <canvas id="existenciaChart"></canvas>
     <div id="cantidadInfo">
-        <div>TOTAL CORRU:<?php echo " ", $totalExistencia ?> KG</div>
-        <div>TOTAL MICRO:<?php echo " ", $totalExistenciaMicro ?> KG</div>
-        <div>TOTAL PERIÓDICO:<?php echo $totalExistenciaPeriodico ?> KG</div>
-    </div>
+    <div class="cantidad"><span>TOTAL CORRU:</span><span>307,844 KG</span></div>
+    <div class="cantidad"><span>TOTAL MICRO:</span><span>620,439 KG</span></div>
+    <div class="cantidad"><span>TOTAL PERIÓDICO:</span><span>67,419 KG</span></div>
+</div>
+
 
 </div>
 
