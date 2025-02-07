@@ -382,7 +382,7 @@
 			  padding: 10px 15px;
 			}
 			
-			.container {
+			.containers {
 			  display: grid;
 			  grid-template-columns: 1fr 1fr 1fr;
 			  grid-template-rows: 1fr 1fr 1fr;
@@ -411,7 +411,7 @@
 		</style>
 	</head>
 	<body>
-		<div class="container">
+		<div class="containers">
 		  <div class="item">1</div>
 		  <div class="item">2</div>
 		  <div class="item">3</div>
