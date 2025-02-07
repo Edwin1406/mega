@@ -325,7 +325,7 @@
 		  <div class="items">
             <div>
                 <li>
-                    <a href="/admin/produccion/materia/corrugador/cajacraft">KRAFT</a>
+                    <a href="/admin/produccion/materia/corrugador/cajacraft"> <?php echo $totalExistencia ?> KG</a>
                     <a href="/admin/produccion/materia/corrugador/cajacraft">KRAFT</a>
                     <a href="/admin/produccion/materia/corrugador/cajacraft">KRAFT</a>
                 </li>
