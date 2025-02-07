@@ -321,7 +321,13 @@
 	<body>
 		<div class="containers">
 		  <div class="items">
-            <div>como esas</div>
+            <div>
+                <li>
+                    <a href="/admin/produccion/materia/corrugador/cajacraft">KRAFT</a>
+                    <a href="/admin/produccion/materia/corrugador/cajacraft">KRAFT</a>
+                    <a href="/admin/produccion/materia/corrugador/cajacraft">KRAFT</a>
+                </li>
+            </div>
           <canvas id="existenciaChart"></canvas>
           </div>
 		  <div class="items">2</div>
