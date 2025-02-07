@@ -280,7 +280,7 @@
             <tbody></tbody>
         </table>
     </div>
-    <div id="totalExistencia" class="total-display">Total de Existencia: 0</div>
+    <div id="totalExistencia" class="">Total de Existencia: 0</div>
 
 </div>
 
