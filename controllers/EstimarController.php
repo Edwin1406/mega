@@ -10,7 +10,7 @@ class EstimarController {
     {
     
         $router->render('admin/produccion/estimar/index', [
-            'titulo' => 'Estimar',
+            'titulo' => 'PANEL DE ESTIMACIÓN',
         ]);
        
     }
