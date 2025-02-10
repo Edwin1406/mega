@@ -13,6 +13,13 @@ class AdminController
             'titulo' => 'MEGASTOCK-DESARROLLO'
         ]);
     }
+
+
+    // error 404
+    public static function error404(Router $router)
+    {
+        $router->render('admin/error/404');
+    }
 }
 
 
