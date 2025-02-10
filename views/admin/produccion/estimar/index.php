@@ -32,6 +32,7 @@
       color: inherit;
       text-decoration: none;
       display: block;
+      text-align: center;
     }
     @media (min-width: 1024px) {
     .item:nth-child(1) {
