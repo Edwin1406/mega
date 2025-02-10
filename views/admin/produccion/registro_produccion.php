@@ -13,6 +13,15 @@
     </a>
 </div>
 
+<!-- eliminar tabla de base de datos  -->
+<form method="POST" action="/admin/produccion/materia/eliminar" class="table__formulario">
+    <input type="hidden" name="id" value="<?php echo $bobina->id; ?>">
+        <button class="table__accion table__accion--eliminar" type="submit">
+            <i class="fa-solid fa-user-slash"></i>
+                    ELIMINAR BASE DE DATOS 
+        </button>
+</form>
+
 
 <?php if(count($escoge_registro)===0) {?>
     <p class="no-areas">NO HAY AREAS ASIGNADAS </p>

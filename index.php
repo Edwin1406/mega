@@ -155,6 +155,9 @@ $router->post('/admin/produccion/materia/excel', [MateriaPrimaController::class,
 // CORRUGADOR 
 $router->get('/admin/produccion/materia/corrugador', [MateriaPrimaController::class, 'corrugador']);
 $router->post('/admin/produccion/materia/corrugador', [MateriaPrimaController::class, 'corrugador']);
+// eliminar base 
+$router->post('/admin/produccion/materia/eliminarTabla', [MateriaPrimaController::class, 'eliminarTabla']);
+
 
 // CARPETA CORRUGADOR EXISTENCIA 
 $router->get('/admin/produccion/materia/corrugador/cajacraft', [MateriaPrimaController::class, 'cajacraft']);
