@@ -2,6 +2,10 @@
 
 
 <style>
+
+    .body {
+        background-image: linear-gradient(to right, #94a1b5, #7ea6b5, #72aaa8, #7baa90, #97a676);
+    }
     .item {
       background-color: #24292d;
       color: #f8f2f2;
