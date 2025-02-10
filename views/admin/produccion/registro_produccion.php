@@ -26,31 +26,6 @@
 
 
 <script>
-
-// tomar el id de la url 
-const urlParams = new URLSearchParams(window.location.search);
-const id = urlParams.get('id');
-
-
-
-// Muestra un mensaje de confirmación al intentar eliminar la base de datos
-
-if(id===1){
-    Swal.fire({
-        title: "¡Base de datos eliminada!",
-        text: "La base de datos ha sido eliminada correctamente.",
-        icon: "success"
-    });
-} else if(id===2) {
-    Swal.fire({
-        title: "¡Error al eliminar!",
-        text: "Hubo un error al eliminar la base de datos.",
-        icon: "error"
-    });
-}
-
-
-
 document.addEventListener("DOMContentLoaded", function() {
     document.querySelector('.table__formulario').addEventListener('submit', function(event) {
         event.preventDefault(); // Evita el envío inmediato del formulario
@@ -107,6 +82,8 @@ document.addEventListener("DOMContentLoaded", function() {
                     $url = "/admin/produccion/estadistica/crear?id=".$id;
                 } elseif($area === 'planifico'|| $area === 'PLANIFICO'){
                     $url = "/admin/produccion/planifico/index?id=".$id;
+                } elseif($area === 'cotizador'|| $area === 'COTIZADOR'){
+                    $url = "/admin/produccion/estimar/index?id=".$id;
                 }
 
                 echo $url;
@@ -124,9 +101,10 @@ document.addEventListener("DOMContentLoaded", function() {
                         $icono = '<i class="fa-solid fa-box"></i>'; // ícono de cotización
                     } elseif($area === 'pedidos proyectos'|| $area === 'PEDIDOS PROYECTOS') {
                         $icono = '<i class="fa-solid fa-file"></i>'; // Ícono de documento
-
                     } elseif($area === 'planifico'|| $area === 'PLANIFICO') {
                         $icono = '<i class="fa-solid fa-calendar"></i>'; // Ícono de documento
+                    } elseif($area === 'cotizador'|| $area === 'COTIZADOR') {
+                        $icono = '<i class="fa-solid fa-calculator"></i>'; // Ícono de documento
                     }
                     // Muestra el ícono y el nombre del área
                     echo $icono . ' ' . $area;
