@@ -38,7 +38,7 @@
       text-decoration: none;
       display: block;
       text-align: center;
-      font-size: 1.5rem;
+      font-size: 1.6rem;
     }
     @media (min-width: 1024px) {
     .item:nth-child(1) {
@@ -61,21 +61,12 @@
       width: 20%;
     }
 
-    .contenedor_costos{
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 100%;
-
-    }
-
 
 
   }
 
 </style>
 
-  <div class="contenedor_costos">
 
       <div class="container">
           <div class="item"><a href="/admin/produccion/estimar/index"> <i class="fas fa-home"></i> INICIO</a></div>
@@ -83,7 +74,7 @@
           <div class="item"><a href="/admin/produccion/estimar/cajas"> <i class="fas fa-scroll"></i> INSUMOS </a></div>
           <div class="item"><a href="/admin/produccion/estimar/separadores">  <i class="fas fa-newspaper"></i> RUBROS</a></div>
         </div>
-</div>
+
 
 
 
