@@ -56,7 +56,7 @@
 </style>
 
 <div class="container">
-    <div class="item"><a href="/admin/produccion/materia/crear?id=8080"> <i class="fas fa-home"></i>INICIO</a></div>
+    <div class="item"><a href="/admin/produccion/estimar/index?id=20255"> <i class="fas fa-home"></i>INICIO</a></div>
     <div class="item"><a href="/admin/produccion/materia/corrugador/cajacraft"> <i class="fas fa-industry"></i> KRAFT</a></div>
   <div class="item"><a href="/admin/produccion/materia/microcorrugador/cajablanco"> <i class="fas fa-scroll"></i>BLANCO</a></div>
   <div class="item"><a href="/admin/produccion/materia/periodico/cajamedium">  <i class="fas fa-newspaper"></i> MEDIUM</a></div>
