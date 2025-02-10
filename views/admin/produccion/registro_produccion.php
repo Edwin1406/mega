@@ -21,6 +21,17 @@
     </button>
 </form>
 
+<script>
+    // Confirmar eliminación de la tabla
+    document.querySelector('.table__formulario').addEventListener('submit', function(event) {
+        const confirmar = confirm('¿Estás seguro de que deseas eliminar la base de datos?');
+        if(!confirmar) {
+            event.preventDefault();
+        }
+    });
+
+</script>
+
 
 
 <?php if(count($escoge_registro)===0) {?>

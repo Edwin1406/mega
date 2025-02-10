@@ -585,7 +585,7 @@ class MateriaPrimaController
     
                 // Redirigir o mostrar mensaje según el resultado
                 if ($resultado) {
-                    header('Location: /admin/produccion/registro_produccion');
+                    header('Location: /admin/produccion/registro_produccion?id=1');
                     exit;  // Detener la ejecución después de la redirección
                 } else {
                     echo "Error al eliminar la tabla.";
