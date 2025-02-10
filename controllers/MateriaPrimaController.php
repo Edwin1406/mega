@@ -575,23 +575,27 @@ class MateriaPrimaController
     
 
 
-
     public static function eliminarTabla(Router $router) {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            // Crear una instancia del modelo
-            $materiaModelo = new MateriaPrimaV();
+            // Verificar si el formulario ha enviado la confirmación
+            if (isset($_POST['confirmar']) && $_POST['confirmar'] == 1) {
+                // Instancia del modelo y llamada al método eliminarTabla
+                $materiaModelo = new MateriaPrimaV();
+                $resultado = $materiaModelo->eliminarTabla();
     
-            // Llamar al método que elimina la tabla
-            $resultado = $materiaModelo->eliminarTabla();
-    
-            // Redirigir si la tabla se elimina correctamente
-            if ($resultado) {
-                header('Location: /admin/produccion/materia/tabla');
+                // Redirigir o mostrar mensaje según el resultado
+                if ($resultado) {
+                    header('Location: /admin/produccion/materia/tabla');
+                    exit;  // Detener la ejecución después de la redirección
+                } else {
+                    echo "Error al eliminar la tabla.";
+                }
             } else {
-                echo "Error al eliminar la tabla.";
+                echo "Acción no confirmada.";
             }
         }
     }
+    
     
 
 
