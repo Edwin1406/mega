@@ -23,7 +23,7 @@
     }
 
     .item:hover {
-      background-color: #d5f5e3;
+      background-color: #d6eaf8;
       scale: 1.1;
       color: #24292d;
       border-radius: 1rem;
