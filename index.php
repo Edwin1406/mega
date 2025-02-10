@@ -24,6 +24,7 @@ use Controllers\FinancieroController;
 use Controllers\ProduccionController;
 use Controllers\MateriaPrimaController;
 use Controllers\EstadisticaProdController;
+use Controllers\EstimarController;
 use Controllers\PlanificoController;
 
 $router = new Router();
@@ -243,7 +244,7 @@ $router->get('/admin/produccion/planificacion/index', [PlanificoController::clas
 
 
 // COTIZADOR FABIAN 
-$router->get('/admin/produccion/estimar/index', [CotizadorController::class, 'index']);
+$router->get('/admin/produccion/estimar/index', [EstimarController::class, 'index']);
 
 
 
