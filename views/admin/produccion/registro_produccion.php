@@ -21,7 +21,28 @@
     </button>
 </form>
 
+
+
+
+
 <script>
+
+if(id===1){
+    Swal.fire({
+        title: "¡Base de datos eliminada!",
+        text: "La base de datos ha sido eliminada correctamente.",
+        icon: "success"
+    });
+} else if(id===2) {
+    Swal.fire({
+        title: "¡Error al eliminar!",
+        text: "Hubo un error al eliminar la base de datos.",
+        icon: "error"
+    });
+}
+
+
+
 document.addEventListener("DOMContentLoaded", function() {
     document.querySelector('.table__formulario').addEventListener('submit', function(event) {
         event.preventDefault(); // Evita el envío inmediato del formulario
