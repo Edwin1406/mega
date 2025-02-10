@@ -61,7 +61,12 @@
       width: 20%;
     }
 
-
+    .contenedor_costos{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 10%;
+    }
 
 
 
@@ -69,13 +74,15 @@
 
 </style>
 
+  <div class="contenedor_costos">
 
-    <div class="container">
-        <div class="item"><a href="/admin/produccion/estimar/index"> <i class="fas fa-home"></i> INICIO</a></div>
-        <div class="item"><a href="/admin/produccion/estimar/micro"> <i class="fas fa-industry"></i>MATERIA PRIMA</a></div>
-        <div class="item"><a href="/admin/produccion/estimar/cajas"> <i class="fas fa-scroll"></i> INSUMOS </a></div>
-        <div class="item"><a href="/admin/produccion/estimar/separadores">  <i class="fas fa-newspaper"></i> RUBROS</a></div>
-    </div>
+      <div class="container">
+          <div class="item"><a href="/admin/produccion/estimar/index"> <i class="fas fa-home"></i> INICIO</a></div>
+          <div class="item"><a href="/admin/produccion/estimar/micro"> <i class="fas fa-industry"></i>MATERIA PRIMA</a></div>
+          <div class="item"><a href="/admin/produccion/estimar/cajas"> <i class="fas fa-scroll"></i> INSUMOS </a></div>
+          <div class="item"><a href="/admin/produccion/estimar/separadores">  <i class="fas fa-newspaper"></i> RUBROS</a></div>
+        </div>
+</div>
 
 
 
