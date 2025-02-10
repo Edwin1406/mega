@@ -61,5 +61,6 @@
     <div class="item"><a href="/admin/produccion/materia/microcorrugador/cajablanco"> <i class="fas fa-scroll"></i>COTIZADOR CAJAS</a></div>
     <div class="item"><a href="/admin/produccion/materia/periodico/cajamedium">  <i class="fas fa-newspaper"></i>COTIZADOR SEPARADORES</a></div>
     <div class="item"><a href="/admin/produccion/materia/periodico/cajamedium">  <i class="fas fa-newspaper"></i>COSTOS GENERALES</a></div>
+    <div class="item"><a href="/admin/produccion/materia/periodico/cajamedium">  <i class="fas fa-newspaper"></i>COSTOS PAPEL</a></div>
 </div>
 
