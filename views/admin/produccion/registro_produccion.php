@@ -20,38 +20,28 @@
         <i class="fa-solid fa-database"></i> ELIMINAR BASE DE DATOS
     </button>
 </form>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 
 <script>
         document.querySelector('.table__formulario').addEventListener('submit', function(event) {
             event.preventDefault(); // Evita el envío inmediato del formulario
-
-            let confirmed = false; // Variable para saber si se confirmó la eliminación
-
-            // Mostrar notificación de confirmación
-            Toastify({
-                text: "¿Seguro que deseas eliminar? Haz clic aquí para confirmar.",
-                duration: 5000, // 5 segundos para decidir
-                gravity: "top",
-                position: "center",
-                backgroundColor: "linear-gradient(to right, #ff416c, #ff4b2b)",
-                stopOnFocus: true,
-                onClick: () => {
-                    confirmed = true;
-                    Toastify({
-                        text: "Base de datos eliminada.",
-                        duration: 3000,
-                        gravity: "top",
-                        position: "center",
-                        backgroundColor: "green",
-                    }).showToast();
-                    setTimeout(() => {
-                        event.target.submit(); // Enviar el formulario tras la confirmación
-                    }, 1000);
+            
+            Swal.fire({
+                title: "¿Estás seguro?",
+                text: "Esta acción eliminará la base de datos y no se podrá recuperar.",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#d33",
+                cancelButtonColor: "#3085d6",
+                confirmButtonText: "Sí, eliminar",
+                cancelButtonText: "Cancelar"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    this.submit(); // Envía el formulario si el usuario confirma
                 }
-            }).showToast();
+            });
         });
     </script>
+
 
 
 
