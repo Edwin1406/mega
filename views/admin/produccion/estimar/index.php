@@ -26,7 +26,7 @@
       background-color: #d5f5e3;
       scale: 1.1;
       color: #24292d;
-      border-radius: 1.5rem;
+      border-radius: 1rem;
     }
 
     .item a {
@@ -34,7 +34,7 @@
       text-decoration: none;
       display: block;
       text-align: center;
-      font-size: 1rem;
+      font-size: 1.5rem;
     }
     @media (min-width: 1024px) {
     .item:nth-child(1) {
