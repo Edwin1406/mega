@@ -26,7 +26,7 @@
       background-color: #d5f5e3;
       scale: 1.1;
       color: #24292d;
-      border-radius: 1rem;
+      border-radius: 1.5rem;
     }
 
     .item a {
