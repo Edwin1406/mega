@@ -14,4 +14,20 @@ class EstimarController {
         ]);
        
     }
+
+
+    public static function costos_generales(Router $router)
+    {
+    
+        $router->render('admin/produccion/estimar/costos_generales/index', [
+            'titulo' => 'COSTOS GENERALES',
+        ]);
+       
+    }
+
+
+
+
+
+
 }
