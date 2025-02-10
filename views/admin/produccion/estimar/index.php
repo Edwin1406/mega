@@ -56,11 +56,11 @@
 </style>
 
 <div class="container">
-    <div class="item"><a href="/admin/produccion/estimar/index?id=20255"> <i class="fas fa-home"></i>INICIO</a></div>
+    <div class="item"><a href="/admin/produccion/estimar/index?id=20255"> <i class="fas fa-home"></i> INICIO</a></div>
     <div class="item"><a href="/admin/produccion/materia/corrugador/cajacraft"> <i class="fas fa-industry"></i> COTIZADOR MICRO</a></div>
-    <div class="item"><a href="/admin/produccion/materia/microcorrugador/cajablanco"> <i class="fas fa-scroll"></i>COTIZADOR CAJAS</a></div>
-    <div class="item"><a href="/admin/produccion/materia/periodico/cajamedium">  <i class="fas fa-newspaper"></i>COTIZADOR SEPARADORES</a></div>
-    <div class="item"><a href="/admin/produccion/materia/periodico/cajamedium">  <i class="fas fa-newspaper"></i>COSTOS GENERALES</a></div>
-    <div class="item"><a href="/admin/produccion/materia/periodico/cajamedium">  <i class="fas fa-newspaper"></i>COSTOS PAPEL</a></div>
+    <div class="item"><a href="/admin/produccion/materia/microcorrugador/cajablanco"> <i class="fas fa-scroll"></i> COTIZADOR CAJAS</a></div>
+    <div class="item"><a href="/admin/produccion/materia/periodico/cajamedium">  <i class="fas fa-newspaper"></i> COTIZADOR SEPARADORES</a></div>
+    <div class="item"><a href="/admin/produccion/materia/periodico/cajamedium">  <i class="fas fa-newspaper"></i> COSTOS GENERALES</a></div>
+    <div class="item"><a href="/admin/produccion/materia/periodico/cajamedium">  <i class="fas fa-newspaper"></i> COSTOS PAPEL</a></div>
 </div>
 
