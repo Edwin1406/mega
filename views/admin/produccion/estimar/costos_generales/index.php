@@ -1,5 +1,4 @@
 <h2 class="dashboard__heading"> <?php echo $titulo ?> </h2>
-<h2 class="dashboard__heading"> <?php echo $titulo ?> </h2>
 
 
 <style>
@@ -68,13 +67,12 @@
 
 
     <div class="container">
-        <div class="item"><a href="/admin/produccion/estimar/index?id=20255"> <i class="fas fa-home"></i> INICIO</a></div>
-        <div class="item"><a href="/admin/produccion/estimar/micro"> <i class="fas fa-industry"></i> COTIZADOR MICRO</a></div>
-        <div class="item"><a href="/admin/produccion/estimar/cajas"> <i class="fas fa-scroll"></i> COTIZADOR CAJAS</a></div>
-        <div class="item"><a href="/admin/produccion/estimar/separadores">  <i class="fas fa-newspaper"></i> COTIZADOR SEPARADORES</a></div>
-        <div class="item"><a href="/admin/produccion/estimar/index">  <i class="fa-solid fa-calculator"></i> COSTOS GENERALES</a></div>
-        <div class="item"><a href="/admin/produccion/estimar/costos_papel">  <i class="fa-solid fa-money-bill-1"></i> COSTOS PAPEL</a></div>
+        <div class="item"><a href="/admin/produccion/estimar/index"> <i class="fas fa-home"></i> INICIO</a></div>
+        <div class="item"><a href="/admin/produccion/estimar/micro"> <i class="fas fa-industry"></i>MATERIA PRIMA</a></div>
+        <div class="item"><a href="/admin/produccion/estimar/cajas"> <i class="fas fa-scroll"></i> INSUMOS </a></div>
+        <div class="item"><a href="/admin/produccion/estimar/separadores">  <i class="fas fa-newspaper"></i> RUBROS</a></div>
     </div>
+
 
 
 
