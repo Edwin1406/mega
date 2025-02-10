@@ -20,6 +20,7 @@
         <i class="fa-solid fa-database"></i> ELIMINAR BASE DE DATOS
     </button>
 </form>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 
 <script>
         document.querySelector('.table__formulario').addEventListener('submit', function(event) {
