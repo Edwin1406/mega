@@ -2,14 +2,16 @@
 
 namespace Controllers;
 
-
-
+use MVC\Router;
 
 class EstimarController {
 
-    public static function index()
+    public static function index(Router $router)
     {
-        echo 'EstimarController';
+    
+        $router->render('admin/produccion/estimar/index', [
+            'titulo' => 'Estimar',
+        ]);
        
     }
 }
