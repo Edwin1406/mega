@@ -22,25 +22,27 @@
 </form>
 
 <script>
-        document.querySelector('.table__formulario').addEventListener('submit', function(event) {
-            event.preventDefault(); // Evita el envío inmediato del formulario
-            
-            Swal.fire({
-                title: "¿Estás seguro?",
-                text: "Esta acción eliminará la base de datos y no se podrá recuperar.",
-                icon: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#d33",
-                cancelButtonColor: "#3085d6",
-                confirmButtonText: "Sí, eliminar",
-                cancelButtonText: "Cancelar"
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    this.submit(); // Envía el formulario si el usuario confirma
-                }
-            });
+document.addEventListener("DOMContentLoaded", function() {
+    document.querySelector('.table__formulario').addEventListener('submit', function(event) {
+        event.preventDefault(); // Evita el envío inmediato del formulario
+        
+        Swal.fire({
+            title: "¿Estás seguro?",
+            text: "Esta acción eliminará la base de datos y no se podrá recuperar.",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#d33",
+            cancelButtonColor: "#3085d6",
+            confirmButtonText: "Sí, eliminar",
+            cancelButtonText: "Cancelar"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                this.submit(); // Envía el formulario si el usuario confirma
+            }
         });
-    </script>
+    });
+});
+</script>
 
 
 
