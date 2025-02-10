@@ -240,4 +240,11 @@ $router->get('/admin/produccion/planificacion/index', [PlanificoController::clas
 
 
 
+
+
+// COTIZADOR FABIAN 
+$router->get('/admin/produccion/estimar/index', [CotizadorController::class, 'index']);
+
+
+
 $router->comprobarRutas();
