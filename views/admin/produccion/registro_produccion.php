@@ -14,7 +14,7 @@
 </div>
 
 <!-- eliminar tabla de base de datos  -->
-<form method="POST" action="/admin/produccion/materia/eliminar" class="table__formulario">
+<form method="POST" action="/admin/produccion/materia/eliminartabla" class="table__formulario">
     <input type="hidden" name="confirmar" value="1"> <!-- Para validar que la acción fue confirmada -->
     <button class="table__accion table__accion--eliminar" type="submit">
         <i class="fa-solid fa-database"></i> ELIMINAR BASE DE DATOS
