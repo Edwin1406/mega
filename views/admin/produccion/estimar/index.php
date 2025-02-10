@@ -34,6 +34,7 @@
       text-decoration: none;
       display: block;
       text-align: center;
+      font-size: 1rem;
     }
     @media (min-width: 1024px) {
     .item:nth-child(1) {
