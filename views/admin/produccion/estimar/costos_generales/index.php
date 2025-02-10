@@ -4,7 +4,7 @@
 <style>
 
     .body {
-        background-image: linear-gradient(to right, #94a1b5, #7ea6b5, #72aaa8, #7baa90, #97a676);
+        background-image: linear-gradient(to right, #94a1b5, #7ea6b5, #72aaa8, #7baa90, #97a676) !important;
     }
     .item {
       background-color: #24292d;
