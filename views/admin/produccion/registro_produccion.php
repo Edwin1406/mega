@@ -27,6 +27,14 @@
 
 <script>
 
+// tomar el id de la url 
+const urlParams = new URLSearchParams(window.location.search);
+const id = urlParams.get('id');
+
+
+
+// Muestra un mensaje de confirmación al intentar eliminar la base de datos
+
 if(id===1){
     Swal.fire({
         title: "¡Base de datos eliminada!",
