@@ -58,18 +58,13 @@
     }
 
 
-    .estimate__container{
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
 
 
 
   }
 
 </style>
-<div class="estimate__container">
+
 
     <div class="container">
         <div class="item"><a href="/admin/produccion/estimar/index?id=20255"> <i class="fas fa-home"></i> INICIO</a></div>
@@ -80,5 +75,5 @@
         <div class="item"><a href="/admin/produccion/estimar/costos_papel">  <i class="fa-solid fa-money-bill-1"></i> COSTOS PAPEL</a></div>
     </div>
 
-</div>
+
 
