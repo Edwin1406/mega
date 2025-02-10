@@ -23,6 +23,7 @@
       background-color: #d5f5e3;
       scale: 1.1;
       text-align: center;
+      color: #24292d;
     }
 
     .item a {
