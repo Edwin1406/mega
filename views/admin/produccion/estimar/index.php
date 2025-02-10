@@ -7,6 +7,9 @@
       color: #f8f2f2;
       padding: 10px 15px;
       transition: all 0.5s;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
     
     .container {
