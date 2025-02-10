@@ -22,15 +22,41 @@
 </form>
 
 <script>
-    // Confirmar eliminación de la tabla
-    document.querySelector('.table__formulario').addEventListener('submit', function(event) {
-        const confirmar = confirm('¿Estás seguro de que deseas eliminar la base de datos?');
-        if(!confirmar) {
-            event.preventDefault();
-        }
-    });
+        document.querySelector('.table__formulario').addEventListener('submit', function(event) {
+            event.preventDefault(); // Evita el envío inmediato del formulario
 
-</script>
+            let confirmed = false; // Variable para saber si se confirmó la eliminación
+
+            // Mostrar notificación de confirmación
+            Toastify({
+                text: "¿Seguro que deseas eliminar? Haz clic aquí para confirmar.",
+                duration: 5000, // 5 segundos para decidir
+                gravity: "top",
+                position: "center",
+                backgroundColor: "linear-gradient(to right, #ff416c, #ff4b2b)",
+                stopOnFocus: true,
+                onClick: () => {
+                    confirmed = true;
+                    Toastify({
+                        text: "Base de datos eliminada.",
+                        duration: 3000,
+                        gravity: "top",
+                        position: "center",
+                        backgroundColor: "green",
+                    }).showToast();
+                    setTimeout(() => {
+                        event.target.submit(); // Enviar el formulario tras la confirmación
+                    }, 1000);
+                }
+            }).showToast();
+        });
+    </script>
+
+
+
+
+
+
 
 
 
