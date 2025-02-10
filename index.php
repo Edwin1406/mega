@@ -245,6 +245,10 @@ $router->get('/admin/produccion/planificacion/index', [PlanificoController::clas
 
 // COTIZADOR FABIAN 
 $router->get('/admin/produccion/estimar/index', [EstimarController::class, 'index']);
+$router->get('/admin/produccion/estimar/micro', [EstimarController::class, 'micro']);
+$router->get('/admin/produccion/estimar/cajas', [EstimarController::class, 'cajas']);
+$router->get('/admin/produccion/estimar/separadores', [EstimarController::class, 'separadores']);
+$router->get('/admin/produccion/estimar/costos_generales/index', [EstimarController::class, 'costos_generales']);
 
 
 
