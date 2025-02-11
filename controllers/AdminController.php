@@ -18,8 +18,10 @@ class AdminController
     // error 404
     public static function error404(Router $router)
     {
-        $router->render('admin/error/404');
+        echo 'Esta es la página de error 404.';
+        exit();
     }
+    
 }
 
 
