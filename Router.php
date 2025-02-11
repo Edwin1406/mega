@@ -32,7 +32,7 @@ class Router
             call_user_func($fn, $this);
         } else {
             // Para depurar, muestra un mensaje en lugar de redirigir
-            if ($url_actual !== '/admin/error404/404') {
+            if ($url_actual !== 'https://megawebsistem.com/admin/error/404') {
                 http_response_code(404);
                 echo 'Error 404: Página no encontrada';
                 exit();  // Asegúrate de detener el script
