@@ -90,7 +90,7 @@
                     center: 'title',
                     right: 'dayGridMonth,timeGridWeek,timeGridDay'
                 },
-                events: '/citas/index',  // Obtener eventos desde el backend
+                events: 'https://megawebsistem.com/admin/api/citas',  // Obtener eventos desde el backend
                 dateClick: function(info) {
                     document.getElementById('fecha').value = info.dateStr;
                     modal.style.display = 'flex';
