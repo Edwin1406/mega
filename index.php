@@ -251,6 +251,6 @@ $router->get('/admin/produccion/estimar/separadores', [EstimarController::class,
 $router->get('/admin/produccion/estimar/costos_generales/index', [EstimarController::class, 'costos_generales']);
 
 // error 404
-$router->get('/error', [AdminController::class, 'error']);
+$router->get('/admin/error404', [AdminController::class, 'error404']);
 
 $router->comprobarRutas();
