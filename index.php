@@ -253,4 +253,9 @@ $router->get('/admin/produccion/estimar/costos_generales/index', [EstimarControl
 // error 404
 $router->get('/admin/error404', [AdminController::class, 'error404']);
 
+
+// citas de prueba 
+
+$router->get('/admin/api/citas', [EstimarController::class, 'citas']);
+
 $router->comprobarRutas();

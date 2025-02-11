@@ -2,49 +2,133 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Calendario con FullCalendar</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calendario de Citas</title>
+    
+    <!-- FullCalendar CSS -->
     <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.css" rel="stylesheet">
+
     <style>
         #calendar {
             max-width: 900px;
             margin: 40px auto;
+        }
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: none;
+            justify-content: center;
+            align-items: center;
+        }
+        .modal_contenido {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            width: 400px;
+        }
+        .cerrar_modal {
+            float: right;
+            font-size: 20px;
+            cursor: pointer;
         }
     </style>
 </head>
 <body>
     <div id="calendar"></div>
 
+    <!-- Modal para registrar citas -->
+    <div id="modalCita" class="modal">
+        <div class="modal_contenido">
+            <span class="cerrar_modal" id="cerrarModal">&times;</span>
+            <h2>Registrar Cita</h2>
+            <form id="formCita">
+                <div class="formulario_campo">
+                    <label for="nombre_paciente">Nombre del Paciente</label>
+                    <input type="text" id="nombre_paciente" name="nombre_paciente" required>
+                </div>
+                <div class="formulario_campo">
+                    <label for="hora">Hora</label>
+                    <input type="time" id="hora" name="hora" required>
+                </div>
+                <div class="formulario_campo">
+                    <label for="telefono">Teléfono</label>
+                    <input type="text" id="telefono" name="telefono" required>
+                </div>
+                <div class="formulario_campo">
+                    <label for="doctor">Doctor</label>
+                    <input type="text" id="doctor" name="doctor" required>
+                </div>
+                <div class="formulario_campo">
+                    <label for="asunto">Asunto</label>
+                    <textarea id="asunto" name="asunto" required></textarea>
+                </div>
+                <input type="hidden" id="fecha" name="fecha">
+                <button type="submit">Guardar Cita</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- FullCalendar JS -->
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const calendarEl = document.getElementById('calendar');
+            const modal = document.getElementById('modalCita');
+            const cerrarModal = document.getElementById('cerrarModal');
+            const formCita = document.getElementById('formCita');
 
-            // Inicializar FullCalendar
             const calendar = new FullCalendar.Calendar(calendarEl, {
-                initialView: 'dayGridMonth',  // Vista inicial (mes completo)
-                locale: 'es',                 // Idioma en español
+                initialView: 'dayGridMonth',
+                locale: 'es',
                 headerToolbar: {
-                    left: 'prev,next today', // Botones a la izquierda
-                    center: 'title',         // Título centrado
-                    right: 'dayGridMonth,timeGridWeek,timeGridDay' // Vistas disponibles
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'dayGridMonth,timeGridWeek,timeGridDay'
                 },
-                events: [                     // Lista de eventos
-                    {
-                        title: 'Evento de prueba',
-                        start: '2025-02-15',
-                        end: '2025-02-17'
-                    },
-                    {
-                        title: 'Otro evento',
-                        start: '2025-02-20'
-                    }
-                ],
-                dateClick: function(info) {    // Manejar clic en una fecha
-                    alert('Fecha seleccionada: ' + info.dateStr);
+                events: '/citas/index',  // Obtener eventos desde el backend
+                dateClick: function(info) {
+                    document.getElementById('fecha').value = info.dateStr;
+                    modal.style.display = 'flex';
                 }
             });
 
-            calendar.render();                 // Mostrar el calendario
+            calendar.render();
+
+            // Cerrar el modal
+            cerrarModal.addEventListener('click', function() {
+                modal.style.display = 'none';
+            });
+
+            // Manejar el envío del formulario
+            formCita.addEventListener('submit', function(e) {
+                e.preventDefault();
+
+                const formData = new FormData(formCita);
+
+                fetch('/citas/crear', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        calendar.addEvent({
+                            title: `${formData.get('nombre_paciente')} (${formData.get('doctor')})`,
+                            start: `${formData.get('fecha')}T${formData.get('hora')}`
+                        });
+                        alert('Cita registrada correctamente.');
+                        modal.style.display = 'none';
+                        formCita.reset();
+                    } else {
+                        alert('Error al registrar la cita.');
+                    }
+                });
+            });
         });
     </script>
 </body>
