@@ -74,7 +74,7 @@
         }
 
         @media (min-width: 1024px) {
-            .menu-toggle {
+            .menu-toggle1 {
                 display: none;
             }
 
@@ -92,7 +92,7 @@
         }
 
         @media (max-width: 1024px) {
-            .menu-toggle {
+            .menu-toggle1 {
                 display: block;
             }
 
@@ -108,7 +108,7 @@
 
 
     <div class="header">
-        <button class="menu-toggle" aria-label="Abrir menú">☰</button>
+        <button class="menu-toggle1" aria-label="Abrir menú">☰</button>
         <nav class="mobile-menu">
             <div class="item"><a href="/admin/produccion/estimar/index"> <i class="fas fa-home"></i> INICIO</a></div>
             <div class="item"><a href="/admin/produccion/estimar/micro"> <i class="fas fa-industry"></i> MATERIA PRIMA</a></div>
