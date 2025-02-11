@@ -36,7 +36,7 @@ class Router
             call_user_func($fn, $this);
         } else {
             // ruta error 404
-            header('/admin/error/404');
+            http_response_code(404);
         }
     }
 
