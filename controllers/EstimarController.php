@@ -18,6 +18,11 @@ class EstimarController {
 
     public static function costos_generales(Router $router)
     {
+        $id = $_GET['id'] ?? null;
+        if (!$id){
+            header('Location: /error404');
+        }
+
     
         $router->render('admin/produccion/estimar/costos_generales/index', [
             'titulo' => 'COSTOS GENERALES',
