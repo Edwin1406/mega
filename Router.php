@@ -32,9 +32,9 @@ class Router
             call_user_func($fn, $this);
         } else {
             // Evitar redirección infinita si ya estamos en la página de error
-            if ($url_actual !== '/views/admin/error404/404') {
+            if ($url_actual !== 'views/admin/error404/404') {
                 http_response_code(404);  // Enviar código de respuesta 404
-                header('Location: /views/admin/error404/404');  // Redirigir a la página de error
+                header('Location: views/admin/error404/404');  // Redirigir a la página de error
                 exit();  // Detener la ejecución
             } else {
                 echo 'Error 404: Página no encontrada';  // Muestra un mensaje simple si ya estamos en la página de error
