@@ -32,7 +32,7 @@ class Router
             call_user_func($fn, $this);
         } else {
             // Evitar redirección infinita si ya estamos en la página de error
-            if ($url_actual !== '/admin/error/404') {
+            if ($url_actual !== '/admin/error404/404') {
                 http_response_code(404);  // Enviar código de respuesta 404
                 header('Location: /admin/error/404');  // Redirigir a la página de error
                 exit();  // Detener la ejecución
