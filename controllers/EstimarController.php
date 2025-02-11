@@ -11,7 +11,7 @@ class EstimarController {
         $id = $_GET['id'] ?? null;
         // sanitize $id
         $id = filter_var($id, FILTER_VALIDATE_INT);
-        
+
         if (!$id){
             header('Location: /error404');
         }
@@ -26,8 +26,6 @@ class EstimarController {
     public static function costos_generales(Router $router)
     {
        
-
-    
         $router->render('admin/produccion/estimar/costos_generales/index', [
             'titulo' => 'COSTOS GENERALES',
         ]);
