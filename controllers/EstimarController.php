@@ -9,6 +9,9 @@ class EstimarController {
     public static function index(Router $router)
     {
         $id = $_GET['id'] ?? null;
+        // sanitize $id
+        $id = filter_var($id, FILTER_VALIDATE_INT);
+        
         if (!$id){
             header('Location: /error404');
         }
