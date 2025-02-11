@@ -19,35 +19,29 @@ class Router
 
     public function comprobarRutas()
     {
-
-          
         $url_actual = strtok($_SERVER['REQUEST_URI'], '?') ?? '/';
         $method = $_SERVER['REQUEST_METHOD'];   
-
-        
-
+    
         if ($method === 'GET') {
             $fn = $this->getRoutes[$url_actual] ?? null;
         } else {
             $fn = $this->postRoutes[$url_actual] ?? null;
         }
-
-        if ( $fn ) {
+    
+        if ($fn) {
             call_user_func($fn, $this);
         } else {
-             // ruta error 404
-            http_response_code(404);  // Enviar código de respuesta 404
-            header('Location: /admin/error/404');  // Redirigir a la página de error
-            exit();  // Detener la ejecución para asegurar la redirección
+            // Para depurar, muestra un mensaje en lugar de redirigir
+            if ($url_actual !== '/admin/error/404') {
+                http_response_code(404);
+                echo 'Error 404: Página no encontrada';
+                exit();  // Asegúrate de detener el script
+            } else {
+                echo 'Esta es la página de error 404';
+            }
         }
-
-
-
-
-
-        
     }
-
+    
     public function render(string $view, array $datos = []): void
     {
         extract($datos, EXTR_SKIP);
