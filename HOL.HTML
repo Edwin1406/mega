@@ -40,96 +40,65 @@
 <body>
     <div id="calendar"></div>
 
-    <!-- Modal para registrar citas -->
-    <div id="modalCita" class="modal">
-        <div class="modal_contenido">
-            <span class="cerrar_modal" id="cerrarModal">&times;</span>
-            <h2>Registrar Cita</h2>
-            <form id="formCita">
-                <div class="formulario_campo">
-                    <label for="nombre_paciente">Nombre del Paciente</label>
-                    <input type="text" id="nombre_paciente" name="nombre_paciente" required>
-                </div>
-                <div class="formulario_campo">
-                    <label for="hora">Hora</label>
-                    <input type="time" id="hora" name="hora" required>
-                </div>
-                <div class="formulario_campo">
-                    <label for="telefono">Teléfono</label>
-                    <input type="text" id="telefono" name="telefono" required>
-                </div>
-                <div class="formulario_campo">
-                    <label for="doctor">Doctor</label>
-                    <input type="text" id="doctor" name="doctor" required>
-                </div>
-                <div class="formulario_campo">
-                    <label for="asunto">Asunto</label>
-                    <textarea id="asunto" name="asunto" required></textarea>
-                </div>
-                <input type="hidden" id="fecha" name="fecha">
-                <button type="submit">Guardar Cita</button>
-            </form>
-        </div>
-    </div>
+  <!-- Modal para mostrar información de la cita -->
+<div id="modalInfoCita" class="modal" style="display: none;">
+  <div class="modal_contenido">
+      <span class="cerrar_modal" id="cerrarModal">&times;</span>
+      <h2>Detalles de la Cita</h2>
+      <p><strong>Nombre del Paciente:</strong> <span id="nombre_paciente_info"></span></p>
+      <p><strong>Fecha:</strong> <span id="fecha_info"></span></p>
+      <p><strong>Hora:</strong> <span id="hora_info"></span></p>
+      <p><strong>Teléfono:</strong> <span id="telefono_info"></span></p>
+      <p><strong>Doctor:</strong> <span id="doctor_info"></span></p>
+      <p><strong>Asunto:</strong> <span id="asunto_info"></span></p>
+  </div>
+</div>
 
     <!-- FullCalendar JS -->
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const calendarEl = document.getElementById('calendar');
-            const modal = document.getElementById('modalCita');
-            const cerrarModal = document.getElementById('cerrarModal');
-            const formCita = document.getElementById('formCita');
+   <script>
+    document.addEventListener('DOMContentLoaded', function() {
+    const calendarEl = document.getElementById('calendar');
+    const modal = document.getElementById('modalInfoCita');
+    const cerrarModal = document.getElementById('cerrarModal');
 
-            const calendar = new FullCalendar.Calendar(calendarEl, {
-                initialView: 'dayGridMonth',
-                locale: 'es',
-                headerToolbar: {
-                    left: 'prev,next today',
-                    center: 'title',
-                    right: 'dayGridMonth,timeGridWeek,timeGridDay'
-                },
-                events: 'https://megawebsistem.com/admin/api/citas',  // Obtener eventos desde el backend
-                dateClick: function(info) {
-                    document.getElementById('fecha').value = info.dateStr;
-                    modal.style.display = 'flex';
-                }
-            });
+    const calendar = new FullCalendar.Calendar(calendarEl, {
+        initialView: 'dayGridMonth',
+        locale: 'es',
+        headerToolbar: {
+            left: 'prev,next today',
+            center: 'title',
+            right: 'dayGridMonth,timeGridWeek,timeGridDay'
+        },
+        events: 'https://megawebsistem.com/admin/api/citas',  // Carga de eventos desde la API
 
-            calendar.render();
-
-            // Cerrar el modal
-            cerrarModal.addEventListener('click', function() {
-                modal.style.display = 'none';
-            });
-
-            // Manejar el envío del formulario
-            formCita.addEventListener('submit', function(e) {
-                e.preventDefault();
-
-                const formData = new FormData(formCita);
-
-                fetch('/citas/crear', {
-                    method: 'POST',
-                    body: formData
-                })
+        // Evento que se ejecuta al hacer clic en un evento del calendario
+        eventClick: function(info) {
+            fetch(`https://megawebsistem.com/admin/api/citas/${info.event.id}`)  // Solicitar detalles de la cita
                 .then(response => response.json())
                 .then(data => {
-                    if (data.success) {
-                        calendar.addEvent({
-                            title: `${formData.get('nombre_paciente')} (${formData.get('doctor')})`,
-                            start: `${formData.get('fecha')}T${formData.get('hora')}`
-                        });
-                        alert('Cita registrada correctamente.');
-                        modal.style.display = 'none';
-                        formCita.reset();
-                    } else {
-                        alert('Error al registrar la cita.');
-                    }
+                    // Mostrar la información en el modal
+                    document.getElementById('nombre_paciente_info').textContent = data.nombre_paciente;
+                    document.getElementById('fecha_info').textContent = data.fecha;
+                    document.getElementById('hora_info').textContent = data.hora;
+                    document.getElementById('telefono_info').textContent = data.telefono;
+                    document.getElementById('doctor_info').textContent = data.doctor;
+                    document.getElementById('asunto_info').textContent = data.asunto;
+
+                    modal.style.display = 'flex';
                 });
-            });
-        });
-    </script>
+        }
+    });
+
+    calendar.render();
+
+    // Cerrar el modal
+    cerrarModal.addEventListener('click', function() {
+        modal.style.display = 'none';
+    });
+});
+
+   </script>
 </body>
 </html>
