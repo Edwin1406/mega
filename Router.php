@@ -35,9 +35,17 @@ class Router
         if ( $fn ) {
             call_user_func($fn, $this);
         } else {
-            // ruta error 404
-            http_response_code(404);
+             // ruta error 404
+            http_response_code(404);  // Enviar código de respuesta 404
+            header('Location: /admin/error/404');  // Redirigir a la página de error
+            exit();  // Detener la ejecución para asegurar la redirección
         }
+
+
+
+
+
+        
     }
 
     public function render(string $view, array $datos = []): void
