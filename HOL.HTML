@@ -58,7 +58,7 @@
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
 
    <script>
-   document.addEventListener('DOMContentLoaded', function() {
+ document.addEventListener('DOMContentLoaded', function() {
     const calendarEl = document.getElementById('calendar');
     const modal = document.getElementById('modalInfoCita');
     const cerrarModal = document.getElementById('cerrarModal');
@@ -66,21 +66,16 @@
     const calendar = new FullCalendar.Calendar(calendarEl, {
         initialView: 'dayGridMonth',
         locale: 'es',
-        events: [
-            {
-                id: '1',
-                title: 'Juan Carlos',
-                start: '2025-02-11T09:00:00',
-                extendedProps: {
-                    telefono: '0962618083',
-                    doctor: 'Carlitos Masapanta',
-                    asunto: 'Dientes molares'
-                }
-            }
-        ],
-        eventClick: function(info) {
-            console.log('Evento clicado:', info.event);  // Comprobar evento
+        headerToolbar: {
+            left: 'prev,next today',
+            center: 'title',
+            right: 'dayGridMonth,timeGridWeek,timeGridDay'
+        },
+        events: 'https://megawebsistem.com/admin/api/citas',  // Carga de eventos desde la API
 
+        // Mostrar información del evento al hacer clic
+        eventClick: function(info) {
+            // Mostrar datos en el modal
             document.getElementById('nombre_paciente_info').textContent = info.event.title;
             document.getElementById('fecha_info').textContent = info.event.start.toISOString().split('T')[0];
             document.getElementById('hora_info').textContent = info.event.start.toTimeString().split(' ')[0];
@@ -88,17 +83,18 @@
             document.getElementById('doctor_info').textContent = info.event.extendedProps.doctor;
             document.getElementById('asunto_info').textContent = info.event.extendedProps.asunto;
 
+            // Mostrar el modal
             modal.style.display = 'flex';
         }
     });
 
     calendar.render();
 
+    // Cerrar el modal
     cerrarModal.addEventListener('click', function() {
         modal.style.display = 'none';
     });
 });
-
 
    </script>
 </body>
