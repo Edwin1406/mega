@@ -3,6 +3,7 @@
 namespace Controllers;
 
 use MVC\Router;
+use Model\Citas;
 
 class EstimarController {
 
@@ -30,6 +31,20 @@ class EstimarController {
             'titulo' => 'COSTOS GENERALES',
         ]);
        
+    }
+
+
+
+
+
+    public static function citas() {
+        header('Content-Type: application/json');
+        header('Access-Control-Allow-Origin: *');
+        header('Access-Control-Allow-Methods: GET');
+        header('Access-Control-Allow-Headers: Access-Control-Allow-Headers, Content-Type, Access-Control-Allow-Methods, Authorization, X-Requested-With');
+        
+        $citas = Citas::all();
+        echo json_encode($citas);
     }
 
 

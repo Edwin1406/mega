@@ -1,36 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Calendario con FullCalendar</title>
+    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.css" rel="stylesheet">
+    <style>
+        #calendar {
+            max-width: 900px;
+            margin: 40px auto;
+        }
+    </style>
+</head>
+<body>
+    <div id="calendar"></div>
 
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const calendarEl = document.getElementById('calendar');
 
+            // Inicializar FullCalendar
+            const calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth',  // Vista inicial (mes completo)
+                locale: 'es',                 // Idioma en español
+                headerToolbar: {
+                    left: 'prev,next today', // Botones a la izquierda
+                    center: 'title',         // Título centrado
+                    right: 'dayGridMonth,timeGridWeek,timeGridDay' // Vistas disponibles
+                },
+                events: [                     // Lista de eventos
+                    {
+                        title: 'Evento de prueba',
+                        start: '2025-02-15',
+                        end: '2025-02-17'
+                    },
+                    {
+                        title: 'Otro evento',
+                        start: '2025-02-20'
+                    }
+                ],
+                dateClick: function(info) {    // Manejar clic en una fecha
+                    alert('Fecha seleccionada: ' + info.dateStr);
+                }
+            });
 
-
-
-
-
-
-
-
-
-
-<div class="dashboard__grafico">
-
-    <div id="chart20" class="tamaño">d</div>
-    <div id="chart21" class="tamaño">d</div>
-    <div id="chart22" class="tamaño">d</div>
-  </div>
-
-
-  <style>
-    .tamaño {
-      width: 100%;
-      height: 100%;
-    }
-
-    .dashboard__grafico {
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      grid-gap: 20px;
-      margin-top: 20px;
-      text-align: center;
-    }
-
-
-  </style>
+            calendar.render();                 // Mostrar el calendario
+        });
+    </script>
+</body>
+</html>
