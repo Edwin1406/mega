@@ -38,11 +38,9 @@ class EstimarController {
 
 
     public static function citas() {
-        header('Content-Type: application/json');
-        header('Access-Control-Allow-Origin: *');
-        header('Access-Control-Allow-Methods: GET');
-        header('Access-Control-Allow-Headers: Access-Control-Allow-Headers, Content-Type, Access-Control-Allow-Methods, Authorization, X-Requested-With');
-        
+        header("Access-Control-Allow-Origin: *");  // Permite solicitudes desde cualquier origen
+        header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS"); // Métodos permitidos
+        header("Access-Control-Allow-Headers: Content-Type, Authorization"); // Cabeceras permitidas
         $citas = Citas::all();
         echo json_encode($citas);
     }
