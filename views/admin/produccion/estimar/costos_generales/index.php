@@ -125,7 +125,7 @@
     </div>
 
     <script>
-        document.querySelector('.menu-toggle').addEventListener('click', function() {
+        document.querySelector('.menu-toggle1').addEventListener('click', function() {
             const menu = document.querySelector('.mobile-menu');
             menu.classList.toggle('active');
         });
