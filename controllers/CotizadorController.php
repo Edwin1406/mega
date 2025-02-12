@@ -70,12 +70,12 @@ class CotizadorController
     // }
 
 
-    public static function trimar(Router $router){
+    public static function trimarp(Router $router){
 
 
-        $router->render('admin/produccion/cotizador/crear', [
+        $router->render('admin/produccion/cotizador/trimar', [
             'titulo' => 'TRIMAR',
-            
+
             
         ]);
 
