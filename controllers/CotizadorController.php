@@ -130,10 +130,8 @@ function encontrarMejorCombinacion($pedidos) {
     }
 
     return $mejor_combinacion;
+    debuguear($mejor_combinacion);
 }
-
-    debuguear($pedidos_cj);
-    debuguear($pedidos_pl);
 
 
 
