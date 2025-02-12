@@ -143,6 +143,24 @@ class ActiveRecord {
     }
 
 
+
+    //TRIMAR OBTENER SOLO CAJAS 
+
+    public static function trimarcj($orden = 'DESC', $filtro = null) {
+        $query = "SELECT * FROM " . static::$tabla;
+        if ($filtro) {
+            $query .= " WHERE nombre_pedido LIKE '%{$filtro}%'";
+        }
+        $query .= " ORDER BY id {$orden}";
+        $resultado = self::consultarSQL($query);
+        return $resultado;
+    }
+
+
+
+
+
+
     // Obtener todos los registros con menos de 100 en existencia
 public static function menosDeCien($orden = 'DESC') {
     $query = "SELECT * FROM " . static::$tabla . " WHERE existencia <= 100 ORDER BY id {$orden}";
