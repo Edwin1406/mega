@@ -133,9 +133,10 @@ function encontrarMejorCombinacion($pedidos) {
 }
 
 // Encontrar la mejor combinación en cada grupo
-$mejor_cj = encontrarMejorCombinacion($mejor_combinacion);
+$mejor_combinacion_cj = encontrarMejorCombinacion($pedidos_cj);
+$mejor_combinacion_pl = encontrarMejorCombinacion($pedidos_pl);
 
-debuguear($mejor_cj);
+debuguear($mejor_combinacion_cj);
 
 
 
