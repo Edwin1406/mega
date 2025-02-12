@@ -90,8 +90,10 @@ class CotizadorController
     
             return $pedido;
         }, $pedidosTrimar);
-    
-        echo json_encode($pedidosTrimar);
+        
+        
+
+
     }
     
     
