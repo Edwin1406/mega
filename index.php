@@ -259,6 +259,10 @@ $router->get('/admin/error404', [AdminController::class, 'error404']);
 $router->get('/admin/api/trimar', [CotizadorController::class, 'trimar']);
 
 
+$router->get('/admin/produccion/cotizador/trimar', [CotizadorController::class, 'trimar']);
+$router->post('/admin/produccion/cotizador/trimar', [CotizadorController::class, 'trimar']);
+
+
 
 
 

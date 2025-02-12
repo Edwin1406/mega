@@ -30,14 +30,6 @@ class CotizadorController
             
         }
 
-        // $tests = Test::all();
-        // $pedidos = Pedido::all('ASC');
-        // $totalPedidos = count($pedidos); 
-        // // debuguear($totalPedidos);
-        
-        // $bobinas = Bobina::all();
-
-    
         $pedidosTrimar = Pedido::all('ASC');
     
         // Modificar los pedidos según las condiciones requeridas
@@ -78,9 +70,14 @@ class CotizadorController
     // }
 
 
-    public static function trimar(){
-       
-        
+    public static function trimar(Router $router){
+
+
+        $router->render('admin/produccion/cotizador/crear', [
+            'titulo' => 'TRIMAR',
+            
+            
+        ]);
 
 
 
