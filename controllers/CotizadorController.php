@@ -63,13 +63,7 @@ class CotizadorController
     }
 
 
-    public static function trimarPL(){
-        header("Access-Control-Allow-Origin: *");  // Permite solicitudes desde cualquier origen
-        header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS"); // Métodos permitidos
-        $pedidosTrimar = Pedido::all();
-        echo json_encode($pedidosTrimar);
     
-    }
 
 
 
