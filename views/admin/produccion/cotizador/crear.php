@@ -11,6 +11,7 @@
         <table class="table">
             <thead class="table__thead">
                 <tr>
+                    <th scope="col" class="table__th">ID</th>
                     <th scope="col" class="table__th">Nombre pedido </th>
                     <th scope="col" class="table__th">Largo</th>
                     <th scope="col" class="table__th">Ancho</th>
@@ -25,6 +26,7 @@
 
                 <?php foreach ($pedidosTrimar as $trimar):?>
                     <tr class="table__tr">
+                        <td class="table__td"><?php echo $trimar->id?></td>
                         <td class="table__td"><?php echo $trimar->nombre_pedido?></td>
                         <td class="table__td"><?php echo $trimar->largo?></td>
                         <td class="table__td"><?php echo $trimar->ancho?></td>
