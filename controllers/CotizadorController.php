@@ -69,18 +69,19 @@ class CotizadorController
         $pedidosTrimar = Pedido::all('DESC');
         // calcular los que tengan Cj sacar ancho y largo calculado mientras que los que tienen solo dos medidas no hace nda 
         $pedidosTrimar = array_map(function($pedido){
-            if($pedido->nombre_pedido == 'CJ'){
+            if(strpos($pedido->nombre_pedido, 'CJ') !== false){ // O str_contains($pedido->nombre_pedido, 'CJ') en PHP 8+
                 $largo = $pedido->largo;
                 $ancho = $pedido->ancho;
                 $alto = $pedido->alto;
                 $largoCalculado = (2 * $alto) + ($largo + 8);
-                $anchoCalculado = (2 * $alto) + ($ancho + 10+4);
+                $anchoCalculado = (2 * $alto) + ($ancho + 10 + 4);
                 $pedido->largo = $largoCalculado;
                 $pedido->ancho = $anchoCalculado;
                 unset($pedido->alto);
             }
             return $pedido;
         }, $pedidosTrimar);
+        
         echo json_encode($pedidosTrimar);
     
     }
