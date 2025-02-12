@@ -94,40 +94,40 @@ class CotizadorController
         $pedido_encontrado = $pedido_buscado;
 
 
-        $pedido_optimo = null;
-        foreach($pedido_buscado as $buscado){
-            // hacer un bucle para encontrar el pedido optimo sumando el ancho  del pdido actual con los demas pedidos anchos de los pedidos  y comparar la suma  con las bobinas y ver el mas optimo
+        // $pedido_optimo = null;
+        // foreach($pedido_buscado as $buscado){
+        //     // hacer un bucle para encontrar el pedido optimo sumando el ancho  del pdido actual con los demas pedidos anchos de los pedidos  y comparar la suma  con las bobinas y ver el mas optimo
             
-            $ancho_pedido_actual = $pedido_actual->ancho;
-            $ancho_pedido_buscado = $buscado->ancho;
+        //     $ancho_pedido_actual = $pedido_actual->ancho;
+        //     $ancho_pedido_buscado = $buscado->ancho;
 
-            $suma_anchos = $ancho_pedido_actual + $ancho_pedido_buscado;
-            $bobina_encontrada = null;
-            foreach($bobina as $bobi){
-                if($bobi->ancho >= $suma_anchos){
-                    $bobina_encontrada = $bobi;
-                    break;
-                }
-            }
+        //     $suma_anchos = $ancho_pedido_actual + $ancho_pedido_buscado;
+        //     $bobina_encontrada = null;
+        //     foreach($bobina as $bobi){
+        //         if($bobi->ancho >= $suma_anchos){
+        //             $bobina_encontrada = $bobi;
+        //             break;
+        //         }
+        //     }
 
-            if($bobina_encontrada){
-                if(!$pedido_optimo){
-                    $pedido_optimo = $buscado;
-                    $pedido_optimo->bobina = $bobina_encontrada;
-                } else {
-                    $ancho_pedido_optimo = $pedido_optimo->ancho;
-                    $suma_anchos_optimo = $ancho_pedido_optimo + $pedido_optimo->ancho;
-                    if($suma_anchos < $suma_anchos_optimo){
-                        $pedido_optimo = $buscado;
-                        $pedido_optimo->bobina = $bobina_encontrada;
-                    }
-                }
-            }
+        //     if($bobina_encontrada){
+        //         if(!$pedido_optimo){
+        //             $pedido_optimo = $buscado;
+        //             $pedido_optimo->bobina = $bobina_encontrada;
+        //         } else {
+        //             $ancho_pedido_optimo = $pedido_optimo->ancho;
+        //             $suma_anchos_optimo = $ancho_pedido_optimo + $pedido_optimo->ancho;
+        //             if($suma_anchos < $suma_anchos_optimo){
+        //                 $pedido_optimo = $buscado;
+        //                 $pedido_optimo->bobina = $bobina_encontrada;
+        //             }
+        //         }
+        //     }
 
-        }
+        // }
 
 
-        debuguear($pedido_optimo);
+        debuguear($pedido_actual);
         // debuguear($bobina);
 
 
