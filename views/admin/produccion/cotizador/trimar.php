@@ -5,8 +5,10 @@
                 <tr>
                     <th scope="col" class="tables__th">ID</th>
                     <th scope="col" class="tables__th">Pedidos</th>
+                    <th scope="col" class="tables__th">Largo</th>
                     <th scope="col" class="tables__th">Ancho</th>
                     <th scope="col" class="tables__th">Cantidad</th>
+                    <th scope="col" class="tables__th">Flauta</th>
                 </tr>
             </thead>
             <tbody class="tables__tbody">
