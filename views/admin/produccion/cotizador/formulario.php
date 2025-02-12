@@ -22,20 +22,31 @@
         const pedidos = await respuesta.json();
        return pedidos;
     }
-
-
     async function anchoylargo() {
-        const pedidos = await apitrimar();
-        pedidos.forEach(pedido => {
-            const { largo,ancho,alto} = pedido;
-            const largocalculado = ((2*alto)+(largo+8));
-            console.log(largocalculado);
+    const pedidos = await apitrimar();
 
-            const anchoLargo = `Ancho: ${ancho} Largo: ${largo} Alto: ${alto}`;
-            const contador = document.querySelector('#contador');
+    pedidos.forEach(pedido => {
+        // Convertir valores a números
+        const largo = parseFloat(pedido.largo) || 0;
+        const ancho = parseFloat(pedido.ancho) || 0;
+        const alto = parseFloat(pedido.alto) || 0;
+
+        // Calcular el largo correcto
+        const largocalculado = (2 * alto) + (largo + 8);
+        console.log(`Largo Calculado: ${largocalculado}`);
+
+        // Mostrar los valores en pantalla
+        const anchoLargo = `Ancho: ${ancho} Largo: ${largo} Alto: ${alto}`;
+        const contador = document.querySelector('#contador');
+
+        if (contador) {
             contador.textContent = anchoLargo;
-        });
-    }
+        } else {
+            console.error('Elemento #contador no encontrado en el DOM.');
+        }
+    });
+}
+
 
 
 </script>
