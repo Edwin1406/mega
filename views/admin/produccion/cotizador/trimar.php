@@ -49,11 +49,7 @@
                     <td class="tables__td"><?php echo $mejor_combinacion['pedido_1']->nombre_pedido; ?></td>
                     <td class="tables__td"><?php echo $mejor_combinacion['pedido_1']->ancho; ?></td>
                 </tr>
-                <tr class="tables__tr">
-                    <td class="tables__td">2</td>
-                    <td class="tables__td"><?php echo $mejor_combinacion['pedido_2']->nombre_pedido; ?></td>
-                    <td class="tables__td"><?php echo $mejor_combinacion['pedido_2']->ancho; ?></td>
-                </tr>
+            
             </tbody>
         </table>
 
