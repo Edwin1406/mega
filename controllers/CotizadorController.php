@@ -48,12 +48,12 @@ class CotizadorController
     //     echo json_encode($pedidosTrimar);
     
     // }
-
-
     public static function trimarp(Router $router){
 
+        // Obtener el pedido basado en el ID de la URL
         $pedido = Pedido::find($_GET['id']);
-        // calcular ancho y largo para CJ
+    
+        // Calcular ancho y largo para CJ
         if(strpos($pedido->nombre_pedido, 'CJ') !== false){
             $largo = $pedido->largo;
             $ancho = $pedido->ancho;
@@ -62,16 +62,21 @@ class CotizadorController
             $anchoCalculado = (2 * $alto) + ($ancho + 10 + 4);
             $pedido->largo = $largoCalculado;
             $pedido->ancho = $anchoCalculado;
-            unset($pedido->alto); // Se elimina "alto" para los "CJ"
+            unset($pedido->alto);
         } elseif(strpos($pedido->nombre_pedido, 'PL') !== false && $pedido->alto == "0"){
             unset($pedido->alto);
         }
-
-        
-        // sumar los anchos de los pedidos para CJ
+    
+        // Obtener todos los pedidos
         $todos_pedidos = Pedido::all('ASC');
-        // calcular ancho y largo para CJ
-        foreach($todos_pedidos as $buscado){
+    
+        // **FILTRAR** para evitar repetir el pedido actual en la lista
+        $otros_pedidos = array_filter($todos_pedidos, function($p) use ($pedido) {
+            return $p->id !== $pedido->id;
+        });
+    
+        // Calcular dimensiones de los demás pedidos
+        foreach($otros_pedidos as $buscado){
             if(strpos($buscado->nombre_pedido, 'CJ') !== false){
                 $largo = $buscado->largo;
                 $ancho = $buscado->ancho;
@@ -80,81 +85,56 @@ class CotizadorController
                 $anchoCalculado = (2 * $alto) + ($ancho + 10 + 4);
                 $buscado->largo = $largoCalculado;
                 $buscado->ancho = $anchoCalculado;
-                unset($buscado->alto); // Se elimina "alto" para los "CJ"
+                unset($buscado->alto);
             } elseif(strpos($buscado->nombre_pedido, 'PL') !== false && $buscado->alto == "0"){
                 unset($buscado->alto);
             }
         }
-        
-        
-        
-        $bobina = [];
-        $pedido_actual = $pedido;
-        $todos = $todos_pedidos;
-      
-
+    
+        // Obtener bobinas
         $bobinas = MateriaPrimaV::datoscompletos('DESC', 'CAJA');
-
-                
-        // Convertir el resultado en un array de bobinas con ID y ancho
+    
+        // Convertir bobinas a array con ID y ancho
         $bobinas = array_map(function($bobina) {
             return [
-                'id' => $bobina->id,   // Incluir el ID de la bobina
+                'id' => $bobina->id,
                 'ancho' => $bobina->ancho
             ];
         }, $bobinas);
-
-        // Ordenar bobinas de menor a mayor según el ancho para optimización
+    
+        // Ordenar bobinas por ancho
         usort($bobinas, function($a, $b) {
             return $a['ancho'] <=> $b['ancho'];
         });
-
-        // Encontrar la combinación óptima de pedidos
+    
+        // Encontrar la combinación óptima
         $mejor_combinacion = null;
         $mejor_suma = PHP_INT_MAX;
-
-        foreach ($todos_pedidos as $pedido_actual) {
-            $ancho_actual = $pedido_actual->ancho;
-
-            foreach ($todos_pedidos as $otro_pedido) {
-                if ($pedido_actual->id !== $otro_pedido->id) { // Evitar sumar el mismo pedido
-                    $suma_ancho = $ancho_actual + $otro_pedido->ancho;
-
-                    // Buscar la bobina más cercana que pueda acomodar la suma de anchos
-                    foreach ($bobinas as $bobina) {
-                        if ($suma_ancho <= $bobina['ancho'] && $bobina['ancho'] - $suma_ancho < $mejor_suma) {
-                            $mejor_suma = $bobina['ancho'] - $suma_ancho;
-                            $mejor_combinacion = [
-                                'pedido_1' => $pedido_actual, 
-                                'pedido_2' => $otro_pedido, 
-                                'bobina' => [
-                                    'id' => $bobina['id'],
-                                    'ancho' => $bobina['ancho']
-                                ]
-                            ];
-                        }
-                    }
+    
+        foreach ($otros_pedidos as $otro_pedido) { // Solo comparar con otros pedidos
+            $suma_ancho = $pedido->ancho + $otro_pedido->ancho;
+    
+            foreach ($bobinas as $bobina) {
+                if ($suma_ancho <= $bobina['ancho'] && $bobina['ancho'] - $suma_ancho < $mejor_suma) {
+                    $mejor_suma = $bobina['ancho'] - $suma_ancho;
+                    $mejor_combinacion = [
+                        'pedido_1' => $pedido,  // Pedido seleccionado en la URL
+                        'pedido_2' => $otro_pedido, 
+                        'bobina' => [
+                            'id' => $bobina['id'],
+                            'ancho' => $bobina['ancho']
+                        ]
+                    ];
                 }
             }
         }
-
-        // Mostrar la mejor combinación con el ID de la bobina
-        // debuguear($mejor_combinacion);
-
-        // debuguear($bobina);
-
-        // debuguear($pedido);
+    
+        // Renderizar vista
         $router->render('admin/produccion/cotizador/trimar', [
             'titulo' => 'TRIMAR',
             'mejor_combinacion' => $mejor_combinacion,
-
-            
         ]);
-
-
-
     }
-    
     
 
 
