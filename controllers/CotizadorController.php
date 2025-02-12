@@ -120,32 +120,6 @@ class CotizadorController
       debuguear($mejor_combinacion);
         // debuguear($bobina);
 
-
-
-
-
-
-
-
-
-        // debuguear($pedido_encontrado);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
         // debuguear($pedido);
         $router->render('admin/produccion/cotizador/trimar', [
             'titulo' => 'TRIMAR',
