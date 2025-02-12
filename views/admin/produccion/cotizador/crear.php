@@ -30,7 +30,7 @@
                         <td class="table__td"><?php echo $trimar->flauta?></td>
                         <td class="table__td"><?php echo $trimar->created_at?></td>
                         <td class="table__td"><?php echo $trimar->updated_at?></td>
-                        <td class="table__td--acciones"><a class="table__accion table__accion--editar" href="/admin/produccion/cotizador/editar?id=<?php echo $trimar->id; ?>"><i class="fa-solid fa-user-pen"></i>Editar</a>
+                        <td class="table__td--acciones"><a class="table__accion table__accion--editar" href="/admin/produccion/cotizador/editar?id=<?php echo $trimar->id; ?>"><i class="fa-solid fa-user-pen"></i>AGREGAR</a>
                         </td>
 
 
