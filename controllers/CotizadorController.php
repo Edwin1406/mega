@@ -73,6 +73,19 @@ class CotizadorController
     public static function trimarp(Router $router){
 
         $pedido = Pedido::find($_GET['id']);
+        // calcular ancho y largo para CJ
+        if(strpos($pedido->nombre_pedido, 'CJ') !== false){
+            $largo = $pedido->largo;
+            $ancho = $pedido->ancho;
+            $alto = $pedido->alto;
+            $largoCalculado = (2 * $alto) + ($largo + 8);
+            $anchoCalculado = (2 * $alto) + ($ancho + 10 + 4);
+            $pedido->largo = $largoCalculado;
+            $pedido->ancho = $anchoCalculado;
+            unset($pedido->alto); // Se elimina "alto" para los "CJ"
+        } elseif(strpos($pedido->nombre_pedido, 'PL') !== false && $pedido->alto == "0"){
+            unset($pedido->alto);
+        }
         
         debuguear($pedido);
         $router->render('admin/produccion/cotizador/trimar', [
