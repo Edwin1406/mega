@@ -75,7 +75,7 @@ class CotizadorController
         
 
         
-        debuguear($pedido);
+        debuguear($bobinaOptima);
         $router->render('admin/produccion/cotizador/trimar', [
             'titulo' => 'TRIMAR',
 
