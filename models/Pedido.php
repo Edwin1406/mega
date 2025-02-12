@@ -5,10 +5,11 @@ use Model\ActiveRecord;
 
 class Pedido  extends ActiveRecord{
     protected static $tabla = 'pedidos';
-    protected static $columnasDB = ['id', 'nombre_pedido', 'largo','ancho','alto', 'flauta','test','created_at', 'updated_at'];
+    protected static $columnasDB = ['id', 'nombre_pedido', 'cantidad','largo','ancho','alto', 'flauta','test','created_at', 'updated_at'];
 
     public $id;
     public $nombre_pedido;
+    public $cantidad;
     public $largo;
     public $ancho;
     public $alto;
@@ -21,6 +22,7 @@ class Pedido  extends ActiveRecord{
     {
         $this->id = $args['id'] ?? null;
         $this->nombre_pedido = $args['nombre_pedido'] ?? '';
+        $this->cantidad = $args['cantidad'] ?? '';
         $this->largo = $args['largo'] ?? '';
         $this->ancho = $args['ancho'] ?? '';
         $this->alto = $args['alto'] ?? '';
