@@ -69,15 +69,29 @@ class CotizadorController
 
         $pedido_actual = $pedido;
 
-        debuguear($pedido_actual);
+        // sumar los anchos de los pedidos para CJ
+        $pedido_buscado = Pedido::all('ASC');
+        // calcular ancho y largo para CJ
+        foreach($pedido_buscado as $pedido){
+            if(strpos($pedido->nombre_pedido, 'CJ') !== false){
+                $largo = $pedido->largo;
+                $ancho = $pedido->ancho;
+                $alto = $pedido->alto;
+                $largoCalculado = (2 * $alto) + ($largo + 8);
+                $anchoCalculado = (2 * $alto) + ($ancho + 10 + 4);
+                $pedido->largo = $largoCalculado;
+                $pedido->ancho = $anchoCalculado;
+                unset($pedido->alto); // Se elimina "alto" para los "CJ"
+            } elseif(strpos($pedido->nombre_pedido, 'PL') !== false && $pedido->alto == "0"){
+                unset($pedido->alto);
+            }
+        }
+
+        debuguear($pedido_buscado);
 
 
-        
 
 
-        // buscar un pedido para ahcer dupla con el pedido actual
-        $pedidosTrimar = Pedido::trimarcj('DESC', 'CJ');
-        debuguear($pedidosTrimar);
 
 
 
@@ -86,7 +100,24 @@ class CotizadorController
         // bobinas para CJ
         $bobinas = MateriaPrimaV::all('ASC');
 
-        // debuguear($bobinas);
+        //   ejemplo 
+        
+
+        // pedido 2 100x100x100
+        // pedido 1 100x100x100
+
+        // Pedido 1 calculado largo y ancho    116x116
+        // Pedido 2 calculado largo y ancho   116x116
+
+        // ojo los dos pedidos para jusntarse deben ser CJ y tambie puede juntarse si tienen el mismo ancho y largo
+
+        // sumar anchos 
+        // 116 + 116 = 232
+
+        // buscar bobina que tenga 232 de anchos puede ser mayor o igual a 232 mayor por 50mm
+        // 232 + 50 = 282
+
+
 
 
 
