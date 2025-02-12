@@ -130,9 +130,12 @@ function encontrarMejorCombinacion($pedidos) {
     }
 
     return $mejor_combinacion;
-    debuguear($mejor_combinacion);
 }
 
+// Encontrar la mejor combinación en cada grupo
+$mejor_cj = encontrarMejorCombinacion($mejor_combinacion);
+
+debuguear($mejor_cj);
 
 
 
