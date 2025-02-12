@@ -36,6 +36,7 @@
         // remplazar el largo y ancho
         pedido.largo = largocalculado;
         pedido.ancho = anchocalculado;
+        pedido.alto = 0;
 
     });
 
