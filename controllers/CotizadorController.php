@@ -72,7 +72,9 @@ class CotizadorController
 
     public static function trimarp(Router $router){
 
-
+        $pedido = Pedido::find($_GET['id']);
+        
+        debuguear($pedido);
         $router->render('admin/produccion/cotizador/trimar', [
             'titulo' => 'TRIMAR',
 
