@@ -28,7 +28,7 @@
         const pedidos = await apitrimar();
         pedidos.forEach(pedido => {
             const { largo,ancho,alto} = pedido;
-            const largocalculado = (2*(alto)+largo)+8;
+            const largocalculado = ((2*alto)+(largo+8));
             console.log(largocalculado);
 
             const anchoLargo = `Ancho: ${ancho} Largo: ${largo} Alto: ${alto}`;
