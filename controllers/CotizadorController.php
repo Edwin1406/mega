@@ -54,15 +54,36 @@ class CotizadorController
     }
 
 
+    // public static function trimar(){
+    //     header("Access-Control-Allow-Origin: *");  // Permite solicitudes desde cualquier origen
+    //     header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS"); // Métodos permitidos
+    //     $pedidosTrimar = Pedido::trimarcj('DESC', 'CJ');
+    //     echo json_encode($pedidosTrimar);
+    
+    // }
+
+
     public static function trimar(){
         header("Access-Control-Allow-Origin: *");  // Permite solicitudes desde cualquier origen
         header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS"); // Métodos permitidos
-        $pedidosTrimar = Pedido::trimarcj('DESC', 'CJ');
+        $pedidosTrimar = Pedido::all('DESC');
+        // calcular los que tengan Cj sacar ancho y largo calculado mientras que los que tienen solo dos medidas no hace nda 
+        $pedidosTrimar = array_map(function($pedido){
+            if($pedido->tipo == 'CJ'){
+                $largo = $pedido->largo;
+                $ancho = $pedido->ancho;
+                $alto = $pedido->alto;
+                $largoCalculado = (2 * $alto) + ($largo + 8);
+                $anchoCalculado = (2 * $alto) + ($ancho + 10+4);
+                $pedido->largo = $largoCalculado;
+                $pedido->ancho = $anchoCalculado;
+                unset($pedido->alto);
+            }
+            return $pedido;
+        }, $pedidosTrimar);
         echo json_encode($pedidosTrimar);
     
     }
-
-
     
 
 

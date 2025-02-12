@@ -22,25 +22,34 @@
         const pedidos = await respuesta.json();
        return pedidos;
     }
+
     async function anchoylargo() {
-    const pedidos = await apitrimar();
+        const pedidos = await apitrimar();
+        pedidos.forEach(pedido => {
+            // Destructuring
+            const { largo, ancho, alto } = pedido;
+            // Calcular el largo correcto
+            const largocalculado = (2 * alto) + (largo + 8);
+            const anchocalculado = (2 * alto) + (ancho + 10+4);
+            // remplazar el largo y ancho
+            pedido.largo = largocalculado;
+            pedido.ancho = anchocalculado;
+            // quito el alto
+            delete pedido.alto;
+        });
+        console.log(pedidos);
+    }
 
-    pedidos.forEach(pedido => {
-        // Convertir valores a números
-        const { largo, ancho, alto } = pedido;
-        
-        // Calcular el largo correcto
-        const largocalculado = (2 * alto) + (largo + 8);
-        const anchocalculado = (2 * alto) + (ancho + 10+4);
-        // remplazar el largo y ancho
-        pedido.largo = largocalculado;
-        pedido.ancho = anchocalculado;
-        // quito el alto
-        delete pedido.alto;
-    });
 
-    console.log(pedidos);
-}
+
+
+
+
+    
+
+
+
+
 
 
 
