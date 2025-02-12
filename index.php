@@ -256,7 +256,7 @@ $router->get('/admin/error404', [AdminController::class, 'error404']);
 
 
 // API TRIMAR   
-$router->get('/admin/api/trimar', [EstimarController::class, 'trimar']);
+$router->get('/admin/api/trimar', [CotizadorController::class, 'trimar']);
 
 
 
