@@ -52,30 +52,47 @@ class CotizadorController
 
     public static function trimarp(Router $router){
 
-        $bobinas = MateriaPrimaV::all('ASC');
-        $bobinaOptima = null;
-        $minDesperdicio = PHP_INT_MAX;
-        
-        foreach ($bobinas as $bobina) {
-            $anchoBobina = $bobina->ancho;
-            $largoBobina = $bobina->largo;
-            
-            $anchoTotal = $pedido->ancho + ($pedidoDupla ? $pedidoDupla->ancho : 0);
-            $largoTotal = max($pedido->largo, $pedidoDupla ? $pedidoDupla->largo : 0);
-            
-            if ($anchoBobina >= $anchoTotal && $largoBobina >= $largoTotal) {
-                $desperdicio = ($anchoBobina - $anchoTotal) + ($largoBobina - $largoTotal);
-                
-                if ($desperdicio < $minDesperdicio) {
-                    $minDesperdicio = $desperdicio;
-                    $bobinaOptima = $bobina;
-                }
-            }
+        $pedido = Pedido::find($_GET['id']);
+        // calcular ancho y largo para CJ
+        if(strpos($pedido->nombre_pedido, 'CJ') !== false){
+            $largo = $pedido->largo;
+            $ancho = $pedido->ancho;
+            $alto = $pedido->alto;
+            $largoCalculado = (2 * $alto) + ($largo + 8);
+            $anchoCalculado = (2 * $alto) + ($ancho + 10 + 4);
+            $pedido->largo = $largoCalculado;
+            $pedido->ancho = $anchoCalculado;
+            unset($pedido->alto); // Se elimina "alto" para los "CJ"
+        } elseif(strpos($pedido->nombre_pedido, 'PL') !== false && $pedido->alto == "0"){
+            unset($pedido->alto);
         }
-        
+
+
+        debuguear($pedido);
+
+
+        // buscar un pedido para ahcer dupla con el pedido actual
+        $pedidosTrimar = Pedido::trimarcj('DESC', 'CJ');
+        debuguear($pedidosTrimar);
+
+
+
+
+
+        // bobinas para CJ
+        $bobinas = MateriaPrimaV::all('ASC');
+
+        // debuguear($bobinas);
+
+
+
+
+
+
+
 
         
-        debuguear($bobinaOptima);
+        debuguear($pedido);
         $router->render('admin/produccion/cotizador/trimar', [
             'titulo' => 'TRIMAR',
 
