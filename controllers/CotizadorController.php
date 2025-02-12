@@ -88,7 +88,7 @@ class CotizadorController
         
         
         
-        $bobina = $bobinas;
+        $bobina = [];
         $pedido_actual = $pedido;
         $todos = $todos_pedidos;
       
