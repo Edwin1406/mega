@@ -97,14 +97,14 @@ class CotizadorController
         // Buscar la mejor combinación de pedidos dentro del mismo tipo
         $mejor_combinacion = null;
         $mejor_suma = PHP_INT_MAX;
-        $pedido_unico = true; 
+        $pedido_unico = true;
     
         foreach ($otros_pedidos as $otro_pedido) {
             if ($pedido->id !== $otro_pedido->id) {
                 $suma_ancho = $pedido->ancho + $otro_pedido->ancho;
     
                 foreach ($bobinas as $bobina) {
-                    if ($suma_ancho <= $bobina['ancho'] && $bobina['ancho'] - $suma_ancho < $mejor_suma) {
+                    if ($suma_ancho + 30 <= $bobina['ancho'] && $bobina['ancho'] - $suma_ancho < $mejor_suma) {
                         $mejor_suma = $bobina['ancho'] - $suma_ancho;
                         $mejor_combinacion = [
                             'pedido_1' => $pedido,
@@ -117,10 +117,10 @@ class CotizadorController
             }
         }
     
-        // Si no hay combinación, buscar la bobina más pequeña que aún cubra el pedido
+        // Si no hay combinación, buscar la bobina más pequeña que aún cubra el pedido con un margen de 30 mm
         if ($pedido_unico) {
             foreach ($bobinas as $bobina) {
-                if ($bobina['ancho'] >= $pedido->ancho) {
+                if ($bobina['ancho'] >= $pedido->ancho + 30) {
                     $mejor_combinacion = [
                         'pedido_1' => $pedido,
                         'pedido_2' => null,
@@ -131,7 +131,7 @@ class CotizadorController
             }
     
             // Verificar que la bobina seleccionada sea válida
-            if (!$mejor_combinacion || $mejor_combinacion['bobina']['ancho'] < $pedido->ancho) {
+            if (!$mejor_combinacion || $mejor_combinacion['bobina']['ancho'] < $pedido->ancho + 30) {
                 $mejor_combinacion['bobina'] = null; // No hay bobina válida
             }
         }
@@ -143,8 +143,5 @@ class CotizadorController
         ]);
     }
     
-
-
-
 
 }
