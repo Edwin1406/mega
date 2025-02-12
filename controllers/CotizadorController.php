@@ -67,55 +67,40 @@ class CotizadorController
             unset($pedido->alto);
         }
 
-        $pedido_actual = $pedido;
-
+        
         // sumar los anchos de los pedidos para CJ
         $pedido_buscado = Pedido::all('ASC');
         // calcular ancho y largo para CJ
-        foreach($pedido_buscado as $pedido){
-            if(strpos($pedido->nombre_pedido, 'CJ') !== false){
-                $largo = $pedido->largo;
-                $ancho = $pedido->ancho;
-                $alto = $pedido->alto;
+        foreach($pedido_buscado as $buscado){
+            if(strpos($buscado->nombre_pedido, 'CJ') !== false){
+                $largo = $buscado->largo;
+                $ancho = $buscado->ancho;
+                $alto = $buscado->alto;
                 $largoCalculado = (2 * $alto) + ($largo + 8);
                 $anchoCalculado = (2 * $alto) + ($ancho + 10 + 4);
-                $pedido->largo = $largoCalculado;
-                $pedido->ancho = $anchoCalculado;
-                unset($pedido->alto); // Se elimina "alto" para los "CJ"
-            } elseif(strpos($pedido->nombre_pedido, 'PL') !== false && $pedido->alto == "0"){
-                unset($pedido->alto);
+                $buscado->largo = $largoCalculado;
+                $buscado->ancho = $anchoCalculado;
+                unset($buscado->alto); // Se elimina "alto" para los "CJ"
+            } elseif(strpos($buscado->nombre_pedido, 'PL') !== false && $buscado->alto == "0"){
+                unset($buscado->alto);
             }
         }
-
-        debuguear($pedido_buscado);
-
-
-
-
-
-
-
-
-
-        // bobinas para CJ
-        $bobinas = MateriaPrimaV::all('ASC');
-
-        //   ejemplo 
         
+        $pedido_actual = $pedido;
+        $pedido_encontrado = $pedido_buscado;
 
-        // pedido 2 100x100x100
-        // pedido 1 100x100x100
 
-        // Pedido 1 calculado largo y ancho    116x116
-        // Pedido 2 calculado largo y ancho   116x116
+        // bobinas cj y pl
+        $bobinas = MateriaPrimaV::datoscompletos('DESC', 'CAJA');
 
-        // ojo los dos pedidos para jusntarse deben ser CJ y tambie puede juntarse si tienen el mismo ancho y largo
 
-        // sumar anchos 
-        // 116 + 116 = 232
+        debuguear($bobinas);
 
-        // buscar bobina que tenga 232 de anchos puede ser mayor o igual a 232 mayor por 50mm
-        // 232 + 50 = 282
+
+
+
+
+
 
 
 
