@@ -96,43 +96,51 @@ class CotizadorController
         $bobinas = MateriaPrimaV::datoscompletos('DESC', 'CAJA');
 
         
+// Convertir el resultado en un array de bobinas con ID y ancho
+$bobinas = array_map(function($bobina) {
+    return [
+        'id' => $bobina->id,   // Incluir el ID de la bobina
+        'ancho' => $bobina->ancho
+    ];
+}, $bobinas);
 
-        // Convertir el resultado en un array de valores si es necesario
-        $bobinas = array_map(function($bobina) {
-            return $bobina->ancho; // Suponiendo que 'ancho' es la propiedad relevante
-        }, $bobinas);
-        
-        // Ordenar bobinas de menor a mayor para optimización
-        sort($bobinas);
-        
-        // Encontrar la combinación óptima de pedidos
-        $mejor_combinacion = null;
-        $mejor_suma = PHP_INT_MAX;
-        
-        foreach ($todos_pedidos as $pedido_actual) {
-            $ancho_actual = $pedido_actual->ancho;
-            
-            foreach ($todos_pedidos as $otro_pedido) {
-                if ($pedido_actual->id !== $otro_pedido->id) { // Evitar sumar el mismo pedido
-                    $suma_ancho = $ancho_actual + $otro_pedido->ancho;
-                    
-                    // Buscar la bobina más cercana que pueda acomodar la suma de anchos
-                    foreach ($bobinas as $bobina) {
-                        if ($suma_ancho <= $bobina && $bobina - $suma_ancho < $mejor_suma) {
-                            $mejor_suma = $bobina - $suma_ancho;
-                            $mejor_combinacion = [
-                                'pedido_1' => $pedido_actual, 
-                                'pedido_2' => $otro_pedido, 
-                                'bobina' => $bobina
-                            ];
-                        }
-                    }
+// Ordenar bobinas de menor a mayor según el ancho para optimización
+usort($bobinas, function($a, $b) {
+    return $a['ancho'] <=> $b['ancho'];
+});
+
+// Encontrar la combinación óptima de pedidos
+$mejor_combinacion = null;
+$mejor_suma = PHP_INT_MAX;
+
+foreach ($todos_pedidos as $pedido_actual) {
+    $ancho_actual = $pedido_actual->ancho;
+
+    foreach ($todos_pedidos as $otro_pedido) {
+        if ($pedido_actual->id !== $otro_pedido->id) { // Evitar sumar el mismo pedido
+            $suma_ancho = $ancho_actual + $otro_pedido->ancho;
+
+            // Buscar la bobina más cercana que pueda acomodar la suma de anchos
+            foreach ($bobinas as $bobina) {
+                if ($suma_ancho <= $bobina['ancho'] && $bobina['ancho'] - $suma_ancho < $mejor_suma) {
+                    $mejor_suma = $bobina['ancho'] - $suma_ancho;
+                    $mejor_combinacion = [
+                        'pedido_1' => $pedido_actual, 
+                        'pedido_2' => $otro_pedido, 
+                        'bobina' => [
+                            'id' => $bobina['id'],
+                            'ancho' => $bobina['ancho']
+                        ]
+                    ];
                 }
             }
         }
-        
-        debuguear($mejor_combinacion);
-        
+    }
+}
+
+// Mostrar la mejor combinación con el ID de la bobina
+debuguear($mejor_combinacion);
+
         // debuguear($bobina);
 
         // debuguear($pedido);
