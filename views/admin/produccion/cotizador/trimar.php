@@ -26,17 +26,11 @@
         </table>
 
         <!-- Tarjeta con la información de la bobina -->
-        <!-- Tarjeta con la información de la bobina -->
-<div class="card">
-    <h3>Bobina Seleccionada</h3>
-    <p><strong>ID:</strong> <?php echo htmlspecialchars($mejor_combinacion['bobina']['id']); ?></p>
-    <p><strong>Ancho:</strong> <?php echo htmlspecialchars($mejor_combinacion['bobina']['ancho']); ?></p>
-
-    <?php if ($mejor_combinacion['bobina']['id'] == 'N/A'): ?>
-        <p style="color: red;"><strong>No hay bobina disponible con ancho suficiente para este pedido.</strong></p>
-    <?php endif; ?>
-</div>
-
+        <div class="card">
+            <h3>Bobina Seleccionada</h3>
+            <p><strong>ID:</strong> <?php echo htmlspecialchars($mejor_combinacion['bobina']['id']); ?></p>
+            <p><strong>Ancho:</strong> <?php echo htmlspecialchars($mejor_combinacion['bobina']['ancho']); ?></p>
+        </div>
 
     <?php else: ?>
         <a class="text-center"> No hay combinaciones óptimas encontradas</a>
