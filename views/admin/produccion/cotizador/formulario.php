@@ -27,8 +27,8 @@
     async function anchoylargo() {
         const pedidos = await apitrimar();
         pedidos.forEach(pedido => {
-            const { ancho, largo } = pedido;
-            const anchoLargo = `Ancho: ${ancho} Largo: ${largo}`;
+            const { largo,ancho,alto} = pedido;
+            const anchoLargo = `Ancho: ${ancho} Largo: ${largo} Alto: ${alto}`;
             const contador = document.querySelector('#contador');
             contador.textContent = anchoLargo;
         });
