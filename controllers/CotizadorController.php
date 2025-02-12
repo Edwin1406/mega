@@ -112,7 +112,7 @@ class CotizadorController
 
 
         
-        debuguear($pedido);
+        // debuguear($pedido);
         $router->render('admin/produccion/cotizador/trimar', [
             'titulo' => 'TRIMAR',
 
