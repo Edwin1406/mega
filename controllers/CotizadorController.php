@@ -38,7 +38,7 @@ class CotizadorController
         // $bobinas = Bobina::all();
 
     
-        $pedidosTrimar = Pedido::all('DESC');
+        $pedidosTrimar = Pedido::all('ASC');
     
         // Modificar los pedidos según las condiciones requeridas
         $pedidosTrimar = array_map(function($pedido){
