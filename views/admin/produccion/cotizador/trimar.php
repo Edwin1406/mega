@@ -13,8 +13,10 @@
                 <tr class="tables__tr">
                     <td class="tables__td">1</td>
                     <td class="tables__td"><?php echo htmlspecialchars($mejor_combinacion['pedido_1']->nombre_pedido); ?></td>
+                    <td class="tables__td"><?php echo htmlspecialchars($mejor_combinacion['pedido_1']->largo); ?></td>
                     <td class="tables__td"><?php echo htmlspecialchars($mejor_combinacion['pedido_1']->ancho); ?></td>
                     <td class="tables__td"><?php echo htmlspecialchars($mejor_combinacion['pedido_1']->cantidad); ?></td>
+                    <td class="tables__td"><?php echo htmlspecialchars($mejor_combinacion['pedido_1']->flauta); ?></td>
 
                 </tr>
 
@@ -22,8 +24,11 @@
                     <tr class="tables__tr">
                         <td class="tables__td">2</td>
                         <td class="tables__td"><?php echo htmlspecialchars($mejor_combinacion['pedido_2']->nombre_pedido); ?></td>
+                        <td class="tables__td"><?php echo htmlspecialchars($mejor_combinacion['pedido_2']->largo); ?></td>
                         <td class="tables__td"><?php echo htmlspecialchars($mejor_combinacion['pedido_2']->ancho); ?></td>
                         <td class="tables__td"><?php echo htmlspecialchars($mejor_combinacion['pedido_2']->cantidad); ?></td>
+                        <td class="tables__td"><?php echo htmlspecialchars($mejor_combinacion['pedido_2']->flauta); ?></td>
+
                     </tr>
                 <?php endif; ?>
             </tbody>
