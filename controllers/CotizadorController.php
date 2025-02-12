@@ -5,6 +5,7 @@ namespace Controllers;
 
 use MVC\Router;
 use Model\Bobina;
+use Model\MateriaPrimaV;
 use Model\Pedido;
 use Model\Produccion;
 use Model\Test;
@@ -65,6 +66,20 @@ class CotizadorController
         } elseif(strpos($pedido->nombre_pedido, 'PL') !== false && $pedido->alto == "0"){
             unset($pedido->alto);
         }
+
+
+        // bobinas para CJ
+        $bobinas = MateriaPrimaV::all('ASC');
+
+        debuguear($bobinas);
+
+
+
+
+
+
+
+
         
         debuguear($pedido);
         $router->render('admin/produccion/cotizador/trimar', [
