@@ -52,4 +52,20 @@ class CotizadorController
             'totalPedidos' => $totalPedidos,
         ]);
     }
+
+
+    public static function trimar (){
+        header("Access-Control-Allow-Origin: *");  // Permite solicitudes desde cualquier origen
+        header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS"); // Métodos permitidos
+        $pedidosTrimar = Pedido::all();
+        echo json_encode($pedidosTrimar);
+    
+    }
+
+
+
+
+
+
+
 }

@@ -254,6 +254,18 @@ $router->get('/admin/produccion/estimar/costos_generales/index', [EstimarControl
 $router->get('/admin/error404', [AdminController::class, 'error404']);
 
 
+
+// API TRIMAR   
+$router->get('/admin/api/trimar', [EstimarController::class, 'trimar']);
+
+
+
+
+
+
+
+
+
 // citas de prueba 
 
 $router->get('/admin/api/citas', [EstimarController::class, 'citas']);

@@ -5,14 +5,14 @@ use Model\ActiveRecord;
 
 class Pedido  extends ActiveRecord{
     protected static $tabla = 'pedidos';
-    protected static $columnasDB = ['id', 'cliente', 'ancho','largo', 'estado', 'cantidad','test','created_at', 'updated_at'];
+    protected static $columnasDB = ['id', 'nombre_pedido', 'largo','ancho','alto', 'flauta','test','created_at', 'updated_at'];
 
     public $id;
-    public $cliente;
-    public $ancho;
+    public $nombre_pedido;
     public $largo;
-    public $estado;
-    public $cantidad;
+    public $ancho;
+    public $alto;
+    public $flauta;
     public $test;
     public $created_at;
     public $updated_at;
@@ -20,11 +20,11 @@ class Pedido  extends ActiveRecord{
     public function __construct($args = [])
     {
         $this->id = $args['id'] ?? null;
-        $this->cliente = $args['cliente'] ?? '';
-        $this->ancho = $args['ancho'] ?? '';
+        $this->nombre_pedido = $args['nombre_pedido'] ?? '';
         $this->largo = $args['largo'] ?? '';
-        $this->estado = $args['estado'] ?? '';
-        $this->cantidad = $args['cantidad'] ?? '';
+        $this->ancho = $args['ancho'] ?? '';
+        $this->alto = $args['alto'] ?? '';
+        $this->flauta = $args['flauta'] ?? '';
         $this->test = $args['test'] ?? '';
         $this->created_at = date('Y-m-d H:i:s');
         $this->updated_at = date('Y-m-d H:i:s');
