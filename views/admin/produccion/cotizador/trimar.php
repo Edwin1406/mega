@@ -6,6 +6,7 @@
                     <th scope="col" class="tables__th">ID</th>
                     <th scope="col" class="tables__th">Pedidos</th>
                     <th scope="col" class="tables__th">Ancho</th>
+                    <th scope="col" class="tables__th">Cantidad</th>
                 </tr>
             </thead>
             <tbody class="tables__tbody">
@@ -13,6 +14,8 @@
                     <td class="tables__td">1</td>
                     <td class="tables__td"><?php echo htmlspecialchars($mejor_combinacion['pedido_1']->nombre_pedido); ?></td>
                     <td class="tables__td"><?php echo htmlspecialchars($mejor_combinacion['pedido_1']->ancho); ?></td>
+                    <td class="tables__td"><?php echo htmlspecialchars($mejor_combinacion['pedido_1']->cantidad); ?></td>
+
                 </tr>
 
                 <?php if (!empty($mejor_combinacion['pedido_2'])): ?>
@@ -20,6 +23,7 @@
                         <td class="tables__td">2</td>
                         <td class="tables__td"><?php echo htmlspecialchars($mejor_combinacion['pedido_2']->nombre_pedido); ?></td>
                         <td class="tables__td"><?php echo htmlspecialchars($mejor_combinacion['pedido_2']->ancho); ?></td>
+                        <td class="tables__td"><?php echo htmlspecialchars($mejor_combinacion['pedido_2']->cantidad); ?></td>
                     </tr>
                 <?php endif; ?>
             </tbody>
