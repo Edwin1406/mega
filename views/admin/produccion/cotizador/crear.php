@@ -34,8 +34,6 @@
                         <td class="table__td"><?php echo $trimar->updated_at?></td>
                         <td class="table__td--acciones"><a class="table__accion table__accion--editar" href="/admin/produccion/cotizador/trimarp?id=<?php echo $trimar->id; ?>"><i class="fa-solid fa-user-pen"></i>AGREGAR</a>
                         </td>
-
-
                     </tr>
                 <?php endforeach;?>
 
@@ -50,4 +48,4 @@
     <?php endif; ?>
 </div>
 
-<?php echo $paginacion; ?>
+<!-- <?php echo $paginacion; ?> -->
