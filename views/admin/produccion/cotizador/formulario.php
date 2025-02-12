@@ -36,8 +36,8 @@
         // remplazar el largo y ancho
         pedido.largo = largocalculado;
         pedido.ancho = anchocalculado;
-        pedido.alto = 0;
-
+        // quito el alto
+        delete pedido.alto;
     });
 
     console.log(pedidos);
