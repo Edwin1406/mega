@@ -80,7 +80,7 @@ class CotizadorController
         // bobinas para CJ
         $bobinas = MateriaPrimaV::all('ASC');
 
-        debuguear($bobinas);
+        // debuguear($bobinas);
 
 
 
