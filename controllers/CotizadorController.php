@@ -93,10 +93,8 @@ class CotizadorController
         $pedido_encontrado = $pedido_buscado;
 
 
-        // bobinas cj y pl
 
-
-        debuguear($bobina);
+        debuguear($pedido_actual);
 
 
 
