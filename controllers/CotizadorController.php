@@ -86,15 +86,17 @@ class CotizadorController
             }
         }
         
+        $bobinas = MateriaPrimaV::datoscompletos('DESC', 'CAJA');
+
+        $bobina = $bobinas;
         $pedido_actual = $pedido;
         $pedido_encontrado = $pedido_buscado;
 
 
         // bobinas cj y pl
-        $bobinas = MateriaPrimaV::datoscompletos('DESC', 'CAJA');
 
 
-        debuguear($bobinas);
+        debuguear($bobina);
 
 
 
