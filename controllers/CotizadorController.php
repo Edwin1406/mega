@@ -31,27 +31,6 @@ class CotizadorController
         }
 
         $pedidosTrimar = Pedido::all('ASC');
-    
-        // Modificar los pedidos según las condiciones requeridas
-        $pedidosTrimar = array_map(function($pedido){
-            // Si el pedido tiene "CJ" en su nombre, realizar los cálculos
-            if(strpos($pedido->nombre_pedido, 'CJ') !== false){ 
-                $largo = $pedido->largo;
-                $ancho = $pedido->ancho;
-                $alto = $pedido->alto;
-                $largoCalculado = (2 * $alto) + ($largo + 8);
-                $anchoCalculado = (2 * $alto) + ($ancho + 10 + 4);
-                $pedido->largo = $largoCalculado;
-                $pedido->ancho = $anchoCalculado;
-                unset($pedido->alto); // Se elimina "alto" para los "CJ"
-            }
-            // Si el pedido tiene "PL" en su nombre y "alto" es "0", eliminar "alto"
-            if(strpos($pedido->nombre_pedido, 'PL') !== false && $pedido->alto == "0"){
-                unset($pedido->alto);
-            }
-            return $pedido;
-        }, $pedidosTrimar);
-
         $router->render('admin/produccion/cotizador/crear', [
             'titulo' => 'COTIZADOR',
             'escoger_produccion' => $escoger_produccion,
