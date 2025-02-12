@@ -86,14 +86,22 @@ class CotizadorController
             }
         }
         
-        $bobinas = MateriaPrimaV::datoscompletos('DESC', 'CAJA');
-
-
+        
+        
         $bobina = $bobinas;
         $pedido_actual = $pedido;
         $todos = $todos_pedidos;
-        // Lista de bobinas disponibles (ejemplo, puedes modificar)
-        $bobinas = [1600, 1800, 2000, 2200, 2500];
+      
+
+        $bobinas = MateriaPrimaV::datoscompletos('DESC', 'CAJA');
+
+        // Convertir el resultado en un array de valores si es necesario
+        $bobinas = array_map(function($bobina) {
+            return $bobina->ancho; // Suponiendo que 'ancho' es la propiedad relevante
+        }, $bobinas);
+        
+        // Ordenar bobinas de menor a mayor para optimización
+        sort($bobinas);
         
         // Encontrar la combinación óptima de pedidos
         $mejor_combinacion = null;
@@ -110,14 +118,19 @@ class CotizadorController
                     foreach ($bobinas as $bobina) {
                         if ($suma_ancho <= $bobina && $bobina - $suma_ancho < $mejor_suma) {
                             $mejor_suma = $bobina - $suma_ancho;
-                            $mejor_combinacion = [$pedido_actual, $otro_pedido, 'bobina' => $bobina];
+                            $mejor_combinacion = [
+                                'pedido_1' => $pedido_actual, 
+                                'pedido_2' => $otro_pedido, 
+                                'bobina' => $bobina
+                            ];
                         }
                     }
                 }
             }
         }
-
-      debuguear($mejor_combinacion);
+        
+        debuguear($mejor_combinacion);
+        
         // debuguear($bobina);
 
         // debuguear($pedido);
