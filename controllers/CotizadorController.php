@@ -67,54 +67,43 @@ class CotizadorController
             unset($pedido->alto);
         }
 
-        // Obtener todos los pedidos
-$todos_pedidos = Pedido::all('ASC');
-
-// Separar pedidos en dos grupos: CJ y PL
-$pedidos_cj = [];
-$pedidos_pl = [];
-
-foreach ($todos_pedidos as $buscado) {
-    if (strpos($buscado->nombre_pedido, 'CJ') !== false) {
-        // Calcular dimensiones ajustadas para "CJ"
-        $largo = $buscado->largo;
-        $ancho = $buscado->ancho;
-        $alto = $buscado->alto;
-
-        $largoCalculado = (2 * $alto) + ($largo + 8);
-        $anchoCalculado = (2 * $alto) + ($ancho + 10 + 4);
-
-        $buscado->largo = $largoCalculado;
-        $buscado->ancho = $anchoCalculado;
-        unset($buscado->alto); // Se elimina "alto" para los "CJ"
-
-        $pedidos_cj[] = $buscado; // Se guarda en la lista CJ
-    } elseif (strpos($buscado->nombre_pedido, 'PL') !== false) {
-        // Para PL, solo se elimina "alto" si es 0
-        if ($buscado->alto == "0") {
-            unset($buscado->alto);
+        
+        // sumar los anchos de los pedidos para CJ
+        $todos_pedidos = Pedido::all('ASC');
+        // calcular ancho y largo para CJ
+        foreach($todos_pedidos as $buscado){
+            if(strpos($buscado->nombre_pedido, 'CJ') !== false){
+                $largo = $buscado->largo;
+                $ancho = $buscado->ancho;
+                $alto = $buscado->alto;
+                $largoCalculado = (2 * $alto) + ($largo + 8);
+                $anchoCalculado = (2 * $alto) + ($ancho + 10 + 4);
+                $buscado->largo = $largoCalculado;
+                $buscado->ancho = $anchoCalculado;
+                unset($buscado->alto); // Se elimina "alto" para los "CJ"
+            } elseif(strpos($buscado->nombre_pedido, 'PL') !== false && $buscado->alto == "0"){
+                unset($buscado->alto);
+            }
         }
-        $pedidos_pl[] = $buscado; // Se guarda en la lista PL
-    }
-}
+        
+        $bobinas = MateriaPrimaV::datoscompletos('DESC', 'CAJA');
 
-// Lista de bobinas disponibles (ejemplo, puedes modificar)
-$bobinas = [1600, 1800, 2000, 2200, 2500];
 
-// Función para encontrar la mejor combinación dentro de un grupo de pedidos
-function encontrarMejorCombinacion($pedidos) {
-    global $bobinas;
-    $mejor_combinacion = null;
-    $mejor_suma = PHP_INT_MAX;
-
-    foreach ($pedidos as $pedido_actual) {
-        $ancho_actual = $pedido_actual->ancho;
-        $test_actual = $pedido_actual->test;
-        $flauta_actual = $pedido_actual->flauta;
-
-        foreach ($pedidos as $otro_pedido) {
-            if ($pedido_actual->id !== $otro_pedido->id) { // Evitar el mismo pedido
-                if ($otro_pedido->test === $test_actual && $otro_pedido->flauta === $flauta_actual) { // Deben coincidir en Test y Flauta
+        $bobina = $bobinas;
+        $pedido_actual = $pedido;
+        $todos = $todos_pedidos;
+        // Lista de bobinas disponibles (ejemplo, puedes modificar)
+        $bobinas = [1600, 1800, 2000, 2200, 2500];
+        
+        // Encontrar la combinación óptima de pedidos
+        $mejor_combinacion = null;
+        $mejor_suma = PHP_INT_MAX;
+        
+        foreach ($todos_pedidos as $pedido_actual) {
+            $ancho_actual = $pedido_actual->ancho;
+            
+            foreach ($todos_pedidos as $otro_pedido) {
+                if ($pedido_actual->id !== $otro_pedido->id) { // Evitar sumar el mismo pedido
                     $suma_ancho = $ancho_actual + $otro_pedido->ancho;
                     
                     // Buscar la bobina más cercana que pueda acomodar la suma de anchos
@@ -127,16 +116,12 @@ function encontrarMejorCombinacion($pedidos) {
                 }
             }
         }
-    }
 
-    return $mejor_combinacion;
-}
+      debuguear($mejor_combinacion);
+        // debuguear($bobina);
 
-// Encontrar la mejor combinación en cada grupo
-$mejor_combinacion_cj = encontrarMejorCombinacion($pedidos_cj);
-$mejor_combinacion_pl = encontrarMejorCombinacion($pedidos_pl);
 
-debuguear($mejor_combinacion_cj);
+
 
 
 
