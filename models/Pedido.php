@@ -16,7 +16,7 @@ class Pedido  extends ActiveRecord{
     public $test;
     public $created_at;
     public $updated_at;
-    public ?Bobina $bobina = null; // Definir bobina como una propiedad opcional
+    public  $bobina = null; // Definir bobina como una propiedad opcional
 
     public function __construct($args = [])
     {
