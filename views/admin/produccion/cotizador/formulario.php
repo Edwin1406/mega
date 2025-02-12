@@ -7,3 +7,21 @@
 
 
 
+<script>
+
+    document.addEventListener('DOMContentLoaded', () => {
+        apitrimar();
+    });
+
+
+
+    async function apitrimar() {
+        const url = "https://megawebsistem.com/admin/api/trimar";
+        const respuesta = await fetch(url);
+        const pedidos = await respuesta.json();
+        console.log(pedidos);
+    }
+
+
+
+</script>
