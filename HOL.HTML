@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <title>Calendario de Citas</title>
     <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.css" rel="stylesheet">
+     <!-- Scripts de FullCalendar -->
+     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
+     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/locales/es.global.min.js"></script>
+ 
     <style>
         #calendar {
             max-width: 900px;
@@ -86,10 +90,7 @@
         </div>
     </div>
 
-    <!-- Scripts de FullCalendar -->
-    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/locales/es.global.min.js"></script>
-
+   
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const calendarEl = document.getElementById('calendar');
@@ -111,18 +112,6 @@
                             asunto: cita.asunto
                         }
                     }));
-
-                    // Ordenar eventos por hora (de menor a mayor)
-                  
-                     // Ordenar eventos por hora (de menor a mayor)
-eventos.sort((a, b) => {
-    const parseTimeToMinutes = (time) => {
-        const [hours, minutes, seconds] = time.split(':').map(num => parseInt(num) || 0);
-        return hours * 60 + minutes + seconds / 60;
-    };
-
-    return parseTimeToMinutes(a.extendedProps.hora) - parseTimeToMinutes(b.extendedProps.hora);
-});
 
 
                     // Crear el calendario con los eventos transformados
