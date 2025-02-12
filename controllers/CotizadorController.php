@@ -48,13 +48,12 @@ class CotizadorController
     //     echo json_encode($pedidosTrimar);
     
     // }
-    public static function trimarp(Router $router){
-
+    public static function trimarp(Router $router) {
         // Obtener el pedido basado en el ID de la URL
         $pedido = Pedido::find($_GET['id']);
     
-        // Calcular ancho y largo para CJ
-        if(strpos($pedido->nombre_pedido, 'CJ') !== false){
+        // Calcular dimensiones si es CJ
+        if (strpos($pedido->nombre_pedido, 'CJ') !== false) {
             $largo = $pedido->largo;
             $ancho = $pedido->ancho;
             $alto = $pedido->alto;
@@ -63,21 +62,25 @@ class CotizadorController
             $pedido->largo = $largoCalculado;
             $pedido->ancho = $anchoCalculado;
             unset($pedido->alto);
-        } elseif(strpos($pedido->nombre_pedido, 'PL') !== false && $pedido->alto == "0"){
+        } elseif (strpos($pedido->nombre_pedido, 'PL') !== false && $pedido->alto == "0") {
             unset($pedido->alto);
         }
     
-        // Obtener todos los pedidos
+        // Obtener todos los pedidos y filtrar según el tipo del pedido actual
         $todos_pedidos = Pedido::all('ASC');
     
-        // **FILTRAR** para evitar repetir el pedido actual en la lista
-        $otros_pedidos = array_filter($todos_pedidos, function($p) use ($pedido) {
-            return $p->id !== $pedido->id;
+        $otros_pedidos = array_filter($todos_pedidos, function ($p) use ($pedido) {
+            $esCJ = strpos($pedido->nombre_pedido, 'CJ') !== false;
+            $esPL = strpos($pedido->nombre_pedido, 'PL') !== false;
+    
+            // Filtrar solo pedidos del mismo tipo (CJ con CJ, PL con PL)
+            return ($esCJ && strpos($p->nombre_pedido, 'CJ') !== false) ||
+                   ($esPL && strpos($p->nombre_pedido, 'PL') !== false);
         });
     
-        // Calcular dimensiones de los demás pedidos
-        foreach($otros_pedidos as $buscado){
-            if(strpos($buscado->nombre_pedido, 'CJ') !== false){
+        // Calcular dimensiones de los demás pedidos si son CJ
+        foreach ($otros_pedidos as $buscado) {
+            if (strpos($buscado->nombre_pedido, 'CJ') !== false) {
                 $largo = $buscado->largo;
                 $ancho = $buscado->ancho;
                 $alto = $buscado->alto;
@@ -86,8 +89,6 @@ class CotizadorController
                 $buscado->largo = $largoCalculado;
                 $buscado->ancho = $anchoCalculado;
                 unset($buscado->alto);
-            } elseif(strpos($buscado->nombre_pedido, 'PL') !== false && $buscado->alto == "0"){
-                unset($buscado->alto);
             }
         }
     
@@ -95,7 +96,7 @@ class CotizadorController
         $bobinas = MateriaPrimaV::datoscompletos('DESC', 'CAJA');
     
         // Convertir bobinas a array con ID y ancho
-        $bobinas = array_map(function($bobina) {
+        $bobinas = array_map(function ($bobina) {
             return [
                 'id' => $bobina->id,
                 'ancho' => $bobina->ancho
@@ -103,30 +104,46 @@ class CotizadorController
         }, $bobinas);
     
         // Ordenar bobinas por ancho
-        usort($bobinas, function($a, $b) {
+        usort($bobinas, function ($a, $b) {
             return $a['ancho'] <=> $b['ancho'];
         });
     
-        // Encontrar la combinación óptima
+        // Buscar la mejor combinación solo dentro del mismo tipo (CJ-CJ o PL-PL)
         $mejor_combinacion = null;
         $mejor_suma = PHP_INT_MAX;
+        $pedido_unico = true; // Indica si no se encontró otro pedido compatible
     
-        foreach ($otros_pedidos as $otro_pedido) { // Solo comparar con otros pedidos
-            $suma_ancho = $pedido->ancho + $otro_pedido->ancho;
+        foreach ($otros_pedidos as $otro_pedido) {
+            if ($pedido->id !== $otro_pedido->id) {
+                $suma_ancho = $pedido->ancho + $otro_pedido->ancho;
     
-            foreach ($bobinas as $bobina) {
-                if ($suma_ancho <= $bobina['ancho'] && $bobina['ancho'] - $suma_ancho < $mejor_suma) {
-                    $mejor_suma = $bobina['ancho'] - $suma_ancho;
-                    $mejor_combinacion = [
-                        'pedido_1' => $pedido,  // Pedido seleccionado en la URL
-                        'pedido_2' => $otro_pedido, 
-                        'bobina' => [
-                            'id' => $bobina['id'],
-                            'ancho' => $bobina['ancho']
-                        ]
-                    ];
+                foreach ($bobinas as $bobina) {
+                    if ($suma_ancho <= $bobina['ancho'] && $bobina['ancho'] - $suma_ancho < $mejor_suma) {
+                        $mejor_suma = $bobina['ancho'] - $suma_ancho;
+                        $mejor_combinacion = [
+                            'pedido_1' => $pedido,
+                            'pedido_2' => $otro_pedido,
+                            'bobina' => [
+                                'id' => $bobina['id'],
+                                'ancho' => $bobina['ancho']
+                            ]
+                        ];
+                        $pedido_unico = false;
+                    }
                 }
             }
+        }
+    
+        // Si no se encontró combinación, se muestra solo el pedido seleccionado
+        if ($pedido_unico) {
+            $mejor_combinacion = [
+                'pedido_1' => $pedido,
+                'pedido_2' => null, // No hay otro pedido
+                'bobina' => [
+                    'id' => $bobinas[0]['id'], // Usar la bobina más pequeña disponible
+                    'ancho' => $bobinas[0]['ancho']
+                ]
+            ];
         }
     
         // Renderizar vista
@@ -136,9 +153,6 @@ class CotizadorController
         ]);
     }
     
-
-
-
 
 
 
