@@ -14,6 +14,7 @@
                     <th scope="col" class="table__th">Nombre pedido </th>
                     <th scope="col" class="table__th">Largo</th>
                     <th scope="col" class="table__th">Ancho</th>
+                    <th scope="col" class="table__th">Alto</th>
                     <th scope="col" class="table__th">Flauta</th>
                     <th scope="col" class="table__th">Creado</th>
                     <th scope="col" class="table__th">Actualizado</th>
@@ -27,6 +28,7 @@
                         <td class="table__td"><?php echo $trimar->nombre_pedido?></td>
                         <td class="table__td"><?php echo $trimar->largo?></td>
                         <td class="table__td"><?php echo $trimar->ancho?></td>
+                        <td class="table__td"><?php echo $trimar->alto?></td>
                         <td class="table__td"><?php echo $trimar->flauta?></td>
                         <td class="table__td"><?php echo $trimar->created_at?></td>
                         <td class="table__td"><?php echo $trimar->updated_at?></td>
