@@ -68,6 +68,15 @@ class CotizadorController
         }
 
 
+
+        // buscar un pedido para ahcer dupla con el pedido actual
+        $pedidosTrimar = Pedido::trimarcj('DESC', 'CJ');
+        debuguear($pedidosTrimar);
+
+
+
+
+
         // bobinas para CJ
         $bobinas = MateriaPrimaV::all('ASC');
 
