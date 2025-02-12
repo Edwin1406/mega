@@ -69,9 +69,9 @@ class CotizadorController
 
         
         // sumar los anchos de los pedidos para CJ
-        $pedido_buscado = Pedido::all('ASC');
+        $todos_pedidos = Pedido::all('ASC');
         // calcular ancho y largo para CJ
-        foreach($pedido_buscado as $buscado){
+        foreach($todos_pedidos as $buscado){
             if(strpos($buscado->nombre_pedido, 'CJ') !== false){
                 $largo = $buscado->largo;
                 $ancho = $buscado->ancho;
@@ -91,43 +91,33 @@ class CotizadorController
 
         $bobina = $bobinas;
         $pedido_actual = $pedido;
-        $pedido_encontrado = $pedido_buscado;
-
-
-        // $pedido_optimo = null;
-        // foreach($pedido_buscado as $buscado){
-        //     // hacer un bucle para encontrar el pedido optimo sumando el ancho  del pdido actual con los demas pedidos anchos de los pedidos  y comparar la suma  con las bobinas y ver el mas optimo
+        $todos = $todos_pedidos;
+        // Lista de bobinas disponibles (ejemplo, puedes modificar)
+        $bobinas = [1600, 1800, 2000, 2200, 2500];
+        
+        // Encontrar la combinación óptima de pedidos
+        $mejor_combinacion = null;
+        $mejor_suma = PHP_INT_MAX;
+        
+        foreach ($todos_pedidos as $pedido_actual) {
+            $ancho_actual = $pedido_actual->ancho;
             
-        //     $ancho_pedido_actual = $pedido_actual->ancho;
-        //     $ancho_pedido_buscado = $buscado->ancho;
+            foreach ($todos_pedidos as $otro_pedido) {
+                if ($pedido_actual->id !== $otro_pedido->id) { // Evitar sumar el mismo pedido
+                    $suma_ancho = $ancho_actual + $otro_pedido->ancho;
+                    
+                    // Buscar la bobina más cercana que pueda acomodar la suma de anchos
+                    foreach ($bobinas as $bobina) {
+                        if ($suma_ancho <= $bobina && $bobina - $suma_ancho < $mejor_suma) {
+                            $mejor_suma = $bobina - $suma_ancho;
+                            $mejor_combinacion = [$pedido_actual, $otro_pedido, 'bobina' => $bobina];
+                        }
+                    }
+                }
+            }
+        }
 
-        //     $suma_anchos = $ancho_pedido_actual + $ancho_pedido_buscado;
-        //     $bobina_encontrada = null;
-        //     foreach($bobina as $bobi){
-        //         if($bobi->ancho >= $suma_anchos){
-        //             $bobina_encontrada = $bobi;
-        //             break;
-        //         }
-        //     }
-
-        //     if($bobina_encontrada){
-        //         if(!$pedido_optimo){
-        //             $pedido_optimo = $buscado;
-        //             $pedido_optimo->bobina = $bobina_encontrada;
-        //         } else {
-        //             $ancho_pedido_optimo = $pedido_optimo->ancho;
-        //             $suma_anchos_optimo = $ancho_pedido_optimo + $pedido_optimo->ancho;
-        //             if($suma_anchos < $suma_anchos_optimo){
-        //                 $pedido_optimo = $buscado;
-        //                 $pedido_optimo->bobina = $bobina_encontrada;
-        //             }
-        //         }
-        //     }
-
-        // }
-
-
-        debuguear($pedido_actual);
+      debuguear($mejor_combinacion);
         // debuguear($bobina);
 
 
