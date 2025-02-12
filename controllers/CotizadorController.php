@@ -114,24 +114,24 @@ class CotizadorController
         $pedido_unico = true; // Indica si no se encontró otro pedido compatible
     
         foreach ($otros_pedidos as $otro_pedido) {
-            if ($pedido->id !== $otro_pedido->id) {
-                $suma_ancho = $pedido->ancho + $otro_pedido->ancho;
-    
-                foreach ($bobinas as $bobina) {
-                    if ($suma_ancho <= $bobina['ancho'] && $bobina['ancho'] - $suma_ancho < $mejor_suma) {
-                        $mejor_suma = $bobina['ancho'] - $suma_ancho;
-                        $mejor_combinacion = [
-                            'pedido_1' => $pedido,
-                            'pedido_2' => $otro_pedido,
-                            'bobina' => [
-                                'id' => $bobina['id'],
-                                'ancho' => $bobina['ancho']
-                            ]
-                        ];
-                        $pedido_unico = false;
-                    }
+        // Si no se encontró combinación, se muestra solo el pedido seleccionado
+                if ($pedido_unico) {
+                    // Filtrar bobinas que tengan un ancho mayor o igual al pedido
+                    $bobina_compatible = array_filter($bobinas, function($b) use ($pedido) {
+                        return $b['ancho'] >= $pedido->ancho;
+                    });
+
+                    // Tomar la bobina más pequeña que aún sirva
+                    $bobina_seleccionada = !empty($bobina_compatible) ? reset($bobina_compatible) : null;
+
+                    // Si no hay bobina adecuada, asignar null para manejarlo en la vista
+                    $mejor_combinacion = [
+                        'pedido_1' => $pedido,
+                        'pedido_2' => null, // No hay otro pedido
+                        'bobina' => $bobina_seleccionada ? $bobina_seleccionada : ['id' => 'N/A', 'ancho' => 'N/A']
+                    ];
                 }
-            }
+
         }
     
         // Si no se encontró combinación, se muestra solo el pedido seleccionado
