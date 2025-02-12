@@ -127,8 +127,8 @@ class CotizadorController
         }
 
 
-
-        debuguear($bobina);
+        debuguear($pedido_optimo);
+        // debuguear($bobina);
 
 
 
