@@ -67,8 +67,12 @@ class CotizadorController
             unset($pedido->alto);
         }
 
+        $pedido_actual = $pedido;
 
-        debuguear($pedido);
+        debuguear($pedido_actual);
+
+
+        
 
 
         // buscar un pedido para ahcer dupla con el pedido actual
