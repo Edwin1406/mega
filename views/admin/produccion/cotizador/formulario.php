@@ -33,14 +33,13 @@
         // Calcular el largo correcto
         const largocalculado = (2 * alto) + (largo + 8);
         const anchocalculado = (2 * alto) + (ancho + 10+4);
-        
-        console.log(largocalculado);
-        console.log(anchocalculado);
-        // Mostrar los valores en pantalla
-        const anchoLargo = `Ancho: ${ancho} Largo: ${largo} Alto: ${alto}`;
-        const contador = document.querySelector('#contador');
+        // remplazar el largo y ancho
+        pedido.largo = largocalculado;
+        pedido.ancho = anchocalculado;
 
     });
+
+    console.log(pedidos);
 }
 
 
