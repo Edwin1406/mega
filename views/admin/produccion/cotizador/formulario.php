@@ -27,9 +27,7 @@
 
     pedidos.forEach(pedido => {
         // Convertir valores a números
-        const largo = parseFloat(pedido.largo) || 0;
-        const ancho = parseFloat(pedido.ancho) || 0;
-        const alto = parseFloat(pedido.alto) || 0;
+        const { ancho, largo, alto } = pedido;
         // Calcular el largo correcto
         const largocalculado = (2 * alto) + (largo + 8);
         const anchocalculado = (2 * alto) + (ancho + 10+4);
