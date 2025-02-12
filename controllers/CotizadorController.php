@@ -53,12 +53,10 @@ class CotizadorController
                 $pedido->ancho = $anchoCalculado;
                 unset($pedido->alto); // Se elimina "alto" para los "CJ"
             }
-    
             // Si el pedido tiene "PL" en su nombre y "alto" es "0", eliminar "alto"
             if(strpos($pedido->nombre_pedido, 'PL') !== false && $pedido->alto == "0"){
                 unset($pedido->alto);
             }
-    
             return $pedido;
         }, $pedidosTrimar);
 
