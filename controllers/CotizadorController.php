@@ -78,6 +78,8 @@ class CotizadorController
                 $pedido->largo = $largoCalculado;
                 $pedido->ancho = $anchoCalculado;
                 unset($pedido->alto);
+            } elseif(strpos($pedido->nombre_pedido, 'PL') === false){
+                unset($pedido->alto);
             }
             return $pedido;
         }, $pedidosTrimar);
