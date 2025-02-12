@@ -57,7 +57,7 @@ class CotizadorController
     public static function trimarCJ(){
         header("Access-Control-Allow-Origin: *");  // Permite solicitudes desde cualquier origen
         header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS"); // Métodos permitidos
-        $pedidosTrimar = Pedido::datoscompletos('DESC', 'MEDIUM');
+        $pedidosTrimar = Pedido::datoscompletos('DESC', 'CJ');
         echo json_encode($pedidosTrimar);
     
     }
