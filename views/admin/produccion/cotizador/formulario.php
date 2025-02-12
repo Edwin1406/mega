@@ -30,20 +30,16 @@
         const largo = parseFloat(pedido.largo) || 0;
         const ancho = parseFloat(pedido.ancho) || 0;
         const alto = parseFloat(pedido.alto) || 0;
-
         // Calcular el largo correcto
         const largocalculado = (2 * alto) + (largo + 8);
-        console.log(`Largo Calculado: ${largocalculado}`);
-
+        const anchocalculado = (2 * alto) + (ancho + 10+4);
+        
+        console.log(largocalculado);
+        console.log(anchocalculado);
         // Mostrar los valores en pantalla
         const anchoLargo = `Ancho: ${ancho} Largo: ${largo} Alto: ${alto}`;
         const contador = document.querySelector('#contador');
 
-        if (contador) {
-            contador.textContent = anchoLargo;
-        } else {
-            console.error('Elemento #contador no encontrado en el DOM.');
-        }
     });
 }
 
