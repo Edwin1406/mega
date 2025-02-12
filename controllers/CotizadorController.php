@@ -95,6 +95,8 @@ class CotizadorController
 
         $bobinas = MateriaPrimaV::datoscompletos('DESC', 'CAJA');
 
+        debuguear($bobinas);
+
         // Convertir el resultado en un array de valores si es necesario
         $bobinas = array_map(function($bobina) {
             return $bobina->ancho; // Suponiendo que 'ancho' es la propiedad relevante
