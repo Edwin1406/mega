@@ -30,42 +30,13 @@ class CotizadorController
             
         }
 
-        $tests = Test::all();
-        $pedidos = Pedido::all('ASC');
-        $totalPedidos = count($pedidos); 
-        // debuguear($totalPedidos);
+        // $tests = Test::all();
+        // $pedidos = Pedido::all('ASC');
+        // $totalPedidos = count($pedidos); 
+        // // debuguear($totalPedidos);
         
-        $bobinas = Bobina::all();
+        // $bobinas = Bobina::all();
 
-        
-
-
-     
-
-        $router->render('admin/produccion/cotizador/crear', [
-            'titulo' => 'COTIZADOR',
-            'escoger_produccion' => $escoger_produccion,
-            'alertas' => $alertas,
-            'pedidos' => $pedidos,
-            'bobinas' => $bobinas,
-            'tests' => $tests,
-            'totalPedidos' => $totalPedidos,
-        ]);
-    }
-
-
-    // public static function trimar(){
-    //     header("Access-Control-Allow-Origin: *");  // Permite solicitudes desde cualquier origen
-    //     header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS"); // Métodos permitidos
-    //     $pedidosTrimar = Pedido::trimarcj('DESC', 'CJ');
-    //     echo json_encode($pedidosTrimar);
-    
-    // }
-
-
-    public static function trimar(){
-        header("Access-Control-Allow-Origin: *");  // Permite solicitudes desde cualquier origen
-        header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS"); // Métodos permitidos
     
         $pedidosTrimar = Pedido::all('DESC');
     
@@ -90,8 +61,29 @@ class CotizadorController
     
             return $pedido;
         }, $pedidosTrimar);
+
+        $router->render('admin/produccion/cotizador/crear', [
+            'titulo' => 'COTIZADOR',
+            'escoger_produccion' => $escoger_produccion,
+            'alertas' => $alertas,
+            'pedidosTrimar' => $pedidosTrimar,
+        ]);
+    }
+
+
+    // public static function trimar(){
+    //     header("Access-Control-Allow-Origin: *");  // Permite solicitudes desde cualquier origen
+    //     header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS"); // Métodos permitidos
+    //     $pedidosTrimar = Pedido::trimarcj('DESC', 'CJ');
+    //     echo json_encode($pedidosTrimar);
+    
+    // }
+
+
+    public static function trimar(){
+       
         
-        
+
 
 
     }
