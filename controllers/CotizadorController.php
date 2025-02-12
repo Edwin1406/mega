@@ -94,40 +94,41 @@ class CotizadorController
         $pedido_encontrado = $pedido_buscado;
 
 
-
-        // Ordenamos los pedidos buscados de menor a mayor ancho para optimizar la búsqueda
-        usort($pedido_buscado, function($a, $b) {
-            return $a->ancho - $b->ancho;
-        });
-        
-        $bobina = $bobinas;
-        $pedido_actual = $pedido;
         $pedido_optimo = null;
-        
-        foreach ($pedido_buscado as $buscado) {
+        foreach($pedido_buscado as $buscado){
+            // hacer un bucle para encontrar el pedido optimo sumando el ancho  del pdido actual con los demas pedidos anchos de los pedidos  y comparar la suma  con las bobinas y ver el mas optimo
+            
             $ancho_pedido_actual = $pedido_actual->ancho;
             $ancho_pedido_buscado = $buscado->ancho;
+
             $suma_anchos = $ancho_pedido_actual + $ancho_pedido_buscado;
-        
-            // Buscamos la bobina más pequeña que pueda contener la suma de anchos
             $bobina_encontrada = null;
-            foreach ($bobina as $bobi) {
-                if ($bobi->ancho >= $suma_anchos) {
+            foreach($bobina as $bobi){
+                if($bobi->ancho >= $suma_anchos){
                     $bobina_encontrada = $bobi;
-                    break; // Tomamos la primera bobina válida
+                    break;
                 }
             }
-        
-            if ($bobina_encontrada) {
-                if (!$pedido_optimo || $suma_anchos < ($pedido_actual->ancho + $pedido_optimo->ancho)) {
-                    $pedido_optimo = clone $buscado; // Clonamos para evitar modificar referencias
+
+            if($bobina_encontrada){
+                if(!$pedido_optimo){
+                    $pedido_optimo = $buscado;
                     $pedido_optimo->bobina = $bobina_encontrada;
+                } else {
+                    $ancho_pedido_optimo = $pedido_optimo->ancho;
+                    $suma_anchos_optimo = $ancho_pedido_optimo + $pedido_optimo->ancho;
+                    if($suma_anchos < $suma_anchos_optimo){
+                        $pedido_optimo = $buscado;
+                        $pedido_optimo->bobina = $bobina_encontrada;
+                    }
                 }
             }
+
         }
-        
-      
-      debuear($pedido_optimo);
+
+
+        debuguear($pedido_optimo);
+        // debuguear($bobina);
 
 
 
