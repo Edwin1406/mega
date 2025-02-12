@@ -94,7 +94,7 @@ class CotizadorController
 
 
 
-        debuguear($pedido_actual);
+        debuguear($pedido_encontrado);
 
 
 
