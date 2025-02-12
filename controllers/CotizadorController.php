@@ -139,13 +139,14 @@ class CotizadorController
         }
 
         // Mostrar la mejor combinación con el ID de la bobina
-        debuguear($mejor_combinacion);
+        // debuguear($mejor_combinacion);
 
         // debuguear($bobina);
 
         // debuguear($pedido);
         $router->render('admin/produccion/cotizador/trimar', [
             'titulo' => 'TRIMAR',
+            'mejor_combinacion' => $mejor_combinacion,
 
             
         ]);
