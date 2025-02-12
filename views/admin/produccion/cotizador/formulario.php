@@ -11,6 +11,7 @@
 
     document.addEventListener('DOMContentLoaded', () => {
         apitrimar();
+        anchoylargo();
     });
 
 
@@ -19,12 +20,19 @@
         const url = "https://megawebsistem.com/admin/api/trimar";
         const respuesta = await fetch(url);
         const pedidos = await respuesta.json();
-        pedidos.forEach(pedido => {
-         console.log(pedido.largo);
-        });
-        console.log(pedidos);
+       return pedidos;
     }
 
+
+    async function anchoylargo() {
+        const pedidos = await apitrimar();
+        pedidos.forEach(pedido => {
+            const { ancho, largo } = pedido;
+            const anchoLargo = `Ancho: ${ancho} Largo: ${largo}`;
+            const contador = document.querySelector('#contador');
+            contador.textContent = anchoLargo;
+        });
+    }
 
 
 </script>
