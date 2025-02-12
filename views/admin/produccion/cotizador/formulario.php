@@ -19,10 +19,9 @@
         const url = "https://megawebsistem.com/admin/api/trimar";
         const respuesta = await fetch(url);
         const pedidos = await respuesta.json();
-
-        const contador = pedidos.length;
-        document.querySelector('#contador').textContent = contador;
-        document.querySelector('#pedidos').textContent = JSON.stringify(pedidos);
+        pedidos.forEach(pedido => {
+         console.log(pedido.largo);
+        });
         console.log(pedidos);
     }
 
