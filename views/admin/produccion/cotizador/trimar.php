@@ -1,5 +1,5 @@
 <div class="dashboard__contenedor">
-    <?php if (!empty($mejor_combinacion) && is_array($mejor_combinacion)): ?>
+    <?php if (!empty($mejor_combinacion)): ?>
         <table class="tables" id="tabla_mejor_combinacion">
             <thead class="tables__thead">
                 <tr>
@@ -14,11 +14,14 @@
                     <td class="tables__td"><?php echo htmlspecialchars($mejor_combinacion['pedido_1']->nombre_pedido); ?></td>
                     <td class="tables__td"><?php echo htmlspecialchars($mejor_combinacion['pedido_1']->ancho); ?></td>
                 </tr>
-                <tr class="tables__tr">
-                    <td class="tables__td">2</td>
-                    <td class="tables__td"><?php echo htmlspecialchars($mejor_combinacion['pedido_2']->nombre_pedido); ?></td>
-                    <td class="tables__td"><?php echo htmlspecialchars($mejor_combinacion['pedido_2']->ancho); ?></td>
-                </tr>
+
+                <?php if (!empty($mejor_combinacion['pedido_2'])): ?>
+                    <tr class="tables__tr">
+                        <td class="tables__td">2</td>
+                        <td class="tables__td"><?php echo htmlspecialchars($mejor_combinacion['pedido_2']->nombre_pedido); ?></td>
+                        <td class="tables__td"><?php echo htmlspecialchars($mejor_combinacion['pedido_2']->ancho); ?></td>
+                    </tr>
+                <?php endif; ?>
             </tbody>
         </table>
 
