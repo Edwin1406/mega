@@ -242,7 +242,7 @@ $router->get('/admin/produccion/planificacion/index', [PlanificoController::clas
 
 
 // TRIMAR PEDIDOS CON DUPLAS 
-$router->get('/admin/produccion/materia/corrugador/cartonera', [CartoneraController::class, 'cartonera']); 
+$router->get('/admin/produccion/materia/corrugador/cartonera/index', [CartoneraController::class, 'cartonera']); 
 
 
 
