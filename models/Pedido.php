@@ -5,7 +5,7 @@ use Model\ActiveRecord;
 
 class Pedido  extends ActiveRecord{
     protected static $tabla = 'pedidos';
-    protected static $columnasDB = ['id', 'nombre_pedido', 'cantidad','largo','ancho','alto', 'flauta','test','created_at', 'updated_at'];
+    protected static $columnasDB = ['id', 'nombre_pedido', 'cantidad','largo','ancho','alto', 'flauta','test','fecha_ingreso', 'fecha_entrega'];
 
     public $id;
     public $nombre_pedido;
@@ -15,8 +15,8 @@ class Pedido  extends ActiveRecord{
     public $alto;
     public $flauta;
     public $test;
-    public $created_at;
-    public $updated_at;
+    public $fecha_ingreso;
+    public $fecha_entrega;
 
     public function __construct($args = [])
     {
@@ -28,8 +28,8 @@ class Pedido  extends ActiveRecord{
         $this->alto = $args['alto'] ?? '';
         $this->flauta = $args['flauta'] ?? '';
         $this->test = $args['test'] ?? '';
-        $this->created_at = date('Y-m-d H:i:s');
-        $this->updated_at = date('Y-m-d H:i:s');
+        $this->fecha_ingreso = $args['fecha_ingreso'] ?? '';
+        $this->fecha_entrega = $args['fecha_entrega'] ?? '';
     }
 
 
