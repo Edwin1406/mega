@@ -9,9 +9,13 @@ class CartoneraController
 {
     public static function cartonera(Router $router)
     {
-        $router->render('admin/produccion/corrugador/cartonera/index', [
-            'titulo' => 'Cotizador Cartonera'
-        ]);
+
+echo 'Desde cartonera';
+
+
+        // $router->render('admin/produccion/corrugador/cartonera/index', [
+        //     'titulo' => 'Cotizador Cartonera'
+        // ]);
     }
 }
 
