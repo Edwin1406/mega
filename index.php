@@ -15,18 +15,19 @@ use Controllers\ApiProductos;
 use Controllers\AreaController;
 use Controllers\AuthController;
 use Controllers\AdminController;
-use Controllers\CartoneraController;
+
 use Controllers\PapelController;
 use Controllers\ClienteController;
+use Controllers\EstimarController;
 use Controllers\MaquinaController;
+use Controllers\CartoneraController;
 use Controllers\ComercialController;
 use Controllers\CotizadorController;
+use Controllers\PlanificoController;
 use Controllers\FinancieroController;
 use Controllers\ProduccionController;
 use Controllers\MateriaPrimaController;
 use Controllers\EstadisticaProdController;
-use Controllers\EstimarController;
-use Controllers\PlanificoController;
 
 $router = new Router();
 
@@ -242,7 +243,7 @@ $router->get('/admin/produccion/planificacion/index', [PlanificoController::clas
 
 
 // TRIMAR PEDIDOS CON DUPLAS 
-$router->get('/admin/produccion/materia/corrugador/cartonera/inicio', [CartoneraController::class, 'cartonera']); 
+$router->get('/admin/produccion/materia/corrugador/cartonera', [CartoneraController::class, 'cartonera']); 
 
 
 
