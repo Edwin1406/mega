@@ -29,3 +29,71 @@
 
 </body>
 </html>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página 2 - Cargar Datos</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Página 2: Cargar Datos</h2>
+
+    <button onclick="loadData()">Cargar Datos Guardados</button>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Edad</th>
+            </tr>
+        </thead>
+        <tbody id="data-table">
+            <!-- Datos cargados aquí -->
+        </tbody>
+    </table>
+
+    <script>
+        function loadData() {
+            const storedData = JSON.parse(localStorage.getItem("filteredData")) || [];
+            const tableBody = document.getElementById("data-table");
+
+            tableBody.innerHTML = ""; // Limpiar tabla
+            if (storedData.length > 0) {
+                storedData.forEach(item => {
+                    const row = `<tr>
+                                    <td>${item.id}</td>
+                                    <td>${item.name}</td>
+                                    <td>${item.age}</td>
+                                </tr>`;
+                    tableBody.innerHTML += row;
+                });
+                alert("Datos cargados desde LocalStorage.");
+            } else {
+                alert("No hay datos guardados.");
+            }
+        }
+    </script>
+
+    <br><br>
+    <a href="pagina1.html">Volver a Página 1</a>
+
+</body>
+</html>

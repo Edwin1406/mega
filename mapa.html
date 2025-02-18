@@ -1,98 +1,116 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Organized Layout</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Filtrar y Guardar en LocalStorage</title>
     <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        html, body {
-            /* height: 100%;
-            width: 100%; */
+        body {
             font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
-        }
-
-        .display {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
             padding: 20px;
         }
-
-        .containers {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            grid-template-rows: 1fr 1fr;
-            gap: 1rem;
-            width: 80%;
-            max-width: 600px;
-            /* background-color: #e6e6e6; */
-            padding: 20px;
-            border-radius: 10px;
-            /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
-        }
-
-        .items {
-            background-color: #859aac;
-            color: #fff;
-            border-radius: 10px;
-            padding: 20px;
-            text-align: center;
-            font-size: 1.5rem;
-            font-weight: bold;
-        }
-
-        /* Posiciones específicas de los elementos en la cuadrícula */
-        .items:nth-child(1) {
-            grid-area: 1 / 1 / 2 / 2; /* Fila 1, Columna 1 */
-        }
-
-        .items:nth-child(2) {
-            grid-area: 1 / 2 / 2 / 3; /* Fila 1, Columna 2 */
-        }
-
-        .items:nth-child(3) {
-            grid-area: 2 / 1 / 3 / 3; /* Fila 2, ocupa dos columnas */
-        }
-
-        .itemn {
-            margin-top: 20px;
-            background-color: #4d687d;
-            color: #fff;
-            border-radius: 10px;
-            padding: 15px;
-            font-size: 1.2rem;
-            text-align: center;
+        input {
             width: 100%;
-            height: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
         }
-
-        .nuevo {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 50%;
-            height: 20%;
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+        button {
+            padding: 10px;
+            margin-top: 10px;
+            cursor: pointer;
+            background: blue;
+            color: white;
+            border: none;
+            border-radius: 5px;
         }
     </style>
 </head>
 <body>
-    <div class="display">
-        <div class="containers">
-            <div class="items">1</div>
-            <div class="items">2</div>
-            <div class="items">3</div> <!-- He corregido la numeración para mayor coherencia -->
-        </div>
-        <div class="nuevo">
-            <div class="itemn">4</div>
-        </div>
-    </div>
+
+    <h2>Filtrar y Guardar en LocalStorage</h2>
+    
+    <input type="text" id="search" placeholder="Filtrar por nombre..." onkeyup="filterData()">
+    
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Edad</th>
+            </tr>
+        </thead>
+        <tbody id="data-table">
+            <!-- Filas generadas dinámicamente -->
+        </tbody>
+    </table>
+
+    <button onclick="saveToLocalStorage()">Guardar Filtrado</button>
+    <button onclick="loadFromLocalStorage()">Cargar Guardado</button>
+
+    <script>
+        const data = [
+            { id: 1, name: "Juan", age: 25 },
+            { id: 2, name: "María", age: 30 },
+            { id: 3, name: "Carlos", age: 35 },
+            { id: 4, name: "Ana", age: 28 },
+            { id: 5, name: "Pedro", age: 40 }
+        ];
+
+        function renderTable(filteredData) {
+            const tableBody = document.getElementById("data-table");
+            tableBody.innerHTML = "";
+            filteredData.forEach(item => {
+                const row = `<tr>
+                                <td>${item.id}</td>
+                                <td>${item.name}</td>
+                                <td>${item.age}</td>
+                            </tr>`;
+                tableBody.innerHTML += row;
+            });
+        }
+
+        function filterData() {
+            const searchValue = document.getElementById("search").value.toLowerCase();
+            const filteredData = data.filter(item => 
+                item.name.toLowerCase().includes(searchValue)
+            );
+            renderTable(filteredData);
+        }
+
+        function saveToLocalStorage() {
+            const searchValue = document.getElementById("search").value.toLowerCase();
+            const filteredData = data.filter(item => 
+                item.name.toLowerCase().includes(searchValue)
+            );
+            localStorage.setItem("filteredData", JSON.stringify(filteredData));
+            alert("Datos guardados en LocalStorage.");
+        }
+
+        function loadFromLocalStorage() {
+            const savedData = JSON.parse(localStorage.getItem("filteredData")) || [];
+            if (savedData.length > 0) {
+                renderTable(savedData);
+                alert("Datos cargados desde LocalStorage.");
+            } else {
+                alert("No hay datos guardados.");
+            }
+        }
+
+        // Renderizar la tabla con todos los datos al cargar la página
+        renderTable(data);
+    </script>
+
 </body>
 </html>

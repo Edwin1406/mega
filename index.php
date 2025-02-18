@@ -235,10 +235,13 @@ $router->post('/admin/vendedor/cliente/editar', [ClienteController::class, 'edit
 $router->post('/admin/vendedor/cliente/eliminar', [ClienteController::class, 'eliminar']);
 
 
-// planifico 
+// planifico de byron 
 
 $router->get('/admin/produccion/planificacion/index', [PlanificoController::class, 'index']);
 
+
+// TRIMAR PEDIDOS CON DUPLAS 
+$router->get('/admin/produccion/cartonera/index', [CotizadorController::class, 'index']); 
 
 
 
