@@ -15,6 +15,7 @@ use Controllers\ApiProductos;
 use Controllers\AreaController;
 use Controllers\AuthController;
 use Controllers\AdminController;
+use Controllers\CartoneraController;
 use Controllers\PapelController;
 use Controllers\ClienteController;
 use Controllers\MaquinaController;
@@ -241,7 +242,7 @@ $router->get('/admin/produccion/planificacion/index', [PlanificoController::clas
 
 
 // TRIMAR PEDIDOS CON DUPLAS 
-$router->get('/admin/produccion/cartonera/index', [CotizadorController::class, 'index']); 
+$router->get('/admin/produccion/cartonera/index', [CartoneraController::class, 'index']); 
 
 
 
