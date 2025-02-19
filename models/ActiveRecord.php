@@ -130,6 +130,13 @@ class ActiveRecord {
         return $resultado;
     }
 
+    public static function allsin() {
+        $query = "SELECT * FROM " . static::$tabla;
+        $resultado = self::consultarSQL($query);
+        return $resultado;
+    }
+    
+
 
 
     public static function datoscompletos($orden = 'DESC', $filtro = null) {
