@@ -36,6 +36,7 @@ class Material extends ActiveRecord {
             // Si el material no está en la lista, lo agregamos
             if (!isset($materiales[$nombreMaterial])) {
                 $materiales[$nombreMaterial] = [
+                    'id' => $fila['material_id'],
                     'material' => $nombreMaterial,
                     'flauta' => $flauta,
                     'papeles' => []
