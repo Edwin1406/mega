@@ -8,10 +8,10 @@
 
 <div class="dashboard__contenedor">
 
-    <table>
-        <thead>
+    <table class="table">
+        <thead class="table__thead">
             <tr>
-                <th>ID</th>
+                <th scope="col" class="table__th">ID</th>
                 <th>Nombre</th>
                 <th>Cantidad</th>
                 <th>Largo</th>
