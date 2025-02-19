@@ -10,7 +10,6 @@ class Material extends ActiveRecord {
     public $nombre;
     public $flauta;
 
-
     public static function obtenerMaterialesConPapeles() {
         $query = "SELECT 
                     m.id_material AS material_id,
@@ -23,12 +22,34 @@ class Material extends ActiveRecord {
                   FROM material m
                   LEFT JOIN papel p ON m.id_material = p.material_id
                   ORDER BY m.id_material, p.id_papel";
-        
+
         $resultado = self::consultarSQL($query);
-    
-        return $resultado;
+
+        // Agrupar los materiales y sus papeles en un array estructurado
+        $materiales = [];
+        foreach ($resultado as $fila) {
+            $nombreMaterial = $fila['nombre_material'];
+            $flauta = $fila['flauta'];
+
+            // Si el material no está en la lista, lo agregamos
+            if (!isset($materiales[$nombreMaterial])) {
+                $materiales[$nombreMaterial] = [
+                    'material' => $nombreMaterial,
+                    'flauta' => $flauta,
+                    'papeles' => []
+                ];
+            }
+
+            // Agregar los papeles al material correspondiente
+            $materiales[$nombreMaterial]['papeles'][] = [
+                'codigo' => $fila['codigo_papel'],
+                'peso' => $fila['peso'],
+                'descripcion' => $fila['descripcion_papel']
+            ];
+        }
+
+        return array_values($materiales); // Convertir a array indexado para el JSON
     }
-    
 
     
 
