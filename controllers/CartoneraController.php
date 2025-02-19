@@ -75,7 +75,7 @@ class CartoneraController {
         session_start();
         isAuth();
         $router->render('admin/produccion/materia/corrugador/cartonera/pedidoseleccionados', [
-            'titulo' => 'CARTOGAR',
+            'titulo' => 'PEDIDOS SELECCIONADOS',
             
         ]);
 
@@ -87,7 +87,7 @@ class CartoneraController {
         session_start();
         isAuth();
         $router->render('admin/produccion/materia/corrugador/cartonera/dupla', [
-            'titulo' => 'CARTOGAR',
+            'titulo' => 'COMPOSICIÓN DE MATERIALES',
             
         ]);
 
