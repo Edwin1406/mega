@@ -2,66 +2,6 @@
 
 
 
-<!-- Filtros -->
-<div class="dashboard__contenedor" style="margin-bottom: 15px; padding: 20px; border-radius: 10px; border: 1px solid #ddd; background-color: #fff;">
-    <label for="fecha_inicio">Fecha Inicio:</label>
-    <input type="date" id="fecha_inicio" class="dashboard__input" onchange="filtrarTabla()">
-    
-    <label for="fecha_fin">Fecha Fin:</label>
-    <input type="date" id="fecha_fin" class="dashboard__input" onchange="filtrarTabla()">
-    
-    <label for="test_filter">Test:</label>
-    <input type="text" id="test_filter" class="dashboard__input" placeholder="Test" onchange="filtrarTabla()">
-    
-    <button onclick="filtrarTabla()">Filtrar</button>
-</div>
-
-<!-- Recuperar filtros desde localStorage -->
-<script>
-window.onload = function () {
-    let filtrosGuardados = JSON.parse(localStorage.getItem('filtros_tabla')) || {};
-    document.getElementById('fecha_inicio').value = filtrosGuardados.fecha_inicio || '';
-    document.getElementById('fecha_fin').value = filtrosGuardados.fecha_fin || '';
-    document.getElementById('test_filter').value = filtrosGuardados.test_filter || '';
-    filtrarTabla();
-};
-
-function guardarFiltros() {
-    let filtros = {
-        fecha_inicio: document.getElementById('fecha_inicio').value,
-        fecha_fin: document.getElementById('fecha_fin').value,
-        test_filter: document.getElementById('test_filter').value
-    };
-    localStorage.setItem('filtros_tabla', JSON.stringify(filtros));
-}
-
-function filtrarTabla() {
-    let fechaInicio = document.getElementById('fecha_inicio').value;
-    let fechaFin = document.getElementById('fecha_fin').value;
-    let testFilter = document.getElementById('test_filter').value;
-    
-    let rows = document.querySelectorAll('#tabla tbody tr');
-    rows.forEach(row => {
-        let fechaIngreso = row.cells[8].textContent;
-        let testValue = row.cells[7].textContent;
-        let mostrar = true;
-
-        if (fechaInicio && fechaIngreso < fechaInicio) {
-            mostrar = false;
-        }
-        if (fechaFin && fechaIngreso > fechaFin) {
-            mostrar = false;
-        }
-        if (testFilter && testValue !== testFilter) {
-            mostrar = false;
-        }
-
-        row.style.display = mostrar ? '' : 'none';
-    });
-    guardarFiltros();
-}
-</script>
-
 
 
 
