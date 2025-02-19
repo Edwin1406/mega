@@ -1,6 +1,9 @@
 <h2 class="dashboard__heading"> <?php echo $titulo ?> </h2>
 
 
+
+
+
 <form method="GET" action="/admin/produccion/materia/corrugador/cartonera/index" id="filtroForm">
     <input type="hidden" name="page" value="1">
 
@@ -96,6 +99,16 @@ function guardarEnLocalStorage() {
         <a class="text-center"> No hay visor Aún</a>
     <?php endif; ?>
 </div>
+
+<!-- pagina siguiente  -->
+<div class="dashboard__contenedor-boton">
+    <a class="dashboard__boton" href="/admin/produccion/materia/corrugador/cartonera/index?page=<?php echo $paginacion->pagina_siguiente(); ?>">
+        <i class="fa-regular fa-eye"></i>
+        SIGUIENTE
+    </a>
+</div>
+
+
 
 
 
