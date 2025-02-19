@@ -48,13 +48,28 @@ document.querySelector(".borrar").addEventListener("click", () => {
 
 
 
+document.addEventListener("DOMContentLoaded", () => {
+    let pedidos = JSON.parse(localStorage.getItem("pedidosFiltrados")) || [];
 
-document.addEventListener("DOMContentLoaded",()=>{
-    const pedidos = JSON.parse(localStorage.getItem("pedidosFiltrados"))||[];
+    // Aplicar cálculos solo a los pedidos con "cj" en el nombre
+    pedidos = pedidos.map(pedido => {
+        if (pedido.nombre.includes("cj")) {
+            return {
+                ...pedido,
+                largo: (2 * pedido.alto) + (pedido.largo + 8),
+                ancho: (2 * pedido.alto) + (pedido.ancho + 10 + 4)
+            };
+        }
+        return pedido;
+    });
 
+    // Guardar los pedidos actualizados en localStorage
+    localStorage.setItem("pedidosFiltrados", JSON.stringify(pedidos));
+
+    // Cargar pedidos actualizados en la interfaz
     cargarpedidos(pedidos);
- 
-})
+});
+
 
 
 function cargarpedidos(pedidos) {
@@ -67,14 +82,6 @@ function cargarpedidos(pedidos) {
 
     pedidos.forEach(pedido => {
         const { id, nombre_pedido, cantidad, largo, ancho, alto, flauta, test, fecha_ingreso, fecha_entrega } = pedido;
-
-        // calcular ancho y largo de la caja
-        const largoCalculado=largo = (2 * $alto) + ($largo + 8);
-        const anchoCalculado=ancho = (2 * $alto) + ($ancho + 10 + 4);
-
-        console.log(largoCalculado);
-
-
         const row = document.createElement("tr");
         row.innerHTML = `
             <td class="table__td">${id}</td>
