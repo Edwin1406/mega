@@ -31,7 +31,6 @@
 </div>
 
 <script>
-
 async function consumirAPI() {
     const url = "https://megawebsistem.com/admin/api/apipapel";
 
@@ -39,28 +38,34 @@ async function consumirAPI() {
         const response = await fetch(url);
         const data = await response.json();
 
-        console.log("Datos recibidos de la API:", data); // Verificar la respuesta
+        console.log("Datos recibidos de la API:", data); // Verificar la estructura de los datos
 
         const tbody = document.querySelector(".table__tbody");
         tbody.innerHTML = ""; // Limpiar antes de agregar nuevos datos
 
-        // Si "papeles" existe y es un array
-        if (data.papeles && Array.isArray(data.papeles)) {
-            data.papeles.forEach(papel => {
-                const row = document.createElement("tr");
+        // Asegurar que data es un array y tiene al menos un objeto
+        if (Array.isArray(data) && data.length > 0) {
+            const item = data[0]; // Obtener el primer objeto del array
+            if (item.papeles && Array.isArray(item.papeles)) {
+                item.papeles.forEach(papel => {
+                    const row = document.createElement("tr");
 
-                row.innerHTML = `
-                    <td>${data.material || "N/A"}</td>
-                    <td>${data.flauta || "N/A"}</td>
-                    <td>${papel.codigo || "N/A"}</td>
-                    <td>${papel.peso || "N/A"}</td>
-                    <td>${papel.descripcion || "N/A"}</td>
-                `;
+                    row.innerHTML = `
+                        <td>${item.material || "N/A"}</td>
+                        <td>${item.flauta || "N/A"}</td>
+                        <td>${papel.codigo || "N/A"}</td>
+                        <td>${papel.peso || "N/A"}</td>
+                        <td>${papel.descripcion || "N/A"}</td>
+                    `;
 
-                tbody.appendChild(row);
-            });
+                    tbody.appendChild(row);
+                });
+            } else {
+                console.warn("No se encontraron datos en 'papeles'.");
+                tbody.innerHTML = "<tr><td colspan='5'>No hay datos disponibles</td></tr>";
+            }
         } else {
-            console.warn("No se encontraron datos en 'papeles'.");
+            console.warn("La API no devolvió datos válidos.");
             tbody.innerHTML = "<tr><td colspan='5'>No hay datos disponibles</td></tr>";
         }
     } catch (error) {
@@ -72,9 +77,6 @@ async function consumirAPI() {
 
 // Llamar a la función para cargar los datos cuando la página se cargue
 document.addEventListener("DOMContentLoaded", consumirAPI);
-
-
-
 
 
 </script>
