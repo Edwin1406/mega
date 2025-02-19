@@ -141,6 +141,46 @@ class ActiveRecord {
         $resultado = self::consultarSQL($query);
         return $resultado;
     }
+//-----------------------------------------------------------------------------
+
+    public static function filtrarYPaginar($filtros, $limite, $offset)
+{
+    $query = "SELECT * FROM pedidos WHERE 1";
+
+    if (!empty($filtros['fecha_entrega'])) {
+        $query .= " AND fecha_entrega = '" . self::$db->escape_string($filtros['fecha_entrega']) . "'";
+    }
+
+    if (!empty($filtros['test'])) {
+        $query .= " AND test LIKE '%" . self::$db->escape_string($filtros['test']) . "%'";
+    }
+
+    $query .= " LIMIT {$limite} OFFSET {$offset}";
+
+    return self::consultarSQL($query);
+}
+
+public static function total1($filtros = [])
+{
+    $query = "SELECT COUNT(*) as total FROM pedidos WHERE 1";
+
+    if (!empty($filtros['fecha_entrega'])) {
+        $query .= " AND fecha_entrega = '" . self::$db->escape_string($filtros['fecha_entrega']) . "'";
+    }
+
+    if (!empty($filtros['test'])) {
+        $query .= " AND test LIKE '%" . self::$db->escape_string($filtros['test']) . "%'";
+    }
+
+    $resultado = self::$db->query($query);
+    $fila = $resultado->fetch_assoc();
+    return $fila['total'] ?? 0;
+}
+
+
+
+
+
 
 
 

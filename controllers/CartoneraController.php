@@ -48,7 +48,7 @@ class CartoneraController {
         }
     
         // Obtener pedidos con filtros
-        $total = Pedido::total($filtros);
+        $total = Pedido::total1($filtros);
         $paginacion = new Paginacion($pagina_actual, $registros_por_pagina, $total);
     
         if ($paginacion->total_paginas() < $pagina_actual) {
@@ -56,7 +56,7 @@ class CartoneraController {
             exit;
         }
     
-        $pedidosTrimar = Pedido::paginar($filtros, $registros_por_pagina, $paginacion->offset());
+        $pedidosTrimar = Pedido::filtrarYPaginar($filtros, $registros_por_pagina, $paginacion->offset());
     
         $alertas = Pedido::getAlertas();
     
