@@ -103,7 +103,7 @@ class CartoneraController {
 
     $material = Material::allsin();
     echo json_encode($material);
-    echo "hola";
+    
 }
 
 
