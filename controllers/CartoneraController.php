@@ -101,7 +101,8 @@ class CartoneraController {
     header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS"); 
     header("Content-Type: application/json"); 
 
-    $material = Material::allsin();
+    $material=Material::obtenerMaterialesConPapeles();
+    
     echo json_encode($material);
     
 }
