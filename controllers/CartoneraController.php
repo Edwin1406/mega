@@ -67,4 +67,20 @@ class CartoneraController {
             'paginacion' => $paginacion->paginacion(),
         ]);
     }
+
+
+    public static function pedidoseleccionados(Router $router)
+    {
+        session_start();
+        isAuth();
+        $router->render('admin/produccion/materia/corrugador/cartonera/pedidoseleccionados', [
+            'titulo' => 'CARTOGAR',
+            
+        ]);
+
+    }
+
+
+
+
 }    
