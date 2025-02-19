@@ -18,9 +18,11 @@ class CartoneraController {
         $id= $_SESSION['id'];
         $alertas = [];
         $pedidosTrimar = Pedido::all('ASC');
-        debuguear($pedidosTrimar);
+        // debuguear($pedidosTrimar);
         $router->render('admin/produccion/materia/corrugador/cartonera/index', [
             'titulo' => 'CARTOGAR',
+            'alertas' => $alertas,
+            'pedidosTrimar' => $pedidosTrimar,
         ]);
     }
 }
