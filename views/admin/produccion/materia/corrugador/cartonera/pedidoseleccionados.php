@@ -29,6 +29,13 @@
     </table>
 </div>
 
+<div class="dashboard__contenedor-boton">
+    <a class="dashboard__boton" href="/admin/produccion/materia/corrugador/cartonera/dupla">
+        <i class="fa-regular fa-eye"></i>
+        SIGUIENTE
+    </a>
+</div>
+
 
 
 <script>

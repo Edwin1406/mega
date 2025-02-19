@@ -246,6 +246,8 @@ $router->get('/admin/produccion/planificacion/index', [PlanificoController::clas
 $router->get('/admin/produccion/materia/corrugador/cartonera/index', [CartoneraController::class, 'cartonera']); 
 $router->get('/admin/produccion/materia/corrugador/cartonera/pedidoseleccionados', [CartoneraController::class, 'pedidoseleccionados']);
 
+$router->get('/admin/produccion/materia/corrugador/cartonera/dupla', [CartoneraController::class, 'dupla']);
+
 
 
 

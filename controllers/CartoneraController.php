@@ -81,6 +81,18 @@ class CartoneraController {
     }
 
 
+    public static function dupla(Router $router)
+    {
+        session_start();
+        isAuth();
+        $router->render('admin/produccion/materia/corrugador/cartonera/dupla', [
+            'titulo' => 'CARTOGAR',
+            
+        ]);
+
+    }
+
+
 
 
 }    
