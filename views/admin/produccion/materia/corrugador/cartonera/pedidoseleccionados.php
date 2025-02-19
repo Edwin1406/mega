@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded",()=>{
 
 
 function cargarpedidos(pedidos){
-    pedidos.foreach(pedido=>{
+    pedidos.forEach(pedido=>{
         const{ id, nombre_pedido, cantidad, largo, ancho, alto, flauta, test, fecha_ingreso, fecha_entrega} = pedido;
         console.log(id, nombre_pedido, cantidad, largo, ancho, alto, flauta, test, fecha_ingreso, fecha_entrega);
 
