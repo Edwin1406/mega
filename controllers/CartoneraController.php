@@ -96,45 +96,46 @@ class CartoneraController {
 
     // API
     public static function apipapel(Router $router)
-    {
-        header("Access-Control-Allow-Origin: *");  // Permite solicitudes desde cualquier origen
-        header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS"); // Métodos permitidos
-        header("Content-Type: application/json"); // Indica que la respuesta es JSON
-    
-        if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
-            http_response_code(200);
-            exit;
-        }
-    
-        // Obtener todos los materiales con sus papeles
-        $materiales = Material::getAllWithPapeles();
-    
-        $grupoMateriales = [];
-    
-        foreach ($materiales as $row) {
-            $id_material = $row->id_material; // Accede como objeto
-    
-            if (!isset($grupoMateriales[$id_material])) {
-                $grupoMateriales[$id_material] = [
-                    'id_material' => $row->id_material,
-                    'nombre' => $row->nombre_material,
-                    'flauta' => $row->flauta,
-                    'papeles' => []
-                ];
-            }
-    
-            if ($row->id_papel !== null) { // Si el material tiene papeles asociados
-                $grupoMateriales[$id_material]['papeles'][] = [
-                    'id_papel' => $row->id_papel,
-                    'codigo' => $row->codigo,
-                    'descripcion' => $row->descripcion,
-                    'peso' => $row->peso
-                ];
-            }
-        }
-    
-        // Convertimos el array a JSON y lo enviamos como respuesta
-        echo json_encode(array_values($grupoMateriales), JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+{
+    header("Access-Control-Allow-Origin: *");  
+    header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS"); 
+    header("Content-Type: application/json"); 
+
+    if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+        http_response_code(200);
+        exit;
     }
-    
+
+    // Obtener todos los materiales con sus papeles
+    $materiales = Material::getAllWithPapeles();
+
+    $grupoMateriales = [];
+
+    foreach ($materiales as $row) {
+        // Aquí nos aseguramos de acceder como un array
+        $id_material = $row['id_material']; 
+
+        if (!isset($grupoMateriales[$id_material])) {
+            $grupoMateriales[$id_material] = [
+                'id_material' => $row['id_material'],
+                'nombre' => $row['nombre_material'],
+                'flauta' => $row['flauta'],
+                'papeles' => []
+            ];
+        }
+
+        if (!is_null($row['id_papel'])) { // Si el material tiene papeles asociados
+            $grupoMateriales[$id_material]['papeles'][] = [
+                'id_papel' => $row['id_papel'],
+                'codigo' => $row['codigo'],
+                'descripcion' => $row['descripcion'],
+                'peso' => $row['peso']
+            ];
+        }
+    }
+
+    // Convertimos el array a JSON y lo enviamos como respuesta
+    echo json_encode(array_values($grupoMateriales), JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+}
+
 }    
