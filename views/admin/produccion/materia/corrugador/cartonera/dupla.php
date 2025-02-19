@@ -33,11 +33,6 @@
 
 <script>
 
-Document.addEventListener("DOMContentLoaded", ()=> {
-    pedidosFiltrados = json.parse(localStorage.getItem("pedidosFiltrados"));
-    console.log(pedidosFiltrados);
-});
-
 
 
 
@@ -94,5 +89,14 @@ async function consumirAPI() {
 
 // Llamar a la función para cargar los datos cuando la página se cargue
 document.addEventListener("DOMContentLoaded", consumirAPI);
+
+
+
+
+document.addEventListener("DOMContentLoaded", ()=> {
+    pedidosFiltrados = json.parse(localStorage.getItem("pedidosFiltrados"));
+    console.log(pedidosFiltrados);
+});
+
 
 </script>
