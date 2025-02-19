@@ -6,26 +6,28 @@
 
 
 
+<div class="dashboard__contenedor">
 
-<table>
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Nombre</th>
-            <th>Cantidad</th>
-            <th>Largo</th>
-            <th>Ancho</th>
-            <th>Alto</th>
-            <th>Flauta</th>
-            <th>Test</th>
-            <th>Fecha Ingreso</th>
-            <th>Fecha Entrega</th>
-        </tr>
-    </thead>
-    <tbody class="table__tbody">
-        <!-- Las filas se agregarán aquí -->
-    </tbody>
-</table>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Cantidad</th>
+                <th>Largo</th>
+                <th>Ancho</th>
+                <th>Alto</th>
+                <th>Flauta</th>
+                <th>Test</th>
+                <th>Fecha Ingreso</th>
+                <th>Fecha Entrega</th>
+            </tr>
+        </thead>
+        <tbody class="table__tbody">
+            <!-- Las filas se agregarán aquí -->
+        </tbody>
+    </table>
+</div>
 
 
 
