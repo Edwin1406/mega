@@ -67,6 +67,14 @@ function cargarpedidos(pedidos) {
 
     pedidos.forEach(pedido => {
         const { id, nombre_pedido, cantidad, largo, ancho, alto, flauta, test, fecha_ingreso, fecha_entrega } = pedido;
+
+        // calcular ancho y largo de la caja
+        const largoCalculado=largo = (2 * $alto) + ($largo + 8);
+        const anchoCalculado=ancho = (2 * $alto) + ($ancho + 10 + 4);
+
+        console.log(largoCalculado);
+
+
         const row = document.createElement("tr");
         row.innerHTML = `
             <td class="table__td">${id}</td>
