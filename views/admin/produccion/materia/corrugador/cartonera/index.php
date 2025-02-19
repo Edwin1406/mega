@@ -53,50 +53,33 @@
         <table class="table" id="tabla">
             <thead class="table__thead">
                 <tr>
-                <th scope="col" class="table__th">Nombre Cliente</th>
-                    <th scope="col" class="table__th">Nombre Producto</th>
-                    <th scope="col" class="table__th">Codigo producto</th>
-                    <th scope="col" class="table__th">Estado</th>
-                    <th scope="col" class="table__th">Archivo PDF</th>
+                <th scope="col" class="table__th">ID</th>
+                    <th scope="col" class="table__th">Numero Pedido</th>
+                    <th scope="col" class="table__th">Nombre Pedido</th>
+                    <th scope="col" class="table__th">Cantidad</th>
+                    <th scope="col" class="table__th">Largo</th>
+                    <th scope="col" class="table__th">Ancho</th>
+                    <th scope="col" class="table__th">Alto</th>
+                    <th scope="col" class="table__th">Flauta</th>
+                    <th scope="col" class="table__th">Test</th>
+                    <th scope="col" class="table__th">Fecha Ingreso</th>
+                    <th scope="col" class="table__th">Fecha Entrada</th>
                 </tr>
             </thead>
             <tbody class="table__tbody">
                 <?php foreach ($pedidosTrimar as $pTrimar):?>
                     <tr class="table__tr">
+                        <td class="table__td"><?php echo $pTrimar->id?></td>
+                        <td class="table__td"><?php echo $pTrimar->numero_pedido?></td>
                         <td class="table__td"><?php echo $pTrimar->nombre_pedido?></td>
                         <td class="table__td"><?php echo $pTrimar->cantidad?></td>
                         <td class="table__td"><?php echo $pTrimar->largo?></td>
                         <td class="table__td"><?php echo $pTrimar->ancho?></td>
                         <td class="table__td"><?php echo $pTrimar->alto?></td>
-                        <td data-id="<?php echo $pTrimar->id; ?>" class="table__td" style="color: 
-                            <?php 
-                                echo ($pTrimar->estado == 'ENVIADO') ? 'green' : 
-                                    (($pTrimar->estado == 'PAUSADO') ? 'red' : 
-                                    (($pTrimar->estado == 'TERMINADO') ? 'orange' :''));
-                                    ?>;">
-                                <?php echo $pTrimar->estado; ?>
-                        </td>
-                        <td class="table__td">
-                            <?php 
-                            $rutaArchivo = "/src/visor/" . htmlspecialchars($pTrimar->pdf);
-                            $extension = pathinfo($pTrimar->pdf, PATHINFO_EXTENSION);
-
-                            if (in_array(strtolower($extension), ['jpg', 'jpeg', 'png', 'gif'])): ?>
-                                <!-- Mostrar miniatura para imágenes -->
-                                <img 
-                                    src="<?php echo $rutaArchivo ?>" 
-                                    alt="pdf" 
-                                    class="imagen-miniatura" 
-                                    style="width: 100px; height: auto; cursor: pointer;" 
-                                    onclick="mostrarImagen(this.src)">
-                            <?php elseif (strtolower($extension) === 'pdf'): ?>
-                                <!-- Mostrar enlace para visualizar PDF -->
-                                <a href="<?php echo $rutaArchivo ?>" target="_blank" class="enlace-pdf">Ver PDF</a>
-                                <?php else: ?>
-                                    <a href="<?php echo $rutaArchivo ?>" target="_blank" class="enlace-pdf">Ver PDF</a>
-
-                            <?php endif; ?>
-                        </td>
+                        <td class="table__td"><?php echo $pTrimar->flauta?></td>
+                        <td class="table__td"><?php echo $pTrimar->test?></td>
+                        <td class="table__td"><?php echo $pTrimar->fecha_ingreso?></td>
+                        <td class="table__td"><?php echo $pTrimar->fecha_entrada?></td>
 
                     </tr>
                 <?php endforeach;?>
