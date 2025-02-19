@@ -16,7 +16,7 @@ document.querySelector(".borrar").addEventListener("click", () => {
 
 
 document.addEventListener("DOMContentLoaded",()=>{
-    const pedidos = JSON.parse(localStorage.getItem("pedidosFiltrados"));
+    const pedidos = JSON.parse(localStorage.getItem("pedidosFiltrados"))||[];
     console.log(pedidos);
 })
 
