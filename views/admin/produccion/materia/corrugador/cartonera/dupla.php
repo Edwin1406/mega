@@ -32,7 +32,6 @@
 </div>
 
 <script>
-
 async function consumirAPI() {
     const url = "https://megawebsistem.com/admin/api/apipapel";
 
@@ -63,11 +62,11 @@ async function consumirAPI() {
         console.log("Test del pedido seleccionado:", testPedido);
         console.log("Flauta del pedido seleccionado:", flautaPedido);
 
-        // Buscar el material que tenga el mismo test y flauta que el pedido seleccionado
-        let materialFiltrado = data.find(material => 
-            String(material.test || "").trim() === testPedido && 
-            String(material.flauta || "").trim() === flautaPedido
-        );
+        // Buscar el material que tenga el mismo test (sin "K") y flauta que el pedido seleccionado
+        let materialFiltrado = data.find(material => {
+            let testMaterial = String(material.material).replace(/^K/, "").trim(); // Elimina la "K" si está al inicio
+            return testMaterial === testPedido && String(material.flauta).trim() === flautaPedido;
+        });
 
         console.log("Material filtrado encontrado:", materialFiltrado);
 
@@ -78,7 +77,7 @@ async function consumirAPI() {
                 if (index === 0) {
                     row.innerHTML = `
                         <td rowspan="${materialFiltrado.papeles.length}">${materialFiltrado.id}</td>
-                        <td rowspan="${materialFiltrado.papeles.length}">${materialFiltrado.material}</td>
+                        <td rowspan="${materialFiltrado.papeles.length}">${materialFiltrado.material}</td> <!-- Muestra K250 -->
                         <td rowspan="${materialFiltrado.papeles.length}">${materialFiltrado.flauta}</td>
                         <td>${papel.codigo}</td>
                         <td>${papel.peso}</td>
