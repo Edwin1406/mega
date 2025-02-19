@@ -53,11 +53,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Aplicar cálculos solo a los pedidos con "cj" en el nombre
     pedidos = pedidos.map(pedido => {
-        if (pedido.nombre.includes("cj")) {
+        if (pedido.nombre_pedido && pedido.nombre_pedido.includes("cj")) {
             return {
                 ...pedido,
-                largo: (2 * pedido.alto) + (pedido.largo + 8),
-                ancho: (2 * pedido.alto) + (pedido.ancho + 10 + 4)
+                largo: (2 * Number(pedido.alto)) + (Number(pedido.largo) + 8),
+                ancho: (2 * Number(pedido.alto)) + (Number(pedido.ancho) + 10 + 4)
             };
         }
         return pedido;
