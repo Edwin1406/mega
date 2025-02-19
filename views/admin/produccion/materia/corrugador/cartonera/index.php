@@ -2,39 +2,67 @@
 
 
 
-<!-- Campo de búsqueda -->
-<div class="dashboard__contenedor" 
-    style="
-        margin-bottom: 15px; 
-        padding: 20px; 
-        border-radius: 10px; 
-        border: 1px solid #ddd; 
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
-        background-color: #fff; 
-        transition: all 0.3s ease-in-out;
-    ">
-    <input 
-        type="text" 
-        id="filtros_ventas" 
-        class="dashboard__input" 
-        placeholder="Filtrar por nombre cliente o nombre producto"
-        style="
-            margin-bottom: 0; 
-            padding: 12px 15px; 
-            width: 100%; 
-            box-sizing: border-box; 
-            border: 1px solid #ccc; 
-            border-radius: 8px; 
-            outline: none; 
-            font-size: 16px; 
-            background-color: #f9f9f9; 
-            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1); 
-            transition: all 0.2s ease-in-out;
-        "
-        onfocus="this.style.boxShadow='0 0 5px rgba(0, 123, 255, 0.5)'; this.style.borderColor='#007bff';"
-        onblur="this.style.boxShadow='inset 0 2px 4px rgba(0, 0, 0, 0.1)'; this.style.borderColor='#ccc';"
-    >
+
+<!-- Filtros -->
+<div class="dashboard__contenedor" style="margin-bottom: 15px; padding: 20px; border-radius: 10px; border: 1px solid #ddd; background-color: #fff;">
+    <label for="fecha_inicio">Fecha Inicio:</label>
+    <input type="date" id="fecha_inicio" class="dashboard__input" onchange="filtrarTabla()">
+    
+    <label for="fecha_fin">Fecha Fin:</label>
+    <input type="date" id="fecha_fin" class="dashboard__input" onchange="filtrarTabla()">
+    
+    <label for="test_filter">Test:</label>
+    <input type="text" id="test_filter" class="dashboard__input" placeholder="Test" onchange="filtrarTabla()">
+    
+    <button onclick="filtrarTabla()">Filtrar</button>
 </div>
+
+<!-- Recuperar filtros desde localStorage -->
+<script>
+window.onload = function () {
+    document.getElementById('fecha_inicio').value = localStorage.getItem('fecha_inicio') || '';
+    document.getElementById('fecha_fin').value = localStorage.getItem('fecha_fin') || '';
+    document.getElementById('test_filter').value = localStorage.getItem('test_filter') || '';
+    filtrarTabla();
+};
+
+function guardarFiltros() {
+    localStorage.setItem('fecha_inicio', document.getElementById('fecha_inicio').value);
+    localStorage.setItem('fecha_fin', document.getElementById('fecha_fin').value);
+    localStorage.setItem('test_filter', document.getElementById('test_filter').value);
+}
+
+function filtrarTabla() {
+    let fechaInicio = document.getElementById('fecha_inicio').value;
+    let fechaFin = document.getElementById('fecha_fin').value;
+    let testFilter = document.getElementById('test_filter').value;
+    
+    let rows = document.querySelectorAll('#tabla tbody tr');
+    rows.forEach(row => {
+        let fechaIngreso = row.cells[8].textContent;
+        let testValue = row.cells[7].textContent;
+        let mostrar = true;
+
+        if (fechaInicio && fechaIngreso < fechaInicio) {
+            mostrar = false;
+        }
+        if (fechaFin && fechaIngreso > fechaFin) {
+            mostrar = false;
+        }
+        if (testFilter && testValue !== testFilter) {
+            mostrar = false;
+        }
+
+        row.style.display = mostrar ? '' : 'none';
+    });
+    guardarFiltros();
+}
+</script>
+
+
+
+
+
 <form method="GET" action="/admin/produccion/materia/corrugador/cartonera/index">
     <input type="hidden" name="page" value="1">
     <label for="per_page">Registros por página:</label>
