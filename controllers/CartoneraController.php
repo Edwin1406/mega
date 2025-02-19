@@ -95,7 +95,6 @@ class CartoneraController {
 
 
     // API
-
     public static function apipapel(Router $router)
     {
         header("Access-Control-Allow-Origin: *");  // Permite solicitudes desde cualquier origen
@@ -113,23 +112,23 @@ class CartoneraController {
         $grupoMateriales = [];
     
         foreach ($materiales as $row) {
-            $id_material = $row['id_material'];
+            $id_material = $row->id_material; // Accede como objeto
     
             if (!isset($grupoMateriales[$id_material])) {
                 $grupoMateriales[$id_material] = [
-                    'id_material' => $row['id_material'],
-                    'nombre' => $row['nombre_material'],
-                    'flauta' => $row['flauta'],
+                    'id_material' => $row->id_material,
+                    'nombre' => $row->nombre_material,
+                    'flauta' => $row->flauta,
                     'papeles' => []
                 ];
             }
     
-            if ($row['id_papel'] !== null) { // Si el material tiene papeles asociados
+            if ($row->id_papel !== null) { // Si el material tiene papeles asociados
                 $grupoMateriales[$id_material]['papeles'][] = [
-                    'id_papel' => $row['id_papel'],
-                    'codigo' => $row['codigo'],
-                    'descripcion' => $row['descripcion'],
-                    'peso' => $row['peso']
+                    'id_papel' => $row->id_papel,
+                    'codigo' => $row->codigo,
+                    'descripcion' => $row->descripcion,
+                    'peso' => $row->peso
                 ];
             }
         }
@@ -138,8 +137,4 @@ class CartoneraController {
         echo json_encode(array_values($grupoMateriales), JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
     }
     
-
-
-
-
 }    
