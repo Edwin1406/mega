@@ -2,8 +2,6 @@
 
 
 
-
-
 <form method="GET" action="/admin/produccion/materia/corrugador/cartonera/index">
     <input type="hidden" name="page" value="1">
 
@@ -15,16 +13,41 @@
         <option value="all" <?php echo ($_GET['per_page'] ?? '') == 'all' ? 'selected' : ''; ?>>Todos</option>
     </select>
 
-    <!-- Filtro por Fecha de Entrega -->
     <label for="fecha_entrega">Fecha de Entrega:</label>
     <input type="date" name="fecha_entrega" id="fecha_entrega" value="<?php echo $_GET['fecha_entrega'] ?? ''; ?>">
 
-    <!-- Filtro por Test -->
     <label for="test">Test:</label>
     <input type="text" name="test" id="test" value="<?php echo $_GET['test'] ?? ''; ?>">
 
     <button type="submit">Filtrar</button>
+    <button type="button" onclick="guardarEnLocalStorage()">Guardar en Local Storage</button>
 </form>
+
+<script>
+function guardarEnLocalStorage() {
+    let pedidos = [];
+    let filas = document.querySelectorAll(".table__tbody .table__tr");
+
+    filas.forEach(fila => {
+        let pedido = {
+            id: fila.children[0].innerText,
+            nombre_pedido: fila.children[1].innerText,
+            cantidad: fila.children[2].innerText,
+            largo: fila.children[3].innerText,
+            ancho: fila.children[4].innerText,
+            alto: fila.children[5].innerText,
+            flauta: fila.children[6].innerText,
+            test: fila.children[7].innerText,
+            fecha_ingreso: fila.children[8].innerText,
+            fecha_entrega: fila.children[9].innerText
+        };
+        pedidos.push(pedido);
+    });
+
+    localStorage.setItem("pedidosFiltrados", JSON.stringify(pedidos));
+    alert("Los datos filtrados se han guardado en Local Storage.");
+}
+</script>
 
 
 <div class="dashboard__contenedor">
