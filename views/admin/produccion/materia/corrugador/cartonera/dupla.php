@@ -13,30 +13,59 @@
 
 
 
+
+<div class="dashboard__contenedor">
+    <table class="table">
+        <thead class="table__thead">
+            <tr>
+                <th scope="col" class="table__th">Código</th>
+                <th scope="col" class="table__th">Peso</th>
+                <th scope="col" class="table__th">Descripción</th>
+            </tr>
+        </thead>
+        <tbody class="table__tbody">
+            <!-- Las filas se agregarán aquí dinámicamente -->
+        </tbody>
+    </table>
+</div>
+
 <script>
-document.addEventListener("DOMContentLoaded", () => {
-    let pedidos = JSON.parse(localStorage.getItem("pedidosFiltrados")) || [];
-    console.log(pedidos);
-    consumirapi();
-});
-
-
-
-
-
-async function consumirapi(params) {
+async function consumirAPI() {
     const url = "https://megawebsistem.com/admin/api/apipapel";
-    const response = await fetch(url);
-    const data = await response.json();
-    console.log(data);
+    
+    try {
+        const response = await fetch(url);
+        const data = await response.json();
+
+        const tbody = document.querySelector(".table__tbody");
+        tbody.innerHTML = ""; // Limpiar antes de agregar nuevos datos
+
+        // Verificar si hay datos en "papeles"
+        if (data.papeles && Array.isArray(data.papeles)) {
+            data.papeles.forEach(papel => {
+                const row = document.createElement("tr");
+
+                row.innerHTML = `
+                    <td>${papel.codigo}</td>
+                    <td>${papel.peso}</td>
+                    <td>${papel.descripcion}</td>
+                `;
+
+                tbody.appendChild(row);
+            });
+        } else {
+            tbody.innerHTML = "<tr><td colspan='3'>No hay datos disponibles</td></tr>";
+        }
+    } catch (error) {
+        console.error("Error al obtener los datos:", error);
+    }
 }
 
-
-
-
-
-
-
-
+// Llamar a la función para cargar los datos cuando la página se cargue
+document.addEventListener("DOMContentLoaded", consumirAPI);
 </script>
+
+
+
+
 
