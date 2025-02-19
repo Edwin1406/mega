@@ -94,7 +94,7 @@ document.addEventListener("DOMContentLoaded", consumirAPI);
 
 
 document.addEventListener("DOMContentLoaded", ()=> {
-    pedidosFiltrados = json.parse(localStorage.getItem("pedidosFiltrados"));
+    pedidosFiltrados = JSON.parse(localStorage.getItem("pedidosFiltrados"));
     console.log(pedidosFiltrados);
 });
 
