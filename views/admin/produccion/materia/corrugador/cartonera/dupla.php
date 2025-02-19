@@ -31,6 +31,7 @@
 </div>
 
 <script>
+
 async function consumirAPI() {
     const url = "https://megawebsistem.com/admin/api/apipapel";
 
@@ -38,31 +39,42 @@ async function consumirAPI() {
         const response = await fetch(url);
         const data = await response.json();
 
+        console.log("Datos recibidos de la API:", data); // Verificar la respuesta
+
         const tbody = document.querySelector(".table__tbody");
         tbody.innerHTML = ""; // Limpiar antes de agregar nuevos datos
 
+        // Si "papeles" existe y es un array
         if (data.papeles && Array.isArray(data.papeles)) {
             data.papeles.forEach(papel => {
                 const row = document.createElement("tr");
 
                 row.innerHTML = `
-                    <td>${data.material}</td>
-                    <td>${data.flauta}</td>
-                    <td>${papel.codigo}</td>
-                    <td>${papel.peso}</td>
-                    <td>${papel.descripcion}</td>
+                    <td>${data.material || "N/A"}</td>
+                    <td>${data.flauta || "N/A"}</td>
+                    <td>${papel.codigo || "N/A"}</td>
+                    <td>${papel.peso || "N/A"}</td>
+                    <td>${papel.descripcion || "N/A"}</td>
                 `;
 
                 tbody.appendChild(row);
             });
         } else {
+            console.warn("No se encontraron datos en 'papeles'.");
             tbody.innerHTML = "<tr><td colspan='5'>No hay datos disponibles</td></tr>";
         }
     } catch (error) {
         console.error("Error al obtener los datos:", error);
+        document.querySelector(".table__tbody").innerHTML = 
+            "<tr><td colspan='5'>Error al cargar los datos</td></tr>";
     }
 }
 
 // Llamar a la función para cargar los datos cuando la página se cargue
 document.addEventListener("DOMContentLoaded", consumirAPI);
+
+
+
+
+
 </script>
