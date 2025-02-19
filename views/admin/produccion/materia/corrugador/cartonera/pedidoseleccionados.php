@@ -17,7 +17,11 @@ document.querySelector(".borrar").addEventListener("click", () => {
 
 document.addEventListener("DOMContentLoaded",()=>{
     const pedidos = JSON.parse(localStorage.getItem("pedidosFiltrados"))||[];
-    console.log(pedidos);
+    pedidos.foreach(pedido=>{
+        const{ id, nombre_pedido, cantidad, largo, ancho, alto, flauta, test, fecha_ingreso, fecha_entrega} = pedido;
+        console.log(id, nombre_pedido, cantidad, largo, ancho, alto, flauta, test, fecha_ingreso, fecha_entrega);
+
+    })
 })
 
 </script>
