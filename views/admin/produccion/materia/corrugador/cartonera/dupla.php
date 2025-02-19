@@ -47,17 +47,20 @@ document.querySelector(".borrar").addEventListener("click", () => {
 });
 
 
-
 document.addEventListener("DOMContentLoaded", () => {
     let pedidos = JSON.parse(localStorage.getItem("pedidosFiltrados")) || [];
 
-    // Aplicar cálculos solo a los pedidos con "cj" en el nombre
+    // Aplicar cálculos solo a los pedidos con "CJ" en el nombre
     pedidos = pedidos.map(pedido => {
-        if (pedido.nombre_pedido && pedido.nombre_pedido.includes("cj")) {
+        if (pedido.nombre_pedido && pedido.nombre_pedido.toUpperCase().includes("CJ")) {
+            let alto = Number(pedido.alto) || 0;
+            let largo = Number(pedido.largo) || 0;
+            let ancho = Number(pedido.ancho) || 0;
+
             return {
                 ...pedido,
-                largo: (2 * Number(pedido.alto)) + (Number(pedido.largo) + 8),
-                ancho: (2 * Number(pedido.alto)) + (Number(pedido.ancho) + 10 + 4)
+                largo: (2 * alto) + (largo + 8),
+                ancho: (2 * alto) + (ancho + 10 + 4)
             };
         }
         return pedido;
@@ -66,11 +69,11 @@ document.addEventListener("DOMContentLoaded", () => {
     // Guardar los pedidos actualizados en localStorage
     localStorage.setItem("pedidosFiltrados", JSON.stringify(pedidos));
 
-
-    console.log(pedidos);
-
     // Cargar pedidos actualizados en la interfaz
     cargarpedidos(pedidos);
+
+    // Verificar si los valores fueron actualizados
+    console.log("Pedidos actualizados:", pedidos);
 });
 
 
