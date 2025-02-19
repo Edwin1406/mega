@@ -46,8 +46,8 @@ class CotizadorController
         header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS"); // Métodos permitidos
         $pedidosTrimar = Pedido::trimarcj('DESC', 'CJ');
         echo json_encode($pedidosTrimar);
-    
     }
+    
     public static function trimarp(Router $router) {
         // Obtener el pedido basado en el ID de la URL
         $pedido = Pedido::find($_GET['id']);
