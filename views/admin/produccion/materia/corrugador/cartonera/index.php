@@ -63,9 +63,11 @@
             <tbody class="table__tbody">
                 <?php foreach ($pedidosTrimar as $pTrimar):?>
                     <tr class="table__tr">
-                        <td class="table__td"><?php echo $pTrimar->nombre_cliente?></td>
-                        <td class="table__td"><?php echo $pTrimar->nombre_producto?></td>
-                        <td class="table__td"><?php echo $pTrimar->codigo_producto?></td>
+                        <td class="table__td"><?php echo $pTrimar->nombre_pedido?></td>
+                        <td class="table__td"><?php echo $pTrimar->cantidad?></td>
+                        <td class="table__td"><?php echo $pTrimar->largo?></td>
+                        <td class="table__td"><?php echo $pTrimar->ancho?></td>
+                        <td class="table__td"><?php echo $pTrimar->alto?></td>
                         <td data-id="<?php echo $pTrimar->id; ?>" class="table__td" style="color: 
                             <?php 
                                 echo ($pTrimar->estado == 'ENVIADO') ? 'green' : 
