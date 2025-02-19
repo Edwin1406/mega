@@ -1,8 +1,7 @@
 <h2 class="dashboard__heading"> <?php echo $titulo ?> </h2>
 
 
-
-<form method="GET" action="/admin/produccion/materia/corrugador/cartonera/index">
+<form method="GET" action="/admin/produccion/materia/corrugador/cartonera/index" id="filtroForm">
     <input type="hidden" name="page" value="1">
 
     <label for="per_page">Registros por página:</label>
@@ -21,9 +20,16 @@
 
     <button type="submit">Filtrar</button>
     <button type="button" onclick="guardarEnLocalStorage()">Guardar en Local Storage</button>
+    <button type="button" onclick="limpiarFiltros()">Limpiar Filtros</button>
 </form>
 
 <script>
+function limpiarFiltros() {
+    document.getElementById("fecha_entrega").value = "";
+    document.getElementById("test").value = "";
+    window.location.href = "/admin/produccion/materia/corrugador/cartonera/index"; // Recarga la página sin parámetros
+}
+
 function guardarEnLocalStorage() {
     let pedidos = [];
     let filas = document.querySelectorAll(".table__tbody .table__tr");
