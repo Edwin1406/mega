@@ -47,29 +47,26 @@ async function consumirAPI() {
         // Asegurar que data es un array y tiene al menos un objeto
         if (Array.isArray(data) && data.length > 0) {
             const item = data[0]; // Obtener el primer objeto del array
-            const id = item.id || "N/A";
-            
+            const id = item.id || ""; // Obtener el ID si existe, si no, dejar vacío
+
             if (item.papeles && Array.isArray(item.papeles)) {
                 item.papeles.forEach((papel, index) => {
                     const row = document.createElement("tr");
 
-                    // Solo en la primera fila mostramos Material y Flauta con rowspan
                     if (index === 0) {
                         row.innerHTML = `
-                            <td rowspan="${item.papeles.length}">${id}</td>
-                            <td rowspan="${item.papeles.length}">${item.material || "N/A"}</td>
-                            <td rowspan="${item.papeles.length}">${item.flauta || "N/A"}</td>
-                            <td>${papel.codigo || "N/A"}</td>
-                            <td>${papel.peso || "N/A"}</td>
-                            <td>${papel.descripcion || "N/A"}</td>
+                            <td rowspan="${item.papeles.length}">${id !== "" ? id : "-"}</td>
+                            <td rowspan="${item.papeles.length}">${item.material || "-"}</td>
+                            <td rowspan="${item.papeles.length}">${item.flauta || "-"}</td>
+                            <td>${papel.codigo || "-"}</td>
+                            <td>${papel.peso || "-"}</td>
+                            <td>${papel.descripcion || "-"}</td>
                         `;
                     } else {
-                        // Las siguientes filas solo muestran los datos de "papeles"
                         row.innerHTML = `
-
-                            <td>${papel.codigo || "N/A"}</td>
-                            <td>${papel.peso || "N/A"}</td>
-                            <td>${papel.descripcion || "N/A"}</td>
+                            <td>${papel.codigo || "-"}</td>
+                            <td>${papel.peso || "-"}</td>
+                            <td>${papel.descripcion || "-"}</td>
                         `;
                     }
 
@@ -77,21 +74,20 @@ async function consumirAPI() {
                 });
             } else {
                 console.warn("No se encontraron datos en 'papeles'.");
-                tbody.innerHTML = "<tr><td colspan='5'>No hay datos disponibles</td></tr>";
+                tbody.innerHTML = "<tr><td colspan='6'>No hay datos disponibles</td></tr>";
             }
         } else {
             console.warn("La API no devolvió datos válidos.");
-            tbody.innerHTML = "<tr><td colspan='5'>No hay datos disponibles</td></tr>";
+            tbody.innerHTML = "<tr><td colspan='6'>No hay datos disponibles</td></tr>";
         }
     } catch (error) {
         console.error("Error al obtener los datos:", error);
         document.querySelector(".table__tbody").innerHTML = 
-            "<tr><td colspan='5'>Error al cargar los datos</td></tr>";
+            "<tr><td colspan='6'>Error al cargar los datos</td></tr>";
     }
 }
 
 // Llamar a la función para cargar los datos cuando la página se cargue
 document.addEventListener("DOMContentLoaded", consumirAPI);
-
 
 </script>
