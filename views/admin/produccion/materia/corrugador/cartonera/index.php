@@ -70,7 +70,6 @@
                 <?php foreach ($pedidosTrimar as $pTrimar):?>
                     <tr class="table__tr">
                         <td class="table__td"><?php echo $pTrimar->id?></td>
-                        <td class="table__td"><?php echo $pTrimar->numero_pedido?></td>
                         <td class="table__td"><?php echo $pTrimar->nombre_pedido?></td>
                         <td class="table__td"><?php echo $pTrimar->cantidad?></td>
                         <td class="table__td"><?php echo $pTrimar->largo?></td>
