@@ -1,1 +1,1 @@
-<h1>hola estoy aqui para empezar el juego </h1>
+<h1 class="dashboard__heading"> <?php echo $titulo ?> </h1>
