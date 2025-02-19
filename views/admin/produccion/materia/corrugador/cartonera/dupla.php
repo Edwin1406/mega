@@ -66,6 +66,9 @@ document.addEventListener("DOMContentLoaded", () => {
     // Guardar los pedidos actualizados en localStorage
     localStorage.setItem("pedidosFiltrados", JSON.stringify(pedidos));
 
+
+    console.log(pedidos);
+
     // Cargar pedidos actualizados en la interfaz
     cargarpedidos(pedidos);
 });
