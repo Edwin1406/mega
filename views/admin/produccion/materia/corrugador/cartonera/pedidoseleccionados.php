@@ -47,14 +47,37 @@ document.querySelector(".borrar").addEventListener("click", () => {
 });
 
 
+document.addEventListener("DOMContentLoaded", () => {
+    let pedidos = JSON.parse(localStorage.getItem("pedidosFiltrados")) || [];
 
+    // Aplicar cálculos solo a los pedidos con "CJ" en el nombre
+    pedidos = pedidos.map(pedido => {
+        if (pedido.nombre_pedido && pedido.nombre_pedido.toUpperCase().includes("CJ")) {
+            let alto = Number(pedido.alto) || 0;
+            let largoOriginal = Number(pedido.largo) || 0;
+            let anchoOriginal = Number(pedido.ancho) || 0;
 
-document.addEventListener("DOMContentLoaded",()=>{
-    const pedidos = JSON.parse(localStorage.getItem("pedidosFiltrados"))||[];
+            // Evitar que los cálculos se acumulen al recargar la página
+            if (!pedido.calculado) {
+                pedido.largo = (2 * alto) + (largoOriginal + 8);
+                pedido.ancho = (2 * alto) + (anchoOriginal + 10 + 4);
+                pedido.alto = 0; // Dejar el alto en 0 después del cálculo
+                pedido.calculado = true; // Marcar que ya se ha calculado
+            }
+        }
+        return pedido;
+    });
 
+    // Guardar los pedidos actualizados en localStorage
+    localStorage.setItem("pedidosFiltrados", JSON.stringify(pedidos));
+
+    // Cargar pedidos actualizados en la interfaz
     cargarpedidos(pedidos);
- 
-})
+
+    // Verificar si los valores fueron actualizados
+    console.log("Pedidos actualizados:", pedidos);
+});
+
 
 
 function cargarpedidos(pedidos) {
