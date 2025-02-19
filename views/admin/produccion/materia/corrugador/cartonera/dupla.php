@@ -33,9 +33,6 @@
 
 <script>
 
-
-
-
 async function consumirAPI() {
     const url = "https://megawebsistem.com/admin/api/apipapel";
 
@@ -48,37 +45,56 @@ async function consumirAPI() {
         const tbody = document.querySelector(".table__tbody");
         tbody.innerHTML = ""; // Limpiar antes de agregar nuevos datos
 
-        // Asegurar que data es un array y tiene al menos un objeto
-        if (Array.isArray(data) && data.length > 0) {
-            data.forEach((item) => { // Recorrer todos los objetos en el array
-                if (item.papeles && Array.isArray(item.papeles)) {
-                    item.papeles.forEach((papel, index) => {
-                        const row = document.createElement("tr");
+        // Obtener pedidos filtrados desde localStorage
+        let pedidosFiltrados = JSON.parse(localStorage.getItem("pedidosFiltrados")) || [];
+        console.log("Pedidos filtrados desde localStorage:", pedidosFiltrados);
 
-                        if (index === 0) {
-                            row.innerHTML = `
-                                <td rowspan="${item.papeles.length}">${item.id}</td>
-                                <td rowspan="${item.papeles.length}">${item.material}</td>
-                                <td rowspan="${item.papeles.length}">${item.flauta}</td>
-                                <td>${papel.codigo}</td>
-                                <td>${papel.peso}</td>
-                                <td>${papel.descripcion}</td>
-                            `;
-                        } else {
-                            row.innerHTML = `
-                                <td>${papel.codigo}</td>
-                                <td>${papel.peso}</td>
-                                <td>${papel.descripcion}</td>
-                            `;
-                        }
+        // Extraer el primer pedido (si hay varios, solo toma el primero)
+        let pedidoSeleccionado = pedidosFiltrados.length > 0 ? pedidosFiltrados[0] : null;
 
-                        tbody.appendChild(row);
-                    });
+        if (!pedidoSeleccionado) {
+            console.warn("No hay pedidos en localStorage.");
+            tbody.innerHTML = "<tr><td colspan='6'>No hay pedidos disponibles</td></tr>";
+            return;
+        }
+
+        let testPedido = String(pedidoSeleccionado.test).trim();
+        let flautaPedido = String(pedidoSeleccionado.flauta).trim();
+        console.log("Test del pedido seleccionado:", testPedido);
+        console.log("Flauta del pedido seleccionado:", flautaPedido);
+
+        // Buscar el material que tenga el mismo test y flauta que el pedido seleccionado
+        let materialFiltrado = data.find(material => 
+            String(material.test).trim() === testPedido && 
+            String(material.flauta).trim() === flautaPedido
+        );
+
+        if (materialFiltrado) {
+            materialFiltrado.papeles.forEach((papel, index) => {
+                const row = document.createElement("tr");
+
+                if (index === 0) {
+                    row.innerHTML = `
+                        <td rowspan="${materialFiltrado.papeles.length}">${materialFiltrado.id}</td>
+                        <td rowspan="${materialFiltrado.papeles.length}">${materialFiltrado.material}</td>
+                        <td rowspan="${materialFiltrado.papeles.length}">${materialFiltrado.flauta}</td>
+                        <td>${papel.codigo}</td>
+                        <td>${papel.peso}</td>
+                        <td>${papel.descripcion}</td>
+                    `;
+                } else {
+                    row.innerHTML = `
+                        <td>${papel.codigo}</td>
+                        <td>${papel.peso}</td>
+                        <td>${papel.descripcion}</td>
+                    `;
                 }
+
+                tbody.appendChild(row);
             });
         } else {
-            console.warn("La API no devolvió datos válidos.");
-            tbody.innerHTML = "<tr><td colspan='6'>No hay datos disponibles</td></tr>";
+            console.warn("No hay materiales que coincidan con el pedido seleccionado.");
+            tbody.innerHTML = "<tr><td colspan='6'>No hay materiales disponibles</td></tr>";
         }
     } catch (error) {
         console.error("Error al obtener los datos:", error);
@@ -89,14 +105,6 @@ async function consumirAPI() {
 
 // Llamar a la función para cargar los datos cuando la página se cargue
 document.addEventListener("DOMContentLoaded", consumirAPI);
-
-
-
-
-document.addEventListener("DOMContentLoaded", ()=> {
-    pedidosFiltrados = JSON.parse(localStorage.getItem("pedidosFiltrados"));
-    console.log(pedidosFiltrados);
-});
 
 
 </script>
