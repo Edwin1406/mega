@@ -54,14 +54,16 @@ document.addEventListener("DOMContentLoaded", () => {
     pedidos = pedidos.map(pedido => {
         if (pedido.nombre_pedido && pedido.nombre_pedido.toUpperCase().includes("CJ")) {
             let alto = Number(pedido.alto) || 0;
-            let largo = Number(pedido.largo) || 0;
-            let ancho = Number(pedido.ancho) || 0;
+            let largoOriginal = Number(pedido.largo) || 0;
+            let anchoOriginal = Number(pedido.ancho) || 0;
 
-            return {
-                ...pedido,
-                largo: (2 * alto) + (largo + 8),
-                ancho: (2 * alto) + (ancho + 10 + 4)
-            };
+            // Evitar que los cálculos se acumulen al recargar la página
+            if (!pedido.calculado) {
+                pedido.largo = (2 * alto) + (largoOriginal + 8);
+                pedido.ancho = (2 * alto) + (anchoOriginal + 10 + 4);
+                pedido.alto = 0; // Dejar el alto en 0 después del cálculo
+                pedido.calculado = true; // Marcar que ya se ha calculado
+            }
         }
         return pedido;
     });
