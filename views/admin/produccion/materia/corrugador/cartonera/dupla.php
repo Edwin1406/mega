@@ -32,8 +32,6 @@
 </div>
 
 <script>
-
-
 async function consumirAPI() {
     const url = "https://megawebsistem.com/admin/api/apipapel";
 
@@ -50,12 +48,12 @@ async function consumirAPI() {
         let pedidosFiltrados = JSON.parse(localStorage.getItem("pedidosFiltrados")) || [];
         console.log("Pedidos filtrados desde localStorage:", pedidosFiltrados);
 
-        // Extraer los valores de "test" de los pedidos
-        let testPedidos = pedidosFiltrados.map(pedido => pedido.test);
+        // Extraer los valores de "test" y asegurarnos de que sean strings
+        let testPedidos = pedidosFiltrados.map(pedido => String(pedido.test).trim());
         console.log("Valores de test de los pedidos:", testPedidos);
 
-        // Filtrar los materiales para que solo aparezcan los que coinciden con el test de los pedidos
-        let materialesFiltrados = data.filter(material => testPedidos.includes(material.test));
+        // Filtrar los materiales convirtiendo también "test" a string
+        let materialesFiltrados = data.filter(material => testPedidos.includes(String(material.test).trim()));
         console.log("Materiales filtrados:", materialesFiltrados);
 
         // Asegurar que hay datos filtrados
