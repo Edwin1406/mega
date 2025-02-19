@@ -46,17 +46,28 @@ async function consumirAPI() {
         // Asegurar que data es un array y tiene al menos un objeto
         if (Array.isArray(data) && data.length > 0) {
             const item = data[0]; // Obtener el primer objeto del array
+            
             if (item.papeles && Array.isArray(item.papeles)) {
-                item.papeles.forEach(papel => {
+                item.papeles.forEach((papel, index) => {
                     const row = document.createElement("tr");
 
-                    row.innerHTML = `
-                        <td>${item.material || "N/A"}</td>
-                        <td>${item.flauta || "N/A"}</td>
-                        <td>${papel.codigo || "N/A"}</td>
-                        <td>${papel.peso || "N/A"}</td>
-                        <td>${papel.descripcion || "N/A"}</td>
-                    `;
+                    // Solo en la primera fila mostramos Material y Flauta con rowspan
+                    if (index === 0) {
+                        row.innerHTML = `
+                            <td rowspan="${item.papeles.length}">${item.material || "N/A"}</td>
+                            <td rowspan="${item.papeles.length}">${item.flauta || "N/A"}</td>
+                            <td>${papel.codigo || "N/A"}</td>
+                            <td>${papel.peso || "N/A"}</td>
+                            <td>${papel.descripcion || "N/A"}</td>
+                        `;
+                    } else {
+                        // Las siguientes filas solo muestran los datos de "papeles"
+                        row.innerHTML = `
+                            <td>${papel.codigo || "N/A"}</td>
+                            <td>${papel.peso || "N/A"}</td>
+                            <td>${papel.descripcion || "N/A"}</td>
+                        `;
+                    }
 
                     tbody.appendChild(row);
                 });
