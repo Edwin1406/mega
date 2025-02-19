@@ -41,13 +41,13 @@ class CotizadorController
     }
 
 
-    // public static function trimar(){
-    //     header("Access-Control-Allow-Origin: *");  // Permite solicitudes desde cualquier origen
-    //     header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS"); // Métodos permitidos
-    //     $pedidosTrimar = Pedido::trimarcj('DESC', 'CJ');
-    //     echo json_encode($pedidosTrimar);
+    public static function trimar(){
+        header("Access-Control-Allow-Origin: *");  // Permite solicitudes desde cualquier origen
+        header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS"); // Métodos permitidos
+        $pedidosTrimar = Pedido::trimarcj('DESC', 'CJ');
+        echo json_encode($pedidosTrimar);
     
-    // }
+    }
     public static function trimarp(Router $router) {
         // Obtener el pedido basado en el ID de la URL
         $pedido = Pedido::find($_GET['id']);
