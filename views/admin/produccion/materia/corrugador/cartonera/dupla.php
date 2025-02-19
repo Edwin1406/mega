@@ -17,6 +17,7 @@
     <table class="table">
         <thead class="table__thead">
             <tr>
+                <th scope="col" class="table__th">ID</th>
                 <th scope="col" class="table__th">Material</th>
                 <th scope="col" class="table__th">Flauta</th>
                 <th scope="col" class="table__th">Papeles</th>
@@ -54,6 +55,7 @@ async function consumirAPI() {
                     // Solo en la primera fila mostramos Material y Flauta con rowspan
                     if (index === 0) {
                         row.innerHTML = `
+                            <td rowspan="${item.papeles.length}">${item.id || "N/A"}</td>
                             <td rowspan="${item.papeles.length}">${item.material || "N/A"}</td>
                             <td rowspan="${item.papeles.length}">${item.flauta || "N/A"}</td>
                             <td>${papel.codigo || "N/A"}</td>
@@ -63,6 +65,7 @@ async function consumirAPI() {
                     } else {
                         // Las siguientes filas solo muestran los datos de "papeles"
                         row.innerHTML = `
+                            
                             <td>${papel.codigo || "N/A"}</td>
                             <td>${papel.peso || "N/A"}</td>
                             <td>${papel.descripcion || "N/A"}</td>
