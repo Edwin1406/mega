@@ -54,7 +54,7 @@
             <thead class="table__thead">
                 <tr>
                 <th scope="col" class="table__th">ID</th>
-                    <th scope="col" class="table__th">Numero Pedido</th>
+
                     <th scope="col" class="table__th">Nombre Pedido</th>
                     <th scope="col" class="table__th">Cantidad</th>
                     <th scope="col" class="table__th">Largo</th>
