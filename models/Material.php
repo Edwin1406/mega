@@ -10,6 +10,19 @@ class Material extends ActiveRecord {
     public $nombre;
     public $flauta;
 
+    public static function consultarSQL($query) {
+        $resultado = self::$db->query($query);
+        $array = [];
+    
+        while ($fila = $resultado->fetch_assoc()) { // Devuelve un array asociativo en lugar de objetos
+            $array[] = $fila;
+        }
+    
+        return $array;
+    }
+    
+    
+
     public static function obtenerMaterialesConPapeles() {
         $query = "SELECT 
                     m.id_material AS material_id,
