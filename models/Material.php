@@ -10,18 +10,7 @@ class Material extends ActiveRecord {
     public $nombre;
     public $flauta;
 
-    public static function consultarSQL($query) {
-        $resultado = self::$db->query($query);
-        $array = [];
-    
-        while ($fila = $resultado->fetch_assoc()) { // Devuelve un array asociativo en lugar de objetos
-            $array[] = $fila;
-        }
-    
-        return $array;
-    }
-    
-    
+
 
     public static function obtenerMaterialesConPapeles() {
         $query = "SELECT 
@@ -36,7 +25,7 @@ class Material extends ActiveRecord {
                   LEFT JOIN papel p ON m.id_material = p.material_id
                   ORDER BY m.id_material, p.id_papel";
 
-        $resultado = self::consultarSQL($query);
+        $resultado = self::arrayasociativo($query);
 
         // Agrupar los materiales y sus papeles en un array estructurado
         $materiales = [];

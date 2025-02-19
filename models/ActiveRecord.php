@@ -133,6 +133,19 @@ class ActiveRecord {
 
     
 
+    // devuelve array asociativo 
+    public static function arrayasociativo($query) {
+        $resultado = self::$db->query($query);
+        $array = [];
+    
+        while ($fila = $resultado->fetch_assoc()) { // Devuelve un array asociativo en lugar de objetos
+            $array[] = $fila;
+        }
+    
+        return $array;
+    }
+    
+
 
 
     public static function datoscompletos($orden = 'DESC', $filtro = null) {
