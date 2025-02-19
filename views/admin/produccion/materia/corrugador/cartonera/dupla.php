@@ -32,6 +32,10 @@
 </div>
 
 <script>
+
+
+
+
 async function consumirAPI() {
     const url = "https://megawebsistem.com/admin/api/apipapel";
 
@@ -44,21 +48,9 @@ async function consumirAPI() {
         const tbody = document.querySelector(".table__tbody");
         tbody.innerHTML = ""; // Limpiar antes de agregar nuevos datos
 
-        // Obtener pedidos filtrados desde localStorage
-        let pedidosFiltrados = JSON.parse(localStorage.getItem("pedidosFiltrados")) || [];
-        console.log("Pedidos filtrados desde localStorage:", pedidosFiltrados);
-
-        // Extraer los valores de "test" y asegurarnos de que sean strings
-        let testPedidos = pedidosFiltrados.map(pedido => String(pedido.test).trim());
-        console.log("Valores de test de los pedidos:", testPedidos);
-
-        // Filtrar los materiales convirtiendo también "test" a string
-        let materialesFiltrados = data.filter(material => testPedidos.includes(String(material.test).trim()));
-        console.log("Materiales filtrados:", materialesFiltrados);
-
-        // Asegurar que hay datos filtrados
-        if (materialesFiltrados.length > 0) {
-            materialesFiltrados.forEach((item) => {
+        // Asegurar que data es un array y tiene al menos un objeto
+        if (Array.isArray(data) && data.length > 0) {
+            data.forEach((item) => { // Recorrer todos los objetos en el array
                 if (item.papeles && Array.isArray(item.papeles)) {
                     item.papeles.forEach((papel, index) => {
                         const row = document.createElement("tr");
@@ -85,8 +77,8 @@ async function consumirAPI() {
                 }
             });
         } else {
-            console.warn("No hay materiales que coincidan con los pedidos.");
-            tbody.innerHTML = "<tr><td colspan='6'>No hay materiales disponibles</td></tr>";
+            console.warn("La API no devolvió datos válidos.");
+            tbody.innerHTML = "<tr><td colspan='6'>No hay datos disponibles</td></tr>";
         }
     } catch (error) {
         console.error("Error al obtener los datos:", error);
@@ -97,6 +89,14 @@ async function consumirAPI() {
 
 // Llamar a la función para cargar los datos cuando la página se cargue
 document.addEventListener("DOMContentLoaded", consumirAPI);
+
+
+
+
+document.addEventListener("DOMContentLoaded", ()=> {
+    pedidosFiltrados = JSON.parse(localStorage.getItem("pedidosFiltrados"));
+    console.log(pedidosFiltrados);
+});
 
 
 </script>
