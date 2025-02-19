@@ -11,7 +11,10 @@ class CartoneraController {
 
     public static function cartonera(Router $router)
     {
-        echo 'Desde el controlador cartonera';
+        $router->render('admin/produccion/materia/corrugador/cartogar/index', [
+            'titulo' => 'CARTOGAR',
+           
+        ]);
 
     }
 }
