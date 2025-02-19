@@ -1,5 +1,52 @@
 <h2 class="dashboard__heading"> <?php echo $titulo ?> </h2>
+
+<button class="borrar">
+    clear
+</button>
+
+
+
+<div class="dashboard__contenedor">
+
+    <table class="table">
+        <thead class="table__thead">
+            <tr>
+                <th scope="col" class="table__th">ID</th>
+                <th>Nombre</th>
+                <th>Cantidad</th>
+                <th>Largo</th>
+                <th>Ancho</th>
+                <th>Alto</th>
+                <th>Flauta</th>
+                <th>Test</th>
+                <th>Fecha Ingreso</th>
+                <th>Fecha Entrega</th>
+            </tr>
+        </thead>
+        <tbody class="table__tbody">
+            <!-- Las filas se agregarán aquí -->
+        </tbody>
+    </table>
+</div>
+
+<div class="dashboard__contenedor-boton">
+    <a class="dashboard__boton" href="/admin/produccion/materia/corrugador/cartonera/dupla">
+        <i class="fa-regular fa-eye"></i>
+        SIGUIENTE
+    </a>
+</div>
+
+
+
 <script>
+
+
+document.querySelector(".borrar").addEventListener("click", () => {
+    localStorage.removeItem("pedidosFiltrados");
+    alert("Los datos filtrados se han eliminado de Local Storage.");
+});
+
+
 
 
 document.addEventListener("DOMContentLoaded",()=>{
