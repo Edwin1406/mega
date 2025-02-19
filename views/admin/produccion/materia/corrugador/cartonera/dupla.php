@@ -65,9 +65,11 @@ async function consumirAPI() {
 
         // Buscar el material que tenga el mismo test y flauta que el pedido seleccionado
         let materialFiltrado = data.find(material => 
-            String(material.test).trim() === testPedido && 
-            String(material.flauta).trim() === flautaPedido
+            String(material.test || "").trim() === testPedido && 
+            String(material.flauta || "").trim() === flautaPedido
         );
+
+        console.log("Material filtrado encontrado:", materialFiltrado);
 
         if (materialFiltrado) {
             materialFiltrado.papeles.forEach((papel, index) => {
