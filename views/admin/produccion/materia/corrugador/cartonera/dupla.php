@@ -46,36 +46,32 @@ async function consumirAPI() {
 
         // Asegurar que data es un array y tiene al menos un objeto
         if (Array.isArray(data) && data.length > 0) {
-            const item = data[0]; // Obtener el primer objeto del array
-            const id = item.id || ""; // Obtener el ID si existe, si no, dejar vacío
+            data.forEach((item) => { // Recorrer todos los objetos en el array
+                if (item.papeles && Array.isArray(item.papeles)) {
+                    item.papeles.forEach((papel, index) => {
+                        const row = document.createElement("tr");
 
-            if (item.papeles && Array.isArray(item.papeles)) {
-                item.papeles.forEach((papel, index) => {
-                    const row = document.createElement("tr");
+                        if (index === 0) {
+                            row.innerHTML = `
+                                <td rowspan="${item.papeles.length}">${item.id}</td>
+                                <td rowspan="${item.papeles.length}">${item.material}</td>
+                                <td rowspan="${item.papeles.length}">${item.flauta}</td>
+                                <td>${papel.codigo}</td>
+                                <td>${papel.peso}</td>
+                                <td>${papel.descripcion}</td>
+                            `;
+                        } else {
+                            row.innerHTML = `
+                                <td>${papel.codigo}</td>
+                                <td>${papel.peso}</td>
+                                <td>${papel.descripcion}</td>
+                            `;
+                        }
 
-                    if (index === 0) {
-                        row.innerHTML = `
-                            <td rowspan="${item.papeles.length}">${id !== "" ? id : "-"}</td>
-                            <td rowspan="${item.papeles.length}">${item.material || "-"}</td>
-                            <td rowspan="${item.papeles.length}">${item.flauta || "-"}</td>
-                            <td>${papel.codigo || "-"}</td>
-                            <td>${papel.peso || "-"}</td>
-                            <td>${papel.descripcion || "-"}</td>
-                        `;
-                    } else {
-                        row.innerHTML = `
-                            <td>${papel.codigo || "-"}</td>
-                            <td>${papel.peso || "-"}</td>
-                            <td>${papel.descripcion || "-"}</td>
-                        `;
-                    }
-
-                    tbody.appendChild(row);
-                });
-            } else {
-                console.warn("No se encontraron datos en 'papeles'.");
-                tbody.innerHTML = "<tr><td colspan='6'>No hay datos disponibles</td></tr>";
-            }
+                        tbody.appendChild(row);
+                    });
+                }
+            });
         } else {
             console.warn("La API no devolvió datos válidos.");
             tbody.innerHTML = "<tr><td colspan='6'>No hay datos disponibles</td></tr>";
