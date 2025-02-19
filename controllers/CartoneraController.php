@@ -97,12 +97,12 @@ class CartoneraController {
     // API
     public static function apipapel(Router $router)
 {
-    // header("Access-Control-Allow-Origin: *");  
-    // header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS"); 
-    // header("Content-Type: application/json"); 
+    header("Access-Control-Allow-Origin: *");  
+    header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS"); 
+    header("Content-Type: application/json"); 
 
-    // $material = Material::all();
-    // echo json_encode($material);
+    $material = Material::all('DESC');
+    echo json_encode($material);
     echo "hola";
 }
 
