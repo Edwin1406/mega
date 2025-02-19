@@ -13,14 +13,15 @@
 
 
 
-
 <div class="dashboard__contenedor">
     <table class="table">
         <thead class="table__thead">
             <tr>
-                <th scope="col" class="table__th">Código</th>
-                <th scope="col" class="table__th">Peso</th>
-                <th scope="col" class="table__th">Descripción</th>
+                <th scope="col" class="table__th">Material</th>
+                <th scope="col" class="table__th">Flauta</th>
+                <th scope="col" class="table__th">Papeles</th>
+                <th scope="col" class="table__th">%</th>
+                <th scope="col" class="table__th">Descripción Papeles</th>
             </tr>
         </thead>
         <tbody class="table__tbody">
@@ -32,7 +33,7 @@
 <script>
 async function consumirAPI() {
     const url = "https://megawebsistem.com/admin/api/apipapel";
-    
+
     try {
         const response = await fetch(url);
         const data = await response.json();
@@ -40,12 +41,13 @@ async function consumirAPI() {
         const tbody = document.querySelector(".table__tbody");
         tbody.innerHTML = ""; // Limpiar antes de agregar nuevos datos
 
-        // Verificar si hay datos en "papeles"
         if (data.papeles && Array.isArray(data.papeles)) {
             data.papeles.forEach(papel => {
                 const row = document.createElement("tr");
 
                 row.innerHTML = `
+                    <td>${data.material}</td>
+                    <td>${data.flauta}</td>
                     <td>${papel.codigo}</td>
                     <td>${papel.peso}</td>
                     <td>${papel.descripcion}</td>
@@ -54,7 +56,7 @@ async function consumirAPI() {
                 tbody.appendChild(row);
             });
         } else {
-            tbody.innerHTML = "<tr><td colspan='3'>No hay datos disponibles</td></tr>";
+            tbody.innerHTML = "<tr><td colspan='5'>No hay datos disponibles</td></tr>";
         }
     } catch (error) {
         console.error("Error al obtener los datos:", error);
@@ -64,8 +66,3 @@ async function consumirAPI() {
 // Llamar a la función para cargar los datos cuando la página se cargue
 document.addEventListener("DOMContentLoaded", consumirAPI);
 </script>
-
-
-
-
-
