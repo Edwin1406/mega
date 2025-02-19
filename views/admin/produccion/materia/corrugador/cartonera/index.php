@@ -79,7 +79,7 @@
                         <td class="table__td"><?php echo $pTrimar->flauta?></td>
                         <td class="table__td"><?php echo $pTrimar->test?></td>
                         <td class="table__td"><?php echo $pTrimar->fecha_ingreso?></td>
-                        <td class="table__td"><?php echo $pTrimar->fecha_entrada?></td>
+                        <td class="table__td"><?php echo $pTrimar->fecha_entrega?></td>
 
                     </tr>
                 <?php endforeach;?>
