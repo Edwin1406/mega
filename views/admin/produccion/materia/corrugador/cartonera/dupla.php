@@ -47,6 +47,7 @@ async function consumirAPI() {
         // Asegurar que data es un array y tiene al menos un objeto
         if (Array.isArray(data) && data.length > 0) {
             const item = data[0]; // Obtener el primer objeto del array
+            const id = item.id || "N/A";
             
             if (item.papeles && Array.isArray(item.papeles)) {
                 item.papeles.forEach((papel, index) => {
@@ -65,7 +66,7 @@ async function consumirAPI() {
                     } else {
                         // Las siguientes filas solo muestran los datos de "papeles"
                         row.innerHTML = `
-                            
+
                             <td>${papel.codigo || "N/A"}</td>
                             <td>${papel.peso || "N/A"}</td>
                             <td>${papel.descripcion || "N/A"}</td>
