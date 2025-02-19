@@ -2,7 +2,6 @@
 
 
 
-
 <!-- Filtros -->
 <div class="dashboard__contenedor" style="margin-bottom: 15px; padding: 20px; border-radius: 10px; border: 1px solid #ddd; background-color: #fff;">
     <label for="fecha_inicio">Fecha Inicio:</label>
@@ -20,16 +19,20 @@
 <!-- Recuperar filtros desde localStorage -->
 <script>
 window.onload = function () {
-    document.getElementById('fecha_inicio').value = localStorage.getItem('fecha_inicio') || '';
-    document.getElementById('fecha_fin').value = localStorage.getItem('fecha_fin') || '';
-    document.getElementById('test_filter').value = localStorage.getItem('test_filter') || '';
+    let filtrosGuardados = JSON.parse(localStorage.getItem('filtros_tabla')) || {};
+    document.getElementById('fecha_inicio').value = filtrosGuardados.fecha_inicio || '';
+    document.getElementById('fecha_fin').value = filtrosGuardados.fecha_fin || '';
+    document.getElementById('test_filter').value = filtrosGuardados.test_filter || '';
     filtrarTabla();
 };
 
 function guardarFiltros() {
-    localStorage.setItem('fecha_inicio', document.getElementById('fecha_inicio').value);
-    localStorage.setItem('fecha_fin', document.getElementById('fecha_fin').value);
-    localStorage.setItem('test_filter', document.getElementById('test_filter').value);
+    let filtros = {
+        fecha_inicio: document.getElementById('fecha_inicio').value,
+        fecha_fin: document.getElementById('fecha_fin').value,
+        test_filter: document.getElementById('test_filter').value
+    };
+    localStorage.setItem('filtros_tabla', JSON.stringify(filtros));
 }
 
 function filtrarTabla() {
