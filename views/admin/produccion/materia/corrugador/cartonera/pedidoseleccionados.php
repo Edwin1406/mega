@@ -4,7 +4,7 @@
 const pedidosFil = localStorage.getItem("pedidosFiltrados");
 
 const pedidos = JSON.parse(pedidosFil);
-console.log(pedidosFil);
+console.log(pedidos);
 
 
 
