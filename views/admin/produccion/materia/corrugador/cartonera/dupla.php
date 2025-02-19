@@ -56,7 +56,7 @@ async function consumirAPI() {
                     // Solo en la primera fila mostramos Material y Flauta con rowspan
                     if (index === 0) {
                         row.innerHTML = `
-                            <td rowspan="${item.papeles.length}">${item.id || "N/A"}</td>
+                            <td rowspan="${item.papeles.length}">${id}</td>
                             <td rowspan="${item.papeles.length}">${item.material || "N/A"}</td>
                             <td rowspan="${item.papeles.length}">${item.flauta || "N/A"}</td>
                             <td>${papel.codigo || "N/A"}</td>
