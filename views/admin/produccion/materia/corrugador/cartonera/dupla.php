@@ -32,6 +32,15 @@
 </div>
 
 <script>
+
+Document.addEventListener("DOMContentLoaded", ()=> {
+    pedidosFiltrados = json.parse(localStorage.getItem("pedidosFiltrados"));
+    console.log(pedidosFiltrados);
+});
+
+
+
+
 async function consumirAPI() {
     const url = "https://megawebsistem.com/admin/api/apipapel";
 
