@@ -26,7 +26,23 @@ document.addEventListener("DOMContentLoaded",()=>{
 function cargarpedidos(pedidos){
     pedidos.forEach(pedido=>{
         const{ id, nombre_pedido, cantidad, largo, ancho, alto, flauta, test, fecha_ingreso, fecha_entrega} = pedido;
-        console.log(id, nombre_pedido, cantidad, largo, ancho, alto, flauta, test, fecha_ingreso, fecha_entrega);
+        const row = document.createElement("tr");
+        row.innerHTML = `
+        <td class="table__td">${id}</td>
+        <td class="table__td">${nombre_pedido}</td>
+        <td class="table__td">${cantidad}</td>
+        <td class="table__td">${largo}</td>
+        <td class="table__td">${ancho}</td>
+        <td class="table__td">${alto}</td>
+        <td class="table__td">${flauta}</td>
+        <td class="table__td">${test}</td>
+        <td class="table__td">${fecha_ingreso}</td>
+        <td class="table__td">${fecha_entrega}</td>
+        `;
+
+        document.querySelector(".table__tbody").appendChild(row);
+        
+        
 
     })
 }
