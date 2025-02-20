@@ -7,7 +7,7 @@
 
 
 <script>
-// 1️⃣ Obtener los pedidos del localStorage
+/// 1️⃣ Obtener los pedidos del localStorage
 const pedidosGuardados = JSON.parse(localStorage.getItem("pedidos")) || [];
 
 // 2️⃣ Agrupar los pedidos por ID (Combo)
@@ -19,29 +19,51 @@ const pedidosAgrupados = pedidosGuardados.reduce((grupos, pedido) => {
     return grupos;
 }, {});
 
-// 3️⃣ Mostrar pedidos agrupados en la consola
-console.log("Pedidos agrupados por combo:", pedidosAgrupados);
+// 3️⃣ Convertir objeto en array y agrupar en duplas
+const ids = Object.keys(pedidosAgrupados);
+const duplas = [];
 
-// 4️⃣ Mostrar en la pantalla en formato de combos
-const mostrarPedidosAgrupados = (pedidosAgrupados) => {
+for (let i = 0; i < ids.length; i += 2) {
+    const combo1 = pedidosAgrupados[ids[i]];
+    const combo2 = pedidosAgrupados[ids[i + 1]] || []; // Si no hay pareja, se deja vacío
+    duplas.push([combo1, combo2]);
+}
+
+// 4️⃣ Mostrar en consola las duplas creadas
+console.log("Duplas de combos:", duplas);
+
+// 5️⃣ Mostrar en la pantalla las duplas
+const mostrarDuplas = (duplas) => {
     const contenedor = document.getElementById("pedidosFiltrados");
-    contenedor.innerHTML = ""; // Limpiar contenido
+    
+    if (!contenedor) {
+        console.error("Error: No se encontró el elemento con ID 'pedidosFiltrados'.");
+        return;
+    }
 
-    Object.keys(pedidosAgrupados).forEach(idCombo => {
-        const divCombo = document.createElement("div");
-        divCombo.innerHTML = `<h3>Combo ${idCombo}</h3>`;
-        contenedor.appendChild(divCombo);
+    contenedor.innerHTML = ""; // Limpiar contenido antes de agregar nuevos pedidos
 
-        pedidosAgrupados[idCombo].forEach(pedido => {
-            const divPedido = document.createElement("div");
-            divPedido.textContent = `Pedido: ${pedido.nombre_pedido} - Cantidad: ${pedido.cantidad}`;
-            divCombo.appendChild(divPedido);
+    duplas.forEach((dupla, index) => {
+        const divDupla = document.createElement("div");
+        divDupla.innerHTML = `<h2>Dupla ${index + 1}</h2>`;
+        contenedor.appendChild(divDupla);
+
+        dupla.forEach(combo => {
+            const divCombo = document.createElement("div");
+            divCombo.innerHTML = `<h3>Combo ${combo[0]?.id || "N/A"}</h3>`;
+            divDupla.appendChild(divCombo);
+
+            combo.forEach(pedido => {
+                const divPedido = document.createElement("div");
+                divPedido.textContent = `Pedido: ${pedido.nombre_pedido} - Cantidad: ${pedido.cantidad}`;
+                divCombo.appendChild(divPedido);
+            });
         });
     });
 };
 
-// 5️⃣ Llamar a la función para mostrar en pantalla
-mostrarPedidosAgrupados(pedidosAgrupados);
+// 6️⃣ Llamar a la función para mostrar en pantalla
+mostrarDuplas(duplas);
 
 
 </script>
