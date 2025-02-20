@@ -55,7 +55,7 @@ class Material extends ActiveRecord {
     // }
 
     
-    public static function obtenerMaterialesConPapelesYFormatosDisponibles() {
+    public static function obtenerMaterialesConPapeles() {
         $query = "SELECT 
                     m.id_material AS material_id,
                     m.nombre AS nombre_material,
