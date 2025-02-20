@@ -248,6 +248,13 @@ $router->get('/admin/produccion/materia/corrugador/cartonera/pedidoseleccionados
 
 $router->get('/admin/produccion/materia/corrugador/cartonera/dupla', [CartoneraController::class, 'dupla']);
 
+
+$router->get('/admin/produccion/materia/corrugador/cartonera/combinacion', [CartoneraController::class, 'trimar']);
+
+
+
+
+
 // API LISTA DE PAPELES
 $router->get('/admin/api/apipapel', [CartoneraController::class, 'apipapel']);
 
