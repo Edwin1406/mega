@@ -10,6 +10,7 @@ class Papel extends ActiveRecord {
     public $codigo;
     public $descripcion;
     public $peso;
-    public $material_id;
+    public $gramaje;
+
     
 }
