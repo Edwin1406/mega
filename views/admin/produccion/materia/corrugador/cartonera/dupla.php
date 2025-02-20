@@ -111,7 +111,7 @@ async function consumirAPI() {
 document.addEventListener("DOMContentLoaded", consumirAPI);
 
 
-console.log(materialFiltrado.papeles);
+
 
 
 </script>
