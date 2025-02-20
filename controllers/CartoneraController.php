@@ -106,8 +106,16 @@ class CartoneraController {
     }
 
 
+    public static function combinacion (Router $router) {
+        session_start();
+        isAuth();
+        $router->render('admin/produccion/materia/corrugador/cartonera/combinacion', [
+            'titulo' => 'COMBINACIÓN DE PEDIDOS', 
+        ]);
 
-    
+    }
+
+
     
 
 
