@@ -46,7 +46,7 @@ class Material extends ActiveRecord {
             if (!is_null($fila['papel_id'])) {
                 $materiales[$materialId]['papeles'][] = [
                     'codigo' => $fila['codigo_papel'],
-                    'peso' => $fila['peso'],
+                    'gramaje' => $fila['gramaje'],
                     'descripcion' => $fila['descripcion_papel']
                 ];
             }
