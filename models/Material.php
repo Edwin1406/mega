@@ -19,6 +19,7 @@ class Material extends ActiveRecord {
                     p.id_papel AS papel_id,
                     p.codigo AS codigo_papel,
                     p.descripcion AS descripcion_papel,
+                    p.peso,
                     p.gramaje
                   FROM material m
                   LEFT JOIN papel_material pm ON m.id_material = pm.id_material
@@ -46,6 +47,7 @@ class Material extends ActiveRecord {
             if (!is_null($fila['papel_id'])) {
                 $materiales[$materialId]['papeles'][] = [
                     'codigo' => $fila['codigo_papel'],
+                    'peso' => $fila['peso'],
                     'gramaje' => $fila['gramaje'],
                     'descripcion' => $fila['descripcion_papel']
                 ];
