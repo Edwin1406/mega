@@ -19,7 +19,7 @@ class Material extends ActiveRecord {
                     p.id_papel AS papel_id,
                     p.codigo AS codigo_papel,
                     p.descripcion AS descripcion_papel,
-                    p.peso
+                    p.gramaje
                   FROM material m
                   LEFT JOIN papel_material pm ON m.id_material = pm.id_material
                   LEFT JOIN papel p ON pm.id_papel = p.id_papel
