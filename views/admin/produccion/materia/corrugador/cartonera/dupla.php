@@ -69,6 +69,9 @@ async function consumirAPI() {
         });
 
         console.log("Material filtrado encontrado:", materialFiltrado);
+        localStorage.setItem("materialFiltrado", JSON.stringify(materialFiltrado));
+
+
 
         if (materialFiltrado) {
             materialFiltrado.papeles.forEach((papel, index) => {
