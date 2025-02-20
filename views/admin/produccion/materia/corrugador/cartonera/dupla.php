@@ -83,13 +83,13 @@ async function consumirAPI() {
                         <td rowspan="${materialFiltrado.papeles.length}">${materialFiltrado.material}</td> <!-- Muestra K250 -->
                         <td rowspan="${materialFiltrado.papeles.length}">${materialFiltrado.flauta}</td>
                         <td>${papel.codigo}</td>
-                        <td>${papel.peso}</td>
+                        <td>${papel.gramaje}</td>
                         <td>${papel.descripcion}</td>
                     `;
                 } else {
                     row.innerHTML = `
                         <td>${papel.codigo}</td>
-                        <td>${papel.peso}</td>
+                        <td>${papel.gramaje}</td>
                         <td>${papel.descripcion}</td>
                     `;
                 }
