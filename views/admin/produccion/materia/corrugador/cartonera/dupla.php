@@ -21,7 +21,7 @@
                 <th scope="col" class="table__th">Material</th>
                 <th scope="col" class="table__th">Flauta</th>
                 <th scope="col" class="table__th">Papeles</th>
-                <th scope="col" class="table__th">%</th>
+                <th scope="col" class="table__th">GM</th>
                 <th scope="col" class="table__th">Descripción Papeles</th>
             </tr>
         </thead>
