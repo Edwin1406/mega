@@ -39,13 +39,10 @@
 
 
 <script>
-
-
 document.querySelector(".borrar").addEventListener("click", () => {
     localStorage.removeItem("pedidosFiltrados");
     alert("Los datos filtrados se han eliminado de Local Storage.");
 });
-
 
 document.addEventListener("DOMContentLoaded", () => {
     let pedidos = JSON.parse(localStorage.getItem("pedidosFiltrados")) || [];
@@ -56,12 +53,14 @@ document.addEventListener("DOMContentLoaded", () => {
             let alto = Number(pedido.alto) || 0;
             let largoOriginal = Number(pedido.largo) || 0;
             let anchoOriginal = Number(pedido.ancho) || 0;
+            let cantidad = Number(pedido.cantidad) || 1;
 
             // Evitar que los cálculos se acumulen al recargar la página
             if (!pedido.calculado) {
                 pedido.largo = (2 * alto) + (largoOriginal + 8);
                 pedido.ancho = (2 * alto) + (anchoOriginal + 10 + 4);
                 pedido.alto = 0; // Dejar el alto en 0 después del cálculo
+                pedido.metros_cuadrados = ((pedido.largo * pedido.ancho * cantidad) / 10000).toFixed(2); // Cálculo del área en m²
                 pedido.calculado = true; // Marcar que ya se ha calculado
             }
         }
@@ -78,8 +77,6 @@ document.addEventListener("DOMContentLoaded", () => {
     console.log("Pedidos actualizados:", pedidos);
 });
 
-
-
 function cargarpedidos(pedidos) {
     const tbody = document.querySelector(".table__tbody");
     
@@ -89,7 +86,7 @@ function cargarpedidos(pedidos) {
     }
 
     pedidos.forEach(pedido => {
-        const { id, nombre_pedido, cantidad, largo, ancho, alto, flauta, test, fecha_ingreso, fecha_entrega } = pedido;
+        const { id, nombre_pedido, cantidad, largo, ancho, alto, flauta, test, fecha_ingreso, fecha_entrega, metros_cuadrados } = pedido;
         const row = document.createElement("tr");
         row.innerHTML = `
             <td class="table__td">${id}</td>
@@ -102,6 +99,7 @@ function cargarpedidos(pedidos) {
             <td class="table__td">${test}</td>
             <td class="table__td">${fecha_ingreso}</td>
             <td class="table__td">${fecha_entrega}</td>
+            <td class="table__td">${metros_cuadrados} m²</td>
         `;
         tbody.appendChild(row);
     });

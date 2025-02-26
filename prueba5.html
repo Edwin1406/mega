@@ -1,195 +1,129 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gráfico con Filtros y Tabla</title>
-  <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
-  <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <style>
-    #filters {
-      display: flex;
-      justify-content: space-between;
-      margin: 20px auto;
-      max-width: 800px;
-    }
-    #filters select {
-      padding: 5px;
-      font-size: 16px;
-    }
-    table {
-      margin-top: 20px;
-    }
-  </style>
-</head>
-<body>
-  <h1>Gráfico de Existencias con Filtros</h1>
-  <div id="filters">
-    <div>
-      <label for="filterGramaje">Filtrar por Gramaje:</label>
-      <select id="filterGramaje">
-        <option value="all">Todos</option>
-      </select>
-    </div>
-    <div>
-      <label for="filterAncho">Filtrar por Ancho:</label>
-      <select id="filterAncho">
-        <option value="all">Todos</option>
-      </select>
-    </div>
-  </div>
-  <div id="chart" style="max-width: 800px; margin: auto;"></div>
-  <table id="dataTable" class="display" style="width:100%">
-    <thead>
-      <tr>
-        <th>Ancho</th>
-        <th>Gramaje</th>
-        <th>Existencia</th>
-        <th>Descripción</th>
-      </tr>
-    </thead>
-    <tbody></tbody>
-  </table>
 
-  <script>
-    const apiUrl = "https://megawebsistem.com/admin/api/apicajablanco";
-    let originalData = [];
-    let chart;
 
-    async function fetchData() {
-      try {
-        const response = await fetch(apiUrl);
-        const data = await response.json();
-        originalData = data;
-        populateFilters(data);
-        renderChart(data);
-        renderTable(data);
-      } catch (error) {
-        console.error("Error al obtener los datos de la API:", error);
-      }
-    }
 
-    function populateFilters(data) {
-      const gramajes = [...new Set(data.map(item => item.gramaje))];
-      const anchos = [...new Set(data.map(item => item.ancho))];
+<style>
 
-      const gramajeSelect = document.getElementById("filterGramaje");
-      gramajes.forEach(gramaje => {
-        const option = document.createElement("option");
-        option.value = gramaje;
-        option.textContent = gramaje;
-        gramajeSelect.appendChild(option);
-      });
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
 
-      const anchoSelect = document.getElementById("filterAncho");
-      anchos.forEach(ancho => {
-        const option = document.createElement("option");
-        option.value = ancho;
-        option.textContent = ancho;
-        anchoSelect.appendChild(option);
-      });
-    }
 
-    function filterData() {
-      const selectedGramaje = document.getElementById("filterGramaje").value;
-      const selectedAncho = document.getElementById("filterAncho").value;
+.contenedor {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  justify-items: center;
+  margin-top: 50px;
+  border: 1px solid #000;
+  margin: 3rem;
+  height: 500px;
+  width: 300px;
+  padding: 1rem;
+  border-radius: 1rem;
+  background: linear-gradient(340deg,#1ee9f8,#c9f6fc,#fabb99,#4be2dc);
+  background-size: 240% 240%;
+  animation: gradient-animation 8s ease infinite;
 
-      let filteredData = originalData;
+  
+  
+}
 
-      if (selectedGramaje !== "all") {
-        filteredData = filteredData.filter(item => item.gramaje === selectedGramaje);
-      }
-      if (selectedAncho !== "all") {
-        filteredData = filteredData.filter(item => item.ancho === selectedAncho);
-      }
+.sprite {
+  width: 30vh;
+  margin-bottom: 2rem;
+  height: 30vh;
+  border: 1px solid #000;
+  border-radius: 1rem;
+  background-color: aliceblue;
+}
 
-      renderChart(filteredData);
-      renderTable(filteredData);
-    }
 
-    function renderChart(data) {
-      const gramajes = [...new Set(data.map(item => item.gramaje))];
-      const anchos = [...new Set(data.map(item => item.ancho))];
+li{
+  padding: 1rem;
+  color: white;
+}
 
-      const series = anchos.map(ancho => ({
-        name: `Ancho ${ancho}`,
-        data: gramajes.map(gramaje => {
-          const items = data.filter(item => item.ancho === ancho && item.gramaje === gramaje);
-          return items.reduce((sum, item) => sum + parseFloat(item.existencia), 0);
-        }),
-      }));
-z
-      const options = {
-        series: series,
-        chart: {
-          type: 'bar',
-          height: 400,
-          stacked: true,
-          toolbar: {
-            show: true,
-          },
-        },
-        plotOptions: {
-          bar: {
-            horizontal: false,
-            borderRadius: 4,
-          },
-        },
-        dataLabels: {
-          enabled: true,
-        },
-        xaxis: {
-          categories: gramajes,
-          title: {
-            text: 'Gramajes',
-          },
-        },
-        yaxis: {
-          title: {
-            text: 'Existencias Totales',
-          },
-        },
-        legend: {
-          position: 'top',
-        },
-        fill: {
-          opacity: 1,
-        },
-      };
 
-      if (chart) {
-        chart.updateOptions(options);
-      } else {
-        chart = new ApexCharts(document.querySelector("#chart"), options);
-        chart.render();
-      }
-    }
+ul{
+  /* background: red; */
+  background: linear-gradient(300deg,deepskyblue,darkviolet,blue);
+  background-size: 180% 180%;
+  animation: gradient-animation 18s ease infinite;
+  margin-top: 1rem;
+  border-radius: 1rem;
+  
+}
 
-    function renderTable(data) {
-      const table = $("#dataTable").DataTable();
-      table.clear();
 
-      data.forEach(item => {
-        table.row.add([
-          item.ancho,
-          item.gramaje,
-          item.existencia,
-          item.descripcion,
-        ]);
-      });
 
-      table.draw();
-    }
 
-    document.getElementById("filterGramaje").addEventListener("change", filterData);
-    document.getElementById("filterAncho").addEventListener("change", filterData);
+@keyframes gradient-animation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
 
-    $(document).ready(() => {
-      $("#dataTable").DataTable();
-      fetchData();
-    });
-  </script>
-</body>
-</html>
+
+
+
+.habilidades{
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  text-align: center;
+}
+
+
+</style>
+
+<div class="contenedor">
+
+  
+  <h2 class="name"></h2>
+  
+  
+  <img class="sprite" alt="Imagen del Pokémon">
+  <ul class="habilidades"></ul>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+   tomardatos();
+});
+
+async function getDatos() {
+   try {
+      const url =  "https://pokeapi.co/api/v2/pokemon/ditto";
+      const respuesta = await fetch(url);
+      const datos = await respuesta.json();
+      return datos;
+   } catch (error) {
+      console.error('Error:', error);
+   }
+}
+
+async function tomardatos(){
+  const datos = await getDatos();
+  const { name, height, weight, abilities, sprites } = datos;
+  document.querySelector('.name').textContent = name.toUpperCase();
+
+  const imagen = document.querySelector('.sprite');
+  imagen.src = sprites.front_default;
+  imagen.alt = `Imagen de ${name}`;
+
+  abilities.forEach(element => {
+    const habilidad = document.createElement('li');
+    habilidad.textContent = element.ability.name;
+    document.querySelector('.habilidades').appendChild(habilidad);
+  });
+}
+</script>
