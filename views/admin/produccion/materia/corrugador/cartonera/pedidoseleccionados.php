@@ -48,33 +48,21 @@ document.querySelector(".borrar").addEventListener("click", () => {
 document.addEventListener("DOMContentLoaded", () => {
     let pedidos = JSON.parse(localStorage.getItem("pedidosFiltrados")) || [];
 
-    // Aplicar cálculos solo a los pedidos con "CJ" en el nombre
+    // Aplicar cálculos a todos los pedidos, no solo a los que contienen "CJ"
     pedidos = pedidos.map(pedido => {
-        if (pedido.nombre_pedido && pedido.nombre_pedido.toUpperCase().includes("CJ")) {
-            let alto = Number(pedido.alto) || 0;
-            let largoOriginal = Number(pedido.largo) || 0;
-            let anchoOriginal = Number(pedido.ancho) || 0;
-            let cantidad = Number(pedido.cantidad) || 1;
+        let largo = Number(pedido.largo) || 0;
+        let ancho = Number(pedido.ancho) || 0;
+        let cantidad = Number(pedido.cantidad) || 1;
 
-            // Evitar que los cálculos se acumulen al recargar la página
-            if (!pedido.calculado) {
-                let nuevoLargo = (2 * alto) + (largoOriginal + 8);
-                let nuevoAncho = (2 * alto) + (anchoOriginal + 10 + 4);
-
-                pedido.largo = nuevoLargo;
-                pedido.ancho = nuevoAncho;
-
-                // Solo calcular metros cuadrados si el largo y el ancho son mayores que 0
-                if (nuevoLargo > 0 && nuevoAncho > 0) {
-                    pedido.metros_cuadrados = ((nuevoLargo * nuevoAncho * cantidad) / 10000).toFixed(2);
-                } else {
-                    pedido.metros_cuadrados = "0.00"; // Evitar NaN o valores incorrectos
-                }
-
-                pedido.alto = 0; // Dejar el alto en 0 después del cálculo
-                pedido.calculado = true; // Marcar que ya se ha calculado
+        // Solo calcular metros cuadrados si el largo y el ancho son mayores que 0
+        if (!pedido.metros_cuadrados || pedido.metros_cuadrados === "undefined") {
+            if (largo > 0 && ancho > 0) {
+                pedido.metros_cuadrados = ((largo * ancho * cantidad) / 10000).toFixed(2);
+            } else {
+                pedido.metros_cuadrados = "0.00"; // Evitar valores incorrectos
             }
         }
+
         return pedido;
     });
 
