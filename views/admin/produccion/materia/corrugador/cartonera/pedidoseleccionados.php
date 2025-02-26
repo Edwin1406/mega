@@ -49,14 +49,28 @@ document.addEventListener("DOMContentLoaded", () => {
     let pedidos = JSON.parse(localStorage.getItem("pedidosFiltrados")) || [];
 
     pedidos = pedidos.map(pedido => {
-        let largo = Number(pedido.largo) || 0;
-        let ancho = Number(pedido.ancho) || 0;
+        let alto = Number(pedido.alto) || 0;
+        let largoOriginal = Number(pedido.largo) || 0;
+        let anchoOriginal = Number(pedido.ancho) || 0;
         let cantidad = Number(pedido.cantidad) || 1;
 
+        // Si el pedido contiene "CJ", se modifican largo y ancho según la fórmula
+        if (pedido.nombre_pedido && pedido.nombre_pedido.toUpperCase().includes("CJ")) {
+            if (!pedido.calculado) {
+                pedido.largo = (2 * alto) + (largoOriginal + 8);
+                pedido.ancho = (2 * alto) + (anchoOriginal + 10 + 4);
+                pedido.alto = 0; // Se deja el alto en 0 después del cálculo
+                pedido.calculado = true; // Marcar como calculado
+            }
+        }
+
         // Asegurar que metros_cuadrados no sea undefined
+        let largo = Number(pedido.largo) || 0;
+        let ancho = Number(pedido.ancho) || 0;
+
         if (!pedido.metros_cuadrados || pedido.metros_cuadrados === "undefined") {
             if (largo > 0 && ancho > 0) {
-                // Convertir mm a metros cuadrados dividiendo entre 1,000,000
+                // Convertir mm² a m² dividiendo entre 1,000,000
                 pedido.metros_cuadrados = ((largo * ancho * cantidad) / 1000000).toFixed(2);
             } else {
                 pedido.metros_cuadrados = "0.00"; // Evitar valores incorrectos
@@ -104,5 +118,6 @@ function cargarpedidos(pedidos) {
         tbody.appendChild(row);
     });
 }
+
 
 </script>
