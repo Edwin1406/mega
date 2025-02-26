@@ -58,10 +58,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
             // Evitar que los cálculos se acumulen al recargar la página
             if (!pedido.calculado) {
-                pedido.largo = (2 * alto) + (largoOriginal + 8);
-                pedido.ancho = (2 * alto) + (anchoOriginal + 10 + 4);
+                let nuevoLargo = (2 * alto) + (largoOriginal + 8);
+                let nuevoAncho = (2 * alto) + (anchoOriginal + 10 + 4);
+
+                pedido.largo = nuevoLargo;
+                pedido.ancho = nuevoAncho;
+
+                // Solo calcular metros cuadrados si el largo y el ancho son mayores que 0
+                if (nuevoLargo > 0 && nuevoAncho > 0) {
+                    pedido.metros_cuadrados = ((nuevoLargo * nuevoAncho * cantidad) / 10000).toFixed(2);
+                } else {
+                    pedido.metros_cuadrados = "0.00"; // Evitar NaN o valores incorrectos
+                }
+
                 pedido.alto = 0; // Dejar el alto en 0 después del cálculo
-                pedido.metros_cuadrados = ((pedido.largo * pedido.ancho * cantidad) / 10000).toFixed(2); // Cálculo del área en m²
                 pedido.calculado = true; // Marcar que ya se ha calculado
             }
         }
@@ -80,11 +90,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
 function cargarpedidos(pedidos) {
     const tbody = document.querySelector(".table__tbody");
-    
+
     if (!tbody) {
         console.error("No se encontró el elemento .table__tbody en el DOM");
         return;
     }
+
+    tbody.innerHTML = ""; // Limpiar la tabla antes de cargar los datos
 
     pedidos.forEach(pedido => {
         const { id, nombre_pedido, cantidad, largo, ancho, alto, flauta, test, fecha_ingreso, fecha_entrega, metros_cuadrados } = pedido;
