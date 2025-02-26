@@ -21,6 +21,7 @@
                 <th>Test</th>
                 <th>Fecha Ingreso</th>
                 <th>Fecha Entrega</th>
+                <th>Metros Cuadrados</th>
             </tr>
         </thead>
         <tbody class="table__tbody">
