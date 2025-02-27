@@ -19,10 +19,9 @@ document.addEventListener("DOMContentLoaded", () => {
             //    suma de anchos
             const suma = parseFloat(pedidoActual.ancho) + parseFloat(otroPedido.ancho);
             if(suma <= disponible){
-                if(pedidoActual.ancho <= otroPedido.ancho){
-                    console.log(`Pedido ${pedidoActual.id} ${pedidoActual.ancho} + Pedido ${otroPedido.id} ${otroPedido.ancho} = ${suma}`);
-                }else{
-                    console.log(`Pedido ${otroPedido.id} ${otroPedido.ancho} + Pedido ${pedidoActual.id} ${pedidoActual.ancho} = ${suma}`);
+                if(pedidoActual.cantidad <= otroPedido.cantidad){
+                   [pedidoActual.cantidad, otroPedido.cantidad] = [otroPedido.cantidad, pedidoActual.cantidad];
+                    console.log(pedidoActual, otroPedido);
                 }
 
             }
