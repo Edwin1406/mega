@@ -15,11 +15,9 @@ document.addEventListener("DOMContentLoaded", () => {
         for(let i=0; i< pedidos.length; i++) {
             const pedidoActual = pedidos[i];
             for(let j=i+1;j< pedidos.length; j++ ){
-                const pedidoSiguiente = pedidos[j];
-                const suma = pedidoActual + pedidoSiguiente;
-                if(suma <= disponible) {
-                    console.log(pedidoActual, pedidoSiguiente);
-                }
+               const otroPedido =pedidos[j];
+                const suma = pedidoActual.ancho + otroPedido.ancho;
+                console.log(suma);
 
             }
 
