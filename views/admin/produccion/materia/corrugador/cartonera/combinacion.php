@@ -17,7 +17,8 @@ document.addEventListener("DOMContentLoaded", () => {
             for(let j=i+1;j< pedidos.length; j++ ){
                const otroPedido =pedidos[j];
             //    suma de anchos
-                const suma = pedidoActual.ancho + otroPedido.ancho;
+            const suma = parseFloat(pedidoActual.ancho) + parseFloat(otroPedido.ancho);
+
                 
                 console.log(suma);
 
