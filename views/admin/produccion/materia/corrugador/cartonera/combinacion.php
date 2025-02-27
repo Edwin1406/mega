@@ -25,7 +25,12 @@ document.addEventListener("DOMContentLoaded", () => {
                      [pedido1, pedido2] = [pedido2, pedido1];
                 }
                 const sobrante = disponible - suma;
-                console.log(pedidos)
+                const metrosLineales = (pedido1.cantidad * pedido1.largo) / 1000;
+                const corte2 = metrosLineales / (pedido2.largo / 1000);
+                const corte1 = metrosLineales / (pedido1.largo / 1000);
+
+                console.log("Pedido 1: ", pedido1);
+                console.log("Pedido 2: ", pedido2);
 
             }
 
