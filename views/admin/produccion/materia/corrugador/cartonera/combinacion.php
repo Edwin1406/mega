@@ -12,8 +12,8 @@ document.addEventListener("DOMContentLoaded", () => {
         const disponible =bobina-refile;
         console.log(disponible);
 
-        for(let i=0; i< pedidos.length; j++) {
-            const pedidoActual = pedidos[j];
+        for(let i=0; i< pedidos.length; i++) {
+            const pedidoActual = pedidos[i];
             console.log(pedidoActual);
 
         }
