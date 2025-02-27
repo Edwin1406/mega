@@ -28,9 +28,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 const metrosLineales = (pedido1.cantidad * pedido1.largo) / 1000;
                 const corte2 = metrosLineales / (pedido2.largo / 1000);
                 const corte1 = metrosLineales / (pedido1.largo / 1000);
-
-                console.log("Pedido 1: ", pedido1);
-                console.log("Pedido 2: ", pedido2);
+                console.log(pedidos[i].id, pedidos[j].id, pedido1.id, pedido2.id, corte1, corte2, sobrante);
 
             }
 
