@@ -28,7 +28,21 @@ document.addEventListener("DOMContentLoaded", () => {
                 const metrosLineales = (pedido1.cantidad * pedido1.largo) / 1000;
                 const corte2 = metrosLineales / (pedido2.largo / 1000);
                 const corte1 = metrosLineales / (pedido1.largo / 1000);
-                console.log(pedidos[i].id, pedidos[j].id, pedido1.id, pedido2.id, corte1, corte2, sobrante);
+                if (corte2 < 0) continue;
+
+                        if (!mejorCombinacionLocal || sobrante < mejorCombinacionLocal.sobrante) {
+                            mejorCombinacionLocal = {
+                                bobina,
+                                pedidos: [pedido1, pedido2],
+                                suma,
+                                sobrante,
+                                cavidad: "1<br>1",
+                                corteP1: pedido1.cantidad,
+                                corteP2: Math.max(0, parseInt(corte2)),
+                                metrosLineales,
+                            };
+                        }
+                    console.log(mejorCombinacionLocal);
 
             }
 
