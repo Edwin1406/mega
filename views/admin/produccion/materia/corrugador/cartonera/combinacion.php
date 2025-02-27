@@ -13,6 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
         console.log(disponible);
 
         for(let i=0; i< pedidos.length; i++) {
+            let mejorCombinacionLocal = null;
             const pedidoActual = pedidos[i];
             for(let j=i+1;j< pedidos.length; j++ ){
                const otroPedido =pedidos[j];
