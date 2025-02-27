@@ -24,7 +24,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 if (pedido2.cantidad < pedido1.cantidad) {
                      [pedido1, pedido2] = [pedido2, pedido1];
                 }
-                console.log(pedidoActual, otroPedido);
+                const sobrante = disponible - suma;
+                console.log(`Pedido 1: ${pedido1.id} - Pedido 2: ${pedido2.id} - Sobrante: ${sobrante}`);
 
             }
 
