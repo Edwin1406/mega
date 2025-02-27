@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", () => {
                      [pedido1, pedido2] = [pedido2, pedido1];
                 }
                 const sobrante = disponible - suma;
-                console.log(`Pedido 1: ${pedido1.id} - Pedido 2: ${pedido2.id} - Sobrante: ${sobrante}`);
+                console.log(pedidos)
 
             }
 
