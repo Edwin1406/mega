@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
         // pedidos 
        
         for(const pedido of pedidos) {
-            const {id, cantidad, cliente, fecha, producto, ancho, largo, corte, cavidades} = pedido;
+            const {id, cantidad, cliente, fecha, nombre_pedido, ancho, largo, corte, cavidades} = pedido;
             const total = cantidad * cavidades;
             const totalBobinas = total / disponible;
             const totalBobinasRedondeado = Math.ceil(totalBobinas);
@@ -24,9 +24,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             console.log(`
                 Pedido: ${id}
-                Cliente: ${cliente}
-                Fecha: ${fecha}
-                Producto: ${producto}
+                Producto: ${nombre_pedido}
                 Ancho: ${ancho}
                 Largo: ${largo}
                 Corte: ${corte}
