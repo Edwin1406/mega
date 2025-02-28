@@ -22,6 +22,27 @@ document.addEventListener("DOMContentLoaded", () => {
             const totalBobinasRealesCavidadesRedondeado = Math.ceil(totalBobinasRealesCavidades);
             const totalBobinasRealesCavidadesRedondeado2 = Math.ceil(totalBobinasRealesCavidades/2);
 
+            console.log(`
+                Pedido: ${id}
+                Cliente: ${cliente}
+                Fecha: ${fecha}
+                Producto: ${producto}
+                Ancho: ${ancho}
+                Largo: ${largo}
+                Corte: ${corte}
+                Cantidad: ${cantidad}
+                Cavidades: ${cavidades}
+                Total: ${total}
+                Bobina: ${bobina}
+                Disponible: ${disponible}
+                Total Bobinas: ${totalBobinas}
+                Total Bobinas Redondeado: ${totalBobinasRedondeado}
+                Total Bobinas Reales: ${totalBobinasReales}
+                Total Bobinas Reales Cavidades: ${totalBobinasRealesCavidades}
+                Total Bobinas Reales Cavidades Redondeado: ${totalBobinasRealesCavidadesRedondeado}
+                Total Bobinas Reales Cavidades Redondeado2: ${totalBobinasRealesCavidadesRedondeado2}
+            `);
+
     }
 
 
