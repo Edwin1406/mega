@@ -1,129 +1,139 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Producción</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: center;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+        }
+        th {
+            background-color: #f2a3c5;
+        }
+        .highlight {
+            background-color: yellow;
+        }
+        .faltante {
+            background-color: red;
+            color: white;
+        }
+        input {
+            width: 80px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
 
+<h2>Calculadora de Producción</h2>
+<table>
+    <thead>
+        <tr>
+            <th>LARGO</th>
+            <th>LARGO SIN REDONDEO</th>
+            <th>ANCHO</th>
+            <th>CANTIDAD PEDIDO</th>
+            <th>CANTIDAD FALTANTE</th>
+            <th>CAVIDAD</th>
+            <th>CORTES</th>
+            <th>CANTIDAD PRODUCIDA</th>
+            <th>METROS LINEALES</th>
+            <th>ANCHO UTILIZADO</th>
+            <th>BOBINA UTILIZADA</th>
+            <th>SOBRANTE</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><input type="number" id="largo1" value="1386"></td>
+            <td><input type="number" id="largoRed1" value="1.38"></td>
+            <td><input type="number" id="ancho1" value="687"></td>
+            <td><input type="number" id="pedido1" value="500"></td>
+            <td id="faltante1">500</td>
+            <td><input type="number" id="cavidad1" value="1"></td>
+            <td id="cortes1" class="highlight">500</td>
+            <td id="producida1" class="highlight">500</td>
+            <td id="metros1" class="highlight">693</td>
+            <td id="anchoUtilizado1" class="highlight">687</td>
+            <td id="bobina1" class="highlight">1880</td>
+            <td id="sobrante1" class="highlight">30</td>
+        </tr>
+        <tr>
+            <td><input type="number" id="largo2" value="1974"></td>
+            <td><input type="number" id="largoRed2" value="1.97"></td>
+            <td><input type="number" id="ancho2" value="1163"></td>
+            <td><input type="number" id="pedido2" value="600"></td>
+            <td id="faltante2">351</td>
+            <td><input type="number" id="cavidad2" value="1"></td>
+            <td id="cortes2" class="highlight">600</td>
+            <td id="producida2" class="highlight">600</td>
+            <td id="metros2" class="highlight">693</td>
+            <td id="anchoUtilizado2" class="highlight">1163</td>
+            <td id="bobina2" class="highlight">1850</td>
+            <td id="sobrante2" class="highlight">30</td>
+        </tr>
+    </tbody>
+</table>
 
-
-<style>
-
-body {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 0;
-}
-
-
-.contenedor {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  justify-items: center;
-  margin-top: 50px;
-  border: 1px solid #000;
-  margin: 3rem;
-  height: 500px;
-  width: 300px;
-  padding: 1rem;
-  border-radius: 1rem;
-  background: linear-gradient(340deg,#1ee9f8,#c9f6fc,#fabb99,#4be2dc);
-  background-size: 240% 240%;
-  animation: gradient-animation 8s ease infinite;
-
-  
-  
-}
-
-.sprite {
-  width: 30vh;
-  margin-bottom: 2rem;
-  height: 30vh;
-  border: 1px solid #000;
-  border-radius: 1rem;
-  background-color: aliceblue;
-}
-
-
-li{
-  padding: 1rem;
-  color: white;
-}
-
-
-ul{
-  /* background: red; */
-  background: linear-gradient(300deg,deepskyblue,darkviolet,blue);
-  background-size: 180% 180%;
-  animation: gradient-animation 18s ease infinite;
-  margin-top: 1rem;
-  border-radius: 1rem;
-  
-}
-
-
-
-
-@keyframes gradient-animation {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
-
-
-
-
-.habilidades{
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  text-align: center;
-}
-
-
-</style>
-
-<div class="contenedor">
-
-  
-  <h2 class="name"></h2>
-  
-  
-  <img class="sprite" alt="Imagen del Pokémon">
-  <ul class="habilidades"></ul>
-</div>
+<h3>Falta:</h3>
+<p id="pedidoFaltante1" class="faltante">FALTA: 500</p>
+<p id="pedidoFaltante2" class="faltante">FALTA: 249</p>
 
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-   tomardatos();
+function actualizarValores() {
+    for (let i = 1; i <= 2; i++) {
+        let pedido = parseInt(document.getElementById(`pedido${i}`).value);
+        let cavidad = parseInt(document.getElementById(`cavidad${i}`).value);
+        let largo = parseInt(document.getElementById(`largo${i}`).value);
+        let ancho = parseInt(document.getElementById(`ancho${i}`).value);
+
+        // Cantidad Producida (si no hay valor, se asume 0)
+        let producida = parseInt(document.getElementById(`producida${i}`).innerText) || 0;
+
+        // Cantidad Faltante = Cantidad Pedido - Cantidad Producida
+        let faltante = pedido - producida;
+        document.getElementById(`faltante${i}`).innerText = faltante;
+
+        // CORTES = Cantidad Pedido / Cavidad (prevención de división por cero)
+        let cortes = cavidad !== 0 ? pedido / cavidad : 0;
+        document.getElementById(`cortes${i}`).innerText = cortes.toFixed(0);
+
+        // Metros Lineales = ((Cantidad Faltante * Largo) / Cavidad) / 1000 (prevención de división por cero)
+        let metros = cavidad !== 0 ? ((faltante * largo) / cavidad) / 1000 : 0;
+        document.getElementById(`metros${i}`).innerText = metros.toFixed(2);
+
+        // Ancho Utilizado = Ancho * Cavidad
+        let anchoUtilizado = ancho * cavidad;
+        document.getElementById(`anchoUtilizado${i}`).innerText = anchoUtilizado;
+
+        // Bobina Utilizada (simulación)
+        let bobinaUsada = anchoUtilizado + 1600;
+        document.getElementById(`bobina${i}`).innerText = bobinaUsada;
+
+        // Sobrante (valor fijo de 30, pero se puede ajustar)
+        let sobrante = 30;
+        document.getElementById(`sobrante${i}`).innerText = sobrante;
+
+        // Falta de producción
+        document.getElementById(`pedidoFaltante${i}`).innerText = `FALTA: ${faltante}`;
+    }
+}
+
+// Detecta cambios en los inputs y actualiza valores
+document.querySelectorAll("input").forEach(input => {
+    input.addEventListener("input", actualizarValores);
 });
 
-async function getDatos() {
-   try {
-      const url =  "https://pokeapi.co/api/v2/pokemon/ditto";
-      const respuesta = await fetch(url);
-      const datos = await respuesta.json();
-      return datos;
-   } catch (error) {
-      console.error('Error:', error);
-   }
-}
-
-async function tomardatos(){
-  const datos = await getDatos();
-  const { name, height, weight, abilities, sprites } = datos;
-  document.querySelector('.name').textContent = name.toUpperCase();
-
-  const imagen = document.querySelector('.sprite');
-  imagen.src = sprites.front_default;
-  imagen.alt = `Imagen de ${name}`;
-
-  abilities.forEach(element => {
-    const habilidad = document.createElement('li');
-    habilidad.textContent = element.ability.name;
-    document.querySelector('.habilidades').appendChild(habilidad);
-  });
-}
+// Ejecutar al cargar
+actualizarValores();
 </script>
+
+</body>
+</html>
