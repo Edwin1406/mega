@@ -1,139 +1,339 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calculadora de Producción</title>
-    <style>
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            text-align: center;
-        }
-        th, td {
-            border: 1px solid black;
-            padding: 8px;
-        }
-        th {
-            background-color: #f2a3c5;
-        }
-        .highlight {
-            background-color: yellow;
-        }
-        .faltante {
-            background-color: red;
-            color: white;
-        }
-        input {
-            width: 80px;
-            text-align: center;
-        }
-    </style>
+<style>
+  body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      background-color: #f8f9fa;
+  }
+  table {
+      width: 100%;
+      border-collapse: collapse;
+      background: white;
+      margin-top: 20px;
+      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  th, td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: center;
+  }
+  th {
+      background-color: #007bff;
+      color: white;
+  }
+  tr:nth-child(even) {
+      background-color: #f2f2f2;
+  }
+  tr:hover {
+      background-color: #ddd;
+  }
+</style>
 </head>
 <body>
 
-<h2>Calculadora de Producción</h2>
+<!-- <h2>CONBINACIONES QUE NO SE SI ESATRE BIEN  😂🤣</h2> -->
 <table>
-    <thead>
-        <tr>
-            <th>LARGO</th>
-            <th>LARGO SIN REDONDEO</th>
-            <th>ANCHO</th>
-            <th>CANTIDAD PEDIDO</th>
-            <th>CANTIDAD FALTANTE</th>
-            <th>CAVIDAD</th>
-            <th>CORTES</th>
-            <th>CANTIDAD PRODUCIDA</th>
-            <th>METROS LINEALES</th>
-            <th>ANCHO UTILIZADO</th>
-            <th>BOBINA UTILIZADA</th>
-            <th>SOBRANTE</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td><input type="number" id="largo1" value="1386"></td>
-            <td><input type="number" id="largoRed1" value="1.38"></td>
-            <td><input type="number" id="ancho1" value="687"></td>
-            <td><input type="number" id="pedido1" value="500"></td>
-            <td id="faltante1">500</td>
-            <td><input type="number" id="cavidad1" value="1"></td>
-            <td id="cortes1" class="highlight">500</td>
-            <td id="producida1" class="highlight">500</td>
-            <td id="metros1" class="highlight">693</td>
-            <td id="anchoUtilizado1" class="highlight">687</td>
-            <td id="bobina1" class="highlight">1880</td>
-            <td id="sobrante1" class="highlight">30</td>
-        </tr>
-        <tr>
-            <td><input type="number" id="largo2" value="1974"></td>
-            <td><input type="number" id="largoRed2" value="1.97"></td>
-            <td><input type="number" id="ancho2" value="1163"></td>
-            <td><input type="number" id="pedido2" value="600"></td>
-            <td id="faltante2">351</td>
-            <td><input type="number" id="cavidad2" value="1"></td>
-            <td id="cortes2" class="highlight">600</td>
-            <td id="producida2" class="highlight">600</td>
-            <td id="metros2" class="highlight">693</td>
-            <td id="anchoUtilizado2" class="highlight">1163</td>
-            <td id="bobina2" class="highlight">1850</td>
-            <td id="sobrante2" class="highlight">30</td>
-        </tr>
-    </tbody>
+  <thead>
+      <tr>
+          <th>Numero. combo</th>
+          <th>ID</th>
+          <th>Pedido</th>
+          <th>Cavidad</th>
+          <th>Cortes</th>
+          <th>Cantidad</th>
+          <th>Producida</th>
+          <th>Faltante</th>
+          <th>Metros Lineales</th>
+          <th>Ancho Utilizado</th>
+          <th>Porcentaje</th>
+          <th>Total Ancho</th>
+          <th>Mejor Bobina</th>
+          <th>Sobrante</th>
+      </tr>
+  </thead>
+  <tbody>
+      <!-- Aquí se agregarán los datos dinámicamente -->
+  </tbody>
 </table>
 
-<h3>Falta:</h3>
-<p id="pedidoFaltante1" class="faltante">FALTA: 500</p>
-<p id="pedidoFaltante2" class="faltante">FALTA: 249</p>
-
 <script>
-function actualizarValores() {
-    for (let i = 1; i <= 2; i++) {
-        let pedido = parseInt(document.getElementById(`pedido${i}`).value);
-        let cavidad = parseInt(document.getElementById(`cavidad${i}`).value);
-        let largo = parseInt(document.getElementById(`largo${i}`).value);
-        let ancho = parseInt(document.getElementById(`ancho${i}`).value);
 
-        // Cantidad Producida (si no hay valor, se asume 0)
-        let producida = parseInt(document.getElementById(`producida${i}`).innerText) || 0;
 
-        // Cantidad Faltante = Cantidad Pedido - Cantidad Producida
-        let faltante = pedido - producida;
-        document.getElementById(`faltante${i}`).innerText = faltante;
+const bobinas= [1600,1100];
+const trim = 30;
 
-        // CORTES = Cantidad Pedido / Cavidad (prevención de división por cero)
-        let cortes = cavidad !== 0 ? pedido / cavidad : 0;
-        document.getElementById(`cortes${i}`).innerText = cortes.toFixed(0);
 
-        // Metros Lineales = ((Cantidad Faltante * Largo) / Cavidad) / 1000 (prevención de división por cero)
-        let metros = cavidad !== 0 ? ((faltante * largo) / cavidad) / 1000 : 0;
-        document.getElementById(`metros${i}`).innerText = metros.toFixed(2);
+// restar el trim a la bobina sin modificar el array original
+const bobinasTrim = bobinas.map(bobina => bobina - trim);
 
-        // Ancho Utilizado = Ancho * Cavidad
-        let anchoUtilizado = ancho * cavidad;
-        document.getElementById(`anchoUtilizado${i}`).innerText = anchoUtilizado;
+// agregar de nuevo a bobina el array ya modificado
+console.log(bobinasTrim);
+console.log(bobinas);
 
-        // Bobina Utilizada (simulación)
-        let bobinaUsada = anchoUtilizado + 1600;
-        document.getElementById(`bobina${i}`).innerText = bobinaUsada;
 
-        // Sobrante (valor fijo de 30, pero se puede ajustar)
-        let sobrante = 30;
-        document.getElementById(`sobrante${i}`).innerText = sobrante;
 
-        // Falta de producción
-        document.getElementById(`pedidoFaltante${i}`).innerText = `FALTA: ${faltante}`;
+
+const cavidades = [1,2,3,4];
+
+const pedidos = [
+    {
+        alto: "0",
+        ancho: "538",
+        cantidad: "1050",
+        fecha_entrega: "2025-02-27",
+        fecha_ingreso: "2025-02-10",
+        flauta: "C",
+        id: "6",
+        largo: "1530",
+        metros_cuadrados: "864.30",
+        nombre_pedido: "caja san jose ideal",
+        test: "250"
+    },
+    {
+        alto: "0",
+        ancho: "493",
+        cantidad: "1050",
+        fecha_entrega: "2025-02-27",
+        fecha_ingreso: "2025-02-18",
+        flauta: "C",
+        id: "7",
+        largo: "1286",
+        metros_cuadrados: "667.05",
+        nombre_pedido: "caja tel celca",
+        test: "250"
+    },
+    {
+        alto: "0",
+        ancho: "417",
+        cantidad: "3150",
+        fecha_entrega: "2025-02-27",
+        fecha_ingreso: "2025-02-18",
+        flauta: "C",
+        id: "8",
+        largo: "1230",
+        metros_cuadrados: "667.05",
+        nombre_pedido: "caja de prueba",
+        test: "250"
+    },
+
+    {
+        alto: "0",
+        ancho: "417",
+        cantidad: "3150",
+        fecha_entrega: "2025-02-27",
+        fecha_ingreso: "2025-02-18",
+        flauta: "C",
+        id: "9",
+        largo: "1230",
+        metros_cuadrados: "667.05",
+        nombre_pedido: "caja de prueba",
+        test: "250"
+    },
+
+    
+];
+
+
+
+
+
+const pedidosCalculadosAgrupados = pedidos.map(pedido => ({
+    id: pedido.id, 
+
+    nombre_pedido: pedido.nombre_pedido,
+    ancho: pedido.ancho,
+    alto: pedido.alto,
+    largo: pedido.largo,
+    variaciones: cavidades.map(cavidad => {
+        const cantidad = pedido.cantidad;
+        const largo = pedido.largo; 
+        const ancho = pedido.ancho;
+        
+        const cortes = Math.ceil(cantidad / cavidad);
+        const cantidad_producida = cortes * cavidad;
+        const cantidad_faltante = cantidad - cantidad_producida;
+        const metros_lineales = Math.floor(((cantidad_producida * largo) / cavidad) / 1000); 
+        const ancho_utilizado = Math.ceil( ancho * cavidad);
+        const porcentaje = cantidad_faltante === cantidad ? 100 : Math.floor((cantidad_faltante * 100) / cantidad);
+
+        return {
+            cavidad,
+            cortes,
+            cantidad,
+            largo,
+            cantidad_producida,
+            cantidad_faltante,
+            metros_lineales,
+            ancho_utilizado,
+            porcentaje
+        };
+    })
+}));
+
+// console.log(pedidos)
+
+
+// Generar todas las combinaciones de variaciones entre los pedidos
+const generarCombinaciones = (pedidos) => {
+    let combinaciones = [];
+
+    for (let i = 0; i < pedidos.length - 1; i++) {
+        for (let j = i + 1; j < pedidos.length; j++) {
+            pedidos[i].variaciones.forEach(var1 => {
+                pedidos[j].variaciones.forEach(var2 => {
+                    // Recalcular valores para cada variación
+                    const cortes1 = Math.ceil(var1.cantidad / var1.cavidad);
+                    const cantidad_producida1 = cortes1 * var1.cavidad;
+                    const cantidad_faltante1 = var1.cantidad - cantidad_producida1;
+                    const metros_lineales1 = Math.floor(((cantidad_producida1 * var1.largo) / var1.cavidad) / 1000);
+                    const porcentajep1 = cantidad_producida1 === var1.cantidad ? 100 : Math.floor((cantidad_producida1 * 100) / var1.cantidad);
+
+                    const cortes2 = Math.ceil(var2.cantidad / var2.cavidad);
+                    const cantidad_producida2 =Math.floor((metros_lineales1/var2.largo)*1000);
+                    const cantidad_faltante2 = Math.floor(var2.cantidad - cantidad_producida2);
+                    const metros_lineales2 = Math.floor(((cantidad_producida2 * var2.largo) / var2.cavidad) / 1000);
+                    // const porcentajep2 = cantidad_producida2 === var2.cantidad ? 100 : Math.floor((cantidad_producida2 * 100) / var2.cantidad);
+                    const porcentajep2 = cantidad_producida2 === var2.cantidad ? 100: ((cantidad_producida2 * 100) / var2.cantidad).toFixed(2);
+
+
+                    combinaciones.push({
+                        pedido_1: {
+                            id: pedidos[i].id,
+                            nombre: pedidos[i].nombre_pedido,
+                            ancho_utilizado: var1.ancho_utilizado,
+                            cantidad: var1.cantidad,
+                            cavidad: var1.cavidad,
+                            largo: var1.largo,
+                            cortes: cortes1,
+                            cantidad_producida: cantidad_producida1,
+                            cantidad_faltante: cantidad_faltante1,
+                            metros_lineales: metros_lineales1,
+                            porcentaje1: porcentajep1
+                        },
+                        pedido_2: {
+                            id: pedidos[j].id,
+                            nombre: pedidos[j].nombre_pedido,
+                            ancho_utilizado: var2.ancho_utilizado,
+                            cantidad: var2.cantidad,
+                            cavidad: var2.cavidad,
+                            largo: var2.largo,
+                            cortes: cortes2,
+                            cantidad_producida: cantidad_producida2,
+                            cantidad_faltante: cantidad_faltante2,
+                            metros_lineales: metros_lineales2,
+                            porcentaje2: porcentajep2
+                        },
+                        total_ancho: var1.ancho_utilizado + var2.ancho_utilizado
+                    });
+                });
+            });
+        }
     }
+
+    return combinaciones;
+};
+
+
+console.log(pedidos);
+
+// Evaluar la mejor combinación de pedidos según el menor sobrante en una bobina
+const encontrarMejorCombo = (combinaciones) => {
+    return combinaciones.map(combo => {
+        // Encontrar la mejor bobina que se ajuste a la combinación
+        const mejorBobina = bobinasTrim.reduce((mejor, bobina) => {
+            const sobrante = bobina - combo.total_ancho;
+            return sobrante >= 0 && sobrante < mejor.sobrante ? { bobina, sobrante } : mejor;
+        }, { bobina: null, sobrante: Infinity });
+
+        return {
+            ...combo,
+            mejorBobina
+        };
+    }).filter(combo => combo.mejorBobina.bobina !== null); // Filtrar solo combos viables
+};
+
+let comboCounter = 1; // Contador de combos para asignar números automáticamente
+
+const encontrarMejorTrimado = (combinaciones) => {
+    let mejorDupla = null;
+    let menorSobrante = Infinity;
+
+    combinaciones.forEach(combo => {
+        bobinas.forEach(bobina => {
+            const sobrante = bobina - combo.total_ancho;
+
+            if (sobrante >= 0 && sobrante < menorSobrante) {
+                menorSobrante = sobrante;
+                mejorDupla = {
+                    ...combo,
+                    mejorBobina: bobina,
+                    sobrante,
+                    comboNumero: comboCounter++ // Asigna el número de combo y aumenta el contador
+                };
+            }
+        });
+    });
+
+    return mejorDupla;
+};
+
+// Generar combinaciones y encontrar la mejor
+const combinaciones = generarCombinaciones(pedidosCalculadosAgrupados);
+
+const mejorTrimado = encontrarMejorTrimado(combinaciones);
+console.log(combinaciones);
+console.log(mejorTrimado);
+
+function creathtml() {
+    const tbody = document.querySelector('tbody');
+
+    if (!tbody) {
+        console.error("No se encontró el <tbody>. Verifica que la tabla está en el HTML.");
+        return;
+    }
+
+    tbody.innerHTML = ''; // Limpiar la tabla antes de agregar datos
+
+    // Primera fila: Mostrar el combo con su número asignado dinámicamente
+    const tr1 = document.createElement('tr');
+    tr1.innerHTML = `
+        <td rowspan="2">Combo ${mejorTrimado.comboNumero}</td>
+        <td>${mejorTrimado.pedido_1?.id || 'N/A'}</td>
+        <td>${mejorTrimado.pedido_1?.nombre || 'N/A'}</td>
+        <td>${mejorTrimado.pedido_1?.cavidad || 'N/A'}</td>
+        <td>${mejorTrimado.pedido_1?.cortes || 'N/A'}</td>
+        <td>${mejorTrimado.pedido_1?.cantidad || 'N/A'}</td>
+        <td>${mejorTrimado.pedido_1?.cantidad_producida || 'N/A'}</td>
+        <td>${mejorTrimado.pedido_1?.cantidad_faltante || '0'}</td>
+        <td>${mejorTrimado.pedido_1?.metros_lineales || 'N/A'}</td>
+        <td>${mejorTrimado.pedido_1?.ancho_utilizado || 'N/A'}</td>
+        <td>${mejorTrimado.pedido_1?.porcentaje1 || 'N/A'}</td>
+        <td rowspan="2">${mejorTrimado.total_ancho || 'N/A'}</td>
+        <td rowspan="2">${mejorTrimado.mejorBobina || 'N/A'}</td>
+        <td rowspan="2">${mejorTrimado.sobrante || 'N/A'}</td>
+    `;
+    
+    // Segunda fila: Segundo pedido dentro del mismo combo
+    const tr2 = document.createElement('tr');
+    tr2.innerHTML = `
+        <td>${mejorTrimado.pedido_2?.id || 'N/A'}</td>
+        <td>${mejorTrimado.pedido_2?.nombre || 'N/A'}</td>
+        <td>${mejorTrimado.pedido_2?.cavidad || 'N/A'}</td>
+        <td>${mejorTrimado.pedido_2?.cortes || 'N/A'}</td>
+        <td>${mejorTrimado.pedido_2?.cantidad || 'N/A'}</td>
+        <td>${mejorTrimado.pedido_2?.cantidad_producida || 'N/A'}</td>
+        <td>${mejorTrimado.pedido_2?.cantidad_faltante || '0'}</td>
+        <td>${mejorTrimado.pedido_2?.metros_lineales || 'N/A'}</td>
+        <td>${mejorTrimado.pedido_2?.ancho_utilizado || 'N/A'}</td>
+        <td>${mejorTrimado.pedido_2?.porcentaje2 || 'N/A'}</td>
+    `;
+
+    tbody.appendChild(tr1);
+    tbody.appendChild(tr2);
 }
 
-// Detecta cambios en los inputs y actualiza valores
-document.querySelectorAll("input").forEach(input => {
-    input.addEventListener("input", actualizarValores);
-});
+creathtml();
 
-// Ejecutar al cargar
-actualizarValores();
+
+
+
 </script>
-
-</body>
-</html>
