@@ -7,6 +7,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
+    const bobinas= [1600,1100];
+const trim = 30;
+
+
+// restar el trim a la bobina sin modificar el array original
+const bobinasTrim = bobinas.map(bobina => bobina - trim);
+
+// agregar de nuevo a bobina el array ya modificado
+console.log(bobinasTrim);
+console.log(bobinas);
+
 
     
 
