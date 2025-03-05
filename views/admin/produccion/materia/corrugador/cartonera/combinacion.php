@@ -1,4 +1,60 @@
 
+<style>
+  body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      background-color: #f8f9fa;
+  }
+  table {
+      width: 100%;
+      border-collapse: collapse;
+      background: white;
+      margin-top: 20px;
+      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  th, td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: center;
+  }
+  th {
+      background-color: #007bff;
+      color: white;
+  }
+  tr:nth-child(even) {
+      background-color: #f2f2f2;
+  }
+  tr:hover {
+      background-color: #ddd;
+  }
+</style>
+</head>
+<body>
+
+<!-- <h2>CONBINACIONES QUE NO SE SI ESATRE BIEN  😂🤣</h2> -->
+<table>
+  <thead>
+      <tr>
+          <th>Numero. combo</th>
+          <th>ID</th>
+          <th>Pedido</th>
+          <th>Cavidad</th>
+          <th>Cortes</th>
+          <th>Cantidad</th>
+          <th>Producida</th>
+          <th>Faltante</th>
+          <th>Metros Lineales</th>
+          <th>Ancho Utilizado</th>
+          <th>Porcentaje</th>
+          <th>Total Ancho</th>
+          <th>Mejor Bobina</th>
+          <th>Sobrante</th>
+      </tr>
+  </thead>
+  <tbody>
+      <!-- Aquí se agregarán los datos dinámicamente -->
+  </tbody>
+</table>
 
 <script>
 
