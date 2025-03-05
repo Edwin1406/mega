@@ -18,6 +18,7 @@ const bobinasTrim = bobinas.map(bobina => bobina - trim);
 console.log(bobinasTrim);
 console.log(bobinas);
 
+const cavidades = [1,2,3,4];
 
     
 
