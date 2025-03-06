@@ -1,0 +1,299 @@
+<?php 
+
+
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+require_once __DIR__ . '/includes/app.php';
+
+
+use MVC\Router;
+use Controllers\ApiTest;
+use Controllers\ApiPedidos;
+use Controllers\Subirexcel;
+use Controllers\ApiMaquinas;
+use Controllers\ApiProductos;
+use Controllers\AreaController;
+use Controllers\AuthController;
+use Controllers\AdminController;
+
+use Controllers\PapelController;
+use Controllers\ClienteController;
+use Controllers\EstimarController;
+use Controllers\MaquinaController;
+use Controllers\CartoneraController;
+use Controllers\ComercialController;
+use Controllers\CotizadorController;
+use Controllers\PlanificoController;
+use Controllers\FinancieroController;
+use Controllers\ProduccionController;
+use Controllers\MateriaPrimaController;
+use Controllers\EstadisticaProdController;
+
+$router = new Router();
+
+
+// Login
+$router->get('/', [AuthController::class, 'login']);
+$router->post('/', [AuthController::class, 'login']);
+$router->post('/logout', [AuthController::class, 'logout']);
+
+// Crear Cuenta
+$router->get('/registro', [AuthController::class, 'registro']);
+$router->post('/registro', [AuthController::class, 'registro']);
+
+// Formulario de olvide mi password
+$router->get('/olvide', [AuthController::class, 'olvide']);
+$router->post('/olvide', [AuthController::class, 'olvide']);
+
+// Colocar el nuevo password
+$router->get('/reestablecer', [AuthController::class, 'reestablecer']);
+$router->post('/reestablecer', [AuthController::class, 'reestablecer']);
+
+// Confirmación de Cuenta
+$router->get('/mensaje', [AuthController::class, 'mensaje']);
+$router->get('/confirmar-cuenta', [AuthController::class, 'confirmar']);
+
+
+// Area de Administración
+
+$router->get('/admin/index', [AdminController::class, 'index']);
+$router->get('/admin/area', [AreaController::class, 'index']);
+$router->get('/admin/area/crear', [AreaController::class, 'crear']);
+$router->post('/admin/area/crear', [AreaController::class, 'crear']);
+$router->get('/admin/area/paginaArea', [AreaController::class, 'paginaArea']);
+$router->get('/admin/area/escoger', [AreaController::class, 'escoger']);
+
+// API 
+$router->get('/admin/api/maquinas', [ApiMaquinas::class, 'api']);
+$router->get('/admin/api/test', [ApiTest::class, 'api']);
+$router->get('/admin/api/apibobinas', [ApiTest::class, 'apibobinas']);
+$router->get('/admin/api/apibobina_externa', [ApiTest::class, 'apibobina_externa']);
+$router->get('/admin/api/apibobina_media', [ApiTest::class, 'apibobina_media']);
+
+$router->get('/admin/api/productos', [ApiProductos::class, 'productos']);
+
+$router->get('/admin/api/pedidos', [ApiPedidos::class, 'api']);
+$router->get('/admin/api/apipedido2', [ApiPedidos::class, 'apipedido2']);
+
+$router->get('/admin/api/allbobinas', [ApiTest::class, 'allbobinas']);
+
+$router->get('/admin/api/allpedidos', [ApiPedidos::class, 'Allpedidos']);
+
+
+$router->get('/admin/api/allpedidos2', [ApiPedidos::class, 'Allpedidos2']);
+
+
+// VENTAS 
+$router->get('/admin/api/nombreCliente', [ClienteController::class, 'nombreCliente']);
+$router->post('/admin/api/actualizar', [ClienteController::class, 'actualizar']);
+
+
+
+
+
+
+// Area de Producción
+$router->get('/admin/produccion/index', [ProduccionController::class, 'index']);
+$router->get('/admin/produccion/registro_produccion', [ProduccionController::class, 'registro_produccion']);
+$router->get('/admin/produccion/cotizador/crear', [CotizadorController::class, 'cotizador']);
+$router->get('/admin/produccion/subirexcel/crear', [Subirexcel::class, 'subirexcel']);
+$router->post('/admin/produccion/subirexcel/crear', [Subirexcel::class, 'subirexcel']);
+
+// AREA DE ESTADISTICAS DE PRODUCCION
+$router->get('/admin/produccion/estadistica/crear', [EstadisticaProdController::class, 'crear']);
+$router->get('/admin/produccion/estadistica/tabla', [EstadisticaProdController::class, 'tabla']);
+$router->get('/admin/produccion/estadistica/editar', [EstadisticaProdController::class, 'editar']);
+$router->get('/admin/produccion/estadistica/graficas', [EstadisticaProdController::class, 'graficas']);
+
+$router->post('/admin/produccion/estadistica/crear', [EstadisticaProdController::class, 'crear']);
+$router->post('/admin/produccion/estadistica/editar', [EstadisticaProdController::class, 'editar']);
+$router->get('/admin/api/apiestadisticas', [EstadisticaProdController::class, 'apiestadisticas']);
+
+
+// AREA DE COMERCIAl
+// $router->get('/admin/comercial/index', [ComercialController::class, 'index']);
+$router->get('/admin/comercial/crear', [ComercialController::class, 'crear']);
+$router->post('/admin/comercial/crear', [ComercialController::class, 'crear']);
+$router->get('/admin/comercial/tabla', [ComercialController::class, 'tabla']);
+$router->get('/admin/comercial/editar', [ComercialController::class, 'editar']);
+$router->post('/admin/comercial/editar', [ComercialController::class, 'editar']);
+
+$router->get('/admin/comercial/excel', [ComercialController::class, 'excel']);
+$router->post('/admin/comercial/excel', [ComercialController::class, 'excel']);
+
+// Api Comercial
+$router->get('/admin/api/apicomercial', [ComercialController::class, 'apicomercial']);
+
+
+
+// AREA DE FINANCIERO
+$router->get('/admin/financiero/tabla', [FinancieroController::class, 'tabla']);
+$router->get('/admin/financiero/editar', [FinancieroController::class, 'editar']);
+$router->post('/admin/financiero/editar', [FinancieroController::class, 'editar']);
+
+
+
+
+
+
+
+
+
+// Materia Prima Producción
+$router->get('/admin/produccion/materia/crear', [MateriaPrimaController::class, 'materia']);
+$router->post('/admin/produccion/materia/crear', [MateriaPrimaController::class, 'materia']);
+$router->get('/admin/produccion/materia/tabla', [MateriaPrimaController::class, 'tabla']);
+$router->get('/admin/produccion/materia/pdf', [MateriaPrimaController::class, 'pdf']);
+$router->get('/admin/produccion/materia/editar', [MateriaPrimaController::class, 'editar']);
+$router->post('/admin/produccion/materia/editar', [MateriaPrimaController::class, 'editar']);
+
+$router->get('/admin/produccion/materia/lector', [MateriaPrimaController::class, 'lector']);
+
+$router->get('/admin/produccion/materia/graficas', [MateriaPrimaController::class, 'graficas']);
+
+
+$router->get('/admin/produccion/materia/excel', [MateriaPrimaController::class, 'excel']);
+$router->post('/admin/produccion/materia/excel', [MateriaPrimaController::class, 'excel']);
+
+// CORRUGADOR 
+$router->get('/admin/produccion/materia/corrugador', [MateriaPrimaController::class, 'corrugador']);
+$router->post('/admin/produccion/materia/corrugador', [MateriaPrimaController::class, 'corrugador']);
+// eliminar base 
+$router->post('/admin/produccion/materia/eliminarTabla', [MateriaPrimaController::class, 'eliminarTabla']);
+
+
+// CARPETA CORRUGADOR EXISTENCIA 
+$router->get('/admin/produccion/materia/corrugador/cajacraft', [MateriaPrimaController::class, 'cajacraft']);
+$router->get('/admin/produccion/materia/corrugador/cajablanco', [MateriaPrimaController::class, 'cajablanco']);
+$router->get('/admin/produccion/materia/corrugador/cajamedium', [MateriaPrimaController::class, 'cajamedium']);
+// CARPETA MICRO CORRUGADOR EXISTENCIA
+
+// CARPETA PERIODICO EXISTENCIA 
+
+
+
+
+
+
+
+// API CORRUGADOR 
+$router->get('/admin/api/apicorrugador', [MateriaPrimaController::class, 'apicorrugador']);
+$router->get('/admin/api/apicorrugador2', [MateriaPrimaController::class, 'apicorrugador2']);
+$router->get('/admin/api/apiAnchossobrantes', [MateriaPrimaController::class, 'apiAnchossobrantes']);
+$router->get('/admin/api/apicajacraft', [MateriaPrimaController::class, 'apicajacraft']);
+$router->get('/admin/api/apicajablanco', [MateriaPrimaController::class, 'apicajablanco']);
+$router->get('/admin/api/apicajamedium', [MateriaPrimaController::class, 'apicajamedium']);
+
+// MICROCORRUGADOR
+$router->get('/admin/produccion/materia/microcorrugador', [MateriaPrimaController::class, 'microcorrugador']);
+
+
+// PERIODICO
+$router->get('/admin/produccion/materia/periodico', [MateriaPrimaController::class, 'periodico']);
+
+
+
+// API MATERIA PRIMA
+$router->get('/admin/api/ApiMateriaPrima', [MateriaPrimaController::class, 'ApiMateriaPrima']);
+
+
+
+
+
+
+
+// Maquinas
+$router->get('/admin/produccion/maquinas/tabla', [MaquinaController::class, 'tabla']);
+$router->get('/admin/produccion/maquinas/crear', [MaquinaController::class, 'crear']);
+$router->post('/admin/produccion/maquinas/crear', [MaquinaController::class, 'crear']);
+$router->get('/admin/produccion/maquinas/editar', [MaquinaController::class, 'editar']);
+$router->post('/admin/produccion/maquinas/editar', [MaquinaController::class, 'editar']);
+$router->post('/admin/produccion/maquinas/eliminar', [MaquinaController::class, 'eliminar']);
+
+
+
+
+
+
+
+// papel
+$router->get('/admin/produccion/papel/tabla', [PapelController::class, 'tabla']);
+$router->get('/admin/produccion/papel/crear', [PapelController::class, 'crear']);
+$router->post('/admin/produccion/papel/crear', [PapelController::class, 'crear']);
+$router->get('/admin/produccion/papel/editar', [PapelController::class, 'editar']);
+$router->post('/admin/produccion/papel/editar', [PapelController::class, 'editar']);
+$router->post('/admin/produccion/papel/eliminar', [PapelController::class, 'eliminar']);
+
+
+// Cliente
+
+$router->get('/admin/vendedor/cliente/crear', [ClienteController::class, 'crear']);
+$router->post('/admin/vendedor/cliente/crear', [ClienteController::class, 'crear']);
+
+$router->get('/admin/vendedor/cliente/cotizador', [ClienteController::class, 'cotizador']);
+$router->get('/admin/vendedor/cliente/tabla', [ClienteController::class, 'tabla']);
+$router->get('/admin/vendedor/cliente/editar', [ClienteController::class, 'editar']);
+$router->post('/admin/vendedor/cliente/editar', [ClienteController::class, 'editar']);
+$router->post('/admin/vendedor/cliente/eliminar', [ClienteController::class, 'eliminar']);
+
+
+// planifico de byron 
+
+$router->get('/admin/produccion/planificacion/index', [PlanificoController::class, 'index']);
+
+
+// TRIMAR PEDIDOS CON DUPLAS 
+$router->get('/admin/produccion/materia/corrugador/cartonera/index', [CartoneraController::class, 'cartonera']); 
+$router->get('/admin/produccion/materia/corrugador/cartonera/pedidoseleccionados', [CartoneraController::class, 'pedidoseleccionados']);
+
+$router->get('/admin/produccion/materia/corrugador/cartonera/dupla', [CartoneraController::class, 'dupla']);
+
+
+$router->get('/admin/produccion/materia/corrugador/cartonera/combinacion', [CartoneraController::class, 'combinacion']);
+
+
+
+
+
+// API LISTA DE PAPELES
+$router->get('/admin/api/apipapel', [CartoneraController::class, 'apipapel']);
+
+
+
+
+
+
+
+
+// COTIZADOR FABIAN 
+$router->get('/admin/produccion/estimar/index', [EstimarController::class, 'index']);
+$router->get('/admin/produccion/estimar/micro', [EstimarController::class, 'micro']);
+$router->get('/admin/produccion/estimar/cajas', [EstimarController::class, 'cajas']);
+$router->get('/admin/produccion/estimar/separadores', [EstimarController::class, 'separadores']);
+$router->get('/admin/produccion/estimar/costos_generales/index', [EstimarController::class, 'costos_generales']);
+
+// error 404
+$router->get('/admin/error404', [AdminController::class, 'error404']);
+
+
+
+// API TRIMAR   
+$router->get('/admin/api/trimar', [CotizadorController::class, 'trimar']);
+
+
+$router->get('/admin/produccion/cotizador/trimarp', [CotizadorController::class, 'trimarp']);
+$router->post('/admin/produccion/cotizador/trimarp', [CotizadorController::class, 'trimarp']);
+
+
+
+
+
+
+
+
+
+// citas de prueba 
+
+$router->get('/admin/api/citas', [EstimarController::class, 'citas']);
+
+$router->comprobarRutas();
