@@ -1,5 +1,5 @@
 
-const bobinas= [1600,1100];
+const bobinas= [1100,1600,1700];
 const trim = 30;
 
 
@@ -18,57 +18,71 @@ const cavidades = [1,2,3,4];
 const pedidos = [
     {
         id: 6,
-        alto: "0",
-        ancho: "538",
-        cantidad: "1050",
+        alto: 0,
+        ancho: 538,
+        cantidad: 1050,
         fecha_entrega: "2025-02-27",
         fecha_ingreso: "2025-02-10",
         flauta: "C",
-        largo: "1530",
+        largo: 1530,
         metros_cuadrados: "864.30",
         nombre_pedido: "caja san jose ideal",
-        test: "250"
+        test: 250
     },
     {
         id: 7,
-        alto: "0",
-        ancho: "493",
-        cantidad: "1050",
+        alto: 0,
+        ancho: 493,
+        cantidad: 1050,
         fecha_entrega: "2025-02-27",
         fecha_ingreso: "2025-02-18",
         flauta: "C",
-        largo: "1286",
+        largo: 1286,
         metros_cuadrados: "667.05",
         nombre_pedido: "caja tel celca",
-        test: "250"
+        test: 250
     },
     {
         id: 8,
-        alto: "0",
-        ancho: "417",
-        cantidad: "3150",
+        alto: 0,
+        ancho: 417,
+        cantidad: 3150,
         fecha_entrega: "2025-02-27",
         fecha_ingreso: "2025-02-18",
         flauta: "C",
-        largo: "1230",
+        largo: 1230,
         metros_cuadrados: "667.05",
         nombre_pedido: "caja de prueba",
-        test: "250"
+        test: 250
     },
 
     {
         id: 9,
         alto: "0",
-        ancho: "417",
-        cantidad: "3150",
+        ancho: 417,
+        cantidad: 3150,
         fecha_entrega: "2025-02-27",
         fecha_ingreso: "2025-02-18",
         flauta: "C",
-        largo: "1230",
+        largo: 1230,
         metros_cuadrados: "667.05",
         nombre_pedido: "caja de prueba",
-        test: "250"
+        test: 250
     },
+
+    // {
+    //     id: 10,
+    //     alto: "0",
+    //     ancho: 417,
+    //     cantidad: 3150,
+    //     fecha_entrega: "2025-02-27",
+    //     fecha_ingreso: "2025-02-18",
+    //     flauta: "C",
+    //     largo: 1230,
+    //     metros_cuadrados: "667.05",
+    //     nombre_pedido: "caja de prueba",
+    //     test: 250
+    // },
 
     
 ];
@@ -134,7 +148,7 @@ const generarCombinaciones = (pedidos) => {
                     const metros_lineales2 = Math.floor(((cantidad_producida2 * var2.largo) / var2.cavidad) / 1000);
                     // const porcentajep2 = cantidad_producida2 === var2.cantidad ? 100 : Math.floor((cantidad_producida2 * 100) / var2.cantidad);
                     const porcentajep2 = cantidad_producida2 === var2.cantidad ? 100: ((cantidad_producida2 * 100) / var2.cantidad).toFixed(2);
-
+                    // un sobrante por cada combinacion
 
                     combinaciones.push({
                         pedido_1: {
@@ -176,61 +190,124 @@ const generarCombinaciones = (pedidos) => {
 
 console.log("generar combinaciones",generarCombinaciones(pedidosCalculadosAgrupados));
 
-// Evaluar la mejor combinación de pedidos según el menor sobrante en una bobina
-const encontrarMejorCombo = (combinaciones) => {
-    return combinaciones.map(combo => {
-        // Encontrar la mejor bobina que se ajuste a la combinación
-        const mejorBobina = bobinasTrim.reduce((mejor, bobina) => {
-            const sobrante = bobina - combo.total_ancho;
-            return sobrante >= 0 && sobrante < mejor.sobrante ? { bobina, sobrante } : mejor;
-        }, { bobina: null, sobrante: Infinity });
-
-        return {
-            ...combo,
-            mejorBobina
-        };
-    }).filter(combo => combo.mejorBobina.bobina !== null); // Filtrar solo combos viables
-};
 
 
 
-console.log("pedidosd",encontrarMejorCombo(generarCombinaciones(pedidosCalculadosAgrupados)));
+// let comboCounter = 1; // Contador de combos para asignar números automáticamente
+// const encontrarMejorTrimado = (combinaciones, pedidos) => {
+//     let combinacionesValidas = combinaciones.filter(combo =>
+//         combo.pedido_1.cantidad_faltante >= 0 && combo.pedido_2.cantidad_faltante >= 0
+//     );
 
-let comboCounter =1; // Contador de combos para asignar números automáticamente
+//     // Ordenar combinaciones por sobrante más bajo
+//     combinacionesValidas.sort((a, b) => a.sobrante - b.sobrante);
+
+//     let mejoresCombos = [];
+//     let idsVistos = new Set();
+
+//     combinacionesValidas.forEach(combo => {
+        
+//         if (!idsVistos.has(combo.pedido_1.id) && !idsVistos.has(combo.pedido_2.id)) {
+//             // idsVistos.add(combo.pedido_1.id);
+//             // idsVistos.add(combo.pedido_2.id);
+//             combo.comboNumero = comboCounter++;
+
+//             // Buscar mejor bobina que minimice el sobrante
+//             let mejorBobina = bobinas.reduce((mejor, bobina) => {
+//                 let sobrante = bobina - combo.total_ancho;
+//                 return (sobrante >= 0 && sobrante < mejor.sobrante) ? { bobina, sobrante } : mejor;
+//             }, { bobina: null, sobrante: Infinity });
+
+//             combo.mejorBobina = mejorBobina.bobina || "N/A";
+//             combo.sobrante = mejorBobina.sobrante === Infinity ? "N/A" : mejorBobina.sobrante;
+
+//             mejoresCombos.push(combo);
+//         }
+//     });
+
+//     return mejoresCombos;
+// };
+
+
+let comboCounter = 1; // Contador de combos para asignar números automáticamente
 const encontrarMejorTrimado = (combinaciones, pedidos) => {
     let combinacionesValidas = combinaciones.filter(combo =>
         combo.pedido_1.cantidad_faltante >= 0 && combo.pedido_2.cantidad_faltante >= 0
     );
 
+    // Ordenar combinaciones por sobrante más bajo
     combinacionesValidas.sort((a, b) => a.sobrante - b.sobrante);
 
     let mejoresCombos = [];
     let idsVistos = new Set();
 
     combinacionesValidas.forEach(combo => {
+        // Solo procesar si ambos pedidos no han sido vistos previamente y menor sobrante
         if (!idsVistos.has(combo.pedido_1.id) && !idsVistos.has(combo.pedido_2.id)) {
-            idsVistos.add(combo.pedido_1.id);
-            idsVistos.add(combo.pedido_2.id);
-            combo.comboNumero = comboCounter++;
-
-            // Calcular mejor bobina
+            // Marcar los pedidos como vistos para evitar duplicados
+            
+            // Buscar mejor bobina que minimice el sobrante
             let mejorBobina = bobinas.reduce((mejor, bobina) => {
                 let sobrante = bobina - combo.total_ancho;
-                return (sobrante >= 0 && sobrante < mejor.sobrante) ? { bobina, sobrante } : mejor;
+                if (sobrante >= 0 && sobrante < mejor.sobrante) {
+                    return { bobina, sobrante }; // Encontramos una mejor opción
+                }
+                return mejor; // Si no es mejor, mantenemos la opción anterior
             }, { bobina: null, sobrante: Infinity });
-
+            
+            // Asignar la mejor bobina encontrada
             combo.mejorBobina = mejorBobina.bobina || "N/A";
             combo.sobrante = mejorBobina.sobrante === Infinity ? "N/A" : mejorBobina.sobrante;
+            
+            // Asignar número de combo solo si es una combinación válida
+            combo.comboNumero = comboCounter++;
+            
+    
 
+
+            // Agregar a la lista de mejores combos
             mejoresCombos.push(combo);
+
+
         }
-        if (mejoresCombos.length >= 2) return;
     });
+    
+    console.log("mejores combos",mejoresCombos);
 
-    console.log("pedidos",mejoresCombos);
-
+    eliminarNan(mejoresCombos);
     return mejoresCombos;
+
 };
+
+
+
+
+
+// eliminar n/a de mejorescombos 
+
+function eliminarNan(mejoresCombos) {
+    let idsVistos = new Set();
+    let comboCounter = 1;
+    let mejoresCombosSinNan = mejoresCombos.filter(combo => combo.sobrante !== 'N/A');
+    console.log("mejores combos sin nan",mejoresCombosSinNan);
+    return mejoresCombosSinNan;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -239,6 +316,7 @@ const encontrarMejorTrimado = (combinaciones, pedidos) => {
 const combinaciones = generarCombinaciones(pedidosCalculadosAgrupados);
 
 const mejorTrimado = encontrarMejorTrimado(combinaciones);
+
 console.log("combinaciones 3",combinaciones);
 console.log("mejor trimado",mejorTrimado);
 
