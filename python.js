@@ -70,19 +70,19 @@ const pedidos = [
         test: 250
     },
 
-    // {
-    //     id: 10,
-    //     alto: "0",
-    //     ancho: 417,
-    //     cantidad: 3150,
-    //     fecha_entrega: "2025-02-27",
-    //     fecha_ingreso: "2025-02-18",
-    //     flauta: "C",
-    //     largo: 1230,
-    //     metros_cuadrados: "667.05",
-    //     nombre_pedido: "caja de prueba",
-    //     test: 250
-    // },
+    {
+        id: 10,
+        alto: "0",
+        ancho: 339,
+        cantidad: 1575,
+        fecha_entrega: "2025-02-27",
+        fecha_ingreso: "2025-02-18",
+        flauta: "C",
+        largo: 1230,
+        metros_cuadrados: "667.05",
+        nombre_pedido: "caja de prueba",
+        test: 250
+    },
 
     
 ];
@@ -242,12 +242,11 @@ const encontrarMejorTrimado = (combinaciones, pedidos) => {
     let idsVistos = new Set();
 
     combinacionesValidas.forEach(combo => {
-        // Solo procesar si ambos pedidos no han sido vistos previamente y menor sobrante
-        if (!idsVistos.has(combo.pedido_1.id) && !idsVistos.has(combo.pedido_2.id)) {
-            // Marcar los pedidos como vistos para evitar duplicados
-            
+        // Solo procesar si ambos pedidos no han sido vistos previamente y menor sobrante y si 
+        if (!idsVistos.has(combo.pedido_1.id) && !idsVistos.has(combo.pedido_2.id )) {
             // Buscar mejor bobina que minimice el sobrante
             let mejorBobina = bobinas.reduce((mejor, bobina) => {
+                // console.log("bobina",bobina);
                 let sobrante = bobina - combo.total_ancho;
                 if (sobrante >= 0 && sobrante < mejor.sobrante) {
                     return { bobina, sobrante }; // Encontramos una mejor opción
@@ -272,7 +271,7 @@ const encontrarMejorTrimado = (combinaciones, pedidos) => {
         }
     });
     
-    console.log("mejores combos",mejoresCombos);
+    // console.log("mejores combos",mejoresCombos);
 
     eliminarNan(mejoresCombos);
     return mejoresCombos;
@@ -283,18 +282,122 @@ const encontrarMejorTrimado = (combinaciones, pedidos) => {
 
 
 
-// eliminar n/a de mejorescombos 
+// // eliminar n/a de mejorescombos 
+// function eliminarNan(mejoresCombos) {
+//     let idsVistos = new Set();
+//     let mejoresCombosSinNan = mejoresCombos.filter(combo => combo.sobrante !== 'N/A');
+    
+//     // combo con el menor sobrante
+//     mejoresCombosSinNan.sort((a, b) => a.sobrante - b.sobrante);
+    
+//     // Filtrar los combos con el menor sobrante y sin repetir ids
+//     let mejoresCombosFinales = mejoresCombosSinNan.filter(combo => {
+//         if (!idsVistos.has(combo.pedido_1.id) && !idsVistos.has(combo.pedido_2.id)) {
+//             idsVistos.add(combo.pedido_1.id);
+//             idsVistos.add(combo.pedido_2.id);
+//             return true; // Solo incluye este combo si los ids no han sido vistos
+//         }
+//         return false; // No incluye este combo si alguno de los ids ya ha sido visto
+//     }
+
+//     // un else para los id que no tienen dupla trimar solo 
+
+// );
+
+//     console.log("mejores combos sin nan", mejoresCombosFinales);
+//     return mejoresCombosFinales;
+// }
+
+
+
+
+
 
 function eliminarNan(mejoresCombos) {
     let idsVistos = new Set();
-    let comboCounter = 1;
+    const trim = 30; // Ajuste de 30 unidades
+
+    // Filtrar combos con 'N/A' en el sobrante
     let mejoresCombosSinNan = mejoresCombos.filter(combo => combo.sobrante !== 'N/A');
-    console.log("mejores combos sin nan",mejoresCombosSinNan);
-    return mejoresCombosSinNan;
 
+    // Ajustar el sobrante restando el trim
+    mejoresCombosSinNan = mejoresCombosSinNan.map(combo => {
+        // Restar el trim (30) a cada sobrante
+        combo.sobrante = combo.sobrante - trim;
+        return combo;
+    });
+
+
+
+
+    
+
+    // Ordenar los combos por el menor sobrante
+    mejoresCombosSinNan.sort((a, b) => a.sobrante - b.sobrante);
+
+    // Filtrar combos con el menor sobrante y sin repetir IDs
+    let mejoresCombosFinales = [];
+    mejoresCombosSinNan.forEach(combo => {
+        // Si el sobrante es negativo, buscamos otro combo con el sobrante más pequeño posible
+        if (combo.sobrante >= 0 && !idsVistos.has(combo.pedido_1.id) && !idsVistos.has(combo.pedido_2.id)) {
+            idsVistos.add(combo.pedido_1.id);
+            idsVistos.add(combo.pedido_2.id);
+            mejoresCombosFinales.push(combo);
+        } else if (combo.sobrante < 0) {
+            // Si el sobrante es negativo, buscar el combo con el sobrante más pequeño posible
+            let siguienteCombo = mejoresCombosSinNan.find(c => !idsVistos.has(c.pedido_1.id) && !idsVistos.has(c.pedido_2.id) && c.sobrante >= 0);
+            if (siguienteCombo) {
+                idsVistos.add(siguienteCombo.pedido_1.id);
+                idsVistos.add(siguienteCombo.pedido_2.id);
+                mejoresCombosFinales.push(siguienteCombo);
+                // console.log("Se asignó un nuevo combo con sobrante positivo: ", siguienteCombo);
+            }
+        }
+    });
+
+    // Verificar los pedidos que no han sido asignados a un combo
+    let pedidosLibres = mejoresCombos.filter(combo => 
+        !idsVistos.has(combo.pedido_1.id) || !idsVistos.has(combo.pedido_2.id)
+    );
+
+    let cavidadesVistas = new Set();
+
+    pedidosLibres.forEach(combo => {
+        // Evitar duplicar pedido_1 y pedido_2 basándonos en los ids vistos
+        if (!idsVistos.has(combo.pedido_1.id)) {
+            // console.log("Pedido sin combo: ", combo.pedido_1);
+            idsVistos.add(combo.pedido_1.id); // Marcar pedido_1 como visto
+        }
+    
+        if (!idsVistos.has(combo.pedido_2.id)) {
+            if (!cavidadesVistas.has(combo.pedido_2.cavidad)) { // Verifica si la cavidad ya fue vista
+                cavidadesVistas.add(combo.pedido_2.cavidad); // Marca la cavidad como vista
+                console.log("Pedido sin combo: ", combo.pedido_2);
+    
+                // bobina - ancho_utilizado = sobrante. Escoge la bobina que tenga el sobrante más pequeño.
+                let mejorBobina = bobinas.reduce((mejor, bobina) => {
+                    let sobrante = bobina - combo.pedido_2.ancho_utilizado;
+                    if (sobrante >= 0 && sobrante < mejor.sobrante) {
+                        return { bobina, sobrante }; // Si el sobrante es válido y menor, es la mejor opción.
+                    }
+                    return mejor;
+                }, { bobina: null, sobrante: Infinity });
+    
+                // Verificar si se encontró una bobina adecuada
+                if (mejorBobina.bobina) {
+                    console.log("Mejor bobina: ", mejorBobina);
+                } else {
+                    console.log("No hay bobina adecuada para este pedido.");
+                }
+            }
+        }
+    });
+    
+
+
+    console.log("mejores combos sin nan", mejoresCombosFinales);
+    return mejoresCombosFinales;
 }
-
-
 
 
 
