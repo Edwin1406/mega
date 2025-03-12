@@ -26,7 +26,7 @@
         id="id_area"
         class="formulario__input">
         <option value="">-- Seleccione --</option>
-        <!-- Las áreas serán llenadas dinámicamente -->
+        <!-- Aquí se llenarán las áreas dinámicamente -->
     </select>
 </div>
 
