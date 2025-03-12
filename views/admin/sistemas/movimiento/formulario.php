@@ -50,10 +50,16 @@
         </select>
     </div>
 
-
-
-
-
+    <div class="formulario__campo">
+        <label class="formulario__label" for="cantidad">Cantidad</label>
+        <input
+            type="number"
+            name="cantidad"
+            id="cantidad"
+            class="formulario__input"
+            placeholder="Stock Actual"
+            value="<?php echo $movimientos_invetario->cantidad ?? '' ?>">
+    </div>
 
 
     <div class="formulario__campo">
@@ -64,7 +70,7 @@
             id="stock_actual"
             class="formulario__input"
             placeholder="Stock Actual"
-            value="<?php echo $comercial->stock_actual ?? '' ?>">
+            value="<?php echo $movimientos_invetario->stock_actual ?? '' ?>">
     </div>
 
     <div class="formulario__campo">
