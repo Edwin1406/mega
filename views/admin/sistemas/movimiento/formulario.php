@@ -14,7 +14,7 @@
     </div>
     <div class="formulario__campo">
         <label class="formulario__label" for="id_area">Selecciona un producto</label>
-        <select name="id_area" id="id_area" class="formulario__input" disabled >
+        <select name="id_area" id="id_area" class="formulario__input"  >
             <option value="" disabled selected>Selecciona un odontólogo</option>
             <?php foreach ($area_inventario as $areas): ?>
                 <option value="<?php echo $areas->id_area; ?>">
