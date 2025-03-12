@@ -92,7 +92,7 @@ public static function movimientos(Router $router) {
             }
             // guardar en la base de datos
             $resultado = $movimiento->guardar();
-            $resultado = $producto->guardar();
+            // $resultado = $producto->guardar();
         }
     }
 
