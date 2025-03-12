@@ -288,7 +288,8 @@ $router->post('/admin/produccion/cotizador/trimarp', [CotizadorController::class
 
 
 
-
+// AREA DE SISTEMA DE INVENTARIO DE PRODUCTOS DE INFORMATICA
+$router->get('/admin/inventario/index', [EstimarController::class, 'inventario']);
 
 
 
