@@ -90,15 +90,9 @@ public static function movimientos(Router $router) {
             } else {
                 $producto->stock_actual -= $cantidad;
             }
-
-
-            debuguear($movimiento);
-            
-            // Guardar el movimiento y actualizar el producto
-            $movimiento->guardas();
-        } else {
-            // Manejar el caso en que el producto no exista
-            echo "Producto no encontrado.";
+            // guardar en la base de datos
+            $resultado = $movimiento->guardar();
+            $resultado = $producto->guardar();
         }
     }
 
