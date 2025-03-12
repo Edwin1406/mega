@@ -66,6 +66,7 @@ public static function movimientos(Router $router)
 
     $productos_inventario = Productos_inventario:: allSis('producto', 'DESC');
     $area_inventario = Area_inventario:: allSis('area', 'ASC');
+    
 
     $movimientos_invetario = new Movimientos_inventario;
 
