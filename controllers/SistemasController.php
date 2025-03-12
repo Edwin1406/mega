@@ -62,7 +62,7 @@ class SistemasController {
 public static function movimientos(Router $router)
 {
 
-    $productos_inventario = Productos_inventario:: allSis('producto', 'ASC');
+    $productos_inventario = Productos_inventario:: allSis('producto', 'DESC');
 // debuguear($productos_inventario);
 
     // $movimientos = new Movimientos_inventario;
