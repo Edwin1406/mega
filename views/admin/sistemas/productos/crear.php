@@ -60,7 +60,25 @@
 <div class="container">
     <div class="item"><a href="/admin/sistemas/index?id=80ad04ffdfb4872f9b4603cdf4932f23"> <i class="fas fa-home"></i> INICIO</a></div>
     <div class="item"><a href="/admin/sistemas/productos/crear"> <i class="fas fa-industry"></i> PRODUCTOS</a></div>
-  <div class="item"><a href="/admin/produccion/materia/microcorrugador"> <i class="fas fa-scroll"></i> MICRO CORRUGADOR</a></div>
+  <div class="item"><a href="/admin/produccion/materia/microcorrugador"> <i class="fas fa-scroll"></i> TABLA</a></div>
   <div class="item"><a href="/admin/produccion/materia/periodico">  <i class="fas fa-newspaper"></i> PERIÓDICO</a></div>
   <div class="item"><a href="/admin/produccion/materia/excel"><i class="fa-solid fa-arrow-right"></i> SUBIR EXCEL</a></div>
+</div>
+
+
+
+<div class="dashboard__formulario">
+
+<?php include_once __DIR__.'/../../templates/alertas.php'  ?>
+
+    <form method="POST" action="/admin/sistemas/productos/crear "  class="formulario" enctype="multipart/form-data">
+
+     
+    <?php include_once __DIR__.'/formulario.php'  ?>
+
+        <input class="formulario__submit formulario__submit--registrar" type="submit" value="Registrar Maquina">
+
+        
+    </form>
+
 </div>
