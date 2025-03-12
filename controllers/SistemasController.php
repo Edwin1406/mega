@@ -66,6 +66,7 @@ public static function movimientos(Router $router)
 
     $productos_inventario = Productos_inventario:: allSis('producto', 'DESC');
     $area_inventario = Area_inventario:: allSis('area', 'ASC');
+    $categoria_inventario = Categoria_inventario:: allSis('categoria', 'ASC');
     
 
     $movimientos_invetario = new Movimientos_inventario;
@@ -107,6 +108,7 @@ public static function movimientos(Router $router)
         'productos_inventario' => $productos_inventario,
         'area_inventario' => $area_inventario,
         'movimientos_invetario' => $movimientos_invetario,
+        'categoria_inventario' => $categoria_inventario,
     ]);
 }
 
