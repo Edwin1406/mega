@@ -89,6 +89,9 @@ public static function movimientos(Router $router)
 
     }
 
+    var_dump(class_exists('Model\Movimientos_inventario'));
+
+
     $alertas = [];
     $router->render('admin/sistemas/movimiento/movimientos', [
         'titulo' => 'MOVIMIENTOS DE PRODUCTOS',
