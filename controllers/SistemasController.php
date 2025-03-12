@@ -92,7 +92,7 @@ public static function movimientos(Router $router)
         }
 
         // Guardar el movimiento después de realizar la acción (entrada o salida)
-        $movimientos_invetario->guardar();
+        // $movimientos_invetario->guardar();
 
     }
 
