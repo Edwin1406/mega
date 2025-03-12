@@ -6,8 +6,8 @@
         <select name="id_producto" id="id_producto" class="formulario__input">
             <option value="" disabled selected>Selecciona un servicio</option>
             <?php foreach ($productos_inventario as $producto): ?>
-                <option value="<?php echo $producto->id_producto; ?>" data-odontologo="<?php echo $servicio->odontologoId; ?>">
-                    <?php echo htmlspecialchars($producto->nombre); ?>
+                <option value="<?php echo $producto->id_producto; ?>" data-odontologo="<?php echo $producto->id_area; ?>">
+                    <?php echo htmlspecialchars($producto->nombre_producto); ?>
                 </option>
             <?php endforeach; ?>
         </select>
