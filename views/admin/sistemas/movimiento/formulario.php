@@ -1,6 +1,6 @@
 <fieldset class="formulario__fieldset">
-    <legend class="formulario__legend">MOVIMIENTOS STOCK  </legend>
- 
+    <legend class="formulario__legend">MOVIMIENTOS STOCK </legend>
+
 
     <div class="formulario__campo">
     <label class="formulario__label" for="id_producto">Selecciona un producto</label>
@@ -29,10 +29,8 @@
 </div>
 
 
-
-<script>
-
-document.addEventListener('DOMContentLoaded', function () {
+    <script>
+       document.addEventListener('DOMContentLoaded', function () {
     const productoSelect = document.getElementById('id_producto');
     const areaSelect = document.getElementById('id_area');
     
@@ -49,8 +47,8 @@ document.addEventListener('DOMContentLoaded', function () {
             
             if (areaId && areaName) {
                 const option = document.createElement('option');
-                option.value = areaId; // Aquí va el ID del área
-                option.textContent = areaName; // Aquí va el nombre del área
+                option.value = areaId; // El ID del área
+                option.textContent = areaName; // El nombre del área
                 areaSelect.appendChild(option);
             }
         }
@@ -63,15 +61,13 @@ document.addEventListener('DOMContentLoaded', function () {
     updateAreaSelect();
 });
 
-
-
-</script>
+    </script>
 
 
 
 
 
-<!-- tipo de movimiento -->
+    <!-- tipo de movimiento -->
 
     <div class="formulario__campo">
         <label class="formulario__campo" for="tipo_movimiento">Tipo de movimiento</label>
@@ -123,12 +119,8 @@ document.addEventListener('DOMContentLoaded', function () {
             value="<?php echo $comercial->costo_unitario ?? '' ?>">
     </div>
 
-   
- 
+
+
 
 
 </fieldset>
-
-
-
-
