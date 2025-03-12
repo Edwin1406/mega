@@ -14,7 +14,7 @@
     </div>
     <div class="formulario__campo">
         <label class="formulario__label" for="id_producto">Selecciona un producto</label>
-        <select name="odontologoId" id="odontologoId" class="formulario__input" disabled>
+        <select name="odontologoId" id="odontologoId" class="formulario__input" >
             <option value="" disabled selected>Selecciona un odontólogo</option>
             <?php foreach ($area_inventario as $areas): ?>
                 <option value="<?php echo $areas->id_area; ?>">
@@ -22,28 +22,6 @@
                 </option>
             <?php endforeach; ?>
         </select>
-    </div>
-
-    <div class="formulario__campo">
-        <label class="formulario__label" for="id_area">Selecciona el área</label>
-        <select
-            name="id_area"
-            id="id_area"
-            class="formulario__input">
-            <option value="">-- Seleccione --</option>
-            <!-- Las áreas serán llenadas dinámicamente -->
-        </select>
-    </div>
-
-    <div class="formulario__campo">
-        <label class="formulario__label" for="stock_actual">Stock</label>
-        <input
-            type="number"
-            name="stock_actual"
-            id="stock_actual"
-            class="formulario__input"
-            placeholder="Stock Actual"
-            value="" disabled> <!-- Este campo se actualizará con el stock -->
     </div>
 
 
