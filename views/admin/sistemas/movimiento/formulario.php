@@ -38,7 +38,7 @@
     const areaSelect = document.getElementById('id_area');
     
     // Primero limpiamos las opciones del área
-    areaSelect.innerHTML = '<option value="">-- Seleccione --</option>';
+
     
     // Si se selecciona un producto
     if (productoId) {
