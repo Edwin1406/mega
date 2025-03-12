@@ -16,8 +16,11 @@ class SistemasController {
 
     public static function crear(Router $router)
     {
+        
+        $alertas = [];
         $router->render('admin/sistemas/productos/crear', [
             'titulo' => 'CREAR PRODUCTO',
+            'alertas' => $alertas
         ]);
     }
 
