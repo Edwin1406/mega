@@ -84,7 +84,7 @@ public static function movimientos(Router $router) {
             ]);
             
             // Guardar el movimiento y actualizar el producto
-            $movimiento->guardar();
+            $movimiento->guardas();
         } else {
             // Manejar el caso en que el producto no exista
             echo "Producto no encontrado.";
