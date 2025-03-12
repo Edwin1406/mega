@@ -101,8 +101,8 @@ public static function movimientos(Router $router)
     
         if (empty($alertas)) {
             // Guardar el movimiento y actualizar el producto
-            $movimientos_invetario->guardar();
-            $producto->guardar();
+            $movimientos_invetario->guardas();
+            $producto->guardas();
         }
     }
     

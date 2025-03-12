@@ -123,6 +123,22 @@ class ActiveRecord {
         return $resultado;
     }
 
+
+    public function guardas() {
+        $resultado = '';
+        if(!is_null($this->id_movimiento)) { // Cambié esto de $this->id a $this->id_movimiento
+            // actualizar
+            $resultado = $this->actualizar();
+        } else {
+            // Creando un nuevo registro
+            $resultado = $this->crear();
+        }
+        return $resultado;
+    }
+    
+
+
+
     // Obtener todos los Registros
     public static function all($orden = 'DESC') {
         $query = "SELECT * FROM " . static::$tabla . " ORDER BY id {$orden}";
