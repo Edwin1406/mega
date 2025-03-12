@@ -1,7 +1,6 @@
 <fieldset class="formulario__fieldset">
     <legend class="formulario__legend">MOVIMIENTOS STOCK </legend>
 
-
     <div class="formulario__campo">
     <label class="formulario__label" for="id_producto">Selecciona un producto</label>
     <select
@@ -12,8 +11,9 @@
         <?php foreach ($productos_inventario as $producto) : ?>
             <option
                 value="<?php echo $producto->id_producto ?>"
-                data-area-id="<?php echo $producto->id_area ?>"
-                data-area-name="<?php echo $producto->nombre_area ?>"><?php echo $producto->nombre_producto ?></option>
+                data-area-id="<?php echo $producto->id_area ?>">
+                <?php echo $producto->nombre_producto ?>
+            </option>
         <?php endforeach; ?>
     </select>
 </div>
@@ -25,14 +25,19 @@
         id="id_area"
         class="formulario__input">
         <option value="">-- Seleccione --</option>
+        <!-- Aquí se llenarán las áreas dinámicamente -->
     </select>
 </div>
 
 
+
     <script>
-       document.addEventListener('DOMContentLoaded', function () {
+    document.addEventListener('DOMContentLoaded', function () {
     const productoSelect = document.getElementById('id_producto');
     const areaSelect = document.getElementById('id_area');
+    
+    // Mapear las áreas para obtener el nombre del área por id_area
+    const areas = <?php echo json_encode($area_inventario); ?>;
     
     function updateAreaSelect() {
         const productoId = productoSelect.value;
@@ -43,13 +48,16 @@
         if (productoId) {
             const producto = productoSelect.querySelector(`option[value="${productoId}"]`);
             const areaId = producto ? producto.dataset.areaId : null;
-            const areaName = producto ? producto.dataset.areaName : null;
             
-            if (areaId && areaName) {
-                const option = document.createElement('option');
-                option.value = areaId; // El ID del área
-                option.textContent = areaName; // El nombre del área
-                areaSelect.appendChild(option);
+            if (areaId) {
+                // Buscar el nombre del área utilizando el id_area
+                const area = areas.find(area => area.id_area == areaId);
+                if (area) {
+                    const option = document.createElement('option');
+                    option.value = area.id_area; // ID del área
+                    option.textContent = area.nombre_area; // Nombre del área
+                    areaSelect.appendChild(option);
+                }
             }
         }
     }
@@ -60,6 +68,7 @@
     // Inicializar el área si ya hay un producto seleccionado
     updateAreaSelect();
 });
+
 
     </script>
 
