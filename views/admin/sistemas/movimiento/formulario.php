@@ -32,7 +32,7 @@
 
 <script>
 
-documdocument.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', function () {
     const productoSelect = document.getElementById('id_producto');
     const areaSelect = document.getElementById('id_area');
     
