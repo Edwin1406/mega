@@ -63,51 +63,47 @@ class SistemasController {
 
 public static function movimientos(Router $router)
 {
-
-    $productos_inventario = Productos_inventario:: allSis('producto', 'DESC');
-    // debuguear($productos_inventario);
-    $area_inventario = Area_inventario:: allSis('area', 'ASC');
-    $categoria_inventario = Categoria_inventario:: allSis('categoria', 'ASC');
+    $productos_inventario = Productos_inventario::allSis('producto', 'DESC');
+    $area_inventario = Area_inventario::allSis('area', 'ASC');
+    $categoria_inventario = Categoria_inventario::allSis('categoria', 'ASC');
     
-    // $movimientos_invetario = new Movimientos_inventario;
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        // $movimientos_invetario->sincronizar($_POST);
-
         $id_producto = $_POST['id_producto'];
         $id_area = $_POST['id_area'];
         $tipo_movimiento = $_POST['tipo_movimiento'];
         $cantidad = $_POST['cantidad'];
-
-
-           // Guardar la nueva cita
-           $movimientos_invetario = new Movimientos_inventario([
+        
+        // Obtener el producto seleccionado
+        $producto = Productos_inventario::find($id_producto);
+        
+        // Verificar el tipo de movimiento y actualizar el stock
+        if ($tipo_movimiento === 'salida') {
+            // Restar la cantidad al stock actual
+            $producto->stock_actual -= $cantidad;
+        } elseif ($tipo_movimiento === 'entrada') {
+            // Sumar la cantidad al stock actual
+            $producto->stock_actual += $cantidad;
+        }
+        
+        // Guardar el movimiento de inventario
+        $movimientos_invetario = new Movimientos_inventario([
             'id_producto' => $id_producto,
             'id_area' => $id_area,
             'tipo_movimiento' => $tipo_movimiento,
             'cantidad' => $cantidad,
             'fecha_movimiento' => date('Y-m-d H:i:s')
         ]);
-        debuguear($movimientos_invetario);
-     
+    
+        // Validar y guardar el movimiento
         $alertas = $movimientos_invetario->validar();
     
-        // Verificar si el movimiento es correcto
-        $id_movimiento = $movimientos_invetario->id_movimiento;
-        $producto = Productos_inventario::findSis($id_producto);  // Buscar por id_movimiento si es necesario
-    
-        if ($movimientos_invetario->tipo_movimiento === 'Salida') {
-            if ($movimientos_invetario->cantidad > $producto->stock_actual) {
-                $alertas[] = 'La cantidad de salida es mayor al stock actual';
-            } else {
-                $producto->stock_actual -= $movimientos_invetario->cantidad;
-                debuguear($producto);
-                $producto->guardar();  // Guardamos el producto con el stock actualizado
-            }
-        } elseif ($movimientos_invetario->tipo_movimiento === 'Entrada') {
-            $producto->stock_actual += $movimientos_invetario->cantidad;
-            $producto->guardar();  // Guardamos el producto con el stock actualizado
+        if (empty($alertas)) {
+            // Guardar el movimiento y actualizar el producto
+            $movimientos_invetario->guardar();
+            $producto->guardar();
         }
     }
+    
     
 
     $alertas = [];
