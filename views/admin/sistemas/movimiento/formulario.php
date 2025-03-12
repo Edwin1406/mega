@@ -114,7 +114,7 @@
             id="stock_actual"
             class="formulario__input"
             placeholder="Stock Actual"
-            value="<?php echo $movimientos_invetario->stock_actual ?? '' ?>">
+            value="<?php echo $area_inventario->stock_actual ?? '' ?>">
     </div>
 
     <div class="formulario__campo">
