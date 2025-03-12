@@ -13,27 +13,27 @@
 
 
     <div class="formulario__campo">
-        <label class="formulario__label" for="pedido_interno">Categoria</label>
+        <label class="formulario__label" for="id_categoria">Categoria</label>
         <input
             type="text"
-            name="pedido_interno"
-            id="pedido_interno"
+            name="id_categoria"
+            id="id_categoria"
             class="formulario__input"
-            placeholder="Número de Pedido Interno"
-            value="<?php echo $comercial->pedido_interno ?? '' ?>">
+            placeholder="Categoria"
+            value="<?php echo $comercial->id_categoria ?? '' ?>">
     </div>
 
  
 
     <div class="formulario__campo">
-        <label class="formulario__label" for="puerto_destino">Stock</label>
+        <label class="formulario__label" for="stock_actual">Stock</label>
         <input
-            type="text"
-            name="puerto_destino"
-            id="puerto_destino"
+            type="number"
+            name="stock_actual"
+            id="stock_actual"
             class="formulario__input"
-            placeholder="Puerto de Destino"
-            value="<?php echo $comercial->puerto_destino ?? '' ?>">
+            placeholder="Stock Actual"
+            value="<?php echo $comercial->stock_actual ?? '' ?>">
     </div>
 
     <div class="formulario__campo">
