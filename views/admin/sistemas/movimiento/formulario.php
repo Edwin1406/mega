@@ -64,7 +64,7 @@
         });
 
         // Ejecutar la función al cargar la página para seleccionar automáticamente
-        servicioSelect.dispatchEvent(new Event("change"));
+        productoSelect.dispatchEvent(new Event("change"));
     });
 </script>
 
