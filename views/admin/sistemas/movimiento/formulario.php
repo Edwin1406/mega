@@ -42,16 +42,16 @@
             class="formulario__input">
             <option value="">-- Seleccione --</option>
             <option
-                <?php echo $comercial->tipo_movimiento === 'Entrada' ? 'selected' : '' ?>
+                <?php echo $movimientos_invetario->tipo_movimiento === 'Entrada' ? 'selected' : '' ?>
                 value="Entrada">Entrada</option>
             <option
-                <?php echo $comercial->tipo_movimiento === 'Salida' ? 'selected' : '' ?>
+                <?php echo $movimientos_invetario->tipo_movimiento === 'Salida' ? 'selected' : '' ?>
                 value="Salida">Salida</option>
         </select>
     </div>
 
 
-    
+
 
 
 
