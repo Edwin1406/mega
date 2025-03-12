@@ -28,6 +28,7 @@ use Controllers\FinancieroController;
 use Controllers\ProduccionController;
 use Controllers\MateriaPrimaController;
 use Controllers\EstadisticaProdController;
+use Controllers\SistemasController;
 
 $router = new Router();
 
@@ -289,7 +290,7 @@ $router->post('/admin/produccion/cotizador/trimarp', [CotizadorController::class
 
 
 // AREA DE SISTEMA DE INVENTARIO DE PRODUCTOS DE INFORMATICA
-$router->get('/admin/inventario/index', [EstimarController::class, 'inventario']);
+$router->get('/admin/sistemas/index', [SistemasController::class, 'inventario']);
 
 
 
