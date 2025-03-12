@@ -39,9 +39,41 @@
             value="" disabled>
     </div>
 
+    
+    <div class="formulario__campo">
+        <label class="formulario__campo" for="tipo_movimiento">Tipo de movimiento</label>
+        <select
+            name="tipo_movimiento"
+            id="tipo_movimiento"
+            class="formulario__input">
+            <option value="">-- Seleccione --</option>
+            <option
+                <?php echo $movimientos_invetario->tipo_movimiento === 'Entrada' ? 'selected' : '' ?>
+                value="Entrada">Entrada</option>
+            <option
+                <?php echo $movimientos_invetario->tipo_movimiento === 'Salida' ? 'selected' : '' ?>
+                value="Salida">Salida</option>
+        </select>
+    </div>
+
+    <div class="formulario__campo">
+        <label class="formulario__label" for="cantidad">Cantidad</label>
+        <input
+            type="number"
+            name="cantidad"
+            id="cantidad"
+            class="formulario__input"
+            placeholder="Cantidad"
+            value="<?php echo $movimientos_invetario->cantidad ?? '' ?>">
+    </div>
 
 
-    <script>
+</fieldset>
+
+
+
+
+<script>
         document.addEventListener("DOMContentLoaded", function() {
             const productoSelect = document.getElementById("id_producto");
             const areaSelect = document.getElementById("id_area");
@@ -77,52 +109,3 @@
             productoSelect.dispatchEvent(new Event("change"));
         });
     </script>
-
-
-    <!-- tipo de movimiento -->
-
-    <div class="formulario__campo">
-        <label class="formulario__campo" for="tipo_movimiento">Tipo de movimiento</label>
-        <select
-            name="tipo_movimiento"
-            id="tipo_movimiento"
-            class="formulario__input">
-            <option value="">-- Seleccione --</option>
-            <option
-                <?php echo $movimientos_invetario->tipo_movimiento === 'Entrada' ? 'selected' : '' ?>
-                value="Entrada">Entrada</option>
-            <option
-                <?php echo $movimientos_invetario->tipo_movimiento === 'Salida' ? 'selected' : '' ?>
-                value="Salida">Salida</option>
-        </select>
-    </div>
-
-    <div class="formulario__campo">
-        <label class="formulario__label" for="cantidad">Cantidad</label>
-        <input
-            type="number"
-            name="cantidad"
-            id="cantidad"
-            class="formulario__input"
-            placeholder="Cantidad"
-            value="<?php echo $movimientos_invetario->cantidad ?? '' ?>">
-    </div>
-
-
-
-    <div class="formulario__campo">
-        <label class="formulario__label" for="costo_unitario">Costo Unitario</label>
-        <input
-            type="number"
-            name="costo_unitario"
-            id="costo_unitario"
-            class="formulario__input"
-            placeholder="Costo Unitario"
-            value="<?php echo $comercial->costo_unitario ?? '' ?>">
-    </div>
-
-
-
-
-
-</fieldset>
