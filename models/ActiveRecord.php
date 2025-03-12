@@ -1153,6 +1153,11 @@ public static function procesarArchivoExcelComercial($filePath)
         return $resultado;
     }
 
+    public static function findSis($busqueda,$id) {
+        $query = "SELECT * FROM " . static::$tabla  ." WHERE id_{$busqueda} = {$id}";
+        $resultado = self::consultarSQL($query);
+        return array_shift( $resultado ) ;
+    }
 
 
 

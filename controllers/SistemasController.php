@@ -73,6 +73,16 @@ public static function movimientos(Router $router)
         $movimientos_invetario->sincronizar($_POST);
         // debuguear($movimientos_invetario);
         $alertas = $movimientos_invetario->validar();
+        
+        if ($movimientos_invetario->tipo_movimiento === 'Salida') {
+            $producto = Productos_inventario::find('producto',$movimientos_invetario->id_producto);
+            if ($movimientos_invetario->cantidad > $producto->stock_actual) {
+                $alertas[] = 'La cantidad de salida es mayor al stock actual';
+            }
+        }
+
+
+
 
         if (empty($alertas)) {
             $movimientos_invetario->guardar();
