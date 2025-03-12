@@ -53,7 +53,8 @@ class SistemasController {
         $alertas = [];
         $router->render('admin/sistemas/productos/crear', [
             'titulo' => 'CREAR PRODUCTO',
-            'alertas' => $alertas
+            'alertas' => $alertas,
+            'categoria_inventario' => $categoria_inventario,
         ]);
     }
 
