@@ -88,7 +88,7 @@ public static function movimientos(Router $router)
         }
         
         // Guardar el movimiento de inventario
-        $movimientos_invetario = new Movimientos_invetario([
+        $movimientos_invetario = new Movimientos_inventario([
             'id_producto' => $id_producto,
             'id_area' => $id_area,
             'tipo_movimiento' => $tipo_movimiento,
