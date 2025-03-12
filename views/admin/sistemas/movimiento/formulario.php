@@ -26,14 +26,27 @@
 
 
 
+    <div class="formulario__campo">
+        <label class="formulario__label" for="stock_actual">Stock</label>
+        <input
+            type="number"
+            name="stock_actual"
+            id="stock_actual"
+            class="formulario__input"
+            placeholder="stock_actual"
+            value="<?php echo $productos_inventario->cantidad ?? '' ?>">
+    </div>
+
+
+
     <script>
     document.addEventListener("DOMContentLoaded", function() {
-        const servicioSelect = document.getElementById("id_producto");
-        const odontologoSelect = document.getElementById("id_area");
+        const productoSelect = document.getElementById("id_producto");
+        const areaSelect = document.getElementById("id_area");
 
-        servicioSelect.addEventListener("change", function() {
+        productoSelect.addEventListener("change", function() {
             // Obtener la opción seleccionada
-            const selectedOption = servicioSelect.options[servicioSelect.selectedIndex];
+            const selectedOption = productoSelect.options[productoSelect.selectedIndex];
             const odontologoId = selectedOption.getAttribute("data-odontologo");
 
             console.log(" producto:", selectedOption.value);
@@ -41,9 +54,9 @@
 
             if (odontologoId) {
                 // Buscar y seleccionar el odontólogo correspondiente
-                for (let i = 0; i < odontologoSelect.options.length; i++) {
-                    if (odontologoSelect.options[i].value === odontologoId) {
-                        odontologoSelect.selectedIndex = i;
+                for (let i = 0; i < areaSelect.options.length; i++) {
+                    if (areaSelect.options[i].value === odontologoId) {
+                        areaSelect.selectedIndex = i;
                         console.log("Odontólogo seleccionado automáticamente.");
                         break;
                     }
