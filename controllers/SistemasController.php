@@ -61,7 +61,7 @@ class SistemasController {
 
 public static function movimientos(Router $router)
 {
-    $router->render('admin/sistemas/movimientos/movimientos', [
+    $router->render('admin/sistemas/movimiento/movimientos', [
         'titulo' => 'MOVIMIENTOS DE PRODUCTOS',
     ]);
 }
