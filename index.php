@@ -292,6 +292,7 @@ $router->post('/admin/produccion/cotizador/trimarp', [CotizadorController::class
 // AREA DE SISTEMA DE INVENTARIO DE PRODUCTOS DE INFORMATICA
 $router->get('/admin/sistemas/index', [SistemasController::class, 'index']);
 $router->get('/admin/sistemas/productos/crear', [SistemasController::class, 'crear']);
+$router->post('/admin/sistemas/productos/crear', [SistemasController::class, 'crear']);
 
 
 
