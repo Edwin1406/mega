@@ -29,7 +29,7 @@ class SistemasController {
             $productos_inventario->sincronizar($_POST);
 
 
-            // debuguear($productos_inventario);
+            debuguear($productos_inventario);
 
             // debuguear($comercial);
             $alertas = $productos_inventario->validar();
