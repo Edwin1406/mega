@@ -2,16 +2,19 @@
     <legend class="formulario__legend">MOVIMIENTOS STOCK </legend>
 
     <div class="formulario__campo">
-        <label class="formulario__label" for="id_producto">Selecciona un producto</label>
-        <select name="id_producto" id="id_producto" class="formulario__input">
-            <option value="" disabled selected>Selecciona un servicio</option>
-            <?php foreach ($productos_inventario as $producto): ?>
-                <option value="<?php echo $producto->id_producto; ?>" data-area="<?php echo $producto->id_area; ?>">
-                    <?php echo htmlspecialchars($producto->nombre_producto); ?>
-                </option>
-            <?php endforeach; ?>
-        </select>
-    </div>
+    <label class="formulario__label" for="id_producto">Selecciona un producto</label>
+    <select name="id_producto" id="id_producto" class="formulario__input">
+        <option value="" disabled selected>Selecciona un producto</option>
+        <?php foreach ($productos_inventario as $producto): ?>
+            <option value="<?php echo $producto->id_producto; ?>" 
+                    data-area="<?php echo $producto->id_area; ?>"
+                    data-stock="<?php echo $producto->stock_actual; ?>"> <!-- Aquí pasamos el stock -->
+                <?php echo htmlspecialchars($producto->nombre_producto); ?>
+            </option>
+        <?php endforeach; ?>
+    </select>
+</div>
+
     <div class="formulario__campo">
         <label class="formulario__label" for="id_area">Selecciona un producto</label>
         <select name="id_area" id="id_area" class="formulario__input" disabled >
