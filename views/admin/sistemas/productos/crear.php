@@ -7,6 +7,7 @@
       color: #f8f2f2;
       padding: 10px 15px;
       transition: all 0.5s;
+      margin-bottom: 5rem;
     }
     
     .container {
