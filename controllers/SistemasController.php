@@ -74,6 +74,14 @@ public static function movimientos(Router $router) {
         $producto = Productos_inventario::findSis($id_producto);
 
         if ($producto) {
+
+            // Actualizar el stock del producto
+            if ($tipo_movimiento === 'Entrada') {
+                $producto->stock_actual += $cantidad;
+            } else {
+                $producto->stock_actual -= $cantidad;
+            }
+
             // Crear un nuevo movimiento
             $movimiento = new Movimientos_inventario([
                 'id_producto' => $id_producto,
