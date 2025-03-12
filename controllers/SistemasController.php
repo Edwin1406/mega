@@ -71,17 +71,16 @@ public static function movimientos(Router $router)
     
 
     $movimientos_invetario = new Movimientos_inventario;
-
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $movimientos_invetario->sincronizar($_POST);
-        // debuguear($movimientos_invetario);
         $alertas = $movimientos_invetario->validar();
+    
         // Comprobamos el tipo de movimiento
+        $id = $movimientos_invetario->id_producto;
+        $producto = Productos_inventario::findSis($id);
+    
         if ($movimientos_invetario->tipo_movimiento === 'Salida') {
-
-            $id=$movimientos_invetario->id_producto;
             // Si es una salida, verificamos si la cantidad solicitada es mayor al stock actual
-            $producto = Productos_inventario::findSis($id);
             if ($movimientos_invetario->cantidad > $producto->stock_actual) {
                 $alertas[] = 'La cantidad de salida es mayor al stock actual';
             } else {
@@ -90,17 +89,17 @@ public static function movimientos(Router $router)
                 $producto->guardar();  // Guardamos el producto con el stock actualizado
             }
         } elseif ($movimientos_invetario->tipo_movimiento === 'Entrada') {
-            $id = $movimientos_invetario->id_producto;
-
             // Si es una entrada, sumamos la cantidad al stock actual
-            $producto = Productos_inventario::findSis($id);
             $producto->stock_actual += $movimientos_invetario->cantidad;
             $producto->guardar();  // Guardamos el producto con el stock actualizado
         }
-
-     
-
+    
+        // Si hay alertas, podrías manejarlas aquí
+        if (!empty($alertas)) {
+            // Aquí podrías mostrar las alertas si es necesario
+        }
     }
+    
 
     $alertas = [];
     $router->render('admin/sistemas/movimiento/movimientos', [
