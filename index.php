@@ -295,6 +295,12 @@ $router->get('/admin/sistemas/productos/crear', [SistemasController::class, 'cre
 $router->post('/admin/sistemas/productos/crear', [SistemasController::class, 'crear']);
 
 
+$router->get('/admin/sistemas/productos/movimientos', [SistemasController::class, 'movimientos']);
+$router->post('/admin/sistemas/productos/movimientos', [SistemasController::class, 'movimientos']);
+$router->get('/admin/sistemas/productos/gastos', [SistemasController::class, 'gastos']);
+$router->post('/admin/sistemas/productos/gastos', [SistemasController::class, 'gastos']);
+
+
 
 
 // citas de prueba 

@@ -45,11 +45,6 @@ class SistemasController {
 
         }
 
-
-
-
-
-        
         $alertas = [];
         $router->render('admin/sistemas/productos/crear', [
             'titulo' => 'CREAR PRODUCTO',
@@ -57,6 +52,24 @@ class SistemasController {
             'categoria_inventario' => $categoria_inventario,
         ]);
     }
+
+
+
+
+// movimientos 
+
+
+public static function movimientos(Router $router)
+{
+    $router->render('admin/sistemas/productos/movimientos', [
+        'titulo' => 'MOVIMIENTOS DE PRODUCTOS',
+    ]);
+}
+
+
+
+
+
 
 
 
