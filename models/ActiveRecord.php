@@ -1145,6 +1145,16 @@ public static function procesarArchivoExcelComercial($filePath)
 
 
 
+    // invetario de materia prima de sistemas 
+
+    public static function allSis($id,$orden = 'DESC') {
+        $query = "SELECT * FROM " . static::$tabla . " ORDER BY id_{$id} {$orden}";
+        $resultado = self::consultarSQL($query);
+        return $resultado;
+    }
+
+
+
 
 
 }

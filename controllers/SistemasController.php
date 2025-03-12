@@ -21,7 +21,7 @@ class SistemasController {
 
 
         $productos_inventario = new Productos_inventario;
-        $categoria_inventario = Categoria_inventario:: all();
+        $categoria_inventario = Categoria_inventario:: allSis('movimiento', 'ASC');
 
         debuguear($categoria_inventario);
 
