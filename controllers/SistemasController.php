@@ -2,6 +2,7 @@
 
 namespace Controllers;
 
+use Model\Area_inventario;
 use Model\Categoria_inventario;
 use Model\Productos_inventario;
 use MVC\Router;
@@ -63,6 +64,7 @@ public static function movimientos(Router $router)
 {
 
     $productos_inventario = Productos_inventario:: allSis('producto', 'DESC');
+    $area_inventario = Area_inventario:: allSis('area', 'ASC');
 // debuguear($productos_inventario);
 
     // $movimientos = new Movimientos_inventario;
@@ -98,6 +100,7 @@ public static function movimientos(Router $router)
         'titulo' => 'MOVIMIENTOS DE PRODUCTOS',
         'alertas' => $alertas,
         'productos_inventario' => $productos_inventario,
+        'area_inventario' => $area_inventario,
     ]);
 }
 
