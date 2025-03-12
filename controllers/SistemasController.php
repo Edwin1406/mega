@@ -87,7 +87,7 @@ public static function movimientos(Router $router)
             'cantidad' => $cantidad,
             'fecha_movimiento' => date('Y-m-d H:i:s')
         ]);
-
+        debuguear($movimientos_invetario);
      
         $alertas = $movimientos_invetario->validar();
     
