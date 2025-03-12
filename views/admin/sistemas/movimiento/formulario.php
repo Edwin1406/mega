@@ -25,47 +25,58 @@
     </div>
 
 
-
     <div class="formulario__campo">
-        <label class="formulario__label" for="stock_actual">Stock</label>
-        <input
-            type="number"
-            name="stock_actual"
-            id="stock_actual"
-            class="formulario__input"
-            placeholder="stock_actual"
-            value="<?php echo $productos_inventario->cantidad ?? '' ?>">
-    </div>
+    <label class="formulario__label" for="id_producto">Selecciona un producto</label>
+    <select name="id_producto" id="id_producto" class="formulario__input">
+        <option value="" disabled selected>Selecciona un producto</option>
+        <?php foreach ($productos_inventario as $producto): ?>
+            <option value="<?php echo $producto->id_producto; ?>" 
+                    data-area="<?php echo $producto->id_area; ?>"
+                    data-stock="<?php echo $producto->cantidad; ?>">
+                <?php echo htmlspecialchars($producto->nombre_producto); ?>
+            </option>
+        <?php endforeach; ?>
+    </select>
+</div>
 
 
 
     <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        const productoSelect = document.getElementById("id_producto");
-        const areaSelect = document.getElementById("id_area");
+   document.addEventListener("DOMContentLoaded", function() {
+    const productoSelect = document.getElementById("id_producto");
+    const areaSelect = document.getElementById("id_area");
+    const stockInput = document.getElementById("stock_actual");
 
-        productoSelect.addEventListener("change", function() {
-            // Obtener la opción seleccionada
-            const selectedOption = productoSelect.options[productoSelect.selectedIndex];
-            const id_area = selectedOption.getAttribute("data-area");
+    productoSelect.addEventListener("change", function() {
+        // Obtener la opción seleccionada
+        const selectedOption = productoSelect.options[productoSelect.selectedIndex];
+        const id_area = selectedOption.getAttribute("data-area");
+        const stock = selectedOption.getAttribute("data-stock"); // Obtener el stock
 
-            console.log(" producto:", selectedOption.value);
-            console.log("area ID obtenido:", id_area);
+        console.log("Producto:", selectedOption.value);
+        console.log("Area ID obtenido:", id_area);
+        console.log("Stock obtenido:", stock);
 
-            if (id_area) {
-                // Buscar y seleccionar el odontólogo correspondiente
-                for (let i = 0; i < areaSelect.options.length; i++) {
-                    if (areaSelect.options[i].value === id_area) {
-                        areaSelect.selectedIndex = i;
-                        break;
-                    }
+        if (id_area) {
+            // Buscar y seleccionar el area correspondiente
+            for (let i = 0; i < areaSelect.options.length; i++) {
+                if (areaSelect.options[i].value === id_area) {
+                    areaSelect.selectedIndex = i;
+                    break;
                 }
             }
-        });
+        }
 
-        // Ejecutar la función al cargar la página para seleccionar automáticamente
-        productoSelect.dispatchEvent(new Event("change"));
+        // Asignar el stock al campo correspondiente
+        if (stock) {
+            stockInput.value = stock; // Actualizar el campo de stock
+        }
     });
+
+    // Ejecutar la función al cargar la página para seleccionar automáticamente
+    productoSelect.dispatchEvent(new Event("change"));
+});
+
 </script>
 
 
