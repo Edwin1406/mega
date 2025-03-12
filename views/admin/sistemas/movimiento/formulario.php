@@ -36,8 +36,8 @@
             const selectedOption = servicioSelect.options[servicioSelect.selectedIndex];
             const odontologoId = selectedOption.getAttribute("data-odontologo");
 
-            console.log("Servicio seleccionado:", selectedOption.value);
-            console.log("Odontólogo ID obtenido:", odontologoId);
+            console.log(" producto:", selectedOption.value);
+            console.log("area ID obtenido:", odontologoId);
 
             if (odontologoId) {
                 // Buscar y seleccionar el odontólogo correspondiente
