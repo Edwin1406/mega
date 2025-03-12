@@ -14,7 +14,6 @@ class Productos_inventario extends ActiveRecord
 
     public function __construct($args = [])
     {
-        $this->id_producto = $args['id'] ?? null;
         $this->id_producto = $args['id_producto'] ?? '';
         $this->nombre_producto = $args['nombre_producto'] ?? '';
         $this->id_categoria = $args['id_categoria'] ?? '';
@@ -22,5 +21,21 @@ class Productos_inventario extends ActiveRecord
         $this->costo_unitario = $args['costo_unitario'] ?? '';
 
 
+    }
+}
+
+
+class Categoria extends ActiveRecord
+{
+    protected static $tabla = 'categorias_inventario';
+    protected static $columnasDB = ['id_inventario', 'nombre_categoria'];
+
+    public $id_inventario;
+    public $nombre_categoria;
+
+    public function __construct($args = [])
+    {
+        $this->id_inventario = $args['id_producto'] ?? null;
+        $this->nombre_categoria = $args['nombre_categoria'] ?? '';
     }
 }
