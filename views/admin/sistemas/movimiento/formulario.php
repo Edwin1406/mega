@@ -32,8 +32,26 @@
             <?php endforeach; ?>
         </select>
     </div>
+<!-- tipo de movimiento -->
+
+    <div class="formulario__campo">
+        <label class="formulario__campo" for="tipo_movimiento">Tipo de movimiento</label>
+        <select
+            name="tipo_movimiento"
+            id="tipo_movimiento"
+            class="formulario__input">
+            <option value="">-- Seleccione --</option>
+            <option
+                <?php echo $comercial->tipo_movimiento === 'Entrada' ? 'selected' : '' ?>
+                value="Entrada">Entrada</option>
+            <option
+                <?php echo $comercial->tipo_movimiento === 'Salida' ? 'selected' : '' ?>
+                value="Salida">Salida</option>
+        </select>
+    </div>
 
 
+    
 
 
 
