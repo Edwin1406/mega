@@ -2,6 +2,7 @@
 
 namespace Controllers;
 
+use Model\Productos_inventario;
 use MVC\Router;
 
 class SistemasController {
@@ -18,26 +19,23 @@ class SistemasController {
     {
 
 
-        $comercial = new Comercial;
-
-        $escoger_produccion = Area::belongsTo('propietarioId',$id);
-
+        $productos_inventario = new Productos_inventario;
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $comercial->sincronizar($_POST);
-            $comercial->total_item = $comercial->cantidad * $comercial->precio;
-            $comercial->transito = $comercial->fecha_produccion - $comercial->arribo_planta;
-            $comercial->calcularTransito();
+            $productos_inventario->sincronizar($_POST);
+
+
+            debuguear($productos_inventario);
 
             // debuguear($comercial);
-            $alertas = $comercial->validar();
+            $alertas = $productos_inventario->validar();
 
             // debuguear($comercial);
 
            if (empty($alertas)) {
-                $comercial->guardar();
-                $alertas = $comercial->getAlertas();
-                header('Location: /admin/comercial/tabla?id='.$id);
+                $productos_inventario->guardar();
+                $alertas = $productos_inventario->getAlertas();
+                header('Location: /admin/comercial/tabla?id='.$id_producto);
             }
 
 
