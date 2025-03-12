@@ -12,6 +12,17 @@
             <?php endforeach; ?>
         </select>
     </div>
+    <div class="formulario__campo">
+        <label class="formulario__label" for="id_producto">Selecciona un producto</label>
+        <select name="odontologoId" id="odontologoId" class="formulario__input" disabled>
+            <option value="" disabled selected>Selecciona un odontólogo</option>
+            <?php foreach ($area_inventario as $areas): ?>
+                <option value="<?php echo $areas->id_area; ?>">
+                    <?php echo htmlspecialchars($areas->nombre_area); ?>
+                </option>
+            <?php endforeach; ?>
+        </select>
+    </div>
 
     <div class="formulario__campo">
         <label class="formulario__label" for="id_area">Selecciona el área</label>
