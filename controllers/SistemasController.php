@@ -78,7 +78,7 @@ public static function movimientos(Router $router)
 
             $id=$movimientos_invetario->id_producto;
             // Si es una salida, verificamos si la cantidad solicitada es mayor al stock actual
-            $producto = Productos_inventario::findSis('producto', $id);
+            $producto = Productos_inventario::findSis($id);
             if ($movimientos_invetario->cantidad > $producto->stock_actual) {
                 $alertas[] = 'La cantidad de salida es mayor al stock actual';
             } else {
@@ -88,7 +88,7 @@ public static function movimientos(Router $router)
             }
         } elseif ($movimientos_invetario->tipo_movimiento === 'Entrada') {
             // Si es una entrada, sumamos la cantidad al stock actual
-            $producto = Productos_inventario::findSis('producto', $id);
+            $producto = Productos_inventario::findSis($id);
             $producto->stock_actual += $movimientos_invetario->cantidad;
             $producto->guardar();  // Guardamos el producto con el stock actualizado
         }
