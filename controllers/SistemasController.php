@@ -60,13 +60,15 @@ class SistemasController {
 
 // movimientos 
 
-
 public static function movimientos(Router $router)
 {
     $productos_inventario = Productos_inventario::allSis('producto', 'DESC');
     $area_inventario = Area_inventario::allSis('area', 'ASC');
     $categoria_inventario = Categoria_inventario::allSis('categoria', 'ASC');
     
+    // Initialize $movimientos_invetario to avoid the undefined variable warning
+    $movimientos_invetario = null;
+
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $id_producto = $_POST['id_producto'];
         $id_area = $_POST['id_area'] ?? null;
@@ -86,7 +88,7 @@ public static function movimientos(Router $router)
         }
         
         // Guardar el movimiento de inventario
-        $movimientos_invetario = new Movimientos_inventario([
+        $movimientos_invetario = new Movimientos_invetario([
             'id_producto' => $id_producto,
             'id_area' => $id_area,
             'tipo_movimiento' => $tipo_movimiento,
@@ -104,8 +106,6 @@ public static function movimientos(Router $router)
         }
     }
     
-    
-
     $alertas = [];
     $router->render('admin/sistemas/movimiento/movimientos', [
         'titulo' => 'MOVIMIENTOS DE PRODUCTOS',
