@@ -63,7 +63,7 @@ public static function movimientos(Router $router)
 {
 
     $productos_inventario = Productos_inventario:: allSis('producto', 'ASC');
-debuguear($productos_inventario);
+// debuguear($productos_inventario);
 
     // $movimientos = new Movimientos_inventario;
     // // debuguear($movimientos_inventario);
@@ -97,6 +97,7 @@ debuguear($productos_inventario);
     $router->render('admin/sistemas/movimiento/movimientos', [
         'titulo' => 'MOVIMIENTOS DE PRODUCTOS',
         'alertas' => $alertas,
+        'productos_inventario' => $productos_inventario,
     ]);
 }
 

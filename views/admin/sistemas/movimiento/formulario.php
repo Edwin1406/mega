@@ -1,15 +1,6 @@
 <fieldset class="formulario__fieldset">
-    <legend class="formulario__legend">INGRESO DE INSUMOS DE SISTEMAS  </legend>
-    <div class="formulario__campo">
-        <label class="formulario__label" for="nombre_producto">Nombre Producto</label>
-        <input
-            type="text"
-            name="nombre_producto"
-            id="nombre_producto"
-            class="formulario__input"
-            placeholder="Nombre del Producto"
-            value="<?php echo $comercial->nombre_producto ?? '' ?>">
-    </div>
+    <legend class="formulario__legend">MOVIMIENTOS STOCK  </legend>
+ 
 
 
 <!-- crear un select  -->
@@ -20,10 +11,10 @@
             id="id_categoria"
             class="formulario__input">
             <option value="">-- Seleccione --</option>
-            <?php foreach ($categoria_inventario as $categoria) : ?>
+            <?php foreach ($productos_inventario as $producto) : ?>
                 <option
-                    <?php echo $categoria->id_categoria === $categoria->id_categoria ? 'selected' : '' ?>
-                    value="<?php echo $categoria->id_categoria ?>"><?php echo $categoria->nombre_categoria ?></option>
+                    <?php echo $producto->id_producto === $producto->id_producto ? 'selected' : '' ?>
+                    value="<?php echo $producto->id_producto ?>"><?php echo $producto->nombre_producto ?></option>
             <?php endforeach; ?>
         </select>
     </div>
