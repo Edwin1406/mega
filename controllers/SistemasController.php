@@ -75,7 +75,7 @@ public static function movimientos(Router $router)
         $alertas = $movimientos_invetario->validar();
         
         if ($movimientos_invetario->tipo_movimiento === 'Salida') {
-            $producto = Productos_inventario::find('producto',$movimientos_invetario->id_producto);
+            $producto = Productos_inventario::findSis('producto',$movimientos_invetario->id_producto);
             if ($movimientos_invetario->cantidad > $producto->stock_actual) {
                 $alertas[] = 'La cantidad de salida es mayor al stock actual';
             }
