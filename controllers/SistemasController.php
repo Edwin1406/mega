@@ -64,25 +64,25 @@ public static function movimientos(Router $router)
 {
 
     
-    $movimientos_inventario = new Movimientos_inventario;
+    $movimientos = new Movimientos_inventario;
     // debuguear($movimientos_inventario);
     // $categoria_inventario = Categoria_inventario:: allSis('categoria', 'ASC');
 
     
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $movimientos_inventario->sincronizar($_POST);
+        $movimientos->sincronizar($_POST);
 
 
-        debuguear($movimientos_inventario);
+        debuguear($movimientos);
 
         // debuguear($comercial);
-        $alertas = $movimientos_inventario->validar();
+        $alertas = $movimientos->validar();
 
         // debuguear($comercial);
 
        if (empty($alertas)) {
-            $movimientos_inventario->guardar();
-            $alertas = $movimientos_inventario->getAlertas();
+            $movimientos->guardar();
+            $alertas = $movimientos->getAlertas();
             header('Location: /admin/sistemas/productos/tabla');
         }
 
