@@ -64,32 +64,32 @@ public static function movimientos(Router $router)
 {
 
     
-    $movimientos = new Movimientos_inventario;
-    // debuguear($movimientos_inventario);
-    // $categoria_inventario = Categoria_inventario:: allSis('categoria', 'ASC');
+    // $movimientos = new Movimientos_inventario;
+    // // debuguear($movimientos_inventario);
+    // // $categoria_inventario = Categoria_inventario:: allSis('categoria', 'ASC');
 
     
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $movimientos->sincronizar($_POST);
+    // if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    //     $movimientos->sincronizar($_POST);
 
 
-        debuguear($movimientos);
+    //     debuguear($movimientos);
 
-        // debuguear($comercial);
-        $alertas = $movimientos->validar();
+    //     // debuguear($comercial);
+    //     $alertas = $movimientos->validar();
 
-        // debuguear($comercial);
+    //     // debuguear($comercial);
 
-       if (empty($alertas)) {
-            $movimientos->guardar();
-            $alertas = $movimientos->getAlertas();
-            header('Location: /admin/sistemas/productos/tabla');
-        }
+    //    if (empty($alertas)) {
+    //         $movimientos->guardar();
+    //         $alertas = $movimientos->getAlertas();
+    //         header('Location: /admin/sistemas/productos/tabla');
+    //     }
 
 
-    }
+    // }
 
-    var_dump(class_exists('Model\Movimientos_inventario'));
+    // var_dump(class_exists('Model\Movimientos_inventario'));
 
 
     $alertas = [];
