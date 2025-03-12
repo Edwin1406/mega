@@ -3,6 +3,7 @@
 namespace Controllers;
 
 use Model\Categoria_inventario;
+use Model\Movimientos_inventario;
 use Model\Productos_inventario;
 use MVC\Router;
 
@@ -63,7 +64,8 @@ public static function movimientos(Router $router)
 {
 
     
-    $movimientos_inventario = new ;
+    $movimientos_inventario = new Movimientos_inventario;
+    debuguear($movimientos_inventario);
     $categoria_inventario = Categoria_inventario:: allSis('categoria', 'ASC');
 
     $alertas = [];
