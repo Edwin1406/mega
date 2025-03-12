@@ -64,7 +64,7 @@ public static function movimientos(Router $router)
 {
 
     
-    $movimientos = new Movimientos_inventario;
+    // $movimientos = new Movimientos_inventario;
     // debuguear($movimientos_inventario);
     // $categoria_inventario = Categoria_inventario:: allSis('categoria', 'ASC');
 
