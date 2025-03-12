@@ -83,7 +83,7 @@ public static function movimientos(Router $router) {
                 'fecha_movimiento' => date('Y-m-d H:i:s')
             ]);
 
-            debuguear($movimiento);
+            // debuguear($movimiento);
             
             // Guardar el movimiento y actualizar el producto
             $movimiento->guardas();
