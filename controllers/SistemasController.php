@@ -84,9 +84,10 @@ public static function movimientos(Router $router)
                 $alertas[] = 'La cantidad de salida es mayor al stock actual';
             } else {
                 $producto->stock_actual -= $movimientos_invetario->cantidad;
+                debuguear($producto);
                 $producto->guardar();  // Guardamos el producto con el stock actualizado
             }
-        } elseif ($movimientos_invetario->tipo_movimiento === 'Ingreso') {
+        } elseif ($movimientos_invetario->tipo_movimiento === 'Entrada') {
             $producto->stock_actual += $movimientos_invetario->cantidad;
             $producto->guardar();  // Guardamos el producto con el stock actualizado
         }
