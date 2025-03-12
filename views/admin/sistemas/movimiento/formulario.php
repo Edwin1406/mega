@@ -14,7 +14,7 @@
     </div>
     <div class="formulario__campo">
         <label class="formulario__label" for="id_area">Selecciona un producto</label>
-        <select name="id_area" id="id_area" class="formulario__input"  >
+        <select name="id_area" id="id_area" class="formulario__input" disabled >
             <option value="" disabled selected>Selecciona un odontólogo</option>
             <?php foreach ($area_inventario as $areas): ?>
                 <option value="<?php echo $areas->id_area; ?>">
@@ -26,23 +26,21 @@
 
 
     <div class="formulario__campo">
-    <label class="formulario__label" for="id_producto">Selecciona un producto</label>
-    <select name="id_producto" id="id_producto" class="formulario__input">
-        <option value="" disabled selected>Selecciona un producto</option>
-        <?php foreach ($productos_inventario as $producto): ?>
-            <option value="<?php echo $producto->id_producto; ?>" 
-                    data-area="<?php echo $producto->id_area; ?>"
-                    data-stock="<?php echo $producto->cantidad; ?>">
-                <?php echo htmlspecialchars($producto->nombre_producto); ?>
-            </option>
-        <?php endforeach; ?>
-    </select>
+    <label class="formulario__label" for="stock_actual">Stock</label>
+    <input
+        type="number"
+        name="stock_actual"
+        id="stock_actual"
+        class="formulario__input"
+        placeholder="stock_actual"
+        value="" disabled>
+    >
 </div>
 
 
 
     <script>
-   document.addEventListener("DOMContentLoaded", function() {
+    document.addEventListener("DOMContentLoaded", function() {
     const productoSelect = document.getElementById("id_producto");
     const areaSelect = document.getElementById("id_area");
     const stockInput = document.getElementById("stock_actual");
@@ -58,7 +56,7 @@
         console.log("Stock obtenido:", stock);
 
         if (id_area) {
-            // Buscar y seleccionar el area correspondiente
+            // Buscar y seleccionar el área correspondiente
             for (let i = 0; i < areaSelect.options.length; i++) {
                 if (areaSelect.options[i].value === id_area) {
                     areaSelect.selectedIndex = i;
@@ -73,7 +71,7 @@
         }
     });
 
-    // Ejecutar la función al cargar la página para seleccionar automáticamente
+    // Ejecutar la función al cargar la página para seleccionar automáticamente el producto y su stock
     productoSelect.dispatchEvent(new Event("change"));
 });
 
