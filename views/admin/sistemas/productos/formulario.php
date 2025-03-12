@@ -11,17 +11,7 @@
             value="<?php echo $comercial->nombre_producto ?? '' ?>">
     </div>
 
-<!-- 
-    <div class="formulario__campo">
-        <label class="formulario__label" for="id_categoria">Categoria</label>
-        <input
-            type="text"
-            name="id_categoria"
-            id="id_categoria"
-            class="formulario__input"
-            placeholder="Categoria"
-            value="<?php echo $comercial->id_categoria ?? '' ?>">
-    </div> -->
+
 <!-- crear un select  -->
     <div class="formulario__campo">
         <label class="formulario__label" for="id_categoria">Categoria</label>
@@ -32,7 +22,7 @@
             <option value="">-- Seleccione --</option>
             <?php foreach ($categoria_inventario as $categoria) : ?>
                 <option
-                    <?php echo $comercial->id_categoria === $categoria->id_categoria ? 'selected' : '' ?>
+                    <?php echo $categoria->id_categoria === $categoria->id_categoria ? 'selected' : '' ?>
                     value="<?php echo $categoria->id_categoria ?>"><?php echo $categoria->nombre_categoria ?></option>
             <?php endforeach; ?>
         </select>
