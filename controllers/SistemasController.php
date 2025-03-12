@@ -61,8 +61,11 @@ class SistemasController {
 
 public static function movimientos(Router $router)
 {
+
+    $alertas = [];
     $router->render('admin/sistemas/movimiento/movimientos', [
         'titulo' => 'MOVIMIENTOS DE PRODUCTOS',
+        'alertas' => $alertas,
     ]);
 }
 

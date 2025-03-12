@@ -65,3 +65,19 @@
   <div class="item"><a href="/admin/sistemas/movimientos/movimientos">  <i class="fas fa-newspaper"></i> MOVIMIENTOS</a></div>
   <div class="item"><a href="/admin/sistemas/productos/gastos"><i class="fa-solid fa-arrow-right"></i> GASTOS</a></div>
 </div>
+
+
+
+<div class="dashboard__formulario">
+
+<?php include_once __DIR__.'/../../../templates/alertas.php'  ?>
+
+    <form method="POST" action="/admin/sistemas/movimiento/movimientos "  class="formulario" enctype="multipart/form-data">
+    <?php include_once __DIR__.'/formulario.php'  ?>
+
+        <input class="formulario__submit formulario__submit--registrar" type="submit" value="Registrar producto">
+
+        
+    </form>
+
+</div>
