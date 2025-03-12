@@ -66,7 +66,7 @@ public static function movimientos(Router $router)
     
     $movimientos_inventario = new Movimientos_inventario;
     // debuguear($movimientos_inventario);
-    $categoria_inventario = Categoria_inventario:: allSis('categoria', 'ASC');
+    // $categoria_inventario = Categoria_inventario:: allSis('categoria', 'ASC');
 
     
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {

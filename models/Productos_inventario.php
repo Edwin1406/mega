@@ -58,7 +58,7 @@ class Area_inventario extends ActiveRecord
 }
 
 
-class Movimientos_inventario extends ActiveRecord
+class Movimientos_inventario  extends ActiveRecord
 {
     protected static $tabla = 'movimientos_stock';
     protected static $columnasDB = ['id_movimiento', 'id_producto','id_area','tipo_movimiento','cantidad','fecha_movimiento'];
