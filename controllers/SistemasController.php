@@ -7,7 +7,7 @@ namespace Controllers;
 
 class SistemasController {
 
-    public static function inventario()
+    public static function index()
     {
         echo "Inventario";
     }
