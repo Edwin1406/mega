@@ -39,3 +39,21 @@ class Categoria_inventario extends ActiveRecord
         $this->nombre_categoria = $args['nombre_categoria'] ?? '';
     }
 }
+
+
+
+class Area_iventario extends ActiveRecord
+{
+    protected static $tabla = 'areas_inventario';
+    protected static $columnasDB = ['id_area', 'nombre_area'];
+
+    public $id_area;
+    public $nombre_area;
+
+    public function __construct($args = [])
+    {
+        $this->id_area = $args['id_area'] ?? null;
+        $this->nombre_area = $args['nombre_area'] ?? '';
+    }
+}
+
