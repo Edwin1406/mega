@@ -78,6 +78,7 @@ class Movimientos_inventario  extends ActiveRecord
         $this->id_area = $args['id_area'] ?? '';
         $this->tipo_movimiento = $args['tipo_movimiento'] ?? '';
         $this->cantidad = $args['cantidad'] ?? '';
-        $this->fecha_movimiento = $args['fecha_movimiento'] ?? '';
+        $this->fecha_movimiento = $args['fecha_movimiento'] ?? date('Y-m-d H:i:s');
+
     }
 }

@@ -57,7 +57,7 @@
             name="cantidad"
             id="cantidad"
             class="formulario__input"
-            placeholder="Stock Actual"
+            placeholder="Cantidad"
             value="<?php echo $movimientos_invetario->cantidad ?? '' ?>">
     </div>
 
