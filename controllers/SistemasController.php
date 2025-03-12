@@ -69,17 +69,31 @@ public static function movimientos(Router $router)
     $area_inventario = Area_inventario:: allSis('area', 'ASC');
     $categoria_inventario = Categoria_inventario:: allSis('categoria', 'ASC');
     
-
-    $movimientos_invetario = new Movimientos_inventario;
+    // $movimientos_invetario = new Movimientos_inventario;
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $movimientos_invetario->sincronizar($_POST);
+        // $movimientos_invetario->sincronizar($_POST);
 
-        debuguear($movimientos_invetario);
+        $id_producto = $_POST['id_producto'];
+        $id_area = $_POST['id_area'];
+        $tipo_movimiento = $_POST['tipo_movimiento'];
+        $cantidad = $_POST['cantidad'];
+
+
+           // Guardar la nueva cita
+           $movimientos_invetario = new Movimientos_inventario([
+            'id_producto' => $id_producto,
+            'id_area' => $id_area,
+            'tipo_movimiento' => $tipo_movimiento,
+            'cantidad' => $cantidad,
+            'fecha_movimiento' => date('Y-m-d H:i:s')
+        ]);
+
+     
         $alertas = $movimientos_invetario->validar();
     
         // Verificar si el movimiento es correcto
         $id_movimiento = $movimientos_invetario->id_movimiento;
-        $producto = Productos_inventario::findSis($id_movimiento);  // Buscar por id_movimiento si es necesario
+        $producto = Productos_inventario::findSis($id_producto);  // Buscar por id_movimiento si es necesario
     
         if ($movimientos_invetario->tipo_movimiento === 'Salida') {
             if ($movimientos_invetario->cantidad > $producto->stock_actual) {
