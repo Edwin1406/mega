@@ -73,6 +73,8 @@ class Movimientos_inventario  extends ActiveRecord
 
     public function __construct($args = [])
     {
+        date_default_timezone_set('America/Guayaquil');
+
         $this->id_movimiento = $args['id_movimiento'] ?? '';
         $this->id_producto = $args['id_producto'] ?? '';
         $this->id_area = $args['id_area'] ?? '';
