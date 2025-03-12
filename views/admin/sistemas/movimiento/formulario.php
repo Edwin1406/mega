@@ -13,8 +13,8 @@
         </select>
     </div>
     <div class="formulario__campo">
-        <label class="formulario__label" for="id_producto">Selecciona un producto</label>
-        <select name="odontologoId" id="odontologoId" class="formulario__input" >
+        <label class="formulario__label" for="id_area">Selecciona un producto</label>
+        <select name="id_area" id="id_area" class="formulario__input" >
             <option value="" disabled selected>Selecciona un odontólogo</option>
             <?php foreach ($area_inventario as $areas): ?>
                 <option value="<?php echo $areas->id_area; ?>">
@@ -28,8 +28,8 @@
 
     <script>
     document.addEventListener("DOMContentLoaded", function() {
-        const servicioSelect = document.getElementById("servicio");
-        const odontologoSelect = document.getElementById("odontologoId");
+        const servicioSelect = document.getElementById("id_producto");
+        const odontologoSelect = document.getElementById("id_area");
 
         servicioSelect.addEventListener("change", function() {
             // Obtener la opción seleccionada
