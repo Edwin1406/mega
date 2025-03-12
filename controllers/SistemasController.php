@@ -4,7 +4,6 @@ namespace Controllers;
 
 use Model\Categoria_inventario;
 use Model\Productos_inventario;
-use Model\Movimientos_inventario;
 use MVC\Router;
 
 class SistemasController {
