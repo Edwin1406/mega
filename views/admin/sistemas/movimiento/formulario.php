@@ -26,7 +26,35 @@
 
 
 
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const servicioSelect = document.getElementById("servicio");
+        const odontologoSelect = document.getElementById("odontologoId");
 
+        servicioSelect.addEventListener("change", function() {
+            // Obtener la opción seleccionada
+            const selectedOption = servicioSelect.options[servicioSelect.selectedIndex];
+            const odontologoId = selectedOption.getAttribute("data-odontologo");
+
+            console.log("Servicio seleccionado:", selectedOption.value);
+            console.log("Odontólogo ID obtenido:", odontologoId);
+
+            if (odontologoId) {
+                // Buscar y seleccionar el odontólogo correspondiente
+                for (let i = 0; i < odontologoSelect.options.length; i++) {
+                    if (odontologoSelect.options[i].value === odontologoId) {
+                        odontologoSelect.selectedIndex = i;
+                        console.log("Odontólogo seleccionado automáticamente.");
+                        break;
+                    }
+                }
+            }
+        });
+
+        // Ejecutar la función al cargar la página para seleccionar automáticamente
+        servicioSelect.dispatchEvent(new Event("change"));
+    });
+</script>
 
 
     <!-- tipo de movimiento -->
