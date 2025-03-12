@@ -42,7 +42,7 @@ class Categoria_inventario extends ActiveRecord
 
 
 
-class Area_iventario extends ActiveRecord
+class Area_inventario extends ActiveRecord
 {
     protected static $tabla = 'areas_inventario';
     protected static $columnasDB = ['id_area', 'nombre_area'];
@@ -57,3 +57,27 @@ class Area_iventario extends ActiveRecord
     }
 }
 
+
+class Movimientos_inventario extends ActiveRecord
+{
+    protected static $tabla = 'movimientos_inventario';
+    protected static $columnasDB = ['id_movimiento', 'id_producto','id_area','tipo_movimiento','cantidad','fecha_movimiento'];
+
+    public $id_movimiento;
+    public $id_producto;
+    public $id_area;
+    public $tipo_movimiento;
+    public $cantidad;
+    public $fecha_movimiento;
+
+
+    public function __construct($args = [])
+    {
+        $this->id_movimiento = $args['id_movimiento'] ?? '';
+        $this->id_producto = $args['id_producto'] ?? '';
+        $this->id_area = $args['id_area'] ?? '';
+        $this->tipo_movimiento = $args['tipo_movimiento'] ?? '';
+        $this->cantidad = $args['cantidad'] ?? '';
+        $this->fecha_movimiento = $args['fecha_movimiento'] ?? '';
+    }
+}

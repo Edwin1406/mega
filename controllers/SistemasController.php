@@ -62,6 +62,10 @@ class SistemasController {
 public static function movimientos(Router $router)
 {
 
+    
+    $movimientos_inventario = new ;
+    $categoria_inventario = Categoria_inventario:: allSis('categoria', 'ASC');
+
     $alertas = [];
     $router->render('admin/sistemas/movimiento/movimientos', [
         'titulo' => 'MOVIMIENTOS DE PRODUCTOS',
