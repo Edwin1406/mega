@@ -87,6 +87,8 @@ public static function movimientos(Router $router)
                 $producto->guardar();  // Guardamos el producto con el stock actualizado
             }
         } elseif ($movimientos_invetario->tipo_movimiento === 'Entrada') {
+            $id = $movimientos_invetario->id_producto;
+
             // Si es una entrada, sumamos la cantidad al stock actual
             $producto = Productos_inventario::findSis($id);
             $producto->stock_actual += $movimientos_invetario->cantidad;
