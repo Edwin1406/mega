@@ -6,7 +6,7 @@
         <select name="id_producto" id="id_producto" class="formulario__input">
             <option value="" disabled selected>Selecciona un servicio</option>
             <?php foreach ($productos_inventario as $producto): ?>
-                <option value="<?php echo $producto->id_producto; ?>" data-odontologo="<?php echo $producto->id_area; ?>">
+                <option value="<?php echo $producto->id_producto; ?>" data-area="<?php echo $producto->id_area; ?>">
                     <?php echo htmlspecialchars($producto->nombre_producto); ?>
                 </option>
             <?php endforeach; ?>
@@ -47,17 +47,16 @@
         productoSelect.addEventListener("change", function() {
             // Obtener la opción seleccionada
             const selectedOption = productoSelect.options[productoSelect.selectedIndex];
-            const odontologoId = selectedOption.getAttribute("data-odontologo");
+            const id_area = selectedOption.getAttribute("data-area");
 
             console.log(" producto:", selectedOption.value);
-            console.log("area ID obtenido:", odontologoId);
+            console.log("area ID obtenido:", id_area);
 
-            if (odontologoId) {
+            if (id_area) {
                 // Buscar y seleccionar el odontólogo correspondiente
                 for (let i = 0; i < areaSelect.options.length; i++) {
-                    if (areaSelect.options[i].value === odontologoId) {
+                    if (areaSelect.options[i].value === id_area) {
                         areaSelect.selectedIndex = i;
-                        console.log("Odontólogo seleccionado automáticamente.");
                         break;
                     }
                 }
