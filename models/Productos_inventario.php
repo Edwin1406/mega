@@ -63,9 +63,9 @@ class Area_inventario extends ActiveRecord
 class Movimientos_inventario  extends ActiveRecord
 {
     protected static $tabla = 'movimientos_stock';
-    protected static $columnasDB = ['id_movimiento', 'id_producto','id_area','tipo_movimiento','cantidad','fecha_movimiento'];
+    protected static $columnasDB = ['id', 'id_producto','id_area','tipo_movimiento','cantidad','fecha_movimiento'];
 
-    public $id_movimiento;
+    public $id;
     public $id_producto;
     public $id_area;
     public $tipo_movimiento;
@@ -77,7 +77,7 @@ class Movimientos_inventario  extends ActiveRecord
     {
         date_default_timezone_set('America/Guayaquil');
 
-        $this->id_movimiento = $args['id_movimiento'] ?? '';
+        $this->id = $args['id'] ?? '';
         $this->id_producto = $args['id_producto'] ?? '';
         $this->id_area = $args['id_area'] ?? '';
         $this->tipo_movimiento = $args['tipo_movimiento'] ?? '';
