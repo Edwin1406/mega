@@ -99,7 +99,7 @@ public static function movimientos(Router $router) {
         'alertas' => $alertas,
         'productos_inventario' => $productos_inventario,
         'area_inventario' => $area_inventario,
-        'movimientos_invetario' => $movimientos_invetario,
+        // 'movimientos_invetario' => $movimientos_invetario,
         'categoria_inventario' => $categoria_inventario,
     ]);
 }
