@@ -2,13 +2,14 @@
 
 namespace Controllers;
 
-
-
+use MVC\Router;
 
 class SistemasController {
 
-    public static function index()
+    public static function index(Router $router)
     {
-        echo "Inventario";
+        $router->render('admin/sistemas/index', [
+            'titulo' => 'INVENTARIO DE SISTEMAS',
+        ]);
     }
 }
