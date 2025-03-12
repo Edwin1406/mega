@@ -25,7 +25,7 @@ class SistemasController {
             $productos_inventario->sincronizar($_POST);
 
 
-            debuguear($productos_inventario);
+            // debuguear($productos_inventario);
 
             // debuguear($comercial);
             $alertas = $productos_inventario->validar();
@@ -35,7 +35,7 @@ class SistemasController {
            if (empty($alertas)) {
                 $productos_inventario->guardar();
                 $alertas = $productos_inventario->getAlertas();
-                header('Location: /admin/comercial/tabla?id='.$id_producto);
+                header('Location: /admin/sistemas/productos/tabla');
             }
 
 
