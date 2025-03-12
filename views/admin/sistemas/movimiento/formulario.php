@@ -2,9 +2,7 @@
     <legend class="formulario__legend">MOVIMIENTOS STOCK  </legend>
  
 
-
-<!-- crear un select  -->
-<div class="formulario__campo">
+    <div class="formulario__campo">
     <label class="formulario__label" for="id_producto">Selecciona un producto</label>
     <select
         name="id_producto"
@@ -14,10 +12,8 @@
         <?php foreach ($productos_inventario as $producto) : ?>
             <option
                 value="<?php echo $producto->id_producto ?>"
-                data-area="<?php echo $producto->id_area ?>"
-                <?php echo isset($selectedProductId) && $selectedProductId == $producto->id_producto ? 'selected' : ''; ?>>
-                <?php echo $producto->nombre_producto ?>
-            </option>
+                data-area-id="<?php echo $producto->id_area ?>"
+                data-area-name="<?php echo $producto->nombre_area ?>"><?php echo $producto->nombre_producto ?></option>
         <?php endforeach; ?>
     </select>
 </div>
@@ -36,35 +32,37 @@
 
 <script>
 
-document.addEventListener('DOMContentLoaded', function () {
+documdocument.addEventListener('DOMContentLoaded', function () {
     const productoSelect = document.getElementById('id_producto');
     const areaSelect = document.getElementById('id_area');
     
     function updateAreaSelect() {
         const productoId = productoSelect.value;
         
-        // Clear current area options
+        // Limpiar las opciones actuales del área
         areaSelect.innerHTML = '<option value="">-- Seleccione --</option>';
         
         if (productoId) {
             const producto = productoSelect.querySelector(`option[value="${productoId}"]`);
-            const areaId = producto ? producto.dataset.area : null;
+            const areaId = producto ? producto.dataset.areaId : null;
+            const areaName = producto ? producto.dataset.areaName : null;
             
-            if (areaId) {
+            if (areaId && areaName) {
                 const option = document.createElement('option');
-                option.value = areaId;
-                option.textContent = 'Área ' + areaId; // Customize the text as needed
+                option.value = areaId; // Aquí va el ID del área
+                option.textContent = areaName; // Aquí va el nombre del área
                 areaSelect.appendChild(option);
             }
         }
     }
 
-    // Event listener to update area when product is changed
+    // Escuchar el cambio de producto y actualizar el área
     productoSelect.addEventListener('change', updateAreaSelect);
 
-    // Initialize the area select based on the pre-selected product, if any
+    // Inicializar el área si ya hay un producto seleccionado
     updateAreaSelect();
 });
+
 
 
 </script>
