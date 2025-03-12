@@ -4,34 +4,61 @@
 
 
 <!-- crear un select  -->
-    <div class="formulario__campo">
-        <label class="formulario__label" for="id_producto">Selecciona un producto </label>
-        <select
-            name="id_producto"
-            id="id_producto"
-            class="formulario__input">
-            <option value="">-- Seleccione --</option>
-            <?php foreach ($productos_inventario as $producto) : ?>
-                <option
-                    <?php echo $producto->id_producto === $producto->id_producto ? 'selected' : '' ?>
-                    value="<?php echo $producto->id_producto ?>"><?php echo $producto->nombre_producto ?></option>
-            <?php endforeach; ?>
-        </select>
-    </div>
-    <div class="formulario__campo">
-        <label class="formulario__label" for="id_area">Selecciona el area  </label>
-        <select
-            name="id_area"
-            id="id_area"
-            class="formulario__input">
-            <option value="">-- Seleccione --</option>
-            <?php foreach ($area_inventario as $area) : ?>
-                <option
-                    <?php echo $area->id_area === $area->id_area ? 'selected' : '' ?>
-                    value="<?php echo $area->id_area ?>"><?php echo $area->nombre_area ?></option>
-            <?php endforeach; ?>
-        </select>
-    </div>
+<div class="formulario__campo">
+    <label class="formulario__label" for="id_producto">Selecciona un producto</label>
+    <select
+        name="id_producto"
+        id="id_producto"
+        class="formulario__input">
+        <option value="">-- Seleccione --</option>
+        <?php foreach ($productos_inventario as $producto) : ?>
+            <option
+                value="<?php echo $producto->id_producto ?>"
+                data-area="<?php echo $producto->id_area ?>"><?php echo $producto->nombre_producto ?></option>
+        <?php endforeach; ?>
+    </select>
+</div>
+
+<div class="formulario__campo">
+    <label class="formulario__label" for="id_area">Selecciona el área</label>
+    <select
+        name="id_area"
+        id="id_area"
+        class="formulario__input">
+        <option value="">-- Seleccione --</option>
+        <!-- Las opciones del área se llenarán dinámicamente -->
+    </select>
+</div>
+
+
+
+
+<script>
+    document.getElementById('id_producto').addEventListener('change', function () {
+    const productoId = this.value;
+    const areaSelect = document.getElementById('id_area');
+    
+    // Primero limpiamos las opciones del área
+    areaSelect.innerHTML = '<option value="">-- Seleccione --</option>';
+    
+    // Si se selecciona un producto
+    if (productoId) {
+        // Encontrar el área relacionada con el producto seleccionado
+        const producto = this.querySelector(`option[value="${productoId}"]`);
+        const areaId = producto ? producto.dataset.area : null;
+        
+        // Crear una nueva opción para el área correspondiente
+        if (areaId) {
+            const option = document.createElement('option');
+            option.value = areaId;
+            option.textContent = 'Área ' + areaId; // Cambiar el texto según tu lógica
+            areaSelect.appendChild(option);
+        }
+    }
+});
+
+</script>
+
 <!-- tipo de movimiento -->
 
     <div class="formulario__campo">
