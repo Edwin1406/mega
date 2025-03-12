@@ -73,6 +73,8 @@ public static function movimientos(Router $router)
     $movimientos_invetario = new Movimientos_inventario;
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $movimientos_invetario->sincronizar($_POST);
+
+        debuguear($movimientos_invetario);
         $alertas = $movimientos_invetario->validar();
     
         // Verificar si el movimiento es correcto
