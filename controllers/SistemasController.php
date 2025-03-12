@@ -2,6 +2,7 @@
 
 namespace Controllers;
 
+use Model\Categoria_inventario;
 use Model\Productos_inventario;
 use MVC\Router;
 
@@ -20,6 +21,9 @@ class SistemasController {
 
 
         $productos_inventario = new Productos_inventario;
+        $categoria_inventario = Categoria_inventario:: all();
+
+        debuguear($categoria_inventario);
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $productos_inventario->sincronizar($_POST);

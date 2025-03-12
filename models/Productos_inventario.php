@@ -25,7 +25,7 @@ class Productos_inventario extends ActiveRecord
 }
 
 
-class Categoria extends ActiveRecord
+class Categoria_inventario extends ActiveRecord
 {
     protected static $tabla = 'categorias_inventario';
     protected static $columnasDB = ['id_inventario', 'nombre_categoria'];
