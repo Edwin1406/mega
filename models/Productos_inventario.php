@@ -81,3 +81,4 @@ class Movimientos_inventario  extends ActiveRecord
         $this->fecha_movimiento = $args['fecha_movimiento'] ?? '';
     }
 }
+var_dump(class_exists('Model\Movimientos_inventario'));
