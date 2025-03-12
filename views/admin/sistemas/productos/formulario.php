@@ -173,12 +173,7 @@
             placeholder="Observaciones"><?php echo $comercial->observaciones ?? '' ?></textarea>
     </div>
 
-    <div class="formulario__campo">
-        <label class="formulario__label" for="estado">Estado</label>
-        <select name="estado" id="estado" class="formulario__input">
-            <option value="Pendiente" <?php echo $comercial->estado == 'Pendiente' ? 'selected' : '' ?>>Pendiente</option>
-        </select>
-    </div>
+ 
 
 
 </fieldset>
