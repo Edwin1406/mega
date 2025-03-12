@@ -12,4 +12,17 @@ class SistemasController {
             'titulo' => 'INVENTARIO DE SISTEMAS',
         ]);
     }
+
+
+    public static function crear(Router $router)
+    {
+        $router->render('admin/sistemas/productos/crear', [
+            'titulo' => 'CREAR PRODUCTO',
+        ]);
+    }
+
+
+
+
+
 }
