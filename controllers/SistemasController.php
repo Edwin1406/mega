@@ -74,7 +74,7 @@ public static function movimientos(Router $router)
         $cantidad = $_POST['cantidad'];
         
         // Obtener el producto seleccionado
-        $producto = Productos_inventario::find($id_producto);
+        $producto = Productos_inventario::findSis($id_producto);
         
         // Verificar el tipo de movimiento y actualizar el stock
         if ($tipo_movimiento === 'salida') {
