@@ -76,9 +76,9 @@ public static function movimientos(Router $router)
         // Comprobamos el tipo de movimiento
         if ($movimientos_invetario->tipo_movimiento === 'Salida') {
 
-            $id=$movimientos_invetario->id_producto
+            $id=$movimientos_invetario->id_producto;
             // Si es una salida, verificamos si la cantidad solicitada es mayor al stock actual
-            $productos_inventario = Productos_inventario::findSis('producto', $id);
+            $producto = Productos_inventario::findSis('producto', $id);
             if ($movimientos_invetario->cantidad > $producto->stock_actual) {
                 $alertas[] = 'La cantidad de salida es mayor al stock actual';
             } else {
