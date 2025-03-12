@@ -12,7 +12,8 @@
             <option
                 value="<?php echo $producto->id_producto ?>"
                 data-area-id="<?php echo $producto->id_area ?>"
-                data-stock="<?php echo $producto->stock_actual ?>">
+                data-stock="<?php echo $producto->stock_actual ?>"
+                data-area-name="<?php echo $producto->nombre_area ?>"> <!-- Aquí se pasa el nombre del área -->
                 <?php echo $producto->nombre_producto ?>
             </option>
         <?php endforeach; ?>
@@ -26,7 +27,7 @@
         id="id_area"
         class="formulario__input">
         <option value="">-- Seleccione --</option>
-        <!-- Aquí se llenarán las áreas dinámicamente -->
+        <!-- Las áreas serán llenadas dinámicamente -->
     </select>
 </div>
 
@@ -40,7 +41,6 @@
         placeholder="Stock Actual"
         value="" disabled> <!-- Este campo se actualizará con el stock -->
 </div>
-
 
 
 
@@ -113,12 +113,13 @@ document.addEventListener('DOMContentLoaded', function () {
         if (productoId) {
             const producto = productosConStock.find(producto => producto.id_producto == productoId);
             const areaId = producto ? producto.id_area : null;
+            const areaName = producto ? producto.nombre_area : null;
 
-            if (areaId) {
-                // Crear la opción para el área correspondiente
+            if (areaId && areaName) {
+                // Crear la opción para el área correspondiente usando el nombre del área
                 const option = document.createElement('option');
                 option.value = areaId; // El ID del área
-                option.textContent = 'Área ' + areaId; // Nombre del área
+                option.textContent = areaName; // Nombre del área
                 areaSelect.appendChild(option);
             }
         }
