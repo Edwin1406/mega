@@ -70,11 +70,13 @@ public static function movimientos(Router $router) {
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Verifica que los datos del POST lleguen correctamente
         $movimientos_invetario->sincronizar($_POST);
-        // debuguear($movimientos_invetario);
-// con post se obtiene el id del producto
-
 
         $id_producto = $_POST['id'];
+
+        $producto= Productos_inventario::find($id_producto);
+
+        debuguear($producto);
+
         debuguear($id_producto);
 
         // $movimientos_invetario->id_producto;
