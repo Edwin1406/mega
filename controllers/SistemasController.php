@@ -122,7 +122,7 @@ public static function movimientos(Router $router) {
         if (empty($alertas)) {
             $productos_inventario->actualizar();
 
-            header('Location: /admin/sistemas/movimientos/movimientos');
+            header('Location: /admin/sistemas/movimiento/movimientos');
         }
 
 
