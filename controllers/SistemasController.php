@@ -60,7 +60,7 @@ class SistemasController {
 
 // movimientos 
 public static function movimientos(Router $router) {
-    $productos_inventario = Productos_inventario::allSis('producto', 'DESC');
+    $productos_inventario = Productos_inventario::all('DESC');
     $area_inventario = Area_inventario::allSis('area', 'ASC');
     $categoria_inventario = Categoria_inventario::allSis('categoria', 'ASC');
 
@@ -71,7 +71,7 @@ public static function movimientos(Router $router) {
         $cantidad = $_POST['cantidad'];
 
         // Obtener el producto seleccionado
-        $producto = Productos_inventario::findSis($id_producto);
+        $producto = Productos_inventario::find($id_producto);
 
         if ($producto) {
             // Crear un nuevo movimiento
