@@ -26,6 +26,7 @@ class SistemasController {
 
         $productos_inventario = new Productos_inventario;
         $categoria_inventario = Categoria_inventario:: allSis('categoria', 'ASC');
+        $area_inventario = Area_inventario:: allSis('area', 'ASC');
 
         // debuguear($categoria_inventario);
 
@@ -54,6 +55,7 @@ class SistemasController {
             'titulo' => 'CREAR PRODUCTO',
             'alertas' => $alertas,
             'categoria_inventario' => $categoria_inventario,
+            'area_inventario' => $area_inventario,
         ]);
     }
 

@@ -27,6 +27,20 @@
             <?php endforeach; ?>
         </select>
     </div>
+    <div class="formulario__campo">
+        <label class="formulario__label" for="id_area">Area</label>
+        <select
+            name="id_area"
+            id="id_area"
+            class="formulario__input">
+            <option value="">-- Seleccione --</option>
+            <?php foreach ($area_inventario as $area) : ?>
+                <option
+                    <?php echo $area->id_area === $area->id_area ? 'selected' : '' ?>
+                    value="<?php echo $area->id_area ?>"><?php echo $area->nombre_area ?></option>
+            <?php endforeach; ?>
+        </select>
+    </div>
 
 
 
