@@ -107,21 +107,43 @@ class Movimientos_inventario  extends ActiveRecord
 
 
 
+    // public function guardas() {
+    //     $query = "INSERT INTO movimientos_stock (id_producto, id_area, tipo_movimiento, cantidad,valor, fecha_movimiento) 
+    //     VALUES (?, ?,?, ?, ?, ?)";
+    //     $stmt = self::$db->prepare($query);
+
+    //     // Vinculamos los parámetros con los valores correspondientes
+    //     $stmt->bind_param('iisii', 
+    //     $this->id_producto, 
+    //     $this->id_area, 
+    //     $this->tipo_movimiento, 
+    //     $this->cantidad, 
+    //     $this->valor,
+    //     $this->fecha_movimiento
+    //     );
+
+    
+    //     if ($stmt->execute()) {
+    //         return true;
+    //     } else {
+    //         return false;
+    //     }
+    // }
+    
     public function guardas() {
-        $query = "INSERT INTO movimientos_stock (id_producto, id_area, tipo_movimiento, cantidad,valor, fecha_movimiento) 
-        VALUES (?, ?,?, ?, ?, ?)";
+        $query = "INSERT INTO movimientos_stock (id_producto, id_area, tipo_movimiento, cantidad, valor, fecha_movimiento) 
+        VALUES (?, ?, ?, ?, ?, ?)";
         $stmt = self::$db->prepare($query);
-
+    
         // Vinculamos los parámetros con los valores correspondientes
-        $stmt->bind_param('iisii', 
-        $this->id_producto, 
-        $this->id_area, 
-        $this->tipo_movimiento, 
-        $this->cantidad, 
-        $this->valor,
-        $this->fecha_movimiento
+        $stmt->bind_param('iissis', 
+            $this->id_producto, 
+            $this->id_area, 
+            $this->tipo_movimiento, 
+            $this->cantidad, 
+            $this->valor,
+            $this->fecha_movimiento // Este campo debe ser tratado como 's' (string)
         );
-
     
         if ($stmt->execute()) {
             return true;
@@ -130,7 +152,6 @@ class Movimientos_inventario  extends ActiveRecord
         }
     }
     
-
 
 
 
