@@ -142,6 +142,8 @@ public static function movimientos(Router $router) {
 public static function apimovimientos()
 {
     $api = Movimientos::all();
+
+    debuguear($api);
     echo json_encode($api);
 }
 
