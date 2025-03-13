@@ -110,13 +110,13 @@ public static function movimientos(Router $router) {
 
 
 
-        $alertas = $productos_inventario->validar();
+        $alertas = $movimientos_invetario->validar();
 
         // debuguear($comercial);
 
        if (empty($alertas)) {
-            $productos_inventario->guardar();
-            $alertas = $productos_inventario->getAlertas();
+            $movimientos_invetario->guardar();
+            $alertas = $movimientos_invetario->getAlertas();
             // header('Location: /admin/comercial/tabla?id='.$id);
         }
 
