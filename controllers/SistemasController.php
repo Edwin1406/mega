@@ -74,6 +74,7 @@ public static function movimientos(Router $router) {
         // tipo_movimiento es entrada se suma al stock_actual de productos_inventario caso contrario se resta
         if ($movimientos_invetario->tipo_movimiento === 'Entrada') {
             $productos_inventario = Productos_inventario::find($movimientos_invetario->id_producto);
+            debuguear($productos_inventario);
             $productos_inventario->stock_actual += $movimientos_invetario->cantidad;
             $productos_inventario->guardar();
         } else {
