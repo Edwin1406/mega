@@ -86,3 +86,4 @@ class Movimientos_inventario  extends ActiveRecord
 
     }
 }
+

@@ -83,11 +83,18 @@ public static function movimientos(Router $router) {
                     'cantidad' => $cantidad,
                     'fecha_movimiento' => date('Y-m-d H:i:s')
         ]);
-
-        
         
         $producto= Productos_inventario::find($id_producto);
-        debuguear($producto);
+
+        if ($tipo_movimiento === 'Entrada') {
+            $producto->stock_actual += $cantidad;
+
+        } else {
+            $producto->stock_actual -= $cantidad;
+        }
+
+        $producto->guardar();
+        
 
     }
 
