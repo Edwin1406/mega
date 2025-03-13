@@ -104,10 +104,11 @@ public static function movimientos(Router $router) {
         // calculo de stock actual y guardado en la base de datos
         if ($tipo_movimiento === 'Entrada') {
             $productos_inventario->stock_actual = $producto->stock_actual + $cantidad;
-        } else {
+        } elseif ($tipo_movimiento === 'Salida') {
             $productos_inventario->stock_actual = $producto->stock_actual - $cantidad;
         }
 
+        
         debuguear($productos_inventario);
 
         // guardado de stock actual
