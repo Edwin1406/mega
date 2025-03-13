@@ -77,7 +77,7 @@ public static function movimientos(Router $router) {
         $cantidad = $_POST['cantidad'];
 
         $movimientos_invetario = new Movimientos_inventario([
-            'id' => $id_producto,
+                  
                     'id_producto' => $id_producto,
                     'id_area' => $id_area,
                     'tipo_movimiento' => $tipo_movimiento,
