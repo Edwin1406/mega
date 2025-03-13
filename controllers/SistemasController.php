@@ -73,9 +73,9 @@ public static function movimientos(Router $router) {
         $cantidad = $_POST['cantidad'];
 
         // Obtener el producto seleccionado
-        $producto = Productos_inventario::find($id);
+        // $producto = Productos_inventario::find($id);
 
-        debuguear($producto);
+        debuguear($id);
 
         // if ($producto) {
         //     // Crear un nuevo movimiento
