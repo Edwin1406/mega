@@ -138,7 +138,7 @@ class Movimientos_inventario  extends ActiveRecord
         $stmt = self::$db->prepare($query);
     
         // Vinculamos los parámetros con los valores correspondientes
-        $stmt->bind_param('iissis', 
+        $stmt->bind_param('iiissis', 
             $this->id_producto, 
             $this->id_area, 
             $this->id_categoria,
