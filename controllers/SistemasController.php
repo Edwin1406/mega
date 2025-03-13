@@ -65,11 +65,11 @@ public static function movimientos(Router $router) {
     $area_inventario = Area_inventario::allSis('area', 'ASC');
     $categoria_inventario = Categoria_inventario::allSis('categoria', 'ASC');
 
-    // $movimientos_invetario = new Movimientos_inventario;
+    $sincronizar = new Movimientos_inventario;
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Verifica que los datos del POST lleguen correctamente
-        // $movimientos_invetario->sincronizar($_POST);
+        $sincronizar->sincronizar($_POST);
 
         $id_producto = $_POST['id'];
         $id_area = $_POST['id_area'];
@@ -87,7 +87,7 @@ public static function movimientos(Router $router) {
         
        
         if (empty($alertas)) {
-            $movimientos_invetario->guardar();
+            $sincronizar->guardar();
             $alertas = $movimientos_invetario->getAlertas();
             // header('Location: /admin/comercial/tabla?id='.$id);
         }
