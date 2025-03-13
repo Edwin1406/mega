@@ -89,7 +89,7 @@ class Movimientos_inventario  extends ActiveRecord
 
 
     public function guardas() {
-        $query = "INSERT INTO movimientos_inventario (id_producto, id_area, tipo_movimiento, cantidad, fecha_movimiento) 
+        $query = "INSERT INTO movimientos_stock (id_producto, id_area, tipo_movimiento, cantidad, fecha_movimiento) 
         VALUES (?, ?, ?, ?, ?)";
 $stmt = self::$db->prepare($query);
 
