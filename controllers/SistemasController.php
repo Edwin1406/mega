@@ -90,7 +90,7 @@ public static function movimientos(Router $router) {
        
           
 
-        $producto= Productos_inventario::findSis($id_producto);
+        $producto= Productos_inventario::findSis('id',$id_producto);
 
     
 
