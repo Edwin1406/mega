@@ -62,33 +62,33 @@ class SistemasController {
 public static function movimientos(Router $router) {
     $alertas = [];
     $productos_inventario = Productos_inventario::allSis('producto','DESC');
-    debuguear($productos_inventario);
     $area_inventario = Area_inventario::allSis('area', 'ASC');
     $categoria_inventario = Categoria_inventario::allSis('categoria', 'ASC');
-
+    
     // $movimientos_invetario = new Movimientos_inventario;
-
+    
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Verifica que los datos del POST lleguen correctamente
         // $movimientos_invetario->sincronizar($_POST);
-
+        
         $id_producto = $_POST['id_producto'];
         $id_area = $_POST['id_area'];
         $tipo_movimiento = $_POST['tipo_movimiento'];
         $cantidad = $_POST['cantidad'];
-
-        var_dump($_POST);
-
+        
+        // var_dump($_POST);
+        
         $movimientos_invetario = new Movimientos_inventario([
-                    'id_producto' => $id_producto,
-                    'id_area' => $id_area,
-                    'tipo_movimiento' => $tipo_movimiento,
-                    'cantidad' => $cantidad,
-                    'fecha_movimiento' => date('Y-m-d H:i:s')
+            'id_producto' => $id_producto,
+            'id_area' => $id_area,
+            'tipo_movimiento' => $tipo_movimiento,
+            'cantidad' => $cantidad,
+            'fecha_movimiento' => date('Y-m-d H:i:s')
         ]);
         
-        // $producto= Productos_inventario::findSis($id_producto);
-
+        $producto= Productos_inventario::findSis($id_producto);
+        debuguear($producto);
+        
     
 
         // if ($tipo_movimiento === 'Entrada') {
