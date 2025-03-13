@@ -73,67 +73,72 @@
         <canvas id="myChart"></canvas>
     </div>
 
-    <script>
-
+<script>
 document.addEventListener('DOMContentLoaded', async function() {
-        datosapi();
-      });
+    await datosapi();
+});
 
-      async function datosapi() {
-        const url = 'https://megawebsistem.com/admin/api/apimovimientos';
-        const response = await fetch(url);
-        const data = await response.json();
-       console.log(data);
-        return data;
-      }
+async function datosapi() {
+    const url = 'https://megawebsistem.com/admin/api/apimovimientos';
+    const response = await fetch(url);
+    const data = await response.json();
+    console.log(data);
 
+    // Filtrar los datos por el mes actual
+    const currentMonth = new Date().getMonth(); // Obtener el mes actual (0 - 11)
+    const currentYear = new Date().getFullYear(); // Obtener el año actual
 
+    const filteredData = data.filter(item => {
+        const itemDate = new Date(item.fecha_movimiento);
+        return itemDate.getMonth() === currentMonth && itemDate.getFullYear() === currentYear;
+    });
 
+    console.log("Datos del mes actual:", filteredData);
 
+    // Agrupar los datos por área
+    const areas = {};
+    filteredData.forEach(item => {
+        if (!areas[item.area]) {
+            areas[item.area] = 0;
+        }
+        areas[item.area] += parseFloat(item.cantidad); // Sumar la cantidad de cada área
+    });
 
+    // Labels para el gráfico (nombres de las áreas)
+    const labels = Object.keys(areas);
 
+    // Data para el gráfico
+    const data = {
+        labels: labels,
+        datasets: [{
+            label: 'Cantidad por área',
+            data: Object.values(areas),
+            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+            borderColor: 'rgba(75, 192, 192, 1)',
+            borderWidth: 1
+        }]
+    };
 
-        // Datos del gráfico con 3 datasets
-        const data = {
-            labels: ['ENERO', 'February', 'March', 'April', 'May', 'June', 'July'],
-            datasets: [{
-                label: 'Dataset 1',
-                data: [50, 60, 70, 80, 90, 100, 110],
-                backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                borderColor: 'rgba(255, 99, 132, 1)',
-                borderWidth: 1
-            }, {
-                label: 'Dataset 2',
-                data: [30, 40, 50, 60, 70, 80, 90],
-                backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                borderColor: 'rgba(54, 162, 235, 1)',
-                borderWidth: 1
-            }, {
-                label: 'Dataset 3',
-                data: [10, 20, 30, 40, 50, 60, 70],
-                backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                borderColor: 'rgba(75, 192, 192, 1)',
-                borderWidth: 1
-            }]
-        };
-
-        // Configuración del gráfico
-        const config = {
-            type: 'bar',
-            data: data,
-            options: {
-                scales: {
-                    x: {
-                        stacked: true
-                    },
-                    y: {
-                        stacked: true
-                    }
+    // Configuración del gráfico
+    const config = {
+        type: 'bar',
+        data: data,
+        options: {
+            scales: {
+                x: {
+                    stacked: true
+                },
+                y: {
+                    stacked: true
                 }
             }
-        };
+        }
+    };
 
-        // Creación del gráfico
-        const ctx = document.getElementById('myChart').getContext('2d');
-        new Chart(ctx, config);
-    </script>
+    // Creación del gráfico
+    const ctx = document.getElementById('myChart').getContext('2d');
+    new Chart(ctx, config);
+}
+
+
+</script>
