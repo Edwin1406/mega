@@ -100,7 +100,7 @@ public static function movimientos(Router $router) {
         }
 
   
-            //  $producto->guardar();
+             $producto->guardas($id_producto);
             
 
 

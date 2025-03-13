@@ -124,17 +124,7 @@ class ActiveRecord {
     }
 
 
-    public function guardas() {
-        $resultado = '';
-        if(!is_null($this->id_movimiento)) { // Cambié esto de $this->id a $this->id_movimiento
-            // actualizar
-            $resultado = $this->actualizar();
-        } else {
-            // Creando un nuevo registro
-            $resultado = $this->crear();
-        }
-        return $resultado;
-    }
+    
     
 
 
@@ -1174,7 +1164,17 @@ public static function procesarArchivoExcelComercial($filePath)
         $resultado = self::consultarSQL($query);
         return array_shift( $resultado ) ;
     }
-
+    public function guardas($id_producto) {
+        $resultado = '';
+        if(!is_null($this->$id_producto)) { // Cambié esto de $this->id a $this->id_movimiento
+            // actualizar
+            $resultado = $this->actualizar();
+        } else {
+            // Creando un nuevo registro
+            $resultado = $this->crear();
+        }
+        return $resultado;
+    }
 
 
 
