@@ -146,6 +146,7 @@ public static function apimovimientos()
     header("Content-Type: application/json"); 
 
     $movimientos = Movimiento::obtenerMovimientosConProducto();
+    echo json_encode($movimientos);
     
 
     
