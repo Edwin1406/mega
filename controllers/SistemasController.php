@@ -87,19 +87,19 @@ public static function movimientos(Router $router) {
         ]);
         
         $producto= Productos_inventario::findSis($id_producto);
-        debuguear($producto);
+        // debuguear($producto);
         
     
 
-        // if ($tipo_movimiento === 'Entrada') {
-        //     $producto->stock_actual += $cantidad;
+        if ($tipo_movimiento === 'Entrada') {
+            $producto->stock_actual += $cantidad;
 
-        // }elseif ($tipo_movimiento === 'Salida') {
-        //     $producto->stock_actual -= $cantidad;
-        // }
+        }elseif ($tipo_movimiento === 'Salida') {
+            $producto->stock_actual -= $cantidad;
+        }
 
   
-        //      $producto->guardar();
+             $producto->guardar();
             
 
 
