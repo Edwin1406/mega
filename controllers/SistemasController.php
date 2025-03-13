@@ -89,12 +89,7 @@ public static function movimientos(Router $router) {
 
 
   
-        if ($tipo_movimiento === 'Entrada') {
-            $producto->stock_actual += $cantidad;
-            
-        }elseif ($tipo_movimiento === 'Salida') {
-            $producto->stock_actual -= $cantidad;
-        }
+      
         $productos_inventario = new Productos_inventario([
             'id_producto' => $id_producto,
             'nombre_producto' => $producto->nombre_producto,
@@ -104,6 +99,23 @@ public static function movimientos(Router $router) {
             'costo_unitario' => $producto->costo_unitario,
 
         ]);
+
+
+        // calculo de stock actual y guardado en la base de datos
+        if ($tipo_movimiento === 'Entrada') {
+            $productos_inventario->stock_actual = $producto->stock_actual + $cantidad;
+        } else {
+            $productos_inventario->stock_actual = $producto->stock_actual - $cantidad;
+        }
+
+
+        // guardado de stock actual
+        // $productos_inventario->actualizarStock();
+        $movimientos_invetario->guardar();
+
+
+
+
         // debuguear($productos_inventario);
     
 
@@ -118,7 +130,7 @@ public static function movimientos(Router $router) {
         
         // debuguear($productos_inventario);
   
-             $producto->guardas();
+         
             
 
 
