@@ -72,6 +72,10 @@ public static function movimientos(Router $router) {
         // $movimientos_invetario->sincronizar($_POST);
 
         $id_producto = $_POST['id'];
+        $id_area = $_POST['id_area'];
+        $tipo_movimiento = $_POST['tipo_movimiento'];
+        $cantidad = $_POST['cantidad'];
+        
         $movimientos_invetario = new Movimientos_inventario([
                     'id' => $id_producto,
                     'id_area' => $id_area,
