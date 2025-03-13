@@ -117,17 +117,6 @@ public static function movimientos(Router $router) {
 
 
 
-    //     $alertas = $movimientos_invetario->validar();
-
-    //     // debuguear($comercial);
-
-    //    if (empty($alertas)) {
-    //         $movimientos_invetario->guardar();
-    //         $alertas = $movimientos_invetario->getAlertas();
-    //         // header('Location: /admin/comercial/tabla?id='.$id);
-    //     } 
-
-
     }
 
     $router->render('admin/sistemas/movimiento/movimientos', [
