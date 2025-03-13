@@ -4,9 +4,9 @@ namespace Model;
 class Productos_inventario extends ActiveRecord
 {
     protected static $tabla = 'productos_inventario';
-    protected static $columnasDB = ['id', 'nombre_producto','id_categoria','id_area','stock_actual','costo_unitario'];
+    protected static $columnasDB = ['id_producto', 'nombre_producto','id_categoria','id_area','stock_actual','costo_unitario'];
 
-    public $id;
+    public $id_producto;
     public $nombre_producto;
     public $id_categoria;
     public $id_area;
@@ -15,7 +15,7 @@ class Productos_inventario extends ActiveRecord
 
     public function __construct($args = [])
     {
-        $this->id = $args['id'] ?? '';
+        $this->id_producto = $args['id_producto'] ?? '';
         $this->nombre_producto = $args['nombre_producto'] ?? '';
         $this->id_categoria = $args['id_categoria'] ?? '';
         $this->id_area = $args['id_area'] ?? '';
