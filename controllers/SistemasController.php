@@ -67,6 +67,7 @@ public static function movimientos(Router $router) {
     
     // $movimientos_invetario = new Movimientos_inventario;
     
+   
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Verifica que los datos del POST lleguen correctamente
         // $movimientos_invetario->sincronizar($_POST);
@@ -86,6 +87,10 @@ public static function movimientos(Router $router) {
             'cantidad' => $cantidad,
             'fecha_movimiento' => date('Y-m-d H:i:s')
         ]);
+
+        $sincronizar = $movimientos_invetario->sincronizar($_POST);
+
+        debuguear($sincronizar);  
 
 
   
@@ -118,15 +123,7 @@ public static function movimientos(Router $router) {
             $movimientos_invetario->guardar();
             $alertas = $movimientos_invetario->getAlertas();
             // header('Location: /admin/comercial/tabla?id='.$id);
-        }
-
-
-  
-         
-            
-
-
-        
+        } 
 
 
     }
