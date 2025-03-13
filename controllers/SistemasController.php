@@ -78,6 +78,7 @@ public static function movimientos(Router $router) {
         
         // var_dump($_POST);
         
+        $producto= Productos_inventario::findSis($id_producto);
         $movimientos_invetario = new Movimientos_inventario([
             'id_producto' => $id_producto,
             'id_area' => $id_area,
@@ -87,7 +88,6 @@ public static function movimientos(Router $router) {
         ]);
         
         debuguear($movimientos_invetario);
-        $producto= Productos_inventario::findSis($id_producto);
         // debuguear($producto);
         
     
