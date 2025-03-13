@@ -72,6 +72,7 @@ public static function movimientos(Router $router) {
 
         // Obtener el producto seleccionado
         $producto = Productos_inventario::findSis($id_producto);
+        debuguear($producto);
 
         if ($producto) {
 
