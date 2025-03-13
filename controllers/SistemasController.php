@@ -93,7 +93,7 @@ public static function movimientos(Router $router) {
             // Guardar el movimiento
             $resultado_movimiento = $movimiento->guardar();
 
-            // Guardar el producto actualizado
+            // Actualizar el producto
             $resultado_producto = $producto->guardar();
 
             // Verifica si ambos guardados fueron exitosos
