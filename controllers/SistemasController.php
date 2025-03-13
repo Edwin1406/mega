@@ -116,6 +116,9 @@ public static function movimientos(Router $router) {
         }
 
 
+        $productos_inventario->actualizar();
+
+
 
     }
 

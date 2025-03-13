@@ -24,6 +24,23 @@ class Productos_inventario extends ActiveRecord
 
 
     }
+
+    public function actualizar()
+    {
+        $query = "UPDATE productos_inventario SET stock_actual = ? WHERE id_producto = ?";
+
+        $stmt = self::$db->prepare($query);
+
+        $stmt->bind_param('ii', $this->stock_actual, $this->id_producto);
+
+        if ($stmt->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+
 }
 
 
@@ -91,16 +108,16 @@ class Movimientos_inventario  extends ActiveRecord
     public function guardas() {
         $query = "INSERT INTO movimientos_stock (id_producto, id_area, tipo_movimiento, cantidad, fecha_movimiento) 
         VALUES (?, ?, ?, ?, ?)";
-$stmt = self::$db->prepare($query);
+        $stmt = self::$db->prepare($query);
 
-// Vinculamos los parámetros con los valores correspondientes
-$stmt->bind_param('iisii', 
-  $this->id_producto, 
-  $this->id_area, 
-  $this->tipo_movimiento, 
-  $this->cantidad, 
-  $this->fecha_movimiento
-);
+        // Vinculamos los parámetros con los valores correspondientes
+        $stmt->bind_param('iisii', 
+        $this->id_producto, 
+        $this->id_area, 
+        $this->tipo_movimiento, 
+        $this->cantidad, 
+        $this->fecha_movimiento
+        );
 
     
         if ($stmt->execute()) {
