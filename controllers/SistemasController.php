@@ -104,7 +104,7 @@ public static function movimientos(Router $router) {
             'costo_unitario' => $producto->costo_unitario,
 
         ]);
-        debuguear($productos_inventario);
+        // debuguear($productos_inventario);
     
 
         
@@ -116,9 +116,9 @@ public static function movimientos(Router $router) {
         
       
         
-        debuguear($productos_inventario);
+        // debuguear($productos_inventario);
   
-             $producto->guardas($id_producto);
+             $producto->guardar();
             
 
 
