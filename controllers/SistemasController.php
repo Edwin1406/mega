@@ -87,8 +87,7 @@ public static function movimientos(Router $router) {
             'fecha_movimiento' => date('Y-m-d H:i:s')
         ]);
 
-        var_dump($_POST);
-        debuguear($movimientos_invetario);
+        $movimientos_invetario->guardas();
         // POST
     //    GUARDAR MOVIMIENTO 
 
@@ -118,15 +117,15 @@ public static function movimientos(Router $router) {
 
 
 
-        $alertas = $movimientos_invetario->validar();
+    //     $alertas = $movimientos_invetario->validar();
 
-        // debuguear($comercial);
+    //     // debuguear($comercial);
 
-       if (empty($alertas)) {
-            $movimientos_invetario->guardar();
-            $alertas = $movimientos_invetario->getAlertas();
-            // header('Location: /admin/comercial/tabla?id='.$id);
-        } 
+    //    if (empty($alertas)) {
+    //         $movimientos_invetario->guardar();
+    //         $alertas = $movimientos_invetario->getAlertas();
+    //         // header('Location: /admin/comercial/tabla?id='.$id);
+    //     } 
 
 
     }
