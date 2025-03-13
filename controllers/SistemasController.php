@@ -92,7 +92,13 @@ public static function movimientos(Router $router) {
             'costo_unitario' => $producto->costo_unitario,
 
         ]);
-
+            // calculo de stock actual y guardado en la base de datos tambien si es entrada calcular el costo unitario * cantidad
+        if ($tipo_movimiento === 'Entrada') {
+            $productos_inventario->stock_actual += $cantidad;
+            $productos_inventario->costo_unitario = ($producto->costo_unitario * $producto->stock_actual + $producto->costo_unitario * $cantidad) / $productos_inventario->stock_actual;
+        } else {
+            $productos_inventario->stock_actual -= $cantidad;
+        }
 
 
         $movimientos_invetario = new Movimientos_inventario([
@@ -100,7 +106,7 @@ public static function movimientos(Router $router) {
             'id_area' => $id_area,
             'tipo_movimiento' => $tipo_movimiento,
             'cantidad' => $cantidad,
-            'valor' => $producto->costo_unitario * $cantidad,
+            'valor' => $productos_inventario->costo_unitario * $cantidad,
             'fecha_movimiento' => date('Y-m-d H:i:s')
         ]);
 
@@ -115,12 +121,7 @@ public static function movimientos(Router $router) {
   
      
 
-        // calculo de stock actual y guardado en la base de datos
-        if ($tipo_movimiento === 'Entrada') {
-            $productos_inventario->stock_actual = $producto->stock_actual + $cantidad;
-        } elseif ($tipo_movimiento === 'Salida') {
-            $productos_inventario->stock_actual = $producto->stock_actual - $cantidad;
-        }
+      
      
         $alertas = $movimientos_invetario->getAlertas();
         // redireccionar
