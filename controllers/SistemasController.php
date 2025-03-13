@@ -81,11 +81,26 @@ public static function movimientos(Router $router) {
         
         
         $producto= Productos_inventario::findSis($id_producto);
+
+ 
+        $productos_inventario = new Productos_inventario([
+            'id_producto' => $id_producto,
+            'nombre_producto' => $producto->nombre_producto,
+            'id_categoria' => $producto->id_categoria,
+            'id_area' => $id_area,
+            'stock_actual' => $producto->stock_actual,
+            'costo_unitario' => $producto->costo_unitario,
+
+        ]);
+
+
+
         $movimientos_invetario = new Movimientos_inventario([
             'id_producto' => $id_producto,
             'id_area' => $id_area,
             'tipo_movimiento' => $tipo_movimiento,
             'cantidad' => $cantidad,
+            'valor' => $producto->costo_unitario * $cantidad,
             'fecha_movimiento' => date('Y-m-d H:i:s')
         ]);
 
@@ -98,17 +113,7 @@ public static function movimientos(Router $router) {
 
 
   
-      
-        $productos_inventario = new Productos_inventario([
-            'id_producto' => $id_producto,
-            'nombre_producto' => $producto->nombre_producto,
-            'id_categoria' => $producto->id_categoria,
-            'id_area' => $id_area,
-            'stock_actual' => $producto->stock_actual,
-            'costo_unitario' => $producto->costo_unitario,
-
-        ]);
-
+     
 
         // calculo de stock actual y guardado en la base de datos
         if ($tipo_movimiento === 'Entrada') {

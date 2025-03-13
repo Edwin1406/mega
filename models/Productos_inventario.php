@@ -80,13 +80,14 @@ class Area_inventario extends ActiveRecord
 class Movimientos_inventario  extends ActiveRecord
 {
     protected static $tabla = 'movimientos_stock';
-    protected static $columnasDB = ['id', 'id_producto','id_area','tipo_movimiento','cantidad','fecha_movimiento'];
+    protected static $columnasDB = ['id', 'id_producto','id_area','tipo_movimiento','cantidad','valor','fecha_movimiento'];
 
     public $id;
     public $id_producto;
     public $id_area;
     public $tipo_movimiento;
     public $cantidad;
+    public $valor;
     public $fecha_movimiento;
 
 
@@ -99,6 +100,7 @@ class Movimientos_inventario  extends ActiveRecord
         $this->id_area = $args['id_area'] ?? '';
         $this->tipo_movimiento = $args['tipo_movimiento'] ?? '';
         $this->cantidad = $args['cantidad'] ?? '';
+        $this->valor = $args['valor'] ?? '';
         $this->fecha_movimiento = $args['fecha_movimiento'] ?? date('Y-m-d H:i:s');
 
     }
@@ -106,7 +108,7 @@ class Movimientos_inventario  extends ActiveRecord
 
 
     public function guardas() {
-        $query = "INSERT INTO movimientos_stock (id_producto, id_area, tipo_movimiento, cantidad, fecha_movimiento) 
+        $query = "INSERT INTO movimientos_stock (id_producto, id_area, tipo_movimiento, cantidad,valor, fecha_movimiento) 
         VALUES (?, ?, ?, ?, ?)";
         $stmt = self::$db->prepare($query);
 
@@ -116,6 +118,7 @@ class Movimientos_inventario  extends ActiveRecord
         $this->id_area, 
         $this->tipo_movimiento, 
         $this->cantidad, 
+        $this->valor,
         $this->fecha_movimiento
         );
 
