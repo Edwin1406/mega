@@ -1166,7 +1166,7 @@ public static function procesarArchivoExcelComercial($filePath)
     }
     public function guardas($id_producto) {
         $resultado = '';
-        if(!is_null($this->$id_producto)) { // Cambié esto de $this->id a $this->id_movimiento
+        if(!is_null($this->id_producto)) { // Cambié esto de $this->id a $this->id_movimiento
             // actualizar
             $resultado = $this->actualizar();
         } else {
