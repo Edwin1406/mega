@@ -72,47 +72,50 @@ public static function movimientos(Router $router) {
    
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Verifica que los datos del POST lleguen correctamente
-        $movimientos_invetario->sincronizar($_POST);
-        
-        $id_producto = $_POST['id_producto'];
-        $id_area = $_POST['id_area'];
-        $tipo_movimiento = $_POST['tipo_movimiento'];
-        $cantidad = $_POST['cantidad'];
-        
-        
-        $producto= Productos_inventario::findSis($id_producto);
+    $movimientos_invetario->sincronizar($_POST);
+    
+    $id_producto = $_POST['id_producto'];
+    $id_area = $_POST['id_area'];
+    $tipo_movimiento = $_POST['tipo_movimiento'];
+    $cantidad = $_POST['cantidad'];
+    
+    $producto = Productos_inventario::findSis($id_producto);
 
- 
-        $productos_inventario = new Productos_inventario([
-            'id_producto' => $id_producto,
-            'nombre_producto' => $producto->nombre_producto,
-            'id_categoria' => $producto->id_categoria,
-            'id_area' => $id_area,
-            'stock_actual' => $producto->stock_actual,
-            'costo_unitario' => $producto->costo_unitario,
+    $productos_inventario = new Productos_inventario([
+        'id_producto' => $id_producto,
+        'nombre_producto' => $producto->nombre_producto,
+        'id_categoria' => $producto->id_categoria,
+        'id_area' => $id_area,
+        'stock_actual' => $producto->stock_actual,
+        'costo_unitario' => $producto->costo_unitario,
+    ]);
 
-        ]);
-            // calculo de stock actual y guardado en la base de datos tambien si es entrada calcular el costo unitario * cantidad
-        if ($tipo_movimiento === 'Entrada') {
-            $productos_inventario->stock_actual += $cantidad;
-            $productos_inventario->costo_unitario = ($producto->costo_unitario * $producto->stock_actual + $producto->costo_unitario * $cantidad) / $productos_inventario->stock_actual;
-        } else {
-            $productos_inventario->stock_actual -= $cantidad;
-        }
+    // Calculando el stock actual y el costo unitario
+    if ($tipo_movimiento === 'Entrada') {
+        $productos_inventario->stock_actual += $cantidad;
+        $productos_inventario->costo_unitario = 
+            ($producto->costo_unitario * $producto->stock_actual + $producto->costo_unitario * $cantidad) / $productos_inventario->stock_actual;
+    } else {
+        $productos_inventario->stock_actual -= $cantidad;
+    }
 
+    // Establecer el valor en base al tipo de movimiento
+    if ($tipo_movimiento === 'Entrada') {
+        $valor = $productos_inventario->costo_unitario * $cantidad;
+    } else {
+        $valor = 0;  // O puedes dejarlo vacío dependiendo de cómo lo manejes en la base de datos
+    }
 
-        $movimientos_invetario = new Movimientos_inventario([
-            'id_producto' => $id_producto,
-            'id_area' => $id_area,
-            'tipo_movimiento' => $tipo_movimiento,
-            'cantidad' => $cantidad,
-            'valor' => $productos_inventario->costo_unitario * $cantidad,
-            'fecha_movimiento' => date('Y-m-d H:i:s')
-        ]);
+    $movimientos_invetario = new Movimientos_inventario([
+        'id_producto' => $id_producto,
+        'id_area' => $id_area,
+        'tipo_movimiento' => $tipo_movimiento,
+        'cantidad' => $cantidad,
+        'valor' => $valor,  // Asignamos el valor calculado o 0
+        'fecha_movimiento' => date('Y-m-d H:i:s')
+    ]);
 
-        $movimientos_invetario->guardas();
-        // POST
-    //    GUARDAR MOVIMIENTO 
+    $movimientos_invetario->guardas();
 
 
 
