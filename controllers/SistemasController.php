@@ -72,11 +72,8 @@ public static function movimientos(Router $router) {
 
         // Obtener el producto seleccionado
         $producto = Productos_inventario::findSis($id_producto);
-        // debuguear($producto);
 
         if ($producto) {
-
-            
             // Crear un nuevo movimiento
             $movimiento = new Movimientos_inventario([
                 'id_producto' => $id_producto,
@@ -85,6 +82,7 @@ public static function movimientos(Router $router) {
                 'cantidad' => $cantidad,
                 'fecha_movimiento' => date('Y-m-d H:i:s')
             ]);
+
             // Actualizar el stock del producto
             if ($tipo_movimiento === 'Entrada') {
                 $producto->stock_actual += $cantidad;
@@ -92,20 +90,26 @@ public static function movimientos(Router $router) {
                 $producto->stock_actual -= $cantidad;
             }
 
-            debuguear($movimiento);
-            // guardar en la base de datos
-            $resultado = $movimiento->guardar();
-            // $resultado = $producto->guardar();
+            // Guardar el movimiento
+            $resultado_movimiento = $movimiento->guardar();
+
+            // Guardar el producto actualizado
+            $resultado_producto = $producto->guardar();
+
+            // Verifica si ambos guardados fueron exitosos
+            if ($resultado_movimiento && $resultado_producto) {
+                $alertas[] = 'Movimiento y stock actualizados correctamente.';
+            } else {
+                $alertas[] = 'Error al guardar el movimiento o actualizar el stock.';
+            }
         }
     }
 
-    $alertas = [];
     $router->render('admin/sistemas/movimiento/movimientos', [
         'titulo' => 'MOVIMIENTOS DE PRODUCTOS',
         'alertas' => $alertas,
         'productos_inventario' => $productos_inventario,
         'area_inventario' => $area_inventario,
-        // 'movimientos_invetario' => $movimientos_invetario,
         'categoria_inventario' => $categoria_inventario,
     ]);
 }
