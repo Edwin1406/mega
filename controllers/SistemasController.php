@@ -101,7 +101,7 @@ public static function movimientos(Router $router) {
             'id_categoria' => $producto->id_categoria,
             'id_area' => $id_area,
             'stock_actual' => $producto->stock_actual,
-            'stock_minimo' => $producto->stock_minimo,
+            'costo_unitario' => $producto->costo_unitario,
 
         ]);
         debuguear($productos_inventario);
