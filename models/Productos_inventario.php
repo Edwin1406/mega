@@ -90,15 +90,18 @@ class Movimientos_inventario  extends ActiveRecord
 
     public function guardas() {
         $query = "INSERT INTO movimientos_inventario (id_producto, id_area, tipo_movimiento, cantidad, fecha_movimiento) 
-                  VALUES (:id_producto, :id_area, :tipo_movimiento, :cantidad, :fecha_movimiento)";
-        $stmt = self::$db->prepare($query);
-    
-        // Vinculamos los parámetros
-        $stmt->bindParam(':id_producto', $this->id_producto);
-        $stmt->bindParam(':id_area', $this->id_area);
-        $stmt->bindParam(':tipo_movimiento', $this->tipo_movimiento);
-        $stmt->bindParam(':cantidad', $this->cantidad);
-        $stmt->bindParam(':fecha_movimiento', $this->fecha_movimiento);
+        VALUES (?, ?, ?, ?, ?)";
+$stmt = self::$db->prepare($query);
+
+// Vinculamos los parámetros con los valores correspondientes
+$stmt->bind_param('iisii', 
+  $this->id_producto, 
+  $this->id_area, 
+  $this->tipo_movimiento, 
+  $this->cantidad, 
+  $this->fecha_movimiento
+);
+
     
         if ($stmt->execute()) {
             return true;
