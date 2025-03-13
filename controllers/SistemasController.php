@@ -62,8 +62,8 @@ class SistemasController {
 public static function movimientos(Router $router) {
     $alertas = [];
     $productos_inventario = Productos_inventario::all('DESC');
-    debuguear($productos_inventario);
     $area_inventario = Area_inventario::allSis('area', 'ASC');
+    debuguear($area_inventario);
     $categoria_inventario = Categoria_inventario::allSis('categoria', 'ASC');
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
