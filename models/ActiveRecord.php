@@ -1164,7 +1164,7 @@ public static function procesarArchivoExcelComercial($filePath)
         $resultado = self::consultarSQL($query);
         return array_shift( $resultado ) ;
     }
-    public function guardas($id_producto) {
+    public function guardas() {
         $resultado = '';
         if(!is_null($this->id_producto)) { // Cambié esto de $this->id a $this->id_movimiento
             // actualizar
@@ -1175,6 +1175,20 @@ public static function procesarArchivoExcelComercial($filePath)
         }
         return $resultado;
     }
+
+        // Registros - CRUD
+        // public function guardar() {
+        //     $resultado = '';
+        //     if(!is_null($this->id)) {
+        //         // actualizar
+        //         $resultado = $this->actualizar();
+        //     } else {
+        //         // Creando un nuevo registro
+        //         $resultado = $this->crear();
+        //     }
+        //     return $resultado;
+        // }
+    
 
 
 
