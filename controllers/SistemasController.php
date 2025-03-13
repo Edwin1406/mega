@@ -84,6 +84,8 @@ public static function movimientos(Router $router) {
                 'fecha_movimiento' => date('Y-m-d H:i:s')
             ]);
 
+            debuguear($movimiento);
+
             // Actualizar el stock del producto
             if ($tipo_movimiento === 'Entrada') {
                 $producto->stock_actual += $cantidad;
