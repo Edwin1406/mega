@@ -116,7 +116,14 @@ public static function movimientos(Router $router) {
         }
 
 
-        $productos_inventario->actualizar();
+     
+        $alertas = $movimientos_invetario->getAlertas();
+        // redireccionar
+        if (empty($alertas)) {
+            $productos_inventario->actualizar();
+
+            header('Location: /admin/sistemas/movimientos/movimientos');
+        }
 
 
 
