@@ -36,7 +36,7 @@ class Movimiento  extends ActiveRecord
                     m.tipo_movimiento,
                     m.cantidad,
                     m.fecha_movimiento,
-                    p.nombre_producto
+                    p.nombre_producto,
                     a.nombre_area
 
                   FROM movimientos_stock m
