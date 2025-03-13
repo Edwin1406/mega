@@ -140,7 +140,9 @@ public static function movimientos(Router $router) {
 
 public static function apimovimientos(Router $router) {
    
-    echo json_encode('hola');
+    $movimientos_invetario = Movimientos_inventario::all( 'DESC');
+    header('Content-Type: application/json');
+    echo json_encode($movimientos_invetario);
     // echo json_encode($movimientos_invetario);
 
 
