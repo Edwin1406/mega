@@ -88,9 +88,21 @@ public static function movimientos(Router $router) {
         ]);
 
 
+  
+        if ($tipo_movimiento === 'Entrada') {
+            $producto->stock_actual += $cantidad;
+            
+        }elseif ($tipo_movimiento === 'Salida') {
+            $producto->stock_actual -= $cantidad;
+        }
+        $productos_inventario = new Productos_inventario([
+            'id_producto' => $id_producto,
+            'id_area' => $id_area,
+            'stock_actual' => $producto->stock_actual,
 
-        $productos_inventario = new Productos_inventario;
-        $productos_inventario->sincronizar($_POST);
+        ]);
+        debuguear($productos_inventario);
+    
 
         
         
@@ -99,13 +111,7 @@ public static function movimientos(Router $router) {
         // debuguear($producto);
         
         
-        
-        if ($tipo_movimiento === 'Entrada') {
-            $producto->stock_actual += $cantidad;
-            
-        }elseif ($tipo_movimiento === 'Salida') {
-            $producto->stock_actual -= $cantidad;
-        }
+      
         
         debuguear($productos_inventario);
   
