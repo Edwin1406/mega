@@ -81,14 +81,14 @@ document.addEventListener('DOMContentLoaded', async function() {
 async function datosapi() {
     const url = 'https://megawebsistem.com/admin/api/apimovimientos';
     const response = await fetch(url);
-    const data = await response.json();
-    console.log(data);
+    const datos = await response.json();
+    console.log(datos);
 
     // Filtrar los datos por el mes actual
     const currentMonth = new Date().getMonth(); // Obtener el mes actual (0 - 11)
     const currentYear = new Date().getFullYear(); // Obtener el año actual
 
-    const filteredData = data.filter(item => {
+    const filteredData = datos.filter(item => {
         const itemDate = new Date(item.fecha_movimiento);
         return itemDate.getMonth() === currentMonth && itemDate.getFullYear() === currentYear;
     });
