@@ -109,11 +109,16 @@ public static function movimientos(Router $router) {
         }
 
 
+
+        // movimientos de inventario esta lleno con los datos del formulario porque no puedo guardar en la base de datos
+        
+            $movimientos_invetario->guardar();
+
+
+
         // debuguear($productos_inventario);
         debuguear($movimientos_invetario);
 
-    //   guardar movimientos en la base de datos
-        $movimientos_invetario->guardar();
 
   
          
