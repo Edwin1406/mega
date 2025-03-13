@@ -1169,9 +1169,9 @@ public static function procesarArchivoExcelComercial($filePath)
         return $resultado;
     }
 
-    public static function findSis($id) {
+    public static function findSis($id_producto) {
         // Crear la consulta SQL
-        $query = "SELECT * FROM " . static::$tabla . " WHERE id_producto = {$id}";
+        $query = "SELECT * FROM " . static::$tabla . " WHERE id_producto = {$id_producto}";
     
         // Ejecutar la consulta usando el método consultarSQL
         $resultado = self::consultarSQL($query);
