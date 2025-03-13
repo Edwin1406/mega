@@ -139,9 +139,13 @@ public static function movimientos(Router $router) {
 
 
 public static function apimovimientos(Router $router) {
+
+    // cors 
+    header('Access-Control-Allow-Origin: *');
+    header('Access-Control-Allow-Methods: GET');
+    header('Access-Control-Allow-Headers: Access-Control-Allow-Headers, Content-Type, Access-Control-Allow-Methods, Authorization, X-Requested-With');
    
     $movimientos_invetario = Movimientos_inventario::all( 'DESC');
-    header('Content-Type: application/json');
     echo json_encode($movimientos_invetario);
     // echo json_encode($movimientos_invetario);
 
