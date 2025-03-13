@@ -65,9 +65,12 @@ public static function movimientos(Router $router) {
     $area_inventario = Area_inventario::allSis('area', 'ASC');
     $categoria_inventario = Categoria_inventario::allSis('categoria', 'ASC');
 
+    $movimientos_invetario = new Movimientos_inventario;
+
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Verifica que los datos del POST lleguen correctamente
-        var_dump($_POST); 
+        $movimientos_invetario->sincronizar($_POST);
+        debuguear($movimientos_invetario);
     }
 
     $router->render('admin/sistemas/movimiento/movimientos', [
