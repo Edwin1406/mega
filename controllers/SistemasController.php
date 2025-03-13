@@ -69,7 +69,7 @@ public static function movimientos(Router $router) {
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Verifica que los datos del POST lleguen correctamente
-        $id_producto = $_POST['id'];
+        // $id_producto = $_POST['id'];
         $sincronizar->sincronizar($_POST);
         debuguear($sincronizar);
         $sincronizar->guardar();
