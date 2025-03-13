@@ -64,7 +64,7 @@ public static function movimientos(Router $router) {
     $productos_inventario = Productos_inventario::all('DESC');
     $area_inventario = Area_inventario::allSis('area', 'ASC');
     $categoria_inventario = Categoria_inventario::allSis('categoria', 'ASC');
-    debuguear($categoria_inventario);
+    // debuguear($categoria_inventario);
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $id = $_POST['id_producto'];
