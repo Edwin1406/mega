@@ -139,12 +139,20 @@ public static function movimientos(Router $router) {
 }
 
 
-
 public static function apimovimientos()
 {
+    // Obtener los movimientos desde la base de datos
     $api = Movimiento::all();
-    echo json_encode($api);
 
+    // Convertir los objetos a arrays (si es necesario)
+    $api_array = [];
+    foreach ($api as $movimiento) {
+        $api_array[] = (array) $movimiento; // Convertir cada objeto a un array
+    }
+
+    // Enviar los datos en formato JSON
+    echo json_encode($api_array);
 }
+
 
 }
