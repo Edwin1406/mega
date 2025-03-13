@@ -66,45 +66,43 @@ public static function movimientos(Router $router) {
     $area_inventario = Area_inventario::allSis('area', 'ASC');
     $categoria_inventario = Categoria_inventario::allSis('categoria', 'ASC');
 
-    $sincronizar = new Movimientos_inventario;
+    // $sincronizar = new Movimientos_inventario;
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Verifica que los datos del POST lleguen correctamente
-        // $id_producto = $_POST['id'];
-        $sincronizar->sincronizar($_POST);
-        debuguear($sincronizar);
-        // $sincronizar->guardar();
+       
+        // $sincronizar->sincronizar($_POST);
+       $id_producto = $_POST['id'];
+        $id_area = $_POST['id_area'];
+        $tipo_movimiento = $_POST['tipo_movimiento'];
+        $cantidad = $_POST['cantidad'];
 
-        // $id_area = $_POST['id_area'];
-        // $tipo_movimiento = $_POST['tipo_movimiento'];
-        // $cantidad = $_POST['cantidad'];
-
-        // $movimientos_invetario = new Movimientos_inventario([
-        //             'id' => '',
-        //             'id_producto' => $id_producto,
-        //             'id_area' => $id_area,
-        //             'tipo_movimiento' => $tipo_movimiento,
-        //             'cantidad' => $cantidad,
-        //             'fecha_movimiento' => date('Y-m-d H:i:s')
-        // ]);
+        $movimientos_invetario = new Movimientos_inventario([
+                    'id' => '',
+                    'id_producto' => $id_producto,
+                    'id_area' => $id_area,
+                    'tipo_movimiento' => $tipo_movimiento,
+                    'cantidad' => $cantidad,
+                    'fecha_movimiento' => date('Y-m-d H:i:s')
+        ]);
         
        
        
           
 
-        // $producto= Productos_inventario::find($id_producto);
+        $producto= Productos_inventario::find($id_producto);
 
     
 
-        // if ($tipo_movimiento === 'Entrada') {
-        //     $producto->stock_actual += $cantidad;
+        if ($tipo_movimiento === 'Entrada') {
+            $producto->stock_actual += $cantidad;
 
-        // }elseif ($tipo_movimiento === 'Salida') {
-        //     $producto->stock_actual -= $cantidad;
-        // }
+        }elseif ($tipo_movimiento === 'Salida') {
+            $producto->stock_actual -= $cantidad;
+        }
 
   
-            //  $producto->guardar();
+             $producto->guardar();
 
 
         
