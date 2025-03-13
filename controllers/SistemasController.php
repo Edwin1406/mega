@@ -86,6 +86,8 @@ public static function movimientos(Router $router) {
             'cantidad' => $cantidad,
             'fecha_movimiento' => date('Y-m-d H:i:s')
         ]);
+
+        var_dump($_POST);
         debuguear($movimientos_invetario);
         // POST
     //    GUARDAR MOVIMIENTO 
