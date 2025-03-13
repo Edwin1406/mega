@@ -78,6 +78,7 @@ public static function movimientos(Router $router) {
     
     $id_producto = $_POST['id_producto'];
     $id_area = $_POST['id_area'];
+    $id_categoria = $_POST['id_categoria'];
     $tipo_movimiento = $_POST['tipo_movimiento'];
     $cantidad = $_POST['cantidad'];
     
@@ -111,6 +112,7 @@ public static function movimientos(Router $router) {
     $movimientos_invetario = new Movimientos_inventario([
         'id_producto' => $id_producto,
         'id_area' => $id_area,
+        'id_categoria' => $producto->id_categoria,
         'tipo_movimiento' => $tipo_movimiento,
         'cantidad' => $cantidad,
         'valor' => $valor,  // Asignamos el valor calculado o 0
@@ -118,13 +120,6 @@ public static function movimientos(Router $router) {
     ]);
 
     $movimientos_invetario->guardas();
-
-
-
-
-
-  
-     
 
       
      

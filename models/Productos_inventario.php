@@ -80,11 +80,12 @@ class Area_inventario extends ActiveRecord
 class Movimientos_inventario  extends ActiveRecord
 {
     protected static $tabla = 'movimientos_stock';
-    protected static $columnasDB = ['id', 'id_producto','id_area','tipo_movimiento','cantidad','valor','fecha_movimiento'];
+    protected static $columnasDB = ['id', 'id_producto','id_area','id_categoria','tipo_movimiento','cantidad','valor','fecha_movimiento'];
 
     public $id;
     public $id_producto;
     public $id_area;
+    public $id_categoria;
     public $tipo_movimiento;
     public $cantidad;
     public $valor;
@@ -98,6 +99,7 @@ class Movimientos_inventario  extends ActiveRecord
         $this->id = $args['id'] ?? '';
         $this->id_producto = $args['id_producto'] ?? '';
         $this->id_area = $args['id_area'] ?? '';
+        $this->id_categoria = $args['id_categoria'] ?? '';
         $this->tipo_movimiento = $args['tipo_movimiento'] ?? '';
         $this->cantidad = $args['cantidad'] ?? '';
         $this->valor = $args['valor'] ?? '';
@@ -131,14 +133,15 @@ class Movimientos_inventario  extends ActiveRecord
     // }
     
     public function guardas() {
-        $query = "INSERT INTO movimientos_stock (id_producto, id_area, tipo_movimiento, cantidad, valor, fecha_movimiento) 
-        VALUES (?, ?, ?, ?, ?, ?)";
+        $query = "INSERT INTO movimientos_stock (id_producto, id_area,id_categoria, tipo_movimiento, cantidad, valor, fecha_movimiento) 
+        VALUES (?, ?, ?, ?, ?, ?, ?)";
         $stmt = self::$db->prepare($query);
     
         // Vinculamos los parámetros con los valores correspondientes
         $stmt->bind_param('iissis', 
             $this->id_producto, 
             $this->id_area, 
+            $this->id_categoria,
             $this->tipo_movimiento, 
             $this->cantidad, 
             $this->valor,
