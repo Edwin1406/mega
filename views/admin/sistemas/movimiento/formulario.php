@@ -8,6 +8,7 @@
             <?php foreach ($productos_inventario as $producto): ?>
                 <option value="<?php echo $producto->id_producto; ?>"
                     data-area="<?php echo $producto->id_area; ?>"
+                    data-categoria = "<?php echo $producto->id_categoria; ?>"
                     data-stock="<?php echo $producto->stock_actual; ?>"> <!-- Aquí pasamos el stock -->
                     <?php echo htmlspecialchars($producto->nombre_producto); ?>
                 </option>
