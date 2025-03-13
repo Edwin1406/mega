@@ -87,10 +87,8 @@ public static function movimientos(Router $router) {
             'cantidad' => $cantidad,
             'fecha_movimiento' => date('Y-m-d H:i:s')
         ]);
-
-        $sincronizar = $movimientos_invetario->sincronizar($_POST);
-
-        debuguear($sincronizar);  
+        // POST
+      var_dump($movimientos_invetario);
 
 
   
