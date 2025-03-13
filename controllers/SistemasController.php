@@ -84,17 +84,23 @@ public static function movimientos(Router $router) {
                     'fecha_movimiento' => date('Y-m-d H:i:s')
         ]);
         
-        $movimientos_invetario->guardar();
-        $producto= Productos_inventario::find($id_producto);
+       
+        if (empty($alertas)) {
+            $movimientos_invetario->guardar();
+            $alertas = $movimientos_invetario->getAlertas();
+            // header('Location: /admin/comercial/tabla?id='.$id);
+        }
+
+        // $producto= Productos_inventario::find($id_producto);
 
     
 
-        if ($tipo_movimiento === 'Entrada') {
-            $producto->stock_actual += $cantidad;
+        // if ($tipo_movimiento === 'Entrada') {
+        //     $producto->stock_actual += $cantidad;
 
-        }elseif ($tipo_movimiento === 'Salida') {
-            $producto->stock_actual -= $cantidad;
-        }
+        // }elseif ($tipo_movimiento === 'Salida') {
+        //     $producto->stock_actual -= $cantidad;
+        // }
 
   
             //  $producto->guardar();
