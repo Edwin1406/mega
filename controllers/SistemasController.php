@@ -70,6 +70,7 @@ public static function movimientos(Router $router) {
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Verifica que los datos del POST lleguen correctamente
         $sincronizar->sincronizar($_POST);
+        $sincronizar->guardar();
 
         $id_producto = $_POST['id'];
         $id_area = $_POST['id_area'];
@@ -86,11 +87,8 @@ public static function movimientos(Router $router) {
         ]);
         
        
-        if (empty($alertas)) {
-            $sincronizar->guardar();
-            $alertas = $movimientos_invetario->getAlertas();
-            // header('Location: /admin/comercial/tabla?id='.$id);
-        }
+       
+          
 
         // $producto= Productos_inventario::find($id_producto);
 
