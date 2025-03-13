@@ -74,6 +74,8 @@ public static function movimientos(Router $router) {
         // Obtener el producto seleccionado
         $producto = Productos_inventario::find($id);
 
+        debuguear($producto);
+
         if ($producto) {
             // Crear un nuevo movimiento
             $movimiento = new Movimientos_inventario([
