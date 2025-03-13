@@ -65,7 +65,7 @@ public static function movimientos(Router $router) {
     $area_inventario = Area_inventario::allSis('area', 'ASC');
     $categoria_inventario = Categoria_inventario::allSis('categoria', 'ASC');
     
-    // $movimientos_invetario = new Movimientos_inventario;
+    $movimientos_invetario = new Movimientos_inventario;
     
    
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -88,7 +88,7 @@ public static function movimientos(Router $router) {
             'fecha_movimiento' => date('Y-m-d H:i:s')
         ]);
         // POST
-      var_dump($movimientos_invetario);
+       var_dump($_POST);
 
 
   
