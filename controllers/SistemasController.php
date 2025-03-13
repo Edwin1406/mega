@@ -144,6 +144,7 @@ public static function apimovimientos()
 {
     $api = Movimiento::all();
     echo json_encode($api);
+
 }
 
 }
