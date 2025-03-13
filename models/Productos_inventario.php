@@ -15,7 +15,7 @@ class Productos_inventario extends ActiveRecord
 
     public function __construct($args = [])
     {
-        $this->id = $args['id_producto'] ?? '';
+        $this->id = $args['id'] ?? '';
         $this->nombre_producto = $args['nombre_producto'] ?? '';
         $this->id_categoria = $args['id_categoria'] ?? '';
         $this->id_area = $args['id_area'] ?? '';
