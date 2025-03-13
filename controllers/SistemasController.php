@@ -75,17 +75,8 @@ public static function movimientos(Router $router) {
 
         $producto= Productos_inventario::find($id_producto);
 
+        
         debuguear($producto);
-
-        debuguear($id_producto);
-
-        // $movimientos_invetario->id_producto;
-        debuguear($movimientos_invetario->id_producto);
-
-        // tipo_movimiento es entrada se suma al stock_actual de productos_inventario caso contrario se resta
-        debuguear($movimientos_invetario->tipo_movimiento);
-
-        // debuguear($movimientos_invetario);
     }
 
     $router->render('admin/sistemas/movimiento/movimientos', [
@@ -96,6 +87,8 @@ public static function movimientos(Router $router) {
         'categoria_inventario' => $categoria_inventario,
     ]);
 }
+
+
 
 
 
