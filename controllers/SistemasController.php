@@ -65,18 +65,26 @@ public static function movimientos(Router $router) {
     $area_inventario = Area_inventario::allSis('area', 'ASC');
     $categoria_inventario = Categoria_inventario::allSis('categoria', 'ASC');
 
-    $movimientos_invetario = new Movimientos_inventario;
+    // $movimientos_invetario = new Movimientos_inventario;
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Verifica que los datos del POST lleguen correctamente
-        $movimientos_invetario->sincronizar($_POST);
+        // $movimientos_invetario->sincronizar($_POST);
+
+        $movimientos_invetario = new Movimientos_inventario([
+                    'id' => $id,
+                    'id_area' => $id_area,
+                    'tipo_movimiento' => $tipo_movimiento,
+                    'cantidad' => $cantidad,
+                    'fecha_movimiento' => date('Y-m-d H:i:s')
+        ]);
+
+        debuguear($movimientos_invetario);
 
         $id_producto = $_POST['id'];
 
         $producto= Productos_inventario::find($id_producto);
 
-        
-        debuguear($producto);
     }
 
     $router->render('admin/sistemas/movimiento/movimientos', [
