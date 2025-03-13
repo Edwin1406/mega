@@ -89,12 +89,12 @@ public static function movimientos(Router $router) {
         if ($tipo_movimiento === 'Entrada') {
             $producto->stock_actual += $cantidad;
 
-        } else {
+        }elseif ($tipo_movimiento === 'Salida') {
             $producto->stock_actual -= $cantidad;
         }
 
         $producto->guardar();
-        
+
 
     }
 
