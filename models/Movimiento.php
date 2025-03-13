@@ -29,7 +29,6 @@ class Movimiento  extends ActiveRecord
 
     }
 
-
     public static function obtenerMovimientosConProducto() {
         // Consulta SQL que une la tabla de movimientos con la de productos
         $query = "SELECT 
@@ -37,9 +36,9 @@ class Movimiento  extends ActiveRecord
                     m.tipo_movimiento,
                     m.cantidad,
                     m.fecha_movimiento,
-                    p.nombre AS nombre_producto
+                    p.nombre_producto
                   FROM movimientos_stock m
-                  LEFT JOIN productos p ON m.id_producto = p.id_producto
+                  LEFT JOIN productos_invetario p ON m.id_producto = p.id_producto
                   ORDER BY m.id";
     
         $resultado = self::arrayasociativo($query);
@@ -59,7 +58,6 @@ class Movimiento  extends ActiveRecord
         return json_encode($movimientos, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
     }
     
-
 
     
 }
