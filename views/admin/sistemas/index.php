@@ -87,7 +87,7 @@ document.addEventListener('DOMContentLoaded', async function() {
         return data;
       }
 
-      
+
 
 
 
@@ -95,7 +95,7 @@ document.addEventListener('DOMContentLoaded', async function() {
 
         // Datos del gráfico con 3 datasets
         const data = {
-            labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+            labels: ['ENERO', 'February', 'March', 'April', 'May', 'June', 'July'],
             datasets: [{
                 label: 'Dataset 1',
                 data: [50, 60, 70, 80, 90, 100, 110],
