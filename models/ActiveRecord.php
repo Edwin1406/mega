@@ -1170,10 +1170,28 @@ public static function procesarArchivoExcelComercial($filePath)
     }
 
     public static function findSis($id) {
-        $query = "SELECT * FROM " . static::$tabla . " WHERE id_producto = :id";
-        $resultado = self::consultarSQL($query);
-        return array_shift( $resultado ) ;
+        // Conectar a la base de datos (suponiendo que ya tienes configurado el método para la conexión)
+        $conexion = self::consultarSQL(); // Asegúrate de que este método devuelva una conexión mysqli
+    
+        // Usar mysqli_real_escape_string para evitar inyecciones SQL
+        $id = $conexion->real_escape_string($id);
+    
+        // Crear la consulta SQL
+        $query = "SELECT * FROM " . static::$tabla . " WHERE id_producto = {$id}";
+    
+        // Ejecutar la consulta
+        $resultado = $conexion->query($query);
+    
+        // Comprobar si hay resultados
+        if ($resultado && $resultado->num_rows > 0) {
+            // Devolver el primer resultado
+            return $resultado->fetch_assoc();
+        }
+    
+        // Si no hay resultados, devolver null
+        return null;
     }
+    
 
 
 
