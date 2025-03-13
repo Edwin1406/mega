@@ -114,8 +114,6 @@ public static function movimientos(Router $router) {
         } elseif ($tipo_movimiento === 'Salida') {
             $productos_inventario->stock_actual = $producto->stock_actual - $cantidad;
         }
-
-
      
         $alertas = $movimientos_invetario->getAlertas();
         // redireccionar
