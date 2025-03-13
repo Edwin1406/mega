@@ -76,6 +76,8 @@ public static function movimientos(Router $router) {
         $tipo_movimiento = $_POST['tipo_movimiento'];
         $cantidad = $_POST['cantidad'];
 
+        var_dump($_POST);
+
         $movimientos_invetario = new Movimientos_inventario([
                     'id_producto' => $id_producto,
                     'id_area' => $id_area,
@@ -84,19 +86,19 @@ public static function movimientos(Router $router) {
                     'fecha_movimiento' => date('Y-m-d H:i:s')
         ]);
         
-        $producto= Productos_inventario::findSis($id_producto);
+        // $producto= Productos_inventario::findSis($id_producto);
 
     
 
-        if ($tipo_movimiento === 'Entrada') {
-            $producto->stock_actual += $cantidad;
+        // if ($tipo_movimiento === 'Entrada') {
+        //     $producto->stock_actual += $cantidad;
 
-        }elseif ($tipo_movimiento === 'Salida') {
-            $producto->stock_actual -= $cantidad;
-        }
+        // }elseif ($tipo_movimiento === 'Salida') {
+        //     $producto->stock_actual -= $cantidad;
+        // }
 
   
-             $producto->guardar();
+        //      $producto->guardar();
             
 
 
