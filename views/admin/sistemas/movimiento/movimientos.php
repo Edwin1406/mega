@@ -75,7 +75,7 @@
     <form method="POST" action="/admin/sistemas/movimiento/movimientos "  class="formulario" enctype="multipart/form-data">
     <?php include_once __DIR__.'/formulario.php'  ?>
 
-        <input class="formulario__submit formulario__submit--registrar" type="submit" value="Registrar producto">
+        <input class="formulario__submit formulario__submit--registrar" type="submit" value="Registrar">
 
         
     </form>
