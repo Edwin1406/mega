@@ -74,6 +74,24 @@
     </div>
 
     <script>
+
+document.addEventListener('DOMContentLoaded', async function() {
+        const data = await datosapi();
+        console.log(data);
+      });
+
+      async function datosapi() {
+        const url = 'https://megawebsistem.com/admin/api/apimovimientos';
+        const response = await fetch(url);
+        const data = await response.json();
+       console.log(data);
+        return data;
+      }
+
+
+
+
+
         // Datos del gráfico con 3 datasets
         const data = {
             labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
