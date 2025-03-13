@@ -97,8 +97,11 @@ public static function movimientos(Router $router) {
         }
         $productos_inventario = new Productos_inventario([
             'id_producto' => $id_producto,
+            'nombre_producto' => $producto->nombre_producto,
+            'id_categoria' => $producto->id_categoria,
             'id_area' => $id_area,
             'stock_actual' => $producto->stock_actual,
+            'stock_minimo' => $producto->stock_minimo,
 
         ]);
         debuguear($productos_inventario);
