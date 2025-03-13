@@ -67,7 +67,7 @@ public static function movimientos(Router $router) {
     // debuguear($categoria_inventario);
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $id = $_POST['id_producto'];
+        $id = $_POST['id'];
         $id_area = $_POST['id_area'] ?? null;
         $tipo_movimiento = $_POST['tipo_movimiento'];
         $cantidad = $_POST['cantidad'];
