@@ -145,9 +145,21 @@ public static function apimovimientos()
     header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS"); 
     header("Content-Type: application/json"); 
 
-    $materiales = Movimiento::all();
+    $movimientos = Movimiento::all();
+
+    $movimientos_invetario = new Movimientos_inventario([
+        'id_producto' => $id_producto,
+        'id_area' => $id_area,
+        'tipo_movimiento' => $tipo_movimiento,
+        'cantidad' => $cantidad,
+        'fecha_movimiento' => date('Y-m-d H:i:s')
+    ]);
+
+    debuguear($movimientos_invetario);
+
+
     
-    echo json_encode($materiales, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+    echo json_encode($movimientos, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
 }
 
 
