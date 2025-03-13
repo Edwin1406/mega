@@ -70,14 +70,13 @@ public static function movimientos(Router $router) {
    
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Verifica que los datos del POST lleguen correctamente
-        // $movimientos_invetario->sincronizar($_POST);
+        $movimientos_invetario->sincronizar($_POST);
         
         $id_producto = $_POST['id_producto'];
         $id_area = $_POST['id_area'];
         $tipo_movimiento = $_POST['tipo_movimiento'];
         $cantidad = $_POST['cantidad'];
         
-        // var_dump($_POST);
         
         $producto= Productos_inventario::findSis($id_producto);
         $movimientos_invetario = new Movimientos_inventario([
@@ -87,9 +86,12 @@ public static function movimientos(Router $router) {
             'cantidad' => $cantidad,
             'fecha_movimiento' => date('Y-m-d H:i:s')
         ]);
+        debuguear($movimientos_invetario);
         // POST
     //    GUARDAR MOVIMIENTO 
-    
+
+
+
 
 
   
