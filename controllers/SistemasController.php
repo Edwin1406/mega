@@ -88,7 +88,8 @@ public static function movimientos(Router $router) {
             'fecha_movimiento' => date('Y-m-d H:i:s')
         ]);
         // POST
-       var_dump($_POST);
+    //    GUARDAR MOVIMIENTO 
+    
 
 
   
