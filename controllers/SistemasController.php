@@ -86,6 +86,8 @@ public static function movimientos(Router $router) {
         
         $producto= Productos_inventario::find($id_producto);
 
+    
+
         if ($tipo_movimiento === 'Entrada') {
             $producto->stock_actual += $cantidad;
 
@@ -93,7 +95,12 @@ public static function movimientos(Router $router) {
             $producto->stock_actual -= $cantidad;
         }
 
-        $producto->guardar();
+        if (empty($alertas)) {
+            $movimientos_invetario->guardar();
+            $producto->guardar();
+
+
+        }
 
 
     }
