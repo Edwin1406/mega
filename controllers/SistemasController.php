@@ -109,25 +109,12 @@ public static function movimientos(Router $router) {
         }
 
 
+        // debuguear($productos_inventario);
+        debuguear($movimientos_invetario);
+
     //   guardar movimientos en la base de datos
         $movimientos_invetario->guardar();
 
-
-
-
-        // debuguear($productos_inventario);
-    
-
-        
-        
-        
-        // debuguear($movimientos_invetario);
-        // debuguear($producto);
-        
-        
-      
-        
-        // debuguear($productos_inventario);
   
          
             
