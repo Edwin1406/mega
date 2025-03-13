@@ -37,8 +37,11 @@ class Movimiento  extends ActiveRecord
                     m.cantidad,
                     m.fecha_movimiento,
                     p.nombre_producto
+                    a.nombre_area
+
                   FROM movimientos_stock m
                   LEFT JOIN productos_inventario p ON m.id_producto = p.id_producto
+                  LEFT JOIN areas_inventario a ON m.id_area = a.id_area
                   ORDER BY m.id";
     
         $resultado = self::arrayasociativo($query);
@@ -48,10 +51,11 @@ class Movimiento  extends ActiveRecord
         foreach ($resultado as $fila) {
             $movimientos[] = [
                 'id' => $fila['movimiento_id'],
+                'producto' => $fila['nombre_producto'] ,
+                'area' => $fila['nombre_area'],
                 'tipo_movimiento' => $fila['tipo_movimiento'],
                 'cantidad' => $fila['cantidad'],
                 'fecha_movimiento' => $fila['fecha_movimiento'],
-                'producto' => $fila['nombre_producto'] // Aquí agregamos el nombre del producto
             ];
         }
     
