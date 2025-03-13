@@ -110,14 +110,15 @@ public static function movimientos(Router $router) {
 
 
 
-        // movimientos de inventario esta lleno con los datos del formulario porque no puedo guardar en la base de datos
-        
-            $movimientos_invetario->guardar();
+        $alertas = $productos_inventario->validar();
 
+        // debuguear($comercial);
 
-
-        // debuguear($productos_inventario);
-        debuguear($movimientos_invetario);
+       if (empty($alertas)) {
+            $productos_inventario->guardar();
+            $alertas = $productos_inventario->getAlertas();
+            // header('Location: /admin/comercial/tabla?id='.$id);
+        }
 
 
   

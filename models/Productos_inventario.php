@@ -85,5 +85,12 @@ class Movimientos_inventario  extends ActiveRecord
         $this->fecha_movimiento = $args['fecha_movimiento'] ?? date('Y-m-d H:i:s');
 
     }
+
+
+
+
+
+
+    
 }
 
