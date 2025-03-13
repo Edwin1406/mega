@@ -76,8 +76,7 @@
     <script>
 
 document.addEventListener('DOMContentLoaded', async function() {
-        const data = await datosapi();
-        console.log(data);
+        datosapi();
       });
 
       async function datosapi() {
