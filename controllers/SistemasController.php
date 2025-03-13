@@ -95,12 +95,12 @@ public static function movimientos(Router $router) {
             $producto->stock_actual -= $cantidad;
         }
 
-        if (empty($alertas)) {
+  
+             $producto->guardar();
             $movimientos_invetario->guardar();
-            $producto->guardar();
 
 
-        }
+        
 
 
     }
