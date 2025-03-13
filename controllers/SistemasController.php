@@ -96,6 +96,8 @@ public static function movimientos(Router $router) {
         }
 
   
+        debuguear($movimientos_invetario);
+        debuguear($producto);
              $producto->guardar();
             $movimientos_invetario->guardar();
 
