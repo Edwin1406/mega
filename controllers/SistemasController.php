@@ -151,7 +151,7 @@ public static function apimovimientos()
     
 
     
-    echo json_encode($movimientos, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+    // echo json_encode($movimientos, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
 }
 
 
