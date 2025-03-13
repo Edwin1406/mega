@@ -1170,7 +1170,7 @@ public static function procesarArchivoExcelComercial($filePath)
     }
 
     public static function findSis($id) {
-        $query = "SELECT * FROM " . static::$tabla  ." WHERE id_producto= {$id}";
+        $query = "SELECT * FROM " . static::$tabla . " WHERE id_producto = :id";
         $resultado = self::consultarSQL($query);
         return array_shift( $resultado ) ;
     }
