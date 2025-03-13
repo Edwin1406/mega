@@ -70,6 +70,9 @@ public static function movimientos(Router $router) {
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Verifica que los datos del POST lleguen correctamente
         $movimientos_invetario->sincronizar($_POST);
+        debuguear($movimientos_invetario);
+
+        $movimientos_invetario-
 
         // tipo_movimiento es entrada se suma al stock_actual de productos_inventario caso contrario se resta
         debuguear($movimientos_invetario->tipo_movimiento);
