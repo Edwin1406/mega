@@ -87,7 +87,7 @@ class Movimientos_inventario  extends ActiveRecord
     public $id_area;
     public $tipo_movimiento;
     public $cantidad;
-    public $fecha_movimiento;
+    public $fecha_movimiento= date('Y-m-d H:i:s');
 
 
     public function __construct($args = [])
