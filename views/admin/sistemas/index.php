@@ -69,19 +69,31 @@
 
 
 
-<div style="width: 80%; margin: auto;">
+    <div style="width: 80%; margin: auto;">
         <canvas id="myChart"></canvas>
     </div>
 
     <script>
-        // Datos del gráfico
+        // Datos del gráfico con 3 datasets
         const data = {
-            labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo'],
+            labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
             datasets: [{
-                label: 'Ventas',
-                data: [10, 20, 30, 40, 50],
+                label: 'Dataset 1',
+                data: [50, 60, 70, 80, 90, 100, 110],
+                backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                borderColor: 'rgba(255, 99, 132, 1)',
+                borderWidth: 1
+            }, {
+                label: 'Dataset 2',
+                data: [30, 40, 50, 60, 70, 80, 90],
                 backgroundColor: 'rgba(54, 162, 235, 0.2)',
                 borderColor: 'rgba(54, 162, 235, 1)',
+                borderWidth: 1
+            }, {
+                label: 'Dataset 3',
+                data: [10, 20, 30, 40, 50, 60, 70],
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                borderColor: 'rgba(75, 192, 192, 1)',
                 borderWidth: 1
             }]
         };
@@ -92,8 +104,11 @@
             data: data,
             options: {
                 scales: {
+                    x: {
+                        stacked: true
+                    },
                     y: {
-                        beginAtZero: true
+                        stacked: true
                     }
                 }
             }
