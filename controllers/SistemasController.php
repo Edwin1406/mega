@@ -90,6 +90,8 @@ public static function movimientos(Router $router) {
             } else {
                 $producto->stock_actual -= $cantidad;
             }
+
+            debuguear($movimiento);
             // guardar en la base de datos
             $resultado = $movimiento->guardar();
             // $resultado = $producto->guardar();
