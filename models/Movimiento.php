@@ -55,7 +55,7 @@ class Movimiento  extends ActiveRecord
             ];
         }
     
-        return json_encode($movimientos, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+        return array_values($movimientos); 
     }
     
 
