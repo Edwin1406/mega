@@ -71,8 +71,9 @@ public static function movimientos(Router $router) {
         // Verifica que los datos del POST lleguen correctamente
         // $movimientos_invetario->sincronizar($_POST);
 
+        $id_producto = $_POST['id'];
         $movimientos_invetario = new Movimientos_inventario([
-                    'id' => $id,
+                    'id' => $id_producto,
                     'id_area' => $id_area,
                     'tipo_movimiento' => $tipo_movimiento,
                     'cantidad' => $cantidad,
@@ -81,7 +82,6 @@ public static function movimientos(Router $router) {
 
         debuguear($movimientos_invetario);
 
-        $id_producto = $_POST['id'];
 
         $producto= Productos_inventario::find($id_producto);
 
