@@ -42,11 +42,6 @@
         </select>
     </div>
 
-
-
-
-
-
     <div class="formulario__campo">
         <label class="formulario__label" for="stock_actual">Stock</label>
         <input
