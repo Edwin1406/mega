@@ -38,7 +38,7 @@ class Movimiento  extends ActiveRecord
                     m.fecha_movimiento,
                     p.nombre_producto
                   FROM movimientos_stock m
-                  LEFT JOIN productos_invetario p ON m.id_producto = p.id_producto
+                  LEFT JOIN productos_inventario p ON m.id_producto = p.id_producto
                   ORDER BY m.id";
     
         $resultado = self::arrayasociativo($query);
