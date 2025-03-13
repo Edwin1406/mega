@@ -71,6 +71,11 @@ public static function movimientos(Router $router) {
         // Verifica que los datos del POST lleguen correctamente
         $movimientos_invetario->sincronizar($_POST);
         // debuguear($movimientos_invetario);
+// con post se obtiene el id del producto
+
+
+        $id_producto = $_POST['id'];
+        debuguear($id_producto);
 
         // $movimientos_invetario->id_producto;
         debuguear($movimientos_invetario->id_producto);
