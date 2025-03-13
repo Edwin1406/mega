@@ -66,18 +66,18 @@ public static function movimientos(Router $router) {
     $categoria_inventario = Categoria_inventario::allSis('categoria', 'ASC');
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $id_producto = $_POST['id_producto'];
+        $id = $_POST['id_producto'];
         $id_area = $_POST['id_area'] ?? null;
         $tipo_movimiento = $_POST['tipo_movimiento'];
         $cantidad = $_POST['cantidad'];
 
         // Obtener el producto seleccionado
-        $producto = Productos_inventario::find($id_producto);
+        $producto = Productos_inventario::find($id);
 
         if ($producto) {
             // Crear un nuevo movimiento
             $movimiento = new Movimientos_inventario([
-                'id_producto' => $id_producto,
+                'id' => $id,
                 'id_area' => $id_area,
                 'tipo_movimiento' => $tipo_movimiento,
                 'cantidad' => $cantidad,
