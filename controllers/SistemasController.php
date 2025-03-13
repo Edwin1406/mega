@@ -76,38 +76,38 @@ public static function movimientos(Router $router) {
 
         debuguear($producto);
 
-        if ($producto) {
-            // Crear un nuevo movimiento
-            $movimiento = new Movimientos_inventario([
-                'id' => $id,
-                'id_area' => $id_area,
-                'tipo_movimiento' => $tipo_movimiento,
-                'cantidad' => $cantidad,
-                'fecha_movimiento' => date('Y-m-d H:i:s')
-            ]);
+        // if ($producto) {
+        //     // Crear un nuevo movimiento
+        //     $movimiento = new Movimientos_inventario([
+        //         'id' => $id,
+        //         'id_area' => $id_area,
+        //         'tipo_movimiento' => $tipo_movimiento,
+        //         'cantidad' => $cantidad,
+        //         'fecha_movimiento' => date('Y-m-d H:i:s')
+        //     ]);
 
-            debuguear($movimiento);
+        //     debuguear($movimiento);
 
-            // Actualizar el stock del producto
-            if ($tipo_movimiento === 'Entrada') {
-                $producto->stock_actual += $cantidad;
-            } else {
-                $producto->stock_actual -= $cantidad;
-            }
+        //     // Actualizar el stock del producto
+        //     if ($tipo_movimiento === 'Entrada') {
+        //         $producto->stock_actual += $cantidad;
+        //     } else {
+        //         $producto->stock_actual -= $cantidad;
+        //     }
 
-            // Guardar el movimiento
-            $resultado_movimiento = $movimiento->guardar();
+        //     // Guardar el movimiento
+        //     $resultado_movimiento = $movimiento->guardar();
 
-            // Actualizar el producto
-            $resultado_producto = $producto->guardar();
+        //     // Actualizar el producto
+        //     $resultado_producto = $producto->guardar();
 
-            // Verifica si ambos guardados fueron exitosos
-            if ($resultado_movimiento && $resultado_producto) {
-                $alertas[] = 'Movimiento y stock actualizados correctamente.';
-            } else {
-                $alertas[] = 'Error al guardar el movimiento o actualizar el stock.';
-            }
-        }
+        //     // Verifica si ambos guardados fueron exitosos
+        //     if ($resultado_movimiento && $resultado_producto) {
+        //         $alertas[] = 'Movimiento y stock actualizados correctamente.';
+        //     } else {
+        //         $alertas[] = 'Error al guardar el movimiento o actualizar el stock.';
+        //     }
+        // }
     }
 
     $router->render('admin/sistemas/movimiento/movimientos', [
