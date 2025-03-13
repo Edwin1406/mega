@@ -146,17 +146,9 @@ public static function apimovimientos()
     header("Content-Type: application/json"); 
 
     $movimientos = Movimiento::all();
+    
 
-    $movimientos_invetario = new Movimientos_inventario([
-        'id_producto' => $id_producto,
-        'id_area' => $id_area,
-        'tipo_movimiento' => $tipo_movimiento,
-        'cantidad' => $cantidad,
-        'fecha_movimiento' => date('Y-m-d H:i:s')
-    ]);
-
-    debuguear($movimientos_invetario);
-
+    
 
     
     echo json_encode($movimientos, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
