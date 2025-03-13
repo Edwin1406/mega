@@ -70,7 +70,18 @@ public static function movimientos(Router $router) {
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Verifica que los datos del POST lleguen correctamente
         $movimientos_invetario->sincronizar($_POST);
-        debuguear($movimientos_invetario);
+
+        // tipo_movimiento es entrada se suma al stock_actual de productos_inventario caso contrario se resta
+        if ($movimientos_invetario->tipo_movimiento === 'Entrada') {
+            $productos_inventario = Productos_inventario::find($movimientos_invetario->id_producto);
+            $productos_inventario->stock_actual += $movimientos_invetario->cantidad;
+            $productos_inventario->guardar();
+        } else {
+            $productos_inventario = Productos_inventario::find($movimientos_invetario->id_producto);
+            $productos_inventario->stock_actual -= $movimientos_invetario->cantidad;
+            $productos_inventario->guardar();
+        }
+        // debuguear($movimientos_invetario);
     }
 
     $router->render('admin/sistemas/movimiento/movimientos', [
