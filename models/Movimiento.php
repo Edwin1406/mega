@@ -38,7 +38,7 @@ class Movimiento  extends ActiveRecord
                     m.cantidad,
                     m.fecha_movimiento,
                     p.nombre AS nombre_producto
-                  FROM movimientos m
+                  FROM movimientos_stock m
                   LEFT JOIN productos p ON m.id_producto = p.id_producto
                   ORDER BY m.id";
     
