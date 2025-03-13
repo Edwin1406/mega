@@ -26,6 +26,21 @@
             <?php endforeach; ?>
         </select>
     </div>
+    <div class="formulario__campo">
+        <label class="formulario__label" for="id_categoria">Categoria</label>
+        <select name="id_categoria" id="id_categoria" class="formulario__input"  >
+            <option value="" disabled selected>Selecciona Area</option>
+            <?php foreach ($categoria_inventario as $categoria): ?>
+                <option value="<?php echo $categoria->id_categoria; ?>">
+                    <?php echo htmlspecialchars($categoria->nombre_categoria);  ?>
+                </option>
+            <?php endforeach; ?>
+        </select>
+    </div>
+      
+
+    
+
 
 
     <div class="formulario__campo">
