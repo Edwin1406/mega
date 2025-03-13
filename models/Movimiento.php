@@ -3,7 +3,7 @@
 namespace Model;
 
 
-class Movimientos  extends ActiveRecord
+class Movimiento  extends ActiveRecord
 {
     protected static $tabla = 'movimientos_stock';
     protected static $columnasDB = ['id', 'id_producto','id_area','tipo_movimiento','cantidad','fecha_movimiento'];
