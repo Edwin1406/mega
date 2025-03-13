@@ -107,7 +107,7 @@ public static function movimientos(Router $router) {
             $producto->stock_actual -= $cantidad;
         }
         
-        debuguear($movimientos_invetario);
+        debuguear($productos_inventario);
   
              $producto->guardas($id_producto);
             
