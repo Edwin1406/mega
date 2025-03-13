@@ -4,6 +4,7 @@ namespace Controllers;
 
 use Model\Area_inventario;
 use Model\Categoria_inventario;
+use Model\Movimientos;
 use Model\Movimientos_inventario;
 use Model\Productos_inventario;
 use MVC\Router;
@@ -140,7 +141,7 @@ public static function movimientos(Router $router) {
 
 public static function apimovimientos()
 {
-    $api = Movimientos_inventario::all();
+    $api = Movimientos::all();
     echo json_encode($api);
 }
 
