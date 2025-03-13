@@ -303,6 +303,13 @@ $router->post('/admin/sistemas/productos/gastos', [SistemasController::class, 'g
 
 
 
+
+// api de movimientos
+$router->get('/admin/api/apimovimientos', [SistemasController::class, 'apimovimientos']);
+
+
+
+
 // citas de prueba 
 
 $router->get('/admin/api/citas', [EstimarController::class, 'citas']);
