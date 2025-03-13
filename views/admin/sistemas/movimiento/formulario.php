@@ -2,11 +2,11 @@
     <legend class="formulario__legend">MOVIMIENTOS STOCK </legend>
 
     <div class="formulario__campo">
-        <label class="formulario__label" for="id_producto">Selecciona un producto</label>
-        <select name="id_producto" id="id_producto" class="formulario__input">
+        <label class="formulario__label" for="id">Selecciona un producto</label>
+        <select name="id" id="id" class="formulario__input">
             <option value="" disabled selected>Selecciona un producto</option>
             <?php foreach ($productos_inventario as $producto): ?>
-                <option value="<?php echo $producto->id_producto; ?>"
+                <option value="<?php echo $producto->id; ?>"
                     data-area="<?php echo $producto->id_area; ?>"
                     data-stock="<?php echo $producto->stock_actual; ?>"> <!-- Aquí pasamos el stock -->
                     <?php echo htmlspecialchars($producto->nombre_producto); ?>
@@ -75,7 +75,7 @@
 
 <script>
         document.addEventListener("DOMContentLoaded", function() {
-            const productoSelect = document.getElementById("id_producto");
+            const productoSelect = document.getElementById("id");
             const areaSelect = document.getElementById("id_area");
             const stockInput = document.getElementById("stock_actual");
 
