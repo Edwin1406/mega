@@ -77,7 +77,6 @@ public static function movimientos(Router $router) {
         $cantidad = $_POST['cantidad'];
 
         $movimientos_invetario = new Movimientos_inventario([
-                  
                     'id_producto' => $id_producto,
                     'id_area' => $id_area,
                     'tipo_movimiento' => $tipo_movimiento,
@@ -85,10 +84,10 @@ public static function movimientos(Router $router) {
                     'fecha_movimiento' => date('Y-m-d H:i:s')
         ]);
 
-        debuguear($movimientos_invetario);
-
-
+        
+        
         $producto= Productos_inventario::find($id_producto);
+        debuguear($producto);
 
     }
 
