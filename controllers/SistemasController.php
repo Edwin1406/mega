@@ -86,8 +86,9 @@ public static function movimientos(Router $router) {
             'fecha_movimiento' => date('Y-m-d H:i:s')
         ]);
         
+        debuguear($movimientos_invetario);
         $producto= Productos_inventario::findSis($id_producto);
-        debuguear($producto);
+        // debuguear($producto);
         
     
 
