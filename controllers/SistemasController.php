@@ -117,7 +117,7 @@ public static function movimientos(Router $router) {
 
 
         // debuguear($productos_inventario);
-        debuguear($movimientos_invetario);
+        // debuguear($movimientos_invetario);
 
 
   
