@@ -87,6 +87,8 @@ async function datosapi() {
     // Filtrar los datos por el mes actual
     const currentMonth = new Date().getMonth(); // Obtener el mes actual (0 - 11)
     const currentYear = new Date().getFullYear(); // Obtener el año actual
+    const monthNames = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+    const monthName = monthNames[currentMonth]; // Obtener el nombre del mes
 
     const filteredData = datos.filter(item => {
         const itemDate = new Date(item.fecha_movimiento);
@@ -101,7 +103,7 @@ async function datosapi() {
         if (!areas[item.area]) {
             areas[item.area] = 0;
         }
-        areas[item.area] += parseFloat(item.valor); // Sumar la cantidad de cada área
+        areas[item.area] += parseFloat(item.cantidad); // Sumar la cantidad de cada área
     });
 
     // Labels para el gráfico (nombres de las áreas)
@@ -131,6 +133,12 @@ async function datosapi() {
                 y: {
                     stacked: true
                 }
+            },
+            plugins: {
+                title: {
+                    display: true,
+                    text: `Datos del mes de ${monthName} ${currentYear}` // Título con el mes y año actual
+                }
             }
         }
     };
@@ -139,6 +147,5 @@ async function datosapi() {
     const ctx = document.getElementById('myChart').getContext('2d');
     new Chart(ctx, config);
 }
-
 
 </script>
