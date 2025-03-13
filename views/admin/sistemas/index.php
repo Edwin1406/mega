@@ -103,7 +103,7 @@ async function datosapi() {
         if (!areas[item.area]) {
             areas[item.area] = 0;
         }
-        areas[item.area] += parseFloat(item.cantidad); // Sumar la cantidad de cada área
+        areas[item.area] += parseFloat(item.valor); // Sumar la cantidad de cada área
     });
 
     // Labels para el gráfico (nombres de las áreas)
@@ -113,7 +113,7 @@ async function datosapi() {
     const data = {
         labels: labels,
         datasets: [{
-            label: 'Cantidad por área',
+            label: 'valor',
             data: Object.values(areas),
             backgroundColor: 'rgba(75, 192, 192, 0.2)',
             borderColor: 'rgba(75, 192, 192, 1)',
