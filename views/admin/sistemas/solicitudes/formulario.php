@@ -1,7 +1,7 @@
 <fieldset class="formulario__fieldset">
     <legend class="formulario__legend">INGRESO DE INSUMOS DE SISTEMAS  </legend>
     <div class="formulario__campo">
-        <label class="formulario__label" for="id_producto">Categoria</label>
+        <label class="formulario__label" for="id_producto">Producto</label>
         <select
             name="id_producto"
             id="id_producto"
