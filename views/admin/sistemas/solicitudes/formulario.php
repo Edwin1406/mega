@@ -109,25 +109,17 @@ document.addEventListener("DOMContentLoaded", function() {
     const stockInput = document.getElementById("costo_unitario");
     const tablaProductos = document.getElementById("productos_agregados").getElementsByTagName("tbody")[0];
 
-    // Cargar productos desde localStorage al cargar la página
+    // Cargar productos desde el localStorage al cargar la página
     cargarProductosDesdeLocalStorage();
 
     productoSelect.addEventListener("change", function() {
         const selectedOption = productoSelect.options[productoSelect.selectedIndex];
         const id_area = selectedOption.getAttribute("data-area");
-
-      
         const id_categoria = selectedOption.getAttribute("data-categoria");
         const stock = selectedOption.getAttribute("data-costounitario");
-        const id_producto = selectedOption.value; // Guardamos el ID del producto
-        const nombre_producto = selectedOption.textContent; // Nombre para mostrar
+        const producto = selectedOption.textContent;
 
-
-          // console.log(id_producto);
-        // console.log(id_categoria);
-        // console.log(id_area);
-
-        if (!id_producto || !id_area || !id_categoria || !stock) {
+        if (!producto || !id_area || !id_categoria || !stock) {
             return; // Si no hay datos válidos, no agregamos la fila
         }
 
@@ -159,7 +151,7 @@ document.addEventListener("DOMContentLoaded", function() {
         let productoExistente = null;
         for (let i = 0; i < filas.length; i++) {
             const celdas = filas[i].getElementsByTagName("td");
-            if (celdas[0].textContent.trim() === nombre_producto) {
+            if (celdas[0].textContent.trim() === producto) {
                 productoExistente = filas[i]; // Si encontramos el producto, lo guardamos
                 break;
             }
@@ -179,7 +171,7 @@ document.addEventListener("DOMContentLoaded", function() {
             // Si el producto no existe, agregamos una nueva fila
             const nuevaFila = tablaProductos.insertRow();
             nuevaFila.innerHTML = `
-                <td>${nombre_producto}</td>
+                <td>${producto}</td>
                 <td>${categoriaSelect.options[categoriaSelect.selectedIndex].text}</td>
                 <td>${areaSelect.options[areaSelect.selectedIndex].text}</td>
                 <td>${stock}</td>
@@ -204,6 +196,7 @@ document.addEventListener("DOMContentLoaded", function() {
             // Función para eliminar la fila
             const eliminarBtn = nuevaFila.querySelector('.eliminar');
             eliminarBtn.addEventListener('click', function() {
+                // Eliminar solo la fila actual
                 nuevaFila.remove();
                 actualizarTotalGeneral(); // Actualiza el total general después de eliminar
                 actualizarProductosEnLocalStorage(); // Actualiza en localStorage
@@ -230,19 +223,19 @@ document.addEventListener("DOMContentLoaded", function() {
         document.getElementById("total_general").textContent = `Total: $${totalGeneral.toFixed(2)}`;
     }
 
-    // Función para guardar los productos en localStorage (solo IDs)
+    // Función para guardar los productos en localStorage
     function actualizarProductosEnLocalStorage() {
         const productos = [];
         const filas = tablaProductos.getElementsByTagName("tr");
         for (let i = 0; i < filas.length; i++) {
             const celdas = filas[i].getElementsByTagName("td");
-            const id_producto = celdas[0].getAttribute("data-id");  // ID del producto
-            const categoria = celdas[1].textContent.trim();  // Solo el nombre de la categoría
-            const area = celdas[2].textContent.trim();  // Solo el nombre del área
+            const producto = celdas[0].textContent.trim();
+            const categoria = celdas[1].textContent.trim();
+            const area = celdas[2].textContent.trim();
             const costoUnitario = parseFloat(celdas[3].textContent.trim());
             const cantidad = parseInt(celdas[4].querySelector('.cantidad').value, 10);
             const total = parseFloat(celdas[5].textContent.trim());
-            productos.push({ id_producto, categoria, area, costoUnitario, cantidad, total });
+            productos.push({ producto, categoria, area, costoUnitario, cantidad, total });
         }
         localStorage.setItem('productos', JSON.stringify(productos));
     }
@@ -254,7 +247,7 @@ document.addEventListener("DOMContentLoaded", function() {
             productosGuardados.forEach(producto => {
                 const nuevaFila = tablaProductos.insertRow();
                 nuevaFila.innerHTML = `
-                    <td data-id="${producto.id_producto}">${producto.nombre_producto}</td>
+                    <td>${producto.producto}</td>
                     <td>${producto.categoria}</td>
                     <td>${producto.area}</td>
                     <td>${producto.costoUnitario}</td>
@@ -291,6 +284,7 @@ document.addEventListener("DOMContentLoaded", function() {
     // Ejecutar la función al cargar la página para seleccionar automáticamente el producto y su stock
     productoSelect.dispatchEvent(new Event("change"));
 });
+
 
 
 </script>
