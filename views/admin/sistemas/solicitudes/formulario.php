@@ -289,16 +289,20 @@ agregarsolicitud();
 
 
 
-    function agregarsolicitud (){
-        const productosGuardados = JSON.parse(localStorage.getItem('productos'));
+function agregarsolicitud() {
+    const productosGuardados = JSON.parse(localStorage.getItem('productos'));
 
-        const datos = new FormData();
-        datos.append('productos', JSON.stringify(productosGuardados));
-        console.log(datos);
-        console.log(productosGuardados);
+    const datos = new FormData();
+    datos.append('productos', JSON.stringify(productosGuardados));
 
-        
-    }
+    // Mostrar FormData de forma legible
+    datos.forEach((value, key) => {
+        console.log(`${key}: ${value}`);
+    });
+
+    console.log(productosGuardados);
+}
+
 });
 
 
