@@ -297,7 +297,23 @@ document.addEventListener("DOMContentLoaded", function() {
 crearSolicitud();
 async function crearSolicitud(tablaProductos) {
     // tarer los de la tabla
-  console.log(tablaProductos);
+    const filas = tablaProductos.getElementsByTagName("tr");
+    const productos = [];
+    for (let i = 0; i < filas.length; i++) {
+        const celdas = filas[i].getElementsByTagName("td");
+        const producto = celdas[0].textContent.trim();
+        const categoria = celdas[1].textContent.trim();
+        const area = celdas[2].textContent.trim();
+        const costoUnitario = parseFloat(celdas[3].textContent.trim());
+        const cantidad = parseInt(celdas[4].querySelector('.cantidad').value, 10);
+        const total = parseFloat(celdas[5].textContent.trim());
+        productos.push({ producto, categoria, area, costoUnitario, cantidad, total });
+    }
+    
+    console.log(productos);
+
+
+
     const datos = new FormData();
     datos.append('nombre', 'Juan');
 
