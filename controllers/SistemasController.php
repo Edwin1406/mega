@@ -197,7 +197,7 @@ public static function solicitud(Router $router)
         // Verifica que los datos del POST lleguen correctamente
         $solicitud_inventario->sincronizar($_POST);
 
-       debuguear($solicitud_inventario);
+    //    debuguear($solicitud_inventario);
     }
 
 
