@@ -123,9 +123,9 @@ document.addEventListener("DOMContentLoaded", function() {
         const nombre_producto = selectedOption.textContent; // Nombre para mostrar
 
 
-          console.log(id_producto);
-        console.log(id_categoria);
-        console.log(id_area);
+          // console.log(id_producto);
+        // console.log(id_categoria);
+        // console.log(id_area);
 
         if (!id_producto || !id_area || !id_categoria || !stock) {
             return; // Si no hay datos válidos, no agregamos la fila
@@ -236,9 +236,9 @@ document.addEventListener("DOMContentLoaded", function() {
         const filas = tablaProductos.getElementsByTagName("tr");
         for (let i = 0; i < filas.length; i++) {
             const celdas = filas[i].getElementsByTagName("td");
-            const id_producto = celdas[0].dataset.id_producto; // Solo el ID del producto
-            const categoria = celdas[1].dataset.id_categoria; // Solo el nombre de la categoría
-            const area = celdas[2].id_area// Solo el nombre del área
+            const id_producto = celdas[0].getAttribute("data-id");  // ID del producto
+            const categoria = celdas[1].textContent.trim();  // Solo el nombre de la categoría
+            const area = celdas[2].textContent.trim();  // Solo el nombre del área
             const costoUnitario = parseFloat(celdas[3].textContent.trim());
             const cantidad = parseInt(celdas[4].querySelector('.cantidad').value, 10);
             const total = parseFloat(celdas[5].textContent.trim());
