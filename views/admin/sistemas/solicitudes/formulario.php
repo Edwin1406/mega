@@ -158,8 +158,13 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         }
 
+        // array para guardar los productos
+        let productoss = [];
+        console.log(productoss);
+
         if (productoExistente) {
             // Si el producto ya existe, solo actualizamos la cantidad y el total
+            productoss.push(productoExistente);
             const cantidadInput = productoExistente.querySelector('.cantidad');
             const totalCell = productoExistente.querySelector('.total');
             let cantidad = parseInt(cantidadInput.value, 10);
