@@ -116,6 +116,8 @@ document.addEventListener("DOMContentLoaded", function() {
         const selectedOption = productoSelect.options[productoSelect.selectedIndex];
         const id_area = selectedOption.getAttribute("data-area");
 
+        console.log(id_producto);
+        console.log(id_categoria);
         console.log(id_area);
         const id_categoria = selectedOption.getAttribute("data-categoria");
         const stock = selectedOption.getAttribute("data-costounitario");
