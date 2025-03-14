@@ -296,28 +296,50 @@ document.addEventListener("DOMContentLoaded", function() {
 
 crearSolicitud();
 async function crearSolicitud() {
-    // tarer lso datos de localStorage y poder mandar en formdata
-    const productos = JSON.parse(localStorage.getItem('productos'));
-    console.log(productos);
+    // Obtener los datos del localStorage
+    const productosStr = localStorage.getItem('productos');
+    
+    // Verificar si hay productos y si no están vacíos
+    if (productosStr && productosStr.trim() !== '') {
+        let productos;
+        try {
+            // Parsear el JSON
+            productos = JSON.parse(productosStr);
+            
+            // Filtrar productos vacíos (si tienen objetos vacíos dentro)
+            productos = productos.filter(producto => Object.keys(producto).length > 0);
+            
+            // Verificar si después de filtrar, hay productos
+            if (productos.length > 0) {
+                console.log(productos); // Para ver los productos
 
-    const datos = new FormData();
-    datos.append('productos', JSON.stringify(productos));
+                // Crear un FormData y agregar los productos
+                const datos = new FormData();
+                datos.append('productos', JSON.stringify(productos));
 
-    try {
-        const url = 'https://megawebsistem.com/admin/sistemas/solicitudes/solicitud';
-        const respuesta = await fetch(url, {
-            method: 'POST',
-            body: datos
-        });
-        const resultado = await respuesta.json();
-        console.log(respuesta);
+                try {
+                    const url = 'https://megawebsistem.com/admin/sistemas/solicitudes/solicitud';
+                    const respuesta = await fetch(url, {
+                        method: 'POST',
+                        body: datos
+                    });
+                    const resultado = await respuesta.json();
+                    console.log(resultado);
+                } catch (error) {
+                    console.log('Error en la petición:', error);
+                }
 
-        
-    } catch (error) {
-        console.log(error);
+            } else {
+                console.log('No hay productos válidos para enviar.');
+            }
+        } catch (error) {
+            console.log('Error al parsear los productos:', error);
+        }
+    } else {
+        console.log('No hay productos en el localStorage o están vacíos.');
     }
-
 }
+
 
 
 </script>
