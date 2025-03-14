@@ -149,10 +149,12 @@ async function datosapi() {
     new Chart(ctx, config);
 }
 
-
 document.addEventListener("DOMContentLoaded", function () {
     // URL de la API
     const apiUrl = "https://megawebsistem.com/admin/api/apiproducts";
+    
+    // Set para rastrear productos ya notificados
+    let notifiedProducts = new Set();
 
     // Función para obtener productos y mostrar alertas
     function checkStock() {
@@ -161,17 +163,30 @@ document.addEventListener("DOMContentLoaded", function () {
             .then(data => {
                 // Filtrar productos con stock menor a 2
                 const lowStockProducts = data.filter(producto => parseInt(producto.stock_actual) < 2);
+                
+                // Set temporal para los productos que deben notificarse en esta ejecución
+                let currentNotified = new Set();
 
-                // Mostrar notificaciones con Toastify
                 lowStockProducts.forEach(producto => {
-                    Toastify({
-                        text: `⚠️ Stock bajo: ${producto.nombre_producto} (Stock: ${producto.stock_actual}) (Area: ${producto.area}) `,
-                        duration: 5000,
-                        gravity: "top",
-                        position: "right",
-                        backgroundColor: "red",
-                    }).showToast();
+                    const productKey = `${producto.nombre_producto}-${producto.stock_actual}-${producto.area}`;
+
+                    // Verificar si ya fue notificado
+                    if (!notifiedProducts.has(productKey)) {
+                        Toastify({
+                            text: `⚠️ Stock bajo: ${producto.nombre_producto} (Stock: ${producto.stock_actual}) (Area: ${producto.area}) `,
+                            duration: 5000,
+                            gravity: "top",
+                            position: "right",
+                            backgroundColor: "red",
+                        }).showToast();
+
+                        // Agregar a la lista de notificados
+                        currentNotified.add(productKey);
+                    }
                 });
+
+                // Actualizar el Set con las notificaciones de esta ejecución
+                notifiedProducts = currentNotified;
             })
             .catch(error => console.error("Error al obtener los productos:", error));
     }
@@ -180,7 +195,6 @@ document.addEventListener("DOMContentLoaded", function () {
     checkStock(); // Ejecutar inmediatamente
     setInterval(checkStock, 10000); // Luego repetir cada 10 segundos
 });
-
 
 
 </script>
