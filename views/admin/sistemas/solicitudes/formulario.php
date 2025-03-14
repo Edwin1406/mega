@@ -292,6 +292,13 @@ agregarsolicitud();
     function agregarsolicitud (){
         const productosGuardados = JSON.parse(localStorage.getItem('productos'));
 
+        productosGuardados.forEach(producto => {
+           const {producto, categoria, area, costoUnitario, cantidad, total} = producto;
+           console.log(producto, categoria, area, costoUnitario, cantidad, total);
+        });
+        
+
+
         console.log(productosGuardados);
     }
 });
