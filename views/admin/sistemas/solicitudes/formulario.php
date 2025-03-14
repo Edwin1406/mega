@@ -256,10 +256,11 @@ document.addEventListener("DOMContentLoaded", function() {
     
         // Almacenar productos en el campo oculto
     document.getElementById('array').value = JSON.stringify(productos);
-    console.log(productos);
     
     // También almacenarlo en localStorage
     localStorage.setItem('productos', JSON.stringify(productos));
+    console.log(productos);
+
     }
 
     // Función para cargar los productos desde localStorage
