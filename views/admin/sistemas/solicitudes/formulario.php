@@ -288,6 +288,11 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 
+// localStorage.clear();
+localStorage.setItem('producto', JSON.stringify(productos));
+console.log(productos);
+
+
 
 
 
