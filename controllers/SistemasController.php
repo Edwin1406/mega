@@ -256,7 +256,20 @@ public static function tabla(Router $router)
         'paginacion' => $paginacion->paginacion(),
         'visor' => $visor,
     ]);
+}
 
+
+
+public static function pdf(Router $router)
+{
+    $id = $_GET['id'];
+    $id = filter_var($id, FILTER_VALIDATE_INT);
+    $solicitud = Solicitud::find($id);
+
+    $router->render('admin/sistemas/solicitudes/pdf', [
+        'titulo' => 'PDF DE SOLICITUD',
+        'solicitud' => $solicitud,
+    ]);
 
 
 

@@ -303,6 +303,8 @@ $router->post('/admin/sistemas/solicitudes/solicitud', [SistemasController::clas
 
 $router->get('/admin/sistemas/solicitudes/tabla', [SistemasController::class, 'tabla']);
 
+$router->get('/admin/sistemas/solicitudes/pdf', [SistemasController::class, 'pdf']);
+
 
 
 
