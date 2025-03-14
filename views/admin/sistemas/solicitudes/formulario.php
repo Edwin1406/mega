@@ -314,7 +314,7 @@ async function crearSolicitud() {
 datos.append('productos', JSON.stringify(productos));  // Ensure productos is valid
 
 try {
-    const url = 'https://megawebsistem.com/admin/sistemas/solicitudes/solicitudpost';
+    const url = 'https://megawebsistem.com/admin/sistemas/solicitudes/solicitud';
     const respuesta = await fetch(url, {
         method: 'POST',
         body: datos
