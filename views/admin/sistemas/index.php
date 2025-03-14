@@ -196,7 +196,7 @@ document.addEventListener("DOMContentLoaded", function () {
                             position: "right",
                             backgroundColor: "red",
                             stopOnFocus: true,
-                            borderradius: "10px",
+                            borderradius: "1rem",
 
 
                             onClick: function() {
