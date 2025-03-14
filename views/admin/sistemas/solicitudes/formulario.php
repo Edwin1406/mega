@@ -292,7 +292,7 @@ document.addEventListener("DOMContentLoaded", function() {
 async function crearSolicitud() {
 
     // Obtener los datos del localStorage
-    const productosStr = localStorage.getItem('producto');
+    const productosStr = localStorage.getItem('productos');
 
     console.log(productosStr);
     
