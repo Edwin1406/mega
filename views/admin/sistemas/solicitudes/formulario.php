@@ -115,6 +115,8 @@ document.addEventListener("DOMContentLoaded", function() {
     productoSelect.addEventListener("change", function() {
         const selectedOption = productoSelect.options[productoSelect.selectedIndex];
         const id_area = selectedOption.getAttribute("data-area");
+
+        console.log(id_area);
         const id_categoria = selectedOption.getAttribute("data-categoria");
         const stock = selectedOption.getAttribute("data-costounitario");
         const id_producto = selectedOption.value; // Guardamos el ID del producto
