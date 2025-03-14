@@ -296,12 +296,12 @@ document.addEventListener("DOMContentLoaded", function() {
 
 crearSolicitud();
 async function crearSolicitud() {
-    // tarer lso datos de localStorage
-
-
+    // tarer lso datos de localStorage y poder mandar en formdata
+    const productos = JSON.parse(localStorage.getItem('productos'));
+    console.log(productos);
 
     const datos = new FormData();
-    datos.append('nombre', 'Juan');
+    datos.append('productos', JSON.stringify(productos));
 
     try {
         const url = 'https://megawebsistem.com/admin/sistemas/solicitudes/solicitud';
