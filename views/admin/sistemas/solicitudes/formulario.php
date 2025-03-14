@@ -313,12 +313,12 @@ let productos = [];
 
     // Almacenar productos en localStorage 
 localStorage.setItem('productos', JSON.stringify(productos));
-productos.push(productos);
+productos.push(document.getElementById('array').value = JSON.stringify(productos));
 
     
 
        // Almacenar productos en el campo oculto
-       document.getElementById('array').value = JSON.stringify(productos);
+       
 
        console.log(productos);
 
