@@ -221,7 +221,13 @@ public static function tabla(Router $router)
     $solicitud  = Solicitud::all('DESC');
 
 
+    $pagina_actual = $_GET['page'] ?? 1;
+    $pagina_actual = filter_var($pagina_actual, FILTER_VALIDATE_INT);
 
+    if (!$pagina_actual || $pagina_actual < 1) {
+        header('Location: /admin/sistemas/solicitudes/tabla?page=1');
+        exit;
+    }
     
     
     $router->render('admin/sistemas/solicitudes/tabla', [
