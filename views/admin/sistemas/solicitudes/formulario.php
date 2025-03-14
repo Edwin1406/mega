@@ -287,38 +287,13 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 
-
-// traer del localStorage
-const productosStr = localStorage.getItem('productos');
-console.log(productosStr);
-
-
-
-});
-
-
-
-
-</script>
-
-
-
-
-
-<p id="total_general">Total: $0.00</p>
-
-
-<script>
-
-    (function(){
-
-        
-crearSolicitud();
+ 
+    crearSolicitud();
 async function crearSolicitud() {
-document.addEventListener("DOMContentLoaded", function() {
+
     // Obtener los datos del localStorage
     const productosStr = localStorage.getItem('producto');
-});
+
     console.log(productosStr);
     
     // Verificar si hay productos y si no están vacíos
@@ -362,5 +337,26 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 }
 
-    });
+
+
+
+});
+
+
+
+
+</script>
+
+
+
+
+
+<p id="total_general">Total: $0.00</p>
+
+
+<script>
+
+    (function(){
+
+       
 </script>
