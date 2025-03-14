@@ -55,6 +55,23 @@
             value="">
     </div>
 
+
+    <style>
+
+    .formulario__tabla {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .formulario__tabla th,
+    .formulario__tabla td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+    }
+
+    </style>
+
     <!-- Tabla para mostrar productos seleccionados -->
     <table id="productos_agregados" class="formulario__tabla">
         <thead>
