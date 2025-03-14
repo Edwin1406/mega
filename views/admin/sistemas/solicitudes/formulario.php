@@ -266,6 +266,12 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 
+
+
+
+    almacenarEnLocalStorage(id_producto, id_categoria, id_area, nombre_producto, stock);
+
+
     // Ejecutar la función al cargar la página para seleccionar automáticamente el producto y su stock
     productoSelect.dispatchEvent(new Event("change"));
 });
