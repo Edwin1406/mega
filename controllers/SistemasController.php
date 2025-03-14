@@ -289,12 +289,20 @@ public static function pdf(Router $router)
     } else {
         // Manejar el error si la carpeta no es escribible
         echo "Error: No se puede guardar el archivo en el servidor.";
+        exit;  // Evitar seguir procesando si no se puede guardar el archivo
     }
     
     // Ahora mostrar el PDF en el navegador
+    // Limpiar cualquier salida previa para evitar el error
+    ob_clean();
+    flush();
+    
+    // Mostrar el archivo PDF en el navegador
     $pdf->Output('solicitud_' . $solicitud->id . '.pdf', 'I'); // 'I' para mostrar el archivo en el navegador
     
-  
+    // Para debuguear la solicitud (si es necesario después de mostrar el PDF)
+    debuguear($solicitud);
+    
     
 
     $router->render('admin/sistemas/solicitudes/pdf', [
