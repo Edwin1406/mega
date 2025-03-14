@@ -319,7 +319,7 @@ async function enviarSolicitud() {
 datos.append('productos', JSON.stringify(productos));
 
 try {
-    const url = 'https://megawebsistem.com/admin/sistemas/solicitudes/solicitudpost';
+    const url = 'https://megawebsistem.com/admin/sistemas/solicitudes/solicitud';
     const respuesta = await fetch(url, {
         method: 'POST',
         body: datos
