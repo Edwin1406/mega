@@ -63,6 +63,9 @@
                 <th>Categoria</th>
                 <th>Area</th>
                 <th>Costo Unitario</th>
+                <th>Cantidad</th>
+                <th>Total</th>
+                <th>Acciones</th>
             </tr>
         </thead>
         <tbody>
