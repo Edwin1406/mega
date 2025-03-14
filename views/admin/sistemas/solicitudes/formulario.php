@@ -300,6 +300,20 @@ function agregarsolicitud() {
         console.log(`${key}: ${value}`);
     });
 
+
+    try {
+        fetch('/admin/sistemas/solicitudes/solicitud', {
+            method: 'POST',
+            body: datos
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+        });
+    } catch (error) {
+        console.error(error);
+    }
+
     console.log(productosGuardados);
 }
 
