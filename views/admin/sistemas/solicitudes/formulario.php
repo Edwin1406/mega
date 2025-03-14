@@ -86,10 +86,9 @@ document.addEventListener("DOMContentLoaded", function() {
         const stock = selectedOption.getAttribute("data-costounitario");
         const producto = selectedOption.textContent;
 
-        console.log("Producto:", producto);
-        console.log("Area ID:", id_area);
-        console.log("Categoria ID:", id_categoria);
-        console.log("Costo Unitario:", stock);
+        if (!producto || !id_area || !id_categoria || !stock) {
+            return; // Si no hay datos válidos, no agregamos la fila
+        }
 
         // Asignar los valores al formulario
         if (id_area) {
@@ -121,8 +120,46 @@ document.addEventListener("DOMContentLoaded", function() {
             <td>${categoriaSelect.options[categoriaSelect.selectedIndex].text}</td>
             <td>${areaSelect.options[areaSelect.selectedIndex].text}</td>
             <td>${stock}</td>
+            <td><input type="number" class="cantidad" value="1" min="1" /></td>
+            <td class="total">${stock}</td>
+            <td><button class="eliminar">Eliminar</button></td>
         `;
+
+        // Función para actualizar el total
+        const cantidadInput = nuevaFila.querySelector('.cantidad');
+        const totalCell = nuevaFila.querySelector('.total');
+        cantidadInput.addEventListener('input', function() {
+            const cantidad = parseInt(cantidadInput.value, 10);
+            if (!isNaN(cantidad)) {
+                const total = cantidad * parseFloat(stock);
+                totalCell.textContent = total.toFixed(2);
+                actualizarTotalGeneral(); // Actualiza el total general
+            }
+        });
+
+        // Función para eliminar la fila
+        const eliminarBtn = nuevaFila.querySelector('.eliminar');
+        eliminarBtn.addEventListener('click', function() {
+            tablaProductos.deleteRow(nuevaFila.rowIndex);
+            actualizarTotalGeneral(); // Actualiza el total general después de eliminar
+        });
+
+        // Actualiza el total general
+        actualizarTotalGeneral();
     });
+
+    // Función para actualizar el total general
+    function actualizarTotalGeneral() {
+        let totalGeneral = 0;
+        const filas = tablaProductos.getElementsByTagName("tr");
+        for (let i = 0; i < filas.length; i++) {
+            const totalCell = filas[i].cells[5]; // Columna de total
+            if (totalCell) {
+                totalGeneral += parseFloat(totalCell.textContent) || 0;
+            }
+        }
+        document.getElementById("total_general").textContent = `Total: $${totalGeneral.toFixed(2)}`;
+    }
 
     // Ejecutar la función al cargar la página para seleccionar automáticamente el producto y su stock
     productoSelect.dispatchEvent(new Event("change"));
@@ -130,3 +167,4 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 </script>
+<p id="total_general">Total: $0.00</p>
