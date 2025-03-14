@@ -304,30 +304,24 @@ document.addEventListener("DOMContentLoaded", function() {
             if (productos.length > 0) {
                 console.log('Productos a enviar:', productos); // Verifica los productos antes de enviarlos
 
-                // Crear el objeto FormData
                 const datos = new FormData();
-                // Agregar los productos como una cadena JSON al FormData
-                datos.append('productos', JSON.stringify(productos));
+datos.append('productos', JSON.stringify(productos));
 
-                // Realizar la solicitud POST correctamente
-                try {
-                    const url = 'https://megawebsistem.com/admin/sistemas/solicitudes/solicitud'; // URL del servidor
-                    const respuesta = await fetch(url, {
-                        method: 'POST', // Definir el método de la solicitud
-                        body: datos, // El cuerpo de la solicitud con los datos
-                    });
+try {
+    const url = 'https://megawebsistem.com/admin/sistemas/solicitudes/solicitudpost';
+    const respuesta = await fetch(url, {
+        method: 'POST',
+        body: datos
+    });
 
-                    // Verificar si la respuesta es exitosa y procesar el JSON
-                    if (respuesta.ok) {
-                        const resultado = await respuesta.json(); // Obtener el resultado como JSON
-                        console.log('Respuesta del servidor:', resultado); // Mostrar el resultado
-                    } else {
-                        // Manejar si la respuesta del servidor es un error
-                        console.log('Error en la respuesta:', respuesta.status, respuesta.statusText);
-                    }
-                } catch (error) {
-                    console.log('Error en la petición:', error); // Manejo de errores en la solicitud fetch
-                }
+    // Verificar si la respuesta es JSON
+    const resultado = await respuesta.json();
+    console.log('Resultado del servidor:', resultado);
+} catch (error) {
+    console.log('Error en la petición:', error);
+    const text = await respuesta.text(); // Obtener la respuesta en texto para depuración
+    console.log('Respuesta del servidor (en texto):', text);
+}
 
             } else {
                 console.log('No hay productos válidos para enviar.');
