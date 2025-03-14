@@ -89,7 +89,7 @@
                             </div>
                         </td>
                         <td class="table__td--acciones">
-                            <a class="table__accion table__accion--editar" href="/admin/vendedor/cliente/editar?id=<?php echo $visores->id; ?>"><i class="fa-solid fa-user-pen"></i>pdf</a>
+                            <a class="table__accion table__accion--editar" href="/admin/sistemas/solicitudes/pdf?id=<?php echo $visores->id; ?>"><i class="fa-solid fa-user-pen"></i>pdf</a>
                         </td>
                     </tr>
                 <?php endforeach; ?>
