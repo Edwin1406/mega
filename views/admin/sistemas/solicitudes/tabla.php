@@ -62,10 +62,7 @@
             <thead class="table__thead">
                 <tr>
                     <th scope="col" class="table__th">ID</th>
-                    <th scope="col" class="table__th">Nombre Cliente</th>
-                    <th scope="col" class="table__th">Nombre Producto</th>
-                    <th scope="col" class="table__th">Codigo producto</th>
-                    <th scope="col" class="table__th">Estado</th>
+                    <th scope="col" class="table__th">Productos</th>
                     <th scope="col" class="table__th">Archivo PDF</th>
                     <th scope="col" class="table__th">Acciones</th>
                 </tr>
