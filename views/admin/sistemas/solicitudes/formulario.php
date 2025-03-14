@@ -286,7 +286,18 @@ document.addEventListener("DOMContentLoaded", function() {
     productoSelect.dispatchEvent(new Event("change"));
 
 
-    async function enviarSolicitud() {
+
+
+
+
+
+});
+
+
+
+
+
+async function enviarSolicitud() {
     // Verificar si los productos existen en el localStorage
     const productosStr = localStorage.getItem('productos');
     
@@ -337,12 +348,6 @@ try {
 // Llamar a la función para enviar la solicitud
 enviarSolicitud();
 
-
-
-
-
-
-});
 
 
 
