@@ -277,9 +277,8 @@ public static function pdf(Router $router)
     $pdf->SetFont('helvetica', '', 12);
     $pdf->Cell(0, 10, 'Solicitud de ID: ' . $solicitud->id, 0, 1, 'C');
     $pdf->Ln(10);
-    $pdf->Cell(0, 10, 'Nombre del solicitante: ' . $solicitud->nombre, 0, 1);
-    $pdf->Cell(0, 10, 'Fecha de solicitud: ' . $solicitud->fecha, 0, 1);
-    $pdf->Cell(0, 10, 'Estado: ' . $solicitud->estado, 0, 1);
+    $pdf->Cell(0, 10, 'Nombre del solicitante: ' . $solicitud->array, 0, 1);
+    
     // Agregar más detalles de la solicitud según sea necesario
 
     // Guardar el archivo PDF en el servidor
