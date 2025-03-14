@@ -74,9 +74,9 @@
 
     <li class="areas-produccion-estatico" data-aos="fade-up">
         <a>
-            <i class="fas fa-scroll"></i> TOTAL EN STOCK :
+            <i class="fas fa-scroll"></i> TOTAL EN INVETARIO :
             <?php if ($registros > 0) : ?>
-                <span class="areas-produccion__numero"> <?php echo $registros ?> KG </span>
+                <span class="areas-produccion__numero"> REGISTRADOS : <?php echo $registros ?>  </span>
             <?php endif; ?>
         </a>
     </li>
