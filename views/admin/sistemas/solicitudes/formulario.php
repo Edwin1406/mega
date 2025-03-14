@@ -237,7 +237,7 @@ document.addEventListener("DOMContentLoaded", function() {
         for (let i = 0; i < filas.length; i++) {
             const celdas = filas[i].getElementsByTagName("td");
             const id_producto = celdas[0].getAttribute("data-id");  // ID del producto
-            const categoria = celdas[1].textContent.trim();  // Solo el nombre de la categoría
+            const categoria = celdas[1].getAttribute("data-categoria");  // Solo el nombre de la categoría
             const area = celdas[2].textContent.trim();  // Solo el nombre del área
             const costoUnitario = parseFloat(celdas[3].textContent.trim());
             const cantidad = parseInt(celdas[4].querySelector('.cantidad').value, 10);
