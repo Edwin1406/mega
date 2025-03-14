@@ -280,7 +280,7 @@ public static function pdf(Router $router)
     $pdf->Cell(0, 10, 'Nombre del solicitante: ' . $solicitud->array, 0, 1);
     
     // Definir la ruta para guardar el archivo en el servidor
-    // $filePath = '/path/to/your/directory/solicitud_' . $solicitud->id . '.pdf';
+    $filePath = '../uploads/solicitud_' . $solicitud->id . '.pdf';
     
     // Verificar si la carpeta existe y es escribible
     if (is_writable(dirname($filePath))) {
