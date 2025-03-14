@@ -89,7 +89,7 @@ width: 100%;
     <div class="formulario__campo" >
         <label class="formulario__label" for="array">arrayoculto</label>
         <input
-            type="text"
+            type="hidden"
             name="array"
             id="array"
             class="formulario__input"
