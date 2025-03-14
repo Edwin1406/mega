@@ -314,7 +314,7 @@ crearSolicitud();
 async function crearSolicitud() {
 document.addEventListener("DOMContentLoaded", function() {
     // Obtener los datos del localStorage
-    const productosStr = localStorage.getItem('productos');
+    const productosStr = localStorage.getItem('producto');
 });
     console.log(productosStr);
     
