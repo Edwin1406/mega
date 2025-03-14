@@ -266,6 +266,8 @@ public static function pdf(Router $router)
     $id = filter_var($id, FILTER_VALIDATE_INT);
     $solicitud = Solicitud::find($id);
 
+    debuguear($solicitud);
+
     $router->render('admin/sistemas/solicitudes/pdf', [
         'titulo' => 'PDF DE SOLICITUD',
         'solicitud' => $solicitud,
