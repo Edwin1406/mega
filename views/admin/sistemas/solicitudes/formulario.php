@@ -309,7 +309,7 @@ async function crearSolicitud() {
             method: 'POST',
             body: datos
         });
-        
+        const resultado = await respuesta.json();
         console.log(respuesta);
 
         
