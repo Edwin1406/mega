@@ -311,7 +311,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
                 // Realizar la solicitud POST correctamente
                 try {
-                    const url = 'https://megawebsistem.com/admin/sistemas/solicitudes/solicitudpost'; // URL del servidor
+                    const url = 'https://megawebsistem.com/admin/sistemas/solicitudes/solicitud'; // URL del servidor
                     const respuesta = await fetch(url, {
                         method: 'POST', // Definir el método de la solicitud
                         body: datos, // El cuerpo de la solicitud con los datos
