@@ -74,7 +74,7 @@
 
     <li class="areas-produccion-estatico" data-aos="fade-up">
         <a>
-            <i class="fas fa-scroll"></i> INVETARIO REGISTRADOS:
+            <i class="fas fa-scroll"></i> INVETARIO REGISTRADO:
             <?php if ($registros > 0) : ?>
                 <span class="areas-produccion__numero">  <?php echo $registros ?>  </span>
             <?php endif; ?>
