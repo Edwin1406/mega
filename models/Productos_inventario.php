@@ -52,7 +52,7 @@ class Productos_inventario extends ActiveRecord
                     c.nombre_categoria, 
                     a.nombre_area
                   FROM productos_inventario p
-                  LEFT JOIN categorias c ON p.id_categoria = c.id_categoria
+                  LEFT JOIN categorias_inventario c ON p.id_categoria = c.id_categoria
                   LEFT JOIN areas_inventario a ON p.id_area = a.id_area
                   ORDER BY p.id_producto DESC";
     
