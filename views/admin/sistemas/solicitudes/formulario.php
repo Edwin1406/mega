@@ -295,7 +295,7 @@ agregarsolicitud();
         const datos = new FormData();
         datos.append('productos', JSON.stringify(productosGuardados));
         console.log(datos);
-        cosole.log(productosGuardados);
+        console.log(productosGuardados);
 
         
     }
