@@ -194,11 +194,9 @@ public static function solicitud(Router $router)
 
     // $solicitud_inventario = new Solicitud;
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $array =[
-            'respuesta' => true,
-            'mensaje' => 'Solicitud enviada correctamente'
-        ];
-        echo json_encode($array);
+       
+        
+        echo json_encode($_POST);
     }
 
 
