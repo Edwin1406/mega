@@ -216,24 +216,18 @@ public static function solicitud(Router $router)
     ]);
 }
 
-
-// public static function solicitudpost(Router $router)
-// {
-//     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        
-//         $solicitud_inventario = new Solicitud($_POST);
-
-//         debuguear($solicitud_inventario);
-//         $resultado =$solicitud_inventario->guardar();
-        
-//         echo json_encode($resultado);
-//     }
-
-
-// }
+public static function tabla(Router $router)
+{
+    $solicitud  = Solicitud::all('DESC');
+    
+    $router->render('admin/sistemas/solicitudes/tabla', [
+        'titulo' => 'TABLA DE SOLICITUDES',
+        'solicitud' => $solicitud,
+    ]);
 
 
 
 
+}
 
 }

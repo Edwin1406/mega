@@ -301,6 +301,9 @@ $router->get('/admin/sistemas/solicitudes/solicitud', [SistemasController::class
 $router->post('/admin/sistemas/solicitudes/solicitud', [SistemasController::class, 'solicitud']);
 
 
+$router->get('/admin/sistemas/solicitudes/tabla', [SistemasController::class, 'tabla']);
+
+
 
 
 
