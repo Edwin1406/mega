@@ -195,6 +195,11 @@ document.addEventListener("DOMContentLoaded", function () {
                             gravity: "top",
                             position: "right",
                             backgroundColor: "red",
+                            stopOnFocus: true,
+                            onClick: function() {
+                                // Redirigir a la página de productos
+                                window.location.href = "/admin/sistemas/movimiento/movimientos";
+                            }
                         }).showToast();
 
                         // Agregar a la lista de notificados
