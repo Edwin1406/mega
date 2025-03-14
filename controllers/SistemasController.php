@@ -2,6 +2,7 @@
 
 namespace Controllers;
 
+use Classes\Paginacion;
 use Model\Area_inventario;
 use Model\Categoria_inventario;
 use Model\Movimiento;
@@ -219,10 +220,41 @@ public static function solicitud(Router $router)
 public static function tabla(Router $router)
 {
     $solicitud  = Solicitud::all('DESC');
+
+    $pagina_actual = $_GET['page'] ?? 1;
+    $pagina_actual = filter_var($pagina_actual, FILTER_VALIDATE_INT);
+
+    if (!$pagina_actual || $pagina_actual < 1) {
+        header('Location: /admin/vendedor/cliente/tabla?page=1');
+        exit;
+    }
+
+    // Obtener el número de registros por página
+    $registros_por_pagina = $_GET['per_page'] ?? 10;
+    if ($registros_por_pagina === 'all') {
+        $total = Solicitud::total();
+        $registros_por_pagina = $total; // Mostrar todos los registros
+    } else {
+        $registros_por_pagina = filter_var($registros_por_pagina, FILTER_VALIDATE_INT) ?: 10;
+    }
+
+    $total = Solicitud::total();
+    $paginacion = new Paginacion($pagina_actual, $registros_por_pagina, $total);
+
+    if ($paginacion->total_paginas() < $pagina_actual) {
+        header('Location: /admin/vendedor/cliente/tabla?page=1');
+        exit;
+    }
+
+    $visor = Solicitud::paginar($registros_por_pagina, $paginacion->offset());
+
+
     
     $router->render('admin/sistemas/solicitudes/tabla', [
         'titulo' => 'TABLA DE SOLICITUDES',
         'solicitud' => $solicitud,
+        'visor' => $visor,
+        'paginacion' => $paginacion,
     ]);
 
 
