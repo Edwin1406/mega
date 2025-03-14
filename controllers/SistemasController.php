@@ -8,6 +8,7 @@ use Model\Movimiento;
 use Model\Movimientos;
 use Model\Movimientos_inventario;
 use Model\Productos_inventario;
+use Model\Solicitud;
 use MVC\Router;
 
 class SistemasController {
@@ -191,11 +192,12 @@ public static function solicitud(Router $router)
     $area_inventario = Area_inventario::allSis('area', 'ASC');
     $categoria_inventario = Categoria_inventario::allSis('categoria', 'ASC');
 
-
+    $solicitud_inventario = new Solicitud;
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Verifica que los datos del POST lleguen correctamente
+        $solicitud_inventario->sincronizar($_POST);
 
-       debuguear($_POST);
+       debuguear($solicitud_inventario);
     }
 
 
