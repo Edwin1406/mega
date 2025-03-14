@@ -10,7 +10,8 @@
             <?php foreach ($productos_inventario as $producto) : ?>
                 <option value="<?php echo $producto->id_producto; ?>"
                     data-area="<?php echo $producto->id_area; ?>"
-                    data-categoria = "<?php echo $producto->id_categoria; ?>"> 
+                    data-categoria = "<?php echo $producto->id_categoria; ?>"
+                    data-costounitario="<?php echo $producto->costo_unitario; ?>"> <!-- Aquí pasamos el stock -->
                     <?php echo htmlspecialchars($producto->nombre_producto); ?>
                 </option>
             <?php endforeach; ?>
@@ -85,16 +86,19 @@
             const productoSelect = document.getElementById("id_producto");
             const areaSelect = document.getElementById("id_area");
             const categoriaSelect = document.getElementById("id_categoria");
+            const stockInput = document.getElementById("costo_unitario");
 
             productoSelect.addEventListener("change", function() {
                 // Obtener la opción seleccionada
                 const selectedOption = productoSelect.options[productoSelect.selectedIndex];
                 const id_area = selectedOption.getAttribute("data-area");
                 const id_categoria = selectedOption.getAttribute("data-categoria");
+                const stock = selectedOption.getAttribute("data-costounitario"); // Obtener el stock
 
                 console.log("Producto:", selectedOption.value);
                 console.log("Area ID obtenido:", id_area);
                 console.log("Categoria ID obtenido:", id_categoria);
+                console.log("Stock obtenido:", stock);
 
                 if (id_area) {
                     // Buscar y seleccionar el área correspondiente
@@ -106,6 +110,10 @@
                     }
                 }
 
+                // Asignar el stock al campo correspondiente
+                if (stock) {
+                    stockInput.value = stock; // Actualizar el campo de stock
+                }
 
                 if (id_categoria) {
                     // Buscar y seleccionar la categoría correspondiente
