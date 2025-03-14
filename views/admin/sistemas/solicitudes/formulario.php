@@ -296,7 +296,7 @@ agregarsolicitud();
         datos.append('productos', JSON.stringify(productosGuardados));
         console.log(datos);
 
-        console.log(productosGuardados);
+        
     }
 });
 
