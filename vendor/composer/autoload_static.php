@@ -55,6 +55,7 @@ class ComposerStaticInit6bd8d028eb80235c1c82baffbadecdb5
         'C' => 
         array (
             'Controllers\\' => 12,
+            'Composer\\Pcre\\' => 14,
             'Complex\\' => 8,
             'Classes\\' => 8,
         ),
@@ -133,6 +134,10 @@ class ComposerStaticInit6bd8d028eb80235c1c82baffbadecdb5
         'Controllers\\' => 
         array (
             0 => __DIR__ . '/../..' . '/controllers',
+        ),
+        'Composer\\Pcre\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/composer/pcre/src',
         ),
         'Complex\\' => 
         array (

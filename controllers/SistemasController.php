@@ -11,6 +11,7 @@ use Model\Movimientos_inventario;
 use Model\Productos_inventario;
 use Model\Solicitud;
 use MVC\Router;
+use TCPDF;
 
 class SistemasController {
 
@@ -263,6 +264,26 @@ public static function pdf(Router $router)
     $id = $_GET['id'];
     $id = filter_var($id, FILTER_VALIDATE_INT);
     $solicitud = Solicitud::find($id);
+    require __DIR__ . '/../fpdf/fpdf.php';
+
+
+    // Crear una nueva instancia de TCPDF
+    $pdf = new TCPDF();
+    $pdf->SetTitle('PDF DE SOLICITUD');
+    $pdf->AddPage();
+
+    // Agregar contenido al PDF (puedes personalizarlo como desees)
+    $pdf->SetFont('helvetica', '', 12);
+    $pdf->Cell(0, 10, 'Solicitud de ID: ' . $solicitud->id, 0, 1, 'C');
+    $pdf->Ln(10);
+    $pdf->Cell(0, 10, 'Nombre del solicitante: ' . $solicitud->nombre, 0, 1);
+    $pdf->Cell(0, 10, 'Fecha de solicitud: ' . $solicitud->fecha, 0, 1);
+    $pdf->Cell(0, 10, 'Estado: ' . $solicitud->estado, 0, 1);
+    // Agregar más detalles de la solicitud según sea necesario
+
+    // Guardar el archivo PDF en el servidor
+    $filePath = '/guardar/solicitud_' . $solicitud->id . '.pdf';
+    $pdf->Output($filePath, 'F'); // 'F' para guardar el archivo en el servidor
 
     debuguear($solicitud);
 
