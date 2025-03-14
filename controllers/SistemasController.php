@@ -201,9 +201,9 @@ public static function solicitud(Router $router)
         $solicitud_inventario = new Solicitud([
             'array' => $array,
         ]);
-        
-        // Debuguear el objeto de la solicitud
-        debuguear($solicitud_inventario);
+
+        $solicitud_inventario->guardar();
+       
     }
 
 
