@@ -312,8 +312,10 @@ document.addEventListener("DOMContentLoaded", function() {
         
 crearSolicitud();
 async function crearSolicitud() {
+document.addEventListener("DOMContentLoaded", function() {
     // Obtener los datos del localStorage
     const productosStr = localStorage.getItem('productos');
+});
     console.log(productosStr);
     
     // Verificar si hay productos y si no están vacíos
