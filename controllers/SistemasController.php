@@ -195,17 +195,16 @@ public static function solicitud(Router $router)
     $solicitud_inventario = new Solicitud;
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        
-        $array = $_POST['array'];
+        // Obtener el array de productos desde el formulario
+        $array = json_decode($_POST['productos'], true); // Decodificar el JSON en un array asociativo
         
         $solicitud_inventario = new Solicitud([
             'array' => $array,
         ]);
-    
-
+        
+        // Debuguear el objeto de la solicitud
         debuguear($solicitud_inventario);
     }
-
 
 
     $router->render('admin/sistemas/solicitudes/solicitud', [
