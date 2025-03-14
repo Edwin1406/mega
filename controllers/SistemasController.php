@@ -196,7 +196,7 @@ public static function solicitud(Router $router)
         
         $solicitud_inventario = new Solicitud($_POST);
 
-        debuguear($solicitud_inventario);
+        // debuguear($solicitud_inventario);
         $resultado =$solicitud_inventario->guardar();
         
         echo json_encode($resultado);
