@@ -228,7 +228,14 @@ public static function tabla(Router $router)
         header('Location: /admin/sistemas/solicitudes/tabla?page=1');
         exit;
     }
-    
+      // Obtener el número de registros por página
+      $registros_por_pagina = $_GET['per_page'] ?? 10;
+      if ($registros_por_pagina === 'all') {
+          $total = Solicitud::total();
+          $registros_por_pagina = $total; // Mostrar todos los registros
+      } else {
+          $registros_por_pagina = filter_var($registros_por_pagina, FILTER_VALIDATE_INT) ?: 10;
+      }
     
     $router->render('admin/sistemas/solicitudes/tabla', [
         'titulo' => 'TABLA DE SOLICITUDES',
