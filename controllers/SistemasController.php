@@ -196,7 +196,7 @@ public static function solicitud(Router $router)
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         
-        $array = $_POST['productos'];
+        $array = $_POST['array'];
         
         $solicitud_inventario = new Solicitud([
             'array' => $array,
