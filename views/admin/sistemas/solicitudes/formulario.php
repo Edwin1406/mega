@@ -56,6 +56,19 @@
     </div>
 
 
+       
+    <div class="formulario__campo" >
+        <label class="formulario__label" for="array">arrayoculto</label>
+        <input
+            type="text"
+            name="array"
+            id="array"
+            class="formulario__input"
+            placeholder="Costo Unitario"
+            value=""disabled>
+    </div>
+
+
     <style>
 
     .formulario__tabla {
