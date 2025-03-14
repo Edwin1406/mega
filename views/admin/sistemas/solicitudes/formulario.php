@@ -44,7 +44,7 @@
         </select>
     </div>
     
-    <div class="formulario__campo" disabled>
+    <div class="formulario__campo" >
         <label class="formulario__label" for="costo_unitario">Costo Unitario</label>
         <input
             type="number"
@@ -52,7 +52,7 @@
             id="costo_unitario"
             class="formulario__input"
             placeholder="Costo Unitario"
-            value="">
+            value=""disabled>
     </div>
 
 
