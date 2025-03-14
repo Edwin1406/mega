@@ -192,7 +192,16 @@ public static function solicitud(Router $router)
     $area_inventario = Area_inventario::allSis('area', 'ASC');
     $categoria_inventario = Categoria_inventario::allSis('categoria', 'ASC');
 
-    
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        
+        $solicitud_inventario = new Solicitud($_POST);
+
+        debuguear($solicitud_inventario);
+        $resultado =$solicitud_inventario->guardar();
+        
+        echo json_encode($resultado);
+    }
+
 
 
     $router->render('admin/sistemas/solicitudes/solicitud', [
@@ -205,20 +214,20 @@ public static function solicitud(Router $router)
 }
 
 
-public static function solicitudpost(Router $router)
-{
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+// public static function solicitudpost(Router $router)
+// {
+//     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         
-        $solicitud_inventario = new Solicitud($_POST);
+//         $solicitud_inventario = new Solicitud($_POST);
 
-        debuguear($solicitud_inventario);
-        $resultado =$solicitud_inventario->guardar();
+//         debuguear($solicitud_inventario);
+//         $resultado =$solicitud_inventario->guardar();
         
-        echo json_encode($resultado);
-    }
+//         echo json_encode($resultado);
+//     }
 
 
-}
+// }
 
 
 
