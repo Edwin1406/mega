@@ -292,12 +292,9 @@ agregarsolicitud();
     function agregarsolicitud (){
         const productosGuardados = JSON.parse(localStorage.getItem('productos'));
 
-        productosGuardados.forEach(producto => {
-           const {producto, categoria, area, costoUnitario, cantidad, total} = producto;
-           console.log(producto, categoria, area, costoUnitario, cantidad, total);
-        });
-        
-
+        const datos = new FormData();
+        datos.append('productos', JSON.stringify(productosGuardados));
+        console.log(datos);
 
         console.log(productosGuardados);
     }
