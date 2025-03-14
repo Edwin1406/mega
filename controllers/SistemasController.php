@@ -186,8 +186,10 @@ public static function apiproducts()
 
 public static function solicitud(Router $router)
 {
+    $alertas = [];
     $router->render('admin/sistemas/solicitudes/solicitud', [
         'titulo' => 'SOLICITUD DE PRODUCTOS',
+        'alertas' => $alertas,
     ]);
 }
 
