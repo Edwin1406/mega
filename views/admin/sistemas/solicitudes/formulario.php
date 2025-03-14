@@ -303,7 +303,7 @@ document.addEventListener("DOMContentLoaded", function() {
             if (productos.length > 0) {
                 console.log(productos); // Debug products before sending
 
-                const url = 'https://megawebsistem.com/admin/sistemas/solicitudes/solicitudpost';
+                const url = 'https://megawebsistem.com/admin/sistemas/solicitudes/solicitud';
                 try {
                     const response = await fetch(url, {
                         method: 'POST',
