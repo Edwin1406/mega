@@ -306,6 +306,7 @@ $router->post('/admin/sistemas/productos/gastos', [SistemasController::class, 'g
 
 // api de movimientos
 $router->get('/admin/api/apimovimientos', [SistemasController::class, 'apimovimientos']);
+$router->get('/admin/api/apiproducts', [SistemasController::class, 'apiproducts']);
 
 
 

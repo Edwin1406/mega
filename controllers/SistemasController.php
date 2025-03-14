@@ -162,4 +162,18 @@ public static function apimovimientos()
 }
 
 
+
+public static function apiproducts()
+{
+    header("Access-Control-Allow-Origin: *");  
+    header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS"); 
+    header("Content-Type: application/json"); 
+
+    $productos = Productos_inventario::allSis('producto', 'DESC');
+    echo json_encode($productos);
+    
+    // echo json_encode($movimientos, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+}
+
+
 }
