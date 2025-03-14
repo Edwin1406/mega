@@ -196,7 +196,7 @@ public static function solicitud(Router $router)
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Obtener el array de productos desde el formulario
-        $array = json_decode($_POST['array'], true); // Decodificar el JSON en un array asociativo
+        $array = json_decode($_POST['productos'], true); // Decodificar el JSON en un array asociativo
         
         $solicitud_inventario = new Solicitud([
             'array' => $array,
