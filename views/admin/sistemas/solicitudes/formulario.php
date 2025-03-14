@@ -109,8 +109,10 @@ document.addEventListener("DOMContentLoaded", function() {
     const stockInput = document.getElementById("costo_unitario");
     const tablaProductos = document.getElementById("productos_agregados").getElementsByTagName("tbody")[0];
 
+    // Cargar productos desde el localStorage al cargar la página
+    cargarProductosDesdeLocalStorage();
+
     productoSelect.addEventListener("change", function() {
-        // Obtener la opción seleccionada
         const selectedOption = productoSelect.options[productoSelect.selectedIndex];
         const id_area = selectedOption.getAttribute("data-area");
         const id_categoria = selectedOption.getAttribute("data-categoria");
@@ -144,36 +146,64 @@ document.addEventListener("DOMContentLoaded", function() {
             stockInput.value = stock; // Actualizar el costo unitario
         }
 
-        // Crear una nueva fila en la tabla
-        const nuevaFila = tablaProductos.insertRow();
-        nuevaFila.innerHTML = `
-            <td>${producto}</td>
-            <td>${categoriaSelect.options[categoriaSelect.selectedIndex].text}</td>
-            <td>${areaSelect.options[areaSelect.selectedIndex].text}</td>
-            <td>${stock}</td>
-            <td><input type="number" class="cantidad" value="1" min="1" /></td>
-            <td class="total">${stock}</td>
-            <td><button class="eliminar">Eliminar</button></td>
-        `;
-
-        // Función para actualizar el total
-        const cantidadInput = nuevaFila.querySelector('.cantidad');
-        const totalCell = nuevaFila.querySelector('.total');
-        cantidadInput.addEventListener('input', function() {
-            const cantidad = parseInt(cantidadInput.value, 10);
-            if (!isNaN(cantidad)) {
-                const total = cantidad * parseFloat(stock);
-                totalCell.textContent = total.toFixed(2);
-                actualizarTotalGeneral(); // Actualiza el total general
+        // Verificar si el producto ya existe en la tabla
+        const filas = tablaProductos.getElementsByTagName("tr");
+        let productoExistente = null;
+        for (let i = 0; i < filas.length; i++) {
+            const celdas = filas[i].getElementsByTagName("td");
+            if (celdas[0].textContent.trim() === producto) {
+                productoExistente = filas[i]; // Si encontramos el producto, lo guardamos
+                break;
             }
-        });
+        }
 
-        // Función para eliminar la fila
-        const eliminarBtn = nuevaFila.querySelector('.eliminar');
-        eliminarBtn.addEventListener('click', function() {
-            tablaProductos.deleteRow(nuevaFila.rowIndex);
-            actualizarTotalGeneral(); // Actualiza el total general después de eliminar
-        });
+        if (productoExistente) {
+            // Si el producto ya existe, solo actualizamos la cantidad y el total
+            const cantidadInput = productoExistente.querySelector('.cantidad');
+            const totalCell = productoExistente.querySelector('.total');
+            let cantidad = parseInt(cantidadInput.value, 10);
+            cantidad++;
+            cantidadInput.value = cantidad; // Actualizar cantidad
+            const total = cantidad * parseFloat(stock);
+            totalCell.textContent = total.toFixed(2); // Actualizar total
+            actualizarProductosEnLocalStorage(); // Actualiza en localStorage
+        } else {
+            // Si el producto no existe, agregamos una nueva fila
+            const nuevaFila = tablaProductos.insertRow();
+            nuevaFila.innerHTML = `
+                <td>${producto}</td>
+                <td>${categoriaSelect.options[categoriaSelect.selectedIndex].text}</td>
+                <td>${areaSelect.options[areaSelect.selectedIndex].text}</td>
+                <td>${stock}</td>
+                <td><input type="number" class="cantidad" value="1" min="1" /></td>
+                <td class="total">${stock}</td>
+                <td><button class="eliminar">Eliminar</button></td>
+            `;
+
+            // Función para actualizar el total
+            const cantidadInput = nuevaFila.querySelector('.cantidad');
+            const totalCell = nuevaFila.querySelector('.total');
+            cantidadInput.addEventListener('input', function() {
+                const cantidad = parseInt(cantidadInput.value, 10);
+                if (!isNaN(cantidad)) {
+                    const total = cantidad * parseFloat(stock);
+                    totalCell.textContent = total.toFixed(2);
+                    actualizarTotalGeneral(); // Actualiza el total general
+                    actualizarProductosEnLocalStorage(); // Actualiza en localStorage
+                }
+            });
+
+            // Función para eliminar la fila
+            const eliminarBtn = nuevaFila.querySelector('.eliminar');
+            eliminarBtn.addEventListener('click', function() {
+                tablaProductos.deleteRow(nuevaFila.rowIndex);
+                actualizarTotalGeneral(); // Actualiza el total general después de eliminar
+                actualizarProductosEnLocalStorage(); // Actualiza en localStorage
+            });
+
+            // Actualiza los productos en localStorage
+            actualizarProductosEnLocalStorage();
+        }
 
         // Actualiza el total general
         actualizarTotalGeneral();
@@ -192,9 +222,68 @@ document.addEventListener("DOMContentLoaded", function() {
         document.getElementById("total_general").textContent = `Total: $${totalGeneral.toFixed(2)}`;
     }
 
+    // Función para guardar los productos en localStorage
+    function actualizarProductosEnLocalStorage() {
+        const productos = [];
+        const filas = tablaProductos.getElementsByTagName("tr");
+        for (let i = 0; i < filas.length; i++) {
+            const celdas = filas[i].getElementsByTagName("td");
+            const producto = celdas[0].textContent.trim();
+            const categoria = celdas[1].textContent.trim();
+            const area = celdas[2].textContent.trim();
+            const costoUnitario = parseFloat(celdas[3].textContent.trim());
+            const cantidad = parseInt(celdas[4].querySelector('.cantidad').value, 10);
+            const total = parseFloat(celdas[5].textContent.trim());
+            productos.push({ producto, categoria, area, costoUnitario, cantidad, total });
+        }
+        localStorage.setItem('productos', JSON.stringify(productos));
+    }
+
+    // Función para cargar los productos desde localStorage
+    function cargarProductosDesdeLocalStorage() {
+        const productosGuardados = JSON.parse(localStorage.getItem('productos'));
+        if (productosGuardados) {
+            productosGuardados.forEach(producto => {
+                const nuevaFila = tablaProductos.insertRow();
+                nuevaFila.innerHTML = `
+                    <td>${producto.producto}</td>
+                    <td>${producto.categoria}</td>
+                    <td>${producto.area}</td>
+                    <td>${producto.costoUnitario}</td>
+                    <td><input type="number" class="cantidad" value="${producto.cantidad}" min="1" /></td>
+                    <td class="total">${producto.total}</td>
+                    <td><button class="eliminar">Eliminar</button></td>
+                `;
+                // Actualizamos el total y cantidad en cada fila
+                const cantidadInput = nuevaFila.querySelector('.cantidad');
+                const totalCell = nuevaFila.querySelector('.total');
+                cantidadInput.addEventListener('input', function() {
+                    const cantidad = parseInt(cantidadInput.value, 10);
+                    if (!isNaN(cantidad)) {
+                        const total = cantidad * producto.costoUnitario;
+                        totalCell.textContent = total.toFixed(2);
+                        actualizarTotalGeneral(); // Actualiza el total general
+                        actualizarProductosEnLocalStorage(); // Actualiza en localStorage
+                    }
+                });
+
+                // Función para eliminar la fila
+                const eliminarBtn = nuevaFila.querySelector('.eliminar');
+                eliminarBtn.addEventListener('click', function() {
+                    tablaProductos.deleteRow(nuevaFila.rowIndex);
+                    actualizarTotalGeneral(); // Actualiza el total general después de eliminar
+                    actualizarProductosEnLocalStorage(); // Actualiza en localStorage
+                });
+            });
+            // Actualizamos el total general
+            actualizarTotalGeneral();
+        }
+    }
+
     // Ejecutar la función al cargar la página para seleccionar automáticamente el producto y su stock
     productoSelect.dispatchEvent(new Event("change"));
 });
+
 
 
 </script>
