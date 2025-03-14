@@ -294,6 +294,22 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 
+
+
+</script>
+
+
+
+
+
+<p id="total_general">Total: $0.00</p>
+
+
+<script>
+
+    (function(){
+
+        
 crearSolicitud();
 async function crearSolicitud() {
     // Obtener los datos del localStorage
@@ -340,7 +356,5 @@ async function crearSolicitud() {
     }
 }
 
-
-
+    });
 </script>
-<p id="total_general">Total: $0.00</p>
