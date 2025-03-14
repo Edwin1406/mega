@@ -187,9 +187,15 @@ public static function apiproducts()
 public static function solicitud(Router $router)
 {
     $alertas = [];
+    $productos_inventario = Productos_inventario::allSis('producto','DESC');
+    $area_inventario = Area_inventario::allSis('area', 'ASC');
+    $categoria_inventario = Categoria_inventario::allSis('categoria', 'ASC');
     $router->render('admin/sistemas/solicitudes/solicitud', [
         'titulo' => 'SOLICITUD DE PRODUCTOS',
         'alertas' => $alertas,
+        'productos_inventario' => $productos_inventario,
+        'area_inventario' => $area_inventario,
+        'categoria_inventario' => $categoria_inventario,
     ]);
 }
 
