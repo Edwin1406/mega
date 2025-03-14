@@ -1,3 +1,32 @@
+
+
+<style>
+
+.formulario__tabla {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.formulario__tabla th,
+.formulario__tabla td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+    width: 100px;
+
+}
+
+
+button, input, optgroup, select, textarea {
+font-family: inherit;
+font-size: 100%;
+line-height: 1.15;
+margin: 0;
+width: 100%;
+}
+
+</style>
+
 <fieldset class="formulario__fieldset">
     <legend class="formulario__legend">INGRESO DE INSUMOS DE SISTEMAS  </legend>
     <div class="formulario__campo">
@@ -65,36 +94,9 @@
             id="array"
             class="formulario__input"
             placeholder="Costo Unitario"
-            value=""disabled>
+            value="">
     </div>
 
-
-    <style>
-
-    .formulario__tabla {
-        width: 100%;
-        border-collapse: collapse;
-    }
-
-    .formulario__tabla th,
-    .formulario__tabla td {
-        border: 1px solid #ddd;
-        padding: 8px;
-        text-align: left;
-        width: 100px;
-    
-    }
-
-
-    button, input, optgroup, select, textarea {
-    font-family: inherit;
-    font-size: 100%;
-    line-height: 1.15;
-    margin: 0;
-    width: 100%;
-}
-
-    </style>
 
     <!-- Tabla para mostrar productos seleccionados -->
     <table id="productos_agregados" class="formulario__tabla">
@@ -251,7 +253,12 @@ document.addEventListener("DOMContentLoaded", function() {
             const total = parseFloat(celdas[5].textContent.trim());
             productos.push({ producto, categoria, area, costoUnitario, cantidad, total });
         }
-        localStorage.setItem('productos', JSON.stringify(productos));
+    
+        // Almacenar productos en el campo oculto
+    document.getElementById('arrayoculto').value = JSON.stringify(productos);
+    
+    // También almacenarlo en localStorage
+    localStorage.setItem('productos', JSON.stringify(productos));
     }
 
     // Función para cargar los productos desde localStorage
