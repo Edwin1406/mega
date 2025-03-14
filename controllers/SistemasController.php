@@ -246,7 +246,7 @@ public static function tabla(Router $router)
     $router->render('admin/sistemas/solicitudes/tabla', [
         'titulo' => 'TABLA DE SOLICITUDES',
         'solicitud' => $solicitud,
-        'paginacion' => $paginacion,
+        'paginacion' => $paginacion->paginacion()
     ]);
 
 
