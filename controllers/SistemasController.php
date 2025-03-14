@@ -264,7 +264,8 @@ public static function pdf(Router $router)
     $id = $_GET['id'];
     $id = filter_var($id, FILTER_VALIDATE_INT);
     $solicitud = Solicitud::find($id);
-    require __DIR__ . '/../fpdf/fpdf.php';
+    // require __DIR__ . '/../fpdf/fpdf.php';
+    require __DIR__ . '/../vendor/composer/tcpdf/tcpdf.php';
 
 
     // Crear una nueva instancia de TCPDF
@@ -282,7 +283,7 @@ public static function pdf(Router $router)
     // Agregar más detalles de la solicitud según sea necesario
 
     // Guardar el archivo PDF en el servidor
-    $filePath = '/guardar/solicitud_' . $solicitud->id . '.pdf';
+    // $filePath = '/guardar/solicitud_' . $solicitud->id . '.pdf';
     $pdf->Output($filePath, 'F'); // 'F' para guardar el archivo en el servidor
 
     debuguear($solicitud);
