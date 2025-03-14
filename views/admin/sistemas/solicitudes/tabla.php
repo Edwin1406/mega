@@ -55,7 +55,6 @@
 
 
 
-
 <div class="dashboard__contenedor">
     <?php if (!empty($visor)): ?>
         <table class="table" id="tabla">
@@ -70,19 +69,30 @@
                 <?php foreach ($visor as $visores):?>
                     <tr class="table__tr">
                         <td class="table__td"><?php echo $visores->id?></td>
-                        <td class="table__td"><?php echo $visores->array?></td>
-                       
-                      
-                   
-                        <td  class="table__td--acciones"><a class="table__accion table__accion--editar" href="/admin/vendedor/cliente/editar?id=<?php echo $visores->id; ?>"><i class="fa-solid fa-user-pen"></i>Editar</a>
-
-
+                        <td class="table__td">
+                            <ul>
+                                <?php 
+                                    $productos = json_decode($visores->array, true); // Decodificar el array de productos
+                                    foreach ($productos as $producto): ?>
+                                        <li>
+                                            <strong>Producto:</strong> <?php echo $producto['producto']; ?><br>
+                                            <strong>Categoría:</strong> <?php echo $producto['categoria']; ?><br>
+                                            <strong>Costo Unitario:</strong> <?php echo $producto['costoUnitario']; ?><br>
+                                            <strong>Cantidad:</strong> <?php echo $producto['cantidad']; ?><br>
+                                            <strong>Total:</strong> <?php echo $producto['total']; ?>
+                                        </li><br>
+                                <?php endforeach; ?>
+                            </ul>
+                        </td>
+                        <td class="table__td--acciones">
+                            <a class="table__accion table__accion--editar" href="/admin/vendedor/cliente/editar?id=<?php echo $visores->id; ?>"><i class="fa-solid fa-user-pen"></i>Editar</a>
+                        </td>
                     </tr>
-                <?php endforeach;?>
+                <?php endforeach; ?>
             </tbody>
         </table>
     <?php else: ?>
-        <a class="text-center"> No hay visor Aún</a>
+        <a class="text-center">No hay visor Aún</a>
     <?php endif; ?>
 </div>
 
