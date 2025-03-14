@@ -289,7 +289,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 // localStorage.clear();
-localStorage.setItem('producto', JSON.stringify(productos));
+localStorage.setItem('productos', JSON.stringify(productos));
 console.log(productos);
 
 
