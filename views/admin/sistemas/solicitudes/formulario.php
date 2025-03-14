@@ -293,10 +293,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
 });
 
-
-crearSolicitud();
 async function crearSolicitud(tablaProductos) {
-    // tarer los de la tabla
+    // Obtener los productos de la tabla
     const filas = tablaProductos.getElementsByTagName("tr");
     const productos = [];
     for (let i = 0; i < filas.length; i++) {
@@ -309,28 +307,31 @@ async function crearSolicitud(tablaProductos) {
         const total = parseFloat(celdas[5].textContent.trim());
         productos.push({ producto, categoria, area, costoUnitario, cantidad, total });
     }
-    
+
     console.log(productos);
 
-
-
-    const datos = new FormData();
-    datos.append('nombre', 'Juan');
+    // Preparar los datos a enviar
+    const datos = {
+        nombre: 'Juan',
+        productos: productos
+    };
 
     try {
         const url = 'https://megawebsistem.com/admin/sistemas/solicitudes/solicitud';
         const respuesta = await fetch(url, {
             method: 'POST',
-            body: datos
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(datos) // Enviar datos como JSON
         });
-        
-        console.log(respuesta);
 
-        
+        const data = await respuesta.json();
+        console.log(data);
+
     } catch (error) {
         console.log(error);
     }
-
 }
 
 
