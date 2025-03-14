@@ -286,6 +286,33 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 
+    const productosGuardados = JSON.parse(localStorage.getItem('productos'));
+
+if (productosGuardados) {
+    fetch('https://megawebsistem.com/admin/sistemas/solicitudes/solicitud', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            productos: productosGuardados
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log(data);
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+} else {
+    console.error('No se encontraron productos en localStorage');
+}
+
+
+
+
+
 });
 
 
