@@ -2,6 +2,7 @@
 
 namespace Controllers;
 
+use Classes\Paginacion;
 use Model\Area_inventario;
 use Model\Categoria_inventario;
 use Model\Movimiento;
@@ -236,6 +237,11 @@ public static function tabla(Router $router)
       } else {
           $registros_por_pagina = filter_var($registros_por_pagina, FILTER_VALIDATE_INT) ?: 10;
       }
+
+      
+      $total = Solicitud::total();
+      $paginacion = new Paginacion($pagina_actual, $registros_por_pagina, $total);
+  
     
     $router->render('admin/sistemas/solicitudes/tabla', [
         'titulo' => 'TABLA DE SOLICITUDES',
