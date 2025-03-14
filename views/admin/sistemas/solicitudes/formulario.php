@@ -294,30 +294,23 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 crearSolicitud();
-function crearSolicitud() {
-const productosGuardados = JSON.parse(localStorage.getItem('productos'));
+async function crearSolicitud() {
+    const datos = new FormData();
+    datos.append('nombre', 'Juan');
 
-if (productosGuardados) {
-    fetch('https://megawebsistem.com/admin/sistemas/solicitudes/solicitud', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            productos: productosGuardados
-        })
-    })
-    .then(response => response.json())
-    .then(data => {
-        console.log(data);
-    })
-    .catch(error => {
-        console.error('Error:', error);
-    });
-} else {
-    console.error('No se encontraron productos en localStorage');
-}
+    try {
+        const url = 'https://megawebsistem.com/admin/sistemas/solicitudes/solicitud';
+        const respuesta = await fetch(url, {
+            method: 'POST',
+            body: datos
+        });
+        
+        console.log(respuesta);
 
+        
+    } catch (error) {
+        console.log(error);
+    }
 
 }
 
