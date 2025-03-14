@@ -255,7 +255,7 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     
         // Almacenar productos en el campo oculto
-    document.getElementById('arrayoculto').value = JSON.stringify(productos);
+    document.getElementById('array').value = JSON.stringify(productos);
     
     // También almacenarlo en localStorage
     localStorage.setItem('productos', JSON.stringify(productos));
