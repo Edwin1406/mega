@@ -196,7 +196,8 @@ document.addEventListener("DOMContentLoaded", function() {
             // Función para eliminar la fila
             const eliminarBtn = nuevaFila.querySelector('.eliminar');
             eliminarBtn.addEventListener('click', function() {
-                tablaProductos.deleteRow(nuevaFila.rowIndex);
+                // Eliminar solo la fila actual
+                nuevaFila.remove();
                 actualizarTotalGeneral(); // Actualiza el total general después de eliminar
                 actualizarProductosEnLocalStorage(); // Actualiza en localStorage
             });
@@ -270,7 +271,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 // Función para eliminar la fila
                 const eliminarBtn = nuevaFila.querySelector('.eliminar');
                 eliminarBtn.addEventListener('click', function() {
-                    tablaProductos.deleteRow(nuevaFila.rowIndex);
+                    nuevaFila.remove();
                     actualizarTotalGeneral(); // Actualiza el total general después de eliminar
                     actualizarProductosEnLocalStorage(); // Actualiza en localStorage
                 });
