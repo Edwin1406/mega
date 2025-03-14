@@ -283,6 +283,17 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Ejecutar la función al cargar la página para seleccionar automáticamente el producto y su stock
     productoSelect.dispatchEvent(new Event("change"));
+
+
+agregarsolicitud();
+
+
+
+    function agregarsolicitud (){
+        const productosGuardados = JSON.parse(localStorage.getItem('productos'));
+
+        console.log(productosGuardados);
+    }
 });
 
 
