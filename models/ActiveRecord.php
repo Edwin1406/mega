@@ -1164,6 +1164,24 @@ public static function procesarArchivoExcelComercial($filePath)
         $resultado = self::consultarSQL($query);
         return array_shift( $resultado ) ;
     }
+
+
+
+    public static function countinventario() {
+        // Construye la consulta base sin filtro
+        $query = "SELECT COUNT(*) as total FROM " . static::$tabla;
+    
+        // Ejecuta la consulta y obtiene el resultado
+        $resultado = self::consultarSQL1($query);
+    
+        // Devuelve el total si existe en el resultado
+        if (is_array($resultado) && isset($resultado[0]['total'])) {
+            return (int) $resultado[0]['total'];
+        }
+    
+        return 0;
+    }
+    
   
     
 

@@ -14,8 +14,11 @@ class SistemasController {
 
     public static function index(Router $router)
     {
+
+        $registros = Productos_inventario::countinventario();
         $router->render('admin/sistemas/index', [
             'titulo' => 'INVENTARIO DE SISTEMAS',
+            'registros' => $registros,
         ]);
     }
 
