@@ -210,8 +210,9 @@ public static function solicitudpost(Router $router)
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         
         $solicitud_inventario = new Solicitud($_POST);
+        $resultado =$solicitud_inventario->guardar();
         
-        echo json_encode($_POST);
+        echo json_encode($resultado);
     }
 
 
