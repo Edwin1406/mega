@@ -194,29 +194,11 @@ public static function solicitud(Router $router)
 
     // $solicitud_inventario = new Solicitud;
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    //     $cliente = Cliente::find($_POST['id']);
-    //     session_start();
-
-    //     if (!$cliente || (int)$cliente->id !== (int)$_POST['id']) {
-    //      $respuesta = [
-    //          'estado' => 'error',
-    //          'mensaje' => 'Error al actualizar el estado'
-    //      ];
-    //      echo json_encode($respuesta);
-    //      return;
-    //  }
-    //      $visor = new Cliente($_POST);
-    //      $visor->id = $cliente->id;
-    //      $visor->pdf = $cliente->pdf;
-    //      // debuguear($visor);
-    //      $resultado = $visor->guardar();
-    //      if($resultado){
-    //          $respuesta = [
-    //              'tipo' => 'correcto',
-    //              'mensaje' => 'Estado actualizado'
-    //          ];
-    //      } 
-    //      echo json_encode(['respuesta' => $respuesta]);
+        $array =[
+            'respuesta' => true,
+            'mensaje' => 'Solicitud enviada correctamente'
+        ];
+        echo json_encode($array);
     }
 
 
