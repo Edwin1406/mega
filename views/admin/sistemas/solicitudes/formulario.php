@@ -230,6 +230,23 @@ document.addEventListener("DOMContentLoaded", function() {
         document.getElementById("total_general").textContent = `Total: $${totalGeneral.toFixed(2)}`;
     }
 
+    // Función para actualizar los productos en localStorage (corrección en la función)
+    function actualizarProductosEnLocalStorage() {
+        const productos = [];
+        const filas = tablaProductos.getElementsByTagName("tr");
+        for (let i = 0; i < filas.length; i++) {
+            const celdas = filas[i].getElementsByTagName("td");
+            const id_producto = celdas[0].getAttribute("data-id");  // ID del producto
+            const categoria = celdas[1].textContent.trim();  // Solo el nombre de la categoría
+            const area = celdas[2].textContent.trim();  // Solo el nombre del área
+            const costoUnitario = parseFloat(celdas[3].textContent.trim());
+            const cantidad = parseInt(celdas[4].querySelector('.cantidad').value, 10);
+            const total = parseFloat(celdas[5].textContent.trim());
+            productos.push({ id_producto, categoria, area, costoUnitario, cantidad, total });
+        }
+        localStorage.setItem('productos', JSON.stringify(productos));
+    }
+
     // Función para cargar los productos desde localStorage
     function cargarProductosDesdeLocalStorage() {
         const productosGuardados = JSON.parse(localStorage.getItem('productos'));
@@ -237,7 +254,7 @@ document.addEventListener("DOMContentLoaded", function() {
             productosGuardados.forEach(producto => {
                 const nuevaFila = tablaProductos.insertRow();
                 nuevaFila.innerHTML = `
-                    <td>${producto.nombre_producto}</td>
+                    <td data-id="${producto.id_producto}">${producto.nombre_producto}</td>
                     <td>${producto.id_categoria}</td>
                     <td>${producto.id_area}</td>
                     <td>${producto.stock}</td>
