@@ -149,4 +149,35 @@ async function datosapi() {
     new Chart(ctx, config);
 }
 
+
+
+document.addEventListener("DOMContentLoaded", function () {
+    // URL de la API
+    const apiUrl = "https://megawebsistem.com/admin/api/apiproducts";
+
+    // Obtener productos desde la API
+    fetch(apiUrl)
+        .then(response => response.json())
+        .then(data => {
+            // Filtrar productos con stock menor a 2
+            const lowStockProducts = data.filter(producto => parseInt(producto.stock_actual) < 2);
+
+            // Mostrar notificaciones con Toastify
+            lowStockProducts.forEach(producto => {
+                Toastify({
+                    text: `Stock bajo: ${producto.nombre_producto} (Stock: ${producto.stock_actual})`,
+                    duration: 5000,
+                    gravity: "top",
+                    position: "right",
+                    backgroundColor: "red",
+                }).showToast();
+            });
+        })
+        .catch(error => console.error("Error al obtener los productos:", error));
+});
+
+
+
+
+
 </script>
