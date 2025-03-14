@@ -67,8 +67,42 @@
   <div class="item"><a href="/admin/sistemas/productos/gastos"><i class="fa-solid fa-arrow-right"></i> GASTOS</a></div>
 </div>
 
-<b></b>
 
+
+
+<ul class="lista-areas-produccion">
+
+    <li class="areas-produccion-estatico" data-aos="fade-up">
+        <a>
+            <i class="fas fa-scroll"></i> TOTAL EN STOCK :
+            <?php if ($totalExistencia > 0) : ?>
+                <span class="areas-produccion__numero"> <?php echo $totalExistencia ?> KG </span>
+            <?php endif; ?>
+        </a>
+    </li>
+
+
+    <li class="areas-produccion-estatico" data-aos="fade-up">
+        <a>
+            <i class="fas fa-shopping-cart"></i> TOTAL COSTO :
+            <?php if ($totalCosto > 0) : ?>
+                <span class="areas-produccion__numero"> <?php echo $totalCosto ?> $ </span>
+            <?php endif; ?>
+        </a>
+    </li>
+
+    <li class="areas-produccion-estatico" data-aos="fade-up">
+        <a>
+            <i class="fa-solid fa-calendar"> </i> TIEMPO PROMEDIO DE ROTACIÓN :
+            <?php if ($totalRegistros > 0) : ?>
+                <span class="areas-produccion__numero"> <?php echo $totalRegistros ?> </span>
+            <?php endif; ?>
+        </a>
+    </li>
+</ul>
+
+
+<b></b>
 
     <div style="width: 80%; margin: auto;">
         <canvas id="myChart"></canvas>
