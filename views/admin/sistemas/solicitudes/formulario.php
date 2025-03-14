@@ -297,59 +297,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 
-async function enviarSolicitud() {
-    // Verificar si los productos existen en el localStorage
-    const productosStr = localStorage.getItem('productos');
-    
-    // Si los productos están disponibles y no están vacíos
-    if (productosStr && productosStr.trim() !== '') {
-        let productos;
-        try {
-            // Convertir el JSON almacenado en productos
-            productos = JSON.parse(productosStr);
-
-            // Eliminar cualquier objeto vacío en el array de productos
-            productos = productos.filter(producto => Object.keys(producto).length > 0);
-
-            // Si después de filtrar, existen productos para enviar
-            if (productos.length > 0) {
-                console.log('Productos a enviar:', productos); // Verifica los productos antes de enviarlos
-
-                const datos = new FormData();
-datos.append('productos', JSON.stringify(productos));
-
-try {
-    const url = 'https://megawebsistem.com/admin/sistemas/solicitudes/solicitud';
-    const respuesta = await fetch(url, {
-        method: 'POST',
-        body: datos
-    });
-
-    // Verificar si la respuesta es JSON
-    const resultado = await respuesta.json();
-    console.log('Resultado del servidor:', resultado);
-} catch (error) {
-    console.log('Error en la petición:', error);
-    const text = await respuesta.text(); // Obtener la respuesta en texto para depuración
-    console.log('Respuesta del servidor (en texto):', text);
-}
-
-            } else {
-                console.log('No hay productos válidos para enviar.');
-            }
-        } catch (error) {
-            console.log('Error al parsear los productos:', error); // Manejo de errores al parsear JSON
-        }
-    } else {
-        console.log('No hay productos en el localStorage o están vacíos.');
-    }
-}
-
-// Llamar a la función para enviar la solicitud
-enviarSolicitud();
-
-
-
 
 
 </script>
