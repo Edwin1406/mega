@@ -74,17 +74,9 @@
                 <?php foreach ($visor as $visores):?>
                     <tr class="table__tr">
                         <td class="table__td"><?php echo $visores->id?></td>
-                        <td class="table__td"><?php echo $visores->nombre_cliente?></td>
-                        <td class="table__td"><?php echo $visores->nombre_producto?></td>
-                        <td  class="table__td"><?php echo $visores->codigo_producto?></td>
-                        <td data-id="<?php echo $visores->id; ?>" class="table__td" style="color: 
-                            <?php 
-                                echo ($visores->estado == 'ENVIADO') ? 'green' : 
-                                    (($visores->estado == 'PAUSADO') ? 'red' : 
-                                    (($visores->estado == 'TERMINADO') ? 'orange' : ''));
-                            ?>;">
-                                <?php echo $visores->estado; ?>
-                        </td>
+                        <td class="table__td"><?php echo $visores->array?></td>
+                       
+                      
                         <td class="table__td">
                             <?php 
                             $rutaArchivo = "/src/visor/" . htmlspecialchars($visores->pdf);
