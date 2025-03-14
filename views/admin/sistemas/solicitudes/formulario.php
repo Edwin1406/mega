@@ -224,6 +224,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
         // Actualiza el total general
         actualizarTotalGeneral();
+           // Almacenar productos en el campo oculto
+    document.getElementById('array').value = JSON.stringify(productos);
     });
 
     // Función para actualizar el total general
@@ -254,8 +256,7 @@ document.addEventListener("DOMContentLoaded", function() {
             productos.push({ producto, categoria, area, costoUnitario, cantidad, total });
         }
     
-        // Almacenar productos en el campo oculto
-    document.getElementById('array').value = JSON.stringify(productos);
+     
     
     // También almacenarlo en localStorage
     localStorage.setItem('productos', JSON.stringify(productos));
