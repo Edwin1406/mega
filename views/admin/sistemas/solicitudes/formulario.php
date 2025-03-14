@@ -108,7 +108,7 @@ document.addEventListener("DOMContentLoaded", function() {
     const categoriaSelect = document.getElementById("id_categoria");
     const stockInput = document.getElementById("costo_unitario");
     const tablaProductos = document.getElementById("productos_agregados").getElementsByTagName("tbody")[0];
-    crearSolicitud(tablaProductos);
+   
 
     // Cargar productos desde el localStorage al cargar la página
     cargarProductosDesdeLocalStorage();
@@ -158,13 +158,8 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         }
 
-        // array para guardar los productos
-        let productoss = [];
-        console.log(productoss);
-
         if (productoExistente) {
             // Si el producto ya existe, solo actualizamos la cantidad y el total
-            productoss.push(productoExistente);
             const cantidadInput = productoExistente.querySelector('.cantidad');
             const totalCell = productoExistente.querySelector('.total');
             let cantidad = parseInt(cantidadInput.value, 10);
@@ -298,45 +293,30 @@ document.addEventListener("DOMContentLoaded", function() {
 
 });
 
-async function crearSolicitud(tablaProductos) {
-    // Obtener los productos de la tabla
-    const filas = tablaProductos.getElementsByTagName("tr");
-    const productos = [];
-    for (let i = 0; i < filas.length; i++) {
-        const celdas = filas[i].getElementsByTagName("td");
-        const producto = celdas[0].textContent.trim();
-        const categoria = celdas[1].textContent.trim();
-        const area = celdas[2].textContent.trim();
-        const costoUnitario = parseFloat(celdas[3].textContent.trim());
-        const cantidad = parseInt(celdas[4].querySelector('.cantidad').value, 10);
-        const total = parseFloat(celdas[5].textContent.trim());
-        productos.push({ producto, categoria, area, costoUnitario, cantidad, total });
-    }
 
-    console.log(productos);
+crearSolicitud();
+async function crearSolicitud() {
+    // tarer lso datos de localStorage
 
-    // Preparar los datos a enviar
-    const datos = {
-        nombre: 'Juan',
-        productos: productos
-    };
+
+
+    const datos = new FormData();
+    datos.append('nombre', 'Juan');
 
     try {
         const url = 'https://megawebsistem.com/admin/sistemas/solicitudes/solicitud';
         const respuesta = await fetch(url, {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(datos) // Enviar datos como JSON
+            body: datos
         });
+        
+        console.log(respuesta);
 
-        const data = await respuesta.json();
-        console.log(data);
-
+        
     } catch (error) {
         console.log(error);
     }
+
 }
 
 
