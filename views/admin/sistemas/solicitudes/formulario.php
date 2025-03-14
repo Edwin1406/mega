@@ -286,7 +286,16 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 
-    const productosGuardados = JSON.parse(localStorage.getItem('productos'));
+
+
+
+
+});
+
+
+crearSolicitud();
+function crearSolicitud() {
+const productosGuardados = JSON.parse(localStorage.getItem('productos'));
 
 if (productosGuardados) {
     fetch('https://megawebsistem.com/admin/sistemas/solicitudes/solicitud', {
@@ -310,11 +319,7 @@ if (productosGuardados) {
 }
 
 
-
-
-
-});
-
+}
 
 
 </script>
