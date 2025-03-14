@@ -285,33 +285,6 @@ document.addEventListener("DOMContentLoaded", function() {
     productoSelect.dispatchEvent(new Event("change"));
 
 
-agregarsolicitud();
-
-
-
-function agregarsolicitud() {
-    const productosGuardados = JSON.parse(localStorage.getItem('productos'));
-
-    const datos = new FormData();
-    datos.append('productos', JSON.stringify(productosGuardados));
-
-   
-
-    try {
-        fetch('https://megawebsistem.com/admin/sistemas/solicitudes/solicitud', {
-            method: 'POST',
-            body: datos
-        })
-        .then(response => response.json())
-        .then(data => {
-            console.log(data);
-        });
-    } catch (error) {
-        console.error(error);
-    }
-
-    console.log(productosGuardados);
-}
 
 });
 
