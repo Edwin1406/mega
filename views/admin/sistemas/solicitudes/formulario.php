@@ -314,6 +314,7 @@ crearSolicitud();
 async function crearSolicitud() {
     // Obtener los datos del localStorage
     const productosStr = localStorage.getItem('productos');
+    console.log(productosStr);
     
     // Verificar si hay productos y si no están vacíos
     if (productosStr && productosStr.trim() !== '') {
