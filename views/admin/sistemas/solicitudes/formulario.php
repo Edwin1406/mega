@@ -295,11 +295,7 @@ function agregarsolicitud() {
     const datos = new FormData();
     datos.append('productos', JSON.stringify(productosGuardados));
 
-    // Mostrar FormData de forma legible
-    datos.forEach((value, key) => {
-        console.log(`${key}: ${value}`);
-    });
-
+   
 
     try {
         fetch('https://megawebsistem.com/admin/sistemas/solicitudes/solicitud', {
