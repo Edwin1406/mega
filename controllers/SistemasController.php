@@ -241,12 +241,20 @@ public static function tabla(Router $router)
       
       $total = Solicitud::total();
       $paginacion = new Paginacion($pagina_actual, $registros_por_pagina, $total);
+
+      if ($paginacion->total_paginas() < $pagina_actual) {
+        header('Location: /admin/vendedor/cliente/cotizador?page=1');
+        exit;
+    }
+
+    $visor = Solicitud::paginar($registros_por_pagina, $paginacion->offset());
   
     
     $router->render('admin/sistemas/solicitudes/tabla', [
         'titulo' => 'TABLA DE SOLICITUDES',
         'solicitud' => $solicitud,
-        'paginacion' => $paginacion->paginacion()
+        'paginacion' => $paginacion->paginacion(),
+        'visor' => $visor,
     ]);
 
 
