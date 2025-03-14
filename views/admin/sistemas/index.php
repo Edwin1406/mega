@@ -165,7 +165,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 // Mostrar notificaciones con Toastify
                 lowStockProducts.forEach(producto => {
                     Toastify({
-                        text: `⚠️ Stock bajo: ${producto.nombre_producto} (Stock: ${producto.stock_actual})`,
+                        text: `⚠️ Stock bajo: ${producto.nombre_producto} (Stock: ${producto.stock_actual}) (Area: ${producto.area}) `,
                         duration: 5000,
                         gravity: "top",
                         position: "right",
