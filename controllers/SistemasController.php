@@ -169,7 +169,11 @@ public static function apiproducts()
     header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS"); 
     header("Content-Type: application/json"); 
 
-    $productos = Productos_inventario::allSis('producto', 'DESC');
+    $productos = Productos_inventario::obtenerProductosConCategoriaYArea();
+    // quiero id_area y id_categoria me muestre el nombre de la categoria y el area
+    
+    
+
     echo json_encode($productos);
     
     // echo json_encode($movimientos, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);

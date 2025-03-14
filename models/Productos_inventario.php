@@ -41,6 +41,43 @@ class Productos_inventario extends ActiveRecord
 
     }
 
+
+    public static function obtenerProductosConCategoriaYArea() {
+        // Consulta SQL con LEFT JOIN para obtener nombres de categoría y área
+        $query = "SELECT 
+                    p.id_producto, 
+                    p.nombre_producto, 
+                    p.stock_actual, 
+                    p.costo_unitario, 
+                    c.nombre_categoria, 
+                    a.nombre_area
+                  FROM productos_inventario p
+                  LEFT JOIN categorias c ON p.id_categoria = c.id_categoria
+                  LEFT JOIN areas_inventario a ON p.id_area = a.id_area
+                  ORDER BY p.id_producto DESC";
+    
+        $resultado = self::arrayasociativo($query); // Ejecuta la consulta y obtiene los datos como array asociativo
+    
+        // Formatear la respuesta
+        $productos = [];
+        foreach ($resultado as $fila) {
+            $productos[] = [
+                'id_producto' => $fila['id_producto'],
+                'nombre_producto' => $fila['nombre_producto'],
+                'stock_actual' => $fila['stock_actual'],
+                'costo_unitario' => $fila['costo_unitario'],
+                'categoria' => $fila['nombre_categoria'], // Se devuelve el nombre de la categoría
+                'area' => $fila['nombre_area'] // Se devuelve el nombre del área
+            ];
+        }
+    
+        return $productos;
+    }
+    
+
+
+
+
 }
 
 
