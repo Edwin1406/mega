@@ -211,6 +211,18 @@ public static function solicitud(Router $router)
 }
 
 
+public static function solicitudpost(Router $router)
+{
+    // $solicitud_inventario = new Solicitud;
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+       
+        
+        echo json_encode($_POST);
+    }
+
+
+}
+
 
 
 
