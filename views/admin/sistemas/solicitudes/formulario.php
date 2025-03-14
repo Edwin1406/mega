@@ -304,9 +304,15 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 
+
+
     // Ejecutar la función al cargar la página para seleccionar automáticamente el producto y su stock
     productoSelect.dispatchEvent(new Event("change"));
 
+
+localStorage.setItem('productos', JSON.stringify(productos));
+
+    
 
        // Almacenar productos en el campo oculto
        document.getElementById('array').value = JSON.stringify(productos);
