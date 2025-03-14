@@ -116,13 +116,16 @@ document.addEventListener("DOMContentLoaded", function() {
         const selectedOption = productoSelect.options[productoSelect.selectedIndex];
         const id_area = selectedOption.getAttribute("data-area");
 
-        console.log(id_producto);
-        console.log(id_categoria);
-        console.log(id_area);
+      
         const id_categoria = selectedOption.getAttribute("data-categoria");
         const stock = selectedOption.getAttribute("data-costounitario");
         const id_producto = selectedOption.value; // Guardamos el ID del producto
         const nombre_producto = selectedOption.textContent; // Nombre para mostrar
+
+
+          console.log(id_producto);
+        console.log(id_categoria);
+        console.log(id_area);
 
         if (!id_producto || !id_area || !id_categoria || !stock) {
             return; // Si no hay datos válidos, no agregamos la fila
