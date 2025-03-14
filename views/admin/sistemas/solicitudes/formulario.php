@@ -48,31 +48,31 @@
             <?php endforeach; ?>
         </select>
     </div>
-
-    <div class="formulario__campo">
-        <label class="formulario__label" for="stock_actual">Stock</label>
-        <input
-            type="number"
-            name="stock_actual"
-            id="stock_actual"
-            class="formulario__input"
-            placeholder="Stock Actual"
-            value="<?php echo $comercial->stock_actual ?? '' ?>">
-    </div>
-
+    
     <div class="formulario__campo">
         <label class="formulario__label" for="costo_unitario">Costo Unitario</label>
         <input
-            type="number"
-            name="costo_unitario"
-            id="costo_unitario"
-            class="formulario__input"
-            placeholder="Costo Unitario"
-            value="<?php echo $comercial->costo_unitario ?? '' ?>">
+        type="number"
+        name="costo_unitario"
+        id="costo_unitario"
+        class="formulario__input"
+        placeholder="Costo Unitario"
+        value="<?php echo $productos_inventario->costo_unitario ?? '' ?>">
     </div>
-
-   
- 
+    
+    
+        <div class="formulario__campo">
+            <label class="formulario__label" for="agregar">Productos agregados para la solicitud</label>
+            <input
+                type="text"
+                name="agregar"
+                id="agregar"
+                class="formulario__input"
+                placeholder="agregar"
+                value="">
+        </div>
+    
+    
 
 
 </fieldset>
