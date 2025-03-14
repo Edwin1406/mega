@@ -68,6 +68,8 @@
         border: 1px solid #ddd;
         padding: 8px;
         text-align: left;
+        width: 100px;
+        background-color: #ac5353;
     }
 
     </style>
