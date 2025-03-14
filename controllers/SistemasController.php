@@ -190,6 +190,16 @@ public static function solicitud(Router $router)
     $productos_inventario = Productos_inventario::allSis('producto','DESC');
     $area_inventario = Area_inventario::allSis('area', 'ASC');
     $categoria_inventario = Categoria_inventario::allSis('categoria', 'ASC');
+
+
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        // Verifica que los datos del POST lleguen correctamente
+
+       debuguear($_POST);
+    }
+
+
+
     $router->render('admin/sistemas/solicitudes/solicitud', [
         'titulo' => 'SOLICITUD DE PRODUCTOS',
         'alertas' => $alertas,
