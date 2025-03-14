@@ -297,8 +297,8 @@ $router->post('/admin/sistemas/productos/crear', [SistemasController::class, 'cr
 
 $router->get('/admin/sistemas/movimiento/movimientos', [SistemasController::class, 'movimientos']);
 $router->post('/admin/sistemas/movimiento/movimientos', [SistemasController::class, 'movimientos']);
-$router->get('/admin/sistemas/productos/gastos', [SistemasController::class, 'gastos']);
-$router->post('/admin/sistemas/productos/gastos', [SistemasController::class, 'gastos']);
+$router->get('/admin/sistemas/solicitudes/solicitud', [SistemasController::class, 'solicitud']);
+$router->post('/admin/sistemas/solicitudes/solicitud', [SistemasController::class, 'solicitud']);
 
 
 
