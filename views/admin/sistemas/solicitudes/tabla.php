@@ -66,23 +66,27 @@
                 </tr>
             </thead>
             <tbody class="table__tbody">
-                <?php foreach ($visor as $visores):?>
+                <?php foreach ($visor as $visores): ?>
                     <tr class="table__tr">
-                        <td class="table__td"><?php echo $visores->id?></td>
+                        <td class="table__td"><?php echo $visores->id ?></td>
                         <td class="table__td">
-                            <ul>
+                            <div style="display: flex; flex-wrap: wrap;">
                                 <?php 
                                     $productos = json_decode($visores->array, true); // Decodificar el array de productos
                                     foreach ($productos as $producto): ?>
-                                        <li>
-                                            <strong>Producto:</strong> <?php echo $producto['producto']; ?><br>
-                                            <strong>Categoría:</strong> <?php echo $producto['categoria']; ?><br>
-                                            <strong>Costo Unitario:</strong> <?php echo $producto['costoUnitario']; ?><br>
-                                            <strong>Cantidad:</strong> <?php echo $producto['cantidad']; ?><br>
-                                            <strong>Total:</strong> <?php echo $producto['total']; ?>
-                                        </li><br>
+                                        <div style="width: 50%; padding: 5px;">
+                                            <ul>
+                                                <li>
+                                                    <strong>Producto:</strong> <?php echo $producto['producto']; ?><br>
+                                                    <strong>Categoría:</strong> <?php echo $producto['categoria']; ?><br>
+                                                    <strong>Costo Unitario:</strong> <?php echo $producto['costoUnitario']; ?><br>
+                                                    <strong>Cantidad:</strong> <?php echo $producto['cantidad']; ?><br>
+                                                    <strong>Total:</strong> <?php echo $producto['total']; ?>
+                                                </li>
+                                            </ul>
+                                        </div>
                                 <?php endforeach; ?>
-                            </ul>
+                            </div>
                         </td>
                         <td class="table__td--acciones">
                             <a class="table__accion table__accion--editar" href="/admin/vendedor/cliente/editar?id=<?php echo $visores->id; ?>"><i class="fa-solid fa-user-pen"></i>Editar</a>
