@@ -248,8 +248,6 @@ public static function tabla(Router $router)
     }
 
     $visor = Solicitud::paginar($registros_por_pagina, $paginacion->offset());
-  
-    
     $router->render('admin/sistemas/solicitudes/tabla', [
         'titulo' => 'TABLA DE SOLICITUDES',
         'solicitud' => $solicitud,
