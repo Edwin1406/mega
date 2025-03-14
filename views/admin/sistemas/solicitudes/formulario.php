@@ -288,11 +288,9 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 
-// localStorage.clear();
-localStorage.setItem('productos', JSON.stringify(productos));
-console.log(productos);
-
-
+// traer del localStorage
+const productosStr = localStorage.getItem('productos');
+console.log(productosStr);
 
 
 
