@@ -67,7 +67,7 @@
   <div class="item"><a href="/admin/sistemas/productos/gastos"><i class="fa-solid fa-arrow-right"></i> GASTOS</a></div>
 </div>
 
-
+<b></b>
 
 
     <div style="width: 80%; margin: auto;">
@@ -165,7 +165,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 // Mostrar notificaciones con Toastify
                 lowStockProducts.forEach(producto => {
                     Toastify({
-                        text: `⚠️ Stock bajo: ${producto.nombre_producto} (Stock: ${producto.stock_actual}) (Area: ${producto.area}) `,
+                        text: `⚠️ Stock bajo: ${producto.nombre_producto} (<b>Stock:</b> ${producto.stock_actual}) (Area: ${producto.area}) `,
                         duration: 5000,
                         gravity: "top",
                         position: "right",
