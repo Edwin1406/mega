@@ -264,28 +264,38 @@ public static function pdf(Router $router)
     $id = $_GET['id'];
     $id = filter_var($id, FILTER_VALIDATE_INT);
     $solicitud = Solicitud::find($id);
-    // require __DIR__ . '/../fpdf/fpdf.php';
+    
+    // Cargar TCPDF
     require __DIR__ . '/../vendor/tecnickcom/tcpdf/tcpdf.php';
-
-
+    
     // Crear una nueva instancia de TCPDF
     $pdf = new TCPDF();
     $pdf->SetTitle('PDF DE SOLICITUD');
     $pdf->AddPage();
-
-    // Agregar contenido al PDF (puedes personalizarlo como desees)
+    
+    // Agregar contenido al PDF
     $pdf->SetFont('helvetica', '', 12);
     $pdf->Cell(0, 10, 'Solicitud de ID: ' . $solicitud->id, 0, 1, 'C');
     $pdf->Ln(10);
     $pdf->Cell(0, 10, 'Nombre del solicitante: ' . $solicitud->array, 0, 1);
     
-    // Agregar más detalles de la solicitud según sea necesario
-
-    // Guardar el archivo PDF en el servidor
-    // $filePath = '/guardar/solicitud_' . $solicitud->id . '.pdf';
-    $pdf->Output($filePath, 'F'); // 'F' para guardar el archivo en el servidor
-
-    debuguear($solicitud);
+    // Definir la ruta para guardar el archivo en el servidor
+    // $filePath = '/path/to/your/directory/solicitud_' . $solicitud->id . '.pdf';
+    
+    // Verificar si la carpeta existe y es escribible
+    if (is_writable(dirname($filePath))) {
+        // Guardar el archivo PDF en el servidor
+        $pdf->Output($filePath, 'F'); // 'F' para guardar el archivo en el servidor
+    } else {
+        // Manejar el error si la carpeta no es escribible
+        echo "Error: No se puede guardar el archivo en el servidor.";
+    }
+    
+    // Ahora mostrar el PDF en el navegador
+    $pdf->Output('solicitud_' . $solicitud->id . '.pdf', 'I'); // 'I' para mostrar el archivo en el navegador
+    
+  
+    
 
     $router->render('admin/sistemas/solicitudes/pdf', [
         'titulo' => 'PDF DE SOLICITUD',
