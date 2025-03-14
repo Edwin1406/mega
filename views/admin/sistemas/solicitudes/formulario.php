@@ -328,9 +328,3 @@ document.addEventListener("DOMContentLoaded", function() {
 <p id="total_general">Total: $0.00</p>
 
 
-<script>
-
-    (function(){
-
-       
-</script>
