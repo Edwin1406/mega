@@ -185,12 +185,12 @@ document.addEventListener("DOMContentLoaded", function () {
                 let currentNotified = new Set();
 
                 lowStockProducts.forEach(producto => {
-                    const productKey = `${producto.nombre_producto}-${producto.stock_actual}-${producto.area}`;
+                    const productKey = `${producto.nombre_producto}-${producto.stock_actual}-${producto.area}-${producto.categoria}`;
 
                     // Verificar si ya fue notificado
                     if (!notifiedProducts.has(productKey)) {
                         Toastify({
-                            text: `⚠️ Stock bajo: ${producto.nombre_producto} (Stock: ${producto.stock_actual}) (Area: ${producto.area}) `,
+                            text: `⚠️ Stock bajo: ${producto.nombre_producto} (Stock: ${producto.stock_actual}) (Area: ${producto.area} ) (Categoria: ${producto.categoria})`,
                             duration: 5000,
                             gravity: "top",
                             position: "right",
