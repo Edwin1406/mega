@@ -198,7 +198,7 @@ public static function solicitud(Router $router)
         
         $array = $_POST['productos'];
         
-        $solicitud_inventario = new Movimientos_inventario([
+        $solicitud_inventario = new Solicitud([
             'array' => $array,
         ]);
     
