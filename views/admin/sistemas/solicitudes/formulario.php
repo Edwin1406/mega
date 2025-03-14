@@ -24,7 +24,7 @@
         <select
             name="id_categoria"
             id="id_categoria"
-            class="formulario__input">
+            class="formulario__input" disabled>
             <option value="">-- Seleccione --</option>
             <?php foreach ($categoria_inventario as $categoria) : ?>
                 <option value="<?php echo $categoria->id_categoria ?>"><?php echo $categoria->nombre_categoria ?></option>
@@ -36,7 +36,7 @@
         <select
             name="id_area"
             id="id_area"
-            class="formulario__input">
+            class="formulario__input" disabled>
             <option value="">-- Seleccione --</option>
             <?php foreach ($area_inventario as $area) : ?>
                 <option value="<?php echo $area->id_area ?>"><?php echo $area->nombre_area ?></option>
@@ -44,7 +44,7 @@
         </select>
     </div>
     
-    <div class="formulario__campo">
+    <div class="formulario__campo" disabled>
         <label class="formulario__label" for="costo_unitario">Costo Unitario</label>
         <input
             type="number"
