@@ -265,7 +265,7 @@ public static function pdf(Router $router)
     $id = filter_var($id, FILTER_VALIDATE_INT);
     $solicitud = Solicitud::find($id);
     // require __DIR__ . '/../fpdf/fpdf.php';
-    require __DIR__ . '/../vendor/composer/tcpdf/tcpdf.php';
+    require __DIR__ . '/../vendor/tecnickcom/tcpdf/tcpdf.php';
 
 
     // Crear una nueva instancia de TCPDF
