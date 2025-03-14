@@ -192,13 +192,7 @@ public static function solicitud(Router $router)
     $area_inventario = Area_inventario::allSis('area', 'ASC');
     $categoria_inventario = Categoria_inventario::allSis('categoria', 'ASC');
 
-    // $solicitud_inventario = new Solicitud;
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-       
-        
-        echo json_encode($_POST);
-    }
-
+    
 
 
     $router->render('admin/sistemas/solicitudes/solicitud', [
