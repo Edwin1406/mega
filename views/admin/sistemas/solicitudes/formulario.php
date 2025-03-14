@@ -236,7 +236,7 @@ document.addEventListener("DOMContentLoaded", function() {
         const filas = tablaProductos.getElementsByTagName("tr");
         for (let i = 0; i < filas.length; i++) {
             const celdas = filas[i].getElementsByTagName("td");
-            const id_producto = celdas[0].id_producto  // ID del producto
+            const id_producto = celdas[0].dataset.id_producto; // Solo el ID del producto
             const categoria = celdas[1].id_categoria  // Solo el nombre de la categoría
             const area = celdas[2].id_area// Solo el nombre del área
             const costoUnitario = parseFloat(celdas[3].textContent.trim());
