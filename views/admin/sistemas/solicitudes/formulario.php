@@ -286,48 +286,63 @@ document.addEventListener("DOMContentLoaded", function() {
     productoSelect.dispatchEvent(new Event("change"));
 
 
-
- 
-    crearSolicitud();
-    async function crearSolicitud() {
+    async function enviarSolicitud() {
+    // Verificar si los productos existen en el localStorage
     const productosStr = localStorage.getItem('productos');
     
+    // Si los productos están disponibles y no están vacíos
     if (productosStr && productosStr.trim() !== '') {
         let productos;
         try {
+            // Convertir el JSON almacenado en productos
             productos = JSON.parse(productosStr);
-            
-            // Remove empty objects
-            productos = productos.filter(producto => Object.keys(producto).length > 0);
-            
-            if (productos.length > 0) {
-                console.log(productos); // Debug products before sending
 
-                const url = 'https://megawebsistem.com/admin/sistemas/solicitudes/solicitud';
+            // Eliminar cualquier objeto vacío en el array de productos
+            productos = productos.filter(producto => Object.keys(producto).length > 0);
+
+            // Si después de filtrar, existen productos para enviar
+            if (productos.length > 0) {
+                console.log('Productos a enviar:', productos); // Verifica los productos antes de enviarlos
+
+                // Crear el objeto FormData
+                const datos = new FormData();
+                // Agregar los productos como una cadena JSON al FormData
+                datos.append('productos', JSON.stringify(productos));
+
+                // Realizar la solicitud POST correctamente
                 try {
-                    const response = await fetch(url, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json', // Set Content-Type to application/json
-                        },
-                        body: JSON.stringify({ productos }), // Send the data as JSON
+                    const url = 'https://megawebsistem.com/admin/sistemas/solicitudes/solicitudpost'; // URL del servidor
+                    const respuesta = await fetch(url, {
+                        method: 'POST', // Definir el método de la solicitud
+                        body: datos, // El cuerpo de la solicitud con los datos
                     });
 
-                    const result = await response.json();
-                    console.log(result);
+                    // Verificar si la respuesta es exitosa y procesar el JSON
+                    if (respuesta.ok) {
+                        const resultado = await respuesta.json(); // Obtener el resultado como JSON
+                        console.log('Respuesta del servidor:', resultado); // Mostrar el resultado
+                    } else {
+                        // Manejar si la respuesta del servidor es un error
+                        console.log('Error en la respuesta:', respuesta.status, respuesta.statusText);
+                    }
                 } catch (error) {
-                    console.log('Error en la petición:', error);
+                    console.log('Error en la petición:', error); // Manejo de errores en la solicitud fetch
                 }
+
             } else {
                 console.log('No hay productos válidos para enviar.');
             }
         } catch (error) {
-            console.log('Error al parsear los productos:', error);
+            console.log('Error al parsear los productos:', error); // Manejo de errores al parsear JSON
         }
     } else {
         console.log('No hay productos en el localStorage o están vacíos.');
     }
 }
+
+// Llamar a la función para enviar la solicitud
+enviarSolicitud();
+
 
 
 

@@ -192,22 +192,22 @@ public static function solicitud(Router $router)
     $area_inventario = Area_inventario::allSis('area', 'ASC');
     $categoria_inventario = Categoria_inventario::allSis('categoria', 'ASC');
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        // Get the raw POST data
         $jsonData = file_get_contents('php://input');
-        
-        // Decode the JSON data into an array
         $decodedData = json_decode($jsonData, true);
-        
-        // Now use the decoded data
-        if ($decodedData && isset($decodedData['productos'])) {
+    
+        // Si esperas productos y no un id_producto, elimina cualquier campo innecesario
+        unset($decodedData['id_producto']);
+    
+        // Ahora procesar los productos
+        if (isset($decodedData['productos'])) {
             $solicitud_inventario = new Solicitud($decodedData['productos']);
             $resultado = $solicitud_inventario->guardar();
-            
             echo json_encode($resultado);
         } else {
             echo json_encode(['error' => 'Datos inválidos o faltantes']);
         }
     }
+    
     
 
 
