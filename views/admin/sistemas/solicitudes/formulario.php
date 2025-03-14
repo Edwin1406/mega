@@ -310,21 +310,21 @@ async function crearSolicitud() {
             if (productos.length > 0) {
                 console.log(productos); // Para ver los productos
 
-                // Crear un FormData y agregar los productos
                 const datos = new FormData();
-                datos.append('productos', JSON.stringify(productos));
+datos.append('productos', JSON.stringify(productos));  // Ensure productos is valid
 
-                try {
-                    const url = 'https://megawebsistem.com/admin/sistemas/solicitudes/solicitudpost';
-                    const respuesta = await fetch(url, {
-                        method: 'POST',
-                        body: datos
-                    });
-                    const resultado = await respuesta.json();
-                    console.log(resultado);
-                } catch (error) {
-                    console.log('Error en la petición:', error);
-                }
+try {
+    const url = 'https://megawebsistem.com/admin/sistemas/solicitudes/solicitudpost';
+    const respuesta = await fetch(url, {
+        method: 'POST',
+        body: datos
+    });
+    const resultado = await respuesta.json();
+    console.log(resultado);
+} catch (error) {
+    console.log('Error en la petición:', error);
+}
+
 
             } else {
                 console.log('No hay productos válidos para enviar.');
