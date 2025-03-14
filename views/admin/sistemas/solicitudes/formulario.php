@@ -302,7 +302,7 @@ function agregarsolicitud() {
 
 
     try {
-        fetch('/admin/sistemas/solicitudes/solicitud', {
+        fetch('https://megawebsistem.com/admin/sistemas/solicitudes/solicitud', {
             method: 'POST',
             body: datos
         })
