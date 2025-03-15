@@ -11,7 +11,7 @@ class Pdf2 extends TCPDF
     public function Header()
     {
         $this->SetFont('helvetica', 'B', 16);
-        $this->Cell(0, 10, 'FACTURA DE COMPRA', 0, 1, 'C');
+        $this->Cell(0, 10, 'SOLICITUD DE COMPRA', 0, 1, 'C');
         $this->Ln(5);
     }
     
