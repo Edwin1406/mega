@@ -70,30 +70,6 @@ class Pdf2 extends TCPDF
         $this->Cell(40, 6, $datos['array'], 0, 1, 'L');
     
       
-        // Línea divisoria suave
-        $this->SetDrawColor(200, 200, 200);
-        $this->Line($x + 10, $y + 80, $x + $etiquetaWidth - 10, $y + 80);
-    
-        // Código de barras centrado
-        $this->SetXY($x + 10, $y + 85);
-        $style = array(
-            'position' => '',
-            'align' => 'C',
-            'stretch' => false,
-            'fitwidth' => true,
-            'cellfitalign' => '',
-            'border' => false,
-            'hpadding' => 'auto',
-            'vpadding' => 'auto',
-            'fgcolor' => array(0, 0, 0), // Negro
-            'bgcolor' => false, // Sin fondo
-            'text' => true, // Sin texto debajo
-            'font' => 'helvetica',
-            'fontsize' => 8,
-            'stretchtext' => 4
-        );
-        $this->write1DBarcode($datos['barcode'], 'C128', $x + 25, $y + 90, 50, 15, 0.4, $style, 'N');
-    
         // Etiqueta estilizada con sombra
         $this->SetDrawColor(220, 220, 220); // Sombra exterior clara
         $this->RoundedRect($x + 1, $y + 1, $etiquetaWidth - 2, $etiquetaHeight - 2, 4, '1111');
