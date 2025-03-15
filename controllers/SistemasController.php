@@ -333,7 +333,7 @@ public static function pdf(Router $router)
         header('Content-Disposition: inline; filename="etiqueta.pdf"');
         header('Content-Length: ' . strlen($pdfContenido));
         echo $pdfContenido;
-         $pdf->Output('etiqueta.pdf', 'I');
+         $pdf->Output('SOLICITUD.pdf', 'I');
        
     } else {
         echo "Error al enviar el correo: " . $resultado;
