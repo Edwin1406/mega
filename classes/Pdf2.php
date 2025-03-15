@@ -6,8 +6,6 @@ use TCPDF;
 
 
 
-
-
 class Pdf2 extends TCPDF 
 {
     public function Header()
@@ -29,38 +27,7 @@ class Pdf2 extends TCPDF
         // Agregar una nueva página en formato horizontal
         $this->AddPage('L');
 
-        // Logo más alineado
-        $this->Image('src/img/logo2.png', 15, 15, 35);
-        
-        // Datos de la empresa con más espacio
-        $this->SetFont('helvetica', 'B', 12);
-        $this->SetXY(60, 15);
-        $this->Cell(100, 6, 'MEGASTOCK S.A.', 0, 1, 'L');
-        $this->SetFont('helvetica', '', 10);
-        $this->SetXY(60, 22);
-        $this->Cell(100, 6, 'Dirección: Calle Falsa 123', 0, 1, 'L');
-        $this->SetXY(60, 29);
-        $this->Cell(100, 6, 'Teléfono: +123456789', 0, 1, 'L');
-        $this->SetXY(220, 15);
-        $this->SetFont('helvetica', 'B', 12);
-        $this->Cell(50, 6, 'Factura No: ' . ($datos['id'] ?? 'No disponible'), 0, 1, 'R');
-        $this->Ln(15);
-
-        // Encabezado de la tabla con más espacio
-        $this->SetFont('helvetica', 'B', 11);
-        $this->SetFillColor(230, 230, 230); // Color gris claro para el encabezado
-        $this->Cell(70, 10, 'Producto', 1, 0, 'C', true);
-        $this->Cell(50, 10, 'Categoría', 1, 0, 'C', true);
-        $this->Cell(50, 10, 'Área', 1, 0, 'C', true);
-        $this->Cell(40, 10, 'Costo Unitario', 1, 0, 'C', true);
-        $this->Cell(30, 10, 'Cantidad', 1, 0, 'C', true);
-        $this->Cell(40, 10, 'Total', 1, 1, 'C', true);
-        
-        // Datos de la tabla con más espacio y margen
-        $this->SetFont('helvetica', '', 11);
-        $totalFactura = 0;
-
-        // Asegurar que `array` siempre es un array válido
+        // Asegurar que los datos estén bien estructurados
         $productos = [];
         if (!empty($datos['array'])) {
             if (is_string($datos['array'])) {
@@ -74,7 +41,41 @@ class Pdf2 extends TCPDF
             $productos = [];
         }
 
-        // Llenar la tabla con productos
+        // ** Diseño optimizado **
+        // Logo alineado correctamente
+        $this->Image('src/img/logo2.png', 15, 20, 35);
+        
+        // Datos de la empresa con más espacio
+        $this->SetFont('helvetica', 'B', 12);
+        $this->SetXY(60, 20);
+        $this->Cell(100, 6, 'MEGASTOCK S.A.', 0, 1, 'L');
+        $this->SetFont('helvetica', '', 10);
+        $this->SetXY(60, 28);
+        $this->Cell(100, 6, 'Dirección: Calle Falsa 123', 0, 1, 'L');
+        $this->SetXY(60, 36);
+        $this->Cell(100, 6, 'Teléfono: +123456789', 0, 1, 'L');
+
+        // Número de factura correctamente alineado
+        $this->SetXY(220, 25);
+        $this->SetFont('helvetica', 'B', 12);
+        $this->Cell(50, 6, 'Factura No: ' . ($datos['id'] ?? 'No disponible'), 0, 1, 'R');
+
+        $this->Ln(20); // Espaciado extra antes de la tabla
+
+        // ** Diseño de la tabla mejorado **
+        $this->SetFont('helvetica', 'B', 11);
+        $this->SetFillColor(240, 240, 240); // Color gris claro para el encabezado
+        $this->Cell(70, 10, 'Producto', 1, 0, 'C', true);
+        $this->Cell(50, 10, 'Categoría', 1, 0, 'C', true);
+        $this->Cell(50, 10, 'Área', 1, 0, 'C', true);
+        $this->Cell(40, 10, 'Costo Unitario', 1, 0, 'C', true);
+        $this->Cell(30, 10, 'Cantidad', 1, 0, 'C', true);
+        $this->Cell(40, 10, 'Total', 1, 1, 'C', true);
+        
+        // Datos de la tabla con más espacio y margen
+        $this->SetFont('helvetica', '', 11);
+        $totalFactura = 0;
+
         foreach ($productos as $producto) {
             $descripcion = $producto['producto'] ?? 'N/A';
             $categoria = $producto['categoria'] ?? 'N/A';
@@ -98,7 +99,7 @@ class Pdf2 extends TCPDF
         $this->Cell(240, 12, 'TOTAL:', 1, 0, 'R', true);
         $this->Cell(40, 12, '$' . number_format($totalFactura, 2), 1, 1, 'C', true);
         
-        $this->Ln(12);
+        $this->Ln(15); // Más espacio antes del mensaje final
 
         // Mensaje de agradecimiento más centrado y elegante
         $this->SetFont('helvetica', 'I', 11);
