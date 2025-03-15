@@ -2,11 +2,17 @@
 namespace Classes;
 
 use TCPDF;
+
+
+
+
+
+
 class Pdf2 extends TCPDF 
 {
     public function Header()
     {
-        $this->SetFont('helvetica', 'B', 14);
+        $this->SetFont('helvetica', 'B', 16);
         $this->Cell(0, 10, 'FACTURA DE COMPRA', 0, 1, 'C');
         $this->Ln(5);
     }
@@ -14,7 +20,7 @@ class Pdf2 extends TCPDF
     public function Footer()
     {
         $this->SetY(-15);
-        $this->SetFont('helvetica', 'I', 8);
+        $this->SetFont('helvetica', 'I', 10);
         $this->Cell(0, 10, 'Página ' . $this->PageNo(), 0, 0, 'C');
     }
     
@@ -23,33 +29,34 @@ class Pdf2 extends TCPDF
         // Agregar una nueva página en formato horizontal
         $this->AddPage('L');
 
-        // Logo
-        $this->Image('src/img/logo2.png', 15, 10, 30);
+        // Logo más alineado
+        $this->Image('src/img/logo2.png', 15, 15, 35);
         
-        // Datos de la empresa
+        // Datos de la empresa con más espacio
         $this->SetFont('helvetica', 'B', 12);
-        $this->SetXY(50, 10);
+        $this->SetXY(60, 15);
         $this->Cell(100, 6, 'MEGASTOCK S.A.', 0, 1, 'L');
         $this->SetFont('helvetica', '', 10);
-        $this->SetXY(50, 16);
-        $this->Cell(100, 6, 'Direccion: Calle Falsa 123', 0, 1, 'L');
-        $this->SetXY(50, 22);
-        $this->Cell(100, 6, 'Telefono: +123456789', 0, 1, 'L');
-        $this->SetXY(230, 10);
+        $this->SetXY(60, 22);
+        $this->Cell(100, 6, 'Dirección: Calle Falsa 123', 0, 1, 'L');
+        $this->SetXY(60, 29);
+        $this->Cell(100, 6, 'Teléfono: +123456789', 0, 1, 'L');
+        $this->SetXY(220, 15);
         $this->SetFont('helvetica', 'B', 12);
         $this->Cell(50, 6, 'Factura No: ' . ($datos['id'] ?? 'No disponible'), 0, 1, 'R');
-        $this->Ln(10);
+        $this->Ln(15);
 
-        // Encabezado de la tabla (Ajustado para mayor ancho)
-        $this->SetFont('helvetica', 'B', 10);
-        $this->Cell(100, 8, 'Producto', 1, 0, 'C');
-        $this->Cell(70, 8, 'Categoria', 1, 0, 'C');
-        $this->Cell(50, 8, 'Precio Unitario', 1, 0, 'C');
-        $this->Cell(30, 8, 'Cantidad', 1, 0, 'C');
-        $this->Cell(50, 8, 'Subtotal', 1, 1, 'C');
+        // Encabezado de la tabla con más espacio
+        $this->SetFont('helvetica', 'B', 11);
+        $this->SetFillColor(230, 230, 230); // Color gris claro para el encabezado
+        $this->Cell(100, 10, 'Producto', 1, 0, 'C', true);
+        $this->Cell(70, 10, 'Categoría', 1, 0, 'C', true);
+        $this->Cell(50, 10, 'Precio Unitario', 1, 0, 'C', true);
+        $this->Cell(30, 10, 'Cantidad', 1, 0, 'C', true);
+        $this->Cell(50, 10, 'Subtotal', 1, 1, 'C', true);
         
-        // Datos de la tabla
-        $this->SetFont('helvetica', '', 10);
+        // Datos de la tabla con más espacio y margen
+        $this->SetFont('helvetica', '', 11);
         $totalFactura = 0;
 
         // Asegurar que `array` siempre es un array válido
@@ -75,23 +82,24 @@ class Pdf2 extends TCPDF
             $subtotal = $precio * $cantidad;
             $totalFactura += $subtotal;
 
-            $this->Cell(100, 8, $descripcion, 1);
-            $this->Cell(70, 8, $categoria, 1);
-            $this->Cell(50, 8, '$' . number_format($precio, 2), 1, 0, 'C');
-            $this->Cell(30, 8, $cantidad, 1, 0, 'C');
-            $this->Cell(50, 8, '$' . number_format($subtotal, 2), 1, 1, 'C');
+            $this->Cell(100, 10, "  " . $descripcion, 1); // Espacio extra a la izquierda
+            $this->Cell(70, 10, "  " . $categoria, 1);
+            $this->Cell(50, 10, '$' . number_format($precio, 2), 1, 0, 'C');
+            $this->Cell(30, 10, $cantidad, 1, 0, 'C');
+            $this->Cell(50, 10, '$' . number_format($subtotal, 2), 1, 1, 'C');
         }
 
-        // Total de la factura
-        $this->SetFont('helvetica', 'B', 12);
-        $this->Cell(250, 8, 'TOTAL:', 1);
-        $this->Cell(50, 8, '$' . number_format($totalFactura, 2), 1, 1, 'C');
+        // Total de la factura más visible
+        $this->SetFont('helvetica', 'B', 13);
+        $this->SetFillColor(230, 230, 230); // Color gris claro
+        $this->Cell(250, 12, 'TOTAL:', 1, 0, 'R', true);
+        $this->Cell(50, 12, '$' . number_format($totalFactura, 2), 1, 1, 'C', true);
         
-        $this->Ln(10);
+        $this->Ln(12);
 
-        // Mensaje de agradecimiento
-        $this->SetFont('helvetica', 'I', 10);
-        $this->Cell(0, 6, 'Gracias por su compra.', 0, 1, 'C');
+        // Mensaje de agradecimiento más centrado y elegante
+        $this->SetFont('helvetica', 'I', 11);
+        $this->Cell(0, 10, 'Gracias por su compra.', 0, 1, 'C');
     }
 
     public function descargarPdf($datos)
