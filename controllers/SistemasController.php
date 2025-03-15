@@ -327,7 +327,13 @@ public static function pdf(Router $router)
 
 
     if ($resultado === true) {
-        echo "Correo enviado con éxito.";
+        // ver el pdf en el navegador
+        header('Content-Type: application/pdf');
+        header('Content-Disposition: inline; filename="etiqueta.pdf"');
+        header('Content-Length: ' . strlen($pdfContenido));
+        echo $pdfContenido;
+         $pdf->Output('etiqueta.pdf', 'I');
+       
     } else {
         echo "Error al enviar el correo: " . $resultado;
     }
