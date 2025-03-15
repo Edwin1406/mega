@@ -3,6 +3,7 @@
 namespace Controllers;
 
 use Classes\Paginacion;
+use Classes\Pdf2;
 use Model\Area_inventario;
 use Model\Categoria_inventario;
 use Model\Movimiento;
@@ -261,54 +262,26 @@ public static function tabla(Router $router)
 
 public static function pdf(Router $router)
 {
+
+    
+    
+    $alertas = [];
     $id = $_GET['id'];
     $id = filter_var($id, FILTER_VALIDATE_INT);
+
     $solicitud = Solicitud::find($id);
-    
-    // Cargar TCPDF
-    require __DIR__ . '/../vendor/tecnickcom/tcpdf/tcpdf.php';
-    
-    // Crear una nueva instancia de TCPDF
-    $pdf = new TCPDF();
-    $pdf->SetTitle('PDF DE SOLICITUD');
-    $pdf->AddPage();
-    
-    // Agregar contenido al PDF
-    $pdf->SetFont('helvetica', '', 12);
-    $pdf->Cell(0, 10, 'Solicitud de ID: ' . $solicitud->id, 0, 1, 'C');
-    $pdf->Ln(10);
-    $pdf->Cell(0, 10, 'Nombre del solicitante: ' . $solicitud->array, 0, 1);
-    
-    // Definir la ruta para guardar el archivo en el servidor
-    $filePath = '../uploads/solicitud_' . $solicitud->id . '.pdf';
-    
-    // Verificar si la carpeta existe y es escribible
-    if (is_writable(dirname($filePath))) {
-        // Guardar el archivo PDF en el servidor
-        $pdf->Output($filePath, 'F'); // 'F' para guardar el archivo en el servidor
-    } else {
-        // Manejar el error si la carpeta no es escribible
-        echo "Error: No se puede guardar el archivo en el servidor.";
-        exit;  // Evitar seguir procesando si no se puede guardar el archivo
+    if (!$solicitud) {
+        header('Location: /admin/produccion/materia/tabla');
     }
-    
-    // Ahora mostrar el PDF en el navegador
-    // Limpiar cualquier salida previa para evitar el error
-    ob_clean();
-    flush();
-    
-    // Mostrar el archivo PDF en el navegador
-    $pdf->Output('solicitud_' . $solicitud->id . '.pdf', 'I'); // 'I' para mostrar el archivo en el navegador
-    
-    // Para debuguear la solicitud (si es necesario después de mostrar el PDF)
-    debuguear($solicitud);
-    
+
+    $pdf = new Pdf2();
+    $datos = [
+        'tipo' => $solicitud->array,
+    ];
+    $pdf->generarPdf($datos);
+    $pdf->Output('etiqueta.pdf', 'I');
     
 
-    $router->render('admin/sistemas/solicitudes/pdf', [
-        'titulo' => 'PDF DE SOLICITUD',
-        'solicitud' => $solicitud,
-    ]);
 
 
 
