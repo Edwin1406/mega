@@ -316,7 +316,7 @@ public static function pdf(Router $router)
     
     // Enviar por correo
     $destinatario1 = "edwin.ed948@gmail.com";
-    $destinatario2 = "fer32@hotmail.com";
+    $destinatario2 = "edwinfer32@hotmail.com";
     $asunto = "Documento adjunto";
     $mensaje = "<p>Estimado usuario,</p><p>Adjunto encontrará el documento generado.</p>";
     
