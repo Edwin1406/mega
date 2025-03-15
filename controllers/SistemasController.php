@@ -289,7 +289,6 @@ public static function pdf(Router $router)
     // $email->enviarConfirmacion();
     // $pdf->Output('etiqueta.pdf', 'I');
   
-
     $id = $_GET['id'];
     $id = filter_var($id, FILTER_VALIDATE_INT);
     
@@ -305,8 +304,8 @@ public static function pdf(Router $router)
         'array' => $solicitud->array ?? []
     ];
     
-    // Obtener el PDF en memoria
-    $pdfContenido = $pdf->obtenerPdfEnMemoria();
+    // Llamar correctamente al método pasando los datos
+    $pdfContenido = $pdf->obtenerPdfEnMemoria($datos);
     
     if (strlen($pdfContenido) < 500) {
         die("Error: El PDF generado sigue siendo muy pequeño o está vacío.");
@@ -329,7 +328,6 @@ public static function pdf(Router $router)
         echo "Error al enviar el correo: " . $resultado;
     }
     
-
 
 
 
