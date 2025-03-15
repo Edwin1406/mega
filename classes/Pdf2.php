@@ -60,29 +60,16 @@ class Pdf2 extends TCPDF
         $this->SetXY($x + 10, $y + 25);
         $this->Cell(40, 6, 'TIPO:', 0, 0, 'L');
         $this->SetFont('helvetica', 'B', 10);
-        $this->Cell(40, 6, $datos['tipo'], 0, 1, 'L');
+        $this->Cell(40, 6, $datos['id'], 0, 1, 'L');
     
         // ANCHO
         $this->SetFont('helvetica', '', 10);
         $this->SetXY($x + 10, $y + 35);
         $this->Cell(40, 6, 'ANCHO:', 0, 0, 'L');
         $this->SetFont('helvetica', 'B', 10);
-        $this->Cell(40, 6, $datos['ancho'], 0, 1, 'L');
+        $this->Cell(40, 6, $datos['array'], 0, 1, 'L');
     
-        // PESO
-        $this->SetFont('helvetica', '', 10);
-        $this->SetXY($x + 10, $y + 45);
-        $this->Cell(40, 6, 'PESO:', 0, 0, 'L');
-        $this->SetFont('helvetica', 'B', 10);
-        $this->Cell(40, 6, $datos['peso'], 0, 1, 'L');
-    
-        // FECHA
-        $this->SetFont('helvetica', '', 10);
-        $this->SetXY($x + 10, $y + 55);
-        $this->Cell(40, 6, 'FECHA:', 0, 0, 'L');
-        $this->SetFont('helvetica', 'B', 10);
-        $this->Cell(40, 6, $datos['created_at'], 0, 1, 'L');
-    
+      
         // Línea divisoria suave
         $this->SetDrawColor(200, 200, 200);
         $this->Line($x + 10, $y + 80, $x + $etiquetaWidth - 10, $y + 80);
