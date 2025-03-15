@@ -18,7 +18,7 @@ class Correo {
             $mail->Port = $_ENV['EMAIL_PORT'];
             $mail->Username = $_ENV['EMAIL_USER'];
             $mail->Password = $_ENV['EMAIL_PASS'];
-            $mail->SMTPSecure = 'ssl';
+            $mail->SMTPSecure = 'tls';
 
 
             $mail->setFrom('pruebas@odonto.megawebsistem.com', 'Tu Nombre o Empresa');
