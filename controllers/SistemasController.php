@@ -315,12 +315,13 @@ public static function pdf(Router $router)
     file_put_contents('test.pdf', $pdfContenido);
     
     // Enviar por correo
-    $destinatario = "edwin.ed948@gmail.com";
+    $destinatario1 = "edwin.ed948@gmail.com";
+    $destinatario2 = "fer32@hotmail.com";
     $asunto = "Documento adjunto";
     $mensaje = "<p>Estimado usuario,</p><p>Adjunto encontrará el documento generado.</p>";
     
     $email = new Correo();
-    $resultado = $email->enviarConAdjunto($destinatario, $asunto, $mensaje, $pdfContenido, 'etiqueta.pdf');
+    $resultado = $email->enviarConAdjunto($destinatario1,$destinatario2, $asunto, $mensaje, $pdfContenido, 'etiqueta.pdf');
     
     // quiero visualizar el pdf en el navegador
 

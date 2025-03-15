@@ -9,7 +9,7 @@ use PHPMailer\PHPMailer\PHPMailer;
 
 class Correo {
 
-    public function enviarConAdjunto($destinatario, $asunto, $mensaje, $pdfContenido, $nombreArchivo = 'documento.pdf') {
+    public function enviarConAdjunto($destinatario,$destinatario2, $asunto, $mensaje, $pdfContenido, $nombreArchivo = 'documento.pdf') {
         try {
             $mail = new PHPMailer();
             $mail->isSMTP();
@@ -21,8 +21,9 @@ class Correo {
             $mail->SMTPSecure = 'tls';
 
 
-            $mail->setFrom('pruebas@odonto.megawebsistem.com', 'Tu Nombre o Empresa');
+            $mail->setFrom('pruebas@odonto.megawebsistem.com', 'MEGASTOCK S.A.');
             $mail->addAddress($destinatario);
+            $mail->addAddress($destinatario2);
             $mail->Subject = $asunto;
 
             // Configurar el mensaje
