@@ -7,6 +7,13 @@ use TCPDF;
 
 class Pdf2 extends TCPDF 
 {
+
+    public function Header()
+    {
+        $this->SetFont('helvetica', 'B', 16);
+        $this->Cell(0, 10, 'SOLICITUD DE COMPRA', 0, 1, 'C');
+        $this->Ln(5);
+    }
     public function generarPdf($datos)
     {
         $this->AddPage('L');
@@ -26,12 +33,7 @@ class Pdf2 extends TCPDF
             $productos = [];
         }
 
-        // me falta donde decia solicitud de compra
-
-        $this->SetFont('helvetica', 'B', 16);
-        $this->SetXY(15, 50);
-        $this->Cell(0, 10, 'FACTURA', 0, 1, 'C');
-        
+    
 
         // Logo
         $this->Image('src/img/logo2.png', 15, 20, 35);
