@@ -123,4 +123,11 @@ class Pdf2 extends TCPDF
     {
         parent::__construct();
     }
+
+    public function obtenerPdfEnMemoria()
+{
+    $this->generarPdf($datos); // Genera el PDF
+    return $this->Output('', 'S'); // Devuelve el PDF como string en memoria
+}
+
 }
