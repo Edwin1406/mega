@@ -288,7 +288,6 @@ public static function pdf(Router $router)
     // $email = new Correo($usuario->email, $usuario->nombre, $usuario->token);
     // $email->enviarConfirmacion();
     // $pdf->Output('etiqueta.pdf', 'I');
-  
     $id = $_GET['id'];
     $id = filter_var($id, FILTER_VALIDATE_INT);
     
@@ -304,7 +303,7 @@ public static function pdf(Router $router)
         'array' => $solicitud->array ?? []
     ];
     
-    // Llamar correctamente al método pasando los datos
+    // Obtener el PDF en memoria
     $pdfContenido = $pdf->obtenerPdfEnMemoria($datos);
     
     if (strlen($pdfContenido) < 500) {
@@ -315,23 +314,21 @@ public static function pdf(Router $router)
     file_put_contents('test.pdf', $pdfContenido);
     
     // Enviar por correo
-    $destinatario = "edwin.ed948@gmail.com";
+    $destinatario = "destinatario@example.com";
     $asunto = "Documento adjunto";
     $mensaje = "<p>Estimado usuario,</p><p>Adjunto encontrará el documento generado.</p>";
     
     $email = new Correo();
     $resultado = $email->enviarConAdjunto($destinatario, $asunto, $mensaje, $pdfContenido, 'etiqueta.pdf');
     
-    // quiero visualizar el pdf en el navegador
-
-    $pdf->generarPdf($datos);
-    $pdf->Output('etiqueta.pdf', 'I');
-
-    if ($resultado === true) {
-        echo "Correo enviado con éxito.";
-    } else {
+    // Si hubo un error en el envío, mostrar mensaje (opcional)
+    if ($resultado !== true) {
         echo "Error al enviar el correo: " . $resultado;
     }
+    
+    // Finalmente, mostrar el PDF en el navegador
+    $pdf->visualizarPdf($datos);
+    
     
 
 

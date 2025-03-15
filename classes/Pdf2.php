@@ -2,9 +2,6 @@
 namespace Classes;
 
 use TCPDF;
-
-
-
 class Pdf2 extends TCPDF 
 {
     public function generarPdf($datos)
@@ -12,16 +9,7 @@ class Pdf2 extends TCPDF
         $this->AddPage('L');
 
         // Asegurar que $datos['array'] sea válido
-        $productos = [];
-        if (!empty($datos['array'])) {
-            if (is_string($datos['array']) && !empty($datos['array'])) {
-                $productos = json_decode($datos['array'], true);
-            } else {
-                $productos = $datos['array'];
-            }
-        }
-
-        // Asegurar que `$productos` es un array válido
+        $productos = is_array($datos['array']) ? $datos['array'] : json_decode($datos['array'], true);
         if (!is_array($productos)) {
             $productos = [];
         }
@@ -83,49 +71,13 @@ class Pdf2 extends TCPDF
 
     public function obtenerPdfEnMemoria($datos)
     {
-        $this->generarPdf($datos); // Pasar los datos correctamente
+        $this->generarPdf($datos); // Genera el PDF en memoria
         return $this->Output('', 'S'); // Devolver el PDF como string en memoria
     }
 
-    
-    public function descargarPdf($datos)
+    public function visualizarPdf($datos)
     {
-        $this->generarPdf($datos);
-        $this->Output('factura.pdf', 'D');
+        $this->generarPdf($datos); // Generar PDF
+        $this->Output('factura.pdf', 'I'); // Mostrar en navegador
     }
-
-    public function verPdf($datos)
-    {
-        $this->generarPdf($datos);
-        $this->Output('factura.pdf', 'I');
-    }
-
-    public function guardarPdf($datos)
-    {
-        $this->generarPdf($datos);
-        $this->Output('factura.pdf', 'F');
-    }
-
-    public function enviarPdf($datos)
-    {
-        $this->generarPdf($datos);
-        $this->Output('factura.pdf', 'E');
-    }
-
-    public function imprimirPdf($datos)
-    {
-        $this->generarPdf($datos);
-        $this->Output('factura.pdf', 'I');
-    }
-
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
 }
-
-
-
-
-
