@@ -302,28 +302,24 @@ public static function pdf(Router $router)
     $pdf = new Pdf2();
     $datos = [
         'id' => $solicitud->id ?? 'No disponible',
-        'array' => $solicitud->array ?? 'No disponible',
+        'array' => $solicitud->array ?? []
     ];
     
-    // Generar PDF en memoria correctamente
-    ob_start();
-    $pdf->generarPdf($datos);
-    $pdfContenido = ob_get_contents();
-    ob_end_clean();
-    
-    // Guardar el PDF para pruebas (ver si se genera bien)
-    file_put_contents('test.pdf', $pdfContenido);
+    // Obtener el PDF en memoria
+    $pdfContenido = $pdf->obtenerPdfEnMemoria();
     
     if (strlen($pdfContenido) < 500) {
-        die("Error: El PDF generado es muy pequeño o está vacío.");
+        die("Error: El PDF generado sigue siendo muy pequeño o está vacío.");
     }
     
-    // Datos del correo
-    $destinatario = "edwin.ed948@gmail.com";
+    // Guardar para depuración
+    file_put_contents('test.pdf', $pdfContenido);
+    
+    // Enviar por correo
+    $destinatario = "destinatario@example.com";
     $asunto = "Documento adjunto";
     $mensaje = "<p>Estimado usuario,</p><p>Adjunto encontrará el documento generado.</p>";
     
-    // Enviar el correo con el PDF adjunto
     $email = new Correo();
     $resultado = $email->enviarConAdjunto($destinatario, $asunto, $mensaje, $pdfContenido, 'etiqueta.pdf');
     
