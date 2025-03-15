@@ -2,12 +2,11 @@
 namespace Classes;
 
 use TCPDF;
-
 class Pdf2 extends TCPDF 
 {
     public function Header()
     {
-        $this->SetFont('helvetica', 'B', 12); // Cambia Arial por helvetica
+        $this->SetFont('helvetica', 'B', 12);
         $this->Cell(0, 10, 'Etiqueta', 0, 0, 'C');
         $this->Ln(20);
     }
@@ -15,11 +14,9 @@ class Pdf2 extends TCPDF
     public function Footer()
     {
         $this->SetY(-15);
-        $this->SetFont('helvetica', 'I', 8); // Cambia Arial por helvetica
+        $this->SetFont('helvetica', 'I', 8);
         $this->Cell(0, 10, 'Página ' . $this->PageNo(), 0, 0, 'C');
     }
-    
-   
     
     public function generarPdf($datos)
     {
@@ -30,31 +27,30 @@ class Pdf2 extends TCPDF
         $pageWidth = $this->GetPageWidth();
         $pageHeight = $this->GetPageHeight();
     
-        $etiquetaWidth = 100; // Ancho de la etiqueta
-        $etiquetaHeight = 120; // Alto de la etiqueta
+        $etiquetaWidth = 100;
+        $etiquetaHeight = 120;
         $x = ($pageWidth - $etiquetaWidth) / 2;
         $y = ($pageHeight - $etiquetaHeight) / 2;
     
-        // Dibujar contenedor principal con bordes redondeados y sombra
-        $this->SetDrawColor(220, 220, 220); // Gris claro para el borde
-        // fondo blanco
-        $this->SetFillColor(255, 255, 255); // Fondo blanco
+        // Dibujar contenedor principal
+        $this->SetDrawColor(220, 220, 220);
+        $this->SetFillColor(255, 255, 255);
         $this->RoundedRect($x, $y, $etiquetaWidth, $etiquetaHeight, 5, '1111', 'DF');
     
-        // Encabezado con degradado
-        $this->SetFillColor(255, 140, 0); // Color degradado inicial
-        $this->RoundedRect($x, $y, $etiquetaWidth, 20, 5, '1111', 'F'); // Encabezado
+        // Encabezado
+        $this->SetFillColor(255, 140, 0);
+        $this->RoundedRect($x, $y, $etiquetaWidth, 20, 5, '1111', 'F');
         $this->SetFont('helvetica', 'B', 14);
-        $this->SetTextColor(255, 255, 255); // Blanco
+        $this->SetTextColor(255, 255, 255);
         $this->SetXY($x, $y + 5);
         $this->Cell($etiquetaWidth, 10, 'MEGASTOCK', 0, 1, 'C');
     
-        // Imagen del logo (centrado)
-        $this->Image('src/img/logo2.png', $x + 13, $y + 2, 14, 14); // Tamaño y posición del logo
+        // Logo
+        $this->Image('src/img/logo2.png', $x + 13, $y + 2, 14, 14);
     
-        // Datos principales con diseño moderno
+        // Datos principales
         $this->SetFont('helvetica', '', 10);
-        $this->SetTextColor(50, 50, 50); // Gris oscuro para texto
+        $this->SetTextColor(50, 50, 50);
     
         // TIPO
         $this->SetXY($x + 10, $y + 25);
@@ -62,21 +58,33 @@ class Pdf2 extends TCPDF
         $this->SetFont('helvetica', 'B', 10);
         $this->Cell(40, 6, $datos['id'], 0, 1, 'L');
     
-        // ANCHO
+        // ANCHO - Procesar el array correctamente
         $this->SetFont('helvetica', '', 10);
         $this->SetXY($x + 10, $y + 35);
-        $this->Cell(40, 6, 'ANCHO:', 0, 0, 'L');
+        $this->Cell(40, 6, 'ANCHO:', 0, 1, 'L');
+        
         $this->SetFont('helvetica', 'B', 10);
-        $this->Cell(40, 6, $datos['array'], 0, 1, 'L');
-    
-      
-        // Etiqueta estilizada con sombra
-        $this->SetDrawColor(220, 220, 220); // Sombra exterior clara
-        $this->RoundedRect($x + 1, $y + 1, $etiquetaWidth - 2, $etiquetaHeight - 2, 4, '1111');
+        
+        // Decodificar JSON si es un string
+        if (is_string($datos['array'])) {
+            $productos = json_decode($datos['array'], true);
+        } else {
+            $productos = $datos['array'];
+        }
+        
+        // Verificar que se decodificó correctamente
+        if (is_array($productos)) {
+            foreach ($productos as $producto) {
+                if (isset($producto['producto'])) {
+                    $this->SetX($x + 15);
+                    $this->Cell(70, 6, '- ' . $producto['producto'], 0, 1, 'L');
+                }
+            }
+        } else {
+            $this->SetX($x + 15);
+            $this->Cell(70, 6, 'Datos no válidos', 0, 1, 'L');
+        }
     }
-    
-    
-    
 
     public function descargarPdf($materias)
     {
@@ -112,6 +120,14 @@ class Pdf2 extends TCPDF
     {
         parent::__construct();
     }
-
-
 }
+
+// Datos de prueba
+$datosEjemplo = [
+    'id' => '37',
+    'array' => '[{"producto":"LEXMARK 56F4X00 MX522","categoria":"Toner"},{"producto":"HP 17A CF217A","categoria":"Toner"}]'
+];
+
+// Generar PDF
+$pdf = new Pdf2();
+$pdf->verPdf($datosEjemplo);
