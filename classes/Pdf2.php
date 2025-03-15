@@ -134,4 +134,4 @@ $datosEjemplo = [
 
 // Generar PDF
 $pdf = new Pdf2();
-$pdf->verPdf($datosEjemplo);
+$pdf->verPdf($datos);
