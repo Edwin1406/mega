@@ -6,9 +6,9 @@ class Pdf2 extends TCPDF
 {
     public function Header()
     {
-        $this->SetFont('helvetica', 'B', 12);
-        $this->Cell(0, 10, 'Etiqueta', 0, 0, 'C');
-        $this->Ln(20);
+        $this->SetFont('helvetica', 'B', 14);
+        $this->Cell(0, 10, 'FACTURA DE COMPRA', 0, 1, 'C');
+        $this->Ln(5);
     }
     
     public function Footer()
@@ -20,49 +20,39 @@ class Pdf2 extends TCPDF
     
     public function generarPdf($datos)
     {
-        // Agregar una nueva página
         $this->AddPage();
-    
-        // Centrar el contenedor principal en la página
-        $pageWidth = $this->GetPageWidth();
-        $pageHeight = $this->GetPageHeight();
-    
-        $etiquetaWidth = 100;
-        $etiquetaHeight = 140; // Se ajusta altura para la tabla
-        $x = ($pageWidth - $etiquetaWidth) / 2;
-        $y = ($pageHeight - $etiquetaHeight) / 2;
-    
-        // Dibujar contenedor principal
-        $this->SetDrawColor(220, 220, 220);
-        $this->SetFillColor(255, 255, 255);
-        $this->RoundedRect($x, $y, $etiquetaWidth, $etiquetaHeight, 5, '1111', 'DF');
-    
-        // Encabezado
-        $this->SetFillColor(255, 140, 0);
-        $this->RoundedRect($x, $y, $etiquetaWidth, 20, 5, '1111', 'F');
-        $this->SetFont('helvetica', 'B', 14);
-        $this->SetTextColor(255, 255, 255);
-        $this->SetXY($x, $y + 5);
-        $this->Cell($etiquetaWidth, 10, 'MEGASTOCK', 0, 1, 'C');
-    
+
         // Logo
-        $this->Image('src/img/logo2.png', $x + 13, $y + 2, 14, 14);
-    
-        // Datos principales
-        $this->SetFont('helvetica', '', 10);
-        $this->SetTextColor(50, 50, 50);
-    
-        // TIPO
-        $this->SetXY($x + 10, $y + 25);
-        $this->Cell(40, 6, 'TIPO:', 0, 0, 'L');
-        $this->SetFont('helvetica', 'B', 10);
-        $this->Cell(40, 6, $datos['id'], 0, 1, 'L');
-    
-        // ANCHO - Etiqueta de sección
-        $this->SetFont('helvetica', '', 10);
-        $this->SetXY($x + 10, $y + 35);
-        $this->Cell(40, 6, 'PRODUCTOS:', 0, 1, 'L');
+        $this->Image('src/img/logo2.png', 15, 10, 30);
         
+        // Datos de la empresa
+        $this->SetFont('helvetica', 'B', 12);
+        $this->SetXY(50, 10);
+        $this->Cell(100, 6, 'MEGASTOCK S.A.', 0, 1, 'L');
+        $this->SetFont('helvetica', '', 10);
+        $this->SetXY(50, 16);
+        $this->Cell(100, 6, 'Direccion: Calle Falsa 123', 0, 1, 'L');
+        $this->SetXY(50, 22);
+        $this->Cell(100, 6, 'Telefono: +123456789', 0, 1, 'L');
+        $this->Ln(10);
+
+        // Número de factura
+        $this->SetFont('helvetica', 'B', 12);
+        $this->Cell(0, 6, 'Factura No: ' . $datos['id'], 0, 1, 'R');
+        $this->Ln(5);
+
+        // Encabezado de la tabla
+        $this->SetFont('helvetica', 'B', 10);
+        $this->Cell(90, 6, 'Producto', 1, 0, 'C');
+        $this->Cell(50, 6, 'Categoria', 1, 0, 'C');
+        $this->Cell(40, 6, 'Precio Unitario', 1, 0, 'C');
+        $this->Cell(40, 6, 'Cantidad', 1, 0, 'C');
+        $this->Cell(40, 6, 'Subtotal', 1, 1, 'C');
+        
+        // Datos de la tabla
+        $this->SetFont('helvetica', '', 10);
+        $totalFactura = 0;
+
         // Decodificar JSON si es un string
         if (is_string($datos['array'])) {
             $productos = json_decode($datos['array'], true);
@@ -70,55 +60,63 @@ class Pdf2 extends TCPDF
             $productos = $datos['array'];
         }
 
-        // Verificar que se decodificó correctamente
         if (is_array($productos)) {
-            $this->SetFont('helvetica', 'B', 9);
-            $this->SetX($x + 10);
-            $this->Cell(60, 6, 'Producto', 1, 0, 'C');
-            $this->Cell(30, 6, 'Categoría', 1, 1, 'C');
-            
-            $this->SetFont('helvetica', '', 9);
             foreach ($productos as $producto) {
-                if (isset($producto['producto']) && isset($producto['categoria'])) {
-                    $this->SetX($x + 10);
-                    $this->Cell(60, 6, $producto['producto'], 1, 0, 'L');
-                    $this->Cell(30, 6, $producto['categoria'], 1, 1, 'L');
-                }
+                $descripcion = isset($producto['producto']) ? $producto['producto'] : 'N/A';
+                $categoria = isset($producto['categoria']) ? $producto['categoria'] : 'N/A';
+                $precio = isset($producto['precio']) ? $producto['precio'] : 0;
+                $cantidad = isset($producto['cantidad']) ? $producto['cantidad'] : 1;
+                $subtotal = $precio * $cantidad;
+                $totalFactura += $subtotal;
+
+                $this->Cell(90, 6, $descripcion, 1);
+                $this->Cell(50, 6, $categoria, 1);
+                $this->Cell(40, 6, '$' . number_format($precio, 2), 1, 0, 'C');
+                $this->Cell(40, 6, $cantidad, 1, 0, 'C');
+                $this->Cell(40, 6, '$' . number_format($subtotal, 2), 1, 1, 'C');
             }
-        } else {
-            $this->SetX($x + 10);
-            $this->Cell(90, 6, 'Datos no válidos', 1, 1, 'C');
         }
+
+        // Total de la factura
+        $this->SetFont('helvetica', 'B', 12);
+        $this->Cell(220, 6, 'TOTAL:', 1);
+        $this->Cell(40, 6, '$' . number_format($totalFactura, 2), 1, 1, 'C');
+        
+        $this->Ln(10);
+
+        // Mensaje de agradecimiento
+        $this->SetFont('helvetica', 'I', 10);
+        $this->Cell(0, 6, 'Gracias por su compra.', 0, 1, 'C');
     }
 
-    public function descargarPdf($materias)
+    public function descargarPdf($datos)
     {
-        $this->generarPdf($materias);
-        $this->Output('reporte.pdf', 'D');
+        $this->generarPdf($datos);
+        $this->Output('factura.pdf', 'D');
     }
 
-    public function verPdf($materias)
+    public function verPdf($datos)
     {
-        $this->generarPdf($materias);
-        $this->Output('reporte.pdf', 'I');
+        $this->generarPdf($datos);
+        $this->Output('factura.pdf', 'I');
     }
 
-    public function guardarPdf($materias)
+    public function guardarPdf($datos)
     {
-        $this->generarPdf($materias);
-        $this->Output('reporte.pdf', 'F');
+        $this->generarPdf($datos);
+        $this->Output('factura.pdf', 'F');
     }
 
-    public function enviarPdf($materias)
+    public function enviarPdf($datos)
     {
-        $this->generarPdf($materias);
-        $this->Output('reporte.pdf', 'E');
+        $this->generarPdf($datos);
+        $this->Output('factura.pdf', 'E');
     }
 
-    public function imprimirPdf($materias)
+    public function imprimirPdf($datos)
     {
-        $this->generarPdf($materias);
-        $this->Output('reporte.pdf', 'I');
+        $this->generarPdf($datos);
+        $this->Output('factura.pdf', 'I');
     }
 
     public function __construct()
@@ -129,8 +127,9 @@ class Pdf2 extends TCPDF
 
 // Datos de prueba
 $datosEjemplo = [
-    'id' => '37',
-    'array' => '[{"producto":"LEXMARK 56F4X00 MX522","categoria":"Toner"},{"producto":"HP 17A CF217A","categoria":"Toner"}]'
+    'id' => '1001',
+    'array' => '[{"producto":"LEXMARK 56F4X00 MX522","categoria":"Toner","precio":45.99,"cantidad":2},
+                 {"producto":"HP 17A CF217A","categoria":"Toner","precio":55.50,"cantidad":1}]'
 ];
 
 // Generar PDF
