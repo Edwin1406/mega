@@ -21,7 +21,7 @@ class Correo {
             $mail->SMTPSecure = 'ssl';
 
 
-            $mail->setFrom('agrolecc@gmail.com', 'Tu Nombre o Empresa');
+            $mail->setFrom('pruebas@odonto.megawebsistem.com', 'Tu Nombre o Empresa');
             $mail->addAddress($destinatario);
             $mail->Subject = $asunto;
 
