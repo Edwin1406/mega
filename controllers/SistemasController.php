@@ -266,24 +266,31 @@ public static function pdf(Router $router)
     
     
     $alertas = [];
-    $id = $_GET['id'];
+    $id = $_GET['id'] ?? null;
     $id = filter_var($id, FILTER_VALIDATE_INT);
-
+    
+    if (!$id) {
+        header('Location: /admin/produccion/materia/tabla');
+        exit;
+    }
+    
     $solicitud = Solicitud::find($id);
+    
     if (!$solicitud) {
         header('Location: /admin/produccion/materia/tabla');
+        exit;
     }
-
+    
     $pdf = new Pdf2();
     $datos = [
         'id' => $solicitud->id ?? 'No disponible',
-        'array' => $solicitud->array ?? 'No disponible',
+        'array' => $solicitud->array ?? '[]', // Se asegura de que sea un JSON válido
     ];
     
+    // Generar y mostrar el PDF
     $pdf->generarPdf($datos);
     $pdf->Output('etiqueta.pdf', 'I');
     
-
 
 
 
