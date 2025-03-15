@@ -49,11 +49,12 @@ class Pdf2 extends TCPDF
         // Encabezado de la tabla con más espacio
         $this->SetFont('helvetica', 'B', 11);
         $this->SetFillColor(230, 230, 230); // Color gris claro para el encabezado
-        $this->Cell(100, 10, 'Producto', 1, 0, 'C', true);
-        $this->Cell(70, 10, 'Categoría', 1, 0, 'C', true);
-        $this->Cell(50, 10, 'Precio Unitario', 1, 0, 'C', true);
+        $this->Cell(70, 10, 'Producto', 1, 0, 'C', true);
+        $this->Cell(50, 10, 'Categoría', 1, 0, 'C', true);
+        $this->Cell(50, 10, 'Área', 1, 0, 'C', true);
+        $this->Cell(40, 10, 'Costo Unitario', 1, 0, 'C', true);
         $this->Cell(30, 10, 'Cantidad', 1, 0, 'C', true);
-        $this->Cell(50, 10, 'Subtotal', 1, 1, 'C', true);
+        $this->Cell(40, 10, 'Total', 1, 1, 'C', true);
         
         // Datos de la tabla con más espacio y margen
         $this->SetFont('helvetica', '', 11);
@@ -77,23 +78,25 @@ class Pdf2 extends TCPDF
         foreach ($productos as $producto) {
             $descripcion = $producto['producto'] ?? 'N/A';
             $categoria = $producto['categoria'] ?? 'N/A';
-            $precio = $producto['precio'] ?? 0;
+            $area = $producto['area'] ?? 'N/A';
+            $costoUnitario = $producto['costoUnitario'] ?? 0;
             $cantidad = $producto['cantidad'] ?? 1;
-            $subtotal = $precio * $cantidad;
-            $totalFactura += $subtotal;
+            $total = $producto['total'] ?? ($costoUnitario * $cantidad);
+            $totalFactura += $total;
 
-            $this->Cell(100, 10, "  " . $descripcion, 1); // Espacio extra a la izquierda
-            $this->Cell(70, 10, "  " . $categoria, 1);
-            $this->Cell(50, 10, '$' . number_format($precio, 2), 1, 0, 'C');
+            $this->Cell(70, 10, "  " . $descripcion, 1);
+            $this->Cell(50, 10, "  " . $categoria, 1);
+            $this->Cell(50, 10, "  " . $area, 1);
+            $this->Cell(40, 10, '$' . number_format($costoUnitario, 2), 1, 0, 'C');
             $this->Cell(30, 10, $cantidad, 1, 0, 'C');
-            $this->Cell(50, 10, '$' . number_format($subtotal, 2), 1, 1, 'C');
+            $this->Cell(40, 10, '$' . number_format($total, 2), 1, 1, 'C');
         }
 
         // Total de la factura más visible
         $this->SetFont('helvetica', 'B', 13);
         $this->SetFillColor(230, 230, 230); // Color gris claro
-        $this->Cell(250, 12, 'TOTAL:', 1, 0, 'R', true);
-        $this->Cell(50, 12, '$' . number_format($totalFactura, 2), 1, 1, 'C', true);
+        $this->Cell(240, 12, 'TOTAL:', 1, 0, 'R', true);
+        $this->Cell(40, 12, '$' . number_format($totalFactura, 2), 1, 1, 'C', true);
         
         $this->Ln(12);
 
