@@ -88,7 +88,7 @@ class Pdf2 extends TCPDF
 
         // Mensaje de agradecimiento
         $this->SetFont('helvetica', 'I', 11);
-        $this->Cell(0, 10, 'Gracias por su compra.', 0, 1, 'C');
+        $this->Cell(0, 10, 'Se requiere su aprobación para proceder con la gestión de la compra. Por favor, responda a este correo.', 0, 1, 'C');
     }
 
     public function obtenerPdfEnMemoria($datos)
