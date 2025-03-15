@@ -33,8 +33,7 @@ class Correo {
 
             // Adjuntar el PDF generado en memoria
             $mail->addStringAttachment($pdfContenido, $nombreArchivo, 'base64', 'application/pdf');
-            $mail->SMTPDebug = 2; // 1 para mensajes básicos, 2 para detalles
-            $mail->Debugoutput = 'html'; // Salida en formato HTML
+         
             
             // Enviar el correo
             if (!$mail->send()) {
