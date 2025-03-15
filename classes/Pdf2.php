@@ -12,7 +12,7 @@ class Pdf2 extends TCPDF
     {
         $this->SetFont('helvetica', 'B', 16);
         $this->Cell(0, 10, 'SOLICITUD DE COMPRA', 0, 1, 'C');
-        $this->Ln(5);
+        $this->Ln(10);
     }
     public function generarPdf($datos)
     {
