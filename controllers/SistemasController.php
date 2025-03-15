@@ -288,40 +288,53 @@ public static function pdf(Router $router)
     // $email = new Correo($usuario->email, $usuario->nombre, $usuario->token);
     // $email->enviarConfirmacion();
     // $pdf->Output('etiqueta.pdf', 'I');
+  
+
     $id = $_GET['id'];
-$id = filter_var($id, FILTER_VALIDATE_INT);
+    $id = filter_var($id, FILTER_VALIDATE_INT);
+    
+    $solicitud = Solicitud::find($id);
+    if (!$solicitud) {
+        header('Location: /admin/produccion/materia/tabla');
+        exit();
+    }
+    
+    $pdf = new Pdf2();
+    $datos = [
+        'id' => $solicitud->id ?? 'No disponible',
+        'array' => $solicitud->array ?? 'No disponible',
+    ];
+    
+    // Generar PDF en memoria correctamente
+    ob_start();
+    $pdf->generarPdf($datos);
+    $pdfContenido = ob_get_contents();
+    ob_end_clean();
+    
+    // Guardar el PDF para pruebas (ver si se genera bien)
+    file_put_contents('test.pdf', $pdfContenido);
+    
+    if (strlen($pdfContenido) < 500) {
+        die("Error: El PDF generado es muy pequeño o está vacío.");
+    }
+    
+    // Datos del correo
+    $destinatario = "edwin.ed948@gmail.com";
+    $asunto = "Documento adjunto";
+    $mensaje = "<p>Estimado usuario,</p><p>Adjunto encontrará el documento generado.</p>";
+    
+    // Enviar el correo con el PDF adjunto
+    $email = new Correo();
+    $resultado = $email->enviarConAdjunto($destinatario, $asunto, $mensaje, $pdfContenido, 'etiqueta.pdf');
+    
+    if ($resultado === true) {
+        echo "Correo enviado con éxito.";
+    } else {
+        echo "Error al enviar el correo: " . $resultado;
+    }
+    
 
-$solicitud = Solicitud::find($id);
-if (!$solicitud) {
-    header('Location: /admin/produccion/materia/tabla');
-    exit();
-}
 
-$pdf = new Pdf2();
-$datos = [
-    'id' => $solicitud->id ?? 'No disponible',
-    'array' => $solicitud->array ?? 'No disponible',
-];
-
-// Capturar la salida del PDF en memoria
-ob_start();
-$pdf->generarPdf($datos);
-$pdfContenido = ob_get_clean();
-
-// Datos del correo
-$destinatario = "edwin.ed948@gmail.com";
-$asunto = "Documento adjunto";
-$mensaje = "<p>Estimado usuario,</p><p>Adjunto encontrará el documento generado.</p>";
-
-// Enviar el correo con el PDF adjunto
-$email = new Correo();
-$resultado = $email->enviarConAdjunto($destinatario, $asunto, $mensaje, $pdfContenido, 'etiqueta.pdf');
-
-if ($resultado === true) {
-    echo "Correo enviado con éxito.";
-} else {
-    echo "Error al enviar el correo: " . $resultado;
-}
 
 
 
