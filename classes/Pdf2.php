@@ -20,7 +20,8 @@ class Pdf2 extends TCPDF
     
     public function generarPdf($datos)
     {
-        $this->AddPage();
+        // Agregar una nueva página en formato horizontal
+        $this->AddPage('L');
 
         // Logo
         $this->Image('src/img/logo2.png', 15, 10, 30);
@@ -34,20 +35,18 @@ class Pdf2 extends TCPDF
         $this->Cell(100, 6, 'Direccion: Calle Falsa 123', 0, 1, 'L');
         $this->SetXY(50, 22);
         $this->Cell(100, 6, 'Telefono: +123456789', 0, 1, 'L');
+        $this->SetXY(230, 10);
+        $this->SetFont('helvetica', 'B', 12);
+        $this->Cell(50, 6, 'Factura No: ' . ($datos['id'] ?? 'No disponible'), 0, 1, 'R');
         $this->Ln(10);
 
-        // Número de factura
-        $this->SetFont('helvetica', 'B', 12);
-        $this->Cell(0, 6, 'Factura No: ' . ($datos['id'] ?? 'No disponible'), 0, 1, 'R');
-        $this->Ln(5);
-
-        // Encabezado de la tabla
+        // Encabezado de la tabla (Ajustado para mayor ancho)
         $this->SetFont('helvetica', 'B', 10);
-        $this->Cell(90, 6, 'Producto', 1, 0, 'C');
-        $this->Cell(50, 6, 'Categoria', 1, 0, 'C');
-        $this->Cell(40, 6, 'Precio Unitario', 1, 0, 'C');
-        $this->Cell(40, 6, 'Cantidad', 1, 0, 'C');
-        $this->Cell(40, 6, 'Subtotal', 1, 1, 'C');
+        $this->Cell(100, 8, 'Producto', 1, 0, 'C');
+        $this->Cell(70, 8, 'Categoria', 1, 0, 'C');
+        $this->Cell(50, 8, 'Precio Unitario', 1, 0, 'C');
+        $this->Cell(30, 8, 'Cantidad', 1, 0, 'C');
+        $this->Cell(50, 8, 'Subtotal', 1, 1, 'C');
         
         // Datos de la tabla
         $this->SetFont('helvetica', '', 10);
@@ -76,17 +75,17 @@ class Pdf2 extends TCPDF
             $subtotal = $precio * $cantidad;
             $totalFactura += $subtotal;
 
-            $this->Cell(90, 6, $descripcion, 1);
-            $this->Cell(50, 6, $categoria, 1);
-            $this->Cell(40, 6, '$' . number_format($precio, 2), 1, 0, 'C');
-            $this->Cell(40, 6, $cantidad, 1, 0, 'C');
-            $this->Cell(40, 6, '$' . number_format($subtotal, 2), 1, 1, 'C');
+            $this->Cell(100, 8, $descripcion, 1);
+            $this->Cell(70, 8, $categoria, 1);
+            $this->Cell(50, 8, '$' . number_format($precio, 2), 1, 0, 'C');
+            $this->Cell(30, 8, $cantidad, 1, 0, 'C');
+            $this->Cell(50, 8, '$' . number_format($subtotal, 2), 1, 1, 'C');
         }
 
         // Total de la factura
         $this->SetFont('helvetica', 'B', 12);
-        $this->Cell(220, 6, 'TOTAL:', 1);
-        $this->Cell(40, 6, '$' . number_format($totalFactura, 2), 1, 1, 'C');
+        $this->Cell(250, 8, 'TOTAL:', 1);
+        $this->Cell(50, 8, '$' . number_format($totalFactura, 2), 1, 1, 'C');
         
         $this->Ln(10);
 
@@ -130,4 +129,3 @@ class Pdf2 extends TCPDF
         parent::__construct();
     }
 }
-
