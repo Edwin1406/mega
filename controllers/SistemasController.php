@@ -2,6 +2,7 @@
 
 namespace Controllers;
 
+use Classes\Correo;
 use Classes\Paginacion;
 use Classes\Pdf2;
 use Model\Area_inventario;
@@ -265,24 +266,63 @@ public static function pdf(Router $router)
 
     
     
-    $alertas = [];
+    // $alertas = [];
+    // $id = $_GET['id'];
+    // $id = filter_var($id, FILTER_VALIDATE_INT);
+
+    // $solicitud = Solicitud::find($id);
+    // if (!$solicitud) {
+    //     header('Location: /admin/produccion/materia/tabla');
+    // }
+
+    // $pdf = new Pdf2();
+    // $datos = [
+    //     'id' => $solicitud->id ?? 'No disponible',
+    //     'array' => $solicitud->array ?? 'No disponible',
+    // ];
+    
+
+
+    // $pdf->generarPdf($datos);
+    
+    // $email = new Correo($usuario->email, $usuario->nombre, $usuario->token);
+    // $email->enviarConfirmacion();
+    // $pdf->Output('etiqueta.pdf', 'I');
     $id = $_GET['id'];
-    $id = filter_var($id, FILTER_VALIDATE_INT);
+$id = filter_var($id, FILTER_VALIDATE_INT);
 
-    $solicitud = Solicitud::find($id);
-    if (!$solicitud) {
-        header('Location: /admin/produccion/materia/tabla');
-    }
+$solicitud = Solicitud::find($id);
+if (!$solicitud) {
+    header('Location: /admin/produccion/materia/tabla');
+    exit();
+}
 
-    $pdf = new Pdf2();
-    $datos = [
-        'id' => $solicitud->id ?? 'No disponible',
-        'array' => $solicitud->array ?? 'No disponible',
-    ];
-    
-    $pdf->generarPdf($datos);
-    $pdf->Output('etiqueta.pdf', 'I');
-    
+$pdf = new Pdf2();
+$datos = [
+    'id' => $solicitud->id ?? 'No disponible',
+    'array' => $solicitud->array ?? 'No disponible',
+];
+
+// Capturar la salida del PDF en memoria
+ob_start();
+$pdf->generarPdf($datos);
+$pdfContenido = ob_get_clean();
+
+// Datos del correo
+$destinatario = "edwin.ed948@gmail.com";
+$asunto = "Documento adjunto";
+$mensaje = "<p>Estimado usuario,</p><p>Adjunto encontrará el documento generado.</p>";
+
+// Enviar el correo con el PDF adjunto
+$email = new Correo();
+$resultado = $email->enviarConAdjunto($destinatario, $asunto, $mensaje, $pdfContenido, 'etiqueta.pdf');
+
+if ($resultado === true) {
+    echo "Correo enviado con éxito.";
+} else {
+    echo "Error al enviar el correo: " . $resultado;
+}
+
 
 
 

@@ -1,116 +1,132 @@
+
+<style>
+
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: #f4f4f4;
+    padding: 20px;
+}
+
+.container {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    max-width: 400px;
+    margin: auto;
+}
+
+h2 {
+    margin-bottom: 10px;
+}
+
+canvas {
+    border: 2px solid #000;
+    background-color: #fff;
+    width: 100%;
+    height: 200px;
+    cursor: crosshair;
+}
+
+.buttons {
+    margin-top: 10px;
+}
+
+button {
+    padding: 10px 15px;
+    font-size: 16px;
+    margin: 5px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#clear {
+    background-color: #d9534f;
+    color: white;
+}
+
+#save {
+    background-color: #5cb85c;
+    color: white;
+}
+
+button:hover {
+    opacity: 0.8;
+}
+
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/signature_pad/4.0.0/signature_pad.umd.min.js"></script>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Filtrar y Guardar en LocalStorage</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            padding: 20px;
-        }
-        input {
-            width: 100%;
-            padding: 8px;
-            margin-bottom: 10px;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        th, td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: center;
-        }
-        th {
-            background-color: #f4f4f4;
-        }
-        button {
-            padding: 10px;
-            margin-top: 10px;
-            cursor: pointer;
-            background: blue;
-            color: white;
-            border: none;
-            border-radius: 5px;
-        }
-    </style>
+    <title>Firma Digital</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-    <h2>Filtrar y Guardar en LocalStorage</h2>
-    
-    <input type="text" id="search" placeholder="Filtrar por nombre..." onkeyup="filterData()">
-    
-    <table>
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Nombre</th>
-                <th>Edad</th>
-            </tr>
-        </thead>
-        <tbody id="data-table">
-            <!-- Filas generadas dinámicamente -->
-        </tbody>
-    </table>
+    <div class="container">
+        <h2>Firma Digital</h2>
+        <canvas id="signature-pad"></canvas>
+        <div class="buttons">
+            <button id="clear">🗑 Borrar</button>
+            <button id="save">💾 Descargar</button>
+        </div>
+    </div>
 
-    <button onclick="saveToLocalStorage()">Guardar Filtrado</button>
-    <button onclick="loadFromLocalStorage()">Cargar Guardado</button>
-
-    <script>
-        const data = [
-            { id: 1, name: "Juan", age: 25 },
-            { id: 2, name: "María", age: 30 },
-            { id: 3, name: "Carlos", age: 35 },
-            { id: 4, name: "Ana", age: 28 },
-            { id: 5, name: "Pedro", age: 40 }
-        ];
-
-        function renderTable(filteredData) {
-            const tableBody = document.getElementById("data-table");
-            tableBody.innerHTML = "";
-            filteredData.forEach(item => {
-                const row = `<tr>
-                                <td>${item.id}</td>
-                                <td>${item.name}</td>
-                                <td>${item.age}</td>
-                            </tr>`;
-                tableBody.innerHTML += row;
-            });
-        }
-
-        function filterData() {
-            const searchValue = document.getElementById("search").value.toLowerCase();
-            const filteredData = data.filter(item => 
-                item.name.toLowerCase().includes(searchValue)
-            );
-            renderTable(filteredData);
-        }
-
-        function saveToLocalStorage() {
-            const searchValue = document.getElementById("search").value.toLowerCase();
-            const filteredData = data.filter(item => 
-                item.name.toLowerCase().includes(searchValue)
-            );
-            localStorage.setItem("filteredData", JSON.stringify(filteredData));
-            alert("Datos guardados en LocalStorage.");
-        }
-
-        function loadFromLocalStorage() {
-            const savedData = JSON.parse(localStorage.getItem("filteredData")) || [];
-            if (savedData.length > 0) {
-                renderTable(savedData);
-                alert("Datos cargados desde LocalStorage.");
-            } else {
-                alert("No hay datos guardados.");
-            }
-        }
-
-        // Renderizar la tabla con todos los datos al cargar la página
-        renderTable(data);
-    </script>
+    <!-- Cargar SignaturePad antes de tu script -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/signature_pad/4.0.0/signature_pad.umd.min.js"></script>
+    <script src="script.js"></script>
+    <script src="
+https://cdn.jsdelivr.net/npm/signature_pad@5.0.6/dist/signature_pad.umd.min.js
+"></script>
 
 </body>
 </html>
+
+<script>
+
+document.addEventListener("DOMContentLoaded", function () {
+    const canvas = document.getElementById("signature-pad");
+    const signaturePad = new SignaturePad(canvas);
+
+    // Ajustar el tamaño del canvas al contenedor
+    function resizeCanvas() {
+        const ratio = Math.max(window.devicePixelRatio || 1, 1);
+        canvas.width = canvas.offsetWidth * ratio;
+        canvas.height = canvas.offsetHeight * ratio;
+        canvas.getContext("2d").scale(ratio, ratio);
+        signaturePad.clear();
+    }
+    
+    window.addEventListener("resize", resizeCanvas);
+    resizeCanvas();
+
+    // Botón para borrar la firma
+    document.getElementById("clear").addEventListener("click", function () {
+        signaturePad.clear();
+    });
+
+    // Botón para guardar la firma como PNG===]][[]]
+    document.getElementById("save").addEventListener("click", function () {
+        if (!signaturePad.isEmpty()) {
+            const dataURL = signaturePad.toDataURL("image/png");
+
+            // Crear un enlace para descargar la imagen
+            const link = document.createElement("a");
+            link.href = dataURL;
+            link.download = "firma.png";
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        } else {
+            alert("No hay firma para guardar.");
+        }
+    });
+});
+
+</script>
