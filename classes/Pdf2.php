@@ -2,18 +2,16 @@
 namespace Classes;
 
 use TCPDF;
+
+
+
 class Pdf2 extends TCPDF 
 {
-    public function __construct()
-    {
-        parent::__construct(); // Asegura que las propiedades de TCPDF se inicialicen
-    }
-
     public function generarPdf($datos)
     {
-        $this->AddPage('L'); // Aquí se inicializa la página
+        $this->AddPage('L');
 
-        // Verificar que los datos están correctamente estructurados
+        // Asegurar que $datos['array'] sea válido
         $productos = [];
         if (!empty($datos['array'])) {
             if (is_string($datos['array']) && !empty($datos['array'])) {
@@ -23,6 +21,7 @@ class Pdf2 extends TCPDF
             }
         }
 
+        // Asegurar que `$productos` es un array válido
         if (!is_array($productos)) {
             $productos = [];
         }
@@ -84,13 +83,49 @@ class Pdf2 extends TCPDF
 
     public function obtenerPdfEnMemoria($datos)
     {
-        $this->generarPdf($datos);
-        return $this->Output('', 'S'); // Devuelve el PDF en memoria
+        $this->generarPdf($datos); // Pasar los datos correctamente
+        return $this->Output('', 'S'); // Devolver el PDF como string en memoria
     }
 
-    public function visualizarPdf($datos)
+    
+    public function descargarPdf($datos)
     {
         $this->generarPdf($datos);
-        $this->Output('factura.pdf', 'I'); // Mostrar en navegador
+        $this->Output('factura.pdf', 'D');
     }
+
+    public function verPdf($datos)
+    {
+        $this->generarPdf($datos);
+        $this->Output('factura.pdf', 'I');
+    }
+
+    public function guardarPdf($datos)
+    {
+        $this->generarPdf($datos);
+        $this->Output('factura.pdf', 'F');
+    }
+
+    public function enviarPdf($datos)
+    {
+        $this->generarPdf($datos);
+        $this->Output('factura.pdf', 'E');
+    }
+
+    public function imprimirPdf($datos)
+    {
+        $this->generarPdf($datos);
+        $this->Output('factura.pdf', 'I');
+    }
+
+    public function __construct()
+    {
+        parent::__construct();
+    }
+
 }
+
+
+
+
+

@@ -288,6 +288,7 @@ public static function pdf(Router $router)
     // $email = new Correo($usuario->email, $usuario->nombre, $usuario->token);
     // $email->enviarConfirmacion();
     // $pdf->Output('etiqueta.pdf', 'I');
+  
     $id = $_GET['id'];
     $id = filter_var($id, FILTER_VALIDATE_INT);
     
@@ -303,21 +304,33 @@ public static function pdf(Router $router)
         'array' => $solicitud->array ?? []
     ];
     
-    // Obtener el PDF en memoria para enviar por correo
+    // Llamar correctamente al método pasando los datos
     $pdfContenido = $pdf->obtenerPdfEnMemoria($datos);
     
-    // Enviar el PDF por correo
-    $destinatario = "destinatario@example.com";
+    if (strlen($pdfContenido) < 500) {
+        die("Error: El PDF generado sigue siendo muy pequeño o está vacío.");
+    }
+    
+    // Guardar para depuración
+    file_put_contents('test.pdf', $pdfContenido);
+    
+    // Enviar por correo
+    $destinatario = "edwin.ed948@gmail.com";
     $asunto = "Documento adjunto";
     $mensaje = "<p>Estimado usuario,</p><p>Adjunto encontrará el documento generado.</p>";
     
     $email = new Correo();
-    $resultado = $email->enviarConAdjunto($destinatario, $asunto, $mensaje, $pdfContenido, 'factura.pdf');
+    $resultado = $email->enviarConAdjunto($destinatario, $asunto, $mensaje, $pdfContenido, 'etiqueta.pdf');
     
-    // ⚠️ NO HACER `echo` o `die()` aquí, solo enviar el PDF al navegador
-    $pdf->visualizarPdf($datos);
-    
-    
+    // quiero visualizar el pdf en el navegador
+
+
+
+    if ($resultado === true) {
+        echo "Correo enviado con éxito.";
+    } else {
+        echo "Error al enviar el correo: " . $resultado;
+    }
     
 
 
