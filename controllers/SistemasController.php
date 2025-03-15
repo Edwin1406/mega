@@ -276,8 +276,9 @@ public static function pdf(Router $router)
 
     $pdf = new Pdf2();
     $datos = [
-        'tipo' => $solicitud->array,
+        'array' => $solicitud->array ?? 'No disponible',
     ];
+    
     $pdf->generarPdf($datos);
     $pdf->Output('etiqueta.pdf', 'I');
     
