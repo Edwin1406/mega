@@ -38,7 +38,7 @@ class Pdf2 extends TCPDF
 
         // Número de factura
         $this->SetFont('helvetica', 'B', 12);
-        $this->Cell(0, 6, 'Factura No: ' . $datos['id'], 0, 1, 'R');
+        $this->Cell(0, 6, 'Factura No: ' . ($datos['id'] ?? 'No disponible'), 0, 1, 'R');
         $this->Ln(5);
 
         // Encabezado de la tabla
@@ -53,28 +53,34 @@ class Pdf2 extends TCPDF
         $this->SetFont('helvetica', '', 10);
         $totalFactura = 0;
 
-        // Decodificar JSON si es un string
-        if (is_string($datos['array'])) {
-            $productos = json_decode($datos['array'], true);
-        } else {
-            $productos = $datos['array'];
+        // Asegurar que `array` siempre es un array válido
+        $productos = [];
+        if (!empty($datos['array'])) {
+            if (is_string($datos['array'])) {
+                $productos = json_decode($datos['array'], true);
+            } else {
+                $productos = $datos['array'];
+            }
         }
 
-        if (is_array($productos)) {
-            foreach ($productos as $producto) {
-                $descripcion = isset($producto['producto']) ? $producto['producto'] : 'N/A';
-                $categoria = isset($producto['categoria']) ? $producto['categoria'] : 'N/A';
-                $precio = isset($producto['precio']) ? $producto['precio'] : 0;
-                $cantidad = isset($producto['cantidad']) ? $producto['cantidad'] : 1;
-                $subtotal = $precio * $cantidad;
-                $totalFactura += $subtotal;
+        if (!is_array($productos)) {
+            $productos = [];
+        }
 
-                $this->Cell(90, 6, $descripcion, 1);
-                $this->Cell(50, 6, $categoria, 1);
-                $this->Cell(40, 6, '$' . number_format($precio, 2), 1, 0, 'C');
-                $this->Cell(40, 6, $cantidad, 1, 0, 'C');
-                $this->Cell(40, 6, '$' . number_format($subtotal, 2), 1, 1, 'C');
-            }
+        // Llenar la tabla con productos
+        foreach ($productos as $producto) {
+            $descripcion = $producto['producto'] ?? 'N/A';
+            $categoria = $producto['categoria'] ?? 'N/A';
+            $precio = $producto['precio'] ?? 0;
+            $cantidad = $producto['cantidad'] ?? 1;
+            $subtotal = $precio * $cantidad;
+            $totalFactura += $subtotal;
+
+            $this->Cell(90, 6, $descripcion, 1);
+            $this->Cell(50, 6, $categoria, 1);
+            $this->Cell(40, 6, '$' . number_format($precio, 2), 1, 0, 'C');
+            $this->Cell(40, 6, $cantidad, 1, 0, 'C');
+            $this->Cell(40, 6, '$' . number_format($subtotal, 2), 1, 1, 'C');
         }
 
         // Total de la factura
@@ -125,13 +131,3 @@ class Pdf2 extends TCPDF
     }
 }
 
-// Datos de prueba
-$datosEjemplo = [
-    'id' => '1001',
-    'array' => '[{"producto":"LEXMARK 56F4X00 MX522","categoria":"Toner","precio":45.99,"cantidad":2},
-                 {"producto":"HP 17A CF217A","categoria":"Toner","precio":55.50,"cantidad":1}]'
-];
-
-// Generar PDF
-$pdf = new Pdf2();
-$pdf->verPdf($datos);
