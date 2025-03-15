@@ -28,7 +28,7 @@ class Pdf2 extends TCPDF
         $pageHeight = $this->GetPageHeight();
     
         $etiquetaWidth = 100;
-        $etiquetaHeight = 120;
+        $etiquetaHeight = 140; // Se ajusta altura para la tabla
         $x = ($pageWidth - $etiquetaWidth) / 2;
         $y = ($pageHeight - $etiquetaHeight) / 2;
     
@@ -58,12 +58,10 @@ class Pdf2 extends TCPDF
         $this->SetFont('helvetica', 'B', 10);
         $this->Cell(40, 6, $datos['id'], 0, 1, 'L');
     
-        // ANCHO - Procesar el array correctamente
+        // ANCHO - Etiqueta de sección
         $this->SetFont('helvetica', '', 10);
         $this->SetXY($x + 10, $y + 35);
-        $this->Cell(40, 6, 'ANCHO:', 0, 1, 'L');
-        
-        $this->SetFont('helvetica', 'B', 10);
+        $this->Cell(40, 6, 'PRODUCTOS:', 0, 1, 'L');
         
         // Decodificar JSON si es un string
         if (is_string($datos['array'])) {
@@ -71,18 +69,25 @@ class Pdf2 extends TCPDF
         } else {
             $productos = $datos['array'];
         }
-        
+
         // Verificar que se decodificó correctamente
         if (is_array($productos)) {
+            $this->SetFont('helvetica', 'B', 9);
+            $this->SetX($x + 10);
+            $this->Cell(60, 6, 'Producto', 1, 0, 'C');
+            $this->Cell(30, 6, 'Categoría', 1, 1, 'C');
+            
+            $this->SetFont('helvetica', '', 9);
             foreach ($productos as $producto) {
-                if (isset($producto['producto'])) {
-                    $this->SetX($x + 15);
-                    $this->Cell(70, 6, '- ' . $producto['producto'], 0, 1, 'L');
+                if (isset($producto['producto']) && isset($producto['categoria'])) {
+                    $this->SetX($x + 10);
+                    $this->Cell(60, 6, $producto['producto'], 1, 0, 'L');
+                    $this->Cell(30, 6, $producto['categoria'], 1, 1, 'L');
                 }
             }
         } else {
-            $this->SetX($x + 15);
-            $this->Cell(70, 6, 'Datos no válidos', 0, 1, 'L');
+            $this->SetX($x + 10);
+            $this->Cell(90, 6, 'Datos no válidos', 1, 1, 'C');
         }
     }
 
