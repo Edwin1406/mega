@@ -276,6 +276,7 @@ public static function pdf(Router $router)
 
     $pdf = new Pdf2();
     $datos = [
+        'id' => $solicitud->id ?? 'No disponible',
         'array' => $solicitud->array ?? 'No disponible',
     ];
     
