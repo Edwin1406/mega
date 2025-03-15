@@ -322,6 +322,11 @@ public static function pdf(Router $router)
     $email = new Correo();
     $resultado = $email->enviarConAdjunto($destinatario, $asunto, $mensaje, $pdfContenido, 'etiqueta.pdf');
     
+    // quiero visualizar el pdf en el navegador
+
+    $pdf->generarPdf($datos);
+    $pdf->Output('etiqueta.pdf', 'I');
+
     if ($resultado === true) {
         echo "Correo enviado con éxito.";
     } else {
