@@ -299,10 +299,9 @@ public static function pdf(Router $router)
     
     $pdf = new Pdf2();
     $datos = [
-        'id' => isset($solicitud->id) ? $solicitud->id : 'No disponible',
-        'array' => isset($solicitud->array) && !empty($solicitud->array) ? $solicitud->array : []
+        'id' => $solicitud->id ?? 'No disponible',
+        'array' => $solicitud->array ?? []
     ];
-    
     
     // Obtener el PDF en memoria
     $pdfContenido = $pdf->obtenerPdfEnMemoria($datos);
