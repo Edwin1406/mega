@@ -314,7 +314,7 @@ public static function pdf(Router $router)
     file_put_contents('test.pdf', $pdfContenido);
     
     // Enviar por correo
-    $destinatario = "destinatario@example.com";
+    $destinatario = "edwin.ed948@gmail.com";
     $asunto = "Documento adjunto";
     $mensaje = "<p>Estimado usuario,</p><p>Adjunto encontrará el documento generado.</p>";
     
