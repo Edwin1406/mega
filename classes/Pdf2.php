@@ -4,12 +4,25 @@ namespace Classes;
 use TCPDF;
 class Pdf2 extends TCPDF 
 {
+    public function __construct()
+    {
+        parent::__construct(); // Asegura que las propiedades de TCPDF se inicialicen
+    }
+
     public function generarPdf($datos)
     {
-        $this->AddPage('L');
+        $this->AddPage('L'); // Aquí se inicializa la página
 
-        // Asegurar que $datos['array'] sea válido
-        $productos = is_array($datos['array']) ? $datos['array'] : json_decode($datos['array'], true);
+        // Verificar que los datos están correctamente estructurados
+        $productos = [];
+        if (!empty($datos['array'])) {
+            if (is_string($datos['array']) && !empty($datos['array'])) {
+                $productos = json_decode($datos['array'], true);
+            } else {
+                $productos = $datos['array'];
+            }
+        }
+
         if (!is_array($productos)) {
             $productos = [];
         }
@@ -71,13 +84,13 @@ class Pdf2 extends TCPDF
 
     public function obtenerPdfEnMemoria($datos)
     {
-        $this->generarPdf($datos); // Genera el PDF en memoria
-        return $this->Output('', 'S'); // Devolver el PDF como string en memoria
+        $this->generarPdf($datos);
+        return $this->Output('', 'S'); // Devuelve el PDF en memoria
     }
 
     public function visualizarPdf($datos)
     {
-        $this->generarPdf($datos); // Generar PDF
+        $this->generarPdf($datos);
         $this->Output('factura.pdf', 'I'); // Mostrar en navegador
     }
 }
