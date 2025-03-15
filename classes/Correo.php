@@ -20,6 +20,7 @@ class Correo {
             $mail->Password = $_ENV['EMAIL_PASS'];
             $mail->SMTPSecure = 'ssl';
 
+
             $mail->setFrom('agrolecc@gmail.com', 'Tu Nombre o Empresa');
             $mail->addAddress($destinatario);
             $mail->Subject = $asunto;
