@@ -29,10 +29,13 @@ class Correo {
             $mail->isHTML(true);
             $mail->CharSet = 'UTF-8';
             $mail->Body = $mensaje;
+            
 
             // Adjuntar el PDF generado en memoria
             $mail->addStringAttachment($pdfContenido, $nombreArchivo, 'base64', 'application/pdf');
-
+            $mail->SMTPDebug = 2; // 1 para mensajes básicos, 2 para detalles
+            $mail->Debugoutput = 'html'; // Salida en formato HTML
+            
             // Enviar el correo
             if (!$mail->send()) {
                 throw new Exception('Error al enviar el correo: ' . $mail->ErrorInfo);
