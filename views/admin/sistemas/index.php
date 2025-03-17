@@ -129,6 +129,7 @@
     @media (max-width: 768px){
         .contenido-graficos{
             flex-direction: column;
+            gap: 1rem;
         }
 
         .grafico1, .grafico2{
