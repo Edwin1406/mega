@@ -5,19 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
         .item {
             background-color: #24292d;
             color: #f8f2f2;
             padding: 10px 15px;
             transition: all 0.5s;
             display: inline-block;
+            width: 20%;
+            text-align: center;
         }
 
         .containers {
             display: flex;
             flex-direction: row;
             justify-content: center;
-            flex-wrap: wrap;
         }
 
         .item a {
@@ -35,18 +40,19 @@
         @media (max-width: 1024px) {
             .containers {
                 display: none;
-                width: 100%;
+                flex-direction: column;
                 position: absolute;
                 top: 50px;
+                left: 0;
+                width: 100%;
                 background-color: #24292d;
-                flex-direction: column;
-                align-items: center;
+                padding-top: 10px;
             }
 
             .item {
                 width: 100%;
+                margin: 10px 0;
                 text-align: center;
-                margin: 5px 0;
             }
 
             .menu-toggle {
@@ -55,6 +61,9 @@
                 font-size: 24px;
                 color: #f8f2f2;
                 margin: 10px;
+                position: absolute;
+                top: 10px;
+                left: 20px;
             }
 
             .containers.show {
@@ -63,17 +72,19 @@
         }
 
         @media (min-width: 1024px) {
-            .item:nth-child(1), .item:nth-child(2), .item:nth-child(3), .item:nth-child(4), .item:nth-child(5) {
+            .item {
                 width: 20%;
             }
         }
     </style>
 </head>
 <body>
+    <!-- Menú hamburguesa -->
     <div class="menu-toggle" onclick="toggleMenu()">
         <i class="fas fa-bars"></i>
     </div>
-    
+
+    <!-- Contenedor de elementos del menú -->
     <div class="containers">
         <div class="item"><a href="/admin/sistemas/index?id=80ad04ffdfb4872f9b4603cdf4932f23"> <i class="fas fa-home"></i> INICIO</a></div>
         <div class="item"><a href="/admin/sistemas/productos/crear"> <i class="fas fa-industry"></i> PRODUCTOS</a></div>
@@ -82,6 +93,7 @@
         <div class="item"><a href="/admin/sistemas/solicitudes/solicitud"><i class="fa-solid fa-arrow-right"></i> GASTOS</a></div>
     </div>
 
+    <!-- Script JS para controlar la visibilidad del menú -->
     <script>
         function toggleMenu() {
             const menu = document.querySelector('.containers');
