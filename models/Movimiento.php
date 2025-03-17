@@ -15,7 +15,7 @@ class Movimiento  extends ActiveRecord
     public $cantidad;
     public $fecha_movimiento;
     // public $valor;
-    public $costo_nuevo;
+    // public $costo_nuevo;
 
 
     public function __construct($args = [])
