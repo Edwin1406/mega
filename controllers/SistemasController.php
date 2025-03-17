@@ -112,7 +112,7 @@ public static function movimientos(Router $router) {
         'id_categoria' => $producto->id_categoria,
         'tipo_movimiento' => $tipo_movimiento,
         'cantidad' => $cantidad,
-        'valor' => $valor,  
+        'valor' => 0,  
         'fecha_movimiento' => date('Y-m-d H:i:s')
     ]);
 
@@ -120,20 +120,25 @@ public static function movimientos(Router $router) {
     debuguear($movimientos_invetario);
 
 
-    // Calculando el stock actual y el costo promedio
     if ($tipo_movimiento === 'Entrada') {
-        $productos_inventario->stock_actual += $cantidad;
-        $productos_inventario->costo_unitario = 
-            ($producto->costo_unitario * $producto->stock_actual + $producto->costo_unitario * $cantidad) / $productos_inventario->stock_actual;
-    } else {
-        $productos_inventario->stock_actual -= $cantidad;
-    }
+        // Nuevo stock total después de la entrada
+        $nuevo_stock = $producto->stock_actual + $cantidad;
 
-    // Establecer el valor en base al tipo de movimiento
-    if ($tipo_movimiento === 'Entrada') {
-        $valor = $productos_inventario->costo_unitario * $cantidad;
+        // Cálculo del nuevo costo promedio
+        $nuevo_costo_promedio = 
+            (($producto->costo_unitario * $producto->stock_actual) + ($costo * $cantidad)) / $nuevo_stock;
+
+        // Actualizando el stock y el costo unitario
+        $productos_inventario->stock_actual = $nuevo_stock;
+        $productos_inventario->costo_unitario = $nuevo_costo_promedio;
+
+        // Establecer el valor de la entrada
+        $valor = $nuevo_costo_promedio * $cantidad;
+
     } else {
-        $valor = 0;  // O puedes dejarlo vacío dependiendo de cómo lo manejes en la base de datos
+        // Si es salida, disminuimos el stock (no se cambia el costo promedio)
+        $productos_inventario->stock_actual -= $cantidad;
+        $valor = 0;  // Para movimientos de salida no calculamos valor
     }
 
     $movimientos_invetario->guardas();
