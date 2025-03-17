@@ -70,6 +70,8 @@
 </style>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
+<body>
+    
 
 <?php if (isset($_SESSION['email'])): ?>
     <div class="menu-toggle" onclick="toggleMenu()">
@@ -85,7 +87,7 @@
 <?php else: ?>
     <!-- Aquí puedes agregar el contenido alternativo si no hay sesión -->
 <?php endif; ?>
-
+</body>
 
 
 
