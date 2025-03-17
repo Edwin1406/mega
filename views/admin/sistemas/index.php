@@ -244,12 +244,6 @@ async function sumadevaloresdeapi(){
         return itemDate.getMonth() === currentMonth && itemDate.getFullYear() === currentYear;
     });
 
-    // Sumar los valores de los movimientos
-    filteredData.forEach(item => {
-        TotalGeneral += parseFloat(item.valor);
-    });
-
-    console.log("Total general:", TotalGeneral);
 
 
     const ctx = document.getElementById('totalgeneral').getContext('2d');
@@ -258,8 +252,8 @@ async function sumadevaloresdeapi(){
         const data = {
             labels: labels,
             datasets: [{
-                label: 'My First Dataset',
-                data: [65, 59, 80, 81, 56, 55, 40],
+                label: 'TOTAL GENERAL POR MES',
+                data:  [filteredData.reduce((acc, item) => acc + parseFloat(item.valor), 0)],
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',
                     'rgba(255, 159, 64, 0.2)',
