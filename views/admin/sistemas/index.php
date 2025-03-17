@@ -227,7 +227,7 @@ async function sumadevaloresdeapi(){
     const url = 'https://megawebsistem.com/admin/api/apimovimientos';
     const respuesta = await fetch(url);
     const resultado = await respuesta.json();
-    console.log(resultado);
+    console.log(resultado.id);
 }
 
 sumadevaloresdeapi();
