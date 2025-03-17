@@ -92,16 +92,21 @@
     .contenido-graficos{
         display: flex;
         flex-direction: column;
+
     }
 </style>
 
 
 
 <div class="contenido-graficos">
-    
-    <canvas id="myChart"></canvas>
-    
-    <canvas id="totalgeneral"></canvas>
+    <div class="grafico1">
+
+        <canvas id="myChart"></canvas>
+    </div>
+    <div class="grafico2">
+
+        <canvas id="totalgeneral"></canvas>
+    </div>
 </div>
 
     
