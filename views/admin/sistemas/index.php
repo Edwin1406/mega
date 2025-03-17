@@ -141,8 +141,9 @@
         }
 
         .grafico1, .grafico2{
-            /* width: 100%; */
+           
             width: 100%;
+            height: 400px;
         }
 
         #mychart{
