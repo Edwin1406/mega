@@ -157,15 +157,15 @@
     
 
 <script>
-
+ function toggleMenu() {
+            const menu = document.querySelector('.containers');
+            menu.classList.toggle('show');
+        }
     
 document.addEventListener('DOMContentLoaded', async function() {
     await datosapi();
 
-    function toggleMenu() {
-            const menu = document.querySelector('.containers');
-            menu.classList.toggle('show');
-        }
+    
 });
 
 async function datosapi() {
