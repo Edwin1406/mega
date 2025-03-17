@@ -22,7 +22,9 @@ class InventarioPdf extends TCPDF
     public function generarPdf($datos)
     {
         // Agregar una nueva página
-        $this->AddPage();
+        // $this->AddPage();
+        $this->AddPage('L'); // 'L' para landscape (horizontal)
+
     
         // Configuración de fuentes y colores
         $this->SetFont('helvetica', 'B', 14);
