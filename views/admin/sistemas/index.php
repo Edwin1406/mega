@@ -53,9 +53,11 @@
     }
 
     @media (max-width: 768px) {
-      .item {
-        display: block;
-        
+      .containers {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
       }
         
     }
