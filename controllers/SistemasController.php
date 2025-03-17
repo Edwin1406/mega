@@ -91,6 +91,7 @@ public static function movimientos(Router $router) {
     $id_categoria = $_POST['id_categoria'];
     $tipo_movimiento = $_POST['tipo_movimiento'];
     $cantidad = $_POST['cantidad'];
+    $costo = $_POST['costo'];
     
     $producto = Productos_inventario::findSis($id_producto);
 
@@ -103,7 +104,23 @@ public static function movimientos(Router $router) {
         'costo_unitario' => $producto->costo_unitario,
     ]);
 
-    // Calculando el stock actual y el costo unitario
+    
+
+    $movimientos_invetario = new Movimientos_inventario([
+        'id_producto' => $id_producto,
+        'id_area' => $id_area,
+        'id_categoria' => $producto->id_categoria,
+        'tipo_movimiento' => $tipo_movimiento,
+        'cantidad' => $cantidad,
+        'valor' => $valor,  
+        'fecha_movimiento' => date('Y-m-d H:i:s')
+    ]);
+
+
+    debuguear($movimientos_invetario);
+
+
+    // Calculando el stock actual y el costo promedio
     if ($tipo_movimiento === 'Entrada') {
         $productos_inventario->stock_actual += $cantidad;
         $productos_inventario->costo_unitario = 
@@ -118,16 +135,6 @@ public static function movimientos(Router $router) {
     } else {
         $valor = 0;  // O puedes dejarlo vacío dependiendo de cómo lo manejes en la base de datos
     }
-
-    $movimientos_invetario = new Movimientos_inventario([
-        'id_producto' => $id_producto,
-        'id_area' => $id_area,
-        'id_categoria' => $producto->id_categoria,
-        'tipo_movimiento' => $tipo_movimiento,
-        'cantidad' => $cantidad,
-        'valor' => $valor,  // Asignamos el valor calculado o 0
-        'fecha_movimiento' => date('Y-m-d H:i:s')
-    ]);
 
     $movimientos_invetario->guardas();
 
