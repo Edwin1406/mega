@@ -19,8 +19,6 @@ class InventarioPdf extends TCPDF
         $this->Cell(0, 10, 'Página ' . $this->PageNo(), 0, 0, 'C');
     }
     
-   
-    
     public function generarPdf($datos)
     {
         // Agregar una nueva página
@@ -30,67 +28,38 @@ class InventarioPdf extends TCPDF
         $pageWidth = $this->GetPageWidth();
         $pageHeight = $this->GetPageHeight();
     
-        $etiquetaWidth = 100; // Ancho de la etiqueta
-        $etiquetaHeight = 120; // Alto de la etiqueta
-        $x = ($pageWidth - $etiquetaWidth) / 2;
-        $y = ($pageHeight - $etiquetaHeight) / 2;
+        $etiquetaWidth = 180; // Ancho de la tabla
+        $x = 10; // Posición X para la tabla
+        $y = 30; // Posición Y para la tabla
     
         // Dibujar contenedor principal con bordes redondeados y sombra
         $this->SetDrawColor(220, 220, 220); // Gris claro para el borde
-        // fondo blanco
         $this->SetFillColor(255, 255, 255); // Fondo blanco
-        $this->RoundedRect($x, $y, $etiquetaWidth, $etiquetaHeight, 5, '1111', 'DF');
+        $this->RoundedRect($x, $y, $etiquetaWidth, 150, 5, '1111', 'DF');
     
-        // Encabezado con degradado
-        $this->SetFillColor(255, 140, 0); // Color degradado inicial
-        $this->RoundedRect($x, $y, $etiquetaWidth, 20, 5, '1111', 'F'); // Encabezado
-        $this->SetFont('helvetica', 'B', 14);
-        $this->SetTextColor(255, 255, 255); // Blanco
-        $this->SetXY($x, $y + 5);
-        $this->Cell($etiquetaWidth, 10, 'MEGASTOCK', 0, 1, 'C');
-    
-        // Imagen del logo (centrado)
-        $this->Image('src/img/logo2.png', $x + 13, $y + 2, 14, 14); // Tamaño y posición del logo
-    
-        // Datos principales con diseño moderno
-        $this->SetFont('helvetica', '', 10);
-        $this->SetTextColor(50, 50, 50); // Gris oscuro para texto
-    
-        // TIPO
-        $this->SetXY($x + 10, $y + 25);
-        $this->Cell(40, 6, 'TIPO:', 0, 0, 'L');
+        // Encabezado de la tabla
+        $this->SetFillColor(255, 140, 0); // Color del encabezado
         $this->SetFont('helvetica', 'B', 10);
-        $this->Cell(40, 6, $datos['nombre_producto'], 0, 1, 'L');
+        $this->SetTextColor(255, 255, 255); // Blanco
+        $this->SetXY($x, $y);
+        $this->Cell(60, 6, 'Producto', 1, 0, 'C', 1);
+        $this->Cell(40, 6, 'Stock Actual', 1, 0, 'C', 1);
+        $this->Cell(40, 6, 'Costo Unitario', 1, 1, 'C', 1);
     
-        // ANCHO
-        
-        
-        // Línea divisoria suave
-        $this->SetDrawColor(200, 200, 200);
-        $this->Line($x + 10, $y + 80, $x + $etiquetaWidth - 10, $y + 80);
+        // Rellenar la tabla con los datos
+        $this->SetFont('helvetica', '', 10);
+        $this->SetTextColor(50, 50, 50); // Gris oscuro para el texto
     
-        // Código de barras centrado
-        $this->SetXY($x + 10, $y + 85);
-        $style = array(
-            'position' => '',
-            'align' => 'C',
-            'stretch' => false,
-            'fitwidth' => true,
-            'cellfitalign' => '',
-            'border' => false,
-            'hpadding' => 'auto',
-            'vpadding' => 'auto',
-            'fgcolor' => array(0, 0, 0), // Negro
-            'bgcolor' => false, // Sin fondo
-            'text' => true, // Sin texto debajo
-            'font' => 'helvetica',
-            'fontsize' => 8,
-            'stretchtext' => 4
-        );
+        // Recorrer los productos y llenar las filas de la tabla
+        foreach ($datos['inventarioProductos'] as $producto) {
+            $this->Cell(60, 6, $producto->nombre_producto, 1, 0, 'C');
+            $this->Cell(40, 6, $producto->stock_actual, 1, 0, 'C');
+            $this->Cell(40, 6, '$' . $producto->costo_unitario, 1, 1, 'C');
+        }
     
-        // Etiqueta estilizada con sombra
-        $this->SetDrawColor(220, 220, 220); // Sombra exterior clara
-        $this->RoundedRect($x + 1, $y + 1, $etiquetaWidth - 2, $etiquetaHeight - 2, 4, '1111');
+        // Agregar un borde a la tabla
+        $this->SetDrawColor(0, 0, 0); // Borde negro
+        $this->Rect($x, $y, $etiquetaWidth, 150); // Borde alrededor de la tabla
     }
     
     
