@@ -248,7 +248,7 @@ async function sumadevaloresdeapi(){
 
     const ctx = document.getElementById('totalgeneral').getContext('2d');
         
-        const labels = Utils.months({count: 11});
+        const labels = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
         const data = {
             labels: labels,
             datasets: [{
