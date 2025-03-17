@@ -3,6 +3,7 @@
 namespace Controllers;
 
 use Classes\Correo;
+use Classes\InventarioPdf;
 use Classes\Paginacion;
 use Classes\Pdf2;
 use Model\Area_inventario;
@@ -350,7 +351,7 @@ public static function pdfinventario(Router $router)
    
     $inventarioProductos= Productos_inventario::allSis('producto','DESC');
 
-    $pdf = new Pdf2();
+    $pdf = new InventarioPdf();
     $datos = [
 
         'id_producto' => $inventarioProductos->id_producto ?? 'No disponible',
