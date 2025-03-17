@@ -248,7 +248,7 @@ async function sumadevaloresdeapi(){
 
     const ctx = document.getElementById('totalgeneral').getContext('2d');
         
-        const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+        const labels = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
         const data = {
             labels: labels,
             datasets: [{
@@ -261,7 +261,8 @@ async function sumadevaloresdeapi(){
                     'rgba(75, 192, 192, 0.2)',
                     'rgba(54, 162, 235, 0.2)',
                     'rgba(153, 102, 255, 0.2)',
-                    'rgba(201, 203, 207, 0.2)'
+                    'rgba(201, 203, 207, 0.2)',
+
                 ],
                 borderColor: [
                     'rgb(255, 99, 132)',
@@ -270,7 +271,7 @@ async function sumadevaloresdeapi(){
                     'rgb(75, 192, 192)',
                     'rgb(54, 162, 235)',
                     'rgb(153, 102, 255)',
-                    'rgb(201, 203, 207)'
+                    'rgb(201, 203, 207)',
                 ],
                 borderWidth: 1
             }]
