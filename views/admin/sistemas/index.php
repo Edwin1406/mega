@@ -161,13 +161,14 @@
     </div>
 </div>
 
-    
-
 <script>
- function toggleMenu() {
+        function toggleMenu() {
             const menu = document.querySelector('.containers');
             menu.classList.toggle('show');
         }
+    </script>
+
+<script>
     
 document.addEventListener('DOMContentLoaded', async function() {
     await datosapi();
