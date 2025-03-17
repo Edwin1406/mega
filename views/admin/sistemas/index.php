@@ -115,6 +115,22 @@
         border-radius: 10px;
         padding: 1rem;
     }
+
+    /* version movil */
+
+    @media (max-width: 768px){
+        .contenido-graficos{
+            flex-direction: column;
+        }
+
+        .grafico1, .grafico2{
+            width: 100%;
+        }
+    }
+
+
+
+
 </style>
 
 
