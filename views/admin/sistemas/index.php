@@ -51,32 +51,17 @@
     .item:nth-child(5) {
       width: 20%;
     }
-/* menu de hambuguesa */
-
-.menu-toggle {
-    position: fixed;
-    top: 1rem;
-    right: 1rem;
-    font-size: 2rem;
-    color: #24292d;
-    cursor: pointer;
-    z-index: 1000;
-    display: none;
-}
     
 
+
+    
   }
 
 </style>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-<body>
-    
 
 <?php if (isset($_SESSION['email'])): ?>
-    <div class="menu-toggle" onclick="toggleMenu()">
-        <i class="fas fa-bars"></i>
-    </div>
     <div class="containers">
         <div class="item"><a href="/admin/sistemas/index?id=80ad04ffdfb4872f9b4603cdf4932f23"> <i class="fas fa-home"></i> INICIO</a></div>
         <div class="item"><a href="/admin/sistemas/productos/crear"> <i class="fas fa-industry"></i> PRODUCTOS</a></div>
@@ -84,17 +69,10 @@
         <div class="item"><a href="/admin/sistemas/movimiento/movimientos">  <i class="fas fa-newspaper"></i> MOVIMIENTOS</a></div>
         <div class="item"><a href="/admin/sistemas/solicitudes/solicitud"><i class="fa-solid fa-arrow-right"></i> GASTOS</a></div>
     </div>
-
-    <script>
-        function toggleMenu() {
-            const menu = document.querySelector('.containers');
-            menu.classList.toggle('show');
-        }
-    </script>
 <?php else: ?>
     <!-- Aquí puedes agregar el contenido alternativo si no hay sesión -->
 <?php endif; ?>
-</body>
+
 
 
 
@@ -144,7 +122,6 @@
     @media (max-width: 768px){
         .contenido-graficos{
             flex-direction: column;
-            gap: 1rem;
         }
 
         .grafico1, .grafico2{
@@ -170,14 +147,11 @@
     </div>
 </div>
 
-
+    
 
 <script>
-    
 document.addEventListener('DOMContentLoaded', async function() {
     await datosapi();
-
-    
 });
 
 async function datosapi() {
