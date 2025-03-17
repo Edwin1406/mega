@@ -105,7 +105,7 @@
 
     .grafico2{
         width: 48%;
-        background-image: linear-gradient(120deg,rgb(118, 197, 228) 0%,rgb(204, 167, 157) 100%);
+        background-image: linear-gradient(120deg,rgb(129, 188, 211) 0%,rgb(182, 159, 152) 100%);
         border-radius: 10px;
         padding: 1rem;
     }
