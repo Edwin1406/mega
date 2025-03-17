@@ -314,6 +314,9 @@ $router->get('/admin/api/apimovimientos', [SistemasController::class, 'apimovimi
 $router->get('/admin/api/apiproducts', [SistemasController::class, 'apiproducts']);
 
 
+$router->get('/admin/sistemas/pdfinventario', [SistemasController::class, 'pdfinventario']);
+
+
 
 
 // citas de prueba 
