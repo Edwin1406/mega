@@ -91,6 +91,7 @@
 <style>
     .contenido-graficos{
         display: flex;
+        flex-direction: column;
     }
 </style>
 
