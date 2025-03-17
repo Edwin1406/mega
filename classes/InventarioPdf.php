@@ -63,7 +63,7 @@ class InventarioPdf extends TCPDF
          
             $this->Cell(40, 8, 'Producción', 1, 0, 'L');
             $this->Cell(30, 8, '$' . number_format($producto->costo_unitario, 2), 1, 0, 'C');
-            $this->Cell(30, 8, '$' . number_format($producto->cantidad, 2), 1, 0, 'C');
+            $this->Cell(20, 8, '1', 1, 0, 'C'); // Cantidad = 1 (ajustar si es necesario)
             $totalProducto = $producto->costo_unitario * 1; // Aquí calculamos el total de cada producto
             $this->Cell(30, 8, '$' . number_format($totalProducto, 2), 1, 1, 'C');
             $total += $totalProducto;
@@ -71,7 +71,7 @@ class InventarioPdf extends TCPDF
     
         // Total final
         $this->SetFont('helvetica', 'B', 12);
-        $this->Cell(150, 8, 'TOTAL:', 1, 0, 'R');
+        $this->Cell(160, 8, 'TOTAL:', 1, 0, 'R');
         $this->Cell(30, 8, '$' . number_format($total, 2), 1, 1, 'C');
     
         // Nota al pie
