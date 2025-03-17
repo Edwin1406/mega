@@ -70,7 +70,10 @@
   <div class="item"><a href="/admin/sistemas/solicitudes/solicitud"><i class="fa-solid fa-arrow-right"></i> GASTOS</a></div>
 </div>
 
-<?php endif; ?>
+<?php else:?>
+
+
+<?php endif;?>
 
 
 
