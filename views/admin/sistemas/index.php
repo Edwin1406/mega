@@ -225,79 +225,68 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 
-
 async function sumadevaloresdeapi(){
     const url = 'https://megawebsistem.com/admin/api/apimovimientos';
     const respuesta = await fetch(url);
     const resultado = await respuesta.json();
-    // total genral depende del mes actual
-    let TotalGeneral = 0;
 
-    // Filtrar los datos por el mes actual
-    const currentMonth = new Date().getMonth(); // Obtener el mes actual (0 - 11)
-    const currentYear = new Date().getFullYear(); // Obtener el año actual
     const monthNames = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
-    const monthName = monthNames[currentMonth]; // Obtener el nombre del mes    
-
-    const filteredData = resultado.filter(item => {
-        const itemDate = new Date(item.fecha_movimiento);
-        return itemDate.getMonth() === currentMonth && itemDate.getFullYear() === currentYear;
+    
+    // Inicializar objeto para acumular valores de cada mes
+    let monthlyTotals = {};
+    monthNames.forEach((month, index) => {
+        monthlyTotals[index] = 0; // Inicializar en 0
     });
 
+    // Agrupar valores por mes
+    resultado.forEach(item => {
+        const itemDate = new Date(item.fecha_movimiento + "T00:00:00"); // Convertir fecha correctamente
+        const monthIndex = itemDate.getMonth(); // Obtener el mes (0-11)
+        monthlyTotals[monthIndex] += parseFloat(item.valor); // Acumular valores
+    });
 
+    // Filtrar solo los meses con datos (eliminar los que tengan 0)
+    let filteredLabels = [];
+    let filteredData = [];
+
+    Object.entries(monthlyTotals).forEach(([monthIndex, total]) => {
+        if (total > 0) {
+            filteredLabels.push(monthNames[monthIndex]); // Agregar el nombre del mes
+            filteredData.push(total); // Agregar el total del mes
+        }
+    });
 
     const ctx = document.getElementById('totalgeneral').getContext('2d');
-        
-        const labels = [monthName];
-        const data = {
-            labels: labels,
-            datasets: [{
-                label: 'TOTAL GENERAL POR MES',
-                data:  [filteredData.reduce((acc, item) => acc + parseFloat(item.valor), 0)],
-                backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(255, 159, 64, 0.2)',
-                    'rgba(255, 205, 86, 0.2)',
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(153, 102, 255, 0.2)',
-                    'rgba(201, 203, 207, 0.2)',
 
-                ],
-                borderColor: [
-                    'rgb(255, 99, 132)',
-                    'rgb(255, 159, 64)',
-                    'rgb(255, 205, 86)',
-                    'rgb(75, 192, 192)',
-                    'rgb(54, 162, 235)',
-                    'rgb(153, 102, 255)',
-                    'rgb(201, 203, 207)',
-                ],
-                borderWidth: 1
-            }]
-        };
+    const data = {
+        labels: filteredLabels, // Solo meses con datos
+        datasets: [{
+            label: 'TOTAL GENERAL POR MES',
+            data: filteredData,
+            backgroundColor: 'rgba(255, 99, 132, 0.2)',
+            borderColor: 'rgb(255, 99, 132)',
+            borderWidth: 1
+        }]
+    };
 
-        const config = {
-            type: 'bar',
-            data: data,
-            options: {
-                responsive: true,
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
+    const config = {
+        type: 'bar',
+        data: data,
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true
                 }
             }
-        };
-        
-        new Chart(ctx, config);
+        }
+    };
 
-
-
-
+    new Chart(ctx, config);
 }
 
 sumadevaloresdeapi();
+
 
 
 
