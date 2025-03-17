@@ -19,6 +19,7 @@ class SistemasController {
 
     public static function index(Router $router)
     {
+        session_start();
 
         $registros = Productos_inventario::countinventario();
         $router->render('admin/sistemas/index', [
