@@ -362,6 +362,8 @@ public static function pdfinventario(Router $router)
         'costo_unitario' => $inventarioProductos->costo_unitario ?? 'No disponible',
     ];
 
+    debuguear($datos);
+
     $pdf->generarPdf($datos);
     $pdf->Output('inventario.pdf', 'I');
 
