@@ -47,7 +47,6 @@ class InventarioPdf extends TCPDF
         $this->SetFont('helvetica', 'B', 12);
     
         $this->Cell(60, 8, 'Producto', 1, 0, 'C', true);
-        $this->Cell(40, 8, 'Categoría', 1, 0, 'C', true);
         $this->Cell(40, 8, 'Área', 1, 0, 'C', true);
         $this->Cell(30, 8, 'Costo Unitario', 1, 0, 'C', true);
         $this->Cell(20, 8, 'Cantidad', 1, 0, 'C', true);
@@ -61,7 +60,7 @@ class InventarioPdf extends TCPDF
     
         foreach ($datos['inventarioProductos'] as $producto) {
             $this->Cell(60, 8, $producto->nombre_producto, 1, 0, 'L');
-            $this->Cell(40, 8, $producto->id_categoria, 1, 0, 'L');
+         
             $this->Cell(40, 8, 'Producción', 1, 0, 'L');
             $this->Cell(30, 8, '$' . number_format($producto->costo_unitario, 2), 1, 0, 'C');
             $this->Cell(20, 8, '1', 1, 0, 'C'); // Cantidad = 1 (ajustar si es necesario)
