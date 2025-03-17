@@ -353,13 +353,7 @@ public static function pdfinventario(Router $router)
 
     $pdf = new InventarioPdf();
     $datos = [
-
-        'id_producto' => $inventarioProductos->id_producto ?? 'No disponible',
-        'nombre_producto' => $inventarioProductos->nombre_producto ?? 'No disponible',
-        'id_categoria' => $inventarioProductos->id_categoria ?? 'No disponible',
-        'id_area' => $inventarioProductos->id_area ?? 'No disponible',
-        'stock_actual' => $inventarioProductos->stock_actual ?? 'No disponible',
-        'costo_unitario' => $inventarioProductos->costo_unitario ?? 'No disponible',
+        'inventarioProductos' => $inventarioProductos,
     ];
 
     debuguear($datos);
