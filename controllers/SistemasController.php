@@ -350,7 +350,20 @@ public static function pdfinventario(Router $router)
    
     $inventarioProductos= Productos_inventario::allSis('producto','DESC');
 
-    debuguear($inventarioProductos);
+    $pdf = new Pdf2();
+    $datos = [
+
+        'id_producto' => $inventarioProductos->id_producto ?? 'No disponible',
+        'nombre_producto' => $inventarioProductos->nombre_producto ?? 'No disponible',
+        'id_categoria' => $inventarioProductos->id_categoria ?? 'No disponible',
+        'id_area' => $inventarioProductos->id_area ?? 'No disponible',
+        'stock_actual' => $inventarioProductos->stock_actual ?? 'No disponible',
+        'costo_unitario' => $inventarioProductos->costo_unitario ?? 'No disponible',
+    ];
+
+    $pdf->generarPdf($datos);
+    $pdf->Output('inventario.pdf', 'I');
+
     
 }
 
