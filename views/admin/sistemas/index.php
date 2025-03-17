@@ -59,6 +59,15 @@
 </style>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
+
+<?php
+if(isset($_SESSION['usuario'])){
+    debuguear($_SESSION['usuario']);
+
+}
+
+?>
+
 <div class="container">
     <div class="item"><a href="/admin/sistemas/index?id=80ad04ffdfb4872f9b4603cdf4932f23"> <i class="fas fa-home"></i> INICIO</a></div>
     <div class="item"><a href="/admin/sistemas/productos/crear"> <i class="fas fa-industry"></i> PRODUCTOS</a></div>
