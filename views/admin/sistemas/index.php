@@ -149,6 +149,11 @@
         #mychart{
             height: 100%;
         }
+
+        canvas{
+            width: 100% !important;
+            height: 100% !important;
+        }
     }
 
 
