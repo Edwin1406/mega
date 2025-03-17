@@ -91,7 +91,7 @@
             id="costo"
             class="formulario__input"
             placeholder="costo"
-            value="">
+            value="<?php echo $movimientos_invetario->costo ?? '' ?>">
     </div>
 
 
