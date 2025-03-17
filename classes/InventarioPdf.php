@@ -52,7 +52,7 @@ class InventarioPdf extends TCPDF
     }
 
     // Agregar un borde general a la tabla
-    $this->SetDrawColor(200, 200, 200); // Gris claro para el borde
+    // $this->SetDrawColor(200, 200, 200); // Gris claro para el borde
     $this->Rect($x - 1, $y - 8, $width + 2, ($y + (count($datos['inventarioProductos']) * 8)) - 8);
 }
 
