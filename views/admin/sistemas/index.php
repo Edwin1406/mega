@@ -61,6 +61,8 @@
 
 
 <?php
+
+debuguear($_SESSION);
 if(isset($_SESSION['usuario'])){
     debuguear($_SESSION['usuario']);
 
