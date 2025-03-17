@@ -227,13 +227,26 @@ async function sumadevaloresdeapi(){
     const url = 'https://megawebsistem.com/admin/api/apimovimientos';
     const respuesta = await fetch(url);
     const resultado = await respuesta.json();
-    
+    // total genral depende del mes actual
     let TotalGeneral = 0;
-    resultado.forEach(item => {
+
+    // Filtrar los datos por el mes actual
+    const currentMonth = new Date().getMonth(); // Obtener el mes actual (0 - 11)
+    const currentYear = new Date().getFullYear(); // Obtener el año actual
+    const monthNames = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+    const monthName = monthNames[currentMonth]; // Obtener el nombre del mes    
+
+    const filteredData = resultado.filter(item => {
+        const itemDate = new Date(item.fecha_movimiento);
+        return itemDate.getMonth() === currentMonth && itemDate.getFullYear() === currentYear;
+    });
+
+    // Sumar los valores de los movimientos
+    filteredData.forEach(item => {
         TotalGeneral += parseFloat(item.valor);
     });
 
-    console.log("Total General:", TotalGeneral);
+    console.log("Total general:", TotalGeneral);
 
 }
 
