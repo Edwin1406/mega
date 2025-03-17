@@ -95,6 +95,14 @@
         margin-top: 20px;
 
     }
+
+    .grafico1{
+        width: 48%;
+    }
+
+    .grafico2{
+        width: 48%;
+    }
 </style>
 
 
