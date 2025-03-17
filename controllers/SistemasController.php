@@ -347,8 +347,7 @@ public static function pdf(Router $router)
 
 public static function pdfinventario(Router $router)
 {
-    $id = $_GET['id'];
-    $id = filter_var($id, FILTER_VALIDATE_INT);
+   
     $inventarioProductos= Productos_inventario::all('DESC');
 
     debuguear($inventarioProductos);
