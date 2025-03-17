@@ -51,13 +51,18 @@
     .item:nth-child(5) {
       width: 20%;
     }
+/* menu de hambuguesa */
 
-    @media (min-width: 768px) {
-            .item:nth-child(1), .item:nth-child(2), .item:nth-child(3), .item:nth-child(4), .item:nth-child(5) {
-                width: 20%;
-    }
-    }
-
+.menu-toggle {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    font-size: 2rem;
+    color: #24292d;
+    cursor: pointer;
+    z-index: 1000;
+    display: none;
+}
     
   }
 
