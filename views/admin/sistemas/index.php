@@ -10,7 +10,7 @@
       transition: all 0.5s;
     }
     
-    .container {
+    .containers {
       display: flex;
       flex-direction: row;
       justify-content: center;
@@ -61,7 +61,7 @@
 
 
 <?php if (isset($_SESSION['email'])): ?>
-    <div class="container">
+    <div class="containers">
         <div class="item"><a href="/admin/sistemas/index?id=80ad04ffdfb4872f9b4603cdf4932f23"> <i class="fas fa-home"></i> INICIO</a></div>
         <div class="item"><a href="/admin/sistemas/productos/crear"> <i class="fas fa-industry"></i> PRODUCTOS</a></div>
         <div class="item"><a href="/admin/sistemas/productos/tabla"> <i class="fas fa-scroll"></i> TABLA</a></div>
