@@ -229,38 +229,47 @@ async function sumadevaloresdeapi(){
     const respuesta = await fetch(url);
     const resultado = await respuesta.json();
 
-    // Lista de meses del año
+    console.log("Datos obtenidos de la API:", resultado);
+
     const monthNames = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", 
                         "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
     
-    // Objeto para acumular valores de cada mes
     let monthlyTotals = {};
     monthNames.forEach((month, index) => {
-        monthlyTotals[index] = 0; // Inicializar todos los meses con 0
+        monthlyTotals[index] = 0;
     });
 
-    // Recorrer los datos y sumar los valores por mes
     resultado.forEach(item => {
-        const itemDate = new Date(item.fecha_movimiento + "T00:00:00"); // Convertir la fecha
-        const monthIndex = itemDate.getMonth(); // Obtener el índice del mes (0-11)
-        monthlyTotals[monthIndex] += parseFloat(item.valor); // Sumar valores
+        const itemDate = new Date(item.fecha_movimiento);
+        console.log("Fecha procesada:", itemDate, "Mes:", itemDate.getMonth());
+
+        const monthIndex = itemDate.getMonth();
+        monthlyTotals[monthIndex] += Number(item.valor); 
     });
 
-    // Filtrar solo los meses con valores mayores a 0
+    console.log("Total acumulado por mes:", monthlyTotals);
+
     let filteredLabels = [];
     let filteredData = [];
 
     Object.entries(monthlyTotals).forEach(([monthIndex, total]) => {
         if (total > 0) {
-            filteredLabels.push(monthNames[monthIndex]); // Agregar el nombre del mes
-            filteredData.push(total); // Agregar el total del mes
+            filteredLabels.push(monthNames[monthIndex]); 
+            filteredData.push(total); 
         }
     });
+
+    console.log("Meses con datos:", filteredLabels);
+    console.log("Valores acumulados:", filteredData);
+
+    if (filteredData.length === 0) {
+        console.warn("No hay datos para mostrar en el gráfico.");
+    }
 
     const ctx = document.getElementById('totalgeneral').getContext('2d');
 
     const data = {
-        labels: filteredLabels, // Solo meses con datos
+        labels: filteredLabels,
         datasets: [{
             label: 'TOTAL GENERAL POR MES',
             data: filteredData,
@@ -287,7 +296,6 @@ async function sumadevaloresdeapi(){
 }
 
 sumadevaloresdeapi();
-
 
 
 
