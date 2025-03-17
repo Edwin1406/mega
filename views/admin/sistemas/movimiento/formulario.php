@@ -94,13 +94,13 @@
             value="<?php echo $movimientos_invetario->costo_unitario ?? '' ?>">
     </div>
     <div class="formulario__campo">
-        <label class="formulario__label" for="costo">costo</label>
+        <label class="formulario__label" for="costo_nuevo">costo</label>
         <input
             type="number"
-            name="costo"
-            id="costo"
+            name="costo_nuevo"
+            id="costo_nuevo"
             class="formulario__input"
-            placeholder="costo"
+            placeholder="costo_nuevo"
             value="<?php echo $movimientos_invetario->costo ?? '' ?>">
     </div>
 
