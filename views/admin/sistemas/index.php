@@ -92,12 +92,14 @@
     .contenido-graficos{
         display: flex;
         justify-content: space-between;
-        margin-top: 20px;
+        margin-top: 1rem;
 
     }
 
     .grafico1{
         width: 48%;
+        background-image: linear-gradient(120deg, #f6d365 0%, #fda085 100%);
+        border-radius: 10px;
     }
 
     .grafico2{
