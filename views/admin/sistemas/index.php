@@ -31,7 +31,26 @@
       text-decoration: none;
       display: block;
     }
-
+    @media (min-width: 1024px) {
+    .item:nth-child(1) {
+      width: 20%;
+    }
+    
+    .item:nth-child(2) {
+      width: 20%;
+    }
+    
+    .item:nth-child(3) {
+      width: 20%;
+    }
+    
+    .item:nth-child(4) {
+      width: 20%;
+    }
+    
+    .item:nth-child(5) {
+      width: 20%;
+    }
     @media (max-width: 768px) {
       .containers {
         display: flex;
@@ -45,7 +64,7 @@
 
 
     
-  
+  }
 
 </style>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
