@@ -224,28 +224,29 @@ document.addEventListener("DOMContentLoaded", function () {
     setInterval(checkStock, 10000); // Luego repetir cada 10 segundos
 });
 
-
 async function sumadevaloresdeapi(){
     const url = 'https://megawebsistem.com/admin/api/apimovimientos';
     const respuesta = await fetch(url);
     const resultado = await respuesta.json();
 
-    const monthNames = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+    // Lista de meses del año
+    const monthNames = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", 
+                        "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
     
-    // Inicializar objeto para acumular valores de cada mes
+    // Objeto para acumular valores de cada mes
     let monthlyTotals = {};
     monthNames.forEach((month, index) => {
-        monthlyTotals[index] = 0; // Inicializar en 0
+        monthlyTotals[index] = 0; // Inicializar todos los meses con 0
     });
 
-    // Agrupar valores por mes
+    // Recorrer los datos y sumar los valores por mes
     resultado.forEach(item => {
-        const itemDate = new Date(item.fecha_movimiento + "T00:00:00"); // Convertir fecha correctamente
-        const monthIndex = itemDate.getMonth(); // Obtener el mes (0-11)
-        monthlyTotals[monthIndex] += parseFloat(item.valor); // Acumular valores
+        const itemDate = new Date(item.fecha_movimiento + "T00:00:00"); // Convertir la fecha
+        const monthIndex = itemDate.getMonth(); // Obtener el índice del mes (0-11)
+        monthlyTotals[monthIndex] += parseFloat(item.valor); // Sumar valores
     });
 
-    // Filtrar solo los meses con datos (eliminar los que tengan 0)
+    // Filtrar solo los meses con valores mayores a 0
     let filteredLabels = [];
     let filteredData = [];
 
