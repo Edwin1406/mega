@@ -179,7 +179,7 @@ document.addEventListener("DOMContentLoaded", function () {
             .then(response => response.json())
             .then(data => {
                 // Filtrar productos con stock menor a 2
-                const lowStockProducts = data.filter(producto => parseInt(producto.stock_actual) = 0);
+                const lowStockProducts = data.filter(producto => parseInt(producto.stock_actual) === 0);
                 
                 // Set temporal para los productos que deben notificarse en esta ejecución
                 let currentNotified = new Set();
