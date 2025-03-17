@@ -9,7 +9,8 @@
                 <option value="<?php echo $producto->id_producto; ?>"
                     data-area="<?php echo $producto->id_area; ?>"
                     data-categoria = "<?php echo $producto->id_categoria; ?>"
-                    data-stock="<?php echo $producto->stock_actual; ?>"> <!-- Aquí pasamos el stock -->
+                    data-stock="<?php echo $producto->stock_actual; ?>"
+                    data-costo="<?php echo $producto->costo_unitario; ?>">
                     <?php echo htmlspecialchars($producto->nombre_producto); ?>
                 </option>
             <?php endforeach; ?>
@@ -105,6 +106,7 @@
             const areaSelect = document.getElementById("id_area");
             const categoriaSelect = document.getElementById("id_categoria");
             const stockInput = document.getElementById("stock_actual");
+            const costoInput = document.getElementById("costo");
 
             productoSelect.addEventListener("change", function() {
                 // Obtener la opción seleccionada
@@ -112,11 +114,13 @@
                 const id_area = selectedOption.getAttribute("data-area");
                 const id_categoria = selectedOption.getAttribute("data-categoria");
                 const stock = selectedOption.getAttribute("data-stock"); // Obtener el stock
+                const costo = selectedOption.getAttribute("data-costo"); // Obtener el costo
 
                 console.log("Producto:", selectedOption.value);
                 console.log("Area ID obtenido:", id_area);
                 console.log("Categoria ID obtenido:", id_categoria);
                 console.log("Stock obtenido:", stock);
+                console.log("Costo obtenido:", costo);
 
                 if (id_area) {
                     // Buscar y seleccionar el área correspondiente
@@ -141,6 +145,11 @@
                             break;
                         }
                     }
+                }
+
+
+                if (costo) {
+                    costoInput.value = costo; // Actualizar el campo de costo
                 }
             });
 
