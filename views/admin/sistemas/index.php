@@ -98,13 +98,16 @@
 
     .grafico1{
         width: 48%;
-        background-image: linear-gradient(120deg, #f6d365 0%, #fda085 100%);
+        background-image: linear-gradient(120deg, #f6d365 0%,rgb(211, 162, 149) 100%);
         border-radius: 10px;
         padding: 1rem;
     }
 
     .grafico2{
         width: 48%;
+        background-image: linear-gradient(120deg,rgb(118, 197, 228) 0%,rgb(204, 167, 157) 100%);
+        border-radius: 10px;
+        padding: 1rem;
     }
 </style>
 
