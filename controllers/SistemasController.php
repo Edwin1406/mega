@@ -112,12 +112,9 @@ public static function movimientos(Router $router) {
         'id_categoria' => $producto->id_categoria,
         'tipo_movimiento' => $tipo_movimiento,
         'cantidad' => $cantidad,
-        'valor' => $valor,  
+        'valor' => 0,  
         'fecha_movimiento' => date('Y-m-d H:i:s')
     ]);
-
-
-    debuguear($movimientos_invetario);
 
 
     if ($tipo_movimiento === 'Entrada') {
