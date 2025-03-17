@@ -356,7 +356,7 @@ public static function pdfinventario(Router $router)
         'inventarioProductos' => $inventarioProductos,
     ];
 
-    debuguear($datos);
+    // debuguear($datos);
 
     $pdf->generarPdf($datos);
     $pdf->Output('inventario.pdf', 'I');
