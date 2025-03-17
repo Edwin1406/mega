@@ -348,7 +348,7 @@ public static function pdf(Router $router)
 public static function pdfinventario(Router $router)
 {
    
-    $inventarioProductos= Productos_inventario::all('DESC');
+    $inventarioProductos= Productos_inventario::allSis('producto','DESC');
 
     debuguear($inventarioProductos);
     
