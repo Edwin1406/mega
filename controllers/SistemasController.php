@@ -93,7 +93,6 @@ public static function movimientos(Router $router) {
     $cantidad = $_POST['cantidad'];
     $costo_nuevo = $_POST['costo_nuevo'];
 
-    debuguear($costo_nuevo);
 
     
     $producto = Productos_inventario::findSis($id_producto);
@@ -119,39 +118,27 @@ public static function movimientos(Router $router) {
         'fecha_movimiento' => date('Y-m-d H:i:s')
     ]);
 
-
     if ($tipo_movimiento === 'Entrada') {
         // Nuevo stock total después de la entrada
         $nuevo_stock = $producto->stock_actual + $cantidad;
-
+    
         // Cálculo del nuevo costo promedio
         $nuevo_costo_promedio = 
-            (($producto->costo_unitario * $producto->stock_actual) + ($costo * $cantidad)) / $nuevo_stock;
-
+            (($producto->costo_unitario * $producto->stock_actual) + ($costo_nuevo * $cantidad)) / $nuevo_stock;
+    
         // Actualizando el stock y el costo unitario
         $productos_inventario->stock_actual = $nuevo_stock;
         $productos_inventario->costo_unitario = $nuevo_costo_promedio;
-
+    
         // Establecer el valor de la entrada
         $valor = $nuevo_costo_promedio * $cantidad;
-
+    
     } else {
         // Si es salida, disminuimos el stock (no se cambia el costo promedio)
         $productos_inventario->stock_actual -= $cantidad;
         $valor = 0;  // Para movimientos de salida no calculamos valor
     }
-
-    $movimientos_invetario->guardas();
-
-      
-     
-        $alertas = $movimientos_invetario->getAlertas();
-        // redireccionar
-        if (empty($alertas)) {
-            $productos_inventario->actualizar();
-
-            header('Location: /admin/sistemas/movimiento/movimientos');
-        }
+    
 
 
 
