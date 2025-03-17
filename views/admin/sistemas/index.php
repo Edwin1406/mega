@@ -52,6 +52,11 @@
       width: 20%;
     }
 
+    @media (min-width: 1024px) {
+            .item:nth-child(1), .item:nth-child(2), .item:nth-child(3), .item:nth-child(4), .item:nth-child(5) {
+                width: 20%;
+    }
+    }
 
     
   }
@@ -61,6 +66,9 @@
 
 
 <?php if (isset($_SESSION['email'])): ?>
+    <div class="menu-toggle" onclick="toggleMenu()">
+        <i class="fas fa-bars"></i>
+    </div>
     <div class="containers">
         <div class="item"><a href="/admin/sistemas/index?id=80ad04ffdfb4872f9b4603cdf4932f23"> <i class="fas fa-home"></i> INICIO</a></div>
         <div class="item"><a href="/admin/sistemas/productos/crear"> <i class="fas fa-industry"></i> PRODUCTOS</a></div>
@@ -149,8 +157,15 @@
     
 
 <script>
+
+    
 document.addEventListener('DOMContentLoaded', async function() {
     await datosapi();
+
+    function toggleMenu() {
+            const menu = document.querySelector('.containers');
+            menu.classList.toggle('show');
+        }
 });
 
 async function datosapi() {
