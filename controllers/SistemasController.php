@@ -91,7 +91,7 @@ public static function movimientos(Router $router) {
     $id_categoria = $_POST['id_categoria'];
     $tipo_movimiento = $_POST['tipo_movimiento'];
     $cantidad = $_POST['cantidad'];
-    $valor = $_POST['costo_unitario'];
+    $costo = $_POST['costo'];
     
     $producto = Productos_inventario::findSis($id_producto);
 
@@ -112,7 +112,7 @@ public static function movimientos(Router $router) {
         'id_categoria' => $producto->id_categoria,
         'tipo_movimiento' => $tipo_movimiento,
         'cantidad' => $cantidad,
-        'valor' => $valor,  
+        'valor' => $costo,  
         'fecha_movimiento' => date('Y-m-d H:i:s')
     ]);
 
