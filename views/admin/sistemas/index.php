@@ -52,9 +52,9 @@
       width: 20%;
     }
 
-    @media screen and (max-width: 768px) {
+    @media (max-width: 768px) {
       .item {
-        width: 100%;
+        display: block;
         
       }
         
