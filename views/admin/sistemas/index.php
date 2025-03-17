@@ -51,6 +51,14 @@
     .item:nth-child(5) {
       width: 20%;
     }
+
+    @media screen and (max-width: 768px) {
+      .item {
+        width: 100%;
+        
+      }
+        
+    }
     
 
 
