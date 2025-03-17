@@ -53,12 +53,13 @@
     }
 
     @media (min-width: 768px) {
-        .item:nth-child(1), .item:nth-child(2), .item:nth-child(3), .item:nth-child(4), .item:nth-child(5) {
-           display: flex;
-              justify-content: center;
-                align-items: center;
-                flex-direction: column;
-        }
+      .containers {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+      }
+        
     }
     
 
