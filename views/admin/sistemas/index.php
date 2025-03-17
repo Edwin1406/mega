@@ -88,10 +88,15 @@
 <b></b>
 
 
+<style>
+    .contenido-graficos{
+        display: flex;
+    }
+</style>
 
 
 
-<div class="container">
+<div class="contenido-graficos">
     
     <canvas id="myChart"></canvas>
     
