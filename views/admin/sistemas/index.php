@@ -80,7 +80,7 @@
 <ul class="lista-areas-produccion">
 
     <li class="areas-produccion-estatico" data-aos="fade-up">
-        <a>
+        <a href="/admin/sistemas/productos/crear">
             <i class="fas fa-scroll"></i> INVETARIO REGISTRADO:
             <?php if ($registros > 0) : ?>
                 <span class="areas-produccion__numero">  <?php echo $registros ?>  </span>
