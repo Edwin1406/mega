@@ -87,12 +87,18 @@
 
 <b></b>
 
-    <div style="width: 80%; margin: auto;">
-        <canvas id="myChart"></canvas>
 
-        <canvas id="totalgeneral"></canvas>
 
-    </div>
+
+
+<div class="container">
+    
+    <canvas id="myChart"></canvas>
+    
+    <canvas id="totalgeneral"></canvas>
+</div>
+
+    
 
 <script>
 document.addEventListener('DOMContentLoaded', async function() {
