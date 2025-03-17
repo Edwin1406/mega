@@ -59,6 +59,8 @@ class InventarioPdf extends TCPDF
         $total = 0;
     
         foreach ($datos['inventarioProductos'] as $producto) {
+             debuguear($producto);
+
             $this->Cell(60, 8, $producto->nombre_producto, 1, 0, 'L');
          
             $this->Cell(40, 8, 'Producción', 1, 0, 'L');
