@@ -82,6 +82,16 @@
             placeholder="Cantidad"
             value="<?php echo $movimientos_invetario->cantidad ?? '' ?>">
     </div>
+    <div class="formulario__campo">
+        <label class="formulario__label" for="costo">costo</label>
+        <input
+            type="number"
+            name="costo"
+            id="costo"
+            class="formulario__input"
+            placeholder="costo"
+            value="">
+    </div>
 
 
 </fieldset>
