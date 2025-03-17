@@ -98,7 +98,7 @@
 
     .grafico1{
         width: 48%;
-        background-image: linear-gradient(120deg, #f6d365 0%,rgb(218, 247, 166) 100%);
+        background-image: linear-gradient(120deg,rgb(191, 238, 163) 0%,rgb(218, 247, 166) 100%);
         border-radius: 10px;
         padding: 1rem;
     }
