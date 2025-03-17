@@ -84,6 +84,13 @@
         <div class="item"><a href="/admin/sistemas/movimiento/movimientos">  <i class="fas fa-newspaper"></i> MOVIMIENTOS</a></div>
         <div class="item"><a href="/admin/sistemas/solicitudes/solicitud"><i class="fa-solid fa-arrow-right"></i> GASTOS</a></div>
     </div>
+
+    <script>
+        function toggleMenu() {
+            const menu = document.querySelector('.containers');
+            menu.classList.toggle('show');
+        }
+    </script>
 <?php else: ?>
     <!-- Aquí puedes agregar el contenido alternativo si no hay sesión -->
 <?php endif; ?>
@@ -141,18 +148,7 @@
         }
 
         .grafico1, .grafico2{
-           
             width: 100%;
-            height: 400px;
-        }
-
-        #mychart{
-            height: 100%;
-        }
-
-        canvas{
-            width: 100% !important;
-            height: 100% !important;
         }
     }
 
@@ -174,12 +170,7 @@
     </div>
 </div>
 
-<script>
-        function toggleMenu() {
-            const menu = document.querySelector('.containers');
-            menu.classList.toggle('show');
-        }
-    </script>
+
 
 <script>
     
