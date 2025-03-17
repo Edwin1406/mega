@@ -52,7 +52,7 @@
       width: 20%;
     }
 
-    @media (min-width: 768px) {
+    @media (max-width: 768px) {
       .containers {
         display: flex;
         flex-direction: column;
