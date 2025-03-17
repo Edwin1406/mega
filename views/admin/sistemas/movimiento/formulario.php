@@ -84,6 +84,16 @@
             value="<?php echo $movimientos_invetario->cantidad ?? '' ?>">
     </div>
     <div class="formulario__campo">
+        <label class="formulario__label" for="costo_unitario">costo unitario</label>
+        <input
+            type="number"
+            name="costo_unitario"
+            id="costo_unitario"
+            class="formulario__input"
+            placeholder="costo_unitario"
+            value="<?php echo $movimientos_invetario->costo_unitario ?? '' ?>">
+    </div>
+    <div class="formulario__campo">
         <label class="formulario__label" for="costo">costo</label>
         <input
             type="number"
