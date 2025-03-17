@@ -100,6 +100,7 @@
         width: 48%;
         background-image: linear-gradient(120deg, #f6d365 0%, #fda085 100%);
         border-radius: 10px;
+        padding: 1rem;
     }
 
     .grafico2{
