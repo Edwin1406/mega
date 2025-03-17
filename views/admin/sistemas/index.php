@@ -224,6 +224,8 @@ document.addEventListener("DOMContentLoaded", function () {
     setInterval(checkStock, 10000); // Luego repetir cada 10 segundos
 });
 
+
+
 async function sumadevaloresdeapi(){
     const url = 'https://megawebsistem.com/admin/api/apimovimientos';
     const respuesta = await fetch(url);
@@ -266,6 +268,24 @@ async function sumadevaloresdeapi(){
         console.warn("No hay datos para mostrar en el gráfico.");
     }
 
+    // Paleta de colores para 12 meses
+    const backgroundColors = [
+        'rgba(255, 99, 132, 0.5)',  // Rojo
+        'rgba(255, 159, 64, 0.5)',  // Naranja
+        'rgba(255, 205, 86, 0.5)',  // Amarillo
+        'rgba(75, 192, 192, 0.5)',  // Verde agua
+        'rgba(54, 162, 235, 0.5)',  // Azul
+        'rgba(153, 102, 255, 0.5)', // Morado
+        'rgba(201, 203, 207, 0.5)', // Gris
+        'rgba(255, 140, 0, 0.5)',   // Naranja fuerte
+        'rgba(0, 206, 209, 0.5)',   // Azul turquesa
+        'rgba(220, 20, 60, 0.5)',   // Rojo oscuro
+        'rgba(46, 139, 87, 0.5)',   // Verde oscuro
+        'rgba(128, 0, 128, 0.5)'    // Púrpura
+    ];
+
+    const borderColors = backgroundColors.map(color => color.replace('0.5', '1')); // Bordes más oscuros
+
     const ctx = document.getElementById('totalgeneral').getContext('2d');
 
     const data = {
@@ -273,8 +293,8 @@ async function sumadevaloresdeapi(){
         datasets: [{
             label: 'TOTAL GENERAL POR MES',
             data: filteredData,
-            backgroundColor: 'rgba(255, 99, 132, 0.2)',
-            borderColor: 'rgb(255, 99, 132)',
+            backgroundColor: filteredLabels.map((_, index) => backgroundColors[index % 12]),
+            borderColor: filteredLabels.map((_, index) => borderColors[index % 12]),
             borderWidth: 1
         }]
     };
@@ -296,6 +316,7 @@ async function sumadevaloresdeapi(){
 }
 
 sumadevaloresdeapi();
+
 
 
 
