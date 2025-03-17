@@ -52,7 +52,7 @@
       width: 20%;
     }
 
-    @media (min-width: 1024px) {
+    @media (min-width: 768px) {
             .item:nth-child(1), .item:nth-child(2), .item:nth-child(3), .item:nth-child(4), .item:nth-child(5) {
                 width: 20%;
     }
