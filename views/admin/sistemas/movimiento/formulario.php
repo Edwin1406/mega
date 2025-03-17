@@ -116,7 +116,7 @@
             const areaSelect = document.getElementById("id_area");
             const categoriaSelect = document.getElementById("id_categoria");
             const stockInput = document.getElementById("stock_actual");
-            const costoInput = document.getElementById("costo");
+            const costoInput = document.getElementById("costo_unitario");
 
             productoSelect.addEventListener("change", function() {
                 // Obtener la opción seleccionada
