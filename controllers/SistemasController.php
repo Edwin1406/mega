@@ -80,7 +80,7 @@ public static function movimientos(Router $router) {
     $categoria_inventario = Categoria_inventario::allSis('categoria', 'ASC');
     $movimientos_invetario = Movimientos_inventario::all('DESC');
 
-    debuguear($movimientos_invetario);
+    // debuguear($movimientos_invetario);
     
     $movimientos_invetario = new Movimientos_inventario;
     
