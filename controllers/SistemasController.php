@@ -102,52 +102,48 @@ public static function movimientos(Router $router) {
             'stock_actual' => $producto->stock_actual,
             'costo_unitario' => $producto->costo_unitario,
         ]);
-// Si no existe movimientos previos
-if ($producto->stock_actual === 0) {
-    $nuevo_costo_promedio = $costo_nuevo;
-} else {
-    // Si el movimiento es de entrada, calculamos el nuevo costo promedio
-    if ($tipo_movimiento === 'Entrada') {
-        // Nuevo stock total después de la entrada
-        $nuevo_stock = $producto->stock_actual + $cantidad;
 
-        // Buscar movimientos anteriores de tipo 'Entrada'
-        $movimientos_previos = Movimientos_inventario::where('id_producto', $id_producto)
-            ->where('tipo_movimiento', 'Entrada')
-            ->all();  // Se debe usar get() en lugar de all()
+        // si no existe movimientos previos
 
-            debuguear($movimientos_previos);
 
-        $total_valor = 0;
-        $total_cantidad = 0;
+        // Si el movimiento es de entrada, calculamos el nuevo costo promedio
+        if ($tipo_movimiento === 'Entrada') {
+            // Nuevo stock total después de la entrada
+            $nuevo_stock = $producto->stock_actual + $cantidad;
 
-        // Calculamos el costo total ponderado de todas las entradas previas
-        foreach ($movimientos_previos as $movimiento) {
-            $total_valor += $movimiento->costo_nuevo * $movimiento->cantidad;  // El costo debe multiplicarse por la cantidad
-            $total_cantidad += $movimiento->cantidad;
+            // Buscar movimientos anteriores de tipo 'Entrada'
+            $movimientos_previos = Movimientos_inventario::where('id_producto', $id_producto)
+                ->where('tipo_movimiento', 'Entrada')
+                ->all();
+
+            $total_valor = 0;
+            $total_cantidad = 0;
+
+            // Calculamos el costo total ponderado de todas las entradas previas
+            foreach ($movimientos_previos as $movimiento) {
+                $total_valor += $movimiento->costo_nuevo;
+                $total_cantidad += $movimiento->cantidad;
+            }
+
+            // Sumar la nueva entrada al cálculo
+            $total_valor += $cantidad * $costo_nuevo;
+            $total_cantidad += $cantidad;
+
+            // Calcular el nuevo costo promedio ponderado
+            $nuevo_costo_promedio = $total_valor / $total_cantidad;
+
+            // Actualizando el stock y el costo unitario
+            $productos_inventario->stock_actual = $nuevo_stock;
+            $productos_inventario->costo_unitario = $nuevo_costo_promedio;
+
+            // Establecer el valor de la entrada
+            $valor = $nuevo_costo_promedio * $cantidad;
+
+        } else {
+            // Si es salida, disminuimos el stock pero no cambiamos el costo promedio
+            $productos_inventario->stock_actual -= $cantidad;
+            $valor = 0;  // Para movimientos de salida no calculamos valor
         }
-
-        // Sumar la nueva entrada al cálculo
-        $total_valor += $cantidad * $costo_nuevo;
-        $total_cantidad += $cantidad;
-
-        // Calcular el nuevo costo promedio ponderado
-        $nuevo_costo_promedio = $total_valor / $total_cantidad;
-
-        // Actualizando el stock y el costo unitario
-        $productos_inventario->stock_actual = $nuevo_stock;
-        $productos_inventario->costo_unitario = $nuevo_costo_promedio;
-
-        // Establecer el valor de la entrada
-        $valor = $nuevo_costo_promedio * $cantidad;
-
-    } else {
-        // Si es salida, disminuimos el stock pero no cambiamos el costo promedio
-        $productos_inventario->stock_actual -= $cantidad;
-        $valor = 0;  // Para movimientos de salida no calculamos valor
-    }
-}
-
 
         // Crear el movimiento de inventario
         $movimientos_invetario = new Movimientos_inventario([
