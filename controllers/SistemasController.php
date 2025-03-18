@@ -116,6 +116,8 @@ if ($producto->stock_actual === 0) {
             ->where('tipo_movimiento', 'Entrada')
             ->all();  // Se debe usar get() en lugar de all()
 
+            debuguear($movimientos_previos);
+
         $total_valor = 0;
         $total_cantidad = 0;
 
