@@ -133,8 +133,8 @@ public static function movimientos(Router $router) {
             if ($tipo_movimiento === 'Entrada') {
                 // Si el stock es cero, el costo unitario será el costo nuevo
                 if ($producto->stock_actual == 0) {
-                    $nuevo_costo_promedio = $producto->stock_actual; // Si el stock es cero, el costo unitario es el costo nuevo ingresado
-                    $valor = $producto->stock_actual * $cantidad; // Valor de la entrada
+                    $nuevo_costo_promedio = $producto->costo_unitario; // Si el stock es cero, el costo unitario es el costo nuevo ingresado
+                    $valor = $producto->costo_unitario * $cantidad; // Valor de la entrada
                 } else {
                     // Nuevo stock total después de la entrada
                     $nuevo_stock = $producto->stock_actual + $cantidad;
