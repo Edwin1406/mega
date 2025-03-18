@@ -169,7 +169,8 @@ public static function movimientos(Router $router) {
             // Aseguramos que los cambios se guarden correctamente
             $productos_inventario->actualizar();  // Esto actualizará el costo_unitario y el stock
             header('Location: /admin/sistemas/movimiento/movimientos');
-        }
+        } 
+        
         
     }
 
