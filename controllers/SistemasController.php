@@ -149,6 +149,7 @@ public static function movimientos(Router $router) {
             'id_categoria' => $producto->id_categoria,
             'tipo_movimiento' => $tipo_movimiento,
             'cantidad' => $cantidad,
+            'costo_nuevo' => $costo_nuevo,
             'costo_promedio' => $nuevo_costo_promedio,
             'valor' => $valor,  
             'fecha_movimiento' => date('Y-m-d H:i:s')
