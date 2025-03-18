@@ -157,12 +157,7 @@ public static function movimientos(Router $router) {
                     }
                     // total valor del utlimo movimiento seria cero y el que ingresa toma la cantidad del ultimo movimiento  para multiplacar por el costo_promedio
 
-                    foreach ($movimientos_previos as $movimiento) {
-                        $costo_nuevo = $movimiento->costo_nuevo;
-                        $cantidad = $movimiento->cantidad;
-                        $total_valor += $cantidad * $costo_nuevo;
-                        $total_cantidad += $cantidad;
-                    }
+                   
                    
 
                     // al ultimo movimiento le sumamos la cantidad 
