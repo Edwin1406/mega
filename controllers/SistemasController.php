@@ -70,7 +70,6 @@ class SistemasController {
     }
 
 
-
 // Movimientos
 public static function movimientos(Router $router) {
     $alertas = [];
@@ -123,12 +122,16 @@ public static function movimientos(Router $router) {
                 $total_cantidad += $movimiento->cantidad;
             }
 
+            // Sumar la nueva entrada al cálculo
+            $total_valor += $cantidad * $costo_nuevo;
+            $total_cantidad += $cantidad;
+
             // Calcular el nuevo costo promedio ponderado
-            $nuevo_costo_promedio = ($total_valor + ($cantidad * $costo_nuevo)) / ($total_cantidad + $cantidad);
+            $nuevo_costo_promedio = $total_valor / $total_cantidad;
 
             // Actualizando el stock y el costo unitario
             $productos_inventario->stock_actual = $nuevo_stock;
-            $productos_inventario->costo_unitario = $costo_nuevo;
+            $productos_inventario->costo_unitario = $nuevo_costo_promedio;
 
             // Establecer el valor de la entrada
             $valor = $nuevo_costo_promedio * $cantidad;
@@ -146,13 +149,10 @@ public static function movimientos(Router $router) {
             'id_categoria' => $producto->id_categoria,
             'tipo_movimiento' => $tipo_movimiento,
             'cantidad' => $cantidad,
-            'costo_nuevo' => $costo_nuevo,
             'costo_promedio' => $nuevo_costo_promedio,
             'valor' => $valor,  
             'fecha_movimiento' => date('Y-m-d H:i:s')
         ]);
-         debuguear($movimientos_invetario);
-
 
         // Guardar el movimiento de inventario
         $movimientos_invetario->guardas();
