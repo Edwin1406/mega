@@ -33,7 +33,7 @@ class Productos_inventario extends ActiveRecord
         $stmt = self::$db->prepare($query);
     
         // Vinculamos los parámetros: 'ii' para dos enteros: stock_actual, costo_unitario, y 'i' para el id_producto
-        $stmt->bind_param('dii', $this->costo_unitario, $this->stock_actual, $this->id_producto);
+        $stmt->bind_param('dii',  $this->stock_actual,$this->costo_unitario, $this->id_producto);
     
         // Ejecutamos la consulta y retornamos true si fue exitosa
         if ($stmt->execute()) {
