@@ -110,7 +110,7 @@ public static function movimientos(Router $router) {
             // Verificamos si hay movimientos anteriores para este producto
             if ($producto->stock_actual == 0) {
                 // Si el stock es 0, el costo promedio será el costo nuevo
-                $nuevo_costo_promedio = $costo_nuevo;
+         
             } else {
                 // Buscar movimientos anteriores de tipo 'Entrada'
                 $movimientos_previos = Movimientos_inventario::where('id_producto', $id_producto)
