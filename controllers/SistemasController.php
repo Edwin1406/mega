@@ -116,7 +116,7 @@ public static function movimientos(Router $router) {
                 // Buscar movimientos anteriores de tipo 'Entrada'
                 $movimientos_previos = Movimientos_inventario::where('id_producto', $id_producto)
                     ->where('tipo_movimiento', 'Entrada')
-                    ->get();
+                    ->all();
 
                 $total_valor = 0;
                 $total_cantidad = 0;
