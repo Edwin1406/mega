@@ -71,8 +71,7 @@ class SistemasController {
 
 
 
-
-// movimientos 
+// Movimientos
 public static function movimientos(Router $router) {
     $alertas = [];
     $productos_inventario = Productos_inventario::allSis('producto','DESC');
@@ -80,106 +79,92 @@ public static function movimientos(Router $router) {
     $categoria_inventario = Categoria_inventario::allSis('categoria', 'ASC');
     $movimientos_invetario = Movimientos_inventario::all('DESC');
 
-    // debuguear($movimientos_invetario);
-    
     $movimientos_invetario = new Movimientos_inventario;
     
-   
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Verifica que los datos del POST lleguen correctamente
-    $movimientos_invetario->sincronizar($_POST);
-    
-    $id_producto = $_POST['id_producto'];
-    $id_area = $_POST['id_area'];
-    $id_categoria = $_POST['id_categoria'];
-    $tipo_movimiento = $_POST['tipo_movimiento'];
-    $cantidad = $_POST['cantidad'];
-    $costo_nuevo = $_POST['costo_nuevo'];
+        $movimientos_invetario->sincronizar($_POST);
+        
+        $id_producto = $_POST['id_producto'];
+        $id_area = $_POST['id_area'];
+        $id_categoria = $_POST['id_categoria'];
+        $tipo_movimiento = $_POST['tipo_movimiento'];
+        $cantidad = $_POST['cantidad'];
+        $costo_nuevo = $_POST['costo_nuevo'];
+        
+        $producto = Productos_inventario::findSis($id_producto);
 
+        // Si el producto existe en el inventario
+        $productos_inventario = new Productos_inventario([
+            'id_producto' => $id_producto,
+            'nombre_producto' => $producto->nombre_producto,
+            'id_categoria' => $producto->id_categoria,
+            'id_area' => $id_area,
+            'stock_actual' => $producto->stock_actual,
+            'costo_unitario' => $producto->costo_unitario,
+        ]);
 
-    
-    $producto = Productos_inventario::findSis($id_producto);
+        // Si el movimiento es de entrada, calculamos el nuevo costo promedio
+        if ($tipo_movimiento === 'Entrada') {
+            // Nuevo stock total después de la entrada
+            $nuevo_stock = $producto->stock_actual + $cantidad;
 
- 
-
-    $productos_inventario = new Productos_inventario([
-        'id_producto' => $id_producto,
-        'nombre_producto' => $producto->nombre_producto,
-        'id_categoria' => $producto->id_categoria,
-        'id_area' => $id_area,
-        'stock_actual' => $producto->stock_actual,
-        'costo_unitario' => $producto->costo_unitario,
-    ]);
-
-
-    // si movimientos_invetario el id es igual tomar costo promedio registrado 
-
-    if ($tipo_movimiento === 'Entrada') {
-        // Nuevo stock total después de la entrada
-        $nuevo_stock = $producto->stock_actual + $cantidad;
-    
-        // / Buscar movimientos anteriores de tipo 'Entrada'
-        $movimientos_previos = Movimientos_inventario::where('id_producto', $id_producto)
-            ->where('tipo_movimiento', 'Entrada')
-            ->all();
-
+            // Buscar movimientos anteriores de tipo 'Entrada'
+            $movimientos_previos = Movimientos_inventario::where('id_producto', $id_producto)
+                ->where('tipo_movimiento', 'Entrada')
+                ->all();
 
             $total_valor = 0;
             $total_cantidad = 0;
-            
-            // Calculamos el costo promedio ponderado de todas las entradas anteriores + la cantidad y costo_actual
+
+            // Calculamos el costo total ponderado de todas las entradas previas
             foreach ($movimientos_previos as $movimiento) {
                 $total_valor += $movimiento->valor;
                 $total_cantidad += $movimiento->cantidad;
             }
-            // debuguear($total_valor);
 
-            debuguear($total_valor);
-            debuguear($total_cantidad);
+            // Calcular el nuevo costo promedio ponderado
+            $nuevo_costo_promedio = ($total_valor + ($cantidad * $costo_nuevo)) / ($total_cantidad + $cantidad);
 
+            // Actualizando el stock y el costo unitario
+            $productos_inventario->stock_actual = $nuevo_stock;
+            $productos_inventario->costo_unitario = $nuevo_costo_promedio;
 
-           
-    
-        // Actualizando el stock y el costo unitario
-        $productos_inventario->stock_actual = $nuevo_stock;
-        $productos_inventario->costo_unitario = $costo_nuevo;
-    
-        // Establecer el valor de la entrada
-        $valor = $nuevo_costo_promedio * $cantidad;
-    
-    } else {
-        // Si es salida, disminuimos el stock (no se cambia el costo promedio)
-        $productos_inventario->stock_actual -= $cantidad;
-        $valor = 0;  // Para movimientos de salida no calculamos valor
-    }
+            // Establecer el valor de la entrada
+            $valor = $nuevo_costo_promedio * $cantidad;
 
-    $movimientos_invetario = new Movimientos_inventario([
-        'id_producto' => $id_producto,
-        'id_area' => $id_area,
-        'id_categoria' => $producto->id_categoria,
-        'tipo_movimiento' => $tipo_movimiento,
-        'cantidad' => $cantidad,
-        'costo_promedio' => $nuevo_costo_promedio,
-        'valor' => $valor,  
-        'fecha_movimiento' => date('Y-m-d H:i:s')
-    ]);
-
-    $movimientos_invetario->guardas();
-
-      
-     
-        $alertas = $movimientos_invetario->getAlertas();
-        // redireccionar
-        if (empty($alertas)) {
-            $productos_inventario->actualizar();
-
-            header('Location: /admin/sistemas/movimiento/movimientos');
+        } else {
+            // Si es salida, disminuimos el stock pero no cambiamos el costo promedio
+            $productos_inventario->stock_actual -= $cantidad;
+            $valor = 0;  // Para movimientos de salida no calculamos valor
         }
 
+        // Crear el movimiento de inventario
+        $movimientos_invetario = new Movimientos_inventario([
+            'id_producto' => $id_producto,
+            'id_area' => $id_area,
+            'id_categoria' => $producto->id_categoria,
+            'tipo_movimiento' => $tipo_movimiento,
+            'cantidad' => $cantidad,
+            'costo_promedio' => $nuevo_costo_promedio,
+            'valor' => $valor,  
+            'fecha_movimiento' => date('Y-m-d H:i:s')
+        ]);
 
+        // Guardar el movimiento de inventario
+        $movimientos_invetario->guardas();
+        
+        // Verificar alertas
+        $alertas = $movimientos_invetario->getAlertas();
 
+        // Redireccionar si no hay alertas
+        if (empty($alertas)) {
+            $productos_inventario->actualizar();
+            header('Location: /admin/sistemas/movimiento/movimientos');
+        }
     }
 
+    // Renderizar la vista
     $router->render('admin/sistemas/movimiento/movimientos', [
         'titulo' => 'MOVIMIENTOS DE PRODUCTOS',
         'alertas' => $alertas,
@@ -188,6 +173,7 @@ public static function movimientos(Router $router) {
         'categoria_inventario' => $categoria_inventario,
     ]);
 }
+
 
 
 public static function apimovimientos()
