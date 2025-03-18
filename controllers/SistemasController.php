@@ -118,9 +118,26 @@ public static function movimientos(Router $router) {
         // Nuevo stock total después de la entrada
         $nuevo_stock = $producto->stock_actual + $cantidad;
     
-        // Cálculo del nuevo costo promedio
-        $nuevo_costo_promedio = 
-            (($producto->costo_unitario * $producto->stock_actual) + ($costo_nuevo * $cantidad)) / $nuevo_stock;
+        // / Buscar movimientos anteriores de tipo 'Entrada'
+        $movimientos_previos = Movimientos_inventario::where('id_producto', $id_producto)
+            ->where('tipo_movimiento', 'Entrada')
+            ->all();
+
+
+            $total_valor = 0;
+            $total_cantidad = 0;
+            
+            // Calculamos el costo promedio ponderado de todas las entradas anteriores
+            foreach ($movimientos_previos as $movimiento) {
+                $total_valor += $movimiento->costo_promedio * $movimiento->cantidad;
+                $total_cantidad += $movimiento->cantidad;
+            }
+
+            debuguear($total_valor);
+            debuguear($total_cantidad);
+
+
+           
     
         // Actualizando el stock y el costo unitario
         $productos_inventario->stock_actual = $nuevo_stock;
