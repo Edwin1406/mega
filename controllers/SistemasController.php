@@ -155,6 +155,17 @@ public static function movimientos(Router $router) {
                         $total_valor += $movimiento->costo_nuevo;
                         $total_cantidad += $movimiento->cantidad;
                     }
+                    // total valor del utlimo movimiento seria cero y el que ingresa toma la cantidad del ultimo movimiento  para multiplacar por el costo_promedio
+
+                    foreach ($movimientos_previos as $movimiento) {
+                        $costo_nuevo = $movimiento->costo_nuevo;
+                        $cantidad = $movimiento->cantidad;
+                        $total_valor += $cantidad * $costo_nuevo;
+                        $total_cantidad += $cantidad;
+                    }
+                   
+
+                    // al ultimo movimiento le sumamos la cantidad 
         
                     // Sumar la nueva entrada al cálculo
                     $total_valor += $cantidad * $costo_nuevo;
@@ -191,7 +202,7 @@ public static function movimientos(Router $router) {
             ]);
         }
         
-        // debuguear($movimientos_invetario);
+        debuguear($movimientos_invetario);
 
         // Guardar el movimiento de inventario
         $movimientos_invetario->guardas();
