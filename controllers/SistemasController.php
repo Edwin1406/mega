@@ -134,7 +134,7 @@ public static function movimientos(Router $router) {
                 $nuevo_costo_promedio = $total_valor / $total_cantidad;
             }
         
-            // **Aquí se asegura que el costo_unitario se actualice con el costo_nuevo**
+            // **Aquí actualizamos el costo_unitario con el valor de costo_nuevo**
             $productos_inventario->stock_actual = $producto->stock_actual + $cantidad; // Actualizamos el stock
             $productos_inventario->costo_unitario = $costo_nuevo; // Actualizamos el costo unitario con el nuevo costo
             
@@ -169,8 +169,7 @@ public static function movimientos(Router $router) {
             // Aseguramos que los cambios se guarden correctamente
             $productos_inventario->actualizar();  // Esto actualizará el costo_unitario y el stock
             header('Location: /admin/sistemas/movimiento/movimientos');
-        } 
-        
+        }
         
     }
 
