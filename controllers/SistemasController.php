@@ -135,12 +135,13 @@ public static function movimientos(Router $router) {
         'id_categoria' => $producto->id_categoria,
         'tipo_movimiento' => $tipo_movimiento,
         'cantidad' => $cantidad,
+        'costo_promedio' => $costo_nuevo,
         'valor' => $valor,  
         'fecha_movimiento' => date('Y-m-d H:i:s')
     ]);
 
 
-    debuguear($movimientos_invetario);
+    // debuguear($movimientos_invetario);
 
    
     
@@ -152,7 +153,7 @@ public static function movimientos(Router $router) {
         $alertas = $movimientos_invetario->getAlertas();
         // redireccionar
         if (empty($alertas)) {
-            // $productos_inventario->actualizar();
+            $productos_inventario->actualizar();
 
             header('Location: /admin/sistemas/movimiento/movimientos');
         }
