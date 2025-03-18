@@ -103,7 +103,7 @@ public static function movimientos(Router $router) {
             'id_categoria' => $producto->id_categoria,
             'id_area' => $id_area,
             'stock_actual' => $producto->stock_actual,
-            'costo_unitario' => $producto->costo_unitario,
+            'costo_unitario' => $costo_nuevo,
         ]);
 
         if ($tipo_movimiento === 'Entrada') {
