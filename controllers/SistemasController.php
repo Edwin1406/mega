@@ -138,12 +138,15 @@ public static function movimientos(Router $router) {
             $nuevo_stock = $producto->stock_actual + $cantidad;
             $productos_inventario->stock_actual = $nuevo_stock;
             $productos_inventario->costo_unitario = $nuevo_costo_promedio;
+            $productos_inventario->costo_unitario = $costo_nuevo;
+
         
             // Establecemos el valor del movimiento
             $valor = $nuevo_costo_promedio * $cantidad;
         } else {
             // Si es un movimiento de salida, solo disminuimos el stock y no se cambia el costo promedio
             $productos_inventario->stock_actual -= $cantidad;
+            // costo_nuevo deberia ser el costo unitario
             $valor = 0;  // Para movimientos de salida no calculamos valor
         }
         
