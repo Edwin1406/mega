@@ -140,9 +140,9 @@ public static function movimientos(Router $router) {
         'fecha_movimiento' => date('Y-m-d H:i:s')
     ]);
 
-debuguear($nuevo_costo_promedio);
+// debuguear($nuevo_costo_promedio);
 
-    // debuguear($movimientos_invetario);
+    debuguear($movimientos_invetario);
 
    
     
