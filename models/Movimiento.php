@@ -6,14 +6,14 @@ namespace Model;
 class Movimiento  extends ActiveRecord
 {
     protected static $tabla = 'movimientos_stock';
-    protected static $columnasDB = ['id', 'id_producto','id_area','tipo_movimiento','cantidad','costo_promedio','fecha_movimiento'];
+    protected static $columnasDB = ['id', 'id_producto','id_area','tipo_movimiento','cantidad','fecha_movimiento'];
 
     public $id;
     public $id_producto;
     public $id_area;
     public $tipo_movimiento;
     public $cantidad;
-    public $costo_promedio;
+    
     public $fecha_movimiento;
     // public $valor;
     // public $costo_nuevo;
@@ -28,7 +28,6 @@ class Movimiento  extends ActiveRecord
         $this->id_area = $args['id_area'] ?? '';
         $this->tipo_movimiento = $args['tipo_movimiento'] ?? '';
         $this->cantidad = $args['cantidad'] ?? '';
-        $this->costo_promedio = $args['costo_promedio'] ?? '';
         $this->fecha_movimiento = $args['fecha_movimiento'] ?? date('Y-m-d H:i:s');
 
     }

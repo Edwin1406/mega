@@ -117,7 +117,7 @@ class Area_inventario extends ActiveRecord
 class Movimientos_inventario  extends ActiveRecord
 {
     protected static $tabla = 'movimientos_stock';
-    protected static $columnasDB = ['id', 'id_producto','id_area','id_categoria','tipo_movimiento','cantidad','valor','fecha_movimiento'];
+    protected static $columnasDB = ['id', 'id_producto','id_area','id_categoria','tipo_movimiento','cantidad','costo_promedio','valor','fecha_movimiento'];
 
     public $id;
     public $id_producto;
@@ -125,6 +125,7 @@ class Movimientos_inventario  extends ActiveRecord
     public $id_categoria;
     public $tipo_movimiento;
     public $cantidad;
+    public $costo_promedio;
     public $valor;
     public $fecha_movimiento;
 
@@ -139,6 +140,7 @@ class Movimientos_inventario  extends ActiveRecord
         $this->id_categoria = $args['id_categoria'] ?? '';
         $this->tipo_movimiento = $args['tipo_movimiento'] ?? '';
         $this->cantidad = $args['cantidad'] ?? '';
+        $this->costo_promedio = $args['costo_promedio'] ?? '';
         $this->valor = $args['valor'] ?? '';
         $this->fecha_movimiento = $args['fecha_movimiento'] ?? date('Y-m-d H:i:s');
 
