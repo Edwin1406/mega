@@ -142,7 +142,7 @@ public static function movimientos(Router $router) {
 
 // debuguear($nuevo_costo_promedio);
 
-    debuguear($movimientos_invetario);
+    // debuguear($movimientos_invetario);
 
    
     
