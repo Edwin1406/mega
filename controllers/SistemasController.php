@@ -106,57 +106,63 @@ public static function movimientos(Router $router) {
             'costo_unitario' => $producto->costo_unitario,
         ]);
 
-        // Si el tipo de movimiento es 'Entrada', calculamos el costo promedio
-        if ($tipo_movimiento === 'Entrada') {
-            // Verificamos si hay movimientos anteriores para este producto
-            if ($producto->stock_actual == 0) {
-                // Si el stock es 0, el costo promedio será el costo nuevo
-                $nuevo_costo_promedio = $costo_nuevo;
-            } else {
-                // Buscar movimientos anteriores de tipo 'Entrada'
-                $movimientos_previos = Movimientos_inventario::where('id_producto', $id_producto)
-                    ->where('tipo_movimiento', 'Entrada')
-                    ->all();
+      // Si el tipo de movimiento es 'Entrada', calculamos el costo promedio
+if ($tipo_movimiento === 'Entrada') {
+    // Verificamos si hay movimientos anteriores para este producto
+    if ($producto->stock_actual == 0) {
+        // Si el stock es 0, el costo promedio será el costo nuevo
+        $nuevo_costo_promedio = $costo_nuevo;
+    } else {
+        // Buscar movimientos anteriores de tipo 'Entrada'
+        $movimientos_previos = Movimientos_inventario::where('id_producto', $id_producto)
+            ->where('tipo_movimiento', 'Entrada')
+            ->all();
 
-                $total_valor = 0;
-                $total_cantidad = 0;
+        $total_valor = 0;
+        $total_cantidad = 0;
 
-                foreach ($movimientos_previos as $movimiento) {
-                    $total_valor += $movimiento->costo_promedio * $movimiento->cantidad;
-                    $total_cantidad += $movimiento->cantidad;
-                }
-
-                // Calculamos el nuevo costo promedio
-                $nuevo_costo_promedio = ($total_valor + ($costo_nuevo * $cantidad)) / ($total_cantidad + $cantidad);
-            }
-
-            // Actualizamos el stock total y el costo unitario
-            $nuevo_stock = $producto->stock_actual + $cantidad;
-            $productos_inventario->stock_actual = $nuevo_stock;
-            $productos_inventario->costo_unitario = $nuevo_costo_promedio;
-
-            // Establecemos el valor del movimiento
-            $valor = $nuevo_costo_promedio * $cantidad;
-        } else {
-            // Si es un movimiento de salida, solo disminuimos el stock y no se cambia el costo promedio
-            $productos_inventario->stock_actual -= $cantidad;
-            $valor = 0;  // Para movimientos de salida no calculamos valor
+        // Calculamos el costo promedio ponderado
+        foreach ($movimientos_previos as $movimiento) {
+            $total_valor += $movimiento->costo_promedio * $movimiento->cantidad;
+            $total_cantidad += $movimiento->cantidad;
         }
 
-        // Crear el movimiento de inventario
-        $movimientos_invetario = new Movimientos_inventario([
-            'id_producto' => $id_producto,
-            'id_area' => $id_area,
-            'id_categoria' => $producto->id_categoria,
-            'tipo_movimiento' => $tipo_movimiento,
-            'cantidad' => $cantidad,
-            'costo_promedio' => $nuevo_costo_promedio,
-            'valor' => $valor,
-            'fecha_movimiento' => date('Y-m-d H:i:s')
-        ]);
+        // Sumamos el valor de la nueva entrada
+        $total_valor += $costo_nuevo * $cantidad;
+        $total_cantidad += $cantidad;
 
-        // Guardamos el movimiento de inventario
-        $movimientos_invetario->guardas();
+        // Calculamos el nuevo costo promedio
+        $nuevo_costo_promedio = $total_valor / $total_cantidad;
+    }
+
+    // Actualizamos el stock total y el costo unitario
+    $nuevo_stock = $producto->stock_actual + $cantidad;
+    $productos_inventario->stock_actual = $nuevo_stock;
+    $productos_inventario->costo_unitario = $nuevo_costo_promedio;
+
+    // Establecemos el valor del movimiento
+    $valor = $nuevo_costo_promedio * $cantidad;
+} else {
+    // Si es un movimiento de salida, solo disminuimos el stock y no se cambia el costo promedio
+    $productos_inventario->stock_actual -= $cantidad;
+    $valor = 0;  // Para movimientos de salida no calculamos valor
+}
+
+// Crear el movimiento de inventario
+$movimientos_invetario = new Movimientos_inventario([
+    'id_producto' => $id_producto,
+    'id_area' => $id_area,
+    'id_categoria' => $producto->id_categoria,
+    'tipo_movimiento' => $tipo_movimiento,
+    'cantidad' => $cantidad,
+    'costo_promedio' => $nuevo_costo_promedio,
+    'valor' => $valor,
+    'fecha_movimiento' => date('Y-m-d H:i:s')
+]);
+
+// Guardamos el movimiento de inventario
+$movimientos_invetario->guardas();
+
 
         // Verificamos si hay alertas
         $alertas = $movimientos_invetario->getAlertas();
