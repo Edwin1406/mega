@@ -118,7 +118,7 @@ public static function movimientos(Router $router) {
 
             // Calculamos el costo total ponderado de todas las entradas previas
             foreach ($movimientos_previos as $movimiento) {
-                $total_valor += $movimiento->valor;
+                $total_valor += $movimiento->costo_nuevo;
                 $total_cantidad += $movimiento->cantidad;
             }
 
@@ -154,6 +154,8 @@ public static function movimientos(Router $router) {
             'valor' => $valor,  
             'fecha_movimiento' => date('Y-m-d H:i:s')
         ]);
+
+        debuguear($movimientos_invetario);
 
         // Guardar el movimiento de inventario
         $movimientos_invetario->guardas();
