@@ -189,7 +189,7 @@ public static function movimientos(Router $router) {
             ]);
         }
         
-        debuguear($movimientos_invetario);
+        // debuguear($movimientos_invetario);
 
         // Guardar el movimiento de inventario
         $movimientos_invetario->guardas();
