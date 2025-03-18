@@ -27,24 +27,19 @@ class Productos_inventario extends ActiveRecord
 
     public function actualizar()
     {
-        // Actualizamos tanto el stock_actual como el costo_unitario con el valor de costo_nuevo
-        $query = "UPDATE productos_inventario SET stock_actual = ?, costo_unitario = ? WHERE id_producto = ?";
-    
+        $query = "UPDATE productos_inventario SET stock_actual = ? WHERE id_producto = ?";
+
         $stmt = self::$db->prepare($query);
-    
-        // Vinculamos los parámetros: 'ii' para dos enteros: stock_actual, costo_unitario, y 'i' para el id_producto
-        // Usamos 'd' para costo_unitario porque debería ser un valor decimal
-        $stmt->bind_param('dii', $this->costo_unitario, $this->stock_actual, $this->id_producto);
-    
-        // Ejecutamos la consulta y retornamos true si fue exitosa
+
+        $stmt->bind_param('ii', $this->stock_actual, $this->id_producto);
+
         if ($stmt->execute()) {
             return true;
         } else {
             return false;
         }
+
     }
-    
-    
 
 
     public static function obtenerProductosConCategoriaYArea() {
