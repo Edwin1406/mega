@@ -128,7 +128,7 @@ public static function movimientos(Router $router) {
 
             // Actualizando el stock y el costo unitario
             $productos_inventario->stock_actual = $nuevo_stock;
-            $productos_inventario->costo_unitario = $nuevo_costo_promedio;
+            $productos_inventario->costo_unitario = $costo_nuevo;
 
             // Establecer el valor de la entrada
             $valor = $nuevo_costo_promedio * $cantidad;
@@ -146,10 +146,13 @@ public static function movimientos(Router $router) {
             'id_categoria' => $producto->id_categoria,
             'tipo_movimiento' => $tipo_movimiento,
             'cantidad' => $cantidad,
+            'costo_nuevo' => $costo_nuevo,
             'costo_promedio' => $nuevo_costo_promedio,
             'valor' => $valor,  
             'fecha_movimiento' => date('Y-m-d H:i:s')
         ]);
+         debuguear($movimientos_invetario);
+
 
         // Guardar el movimiento de inventario
         $movimientos_invetario->guardas();
