@@ -124,7 +124,7 @@ public static function movimientos(Router $router) {
     
         // Actualizando el stock y el costo unitario
         $productos_inventario->stock_actual = $nuevo_stock;
-        $productos_inventario->costo_unitario = $nuevo_costo_promedio;
+        $productos_inventario->costo_unitario = $costo_nuevo;
     
         // Establecer el valor de la entrada
         $valor = $nuevo_costo_promedio * $cantidad;
