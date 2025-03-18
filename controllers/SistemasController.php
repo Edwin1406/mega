@@ -127,11 +127,12 @@ public static function movimientos(Router $router) {
             $total_valor = 0;
             $total_cantidad = 0;
             
-            // Calculamos el costo promedio ponderado de todas las entradas anteriores
+            // Calculamos el costo promedio ponderado de todas las entradas anteriores + la cantidad y costo_actual
             foreach ($movimientos_previos as $movimiento) {
-                $total_valor += $movimiento->costo_promedio * $movimiento->cantidad;
+                $total_valor += $movimiento->valor;
                 $total_cantidad += $movimiento->cantidad;
             }
+            // debuguear($total_valor);
 
             debuguear($total_valor);
             debuguear($total_cantidad);
