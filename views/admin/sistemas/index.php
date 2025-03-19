@@ -152,6 +152,14 @@
     </div>
 </div>
 
+
+<div class="contenido-graficos">
+    <div class="grafico2">
+
+        <canvas id="productosStockMinimo"></canvas>
+    </div>
+</div>
+
     
 
 <script>
@@ -396,8 +404,34 @@ async function productosconstockminimo() {
     // Filtrar productos con stock menor a 2
     const lowStockProducts = datos.filter(producto => parseInt(producto.stock_actual) === 0);
 
+    // mostrar en una grafica de barras
+    const labels = lowStockProducts.map(producto => producto.nombre_producto);
+    const data = lowStockProducts.map(producto => parseInt(producto.stock_actual));
 
-    console.log("Productos con stock menor a 2:", lowStockProducts);
+    const ctx = document.getElementById('productosStockMinimo').getContext('2d');
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Stock',
+                data: data,
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+
+    // Mostrar alertas para los productos con stock mínimo
+
     
 }
 
