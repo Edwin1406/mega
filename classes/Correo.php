@@ -34,8 +34,10 @@ class Correo {
 
             // Adjuntar el PDF generado en memoria
             $mail->addStringAttachment($pdfContenido, $nombreArchivo, 'base64', 'application/pdf');
-        
             
+            // imagen
+            $mail->AddEmbeddedImage('https://megawebsistem.com/src/img/Imagen1.png', 'logo', 'logo.png');
+
          
             
             // Enviar el correo
