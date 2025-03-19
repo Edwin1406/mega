@@ -10,7 +10,7 @@ class InventarioPdf extends TCPDF
         $this->Image('src/img/logo2.png', 13, 5, 30, 30); // Tamaño y posición del logo
         $this->SetFont('helvetica', 'B', 12); 
         $this->Cell(0, 10, 'Inventario', 0, 0, 'C');
-        $this->Ln(20);
+        $this->Ln(10);
     }
     
     public function Footer()
@@ -30,7 +30,7 @@ class InventarioPdf extends TCPDF
         $this->SetTextColor(0, 0, 0); 
     
         // Título de la página
-        $this->SetXY(5, 10);
+        $this->SetXY(10, 10);
         $this->Cell(90, 50, 'MEGASTOCK S.A.', 0, 1, 'C');
         $this->SetFont('helvetica', 'B', 18);
         $this->Cell(290, 10, 'INVENTARIO', 0, 1, 'C');
