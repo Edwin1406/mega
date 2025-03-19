@@ -18,8 +18,7 @@ class Correo {
             $mail->Port = $_ENV['EMAIL_PORT'];
             $mail->Username = $_ENV['EMAIL_USER'];
             $mail->Password = $_ENV['EMAIL_PASS'];
-            $mail->SMTPSecure = 'none';
-            $mail->SMTPAutoTLS = false;
+            $mail->SMTPSecure = 'ssl';
 
 
             $mail->setFrom('sistemas@logmegaecuador.com', 'MEGASTOCK S.A.');
