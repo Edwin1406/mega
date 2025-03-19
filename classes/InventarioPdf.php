@@ -35,12 +35,13 @@ class InventarioPdf extends TCPDF
         $this->SetFont('helvetica', 'B', 18);
         $this->Cell(290, 10, 'INVENTARIO', 0, 1, 'C');
 
-        // Fecha
+        // Fecha A la derecha
+        $this->SetXY(10, 10);
         $this->SetFont('helvetica', 'I', 12);
         $this->Cell(290, 10, 'Fecha: ' . date('d/m/Y'), 0, 1, 'C');
         $this->Ln(10);
 
-        
+
             
         // Espaciado
         $this->Ln(5);
