@@ -402,6 +402,7 @@ async function productosconstockminimo() {
 }
 
 
+productosconstockminimo();
 
 
 
