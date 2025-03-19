@@ -84,7 +84,7 @@ class InventarioPdf extends TCPDF
         $this->SetFont('helvetica', 'B', 14);
         $this->SetFillColor(255, 140, 0); // Naranja
         $this->SetTextColor(255, 255, 255); 
-        $this->Cell(190, 10, 'TOTAL:', 1, 0, 'R', true);
+        $this->Cell(200, 10, 'TOTAL:', 1, 0, 'R', true);
         $this->Cell(30, 10, '$' . number_format($total, 2), 1, 1, 'C', true);
     
         // Nota al pie con espacio extra
