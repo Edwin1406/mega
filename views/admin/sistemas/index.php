@@ -333,7 +333,7 @@ async function sumadevaloresdeapi(){
     console.log("Valores acumulados:", filteredData);
 
    // Mostrar el valor acumulado en POR MES
-    const total = filteredData.reduce((acc, value) => acc + value, 0);
+    const total = monthlyTotals.reduce((acc, value) => acc + value, 0);
     document.querySelector('.totales').textContent = `$${total.toFixed(2)}`;
 
     // return vacio;
