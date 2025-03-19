@@ -70,7 +70,7 @@
         <div class="item"><a href="/admin/sistemas/solicitudes/solicitud"><i class="fa-solid fa-arrow-right"></i> SOLICITUD</a></div>
     </div>
 <?php else: ?>
-    <!-- Aquí puedes agregar el contenido alternativo si no hay sesión -->
+    
 <?php endif; ?>
 
 
