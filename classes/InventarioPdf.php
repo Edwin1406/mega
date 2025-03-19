@@ -55,7 +55,7 @@ class InventarioPdf extends TCPDF
         
         // Encabezados de la tabla
         $this->Cell(100, 10, 'Producto', 1, 0, 'C', true);
-        $this->Cell(30, 10, 'Área', 1, 0, 'C', true);
+        $this->Cell(40, 10, 'Área', 1, 0, 'C', true);
         $this->Cell(50, 10, 'Costo Unitario', 1, 0, 'C', true);
         $this->Cell(30, 10, 'Cantidad', 1, 0, 'C', true);
         $this->Cell(30, 10, 'Total', 1, 1, 'C', true);
@@ -69,7 +69,7 @@ class InventarioPdf extends TCPDF
         foreach ($datos['inventarioProductos'] as $producto) {
             if ($producto->stock_actual > 0) {
                 $this->Cell(100, 10, $producto->nombre_producto, 1, 0, 'L');
-                $this->Cell(20, 10, 'Producción', 1, 0, 'L');
+                $this->Cell(40, 10, 'Producción', 1, 0, 'L');
                 $this->Cell(50, 10, '$' . number_format($producto->costo_unitario, 2), 1, 0, 'C');
                 $this->Cell(30, 10, number_format($producto->stock_actual, 2), 1, 0, 'C');
                 
