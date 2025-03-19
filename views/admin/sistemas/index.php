@@ -319,11 +319,12 @@ async function sumadevaloresdeapi(){
 
     console.log("Total acumulado por mes:", monthlyTotals);
 
-    // VER EN EL HTML EL TOTAL GENERAL POR MES
-    let totalGeneral = 0;
-    for (const monthIndex in monthlyTotals) {
-        totalGeneral += monthlyTotals[monthIndex];
-        console.log("Mes:", monthNames[monthIndex], "Total:", monthlyTotals[monthIndex]);
+    // VER EN EL HTML EL TOTAL GENERAL POR MES DEPENDIENDO DE QUE MES ESTE ME MOSTRARA EL TOTAL DE ESE MES
+
+    let totalgeneralpormes = 0;
+    for (const [monthIndex, total] of Object.entries(monthlyTotals)) {
+        totalgeneralpormes += total;
+        console.log(`Total acumulado en ${monthNames[monthIndex]}: ${total}`);
     }
     
 
