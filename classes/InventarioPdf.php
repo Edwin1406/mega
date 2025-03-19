@@ -61,18 +61,20 @@ class InventarioPdf extends TCPDF
         $total = 0;
     
         foreach ($datos['inventarioProductos'] as $producto) {
-            //  debuguear($producto);
-
-            $this->Cell(100, 8, $producto->nombre_producto, 1, 0, 'L');
-            // debuguear($producto);
-            $this->Cell(40, 8, 'Producción', 1, 0, 'L');
-            $this->Cell(30, 8, '$' . number_format($producto->costo_unitario, 2), 1, 0, 'C');
-            $this->Cell(20, 8, '' . number_format($producto->stock_actual, 2), 1, 0, 'C');
-            // $this->Cell(20, 8, '1',  1, 0, 'C'); 
-            $totalProducto = $producto->costo_unitario * $producto->stock_actual;
-            $this->Cell(30, 8, '$' . number_format($totalProducto, 2), 1, 1, 'C');
-            $total += $totalProducto;
+            // Verificar si el stock actual es mayor que 0
+            if ($producto->stock_actual > 0) {
+                $this->Cell(100, 8, $producto->nombre_producto, 1, 0, 'L');
+                $this->Cell(40, 8, 'Producción', 1, 0, 'L');
+                $this->Cell(30, 8, '$' . number_format($producto->costo_unitario, 2), 1, 0, 'C');
+                $this->Cell(20, 8, '' . number_format($producto->stock_actual, 2), 1, 0, 'C');
+                
+                $totalProducto = $producto->costo_unitario * $producto->stock_actual;
+                $this->Cell(30, 8, '$' . number_format($totalProducto, 2), 1, 1, 'C');
+                
+                $total += $totalProducto;
+            }
         }
+        
     
         // Total final
         $this->SetFont('helvetica', 'B', 12);
