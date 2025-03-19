@@ -336,12 +336,11 @@ public static function solicitud(Router $router)
 public static function tabla(Router $router)
 {
 
-    echo "hola";
-    // $solicitud  = Solicitud::all('DESC');
+    $solicitud  = Solicitud::all('DESC');
 
 
-    // $pagina_actual = $_GET['page'] ?? 1;
-    // $pagina_actual = filter_var($pagina_actual, FILTER_VALIDATE_INT);
+    $pagina_actual = $_GET['page'] ?? 1;
+    $pagina_actual = filter_var($pagina_actual, FILTER_VALIDATE_INT);
 
     // if (!$pagina_actual || $pagina_actual < 1) {
     //     header('Location: /admin/sistemas/solicitudes/tabla?page=1');
