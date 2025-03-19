@@ -6,24 +6,45 @@ class InventarioPdf extends TCPDF
 {
     public function Header()
     {
+        // Agregar logo a la izquierda
+        $this->Image('src/img/logo2.png', 13, 5, 30, 30); // Tamaño y posición del logo
+        $this->SetFont('helvetica', 'B', 12); 
+        $this->Cell(0, 10, 'Inventario', 0, 0, 'C');
         $this->Ln(20);
-        $this->SetFont('helvetica', 'B', 16);
-        $this->Cell(0, 10, 'INVENTARIO', 0, 1, 'C');
-        $this->Ln(10);
+    }
+    
+    public function Footer()
+    {
+        $this->SetY(-15);
+        $this->SetFont('helvetica', 'I', 8); 
+        $this->Cell(0, 10, 'Página ' . $this->PageNo(), 0, 0, 'C');
     }
     
     public function generarPdf($datos)
     {
-        $this->Image('src/img/logo2.png', 15, 20, 35);
-
-        // Encabezado
-        $this->SetFont('helvetica', 'B', 12);
-        $this->SetXY(60, 20);
-        $this->Cell(100, 6, 'MEGASTOCK S.A.', 0, 1, 'L');
+        // Agregar una nueva página
+        $this->AddPage('L'); // 'L' para landscape (horizontal)
+    
+        // Configuración de fuentes y colores
+        $this->SetFont('helvetica', 'B', 14);
+        $this->SetTextColor(0, 0, 0); 
+    
+        // Título de la página
+        $this->SetXY(10, 10);
+        $this->Cell(90, 10, 'MEGASTOCK S.A.', 0, 1, 'C');
+        $this->SetFont('helvetica', 'B', 18);
+        $this->Cell(290, 10, 'INVENTARIO', 0, 1, 'C');
+    
+        // Logo derecho
+        $this->Image('src/img/logo2.png', 180, 5, 30, 30); // Tamaño y posición del segundo logo
         
-        // Número de factura
-        $this->SetXY(220, 25);
-        $this->SetFont('helvetica', 'B', 12);
+        // Espaciado
+        $this->Ln(10);
+    
+        // Cabecera de la tabla mejorada
+        $this->SetFillColor(255, 140, 0); // Naranja
+        $this->SetTextColor(255, 255, 255); // Blanco
+        $this->SetFont('helvetica', 'B', 14); // Aumentar tamaño de fuente
     
         // Centrar la tabla
         $totalAnchoTabla = 100 + 40 + 30 + 20 + 30; // Ancho total de la tabla
