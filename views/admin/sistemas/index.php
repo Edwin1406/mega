@@ -326,7 +326,8 @@ async function sumadevaloresdeapi(){
     console.log("Meses con datos:", filteredLabels);
     console.log("Valores acumulados:", filteredData);
 
-    vacio.push(filteredData);
+    vacio = filteredData;
+
     // return vacio;
 
     if (filteredData.length === 0) {
