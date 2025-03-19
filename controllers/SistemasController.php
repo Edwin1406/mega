@@ -499,7 +499,8 @@ public static function pdfcompraryfinaciero(Router $router)
     $destinatario2 = "edwinfer32@hotmail.com";
     $asunto = "Aprobación para la compra de productos para el área de sistemas";
     $mensaje = "
-            <p> Saludos. Estimado (a)$saludo ,</p> 
+            <p> Saludos. Estimado (a)</p> 
+            <p> $saludo</p> 
             <p>Espero que este mensaje les encuentre bien. Me complace informarles que la solicitud de adquisición de los productos necesarios para el área de sistemas ha sido aprobada. Ahora, solicito la aprobación del área financiera y asi el área de compras para proceder con la compra, según lo especificado en el documento adjunto.</p>
             <p>Quedo a su disposición para cualquier aclaración adicional. Agradezco su atención y espero contar con su apoyo para la aprobación de esta solicitud.</p>
             <p>Atentamente,</p>
