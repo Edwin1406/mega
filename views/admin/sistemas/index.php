@@ -90,7 +90,7 @@
     <li class="areas-produccion-estatico" data-aos="fade-up">
         <a>
             <i class="fas fa-scroll"></i> COSTO TOTAL POR MES:
-            <span class="areas-produccion__numero totales"></span>
+            <span class="areas-produccion__numero totales"> $</span>
         </a>
     </li>
 
