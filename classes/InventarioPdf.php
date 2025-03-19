@@ -48,7 +48,7 @@ class InventarioPdf extends TCPDF
         $this->SetTextColor(255, 255, 255); // Blanco
         $this->SetFont('helvetica', 'B', 12);
     
-        $this->Cell(60, 8, 'Producto', 1, 0, 'C', true);
+        $this->Cell(100, 8, 'Producto', 1, 0, 'C', true);
         $this->Cell(40, 8, 'Área', 1, 0, 'C', true);
         $this->Cell(30, 8, 'Costo Unitario', 1, 0, 'C', true);
         $this->Cell(20, 8, 'Cantidad', 1, 0, 'C', true);
