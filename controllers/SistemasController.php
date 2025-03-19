@@ -403,7 +403,7 @@ public static function pdf(Router $router)
     
     // Enviar por correo
     $destinatario1 = "edwin.ed948@gmail.com";
-    $destinatario2 = "edwinfer32@hotmail.com";
+    
     $asunto = "Solicitud de adquisición de productos para el área de sistemas";
     $mensaje = "<p>Estimado Fabián Oquendo Director de Producción,</p>
             <p>Espero que este mensaje le encuentre bien. Me dirijo a usted para solicitar la adquisición de los productos necesarios para el área de sistemas, según lo especificado en el documento adjunto.</p>
@@ -418,7 +418,7 @@ public static function pdf(Router $router)
 
     
     $email = new Correo();
-    $resultado = $email->enviarConAdjunto($destinatario1,$destinatario2, $asunto, $mensaje, $pdfContenido, 'SOLICITUD.pdf');
+    $resultado = $email->enviarConAdjunto($destinatario1, $asunto, $mensaje, $pdfContenido, 'SOLICITUD.pdf');
     
     // quiero visualizar el pdf en el navegador
 
