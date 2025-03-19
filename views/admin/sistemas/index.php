@@ -329,7 +329,7 @@ async function sumadevaloresdeapi(){
         if (parseInt(monthIndex) === currentMonth) { // Compara el índice del mes con el mes actual
             totalgeneralpormes += total;
             // Actualiza el contenido del span con el total correspondiente al mes actual
-            document.querySelector('.areas-produccion__numero.totales').textContent = totalgeneralpormes + ' USD';
+            document.querySelector('.areas-produccion__numero.totales').textContent = totalgeneralpormes + ' $';
         }
     }
 
