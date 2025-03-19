@@ -382,10 +382,7 @@ public static function pdf(Router $router)
     $id = filter_var($id, FILTER_VALIDATE_INT);
     
     $solicitud = Solicitud::find($id);
-    if (!$solicitud) {
-        header('Location: /admin/produccion/materia/tabla');
-        exit();
-    }
+    
     
     $pdf = new Pdf2();
     $datos = [
@@ -440,6 +437,74 @@ public static function pdf(Router $router)
     
 
 }
+
+
+
+public static function pdfcompraryfinaciero(Router $router)
+{
+    
+  
+    $id = $_GET['id'];
+    $id = filter_var($id, FILTER_VALIDATE_INT);
+    
+    $solicitud = Solicitud::find($id);
+    
+    
+    $pdf = new Pdf2();
+    $datos = [
+        'id' => $solicitud->id ?? 'No disponible',
+        'array' => $solicitud->array ?? []
+    ];
+    
+    // Llamar correctamente al método pasando los datos
+    $pdfContenido = $pdf->obtenerPdfEnMemoria($datos);
+    
+    if (strlen($pdfContenido) < 500) {
+        die("Error: El PDF generado sigue siendo muy pequeño o está vacío.");
+    }
+    
+    // Guardar para depuración
+    file_put_contents('test.pdf', $pdfContenido);
+    
+    // Enviar por correo
+    $destinatario1 = "edwin.ed948@gmail.com";
+    $destinatario2 = "edwinfer32@hotmail.com";
+    $asunto = "Solicitud de adquisición de productos para el área de sistemas";
+    $mensaje = "<p>Estimado Fabián Oquendo Director de Producción,</p>
+            <p>Espero que este mensaje le encuentre bien. Me dirijo a usted para solicitar la adquisición de los productos necesarios para el área de sistemas, según lo especificado en el documento adjunto.</p>
+            <p>Quedo a su disposición para cualquier aclaración adicional. Agradezco su atención y espero contar con su apoyo en la aprobación de esta solicitud.</p>
+            <p>Atentamente,</p>
+            <div style='margin-top: 50px;'>
+            <img src='https://megawebsistem.com/src/img/logo2.png' alt='Firma' style='width: 200px;'>
+            <img src='https://megawebsistem.com/src/img/Imagen1.png' alt='Firma' style='width: 400px;'>
+            </div>
+            
+            <p>[EDWIN DIAZ]</p>";
+
+    
+    $email = new Correo();
+    $resultado = $email->enviarConAdjunto($destinatario1,$destinatario2, $asunto, $mensaje, $pdfContenido, 'SOLICITUD.pdf');
+    
+    // quiero visualizar el pdf en el navegador
+
+
+
+    if ($resultado === true) {
+        // ver el pdf en el navegador
+        header('Content-Type: application/pdf');
+        header('Content-Disposition: inline; filename="etiqueta.pdf"');
+        header('Content-Length: ' . strlen($pdfContenido));
+        echo $pdfContenido;
+         $pdf->Output('SOLICITUD.pdf', 'I');
+       
+    } else {
+        echo "Error al enviar el correo: " . $resultado;
+    }
+    
+}
+
+
+
 
 
 
