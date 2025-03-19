@@ -90,9 +90,10 @@
     <li class="areas-produccion-estatico" data-aos="fade-up">
         <a>
             <i class="fas fa-scroll"></i> COSTO TOTAL POR MES:
-            <span class="areas-produccion__numero">  </span>
+            <span class="areas-produccion__numero"> </span>
         </a>
     </li>
+
 </ul>
 
 
@@ -326,7 +327,10 @@ async function sumadevaloresdeapi(){
     console.log("Meses con datos:", filteredLabels);
     console.log("Valores acumulados:", filteredData);
 
-    vacio = filteredData;
+   // Mostrar el valor acumulado en el HTML
+   const totalCosto = filteredData.reduce((acc, val) => acc + val, 0);
+        document.querySelector('.areas-produccion__numero').textContent = totalCosto.toFixed(2); // Muestra el valor acumulado con 2 decimales
+
 
     // return vacio;
 
