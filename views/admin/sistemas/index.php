@@ -312,7 +312,6 @@ async function sumadevaloresdeapi(){
     });
 
     console.log("Total acumulado por mes:", monthlyTotals);
-    vacio.push(monthlyTotals);
 
     let filteredLabels = [];
     let filteredData = [];
@@ -326,6 +325,9 @@ async function sumadevaloresdeapi(){
 
     console.log("Meses con datos:", filteredLabels);
     console.log("Valores acumulados:", filteredData);
+
+    vacio.push(filteredData);
+    return vacio;
 
     if (filteredData.length === 0) {
         console.warn("No hay datos para mostrar en el gráfico.");
