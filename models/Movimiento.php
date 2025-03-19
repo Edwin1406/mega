@@ -38,6 +38,7 @@ class Movimiento  extends ActiveRecord
                     m.id AS movimiento_id,
                     m.tipo_movimiento,
                     m.cantidad,
+                    m.costo_nuevo,
                     m.valor,
                     m.fecha_movimiento,
                     p.nombre_producto,
@@ -59,6 +60,7 @@ class Movimiento  extends ActiveRecord
                 'area' => $fila['nombre_area'],
                 'tipo_movimiento' => $fila['tipo_movimiento'],
                 'cantidad' => $fila['cantidad'],
+                'costo_nuevo' => $fila['costo_nuevo'],
                 'valor' => $fila['valor'],
                 'fecha_movimiento' => $fila['fecha_movimiento'],
             ];
