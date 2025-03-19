@@ -38,7 +38,12 @@ class InventarioPdf extends TCPDF
     
         // Número de factura
         $this->SetFont('helvetica', '', 12);
-        $this->Cell(190, 10, 'Factura No: 40', 0, 1, 'R');
+        // numeros aleatorios 
+        
+        $this->Image('src/img/logo2.png',  13, 2, 14, 14); // Tamaño y posición del logo
+
+
+        $this->Cell(190, 10, '', 0, 1, 'R');
         
         // Espaciado
         $this->Ln(10);
