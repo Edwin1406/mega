@@ -12,6 +12,7 @@ use Model\Movimiento;
 use Model\Movimientos;
 use Classes\Paginacion;
 use Classes\InventarioPdf;
+use Classes\Pdf3;
 use Model\Area_inventario;
 use Model\Categoria_inventario;
 use Model\Productos_inventario;
@@ -450,7 +451,7 @@ public static function pdfcompraryfinaciero(Router $router)
     $solicitud = Solicitud::find($id);
     
     
-    $pdf = new Pdf2();
+    $pdf = new Pdf3();
     $datos = [
         'id' => $solicitud->id ?? 'No disponible',
         'array' => $solicitud->array ?? []
