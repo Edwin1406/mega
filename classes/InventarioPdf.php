@@ -36,12 +36,9 @@ class InventarioPdf extends TCPDF
         $this->Cell(290, 10, 'INVENTARIO', 0, 1, 'C');
 
         // Fecha A la derecha
-        $this->SetXY(10, 50);
+        $this->SetXY(10, 40);
         $this->SetFont('helvetica', 'I', 12);
-        $this->Cell(390, 10, 'Fecha: ' . date('d/m/Y'), 0, 1, 'C');
-        $this->Ln(10);
-
-
+        $this->Cell(450, 10, 'Fecha: ' . date('d/m/Y'), 0, 1, 'C');
             
         // Espaciado
         $this->Ln(5);
@@ -58,9 +55,9 @@ class InventarioPdf extends TCPDF
         
         // Encabezados de la tabla
         $this->Cell(100, 10, 'Producto', 1, 0, 'C', true);
-        $this->Cell(40, 10, 'Área', 1, 0, 'C', true);
-        $this->Cell(30, 10, 'Costo Unitario', 1, 0, 'C', true);
-        $this->Cell(20, 10, 'Cantidad', 1, 0, 'C', true);
+        $this->Cell(30, 10, 'Área', 1, 0, 'C', true);
+        $this->Cell(50, 10, 'Costo Unitario', 1, 0, 'C', true);
+        $this->Cell(30, 10, 'Cantidad', 1, 0, 'C', true);
         $this->Cell(30, 10, 'Total', 1, 1, 'C', true);
     
         // Datos de los productos
