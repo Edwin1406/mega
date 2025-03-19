@@ -68,13 +68,13 @@ class InventarioPdf extends TCPDF
     
         foreach ($datos['inventarioProductos'] as $producto) {
             if ($producto->stock_actual > 0) {
-                $this->Cell(100, 10, $producto->nombre_producto, 1, 0, 'L');
-                $this->Cell(40, 10, 'Producción', 1, 0, 'L');
-                $this->Cell(30, 10, '$' . number_format($producto->costo_unitario, 2), 1, 0, 'C');
-                $this->Cell(20, 10, number_format($producto->stock_actual, 2), 1, 0, 'C');
+                $this->Cell(150, 10, $producto->nombre_producto, 1, 0, 'L');
+                $this->Cell(50, 10, 'Producción', 1, 0, 'L');
+                $this->Cell(40, 10, '$' . number_format($producto->costo_unitario, 2), 1, 0, 'C');
+                $this->Cell(30, 10, number_format($producto->stock_actual, 2), 1, 0, 'C');
                 
                 $totalProducto = $producto->costo_unitario * $producto->stock_actual;
-                $this->Cell(30, 10, '$' . number_format($totalProducto, 2), 1, 1, 'C');
+                $this->Cell(40, 10, '$' . number_format($totalProducto, 2), 1, 1, 'C');
                 
                 $total += $totalProducto;
             }
