@@ -319,6 +319,15 @@ async function sumadevaloresdeapi(){
 
     console.log("Total acumulado por mes:", monthlyTotals);
 
+    // VER EN EL HTML EL TOTAL GENERAL POR MES
+    let totalGeneral = 0;
+    for (const monthIndex in monthlyTotals) {
+        totalGeneral += monthlyTotals[monthIndex];
+        console.log("Mes:", monthNames[monthIndex], "Total:", monthlyTotals[monthIndex]);
+    }
+    
+
+
     let filteredLabels = [];
     let filteredData = [];
 
@@ -332,11 +341,7 @@ async function sumadevaloresdeapi(){
     console.log("Meses con datos:", filteredLabels);
     console.log("Valores acumulados:", filteredData);
 
-   // Mostrar el valor acumulado en POR MES
-    const total = monthlyTotals.reduce((acc, value) => acc + value, 0);
-    document.querySelector('.totales').textContent = `$${total.toFixed(2)}`;
-
-    // return vacio;
+   
 
     if (filteredData.length === 0) {
         console.warn("No hay datos para mostrar en el gráfico.");
