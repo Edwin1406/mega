@@ -510,7 +510,7 @@ async function graficademovimientos(){
     console.log("Total de movimientos de entrada:", totalEntrada);
 
     // Crear un gráfico de dona
-    const ctx = document.getElementById('productosStockMinimo').getContext('2d');
+    const ctx = document.getElementById('productoss').getContext('2d');
     new Chart(ctx, {
         type: 'doughnut',
         data: {
