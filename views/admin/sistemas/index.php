@@ -417,7 +417,7 @@ async function productosconstockminimo() {
                 label: 'Stock',
                 data: data,
                 backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                borderColor: 'rgba(75, 192, 192, 1)',
+                borderColor: 'rgb(115, 187, 187)',
                 borderWidth: 1
             }]
         },
