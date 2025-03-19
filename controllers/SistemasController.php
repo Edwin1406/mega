@@ -416,7 +416,7 @@ public static function pdf(Router $router)
  
     
     // Enviar por correo
-    $destinatario1 = "edwin.ed948@gmail.com";
+    $destinatario1 = "directorproduccion@megaecuador.com";
     $destinatario2 = "sistemas@logmegaecuador.com";
     $asunto = "Solicitud de adquisición de productos para el área de sistemas";
     $mensaje = "<p>$saludo,Estimado Fabián Oquendo Director de Producción,</p>
@@ -496,7 +496,7 @@ public static function pdfcompraryfinaciero(Router $router)
     
     // Enviar por correo
     $destinatario1 = "compras@megaecuador.com";
-    $destinatario2 = "edwinfer32@hotmail.com";
+    $destinatario2 = "financiero@megaecuador.com";
     $asunto = "Aprobación para la compra de productos para el área de sistemas";
     $mensaje = "
             <p> Saludos. Estimado (a)</p> 
@@ -508,17 +508,11 @@ public static function pdfcompraryfinaciero(Router $router)
             <img src='https://megawebsistem.com/src/img/logo2.png' alt='Firma' style='width: 200px;'>
             <img src='https://megawebsistem.com/src/img/Imagen1.png' alt='Firma' style='width: 400px;'>
             </div>
-            
             <p>EDWIN DIAZ</p>";
-
-    
     $email = new Correo();
     $resultado = $email->enviarConAdjunto($destinatario1,$destinatario2, $asunto, $mensaje, $pdfContenido, 'SOLICITUD.pdf');
     
     // quiero visualizar el pdf en el navegador
-
-
-
     if ($resultado === true) {
         // ver el pdf en el navegador
         header('Content-Type: application/pdf');
