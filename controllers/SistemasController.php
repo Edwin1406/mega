@@ -359,7 +359,7 @@ public static function tabla(Router $router)
       $paginacion = new Paginacion($pagina_actual, $registros_por_pagina, $total);
 
       if ($paginacion->total_paginas() < $pagina_actual) {
-        header('Location: /admin/vendedor/cliente/cotizador?page=1');
+        header('Location: /admin/sistemas/solicitudes/tabla?page=1');
         exit;
     }
 
