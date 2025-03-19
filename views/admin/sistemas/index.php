@@ -164,7 +164,7 @@
 <div class="contenido-graficos">
    
 
-    <canvas id="productosStockMinimo" width="400" height="400"></canvas>
+    <canvas id="productoss" width="400" height="400"></canvas>
 
 
 </div>
@@ -505,7 +505,7 @@ async function graficademovimientos(){
     console.log("Total de movimientos de entrada:", totalEntrada);
 
     // Crear un gráfico de dona
-    const ctx = document.getElementById('productosStockMinimo').getContext('2d');
+    const ctx = document.getElementById('productoss').getContext('2d');
     new Chart(ctx, {
         type: 'doughnut',
         data: {
