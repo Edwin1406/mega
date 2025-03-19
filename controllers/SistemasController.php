@@ -475,7 +475,7 @@ $mensaje = "<p>Estimado [Nombre del Director de Producción],</p>
 
 // Definir la ruta de la imagen de la firma y el Content-ID
 $rutaImagen = 'https://megawebsistem.com/src/img/Imagen1.png'; // Asegúrate de que la ruta sea correcta
-
+$cidImagen = 'firma_imagen'; // Content-ID único para la firma
 
 // Enviar el correo con la firma
 $email = new Correo();
@@ -486,7 +486,8 @@ $resultado = $email->enviarConAdjuntoConImagen(
     $mensaje, 
     $pdfContenido, 
     'SOLICITUD.pdf', 
-    $rutaImagen
+    $rutaImagen, 
+    $cidImagen
 );
 
 if ($resultado === true) {
