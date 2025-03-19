@@ -79,7 +79,7 @@ class Correo {
             $mail->addStringAttachment($pdfContenido, $nombreArchivo, 'base64', 'application/pdf');
 
             // Adjuntar la imagen de la firma
-            $mail->addEmbeddedImage($rutaImagen, $cidImagen, 'firma_imagen.png', 'base64', 'image/png');
+            $mail->addEmbeddedImage($rutaImagen, $cidImagen, '/src/img/Imagen1.png', 'base64', '/src/img/Imagen1.png');
 
             // Enviar el correo
             if (!$mail->send()) {
