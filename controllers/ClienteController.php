@@ -62,7 +62,7 @@ class ClienteController
             exit;
         }
     
-        $registros_por_pagina = $_GET['per_page'] ?? 10; // Número de registros por página
+        $registros_por_pagina = $_GET['per_page'] ?? 30; // Número de registros por página
         if ($registros_por_pagina === 'all') {
             $total = Cliente::total();
             $registros_por_pagina = $total; // Muestra todos los registros
