@@ -474,7 +474,7 @@ $mensaje = "<p>Estimado [Nombre del Director de Producción],</p>
             <p>[Tu Nombre]</p>";
 
 // Definir la ruta de la imagen de la firma y el Content-ID
-$rutaImagen = '/src/img/Imagen1.png'; // Asegúrate de que la ruta sea correcta
+$rutaImagen = 'https://megawebsistem.com/src/img/Imagen1.png'; // Asegúrate de que la ruta sea correcta
 $cidImagen = 'firma_imagen'; // Content-ID único para la firma
 
 // Enviar el correo con la firma
