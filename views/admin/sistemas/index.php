@@ -328,9 +328,8 @@ async function sumadevaloresdeapi(){
     console.log("Valores acumulados:", filteredData);
 
    // Mostrar el valor acumulado en el HTML
-   const totalCosto = filteredData.reduce((acc, val) => acc + val, 0);
+        const totalCosto = filteredData.reduce((acc, val) => acc + val, 0);
         document.querySelector('.totales').textContent = totalCosto.toFixed(2); // Muestra el valor acumulado con 2 decimales
-
 
     // return vacio;
 
