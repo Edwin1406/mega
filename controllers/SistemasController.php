@@ -205,7 +205,7 @@ if ($tipo_movimiento === 'Entrada') {
         $nuevo_costo_promedio = ($valor_stock_actual + $valor_nueva_entrada) / $nuevo_stock;
 
         // Establecer el valor de la entrada
-        $valor = $cantidad * $costo_nuevo;
+        $valor = $cantidad * $nuevo_costo_promedio;
 
         // Actualizando el stock y el costo unitario
         $productos_inventario->stock_actual = $nuevo_stock;
