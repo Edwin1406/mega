@@ -213,7 +213,7 @@ async function datosapi() {
             plugins: {
                 title: {
                     display: true,
-                    text: `DATOS POR MES: ${monthName} ${currentYear}` // Título con el mes y año actual
+                    text: `TOTAL POR AREA Y MES: ${monthName} ${currentYear}` // Título con el mes y año actual
                 }
             }
         }
