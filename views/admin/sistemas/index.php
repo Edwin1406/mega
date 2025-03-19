@@ -394,7 +394,6 @@ sumadevaloresdeapi();
 
 
 
-
 async function productosconstockminimo() {
     const url = 'https://megawebsistem.com/admin/api/apiproducts';
     const response = await fetch(url);
@@ -403,6 +402,27 @@ async function productosconstockminimo() {
 
     // Filtrar productos con stock menor a 2
     const lowStockProducts = datos.filter(producto => parseInt(producto.stock_actual) >= 0);
+
+    // Definir una lista de colores
+    const colores = [
+        'rgba(75, 192, 192, 0.2)', 
+        'rgba(255, 99, 132, 0.2)', 
+        'rgba(54, 162, 235, 0.2)', 
+        'rgba(153, 102, 255, 0.2)', 
+        'rgba(255, 159, 64, 0.2)', 
+        'rgba(255, 99, 132, 0.2)', 
+        'rgba(66, 133, 244, 0.2)', 
+        'rgba(234, 67, 53, 0.2)', 
+        'rgba(51, 51, 51, 0.2)', 
+        'rgba(243, 156, 18, 0.2)', 
+        'rgba(52, 152, 219, 0.2)', 
+        'rgba(39, 174, 96, 0.2)'
+    ];
+
+    // Si tienes más de 12 productos, lo que puedes hacer es reciclar colores o generar colores aleatorios
+
+    // Asignar colores dinámicamente en función del índice
+    const backgroundColors = lowStockProducts.map((_, index) => colores[index % colores.length]);
 
     // mostrar en una grafica de barras
     const labels = lowStockProducts.map(producto => producto.nombre_producto);
@@ -416,7 +436,7 @@ async function productosconstockminimo() {
             datasets: [{
                 label: 'Stock',
                 data: data,
-                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                backgroundColor: backgroundColors,
                 borderColor: 'rgb(115, 187, 187)',
                 borderWidth: 1
             }]
@@ -429,11 +449,8 @@ async function productosconstockminimo() {
             }
         }
     });
-
-    // Mostrar alertas para los productos con stock mínimo
-
-    
 }
+
 
 
 productosconstockminimo();
