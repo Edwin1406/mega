@@ -84,7 +84,7 @@ class InventarioPdf extends TCPDF
         // Nota al pie
         $this->SetFont('helvetica', 'I', 8);
         $this->Ln(10);
-        $this->MultiCell(190, 5, 'Se requiere su aprobación para proceder con la gestión de la compra. Por favor, responda a este correo.');
+
     }
     
     
