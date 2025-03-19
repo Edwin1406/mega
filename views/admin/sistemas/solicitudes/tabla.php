@@ -90,7 +90,7 @@
                         </td>
                         <td class="table__td--acciones">
                             <a class="table__accion table__accion--editar" href="/admin/sistemas/solicitudes/pdf?id=<?php echo $visores->id; ?>"><i class="fa-solid fa-user-pen"></i>pdf</a>
-                            <a class="table__accion table__accion--eliminar" href="/admin/sistemas/solicitudes/pdfcompraryfinaciero?id=<?php echo $visores->id; ?>"><i class="fa-solid fa-user-slash"></i>Eliminar</a>
+                            <a class="table__accion table__accion--eliminar" href="/admin/sistemas/solicitudes/pdfcompraryfinaciero?id=<?php echo $visores->id; ?>"><i class="fa-solid fa-user-slash"></i>Enviar Aprobado</a>
                         </td>
                     </tr>
                 <?php endforeach; ?>
