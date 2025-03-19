@@ -285,9 +285,6 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 
-let vacio =[];
-
-console.log('vacio',vacio);
 
 async function sumadevaloresdeapi(){
     const url = 'https://megawebsistem.com/admin/api/apimovimientos';
@@ -385,6 +382,24 @@ async function sumadevaloresdeapi(){
 }
 
 sumadevaloresdeapi();
+
+
+
+
+
+async function productosconstockminimo() {
+    const url = 'https://megawebsistem.com/admin/api/apiproducts';
+    const response = await fetch(url);
+    const datos = await response.json();
+    console.log(datos);
+
+    // Filtrar productos con stock menor a 2
+    const lowStockProducts = datos.filter(producto => parseInt(producto.stock_actual) === 0);
+
+
+    console.log("Productos con stock menor a 2:", lowStockProducts);
+    
+}
 
 
 
