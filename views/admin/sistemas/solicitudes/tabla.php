@@ -53,7 +53,20 @@
 </form>
 
 
+<style>
 
+li{
+    list-style: none;
+    padding: 5px;
+    margin: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+
+</style>
 
 <div class="dashboard__contenedor">
     <?php if (!empty($visor)): ?>
