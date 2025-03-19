@@ -90,9 +90,10 @@
     <li class="areas-produccion-estatico" data-aos="fade-up">
         <a>
             <i class="fas fa-scroll"></i> COSTO TOTAL POR MES:
-            <span class="areas-produccion__numero totales" > </span>
+            <span class="areas-produccion__numero totales"></span>
         </a>
     </li>
+
 
 </ul>
 
@@ -321,14 +322,17 @@ async function sumadevaloresdeapi(){
 
     // VER EN EL HTML EL TOTAL GENERAL POR MES DEPENDIENDO DE QUE MES ESTE ME MOSTRARA EL TOTAL DE ESE MES
     let totalgeneralpormes = 0;
-let currentMonth = new Date().getMonth(); // Obtiene el mes actual (0 para enero, 1 para febrero, etc.)
+    let currentMonth = new Date().getMonth(); // Obtiene el mes actual (0 para enero, 1 para febrero, etc.)
 
-for (const [monthIndex, total] of Object.entries(monthlyTotals)) {
-    if (parseInt(monthIndex) === currentMonth) { // Compara el índice del mes con el mes actual
-        totalgeneralpormes += total;
-        console.log(`Total acumulado en ${monthNames[monthIndex]}: ${total}`);
+    // Recorre los totales por mes
+    for (const [monthIndex, total] of Object.entries(monthlyTotals)) {
+        if (parseInt(monthIndex) === currentMonth) { // Compara el índice del mes con el mes actual
+            totalgeneralpormes += total;
+            // Actualiza el contenido del span con el total correspondiente al mes actual
+            document.querySelector('.areas-produccion__numero.totales').textContent = totalgeneralpormes;
+        }
     }
-}
+
 
 
 
