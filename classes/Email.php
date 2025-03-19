@@ -30,7 +30,7 @@ class Email {
          $mail->SMTPSecure = 'ssl';
 
      
-         $mail->setFrom('agrolecc@gmail.com');
+         $mail->setFrom('sistemas@logmegaecuador.com', 'MEGASTOCK S.A.');
          $mail->addAddress($this->email, $this->nombre);
          $mail->Subject = 'Confirma tu Cuenta';
 
