@@ -54,7 +54,7 @@ class Pdf2 extends TCPDF
         // Tabla de productos
         $this->SetFont('helvetica', 'B', 11);
         $this->SetFillColor(240, 240, 240);
-        $this->Cell(70, 10, 'Producto', 1, 0, 'C', true);
+        $this->Cell(90, 10, 'Producto', 1, 0, 'C', true);
         $this->Cell(50, 10, 'Categoría', 1, 0, 'C', true);
         $this->Cell(50, 10, 'Área', 1, 0, 'C', true);
         $this->Cell(40, 10, 'Costo Unitario', 1, 0, 'C', true);
@@ -70,7 +70,7 @@ class Pdf2 extends TCPDF
             $total = $producto['total'] ?? ($costoUnitario * $cantidad);
             $totalFactura += $total;
 
-            $this->Cell(70, 10, "  " . ($producto['producto'] ?? 'N/A'), 1);
+            $this->Cell(90, 10, "  " . ($producto['producto'] ?? 'N/A'), 1);
             $this->Cell(50, 10, "  " . ($producto['categoria'] ?? 'N/A'), 1);
             $this->Cell(50, 10, "  " . ($producto['area'] ?? 'N/A'), 1);
             $this->Cell(40, 10, '$' . number_format($costoUnitario, 2), 1, 0, 'C');
