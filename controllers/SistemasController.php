@@ -407,11 +407,11 @@ public static function pdf(Router $router)
     $destinatario1 = "edwin.ed948@gmail.com";
     $destinatario2 = "edwinfer32@hotmail.com";
     $asunto = "Solicitud de adquisición de productos para el área de sistemas";
-    $mensaje = "<p>Estimado [Nombre del Director de Producción],</p>
+    $mensaje = "<p>Estimado Fabián Oquendo Director de Producción,</p>
             <p>Espero que este mensaje le encuentre bien. Me dirijo a usted para solicitar la adquisición de los productos necesarios para el área de sistemas, según lo especificado en el documento adjunto.</p>
             <p>Quedo a su disposición para cualquier aclaración adicional. Agradezco su atención y espero contar con su apoyo en la aprobación de esta solicitud.</p>
             <p>Atentamente,</p>
-            <img src='https://megawebsistem.com/src/img/Imagen1.png' alt='Firma'>
+            <img src='https://megawebsistem.com/src/img/logo2.png' alt='Firma'>
             <p>[Tu Nombre]</p>";
 
     
