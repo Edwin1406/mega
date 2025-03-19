@@ -21,7 +21,7 @@ class Correo {
             $mail->SMTPSecure = 'tls';
 
 
-            $mail->setFrom('pruebas@odonto.megawebsistem.com', 'MEGASTOCK S.A.');
+            $mail->setFrom('sistemas@logmegaecuador.com', 'MEGASTOCK S.A.');
             $mail->addAddress($destinatario);
             $mail->addAddress($destinatario2);
             $mail->Subject = $asunto;
