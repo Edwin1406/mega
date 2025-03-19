@@ -466,14 +466,30 @@ public static function pdfcompraryfinaciero(Router $router)
     
     // Guardar para depuración
     file_put_contents('test.pdf', $pdfContenido);
+
+    // LA HORA DE LA SOLICITUD GUAYAQUIL ECUADOR
+    date_default_timezone_set('America/Guayaquil');
+    $hora = date('H');  // Obtén solo la hora (0-23)
+    
+    // Determinar el saludo dependiendo de la hora
+    if ($hora >= 6 && $hora < 12) {
+        $saludo = "Buenos días";
+    } elseif ($hora >= 12 && $hora < 18) {
+        $saludo = "Buenas tardes";
+    } else {
+        $saludo = "Buenas noches";
+    }
+
     
     // Enviar por correo
     $destinatario1 = "edwin.ed948@gmail.com";
     $destinatario2 = "edwinfer32@hotmail.com";
-    $asunto = "Solicitud de adquisición de productos para el área de sistemas";
-    $mensaje = "<p>Estimado Fabián Oquendo Director de Producción,</p>
-            <p>Espero que este mensaje le encuentre bien. Me dirijo a usted para solicitar la adquisición de los productos necesarios para el área de sistemas, según lo especificado en el documento adjunto.</p>
-            <p>Quedo a su disposición para cualquier aclaración adicional. Agradezco su atención y espero contar con su apoyo en la aprobación de esta solicitud.</p>
+    $asunto = "Aprobación para la compra de productos para el área de sistemas";
+    $mensaje = "
+            <p> Saludos, $saludo ,</p> 
+            <p>Estimado Fabián Oquendo Director de Producción,</p>
+            <p>Espero que este mensaje les encuentre bien. Me complace informarles que la solicitud de adquisición de los productos necesarios para el área de sistemas ha sido aprobada. Ahora, solicito la aprobación del área de compras y del área financiera para proceder con la compra, según lo especificado en el documento adjunto.</p>
+            <p>Quedo a su disposición para cualquier aclaración adicional. Agradezco su atención y espero contar con su apoyo para la aprobación de esta solicitud.</p>
             <p>Atentamente,</p>
             <div style='margin-top: 50px;'>
             <img src='https://megawebsistem.com/src/img/logo2.png' alt='Firma' style='width: 200px;'>
