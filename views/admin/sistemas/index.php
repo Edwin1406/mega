@@ -90,7 +90,7 @@
     <li class="areas-produccion-estatico" data-aos="fade-up">
         <a>
             <i class="fas fa-scroll"></i> COSTO TOTAL POR MES:
-            <span class="areas-produccion__numero totales"> $</span>
+            <span class="areas-produccion__numero totales"> </span>
         </a>
     </li>
 
@@ -329,7 +329,7 @@ async function sumadevaloresdeapi(){
         if (parseInt(monthIndex) === currentMonth) { // Compara el índice del mes con el mes actual
             totalgeneralpormes += total;
             // Actualiza el contenido del span con el total correspondiente al mes actual
-            document.querySelector('.areas-produccion__numero.totales').textContent = totalgeneralpormes;
+            document.querySelector('.areas-produccion__numero.totales').textContent = totalgeneralpormes + ' USD';
         }
     }
 
