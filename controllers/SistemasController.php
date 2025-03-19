@@ -411,6 +411,7 @@ public static function pdf(Router $router)
             <p>Espero que este mensaje le encuentre bien. Me dirijo a usted para solicitar la adquisición de los productos necesarios para el área de sistemas, según lo especificado en el documento adjunto.</p>
             <p>Quedo a su disposición para cualquier aclaración adicional. Agradezco su atención y espero contar con su apoyo en la aprobación de esta solicitud.</p>
             <p>Atentamente,</p>
+            <img src='https://megawebsistem.com/src/img/Imagen1.png' alt='Firma'>
             <p>[Tu Nombre]</p>";
 
     
