@@ -110,14 +110,14 @@
 
     .grafico1{
         width: 48%;
-        background-image: linear-gradient(120deg,rgb(191, 238, 163) 0%,rgb(218, 247, 166) 100%);
+        background-image: linear-gradient(120deg,rgb(206, 218, 199) 0%,rgb(204, 212, 189) 100%);
         border-radius: 10px;
         padding: 1rem;
     }
 
     .grafico2{
         width: 48%;
-        background-image: linear-gradient(120deg,rgb(129, 188, 211) 0%,rgb(156, 214, 211) 100%);
+        background-image: linear-gradient(120deg,rgb(198, 212, 218) 0%,rgb(202, 228, 226) 100%);
         border-radius: 10px;
         padding: 1rem;
     }
@@ -205,7 +205,7 @@ async function datosapi() {
             label: 'valor',
             data: Object.values(areas),
             backgroundColor: 'rgba(75, 192, 192, 0.2)',
-            borderColor: 'rgba(75, 192, 192, 1)',
+            borderColor: 'rgb(146, 192, 192)',
             borderWidth: 1
         }]
     };
