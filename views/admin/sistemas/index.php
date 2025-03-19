@@ -162,11 +162,11 @@
 </div>
 
 <div class="contenido-graficos">
-    <div class="grafico2">
+   
 
     <canvas id="productosStockMinimo" width="400" height="400"></canvas>
 
-    </div>
+
 </div>
 
 
