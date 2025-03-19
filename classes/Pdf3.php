@@ -87,7 +87,7 @@ class Pdf3 extends TCPDF
         $this->Ln(15);
 
         // Mensaje de agradecimiento
-        $this->SetFont('helvetica', 'I', 20);
+        $this->SetFont('helvetica', 'I', 15);
         $this->Cell(0, 10, 'SOLICITUD APROBADA : DIRECTOR DE PRODUCCIÓN FABIÁN OQUENDO.', 0, 1, 'C');
     }
 
