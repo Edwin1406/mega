@@ -76,7 +76,7 @@ class InventarioPdf extends TCPDF
     
         // Total final
         $this->SetFont('helvetica', 'B', 12);
-        $this->Cell(150, 8, 'TOTAL:', 1, 0, 'R');
+        $this->Cell(170, 8, 'TOTAL:', 1, 0, 'R');
         $this->Cell(30, 8, '$' . number_format($total, 2), 1, 1, 'C');
     
         // Nota al pie
