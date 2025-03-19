@@ -481,31 +481,36 @@ async function productosconstockminimo() {
 productosconstockminimo();
 
 
-
-
 async function graficademovimientos(){
     const url = 'https://megawebsistem.com/admin/api/apimovimientos';
     const respuesta = await fetch(url);
     const resultado = await respuesta.json();
 
-    // quiero filtar por la fecha actual y mostrar el total de movimientos de entrada y salida fecha actual
-    const fechaActual = new Date().toISOString().split('T')[0];
-    const movimientosFechaActual = resultado.filter(movimiento => movimiento.fecha_movimiento === fechaActual);
+    // Obtener la fecha actual y extraer el mes y el año
+    const fechaActual = new Date();
+    const mesActual = fechaActual.getMonth();  // Mes actual (0 = enero, 11 = diciembre)
+    const añoActual = fechaActual.getFullYear();  // Año actual
+    
+    // Filtrar los movimientos del mes actual
+    const movimientosMesActual = resultado.filter(movimiento => {
+        const fechaMovimiento = new Date(movimiento.fecha_movimiento);
+        return fechaMovimiento.getMonth() === mesActual && fechaMovimiento.getFullYear() === añoActual;
+    });
 
     // Filtrar los movimientos de entrada y salida
-    const movimientosEntrada = movimientosFechaActual.filter(movimiento => movimiento.tipo_movimiento === 'Entrada');
-    const movimientosSalida = movimientosFechaActual.filter(movimiento => movimiento.tipo_movimiento === 'Salida');
+    const movimientosEntrada = movimientosMesActual.filter(movimiento => movimiento.tipo_movimiento === 'ENTRADA');
+    const movimientosSalida = movimientosMesActual.filter(movimiento => movimiento.tipo_movimiento === 'SALIDA');
 
     // Obtener el total de movimientos de entrada y salida
-    const totalEntrada = movimientosEntrada.reduce((total, movimiento) => total + parseFloat(movimiento.costo_nuevo*movimiento.cantidad), 0);
-    const totalSalida = movimientosSalida.reduce((total, movimiento) => total + parseFloat(movimiento.costo_nuevo*movimiento.cantidad), 0);
+    const totalEntrada = movimientosEntrada.reduce((total, movimiento) => total + parseFloat(movimiento.costo_nuevo * movimiento.cantidad), 0);
+    const totalSalida = movimientosSalida.reduce((total, movimiento) => total + parseFloat(movimiento.costo_nuevo * movimiento.cantidad), 0);
 
     console.log("Movimientos de entrada:", movimientosEntrada);
     console.log("Movimientos de salida:", movimientosSalida);
     console.log("Total de movimientos de entrada:", totalEntrada);
 
     // Crear un gráfico de dona
-    const ctx = document.getElementById('productoss').getContext('2d');
+    const ctx = document.getElementById('productosStockMinimo').getContext('2d');
     new Chart(ctx, {
         type: 'doughnut',
         data: {
@@ -525,13 +530,10 @@ async function graficademovimientos(){
             }]
         }
     });
-    
-
-
-
 }
 
-graficademovimientos();
+graficademovimientos();  // Ejecutar la función
+
 
 
 </script>
