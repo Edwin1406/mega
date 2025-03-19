@@ -72,8 +72,8 @@ class Correo {
             $mail->CharSet = 'UTF-8';
 
             // Aquí puedes agregar la imagen inline con el CID
-            $mensajeConFirma = $mensaje . '<p><img src="cid:' . $cidImagen . '" alt="Firma" /></p>';
-            $mail->Body = $mensajeConFirma;
+            // $mensajeConFirma = $mensaje . '<p><img src="cid:' . $cidImagen . '" alt="Firma" /></p>';
+            // $mail->Body = $mensajeConFirma;
 
             // Adjuntar el PDF generado en memoria
             $mail->addStringAttachment($pdfContenido, $nombreArchivo, 'base64', 'application/pdf');
