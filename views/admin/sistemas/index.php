@@ -434,7 +434,7 @@ async function productosconstockminimo() {
         data: {
             labels: labels,
             datasets: [{
-                label: 'Stock',
+                label: 'PRODUCTOS CON STOCK MINIMO',
                 data: data,
                 backgroundColor: backgroundColors,
                 borderColor: 'rgb(203, 223, 223)',
