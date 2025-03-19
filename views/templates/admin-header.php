@@ -8,12 +8,13 @@
         </a>
         <nav class="dashboard__nav"> 
             
-
+        <?php if (isset($_SESSION['email'])): ?>
 
             <form method="POST" action="/logout" class="dashboard__form">
             <p class="dashboard__submit--name fa fa-user"> <?php repeatSession(); ?> </p>
             <input type="submit" value="Cerrar Sesión" class="dashboard__submit--logout">
             </form>
+        <?php endif; ?>
         </nav>
     </div>
 
