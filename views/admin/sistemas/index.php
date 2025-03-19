@@ -320,13 +320,16 @@ async function sumadevaloresdeapi(){
     console.log("Total acumulado por mes:", monthlyTotals);
 
     // VER EN EL HTML EL TOTAL GENERAL POR MES DEPENDIENDO DE QUE MES ESTE ME MOSTRARA EL TOTAL DE ESE MES
-
     let totalgeneralpormes = 0;
-    for (const [monthIndex, total] of Object.entries(monthlyTotals)) {
+let currentMonth = new Date().getMonth(); // Obtiene el mes actual (0 para enero, 1 para febrero, etc.)
+
+for (const [monthIndex, total] of Object.entries(monthlyTotals)) {
+    if (parseInt(monthIndex) === currentMonth) { // Compara el índice del mes con el mes actual
         totalgeneralpormes += total;
         console.log(`Total acumulado en ${monthNames[monthIndex]}: ${total}`);
     }
-    
+}
+
 
 
     let filteredLabels = [];
