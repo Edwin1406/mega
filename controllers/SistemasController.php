@@ -170,7 +170,7 @@ public static function movimientos(Router $router) {
                     $nuevo_costo_promedio = $total_valor / $total_cantidad;
         
                     // Establecer el valor de la entrada
-                    $valor = $nuevo_costo_promedio * $cantidad;
+                    $valor = $costo_nuevo * $cantidad;
         
                     // Actualizando el stock y el costo unitario
                     $productos_inventario->stock_actual = $nuevo_stock;
