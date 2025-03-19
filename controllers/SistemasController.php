@@ -413,7 +413,7 @@ public static function pdf(Router $router)
             <p>Atentamente,</p>
             <div style='margin-top: 50px;'>
             <img src='https://megawebsistem.com/src/img/logo2.png' alt='Firma' style='width: 200px;'>
-            <img src='https://megawebsistem.com/src/img/firma.png' alt='Firma' style='width: 200px;'>
+            <img src='https://megawebsistem.com/src/img/Imagen1.png' alt='Firma' style='width: 200px;'>
             </div>
             
             <p>[EDWIN DIAZ]</p>";
