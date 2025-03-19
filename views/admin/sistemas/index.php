@@ -284,6 +284,9 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 
+let vacio =[];
+
+console.log(vacio);
 
 async function sumadevaloresdeapi(){
     const url = 'https://megawebsistem.com/admin/api/apimovimientos';
@@ -309,6 +312,7 @@ async function sumadevaloresdeapi(){
     });
 
     console.log("Total acumulado por mes:", monthlyTotals);
+    vacio.push(monthlyTotals);
 
     let filteredLabels = [];
     let filteredData = [];
