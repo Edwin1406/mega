@@ -110,14 +110,14 @@
 
     .grafico1{
         width: 48%;
-        background-image: linear-gradient(120deg,rgb(206, 218, 199) 0%,rgb(204, 212, 189) 100%);
+        background-image: linear-gradient(120deg,rgb(229, 235, 225) 0%,rgb(204, 212, 189) 100%);
         border-radius: 10px;
         padding: 1rem;
     }
 
     .grafico2{
         width: 48%;
-        background-image: linear-gradient(120deg,rgb(198, 212, 218) 0%,rgb(202, 228, 226) 100%);
+        background-image: linear-gradient(120deg,rgb(226, 233, 236) 0%,rgb(202, 228, 226) 100%);
         border-radius: 10px;
         padding: 1rem;
     }
