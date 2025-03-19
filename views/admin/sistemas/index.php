@@ -327,7 +327,7 @@ async function sumadevaloresdeapi(){
     console.log("Valores acumulados:", filteredData);
 
     vacio.push(filteredData);
-    return vacio;
+    // return vacio;
 
     if (filteredData.length === 0) {
         console.warn("No hay datos para mostrar en el gráfico.");
