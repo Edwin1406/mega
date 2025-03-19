@@ -402,7 +402,7 @@ async function productosconstockminimo() {
     console.log(datos);
 
     // Filtrar productos con stock menor a 2
-    const lowStockProducts = datos.filter(producto => parseInt(producto.stock_actual) === 0);
+    const lowStockProducts = datos.filter(producto => parseInt(producto.stock_actual) >= 0);
 
     // mostrar en una grafica de barras
     const labels = lowStockProducts.map(producto => producto.nombre_producto);
