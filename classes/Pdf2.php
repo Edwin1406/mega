@@ -54,7 +54,7 @@ class Pdf2 extends TCPDF
         // Tabla de productos
         $this->SetFont('helvetica', 'B', 11);
         $this->SetFillColor(240, 240, 240);
-        $this->Cell(90, 10, 'Producto', 1, 0, 'C', true);
+        $this->Cell(9000, 10, 'Prloducto', 1, 0, 'C', true);
         $this->Cell(50, 10, 'Categoría', 1, 0, 'C', true);
         $this->Cell(50, 10, 'Área', 1, 0, 'C', true);
         $this->Cell(40, 10, 'Costo Unitario', 1, 0, 'C', true);
