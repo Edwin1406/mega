@@ -342,10 +342,10 @@ public static function tabla(Router $router)
     $pagina_actual = $_GET['page'] ?? 1;
     $pagina_actual = filter_var($pagina_actual, FILTER_VALIDATE_INT);
 
-    // if (!$pagina_actual || $pagina_actual < 1) {
-    //     header('Location: /admin/sistemas/solicitudes/tabla?page=1');
-    //     exit;
-    // }
+    if (!$pagina_actual || $pagina_actual < 1) {
+        header('Location: /admin/sistemas/solicitudes/tabla?page=1');
+        exit;
+    }
     //   // Obtener el número de registros por página
     //   $registros_por_pagina = $_GET['per_page'] ?? 10;
     //   if ($registros_por_pagina === 'all') {
