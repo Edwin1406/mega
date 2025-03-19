@@ -286,7 +286,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 let vacio =[];
 
-console.log(vacio);
+console.log('vacio',vacio);
 
 async function sumadevaloresdeapi(){
     const url = 'https://megawebsistem.com/admin/api/apimovimientos';
