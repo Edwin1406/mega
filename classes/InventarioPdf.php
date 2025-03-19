@@ -4,14 +4,14 @@ namespace Classes;
 use TCPDF;
 class InventarioPdf extends TCPDF 
 {
-    public function Header()
-    {
-        // Agregar logo a la izquierda
-        $this->Image('src/img/logo2.png', 13, 5, 30, 30); // Tamaño y posición del logo
-        $this->SetFont('helvetica', 'B', 12); 
-        $this->Cell(0, 10, 'Inventario', 0, 0, 'C');
-        $this->Ln(10);
-    }
+    // public function Header()
+    // {
+    //     // Agregar logo a la izquierda
+    //     $this->Image('src/img/logo2.png', 13, 5, 30, 30); // Tamaño y posición del logo
+    //     $this->SetFont('helvetica', 'B', 12); 
+    //     $this->Cell(0, 10, 'Inventario', 0, 0, 'C');
+    //     $this->Ln(10);
+    // }
     
     public function Footer()
     {
