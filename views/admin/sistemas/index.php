@@ -493,8 +493,8 @@ async function graficademovimientos(){
     const movimientosFechaActual = resultado.filter(movimiento => movimiento.fecha_movimiento === fechaActual);
 
     // Filtrar los movimientos de entrada y salida
-    const movimientosEntrada = movimientosFechaActual.filter(movimiento => movimiento.tipo_movimiento === 'ENTRADA');
-    const movimientosSalida = movimientosFechaActual.filter(movimiento => movimiento.tipo_movimiento === 'SALIDA');
+    const movimientosEntrada = movimientosFechaActual.filter(movimiento => movimiento.tipo_movimiento === 'Entrada');
+    const movimientosSalida = movimientosFechaActual.filter(movimiento => movimiento.tipo_movimiento === 'Salida');
 
     // Obtener el total de movimientos de entrada y salida
     const totalEntrada = movimientosEntrada.reduce((total, movimiento) => total + parseFloat(movimiento.costo_nuevo*movimiento.cantidad), 0);
