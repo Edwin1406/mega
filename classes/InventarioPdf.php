@@ -2,7 +2,6 @@
 namespace Classes;
 
 use TCPDF;
-
 class InventarioPdf extends TCPDF 
 {
     public function Header()
@@ -22,9 +21,7 @@ class InventarioPdf extends TCPDF
     public function generarPdf($datos)
     {
         // Agregar una nueva página
-        // $this->AddPage();
         $this->AddPage('L'); // 'L' para landscape (horizontal)
-
     
         // Configuración de fuentes y colores
         $this->SetFont('helvetica', 'B', 14);
@@ -36,23 +33,25 @@ class InventarioPdf extends TCPDF
         $this->SetFont('helvetica', 'B', 18);
         $this->Cell(190, 10, 'INVENTARIO', 0, 1, 'C');
     
-        // Número de factura
-        $this->SetFont('helvetica', '', 12);
-        // numeros aleatorios 
-        
+        // Logo izquierdo
         $this->Image('src/img/logo2.png',  13, 2, 14, 14); // Tamaño y posición del logo
-
-
-        $this->Cell(190, 10, '', 0, 1, 'R');
-        
+    
+        // Logo derecho
+        $this->Image('src/img/logo2.png',  180, 2, 14, 14); // Tamaño y posición del segundo logo
+    
         // Espaciado
         $this->Ln(10);
     
-        // Encabezado de la tabla
+        // Encabezado de la tabla (centrada)
         $this->SetFillColor(255, 140, 0); // Naranja
         $this->SetTextColor(255, 255, 255); // Blanco
         $this->SetFont('helvetica', 'B', 12);
-    
+        
+        $totalAnchoTabla = 100 + 40 + 30 + 20 + 30; // Ancho total de la tabla
+        $margenIzquierdo = ($this->getPageWidth() - $totalAnchoTabla) / 2; // Calcular el margen izquierdo para centrar
+        
+        // Centrar la tabla
+        $this->SetX($margenIzquierdo);
         $this->Cell(100, 8, 'Producto', 1, 0, 'C', true);
         $this->Cell(40, 8, 'Área', 1, 0, 'C', true);
         $this->Cell(30, 8, 'Costo Unitario', 1, 0, 'C', true);
@@ -80,7 +79,6 @@ class InventarioPdf extends TCPDF
             }
         }
         
-    
         // Total final
         $this->SetFont('helvetica', 'B', 12);
         $this->Cell(190, 8, 'TOTAL:', 1, 0, 'R');
@@ -89,9 +87,9 @@ class InventarioPdf extends TCPDF
         // Nota al pie
         $this->SetFont('helvetica', 'I', 8);
         $this->Ln(10);
-
     }
-    
+
+
     
     
 
