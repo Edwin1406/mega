@@ -38,7 +38,7 @@ class InventarioPdf extends TCPDF
         // Fecha A la derecha
         $this->SetXY(10, 50);
         $this->SetFont('helvetica', 'I', 12);
-        $this->Cell(290, 10, 'Fecha: ' . date('d/m/Y'), 0, 1, 'C');
+        $this->Cell(390, 10, 'Fecha: ' . date('d/m/Y'), 0, 1, 'C');
         $this->Ln(10);
 
 
