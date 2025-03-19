@@ -161,6 +161,18 @@
     </div>
 </div>
 
+<div class="contenido-graficos">
+    <div class="grafico2">
+
+    <canvas id="productosStockMinimo" width="400" height="400"></canvas>
+
+    </div>
+</div>
+
+
+<!-- grafica de pastel de movimientosd  -->
+
+
     
 
 <script>
@@ -468,6 +480,58 @@ async function productosconstockminimo() {
 
 productosconstockminimo();
 
+
+
+
+async function graficademovimientos(){
+    const url = 'https://megawebsistem.com/admin/api/apimovimientos';
+    const respuesta = await fetch(url);
+    const resultado = await respuesta.json();
+
+    // quiero filtar por la fecha actual y mostrar el total de movimientos de entrada y salida fecha actual
+    const fechaActual = new Date().toISOString().split('T')[0];
+    const movimientosFechaActual = resultado.filter(movimiento => movimiento.fecha_movimiento === fechaActual);
+
+    // Filtrar los movimientos de entrada y salida
+    const movimientosEntrada = movimientosFechaActual.filter(movimiento => movimiento.tipo_movimiento === 'ENTRADA');
+    const movimientosSalida = movimientosFechaActual.filter(movimiento => movimiento.tipo_movimiento === 'SALIDA');
+
+    // Obtener el total de movimientos de entrada y salida
+    const totalEntrada = movimientosEntrada.reduce((total, movimiento) => total + parseFloat(movimiento.costo_nuevo*movimiento.cantidad), 0);
+    const totalSalida = movimientosSalida.reduce((total, movimiento) => total + parseFloat(movimiento.costo_nuevo*movimiento.cantidad), 0);
+
+    console.log("Movimientos de entrada:", movimientosEntrada);
+    console.log("Movimientos de salida:", movimientosSalida);
+    console.log("Total de movimientos de entrada:", totalEntrada);
+
+    // Crear un gráfico de dona
+    const ctx = document.getElementById('productosStockMinimo').getContext('2d');
+    new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: ['ENTRADA', 'SALIDA'],
+            datasets: [{
+                label: 'Movimientos de entrada y salida',
+                data: [totalEntrada, totalSalida],
+                backgroundColor: [
+                    'rgba(75, 192, 192, 0.2)', // Verde
+                    'rgba(255, 99, 132, 0.2)' // Rojo
+                ],
+                borderColor: [
+                    'rgba(75, 192, 192, 1)', // Verde
+                    'rgba(255, 99, 132, 1)' // Rojo
+                ],
+                borderWidth: 1
+            }]
+        }
+    });
+    
+
+
+
+}
+
+graficademovimientos();
 
 
 </script>
