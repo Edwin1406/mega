@@ -301,7 +301,7 @@ async function sumadevaloresdeapi(){
         console.log("Fecha procesada:", itemDate, "Mes:", itemDate.getMonth());
 
         const monthIndex = itemDate.getMonth();
-        monthlyTotals[monthIndex] += Number(item.valor); 
+        monthlyTotals[monthIndex] += Number(item.costo_nuevo); 
     });
 
     console.log("Total acumulado por mes:", monthlyTotals);
