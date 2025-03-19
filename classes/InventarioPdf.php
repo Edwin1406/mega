@@ -34,10 +34,7 @@ class InventarioPdf extends TCPDF
         $this->Cell(90, 50, 'MEGASTOCK S.A.', 0, 1, 'C');
         $this->SetFont('helvetica', 'B', 18);
         $this->Cell(290, 10, 'INVENTARIO', 0, 1, 'C');
-    
-        // Logo derecho
-        $this->Image('src/img/logo2.png', 180, 5, 30, 30); // Tamaño y posición del segundo logo
-        
+            
         // Espaciado
         $this->Ln(10);
     
