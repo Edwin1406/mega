@@ -14,25 +14,16 @@ class InventarioPdf extends TCPDF
     
     public function generarPdf($datos)
     {
-        // Agregar una nueva página
-        $this->AddPage('L'); // 'L' para landscape (horizontal)
-    
-        // Configuración de fuentes y colores
-        $this->SetFont('helvetica', 'B', 14);
-        $this->SetTextColor(0, 0, 0); 
-    
-      
-    
-        // Logo derecho
-        $this->Image('src/img/logo2.png', 180, 5, 30, 30); // Tamaño y posición del segundo logo
+        $this->Image('src/img/logo2.png', 15, 20, 35);
+
+        // Encabezado
+        $this->SetFont('helvetica', 'B', 12);
+        $this->SetXY(60, 20);
+        $this->Cell(100, 6, 'MEGASTOCK S.A.', 0, 1, 'L');
         
-        // Espaciado
-        $this->Ln(10);
-    
-        // Cabecera de la tabla mejorada
-        $this->SetFillColor(255, 140, 0); // Naranja
-        $this->SetTextColor(255, 255, 255); // Blanco
-        $this->SetFont('helvetica', 'B', 14); // Aumentar tamaño de fuente
+        // Número de factura
+        $this->SetXY(220, 25);
+        $this->SetFont('helvetica', 'B', 12);
     
         // Centrar la tabla
         $totalAnchoTabla = 100 + 40 + 30 + 20 + 30; // Ancho total de la tabla
