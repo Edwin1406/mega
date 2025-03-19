@@ -36,7 +36,7 @@ class InventarioPdf extends TCPDF
         $this->Cell(290, 10, 'INVENTARIO', 0, 1, 'C');
             
         // Espaciado
-        $this->Ln(10);
+        $this->Ln(5);
     
         // Cabecera de la tabla mejorada
         $this->SetFillColor(255, 140, 0); // Naranja
