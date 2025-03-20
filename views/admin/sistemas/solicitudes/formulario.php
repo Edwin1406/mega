@@ -25,6 +25,19 @@ margin: 0;
 width: 100%;
 }
 
+.dashboard__submit--name {
+    color: #FFFFFF;
+    border: none;
+    background-color: transparent;
+    font-size: 1.5rem;
+    text-transform: uppercase;
+    font-weight: 700;
+    padding-right: 4rem;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+
 </style>
 
 
