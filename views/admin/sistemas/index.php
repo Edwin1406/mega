@@ -212,10 +212,6 @@ async function datosapi() {
             }
             areas[item.area] += parseFloat(item.costo_nuevo*item.cantidad); // Sumar la cantidad de cada área
         }
-        // if (!areas[item.area]) {
-        //     areas[item.area] = 0;
-        // }
-        // areas[item.area] += parseFloat(item.costo_nuevo*item.cantidad); // Sumar la cantidad de cada área
     });
 
     // Labels para el gráfico (nombres de las áreas)

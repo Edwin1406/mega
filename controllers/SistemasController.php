@@ -134,98 +134,46 @@ public static function movimientos(Router $router) {
                 'costo_unitario' => $producto->costo_unitario,
             ]);
         
-            // // Si el movimiento es de entrada, calculamos el nuevo costo promedio
-            // if ($tipo_movimiento === 'Entrada') {
-            //     // Si el stock es cero, el costo unitario será el costo nuevo
-            //     if ($producto->stock_actual == 0) {
-            //         $nuevo_costo_promedio = $producto->costo_unitario; // Si el stock es cero, el costo unitario es el costo nuevo ingresado
-            //         $valor = $producto->costo_unitario * $cantidad; // Valor de la entrada
-            //         $costo_nuevo = $producto->costo_unitario; // Costo unitario
-            //         // Actualizando el stock y el costo unitario
-            //         $productos_inventario->stock_actual += $cantidad;
-            //     } else {
-            //         // Nuevo stock total después de la entrada
-            //         $nuevo_stock = $producto->stock_actual + $cantidad;
-        
-            //         // Buscar movimientos anteriores de tipo 'Entrada'
-            //         $movimientos_previos = Movimientos_inventario::where('id_producto', $id_producto)
-            //             ->where('tipo_movimiento', 'Entrada')
-            //             ->all();
-        
-            //         $total_valor = 0;
-            //         $total_cantidad = 0;
-        
-            //         // Calculamos el costo total ponderado de todas las entradas previas
-            //         foreach ($movimientos_previos as $movimiento) {
-            //             $total_valor += $movimiento->costo_nuevo;
-            //             $total_cantidad += $movimiento->cantidad;
-            //         }
-            //         // total valor del utlimo movimiento seria cero y el que ingresa toma la cantidad del ultimo movimiento  para multiplacar por el costo_promedio
+           
 
-                   
-                   
+                        // Si el movimiento es de entrada, calculamos el nuevo costo promedio
+            if ($tipo_movimiento === 'Entrada') {
+                // Si el stock es cero, el costo unitario será el costo nuevo
+                if ($producto->stock_actual == 0) {
+                    $nuevo_costo_promedio = $costo_nuevo; // Si el stock es cero, el costo unitario es el costo nuevo ingresado
+                    $valor = $costo_nuevo * $cantidad; // Valor de la entrada
+                    
+                    // Actualizando el stock y el costo unitario
+                    $productos_inventario->stock_actual = $cantidad;
+                    $productos_inventario->costo_unitario = $nuevo_costo_promedio;
+                } else {
+                    // Nuevo stock total después de la entrada
+                    $nuevo_stock = $producto->stock_actual + $cantidad;
 
-            //         // al ultimo movimiento le sumamos la cantidad 
-        
-            //         // Sumar la nueva entrada al cálculo
-            //         $total_valor += $cantidad * $costo_nuevo;
-            //         $total_cantidad += $cantidad;
-        
-            //         // Calcular el nuevo costo promedio ponderado
-            //         $nuevo_costo_promedio = $total_valor / $total_cantidad;
-        
-            //         // Establecer el valor de la entrada
-            //         $valor = $costo_nuevo * $cantidad;
-        
-            //         // Actualizando el stock y el costo unitario
-            //         $productos_inventario->stock_actual = $nuevo_stock;
-            //         $productos_inventario->costo_unitario = $nuevo_costo_promedio;
-            //     }
-        
-            // } else {
-            //     // Si es salida, disminuimos el stock pero no cambiamos el costo promedio
-            //     $productos_inventario->stock_actual -= $cantidad;
-            //     $valor = 0;  // Para movimientos de salida no calculamos valor
-            // }
+                    // Calcular el nuevo costo promedio ponderado
+                    $valor_stock_actual = $producto->stock_actual * $producto->costo_unitario;
+                    $valor_nueva_entrada = $cantidad * $costo_nuevo;
+                    
+                    $nuevo_costo_promedio = ($valor_stock_actual + $valor_nueva_entrada) / $nuevo_stock;
 
-            // Si el movimiento es de entrada, calculamos el nuevo costo promedio
-if ($tipo_movimiento === 'Entrada') {
-    // Si el stock es cero, el costo unitario será el costo nuevo
-    if ($producto->stock_actual == 0) {
-        $nuevo_costo_promedio = $costo_nuevo; // Si el stock es cero, el costo unitario es el costo nuevo ingresado
-        $valor = $costo_nuevo * $cantidad; // Valor de la entrada
-        
-        // Actualizando el stock y el costo unitario
-        $productos_inventario->stock_actual = $cantidad;
-        $productos_inventario->costo_unitario = $nuevo_costo_promedio;
-    } else {
-        // Nuevo stock total después de la entrada
-        $nuevo_stock = $producto->stock_actual + $cantidad;
+                    // Establecer el valor de la entrada
+                    $valor = $cantidad * $nuevo_costo_promedio;
 
-        // Calcular el nuevo costo promedio ponderado
-        $valor_stock_actual = $producto->stock_actual * $producto->costo_unitario;
-        $valor_nueva_entrada = $cantidad * $costo_nuevo;
-        
-        $nuevo_costo_promedio = ($valor_stock_actual + $valor_nueva_entrada) / $nuevo_stock;
-
-        // Establecer el valor de la entrada
-        $valor = $cantidad * $nuevo_costo_promedio;
-
-        // Actualizando el stock y el costo unitario
-        $productos_inventario->stock_actual = $nuevo_stock;
-        $productos_inventario->costo_unitario = $nuevo_costo_promedio;
-    }
-} else {
-    // Si es salida, disminuimos el stock pero no cambiamos el costo promedio
-    if ($productos_inventario->stock_actual >= $cantidad) {
-        $productos_inventario->stock_actual -= $cantidad; 
-    } else {
-        // Manejar el caso en que no hay suficiente stock
-        throw new Exception("Stock insuficiente para la salida");
-    }
-    
-    $valor = $productos_inventario->costo_unitario * $cantidad;
-}
+                    // Actualizando el stock y el costo unitario
+                    $productos_inventario->stock_actual = $nuevo_stock;
+                    $productos_inventario->costo_unitario = $nuevo_costo_promedio;
+                }
+            } else {
+                // Si es salida, disminuimos el stock pero no cambiamos el costo promedio
+                if ($productos_inventario->stock_actual >= $cantidad) {
+                    $productos_inventario->stock_actual -= $cantidad; 
+                } else {
+                    // Manejar el caso en que no hay suficiente stock
+                    throw new Exception("Stock insuficiente para la salida");
+                }
+                
+                $valor = $productos_inventario->costo_unitario * $cantidad;
+            }
 
         
             // Crear el movimiento de inventario
@@ -423,7 +371,8 @@ public static function pdf(Router $router)
  
     
     // Enviar por correo
-    $destinatario1 = "directorproduccion@megaecuador.com";
+    // $destinatario1 = "directorproduccion@megaecuador.com";
+    $destinatario1 = "edwin.ed948@gmail.com";
     $destinatario2 = "sistemas@logmegaecuador.com";
     $asunto = "Solicitud de adquisición de productos para el área de sistemas";
     $mensaje = "<p>$saludo,Estimado Fabián Oquendo Director de Producción,</p>
@@ -431,7 +380,7 @@ public static function pdf(Router $router)
             <p>Quedo a su disposición para cualquier aclaración adicional. Agradezco su atención y espero contar con su apoyo en la aprobación de esta solicitud.</p>
             <p>Atentamente,</p>
             <div style='margin-top: 50px;'>
-            <img src='https://megawebsistem.com/src/img/logo2.png' alt='Firma' style='width: 200px;'>
+            <img src='https://megawebsistem.com/src/img/image002.gif' alt='Firma' style='width: 200px;'>
             <img src='https://megawebsistem.com/src/img/Imagen1.png' alt='Firma' style='width: 400px;'>
             </div>
             <p>EDWIN DIAZ</p>";
