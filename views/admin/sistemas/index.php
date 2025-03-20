@@ -477,6 +477,40 @@ productosconstockminimo();
 
 
 
+async function entradasysalidas() {
+    const url = 'https://megawebsistem.com/admin/api/apimovimientos';
+    const response = await fetch(url);
+    const datos = await response.json();
+    console.log(datos);
+
+    // Filtrar los datos por el mes actual
+    const currentMonth = new Date().getMonth(); // Obtener el mes actual (0 - 11)
+    const currentYear = new Date().getFullYear(); // Obtener el año actual
+    const monthNames = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+    const monthName = monthNames[currentMonth]; // Obtener el nombre del mes
+
+    const filteredData = datos.filter(item => {
+        const itemDate = new Date(item.fecha_movimiento);
+        return itemDate.getMonth() === currentMonth && itemDate.getFullYear() === currentYear;
+    });
+
+    console.log("Datos de este mes actual:", filteredData);
+
+}
+
+
+
+entradasysalidas();
+
+
+
+
+
+
+
+
+
+
 </script>
 
 
