@@ -36,7 +36,15 @@ width: 100%;
     display: flex;
     justify-content: center;
     gap: 1rem;
+    
+    /* hover */
+    transition: all 0.5s;
+    cursor: pointer;
+        
+
 }
+
+
 
 </style>
 
