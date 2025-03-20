@@ -497,8 +497,8 @@ async function entradasysalidas() {
 
     });
 
-    const entradas = filteredData.filter(item => item.tipo_movimiento === 'Entradas');
-const salidas = filteredData.filter(item => item.tipo_movimiento === 'Salidas');
+    const entradas = filteredData.filter(item => item.tipo_movimiento === 'Entrada');
+const salidas = filteredData.filter(item => item.tipo_movimiento === 'Salida');
 
 
 
