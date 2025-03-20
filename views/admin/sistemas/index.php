@@ -497,15 +497,63 @@ async function entradasysalidas() {
 
     });
 
-    const entradas = filteredData.filter(item => item.tipo_movimiento === 'Entrada');
-    const salidas = filteredData.filter(item => item.tipo_movimiento === 'Salida');
+    // Filtrar entradas y salidas por tipo de movimiento y area 
+    const entradasSalidas = {};
+
+    filteredData.forEach(item => {
+        if (!entradasSalidas[item.tipo_movimiento]) {
+            entradasSalidas[item.tipo_movimiento] = 0;
+        }
+        entradasSalidas[item.tipo_movimiento] += parseFloat(item.costo_nuevo*item.cantidad); 
+    });
+
+    console.log("Entradas y salidas del mes actual:", entradasSalidas);
+
+    // Labels para el gráfico (nombres de las áreas)
+    const labels = Object.keys(entradasSalidas);
+
+    // Data para el gráfico
+    const data = {
+        labels: labels,
+        datasets: [{
+            label: 'valor',
+            data: Object.values(entradasSalidas),
+            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+            borderColor: 'rgb(146, 192, 192)',
+            borderWidth: 1
+        }]
+    };
+
+    // Configuración del gráfico
+
+    const config = {
+        type: 'bar',
+        data: data,
+        options: {
+            scales: {
+                x: {
+                    stacked: true
+                },
+                y: {
+                    stacked: true
+                }
+            },
+            plugins: {
+                title: {
+                    display: true,
+                    text: `ENTRADAS Y SALIDAS POR MES: ${monthName} ${currentYear}` // Título con el mes y año actual
+                }
+            }
+        }
+    };
+
+    // Creación del gráfico
+
+    const ctx = document.getElementById('entradasysalidas').getContext('2d');
+    new Chart(ctx, config);
+    
 
 
-    const entradasTotales = entradas.reduce((total, item) => total + parseFloat(item.costo_nuevo*item.cantidad), 0);
-    const salidasTotales = salidas.reduce((total, item) => total + parseFloat(item.costo_nuevo*item.cantidad), 0);
-
-    console.log("Entradas del mes actual:", entradas);
-    console.log("Salidas del mes actual:", salidas);
 
 }
 
@@ -525,6 +573,7 @@ entradasysalidas();
 </script>
 
 
+<canvas id="entradasysalidas" width="400" height="400"></canvas>
 
 
 
