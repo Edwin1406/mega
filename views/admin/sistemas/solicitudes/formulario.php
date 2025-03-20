@@ -40,9 +40,20 @@ width: 100%;
     /* hover */
     transition: all 0.5s;
     cursor: pointer;
-        
+
+    
+
 
 }
+
+
+.dashboard__submit--name:hover {
+    color: #FFFFFF;
+    background-color: #ac5353;
+    scale: 1.1;
+    text-align: center;
+}
+
 
 
 
