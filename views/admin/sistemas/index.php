@@ -489,15 +489,18 @@ async function entradasysalidas() {
     const monthNames = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
     const monthName = monthNames[currentMonth]; // Obtener el nombre del mes
 
+    // entradas y salidas del mes actual
     const filteredData = datos.filter(item => {
         const itemDate = new Date(item.fecha_movimiento);
+        
         return itemDate.getMonth() === currentMonth && itemDate.getFullYear() === currentYear;
+
     });
 
+    const entradas = filteredData.filter(item => item.tipo_movimiento === 'Entradas');
+const salidas = filteredData.filter(item => item.tipo_movimiento === 'Salidas');
 
-    // filtrarsolo entradasysalidas
-    const entradas = datos.filter(item => item.tipo_movimiento === 'Entrada');
-    const salidas = datos.filter(item => item.tipo_movimiento === 'Salida');
+
 
     console.log("Datos de entradas:", entradas);
     console.log("Datos de salidas:", salidas);
