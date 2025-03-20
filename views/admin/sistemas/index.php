@@ -496,8 +496,8 @@ async function entradasysalidas() {
 
 
     // filtrarsolo entradasysalidas
-    const entradas = datos.filter(item => item.tipo_movimiento === 'ENTRADA');
-    const salidas = datos.filter(item => item.tipo_movimiento === 'SALIDA');
+    const entradas = datos.filter(item => item.tipo_movimiento === 'Entrada');
+    const salidas = datos.filter(item => item.tipo_movimiento === 'Salida');
 
     console.log("Datos de entradas:", entradas);
     console.log("Datos de salidas:", salidas);
