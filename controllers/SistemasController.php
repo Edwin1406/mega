@@ -218,14 +218,13 @@ if ($tipo_movimiento === 'Entrada') {
 } else {
     // Si es salida, disminuimos el stock pero no cambiamos el costo promedio
     if ($productos_inventario->stock_actual >= $cantidad) {
-        $productos_inventario->stock_actual -= $cantidad;
-        $valor = $productos_inventario->costo_unitario;  
+        $productos_inventario->stock_actual -= $cantidad; 
     } else {
         // Manejar el caso en que no hay suficiente stock
         throw new Exception("Stock insuficiente para la salida");
     }
     
-    $valor = 0;  // Para movimientos de salida no calculamos valor
+    $valor = $productos_inventario->costo_unitario * $cantidad;
 }
 
         
