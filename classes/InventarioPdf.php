@@ -49,7 +49,7 @@ class InventarioPdf extends TCPDF
         $this->SetFont('helvetica', 'B', 14); // Aumentar tamaño de fuente
     
         // Centrar la tabla
-        $totalAnchoTabla = 93.1 + 40 + 30 + 20 + 94; // Ancho total de la tabla
+        $totalAnchoTabla = 93.1 + 40 + 30 + 20 +93.1; // Ancho total de la tabla
         $margenIzquierdo = ($this->getPageWidth() - $totalAnchoTabla) / 2; // Calcular el margen izquierdo para centrar
         $this->SetX($margenIzquierdo);
         
