@@ -529,29 +529,24 @@ async function entradasysalidas() {
     console.log("Entradas por área:", entradasPorArea);
     console.log("Salidas por área:", salidasPorArea);
 
-
-    // Labels para el gráfico (nombres de las áreas)
-    const labels = Object.keys(entradasPorArea);
-
-    // Data para el gráfico
-
-    const data = {
-        labels: labels,
-        datasets: [{
-            label: 'Entradas',
-            data: Object.values(entradasPorArea),
-            backgroundColor: 'rgba(75, 192, 192, 0.2)',
-            borderColor: 'rgb(146, 192, 192)',
-            borderWidth: 1
-        },
-        {
-            label: 'Salidas',
-            data: Object.values(salidasPorArea),
-            backgroundColor: 'rgba(255, 99, 132, 0.2)',
-            borderColor: 'rgb(255, 99, 132)',
-            borderWidth: 1
-        }]
-    };
+    const labels = Object.keys(entradasPorArea);  // Las etiquetas (áreas)
+const data = {
+    labels: labels,
+    datasets: [{
+        label: 'Entradas',
+        data: labels.map(area => entradasPorArea[area] || 0), // Asegurando que las entradas coincidan con las etiquetas
+        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+        borderColor: 'rgb(146, 192, 192)',
+        borderWidth: 1
+    },
+    {
+        label: 'Salidas',
+        data: labels.map(area => salidasPorArea[area] || 0), // Asegurando que las salidas coincidan con las etiquetas
+        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+        borderColor: 'rgb(255, 99, 132)',
+        borderWidth: 1
+    }]
+};
 
 
     // Configuración del gráfico
