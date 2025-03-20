@@ -184,7 +184,7 @@ async function datosapi() {
     const url = 'https://megawebsistem.com/admin/api/apimovimientos';
     const response = await fetch(url);
     const datos = await response.json();
-    console.log(datos);
+    // console.log(datos);
 
     // Filtrar los datos por el mes actual
     const currentMonth = new Date().getMonth(); // Obtener el mes actual (0 - 11)
@@ -312,7 +312,7 @@ async function sumadevaloresdeapi(){
     const respuesta = await fetch(url);
     const resultado = await respuesta.json();
 
-    console.log("Datos obtenidos de la API:", resultado);
+    // console.log("Datos obtenidos de la API:", resultado);
 
     const monthNames = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", 
                         "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
