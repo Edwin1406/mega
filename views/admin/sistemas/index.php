@@ -256,6 +256,61 @@ async function datosapi() {
     new Chart(ctx, config);
 }
 
+// document.addEventListener("DOMContentLoaded", function () {
+//     // URL de la API
+//     const apiUrl = "https://megawebsistem.com/admin/api/apiproducts";
+    
+//     // Set para rastrear productos ya notificados
+//     let notifiedProducts = new Set();
+
+//     // Función para obtener productos y mostrar alertas
+//     function checkStock() {
+//         fetch(apiUrl)
+//             .then(response => response.json())
+//             .then(data => {
+//                 // Filtrar productos con stock menor a 2
+//                 const lowStockProducts = data.filter(producto => parseInt(producto.stock_actual) === 0);
+                
+//                 // Set temporal para los productos que deben notificarse en esta ejecución
+//                 let currentNotified = new Set();
+
+//                 lowStockProducts.forEach(producto => {
+//                     const productKey = `${producto.nombre_producto}-${producto.stock_actual}-${producto.area}-${producto.categoria}`;
+
+//                     // Verificar si ya fue notificado
+//                     if (!notifiedProducts.has(productKey)) {
+//                         Toastify({
+//                             text: `⚠️ Sin Stock: ${producto.nombre_producto} (Stock: ${producto.stock_actual}) (Area: ${producto.area} ) (Categoria: ${producto.categoria})`,
+//                             duration: 5000,
+//                             gravity: "top",
+//                             position: "right",
+//                             backgroundColor: "red",
+//                             stopOnFocus: true,
+//                             borderradius: "1rem",
+
+
+//                             onClick: function() {
+//                                 // Redirigir a la página de productos
+//                                 window.location.href = "/admin/sistemas/movimiento/movimientos";
+//                             }
+//                         }).showToast();
+
+//                         // Agregar a la lista de notificados
+//                         currentNotified.add(productKey);
+//                     }
+//                 });
+
+//                 // Actualizar el Set con las notificaciones de esta ejecución
+//                 notifiedProducts = currentNotified;
+//             })
+//             .catch(error => console.error("Error al obtener los productos:", error));
+//     }
+
+//     // Ejecutar la función cada 10 segundos
+//     checkStock(); // Ejecutar inmediatamente
+//     setInterval(checkStock, 10000); // Luego repetir cada 10 segundos
+// });
+
 document.addEventListener("DOMContentLoaded", function () {
     // URL de la API
     const apiUrl = "https://megawebsistem.com/admin/api/apiproducts";
@@ -279,21 +334,28 @@ document.addEventListener("DOMContentLoaded", function () {
 
                     // Verificar si ya fue notificado
                     if (!notifiedProducts.has(productKey)) {
-                        Toastify({
-                            text: `⚠️ Sin Stock: ${producto.nombre_producto} (Stock: ${producto.stock_actual}) (Area: ${producto.area} ) (Categoria: ${producto.categoria})`,
-                            duration: 5000,
-                            gravity: "top",
-                            position: "right",
-                            backgroundColor: "red",
-                            stopOnFocus: true,
-                            borderradius: "1rem",
-
-
-                            onClick: function() {
+                        // Verificar si el navegador tiene permisos para notificaciones
+                        if (Notification.permission === "granted") {
+                            new Notification(`⚠️ Sin Stock: ${producto.nombre_producto}`, {
+                                body: `Stock: ${producto.stock_actual} (Área: ${producto.area}) (Categoría: ${producto.categoria})`,
+                                icon: "path/to/your/icon.png",
+                            }).onclick = function () {
                                 // Redirigir a la página de productos
                                 window.location.href = "/admin/sistemas/movimiento/movimientos";
-                            }
-                        }).showToast();
+                            };
+                        } else if (Notification.permission !== "denied") {
+                            // Si aún no se ha decidido el permiso, solicitarlo
+                            Notification.requestPermission().then(permission => {
+                                if (permission === "granted") {
+                                    new Notification(`⚠️ Sin Stock: ${producto.nombre_producto}`, {
+                                        body: `Stock: ${producto.stock_actual} (Área: ${producto.area}) (Categoría: ${producto.categoria})`,
+                                        icon: "path/to/your/icon.png",
+                                    }).onclick = function () {
+                                        window.location.href = "/admin/sistemas/movimiento/movimientos";
+                                    };
+                                }
+                            });
+                        }
 
                         // Agregar a la lista de notificados
                         currentNotified.add(productKey);
@@ -310,6 +372,7 @@ document.addEventListener("DOMContentLoaded", function () {
     checkStock(); // Ejecutar inmediatamente
     setInterval(checkStock, 10000); // Luego repetir cada 10 segundos
 });
+
 
 
 
