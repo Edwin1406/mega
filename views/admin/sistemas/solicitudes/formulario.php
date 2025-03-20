@@ -41,7 +41,6 @@ width: 100%;
 
 .dashboard__submit--name:hover {
     color: #FFFFFF;
-    background-color: #ac5353;
     scale: 1.1;
     text-align: center;
 }
