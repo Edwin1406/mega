@@ -498,14 +498,14 @@ async function entradasysalidas() {
     });
 
     const entradas = filteredData.filter(item => item.tipo_movimiento === 'Entrada');
-const salidas = filteredData.filter(item => item.tipo_movimiento === 'Salida');
+    const salidas = filteredData.filter(item => item.tipo_movimiento === 'Salida');
 
 
+    const entradasTotales = entradas.reduce((total, item) => total + parseFloat(item.costo_nuevo*item.cantidad), 0);
+    const salidasTotales = salidas.reduce((total, item) => total + parseFloat(item.costo_nuevo*item.cantidad), 0);
 
-    console.log("Datos de entradas:", entradas);
-    console.log("Datos de salidas:", salidas);
-
-    // console.log("Datos de este mes actual:", filteredData);
+    console.log("Entradas del mes actual:", entradas);
+    console.log("Salidas del mes actual:", salidas);
 
 }
 
