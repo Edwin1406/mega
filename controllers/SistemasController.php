@@ -307,6 +307,7 @@ public static function apiproducts()
 
 public static function solicitud(Router $router)
 {
+    session_start();
     $alertas = [];
     $productos_inventario = Productos_inventario::allSis('producto','DESC');
     $area_inventario = Area_inventario::allSis('area', 'ASC');
@@ -338,6 +339,8 @@ public static function solicitud(Router $router)
 
 public static function tabla(Router $router)
 {
+
+    session_start();
 
     $solicitud  = Solicitud::all('DESC');
 
