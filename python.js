@@ -417,6 +417,53 @@ function eliminarNan(mejoresCombos) {
 
     //     console.log("mejores combos sin nan",mejoresCombosFinales);
     // }
+
+
+
+    // unir mejores combos sin nan con pedidos libres
+
+
+    console.log("pedidos libres",pedidosLibres );
+
+    mejoresCombosFinales.push(pedidosLibres);
+
+    const tbody = document.querySelector('tbody');
+        tbody.innerHTML = ''; // Limpiar la tabla antes de agregar datos
+    
+        mejoresCombosFinales.forEach((combo) => {
+            const tr1 = document.createElement('tr');
+            tr1.innerHTML = `
+                <td rowspan="2">Combo ${combo.comboNumero || "N/A"}</td>
+                <td>${combo.pedido_1.id}</td>
+                <td>${combo.pedido_1.nombre}</td>
+                <td>${combo.pedido_1.cavidad}</td>
+                <td>${combo.pedido_1.cortes}</td>
+                <td>${combo.pedido_1.cantidad}</td>
+                <td>${combo.pedido_1.cantidad_producida}</td>
+                <td>${combo.pedido_1.cantidad_faltante}</td>
+                <td>${combo.pedido_1.metros_lineales}</td>
+                <td>${combo.pedido_1.ancho_utilizado}</td>
+                <td>${combo.pedido_1.porcentaje1}</td>
+                <td rowspan="2">${combo.total_ancho}</td>
+                <td rowspan="2">${combo.mejorBobina || 'N/A'}</td>
+                <td rowspan="2">${combo.sobrante !== undefined ? combo.sobrante : 'N/A'}</td>
+            `;
+            const tr2 = document.createElement('tr');
+            tr2.innerHTML = `
+                <td>${combo.pedido_2.id}</td>
+                <td>${combo.pedido_2.nombre}</td>
+                <td>${combo.pedido_2.cavidad}</td>
+                <td>${combo.pedido_2.cortes}</td>
+                <td>${combo.pedido_2.cantidad}</td>
+                <td>${combo.pedido_2.cantidad_producida}</td>
+                <td>${combo.pedido_2.cantidad_faltante}</td>
+                <td>${combo.pedido_2.metros_lineales}</td>
+                <td>${combo.pedido_2.ancho_utilizado}</td>
+                <td>${combo.pedido_2.porcentaje2}</td>
+            `;
+            tbody.appendChild(tr1);
+            tbody.appendChild(tr2);
+        });
     
 
 
@@ -428,13 +475,12 @@ function eliminarNan(mejoresCombos) {
 
     // como poener global mejoresCombosFinales;
 
-    creathtml(mejoresCombosFinales);
+ 
 
     return mejoresCombosFinales;
 }
 
 
-let mejoresCombos = [];
 
 // Generar combinaciones y encontrar la mejor
 const combinaciones = generarCombinaciones(pedidosCalculadosAgrupados);
@@ -447,62 +493,6 @@ console.log("combinaciones 3",combinaciones);
 console.log("mejor trimado",mejorTrimado);
 
 
-
-
-
-// mejores combos sin nan poner en una tabla con scripting 
-function creathtml(mejoresCombosFinales) {
-
-    console.log("mejores",mejoresCombosFinales);
-
-
-    const tbody = document.querySelector('tbody');
-    tbody.innerHTML = ''; // Limpiar la tabla antes de agregar datos
-    
-    mejoresCombosFinales.forEach((combo) => { 
-
-        const tr1 = document.createElement('tr');
-        tr1.innerHTML = `
-            <td rowspan="2">Combo ${combo.comboNumero || "N/A"}</td>
-            <td>${combo.pedido_1.id}</td>
-            <td>${combo.pedido_1.nombre}</td>
-            <td>${combo.pedido_1.cavidad}</td>
-            <td>${combo.pedido_1.cortes}</td>
-            <td>${combo.pedido_1.cantidad}</td>
-            <td>${combo.pedido_1.cantidad_producida}</td>
-            <td>${combo.pedido_1.cantidad_faltante}</td>
-            <td>${combo.pedido_1.metros_lineales}</td>
-            <td>${combo.pedido_1.ancho_utilizado}</td>
-            <td>${combo.pedido_1.porcentaje1}</td>
-            <td rowspan="2">${combo.total_ancho}</td>
-            <td rowspan="2">${combo.mejorBobina || 'N/A'}</td>
-            <td rowspan="2">${combo.sobrante !== undefined ? combo.sobrante : 'N/A'}</td>
-        `;
-
-        const tr2 = document.createElement('tr');
-
-        tr2.innerHTML = `
-            <td>${combo.pedido_2.id}</td>
-            <td>${combo.pedido_2.nombre}</td>
-            <td>${combo.pedido_2.cavidad}</td>
-            <td>${combo.pedido_2.cortes}</td>
-            <td>${combo.pedido_2.cantidad}</td>
-            <td>${combo.pedido_2.cantidad_producida}</td>
-            <td>${combo.pedido_2.cantidad_faltante}</td>
-            <td>${combo.pedido_2.metros_lineales}</td>
-            <td>${combo.pedido_2.ancho_utilizado}</td>
-            <td>${combo.pedido_2.porcentaje2}</td>
-        `;
-
-        tbody.appendChild(tr1);
-        tbody.appendChild(tr2);
-
-    });
-
-
-}
-
-creathtml();
 
 
 
