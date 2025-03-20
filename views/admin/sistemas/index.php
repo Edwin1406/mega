@@ -497,32 +497,60 @@ async function entradasysalidas() {
 
     });
 
-    // Filtrar entradas y salidas por tipo de movimiento y area 
-    const entradasSalidas = {};
+    // Filtrar entradas y salidas por tipo de movimiento separando en dos grupos
+    const entradas = filteredData.filter(item => item.tipo_movimiento === 'Entrada');
+    const salidas = filteredData.filter(item => item.tipo_movimiento === 'Salida');
 
-    filteredData.forEach(item => {
-        if (!entradasSalidas[item.tipo_movimiento]) {
-            entradasSalidas[item.tipo_movimiento] = 0;
+    console.log("Entradas del mes actual:", entradas);
+    console.log("Salidas del mes actual:", salidas);
+
+    // Agrupar las entradas por área
+    const entradasPorArea = {};
+    entradas.forEach(item => {
+        if (!entradasPorArea[item.area]) {
+            entradasPorArea[item.area] = 0;
         }
-        entradasSalidas[item.tipo_movimiento] += parseFloat(item.costo_nuevo*item.cantidad); 
+        entradasPorArea[item.area] += parseFloat(item.costo_nuevo*item.cantidad); // Sumar la cantidad de cada área
     });
 
-    console.log("Entradas y salidas del mes actual:", entradasSalidas);
+    // Agrupar las salidas por área
+    const salidasPorArea = {};
+
+    salidas.forEach(item => {
+        if (!salidasPorArea[item.area]) {
+            salidasPorArea[item.area] = 0;
+        }
+        salidasPorArea[item.area] += parseFloat(item.costo_nuevo*item.cantidad); // Sumar la cantidad de cada área
+    });
+
+
+    console.log("Entradas por área:", entradasPorArea);
+    console.log("Salidas por área:", salidasPorArea);
+
 
     // Labels para el gráfico (nombres de las áreas)
-    const labels = Object.keys(entradasSalidas);
+    const labels = Object.keys(entradasPorArea);
 
     // Data para el gráfico
+
     const data = {
         labels: labels,
         datasets: [{
-            label: 'valor',
-            data: Object.values(entradasSalidas),
+            label: 'Entradas',
+            data: Object.values(entradasPorArea),
             backgroundColor: 'rgba(75, 192, 192, 0.2)',
             borderColor: 'rgb(146, 192, 192)',
             borderWidth: 1
+        },
+        {
+            label: 'Salidas',
+            data: Object.values(salidasPorArea),
+            backgroundColor: 'rgba(255, 99, 132, 0.2)',
+            borderColor: 'rgb(255, 99, 132)',
+            borderWidth: 1
         }]
     };
+
 
     // Configuración del gráfico
 
@@ -541,17 +569,18 @@ async function entradasysalidas() {
             plugins: {
                 title: {
                     display: true,
-                    text: `ENTRADAS Y SALIDAS POR MES: ${monthName} ${currentYear}` // Título con el mes y año actual
+                    text: `ENTRADAS Y SALIDAS POR AREA Y MES: ${monthName} ${currentYear}` // Título con el mes y año actual
                 }
             }
         }
     };
 
+
     // Creación del gráfico
 
     const ctx = document.getElementById('entradasysalidas').getContext('2d');
     new Chart(ctx, config);
-    
+
 
 
 
