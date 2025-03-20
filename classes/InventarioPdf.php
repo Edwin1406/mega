@@ -58,7 +58,7 @@ class InventarioPdf extends TCPDF
         $this->Cell(40, 10, 'Área', 1, 0, 'C', true);
         $this->Cell(50, 10, 'Costo Unitario', 1, 0, 'C', true);
         $this->Cell(30, 10, 'Cantidad', 1, 0, 'C', true);
-        $this->Cell(31, 10, 'Total', 1, 1, 'C', true);
+        $this->Cell(30,5, 10, 'Total', 1, 1, 'C', true);
     
         // Datos de los productos
         $this->SetFont('helvetica', '', 12);
