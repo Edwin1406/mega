@@ -33,7 +33,7 @@ class InventarioPdf extends TCPDF
         $this->SetXY(10, 10);
         $this->Cell(90, 20, 'MEGASTOCK S.A.', 0, 1, 'C');
         $this->SetFont('helvetica', 'B', 18);
-        $this->Cell(290, 10, 'INVENTARIO', 0, 1, 'C');
+        $this->Cell(290, 10, 'INVENTARIO SISTEMAS', 0, 1, 'C');
 
         // Fecha A la derecha
         $this->SetXY(10, 40);
