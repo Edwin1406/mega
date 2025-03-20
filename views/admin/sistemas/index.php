@@ -161,6 +161,13 @@
     </div>
 </div>
 
+<div class="contenido-graficos">
+    <div class="grafico2">
+
+    <canvas id="entradasysalidas" width="400" height="400"></canvas>
+    </div>
+</div>
+
 
 
 
@@ -599,7 +606,6 @@ entradasysalidas();
 </script>
 
 
-<canvas id="entradasysalidas" width="400" height="400"></canvas>
 
 
 
