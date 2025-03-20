@@ -159,14 +159,13 @@
 
         <canvas id="productosStockMinimo"></canvas>
     </div>
-</div>
-
-<div class="contenido-graficos">
     <div class="grafico2">
 
     <canvas id="entradasysalidas" width="400" height="400"></canvas>
     </div>
 </div>
+
+
 
 
 
