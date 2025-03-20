@@ -35,6 +35,8 @@ class SistemasController {
     public static function crear(Router $router)
     {
 
+            session_start();
+
 
         $productos_inventario = new Productos_inventario;
         $categoria_inventario = Categoria_inventario:: allSis('categoria', 'ASC');
@@ -74,6 +76,7 @@ class SistemasController {
 
 // Movimientos
 public static function movimientos(Router $router) {
+    session_start();
     $alertas = [];
     $productos_inventario = Productos_inventario::allSis('producto','DESC');
     $area_inventario = Area_inventario::allSis('area', 'ASC');
