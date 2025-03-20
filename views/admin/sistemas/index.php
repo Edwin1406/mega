@@ -518,7 +518,7 @@ async function entradasysalidas() {
         if (!entradasPorArea[item.area]) {
             entradasPorArea[item.area] = 0;
         }
-        entradasPorArea[item.area] += parseFloat(item.costo_nuevo*item.cantidad); // Sumar la cantidad de cada área
+        entradasPorArea[item.area] += parseFloat(item.costo_unitario*item.cantidad); // Sumar la cantidad de cada área
     });
 
     // Agrupar las salidas por área
