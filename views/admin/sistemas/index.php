@@ -197,7 +197,7 @@ async function datosapi() {
         return itemDate.getMonth() === currentMonth && itemDate.getFullYear() === currentYear;
     });
 
-    console.log("Datos del mes actual:", filteredData);
+    // console.log("Datos del mes actual:", filteredData);
 
     // Agrupar los datos por área
     const areas = {};
@@ -324,13 +324,13 @@ async function sumadevaloresdeapi(){
 
     resultado.forEach(item => {
         const itemDate = new Date(item.fecha_movimiento);
-        console.log("Fecha procesada:", itemDate, "Mes:", itemDate.getMonth());
+        // console.log("Fecha procesada:", itemDate, "Mes:", itemDate.getMonth());
 
         const monthIndex = itemDate.getMonth();
         monthlyTotals[monthIndex] += Number(item.costo_nuevo*item.cantidad); 
     });
 
-    console.log("Total acumulado por mes:", monthlyTotals);
+    // console.log("Total acumulado por mes:", monthlyTotals);
 
     // VER EN EL HTML EL TOTAL GENERAL POR MES DEPENDIENDO DE QUE MES ESTE ME MOSTRARA EL TOTAL DE ESE MES
     let totalgeneralpormes = 0;
@@ -358,8 +358,8 @@ async function sumadevaloresdeapi(){
         }
     });
 
-    console.log("Meses con datos:", filteredLabels);
-    console.log("Valores acumulados:", filteredData);
+    // console.log("Meses con datos:", filteredLabels);
+    // console.log("Valores acumulados:", filteredData);
 
    
 
@@ -423,7 +423,7 @@ async function productosconstockminimo() {
     const url = 'https://megawebsistem.com/admin/api/apiproducts';
     const response = await fetch(url);
     const datos = await response.json();
-    console.log(datos);
+    // console.log(datos);
 
     // Filtrar productos con stock menor a 2
     const lowStockProducts = datos.filter(producto => parseInt(producto.stock_actual) >= 0);
@@ -487,7 +487,7 @@ async function entradasysalidas() {
     const url = 'https://megawebsistem.com/admin/api/apimovimientos';
     const response = await fetch(url);
     const datos = await response.json();
-    console.log(datos);
+    // console.log(datos);
 
     // Filtrar los datos por el mes actual
     const currentMonth = new Date().getMonth(); // Obtener el mes actual (0 - 11)
@@ -507,8 +507,8 @@ async function entradasysalidas() {
     const entradas = filteredData.filter(item => item.tipo_movimiento === 'Entrada');
     const salidas = filteredData.filter(item => item.tipo_movimiento === 'Salida');
 
-    console.log("Entradas del mes actual:", entradas);
-    console.log("Salidas del mes actual:", salidas);
+    // console.log("Entradas del mes actual:", entradas);
+    // console.log("Salidas del mes actual:", salidas);
 
     // Agrupar las entradas por área
     const entradasPorArea = {};
@@ -532,8 +532,8 @@ async function entradasysalidas() {
     });
 
 
-    console.log("Entradas por área:", entradasPorArea);
-    console.log("Salidas por área:", salidasPorArea);
+    // console.log("Entradas por área:", entradasPorArea);
+    // console.log("Salidas por área:", salidasPorArea);
 
     const labels = Object.keys(entradasPorArea);  // Las etiquetas (áreas)
 const data = {
