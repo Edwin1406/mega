@@ -517,6 +517,8 @@ async function entradasysalidas() {
     const salidasPorArea = {};
 
     salidas.forEach(item => {
+        console.log(item.area); // Verifica qué valor tiene "area"
+
         if (!salidasPorArea[item.area]) {
             salidasPorArea[item.area] = 0;
         }
