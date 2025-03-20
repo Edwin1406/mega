@@ -161,7 +161,7 @@
     </div>
     <div class="grafico2">
 
-    <canvas id="entradasysalidas" width="400" height="400"></canvas>
+    <canvas id="entradasysalidas" ></canvas>
     </div>
 </div>
 
