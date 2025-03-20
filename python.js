@@ -327,11 +327,6 @@ function eliminarNan(mejoresCombos) {
         return combo;
     });
 
-
-
-
-    
-
     // Ordenar los combos por el menor sobrante
     mejoresCombosSinNan.sort((a, b) => a.sobrante - b.sobrante);
 
@@ -372,7 +367,13 @@ function eliminarNan(mejoresCombos) {
         if (!idsVistos.has(combo.pedido_2.id)) {
             if (!cavidadesVistas.has(combo.pedido_2.cavidad)) { // Verifica si la cavidad ya fue vista
                 cavidadesVistas.add(combo.pedido_2.cavidad); // Marca la cavidad como vista
-                console.log("Pedido sin combo: ", combo.pedido_2);
+                // mostrar el pedido con desecho menor
+                if(combo.pedido_2.porcentaje2 < combo.pedido_1.porcentaje1){
+
+                    console.log("Pedido sin combo: ", combo.pedido_2);
+                }
+
+
     
                 // bobina - ancho_utilizado = sobrante. Escoge la bobina que tenga el sobrante más pequeño.
                 let mejorBobina = bobinas.reduce((mejor, bobina) => {
@@ -391,34 +392,56 @@ function eliminarNan(mejoresCombos) {
                 }
             }
         }
+
+
     });
+
+    // for (const durax of mejoresCombosFinales) {
+    //     // Iteramos sobre cada pedido dentro de cada combo
+    //     for (const pedidoKey in durax) {
+    //         if (durax.hasOwnProperty(pedidoKey)) {
+    //             const pedido = durax[pedidoKey];
+    
+    //             // Verificamos si el pedido tiene cantidad_faltante mayor a 0
+    //             if (pedido.cantidad_faltante > 0) {
+    //                 // Reemplazamos la cantidad actual por la cantidad faltante
+    //                 pedido.cantidad = pedido.cantidad_faltante;
+    
+    //                 // Aquí puedes hacer lo que necesites con el pedido ajustado, como agregarlo a una lista o loguearlo
+    //                 console.log("Pedido ajustado: ", pedido);
+    //             }
+    //         }
+    //     }
     
 
 
+    //     console.log("mejores combos sin nan",mejoresCombosFinales);
+    // }
+    
+
+
+
+    
+    
+
     console.log("mejores combos sin nan", mejoresCombosFinales);
+
+    // como poener global mejoresCombosFinales;
+
+    creathtml(mejoresCombosFinales);
+
     return mejoresCombosFinales;
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+let mejoresCombos = [];
 
 // Generar combinaciones y encontrar la mejor
 const combinaciones = generarCombinaciones(pedidosCalculadosAgrupados);
 
 const mejorTrimado = encontrarMejorTrimado(combinaciones);
+
+// const mejoresCombosFinales = eliminarNan(mejoresCombos);
 
 console.log("combinaciones 3",combinaciones);
 console.log("mejor trimado",mejorTrimado);
@@ -426,11 +449,18 @@ console.log("mejor trimado",mejorTrimado);
 
 
 
-function creathtml() {
+
+// mejores combos sin nan poner en una tabla con scripting 
+function creathtml(mejoresCombosFinales) {
+
+    console.log("mejores",mejoresCombosFinales);
+
+
     const tbody = document.querySelector('tbody');
     tbody.innerHTML = ''; // Limpiar la tabla antes de agregar datos
+    
+    mejoresCombosFinales.forEach((combo) => { 
 
-    mejorTrimado.forEach((combo) => {
         const tr1 = document.createElement('tr');
         tr1.innerHTML = `
             <td rowspan="2">Combo ${combo.comboNumero || "N/A"}</td>
@@ -448,7 +478,9 @@ function creathtml() {
             <td rowspan="2">${combo.mejorBobina || 'N/A'}</td>
             <td rowspan="2">${combo.sobrante !== undefined ? combo.sobrante : 'N/A'}</td>
         `;
+
         const tr2 = document.createElement('tr');
+
         tr2.innerHTML = `
             <td>${combo.pedido_2.id}</td>
             <td>${combo.pedido_2.nombre}</td>
@@ -461,13 +493,69 @@ function creathtml() {
             <td>${combo.pedido_2.ancho_utilizado}</td>
             <td>${combo.pedido_2.porcentaje2}</td>
         `;
+
         tbody.appendChild(tr1);
         tbody.appendChild(tr2);
+
     });
+
+
 }
 
-
 creathtml();
+
+
+
+
+
+
+
+
+
+
+
+// function creathtml() {
+//     const tbody = document.querySelector('tbody');
+//     tbody.innerHTML = ''; // Limpiar la tabla antes de agregar datos
+
+//     mejorTrimado.forEach((combo) => {
+//         const tr1 = document.createElement('tr');
+//         tr1.innerHTML = `
+//             <td rowspan="2">Combo ${combo.comboNumero || "N/A"}</td>
+//             <td>${combo.pedido_1.id}</td>
+//             <td>${combo.pedido_1.nombre}</td>
+//             <td>${combo.pedido_1.cavidad}</td>
+//             <td>${combo.pedido_1.cortes}</td>
+//             <td>${combo.pedido_1.cantidad}</td>
+//             <td>${combo.pedido_1.cantidad_producida}</td>
+//             <td>${combo.pedido_1.cantidad_faltante}</td>
+//             <td>${combo.pedido_1.metros_lineales}</td>
+//             <td>${combo.pedido_1.ancho_utilizado}</td>
+//             <td>${combo.pedido_1.porcentaje1}</td>
+//             <td rowspan="2">${combo.total_ancho}</td>
+//             <td rowspan="2">${combo.mejorBobina || 'N/A'}</td>
+//             <td rowspan="2">${combo.sobrante !== undefined ? combo.sobrante : 'N/A'}</td>
+//         `;
+//         const tr2 = document.createElement('tr');
+//         tr2.innerHTML = `
+//             <td>${combo.pedido_2.id}</td>
+//             <td>${combo.pedido_2.nombre}</td>
+//             <td>${combo.pedido_2.cavidad}</td>
+//             <td>${combo.pedido_2.cortes}</td>
+//             <td>${combo.pedido_2.cantidad}</td>
+//             <td>${combo.pedido_2.cantidad_producida}</td>
+//             <td>${combo.pedido_2.cantidad_faltante}</td>
+//             <td>${combo.pedido_2.metros_lineales}</td>
+//             <td>${combo.pedido_2.ancho_utilizado}</td>
+//             <td>${combo.pedido_2.porcentaje2}</td>
+//         `;
+//         tbody.appendChild(tr1);
+//         tbody.appendChild(tr2);
+//     });
+// }
+
+
+// creathtml();
 
 
 

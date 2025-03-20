@@ -338,7 +338,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         if (Notification.permission === "granted") {
                             new Notification(`⚠️ Sin Stock: ${producto.nombre_producto}`, {
                                 body: `Stock: ${producto.stock_actual} (Área: ${producto.area}) (Categoría: ${producto.categoria})`,
-                                icon: "path/to/your/icon.png",
+                                icon: "/src/img/logo2.png",
                             }).onclick = function () {
                                 // Redirigir a la página de productos
                                 window.location.href = "/admin/sistemas/movimiento/movimientos";
@@ -349,7 +349,7 @@ document.addEventListener("DOMContentLoaded", function () {
                                 if (permission === "granted") {
                                     new Notification(`⚠️ Sin Stock: ${producto.nombre_producto}`, {
                                         body: `Stock: ${producto.stock_actual} (Área: ${producto.area}) (Categoría: ${producto.categoria})`,
-                                        icon: "path/to/your/icon.png",
+                                        icon: "/src/img/logo2.png",
                                     }).onclick = function () {
                                         window.location.href = "/admin/sistemas/movimiento/movimientos";
                                     };
