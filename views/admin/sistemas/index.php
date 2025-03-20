@@ -518,7 +518,7 @@ async function entradasysalidas() {
         if (!entradasPorArea[item.area]) {
             entradasPorArea[item.area] = 0;
         }
-        entradasPorArea[item.area] += parseFloat(item.costo_unitario*item.cantidad); // Sumar la cantidad de cada área
+        entradasPorArea[item.area] += parseFloat(item.costo_nuevo*item.cantidad); // Sumar la cantidad de cada área
     });
 
     // Agrupar las salidas por área
@@ -530,7 +530,7 @@ async function entradasysalidas() {
         if (!salidasPorArea[item.area]) {
             salidasPorArea[item.area] = 0;
         }
-        salidasPorArea[item.area] += parseFloat(item.costo_nuevo*item.cantidad); // Sumar la cantidad de cada área
+        salidasPorArea[item.area] += parseFloat(item.valor*item.cantidad); // Sumar la cantidad de cada área
     });
 
 
