@@ -326,10 +326,13 @@ async function sumadevaloresdeapi(){
 
     resultado.forEach(item => {
         const itemDate = new Date(item.fecha_movimiento);
-        // console.log("Fecha procesada:", itemDate, "Mes:", itemDate.getMonth());
-
-        const monthIndex = itemDate.getMonth();
-        monthlyTotals[monthIndex] += Number(item.costo_nuevo*item.cantidad); 
+    //  solo entradas 
+        if (item.tipo_movimiento === 'Entrada') {
+            const monthIndex = itemDate.getMonth();
+            monthlyTotals[monthIndex] += Number(item.costo_nuevo*item.cantidad); 
+        }
+        // const monthIndex = itemDate.getMonth();
+        // monthlyTotals[monthIndex] += Number(item.costo_nuevo*item.cantidad); 
     });
 
     // console.log("Total acumulado por mes:", monthlyTotals);
@@ -340,6 +343,9 @@ async function sumadevaloresdeapi(){
 
     // Recorre los totales por mes
     for (const [monthIndex, total] of Object.entries(monthlyTotals)) {
+        // solo si es Entrada no salida 
+        
+
         if (parseInt(monthIndex) === currentMonth) { // Compara el índice del mes con el mes actual
             totalgeneralpormes += total;
             // Actualiza el contenido del span con el total correspondiente al mes actual
