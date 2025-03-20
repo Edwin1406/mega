@@ -155,7 +155,7 @@
 
 
 <div class="contenido-graficos">
-    <div class="grafico2">
+    <div class="grafico1">
 
         <canvas id="productosStockMinimo"></canvas>
     </div>
