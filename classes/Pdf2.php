@@ -47,7 +47,7 @@ class Pdf2 extends TCPDF
         // Número de factura
         $this->SetXY(220, 25);
         $this->SetFont('helvetica', 'B', 12);
-        $this->Cell(50, 6, 'Factura No: ' . ($datos['id'] ?? 'No disponible'), 0, 1, 'R');
+        $this->Cell(50, 6, 'Solicitud No: ' . ($datos['id'] ?? 'No disponible'), 0, 1, 'R');
 
         $this->Ln(20);
 
