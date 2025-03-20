@@ -161,13 +161,7 @@
     </div>
 </div>
 
-<div class="contenido-graficos">
-   
 
-    <canvas id="productoss" width="400" height="400"></canvas>
-
-
-</div>
 
 
 <!-- grafica de pastel de movimientosd  -->
@@ -480,59 +474,6 @@ async function productosconstockminimo() {
 
 productosconstockminimo();
 
-
-async function graficademovimientos(){
-    const url = 'https://megawebsistem.com/admin/api/apimovimientos';
-    const respuesta = await fetch(url);
-    const resultado = await respuesta.json();
-
-    // Obtener la fecha actual y extraer el mes y el año
-    const fechaActual = new Date();
-    const mesActual = fechaActual.getMonth();  // Mes actual (0 = enero, 11 = diciembre)
-    const añoActual = fechaActual.getFullYear();  // Año actual
-    
-    // Filtrar los movimientos del mes actual
-    const movimientosMesActual = resultado.filter(movimiento => {
-        const fechaMovimiento = new Date(movimiento.fecha_movimiento);
-        return fechaMovimiento.getMonth() === mesActual && fechaMovimiento.getFullYear() === añoActual;
-    });
-
-    // Filtrar los movimientos de entrada y salida
-    const movimientosEntrada = movimientosMesActual.filter(movimiento => movimiento.tipo_movimiento === 'ENTRADA');
-    const movimientosSalida = movimientosMesActual.filter(movimiento => movimiento.tipo_movimiento === 'SALIDA');
-
-    // Obtener el total de movimientos de entrada y salida
-    const totalEntrada = movimientosEntrada.reduce((total, movimiento) => total + parseFloat(movimiento.costo_nuevo * movimiento.cantidad), 0);
-    const totalSalida = movimientosSalida.reduce((total, movimiento) => total + parseFloat(movimiento.costo_nuevo * movimiento.cantidad), 0);
-
-    console.log("Movimientos de entrada:", movimientosEntrada);
-    console.log("Movimientos de salida:", movimientosSalida);
-    console.log("Total de movimientos de entrada:", totalEntrada);
-
-    // Crear un gráfico de dona
-    const ctx = document.getElementById('productoss').getContext('2d');
-    new Chart(ctx, {
-        type: 'doughnut',
-        data: {
-            labels: ['ENTRADA', 'SALIDA'],
-            datasets: [{
-                label: 'Movimientos de entrada y salida',
-                data: [totalEntrada, totalSalida],
-                backgroundColor: [
-                    'rgba(75, 192, 192, 0.2)', // Verde
-                    'rgba(255, 99, 132, 0.2)' // Rojo
-                ],
-                borderColor: [
-                    'rgba(75, 192, 192, 1)', // Verde
-                    'rgba(255, 99, 132, 1)' // Rojo
-                ],
-                borderWidth: 1
-            }]
-        }
-    });
-}
-
-graficademovimientos();  // Ejecutar la función
 
 
 

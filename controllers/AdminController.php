@@ -9,6 +9,10 @@ class AdminController
 {
     public static function index(Router $router)
     {
+        session_start();
+        if (!isset($_SESSION['email'])) {
+            header('Location: /');
+        }
         $router->render('admin/dashboard/index' , [
             'titulo' => 'MEGASTOCK-DESARROLLO'
         ]);
