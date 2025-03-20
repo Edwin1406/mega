@@ -17,7 +17,7 @@
 }
 
 
-button, input, optgroup, select, textarea {
+button, optgroup, select, textarea {
 font-family: inherit;
 font-size: 100%;
 line-height: 1.15;
