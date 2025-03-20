@@ -494,7 +494,15 @@ async function entradasysalidas() {
         return itemDate.getMonth() === currentMonth && itemDate.getFullYear() === currentYear;
     });
 
-    console.log("Datos de este mes actual:", filteredData);
+
+    // filtrarsolo entradasysalidas
+    const entradas = datos.filter(item => item.tipo_movimiento === 'ENTRADA');
+    const salidas = datos.filter(item => item.tipo_movimiento === 'SALIDA');
+
+    console.log("Datos de entradas:", entradas);
+    console.log("Datos de salidas:", salidas);
+
+    // console.log("Datos de este mes actual:", filteredData);
 
 }
 
