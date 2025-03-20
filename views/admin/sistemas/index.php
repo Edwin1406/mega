@@ -203,11 +203,19 @@ async function datosapi() {
 
     // Agrupar los datos por área
     const areas = {};
+
+    
     filteredData.forEach(item => {
-        if (!areas[item.area]) {
-            areas[item.area] = 0;
+        if (item.tipo_movimiento === 'Entrada') {
+            if (!areas[item.area]) {
+                areas[item.area] = 0;
+            }
+            areas[item.area] += parseFloat(item.costo_nuevo*item.cantidad); // Sumar la cantidad de cada área
         }
-        areas[item.area] += parseFloat(item.costo_nuevo*item.cantidad); // Sumar la cantidad de cada área
+        // if (!areas[item.area]) {
+        //     areas[item.area] = 0;
+        // }
+        // areas[item.area] += parseFloat(item.costo_nuevo*item.cantidad); // Sumar la cantidad de cada área
     });
 
     // Labels para el gráfico (nombres de las áreas)
@@ -331,8 +339,7 @@ async function sumadevaloresdeapi(){
             const monthIndex = itemDate.getMonth();
             monthlyTotals[monthIndex] += Number(item.costo_nuevo*item.cantidad); 
         }
-        // const monthIndex = itemDate.getMonth();
-        // monthlyTotals[monthIndex] += Number(item.costo_nuevo*item.cantidad); 
+        
     });
 
     // console.log("Total acumulado por mes:", monthlyTotals);
