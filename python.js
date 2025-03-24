@@ -58,7 +58,7 @@ const pedidos = [
 
     {
         id: 9,
-        alto: "0",
+        alto: 0,
         ancho: 417,
         cantidad: 3150,
         fecha_entrega: "2025-02-27",
@@ -72,7 +72,7 @@ const pedidos = [
 
     {
         id: 10,
-        alto: "0",
+        alto: 0,
         ancho: 339,
         cantidad: 1575,
         fecha_entrega: "2025-02-27",
@@ -326,33 +326,55 @@ function eliminarNan(mejoresCombos) {
     });
 
 
+// Crear nuevos pedidos con la cantidad faltante
+const pedidosNuevos = [];
 
-    for(const contruye of mejoresCombosFinales){
-        // traer el pedido qu este con cantidad_faltante mayor a 0 traer ese pedido com pleto sin trimar 
-        for(const pedidoKey in contruye){
-            if(contruye.hasOwnProperty(pedidoKey)){
-                const pedido = contruye[pedidoKey];
-                if(pedido.cantidad_faltante > 0){
-                    // Duplicar el pedido
-                    const nuevoPedido = { ...pedido };
-                    // Actualizar los valores del nuevo pedido (como id, etc., si es necesario)
-                    nuevoPedido.id = Math.max(contruye.pedido_1.id, contruye.pedido_2.id) + 1; // Genera un nuevo id único, puedes cambiar esto según la lógica que necesites.
-                    nuevoPedido.cantidad = pedido.cantidad_faltante; // La cantidad del nuevo pedido es la cantidad_faltante
-                    nuevoPedido.cantidad_faltante = 0; // El nuevo pedido no tiene cantidad faltante
-                    nuevoPedido.porcentaje1 = (nuevoPedido.cantidad_faltante / nuevoPedido.cantidad) * 100; // Ajustar porcentaje (si aplica)
-                    nuevoPedido.cortes = Math.ceil(nuevoPedido.cantidad / nuevoPedido.cavidad); // Recalcular cortes
-                    nuevoPedido.cantidad_producida = nuevoPedido.cortes * nuevoPedido.cavidad; // Recalcular cantidad_producida
-                    // Agregar el pedido duplicado al combo
-                    const nuevoPedidoKey = `pedido_${Object.keys(contruye).filter(key => key.startsWith('pedido')).length + 1}`;
-                    contruye[nuevoPedidoKey] = nuevoPedido;
-                }
-            }
-        }
-        console.log("contruye",contruye);
+for(const contruye of mejoresCombosFinales){
+    // Traer el pedido original y verificar si hay cantidad faltante para duplicar el pedido sin modificar el original
+    const pedido1 = pedidos.find(pedido => pedido.id === contruye.pedido_1.id);
+    const pedido2 = pedidos.find(pedido => pedido.id === contruye.pedido_2.id);
 
-        console.log("mejores combos finales",mejoresCombosFinales);
+    // Verifica si hay cantidad faltante para el pedido 1
+    if(contruye.pedido_1.cantidad_faltante > 0){
+        // console.log("Cantidad faltante para el pedido 1: ", contruye.pedido_1.cantidad_faltante);
         
+        const nuevoPedido = {
+            ...pedido1,
+            // Remplazar la cantidad por la cantidad faltante
+            cantidad: contruye.pedido_1.cantidad_faltante
+        };
+        // console.log("Nuevo pedido 1 creado: ", nuevoPedido);
+        
+        // Agregar el nuevo pedido al array de pedidos nuevos
+        pedidosNuevos.push(nuevoPedido);
+    } else {
+        // console.log("No hay cantidad faltante para el pedido 1, se ignora.");
     }
+
+    // Verifica si hay cantidad faltante para el pedido 2
+    if(contruye.pedido_2.cantidad_faltante > 0){
+        // console.log("Cantidad faltante para el pedido 2: ", contruye.pedido_2.cantidad_faltante);
+        
+        const nuevoPedido = {
+            ...pedido2,
+            // Remplazar la cantidad por la cantidad faltante
+            cantidad: contruye.pedido_2.cantidad_faltante
+        };
+        // console.log("Nuevo pedido 2 creado: ", nuevoPedido);
+        
+        // Agregar el nuevo pedido al array de pedidos nuevos
+        pedidosNuevos.push(nuevoPedido);
+    } else {
+        // console.log("No hay cantidad faltante para el pedido 2, se ignora.");
+    }
+
+    // console.log("pedido 1:", pedido1);
+    // console.log("pedido 2:", pedido2);
+}
+
+// Mostrar el array con los pedidos nuevos
+console.log("Pedidos nuevos:", pedidosNuevos);
+
 
 
 
@@ -395,6 +417,12 @@ function eliminarNan(mejoresCombos) {
             tbody.appendChild(tr2);
         });
 
+
+
+
+
+        
+
     console.log("mejores combos sin nan", mejoresCombosFinales);
 
     // como poener global mejoresCombosFinales
@@ -407,6 +435,14 @@ function eliminarNan(mejoresCombos) {
 const combinaciones = generarCombinaciones(pedidosCalculadosAgrupados);
 
 const mejorTrimado = encontrarMejorTrimado(combinaciones);
+
+
+
+
+
+
+
+
 
 
 
