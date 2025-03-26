@@ -182,6 +182,13 @@
 
 </div>
 
+<div class="contenido-graficos">
+  
+    <div class="grafico3">
+    <canvas id="graficoAniosComputadoras"></canvas>
+    </div>
+</div>
+
 
 
 
