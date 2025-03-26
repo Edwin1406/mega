@@ -22,12 +22,12 @@
   border-radius: 1rem;
   text-align: center;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  box-shadow: 0 2px 5px rgba(135, 164, 165, 0.2);
 }
 
 .caracteristicas__item:hover {
   transform: translateY(-5px);
-  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  box-shadow: 0 5px 15px rgba(114, 156, 149, 0.3);
 }
 
 .caracteristicas__item p:first-child {
