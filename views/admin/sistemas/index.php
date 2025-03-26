@@ -646,70 +646,99 @@
 
 
 
+async function Apicomputadoras() {
+    const url = 'https://megawebsistem.com/admin/api/apicomputadoras';
+    const response = await fetch(url);
+    const datos = await response.json();
 
+    // Colores variados para el fondo
+    const colores = [
+        'rgba(255, 99, 132, 0.6)',
+        'rgba(54, 162, 235, 0.6)',
+        'rgba(255, 206, 86, 0.6)',
+        'rgba(75, 192, 192, 0.6)',
+        'rgba(153, 102, 255, 0.6)',
+        'rgba(255, 159, 64, 0.6)',
+        'rgba(199, 199, 199, 0.6)',
+        'rgba(83, 102, 255, 0.6)',
+        'rgba(120, 255, 108, 0.6)',
+        'rgba(255, 108, 255, 0.6)'
+    ];
 
-    async function Apicomputadoras() {
-        const url = 'https://megawebsistem.com/admin/api/apicomputadoras';
-        const response = await fetch(url);
-        const datos = await response.json();
+    const hoy = new Date();
 
-        // Filtrar y mapear los datos para obtener fecha de compra y calcular antigüedad
-        const computadorasConAnios = datos
-            .filter(pc => pc.fecha_compra) // nos aseguramos de que tenga fecha
-            .map(pc => {
-                const fechaCompra = new Date(pc.fecha_compra);
-                const hoy = new Date();
-                const diferenciaAnios = hoy.getFullYear() - fechaCompra.getFullYear();
-                return {
-                    id: pc.numero_interno || "Sin ID",
-                    anios: diferenciaAnios
-                };
-            });
+    const computadorasConTiempos = datos
+        .filter(pc => pc.fecha_compra)
+        .map((pc, index) => {
+            const fechaCompra = new Date(pc.fecha_compra);
+            const diffTiempo = hoy - fechaCompra;
 
-        // Extraemos etiquetas e información para la gráfica
-        const etiquetas = computadorasConAnios.map(pc => pc.id);
-        const aniosDeUso = computadorasConAnios.map(pc => pc.anios);
+            const diffDiasTotales = Math.floor(diffTiempo / (1000 * 60 * 60 * 24));
+            const anios = Math.floor(diffDiasTotales / 365);
+            const dias = diffDiasTotales % 365;
 
-        // Renderizamos el gráfico con Chart.js
-        const ctx = document.getElementById('graficoAniosComputadoras').getContext('2d');
-        new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: etiquetas,
-                datasets: [{
-                    label: 'Años de uso',
-                    data: aniosDeUso,
-                    backgroundColor: 'rgba(54, 162, 235, 0.5)',
-                    borderColor: 'rgba(54, 162, 235, 1)',
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                responsive: true,
-                plugins: {
-                    title: {
-                        display: true,
-                        text: 'Antigüedad de las Computadoras'
+            return {
+                etiqueta: `${pc.numero_interno || "Sin ID"} (${pc.usuario_asignado || "Sin usuario"})`,
+                tiempoTexto: `${anios} años ${dias} días`,
+                diasTotales: diffDiasTotales,
+                color: colores[index % colores.length]
+            };
+        });
+
+    const etiquetas = computadorasConTiempos.map(pc => pc.etiqueta);
+    const datosDias = computadorasConTiempos.map(pc => pc.diasTotales);
+    const coloresBackground = computadorasConTiempos.map(pc => pc.color);
+    const etiquetasTooltip = computadorasConTiempos.map(pc => pc.tiempoTexto);
+
+    const ctx = document.getElementById('graficoAniosComputadoras').getContext('2d');
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: etiquetas,
+            datasets: [{
+                label: 'Antigüedad en días',
+                data: datosDias,
+                backgroundColor: coloresBackground,
+                borderColor: 'rgba(0, 0, 0, 0.3)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            const index = context.dataIndex;
+                            return `Antigüedad: ${etiquetasTooltip[index]}`;
+                        }
                     }
                 },
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        title: {
-                            display: true,
-                            text: 'Años'
-                        }
-                    },
-                    x: {
-                        title: {
-                            display: true,
-                            text: 'ID del Equipo'
-                        }
+                title: {
+                    display: true,
+                    text: 'Antigüedad de Computadoras (años + días)'
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: 'Total de días desde compra'
+                    }
+                },
+                x: {
+                    ticks: {
+                        autoSkip: false,
+                        maxRotation: 60,
+                        minRotation: 30
                     }
                 }
             }
-        });
-    }
+        }
+    });
+}
 
-    Apicomputadoras();
+Apicomputadoras();
+
 </script>
