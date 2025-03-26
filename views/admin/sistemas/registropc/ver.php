@@ -4,29 +4,44 @@
 
 
 <style>
-  .caracteristicas {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 2rem;
+.caracteristicas {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.5rem;
   background-color: #f8f2f2;
-  padding: 1rem;
+  padding: 2rem;
   border-radius: 1rem;
-  justify-content: center;
-}
-
-.caracteristicas > * {
-  flex: 1 1 calc(15% - 0.5rem); /* 4 columnas con espacio */
-  min-width: 20%; /* Para evitar que se achiquen demasiado en pantallas pequeñas */
+  max-width: 1200px;
+  margin: auto;
 }
 
 .caracteristicas__item {
-  background-color: #24292d;
+  background-color: #1f2428;
   color: #f8f2f2;
-  padding: 10px 15px;
-  transition: all 0.5s;
-  margin-bottom: 1rem;
-  text-align: center;
+  padding: 1.5rem;
   border-radius: 1rem;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.caracteristicas__item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+.caracteristicas__item p:first-child {
+  font-weight: bold;
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.caracteristicas__item p:last-child {
+  font-size: 1.1rem;
+  margin: 0;
+  color: #e6e6e6;
 }
 
 
