@@ -16,7 +16,7 @@
 </style>
 
 <div class="contenedor">
-    < class="caracteristicas">
+    <div class="caracteristicas">
         <div class="caracteristicas__item">
             <p> ID DEL EQUIPO: </p>
             <p> <?php echo $computadora->numero_interno ?> </p>
