@@ -8,6 +8,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        gap: 1rem;
         
     }
 
@@ -16,7 +17,6 @@
 
 <div class="contenedor">
     <div class="caracteristicas">
-        <h1> informacion de la computadora </h1>
         <div class="caracteristicas__item">
             <p> ID DEL EQUIPO: </p>
             <p> <?php echo $computadora->numero_interno ?> </p>
