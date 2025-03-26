@@ -12,7 +12,7 @@
 
 .caracteristicas > * {
   flex: 1 1 calc(25% - 2rem); /* 4 columnas con espacio */
-  min-width: 200px; /* Para evitar que se achiquen demasiado en pantallas pequeñas */
+  min-width: 20%; /* Para evitar que se achiquen demasiado en pantallas pequeñas */
 }
 
 
