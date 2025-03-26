@@ -681,7 +681,9 @@ async function Apicomputadoras() {
                 etiqueta: `${pc.numero_interno || "Sin ID"} (${pc.usuario_asignado || "Sin usuario"})`,
                 tiempoTexto: `${anios} años ${dias} días`,
                 diasTotales: diffDiasTotales,
-                color: colores[index % colores.length]
+                color: colores[index % colores.length],
+                area: pc.area
+
             };
         });
 
