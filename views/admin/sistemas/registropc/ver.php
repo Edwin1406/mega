@@ -24,7 +24,7 @@
   color: #f8f2f2;
   padding: 10px 15px;
   transition: all 0.5s;
-  margin-bottom: 5rem;
+  margin-bottom: 1rem;
   text-align: center;
   border-radius: 1rem;
 }
