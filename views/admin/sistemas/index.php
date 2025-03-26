@@ -855,7 +855,7 @@ async function Apicomputadoras() {
                     document.getElementById('btnMostrarID').onclick = function () {
 
                         // url 
-                        window.location.href = `'/admin/sistemas/registropc/ver?id=${compu.idReal}`;
+                        window.location.href = `/admin/sistemas/registropc/ver?id=${compu.idReal}`;
                     };
                 }
             },
