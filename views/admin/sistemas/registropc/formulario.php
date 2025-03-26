@@ -114,16 +114,20 @@
             name="direccion_ip"
             id="direccion_ip"
             class="formulario__input"
-            placeholder="gramaje_maximo de la maquina"
+            placeholder="direccion ip"
             value="">
     </div>
 
-    
 
 
-
-    
-
-
-
+   <div class="formulario__campo">
+        <label class="formulario__label" for="contraseña">contraseña</label>
+        <input
+            type="text"
+            name="contraseña"
+            id="contraseña"
+            class="formulario__input"
+            placeholder="contraseña"
+            value="">
+    </div>
 </fieldset>
