@@ -44,6 +44,12 @@
   color:rgb(0, 0, 0);
 }
 
+.contenido{
+    display: flex;
+    justify-content: center;
+    background-color:rgb(255, 255, 255);
+}
+
 
 
 </style>
