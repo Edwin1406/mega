@@ -6,7 +6,8 @@
 <style>
     .caracteristicas {
         display: flex;
-        justify-content: center;
+        justify-content: 1fr 1fr;
+        flex-wrap: wrap;
         align-items: center;
         gap: 1rem;
         
