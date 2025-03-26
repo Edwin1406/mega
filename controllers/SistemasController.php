@@ -514,6 +514,19 @@ public static function version (Router $router)
     session_start();
 
     $computadoras = new Computadora;
+
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $computadoras->sincronizar($_POST);
+        $alertas = $computadoras->validar();
+
+        if (empty($alertas)) {
+            $computadoras->guardar();
+            $alertas = $computadoras->getAlertas();
+            header('Location: /admin/sistemas/registropc/version');
+        }
+    }
+
+
     // debuguear($computadoras);
 
     $router->render('admin/sistemas/registropc/version', [
