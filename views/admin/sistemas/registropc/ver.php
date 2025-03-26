@@ -139,18 +139,6 @@
 
 
 
-
-<h2 class="dashboard__heading"> <?php echo $titulo ?> </h2>
-
-<div class="dashboard__contenedor-boton">
-    <a class="dashboard__boton" href="/admin/produccion/registro_produccion">
-    <i class="fa-solid fa-circle-arrow-left"></i>
-        REGRESAR A INICIO
-    </a>
-
-</div>
-
-
 <div class="dashboard__contenedor">
     <?php if (!empty($bobinas)): ?>
         <table class="table">
