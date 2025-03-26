@@ -176,6 +176,13 @@
         <canvas id="entradasysalidas"></canvas>
     </div>
 
+  
+
+</div>
+
+<div class="contenido-graficos">
+   
+
     <div class="grafico3">
 
         <canvas id="graficoAniosComputadoras"></canvas>
