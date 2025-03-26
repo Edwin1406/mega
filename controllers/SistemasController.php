@@ -550,6 +550,23 @@ public static function apicomputadoras(){
 
 
 
+public static function ver (Router $router){
+    session_start();
+    $id = $_GET['id'];
+    $id = filter_var($id, FILTER_VALIDATE_INT);
+    $computadora = Computadora::find($id);
+    // debuguear($computadora);
+    if (!$computadora) {
+        header('Location: /admin/sistemas/registropc/version');
+    }
+
+    $router->render('admin/sistemas/registropc/ver', [
+        'titulo' => 'VER COMPUTADORA',
+        'computadora' => $computadora,
+    ]);
+}
+
+
 
 
 
