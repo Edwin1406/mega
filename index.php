@@ -325,6 +325,9 @@ $router->post('/admin/sistemas/registropc/version', [SistemasController::class, 
 $router->get('/admin/api/apicomputadoras', [SistemasController::class, 'apicomputadoras']);
 
 
+$router->get('/admin/sistemas/registropc/ver', [SistemasController::class, 'ver']);
+
+
 
 
 
