@@ -162,6 +162,15 @@
             width: 100%;
         }
     }
+
+
+#btnMostrarID{
+    border-radius: 1rem;
+    background-color:rgb(197, 155, 155);
+    
+}
+
+
 </style>
 <!-- Modal -->
 <div id="modalComputadora" class="modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; 
