@@ -79,10 +79,12 @@
 
     <form method="POST" action="/admin/sistemas/registropc/version"  class="formulario" enctype="multipart/form-data">
     <?php include_once __DIR__.'/formulario.php'  ?>
-
-        <input class="formulario__submit formulario__submit--registrar" type="submit" value="Registrar computadora">
-
-        
+        <input class="formulario__submit formulario__submit--registrar" type="submit" value="Registrar computadora">        
     </form>
 
 </div>
+
+
+
+
+
