@@ -9,6 +9,7 @@
   flex-wrap: wrap;
   gap: 2rem;
   border: solid 1pxrgb(165, 132, 132);
+  background-color: #f8f2f2;
   padding: 1rem;
 }
 
