@@ -32,14 +32,14 @@
 
 .caracteristicas__item p:first-child {
   font-weight: bold;
-  font-size: 0.9rem;
+  font-size: 1.2rem;
   margin-bottom: 0.5rem;
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
 
 .caracteristicas__item p:last-child {
-  font-size: 1.1rem;
+  font-size: 1.5rem;
   margin: 0;
   color:rgb(0, 0, 0);
 }
