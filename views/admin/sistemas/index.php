@@ -164,10 +164,10 @@
     }
 
 
-#btnMostrarID{
+button{
     border-radius: 1rem;
     background-color:rgb(197, 155, 155);
-    
+
 }
 
 
