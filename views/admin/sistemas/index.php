@@ -166,7 +166,7 @@
     <canvas id="entradasysalidas" ></canvas>
     </div>
     </div>
-    <div class="grafico2">
+    <div class="grafico3">
 
     <canvas id="graficoAniosComputadoras"></canvas>
     </div>
