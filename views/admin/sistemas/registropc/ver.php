@@ -135,13 +135,6 @@
             <p> <?php echo $computadora->created_at ?> </p>
         </div>
     </div>
-    <div class="caracteristicas">
-            <!-- formualrio  -->
-            <form method="POST" class="formulario" action="/admin/sistemas/registropc/eliminar">
-                <input type="hidden" name="id" value="<?php echo $computadora->id; ?>">
-                <input type="submit" value="Eliminar" class="formulario__submit">
-            </form>
-    </div>
 
     
 </div>
