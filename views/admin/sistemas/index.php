@@ -165,12 +165,20 @@
 
     <canvas id="entradasysalidas" ></canvas>
     </div>
+    </div>
+    <div class="grafico2">
+
+    <canvas id="graficoAniosComputadoras"></canvas>
+    </div>
+
+
+
 </div>
 
 
 
 
-<canvas id="graficoAniosComputadoras" width="400" height="200"></canvas>
+
 
 
 <!-- grafica de pastel de movimientosd  -->
