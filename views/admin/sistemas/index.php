@@ -170,6 +170,7 @@
 
 
 
+<canvas id="graficoAniosComputadoras" width="400" height="200"></canvas>
 
 
 <!-- grafica de pastel de movimientosd  -->
@@ -617,14 +618,69 @@ entradasysalidas();
 
 
 
-async function Apicomputadoras(params) {
+
+async function Apicomputadoras() {
     const url = 'https://megawebsistem.com/admin/api/apicomputadoras';
     const response = await fetch(url);
     const datos = await response.json();
-    console.log(datos);
+
+    // Filtrar y mapear los datos para obtener fecha de compra y calcular antigüedad
+    const computadorasConAnios = datos
+        .filter(pc => pc.fecha_compra) // nos aseguramos de que tenga fecha
+        .map(pc => {
+            const fechaCompra = new Date(pc.fecha_compra);
+            const hoy = new Date();
+            const diferenciaAnios = hoy.getFullYear() - fechaCompra.getFullYear();
+            return {
+                id: pc.numero_interno || "Sin ID",
+                anios: diferenciaAnios
+            };
+        });
+
+    // Extraemos etiquetas e información para la gráfica
+    const etiquetas = computadorasConAnios.map(pc => pc.id);
+    const aniosDeUso = computadorasConAnios.map(pc => pc.anios);
+
+    // Renderizamos el gráfico con Chart.js
+    const ctx = document.getElementById('graficoAniosComputadoras').getContext('2d');
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: etiquetas,
+            datasets: [{
+                label: 'Años de uso',
+                data: aniosDeUso,
+                backgroundColor: 'rgba(54, 162, 235, 0.5)',
+                borderColor: 'rgba(54, 162, 235, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Antigüedad de las Computadoras'
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: 'Años'
+                    }
+                },
+                x: {
+                    title: {
+                        display: true,
+                        text: 'ID del Equipo'
+                    }
+                }
+            }
+        }
+    });
 }
-
-
 
 Apicomputadoras();
 
