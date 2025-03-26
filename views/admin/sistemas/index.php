@@ -163,6 +163,16 @@
         }
     }
 </style>
+<!-- Modal -->
+<div id="modalComputadora" class="modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; 
+    background: rgba(0,0,0,0.5); justify-content:center; align-items:center;">
+    <div style="background:white; padding:20px; border-radius:10px; width: 400px; max-width: 90%;">
+        <h2>Información de la Computadora</h2>
+        <div id="contenidoModal" style="margin-bottom: 20px;"></div>
+        <button id="btnMostrarID" style="padding:10px 15px;">Mostrar ID</button>
+        <button onclick="cerrarModal()" style="padding:10px 15px; float:right;">Cerrar</button>
+    </div>
+</div>
 
 
 
@@ -658,23 +668,114 @@
 
 
 
+// async function Apicomputadoras() {
+//     const url = 'https://megawebsistem.com/admin/api/apicomputadoras';
+//     const response = await fetch(url);
+//     const datos = await response.json();
+
+//     // Colores variados para el fondo
+//     const colores = [
+//         'rgba(255, 99, 132, 0.6)',
+//         'rgba(54, 162, 235, 0.6)',
+//         'rgba(255, 206, 86, 0.6)',
+//         'rgba(75, 192, 192, 0.6)',
+//         'rgba(153, 102, 255, 0.6)',
+//         'rgba(255, 159, 64, 0.6)',
+//         'rgba(199, 199, 199, 0.6)',
+//         'rgba(83, 102, 255, 0.6)',
+//         'rgba(120, 255, 108, 0.6)',
+//         'rgba(255, 108, 255, 0.6)'
+//     ];
+
+//     const hoy = new Date();
+
+//     const computadorasConTiempos = datos
+//         .filter(pc => pc.fecha_compra)
+//         .map((pc, index) => {
+//             const fechaCompra = new Date(pc.fecha_compra);
+//             const diffTiempo = hoy - fechaCompra;
+
+//             const diffDiasTotales = Math.floor(diffTiempo / (1000 * 60 * 60 * 24));
+//             const anios = Math.floor(diffDiasTotales / 365);
+//             const dias = diffDiasTotales % 365;
+
+//             return {
+//                 etiqueta: `${pc.numero_interno || "Sin ID"} (${pc.usuario_asignado || "Sin usuario"}) - ${pc.area}`,
+//                 tiempoTexto: `${anios} años ${dias} días`,
+//                 diasTotales: diffDiasTotales,
+//                 color: colores[index % colores.length],
+//             };
+//         });
+
+//     const etiquetas = computadorasConTiempos.map(pc => pc.etiqueta);
+//     const datosDias = computadorasConTiempos.map(pc => pc.diasTotales);
+//     const coloresBackground = computadorasConTiempos.map(pc => pc.color);
+//     const etiquetasTooltip = computadorasConTiempos.map(pc => pc.tiempoTexto);
+
+//     const ctx = document.getElementById('graficoAniosComputadoras').getContext('2d');
+//     new Chart(ctx, {
+//         type: 'bar',
+//         data: {
+//             labels: etiquetas,
+//             datasets: [{
+//                 label: 'Antigüedad en días',
+//                 data: datosDias,
+//                 backgroundColor: coloresBackground,
+//                 borderColor: 'rgba(0, 0, 0, 0.3)',
+//                 borderWidth: 1
+//             }]
+//         },
+//         options: {
+//             responsive: true,
+//             plugins: {
+//                 tooltip: {
+//                     callbacks: {
+//                         label: function(context) {
+//                             const index = context.dataIndex;
+//                             return `Antigüedad: ${etiquetasTooltip[index]}`;
+//                         }
+//                     }
+//                 },
+//                 title: {
+//                     display: true,
+//                     text: 'Antigüedad de Computadoras (años + días)'
+//                 }
+//             },
+//             scales: {
+//                 y: {
+//                     beginAtZero: true,
+//                     title: {
+//                         display: true,
+//                         text: 'Total de días desde compra'
+//                     }
+//                 },
+//                 x: {
+//                     ticks: {
+//                         autoSkip: false,
+//                         maxRotation: 60,
+//                         minRotation: 30
+//                     }
+//                 }
+//             }
+//         }
+//     });
+// }
+
+// Apicomputadoras();
+
+function cerrarModal() {
+    document.getElementById('modalComputadora').style.display = 'none';
+}
+
 async function Apicomputadoras() {
     const url = 'https://megawebsistem.com/admin/api/apicomputadoras';
     const response = await fetch(url);
     const datos = await response.json();
 
-    // Colores variados para el fondo
     const colores = [
-        'rgba(255, 99, 132, 0.6)',
-        'rgba(54, 162, 235, 0.6)',
-        'rgba(255, 206, 86, 0.6)',
-        'rgba(75, 192, 192, 0.6)',
-        'rgba(153, 102, 255, 0.6)',
-        'rgba(255, 159, 64, 0.6)',
-        'rgba(199, 199, 199, 0.6)',
-        'rgba(83, 102, 255, 0.6)',
-        'rgba(120, 255, 108, 0.6)',
-        'rgba(255, 108, 255, 0.6)'
+        'rgba(255, 99, 132, 0.6)', 'rgba(54, 162, 235, 0.6)', 'rgba(255, 206, 86, 0.6)',
+        'rgba(75, 192, 192, 0.6)', 'rgba(153, 102, 255, 0.6)', 'rgba(255, 159, 64, 0.6)',
+        'rgba(199, 199, 199, 0.6)', 'rgba(83, 102, 255, 0.6)', 'rgba(120, 255, 108, 0.6)', 'rgba(255, 108, 255, 0.6)'
     ];
 
     const hoy = new Date();
@@ -684,26 +785,31 @@ async function Apicomputadoras() {
         .map((pc, index) => {
             const fechaCompra = new Date(pc.fecha_compra);
             const diffTiempo = hoy - fechaCompra;
-
             const diffDiasTotales = Math.floor(diffTiempo / (1000 * 60 * 60 * 24));
             const anios = Math.floor(diffDiasTotales / 365);
             const dias = diffDiasTotales % 365;
 
             return {
-                etiqueta: `${pc.numero_interno || "Sin ID"} (${pc.usuario_asignado || "Sin usuario"}) - ${pc.area}`,
+                id: pc.numero_interno || "Sin ID",
+                usuario: pc.usuario_asignado || "Sin usuario",
+                area: pc.area || "Sin área",
+                fecha: pc.fecha_compra,
+                marca: pc.marca_modelo,
+                estado: pc.estado_actual,
                 tiempoTexto: `${anios} años ${dias} días`,
                 diasTotales: diffDiasTotales,
-                color: colores[index % colores.length],
+                color: colores[index % colores.length]
             };
         });
 
-    const etiquetas = computadorasConTiempos.map(pc => pc.etiqueta);
+    const etiquetas = computadorasConTiempos.map(pc => `${pc.id} (${pc.usuario})`);
     const datosDias = computadorasConTiempos.map(pc => pc.diasTotales);
     const coloresBackground = computadorasConTiempos.map(pc => pc.color);
     const etiquetasTooltip = computadorasConTiempos.map(pc => pc.tiempoTexto);
 
     const ctx = document.getElementById('graficoAniosComputadoras').getContext('2d');
-    new Chart(ctx, {
+
+    const chart = new Chart(ctx, {
         type: 'bar',
         data: {
             labels: etiquetas,
@@ -716,7 +822,32 @@ async function Apicomputadoras() {
             }]
         },
         options: {
-            responsive: true,
+            onClick: (evt, elements) => {
+                if (elements.length > 0) {
+                    const index = elements[0].index;
+                    const compu = computadorasConTiempos[index];
+
+                    // Llenamos el contenido del modal
+                    document.getElementById('contenidoModal').innerHTML = `
+                        <p><strong>ID:</strong> ${compu.id}</p>
+                        <p><strong>Usuario:</strong> ${compu.usuario}</p>
+                        <p><strong>Área:</strong> ${compu.area}</p>
+                        <p><strong>Fecha de Compra:</strong> ${compu.fecha}</p>
+                        <p><strong>Marca/Modelo:</strong> ${compu.marca}</p>
+                        <p><strong>Estado:</strong> ${compu.estado}</p>
+                        <p><strong>Antigüedad:</strong> ${compu.tiempoTexto}</p>
+                    `;
+
+                    // Mostrar el modal
+                    document.getElementById('modalComputadora').style.display = 'flex';
+
+                    // Botón que muestra el ID
+                    document.getElementById('btnMostrarID').onclick = function () {
+                        console.log("ID del equipo:", compu.id);
+                        alert("ID del equipo: " + compu.id);
+                    };
+                }
+            },
             plugins: {
                 tooltip: {
                     callbacks: {
@@ -752,5 +883,4 @@ async function Apicomputadoras() {
 }
 
 Apicomputadoras();
-
 </script>
