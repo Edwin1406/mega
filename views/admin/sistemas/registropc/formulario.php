@@ -1,5 +1,5 @@
 <fieldset class="formulario__fieldset">
-    <legend class="formulario__legend">Información de la Maquina</legend>
+    <legend class="formulario__legend">Información de Registro de computadora</legend>
     <div class="formulario__campo">
         <label class="formulario__label" for="nombre">Nombre</label>
         <input
