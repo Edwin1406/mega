@@ -507,4 +507,12 @@ public static function pdfinventario(Router $router)
 }
 
 
+public static function version (Router $router)
+{
+    $router->render('admin/sistemas/registropc/version', [
+        'titulo' => 'VERSION',
+    ]);
+
+}
+
 }

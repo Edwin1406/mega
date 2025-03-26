@@ -318,6 +318,10 @@ $router->get('/admin/api/apiproducts', [SistemasController::class, 'apiproducts'
 $router->get('/admin/sistemas/pdfinventario', [SistemasController::class, 'pdfinventario']);
 
 
+$router->get('/admin/sistemas/registropc/version', [SistemasController::class, 'version']);
+
+
+
 
 
 // citas de prueba 
