@@ -11,7 +11,7 @@
   background-color: #f8f2f2;
   padding: 2rem;
   border-radius: 1rem;
-  max-width: 1200px;
+  max-width: 100%;
   margin: auto;
 }
 
