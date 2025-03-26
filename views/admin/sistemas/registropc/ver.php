@@ -51,7 +51,7 @@
 }
 
 .designar{
-    font-size: 3rem;
+    font-size: 2.5rem;
     color:rgb(0, 0, 0);
     font-weight: bold;
 }
