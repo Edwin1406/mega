@@ -853,7 +853,9 @@ async function Apicomputadoras() {
 
                     // Botón que muestra el ID
                     document.getElementById('btnMostrarID').onclick = function () {
-                        alert(`El ID real de la computadora es: ${compu.idReal}`);
+
+                        // url 
+                        window.location.href = `/admin/sistemas/productos/ver?id=${compu.idReal}`;
                     };
                 }
             },
