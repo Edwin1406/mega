@@ -77,7 +77,7 @@
             value="<?php echo $maquina->gramaje_maximo ?? '' ?>">
     </div>
 
-   <div class="formulario__campo">
+    <div class="formulario__campo">
         <label class="formulario__label" for="gramaje_maximo">DISCO </label>
         <input
             type="text"
@@ -87,8 +87,8 @@
             placeholder="gramaje_maximo de la maquina"
             value="<?php echo $maquina->gramaje_maximo ?? '' ?>">
     </div>
-   <div class="formulario__campo">
-        <label class="formulario__label" for="gramaje_maximo">SISTEMA OPERATIVO  </label>
+    <div class="formulario__campo">
+        <label class="formulario__label" for="gramaje_maximo">SISTEMA OPERATIVO </label>
         <input
             type="text"
             name="gramaje_maximo"
@@ -99,13 +99,31 @@
     </div>
 
     <div class="formulario__campo">
-    <label class="formulario__label" for="estado_actual">ESTADO ACTUAL  </label>
-    <select name="estado_actual" id="estado_actual" class="formulario__input">
-        <option value="Bueno">Bueno</option>
-        <option value="Regular">Regular</option>
-        <option value="Mal estado">Mal Estado</option>
-    </select>
+        <label class="formulario__label" for="estado_actual">ESTADO ACTUAL </label>
+        <select name="estado_actual" id="estado_actual" class="formulario__input">
+            <option value="Bueno">Bueno</option>
+            <option value="Regular">Regular</option>
+            <option value="Mal estado">Mal Estado</option>
+        </select>
     </div>
 
- 
+    <div class="formulario__campo">
+        <label class="formulario__label" for="direccion_ip">DIRECCION IP </label>
+        <input
+            type="text"
+            name="direccion_ip"
+            id="direccion_ip"
+            class="formulario__input"
+            placeholder="gramaje_maximo de la maquina"
+            value="">
+    </div>
+
+    
+
+
+
+    
+
+
+
 </fieldset>
