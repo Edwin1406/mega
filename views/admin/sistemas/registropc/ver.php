@@ -6,7 +6,7 @@
 <style>
 .caracteristicas {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(30%, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(30%, 2fr));
   gap: 1.5rem;
   background-color:rgb(255, 255, 255);
   padding: 2rem;
