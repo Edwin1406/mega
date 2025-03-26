@@ -319,6 +319,7 @@ $router->get('/admin/sistemas/pdfinventario', [SistemasController::class, 'pdfin
 
 
 $router->get('/admin/sistemas/registropc/version', [SistemasController::class, 'version']);
+$router->post('/admin/sistemas/registropc/version', [SistemasController::class, 'version']);
 
 
 
