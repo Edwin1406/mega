@@ -15,6 +15,7 @@ use Classes\InventarioPdf;
 use Classes\Pdf3;
 use Model\Area_inventario;
 use Model\Categoria_inventario;
+use Model\Computadora;
 use Model\Productos_inventario;
 use Model\Movimientos_inventario;
 
@@ -511,6 +512,9 @@ public static function version (Router $router)
 {
     $alertas = [];
     session_start();
+
+    $computadoras = new Computadora;
+    debuguear($computadoras);
 
     $router->render('admin/sistemas/registropc/version', [
         'titulo' => 'VERSION',
