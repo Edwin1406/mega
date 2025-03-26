@@ -460,6 +460,9 @@ function ejemplopruebadevariable(idsVistos,mejoresCombos,mejoresCombosFinales) {
                 // Mostrar el array con los pedidos nuevos
         console.log("Pedidos nuevos:", pedidosNuevos);
 
+        // ordenar de menor cantidad a mayor cantidad
+        pedidosNuevos.sort((a,b) => a.cantidad - b.cantidad);
+
         return pedidosNuevos;
 
        
@@ -467,6 +470,12 @@ function ejemplopruebadevariable(idsVistos,mejoresCombos,mejoresCombosFinales) {
 
 
 console.log("pedidos nuevos en arreglo",pedidosNuevos);
+
+
+
+
+
+
 
 
 
@@ -578,7 +587,7 @@ const pedidosCalculadosAgrupadosNuevos = pedidosNuevos.map(pedido => ({
         
 
         // Ordenar combinaciones por sobrante más bajo
-        combinacionesValidas2.sort((a, b) => a.sobrante - b.sobrante);
+        combinacionesValidas2.sort((a,b) => a.sobrante - b.sobrante);
 
 
         
@@ -662,13 +671,8 @@ const pedidosCalculadosAgrupadosNuevos = pedidosNuevos.map(pedido => ({
 
 
 
-
-
     
 
 
     const combinacionesnuedvas = generarCombinacionesNuevas(pedidosCalculadosAgrupadosNuevos);
-
-
-    console.log("combinaciones gray",combinacionesnuedvas);
     const mejorTrimadoNuevos = encontrarMejorTrimadoNuevos(combinacionesnuedvas,pedidosCalculadosAgrupadosNuevos);
