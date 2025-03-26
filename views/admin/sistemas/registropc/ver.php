@@ -58,7 +58,7 @@
 
 
 <div class="contenido">
-    <p><b>Usuario</b><?php echo $computadora->usuario_asignado ?></p>
+    <p><b>Usuario Asignado:</b><?php echo $computadora->usuario_asignado ?></p>
     <p><b>Area:</b><?php echo $computadora->area ?></p>
 </div>
 
