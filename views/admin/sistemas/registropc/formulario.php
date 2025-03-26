@@ -36,7 +36,7 @@
     <div class="formulario__campo">
         <label class="formulario__label" for="fecha_compra">FECHA COMPRA </label>
         <input
-            type="text"
+            type="date"
             name="fecha_compra"
             id="fecha_compra"
             class="formulario__input"
