@@ -41,7 +41,7 @@
 .caracteristicas__item p:last-child {
   font-size: 1.1rem;
   margin: 0;
-  color: #e6e6e6;
+  color:rgb(0, 0, 0);
 }
 
 
