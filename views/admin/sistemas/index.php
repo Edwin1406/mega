@@ -678,7 +678,7 @@ async function Apicomputadoras() {
             const dias = diffDiasTotales % 365;
 
             return {
-                etiqueta: `${pc.numero_interno || "Sin ID"} (${pc.usuario_asignado || "Sin usuario"}) - ${pc.marca_modelo}`,
+                etiqueta: `${pc.numero_interno || "Sin ID"} (${pc.usuario_asignado || "Sin usuario"}) - ${pc.area}`,
                 tiempoTexto: `${anios} años ${dias} días`,
                 diasTotales: diffDiasTotales,
                 color: colores[index % colores.length],
