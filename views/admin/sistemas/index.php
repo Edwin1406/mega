@@ -117,6 +117,7 @@
         padding: 1rem;
     }
 
+    
     .grafico2{
         width: 48%;
         /* background-image: linear-gradient(120deg,rgb(226, 233, 236) 0%,rgb(202, 228, 226) 100%) */
@@ -124,7 +125,13 @@
         border-radius: 10px;
         padding: 1rem;
     }
-
+    .grafico3{
+        width: 48%;
+        /* background-image: linear-gradient(120deg,rgb(226, 233, 236) 0%,rgb(202, 228, 226) 100%) */
+        background-color:white;
+        border-radius: 10px;
+        padding: 1rem;
+    }
     /* version movil */
 
     @media (max-width: 768px){
