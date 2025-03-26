@@ -8,7 +8,7 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(30%, 1fr));
   gap: 1.5rem;
-  background-color: #f8f2f2;
+  background-color:rgb(255, 255, 255);
   padding: 2rem;
   border-radius: 1rem;
   max-width: 100%;
@@ -16,7 +16,7 @@
 }
 
 .caracteristicas__item {
-    background: radial-gradient(circle, rgb(231, 176, 125) 0%, rgb(224, 147, 83) 100%);
+    background: radial-gradient(circle, rgb(196, 166, 138) 0%, rgb(218, 158, 109) 100%);
   color:rgb(2, 2, 2);
   padding: 1.5rem;
   border-radius: 1rem;
