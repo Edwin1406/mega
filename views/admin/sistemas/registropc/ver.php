@@ -26,6 +26,22 @@
             <p> AREA: </p>
             <p> <?php echo $computadora->area ?> </p>
         </div>
+        
+        <div class="caracteristicas__item">
+            <p> USUARIO ASIGNADO: </p>
+            <p> <?php echo $computadora->usuario_asignado ?> </p>
+        </div>
+        
+        <div class="caracteristicas__item">
+            <p> FECHA COMPRA: </p>
+            <p> <?php echo $computadora->fecha_compra ?> </p>
+        </div>
+        
+        <div class="caracteristicas__item">
+            <p> MARCA O MODELO: </p>
+            <p> <?php echo $computadora->marca_modelo ?> </p>
+        </div>
+
 
 
 
