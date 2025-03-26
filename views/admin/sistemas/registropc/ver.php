@@ -16,8 +16,8 @@
 }
 
 .caracteristicas__item {
-    background: radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%);
-  color: #f8f2f2;
+    background: radial-gradient(circle, rgb(231, 176, 125) 0%, rgb(224, 147, 83) 100%);
+  color:rgb(2, 2, 2);
   padding: 1.5rem;
   border-radius: 1rem;
   text-align: center;
