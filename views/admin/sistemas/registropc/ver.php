@@ -4,7 +4,7 @@
 
 
 <style>
-.caracteristicas {
+/* .caracteristicas {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(30%, 2fr));
   gap: 1.5rem;
@@ -54,6 +54,51 @@
     font-size: 2.5rem;
     color:rgb(0, 0, 0);
     font-weight: bold;
+} */
+
+
+
+.contenedor {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 2rem;
+  padding: 2rem;
+}
+
+.caracteristicas {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  background-color: rgb(255, 255, 255);
+  padding: 2rem;
+  border-radius: 1rem;
+  flex: 1;
+}
+
+.formulario {
+  background-color: #fff;
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  min-width: 200px;
+  height: fit-content;
+}
+
+.formulario__submit {
+  background-color: #2c63ff;
+  color: white;
+  padding: 1rem 2rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.formulario__submit:hover {
+  background-color: #1f4fd3;
 }
 
 
@@ -135,15 +180,19 @@
             <p> <?php echo $computadora->created_at ?> </p>
         </div>
     </div>
-    <div class="caracteristicas">
-            <!-- formualrio  -->
-            <form method="POST" class="formulario" action="/admin/sistemas/registropc/eliminar">
-                <input type="hidden" name="id" value="<?php echo $computadora->id; ?>">
-                <input type="submit" value="Eliminar" class="formulario__submit">
-            </form>
-    </div>
+ 
 
     
+</div>
+<div class="contenedor">
+    <div class="caracteristicas">
+        <!-- ... todos los .caracteristicas__item ... -->
+    </div>
+
+    <form method="POST" class="formulario" action="/admin/sistemas/registropc/eliminar">
+        <input type="hidden" name="id" value="<?php echo $computadora->id; ?>">
+        <input type="submit" value="Eliminar" class="formulario__submit">
+    </form>
 </div>
 
 
