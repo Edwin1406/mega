@@ -561,7 +561,7 @@ public static function ver (Router $router){
     }
 
     $router->render('admin/sistemas/registropc/ver', [
-        'titulo' => 'VER CARACTERISTICAS DE LA COMPUTADORA',
+        'titulo' => 'CARACTERISTICAS DE LA COMPUTADORA',
         'computadora' => $computadora,
     ]);
 }
