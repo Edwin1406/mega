@@ -121,13 +121,13 @@
 
 
    <div class="formulario__campo">
-        <label class="formulario__label" for="contraseña">contraseña</label>
+        <label class="formulario__label" for="contrasena">contraseña</label>
         <input
             type="text"
-            name="contraseña"
-            id="contraseña"
+            name="contrasena"
+            id="contrasena"
             class="formulario__input"
-            placeholder="contraseña"
+            placeholder="contrasena"
             value="">
     </div>
 </fieldset>
