@@ -49,7 +49,12 @@
 </style>
 
 <!-- nombre del usuario --> 
-<h2 class="dashboard__heading"> Computadora de : <?php echo $computadora->usuario_asignado ?> </h2>
+
+
+<div class="contenido">
+    <p>Usuario :<?php echo $computadora->usuario_asignado ?></p>
+    <p>Area:<?php echo $computadora->area ?></p>
+</div>
 
 <div class="contenedor">
     <div class="caracteristicas">
