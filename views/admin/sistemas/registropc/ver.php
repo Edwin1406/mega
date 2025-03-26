@@ -48,6 +48,9 @@
 
 </style>
 
+<!-- nombre del usuario --> 
+<h2 class="dashboard__heading"> <?php echo $computadora->usuario_asignado ?> </h2>
+
 <div class="contenedor">
     <div class="caracteristicas">
         <div class="caracteristicas__item">
