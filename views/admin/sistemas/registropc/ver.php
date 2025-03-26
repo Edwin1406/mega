@@ -114,11 +114,5 @@
             <p> FECHA DE REGISTRO: </p>
             <p> <?php echo $computadora->created_at ?> </p>
         </div>
-
-
-
-
-
-
     </div>
 </div>
