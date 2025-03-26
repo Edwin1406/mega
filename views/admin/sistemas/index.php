@@ -790,6 +790,7 @@ async function Apicomputadoras() {
             const dias = diffDiasTotales % 365;
 
             return {
+                idReal:pc.id,
                 id: pc.numero_interno || "Sin ID",
                 usuario: pc.usuario_asignado || "Sin usuario",
                 area: pc.area || "Sin área",
@@ -843,8 +844,7 @@ async function Apicomputadoras() {
 
                     // Botón que muestra el ID
                     document.getElementById('btnMostrarID').onclick = function () {
-                        console.log("ID del equipo:", id);
-                        alert("ID del equipo: " + compu.id);
+                        alert(`El ID real de la computadora es: ${compu.idReal}`);
                     };
                 }
             },
