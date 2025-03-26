@@ -16,8 +16,9 @@
         <div class="caracteristicas__item">
             <p> AREA: </p>
             <p> <?php echo $computadora->area ?> </p>
+        </div>
 
-        
+
 
 
     </div>
