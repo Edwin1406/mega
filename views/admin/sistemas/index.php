@@ -843,7 +843,7 @@ async function Apicomputadoras() {
 
                     // Botón que muestra el ID
                     document.getElementById('btnMostrarID').onclick = function () {
-                        console.log("ID del equipo:", compu.id);
+                        console.log("ID del equipo:", id);
                         alert("ID del equipo: " + compu.id);
                     };
                 }
