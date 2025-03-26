@@ -4,14 +4,17 @@
 
 
 <style>
-    .caracteristicas {
-        display: flex;
-        justify-content: 1fr 1fr;
-        flex-wrap: wrap;
-        align-items: center;
-        gap: 2rem;
-        
-    }
+  .caracteristicas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+
+.caracteristicas > * {
+  flex: 1 1 calc(25% - 2rem); /* 4 columnas con espacio */
+  min-width: 200px; /* Para evitar que se achiquen demasiado en pantallas pequeñas */
+}
+
 
 
 </style>
