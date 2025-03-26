@@ -46,8 +46,8 @@
 
 .contenido{
     display: flex;
-    justify-content: center;
-    background-color:rgb(255, 255, 255);
+    justify-content: space-between;
+   
 }
 
 
