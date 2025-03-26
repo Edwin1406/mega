@@ -117,7 +117,8 @@
     .contenido-graficos2 {
         display: flex;
         /* width: 100%; */
-        justify-content: space-between;
+    
+        justify-content: center;
         margin-top: 1rem;
 
 
