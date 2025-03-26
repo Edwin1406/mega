@@ -12,6 +12,7 @@
   background-color: #f8f2f2;
   padding: 1rem;
   border-radius: 1rem;
+  justify-content: center;
 }
 
 .caracteristicas > * {
