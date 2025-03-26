@@ -542,7 +542,7 @@ public static function apicomputadoras(){
     header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS"); 
     header("Content-Type: application/json"); 
 
-    $computadoras = Computadora::all('DESC');
+    $computadoras = Computadora::all('ASC');
     echo json_encode($computadoras);
     
     // echo json_encode($movimientos, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
