@@ -142,7 +142,7 @@
     }
 
     .grafico3 {
-        width: 48%;
+        width: 70%;
         /* background-image: linear-gradient(120deg,rgb(226, 233, 236) 0%,rgb(202, 228, 226) 100%) */
         background-color: white;
         border-radius: 10px;
