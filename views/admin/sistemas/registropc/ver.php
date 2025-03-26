@@ -8,6 +8,8 @@
   display: flex;
   flex-wrap: wrap;
   gap: 2rem;
+  border: solid 1pxrgb(165, 132, 132);
+  padding: 1rem;
 }
 
 .caracteristicas > * {
