@@ -178,7 +178,7 @@ button{
     <div style="background:white; padding:20px; border-radius:10px; width: 400px; max-width: 90%;">
         <h2>Información de la Computadora</h2>
         <div id="contenidoModal" style="margin-bottom: 20px;"></div>
-        <button id="btnMostrarID" style="padding:10px 15px;">Mostrar ID</button>
+        <button id="btnMostrarID" style="padding:10px 15px;">Mostrar Mas</button>
         <button onclick="cerrarModal()" style="padding:10px 15px; float:right;">Cerrar</button>
     </div>
 </div>
