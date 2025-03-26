@@ -135,6 +135,14 @@
             <p> <?php echo $computadora->created_at ?> </p>
         </div>
     </div>
+
+    <div class="contenedor">
+        <a class="dashboard__boton" href="/admin/sistemas/registropc">
+            <i class="fa-solid fa-circle-arrow-left"></i>
+            REGRESAR A INICIO
+        </a>
+
+    </div>
 </div>
 
 
