@@ -1,101 +1,101 @@
 <fieldset class="formulario__fieldset">
     <legend class="formulario__legend">Información de Registro de computadora</legend>
     <div class="formulario__campo">
-        <label class="formulario__label" for="nombre">ID DEL EQUIPO</label>
+        <label class="formulario__label" for="numero_interno">ID DEL EQUIPO</label>
         <input
             type="text"
-            name="nombre"
-            id="nombre"
+            name="numero_interno"
+            id="numero_interno"
             class="formulario__input"
-            placeholder="Nombre del ponente"
-            value="<?php echo $maquina->nombre ?? '' ?>">
+            placeholder="numero interno"
+            value="<?php echo $maquina->numero_interno ?? '' ?>">
     </div>
 
     <div class="formulario__campo">
-        <label class="formulario__label" for="num_cuchillas">AREA</label>
+        <label class="formulario__label" for="area">AREA</label>
         <input
             type="text"
-            name="num_cuchillas"
-            id="num_cuchillas"
+            name="area"
+            id="area"
             class="formulario__input"
-            placeholder="cuchillas de la maquina"
-            value="<?php echo $maquina->num_cuchillas ?? '' ?>">
+            placeholder="area"
+            value="<?php echo $maquina->area ?? '' ?>">
     </div>
 
     <div class="formulario__campo">
-        <label class="formulario__label" for="ancho_maximo">USUARIO ASIGNADO</label>
+        <label class="formulario__label" for="usuario_asignado">USUARIO ASIGNADO</label>
         <input
             type="text"
-            name="ancho_maximo"
-            id="ancho_maximo"
+            name="usuario_asignado"
+            id="usuario_asignado"
             class="formulario__input"
-            placeholder="ancho_maximo de la maquina"
-            value="<?php echo $maquina->ancho_maximo ?? '' ?>">
+            placeholder="usuario_asignado"
+            value="<?php echo $maquina->usuario_asignado ?? '' ?>">
     </div>
 
     <div class="formulario__campo">
-        <label class="formulario__label" for="gramaje_maximo">FECHA COMPRA </label>
+        <label class="formulario__label" for="fecha_compra">FECHA COMPRA </label>
         <input
             type="text"
-            name="gramaje_maximo"
-            id="gramaje_maximo"
+            name="fecha_compra"
+            id="fecha_compra"
             class="formulario__input"
-            placeholder="gramaje_maximo de la maquina"
-            value="<?php echo $maquina->gramaje_maximo ?? '' ?>">
+            placeholder="fecha_compra"
+            value="<?php echo $maquina->fecha_compra ?? '' ?>">
     </div>
 
     <div class="formulario__campo">
-        <label class="formulario__label" for="gramaje_maximo">MARCA O MODELO </label>
+        <label class="formulario__label" for="marca_modelo">MARCA O MODELO </label>
         <input
             type="text"
-            name="gramaje_maximo"
-            id="gramaje_maximo"
+            name="marca_modelo"
+            id="marca_modelo"
             class="formulario__input"
-            placeholder="gramaje_maximo de la maquina"
-            value="<?php echo $maquina->gramaje_maximo ?? '' ?>">
+            placeholder="marca_modelo"
+            value="<?php echo $maquina->marca_modelo ?? '' ?>">
     </div>
 
     <div class="formulario__campo">
-        <label class="formulario__label" for="gramaje_maximo">PROCESADOR </label>
+        <label class="formulario__label" for="procesador">PROCESADOR </label>
         <input
             type="text"
-            name="gramaje_maximo"
-            id="gramaje_maximo"
+            name="procesador"
+            id="procesador"
             class="formulario__input"
-            placeholder="gramaje_maximo de la maquina"
-            value="<?php echo $maquina->gramaje_maximo ?? '' ?>">
+            placeholder="procesador"
+            value="<?php echo $maquina->procesador ?? '' ?>">
     </div>
 
     <div class="formulario__campo">
-        <label class="formulario__label" for="gramaje_maximo">RAM </label>
+        <label class="formulario__label" for="ram">RAM </label>
         <input
             type="text"
-            name="gramaje_maximo"
-            id="gramaje_maximo"
+            name="ram"
+            id="ram"
             class="formulario__input"
-            placeholder="gramaje_maximo de la maquina"
-            value="<?php echo $maquina->gramaje_maximo ?? '' ?>">
+            placeholder="ram"
+            value="<?php echo $maquina->ram ?? '' ?>">
     </div>
 
     <div class="formulario__campo">
-        <label class="formulario__label" for="gramaje_maximo">DISCO </label>
+        <label class="formulario__label" for="disco">DISCO </label>
         <input
             type="text"
-            name="gramaje_maximo"
-            id="gramaje_maximo"
+            name="disco"
+            id="disco"
             class="formulario__input"
-            placeholder="gramaje_maximo de la maquina"
-            value="<?php echo $maquina->gramaje_maximo ?? '' ?>">
+            placeholder="disco"
+            value="<?php echo $maquina->disco ?? '' ?>">
     </div>
     <div class="formulario__campo">
-        <label class="formulario__label" for="gramaje_maximo">SISTEMA OPERATIVO </label>
+        <label class="formulario__label" for="sistema_operativo">SISTEMA OPERATIVO </label>
         <input
             type="text"
-            name="gramaje_maximo"
-            id="gramaje_maximo"
+            name="sistema_operativo"
+            id="sistema_operativo"
             class="formulario__input"
-            placeholder="gramaje_maximo de la maquina"
-            value="<?php echo $maquina->gramaje_maximo ?? '' ?>">
+            placeholder="sistema_operativo"
+            value="<?php echo $maquina->sistema_operativo ?? '' ?>">
     </div>
 
     <div class="formulario__campo">
