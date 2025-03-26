@@ -514,7 +514,7 @@ public static function version (Router $router)
     session_start();
 
     $computadoras = new Computadora;
-    debuguear($computadoras);
+    // debuguear($computadoras);
 
     $router->render('admin/sistemas/registropc/version', [
         'titulo' => 'VERSION',
