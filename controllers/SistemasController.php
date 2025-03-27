@@ -566,7 +566,7 @@ public static function ver (Router $router){
         $mantenimiento = new MantenimientoPc;
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $mantenimiento->sincronizar($_POST);
-        debuguear($mantenimiento);
+        // debuguear($mantenimiento);
         $mantenimiento->computadora_id = $computadora->id;
         $alertas = $mantenimiento->validar();
 
