@@ -19,12 +19,10 @@
     }
 
     .caracteristicas {
-       display: flex;
-       flex: 1; /* Ambas columnas ocuparán el mismo ancho */
-  padding: 20px;
-  background-color: #f2f2f2;
-  border: 1px solid #ccc;
-       
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+        margin: 2rem auto;
     }
 
     .caracteristicas__item {
