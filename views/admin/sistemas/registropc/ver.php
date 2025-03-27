@@ -157,7 +157,7 @@
     <fieldset class="formulario__fieldset">
         <legend class="formulario__legend">Agregar Mantenimiento o Reparación</legend>
 
-        <input type="hidden" name="computadora_id" value="<?php echo $maquina->id; ?>">
+        <input type="hidden" name="computadora_id" value="<?php echo $computadora->id; ?>">
 
         <div class="formulario__campo">
             <label class="formulario__label" for="fecha_mantenimiento">Fecha del mantenimiento</label>
