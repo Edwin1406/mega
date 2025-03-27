@@ -42,7 +42,7 @@
 
     .caracteristicas__item p:first-child {
         font-weight: bold;
-        font-size: 1.1rem;
+        font-size: 1.6rem;
         margin-bottom: 0.3rem;
         text-transform: uppercase;
         letter-spacing: 0.5px;
