@@ -4,34 +4,27 @@
 
 
 <style>
-.contenedor{
-    display: grid;
-    grid-template-columns: auto auto;
-    gap: 2rem;
-    margin: 2rem;
-    padding: 2rem;
-    background-color:rgb(255, 255, 255);
-    border-radius: 1rem;
-    max-width: 50%;
-    margin: auto;
-    box-shadow: 0 2px 5px rgba(135, 164, 165, 0.2);
-
+.contenedor {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* dos columnas */
+  gap: 2rem;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: white;
+  border-radius: 1rem;
+  max-width: 90%; /* más ancho */
+  box-shadow: 0 2px 5px rgba(135, 164, 165, 0.2);
 }
 
 .caracteristicas {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(30%, 2fr));
+  grid-template-columns: 1fr 1fr; /* 2 columnas internas */
   gap: 1.5rem;
-  background-color:rgb(255, 255, 255);
-  padding: 2rem;
-  border-radius: 1rem;
-  max-width: 50%;
-  margin: auto;
 }
 
 .caracteristicas__item {
-    background: radial-gradient(circle, rgb(196, 166, 138) 0%, rgb(218, 158, 109) 100%);
-  color:rgb(2, 2, 2);
+  background: radial-gradient(circle, rgb(196, 166, 138) 0%, rgb(218, 158, 109) 100%);
+  color: rgb(2, 2, 2);
   padding: 1.5rem;
   border-radius: 1rem;
   text-align: center;
@@ -46,30 +39,30 @@
 
 .caracteristicas__item p:first-child {
   font-weight: bold;
-  font-size: 1.2rem;
-  margin-bottom: 0.5rem;
+  font-size: 1.1rem;
+  margin-bottom: 0.3rem;
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
 
 .caracteristicas__item p:last-child {
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   margin: 0;
-  color:rgb(0, 0, 0);
+  color: black;
 }
 
-.contenido{
-    display: flex;
-    justify-content: space-between;
-   
+.contenido {
+  display: flex;
+  justify-content: space-between;
+  max-width: 90%;
+  margin: auto;
+  margin-top: 2rem;
 }
 
-.designar{
-    font-size: 2.5rem;
-    color:rgb(0, 0, 0);
-    font-weight: bold;
+.designar {
+  font-size: 1.5rem;
+  font-weight: bold;
 }
-
 
 
 </style>
