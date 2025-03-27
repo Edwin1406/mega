@@ -78,14 +78,14 @@
     </div>
 
     <div class="formulario__campo">
-        <label class="formulario__label" for="disco">DISCO </label>
+        <label class="formulario__label" for="disco_duro">DISCO </label>
         <input
             type="text"
-            name="disco"
-            id="disco"
+            name="disco_duro"
+            id="disco_duro"
             class="formulario__input"
-            placeholder="disco"
-            value="<?php echo $maquina->disco ?? '' ?>">
+            placeholder="disco_duro"
+            value="<?php echo $maquina->disco_duro ?? '' ?>">
     </div>
     <div class="formulario__campo">
         <label class="formulario__label" for="sistema_operativo">SISTEMA OPERATIVO </label>
