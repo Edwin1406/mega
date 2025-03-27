@@ -72,6 +72,7 @@
         <div class="item"><a href="/admin/sistemas/solicitudes/tabla"> <i class="fas fa-scroll"></i> TABLA</a></div>
         <div class="item"><a href="/admin/sistemas/movimiento/movimientos"> <i class="fas fa-newspaper"></i> MOVIMIENTOS</a></div>
         <div class="item"><a href="/admin/sistemas/solicitudes/solicitud"><i class="fa-solid fa-arrow-right"></i> SOLICITUD</a></div>
+        <div class="item"><a href="/admin/sistemas/registropc/version"><i class="fa-solid fa-arrow-right"></i>PC</a></div>
     </div>
 <?php else: ?>
 
