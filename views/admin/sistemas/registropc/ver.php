@@ -49,7 +49,7 @@
     }
 
     .caracteristicas__item p:last-child {
-        font-size: 1.2rem;
+        font-size: 2.2rem;
         margin: 0;
         color: black;
     }
@@ -63,7 +63,7 @@
     }
 
     .designar {
-        font-size: 1.5rem;
+        font-size: 2rem;
         font-weight: bold;
     }
 </style>
