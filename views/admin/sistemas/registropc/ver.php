@@ -4,6 +4,12 @@
 
 
 <style>
+.contenedor{
+    display: grid;
+    grid-template-columns: auto auto;
+    gap: 2rem;
+}
+
 .caracteristicas {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(30%, 2fr));
@@ -11,7 +17,7 @@
   background-color:rgb(255, 255, 255);
   padding: 2rem;
   border-radius: 1rem;
-  max-width: 50%;
+  max-width: 100%;
   margin: auto;
 }
 
