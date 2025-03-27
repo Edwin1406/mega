@@ -20,6 +20,11 @@
 
     .caracteristicas {
        display: flex;
+       flex: 1; /* Ambas columnas ocuparán el mismo ancho */
+  padding: 20px;
+  background-color: #f2f2f2;
+  border: 1px solid #ccc;
+       
     }
 
     .caracteristicas__item {
