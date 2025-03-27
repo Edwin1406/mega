@@ -153,7 +153,7 @@
 
             <?php include_once __DIR__ . '/../../../templates/alertas.php'  ?>
 
-            <form method="POST" action="/admin/sistemas/mantenimiento/registrar" class="formulario">
+            <form method="POST" action="/admin/sistemas/registropc/ver" class="formulario">
     <fieldset class="formulario__fieldset">
         <legend class="formulario__legend">Agregar Mantenimiento o Reparación</legend>
 
