@@ -236,55 +236,37 @@
 
 
 </div>
-
-<h2 class="dashboard__heading"> TABLA DE CONSUMO </h2>
-
+<h2 class="dashboard__heading">Historial de Mantenimiento</h2>
 
 <div class="dashboard__contenedor">
     <?php if (!empty($mante)): ?>
         <table class="table">
             <thead class="table__thead">
                 <tr>
-                    <th scope="col" class="table__th">Tipo de Papel</th>
-                    <th scope="col" class="table__th">Gramaje</th>
-                    <th scope="col" class="table__th">Ancho</th>
-                    <th scope="col" class="table__th">Fecha y Hora </th>
-                    <th scope="col" class="table__th"></th>
+                    <th scope="col" class="table__th">Fecha mantenimiento</th>
+                    <th scope="col" class="table__th">Tipo</th>
+                    <th scope="col" class="table__th">Descripción</th>
+                    <th scope="col" class="table__th">Repuesto usado</th>
+                    <th scope="col" class="table__th">Fecha cambio</th>
+                    <th scope="col" class="table__th">Costo</th>
                 </tr>
             </thead>
             <tbody class="table__tbody">
 
-                <?php foreach ($mante as $mantepc):?>
+                <?php foreach ($mante as $mantepc): ?>
                     <tr class="table__tr">
-                        <td class="table__td"><?php echo $mantepc->fecha_mantenimiento?></td>
-                        <td class="table__td"><?php echo $mantepc->tipo?></td>
-                        <td class="table__td"><?php echo $mantepc->descripcion?></td>
-                        <td class="table__td"><?php echo $mantepc->repuesto_usado?></td>
-                        <td class="table__td--acciones"><a class="table__accion table__accion--editar" href="/admin/produccion/papel/editar?id=<?php echo $bobina->id; ?>"><i class="fa-solid fa-user-pen"></i>Editar</a>
-                        <!-- <form method="POST" action="/admin/produccion/papel/eliminar" class="table__formulario">
-                            <input type="hidden" name="id" value="<?php echo $bobina->id; ?>">
-                            <button class="table__accion table__accion--eliminar" type="submit">
-                                <i class="fa-solid fa-user-slash"></i>
-                                    Eliminar
-                            </button>
-                        </form> -->
-                        </td>
-
-
+                        <td class="table__td"><?php echo $mantepc->fecha_mantenimiento; ?></td>
+                        <td class="table__td"><?php echo $mantepc->tipo; ?></td>
+                        <td class="table__td"><?php echo $mantepc->descripcion; ?></td>
+                        <td class="table__td"><?php echo $mantepc->repuesto_usado ?: '—'; ?></td>
+                        <td class="table__td"><?php echo $mantepc->fecha_cambio_repuesto ?: '—'; ?></td>
+                        <td class="table__td"><?php echo $mantepc->costo ? '$' . number_format($mantepc->costo, 2) : '—'; ?></td>
                     </tr>
-                <?php endforeach;?>
+                <?php endforeach; ?>
 
             </tbody>
-
         </table>
-   
-
-
     <?php else: ?>
-        <a class="text-center"> No hay Papel Aún</a>
+        <p class="text-center">No hay registros de mantenimiento aún para esta computadora.</p>
     <?php endif; ?>
 </div>
-
-
-<?php echo $paginacion; ?>
-
