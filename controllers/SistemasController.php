@@ -518,6 +518,7 @@ public static function version (Router $router)
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $computadoras->sincronizar($_POST);
+        debuguear($computadoras);
         $alertas = $computadoras->validar();
 
         if (empty($alertas)) {
