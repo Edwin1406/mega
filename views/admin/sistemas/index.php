@@ -503,71 +503,6 @@ button{
     sumadevaloresdeapi();
 
 
-
-
-    // async function productosconstockminimo() {
-    //     const url = 'https://megawebsistem.com/admin/api/apiproducts';
-    //     const response = await fetch(url);
-    //     const datos = await response.json();
-    //     // console.log(datos);
-
-    //     // Filtrar productos con stock menor a 2
-    //     const lowStockProducts = datos.filter(producto => parseInt(producto.stock_actual) >= 0);
-
-    //     // Definir una lista de colores
-    //     const colores = [
-    //         'rgba(75, 192, 192, 0.2)',
-    //         'rgba(255, 99, 132, 0.2)',
-    //         'rgba(54, 162, 235, 0.2)',
-    //         'rgba(153, 102, 255, 0.2)',
-    //         'rgba(255, 159, 64, 0.2)',
-    //         'rgba(255, 99, 132, 0.2)',
-    //         'rgba(66, 133, 244, 0.2)',
-    //         'rgba(234, 67, 53, 0.2)',
-    //         'rgba(51, 51, 51, 0.2)',
-    //         'rgba(243, 156, 18, 0.2)',
-    //         'rgba(52, 152, 219, 0.2)',
-    //         'rgba(39, 174, 96, 0.2)'
-    //     ];
-
-    //     // Si tienes más de 12 productos, lo que puedes hacer es reciclar colores o generar colores aleatorios
-
-    //     // Asignar colores dinámicamente en función del índice
-    //     const backgroundColors = lowStockProducts.map((_, index) => colores[index % colores.length]);
-
-    //     // mostrar en una grafica de barras
-    //     const labels = lowStockProducts.map(producto => producto.nombre_producto);
-    //     const data = lowStockProducts.map(producto => parseInt(producto.stock_actual));
-
-    //     const ctx = document.getElementById('productosStockMinimo').getContext('2d');
-    //     new Chart(ctx, {
-    //         type: 'bar',
-    //         data: {
-    //             labels: labels,
-    //             datasets: [{
-    //                 label: 'PRODUCTOS CON STOCK MINIMO',
-    //                 data: data,
-    //                 backgroundColor: backgroundColors,
-    //                 borderColor: 'rgb(203, 223, 223)',
-    //                 borderWidth: 1
-    //             }]
-    //         },
-    //         options: {
-    //             scales: {
-    //                 y: {
-    //                     beginAtZero: true
-    //                 }
-    //             }
-    //         }
-    //     });
-    // }
-
-
-
-    // productosconstockminimo();
-
-
-
     async function productosconstockminimo() {
     const url = 'https://megawebsistem.com/admin/api/apiproducts';
     const response = await fetch(url);
@@ -769,6 +704,7 @@ async function Apicomputadoras() {
             const diffTiempo = hoy - fechaCompra;
             const diffDiasTotales = Math.floor(diffTiempo / (1000 * 60 * 60 * 24));
             const anios = Math.floor(diffDiasTotales / 365);
+            const meses = Math.floor((diffDiasTotales % 365) / 30);
             const dias = diffDiasTotales % 365;
 
             return {
