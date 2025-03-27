@@ -528,7 +528,6 @@ public static function version (Router $router)
         }
     }
 
-
     // debuguear($computadoras);
 
     $router->render('admin/sistemas/registropc/version', [
