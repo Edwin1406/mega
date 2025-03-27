@@ -19,10 +19,10 @@
     }
 
     .caracteristicas {
-        /* display: grid;
-        grid-template-columns: 1fr 1fr;
-        /* 2 columnas internas */
-        /* gap: 1.5rem; */ 
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1rem;
+        margin: 2rem auto;
     }
 
     .caracteristicas__item {
