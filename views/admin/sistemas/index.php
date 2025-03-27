@@ -696,29 +696,32 @@ async function Apicomputadoras() {
     ];
 
     const hoy = new Date();
-
     const computadorasConTiempos = datos
-        .filter(pc => pc.fecha_compra)
-        .map((pc, index) => {
-            const fechaCompra = new Date(pc.fecha_compra);
-            const diffTiempo = hoy - fechaCompra;
-            const diffDiasTotales = Math.floor(diffTiempo / (1000 * 60 * 60 * 24));
-            const anios = Math.floor(diffDiasTotales / 365);
-            const meses = Math.floor((diffDiasTotales % 365) / 30);
-            const dias = diffDiasTotales % 30;
-            return {
-                idReal:pc.id,
-                id: pc.numero_interno || "Sin ID",
-                usuario: pc.usuario_asignado || "Sin usuario",
-                area: pc.area || "Sin área",
-                fecha: pc.fecha_compra,
-                marca: pc.marca_modelo,
-                estado: pc.estado_actual,
-                tiempoTexto: `${anios} años ${meses} meses ${dias} días`,
-                diasTotales: diffDiasTotales,
-                color: colores[index % colores.length]
-            };
-        });
+    .filter(pc => pc.fecha_compra)
+    .map((pc, index) => {
+        const fechaCompra = new Date(pc.fecha_compra);
+        const diffTiempo = hoy - fechaCompra;
+        const diffDiasTotales = Math.floor(diffTiempo / (1000 * 60 * 60 * 24));
+        const anios = Math.floor(diffDiasTotales / 365);
+        const meses = Math.floor((diffDiasTotales % 365) / 30);
+        const dias = diffDiasTotales % 30;
+        
+        // Aquí creamos el texto con el formato exacto
+        const tiempoTexto = `${anios} año${anios !== 1 ? 's' : ''} ${meses} mes${meses !== 1 ? 'es' : ''} ${dias} día${dias !== 1 ? 's' : ''}`;
+        
+        return {
+            idReal: pc.id,
+            id: pc.numero_interno || "Sin ID",
+            usuario: pc.usuario_asignado || "Sin usuario",
+            area: pc.area || "Sin área",
+            fecha: pc.fecha_compra,
+            marca: pc.marca_modelo,
+            estado: pc.estado_actual,
+            tiempoTexto: tiempoTexto,  // Se usa el nuevo formato
+            diasTotales: diffDiasTotales,
+            color: colores[index % colores.length]
+        };
+    });
 
     const etiquetas = computadorasConTiempos.map(pc => `${pc.id} (${pc.usuario})`);
     const datosDias = computadorasConTiempos.map(pc => pc.diasTotales);
