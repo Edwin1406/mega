@@ -373,9 +373,8 @@ public static function pdf(Router $router)
  
     
     // Enviar por correo
-    // $destinatario1 = "directorproduccion@megaecuador.com";
-    // $destinatario1 = "directorproduccion@megaecuador.com";
-    $destinatario1 = "edwin.ed948@gmail.com";
+    $destinatario1 = "directorproduccion@megaecuador.com";
+    // $destinatario1 = "edwin.ed948@gmail.com";
     $destinatario2 = "sistemas@logmegaecuador.com";
     $asunto = "Solicitud de adquisición de productos para el área de sistemas";
     $mensaje = "<p>$saludo,Estimado Fabián Oquendo Director de Producción,</p>
