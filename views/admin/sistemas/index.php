@@ -715,7 +715,7 @@ async function Apicomputadoras() {
                 fecha: pc.fecha_compra,
                 marca: pc.marca_modelo,
                 estado: pc.estado_actual,
-                tiempoTexto: `${anios} años ${dias} días`,
+                tiempoTexto: `${anios} años ${meses} ${dias} días`,
                 diasTotales: diffDiasTotales,
                 color: colores[index % colores.length]
             };
