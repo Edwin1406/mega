@@ -569,7 +569,7 @@ button{
     // Filtrar productos con stock menor a 2 y con categorías 'toner' o 'unidades de imagen'
     const lowStockProducts = datos.filter(producto => 
         parseInt(producto.stock_actual) < 2 && 
-        (producto.categoria === 'toner' || producto.categoria === 'unidades de imagen')
+        (producto.categoria === 'Tóner' || producto.categoria === 'Unidades de Imagen')
     );
 
     // Definir una lista de colores
