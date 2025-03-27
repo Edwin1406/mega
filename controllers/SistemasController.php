@@ -6,16 +6,17 @@ use TCPDF;
 use Exception;
 use MVC\Router;
 use Classes\Pdf2;
+use Classes\Pdf3;
 use Classes\Correo;
 use Model\Solicitud;
 use Model\Movimiento;
+use Model\Computadora;
 use Model\Movimientos;
 use Classes\Paginacion;
 use Classes\InventarioPdf;
-use Classes\Pdf3;
 use Model\Area_inventario;
+use Model\MantenimientoPc;
 use Model\Categoria_inventario;
-use Model\Computadora;
 use Model\Productos_inventario;
 use Model\Movimientos_inventario;
 
@@ -555,14 +556,36 @@ public static function ver (Router $router){
     $id = $_GET['id'];
     $id = filter_var($id, FILTER_VALIDATE_INT);
     $computadora = Computadora::find($id);
+    // quiero ver el mantenimiento de la computadora depende el id de la computadora
+    $mante = MantenimientoPc::wherenuevo('computadora_id', $id);
+    // debuguear($mante);
+    $alertas = [];
     // debuguear($computadora);
     if (!$computadora) {
         header('Location: /admin/sistemas/registropc/version');
     }
 
+
+        $mantenimiento = new MantenimientoPc;
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $mantenimiento->sincronizar($_POST);
+        // debuguear($mantenimiento);
+        $mantenimiento->computadora_id = $computadora->id;
+        $alertas = $mantenimiento->validar();
+
+        if (empty($alertas)) {
+            $mantenimiento->guardar();
+            $alertas = $mantenimiento->getAlertas();
+            header('Location: /admin/sistemas/registropc/ver?id=' . $computadora->id);
+        }
+    }
+
     $router->render('admin/sistemas/registropc/ver', [
         'titulo' => 'CARACTERISTICAS DE LA COMPUTADORA',
         'computadora' => $computadora,
+        'alertas' => $alertas,
+        'mantenimiento' => $mantenimiento,
+        'mante' => $mante,
     ]);
 }
 

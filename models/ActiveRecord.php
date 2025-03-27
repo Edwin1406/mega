@@ -573,6 +573,14 @@ public static function menosDeCien($orden = 'DESC') {
         return array_shift( $resultado ) ;
     }
 
+
+    public static function wherenuevo($columna, $valor) {
+        $query = "SELECT * FROM " . static::$tabla . " WHERE {$columna} = '{$valor}'";
+        $resultado = self::consultarSQL($query);
+        return $resultado; // Ahora devuelve todos los resultados
+    }
+    
+
     // Retornar los registros por un orden 
 
     public static function ordenar($columna, $orden) {

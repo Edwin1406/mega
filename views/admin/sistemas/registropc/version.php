@@ -75,7 +75,7 @@
 <div class="dashboard__formulario">
 
 
-<?php include_once __DIR__.'/../../../templates/alertas.php'  ?>
+      <?php include_once __DIR__.'/../../../templates/alertas.php'  ?>
 
     <form method="POST" action="/admin/sistemas/registropc/version"  class="formulario" enctype="multipart/form-data">
     <?php include_once __DIR__.'/formulario.php'  ?>
