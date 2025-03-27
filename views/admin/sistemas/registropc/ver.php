@@ -154,81 +154,77 @@
             <?php include_once __DIR__ . '/../../../templates/alertas.php'  ?>
 
             <form method="POST" action="/admin/sistemas/registropc/ver?id=<?php echo $computadora->id; ?>" class="formulario">
-            <fieldset class="formulario__fieldset">
-        <legend class="formulario__legend">Agregar Mantenimiento o Reparación</legend>
+                <fieldset class="formulario__fieldset">
+                    <legend class="formulario__legend">Agregar Mantenimiento o Reparación</legend>
 
-        <input type="hidden" name="computadora_id" value="<?php echo $computadora->id; ?>">
+                    <input type="hidden" name="computadora_id" value="<?php echo $computadora->id; ?>">
 
-        <div class="formulario__campo">
-            <label class="formulario__label" for="fecha_mantenimiento">Fecha del mantenimiento</label>
-            <input
-                type="date"
-                name="fecha_mantenimiento"
-                id="fecha_mantenimiento"
-                class="formulario__input"
-                value="<?php echo $mantenimiento->fecha_mantenimiento; ?>"  
-                required>
-        </div>
+                    <div class="formulario__campo">
+                        <label class="formulario__label" for="fecha_mantenimiento">Fecha del mantenimiento</label>
+                        <input
+                            type="date"
+                            name="fecha_mantenimiento"
+                            id="fecha_mantenimiento"
+                            class="formulario__input"
+                            value="<?php echo $mantenimiento->fecha_mantenimiento; ?>"
+                            required>
+                    </div>
 
-        <div class="formulario__campo">
-            <label class="formulario__label" for="tipo">Tipo de trabajo</label>
-            <select name="tipo" id="tipo" class="formulario__input" required>
-                <option value="">-- Seleccionar --</option>
-                <option value="Mantenimiento">Mantenimiento</option>
-                <option value="Reparación">Reparación</option>
-            </select>
-        </div>
+                    <div class="formulario__campo">
+                        <label class="formulario__label" for="tipo">Tipo de trabajo</label>
+                        <select name="tipo" id="tipo" class="formulario__input" required>
+                            <option value="">-- Seleccionar --</option>
+                            <option value="Mantenimiento">Mantenimiento</option>
+                            <option value="Reparación">Reparación</option>
+                        </select>
+                    </div>
 
-        <div class="formulario__campo">
-            <label class="formulario__label" for="descripcion">Descripción</label>
-            <textarea
-                name="descripcion"
-                id="descripcion"
-                class="formulario__input"
-                placeholder="Detalles del trabajo realizado"
-                value="<?php echo $mantenimiento->descripcion; ?>"    
-                ></textarea>
-        </div>
+                    <div class="formulario__campo">
+                        <label class="formulario__label" for="descripcion">Descripción</label>
+                        <textarea
+                            name="descripcion"
+                            id="descripcion"
+                            class="formulario__input"
+                            placeholder="Detalles del trabajo realizado"
+                            value="<?php echo $mantenimiento->descripcion; ?>"></textarea>
+                    </div>
 
-        <div class="formulario__campo">
-            <label class="formulario__label" for="repuesto_usado">Repuesto utilizado (opcional)</label>
-            <input
-                type="text"
-                name="repuesto_usado"
-                id="repuesto_usado"
-                class="formulario__input"
-                placeholder="Ej: SSD 512GB"
-                value="<?php echo $mantenimiento->repuesto_usado; ?>"
-                >
-        </div>
+                    <div class="formulario__campo">
+                        <label class="formulario__label" for="repuesto_usado">Repuesto utilizado (opcional)</label>
+                        <input
+                            type="text"
+                            name="repuesto_usado"
+                            id="repuesto_usado"
+                            class="formulario__input"
+                            placeholder="Ej: SSD 512GB"
+                            value="<?php echo $mantenimiento->repuesto_usado; ?>">
+                    </div>
 
-        <div class="formulario__campo">
-            <label class="formulario__label" for="fecha_cambio_repuesto">Fecha de cambio de repuesto (si aplica)</label>
-            <input
-                type="date"
-                name="fecha_cambio_repuesto"
-                id="fecha_cambio_repuesto"
-                class="formulario__input"
-                value="<?php echo $mantenimiento->fecha_cambio_repuesto; ?>"
-                >
-        </div>
+                    <div class="formulario__campo">
+                        <label class="formulario__label" for="fecha_cambio_repuesto">Fecha de cambio de repuesto (si aplica)</label>
+                        <input
+                            type="date"
+                            name="fecha_cambio_repuesto"
+                            id="fecha_cambio_repuesto"
+                            class="formulario__input"
+                            value="<?php echo $mantenimiento->fecha_cambio_repuesto; ?>">
+                    </div>
 
-        <div class="formulario__campo">
-            <label class="formulario__label" for="costo">Costo (opcional)</label>
-            <input
-                type="number"
-                step="0.01"
-                name="costo"
-                id="costo"
-                class="formulario__input"
-                placeholder="Ej: 45.00"
-                value="<?php echo $mantenimiento->costo; ?>"
-                >
-        </div>
+                    <div class="formulario__campo">
+                        <label class="formulario__label" for="costo">Costo (opcional)</label>
+                        <input
+                            type="number"
+                            step="0.01"
+                            name="costo"
+                            id="costo"
+                            class="formulario__input"
+                            placeholder="Ej: 45.00"
+                            value="<?php echo $mantenimiento->costo; ?>">
+                    </div>
 
-        <input class="formulario__submit" type="submit" value="Registrar mantenimiento">
-    </fieldset>
-</form>
+                    <input class="formulario__submit" type="submit" value="Registrar mantenimiento">
+                </fieldset>
+            </form>
 
         </div>
 
@@ -240,3 +236,63 @@
 
 
 </div>
+
+<h2 class="dashboard__heading"> <?php echo $titulo ?> </h2>
+
+<div class="dashboard__contenedor-boton">
+    <a class="dashboard__boton" href="/admin/produccion/registro_produccion">
+    <i class="fa-solid fa-circle-arrow-left"></i>
+        REGRESAR A INICIO
+    </a>
+
+</div>
+
+
+<div class="dashboard__contenedor">
+    <?php if (!empty($bobinas)): ?>
+        <table class="table">
+            <thead class="table__thead">
+                <tr>
+                    <th scope="col" class="table__th">Tipo de Papel</th>
+                    <th scope="col" class="table__th">Gramaje</th>
+                    <th scope="col" class="table__th">Ancho</th>
+                    <th scope="col" class="table__th">Fecha y Hora </th>
+                    <th scope="col" class="table__th"></th>
+                </tr>
+            </thead>
+            <tbody class="table__tbody">
+
+                <?php foreach ($bobinas as $bobina):?>
+                    <tr class="table__tr">
+                        <td class="table__td"><?php echo $bobina->tipo_papel?></td>
+                        <td class="table__td"><?php echo $bobina->gramaje?></td>
+                        <td class="table__td"><?php echo $bobina->ancho?></td>
+                        <td class="table__td"><?php echo $bobina->created_at?></td>
+                        <td class="table__td--acciones"><a class="table__accion table__accion--editar" href="/admin/produccion/papel/editar?id=<?php echo $bobina->id; ?>"><i class="fa-solid fa-user-pen"></i>Editar</a>
+                        <form method="POST" action="/admin/produccion/papel/eliminar" class="table__formulario">
+                            <input type="hidden" name="id" value="<?php echo $bobina->id; ?>">
+                            <button class="table__accion table__accion--eliminar" type="submit">
+                                <i class="fa-solid fa-user-slash"></i>
+                                    Eliminar
+                            </button>
+                        </form>
+                        </td>
+
+
+                    </tr>
+                <?php endforeach;?>
+
+            </tbody>
+
+        </table>
+   
+
+
+    <?php else: ?>
+        <a class="text-center"> No hay Papel Aún</a>
+    <?php endif; ?>
+</div>
+
+
+<?php echo $paginacion; ?>
+
