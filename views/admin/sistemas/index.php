@@ -498,66 +498,127 @@ button{
 
 
 
+    // async function productosconstockminimo() {
+    //     const url = 'https://megawebsistem.com/admin/api/apiproducts';
+    //     const response = await fetch(url);
+    //     const datos = await response.json();
+    //     // console.log(datos);
+
+    //     // Filtrar productos con stock menor a 2
+    //     const lowStockProducts = datos.filter(producto => parseInt(producto.stock_actual) >= 0);
+
+    //     // Definir una lista de colores
+    //     const colores = [
+    //         'rgba(75, 192, 192, 0.2)',
+    //         'rgba(255, 99, 132, 0.2)',
+    //         'rgba(54, 162, 235, 0.2)',
+    //         'rgba(153, 102, 255, 0.2)',
+    //         'rgba(255, 159, 64, 0.2)',
+    //         'rgba(255, 99, 132, 0.2)',
+    //         'rgba(66, 133, 244, 0.2)',
+    //         'rgba(234, 67, 53, 0.2)',
+    //         'rgba(51, 51, 51, 0.2)',
+    //         'rgba(243, 156, 18, 0.2)',
+    //         'rgba(52, 152, 219, 0.2)',
+    //         'rgba(39, 174, 96, 0.2)'
+    //     ];
+
+    //     // Si tienes más de 12 productos, lo que puedes hacer es reciclar colores o generar colores aleatorios
+
+    //     // Asignar colores dinámicamente en función del índice
+    //     const backgroundColors = lowStockProducts.map((_, index) => colores[index % colores.length]);
+
+    //     // mostrar en una grafica de barras
+    //     const labels = lowStockProducts.map(producto => producto.nombre_producto);
+    //     const data = lowStockProducts.map(producto => parseInt(producto.stock_actual));
+
+    //     const ctx = document.getElementById('productosStockMinimo').getContext('2d');
+    //     new Chart(ctx, {
+    //         type: 'bar',
+    //         data: {
+    //             labels: labels,
+    //             datasets: [{
+    //                 label: 'PRODUCTOS CON STOCK MINIMO',
+    //                 data: data,
+    //                 backgroundColor: backgroundColors,
+    //                 borderColor: 'rgb(203, 223, 223)',
+    //                 borderWidth: 1
+    //             }]
+    //         },
+    //         options: {
+    //             scales: {
+    //                 y: {
+    //                     beginAtZero: true
+    //                 }
+    //             }
+    //         }
+    //     });
+    // }
+
+
+
+    // productosconstockminimo();
+
+
+
     async function productosconstockminimo() {
-        const url = 'https://megawebsistem.com/admin/api/apiproducts';
-        const response = await fetch(url);
-        const datos = await response.json();
-        // console.log(datos);
+    const url = 'https://megawebsistem.com/admin/api/apiproducts';
+    const response = await fetch(url);
+    const datos = await response.json();
 
-        // Filtrar productos con stock menor a 2
-        const lowStockProducts = datos.filter(producto => parseInt(producto.stock_actual) >= 0);
+    // Filtrar productos con stock menor a 2 y con categorías 'toner' o 'unidades de imagen'
+    const lowStockProducts = datos.filter(producto => 
+        parseInt(producto.stock_actual) < 2 && 
+        (producto.categoria === 'toner' || producto.categoria === 'unidades de imagen')
+    );
 
-        // Definir una lista de colores
-        const colores = [
-            'rgba(75, 192, 192, 0.2)',
-            'rgba(255, 99, 132, 0.2)',
-            'rgba(54, 162, 235, 0.2)',
-            'rgba(153, 102, 255, 0.2)',
-            'rgba(255, 159, 64, 0.2)',
-            'rgba(255, 99, 132, 0.2)',
-            'rgba(66, 133, 244, 0.2)',
-            'rgba(234, 67, 53, 0.2)',
-            'rgba(51, 51, 51, 0.2)',
-            'rgba(243, 156, 18, 0.2)',
-            'rgba(52, 152, 219, 0.2)',
-            'rgba(39, 174, 96, 0.2)'
-        ];
+    // Definir una lista de colores
+    const colores = [
+        'rgba(75, 192, 192, 0.2)',
+        'rgba(255, 99, 132, 0.2)',
+        'rgba(54, 162, 235, 0.2)',
+        'rgba(153, 102, 255, 0.2)',
+        'rgba(255, 159, 64, 0.2)',
+        'rgba(255, 99, 132, 0.2)',
+        'rgba(66, 133, 244, 0.2)',
+        'rgba(234, 67, 53, 0.2)',
+        'rgba(51, 51, 51, 0.2)',
+        'rgba(243, 156, 18, 0.2)',
+        'rgba(52, 152, 219, 0.2)',
+        'rgba(39, 174, 96, 0.2)'
+    ];
 
-        // Si tienes más de 12 productos, lo que puedes hacer es reciclar colores o generar colores aleatorios
+    // Asignar colores dinámicamente en función del índice
+    const backgroundColors = lowStockProducts.map((_, index) => colores[index % colores.length]);
 
-        // Asignar colores dinámicamente en función del índice
-        const backgroundColors = lowStockProducts.map((_, index) => colores[index % colores.length]);
+    // Mostrar en una gráfica de barras
+    const labels = lowStockProducts.map(producto => producto.nombre_producto);
+    const data = lowStockProducts.map(producto => parseInt(producto.stock_actual));
 
-        // mostrar en una grafica de barras
-        const labels = lowStockProducts.map(producto => producto.nombre_producto);
-        const data = lowStockProducts.map(producto => parseInt(producto.stock_actual));
-
-        const ctx = document.getElementById('productosStockMinimo').getContext('2d');
-        new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: labels,
-                datasets: [{
-                    label: 'PRODUCTOS CON STOCK MINIMO',
-                    data: data,
-                    backgroundColor: backgroundColors,
-                    borderColor: 'rgb(203, 223, 223)',
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
+    const ctx = document.getElementById('productosStockMinimo').getContext('2d');
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'PRODUCTOS CON STOCK MÍNIMO (TONER Y UNIDADES DE IMAGEN)',
+                data: data,
+                backgroundColor: backgroundColors,
+                borderColor: 'rgb(203, 223, 223)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
                 }
             }
-        });
-    }
+        }
+    });
+}
 
-
-
-    productosconstockminimo();
+productosconstockminimo();
 
 
 
@@ -676,101 +737,6 @@ button{
 
 
 
-
-// async function Apicomputadoras() {
-//     const url = 'https://megawebsistem.com/admin/api/apicomputadoras';
-//     const response = await fetch(url);
-//     const datos = await response.json();
-
-//     // Colores variados para el fondo
-//     const colores = [
-//         'rgba(255, 99, 132, 0.6)',
-//         'rgba(54, 162, 235, 0.6)',
-//         'rgba(255, 206, 86, 0.6)',
-//         'rgba(75, 192, 192, 0.6)',
-//         'rgba(153, 102, 255, 0.6)',
-//         'rgba(255, 159, 64, 0.6)',
-//         'rgba(199, 199, 199, 0.6)',
-//         'rgba(83, 102, 255, 0.6)',
-//         'rgba(120, 255, 108, 0.6)',
-//         'rgba(255, 108, 255, 0.6)'
-//     ];
-
-//     const hoy = new Date();
-
-//     const computadorasConTiempos = datos
-//         .filter(pc => pc.fecha_compra)
-//         .map((pc, index) => {
-//             const fechaCompra = new Date(pc.fecha_compra);
-//             const diffTiempo = hoy - fechaCompra;
-
-//             const diffDiasTotales = Math.floor(diffTiempo / (1000 * 60 * 60 * 24));
-//             const anios = Math.floor(diffDiasTotales / 365);
-//             const dias = diffDiasTotales % 365;
-
-//             return {
-//                 etiqueta: `${pc.numero_interno || "Sin ID"} (${pc.usuario_asignado || "Sin usuario"}) - ${pc.area}`,
-//                 tiempoTexto: `${anios} años ${dias} días`,
-//                 diasTotales: diffDiasTotales,
-//                 color: colores[index % colores.length],
-//             };
-//         });
-
-//     const etiquetas = computadorasConTiempos.map(pc => pc.etiqueta);
-//     const datosDias = computadorasConTiempos.map(pc => pc.diasTotales);
-//     const coloresBackground = computadorasConTiempos.map(pc => pc.color);
-//     const etiquetasTooltip = computadorasConTiempos.map(pc => pc.tiempoTexto);
-
-//     const ctx = document.getElementById('graficoAniosComputadoras').getContext('2d');
-//     new Chart(ctx, {
-//         type: 'bar',
-//         data: {
-//             labels: etiquetas,
-//             datasets: [{
-//                 label: 'Antigüedad en días',
-//                 data: datosDias,
-//                 backgroundColor: coloresBackground,
-//                 borderColor: 'rgba(0, 0, 0, 0.3)',
-//                 borderWidth: 1
-//             }]
-//         },
-//         options: {
-//             responsive: true,
-//             plugins: {
-//                 tooltip: {
-//                     callbacks: {
-//                         label: function(context) {
-//                             const index = context.dataIndex;
-//                             return `Antigüedad: ${etiquetasTooltip[index]}`;
-//                         }
-//                     }
-//                 },
-//                 title: {
-//                     display: true,
-//                     text: 'Antigüedad de Computadoras (años + días)'
-//                 }
-//             },
-//             scales: {
-//                 y: {
-//                     beginAtZero: true,
-//                     title: {
-//                         display: true,
-//                         text: 'Total de días desde compra'
-//                     }
-//                 },
-//                 x: {
-//                     ticks: {
-//                         autoSkip: false,
-//                         maxRotation: 60,
-//                         minRotation: 30
-//                     }
-//                 }
-//             }
-//         }
-//     });
-// }
-
-// Apicomputadoras();
 
 function cerrarModal() {
     document.getElementById('modalComputadora').style.display = 'none';
