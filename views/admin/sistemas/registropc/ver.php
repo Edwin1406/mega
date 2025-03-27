@@ -20,7 +20,7 @@
 
     .caracteristicas {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 2fr));
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
         gap: 1rem;
         margin: 2rem auto;
     }
