@@ -54,17 +54,18 @@
     </div>
 
     <div class="formulario__campo">
-        <label class="formulario__label" for="costo_unitario">Costo Unitario</label>
-        <input
-            type="number"
-            name="costo_unitario"
-            id="costo_unitario"
-            class="formulario__input"
-            placeholder="Costo Unitario"
-            value="<?php echo $comercial->costo_unitario ?? '' ?>"
-            step="any"
-            >
-    </div>
+    <label class="formulario__label" for="costo_unitario">Costo Unitario</label>
+    <input
+        type="number"
+        name="costo_unitario"
+        id="costo_unitario"
+        class="formulario__input"
+        placeholder="Costo Unitario"
+        value="<?php echo $comercial->costo_unitario ?? '' ?>"
+        step="any"
+        min="0">   
+</div>
+
 
    
  
