@@ -19,10 +19,7 @@
     }
 
     .caracteristicas {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 1rem;
-        margin: 2rem auto;
+       display: flex;
     }
 
     .caracteristicas__item {
