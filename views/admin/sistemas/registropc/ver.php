@@ -153,7 +153,7 @@
 
             <?php include_once __DIR__ . '/../../../templates/alertas.php'  ?>
 
-            <form method="POST" action="/admin/sistemas/registropc/version" class="formulario" enctype="multipart/form-data">
+            <form method="POST" action="/admin/sistemas/registropc/ver" class="formulario" enctype="multipart/form-data">
                 <fieldset class="formulario__fieldset">
                     <legend class="formulario__legend">Información de Registro de computadora</legend>
                     <div class="formulario__campo">
