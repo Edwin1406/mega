@@ -15,7 +15,7 @@
     max-width: 50%;
     margin: auto;
     box-shadow: 0 2px 5px rgba(135, 164, 165, 0.2);
-    
+
 }
 
 .caracteristicas {
@@ -149,6 +149,13 @@
             <p> <?php echo $computadora->created_at ?> </p>
         </div>
     </div>
+    
+    <div class="caracteristicas">
+        <h1>dsadsad</h1>
+        
+    </div>
+
+
 
     
 </div>
