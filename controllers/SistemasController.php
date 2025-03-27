@@ -558,7 +558,7 @@ public static function ver (Router $router){
     $computadora = Computadora::find($id);
     // quiero ver el mantenimiento de la computadora depende el id de la computadora
     $mante = MantenimientoPc::where('computadora_id', $id);
-    debuguear($mante);
+    // debuguear($mante);
     $alertas = [];
     // debuguear($computadora);
     if (!$computadora) {
