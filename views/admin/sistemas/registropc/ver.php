@@ -237,19 +237,11 @@
 
 </div>
 
-<h2 class="dashboard__heading"> <?php echo $titulo ?> </h2>
-
-<div class="dashboard__contenedor-boton">
-    <a class="dashboard__boton" href="/admin/produccion/registro_produccion">
-    <i class="fa-solid fa-circle-arrow-left"></i>
-        REGRESAR A INICIO
-    </a>
-
-</div>
+<h2 class="dashboard__heading"> TABLA DE CONSUMO </h2>
 
 
 <div class="dashboard__contenedor">
-    <?php if (!empty($bobinas)): ?>
+    <?php if (!empty($mante)): ?>
         <table class="table">
             <thead class="table__thead">
                 <tr>
@@ -262,20 +254,20 @@
             </thead>
             <tbody class="table__tbody">
 
-                <?php foreach ($bobinas as $bobina):?>
+                <?php foreach ($mante as $mantepc):?>
                     <tr class="table__tr">
-                        <td class="table__td"><?php echo $bobina->tipo_papel?></td>
-                        <td class="table__td"><?php echo $bobina->gramaje?></td>
-                        <td class="table__td"><?php echo $bobina->ancho?></td>
-                        <td class="table__td"><?php echo $bobina->created_at?></td>
+                        <td class="table__td"><?php echo $mantepc->fecha_mantenimiento?></td>
+                        <td class="table__td"><?php echo $mantepc->tipo?></td>
+                        <td class="table__td"><?php echo $mantepc->descripcion?></td>
+                        <td class="table__td"><?php echo $mantepc->repuesto_usado?></td>
                         <td class="table__td--acciones"><a class="table__accion table__accion--editar" href="/admin/produccion/papel/editar?id=<?php echo $bobina->id; ?>"><i class="fa-solid fa-user-pen"></i>Editar</a>
-                        <form method="POST" action="/admin/produccion/papel/eliminar" class="table__formulario">
+                        <!-- <form method="POST" action="/admin/produccion/papel/eliminar" class="table__formulario">
                             <input type="hidden" name="id" value="<?php echo $bobina->id; ?>">
                             <button class="table__accion table__accion--eliminar" type="submit">
                                 <i class="fa-solid fa-user-slash"></i>
                                     Eliminar
                             </button>
-                        </form>
+                        </form> -->
                         </td>
 
 

@@ -556,6 +556,7 @@ public static function ver (Router $router){
     $id = $_GET['id'];
     $id = filter_var($id, FILTER_VALIDATE_INT);
     $computadora = Computadora::find($id);
+    $mante= MantenimientoPc::find($id);
     $alertas = [];
     // debuguear($computadora);
     if (!$computadora) {
@@ -582,6 +583,7 @@ public static function ver (Router $router){
         'computadora' => $computadora,
         'alertas' => $alertas,
         'mantenimiento' => $mantenimiento,
+        'mante' => $mante,
     ]);
 }
 
