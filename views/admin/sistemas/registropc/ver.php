@@ -239,7 +239,7 @@
 <h2 class="dashboard__heading">Historial de Mantenimiento</h2>
 
 <div class="dashboard__contenedor">
-    <?php if (!empty($mante)): ?>
+<?php if (!empty($mante) && is_array($mante)): ?>
         <table class="table">
             <thead class="table__thead">
                 <tr>
@@ -253,20 +253,24 @@
             </thead>
             <tbody class="table__tbody">
 
-                <?php foreach ($mante as $mantepc): ?>
-                    <tr class="table__tr">
-                        <td class="table__td"><?php echo $mantepc->fecha_mantenimiento; ?></td>
-                        <td class="table__td"><?php echo $mantepc->tipo; ?></td>
-                        <td class="table__td"><?php echo $mantepc->descripcion; ?></td>
-                        <td class="table__td"><?php echo $mantepc->repuesto_usado ?: '—'; ?></td>
-                        <td class="table__td"><?php echo $mantepc->fecha_cambio_repuesto ?: '—'; ?></td>
-                        <td class="table__td"><?php echo $mantepc->costo ? '$' . number_format($mantepc->costo, 2) : '—'; ?></td>
-                    </tr>
-                <?php endforeach; ?>
+               
+          
+    <?php foreach ($mante as $mantepc): ?>
+        <tr class="table__tr">
+            <td class="table__td"><?php echo $mantepc->fecha_mantenimiento; ?></td>
+            <td class="table__td"><?php echo $mantepc->tipo; ?></td>
+            <td class="table__td"><?php echo $mantepc->descripcion; ?></td>
+            <td class="table__td"><?php echo $mantepc->repuesto_usado ?: '—'; ?></td>
+            <td class="table__td"><?php echo $mantepc->fecha_cambio_repuesto ?: '—'; ?></td>
+            <td class="table__td"><?php echo $mantepc->costo ? '$' . number_format($mantepc->costo, 2) : '—'; ?></td>
+        </tr>
+    <?php endforeach; ?>
+
+
 
             </tbody>
         </table>
-    <?php else: ?>
-        <p class="text-center">No hay registros de mantenimiento aún para esta computadora.</p>
-    <?php endif; ?>
+        <?php else: ?>
+    <tr><td colspan="6">No hay mantenimientos registrados.</td></tr>
+<?php endif; ?>
 </div>
