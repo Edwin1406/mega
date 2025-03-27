@@ -101,6 +101,7 @@
     <div class="formulario__campo">
         <label class="formulario__label" for="estado_actual">ESTADO ACTUAL </label>
         <select name="estado_actual" id="estado_actual" class="formulario__input">
+            <option value="Nuevo">Nuevo</option>
             <option value="Bueno">Bueno</option>
             <option value="Regular">Regular</option>
             <option value="Mal estado">Mal Estado</option>
