@@ -8,6 +8,14 @@
     display: grid;
     grid-template-columns: auto auto;
     gap: 2rem;
+    margin: 2rem;
+    padding: 2rem;
+    background-color:rgb(255, 255, 255);
+    border-radius: 1rem;
+    max-width: 50%;
+    margin: auto;
+    box-shadow: 0 2px 5px rgba(135, 164, 165, 0.2);
+    
 }
 
 .caracteristicas {
