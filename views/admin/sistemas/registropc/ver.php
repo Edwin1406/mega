@@ -166,6 +166,7 @@
                 name="fecha_mantenimiento"
                 id="fecha_mantenimiento"
                 class="formulario__input"
+                value="<?php echo $mantenimiento->fecha_mantenimiento; ?>"  
                 required>
         </div>
 
@@ -185,7 +186,8 @@
                 id="descripcion"
                 class="formulario__input"
                 placeholder="Detalles del trabajo realizado"
-                required></textarea>
+                value="<?php echo $mantenimiento->descripcion; ?>"    
+                ></textarea>
         </div>
 
         <div class="formulario__campo">
@@ -195,7 +197,9 @@
                 name="repuesto_usado"
                 id="repuesto_usado"
                 class="formulario__input"
-                placeholder="Ej: SSD 512GB">
+                placeholder="Ej: SSD 512GB"
+                value="<?php echo $mantenimiento->repuesto_usado; ?>"
+                >
         </div>
 
         <div class="formulario__campo">
@@ -204,7 +208,9 @@
                 type="date"
                 name="fecha_cambio_repuesto"
                 id="fecha_cambio_repuesto"
-                class="formulario__input">
+                class="formulario__input"
+                value="<?php echo $mantenimiento->fecha_cambio_repuesto; ?>"
+                >
         </div>
 
         <div class="formulario__campo">
@@ -215,7 +221,9 @@
                 name="costo"
                 id="costo"
                 class="formulario__input"
-                placeholder="Ej: 45.00">
+                placeholder="Ej: 45.00"
+                value="<?php echo $mantenimiento->costo; ?>"
+                >
         </div>
 
         <input class="formulario__submit" type="submit" value="Registrar mantenimiento">
