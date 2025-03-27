@@ -61,7 +61,9 @@
             id="costo_unitario"
             class="formulario__input"
             placeholder="Costo Unitario"
-            value="<?php echo $comercial->costo_unitario ?? '' ?>">
+            value="<?php echo $comercial->costo_unitario ?? '' ?>"
+            step="any"
+            >
     </div>
 
    
