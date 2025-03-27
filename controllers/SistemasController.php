@@ -555,6 +555,7 @@ public static function ver (Router $router){
     $id = $_GET['id'];
     $id = filter_var($id, FILTER_VALIDATE_INT);
     $computadora = Computadora::find($id);
+    $alertas = [];
     // debuguear($computadora);
     if (!$computadora) {
         header('Location: /admin/sistemas/registropc/version');
@@ -563,6 +564,7 @@ public static function ver (Router $router){
     $router->render('admin/sistemas/registropc/ver', [
         'titulo' => 'CARACTERISTICAS DE LA COMPUTADORA',
         'computadora' => $computadora,
+        'alertas' => $alertas,
     ]);
 }
 
