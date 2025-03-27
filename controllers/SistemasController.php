@@ -557,7 +557,7 @@ public static function ver (Router $router){
     $id = filter_var($id, FILTER_VALIDATE_INT);
     $computadora = Computadora::find($id);
     // quiero ver el mantenimiento de la computadora depende el id de la computadora
-    $mante = MantenimientoPc::where('computadora_id', $id);
+    $mante = MantenimientoPc::find('computadora_id', $id);
     debuguear($mante);
     $alertas = [];
     // debuguear($computadora);
