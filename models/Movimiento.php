@@ -42,11 +42,13 @@ class Movimiento  extends ActiveRecord
                     m.valor,
                     m.fecha_movimiento,
                     p.nombre_producto,
-                    a.nombre_area
+                    a.nombre_area,
+                    c.nombre_categoria
 
                   FROM movimientos_stock m
                   LEFT JOIN productos_inventario p ON m.id_producto = p.id_producto
                   LEFT JOIN areas_inventario a ON m.id_area = a.id_area
+                  LEFT JOIN categorias_inventario c ON p.id_categoria = c.id_categoria
                   ORDER BY m.id";
     
         $resultado = self::arrayasociativo($query);
@@ -58,6 +60,7 @@ class Movimiento  extends ActiveRecord
                 'id' => $fila['movimiento_id'],
                 'producto' => $fila['nombre_producto'] ,
                 'area' => $fila['nombre_area'],
+                'categoria' => $fila['nombre_categoria'],
                 'tipo_movimiento' => $fila['tipo_movimiento'],
                 'cantidad' => $fila['cantidad'],
                 'costo_nuevo' => $fila['costo_nuevo'],
