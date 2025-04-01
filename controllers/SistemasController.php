@@ -591,6 +591,26 @@ public static function ver (Router $router){
 
 
 
+public static function crearTicket(Router $router){
+    session_start();
+    $alertas = [];
+
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+       
+    }
+
+    // debuguear($ticket);
+
+    $router->render('admin/sistemas/ticket/crear', [
+        'titulo' => 'CREAR TICKET',
+        'alertas' => $alertas,
+        'ticket' => $ticket,
+    ]);
+
+}
+
+
+
 
 
 }
