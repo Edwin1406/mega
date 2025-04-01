@@ -331,8 +331,8 @@ $router->post('/admin/sistemas/registropc/ver', [SistemasController::class, 'ver
 
 
 // generar ticket de soporte
-$router->get('/admin/sistemas/ticket/crear', [SistemasController::class, 'ticket']);
-$router->post('/admin/sistemas/ticket/crear', [SistemasController::class, 'ticket']);
+$router->get('/admin/sistemas/ticket/crearTicket', [SistemasController::class, 'crearTicket']);
+$router->post('/admin/sistemas/ticket/crearTicket', [SistemasController::class, 'crearTicket']);
 
 
 // citas de prueba 
