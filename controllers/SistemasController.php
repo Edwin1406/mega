@@ -603,8 +603,7 @@ public static function crearTicket(Router $router){
 
     $router->render('admin/sistemas/ticket/crearTicket', [
         'titulo' => 'CREAR TICKET',
-        'alertas' => $alertas,
-        'ticket' => $ticket,
+        'alertas' => $alertas
     ]);
 
 }
