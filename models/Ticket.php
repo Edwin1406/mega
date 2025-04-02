@@ -9,7 +9,6 @@ class Ticket extends ActiveRecord {
     protected static $columnasDB = [
         'id',                  
         'computadora_id',      
-        'asunto',              
         'descripcion',         
         'fecha_creacion',      
         'estado',              
@@ -21,7 +20,6 @@ class Ticket extends ActiveRecord {
 
     public $id;
     public $computadora_id;
-    public $asunto;
     public $descripcion;
     public $fecha_creacion;
     public $estado;
@@ -34,7 +32,6 @@ class Ticket extends ActiveRecord {
     {
         $this->id = $args['id'] ?? null;
         $this->computadora_id = $args['computadora_id'] ?? null;
-        $this->asunto = $args['asunto'] ?? '';
         $this->descripcion = $args['descripcion'] ?? '';
         $this->fecha_creacion = $args['fecha_creacion'] ?? date('Y-m-d H:i:s');
         $this->estado = $args['estado'] ?? 'abierto';
