@@ -6,11 +6,12 @@ namespace Model;
 class Computadora extends ActiveRecord {
     
     protected static $tabla = 'computadoras';
-    protected static $columnasDB = ['id', 'numero_interno', 'area', 'usuario_asignado', 'fecha_compra', 'marca_modelo', 'procesador', 'ram', 'disco_duro', 'sistema_operativo', 'estado_actual', 'direccion_ip','contrasena','created_at'];
+    protected static $columnasDB = ['id', 'numero_interno','email_usuario', 'area', 'usuario_asignado', 'fecha_compra', 'marca_modelo', 'procesador', 'ram', 'disco_duro', 'sistema_operativo', 'estado_actual', 'direccion_ip','contrasena','created_at'];
 
    
     public $id;
     public $numero_interno;
+    public $email_usuario;
     public $area;
     public $usuario_asignado;
     public $fecha_compra;
@@ -37,6 +38,7 @@ class Computadora extends ActiveRecord {
 
         $this->id = $args['id'] ?? null;
         $this->numero_interno = $args['numero_interno'] ?? '';
+        $this->email_usuario = $args['email_usuario'] ?? '';
         $this->area = $args['area'] ?? '';
         $this->usuario_asignado = $args['usuario_asignado'] ?? '';
         $this->fecha_compra = $args['fecha_compra'] ?? '';
