@@ -714,6 +714,43 @@ public static function tablaTicket(Router $router){
 
 public static function editarTicket (Router $router){
 
+    $id = $_GET['id'];
+    $id = filter_var($id, FILTER_VALIDATE_INT);
+    $ticket = Ticket::find($id);
+
+    // debuguear($ticket);
+
+    if (!$ticket) {
+        header('Location: /admin/sistemas/ticket/tablaTicket');
+    }
+
+    $alertas = [];
+
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $ticket->sincronizar($_POST);
+
+        debuguear($ticket);
+        // guardar el ticket
+        // debuguear($ticket);
+        $alertas = $ticket->validar();
+
+        // guadar en la base de datos
+        // if (empty($alertas)) {
+        //     $ticket->actualizar();
+        //     $alertas = $ticket->getAlertas();
+        //     header('Location: /admin/sistemas/ticket/vistaTicket?id='. $ticket->id);
+        // }
+
+    }   
+
+    // debuguear($ticket);
+
+    $router->render('admin/sistemas/ticket/editarTicket', [
+        'titulo' => 'EDITAR TICKET',
+        'alertas' => $alertas,
+        'ticket' => $ticket
+    ]);
+
 }
 
 
