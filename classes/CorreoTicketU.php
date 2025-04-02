@@ -91,26 +91,21 @@ class CorreoTicketU {
          </style></head>";
          $contenido .= "<body>";
          $contenido .= "<div class='ticket-container'>";
-         $contenido .= "<div class='ticket-header'><h2>Nuevo Ticket de Soporte</h2></div>";
+         $contenido .= "<div class='ticket-header'><h2>Ticket Cerrado</h2></div>";
          $contenido .= "<div class='ticket-details'>";
-         $contenido .= "<p> <strong>Hola " . $this->usuario_asignado . "</strong>, Has creado un ticket con los siguientes datos:</p>";
-         $contenido .= "<p> <strong>Computadora ID:</strong> " . $this->computadora_id . "</p>";
-         $contenido .= "<p> <strong>Descripción:</strong> " . $this->descripcion . "</p>";
-         $contenido .= "<p> <strong>Fecha de Creación:</strong> " . $this->fecha_creacion . "</p>";
-         $contenido .= "<p> <strong>Estado:</strong> " . $this->estado . "</p>";
-         $contenido .= "<p> <strong>Prioridad:</strong> " . $this->prioridad . "</p>";
-         $contenido .= "<p> <strong>Categoría:</strong> " . $this->categoria . "</p>";
-         $contenido .= "<p> Llegaré a la brevedad posible para atender tu solicitud.</p>";
+         $contenido .= "<p><strong>Hola " . $this->usuario_asignado . "</strong>, El ticket que creaste ha sido cerrado con los siguientes datos:</p>";
+         $contenido .= "<p><strong>Computadora ID:</strong> " . $this->computadora_id . "</p>";
+         $contenido .= "<p><strong>Estado:</strong> Cerrado</p>"; // Estado cerrado
+         $contenido .= "<p><strong>Prioridad:</strong> " . $this->prioridad . "</p>";
+         $contenido .= "<p>El ticket ha sido cerrado. Si tienes más consultas o necesitas reabrirlo, por favor contacta al departamento de soporte.</p>";
          $contenido .= "</div>";
-         $contenido .= "<div class='ticket-footer'><p>En caso de que no hayas solicitado este ticket, por favor contacta al departamento de sistemas.</p></div>";
+         $contenido .= "<div class='ticket-footer'><p>Si no solicitaste este ticket, por favor contacta al departamento de sistemas.</p></div>";
          $contenido .= "</div>";
          $contenido .= "<div class='footer'><p>&copy; 2025 MEGASTOCK S.A. - Todos los derechos reservados.</p></div>";
          $contenido .= "</body></html>";
          $mail->Body = $contenido;
          
-
-         //Enviar el mail
+         // Enviar el mail
          $mail->send();
-
-    }
+    }         
 }
