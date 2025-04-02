@@ -51,7 +51,7 @@
                     <?php foreach ($computadoras as $computadora) : ?>
                         <option
                             <?php echo $computadora->id === $computadora->id ? 'selected' : '' ?>
-                            value="<?php echo $computadora->id ?>"><?php echo $computadora->usuario_asignado ?></option>
+                            value="<?php echo $computadora->id?>"><?php echo $computadora->usuario_asignado ?></option>
                     <?php endforeach; ?>
                 </select>
             </div>
