@@ -14,10 +14,10 @@
 
 
     .dashboard__sidebar{
-        display: block;
+        border: 1px solid #ccc;
     }
 
-    
+
 
 </style>
 
