@@ -11,6 +11,7 @@
         name="estado"
         id="estado"
         class="formulario__input">
+        <option value="">-- Seleccione --</option>
         <option value="cerrado" <?php echo (isset($ticket->estado) && $ticket->estado == 'cerrado') ? 'selected' : ''; ?>>Cerrado</option>
     </select>
 </div>
