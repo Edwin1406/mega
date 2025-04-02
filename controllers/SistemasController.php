@@ -728,18 +728,16 @@ public static function editarTicket (Router $router){
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $ticket->sincronizar($_POST);
-
-        debuguear($ticket);
-        // guardar el ticket
-        // debuguear($ticket);
+        $ticket->estado ='cerrado';
         $alertas = $ticket->validar();
 
+        debuguear($ticket);
         // guadar en la base de datos
-        // if (empty($alertas)) {
-        //     $ticket->actualizar();
-        //     $alertas = $ticket->getAlertas();
-        //     header('Location: /admin/sistemas/ticket/vistaTicket?id='. $ticket->id);
-        // }
+        if (empty($alertas)) {
+            $ticket->actualizar();
+            $alertas = $ticket->getAlertas();
+            header('Location: /admin/sistemas/ticket/vistaTicket?id='. $ticket->id);
+        }
 
     }   
 
