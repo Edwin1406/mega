@@ -718,7 +718,7 @@ public static function editarTicket(Router $router){
     }
     
     $ticket = Ticket::find($id);
-
+    $computadora = Computadora::find($ticket->computadora_id);
     $alertas = [];
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -740,6 +740,11 @@ public static function editarTicket(Router $router){
 
         if($ticket==="cerrado"){
 
+            $correo = new CorreoTicketU('edwin.ed948@gmail.com',$computadora->email_usuario,$ticket->computadora_id, $computadora->usuario_asignado,$ticket->estado,$ticket->prioridad);
+                $correo->enviarConfirmacionTicket();
+                // actualizar el estado_email a 1
+                $ticket->estado_email = 1;
+                $ticket->actualizar();
         }
 
         
