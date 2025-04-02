@@ -638,7 +638,7 @@ public static function vistaTicket(Router $router){
     $id = filter_var($id, FILTER_VALIDATE_INT);
     $ticket = Ticket::find($id);
 
-    debuguear($ticket);
+    // debuguear($ticket);
 
     $computadora = Computadora::find($ticket->computadora_id);
 
@@ -654,7 +654,7 @@ public static function vistaTicket(Router $router){
         // actualizar el estado_email a 1
         $ticket->estado_email = 1;
         $ticket->actualizar();
-        
+
     }
 // en tickets hay estado_email para que no se envie el correo cada vez que se actualiza el ticket
     // si el ticket es abierto y el estado_email es 0 entonces enviar el correo
