@@ -13,7 +13,7 @@
     }
 
 
-    .dashboard__sidebar{
+    .dashboard__ticket{
         border: 1px solid #ccc;
     }
 
