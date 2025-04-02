@@ -739,7 +739,7 @@ public static function editarTicket(Router $router){
 
         // Redirigir después de la actualización
         header('Location: /admin/sistemas/ticket/vistaTicket?id=' . $ticket->id);
-        exit;
+        // exit;
     }
 
     $router->render('admin/sistemas/ticket/editarTicket', [
