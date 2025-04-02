@@ -68,7 +68,7 @@ class CorreoTicket {
                  margin: auto;
              }
              .ticket-header {
-                 background-color: #0056b3;
+                 background-color:rgb(228, 203, 90);
                  color: #fff;
                  padding: 10px;
                  border-radius: 8px 8px 0 0;
@@ -79,7 +79,7 @@ class CorreoTicket {
                  font-size: 14px;
              }
              .ticket-details strong {
-                 color: #0056b3;
+                 color:rgb(218, 154, 101);
              }
              .footer {
                  text-align: center;
