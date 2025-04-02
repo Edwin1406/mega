@@ -73,6 +73,7 @@
                     name="prioridad"
                     id="prioridad"
                     class="formulario__input">
+                    <option value="">-- Seleccione --</option>
                     <option value="urgente" <?php echo (isset($ticket->prioridad) && $ticket->prioridad == 'urgente') ? 'selected' : ''; ?>>Urgente</option>
                     <option value="no urgente" <?php echo (isset($ticket->prioridad) && $ticket->prioridad == 'no_urgente') ? 'selected' : ''; ?>>No urgente</option>
                 </select>
@@ -85,6 +86,8 @@
                     name="categoria"
                     id="categoria"
                     class="formulario__input">
+                    <option value="">-- Seleccione --</option>
+
                     <option value="soporte" <?php echo (isset($ticket->categoria) && $ticket->categoria == 'soporte') ? 'selected' : ''; ?>>Soporte</option>
                     <option value="mantenimiento" <?php echo (isset($ticket->categoria) && $ticket->categoria == 'mantenimiento') ? 'selected' : ''; ?>>Mantenimiento</option>
                     <option value="consulta" <?php echo (isset($ticket->categoria) && $ticket->categoria == 'consulta') ? 'selected' : ''; ?>>Consulta</option>
