@@ -37,7 +37,7 @@
 
     <?php include_once __DIR__ . '/../../../templates/alertas.php'  ?>
 
-    <form method="POST" action="/admin/sistemas/productos/crear " class="formulario" enctype="multipart/form-data">
+    <form method="POST" action="/admin/sistemas/ticket/crearTicket" class="formulario" enctype="multipart/form-data">
 
 
         <fieldset class="formulario__fieldset">
