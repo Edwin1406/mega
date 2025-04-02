@@ -745,7 +745,7 @@ public static function editarTicket (Router $router){
 
     // debuguear($ticket);
 
-    $router->render('admin/sistemas/ticket/editar', [
+    $router->render('admin/sistemas/ticket/editarTicket', [
         'titulo' => 'EDITAR TICKET',
         'alertas' => $alertas,
         'ticket' => $ticket
