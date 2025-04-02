@@ -11,6 +11,14 @@
             display: none;
         }
     }
+
+
+    .dashboard__sidebar{
+        display: block;
+    }
+
+    
+
 </style>
 
 <!-- visualizar el ticket generado  -->
