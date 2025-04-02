@@ -79,6 +79,7 @@
         <div class="item"><a href="/admin/sistemas/movimiento/movimientos"> <i class="fas fa-newspaper"></i> MOVIMIENTOS</a></div>
         <div class="item"><a href="/admin/sistemas/solicitudes/solicitud"><i class="fa-solid fa-arrow-right"></i> SOLICITUD</a></div>
         <div class="item"><a href="/admin/sistemas/registropc/version"><i class="fa-solid fa-arrow-right"></i>PC</a></div>
+        <div class="item"><a href="/admin/sistemas/ticket/crearTicket"><i class="fa-solid fa-arrow-right"></i> TICKETS</a></div>
     </div>
 <?php else: ?>
 
