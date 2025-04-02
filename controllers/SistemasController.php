@@ -712,6 +712,12 @@ public static function tablaTicket(Router $router){
 
 
 
+public static function editarTicket (Router $router){
+
+}
+
+
+
 
 
 

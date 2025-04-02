@@ -337,11 +337,11 @@ $router->post('/admin/sistemas/ticket/crearTicket', [SistemasController::class, 
 
 $router->get('/admin/sistemas/ticket/tablaTicket', [SistemasController::class, 'tablaTicket']);
 
-// $router->get('/admin/sistemas/ticket/editar', [SistemasController::class, 'editar']);
-// $router->post('/admin/sistemas/ticket/editar', [SistemasController::class, 'editar']);
 
 $router->get('/admin/sistemas/ticket/vistaTicket', [SistemasController::class, 'vistaTicket']);
 
+$router->get('/admin/sistemas/ticket/editarTicket', [SistemasController::class, 'editarTicket']);
+$router->post('/admin/sistemas/ticket/editarTicket', [SistemasController::class, 'editarTicket']);
 
 
 // citas de prueba 
