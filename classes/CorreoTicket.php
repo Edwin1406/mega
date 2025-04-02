@@ -46,7 +46,7 @@ class CorreoTicket {
          $mail->setFrom('sistemas@logmegaecuador.com', 'MEGASTOCK S.A.');
          $mail->addAddress($this->email, $this->usuario_asignado);
          $mail->addAddress($this->emailusuario, $this->usuario_asignado);
-         $mail->Subject = 'Confirma tu Cuenta';
+         $mail->Subject = 'Nuevo Ticket de Soporte - MEGASTOCK S.A.';
 
          // Set HTML
          $mail->isHTML(TRUE);
