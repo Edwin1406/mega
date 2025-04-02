@@ -667,7 +667,6 @@ public static function vistaTicket(Router $router){
 
 
 public static function tablaTicket(Router $router){
-    $alertas = [];
     $tickets = Ticket::all('DESC');
 
     $pagina_actual = $_GET['page'] ?? 1;
