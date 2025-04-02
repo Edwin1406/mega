@@ -3,17 +3,13 @@
 
 
 <style>
-
-
-/* Ocultar la barra lateral en dispositivos móviles */
-@media (max-width: 768px) {
-    .dashboard__sidebar {  /* Suponiendo que el contenedor tiene la clase .barra-lateral */
-        display: none;
+    /* Ocultar la barra lateral en dispositivos móviles */
+    @media (max-width: 768px) {
+        .dashboard__sidebar {
+            /* Suponiendo que el contenedor tiene la clase .barra-lateral */
+            display: none;
+        }
     }
-}
-
-
-
 </style>
 
 <!-- Agregar CSS de Select2 -->
@@ -28,9 +24,8 @@
 
 <script>
     $(document).ready(function() {
-    $('#usuario_asignado').select2();
-});
-
+        $('#usuario_asignado').select2();
+    });
 </script>
 
 <div class="dashboard__formulario">
@@ -124,32 +119,9 @@
                 </select>
             </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
         </fieldset>
 
-
-
-
-
-
-
-
-
-
-
-
-        <input class="formulario__submit formulario__submit--registrar" type="submit" value="Registrar producto">
+        <input class="formulario__submit formulario__submit--registrar" type="submit" value="Generar Ticket">
 
 
     </form>
