@@ -16,6 +16,23 @@
 
 </style>
 
+<!-- Agregar CSS de Select2 -->
+<link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
+
+<!-- Agregar jQuery (requerido para Select2) -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- Agregar JS de Select2 -->
+<script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
+
+
+<script>
+    $(document).ready(function() {
+    $('#usuario_asignado').select2();
+});
+
+</script>
+
 <div class="dashboard__formulario">
 
     <?php include_once __DIR__ . '/../../../templates/alertas.php'  ?>
