@@ -75,7 +75,7 @@ class CorreoTicket {
                  text-align: center;
              }
              .ticket-details p {
-                 margin: 10px 0;
+                 margin: 1rem;
                  font-size: 14px;
              }
              .ticket-details strong {
