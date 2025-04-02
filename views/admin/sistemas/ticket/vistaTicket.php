@@ -42,7 +42,7 @@
 
 
     .dashboard__ticket--heading{
-        font-size: 1.5rem;
+        font-size: 2rem;
         font-weight: bold;
         text-align: center;
     }
