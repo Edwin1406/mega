@@ -62,20 +62,7 @@
             </div>
 
             <div class="formulario__campo">
-                <label class="formulario__label" for="asunto">Asunto:</label>
-                <input
-                    type="text"
-                    name="asunto"
-                    id="asunto"
-                    class="formulario__input"
-                    placeholder="Nombre del Producto"
-                    value="<?php echo $ticket->asunto ?? '' ?>">
-            </div>
-
-
-
-            <div class="formulario__campo">
-                <label class="formulario__label" for="descripcion">Descripcion:</label>
+                <label class="formulario__label" for="descripcion">Descripcion del Problema:</label>
                 <input
                     type="text"
                     name="descripcion"
