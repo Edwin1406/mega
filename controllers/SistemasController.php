@@ -709,15 +709,15 @@ public static function tablaTicket(Router $router){
 
 }
 
-
-
 public static function editarTicket(Router $router){
     $id = $_GET['id'];
     $id = filter_var($id, FILTER_VALIDATE_INT);
 
     if (!$id) {
         header('Location: /admin/sistemas/ticket/tablaTicket');
+        exit;
     }
+    
     $ticket = Ticket::find($id);
 
     $alertas = [];
@@ -726,22 +726,20 @@ public static function editarTicket(Router $router){
         // Sincronizar con los datos enviados por el formulario
         $ticket->sincronizar($_POST);
 
-        debuguear($ticket);
-
-        // Solo actualizar el estado si se cambia de 'abierto' a 'cerrado'
+        // Verifica si se está cambiando el estado
         if (isset($_POST['estado']) && $_POST['estado'] !== $ticket->estado) {
             $ticket->estado = $_POST['estado'];
         }
 
-debuguear($ticket);
-
-        // Si el estado fue cambiado, realizar la actualización
+        // Actualizar el ticket
         $ticket->actualizar();
 
-        // Recoger las alertas y redirigir
+        // Recoger las alertas
         $alertas = $ticket->getAlertas();
+
+        // Redirigir después de la actualización
         header('Location: /admin/sistemas/ticket/vistaTicket?id=' . $ticket->id);
-        exit; // Es importante llamar a exit después de header para evitar que el código se siga ejecutando
+        exit;
     }
 
     $router->render('admin/sistemas/ticket/editarTicket', [
@@ -750,8 +748,6 @@ debuguear($ticket);
         'ticket' => $ticket
     ]);
 }
-
-
 
 
 
