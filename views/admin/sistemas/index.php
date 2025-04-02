@@ -38,29 +38,32 @@
 
     @media (min-width: 1024px) {
         .item:nth-child(1) {
-            width: 16%;
+            width: 14%;
         }
 
         .item:nth-child(2) {
-            width: 16%;
+            width: 14%;
         }
 
         .item:nth-child(3) {
-            width: 16%;
+            width: 14%;
         }
 
         .item:nth-child(4) {
-            width: 16%;
+            width: 14%;
         }
 
         .item:nth-child(5) {
-            width: 16%;
+            width: 14%;
         }
 
         .item:nth-child(6) {
-            width: 16%;
+            width: 14%;
         }
 
+        .item:nth-child(7) {
+            width: 14%;
+        }
 
 
 
