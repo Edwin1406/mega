@@ -7,6 +7,7 @@ use PHPMailer\PHPMailer\PHPMailer;
 class CorreoTicket {
 
     public $email;
+    public $emailusuario;
     public $computadora_id;
     public $usuario_asignado;
     public $descripcion;
@@ -16,9 +17,10 @@ class CorreoTicket {
     public $categoria;
 
     
-    public function __construct( $email,$computadora_id,$usuario_asignado,$descripcion,$fecha_creacion,$estado,$prioridad,$categoria)
+    public function __construct( $email,$emailusuario,$computadora_id,$usuario_asignado,$descripcion,$fecha_creacion,$estado,$prioridad,$categoria)
     {
         $this->email = $email;
+        $this->emailusuario = $emailusuario;
         $this->computadora_id = $computadora_id;
         $this->usuario_asignado = $usuario_asignado;
         $this->descripcion = $descripcion;
@@ -43,6 +45,7 @@ class CorreoTicket {
      
          $mail->setFrom('sistemas@logmegaecuador.com', 'MEGASTOCK S.A.');
          $mail->addAddress($this->email, $this->usuario_asignado);
+         $mail->addAddress($this->emailusuario, $this->usuario_asignado);
          $mail->Subject = 'Confirma tu Cuenta';
 
          // Set HTML
