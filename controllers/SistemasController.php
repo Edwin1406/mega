@@ -613,6 +613,14 @@ public static function crearTicket(Router $router){
         // debuguear($ticket);
         $alertas = $ticket->validar();
 
+        // guadar en la base de datos
+        if (empty($alertas)) {
+            $ticket->guardar();
+            $alertas = $ticket->getAlertas();
+            header('Location: /admin/sistemas/ticket/tabla');
+        }
+        
+
 
         debuguear($ticket);
 
