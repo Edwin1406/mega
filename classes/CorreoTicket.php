@@ -53,9 +53,15 @@ class CorreoTicket {
          $mail->CharSet = 'UTF-8';
 
          $contenido = '<html>';
-         $contenido .= "<p><strong>Hola " . $this->usuario_asignado .  "</strong> Has Registrado Correctamente tu cuenta en Sitio Web; pero es necesario confirmarla</p>";
-         $contenido .= "<p>Presiona aquí: <a href='" . $_ENV['HOST'] . "/confirmar-cuenta?token=" . $this->usuario_asignado . "'>Confirmar Cuenta</a>";       
-         $contenido .= "<p>Si tu no creaste esta cuenta; puedes ignorar el mensaje</p>";
+         $contenido .= "<p><strong>Hola " . $this->usuario_asignado .  "</strong> Has creado un ticket con los siguientes datos:</p>";
+            $contenido .= "<p><strong>Computadora ID:</strong> " . $this->computadora_id . "</p>";
+            $contenido .= "<p><strong>Descripción:</strong> " . $this->descripcion . "</p>";
+            $contenido .= "<p><strong>Fecha de creación:</strong> " . $this->fecha_creacion . "</p>";
+            $contenido .= "<p><strong>Estado:</strong> " . $this->estado . "</p>";
+            $contenido .= "<p><strong>Prioridad:</strong> " . $this->prioridad . "</p>";
+            $contenido .= "<p><strong>Categoria:</strong> " . $this->categoria . "</p>";
+            $contenido .= "llegare a la brevedad posible para atender tu solicitud.</p>";
+         $contenido .= "<> En caso de que no hayas solicitado este ticket, por favor contacta al departamento de sistemas.</p>";
          $contenido .= '</html>';
          $mail->Body = $contenido;
 
