@@ -639,10 +639,9 @@ public static function vistaTicket(Router $router){
 
     $computadora = Computadora::find($ticket->computadora_id);
 
-    debuguear($computadora);
 
     // enviar el ticket por correo tambien el usuario asignado
-    $correo = new CorreoTicket($ticket->computadora_id, $computadora->usuario_asignado, $ticket->id);
+    $correo = new CorreoTicket('edwin.ed948@gmail.com',$ticket->computadora_id, $computadora->usuario_asignado, $ticket->descripcion,$ticket->fecha_creacion,$ticket->estado,$ticket->prioridad,$ticket->categoria);
     $correo->enviarConfirmacionTicket();
 
         $router->render('admin/sistemas/ticket/vistaTicket', [
