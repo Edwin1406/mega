@@ -6,7 +6,7 @@
     <form method="POST" action="/admin/sistemas/ticket/editarTicket" class="formulario" enctype="multipart/form-data">
 
     <div class="formulario__campo">
-    <label class="formulario__label" for="estado">Actualizar estado Ticket:</label>
+    <label class="formulario__label" for="estado">Actualizars estado Ticket:</label>
     <select
         name="estado"
         id="estado"
