@@ -23,16 +23,16 @@
 
 <!-- crear un select  -->
     <div class="formulario__campo">
-        <label class="formulario__label" for="id_categoria">Usuario asignado</label>
+        <label class="formulario__label" for="usuario_asignado">Usuario asignado</label>
         <select
-            name="id_categoria"
-            id="id_categoria"
+            name="usuario_asignado"
+            id="usuario_asignado"
             class="formulario__input">
             <option value="">-- Seleccione --</option>
-            <?php foreach ($categoria_inventario as $categoria) : ?>
+            <?php foreach ($computadoras as $computadora) : ?>
                 <option
-                    <?php echo $categoria->id_categoria === $categoria->id_categoria ? 'selected' : '' ?>
-                    value="<?php echo $categoria->id_categoria ?>"><?php echo $categoria->nombre_categoria ?></option>
+                    <?php echo $computadora->id === $computadora->id ? 'selected' : '' ?>
+                    value="<?php echo $computadora->id ?>"><?php echo $computadora->usuario_asignado ?></option>
             <?php endforeach; ?>
         </select>
     </div>
