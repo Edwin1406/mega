@@ -667,7 +667,6 @@ public static function vistaTicket(Router $router){
 
 
 public static function tablaTicket(Router $router){
-    session_start();
     $alertas = [];
     $tickets = Ticket::all('DESC');
 
