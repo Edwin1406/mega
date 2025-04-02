@@ -637,6 +637,8 @@ public static function vistaTicket(Router $router){
     $id = filter_var($id, FILTER_VALIDATE_INT);
     $ticket = Ticket::find($id);
 
+    debuguear($ticket);
+
     $computadora = Computadora::find($ticket->computadora_id);
 
 
