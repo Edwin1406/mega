@@ -13,7 +13,7 @@
     }
 
 
-    .dashboard__ticket{
+    .dashboard__ticket {
         display: flex;
         flex-direction: column;
         gap: 1rem;
@@ -28,7 +28,7 @@
     }
 
 
-    .dashboard__ticket--info{
+    .dashboard__ticket--info {
         display: flex;
         flex-direction: column;
         gap: 0.5rem;
@@ -41,20 +41,17 @@
     }
 
 
-    .dashboard__ticket--heading{
+    .dashboard__ticket--heading {
         font-size: 2rem;
         font-weight: bold;
         text-align: center;
     }
 
-    h3{
+    h3 {
         font-size: 1.5rem;
         font-weight: bold;
         margin-bottom: 0.5rem;
     }
-
-
-
 </style>
 
 <!-- visualizar el ticket generado  -->
@@ -62,8 +59,10 @@
     <div class="dashboard__ticket--info">
         <h2 class="dashboard__ticket--heading">Ticket #<?php echo $ticket->id ?></h2>
         <p class="dashboard__ticket--fecha"><b>Fecha de creación:</b> <?php echo $ticket->fecha_creacion ?></p>
-        <p class="dashboard__ticket--usuario"><b>Usuario asignado:</b> <?php echo $ticket->usuario_asignado ?></p>
-        <p class="dashboard__ticket--estado"><b>Estado:</b><?php echo $ticket->estado ?></p>
+        <p class="dashboard__ticket--estado"
+            style="color: <?php echo $ticket->estado == 'abierto' ? 'green' : 'red'; ?>;">
+            <b>Estado:</b> <?php echo $ticket->estado; ?>
+        </p>
         <p class="dashboard__ticket--prioridad"><b>Prioridad: </b><?php echo $ticket->prioridad ?></p>
         <p class="dashboard__ticket--categoria"><b>Categoría: </b><?php echo $ticket->categoria ?></p>
         <p class="dashboard__ticket--calificacion"><b>Calificación:</b> <?php echo $ticket->calificacion ?></p>
