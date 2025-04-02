@@ -1,3 +1,10 @@
+
+<div class="dashboard__formulario">
+
+    <?php include_once __DIR__ . '/../../../templates/alertas.php'  ?>
+
+    <form method="POST" action="/admin/sistemas/ticket/crearTicket" class="formulario" enctype="multipart/form-data">
+
 <div class="formulario__campo">
     <label class="formulario__label" for="calificacion">Calificación:</label>
     <select
@@ -10,4 +17,12 @@
         <option value="4" <?php echo (isset($ticket->calificacion) && $ticket->calificacion == '4') ? 'selected' : ''; ?>>Muy Bueno</option>
         <option value="5" <?php echo (isset($ticket->calificacion) && $ticket->calificacion == '5') ? 'selected' : ''; ?>>Excelente</option>
     </select>
+</div>
+
+
+<input class="formulario__submit formulario__submit--registrar" type="submit" value="Calificar Ticket">
+
+
+</form>
+
 </div>
