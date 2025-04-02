@@ -718,7 +718,7 @@ public static function editarTicket (Router $router){
     $id = filter_var($id, FILTER_VALIDATE_INT);
     $ticket = Ticket::find($id);
 
-
+debuguear( $ticket);
 
 
     // debuguear($ticket);
