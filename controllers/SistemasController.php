@@ -743,7 +743,7 @@ public static function editarTicket(Router $router){
         $alertas = $ticket->getAlertas();
 
         // Redirigir después de la actualización
-        header('Location: /admin/sistemas/ticket/vistaTicket?id=' . $ticket->id);
+        header('Location: /admin/sistemas/ticket/tablaTicket');
         exit;
     }
 
