@@ -720,7 +720,7 @@ public static function editarTicket (Router $router){
 
 
 
-    debuguear($ticket);
+    // debuguear($ticket);
 
     if (!$ticket) {
         header('Location: /admin/sistemas/ticket/tablaTicket');
