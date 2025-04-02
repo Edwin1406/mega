@@ -649,19 +649,13 @@ public static function vistaTicket(Router $router){
           // enviar el ticket por correo tambien el usuario asignado
     $correo = new CorreoTicket('edwin.ed948@gmail.com',$computadora->email_usuario,$ticket->computadora_id, $computadora->usuario_asignado, $ticket->descripcion,$ticket->fecha_creacion,$ticket->estado,$ticket->prioridad,$ticket->categoria);
     $correo->enviarConfirmacionTicket();
+    // actualizar el estado_email a 1
+    $ticket->estado_email = 1;
+    $ticket->actualizar();
        
     }else{
-        // actualizar el estado_email a 1
-        $ticket->estado_email = 1;
-        $ticket->actualizar();
 
     }
-// en tickets hay estado_email para que no se envie el correo cada vez que se actualiza el ticket
-    // si el ticket es abierto y el estado_email es 0 entonces enviar el correo
-
-
-  
-
         $router->render('admin/sistemas/ticket/vistaTicket', [
             'titulo' => 'TICKET',
             'ticket' => $ticket,
