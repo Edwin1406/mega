@@ -41,7 +41,7 @@
 
 
         <fieldset class="formulario__fieldset">
-            <legend class="formulario__legend">INGRESO DE INSUMOS DE SISTEMAS </legend>
+            <legend class="formulario__legend"> Generar Ticket</legend>
 
 
 
