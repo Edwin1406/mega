@@ -716,26 +716,23 @@ public static function editarTicket (Router $router){
 
     $id = $_GET['id'];
     $id = filter_var($id, FILTER_VALIDATE_INT);
-    $ticket = Ticket::find($id);
-
-debuguear( $ticket);
-
-
+    
+    
+    
     // debuguear($ticket);
-
-    if (!$ticket) {
+    
+    if (!$id) {
         header('Location: /admin/sistemas/ticket/tablaTicket');
     }
+    $ticket = Ticket::find($id);
+ 
 
     $alertas = [];
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $ticket->sincronizar($_POST);
         debuguear($ticket);
-        $alertas = $ticket->validar();
-
-        debuguear($ticket);
-        $ticket->estado = $_POST['estado'];
+       
 
         // actualizar el estado de abierto a cerrado del ticket y actualizar en la base de datos
         // if ($ticket->estado == 'abierto') {
