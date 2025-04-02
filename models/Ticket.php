@@ -34,9 +34,9 @@ class Ticket extends ActiveRecord {
         $this->computadora_id = $args['computadora_id'] ?? null;
         $this->descripcion = $args['descripcion'] ?? '';
         $this->fecha_creacion = $args['fecha_creacion'] ?? date('Y-m-d H:i:s');
-        $this->estado = $args['estado'] ?? 'abierto';
-        $this->prioridad = $args['prioridad'] ?? 'baja';
-        $this->categoria = $args['categoria'] ?? 'general';
+        $this->estado = $args['estado'] ?? '';
+        $this->prioridad = $args['prioridad'] ?? '';
+        $this->categoria = $args['categoria'] ?? '';
         $this->calificacion = $args['calificacion'] ?? '';
     }
     
