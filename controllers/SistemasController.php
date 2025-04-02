@@ -455,8 +455,8 @@ public static function pdfcompraryfinaciero(Router $router)
     
     // Enviar por correo
     $destinatario1 = "compras@megaecuador.com";
-    $destinatario2 = "financiero@megaecuador.com";
-    $asunto = "Aprobación para la compra de productos para el área de sistemas";
+    $destinatario2 = "edwin.ed948@gmail.com";
+    $asunto = "Aprobado para la compra de productos para el área de sistemas";
     $mensaje = "
             <p> Saludos. Estimado (a)</p> 
             <p> $saludo</p> 
