@@ -726,6 +726,8 @@ public static function editarTicket(Router $router){
         // Sincronizar con los datos enviados por el formulario
         $ticket->sincronizar($_POST);
 
+        
+
         // Verifica si se está cambiando el estado
         if (isset($_POST['estado']) && $_POST['estado'] !== $ticket->estado) {
             $ticket->estado = $_POST['estado'];
