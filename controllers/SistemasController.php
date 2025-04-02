@@ -722,9 +722,7 @@ public static function editarTicket(Router $router){
     $alertas = [];
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        // Depuración de los datos recibidos
-        var_dump($_POST); // Para verificar qué se está enviando
-        var_dump($ticket); // Verificar el objeto ticket antes de la actualización
+    
 
         // Sincronizar con los datos enviados por el formulario
         $ticket->sincronizar($_POST);
@@ -732,12 +730,21 @@ public static function editarTicket(Router $router){
         // Verificar si el estado ha sido cambiado
         if (isset($_POST['estado']) && $_POST['estado'] !== $ticket->estado) {
             $ticket->estado = $_POST['estado'];
-            // Depuración para verificar que se está cambiando el estado
-            var_dump($ticket->estado);
         }
 
         // Actualizar el ticket
         $ticket->actualizar();
+
+
+        // enviar correo al usuario asignado si el ticket se cerro 
+
+        if($ticket==="cerrado"){
+
+        }
+
+        
+
+
 
         // Recoger las alertas
         $alertas = $ticket->getAlertas();
