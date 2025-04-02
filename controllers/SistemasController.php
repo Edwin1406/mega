@@ -612,7 +612,7 @@ public static function crearTicket(Router $router){
         if (empty($alertas)) {
             $ticket->guardar();
             $alertas = $ticket->getAlertas();
-            header('Location: /admin/sistemas/ticket/tabla');
+            header('Location: /admin/sistemas/ticket/vistaTicket?id=' . $ticket->id);
         }
 
     }   
@@ -625,6 +625,13 @@ public static function crearTicket(Router $router){
         'computadoras' => $computadoras,
         'ticket' => $ticket
     ]);
+
+}
+
+
+
+
+public static function vistaTicket(){
 
 }
 

@@ -334,6 +334,12 @@ $router->post('/admin/sistemas/registropc/ver', [SistemasController::class, 'ver
 $router->get('/admin/sistemas/ticket/crearTicket', [SistemasController::class, 'crearTicket']);
 $router->post('/admin/sistemas/ticket/crearTicket', [SistemasController::class, 'crearTicket']);
 
+// $router->get('/admin/sistemas/ticket/editar', [SistemasController::class, 'editar']);
+// $router->post('/admin/sistemas/ticket/editar', [SistemasController::class, 'editar']);
+
+$router->get('/admin/sistemas/ticket/vistaTicket', [SistemasController::class, 'vistaTicket']);
+
+
 
 // citas de prueba 
 
