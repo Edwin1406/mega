@@ -14,7 +14,15 @@
 
 
     .dashboard__ticket{
-        border: 1px solid #ccc;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        padding: 2rem;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        margin: 2rem 0;
+        max-width: 800px;
     }
 
 
