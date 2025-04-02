@@ -733,11 +733,11 @@ public static function editarTicket (Router $router){
         $alertas = $ticket->validar();
 
         // guadar en la base de datos
-        if (empty($alertas)) {
-            $ticket->actualizar();
-            $alertas = $ticket->getAlertas();
-            header('Location: /admin/sistemas/ticket/vistaTicket?id='. $ticket->id);
-        }
+        // if (empty($alertas)) {
+        //     $ticket->actualizar();
+        //     $alertas = $ticket->getAlertas();
+        //     header('Location: /admin/sistemas/ticket/vistaTicket?id='. $ticket->id);
+        // }
 
     }   
 
