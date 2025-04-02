@@ -640,7 +640,7 @@ public static function vistaTicket(Router $router){
     $computadora = Computadora::find($ticket->computadora_id);
 
 
-    debuguear($computadora);
+    // debuguear($computadora);
 
 
     // enviar el ticket por correo tambien el usuario asignado
