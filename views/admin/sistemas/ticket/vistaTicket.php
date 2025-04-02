@@ -22,7 +22,9 @@
         border-radius: 8px;
         box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         margin: 2rem 0;
-        max-width: 800px;
+
+        width: 100%;
+
     }
 
 
@@ -35,7 +37,7 @@
         border-radius: 8px;
         box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
         margin-bottom: 1rem;
-        
+
     }
 
 
