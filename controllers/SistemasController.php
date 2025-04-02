@@ -734,8 +734,8 @@ public static function editarTicket (Router $router){
         debuguear($ticket);
         $alertas = $ticket->validar();
 
-        $ticket->estado = $_POST['estado'];
         debuguear($ticket);
+        $ticket->estado = $_POST['estado'];
 
         // actualizar el estado de abierto a cerrado del ticket y actualizar en la base de datos
         // if ($ticket->estado == 'abierto') {
