@@ -696,9 +696,6 @@ public static function tablaTicket(Router $router){
     }
 
     $visor = Ticket::paginar($registros_por_pagina, $paginacion->offset());
-    // debuguear($visor);
-    // debuguear($tickets);
-    // debuguear($paginacion->paginacion());
 
     $router->render('admin/sistemas/ticket/tablaTicket', [
         'titulo' => 'TICKETS',
@@ -709,6 +706,70 @@ public static function tablaTicket(Router $router){
 
 
 }
+
+
+
+
+
+// public static function editarTicket(Router $router){
+//     $id = $_GET['id'];
+//     $id = filter_var($id, FILTER_VALIDATE_INT);
+
+//     if (!$id) {
+//         header('Location: /admin/sistemas/ticket/tablaTicket');
+//         exit;
+//     }
+    
+//     $ticket = Ticket::find($id);
+//     $computadora = Computadora::find($ticket->computadora_id);
+//     $alertas = [];
+
+//     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    
+
+//         // Sincronizar con los datos enviados por el formulario
+//         $ticket->sincronizar($_POST);
+
+//         // Verificar si el estado ha sido cambiado
+//         if (isset($_POST['estado']) && $_POST['estado'] !== $ticket->estado) {
+//             $ticket->estado = $_POST['estado'];
+//         }
+
+//         // Actualizar el ticket
+//         $ticket->actualizar();
+
+
+//         // enviar correo al usuario asignado si el ticket se cerro 
+
+//         if($ticket==="cerrado"){
+
+//             $correo = new CorreoTicketU('edwin.ed948@gmail.com',$computadora->email_usuario,$ticket->computadora_id, $computadora->usuario_asignado,$ticket->estado,$ticket->prioridad);
+//                 $correo->enviarConfirmacionTicket();
+//                 // actualizar el estado_email a 1
+//                 $ticket->estado_email = 1;
+//                 $ticket->actualizar();
+//         }
+
+        
+
+
+
+//         // Recoger las alertas
+//         $alertas = $ticket->getAlertas();
+
+//         // Redirigir después de la actualización
+//         header('Location: /admin/sistemas/ticket/tablaTicket');
+//         exit;
+//     }
+
+//     $router->render('admin/sistemas/ticket/editarTicket', [
+//         'titulo' => 'EDITAR TICKET',
+//         'alertas' => $alertas,
+//         'ticket' => $ticket
+//     ]);
+// }
+
+
 public static function editarTicket(Router $router){
     $id = $_GET['id'];
     $id = filter_var($id, FILTER_VALIDATE_INT);
@@ -724,7 +785,6 @@ public static function editarTicket(Router $router){
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
-
         // Sincronizar con los datos enviados por el formulario
         $ticket->sincronizar($_POST);
 
@@ -736,21 +796,14 @@ public static function editarTicket(Router $router){
         // Actualizar el ticket
         $ticket->actualizar();
 
-
-        // enviar correo al usuario asignado si el ticket se cerro 
-
-        if($ticket==="cerrado"){
-
-            $correo = new CorreoTicketU('edwin.ed948@gmail.com',$computadora->email_usuario,$ticket->computadora_id, $computadora->usuario_asignado,$ticket->estado,$ticket->prioridad);
-                $correo->enviarConfirmacionTicket();
-                // actualizar el estado_email a 1
-                $ticket->estado_email = 1;
-                $ticket->actualizar();
+        // Enviar correo al usuario asignado si el ticket se cerró
+        if ($ticket->estado === "cerrado") {  // Cambiado a $ticket->estado
+            $correo = new CorreoTicketU('edwin.ed948@gmail.com', $computadora->email_usuario, $ticket->computadora_id, $computadora->usuario_asignado, $ticket->estado, $ticket->prioridad);
+            $correo->enviarConfirmacionTicket();
+            // Actualizar el estado_email a 3
+            $ticket->estado_email = 3;
+            $ticket->actualizar();
         }
-
-        
-
-
 
         // Recoger las alertas
         $alertas = $ticket->getAlertas();
@@ -766,8 +819,6 @@ public static function editarTicket(Router $router){
         'ticket' => $ticket
     ]);
 }
-
-
 
 
 
