@@ -24,7 +24,7 @@
 
 <script>
     $(document).ready(function() {
-        $('#usuario_asignado').select2();
+        $('#computadora_id').select2();
     });
 </script>
 
