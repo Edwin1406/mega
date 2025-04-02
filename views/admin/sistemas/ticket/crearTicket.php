@@ -42,10 +42,10 @@
 
             <!-- crear un select  -->
             <div class="formulario__campo">
-                <label class="formulario__label" for="usuario_asignado">Seleccione el Usuario asignado</label>
+                <label class="formulario__label" for="id">Seleccione el Usuario asignado</label>
                 <select
-                    name="usuario_asignado"
-                    id="usuario_asignado"
+                    name="id"
+                    id="id"
                     class="formulario__input">
                     <option value="">-- Seleccione --</option>
                     <?php foreach ($computadoras as $computadora) : ?>
