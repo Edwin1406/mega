@@ -78,17 +78,6 @@
                 </select>
             </div>
 
-            <div class="formulario__campo">
-                <label class="formulario__label" for="estado">Estado:</label>
-                <select
-                    name="estado"
-                    id="estado"
-                    class="formulario__input">
-                    <option value="abierto" <?php echo (isset($ticket->estado) && $ticket->estado == 'abierto') ? 'selected' : ''; ?>>Abierto</option>
-                    <option value="cerrado" <?php echo (isset($ticket->estado) && $ticket->estado == 'cerrado') ? 'selected' : ''; ?>>Cerrado</option>
-                </select>
-            </div>
-
 
             <div class="formulario__campo">
                 <label class="formulario__label" for="categoria">Categoría:</label>
