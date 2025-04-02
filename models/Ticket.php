@@ -14,7 +14,7 @@ class Ticket extends ActiveRecord {
         'estado',              
         'prioridad',           
         'categoria',            
-        'comentarios'              
+        'calificacion',              
     ];
     
 
@@ -25,7 +25,7 @@ class Ticket extends ActiveRecord {
     public $estado;
     public $prioridad;
     public $categoria;
-    public $comentarios;
+    public $calificacion;
     
 
     public function __construct($args = [])
@@ -37,7 +37,7 @@ class Ticket extends ActiveRecord {
         $this->estado = $args['estado'] ?? 'abierto';
         $this->prioridad = $args['prioridad'] ?? 'baja';
         $this->categoria = $args['categoria'] ?? 'general';
-        $this->comentarios = $args['comentarios'] ?? '';
+        $this->calificacion = $args['calificacion'] ?? '';
     }
     
 }
