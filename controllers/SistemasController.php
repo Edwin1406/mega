@@ -595,6 +595,8 @@ public static function crearTicket(Router $router){
     session_start();
     $alertas = [];
 
+    $computadoras = Computadora::all('ASC');
+
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
        
     }
@@ -603,7 +605,8 @@ public static function crearTicket(Router $router){
 
     $router->render('admin/sistemas/ticket/crearTicket', [
         'titulo' => 'CREAR TICKET',
-        'alertas' => $alertas
+        'alertas' => $alertas,
+        'computadoras' => $computadoras,
     ]);
 
 }

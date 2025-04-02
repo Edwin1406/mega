@@ -23,7 +23,7 @@
 
 <!-- crear un select  -->
     <div class="formulario__campo">
-        <label class="formulario__label" for="id_categoria">Categoria</label>
+        <label class="formulario__label" for="id_categoria">Usuario asignado</label>
         <select
             name="id_categoria"
             id="id_categoria"
@@ -36,6 +36,11 @@
             <?php endforeach; ?>
         </select>
     </div>
+
+
+
+
+
     <div class="formulario__campo">
         <label class="formulario__label" for="id_area">Area</label>
         <select
