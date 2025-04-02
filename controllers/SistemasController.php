@@ -731,6 +731,8 @@ public static function editarTicket(Router $router){
             $ticket->estado = $_POST['estado'];
         }
 
+debuguear($ticket);
+
         // Si el estado fue cambiado, realizar la actualización
         $ticket->actualizar();
 
