@@ -708,7 +708,6 @@ public static function tablaTicket(Router $router){
 
 
 }
-
 public static function editarTicket(Router $router){
     $id = $_GET['id'];
     $id = filter_var($id, FILTER_VALIDATE_INT);
@@ -723,14 +722,18 @@ public static function editarTicket(Router $router){
     $alertas = [];
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        // Depuración de los datos recibidos
+        var_dump($_POST); // Para verificar qué se está enviando
+        var_dump($ticket); // Verificar el objeto ticket antes de la actualización
+
         // Sincronizar con los datos enviados por el formulario
         $ticket->sincronizar($_POST);
 
-        
-
-        // Verifica si se está cambiando el estado
+        // Verificar si el estado ha sido cambiado
         if (isset($_POST['estado']) && $_POST['estado'] !== $ticket->estado) {
             $ticket->estado = $_POST['estado'];
+            // Depuración para verificar que se está cambiando el estado
+            var_dump($ticket->estado);
         }
 
         // Actualizar el ticket
@@ -741,7 +744,7 @@ public static function editarTicket(Router $router){
 
         // Redirigir después de la actualización
         header('Location: /admin/sistemas/ticket/vistaTicket?id=' . $ticket->id);
-        // exit;
+        exit;
     }
 
     $router->render('admin/sistemas/ticket/editarTicket', [
