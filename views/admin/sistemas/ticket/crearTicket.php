@@ -1,5 +1,21 @@
 <h1 class="dashboard__heading"> <?php echo $titulo ?> </h1>
 
+
+
+<style>
+
+
+/* Ocultar la barra lateral en dispositivos móviles */
+@media (max-width: 768px) {
+    .dashboard__sidebar {  /* Suponiendo que el contenedor tiene la clase .barra-lateral */
+        display: none;
+    }
+}
+
+
+
+</style>
+
 <div class="dashboard__formulario">
 
     <?php include_once __DIR__ . '/../../../templates/alertas.php'  ?>
