@@ -666,6 +666,53 @@ public static function vistaTicket(Router $router){
 
 
 
+public static function tablaTicket(Router $router){
+    session_start();
+    $alertas = [];
+    $tickets = Ticket::all('DESC');
+
+    $pagina_actual = $_GET['page'] ?? 1;
+    $pagina_actual = filter_var($pagina_actual, FILTER_VALIDATE_INT);
+
+    if (!$pagina_actual || $pagina_actual < 1) {
+        header('Location: /admin/sistemas/ticket/tablaTicket?page=1');
+        exit;
+    }
+      // Obtener el número de registros por página
+      $registros_por_pagina = $_GET['per_page'] ?? 10;
+      if ($registros_por_pagina === 'all') {
+          $total = Ticket::total();
+          $registros_por_pagina = $total; // Mostrar todos los registros
+      } else {
+          $registros_por_pagina = filter_var($registros_por_pagina, FILTER_VALIDATE_INT) ?: 10;
+      }
+
+      
+      $total = Ticket::total();
+      $paginacion = new Paginacion($pagina_actual, $registros_por_pagina, $total);
+
+      if ($paginacion->total_paginas() < $pagina_actual) {
+        header('Location: /admin/sistemas/ticket/tablaTicket?page=1');
+        exit;
+    }
+
+    $visor = Ticket::paginar($registros_por_pagina, $paginacion->offset());
+    // debuguear($visor);
+    // debuguear($tickets);
+    // debuguear($paginacion->paginacion());
+
+    $router->render('admin/sistemas/ticket/tablaTicket', [
+        'titulo' => 'TICKETS',
+        'tickets' => $tickets,
+        'paginacion' => $paginacion->paginacion(),
+        'visor' => $visor,
+    ]);
+
+
+}
+
+
+
 
 
 
