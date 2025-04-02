@@ -10,6 +10,7 @@ use Classes\Pdf3;
 use Model\Ticket;
 use Classes\Correo;
 use Classes\CorreoTicket;
+use Classes\CorreoTicketU;
 use Model\Solicitud;
 use Model\Movimiento;
 use Model\Computadora;
