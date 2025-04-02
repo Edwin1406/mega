@@ -632,13 +632,9 @@ public static function crearTicket(Router $router){
 
 
 public static function vistaTicket(Router $router){
-    session_start();
     $id = $_GET['id'];
     $id = filter_var($id, FILTER_VALIDATE_INT);
     $ticket = Ticket::find($id);
-//    debuguear($ticket);
-   
-
         $router->render('admin/sistemas/ticket/vistaTicket', [
             'titulo' => 'TICKET',
             'ticket' => $ticket,
