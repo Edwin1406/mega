@@ -668,4 +668,12 @@ public static function vistaTicket(Router $router){
 
 
 
+
+
+
+
+
+
+
+
 }
