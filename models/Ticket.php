@@ -39,5 +39,21 @@ class Ticket extends ActiveRecord {
         $this->categoria = $args['categoria'] ?? '';
         $this->calificacion = $args['calificacion'] ?? '';
     }
+
+    public function validar() {
+        if (!$this->computadora_id) {
+            self::$alertas['error'][] = 'El ID de la computadora es obligatorio';
+        }
+        if (!$this->descripcion) {
+            self::$alertas['error'][] = 'La descripción es obligatoria';
+        }
+        if (!$this->prioridad) {
+            self::$alertas['error'][] = 'La prioridad es obligatoria';
+        }
+        if (!$this->categoria) {
+            self::$alertas['error'][] = 'La categoría es obligatoria';
+        }
+        return self::$alertas;
+    }
     
 }
