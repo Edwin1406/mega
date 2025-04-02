@@ -601,8 +601,9 @@ public static function crearTicket(Router $router){
     $ticket = new Ticket;
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-       
-    }
+        $ticket->sincronizar($_POST);
+        debuguear($ticket);
+    }   
 
     // debuguear($ticket);
 
