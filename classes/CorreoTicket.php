@@ -51,19 +51,68 @@ class CorreoTicket {
          // Set HTML
          $mail->isHTML(TRUE);
          $mail->CharSet = 'UTF-8';
-
          $contenido = '<html>';
-         $contenido .= "<p><strong>Hola " . $this->usuario_asignado .  "</strong> Has creado un ticket con los siguientes datos:</p>";
-            $contenido .= "<p><strong>Computadora ID:</strong> " . $this->computadora_id . "</p>";
-            $contenido .= "<p><strong>Descripción:</strong> " . $this->descripcion . "</p>";
-            $contenido .= "<p><strong>Fecha de creación:</strong> " . $this->fecha_creacion . "</p>";
-            $contenido .= "<p><strong>Estado:</strong> " . $this->estado . "</p>";
-            $contenido .= "<p><strong>Prioridad:</strong> " . $this->prioridad . "</p>";
-            $contenido .= "<p><strong>Categoria:</strong> " . $this->categoria . "</p>";
-            $contenido .= "llegare a la brevedad posible para atender tu solicitud.</p>";
-         $contenido .= "<> En caso de que no hayas solicitado este ticket, por favor contacta al departamento de sistemas.</p>";
-         $contenido .= '</html>';
+         $contenido .= "<head><style>
+             body {
+                 font-family: Arial, sans-serif;
+                 background-color: #f4f4f9;
+                 color: #333;
+                 padding: 20px;
+             }
+             .ticket-container {
+                 background-color: #fff;
+                 border-radius: 8px;
+                 box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                 padding: 20px;
+                 max-width: 600px;
+                 margin: auto;
+             }
+             .ticket-header {
+                 background-color: #0056b3;
+                 color: #fff;
+                 padding: 10px;
+                 border-radius: 8px 8px 0 0;
+                 text-align: center;
+             }
+             .ticket-details p {
+                 margin: 10px 0;
+                 font-size: 14px;
+             }
+             .ticket-details strong {
+                 color: #0056b3;
+             }
+             .footer {
+                 text-align: center;
+                 font-size: 12px;
+                 color: #777;
+                 margin-top: 20px;
+             }
+             .ticket-footer {
+                 background-color: #f1f1f1;
+                 padding: 15px;
+                 border-radius: 0 0 8px 8px;
+                 text-align: center;
+             }
+         </style></head>";
+         $contenido .= "<body>";
+         $contenido .= "<div class='ticket-container'>";
+         $contenido .= "<div class='ticket-header'><h2>Nuevo Ticket de Soporte</h2></div>";
+         $contenido .= "<div class='ticket-details'>";
+         $contenido .= "<p><strong>Hola " . $this->usuario_asignado . "</strong>, Has creado un ticket con los siguientes datos:</p>";
+         $contenido .= "<p><strong>Computadora ID:</strong> " . $this->computadora_id . "</p>";
+         $contenido .= "<p><strong>Descripción:</strong> " . $this->descripcion . "</p>";
+         $contenido .= "<p><strong>Fecha de Creación:</strong> " . $this->fecha_creacion . "</p>";
+         $contenido .= "<p><strong>Estado:</strong> " . $this->estado . "</p>";
+         $contenido .= "<p><strong>Prioridad:</strong> " . $this->prioridad . "</p>";
+         $contenido .= "<p><strong>Categoría:</strong> " . $this->categoria . "</p>";
+         $contenido .= "<p>Llegaré a la brevedad posible para atender tu solicitud.</p>";
+         $contenido .= "</div>";
+         $contenido .= "<div class='ticket-footer'><p>En caso de que no hayas solicitado este ticket, por favor contacta al departamento de sistemas.</p></div>";
+         $contenido .= "</div>";
+         $contenido .= "<div class='footer'><p>&copy; 2025 MEGASTOCK S.A. - Todos los derechos reservados.</p></div>";
+         $contenido .= "</body></html>";
          $mail->Body = $contenido;
+         
 
          //Enviar el mail
          $mail->send();
