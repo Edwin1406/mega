@@ -7,6 +7,7 @@ use Exception;
 use MVC\Router;
 use Classes\Pdf2;
 use Classes\Pdf3;
+use Model\Ticket;
 use Classes\Correo;
 use Model\Solicitud;
 use Model\Movimiento;
@@ -597,6 +598,8 @@ public static function crearTicket(Router $router){
 
     $computadoras = Computadora::all('ASC');
 
+    $ticket = new Ticket;
+
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
        
     }
@@ -607,6 +610,7 @@ public static function crearTicket(Router $router){
         'titulo' => 'CREAR TICKET',
         'alertas' => $alertas,
         'computadoras' => $computadoras,
+        'ticket' => $ticket
     ]);
 
 }
