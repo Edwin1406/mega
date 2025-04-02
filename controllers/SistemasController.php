@@ -613,18 +613,6 @@ public static function crearTicket(Router $router){
         if (empty($alertas)) {
             $ticket->guardarNuevo();
             $alertas = $ticket->getAlertas();
-            // enviar el ticket por correo
-            $email = new CorreoTicket(
-                $ticket->computadora_id,
-                $ticket->descripcion,
-                $ticket->prioridad,
-                $ticket->categoria,
-                $ticket->estado,
-                $ticket->id
-            );
-            $email->enviarConfirmacionTicket();
-
-
             header('Location: /admin/sistemas/ticket/vistaTicket?id='. $ticket->id);
         }
 
@@ -648,6 +636,15 @@ public static function vistaTicket(Router $router){
     $id = $_GET['id'];
     $id = filter_var($id, FILTER_VALIDATE_INT);
     $ticket = Ticket::find($id);
+
+    $computadora = Computadora::find($ticket->computadora_id);
+
+    debuguear($ticket);
+
+    // enviar el ticket por correo tambien el usuario asignado
+    $correo = new CorreoTicket($ticket->computadora_id, $computadora->usuario_asignado, $ticket->id);
+    $correo->enviarConfirmacionTicket();
+
         $router->render('admin/sistemas/ticket/vistaTicket', [
             'titulo' => 'TICKET',
             'ticket' => $ticket,
