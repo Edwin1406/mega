@@ -54,56 +54,31 @@
 
 
 <div class="dashboard__contenedor">
-    <?php if (!empty($comercial)): ?>
+    <?php if (!empty($tickets)): ?>
         <table class="tables" id="tabla">
             <thead class="tables__thead">
                 <tr>
                     <th scope="col" class="tables__th">Nro.</th>
-                    <th scope="col" class="tables__th">Import</th>
-                    <th scope="col" class="tables__th">Proyecto</th>
-                    <th scope="col" class="tables__th">Pedido Interno</th>
-                    <th scope="col" class="tables__th">Fecha Solicitud</th>
-                    <!-- <th scope="col" class="tables__th">Puerto Destino</th> -->
-                    <th scope="col" class="tables__th">Trader</th>
-                    <th scope="col" class="tables__th">Marca</th>
-                    <th scope="col" class="tables__th">Linea</th>
-                    <th scope="col" class="tables__th">Producto</th>
-                    <th scope="col" class="tables__th">GMS</th>
-                    <th scope="col" class="tables__th">Ancho</th>
-                    <th scope="col" class="tables__th">Cantidad</th>
-                    <th scope="col" class="tables__th">Precio</th>
-                    <th scope="col" class="tables__th">Total Item</th>
-                    <th scope="col" class="tables__th">Fecha Producción</th>
-                    <th scope="col" class="tables__th">Arribo Planta</th>
-                    <th scope="col" class="tables__th">Transito</th>
-                    <th scope="col" class="tables__th">Fecha en Planta</th>
-                    <th scope="col" class="tables__th">Estado</th>
+                    <th scope="col" class="tables__th">Computadora ID</th>
+                    <th scope="col" class="tables__th">Descripcion</th>
+                    <th scope="col" class="tables__th">estado</th>
+                    <th scope="col" class="tables__th">Fecha de Ticket</th>
+                    <th scope="col" class="tables__th">Prioridad</th>
+                    
+
                     <th scope="col" class="tables__th">Acciones</th>
                 </tr>
             </thead>
             <tbody class="tables__tbody">
-                <?php foreach ($comercial as $comerciales):?>
+                <?php foreach ($tickets as $ticket):?>
                     <tr class="tables__tr">
-                        <td class="tables__td"><?php echo $comerciales->id?></td>
-                        <td class="tables__td"><?php echo $comerciales->import?></td>
-                        <td class="tables__td"><?php echo $comerciales->proyecto?></td>
-                        <td class="tables__td"><?php echo $comerciales->pedido_interno?></td>
-                        <td class="tables__td"><?php echo $comerciales->fecha_solicitud?></td>
-                        <!-- <td class="tables__td"><?php echo $comerciales->puerto_destino?></td> -->
-                        <td class="tables__td"><?php echo $comerciales->trader?></td>
-                        <td class="tables__td"><?php echo $comerciales->marca?></td>
-                        <td class="tables__td"><?php echo $comerciales->linea?></td>
-                        <td class="tables__td"><?php echo $comerciales->producto?></td>
-                        <td class="tables__td"><?php echo $comerciales->gramaje?></td>
-                        <td class="tables__td"><?php echo $comerciales->ancho?></td>
-                        <td class="tables__td"><?php echo $comerciales->cantidad?></td>
-                        <td class="tables__td"><?php echo $comerciales->precio?></td>
-                        <td class="tables__td"><?php echo $comerciales->total_item?></td>
-                        <td class="tables__td"><?php echo $comerciales->fecha_produccion?></td>
-                        <td class="tables__td"><?php echo $comerciales->arribo_planta?></td>
-                        <td class="tables__td"><?php echo $comerciales->transito?></td>
-                        <td class="tables__td"><?php echo $comerciales->fecha_en_planta?></td>
-                        <td class="tables__td"><?php echo $comerciales->estado?></td>
+                        <td class="tables__td"><?php echo $ticket->id?></td>
+                        <td class="tables__td"><?php echo $ticket->computadora_id?></td>
+                        <td class="tables__td"><?php echo $ticket->descripcion?></td>
+                        <td class="tables__td"><?php echo $ticket->estado?></td>
+                        <td class="tables__td"><?php echo $ticket->fecha_creacion?></td>
+                        <td class="tables__td"><?php echo $ticket->prioridad?></td>
+                  
                         <td  class="tables__td--acciones"><a class="tables__accion tables__accion--editar" href="/admin/comercial/editar?id=<?php echo $comerciales->id; ?>"><i class="fa-solid fa-user-pen"></i>Editar</a>
 
                     </tr>
@@ -119,71 +94,3 @@
 
 <?php echo $paginacion; ?>
 
-
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-    const filtroVentas = document.querySelector('#filtros_ventas');
-    if (filtroVentas) {
-        filtroVentas.addEventListener('input', function () {
-            const filtro = this.value.toLowerCase();
-            const filas = document.querySelectorAll('#tabla .tables__tr');
-
-            filas.forEach(fila => {
-                const id = fila.cells[0].textContent.toLowerCase();
-                const importa = fila.cells[1].textContent.toLowerCase();
-                const proyecto = fila.cells[2].textContent.toLowerCase();
-                const pedidoInterno = fila.cells[3].textContent.toLowerCase();
-                const fechaSolicitud = fila.cells[4].textContent.toLowerCase();
-                const puertoDestino = fila.cells[5].textContent.toLowerCase();
-                const trader = fila.cells[6].textContent.toLowerCase();
-                const marca = fila.cells[7].textContent.toLowerCase();
-                const linea = fila.cells[8].textContent.toLowerCase();
-                const producto = fila.cells[9].textContent.toLowerCase();
-                const gms = fila.cells[10].textContent.toLowerCase();
-                const ancho = fila.cells[11].textContent.toLowerCase();
-                const cantidad = fila.cells[12].textContent.toLowerCase();
-                const precio = fila.cells[13].textContent.toLowerCase();
-                const totalItem = fila.cells[14].textContent.toLowerCase();
-                const fechaProduccion = fila.cells[15].textContent.toLowerCase();
-                const arriboPlanta = fila.cells[16].textContent.toLowerCase();
-                const transito = fila.cells[17].textContent.toLowerCase();
-                const fechaEnPlanta = fila.cells[18].textContent.toLowerCase();
-                const estado = fila.cells[19].textContent.toLowerCase();
-            
-            
-
-                if (
-                    id.includes(filtro) || 
-                    importa.includes(filtro) ||
-                    proyecto.includes(filtro) ||
-                    pedidoInterno.includes(filtro) ||   
-                    fechaSolicitud.includes(filtro) ||
-                    puertoDestino.includes(filtro) ||
-                    trader.includes(filtro) ||
-                    marca.includes(filtro) ||
-                    linea.includes(filtro) ||
-                    producto.includes(filtro) ||
-                    gms.includes(filtro) ||
-                    ancho.includes(filtro) ||
-                    cantidad.includes(filtro) ||
-                    precio.includes(filtro) ||
-                    totalItem.includes(filtro) ||
-                    fechaProduccion.includes(filtro) ||
-                    arriboPlanta.includes(filtro) ||
-                    transito.includes(filtro) ||
-                    fechaEnPlanta.includes(filtro) ||
-                    estado.includes(filtro)
-                    
-                ) {
-                    fila.style.display = ''; // Mostrar fila
-                } else {
-                    fila.style.display = 'none'; // Ocultar fila
-                }
-            });
-        });
-    }
-});
-
-
-
-</script>
