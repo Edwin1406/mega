@@ -642,6 +642,7 @@ public static function vistaTicket(Router $router){
         $router->render('admin/sistemas/ticket/vistaTicket', [
             'titulo' => 'TICKET',
             'ticket' => $ticket,
+            
         ]);
 
 }
