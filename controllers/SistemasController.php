@@ -603,12 +603,8 @@ public static function crearTicket(Router $router){
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $ticket->sincronizar($_POST);
         // guardar el ticket
-        $ticket->fecha_creacion = date('Y-m-d H:i:s');
-        $ticket->computadora_id = $_POST['computadora_id'];
-        $ticket->descripcion = $_POST['descripcion'];
-        $ticket->prioridad = $_POST['prioridad'];
+    
         $ticket->estado ='abierto';
-        $ticket->categoria = $_POST['categoria'];
         // debuguear($ticket);
         $alertas = $ticket->validar();
 
@@ -618,11 +614,6 @@ public static function crearTicket(Router $router){
             $alertas = $ticket->getAlertas();
             header('Location: /admin/sistemas/ticket/tabla');
         }
-
-
-
-        debuguear($ticket);
-
 
     }   
 
