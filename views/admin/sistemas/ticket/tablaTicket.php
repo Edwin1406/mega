@@ -40,7 +40,7 @@
         onblur="this.style.boxShadow='inset 0 2px 4px rgba(0, 0, 0, 0.1)'; this.style.borderColor='#ccc';"
     >
 </div>
-<form method="GET" action="/admin/comercial/tabla">
+<form method="GET" action="/admin/sistemas/ticket/tablaTicket">
     <input type="hidden" name="page" value="1">
     <label for="per_page">Registros por página:</label>
     <select name="per_page" id="per_page" onchange="this.form.submit()">
