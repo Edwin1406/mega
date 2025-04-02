@@ -26,6 +26,19 @@
     }
 
 
+    .dashboard__ticket--info{
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        padding: 1rem;
+        background-color: #f9f9f9;
+        border-radius: 8px;
+        box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+        margin-bottom: 1rem;
+        
+    }
+
+
 
 </style>
 
