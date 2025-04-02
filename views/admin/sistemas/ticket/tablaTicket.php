@@ -77,7 +77,7 @@
                         <!-- <td class="tables__td"><?php echo $ticket->estado ?></td>
                           -->
 
-                        <td class="tables__td" style="color: <?php echo $ticket->estado == 'abierto' ? 'green' : 'red'; ?>; font-weight: <?php echo $ticket->estado == 'abierto' ? 'bold' : 'normal'; ?>;">
+                        <td class="tables__td" style="color: <?php echo $ticket->estado == 'abierto' ? 'green' : 'red'; ?>; font-weight: <?php echo $ticket->estado == 'abierto' ? 'bold' : 'bold'; ?>;">
                             <?php echo $ticket->estado ?>
                         </td>
 
