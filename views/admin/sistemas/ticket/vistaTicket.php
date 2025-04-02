@@ -60,9 +60,10 @@
         <h2 class="dashboard__ticket--heading">Ticket #<?php echo $ticket->id ?></h2>
         <p class="dashboard__ticket--fecha"><b>Fecha de creación:</b> <?php echo $ticket->fecha_creacion ?></p>
         <p class="dashboard__ticket--estado"
-            style="color: <?php echo $ticket->estado == 'abierto' ? 'green' : 'red'; ?>;">
-            <b>Estado:</b> <?php echo $ticket->estado; ?>
+        style="color: <?php echo $ticket->estado == 'abierto' ? 'green' : 'red'; ?>;">
+        <b>Estado:</b> <?php echo $ticket->estado; ?>
         </p>
+
         <p class="dashboard__ticket--prioridad"><b>Prioridad: </b><?php echo $ticket->prioridad ?></p>
         <p class="dashboard__ticket--categoria"><b>Categoría: </b><?php echo $ticket->categoria ?></p>
         <p class="dashboard__ticket--calificacion"><b>Calificación:</b> <?php echo $ticket->calificacion ?></p>
