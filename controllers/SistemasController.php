@@ -728,10 +728,10 @@ public static function editarTicket (Router $router){
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $ticket->sincronizar($_POST);
+        debuguear($ticket);
         $ticket->estado ='cerrado';
         $alertas = $ticket->validar();
 
-        debuguear($ticket);
         // guadar en la base de datos
         if (empty($alertas)) {
             $ticket->actualizar();
