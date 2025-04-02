@@ -9,6 +9,7 @@ use Classes\Pdf2;
 use Classes\Pdf3;
 use Model\Ticket;
 use Classes\Correo;
+use Classes\CorreoTicket;
 use Model\Solicitud;
 use Model\Movimiento;
 use Model\Computadora;
@@ -612,6 +613,18 @@ public static function crearTicket(Router $router){
         if (empty($alertas)) {
             $ticket->guardarNuevo();
             $alertas = $ticket->getAlertas();
+            // enviar el ticket por correo
+            $email = new CorreoTicket(
+                $ticket->computadora_id,
+                $ticket->descripcion,
+                $ticket->prioridad,
+                $ticket->categoria,
+                $ticket->estado,
+                $ticket->id
+            );
+            $email->enviarConfirmacionTicket();
+
+
             header('Location: /admin/sistemas/ticket/vistaTicket?id='. $ticket->id);
         }
 
