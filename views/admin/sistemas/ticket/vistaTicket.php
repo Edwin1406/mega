@@ -41,6 +41,13 @@
     }
 
 
+    .dashboard__ticket--heading{
+        font-size: 1.5rem;
+        font-weight: bold;
+        text-align: center;
+    }
+
+
 
 </style>
 
