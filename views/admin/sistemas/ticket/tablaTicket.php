@@ -79,7 +79,7 @@
                         <td class="tables__td"><?php echo $ticket->fecha_creacion?></td>
                         <td class="tables__td"><?php echo $ticket->prioridad?></td>
                   
-                        <td  class="tables__td--acciones"><a class="tables__accion tables__accion--editar" href="/admin/comercial/editar?id=<?php echo $ticket->id; ?>"><i class="fa-solid fa-user-pen"></i>Editar</a>
+                        <td  class="tables__td--acciones"><a class="tables__accion tables__accion--editar" href="/admin/sistemas/ticket/editar?id=<?php echo $ticket->id; ?>"><i class="fa-solid fa-user-pen"></i>Editar</a>
 
                     </tr>
                 <?php endforeach;?>
