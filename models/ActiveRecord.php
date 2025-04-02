@@ -111,6 +111,7 @@ class ActiveRecord {
     }
 
     // Registros - CRUD
+    
     public function guardar() {
         $resultado = '';
         if(!is_null($this->id)) {
@@ -123,6 +124,45 @@ class ActiveRecord {
         return $resultado;
     }
 
+    // enviar on id para actualizar 
+    public function guardarNuevo() {
+        $resultado = '';
+        if(!is_null($this->id)) {
+            // actualizar
+            $resultado = $this->actualizar();
+        } else {
+            // Creando un nuevo registro
+            $resultado = $this->crearNuevo();
+        }
+        return $resultado;
+    }
+
+
+    public function crearNuevo() {
+        // Sanitizar los datos
+        $atributos = $this->sanitizarAtributos();
+    
+        // Insertar en la base de datos
+        $query = " INSERT INTO " . static::$tabla . " ( ";
+        $query .= join(', ', array_keys($atributos));
+        $query .= " ) VALUES (' "; 
+        $query .= join("', '", array_values($atributos));
+        $query .= " ') ";
+    
+        // Resultado de la consulta
+        $resultado = self::$db->query($query);
+    
+        // Asignar el ID generado al objeto
+        if ($resultado) {
+            $this->id = self::$db->insert_id;  // Asigna el ID generado
+        }
+    
+        return [
+            'resultado' =>  $resultado,
+            'id' => $this->id // Retorna el ID asignado
+        ];
+    }
+    
 
     
     

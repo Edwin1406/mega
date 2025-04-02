@@ -610,9 +610,9 @@ public static function crearTicket(Router $router){
 
         // guadar en la base de datos
         if (empty($alertas)) {
-            $ticket->guardar();
+            $ticket->guardarNuevo();
             $alertas = $ticket->getAlertas();
-            header('Location: /admin/sistemas/ticket/vistaTicket?id=' . $ticket->id);
+            header('Location: /admin/sistemas/ticket/vistaTicket?id='. $ticket->id);
         }
 
     }   
