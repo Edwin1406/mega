@@ -646,7 +646,7 @@ public static function vistaTicket(Router $router){
 
     // debuguear($computadora);
 
-    if($ticket->estado_email === 0){
+    if($ticket->estado_email == 0){
           // enviar el ticket por correo tambien el usuario asignado
     $correo = new CorreoTicket('edwin.ed948@gmail.com',$computadora->email_usuario,$ticket->computadora_id, $computadora->usuario_asignado, $ticket->descripcion,$ticket->fecha_creacion,$ticket->estado,$ticket->prioridad,$ticket->categoria);
     $correo->enviarConfirmacionTicket();
@@ -829,7 +829,7 @@ public static function calificar(Router $router){
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
        
-        
+
     }   
 
     // debuguear($ticket);
