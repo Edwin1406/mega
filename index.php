@@ -343,6 +343,8 @@ $router->get('/admin/sistemas/ticket/vistaTicket', [SistemasController::class, '
 $router->get('/admin/sistemas/ticket/editarTicket', [SistemasController::class, 'editarTicket']);
 $router->post('/admin/sistemas/ticket/editarTicket', [SistemasController::class, 'editarTicket']);
 
+$router->get('/admin/sistemas/ticket/calificar', [SistemasController::class, 'calificar']);
+$router->post('/admin/sistemas/ticket/calificar', [SistemasController::class, 'calificar']);
 
 // citas de prueba 
 
