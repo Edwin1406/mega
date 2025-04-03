@@ -798,7 +798,7 @@ public static function editarTicket(Router $router){
 
         // Enviar correo al usuario asignado si el ticket se cerró
         if ($ticket->estado === "cerrado") {  // Cambiado a $ticket->estado
-            $correo = new CorreoTicketU('edwin.ed948@gmail.com', $computadora->email_usuario, $ticket->computadora_id, $computadora->usuario_asignado, $ticket->estado, $ticket->prioridad);
+            $correo = new CorreoTicketU($ticket->id,'edwin.ed948@gmail.com', $computadora->email_usuario, $ticket->computadora_id, $computadora->usuario_asignado, $ticket->estado, $ticket->prioridad);
             $correo->enviarConfirmacionTicket();
             // Actualizar el estado_email a 3
             $ticket->estado_email = 3;

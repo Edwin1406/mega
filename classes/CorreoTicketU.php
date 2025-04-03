@@ -5,7 +5,7 @@ namespace Classes;
 use PHPMailer\PHPMailer\PHPMailer;
 
 class CorreoTicketU {
-
+    public $id;
     public $email;
     public $emailusuario;
     public $computadora_id;
@@ -14,8 +14,9 @@ class CorreoTicketU {
     public $prioridad;
 
     
-    public function __construct( $email,$emailusuario,$computadora_id,$usuario_asignado,$estado,$prioridad)
+    public function __construct( $id,$email,$emailusuario,$computadora_id,$usuario_asignado,$estado,$prioridad)
     {
+        $this->id = $id;
         $this->email = $email;
         $this->emailusuario = $emailusuario;
         $this->computadora_id = $computadora_id;
@@ -98,8 +99,7 @@ class CorreoTicketU {
          $contenido .= "<p><strong>Estado:</strong> Cerrado</p>"; // Estado cerrado
          $contenido .= "<p><strong>Prioridad:</strong> " . $this->prioridad . "</p>";
         //  calificar url 
-            $contenido .= "<p><strong>Calificar:</strong> <a href='https://megawebsistem.com/admin/sistemas/ticket/calificar'>Califica nuestro servicio</a></p>"; 
-
+            $contenido .= "<p><strong>Calificar:</strong> < href='https://megawebsistem.com/admin/sistemas/ticket/calificar?id=" . $this->id . "'>Calificar Ticket</a></p>";
          $contenido .= "<p>El ticket ha sido cerrado. Si tienes más consultas o necesitas reabrirlo, por favor contacta al departamento de soporte.</p>";
          $contenido .= "</div>";
          $contenido .= "<div class='ticket-footer'><p>Si no solicitaste este ticket, por favor contacta al departamento de sistemas.</p></div>";
