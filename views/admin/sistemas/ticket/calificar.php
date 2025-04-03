@@ -3,7 +3,7 @@
 
     <?php include_once __DIR__ . '/../../../templates/alertas.php'  ?>
 
-    <form method="POST" action="/admin/sistemas/ticket/editarTicket" class="formulario" enctype="multipart/form-data">
+    <form method="POST" action="/admin/sistemas/ticket/calificar" class="formulario" enctype="multipart/form-data">
 
 <div class="formulario__campo">
     <label class="formulario__label" for="calificacion">Calificación:</label>
