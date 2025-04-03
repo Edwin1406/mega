@@ -98,7 +98,7 @@ class CorreoTicketU {
          $contenido .= "<p><strong>Estado:</strong> Cerrado</p>"; // Estado cerrado
          $contenido .= "<p><strong>Prioridad:</strong> " . $this->prioridad . "</p>";
         //  calificar url 
-            $contenido .= "<p><strong>Calificar:</strong> <a href='/admin/sistemas/ticket/calificar'>Califica nuestro servicio</a></p>"; 
+            $contenido .= "<p><strong>Calificar:</strong> <a href='https://megawebsistem.com/admin/sistemas/ticket/calificar'>Califica nuestro servicio</a></p>"; 
 
          $contenido .= "<p>El ticket ha sido cerrado. Si tienes más consultas o necesitas reabrirlo, por favor contacta al departamento de soporte.</p>";
          $contenido .= "</div>";
