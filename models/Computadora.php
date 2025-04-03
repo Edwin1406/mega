@@ -6,7 +6,7 @@ namespace Model;
 class Computadora extends ActiveRecord {
     
     protected static $tabla = 'computadoras';
-    protected static $columnasDB = ['id', 'numero_interno','email_usuario', 'area', 'usuario_asignado', 'fecha_compra', 'marca_modelo', 'procesador', 'ram', 'disco_duro', 'sistema_operativo', 'estado_actual', 'direccion_ip','contrasena','created_at'];
+    protected static $columnasDB = ['id', 'numero_interno','email_usuario','email_usuario', 'area', 'usuario_asignado', 'fecha_compra', 'marca_modelo', 'procesador', 'ram', 'disco_duro', 'sistema_operativo', 'estado_actual', 'direccion_ip','contrasena','created_at'];
 
    
     public $id;

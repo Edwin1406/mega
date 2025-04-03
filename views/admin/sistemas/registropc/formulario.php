@@ -87,6 +87,20 @@
             placeholder="disco_duro"
             value="<?php echo $maquina->disco_duro ?? '' ?>">
     </div>
+
+
+    <div class="formulario__campo">
+        <label class="formulario__label" for="email_usuario">Email </label>
+        <input
+            type="email"
+            name="email_usuario"
+            id="email_usuario"
+            class="formulario__input"
+            placeholder="email_usuario"
+            value="<?php echo $maquina->email_usuario ?? '' ?>">
+    </div>
+
+
     <div class="formulario__campo">
         <label class="formulario__label" for="sistema_operativo">SISTEMA OPERATIVO </label>
         <input
