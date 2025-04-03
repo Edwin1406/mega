@@ -55,6 +55,21 @@
     
   }
 
+
+
+
+
+
+    /* Ocultar la barra lateral en dispositivos móviles */
+    @media (max-width: 768px) {
+        .dashboard__sidebar {
+            /* Suponiendo que el contenedor tiene la clase .barra-lateral */
+            display: none;
+        }
+    }
+
+
+
 </style>
 <!-- 
 <div class="container">
