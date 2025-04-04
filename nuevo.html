@@ -1,202 +1,257 @@
-<style>
-    table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-top: 20px;
-    }
-    th, td {
-        border: 1px solid #ddd;
-        padding: 8px;
-        text-align: center;
-    }
-    th {
-        background-color: #f4f4f4;
-    }
-    .sobrante-optimo {
-        background-color: #d4edda;
-        color: #155724;
-    }
-    .espera {
-        background-color: #f8d7da;
-        color: #721c24;
-    }
-</style>
-
-<table>
-    <thead>
-        <tr>
-            <th>Bobina</th>
-            <th>Pedidos</th>
-            <th>Flauta</th>
-            <th>test</th>
-            <th>Anchos</th>
-            <th>Cantidad</th>
-            <th>Suma (Anchos)</th>
-            <th>Sobrante</th>
-        </tr>
-    </thead>
-    <tbody>
-        <!-- Aquí se agregarán los resultados -->
-    </tbody>
-</table>
-
-
-<script>
-document.addEventListener('DOMContentLoaded', async function () {
-    try {
-        const pedidos = await obtenerPedidosFiltrados();
-        const pedidosPorTipo = await separarPedidosPorTipo(pedidos);
-        const resultados = await procesarPedidos(pedidosPorTipo["175-C"]);
-        mostrarResultadosEnTabla(resultados);
-    } catch (error) {
-        console.error("Error al inicializar la aplicación:", error);
-    }
-});
-
-async function obtenerPedidosFiltrados() {
-    const url = 'https://serviacrilico.com/admin/api/allpedidos2';
-    const response = await fetch(url);
-    const pedidos = await response.json();
-    return pedidos.filter(pedido => pedido.estado_pedido === "pendiente");
-}
-
-
-async function AllBobinas(){
-        try {   
-            const url = `${location.origin}/admin/api/allbobinas`;
-            const resultado = await fetch(url);
-            const allbobinas = await resultado.json();
-            console.log(allbobinas);
-            return allbobinas
-        } catch (error) {
-            console.log(error);
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Presupuesto</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
         }
-    }
-
-function mostrarResultadosEnTabla(resultados) {
-    const tbody = document.querySelector('table tbody');
-    tbody.innerHTML = ''; // Limpiamos la tabla antes de mostrar resultados
-    console.log(resultados);  
-    resultados.forEach(resultado => {
-        const tr = document.createElement('tr');
-
-        // Crear opciones para el select dinámicamente
-        const bobinasDisponibles = [1880, 1700, 1500, 1300, 1100, 900, 700, 500, 300];
-        const opciones = bobinasDisponibles.map(bobina => 
-            `<option value="${bobina}" ${bobina === resultado.bobina ? 'selected' : ''}>${bobina}</option>`
-        ).join('');
-
-        tr.innerHTML = `
-            <td>
-                <select class="bobina-select">
-                    ${opciones}
-                </select>
-            </td>
-            <td>${resultado.pedidos.map(p => `${p.pedido.nombre_producto} (ID: ${p.id})`).join(', ')}</td>
-            <td>${resultado.pedidos.map(p => p.flauta).join(', ')}</td>
-            <td>${resultado.pedidos.map(p => p.test).join(', ')}</td>
-            <td>${resultado.pedidos.map(p => p.ancho).join(', ')}</td>
-            <td>${resultado.pedidos.map(p => p.cantidad).join(', ')}</td>
-            <td>${resultado.suma}</td>
-            <td class="sobrante">${resultado.sobrante}</td>
-        `;
-        tbody.appendChild(tr);
-    });
-
-    // Agregar evento de cambio al select
-    document.querySelectorAll('.bobina-select').forEach(select => {
-        select.addEventListener('change', (e) => {
-            const fila = e.target.closest('tr');
-            const nuevaBobina = parseInt(e.target.value);
-
-            // Recalcular los valores de la fila
-            const suma = parseInt(fila.querySelector('td:nth-child(4)').textContent);
-            const sobrante = nuevaBobina - suma;
-
-            // Actualizar el valor del sobrante en la tabla
-            fila.querySelector('.sobrante').textContent = sobrante;
-        });
-    });
-}
-
-async function procesarPedidos(pedidos) {
-    const bobinas = [1880, 1700, 1500, 1300, 1100, 900, 700, 500, 300];
-    const refile = 30;
-    let pedidosAnchos = pedidos.map(pedido => ({
-        ancho: parseFloat(pedido.ancho),
-        id: pedido.id,
-        cantidad: parseInt(pedido.cantidad),
-        pedido: pedido
-    }));
-
-    const resultados = [];
-    while (pedidosAnchos.length > 0) {
-        let mejorCombinacion = encontrarMejorCombinacion(pedidosAnchos, bobinas, refile);
-        if (mejorCombinacion) {
-            resultados.push(mejorCombinacion);
-            pedidosAnchos = pedidosAnchos.filter(p => !mejorCombinacion.pedidos.includes(p));
-        } else {
-            break; // No se encontró más combinaciones posibles
+        .presupuesto-container {
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
-    }
-    return resultados;
-}
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .header h1 {
+            font-size: 32px;
+            color: #3e3e3e;
+        }
+        .header .subtitulo {
+            font-size: 14px;
+            color: #888;
+        }
+        .cliente-info {
+            margin-bottom: 20px;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border-radius: 6px;
+        }
+        .cliente-info h3 {
+            margin: 0;
+            font-size: 16px;
+            color: #333;
+        }
+        .cliente-info p {
+            margin: 5px 0;
+            font-size: 14px;
+            color: #666;
+        }
+        .tabla {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        .tabla th, .tabla td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+        }
+        .tabla th {
+            background-color: #f0f0f0;
+            font-weight: bold;
+        }
+        .tabla td {
+            font-size: 14px;
+            word-wrap: break-word;
+        }
+        .total {
+            font-size: 18px;
+            font-weight: bold;
+            text-align: right;
+            padding: 10px;
+            background-color: #f0f0f0;
+            border-radius: 4px;
+        }
+        .footer {
+            text-align: center;
+            font-size: 12px;
+            margin-top: 20px;
+            color: #888;
+        }
+    </style>
+</head>
+<body>
+    <div class="presupuesto-container">
+        <div class="header">
+            <h1>Presupuesto</h1>
+            <p class="subtitulo">Tu Logo Acá - Compañía</p>
+            <p>Fecha: 2 de Mayo de 2020</p>
+            <p>NR: 00012345</p>
+        </div>
 
-function encontrarMejorCombinacion(pedidos, bobinas, refile) {
-    let mejorCombinacion = null;
-    pedidos.sort((a, b) => b.ancho - a.ancho);
-    for (let bobina of bobinas) {
-        const bobinaDisponible = bobina - refile;
-        for (let i = 0; i < pedidos.length; i++) {
-            for (let j = i + 1; j < pedidos.length; j++) {
-                const suma = pedidos[i].ancho + pedidos[j].ancho;
-                if (suma <= bobinaDisponible) {
-                    const sobrante = bobinaDisponible - suma;
-                    if (!mejorCombinacion || sobrante < mejorCombinacion.sobrante) {
-                        mejorCombinacion = {
-                            bobina,
-                            pedidos: [pedidos[i], pedidos[j]],
-                            suma,
-                            sobrante
-                        };
-                    }
-                }
+        <div class="cliente-info">
+            <h3>Datos del cliente:</h3>
+            <p>Nombre: Juan Pérez</p>
+            <p>Teléfono: 15-1334-5678</p>
+            <p>Dirección: Calle cualquiera 123. Cualquier lugar.</p>
+        </div>
+
+        <table class="tabla">
+            <thead>
+                <tr>
+                    <th>Producto</th>
+                    <th>Área</th>
+                    <th>Categoría</th>
+                    <th>Tipo de movimiento</th>
+                    <th>Cantidad</th>
+                    <th>Costo nuevo</th>
+                    <th>Valor</th>
+                    <th>Fecha</th>
+                </tr>
+            </thead>
+            <tbody id="results">
+                <!-- Los datos se insertarán aquí dinámicamente -->
+            </tbody>
+        </table>
+
+        <div class="total">
+            <p>Total de Productos: <span id="total-products">0</span></p>
+            <p>Total Cantidad: <span id="total-quantity">0</span></p>
+            <p>Total Costo: $<span id="total-cost">0.00</span></p>
+            <p>Total Valor: $<span id="total-value">0.00</span></p>
+        </div>
+
+        <div class="footer">
+            <p>Tiempo estimado del trabajo: 5 días hábiles</p>
+            <p>Forma de pago: 50% al inicio, 50% al finalizar</p>
+        </div>
+    </div>
+
+    <!-- Filtro para mes -->
+    <select id="month-filter">
+        <option value="01">Enero</option>
+        <option value="02">Febrero</option>
+        <option value="03">Marzo</option>
+        <option value="04">Abril</option>
+        <option value="05">Mayo</option>
+        <option value="06">Junio</option>
+        <option value="07">Julio</option>
+        <option value="08">Agosto</option>
+        <option value="09">Septiembre</option>
+        <option value="10">Octubre</option>
+        <option value="11">Noviembre</option>
+        <option value="12">Diciembre</option>
+    </select>
+  
+    <!-- Filtro para tipo de movimiento -->
+    <select id="type-filter">
+        <option value="Entrada">Entrada</option>
+        <option value="Salida">Salida</option>
+        <option value="Todos">Todos</option> <!-- Opción para mostrar ambos -->
+    </select>
+
+    <script>
+        // Llamada a la API
+        fetch('https://megawebsistem.com/admin/api/apimovimientos')
+        .then(response => response.json())
+        .then(data => {
+            // Filtros de mes y tipo de movimiento
+            const monthFilter = document.getElementById('month-filter');
+            const typeFilter = document.getElementById('type-filter');
+
+            // Agregar evento de cambio para filtrar los resultados
+            monthFilter.addEventListener('change', () => {
+                const selectedMonth = monthFilter.value; // Mes seleccionado
+                const selectedType = typeFilter.value; // Tipo de movimiento seleccionado
+
+                const filteredData = data.filter(item => {
+                    const itemMonth = new Date(item.fecha_movimiento).getMonth() + 1; // Obtener mes del movimiento
+                    const itemType = item.tipo_movimiento; // Obtener tipo de movimiento (Entrada / Salida)
+
+                    // Filtramos por mes y tipo de movimiento
+                    const monthMatch = itemMonth === parseInt(selectedMonth);
+                    const typeMatch = selectedType === 'Todos' || itemType === selectedType;
+
+                    return monthMatch && typeMatch; // Debe coincidir tanto mes como tipo de movimiento
+                });
+
+                displayData(filteredData); // Mostrar los resultados filtrados
+                generateReceipt(filteredData); // Generar el recibo con los totales
+            });
+
+            typeFilter.addEventListener('change', () => {
+                const selectedMonth = monthFilter.value; // Mes seleccionado
+                const selectedType = typeFilter.value; // Tipo de movimiento seleccionado
+
+                const filteredData = data.filter(item => {
+                    const itemMonth = new Date(item.fecha_movimiento).getMonth() + 1; // Obtener mes del movimiento
+                    const itemType = item.tipo_movimiento; // Obtener tipo de movimiento (Entrada / Salida)
+
+                    // Filtramos por mes y tipo de movimiento
+                    const monthMatch = itemMonth === parseInt(selectedMonth);
+                    const typeMatch = selectedType === 'Todos' || itemType === selectedType;
+
+                    return monthMatch && typeMatch; // Debe coincidir tanto mes como tipo de movimiento
+                });
+
+                displayData(filteredData); // Mostrar los resultados filtrados
+                generateReceipt(filteredData); // Generar el recibo con los totales
+            });
+        })
+        .catch(error => console.error('Error fetching data: ', error));
+
+        // Función para mostrar los datos filtrados
+        function displayData(filteredData) {
+            const resultsContainer = document.getElementById('results');
+            resultsContainer.innerHTML = ''; // Limpiar resultados previos
+
+            if (filteredData.length === 0) {
+                resultsContainer.innerHTML = '<tr><td colspan="8">No se encontraron resultados.</td></tr>';
             }
+
+            filteredData.forEach(item => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${item.producto}</td>
+                    <td>${item.area}</td>
+                    <td>${item.categoria}</td>
+                    <td>${item.tipo_movimiento}</td>
+                    <td>${item.cantidad}</td>
+                    <td>$${item.costo_nuevo}</td>
+                    <td>$${item.valor}</td>
+                    <td>${item.fecha_movimiento}</td>
+                `;
+                resultsContainer.appendChild(row);
+            });
         }
-    }
-    return mejorCombinacion;
-}
 
-async function separarPedidosPorTipo(pedidos) {
-    const pedidosCj = pedidos.map(p => ({
-        ...p,
-        ...extraerDimensiones(p.nombre_producto)
-    }));
+        // Función para generar el recibo de presupuesto con los totales
+        function generateReceipt(filteredData) {
+            const receiptContainer = document.getElementById('receipt-details');
+            receiptContainer.innerHTML = ''; // Limpiar los detalles del recibo previo
 
-    const pedidosPorTipo = pedidosCj.reduce((acc, pedido) => {
-        const key = `${pedido.test}-${pedido.flauta}`;
-        if (!acc[key]) {
-            acc[key] = [];
+            // Inicializar las sumas
+            let totalCantidad = 0;
+            let totalCosto = 0;
+            let totalValor = 0;
+
+            // Recorrer los movimientos filtrados y sumar los valores
+            filteredData.forEach(item => {
+                totalCantidad += parseFloat(item.cantidad);
+                totalCosto += parseFloat(item.costo_nuevo);
+                totalValor += parseFloat(item.valor);
+            });
+
+            // Mostrar el desglose en el recibo
+            receiptContainer.innerHTML = `
+                <p><strong>Total de Productos:</strong> ${filteredData.length}</p>
+                <p><strong>Total Cantidad:</strong> ${totalCantidad}</p>
+                <p><strong>Total Costo:</strong> $${totalCosto.toFixed(2)}</p>
+                <p><strong>Total Valor:</strong> $${totalValor.toFixed(2)}</p>
+                <hr>
+                <p><strong>Recibo generado el:</strong> ${new Date().toLocaleDateString()}</p>
+            `;
         }
-        acc[key].push(pedido);
-        return acc;
-    }, {});
-
-    return pedidosPorTipo;
-}
-
-function extraerDimensiones(nombreProducto) {
-    const regexDimensiones = /(\d+)\s*[Xx]\s*(\d+)\s*[Xx]?\s*(\d+)?\s*(CM|cm)?/;
-    const regexTipo = /\b(K\/K|B\/B|T\/T|B\/k)\b/i;
-    const regexTest = /\b(?:TEST|T)?\s?(\d{3})\b(?!.*\d{3})/i;
-    const regexFlauta = /\bFLAUTA (C|B)\b/i;
-
-    const [_, largo, ancho, alto = 'N/A'] = regexDimensiones.exec(nombreProducto) || [];
-    const tipo = (regexTipo.exec(nombreProducto) || [])[1] || 'N/A';
-    const test = (regexTest.exec(nombreProducto) || [])[1] || 'N/A';
-    const flauta = (regexFlauta.exec(nombreProducto) || [])[1] || 'C';
-
-    return { largo, ancho, alto, tipo, test, flauta };
-}
-
-</script>
+    </script>
+</body>
+</html>
