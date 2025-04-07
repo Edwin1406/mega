@@ -625,6 +625,7 @@ public static function crearTicket(Router $router){
             $ticket->guardarNuevo();
             $alertas = $ticket->getAlertas();
             header('Location: /admin/sistemas/ticket/vistaTicket?id='. $ticket->id);
+            exit;
         }
 
     }   
