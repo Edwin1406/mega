@@ -113,7 +113,7 @@
     <li class="areas-produccion-estatico" data-aos="fade-up">
         <a href="/admin/sistemas/pdfinventario">
             <i class="fas fa-scroll"></i> tickets:
-            <?php if ($ticketabiertos > 0) : ?>
+            <?php if ($ticketabiertos > 0 || $ticketcerrados>0) : ?>
                 <span class="areas-produccion__numero"> <?php  echo "Abiertos", $ticketabiertos, "Cerrados",$ticketcerrados ?> </span>
             <?php endif; ?>
         </a>
