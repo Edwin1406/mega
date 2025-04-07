@@ -840,9 +840,8 @@ Apicomputadoras();
           },
           body: JSON.stringify({
             model: "meta-llama/llama-4-maverick:free", // puedes probar con otro modelo
-            messages: [
-              { role: "user", content: "Hola" }
-            ]
+            prompt: "¿Cuál es el clima hoy?",
+            
           })
         });
 
