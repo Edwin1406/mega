@@ -1229,6 +1229,20 @@ public static function procesarArchivoExcelComercial($filePath)
     
         return 0;
     }
+
+
+    public static function countTicketsAbiertos() {
+        $query = "SELECT COUNT(*) as total FROM " . static::$tabla . " WHERE estado = 'abierto'";
+        
+        $resultado = self::consultarSQL1($query);
+    
+        if (is_array($resultado) && isset($resultado[0]['total'])) {
+            return (int) $resultado[0]['total'];
+        }
+    
+        return 0;
+    }
+    
     
   
     
