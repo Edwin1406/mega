@@ -144,6 +144,9 @@
     }
 
 
+
+    /*  */
+
     .grafico1 {
         width: 48%;
         /* background-image: linear-gradient(120deg,rgb(229, 235, 225) 0%,rgb(204, 212, 189) 100%); */

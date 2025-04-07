@@ -104,4 +104,17 @@
 
     </form>
 
+
+
+    <div id="loader" style="display:none;">🌀 Generando ticket...</div>
+<script>
+    document.querySelector('.formulario').addEventListener('submit', function(e) {
+        document.getElementById('loader').style.display = 'block';
+        const submitBtn = this.querySelector('input[type="submit"]');
+        submitBtn.disabled = true;
+        submitBtn.value = "Generando ticket...";
+    });
+</script>
+
+
 </div>
