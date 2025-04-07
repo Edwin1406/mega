@@ -241,6 +241,18 @@ const encontrarMejorTrimado = (combinaciones, pedidos) => {
 };
 
 
+
+
+    
+let todosLosCombosFinales = [];
+
+
+
+
+
+
+
+
 function eliminarNan(mejoresCombos) {
     let idsVistos = new Set();
     const trim = 30; // Ajuste de 30 unidades
@@ -336,7 +348,7 @@ function eliminarNan(mejoresCombos) {
 
 
 
-
+        todosLosCombosFinales.push(...mejoresCombosFinales);
         
 
     console.log("mejores combos sin nan", mejoresCombosFinales);
@@ -619,13 +631,13 @@ const pedidosCalculadosAgrupadosNuevos = pedidosNuevos.map(pedido => ({
                 mejoresCombosNuevos.push(combo);
             }
         });
-    
+        
         console.log("mejores",mejoresCombosNuevos);
-
+        
         eliminarNanNuevos(mejoresCombosNuevos);
         return mejoresCombosNuevos;
     };
-
+    
 
 
     function eliminarNanNuevos(mejoresCombosNuevos) {
@@ -666,10 +678,70 @@ const pedidosCalculadosAgrupadosNuevos = pedidosNuevos.map(pedido => ({
             }
         });
 
-        console.log("mejores combos finales nuevos",mejoresCombosFinalesNuevos);
+      
+        // Agregarlos al arreglo externo
+ todosLosCombosFinales.push(...mejoresCombosFinalesNuevos);
+
+ console.log("mejores combos finales nuevoss", todosLosCombosFinales);
+
+        // crear tabla de los nuevos pedidos
+
+        const tbody = document.querySelector('tbody');
+        tbody.innerHTML = ''; // Limpiar la tabla antes de agregar datos
+
+
+        todosLosCombosFinales.forEach((combo) => {
+            const tr1 = document.createElement('tr');
+            tr1.innerHTML = `
+                <td rowspan="2">Combo ${combo.comboNumero || "N/A"}</td>
+                <td>${combo.pedido_1.id}</td>
+                <td>${combo.pedido_1.nombre}</td>
+                <td>${combo.pedido_1.cavidad}</td>
+                <td>${combo.pedido_1.cortes}</td>
+                <td>${combo.pedido_1.cantidad}</td>
+                <td>${combo.pedido_1.cantidad_producida}</td>
+                <td>${combo.pedido_1.cantidad_faltante}</td>
+                <td>${combo.pedido_1.metros_lineales}</td>
+                <td>${combo.pedido_1.ancho_utilizado}</td>
+                <td>${combo.pedido_1.porcentaje1}</td>
+                <td rowspan="2">${combo.total_ancho}</td>
+                <td rowspan="2">${combo.mejorBobina || 'N/A'}</td>
+                <td rowspan="2">${combo.sobrante !== undefined ? combo.sobrante : 'N/A'}</td>
+            `;
+            const tr2 = document.createElement('tr');
+            tr2.innerHTML = `
+                <td>${combo.pedido_2.id}</td>
+                <td>${combo.pedido_2.nombre}</td>
+                <td>${combo.pedido_2.cavidad}</td>
+                <td>${combo.pedido_2.cortes}</td>
+                <td>${combo.pedido_2.cantidad}</td>
+                <td>${combo.pedido_2.cantidad_producida}</td>
+                <td>${combo.pedido_2.cantidad_faltante}</td>
+                <td>${combo.pedido_2.metros_lineales}</td>
+                <td>${combo.pedido_2.ancho_utilizado}</td>
+                <td>${combo.pedido_2.porcentaje2}</td>
+            `;
+            tbody.appendChild(tr1);
+            tbody.appendChild(tr2);
+        });
+
+
+
+
+
+
     }
 
 
+
+
+
+
+
+
+
+
+    
 
     
 
