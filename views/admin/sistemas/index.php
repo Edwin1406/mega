@@ -835,7 +835,7 @@ Apicomputadoras();
           headers: {
             "Authorization": "Bearer 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", // ⚠️ nunca pongas esto en producción
             "Content-Type": "application/json",
-            "HTTP-Referer": "http://127.0.0.1:5501/chatgpt.html", // o tu dominio real
+            "HTTP-Referer": "https://megawebsistem.com/admin/sistemas/index?id=80ad04ffdfb4872f9b4603cdf4932f23", // o tu dominio real
             "X-Title": "java"
           },
           body: JSON.stringify({
