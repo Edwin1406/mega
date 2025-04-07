@@ -791,6 +791,19 @@ public static function calificar(Router $router){
 
 
 
+public static function apiticket(){
+    header("Access-Control-Allow-Origin: *");  
+    header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS"); 
+    header("Content-Type: application/json"); 
+
+    $tickets = Ticket::all('DESC');
+    echo json_encode($tickets);
+    
+    // echo json_encode($movimientos, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+}
+
+
+
 
 
 

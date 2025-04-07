@@ -346,6 +346,12 @@ $router->post('/admin/sistemas/ticket/editarTicket', [SistemasController::class,
 $router->get('/admin/sistemas/ticket/calificar', [SistemasController::class, 'calificar']);
 $router->post('/admin/sistemas/ticket/calificar', [SistemasController::class, 'calificar']);
 
+// api de ticket
+$router->get('/admin/api/apiticket', [SistemasController::class, 'apiticket']);
+
+
+
+
 // citas de prueba 
 
 $router->get('/admin/api/citas', [EstimarController::class, 'citas']);
