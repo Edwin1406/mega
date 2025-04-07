@@ -31,90 +31,78 @@
 <div class="dashboard__formulario">
 
     <?php include_once __DIR__ . '/../../../templates/alertas.php'  ?>
-
     <form method="POST" action="/admin/sistemas/ticket/crearTicket" class="formulario" enctype="multipart/form-data">
 
+<fieldset class="formulario__fieldset">
+    <legend class="formulario__legend"> Generar Ticket</legend>
 
-        <fieldset class="formulario__fieldset">
-            <legend class="formulario__legend"> Generar Ticket</legend>
+    <!-- Select -->
+    <div class="formulario__campo">
+        <label class="formulario__label" for="computadora_id">Seleccione el Usuario asignado</label>
+        <select name="computadora_id" id="computadora_id" class="formulario__input">
+            <option value="">-- Seleccione --</option>
+            <?php foreach ($computadoras as $computadora) : ?>
+                <option value="<?php echo $computadora->id?>">
+                    <?php echo $computadora->usuario_asignado ?>
+                </option>
+            <?php endforeach; ?>
+        </select>
+    </div>
 
+    <!-- Descripción -->
+    <div class="formulario__campo">
+        <label class="formulario__label" for="descripcion">Descripcion del Problema:</label>
+        <input type="text" name="descripcion" id="descripcion" class="formulario__input" placeholder="Descripcion del Producto" value="<?php echo $ticket->descripcion ?? '' ?>">
+    </div>
 
+    <!-- Prioridad -->
+    <div class="formulario__campo">
+        <label class="formulario__label" for="prioridad">Prioridad:</label>
+        <select name="prioridad" id="prioridad" class="formulario__input">
+            <option value="">-- Seleccione --</option>
+            <option value="urgente" <?php echo (isset($ticket->prioridad) && $ticket->prioridad == 'urgente') ? 'selected' : ''; ?>>Urgente</option>
+            <option value="no urgente" <?php echo (isset($ticket->prioridad) && $ticket->prioridad == 'no_urgente') ? 'selected' : ''; ?>>No urgente</option>
+        </select>
+    </div>
 
-            <!-- crear un select  -->
-            <div class="formulario__campo">
-                <label class="formulario__label" for="computadora_id">Seleccione el Usuario asignado</label>
-                <select
-                    name="computadora_id"
-                    id="computadora_id"
-                    class="formulario__input">
-                    <option value="">-- Seleccione --</option>
-                    <?php foreach ($computadoras as $computadora) : ?>
-                        <option
-                            <?php echo $computadora->id === $computadora->id ? 'selected' : '' ?>
-                            value="<?php echo $computadora->id?>"><?php echo $computadora->usuario_asignado ?></option>
-                    <?php endforeach; ?>
-                </select>
-            </div>
+    <!-- Categoría -->
+    <div class="formulario__campo">
+        <label class="formulario__label" for="categoria">Categoría:</label>
+        <select name="categoria" id="categoria" class="formulario__input">
+            <option value="">-- Seleccione --</option>
+            <option value="soporte" <?php echo (isset($ticket->categoria) && $ticket->categoria == 'soporte') ? 'selected' : ''; ?>>Soporte</option>
+            <option value="mantenimiento" <?php echo (isset($ticket->categoria) && $ticket->categoria == 'mantenimiento') ? 'selected' : ''; ?>>Mantenimiento</option>
+            <option value="consulta" <?php echo (isset($ticket->categoria) && $ticket->categoria == 'consulta') ? 'selected' : ''; ?>>Consulta</option>
+        </select>
+    </div>
 
-            <div class="formulario__campo">
-                <label class="formulario__label" for="descripcion">Descripcion del Problema:</label>
-                <input
-                    type="text"
-                    name="descripcion"
-                    id="descripcion"
-                    class="formulario__input"
-                    placeholder="Descripcion del Producto"
-                    value="<?php echo $ticket->descripcion ?? '' ?>">
-            </div>
+</fieldset>
 
-            <div class="formulario__campo">
-                <label class="formulario__label" for="prioridad">Prioridad:</label>
-                <select
-                    name="prioridad"
-                    id="prioridad"
-                    class="formulario__input">
-                    <option value="">-- Seleccione --</option>
-                    <option value="urgente" <?php echo (isset($ticket->prioridad) && $ticket->prioridad == 'urgente') ? 'selected' : ''; ?>>Urgente</option>
-                    <option value="no urgente" <?php echo (isset($ticket->prioridad) && $ticket->prioridad == 'no_urgente') ? 'selected' : ''; ?>>No urgente</option>
-                </select>
-            </div>
+<!-- Loader visual -->
+<div id="loader" style="display:none; margin-top: 10px; color: blue; font-weight: bold;">
+    🌀 Generando ticket...
+</div>
 
+<!-- Botón submit -->
+<input class="formulario__submit formulario__submit--registrar" type="submit" value="Generar Ticket">
 
-            <div class="formulario__campo">
-                <label class="formulario__label" for="categoria">Categoría:</label>
-                <select
-                    name="categoria"
-                    id="categoria"
-                    class="formulario__input">
-                    <option value="">-- Seleccione --</option>
+</form>
 
-                    <option value="soporte" <?php echo (isset($ticket->categoria) && $ticket->categoria == 'soporte') ? 'selected' : ''; ?>>Soporte</option>
-                    <option value="mantenimiento" <?php echo (isset($ticket->categoria) && $ticket->categoria == 'mantenimiento') ? 'selected' : ''; ?>>Mantenimiento</option>
-                    <option value="consulta" <?php echo (isset($ticket->categoria) && $ticket->categoria == 'consulta') ? 'selected' : ''; ?>>Consulta</option>
-                </select>
-            </div>
-
-
-
-
-        </fieldset>
-
-        <input class="formulario__submit formulario__submit--registrar" type="submit" value="Generar Ticket">
-
-
-    </form>
-
-
-
-    <div id="loader" style="display:none;">🌀 Generando ticket...</div>
+<!-- Script para bloquear botón y mostrar loader -->
 <script>
-    document.querySelector('.formulario').addEventListener('submit', function(e) {
-        document.getElementById('loader').style.display = 'block';
-        const submitBtn = this.querySelector('input[type="submit"]');
-        submitBtn.disabled = true;
-        submitBtn.value = "Generando ticket...";
-    });
+document.querySelector('.formulario').addEventListener('submit', function(e) {
+    const loader = document.getElementById('loader');
+    const submitBtn = this.querySelector('input[type="submit"]');
+    
+    loader.style.display = 'block';              // Muestra el loader
+    submitBtn.disabled = true;                   // Desactiva el botón
+    submitBtn.value = "Generando ticket...";     // Cambia el texto del botón
+});
 </script>
 
+
+
+
+    
 
 </div>
