@@ -236,6 +236,8 @@
 
 
 </div>
+
+
 <h2 class="dashboard__heading">Historial de Mantenimiento</h2>
 
 <div class="dashboard__contenedor">
@@ -263,6 +265,46 @@
             <td class="table__td"><?php echo $mantepc->repuesto_usado ?: '—'; ?></td>
             <td class="table__td"><?php echo $mantepc->fecha_cambio_repuesto ?: '—'; ?></td>
             <td class="table__td"><?php echo $mantepc->costo ? '$' . number_format($mantepc->costo, 2) : '—'; ?></td>
+        </tr>
+    <?php endforeach; ?>
+
+
+
+            </tbody>
+        </table>
+        <?php else: ?>
+    <tr><td colspan="6">No hay mantenimientos registrados.</td></tr>
+<?php endif; ?>
+</div>
+
+
+<h2 class="dashboard__heading">Historial de Tickets</h2>
+
+<div class="dashboard__contenedor">
+<?php if (!empty($ticket) && is_array($ticket)): ?>
+        <table class="table">
+            <thead class="table__thead">
+                <tr>
+                    <th scope="col" class="table__th">Id</th>
+                    <th scope="col" class="table__th">Descripción</th>
+                    <th scope="col" class="table__th">Fecha de creacion</th>
+                    <th scope="col" class="table__th">Estado</th>
+                    <th scope="col" class="table__th">Prioridad</th>
+                    <th scope="col" class="table__th">Categoria</th>
+                </tr>
+            </thead>
+            <tbody class="table__tbody">
+
+               
+          
+    <?php foreach ($ticket as $tickets): ?>
+        <tr class="table__tr">
+            <td class="table__td"><?php echo $tickets->id; ?></td>
+            <td class="table__td"><?php echo $tickets->descripcion; ?></td>
+            <td class="table__td"><?php echo $tickets->descripcion; ?></td>
+            <td class="table__td"><?php echo $tickets->repuesto_usado ?: '—'; ?></td>
+            <td class="table__td"><?php echo $tickets->fecha_cambio_repuesto ?: '—'; ?></td>
+            <td class="table__td"><?php echo $tickets->costo ? '$' . number_format($mantepc->costo, 2) : '—'; ?></td>
         </tr>
     <?php endforeach; ?>
 

@@ -565,7 +565,7 @@ public static function ver (Router $router){
     //Quiero ver los tickets genrados depende del id de la computadora
     $ticket = Ticket::wherenuevo('computadora_id', $id);
     
-    debuguear($ticket);
+    // debuguear($ticket);
 
 
 
@@ -597,6 +597,7 @@ public static function ver (Router $router){
         'alertas' => $alertas,
         'mantenimiento' => $mantenimiento,
         'mante' => $mante,
+        'ticket' => $ticket,
     ]);
 }
 
