@@ -294,8 +294,6 @@
                 </tr>
             </thead>
             <tbody class="table__tbody">
-
-               
           
     <?php foreach ($ticket as $tickets): ?>
         <tr class="table__tr">
