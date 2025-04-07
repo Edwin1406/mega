@@ -114,11 +114,12 @@
         <a href="/admin/sistemas/pdfinventario">
             <i class="fas fa-scroll"></i> tickets:
             <?php if ($ticketabiertos > 0 || $ticketcerrados>0) : ?>
-                <span class="areas-produccion__numero"> <?php  echo "Abiertos", $ticketabiertos, "Cerrados",$ticketcerrados ?> </span>
+                <span class="areas-produccion__numero"> <?php  echo "<b>Abiertos</b>", $ticketabiertos," ", "<b>Cerrados</b>",$ticketcerrados ?> </span>
             <?php endif; ?>
         </a>
     </li>
 
+    
 
 
 
