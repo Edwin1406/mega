@@ -35,12 +35,13 @@ class SistemasController {
         $ticketcerrados = Ticket::countTicketsCerrados();
 
 
-        debuguear($ticketcerrados);
+        // debuguear($ticketcerrados);
 
         $router->render('admin/sistemas/index', [
             'titulo' => 'INVENTARIO DE SISTEMAS',
             'registros' => $registros,
-            'ticket' => $ticket,
+            'ticketabiertos' => $ticketabiertos,
+            'ticketcerrados' => $ticketcerrados,
         ]);
     }
 

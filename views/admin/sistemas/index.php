@@ -111,6 +111,28 @@
         </a>
     </li>
     <li class="areas-produccion-estatico" data-aos="fade-up">
+        <a href="/admin/sistemas/pdfinventario">
+            <i class="fas fa-scroll"></i> INVETARIO REGISTRADO:
+            <?php if ($ticketabiertos > 0) : ?>
+                <span class="areas-produccion__numero"> <?php echo $ticketabiertos ?> </span>
+            <?php endif; ?>
+        </a>
+    </li>
+    <li class="areas-produccion-estatico" data-aos="fade-up">
+        <a href="/admin/sistemas/pdfinventario">
+            <i class="fas fa-scroll"></i> INVETARIO REGISTRADO:
+            <?php if ($ticketcerrados > 0) : ?>
+                <span class="areas-produccion__numero"> <?php echo $ticketcerrados ?> </span>
+            <?php endif; ?>
+        </a>
+    </li>
+
+
+
+
+
+
+    <li class="areas-produccion-estatico" data-aos="fade-up">
         <a>
             <i class="fas fa-scroll"></i> COSTO TOTAL POR MES:
             <span class="areas-produccion__numero totales"> </span>
