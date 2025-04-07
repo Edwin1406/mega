@@ -301,10 +301,10 @@
         <tr class="table__tr">
             <td class="table__td"><?php echo $tickets->id; ?></td>
             <td class="table__td"><?php echo $tickets->descripcion; ?></td>
-            <td class="table__td"><?php echo $tickets->descripcion; ?></td>
-            <td class="table__td"><?php echo $tickets->repuesto_usado ?: '—'; ?></td>
-            <td class="table__td"><?php echo $tickets->fecha_cambio_repuesto ?: '—'; ?></td>
-            <td class="table__td"><?php echo $tickets->costo ? '$' . number_format($mantepc->costo, 2) : '—'; ?></td>
+            <td class="table__td"><?php echo $tickets->fecha_creacion; ?></td>
+            <td class="table__td"><?php echo $tickets->estado;?></td>
+            <td class="table__td"><?php echo $tickets->prioridad;?></td>
+            <td class="table__td"><?php echo $tickets->categoria; ?></td>
         </tr>
     <?php endforeach; ?>
 
