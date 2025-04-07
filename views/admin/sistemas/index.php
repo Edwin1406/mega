@@ -245,19 +245,7 @@ button{
 
 
 
-
-
-
-
-
-
-
-
 <!-- grafica de pastel de movimientosd  -->
-
-
-
-
 <script>
     document.addEventListener('DOMContentLoaded', async function() {
         await datosapi();
@@ -821,3 +809,56 @@ async function Apicomputadoras() {
 
 Apicomputadoras();
 </script>
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Prueba OpenRouter</title>
+</head>
+<body>
+  <h1>Consulta a la IA</h1>
+  <button onclick="consultarIA()">Hablar con la IA</button>
+  <pre id="respuesta"></pre>
+
+  <script>
+    async function consultarIA() {
+      try {
+        const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+          method: "POST",
+          headers: {
+            "Authorization": "Bearer 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", // ⚠️ nunca pongas esto en producción
+            "Content-Type": "application/json",
+            "HTTP-Referer": "http://127.0.0.1:5501/chatgpt.html", // o tu dominio real
+            "X-Title": "java"
+          },
+          body: JSON.stringify({
+            model: "meta-llama/llama-4-maverick:free", // puedes probar con otro modelo
+            messages: [
+              { role: "user", content: "Hola" }
+            ]
+          })
+        });
+
+        const data = await response.json();
+        console.log(data);
+
+        const respuesta = data.choices?.[0]?.message?.content ?? "Sin respuesta válida";
+        document.getElementById("respuesta").innerText = respuesta;
+      } catch (error) {
+        console.error("Error consultando IA:", error);
+      }
+    }
+  </script>
+</body>
+</html>
+
+
+
+  <!--  -->
