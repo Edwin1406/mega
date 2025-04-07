@@ -561,6 +561,14 @@ public static function ver (Router $router){
     $computadora = Computadora::find($id);
     // quiero ver el mantenimiento de la computadora depende el id de la computadora
     $mante = MantenimientoPc::wherenuevo('computadora_id', $id);
+
+    //Quiero ver los tickets genrados depende del id de la computadora
+    $ticket = Ticket::wherenuevo('computadora_id', $id);
+    
+    debuguear($ticket);
+
+
+
     // debuguear($mante);
     $alertas = [];
     // debuguear($computadora);
