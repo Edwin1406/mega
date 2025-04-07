@@ -32,7 +32,7 @@ class SistemasController {
         $registros = Productos_inventario::countinventario();
 
         $ticketabiertos = Ticket::countTicketsAbiertos();
-        $ticketcerrados = Ticket::countTicketsAbiertos();
+        $ticketcerrados = Ticket::countTicketsCerrados();
 
 
         debuguear($ticketcerrados);
