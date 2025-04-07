@@ -30,6 +30,11 @@ class SistemasController {
         session_start();
 
         $registros = Productos_inventario::countinventario();
+
+        $ticket = Ticket::countinventario();
+
+        debuguear($ticket);
+
         $router->render('admin/sistemas/index', [
             'titulo' => 'INVENTARIO DE SISTEMAS',
             'registros' => $registros,
