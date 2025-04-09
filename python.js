@@ -1,5 +1,5 @@
 
-const bobinas= [1100,1600,1700];
+const bobinas= [1100,1150,1400,1600,1700,1880];
 const trim = 30;
 
 
@@ -16,71 +16,150 @@ const bobinasTrim = bobinas.map(bobina => bobina - trim);
 const cavidades = [1,2,3,4];
 
 const pedidos = [
+    // {
+    //     id: 6,
+    //     alto: 0,
+    //     ancho: 538,
+    //     cantidad: 1050,
+    //     fecha_entrega: "2025-02-27",
+    //     fecha_ingreso: "2025-02-10",
+    //     flauta: "C",
+    //     largo: 1530,
+    //     metros_cuadrados: "864.30",
+    //     nombre_pedido: "caja san jose ideal",
+    //     test: 250
+    // },
+    // {
+    //     id: 7,
+    //     alto: 0,
+    //     ancho: 493,
+    //     cantidad: 1050,
+    //     fecha_entrega: "2025-02-27",
+    //     fecha_ingreso: "2025-02-18",
+    //     flauta: "C",
+    //     largo: 1286,
+    //     metros_cuadrados: "667.05",
+    //     nombre_pedido: "caja tel celca",
+    //     test: 250
+    // },
+    // {
+    //     id: 8,
+    //     alto: 0,
+    //     ancho: 417,
+    //     cantidad: 3150,
+    //     fecha_entrega: "2025-02-27",
+    //     fecha_ingreso: "2025-02-18",
+    //     flauta: "C",
+    //     largo: 1230,
+    //     metros_cuadrados: "667.05",
+    //     nombre_pedido: "caja de prueba",
+    //     test: 250
+    // },
+
+    // {
+    //     id: 9,
+    //     alto: 0,
+    //     ancho: 417,
+    //     cantidad: 3150,
+    //     fecha_entrega: "2025-02-27",
+    //     fecha_ingreso: "2025-02-18",
+    //     flauta: "C",
+    //     largo: 1230,
+    //     metros_cuadrados: "667.05",
+    //     nombre_pedido: "caja de prueba",
+    //     test: 250
+    // },
+
+    // {
+    //     id: 10,
+    //     alto: 0,
+    //     ancho: 339,
+    //     cantidad: 1575,
+    //     fecha_entrega: "2025-02-27",
+    //     fecha_ingreso: "2025-02-18",
+    //     flauta: "C",
+    //     largo: 1230,
+    //     metros_cuadrados: "667.05",
+    //     nombre_pedido: "caja de 10",
+    //     test: 250
+    // },
+
     {
         id: 6,
         alto: 0,
-        ancho: 538,
+        ancho: 1234,
         cantidad: 1050,
         fecha_entrega: "2025-02-27",
         fecha_ingreso: "2025-02-10",
         flauta: "C",
-        largo: 1530,
+        largo: 2220,
         metros_cuadrados: "864.30",
-        nombre_pedido: "caja san jose ideal",
+        nombre_pedido: "CJ-TAPA TABACO JUMBO TIEMPO FLOWERS K/K TEST 250",
         test: 250
     },
     {
         id: 7,
         alto: 0,
-        ancho: 493,
-        cantidad: 1050,
+        ancho: 668,
+        cantidad: 1200,
         fecha_entrega: "2025-02-27",
-        fecha_ingreso: "2025-02-18",
+        fecha_ingreso: "2025-02-10",
         flauta: "C",
-        largo: 1286,
-        metros_cuadrados: "667.05",
-        nombre_pedido: "caja tel celca",
+        largo: 1406,
+        metros_cuadrados: "864.30",
+        nombre_pedido: "REG 21 CJ- FONDO TABACO USA BOUQUET 950X206X224 K/K TEST 250",
         test: 250
     },
     {
         id: 8,
         alto: 0,
-        ancho: 417,
-        cantidad: 3150,
+        ancho: 979,
+        cantidad: 700,
         fecha_entrega: "2025-02-27",
-        fecha_ingreso: "2025-02-18",
+        fecha_ingreso: "2025-02-10",
         flauta: "C",
-        largo: 1230,
-        metros_cuadrados: "667.05",
-        nombre_pedido: "caja de prueba",
+        largo: 1688,
+        metros_cuadrados: "864.30",
+        nombre_pedido: "CJ- TAPA TABACO 10 ECOROSES 992X 277 X344 K/K TEST 250	",
         test: 250
     },
-
     {
         id: 9,
         alto: 0,
         ancho: 417,
         cantidad: 3150,
         fecha_entrega: "2025-02-27",
-        fecha_ingreso: "2025-02-18",
+        fecha_ingreso: "2025-02-10",
         flauta: "C",
         largo: 1230,
-        metros_cuadrados: "667.05",
-        nombre_pedido: "caja de prueba",
+        metros_cuadrados: "864.30",
+        nombre_pedido: "PL- PLANCHA 970X710 K/K FLAUTA C TEST 150",
         test: 250
     },
-
     {
         id: 10,
         alto: 0,
-        ancho: 339,
-        cantidad: 1575,
+        ancho: 550,
+        cantidad: 3150,
         fecha_entrega: "2025-02-27",
-        fecha_ingreso: "2025-02-18",
+        fecha_ingreso: "2025-02-10",
         flauta: "C",
         largo: 1230,
-        metros_cuadrados: "667.05",
-        nombre_pedido: "caja de 10",
+        metros_cuadrados: "864.30",
+        nombre_pedido: "PL- PLANCHA 970X710 K/K FLAUTA C TEST 150",
+        test: 250
+    },
+    {
+        id: 11,
+        alto: 0,
+        ancho: 550,
+        cantidad: 500,
+        fecha_entrega: "2025-02-27",
+        fecha_ingreso: "2025-02-10",
+        flauta: "C",
+        largo: 1230,
+        metros_cuadrados: "864.30",
+        nombre_pedido: "PL- PLANCHA 970X710 K/K FLAUTA C TEST 150",
         test: 250
     },
 
@@ -294,63 +373,8 @@ function eliminarNan(mejoresCombos) {
   
     
     
-    ejemplopruebadevariable(idsVistos,mejoresCombos,mejoresCombosFinales);
-    
-
-
-
- 
-
-
-
-
-
-
-
-    const tbody = document.querySelector('tbody');
-        tbody.innerHTML = ''; // Limpiar la tabla antes de agregar datos
-    
-        mejoresCombosFinales.forEach((combo) => {
-            const tr1 = document.createElement('tr');
-            tr1.innerHTML = `
-                <td rowspan="2">Combo ${combo.comboNumero || "N/A"}</td>
-                <td>${combo.pedido_1.id}</td>
-                <td>${combo.pedido_1.nombre}</td>
-                <td>${combo.pedido_1.cavidad}</td>
-                <td>${combo.pedido_1.cortes}</td>
-                <td>${combo.pedido_1.cantidad}</td>
-                <td>${combo.pedido_1.cantidad_producida}</td>
-                <td>${combo.pedido_1.cantidad_faltante}</td>
-                <td>${combo.pedido_1.metros_lineales}</td>
-                <td>${combo.pedido_1.ancho_utilizado}</td>
-                <td>${combo.pedido_1.porcentaje1}</td>
-                <td rowspan="2">${combo.total_ancho}</td>
-                <td rowspan="2">${combo.mejorBobina || 'N/A'}</td>
-                <td rowspan="2">${combo.sobrante !== undefined ? combo.sobrante : 'N/A'}</td>
-            `;
-            const tr2 = document.createElement('tr');
-            tr2.innerHTML = `
-                <td>${combo.pedido_2.id}</td>
-                <td>${combo.pedido_2.nombre}</td>
-                <td>${combo.pedido_2.cavidad}</td>
-                <td>${combo.pedido_2.cortes}</td>
-                <td>${combo.pedido_2.cantidad}</td>
-                <td>${combo.pedido_2.cantidad_producida}</td>
-                <td>${combo.pedido_2.cantidad_faltante}</td>
-                <td>${combo.pedido_2.metros_lineales}</td>
-                <td>${combo.pedido_2.ancho_utilizado}</td>
-                <td>${combo.pedido_2.porcentaje2}</td>
-            `;
-            tbody.appendChild(tr1);
-            tbody.appendChild(tr2);
-        });
-
-
-
-
+        ejemplopruebadevariable(idsVistos,mejoresCombos,mejoresCombosFinales);
         todosLosCombosFinales.push(...mejoresCombosFinales);
-        
-
     console.log("mejores combos sin nan", mejoresCombosFinales);
 
     // como poener global mejoresCombosFinales
@@ -388,12 +412,7 @@ const mejorTrimado = encontrarMejorTrimado(combinaciones);
 
 
 
-
-
-
-
-
-
+//revisar desde aqui porque desde aqui  se ejecuta el codigo de todo el proceso.
 
 function ejemplopruebadevariable(idsVistos,mejoresCombos,mejoresCombosFinales) {
 
@@ -678,6 +697,18 @@ const pedidosCalculadosAgrupadosNuevos = pedidosNuevos.map(pedido => ({
             }
         });
 
+
+
+    
+
+
+
+console .log("mejores combos finales nuevoss de prueba ", mejoresCombosFinalesNuevos);
+
+
+
+
+
       
         // Agregarlos al arreglo externo
  todosLosCombosFinales.push(...mejoresCombosFinalesNuevos);
@@ -696,6 +727,9 @@ const pedidosCalculadosAgrupadosNuevos = pedidosNuevos.map(pedido => ({
                 <td rowspan="2">Combo ${combo.comboNumero || "N/A"}</td>
                 <td>${combo.pedido_1.id}</td>
                 <td>${combo.pedido_1.nombre}</td>
+                <td>${combo.pedido_1.largo}</td>
+                <td>${combo.pedido_1.ancho_utilizado}</td>
+
                 <td>${combo.pedido_1.cavidad}</td>
                 <td>${combo.pedido_1.cortes}</td>
                 <td>${combo.pedido_1.cantidad}</td>
@@ -712,6 +746,8 @@ const pedidosCalculadosAgrupadosNuevos = pedidosNuevos.map(pedido => ({
             tr2.innerHTML = `
                 <td>${combo.pedido_2.id}</td>
                 <td>${combo.pedido_2.nombre}</td>
+                <td>${combo.pedido_2.largo}</td>
+                <td>${combo.pedido_2.ancho_utilizado}</td>
                 <td>${combo.pedido_2.cavidad}</td>
                 <td>${combo.pedido_2.cortes}</td>
                 <td>${combo.pedido_2.cantidad}</td>
@@ -725,11 +761,6 @@ const pedidosCalculadosAgrupadosNuevos = pedidosNuevos.map(pedido => ({
             tbody.appendChild(tr2);
         });
 
-
-
-
-
-
     }
 
 
@@ -737,13 +768,110 @@ const pedidosCalculadosAgrupadosNuevos = pedidosNuevos.map(pedido => ({
 
 
 
+//revisar desde aqui porque desde aqui  se ejecuta el codigo de todo el proceso.
+
+function ejemplopruebadevariable(idsVistos,mejoresCombos,mejoresCombosFinales) {
 
 
 
 
-    
+            // Verificar los pedidos que no han sido asignados a un combo
+            let pedidosLibres = mejoresCombos.filter(combo => 
+                !idsVistos.has(combo.pedido_1.id) || !idsVistos.has(combo.pedido_2.id)
+            );
+        
 
-    
+        pedidosLibres.forEach(combo => {
+            // Buscar el pedido_1 completo utilizando el id
+            if (!idsVistos.has(combo.pedido_1.id)) {
+                const pedido1 = pedidos.find(pedido => pedido.id === combo.pedido_1.id);
+                console.log("Pedido sin combo: ", pedido1); // Mostrar el pedido completo
+                idsVistos.add(combo.pedido_1.id); // Marcar pedido_1 como visto
+                pedidosNuevos.push(pedido1); 
+            }
+
+            // // Buscar el pedido_2 completo utilizando el id
+            if (!idsVistos.has(combo.pedido_2.id)) {
+                const pedido2 = pedidos.find(pedido => pedido.id === combo.pedido_2.id);
+                console.log("Pedido sin combo: ", pedido2); // Mostrar el pedido completo
+                idsVistos.add(combo.pedido_2.id); // Marcar pedido_2 como visto
+                pedidosNuevos.push(pedido2); 
+            }
+
+        });
+
+
+        for(const contruye of mejoresCombosFinales){
+            // Traer el pedido original y verificar si hay cantidad faltante para duplicar el pedido sin modificar el original
+            const pedido1 = pedidos.find(pedido => pedido.id === contruye.pedido_1.id);
+            const pedido2 = pedidos.find(pedido => pedido.id === contruye.pedido_2.id);
+
+            // Verifica si hay cantidad faltante para el pedido 1
+            if(contruye.pedido_1.cantidad_faltante > 1){
+                // console.log("Cantidad faltante para el pedido 1: ", contruye.pedido_1.cantidad_faltante);
+                
+                const nuevoPedido = {
+                    ...pedido1,
+                    // Remplazar la cantidad por la cantidad faltante
+                    cantidad: contruye.pedido_1.cantidad_faltante
+                };
+                // console.log("Nuevo pedido 1 creado: ", nuevoPedido);
+                
+                // Agregar el nuevo pedido al array de pedidos nuevos
+                pedidosNuevos.push(nuevoPedido);
+            } else {
+                // console.log("No hay cantidad faltante para el pedido 1, se ignora.");
+            }
+
+            // Verifica si hay cantidad faltante para el pedido 2
+            if(contruye.pedido_2.cantidad_faltante > 1){
+                // console.log("Cantidad faltante para el pedido 2: ", contruye.pedido_2.cantidad_faltante);
+                
+                const nuevoPedido = {
+                    ...pedido2,
+                    // Remplazar la cantidad por la cantidad faltante
+                    cantidad: contruye.pedido_2.cantidad_faltante
+                };
+                // console.log("Nuevo pedido 2 creado: ", nuevoPedido);
+                
+                // Agregar el nuevo pedido al array de pedidos nuevos
+                pedidosNuevos.push(nuevoPedido);
+            } else {
+                // console.log("No hay cantidad faltante para el pedido 2, se ignora.");
+            }
+
+            // console.log("pedido 1:", pedido1);
+            // console.log("pedido 2:", pedido2);
+        }
+
+                // Mostrar el array con los pedidos nuevos
+        console.log("Pedidos nuevos:", pedidosNuevos);
+
+        // ordenar de menor cantidad a mayor cantidad
+        pedidosNuevos.sort((a,b) => a.cantidad - b.cantidad);
+
+        return pedidosNuevos;
+
+       
+    }
+
+
+ console.log("pedidos nuevos en arreglo",pedidosNuevos);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     const combinacionesnuedvas = generarCombinacionesNuevas(pedidosCalculadosAgrupadosNuevos);

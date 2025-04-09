@@ -713,11 +713,6 @@ const pedidosCalculadosAgrupadosNuevos = pedidosNuevos.map(pedido => ({
             tbody.appendChild(tr2);
         });
 
-
-
-
-
-
     }
 
 

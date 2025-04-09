@@ -52,7 +52,8 @@ document.addEventListener("DOMContentLoaded", () => {
         let alto = Number(pedido.alto) || 0;
         let largoOriginal = Number(pedido.largo) || 0;
         let anchoOriginal = Number(pedido.ancho) || 0;
-        let cantidad = Number(pedido.cantidad) || 1;
+        // let cantidad = Number(pedido.cantidad) || 1;
+        let cantidad = Number(pedido.cantidad) || 0;
 
         // Si el pedido contiene "CJ", se modifican largo y ancho según la fórmula
         if (pedido.nombre_pedido && pedido.nombre_pedido.toUpperCase().includes("CJ")) {
