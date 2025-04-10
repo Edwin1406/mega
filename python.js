@@ -162,19 +162,8 @@ const pedidos = [
         nombre_pedido: "PL- PLANCHA 970X710 K/K FLAUTA C TEST 150",
         test: 250
     },
-    {
-        id: 12,
-        alto: 0,
-        ancho: 450,
-        cantidad: 500,
-        fecha_entrega: "2025-02-27",
-        fecha_ingreso: "2025-02-10",
-        flauta: "C",
-        largo: 1600,
-        metros_cuadrados: "864.30",
-        nombre_pedido: "PL- PLANCHA 970X710 K/K FLAUTA C TEST 150",
-        test: 250
-    },
+    
+  
 
     
 ];
@@ -412,13 +401,6 @@ const mejorTrimado = encontrarMejorTrimado(combinaciones);
 
 
 
-
-
-
-
-
-
-
 // console.log("combinaciones 3",combinaciones);
 // console.log("mejor trimado",mejorTrimado);
 
@@ -437,6 +419,8 @@ function ejemplopruebadevariable(idsVistos,mejoresCombos,mejoresCombosFinales) {
             let pedidosLibres = mejoresCombos.filter(combo => 
                 !idsVistos.has(combo.pedido_1.id) || !idsVistos.has(combo.pedido_2.id)
             );
+
+            console.log("pedidos libres sin asignar a un combo aaaaa",pedidosLibres);
         
 
         pedidosLibres.forEach(combo => {
@@ -459,14 +443,18 @@ function ejemplopruebadevariable(idsVistos,mejoresCombos,mejoresCombosFinales) {
         });
 
 
+
+
         for(const contruye of mejoresCombosFinales){
-            // Traer el pedido original y verificar si hay cantidad faltante para duplicar el pedido sin modificar el original
+            // Traer el pedido original y verificar si hay cantidad faltante para duplicar el pedido sin modificar el original y verificar el porcentaje del pedido
+
             const pedido1 = pedidos.find(pedido => pedido.id === contruye.pedido_1.id);
             const pedido2 = pedidos.find(pedido => pedido.id === contruye.pedido_2.id);
 
+
             // Verifica si hay cantidad faltante para el pedido 1
             if(contruye.pedido_1.cantidad_faltante > 1){
-                // console.log("Cantidad faltante para el pedido 1: ", contruye.pedido_1.cantidad_faltante);
+                console.log("Cantidad faltante para el pedido 1: ", contruye.pedido_1.cantidad_faltante);
                 
                 const nuevoPedido = {
                     ...pedido1,
@@ -490,7 +478,7 @@ function ejemplopruebadevariable(idsVistos,mejoresCombos,mejoresCombosFinales) {
                     // Remplazar la cantidad por la cantidad faltante
                     cantidad: contruye.pedido_2.cantidad_faltante
                 };
-                // console.log("Nuevo pedido 2 creado: ", nuevoPedido);
+                console.log("Nuevo pedido 2 creado: ", nuevoPedido);
                 
                 // Agregar el nuevo pedido al array de pedidos nuevos
                 pedidosNuevos.push(nuevoPedido);
@@ -559,6 +547,8 @@ const pedidosCalculadosAgrupadosNuevos = pedidosNuevos.map(pedido => ({
 )
     
 }));
+
+
 
     const generarCombinacionesNuevas = (pedidosNuevos) => {
         let combinacionesnuevas = [];
@@ -778,21 +768,32 @@ const pedidosCalculadosAgrupadosNuevos = pedidosNuevos.map(pedido => ({
     }
 
 
+var pedidosNuevos2 = [];
+
+const combinacionesnuedvas = generarCombinacionesNuevas(pedidosCalculadosAgrupadosNuevos);
+const mejorTrimadoNuevos = encontrarMejorTrimadoNuevos(combinacionesnuedvas,pedidosCalculadosAgrupadosNuevos);
 
 
 
-//revisar desde aqui porque desde aqui  se ejecuta el codigo de todo el proceso.
-
-function ejemplopruebadevariable(idsVistos,mejoresCombos,mejoresCombosFinales) {
 
 
 
 
-            // Verificar los pedidos que no han sido asignados a un combo
-            let pedidosLibres = mejoresCombos.filter(combo => 
-                !idsVistos.has(combo.pedido_1.id) || !idsVistos.has(combo.pedido_2.id)
-            );
+
+
+
+
+
+// tercer trimado de sobrantes 
+
+function ejemplopruebadevariable2(idsVistos,mejoresCombos,mejoresCombosFinalesNuevos){
+    
+        // Verificar de dentro de mejoresCombosFinalesNuevos los pedidos que aun tienen pedidos con sobrantes se vuelvan a agregar a pedidosNuevos 2
         
+        let pedidosLibres = mejoresCombos.filter(combo => 
+            !idsVistos.has(combo.pedido_1.id) || !idsVistos.has(combo.pedido_2.id)
+        );
+        console.log("pedidos libres sin asignar a un combo",pedidosLibres);
 
         pedidosLibres.forEach(combo => {
             // Buscar el pedido_1 completo utilizando el id
@@ -800,28 +801,30 @@ function ejemplopruebadevariable(idsVistos,mejoresCombos,mejoresCombosFinales) {
                 const pedido1 = pedidos.find(pedido => pedido.id === combo.pedido_1.id);
                 console.log("Pedido sin combo: ", pedido1); // Mostrar el pedido completo
                 idsVistos.add(combo.pedido_1.id); // Marcar pedido_1 como visto
-                pedidosNuevos.push(pedido1); 
+                pedidosNuevos2.push(pedido1); 
             }
 
-            // // Buscar el pedido_2 completo utilizando el id
+            // Buscar el pedido_2 completo utilizando el id
             if (!idsVistos.has(combo.pedido_2.id)) {
                 const pedido2 = pedidos.find(pedido => pedido.id === combo.pedido_2.id);
                 console.log("Pedido sin combo: ", pedido2); // Mostrar el pedido completo
                 idsVistos.add(combo.pedido_2.id); // Marcar pedido_2 como visto
-                pedidosNuevos.push(pedido2); 
+                pedidosNuevos2.push(pedido2); 
             }
 
         });
 
+            // Traer el pedido original y verificar si hay cantidad faltante para duplicar el pedido sin modificar el original y verificar el porcentaje del pedido
 
-        for(const contruye of mejoresCombosFinales){
-            // Traer el pedido original y verificar si hay cantidad faltante para duplicar el pedido sin modificar el original
+        for(const contruye of mejoresCombosFinalesNuevos){
+
             const pedido1 = pedidos.find(pedido => pedido.id === contruye.pedido_1.id);
             const pedido2 = pedidos.find(pedido => pedido.id === contruye.pedido_2.id);
 
+
             // Verifica si hay cantidad faltante para el pedido 1
             if(contruye.pedido_1.cantidad_faltante > 1){
-                // console.log("Cantidad faltante para el pedido 1: ", contruye.pedido_1.cantidad_faltante);
+                console.log("Cantidad faltante para el pedido 1: ", contruye.pedido_1.cantidad_faltante);
                 
                 const nuevoPedido = {
                     ...pedido1,
@@ -831,7 +834,7 @@ function ejemplopruebadevariable(idsVistos,mejoresCombos,mejoresCombosFinales) {
                 // console.log("Nuevo pedido 1 creado: ", nuevoPedido);
                 
                 // Agregar el nuevo pedido al array de pedidos nuevos
-                pedidosNuevos.push(nuevoPedido);
+                pedidosNuevos2.push(nuevoPedido);
             } else {
                 // console.log("No hay cantidad faltante para el pedido 1, se ignora.");
             }
@@ -845,120 +848,132 @@ function ejemplopruebadevariable(idsVistos,mejoresCombos,mejoresCombosFinales) {
                     // Remplazar la cantidad por la cantidad faltante
                     cantidad: contruye.pedido_2.cantidad_faltante
                 };
-                // console.log("Nuevo pedido 2 creado: ", nuevoPedido);
+                console.log("Nuevo pedido 2 creado: ", nuevoPedido);
                 
                 // Agregar el nuevo pedido al array de pedidos nuevos
-                pedidosNuevos.push(nuevoPedido);
+                pedidosNuevos2.push(nuevoPedido);
             } else {
                 // console.log("No hay cantidad faltante para el pedido 2, se ignora.");
             }
 
-            // console.log("pedido 1:", pedido1);
-            // console.log("pedido 2:", pedido2);
         }
 
-                // Mostrar el array con los pedidos nuevos
-        console.log("Pedidos nuevos:", pedidosNuevos);
+        pedidosNuevos2.sort((a,b) => a.cantidad - b.cantidad);
 
-        // ordenar de menor cantidad a mayor cantidad
-        pedidosNuevos.sort((a,b) => a.cantidad - b.cantidad);
-
-        return pedidosNuevos;
-
-       
-    }
-
-
- console.log("pedidos nuevos en arreglo",pedidosNuevos);
-
-
-
-
-
-// tercer trimado de sobrantes 
-
-function ejemplopruebadevariable2(idsVistos,todosLosCombosFinales,mejoresCombosFinalesNuevos){
-    
-        // Verificar los pedidos que no han sido asignados a un combo
-        let pedidosLibres = todosLosCombosFinales.filter(combo => 
-            !idsVistos.has(combo.pedido_1.id) || !idsVistos.has(combo.pedido_2.id)
-        );
-
-
-
-
-        pedidosLibres.forEach(combo => {
-            // Buscar el pedido_1 completo utilizando el id
-            if (!idsVistos.has(combo.pedido_1.id)) {
-                const pedido1 = pedidos.find(pedido => pedido.id === combo.pedido_1.id);
-                console.log("Pedido sin combo: ", pedido1); // Mostrar el pedido completo
-                idsVistos.add(combo.pedido_1.id); // Marcar pedido_1 como visto
-                pedidosNuevos.push(pedido1);
-            }
-
-            // // Buscar el pedido_2 completo utilizando el id
-            if (!idsVistos.has(combo.pedido_2.id)) {
-                const pedido2 = pedidos.find(pedido => pedido.id === combo.pedido_2.id);
-                console.log("Pedido sin combo: ", pedido2); // Mostrar el pedido completo
-                idsVistos.add(combo.pedido_2.id); // Marcar pedido_2 como visto
-                pedidosNuevos.push(pedido2);
-            }
-        });
-
-    
-        for(const construye2 of mejoresCombosFinalesNuevos){
-            // Traer el pedido original y verificar si hay cantidad faltante para duplicar el pedido sin modificar el original
-            const pedido1 = pedidos.find(pedido => pedido.id === construye2.pedido_1.id);
-            const pedido2 = pedidos.find(pedido => pedido.id === construye2.pedido_2.id);
-    
-            // Verifica si hay cantidad faltante para el pedido 1
-            if(construye2.pedido_1.cantidad_faltante > 1){
-                // console.log("Cantidad faltante para el pedido 1: ", construye2.pedido_1.cantidad_faltante);
-                
-                const nuevoPedido = {
-                    ...pedido1,
-                    // Remplazar la cantidad por la cantidad faltante
-                    cantidad: construye2.pedido_1.cantidad_faltante
-                };
-                // console.log("Nuevo pedido 1 creado: ", nuevoPedido);
-                
-                // Agregar el nuevo pedido al array de pedidos nuevos
-                pedidosNuevos.push(nuevoPedido);
-            } else {
-                // console.log("No hay cantidad faltante para el pedido 1, se ignora.");
-            }
-    
-            // Verifica si hay cantidad faltante para el pedido 2
-            if(construye2.pedido_2.cantidad_faltante > 1){
-                // console.log("Cantidad faltante para el pedido 2: ", construye2.pedido_2.cantidad_faltante);
-                
-                const nuevoPedido = {
-                    ...pedido2,
-                    // Remplazar la cantidad por la cantidad faltante
-                    cantidad: construye2.pedido_2.cantidad_faltante
-                };
-                // console.log("Nuevo pedido 2 creado: ", nuevoPedido);
-                
-                // Agregar el nuevo pedido al array de pedidos nuevos
-                pedidosNuevos.push(nuevoPedido);
-            } else {
-                // console.log("No hay cantidad faltante para el pedido 2, se ignora.");
-            }
-
-
-            console.log("somos libres ",pedidosNuevos)
-
-
-            pedidosNuevos.sort((a,b) => a.cantidad - b.cantidad);
-
-            return pedidosNuevos;
-        }
-    
+        return pedidosNuevos2;
             
 }
 
 
 
+console.log("pedidos 2 nuevos ",pedidosNuevos2);
+
+
+
+
+const pedidosCalculadosAgrupadosNuevos2 = pedidosNuevos2.map(data => ({
+    id: data.id,
+    nombre_pedido: data.nombre_pedido,
+    ancho: data.ancho,
+    alto: data.alto,
+    largo: data.largo,
+
+    variaciones: cavidades.map(cavidad => {
+        const cantidad = data.cantidad;
+        const largo = data.largo;
+        const ancho = data.ancho;
+
+        const cortes = Math.ceil(cantidad / cavidad);
+        const cantidad_producida = cortes * cavidad;
+        const cantidad_faltante = cantidad - cantidad_producida;
+        const metros_lineales = Math.floor(((cantidad_producida * largo) / cavidad) / 1000);
+        const ancho_utilizado = Math.ceil(ancho * cavidad);
+        const porcentaje = cantidad_faltante === cantidad ? 100 : Math.floor((cantidad_faltante * 100) / cantidad);
+    
+        return {
+            cavidad,
+            cortes,
+            cantidad,
+            largo,
+            cantidad_producida,
+            cantidad_faltante,
+            metros_lineales,
+            ancho_utilizado,
+            porcentaje
+        };
+    }
+)
+    
+}));
+
+
+console.log("pedidos calculados agrupados nuevos222222",pedidosCalculadosAgrupadosNuevos2);
+
+
+
+
+const generarCombinacionesNuevas2 = (pedidosNuevos2) => {
+    let combinacionesnuevas2 = [];
+    for (let i = 0; i < pedidosNuevos2.length - 1; i++) {
+        for (let j = i + 1; j < pedidosNuevos2.length; j++) {
+            // Verificar si 'variaciones' existe antes de usar 'forEach'
+            if (pedidosNuevos2[i].variaciones && pedidosNuevos2[j].variaciones) {
+  
+                pedidosNuevos2[i].variaciones.forEach(var1 => {
+                    pedidosNuevos2[j].variaciones.forEach(var2 => {
+                        const cortes1 = Math.ceil(var1.cantidad / var1.cavidad);
+                        const cantidad_producida1 = cortes1 * var1.cavidad;
+                        const cantidad_faltante1 = var1.cantidad - cantidad_producida1;
+                        const metros_lineales1 = Math.floor(((cantidad_producida1 * var1.largo) / var1.cavidad) / 1000);
+                        const porcentajep1 = cantidad_producida1 === var1.cantidad ? 100 : Math.floor((cantidad_producida1 * 100) / var1.cantidad);
+
+                        const cortes2 = Math.ceil(var2.cantidad / var2.cavidad);
+                        const cantidad_producida2 = Math.floor((metros_lineales1 / var2.largo) * 1000);
+                        const cantidad_faltante2 = Math.floor(var2.cantidad - cantidad_producida2);
+                        const metros_lineales2 = Math.floor(((cantidad_producida2 * var2.largo) / var2.cavidad) / 1000);
+                        const porcentajep2 = cantidad_producida2 === var2.cantidad ? 100 : ((cantidad_producida2 * 100) / var2.cantidad).toFixed(2);
+
+                        combinacionesnuevas2.push({
+                            pedido_1: {
+                                id: pedidosNuevos2[i].id,
+                                nombre: pedidosNuevos2[i].nombre_pedido,
+                                ancho_utilizado: var1.ancho_utilizado,
+                                cantidad: var1.cantidad,
+                                cavidad: var1.cavidad,
+                                largo: var1.largo,
+                                cortes: cortes1,
+                                cantidad_producida: cantidad_producida1,
+                                cantidad_faltante: cantidad_faltante1,
+                                metros_lineales: metros_lineales1,
+                                porcentaje1: porcentajep1
+                            },
+                            pedido_2: {
+                                id: pedidosNuevos2[j].id,
+                                nombre: pedidosNuevos2[j].nombre_pedido,
+                                ancho_utilizado: var2.ancho_utilizado,
+                                cantidad: var2.cantidad,
+                                cavidad: var2.cavidad,
+                                largo: var2.largo,
+                                cortes: cortes2,
+                                cantidad_producida: cantidad_producida2,
+                                cantidad_faltante: cantidad_faltante2,
+                                metros_lineales: metros_lineales2,
+                                porcentaje2: porcentajep2
+                            },
+                            total_ancho: var1.ancho_utilizado + var2.ancho_utilizado
+                        });
+                    });
+                });
+            }
+        }
+    }
+    console.log("combinaciones nuevas trimado 2", combinacionesnuevas2);
+    return combinacionesnuevas2;
+};
+
+
+const combinacionesnuedvas2 = generarCombinacionesNuevas2(pedidosCalculadosAgrupadosNuevos2);
+const mejorTrimadoNuevos2 = encontrarMejorTrimadoNuevos(combinacionesnuedvas2,pedidosCalculadosAgrupadosNuevos2);
 
 
 
@@ -978,5 +993,3 @@ function ejemplopruebadevariable2(idsVistos,todosLosCombosFinales,mejoresCombosF
 
 
 
-    const combinacionesnuedvas = generarCombinacionesNuevas(pedidosCalculadosAgrupadosNuevos);
-    const mejorTrimadoNuevos = encontrarMejorTrimadoNuevos(combinacionesnuedvas,pedidosCalculadosAgrupadosNuevos);
