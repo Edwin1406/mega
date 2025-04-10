@@ -784,6 +784,7 @@ const mejorTrimadoNuevos = encontrarMejorTrimadoNuevos(combinacionesnuedvas,pedi
 
 
 
+
 // tercer trimado de sobrantes 
 
 function ejemplopruebadevariable2(idsVistos,mejoresCombos,mejoresCombosFinalesNuevos){
