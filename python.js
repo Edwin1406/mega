@@ -823,39 +823,65 @@ function ejemplopruebadevariable2(idsVistos,mejoresCombos,mejoresCombosFinalesNu
             const pedido2 = pedidos.find(pedido => pedido.id === contruye.pedido_2.id);
 
 
-            // Verifica si hay cantidad faltante para el pedido 1
-            if(contruye.pedido_1.cantidad_faltante > 1){
-                console.log("Cantidad faltante para el pedido 1: ", contruye.pedido_1.cantidad_faltante);
+            // // Verifica si hay cantidad faltante para el pedido 1
+            // if(contruye.pedido_1.cantidad_faltante > 1){
+            //     console.log("Cantidad faltante para el pedido 1: ", contruye.pedido_1.cantidad_faltante);
                 
-                const nuevoPedido = {
-                    ...pedido1,
-                    // Remplazar la cantidad por la cantidad faltante
-                    cantidad: contruye.pedido_1.cantidad_faltante
-                };
-                // console.log("Nuevo pedido 1 creado: ", nuevoPedido);
+            //     const nuevoPedido = {
+            //         ...pedido1,
+            //         // Remplazar la cantidad por la cantidad faltante
+            //         cantidad: contruye.pedido_1.cantidad_faltante
+            //     };
+            //     // console.log("Nuevo pedido 1 creado: ", nuevoPedido);
                 
-                // Agregar el nuevo pedido al array de pedidos nuevos
-                pedidosNuevos2.push(nuevoPedido);
-            } else {
-                // console.log("No hay cantidad faltante para el pedido 1, se ignora.");
-            }
+            //     // Agregar el nuevo pedido al array de pedidos nuevos
+            //     pedidosNuevos2.push(nuevoPedido);
+            // } else {
+            //     // console.log("No hay cantidad faltante para el pedido 1, se ignora.");
+            // }
 
-            // Verifica si hay cantidad faltante para el pedido 2
-            if(contruye.pedido_2.cantidad_faltante > 1){
-                // console.log("Cantidad faltante para el pedido 2: ", contruye.pedido_2.cantidad_faltante);
+            // // Verifica si hay cantidad faltante para el pedido 2
+            // if(contruye.pedido_2.cantidad_faltante > 1){
+            //     // console.log("Cantidad faltante para el pedido 2: ", contruye.pedido_2.cantidad_faltante);
                 
-                const nuevoPedido = {
-                    ...pedido2,
-                    // Remplazar la cantidad por la cantidad faltante
-                    cantidad: contruye.pedido_2.cantidad_faltante
-                };
-                console.log("Nuevo pedido 2 creado: ", nuevoPedido);
+            //     const nuevoPedido = {
+            //         ...pedido2,
+            //         // Remplazar la cantidad por la cantidad faltante
+            //         cantidad: contruye.pedido_2.cantidad_faltante
+            //     };
+            //     console.log("Nuevo pedido 2 creado: ", nuevoPedido);
                 
-                // Agregar el nuevo pedido al array de pedidos nuevos
-                pedidosNuevos2.push(nuevoPedido);
-            } else {
-                // console.log("No hay cantidad faltante para el pedido 2, se ignora.");
-            }
+            //     // Agregar el nuevo pedido al array de pedidos nuevos
+            //     pedidosNuevos2.push(nuevoPedido);
+            // } else {
+            //     // console.log("No hay cantidad faltante para el pedido 2, se ignora.");
+            // }
+
+        // si el pedido 1 o 2 vuelve a tener faltante se vuelve a agregar a pedidosNuevos2 y se trima solo sin buscar otro pedido
+
+        if (contruye.pedido_1.cantidad_faltante > 1) {
+            const nuevoPedido = {
+                ...pedido1,
+                cantidad: contruye.pedido_1.cantidad_faltante
+            };
+            pedidosNuevos2.push(nuevoPedido);
+
+        } else if (contruye.pedido_2.cantidad_faltante > 1) {
+            const nuevoPedido = {
+                ...pedido2,
+                cantidad: contruye.pedido_2.cantidad_faltante
+            };
+            pedidosNuevos2.push(nuevoPedido);
+
+        } else {
+            console.log("No hay cantidad faltante para el pedido 1 o 2, se ignora.");
+
+        }
+
+
+
+
+
 
         }
 
@@ -924,6 +950,8 @@ const generarCombinacionesNuevas2 = (pedidosNuevos2) => {
                     pedidosNuevos2[j].variaciones.forEach(var2 => {
                         const cortes1 = Math.ceil(var1.cantidad / var1.cavidad);
                         const cantidad_producida1 = cortes1 * var1.cavidad;
+                        const largo1 = var1.largo;
+                        console.log("largo 1",largo1);
                         const cantidad_faltante1 = var1.cantidad - cantidad_producida1;
                         const metros_lineales1 = Math.floor(((cantidad_producida1 * var1.largo) / var1.cavidad) / 1000);
                         const porcentajep1 = cantidad_producida1 === var1.cantidad ? 100 : Math.floor((cantidad_producida1 * 100) / var1.cantidad);
