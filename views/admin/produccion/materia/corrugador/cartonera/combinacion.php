@@ -38,6 +38,7 @@
           <th>Numero. combo</th>
           <th>ID</th>
           <th>Pedido</th>
+            <th>Largo</th>
           <th>Cavidad</th>
           <th>Cortes</th>
           <th>Cantidad</th>
