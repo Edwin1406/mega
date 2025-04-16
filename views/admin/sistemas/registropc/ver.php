@@ -176,6 +176,10 @@
                             <option value="">-- Seleccionar --</option>
                             <option value="Mantenimiento">Mantenimiento</option>
                             <option value="Reparación">Reparación</option>
+                            <option value="Instalación">Instalación</option>
+                            <option value="Actualización">Actualización</option>
+                            <option value="Respaldos">Respaldos</option>
+
                         </select>
                     </div>
 

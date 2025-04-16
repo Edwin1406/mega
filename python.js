@@ -16,152 +16,152 @@ const bobinasTrim = bobinas.map(bobina => bobina - trim);
 const cavidades = [1,2,3];
 
 const pedidos = [
-    {
-        id: 6,
-        alto: 0,
-        ancho: 538,
-        cantidad: 1050,
-        fecha_entrega: "2025-02-27",
-        fecha_ingreso: "2025-02-10",
-        flauta: "C",
-        largo: 1530,
-        metros_cuadrados: "864.30",
-        nombre_pedido: "caja san jose ideal",
-        test: 250
-    },
-    {
-        id: 7,
-        alto: 0,
-        ancho: 493,
-        cantidad: 1050,
-        fecha_entrega: "2025-02-27",
-        fecha_ingreso: "2025-02-18",
-        flauta: "C",
-        largo: 1286,
-        metros_cuadrados: "667.05",
-        nombre_pedido: "caja tel celca",
-        test: 250
-    },
-    {
-        id: 8,
-        alto: 0,
-        ancho: 417,
-        cantidad: 3150,
-        fecha_entrega: "2025-02-27",
-        fecha_ingreso: "2025-02-18",
-        flauta: "C",
-        largo: 1230,
-        metros_cuadrados: "667.05",
-        nombre_pedido: "caja de prueba",
-        test: 250
-    },
-
-    {
-        id: 9,
-        alto: 0,
-        ancho: 417,
-        cantidad: 3150,
-        fecha_entrega: "2025-02-27",
-        fecha_ingreso: "2025-02-18",
-        flauta: "C",
-        largo: 1230,
-        metros_cuadrados: "667.05",
-        nombre_pedido: "caja de prueba",
-        test: 250
-    },
-
-    {
-        id: 10,
-        alto: 0,
-        ancho: 339,
-        cantidad: 1575,
-        fecha_entrega: "2025-02-27",
-        fecha_ingreso: "2025-02-18",
-        flauta: "C",
-        largo: 1230,
-        metros_cuadrados: "667.05",
-        nombre_pedido: "caja de 10",
-        test: 250
-    },
-
     // {
     //     id: 6,
     //     alto: 0,
-    //     ancho: 1234,
+    //     ancho: 538,
     //     cantidad: 1050,
     //     fecha_entrega: "2025-02-27",
     //     fecha_ingreso: "2025-02-10",
     //     flauta: "C",
-    //     largo: 2220,
+    //     largo: 1530,
     //     metros_cuadrados: "864.30",
-    //     nombre_pedido: "CJ-TAPA TABACO JUMBO TIEMPO FLOWERS K/K TEST 250",
+    //     nombre_pedido: "caja san jose ideal",
     //     test: 250
     // },
     // {
     //     id: 7,
     //     alto: 0,
-    //     ancho: 668,
-    //     cantidad: 1200,
+    //     ancho: 493,
+    //     cantidad: 1050,
     //     fecha_entrega: "2025-02-27",
-    //     fecha_ingreso: "2025-02-10",
+    //     fecha_ingreso: "2025-02-18",
     //     flauta: "C",
-    //     largo: 1406,
-    //     metros_cuadrados: "864.30",
-    //     nombre_pedido: "REG 21 CJ- FONDO TABACO USA BOUQUET 950X206X224 K/K TEST 250",
+    //     largo: 1286,
+    //     metros_cuadrados: "667.05",
+    //     nombre_pedido: "caja tel celca",
     //     test: 250
     // },
     // {
     //     id: 8,
     //     alto: 0,
-    //     ancho: 979,
-    //     cantidad: 700,
+    //     ancho: 417,
+    //     cantidad: 3150,
     //     fecha_entrega: "2025-02-27",
-    //     fecha_ingreso: "2025-02-10",
+    //     fecha_ingreso: "2025-02-18",
     //     flauta: "C",
-    //     largo: 1688,
-    //     metros_cuadrados: "864.30",
-    //     nombre_pedido: "CJ- TAPA TABACO 10 ECOROSES 992X 277 X344 K/K TEST 250	",
+    //     largo: 1230,
+    //     metros_cuadrados: "667.05",
+    //     nombre_pedido: "caja de prueba",
     //     test: 250
     // },
+
     // {
     //     id: 9,
     //     alto: 0,
     //     ancho: 417,
     //     cantidad: 3150,
     //     fecha_entrega: "2025-02-27",
-    //     fecha_ingreso: "2025-02-10",
+    //     fecha_ingreso: "2025-02-18",
     //     flauta: "C",
     //     largo: 1230,
-    //     metros_cuadrados: "864.30",
-    //     nombre_pedido: "PL- PLANCHA 970X710 K/K FLAUTA C TEST 150",
+    //     metros_cuadrados: "667.05",
+    //     nombre_pedido: "caja de prueba",
     //     test: 250
     // },
+
     // {
     //     id: 10,
     //     alto: 0,
-    //     ancho: 550,
-    //     cantidad: 3150,
+    //     ancho: 339,
+    //     cantidad: 1575,
     //     fecha_entrega: "2025-02-27",
-    //     fecha_ingreso: "2025-02-10",
+    //     fecha_ingreso: "2025-02-18",
     //     flauta: "C",
     //     largo: 1230,
-    //     metros_cuadrados: "864.30",
-    //     nombre_pedido: "PL- PLANCHA 970X710 K/K FLAUTA C TEST 150",
+    //     metros_cuadrados: "667.05",
+    //     nombre_pedido: "caja de 10",
     //     test: 250
     // },
-    // {
-    //     id: 11,
-    //     alto: 0,
-    //     ancho: 550,
-    //     cantidad: 500,
-    //     fecha_entrega: "2025-02-27",
-    //     fecha_ingreso: "2025-02-10",
-    //     flauta: "C",
-    //     largo: 1230,
-    //     metros_cuadrados: "864.30",
-    //     nombre_pedido: "PL- PLANCHA 970X710 K/K FLAUTA C TEST 150",
-    //     test: 250
-    // },
+
+    {
+        id: 6,
+        alto: 0,
+        ancho: 1234,
+        cantidad: 1050,
+        fecha_entrega: "2025-02-27",
+        fecha_ingreso: "2025-02-10",
+        flauta: "C",
+        largo: 2220,
+        metros_cuadrados: "864.30",
+        nombre_pedido: "CJ-TAPA TABACO JUMBO TIEMPO FLOWERS K/K TEST 250",
+        test: 250
+    },
+    {
+        id: 7,
+        alto: 0,
+        ancho: 668,
+        cantidad: 1200,
+        fecha_entrega: "2025-02-27",
+        fecha_ingreso: "2025-02-10",
+        flauta: "C",
+        largo: 1406,
+        metros_cuadrados: "864.30",
+        nombre_pedido: "REG 21 CJ- FONDO TABACO USA BOUQUET 950X206X224 K/K TEST 250",
+        test: 250
+    },
+    {
+        id: 8,
+        alto: 0,
+        ancho: 979,
+        cantidad: 700,
+        fecha_entrega: "2025-02-27",
+        fecha_ingreso: "2025-02-10",
+        flauta: "C",
+        largo: 1688,
+        metros_cuadrados: "864.30",
+        nombre_pedido: "CJ- TAPA TABACO 10 ECOROSES 992X 277 X344 K/K TEST 250	",
+        test: 250
+    },
+    {
+        id: 9,
+        alto: 0,
+        ancho: 417,
+        cantidad: 3150,
+        fecha_entrega: "2025-02-27",
+        fecha_ingreso: "2025-02-10",
+        flauta: "C",
+        largo: 1230,
+        metros_cuadrados: "864.30",
+        nombre_pedido: "PL- PLANCHA 970X710 K/K FLAUTA C TEST 150",
+        test: 250
+    },
+    {
+        id: 10,
+        alto: 0,
+        ancho: 550,
+        cantidad: 3150,
+        fecha_entrega: "2025-02-27",
+        fecha_ingreso: "2025-02-10",
+        flauta: "C",
+        largo: 1230,
+        metros_cuadrados: "864.30",
+        nombre_pedido: "PL- PLANCHA 970X710 K/K FLAUTA C TEST 150",
+        test: 250
+    },
+    {
+        id: 11,
+        alto: 0,
+        ancho: 550,
+        cantidad: 500,
+        fecha_entrega: "2025-02-27",
+        fecha_ingreso: "2025-02-10",
+        flauta: "C",
+        largo: 1230,
+        metros_cuadrados: "864.30",
+        nombre_pedido: "PL- PLANCHA 970X710 K/K FLAUTA C TEST 150",
+        test: 250
+    },
     
   
 
@@ -1061,5 +1061,4 @@ const generarCombinacionesNuevas2 = (pedidosNuevos2) => {
 
 const combinacionesnuedvas2 = generarCombinacionesNuevas2(pedidosCalculadosAgrupadosNuevos2);
 const mejorTrimadoNuevos2 = encontrarMejorTrimadoNuevos(combinacionesnuedvas2,pedidosCalculadosAgrupadosNuevos2);
-
 
