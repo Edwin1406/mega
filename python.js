@@ -1194,5 +1194,3 @@ const generarCombinacionesNuevas2 = (pedidosNuevos2) => {
 const combinacionesnuedvas2 = generarCombinacionesNuevas2(pedidosCalculadosAgrupadosNuevos2);
 const mejorTrimadoNuevos2 = encontrarMejorTrimadoNuevos(combinacionesnuedvas2,pedidosCalculadosAgrupadosNuevos2);
 
-
->>>>>>> 4a8b4d792f0a5430a0dd506e55a9b1705131b432
