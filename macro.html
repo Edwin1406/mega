@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tabla por Gramaje y Mes</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    th, td {
+      border: 1px solid #ccc;
+      padding: 8px;
+      text-align: center;
+      cursor: pointer;
+    }
+    th {
+      background-color: #f4f4f4;
+    }
+    .highlight {
+      font-weight: bold;
+      background-color: #eaeaea;
+    }
+    #modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.6);
+      justify-content: center;
+      align-items: center;
+    }
+    #modal-content {
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      width: 400px;
+      max-height: 80vh;
+      overflow-y: auto;
+    }
+    #modal h2 {
+      margin-top: 0;
+    }
+    #close-modal {
+      float: right;
+      cursor: pointer;
+      font-size: 18px;
+    }
+  </style>
+</head>
+<body>
+  <h1>INGRESOS</h1>
+  <table id="tabla-gramajes">
+    <thead>
+      <tr>
+        <th>Gramaje</th>
+        <th>Enero</th>
+        <th>Febrero</th>
+        <th>Marzo</th>
+        <th>Abril</th>
+        <th>Mayo</th>
+        <th>Junio</th>
+        <th>Julio</th>
+        <th>Agosto</th>
+        <th>Septiembre</th>
+        <th>Octubre</th>
+        <th>Noviembre</th>
+        <th>Diciembre</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Se llenará dinámicamente -->
+    </tbody>
+  </table>
+
+  <div id="modal">
+    <div id="modal-content">
+      <span id="close-modal">&times;</span>
+      <h2>Detalles de Anchos</h2>
+      <ul id="detalles"></ul>
+    </div>
+  </div>
+
+  <script>
+    let datosOriginales = [];
+
+    async function cargarDatos() {
+      try {
+        const response = await fetch('https://megawebsistem.com/admin/api/apicomercial');
+        const data = await response.json();
+        datosOriginales = data;
+
+        const resumenPorGramaje = {};
+        const detallePorClave = {};
+
+        data.forEach(item => {
+          const gramaje = item.gramaje;
+          const fecha = new Date(item.fecha_produccion);
+          const mes = fecha.getMonth();
+          const key = `${gramaje}-${mes}`;
+
+          if (!resumenPorGramaje[gramaje]) {
+            resumenPorGramaje[gramaje] = Array(12).fill(0);
+          }
+          resumenPorGramaje[gramaje][mes] += parseInt(item.cantidad);
+
+          if (!detallePorClave[key]) detallePorClave[key] = [];
+          detallePorClave[key].push({ ancho: item.ancho, cantidad: item.cantidad });
+        });
+
+        const tbody = document.querySelector('#tabla-gramajes tbody');
+
+        Object.entries(resumenPorGramaje).forEach(([gramaje, meses]) => {
+          const row = document.createElement('tr');
+          let html = `<td class="highlight">${gramaje}</td>`;
+
+          meses.forEach((cant, mesIdx) => {
+            const key = `${gramaje}-${mesIdx}`;
+            html += `<td onclick="mostrarDetalles('${key}')">${cant}</td>`;
+          });
+
+          row.innerHTML = html;
+          tbody.appendChild(row);
+        });
+
+        window.mostrarDetalles = (key) => {
+          const lista = document.getElementById('detalles');
+          lista.innerHTML = '';
+          const detalles = detallePorClave[key] || [];
+
+          if (detalles.length === 0) {
+            lista.innerHTML = '<li>No hay detalles disponibles.</li>';
+          } else {
+            detalles.forEach(item => {
+              const li = document.createElement('li');
+              li.textContent = `Ancho: ${item.ancho} - Cantidad: ${item.cantidad}`;
+              lista.appendChild(li);
+            });
+          }
+
+          document.getElementById('modal').style.display = 'flex';
+        };
+
+        document.getElementById('close-modal').onclick = function() {
+          document.getElementById('modal').style.display = 'none';
+        };
+
+        window.onclick = function(event) {
+          if (event.target === document.getElementById('modal')) {
+            document.getElementById('modal').style.display = 'none';
+          }
+        };
+
+      } catch (error) {
+        console.error('Error al cargar datos:', error);
+      }
+    }
+
+    cargarDatos();
+  </script>
+</body>
+</html>
