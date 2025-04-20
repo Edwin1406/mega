@@ -16,11 +16,11 @@ class MateriaPrimaController
       $alertas = [];
       $materiaprima = new MateriaPrima;
 
-      $totalExistencia = MateriaPrimaV::sumarExistencia('CAJAS');
+      $totalExistencia = MateriaPrimaV::sumarExistencia('CAJA');
         // debuguear($totalExistencia);
       
       $totalExistenciaMedium = MateriaPrimaV::sumarExistencia('MEDIUM');      
-      debuguear($totalExistenciaMedium);
+    //   debuguear($totalExistenciaMedium);
       
         $totalExistencia = $totalExistencia + $totalExistenciaMedium;
         
