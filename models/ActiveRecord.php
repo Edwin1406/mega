@@ -1030,17 +1030,19 @@ public static function procesarArchivoExcel($filePath)
 //     return true;
 // }
 
+
+
 public static function procesarArchivoExcelMateria($filePath)
 {
     $spreadsheet = IOFactory::load($filePath);
     $sheet = $spreadsheet->getActiveSheet();
 
-    // Crear la tabla si no existe
+    // Crear la tabla SIN restricciones de UNIQUE en 'codigo'
     $queryCrearTabla = "
         CREATE TABLE IF NOT EXISTS " . static::$tabla . " (
             id INT AUTO_INCREMENT PRIMARY KEY,
             almacen VARCHAR(255),
-            codigo VARCHAR(255) UNIQUE,
+            codigo VARCHAR(255),
             descripcion VARCHAR(500),
             existencia INT,
             costo DECIMAL(10, 2),
@@ -1055,78 +1057,47 @@ public static function procesarArchivoExcelMateria($filePath)
     ";
     self::$db->query($queryCrearTabla);
 
-    // Procesar cada fila del Excel (a partir de la fila 2 para saltar encabezados)
+    // Procesar cada fila del Excel (desde la fila 2)
     foreach ($sheet->getRowIterator(2) as $row) {
         $data = [];
         $cellIterator = $row->getCellIterator();
         $cellIterator->setIterateOnlyExistingCells(false);
 
         foreach ($cellIterator as $cell) {
-            $data[] = trim((string)$cell->getFormattedValue()); // Limpia el valor
+            $data[] = trim((string)$cell->getFormattedValue());
         }
 
-        // Mapear los datos a las columnas
+        // Mapear los datos a columnas
         list(
-            $almacen, $codigo, $descripcion, $nueva_existencia, $costo,
+            $almacen, $codigo, $descripcion, $existencia, $costo,
             $promedio, $talla, $linea, $gramaje, $proveedor,
             $sustrato, $ancho
         ) = array_map(function ($value) {
             return trim($value ?? '');
         }, $data);
 
-        // Normalizar separadores decimales
+        // Limpiar decimales
         $costo = str_replace(',', '.', $costo);
         $promedio = str_replace(',', '.', $promedio);
-        $nueva_existencia = (int)$nueva_existencia;
+        $existencia = (int)$existencia;
 
-        // Verificar si el código ya existe
-        $queryVerificar = "
-            SELECT id 
-            FROM " . static::$tabla . " 
-            WHERE codigo = '$codigo'
+        // Insertar todos los registros SIN validar duplicados
+        $queryInsertar = "
+            INSERT INTO " . static::$tabla . " (
+                almacen, codigo, descripcion, existencia, costo,
+                promedio, talla, linea, gramaje, proveedor,
+                sustrato, ancho
+            ) VALUES (
+                '$almacen', '$codigo', '$descripcion', '$existencia', '$costo',
+                '$promedio', '$talla', '$linea', '$gramaje', '$proveedor',
+                '$sustrato', '$ancho'
+            )
         ";
-        $resultado = self::$db->query($queryVerificar)->fetch_assoc();
-
-        if ($resultado) {
-            // ✅ Si ya existe, actualiza todos los campos directamente
-            $queryActualizar = "
-                UPDATE " . static::$tabla . "
-                SET 
-                    almacen = '$almacen',
-                    descripcion = '$descripcion',
-                    existencia = $nueva_existencia,
-                    costo = '$costo',
-                    promedio = '$promedio',
-                    talla = '$talla',
-                    linea = '$linea',
-                    gramaje = '$gramaje',
-                    proveedor = '$proveedor',
-                    sustrato = '$sustrato',
-                    ancho = '$ancho'
-                WHERE codigo = '$codigo'
-            ";
-            self::$db->query($queryActualizar);
-        } else {
-            // 🆕 Si no existe, inserta un nuevo registro
-            $queryInsertar = "
-                INSERT INTO " . static::$tabla . " (
-                    almacen, codigo, descripcion, existencia, costo,
-                    promedio, talla, linea, gramaje, proveedor,
-                    sustrato, ancho
-                ) VALUES (
-                    '$almacen', '$codigo', '$descripcion', '$nueva_existencia', '$costo',
-                    '$promedio', '$talla', '$linea', '$gramaje', '$proveedor',
-                    '$sustrato', '$ancho'
-                )
-            ";
-            self::$db->query($queryInsertar);
-        }
+        self::$db->query($queryInsertar);
     }
 
     return true;
 }
-
-
 
 
 
