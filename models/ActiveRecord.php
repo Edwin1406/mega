@@ -1030,7 +1030,6 @@ public static function procesarArchivoExcel($filePath)
 //     return true;
 // }
 
-
 public static function procesarArchivoExcelMateria($filePath)
 {
     $spreadsheet = IOFactory::load($filePath);
@@ -1067,31 +1066,31 @@ public static function procesarArchivoExcelMateria($filePath)
             $data[] = trim((string)$cell->getFormattedValue());
         }
 
-        // Validar que haya al menos 13 columnas antes de mapear
-        if (count($data) < 13) {
-            continue; // O log de error si prefieres
+        // Validar al menos 12 columnas (sin fecha_corte)
+        if (count($data) < 12) {
+            continue;
         }
 
-        // Mapear los datos a columnas
+        // Mapear los datos (sin fecha_corte)
         list(
             $almacen, $codigo, $descripcion, $existencia, $costo,
             $promedio, $talla, $linea, $gramaje, $proveedor,
-            $sustrato, $ancho, $fecha_corte
+            $sustrato, $ancho
         ) = array_map(function ($value) {
             return trim($value ?? '');
         }, $data);
 
-        // Limpiar decimales y convertir tipos
+        // Convertir tipos
         $costo = floatval(str_replace(',', '.', $costo));
         $promedio = floatval(str_replace(',', '.', $promedio));
         $existencia = intval($existencia);
 
-        // Preparar consulta de inserción
+        // Insertar SIN fecha_corte (MySQL la pone automáticamente)
         $queryInsertar = "
             INSERT INTO " . static::$tabla . " (
                 almacen, codigo, descripcion, existencia, costo,
                 promedio, talla, linea, gramaje, proveedor,
-                sustrato, ancho, fecha_corte
+                sustrato, ancho
             ) VALUES (
                 '" . self::$db->real_escape_string($almacen) . "',
                 '" . self::$db->real_escape_string($codigo) . "',
@@ -1104,8 +1103,7 @@ public static function procesarArchivoExcelMateria($filePath)
                 '" . self::$db->real_escape_string($gramaje) . "',
                 '" . self::$db->real_escape_string($proveedor) . "',
                 '" . self::$db->real_escape_string($sustrato) . "',
-                '" . self::$db->real_escape_string($ancho) . "',
-                '" . self::$db->real_escape_string($fecha_corte) . "'
+                '" . self::$db->real_escape_string($ancho) . "'
             )
         ";
         self::$db->query($queryInsertar);
