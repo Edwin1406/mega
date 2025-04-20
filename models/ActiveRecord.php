@@ -921,6 +921,115 @@ public static function procesarArchivoExcel($filePath)
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
+// public static function procesarArchivoExcelMateria($filePath)
+// {
+//     $spreadsheet = IOFactory::load($filePath);
+//     $sheet = $spreadsheet->getActiveSheet();
+
+//     // Crear la tabla si no existe
+//     $queryCrearTabla = "
+//         CREATE TABLE IF NOT EXISTS " . static::$tabla . " (
+//             id INT AUTO_INCREMENT PRIMARY KEY,
+//             almacen VARCHAR(255),
+//             codigo VARCHAR(255) UNIQUE,
+//             descripcion VARCHAR(500),
+//             existencia INT,
+//             costo DECIMAL(10, 2),
+//             promedio DECIMAL(10, 2),
+//             talla VARCHAR(255),
+//             linea VARCHAR(255),
+//             gramaje VARCHAR(255),
+//             proveedor VARCHAR(255),
+//             sustrato VARCHAR(255),
+//             ancho VARCHAR(255)
+//         )
+//     ";
+
+//     // Ejecutar la creación de la tabla
+//     self::$db->query($queryCrearTabla);
+
+//     // Procesar cada fila del Excel
+//     foreach ($sheet->getRowIterator(2) as $row) {
+//         $data = [];
+//         $cellIterator = $row->getCellIterator();
+//         $cellIterator->setIterateOnlyExistingCells(false);
+
+//         foreach ($cellIterator as $cell) {
+//             $data[] = $cell->getValue(); // Obtener el valor de la celda
+//         }
+
+//         // Mapear los datos a las columnas
+//         list(
+//             $almacen, $codigo, $descripcion, $nueva_existencia, $costo,
+//             $promedio, $talla, $linea, $gramaje, $proveedor,
+//             $sustrato, $ancho
+//         ) = array_map(function ($value) {
+//             return trim($value ?? '');  // Limpia los valores y reemplaza null con cadena vacía
+//         }, $data);
+
+//         // Normalizar el separador decimal
+//         $costo = str_replace(',', '.', $costo);
+//         $promedio = str_replace(',', '.', $promedio);
+
+//         // Verificar si el registro ya existe
+//         $queryVerificar = "
+//             SELECT existencia 
+//             FROM " . static::$tabla . " 
+//             WHERE codigo = '$codigo'
+//         ";
+//         $resultado = self::$db->query($queryVerificar)->fetch_assoc();
+
+//         if ($resultado) {
+//             // Si existe el registro, calcular la diferencia
+//             $existencia_actual = (int)$resultado['existencia'];
+//             $nueva_existencia = (int)$nueva_existencia;
+
+//             if ($nueva_existencia != $existencia_actual) {
+//                 // Calcular la nueva existencia como la diferencia
+//                 $diferencia = $nueva_existencia - $existencia_actual;
+
+//                 // Actualizar la existencia en la base de datos
+//                 $queryActualizar = "
+//                     UPDATE " . static::$tabla . "
+//                     SET 
+//                         almacen = '$almacen',
+//                         descripcion = '$descripcion',
+//                         existencia = $diferencia, -- Actualizar con la diferencia
+//                         costo = '$costo',
+//                         promedio = '$promedio',
+//                         talla = '$talla',
+//                         linea = '$linea',
+//                         gramaje = '$gramaje',
+//                         proveedor = '$proveedor',
+//                         sustrato = '$sustrato',
+//                         ancho = '$ancho'
+//                     WHERE codigo = '$codigo'
+//                 ";
+//                 self::$db->query($queryActualizar);
+//             } else {
+//                 // No hacer nada si la existencia es igual
+//                 error_log("La existencia para el código $codigo no cambió.");
+//             }
+//         } else {
+//             // Insertar un nuevo registro si no existe
+//             $queryInsertar = "
+//                 INSERT INTO " . static::$tabla . " (
+//                     almacen, codigo, descripcion, existencia, costo,
+//                     promedio, talla, linea, gramaje, proveedor,
+//                     sustrato, ancho
+//                 ) VALUES (
+//                     '$almacen', '$codigo', '$descripcion', '$nueva_existencia', '$costo',
+//                     '$promedio', '$talla', '$linea', '$gramaje', '$proveedor',
+//                     '$sustrato', '$ancho'
+//                 )
+//             ";
+//             self::$db->query($queryInsertar);
+//         }
+//     }
+
+//     return true;
+// }
+
 public static function procesarArchivoExcelMateria($filePath)
 {
     $spreadsheet = IOFactory::load($filePath);
@@ -944,18 +1053,16 @@ public static function procesarArchivoExcelMateria($filePath)
             ancho VARCHAR(255)
         )
     ";
-
-    // Ejecutar la creación de la tabla
     self::$db->query($queryCrearTabla);
 
-    // Procesar cada fila del Excel
+    // Procesar cada fila del Excel (a partir de la fila 2 para saltar encabezados)
     foreach ($sheet->getRowIterator(2) as $row) {
         $data = [];
         $cellIterator = $row->getCellIterator();
         $cellIterator->setIterateOnlyExistingCells(false);
 
         foreach ($cellIterator as $cell) {
-            $data[] = $cell->getValue(); // Obtener el valor de la celda
+            $data[] = trim((string)$cell->getFormattedValue()); // Limpia el valor
         }
 
         // Mapear los datos a las columnas
@@ -964,54 +1071,43 @@ public static function procesarArchivoExcelMateria($filePath)
             $promedio, $talla, $linea, $gramaje, $proveedor,
             $sustrato, $ancho
         ) = array_map(function ($value) {
-            return trim($value ?? '');  // Limpia los valores y reemplaza null con cadena vacía
+            return trim($value ?? '');
         }, $data);
 
-        // Normalizar el separador decimal
+        // Normalizar separadores decimales
         $costo = str_replace(',', '.', $costo);
         $promedio = str_replace(',', '.', $promedio);
+        $nueva_existencia = (int)$nueva_existencia;
 
-        // Verificar si el registro ya existe
+        // Verificar si el código ya existe
         $queryVerificar = "
-            SELECT existencia 
+            SELECT id 
             FROM " . static::$tabla . " 
             WHERE codigo = '$codigo'
         ";
         $resultado = self::$db->query($queryVerificar)->fetch_assoc();
 
         if ($resultado) {
-            // Si existe el registro, calcular la diferencia
-            $existencia_actual = (int)$resultado['existencia'];
-            $nueva_existencia = (int)$nueva_existencia;
-
-            if ($nueva_existencia != $existencia_actual) {
-                // Calcular la nueva existencia como la diferencia
-                $diferencia = $nueva_existencia - $existencia_actual;
-
-                // Actualizar la existencia en la base de datos
-                $queryActualizar = "
-                    UPDATE " . static::$tabla . "
-                    SET 
-                        almacen = '$almacen',
-                        descripcion = '$descripcion',
-                        existencia = $diferencia, -- Actualizar con la diferencia
-                        costo = '$costo',
-                        promedio = '$promedio',
-                        talla = '$talla',
-                        linea = '$linea',
-                        gramaje = '$gramaje',
-                        proveedor = '$proveedor',
-                        sustrato = '$sustrato',
-                        ancho = '$ancho'
-                    WHERE codigo = '$codigo'
-                ";
-                self::$db->query($queryActualizar);
-            } else {
-                // No hacer nada si la existencia es igual
-                error_log("La existencia para el código $codigo no cambió.");
-            }
+            // ✅ Si ya existe, actualiza todos los campos directamente
+            $queryActualizar = "
+                UPDATE " . static::$tabla . "
+                SET 
+                    almacen = '$almacen',
+                    descripcion = '$descripcion',
+                    existencia = $nueva_existencia,
+                    costo = '$costo',
+                    promedio = '$promedio',
+                    talla = '$talla',
+                    linea = '$linea',
+                    gramaje = '$gramaje',
+                    proveedor = '$proveedor',
+                    sustrato = '$sustrato',
+                    ancho = '$ancho'
+                WHERE codigo = '$codigo'
+            ";
+            self::$db->query($queryActualizar);
         } else {
-            // Insertar un nuevo registro si no existe
+            // 🆕 Si no existe, inserta un nuevo registro
             $queryInsertar = "
                 INSERT INTO " . static::$tabla . " (
                     almacen, codigo, descripcion, existencia, costo,
@@ -1029,7 +1125,6 @@ public static function procesarArchivoExcelMateria($filePath)
 
     return true;
 }
-
 
 
 
