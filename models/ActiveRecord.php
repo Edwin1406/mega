@@ -1031,7 +1031,6 @@ public static function procesarArchivoExcel($filePath)
 // }
 
 
-
 public static function procesarArchivoExcelMateria($filePath)
 {
     $spreadsheet = IOFactory::load($filePath);
@@ -1053,7 +1052,7 @@ public static function procesarArchivoExcelMateria($filePath)
             proveedor VARCHAR(255),
             sustrato VARCHAR(255),
             ancho VARCHAR(255),
-            fecha_corte DATE DEFAULT CURRENT_DATE, -- Agregar la columna de fecha de corte
+            fecha_corte DATE DEFAULT CURRENT_DATE
         )
     ";
     self::$db->query($queryCrearTabla);
@@ -1068,30 +1067,45 @@ public static function procesarArchivoExcelMateria($filePath)
             $data[] = trim((string)$cell->getFormattedValue());
         }
 
+        // Validar que haya al menos 13 columnas antes de mapear
+        if (count($data) < 13) {
+            continue; // O log de error si prefieres
+        }
+
         // Mapear los datos a columnas
         list(
             $almacen, $codigo, $descripcion, $existencia, $costo,
             $promedio, $talla, $linea, $gramaje, $proveedor,
-            $sustrato, $ancho,$fecha_corte
+            $sustrato, $ancho, $fecha_corte
         ) = array_map(function ($value) {
             return trim($value ?? '');
         }, $data);
 
-        // Limpiar decimales
-        $costo = str_replace(',', '.', $costo);
-        $promedio = str_replace(',', '.', $promedio);
-        $existencia = (int)$existencia;
+        // Limpiar decimales y convertir tipos
+        $costo = floatval(str_replace(',', '.', $costo));
+        $promedio = floatval(str_replace(',', '.', $promedio));
+        $existencia = intval($existencia);
 
-        // Insertar todos los registros SIN validar duplicados
+        // Preparar consulta de inserción
         $queryInsertar = "
             INSERT INTO " . static::$tabla . " (
                 almacen, codigo, descripcion, existencia, costo,
                 promedio, talla, linea, gramaje, proveedor,
                 sustrato, ancho, fecha_corte
             ) VALUES (
-                '$almacen', '$codigo', '$descripcion', '$existencia', '$costo',
-                '$promedio', '$talla', '$linea', '$gramaje', '$proveedor',
-                '$sustrato', '$ancho', '$fecha_corte'
+                '" . self::$db->real_escape_string($almacen) . "',
+                '" . self::$db->real_escape_string($codigo) . "',
+                '" . self::$db->real_escape_string($descripcion) . "',
+                $existencia,
+                $costo,
+                $promedio,
+                '" . self::$db->real_escape_string($talla) . "',
+                '" . self::$db->real_escape_string($linea) . "',
+                '" . self::$db->real_escape_string($gramaje) . "',
+                '" . self::$db->real_escape_string($proveedor) . "',
+                '" . self::$db->real_escape_string($sustrato) . "',
+                '" . self::$db->real_escape_string($ancho) . "',
+                '" . self::$db->real_escape_string($fecha_corte) . "'
             )
         ";
         self::$db->query($queryInsertar);
