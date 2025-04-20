@@ -1052,7 +1052,8 @@ public static function procesarArchivoExcelMateria($filePath)
             gramaje VARCHAR(255),
             proveedor VARCHAR(255),
             sustrato VARCHAR(255),
-            ancho VARCHAR(255)
+            ancho VARCHAR(255),
+            fecha_corte DATE DEFAULT CURRENT_DATE, -- Agregar la columna de fecha de corte
         )
     ";
     self::$db->query($queryCrearTabla);
@@ -1071,7 +1072,7 @@ public static function procesarArchivoExcelMateria($filePath)
         list(
             $almacen, $codigo, $descripcion, $existencia, $costo,
             $promedio, $talla, $linea, $gramaje, $proveedor,
-            $sustrato, $ancho
+            $sustrato, $ancho,$fecha_corte
         ) = array_map(function ($value) {
             return trim($value ?? '');
         }, $data);
@@ -1086,11 +1087,11 @@ public static function procesarArchivoExcelMateria($filePath)
             INSERT INTO " . static::$tabla . " (
                 almacen, codigo, descripcion, existencia, costo,
                 promedio, talla, linea, gramaje, proveedor,
-                sustrato, ancho
+                sustrato, ancho, fecha_corte
             ) VALUES (
                 '$almacen', '$codigo', '$descripcion', '$existencia', '$costo',
                 '$promedio', '$talla', '$linea', '$gramaje', '$proveedor',
-                '$sustrato', '$ancho'
+                '$sustrato', '$ancho', '$fecha_corte'
             )
         ";
         self::$db->query($queryInsertar);
