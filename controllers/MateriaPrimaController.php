@@ -598,6 +598,17 @@ class MateriaPrimaController
             }
         }
     }
+
+
+
+
+    public static function apimateriaprimajson(){
+        header("Access-Control-Allow-Origin: *");
+        header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
+        
+        $materiaprimajson = MateriaPrimaV::all('DESC');
+        echo json_encode($materiaprimajson);
+    }
     
     
 

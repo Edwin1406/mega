@@ -352,6 +352,12 @@ $router->get('/admin/api/apiticket', [SistemasController::class, 'apiticket']);
 
 
 
+// api materia prima
+$router->get('/admin/api/apimateriaprimajson', [MateriaPrimaController::class, 'apimateriaprimajson']);
+
+
+
+
 // citas de prueba 
 
 $router->get('/admin/api/citas', [EstimarController::class, 'citas']);
