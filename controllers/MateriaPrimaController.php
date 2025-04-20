@@ -16,7 +16,7 @@ class MateriaPrimaController
       $alertas = [];
       $materiaprima = new MateriaPrima;
 
-      $totalExistencia = MateriaPrimaV::sumarExistencia('CAJA');
+      $totalExistencia = MateriaPrimaV::sumarExistencia('CAJAS');
       $totalExistenciaMedium = MateriaPrimaV::sumarExistencia('MEDIUM');      
       
         $totalExistencia = $totalExistencia + $totalExistenciaMedium;
@@ -275,8 +275,7 @@ class MateriaPrimaController
     {
         // GENERAL
         $totalRegistros = MateriaPrimaV::countByLinea('CAJA');
-        $totalExistencia = MateriaPrimaV::sumarExistencia('CAJAS');
-        debuguear($totalExistencia);
+        $totalExistencia = MateriaPrimaV::sumarExistencia('CAJA');
         $totalCosto = MateriaPrimaV::sumarCosto('CAJA');
 
         // debuguear($totalCosto);
