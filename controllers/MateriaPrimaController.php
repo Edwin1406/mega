@@ -275,7 +275,7 @@ class MateriaPrimaController
     {
         // GENERAL
         $totalRegistros = MateriaPrimaV::countByLinea('CAJA');
-        $totalExistencia = MateriaPrimaV::sumarExistencia('CAJA');
+        $totalExistencia = MateriaPrimaV::sumarExistencia('CAJAS');
         $totalCosto = MateriaPrimaV::sumarCosto('CAJA');
 
         // debuguear($totalCosto);
