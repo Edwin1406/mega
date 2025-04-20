@@ -168,3 +168,69 @@
   </script>
 </body>
 </html>
+
+
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Tabla de Materia Prima</title>
+  <style>
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    th, td {
+      border: 1px solid #aaa;
+      padding: 8px;
+      text-align: left;
+    }
+    th {
+      background-color: #f4f4f4;
+    }
+  </style>
+</head>
+<body>
+  <h1>Inventario de Materia Prima</h1>
+  <table id="tabla-materia-prima">
+    <thead>
+      <tr>
+        <th>Código</th>
+        <th>Descripción</th>
+        <th>Existencia</th>
+        <th>Gramaje</th>
+        <th>Ancho</th>
+        <th>Proveedor</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Los datos se insertarán aquí -->
+    </tbody>
+  </table>
+
+  <script>
+    fetch('https://megawebsistem.com/admin/api/apimateriaprimajson')
+      .then(response => response.json())
+      .then(data => {
+        const tbody = document.querySelector('#tabla-materia-prima tbody');
+        data.forEach(item => {
+          const fila = document.createElement('tr');
+          fila.innerHTML = `
+            <td>${item.codigo}</td>
+            <td>${item.descripcion}</td>
+            <td>${item.existencia}</td>
+            <td>${item.gramaje}</td>
+            <td>${item.ancho}</td>
+            <td>${item.proveedor}</td>
+          `;
+          tbody.appendChild(fila);
+        });
+      })
+      .catch(error => {
+        console.error('Error al obtener los datos:', error);
+      });
+  </script>
+</body>
+</html>
