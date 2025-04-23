@@ -606,8 +606,8 @@ class MateriaPrimaController
         header("Access-Control-Allow-Origin: *");
         header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
         
-        // $materiaprimajson = MateriaPrimaV::all('ASC');
-        $materiaprimajson = MateriaPrimaV::allcorrugador('ASC', ['CAJA', 'MEDIUM']);
+        $materiaprimajson = MateriaPrimaV::all('ASC');
+        // $materiaprimajson = MateriaPrimaV::allcorrugador('ASC', ['CAJA', 'MEDIUM']);
 
         echo json_encode($materiaprimajson);
     }
