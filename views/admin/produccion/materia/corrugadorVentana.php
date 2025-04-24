@@ -459,7 +459,85 @@ table.dataTable {
 <head>
   <meta charset="UTF-8">
   <title>Inventario Detallado</title>
- 
+  <style>
+    body { font-family: Arial; }
+    h2 { margin-top: 20px; }
+    table { border-collapse: collapse; width: 100%; margin-top: 10px; }
+    th, td { border: 1px solid #aaa; padding: 8px; text-align: center; }
+    th { background-color: #f2f2f2; }
+    tr:nth-child(even) td { background-color: #f9f9f9; }
+    td:first-child { font-weight: bold; }
+
+    #modal1 {
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    backdrop-filter: blur(3px);
+  }
+
+  #modal-content {
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+    width: 550px;
+    max-height: 80vh;
+    overflow-y: auto;
+    position: relative;
+    font-family: 'Segoe UI', sans-serif;
+    animation: modalFadeIn 0.3s ease;
+  }
+
+  #modal1 h2 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-size: 22px;
+    font-weight: 700;
+    color: #2c3e50;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+  }
+
+  #close-modal {
+    position: absolute;
+    top: 14px;
+    right: 18px;
+    font-size: 20px;
+    color: #999;
+    cursor: pointer;
+    transition: color 0.3s;
+  }
+
+  #close-modal:hover {
+    color: #e74c3c;
+  }
+  #detalles-lista {
+    list-style: none;
+    padding-left: 0;
+  }
+
+  #detalles-lista li {
+    margin-bottom: 12px;
+    padding: 10px 12px;
+    background: #f9f9f9;
+    border-left: 4px solid #3498db;
+    border-radius: 6px;
+    color: #333;
+    font-size: 15px;
+  }
+
+  @keyframes modalFadeIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+  }
+
+
+  </style>
 </head>
 <body>
 
@@ -591,6 +669,75 @@ table.dataTable {
   <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
   <script src="https://cdn.datatables.net/responsive/2.5.0/js/dataTables.responsive.min.js"></script>
 
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #f5f5f5;
+      font-family: Arial, sans-serif;
+    }
+
+    h2 {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .contenedor-scroll {
+      overflow-x: auto;
+      margin: 20px;
+      background-color: #fff;
+      border-radius: 10px;
+      padding: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+
+    table {
+      width: 100%;
+      min-width: 1200px;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      border: 1px solid #ccc;
+      padding: 8px;
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    th {
+      background-color: #f4f4f4;
+      font-weight: bold;
+    }
+
+    #proy_modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background-color: rgba(0,0,0,0.5);
+      justify-content: center;
+      align-items: center;
+      z-index: 999;
+    }
+
+    #proy_modal .contenido {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      max-width: 500px;
+      width: 90%;
+    }
+
+    #proy_modal button {
+      margin-top: 10px;
+      padding: 8px 16px;
+      background-color: #007BFF;
+      border: none;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  </style>
 </head>
 
 <body>
