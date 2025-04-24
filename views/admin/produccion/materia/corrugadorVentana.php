@@ -117,7 +117,7 @@
         <a href="/admin/produccion/materia/corrugador/cajamedium">
             <i class="fas fa-shopping-cart"></i> TOTAL CAJA-MEDIUM :
             <?php if (isset($totalExistenciaM) && $totalExistenciaM > 0) : ?>
-                <span class="areas-produccion__numero"> <?php echo $totalExistenciaM ?> $ </span>
+                <span class="areas-produccion__numero"> <?php echo $totalExistenciaM ?> KG </span>
             <?php else : ?>
                 <span class="areas-produccion__numero"> 0 KG </span>
             <?php endif; ?>
