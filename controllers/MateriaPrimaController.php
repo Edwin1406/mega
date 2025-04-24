@@ -705,7 +705,7 @@ class MateriaPrimaController
         }
 
 
-        $router->render('admin/produccion/materia/excel', [
+        $router->render('admin/produccion/materia/excelNuevo', [
             'titulo' => 'SUBIR EXCEL',
             'alertas' => $alertas
         ]);
