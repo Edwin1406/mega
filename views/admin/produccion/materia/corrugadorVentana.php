@@ -655,22 +655,10 @@ table.dataTable {
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Proyecciones Mensuales</title>
 
-  <!-- DataTables CSS -->
-  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
-  <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.5.0/css/responsive.dataTables.min.css">
 
-  <!-- jQuery y DataTables JS -->
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-  <script src="https://cdn.datatables.net/responsive/2.5.0/js/dataTables.responsive.min.js"></script>
 
   <style>
-    body {
-      margin: 0;
-      padding: 0;
-      background-color: #f5f5f5;
-      font-family: Arial, sans-serif;
-    }
+ 
 
     h2 {
       text-align: center;
