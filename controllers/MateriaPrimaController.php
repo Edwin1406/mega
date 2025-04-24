@@ -620,12 +620,14 @@ class MateriaPrimaController
     public static function corrugadorVentana(Router $router){
 
         $totalExistencia = MateriaPrimaV::sumarExistencia('CAJA');
-        debuguear($totalExistencia);
+        // debuguear($totalExistencia);
       
-    //   $totalExistenciaMedium = MateriaPrimaV::sumarExistencia('MEDIUM');      
+      $totalExistenciaMedium = MateriaPrimaV::sumarExistencia('MEDIUM');      
     // //   debuguear($totalExistenciaMedium);
       
-    //     $totalExistencia = $totalExistencia + $totalExistenciaMedium;
+        $totalExistencia = $totalExistencia + $totalExistenciaMedium;
+
+        debuguear($totalExistencia);
         
         
 
