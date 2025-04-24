@@ -628,13 +628,25 @@ class MateriaPrimaController
         $totalExistencia = $totalExistencia + $totalExistenciaMedium;
 
         // debuguear($totalExistencia);
-        
+
+         // KRAFT
+         $totalExistenciaK = MateriaPrimaV::sumarExistencia('CAJA-KRAFT');
+       
+
+         // BLANCO
+         $totalExistenciaB = MateriaPrimaV::sumarExistencia('CAJA-BLANCO');
+    
+ 
+         // MEDIUM
+         $totalExistenciaM = MateriaPrimaV::sumarExistencia('MEDIUM');
+         
+
         
 
-    //   $totalExistenciaMicro = MateriaPrimaV::sumarExistencia('MICRO');
-    //   $totalExistenciaPeriodico = MateriaPrimaV::sumarExistencia('PERIODICO');
    
       $totalExistencia = number_format($totalExistencia, 0, '.', ',');
+        $totalExistenciaK = number_format($totalExistenciaK, 0, '.', ',');
+        $totalExistenciaB = number_format($totalExistenciaB, 0, '.', ',');
     
 
 
@@ -646,6 +658,8 @@ class MateriaPrimaController
         $router->render('admin/produccion/materia/corrugadorVentana', [
             'titulo' => 'CORRUGADOR VENTANA',
             'totalExistencia' => $totalExistencia,
+            'totalExistenciaK' => $totalExistenciaK,
+            'totalExistenciaB' => $totalExistenciaB,
         ]);
 
     }
