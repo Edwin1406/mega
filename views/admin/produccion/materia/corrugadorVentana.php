@@ -214,22 +214,24 @@
     }
 
 
-.contenedor{
-  max-width: 100%;
-  margin: 0 auto;
-  padding: 20px;
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-  margin-top: 20px;
-  margin-bottom: 20px;
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  padding: 20px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    .contenedor {
   display: flex;
-  
+  flex-wrap: wrap; /* NUEVO: permite que las columnas se bajen en pantallas chicas */
 }
+
+.columna {
+  flex: 1 1 50%; /* NUEVO: mínimo 50% de ancho, flexible */
+  padding: 10px;
+  min-width: 300px; /* NUEVO: evita que se comprima demasiado */
+  box-sizing: border-box;
+}
+
+table.dataTable {
+  width: 100% !important; /* Asegura que no se desborde */
+  overflow-x: auto;       /* Evita que se rompa el diseño */
+  display: block;         /* Necesario para aplicar scroll */
+}
+
 
 .columna {
   flex: 1;
