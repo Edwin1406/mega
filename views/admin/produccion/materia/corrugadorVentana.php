@@ -735,6 +735,16 @@ table.dataTable {
       border-radius: 5px;
       cursor: pointer;
     }
+
+    .display {
+    display: flex
+;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    gap: 1rem;
+}
   </style>
 </head>
 
