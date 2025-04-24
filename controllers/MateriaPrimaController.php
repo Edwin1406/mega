@@ -627,7 +627,7 @@ class MateriaPrimaController
       
         $totalExistencia = $totalExistencia + $totalExistenciaMedium;
 
-        debuguear($totalExistencia);
+        // debuguear($totalExistencia);
         
         
 
