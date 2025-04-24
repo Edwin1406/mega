@@ -112,6 +112,11 @@ function initProyecciones() {
         detallesMes[`${clave}-${mes}`].push({ ancho, cantidad });
         totalesPorMes[mes] += cantidad;
       });
+          // Mostrar en consola los datos por mes
+    console.log("Resumen de los datos por mes:", resumen);
+
+    // Mostrar totales por mes
+    console.log("Totales por mes:", totalesPorMes);
 
       Object.entries(resumen).forEach(([clave, cantidades]) => {
         const [gramaje, linea] = clave.split('|');
