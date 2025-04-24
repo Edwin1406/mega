@@ -618,6 +618,30 @@ class MateriaPrimaController
     // NUEVAS VENTANAS PARA SIMULAR EL CORRUGADOR
 
     public static function corrugadorVentana(Router $router){
+
+        $totalExistencia = MateriaPrimaV::sumarExistencia('CAJA');
+        debuguear($totalExistencia);
+      
+    //   $totalExistenciaMedium = MateriaPrimaV::sumarExistencia('MEDIUM');      
+    // //   debuguear($totalExistenciaMedium);
+      
+    //     $totalExistencia = $totalExistencia + $totalExistenciaMedium;
+        
+        
+
+    //   $totalExistenciaMicro = MateriaPrimaV::sumarExistencia('MICRO');
+    //   $totalExistenciaPeriodico = MateriaPrimaV::sumarExistencia('PERIODICO');
+   
+    //   $totalExistencia = number_format($totalExistencia, 0, '.', ',');
+    //   $totalExistenciaMicro = number_format($totalExistenciaMicro, 0, '.', ',');
+    //   $totalExistenciaPeriodico = number_format($totalExistenciaPeriodico, 0, '.', ',');
+
+
+    //   $allkilos = MateriaPrimaV::allkilogramos('DESC');
+
+
+
+
         $router->render('admin/produccion/materia/corrugadorVentana', [
             'titulo' => 'CORRUGADOR VENTANA'
         ]);
