@@ -70,7 +70,7 @@
 
 <?php include_once __DIR__.'/../../../templates/alertas.php'  ?>
 
-    <form method="POST" action="/admin/produccion/materia/excel"  class="formulario" enctype="multipart/form-data">
+    <form method="POST" action="/admin/produccion/materia/excelNuevo"  class="formulario" enctype="multipart/form-data">
 
      
     <?php include_once __DIR__.'/subirExcel.php'  ?>
