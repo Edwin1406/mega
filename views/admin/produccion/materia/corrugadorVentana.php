@@ -63,67 +63,7 @@
   <script src="https://cdn.datatables.net/responsive/2.5.0/js/dataTables.responsive.min.js"></script>
 
   <style>
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      padding: 20px;
-      background: #f9fbfc;
-    }
-
-    h1 {
-      font-size: 24px;
-      color: #2c3e50;
-      margin-bottom: 20px;
-    }
-
-    table.dataTable {
-      width: 100%;
-      border-collapse: collapse;
-      background: #ffffff;
-      border: none;
-      font-size: 14px;
-    }
-
-    table.dataTable thead {
-      background-color: #2c3e50;
-      color: white;
-      text-transform: uppercase;
-    }
-
-    table.dataTable tbody tr:hover {
-      background-color: #f4f6f9;
-    }
-
-    table.dataTable td, table.dataTable th {
-      text-align: center;
-      padding: 10px;
-    }
-
-    .dt-center {
-      text-align: center;
-    }
-
-    table.dataTable thead th,
-    table.dataTable thead td {
-      border-bottom: 2px solid #ccc;
-    }
-
-    td.highlight {
-      font-weight: bold;
-      background-color: #fcefe3 !important;
-      color: #2d3436;
-    }
-
-    td:last-child, th:last-child {
-      font-weight: bold;
-      color: #27ae60;
-      background-color: #f0fdf4;
-    }
-
-    .total-row td {
-      background-color: #dfe6e9;
-      font-weight: bold;
-      text-transform: uppercase;
-    }
+   
   </style>
 </head>
 <body>
