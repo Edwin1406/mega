@@ -172,7 +172,10 @@ class ComercialController {
 
     public static function apicomercial(Router $router)
     {
-        $comercial = Comercial::all('ASC');
+        // $comercial = Comercial::all('ASC');
+
+        $comercial = Comercial::allcorrugadorsobrante('ASC', ['CAJA', 'MEDIUM']);
+
 
         header('Content-Type: application/json');
         header('Access-Control-Allow-Origin: *');
