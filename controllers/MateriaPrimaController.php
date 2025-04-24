@@ -710,6 +710,22 @@ class MateriaPrimaController
             'alertas' => $alertas
         ]);
     }
+
+
+    public static function apiproyecciones(){
+        header("Access-Control-Allow-Origin: *");
+        header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
+        
+        $proyecciones = Proyecciones::all('ASC');
+        // $materiaprimajson = MateriaPrimaV::allcorrugador('ASC', ['CAJA', 'MEDIUM']);
+
+        echo json_encode($proyecciones);
+
+    }
+
+
+
+
     
     
 

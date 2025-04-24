@@ -167,7 +167,8 @@ $router->get('/admin/produccion/materia/corrugadorVentana', [MateriaPrimaControl
 $router->get('/admin/produccion/materia/excelNuevo', [MateriaPrimaController::class, 'excelNuevo']);
 $router->post('/admin/produccion/materia/excelNuevo', [MateriaPrimaController::class, 'excelNuevo']);
 
-
+// API PROYECCIONES 
+$router->get('/admin/api/apiproyecciones', [MateriaPrimaController::class, 'apiproyecciones']);
 
 // eliminar base 
 $router->post('/admin/produccion/materia/eliminarTabla', [MateriaPrimaController::class, 'eliminarTabla']);
