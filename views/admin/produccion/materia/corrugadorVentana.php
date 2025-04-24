@@ -674,7 +674,7 @@ table.dataTable {
       margin-top: 20px;
     }
 
-    .contenedor {
+    .contenedor-proyecciones {
       display: flex;
       justify-content: center;
       align-items: center;
@@ -716,7 +716,7 @@ table.dataTable {
 <body>
   <h2>Proyecciones Mensuales por Gramaje y Línea</h2>
 
-  <div class="contenedor">
+  <div class="contenedor-proyecciones">
     <table id="proy_tabla" class="display responsive nowrap">
       <thead>
         <tr>
