@@ -660,6 +660,7 @@ class MateriaPrimaController
             'totalExistencia' => $totalExistencia,
             'totalExistenciaK' => $totalExistenciaK,
             'totalExistenciaB' => $totalExistenciaB,
+            'totalExistenciaM' => $totalExistenciaM
         ]);
 
     }
