@@ -151,7 +151,7 @@
       padding: 30px;
       border-radius: 12px;
       box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
-      width: 450px;
+      width: 550px;
       max-height: 80vh;
       overflow-y: auto;
       position: relative;
