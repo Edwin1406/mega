@@ -845,6 +845,10 @@ table.dataTable {
     });
 }
 
+document.addEventListener("DOMContentLoaded", () => {
+  initProyecciones();
+});
+
 
     document.addEventListener("DOMContentLoaded", () => {
       initProyecciones();
