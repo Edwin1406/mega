@@ -761,94 +761,87 @@ table.dataTable {
 
   <script>
     function initProyecciones() {
-  const proy_tablaBody = document.querySelector('#proy_tabla tbody');
-  const proy_modal = document.getElementById('proy_modal');
-  const proy_btnCerrar = document.getElementById('proy_cerrar');
-  const proy_detalles = document.getElementById('proy_detalles_lista');
+      const proy_tablaBody = document.querySelector('#proy_tabla tbody');
+      const proy_modal = document.getElementById('proy_modal');
+      const proy_btnCerrar = document.getElementById('proy_cerrar');
+      const proy_detalles = document.getElementById('proy_detalles_lista');
 
-  proy_btnCerrar.onclick = () => proy_modal.style.display = "none";
-  window.onclick = e => { if (e.target === proy_modal) proy_modal.style.display = "none"; };
+      proy_btnCerrar.onclick = () => proy_modal.style.display = "none";
+      window.onclick = e => { if (e.target === proy_modal) proy_modal.style.display = "none"; };
 
-  fetch('https://megawebsistem.com/admin/api/apiproyecciones')
-    .then(res => res.ok ? res.json() : Promise.reject(`Status: ${res.status}`))
-    .then(data => {
-      if (!Array.isArray(data) || data.length === 0) {
-        console.warn("⚠️ Sin datos desde la API.");
-        return;
-      }
-
-      const resumen = {};
-      const detallesMes = {};
-      const totalesPorMes = Array(12).fill(0);
-
-      data.forEach(item => {
-        const fecha = new Date(item.fecha_consumo);
-        const mes = fecha.getMonth(); // 0 = Enero
-        const gramaje = item.gms;
-        const linea = item.linea;
-        const cantidad = parseFloat(item.cantidad) || 0;
-        const ancho = item.ancho;
-
-        const clave = `${gramaje}|${linea}`;
-
-        if (!resumen[clave]) resumen[clave] = Array(12).fill(0);
-        if (!detallesMes[`${clave}-${mes}`]) detallesMes[`${clave}-${mes}`] = [];
-
-        resumen[clave][mes] += cantidad;
-        detallesMes[`${clave}-${mes}`].push({ ancho, cantidad });
-        totalesPorMes[mes] += cantidad;
-      });
-
-      Object.entries(resumen).forEach(([clave, cantidades]) => {
-        const [gramaje, linea] = clave.split('|');
-        const fila = document.createElement('tr');
-        fila.innerHTML = `<td>${gramaje}</td><td>${linea}</td>`;
-        let totalFila = 0;
-
-        for (let i = 0; i < 12; i++) {
-          const cantidad = cantidades[i] || 0;
-          const celda = document.createElement('td');
-          
-          if (cantidad > 0) {
-            celda.innerHTML = `<span style="cursor:pointer;color:#007BFF" onclick="proy_mostrarModal('${clave}', ${i})">${cantidad.toFixed(2)}</span>`;
-            totalFila += cantidad;
-          } else {
-            // Mostrar "Sin datos" si no hay datos para ese mes o dejar vacío
-            celda.textContent = 'Sin datos';
+      fetch('https://megawebsistem.com/admin/api/apiproyecciones')
+        .then(res => res.ok ? res.json() : Promise.reject(`Status: ${res.status}`))
+        .then(data => {
+          if (!Array.isArray(data) || data.length === 0) {
+            console.warn("⚠️ Sin datos desde la API.");
+            return;
           }
-          fila.appendChild(celda);
-        }
 
-        fila.innerHTML += `<td><strong>${totalFila.toFixed(2)}</strong></td>`;
-        proy_tablaBody.appendChild(fila);
-      });
+          const resumen = {};
+          const detallesMes = {};
+          const totalesPorMes = Array(12).fill(0);
 
-      const filaTotal = document.createElement('tr');
-      filaTotal.innerHTML = `<td colspan="2"><strong>TOTAL</strong></td>`;
-      let totalGeneral = 0;
-      for (let i = 0; i < 12; i++) {
-        const totalMes = totalesPorMes[i];
-        filaTotal.innerHTML += `<td><strong>${totalMes.toFixed(2)}</strong></td>`;
-        totalGeneral += totalMes;
-      }
-      filaTotal.innerHTML += `<td><strong>${totalGeneral.toFixed(2)}</strong></td>`;
-      proy_tablaBody.appendChild(filaTotal);
+          data.forEach(item => {
+            const fecha = new Date(item.fecha_consumo);
+            const mes = fecha.getMonth(); // 0 = Enero
+            const gramaje = item.gms;
+            const linea = item.linea;
+            const cantidad = parseFloat(item.cantidad) || 0;
+            const ancho = item.ancho;
 
-      window.proy_mostrarModal = function(clave, mesIndex) {
-        const lista = detallesMes[`${clave}-${mesIndex}`] || [];
-        proy_detalles.innerHTML = lista.map(e => `<li>Ancho: ${e.ancho} - Cantidad: ${e.cantidad}</li>`).join('');
-        proy_modal.style.display = "flex";
-      };
-    })
-    .catch(err => {
-      console.error("❌ Error al obtener datos:", err);
-    });
-}
+            const clave = `${gramaje}|${linea}`;
 
-document.addEventListener("DOMContentLoaded", () => {
-  initProyecciones();
-});
+            if (!resumen[clave]) resumen[clave] = Array(12).fill(0);
+            if (!detallesMes[`${clave}-${mes}`]) detallesMes[`${clave}-${mes}`] = [];
 
+            resumen[clave][mes] += cantidad;
+            detallesMes[`${clave}-${mes}`].push({ ancho, cantidad });
+            totalesPorMes[mes] += cantidad;
+          });
+
+          Object.entries(resumen).forEach(([clave, cantidades]) => {
+            const [gramaje, linea] = clave.split('|');
+            const fila = document.createElement('tr');
+            fila.innerHTML = `<td>${gramaje}</td><td>${linea}</td>`;
+            let totalFila = 0;
+
+            for (let i = 0; i < 12; i++) {
+              const cantidad = cantidades[i] || 0;
+              const celda = document.createElement('td');
+              if (cantidad > 0) {
+                celda.innerHTML = `<span style="cursor:pointer;color:#007BFF" onclick="proy_mostrarModal('${clave}', ${i})">${cantidad.toFixed(2)}</span>`;
+                totalFila += cantidad;
+              } else {
+                celda.textContent = '';
+              }
+              fila.appendChild(celda);
+            }
+
+            fila.innerHTML += `<td><strong>${totalFila.toFixed(2)}</strong></td>`;
+            proy_tablaBody.appendChild(fila);
+          });
+
+          const filaTotal = document.createElement('tr');
+          filaTotal.innerHTML = `<td colspan="2"><strong>TOTAL</strong></td>`;
+          let totalGeneral = 0;
+          for (let i = 0; i < 12; i++) {
+            const totalMes = totalesPorMes[i];
+            filaTotal.innerHTML += `<td><strong>${totalMes.toFixed(2)}</strong></td>`;
+            totalGeneral += totalMes;
+          }
+          filaTotal.innerHTML += `<td><strong>${totalGeneral.toFixed(2)}</strong></td>`;
+          proy_tablaBody.appendChild(filaTotal);
+
+          window.proy_mostrarModal = function(clave, mesIndex) {
+            const lista = detallesMes[`${clave}-${mesIndex}`] || [];
+            proy_detalles.innerHTML = lista.map(e => `<li>Ancho: ${e.ancho} - Cantidad: ${e.cantidad}</li>`).join('');
+            proy_modal.style.display = "flex";
+          };
+        })
+        .catch(err => {
+          console.error("❌ Error al obtener datos:", err);
+        });
+    }
 
     document.addEventListener("DOMContentLoaded", () => {
       initProyecciones();
