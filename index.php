@@ -160,6 +160,11 @@ $router->post('/admin/produccion/materia/excel', [MateriaPrimaController::class,
 // CORRUGADOR 
 $router->get('/admin/produccion/materia/corrugador', [MateriaPrimaController::class, 'corrugador']);
 $router->post('/admin/produccion/materia/corrugador', [MateriaPrimaController::class, 'corrugador']);
+
+// CORRUGADOR VENTANA
+$router->get('/admin/produccion/materia/corrugadorVentana', [MateriaPrimaController::class, 'corrugadorVentana']);
+
+
 // eliminar base 
 $router->post('/admin/produccion/materia/eliminarTabla', [MateriaPrimaController::class, 'eliminarTabla']);
 
@@ -171,10 +176,6 @@ $router->get('/admin/produccion/materia/corrugador/cajamedium', [MateriaPrimaCon
 // CARPETA MICRO CORRUGADOR EXISTENCIA
 
 // CARPETA PERIODICO EXISTENCIA 
-
-
-
-
 
 
 

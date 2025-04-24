@@ -611,6 +611,18 @@ class MateriaPrimaController
 
         echo json_encode($materiaprimajson);
     }
+
+
+
+
+    // NUEVAS VENTANAS PARA SIMULAR EL CORRUGADOR
+
+    public static function corrugadorVentana(Router $router){
+        $router->render('admin/produccion/materia/corrugadorVentana', [
+            'titulo' => 'CORRUGADOR VENTANA'
+        ]);
+
+    }
     
     
 
