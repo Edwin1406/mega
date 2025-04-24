@@ -647,6 +647,7 @@ class MateriaPrimaController
       $totalExistencia = number_format($totalExistencia, 0, '.', ',');
         $totalExistenciaK = number_format($totalExistenciaK, 0, '.', ',');
         $totalExistenciaB = number_format($totalExistenciaB, 0, '.', ',');
+        $totalExistenciaM = number_format($totalExistenciaM, 0, '.', ',');
     
 
 
