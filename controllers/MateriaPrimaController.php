@@ -692,7 +692,7 @@ class MateriaPrimaController
 
                     // Llamar al método de Producto para procesar el archivo
                     if (Proyecciones::procesarArchivoExcelProyecciones($rutaDestino)) {
-                        header('Location: /admin/produccion/materia/crear');
+                        // header('Location: /admin/produccion/materia/crear');
                     } else {
                         echo 'Hubo un error al procesar el archivo Excel';
                     }
