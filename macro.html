@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -5,11 +6,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Tabla de Ingresos</title>
 
-  <!-- ✅ DataTables CSS -->
+  <!-- DataTables CSS -->
   <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
   <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.5.0/css/responsive.dataTables.min.css">
 
-  <!-- ✅ jQuery y DataTables JS -->
+  <!-- jQuery y DataTables JS -->
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
   <script src="https://cdn.datatables.net/responsive/2.5.0/js/dataTables.responsive.min.js"></script>
@@ -35,10 +36,21 @@
       font-size: 14px;
     }
 
+    th{
+      background-color: #2c3e50;
+      color: rgb(14, 12, 12);
+      text-align: center;
+      padding: 10px;
+    }
+
     table.dataTable thead {
       background-color: #2c3e50;
       color: white;
       text-transform: uppercase;
+    }
+
+    .dataTables_wrapper .dataTables_filter{
+      padding-bottom: 1rem;
     }
 
     table.dataTable tbody tr:hover {
@@ -52,11 +64,6 @@
 
     .dt-center {
       text-align: center;
-    }
-
-    table.dataTable thead th,
-    table.dataTable thead td {
-      border-bottom: 2px solid #ccc;
     }
 
     td.highlight {
@@ -77,100 +84,148 @@
       text-transform: uppercase;
     }
 
-
-
     #modal {
-  display: none;
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-  backdrop-filter: blur(3px);
-}
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      backdrop-filter: blur(3px);
+    }
 
-#modal-content {
-  background: #ffffff;
-  padding: 30px;
-  border-radius: 12px;
-  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
-  width: 450px;
-  max-height: 80vh;
-  overflow-y: auto;
-  position: relative;
-  font-family: 'Segoe UI', sans-serif;
-  animation: modalFadeIn 0.3s ease;
-}
+    #modal-content {
+      background: #ffffff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+      width: 450px;
+      max-height: 80vh;
+      overflow-y: auto;
+      position: relative;
+      font-family: 'Segoe UI', sans-serif;
+      animation: modalFadeIn 0.3s ease;
+    }
 
-#modal h2 {
-  margin-top: 0;
+    #modal h2 {
+      margin-top: 0;
+      margin-bottom: 20px;
+      font-size: 22px;
+      font-weight: 700;
+      color: #2c3e50;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 10px;
+    }
+
+    #close-modal {
+      position: absolute;
+      top: 14px;
+      right: 18px;
+      font-size: 20px;
+      color: #999;
+      cursor: pointer;
+      transition: color 0.3s;
+    }
+
+    #close-modal:hover {
+      color: #e74c3c;
+    }
+
+    #detalles {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    #detalles li {
+      margin-bottom: 12px;
+      padding: 10px 12px;
+      background: #f9f9f9;
+      border-left: 4px solid #3498db;
+      border-radius: 6px;
+      color: #333;
+      font-size: 15px;
+    }
+
+    .ancho-1100 {
+      background-color: #dff9fb !important;
+      border-left-color: #0984e3 !important;
+    }
+
+    .ancho-1880 {
+      background-color: #ffeaa7 !important;
+      border-left-color: #fdcb6e !important;
+    }
+
+    @keyframes modalFadeIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+
+.contenedor{
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  margin-top: 20px;
   margin-bottom: 20px;
-  font-size: 22px;
-  font-weight: 700;
-  color: #2c3e50;
-  border-bottom: 1px solid #eee;
-  padding-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  display: flex;
+  
 }
 
-#close-modal {
-  position: absolute;
-  top: 14px;
-  right: 18px;
-  font-size: 20px;
-  color: #999;
-  cursor: pointer;
-  transition: color 0.3s;
+.columna {
+  flex: 1;
+  padding: 10px;
 }
 
-#close-modal:hover {
-  color: #e74c3c;
+/* opcional: separación entre columnas */
+.columna + .columna {
+  margin-left: 20px;
 }
 
-#detalles {
-  list-style: none;
-  padding-left: 0;
+
+
+@media (max-width: 768px) {
+  .contenedor {
+    flex-direction: column;
+  }
+
+  .columna + .columna {
+    margin-left: 0;
+    margin-top: 20px;
+  }
+
+  td.child{
+    text-align: left;
+  }
 }
 
-#detalles li {
-  margin-bottom: 12px;
-  padding: 10px 12px;
-  background: #f9f9f9;
-  border-left: 4px solid #3498db;
-  border-radius: 6px;
-  color: #333;
-  font-size: 15px;
-}
-
-.ancho-1100 {
-  background-color: #dff9fb !important;
-  border-left-color: #0984e3 !important;
-}
-
-.ancho-1880 {
-  background-color: #ffeaa7 !important;
-  border-left-color: #fdcb6e !important;
-}
-
-@keyframes modalFadeIn {
-  from { opacity: 0; transform: scale(0.95); }
-  to { opacity: 1; transform: scale(1); }
-}
 
   </style>
 </head>
 <body>
-  <h1>INGRESOS</h1>
-  <table id="tabla-gramajes" class="display responsive nowrap">
-    <thead>
-      <tr>
-        <th>Gramaje</th>
-        <th>Línea</th>
-        <th>Enero</th>
-        <th>Febrero</th>
-        <th>Marzo</th>
-        <th>Abril</th>
+  <div class="contenedor">
+
+    <div class="columna izquierda">
+
+    <h1>INGRESOS</h1>
+    <table id="tabla-gramajes" class="display responsive nowrap">
+      <thead>
+        <tr>
+          <th>Gramaje</th>
+          <th>Línea</th>
+          <th>Enero</th>
+          <th>Febrero</th>
+          <th>Marzo</th>
+          <th>Abril</th>
         <th>Mayo</th>
         <th>Junio</th>
         <th>Julio</th>
@@ -182,11 +237,36 @@
         <th>Total</th>
       </tr>
     </thead>
-    <tbody>
-      <!-- Se llenará dinámicamente -->
-    </tbody>
+    <tbody></tbody>
   </table>
+  </div>
+  <div class="columna derecha">
 
+  
+<h2>inventario</h2>
+
+<table id="tabla-ingresos">
+  <thead>
+    <tr id="encabezado">
+      <th>Gramaje</th>
+    </tr>
+  </thead>
+  <tbody></tbody>
+</table>
+</div>
+
+
+<!-- Modal -->
+<div id="modal1">
+  <div id="modal-content">
+    <span id="close">&times;</span>
+    <h3>Detalles de Anchos</h3>
+    <ul id="detalles-lista"></ul>
+  </div>
+</div>
+
+</div>
+  
   <div id="modal">
     <div id="modal-content">
       <span id="close-modal">&times;</span>
@@ -194,7 +274,6 @@
       <ul id="detalles"></ul>
     </div>
   </div>
-  
 
   <script>
     let datosOriginales = [];
@@ -213,10 +292,8 @@
           const gramaje = item.gramaje;
           const linea = item.linea ? item.linea.toUpperCase().trim() : '';
           const fechaStr = item.arribo_planta;
-
           if (linea === 'MICRO - BLANCO' || linea === 'PERIODICO') return;
           if (!fechaStr || fechaStr === "0000-00-00") return;
-
           const fecha = new Date(fechaStr.replace(/-/g, '/'));
           if (isNaN(fecha.getTime())) return;
           const mes = fecha.getMonth();
@@ -237,47 +314,6 @@
 
           if (!detallePorClave[key]) detallePorClave[key] = [];
           detallePorClave[key].push({ ancho: item.ancho, cantidad, fecha: fechaStr });
-
-          window.mostrarDetalles = (key) => {
-            const lista = document.getElementById('detalles');
-            lista.innerHTML = '';
-            const detalles = detallePorClave[key] || [];
-
-            if (detalles.length === 0) {
-              lista.innerHTML = '<li>No hay detalles disponibles.</li>';
-            } else {
-              detalles.forEach((item, i) => {
-                const li = document.createElement('li');
-                li.textContent = `#${i + 1} → Ancho: ${item.ancho} | Cantidad: ${item.cantidad.toFixed(3)} | Fecha: ${item.fecha}`;
-
-                const anchoNumerico = parseInt(item.ancho);
-                if (anchoNumerico === 1100) li.classList.add('ancho-1100');
-                else if (anchoNumerico === 1880) li.classList.add('ancho-1880');
-
-                lista.appendChild(li);
-              });
-            }
-
-            document.getElementById('modal').style.display = 'flex';
-          };
-
-          document.getElementById('close-modal').onclick = function () {
-            document.getElementById('modal').style.display = 'none';
-          };
-
-          window.onclick = function (event) {
-            if (event.target === document.getElementById('modal')) {
-              document.getElementById('modal').style.display = 'none';
-            }
-          };
-          info.cantidades.forEach((cant, idx) => {
-  const key = `${gramaje}-${idx}`;
-  html += `<td onclick="mostrarDetalles('${key}')">${cant.toFixed(3)}</td>`;
-});
-
-
-
-
         });
 
         const tbody = document.querySelector('#tabla-gramajes tbody');
@@ -288,7 +324,8 @@
           const row = document.createElement('tr');
           let html = `<td class="highlight">${gramaje}</td><td>${info.linea}</td>`;
           info.cantidades.forEach((cant, idx) => {
-            html += `<td>${cant.toFixed(3)}</td>`;
+            const key = `${gramaje}-${idx}`;
+            html += `<td onclick="mostrarDetalles('${key}')">${cant.toFixed(3)}</td>`;
           });
           html += `<td><strong>${info.total.toFixed(3)}</strong></td>`;
           totalGeneral += info.total;
@@ -296,7 +333,6 @@
           tbody.appendChild(row);
         });
 
-        // Agregar fila de totales mensuales
         const totalRow = document.createElement('tr');
         totalRow.classList.add('total-row');
         let htmlTotales = `<td><strong>Total</strong></td><td></td>`;
@@ -307,7 +343,6 @@
         totalRow.innerHTML = htmlTotales;
         tbody.appendChild(totalRow);
 
-        // Activar DataTable
         $('#tabla-gramajes').DataTable({
           responsive: true,
           paging: false,
@@ -324,10 +359,41 @@
           ]
         });
 
+        window.mostrarDetalles = (key) => {
+          const lista = document.getElementById('detalles');
+          lista.innerHTML = '';
+          const detalles = detallePorClave[key] || [];
+
+          if (detalles.length === 0) {
+            lista.innerHTML = '<li>No hay detalles disponibles.</li>';
+          } else {
+            detalles.forEach((item, i) => {
+              const li = document.createElement('li');
+              li.textContent = `#${i + 1} → Ancho: ${item.ancho} | Cantidad: ${item.cantidad.toFixed(3)} | Fecha: ${item.fecha}`;
+
+              const anchoNumerico = parseInt(item.ancho);
+              if (anchoNumerico === 1100) li.classList.add('ancho-1100');
+              else if (anchoNumerico === 1880) li.classList.add('ancho-1880');
+
+              lista.appendChild(li);
+            });
+          }
+          document.getElementById('modal').style.display = 'flex';
+        };
+
+        document.getElementById('close-modal').onclick = function () {
+          document.getElementById('modal').style.display = 'none';
+        };
+
+        window.onclick = function (event) {
+          if (event.target === document.getElementById('modal')) {
+            document.getElementById('modal').style.display = 'none';
+          }
+        };
+
       } catch (error) {
         console.error('Error al cargar datos:', error);
-        const tbody = document.querySelector('#tabla-gramajes tbody');
-        tbody.innerHTML = '<tr><td colspan="15">Error al cargar datos</td></tr>';
+        document.querySelector('#tabla-gramajes tbody').innerHTML = '<tr><td colspan="15">Error al cargar datos</td></tr>';
       }
     }
 
@@ -335,9 +401,6 @@
   </script>
 </body>
 </html>
-
-
-
 
 <!DOCTYPE html>
 <html lang="es">
@@ -425,26 +488,6 @@
   </style>
 </head>
 <body>
-
-<h2>inventario</h2>
-
-<table id="tabla-ingresos">
-  <thead>
-    <tr id="encabezado">
-      <th>Gramaje</th>
-    </tr>
-  </thead>
-  <tbody></tbody>
-</table>
-
-<!-- Modal -->
-<div id="modal1">
-  <div id="modal-content">
-    <span id="close">&times;</span>
-    <h3>Detalles de Anchos</h3>
-    <ul id="detalles-lista"></ul>
-  </div>
-</div>
 
 <script>
   const meses = [

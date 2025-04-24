@@ -53,85 +53,424 @@
 </ul>
 
 
-<style>
-    /* body {
-      font-family: Arial, sans-serif;
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tabla de Ingresos</title>
+
+  <!-- DataTables CSS -->
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.5.0/css/responsive.dataTables.min.css">
+
+  <!-- jQuery y DataTables JS -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/responsive/2.5.0/js/dataTables.responsive.min.js"></script>
+
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
       padding: 20px;
-    } */
-    table {
-  width: 100%;
-  border-collapse: separate;
-  border-spacing: 0;
-  margin-top: 30px;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  font-size: 14px;
-  color: #333;
-}
+      background: #f9fbfc;
+    }
 
-th {
-  background: #2c3e50;
-  color: #ecf0f1;
-  text-transform: uppercase;
-  padding: 12px;
-  text-align: center;
-  position: sticky;
-  top: 0;
-  z-index: 2;
-}
+    h1 {
+      font-size: 24px;
+      color: #2c3e50;
+      margin-bottom: 20px;
+    }
 
-td {
-  padding: 10px;
-  background: #ffffff;
-  border-bottom: 1px solid #e0e0e0;
-  text-align: center;
-  transition: background-color 0.2s ease;
-}
+    table.dataTable {
+      width: 100%;
+      border-collapse: collapse;
+      background: #ffffff;
+      border: none;
+      font-size: 14px;
+    }
 
-th{
-  font-weight: bold;
-  text-align: center;
-  color: white;
-}
+    th{
+      background-color: #2c3e50;
+      color: rgb(14, 12, 12);
+      text-align: center;
+      padding: 10px;
+    }
 
-tr:hover td {
-  background: #f9f9f9;
-}
+    table.dataTable thead {
+      background-color: #2c3e50;
+      color: white;
+      text-transform: uppercase;
+    }
 
-tr:nth-child(even) td {
-  background: #f4f8fb;
-}
+    .dataTables_wrapper .dataTables_filter{
+      padding-bottom: 1rem;
+    }
 
-td.highlight {
-  font-weight: bold;
-  background-color: #fcefe3 !important;
-  color: #2d3436;
-}
+    table.dataTable tbody tr:hover {
+      background-color: #f4f6f9;
+    }
 
-td:last-child, th:last-child {
-  font-weight: bold;
-  color: #27ae60;
-  background-color: #f0fdf4;
-}
+    table.dataTable td, table.dataTable th {
+      text-align: center;
+      padding: 10px;
+    }
 
-tfoot td {
-  background: #dfe6e9;
-  font-weight: bold;
-  text-transform: uppercase;
-}
+    .dt-center {
+      text-align: center;
+    }
 
-td:hover {
-  cursor: pointer;
-  background-color: #dfefff !important;
-}
+    td.highlight {
+      font-weight: bold;
+      background-color: #fcefe3 !important;
+      color: #2d3436;
+    }
 
-h1 {
-  font-size: 24px;
-  color: #2c3e50;
-  margin-bottom: 10px;
-}
+    td:last-child, th:last-child {
+      font-weight: bold;
+      color: #27ae60;
+      background-color: #f0fdf4;
+    }
+
+    .total-row td {
+      background-color: #dfe6e9;
+      font-weight: bold;
+      text-transform: uppercase;
+    }
 
     #modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      backdrop-filter: blur(3px);
+    }
+
+    #modal-content {
+      background: #ffffff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+      width: 450px;
+      max-height: 80vh;
+      overflow-y: auto;
+      position: relative;
+      font-family: 'Segoe UI', sans-serif;
+      animation: modalFadeIn 0.3s ease;
+    }
+
+    #modal h2 {
+      margin-top: 0;
+      margin-bottom: 20px;
+      font-size: 22px;
+      font-weight: 700;
+      color: #2c3e50;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 10px;
+    }
+
+    #close-modal {
+      position: absolute;
+      top: 14px;
+      right: 18px;
+      font-size: 20px;
+      color: #999;
+      cursor: pointer;
+      transition: color 0.3s;
+    }
+
+    #close-modal:hover {
+      color: #e74c3c;
+    }
+
+    #detalles {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    #detalles li {
+      margin-bottom: 12px;
+      padding: 10px 12px;
+      background: #f9f9f9;
+      border-left: 4px solid #3498db;
+      border-radius: 6px;
+      color: #333;
+      font-size: 15px;
+    }
+
+    .ancho-1100 {
+      background-color: #dff9fb !important;
+      border-left-color: #0984e3 !important;
+    }
+
+    .ancho-1880 {
+      background-color: #ffeaa7 !important;
+      border-left-color: #fdcb6e !important;
+    }
+
+    @keyframes modalFadeIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+
+.contenedor{
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  margin-top: 20px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  display: flex;
+  
+}
+
+.columna {
+  flex: 1;
+  padding: 10px;
+}
+
+/* opcional: separación entre columnas */
+.columna + .columna {
+  margin-left: 20px;
+}
+
+
+
+@media (max-width: 768px) {
+  .contenedor {
+    flex-direction: column;
+  }
+
+  .columna + .columna {
+    margin-left: 0;
+    margin-top: 20px;
+  }
+
+  td.child{
+    text-align: left;
+  }
+}
+
+
+  </style>
+</head>
+<body>
+  <div class="contenedor">
+
+    <div class="columna izquierda">
+
+    <h1>INGRESOS</h1>
+    <table id="tabla-gramajes" class="display responsive nowrap">
+      <thead>
+        <tr>
+          <th>Gramaje</th>
+          <th>Línea</th>
+          <th>Enero</th>
+          <th>Febrero</th>
+          <th>Marzo</th>
+          <th>Abril</th>
+        <th>Mayo</th>
+        <th>Junio</th>
+        <th>Julio</th>
+        <th>Agosto</th>
+        <th>Septiembre</th>
+        <th>Octubre</th>
+        <th>Noviembre</th>
+        <th>Diciembre</th>
+        <th>Total</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+  </div>
+  <div class="columna derecha">
+
+  
+<h2>inventario</h2>
+
+<table id="tabla-ingresos">
+  <thead>
+    <tr id="encabezado">
+      <th>Gramaje</th>
+    </tr>
+  </thead>
+  <tbody></tbody>
+</table>
+</div>
+
+
+<!-- Modal -->
+<div id="modal1">
+  <div id="modal-content">
+    <span id="close">&times;</span>
+    <h3>Detalles de Anchos</h3>
+    <ul id="detalles-lista"></ul>
+  </div>
+</div>
+
+</div>
+  
+  <div id="modal">
+    <div id="modal-content">
+      <span id="close-modal">&times;</span>
+      <h2>Detalles de Anchos</h2>
+      <ul id="detalles"></ul>
+    </div>
+  </div>
+
+  <script>
+    let datosOriginales = [];
+
+    async function cargarDatos() {
+      try {
+        const response = await fetch('https://megawebsistem.com/admin/api/apicomercial');
+        const data = await response.json();
+        datosOriginales = data;
+
+        const resumenPorGramaje = {};
+        const detallePorClave = {};
+        const totalesMensuales = Array(12).fill(0);
+
+        data.forEach(item => {
+          const gramaje = item.gramaje;
+          const linea = item.linea ? item.linea.toUpperCase().trim() : '';
+          const fechaStr = item.arribo_planta;
+          if (linea === 'MICRO - BLANCO' || linea === 'PERIODICO') return;
+          if (!fechaStr || fechaStr === "0000-00-00") return;
+          const fecha = new Date(fechaStr.replace(/-/g, '/'));
+          if (isNaN(fecha.getTime())) return;
+          const mes = fecha.getMonth();
+          if (isNaN(mes)) return;
+
+          const cantidad = parseFloat(item.cantidad.toString().replace(',', '').replace(' ', '')) || 0;
+          const key = `${gramaje}-${mes}`;
+
+          if (!resumenPorGramaje[gramaje]) resumenPorGramaje[gramaje] = {
+            linea: linea,
+            cantidades: Array(12).fill(0),
+            total: 0
+          };
+
+          resumenPorGramaje[gramaje].cantidades[mes] += cantidad;
+          resumenPorGramaje[gramaje].total += cantidad;
+          totalesMensuales[mes] += cantidad;
+
+          if (!detallePorClave[key]) detallePorClave[key] = [];
+          detallePorClave[key].push({ ancho: item.ancho, cantidad, fecha: fechaStr });
+        });
+
+        const tbody = document.querySelector('#tabla-gramajes tbody');
+        tbody.innerHTML = '';
+        let totalGeneral = 0;
+
+        Object.entries(resumenPorGramaje).forEach(([gramaje, info]) => {
+          const row = document.createElement('tr');
+          let html = `<td class="highlight">${gramaje}</td><td>${info.linea}</td>`;
+          info.cantidades.forEach((cant, idx) => {
+            const key = `${gramaje}-${idx}`;
+            html += `<td onclick="mostrarDetalles('${key}')">${cant.toFixed(3)}</td>`;
+          });
+          html += `<td><strong>${info.total.toFixed(3)}</strong></td>`;
+          totalGeneral += info.total;
+          row.innerHTML = html;
+          tbody.appendChild(row);
+        });
+
+        const totalRow = document.createElement('tr');
+        totalRow.classList.add('total-row');
+        let htmlTotales = `<td><strong>Total</strong></td><td></td>`;
+        totalesMensuales.forEach(val => {
+          htmlTotales += `<td><strong>${val.toFixed(3)}</strong></td>`;
+        });
+        htmlTotales += `<td><strong>${totalGeneral.toFixed(3)}</strong></td>`;
+        totalRow.innerHTML = htmlTotales;
+        tbody.appendChild(totalRow);
+
+        $('#tabla-gramajes').DataTable({
+          responsive: true,
+          paging: false,
+          searching: true,
+          ordering: true,
+          info: false,
+          language: {
+            search: "Buscar:",
+            zeroRecords: "No se encontraron resultados",
+            infoEmpty: "No hay registros disponibles"
+          },
+          columnDefs: [
+            { targets: '_all', className: 'dt-center' }
+          ]
+        });
+
+        window.mostrarDetalles = (key) => {
+          const lista = document.getElementById('detalles');
+          lista.innerHTML = '';
+          const detalles = detallePorClave[key] || [];
+
+          if (detalles.length === 0) {
+            lista.innerHTML = '<li>No hay detalles disponibles.</li>';
+          } else {
+            detalles.forEach((item, i) => {
+              const li = document.createElement('li');
+              li.textContent = `#${i + 1} → Ancho: ${item.ancho} | Cantidad: ${item.cantidad.toFixed(3)} | Fecha: ${item.fecha}`;
+
+              const anchoNumerico = parseInt(item.ancho);
+              if (anchoNumerico === 1100) li.classList.add('ancho-1100');
+              else if (anchoNumerico === 1880) li.classList.add('ancho-1880');
+
+              lista.appendChild(li);
+            });
+          }
+          document.getElementById('modal').style.display = 'flex';
+        };
+
+        document.getElementById('close-modal').onclick = function () {
+          document.getElementById('modal').style.display = 'none';
+        };
+
+        window.onclick = function (event) {
+          if (event.target === document.getElementById('modal')) {
+            document.getElementById('modal').style.display = 'none';
+          }
+        };
+
+      } catch (error) {
+        console.error('Error al cargar datos:', error);
+        document.querySelector('#tabla-gramajes tbody').innerHTML = '<tr><td colspan="15">Error al cargar datos</td></tr>';
+      }
+    }
+
+    cargarDatos();
+  </script>
+</body>
+</html>
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Inventario Detallado</title>
+  <style>
+    body { font-family: Arial; }
+    h2 { margin-top: 20px; }
+    table { border-collapse: collapse; width: 100%; margin-top: 10px; }
+    th, td { border: 1px solid #aaa; padding: 8px; text-align: center; }
+    th { background-color: #f2f2f2; }
+    tr:nth-child(even) td { background-color: #f9f9f9; }
+    td:first-child { font-weight: bold; }
+
+    #modal1 {
     display: none;
     position: fixed;
     top: 0; left: 0;
@@ -156,7 +495,7 @@ h1 {
     animation: modalFadeIn 0.3s ease;
   }
 
-  #modal h2 {
+  #modal1 h2 {
     margin-top: 0;
     margin-bottom: 20px;
     font-size: 22px;
@@ -179,13 +518,12 @@ h1 {
   #close-modal:hover {
     color: #e74c3c;
   }
-
-  #detalles {
+  #detalles-lista {
     list-style: none;
     padding-left: 0;
   }
 
-  #detalles li {
+  #detalles-lista li {
     margin-bottom: 12px;
     padding: 10px 12px;
     background: #f9f9f9;
@@ -195,213 +533,117 @@ h1 {
     font-size: 15px;
   }
 
-  .ancho-1100 {
-    background-color: #dff9fb !important;
-    border-left-color: #0984e3 !important;
-  }
-
-  .ancho-1880 {
-    background-color: #ffeaa7 !important;
-    border-left-color: #fdcb6e !important;
-  }
-
   @keyframes modalFadeIn {
     from { opacity: 0; transform: scale(0.95); }
     to { opacity: 1; transform: scale(1); }
   }
+
+
   </style>
 </head>
 <body>
-  <h1>INGRESOS</h1>
-  <table id="tabla-gramajes">
-    <thead>
-      <tr>
-        <th>Gramaje</th>
-        <th>Línea</th>
-        <th>Enero</th>
-        <th>Febrero</th>
-        <th>Marzo</th>
-        <th>Abril</th>
-        <th>Mayo</th>
-        <th>Junio</th>
-        <th>Julio</th>
-        <th>Agosto</th>
-        <th>Septiembre</th>
-        <th>Octubre</th>
-        <th>Noviembre</th>
-        <th>Diciembre</th>
-        <th>Total</th>
-      </tr>
-    </thead>
-    
-    
-    <tbody>
-      <!-- Se llenará dinámicamente -->
-    </tbody>
-    <tbody>
-      <!-- Se llenará dinámicamente -->
-    </tbody>
-  </table>
 
-  <div id="modal">
-    <div id="modal-content">
-      <span id="close-modal">&times;</span>
-      <h2>Detalles de Anchos</h2>
-      <ul id="detalles"></ul>
-    </div>
-  </div>
-  
 <script>
-  let datosOriginales = [];
+  const meses = [
+    'Enero', 'Febrero', 'Marzo', 'Abril',
+    'Mayo', 'Junio', 'Julio', 'Agosto',
+    'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'
+  ];
 
-  async function cargarDatos() {
-    try {
-      const response = await fetch('https://megawebsistem.com/admin/api/apicomercial');
-      const data = await response.json();
-      datosOriginales = data;
+  const tabla = document.querySelector('#tabla-ingresos tbody');
+  const encabezado = document.querySelector('#encabezado');
+  const modal = document.getElementById('modal1');
+  const closeModal = document.getElementById('close');
+  const detallesLista = document.getElementById('detalles-lista');
 
-      const resumenPorGramaje = {};
-      const detallePorClave = {};
-      const totalesMensuales = Array(12).fill(0);
+  closeModal.onclick = () => modal.style.display = "none";
+  window.onclick = e => { if (e.target == modal) modal.style.display = "none"; };
+
+  fetch('https://megawebsistem.com/admin/api/apimateriaprimajson')
+    .then(res => res.json())
+    .then(data => {
+      const resumen = {};
+      const detalles = {};
+      const mesesConDatos = new Array(12).fill(false);
+      const totalesPorMes = new Array(12).fill(0);
 
       data.forEach(item => {
+        const fecha = new Date(item.fecha_corte);
+        const mes = fecha.getMonth(); // 0 = Enero
         const gramaje = item.gramaje;
-        const linea = item.linea ? item.linea.toUpperCase().trim() : '';
-        const fechaStr = item.arribo_planta;
+        const cantidad = parseInt(item.existencia) || 0;
+        const ancho = item.ancho;
 
-        // ❌ Excluir líneas específicas
-        if (linea === 'MICRO - BLANCO' || linea === 'PERIODICO') return;
+        if (!resumen[gramaje]) resumen[gramaje] = Array(12).fill(0);
+        if (!detalles[`${gramaje}-${mes}`]) detalles[`${gramaje}-${mes}`] = [];
 
-        // ❌ Excluir fechas inválidas
-        if (!fechaStr || fechaStr === "0000-00-00") return;
+        resumen[gramaje][mes] += cantidad;
+        detalles[`${gramaje}-${mes}`].push({ ancho, cantidad });
 
-        const fecha = new Date(fechaStr.replace(/-/g, '/'));
-        if (isNaN(fecha.getTime())) {
-          console.warn(`⚠️ Fecha inválida ignorada: ${fechaStr}`);
-          return;
+        if (cantidad > 0) mesesConDatos[mes] = true;
+      });
+
+      // Cabecera solo con meses con datos
+      meses.forEach((mes, i) => {
+        if (mesesConDatos[i]) {
+          const th = document.createElement('th');
+          th.textContent = mes;
+          encabezado.appendChild(th);
         }
-
-        const mes = fecha.getMonth();
-        if (isNaN(mes)) return;
-
-        const cantidad = parseFloat(item.cantidad.toString().replace(',', '').replace(' ', '')) || 0;
-        const key = `${gramaje}-${mes}`;
-
-        if (!resumenPorGramaje[gramaje]) resumenPorGramaje[gramaje] = Array(12).fill(0);
-        resumenPorGramaje[gramaje][mes] += cantidad;
-        totalesMensuales[mes] += cantidad;
-
-        if (!detallePorClave[key]) detallePorClave[key] = [];
-        detallePorClave[key].push({
-          ancho: item.ancho,
-          cantidad: cantidad.toFixed(3),
-          fecha: fechaStr
-        });
       });
 
+      // Crear filas
+      Object.entries(resumen).forEach(([gramaje, cantidades]) => {
+        const tieneDatos = cantidades.some((c, i) => mesesConDatos[i] && c > 0);
+        if (!tieneDatos) return;
 
+        const fila = document.createElement('tr');
+        fila.innerHTML = `<td>${gramaje}</td>`;
 
-
-
-      const tbody = document.querySelector('#tabla-gramajes tbody');
-      tbody.innerHTML = ''; // Limpiar tabla
-
-      let totalGeneral = 0;
-
-      Object.entries(resumenPorGramaje).forEach(([gramaje, meses]) => {
-        const row = document.createElement('tr');
-        const total = meses.reduce((sum, val) => sum + val, 0);
-        totalGeneral += total;
-
-        // Buscar línea para este gramaje
-        let lineaEncontrada = '';
-        for (const item of datosOriginales) {
-          const linea = item.linea ? item.linea.toUpperCase().trim() : '';
-          if (item.gramaje == gramaje && linea !== 'MICRO - BLANCO' && linea !== 'PERIODICO') {
-            lineaEncontrada = linea;
-            break;
-          }
-        }
-
-        let html = `<td class="highlight">${gramaje}</td><td>${lineaEncontrada}</td>`;
-        meses.forEach((cant, mesIdx) => {
-          const key = `${gramaje}-${mesIdx}`;
-          html += `<td onclick="mostrarDetalles('${key}')">${cant.toFixed(3)}</td>`;
-        });
-        html += `<td><strong>${total.toFixed(3)}</strong></td>`;
-
-        row.innerHTML = html;
-        tbody.appendChild(row);
-      });
-
-
-      // Fila de totales mensuales
-      const rowTotales = document.createElement('tr');
-      let htmlTotales = `<td><strong>Total</strong></td><td></td>`;
-      totalesMensuales.forEach(val => {
-        htmlTotales += `<td><strong>${val.toFixed(3)}</strong></td>`;
-      });
-
-      htmlTotales += `<td><strong>${totalGeneral.toFixed(3)}</strong></td>`;
-      rowTotales.innerHTML = htmlTotales;
-      rowTotales.style.background = "#f0f0f0";
-      rowTotales.style.fontWeight = "bold";
-      tbody.appendChild(rowTotales);
-
-      // Mostrar detalles en modal
-      window.mostrarDetalles = (key) => {
-        const lista = document.getElementById('detalles');
-        lista.innerHTML = '';
-        const detalles = detallePorClave[key] || [];
-
-        if (detalles.length === 0) {
-          lista.innerHTML = '<li>No hay detalles disponibles.</li>';
-        } else {
-          detalles.forEach((item, i) => {
-            const li = document.createElement('li');
-            li.textContent = `#${i + 1} → Ancho: ${item.ancho} | Cantidad: ${item.cantidad} | Fecha: ${item.fecha}`;
-
-            const anchoNumerico = parseInt(item.ancho);
-            if (anchoNumerico === 1100) {
-              li.classList.add('ancho-1100');
-            } else if (anchoNumerico === 1880) {
-              li.classList.add('ancho-1880');
+        cantidades.forEach((cantidad, i) => {
+          if (mesesConDatos[i]) {
+            const celda = document.createElement('td');
+            if (cantidad > 0) {
+              celda.innerHTML = `<span style="cursor:pointer;color:#007BFF" onclick="mostrarModal('${gramaje}', ${i})">${cantidad}</span>`;
+              totalesPorMes[i] += cantidad;
+            } else {
+              celda.textContent = "";
             }
+            fila.appendChild(celda);
+          }
+        });
 
-            lista.appendChild(li);
-          });
+        tabla.appendChild(fila);
+      });
+
+      // Fila de totales
+      const filaTotal = document.createElement('tr');
+      filaTotal.innerHTML = `<td><strong>TOTAL</strong></td>`;
+      mesesConDatos.forEach((activo, i) => {
+        if (activo) {
+          filaTotal.innerHTML += `<td><strong>${totalesPorMes[i]}</strong></td>`;
         }
+      });
+      tabla.appendChild(filaTotal);
 
-        document.getElementById('modal').style.display = 'flex';
+      // Modal de detalles
+      window.mostrarModal = function(gramaje, mesIndex) {
+        const clave = `${gramaje}-${mesIndex}`;
+        const elementos = detalles[clave] || [];
+        detallesLista.innerHTML = elementos.map(e =>
+          `<li>Ancho: ${e.ancho} - Cantidad: ${e.cantidad}</li>`).join('');
+        modal.style.display = "flex";
       };
 
-      document.getElementById('close-modal').onclick = function () {
-        document.getElementById('modal').style.display = 'none';
-      };
-
-      window.onclick = function (event) {
-        if (event.target === document.getElementById('modal')) {
-          document.getElementById('modal').style.display = 'none';
-        }
-      };
-
-    } catch (error) {
-      console.error('Error al cargar datos:', error);
-      const tbody = document.querySelector('#tabla-gramajes tbody');
-      tbody.innerHTML = '<tr><td colspan="13">Error al cargar datos</td></tr>';
-    }
-
-
-
-  }
-
-  cargarDatos();
+    })
+    .catch(err => {
+      console.error("Error al obtener los datos:", err);
+      tabla.innerHTML = `<tr><td colspan="13">Error cargando datos</td></tr>`;
+    });
 </script>
 
-
-
-
-
+</body>
+</html>
 
 
 
