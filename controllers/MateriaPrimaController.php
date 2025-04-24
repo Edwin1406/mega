@@ -634,9 +634,8 @@ class MateriaPrimaController
     //   $totalExistenciaMicro = MateriaPrimaV::sumarExistencia('MICRO');
     //   $totalExistenciaPeriodico = MateriaPrimaV::sumarExistencia('PERIODICO');
    
-    //   $totalExistencia = number_format($totalExistencia, 0, '.', ',');
-    //   $totalExistenciaMicro = number_format($totalExistenciaMicro, 0, '.', ',');
-    //   $totalExistenciaPeriodico = number_format($totalExistenciaPeriodico, 0, '.', ',');
+      $totalExistencia = number_format($totalExistencia, 0, '.', ',');
+    
 
 
     //   $allkilos = MateriaPrimaV::allkilogramos('DESC');
@@ -645,7 +644,8 @@ class MateriaPrimaController
 
 
         $router->render('admin/produccion/materia/corrugadorVentana', [
-            'titulo' => 'CORRUGADOR VENTANA'
+            'titulo' => 'CORRUGADOR VENTANA',
+            'totalExistencia' => $totalExistencia,
         ]);
 
     }
