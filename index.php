@@ -163,6 +163,9 @@ $router->post('/admin/produccion/materia/corrugador', [MateriaPrimaController::c
 
 // CORRUGADOR VENTANA
 $router->get('/admin/produccion/materia/corrugadorVentana', [MateriaPrimaController::class, 'corrugadorVentana']);
+// excel nuevo
+$router->get('/admin/produccion/materia/excelNuevo', [MateriaPrimaController::class, 'excelNuevo']);
+
 
 
 // eliminar base 
