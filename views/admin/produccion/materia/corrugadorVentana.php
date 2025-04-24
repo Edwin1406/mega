@@ -644,25 +644,60 @@ table.dataTable {
 </html>
 
 
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Proyecciones Mensuales</title>
 
+  <!-- DataTables CSS -->
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.5.0/css/responsive.dataTables.min.css">
 
+  <!-- jQuery y DataTables JS -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/responsive/2.5.0/js/dataTables.responsive.min.js"></script>
 
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #fff;
+      overflow-x: hidden;
+      font-family: Arial, sans-serif;
+    }
 
-<style>
+    h2 {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .contenedor {
+      max-width: 100%;
+      padding: 10px;
+      overflow-x: auto;
+    }
+
     table {
       width: 100%;
       border-collapse: collapse;
       margin-top: 20px;
     }
+
     th, td {
       border: 1px solid #ccc;
       padding: 8px;
       text-align: center;
+      white-space: nowrap;
     }
+
     th {
       background-color: #f4f4f4;
       font-weight: bold;
     }
+
     #proy_modal {
       display: none;
       position: fixed;
@@ -671,7 +706,9 @@ table.dataTable {
       background-color: rgba(0,0,0,0.5);
       justify-content: center;
       align-items: center;
+      z-index: 999;
     }
+
     #proy_modal .contenido {
       background: white;
       padding: 20px;
@@ -679,132 +716,141 @@ table.dataTable {
       max-width: 500px;
       width: 90%;
     }
+
+    #proy_modal button {
+      margin-top: 10px;
+      padding: 8px 16px;
+      background-color: #007BFF;
+      border: none;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+    }
   </style>
+</head>
 
+<body>
+  <h2>Proyecciones Mensuales por Gramaje y Línea</h2>
 
-<h2>Proyecciones Mensuales por Gramaje y Línea</h2>
-
-<div class="contenedor">
-
-
-</div>
-
-<table id="proy_tabla" class="display responsive nowrap">
-  <thead>
-    <tr>
-      <th>Gramaje</th>
-      <th>Línea</th>
-      <th>Enero</th>
-      <th>Febrero</th>
-      <th>Marzo</th>
-      <th>Abril</th>
-      <th>Mayo</th>
-      <th>Junio</th>
-      <th>Julio</th>
-      <th>Agosto</th>
-      <th>Septiembre</th>
-      <th>Octubre</th>
-      <th>Noviembre</th>
-      <th>Diciembre</th>
-      <th>Total</th>
-    </tr>
-  </thead>
-  <tbody></tbody>
-</table>
-</div>
-
-<!-- Modal -->
-<div id="proy_modal">
-  <div class="contenido">
-    <h3>Detalles por mes</h3>
-    <ul id="proy_detalles_lista"></ul>
-    <button id="proy_cerrar">Cerrar</button>
+  <div class="contenedor">
+    <table id="proy_tabla" class="display responsive nowrap">
+      <thead>
+        <tr>
+          <th>Gramaje</th>
+          <th>Línea</th>
+          <th>Enero</th>
+          <th>Febrero</th>
+          <th>Marzo</th>
+          <th>Abril</th>
+          <th>Mayo</th>
+          <th>Junio</th>
+          <th>Julio</th>
+          <th>Agosto</th>
+          <th>Septiembre</th>
+          <th>Octubre</th>
+          <th>Noviembre</th>
+          <th>Diciembre</th>
+          <th>Total</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
   </div>
-</div>
 
-<script>
-function initProyecciones() {
-  const proy_tablaBody = document.querySelector('#proy_tabla tbody');
-  const proy_modal = document.getElementById('proy_modal');
-  const proy_btnCerrar = document.getElementById('proy_cerrar');
-  const proy_detalles = document.getElementById('proy_detalles_lista');
+  <!-- Modal -->
+  <div id="proy_modal">
+    <div class="contenido">
+      <h3>Detalles por mes</h3>
+      <ul id="proy_detalles_lista"></ul>
+      <button id="proy_cerrar">Cerrar</button>
+    </div>
+  </div>
 
-  proy_btnCerrar.onclick = () => proy_modal.style.display = "none";
-  window.onclick = e => { if (e.target === proy_modal) proy_modal.style.display = "none"; };
+  <script>
+    function initProyecciones() {
+      const proy_tablaBody = document.querySelector('#proy_tabla tbody');
+      const proy_modal = document.getElementById('proy_modal');
+      const proy_btnCerrar = document.getElementById('proy_cerrar');
+      const proy_detalles = document.getElementById('proy_detalles_lista');
 
-  fetch('https://megawebsistem.com/admin/api/apiproyecciones')
-    .then(res => res.ok ? res.json() : Promise.reject(`Status: ${res.status}`))
-    .then(data => {
-      if (!Array.isArray(data) || data.length === 0) {
-        console.warn("⚠️ Sin datos desde la API.");
-        return;
-      }
+      proy_btnCerrar.onclick = () => proy_modal.style.display = "none";
+      window.onclick = e => { if (e.target === proy_modal) proy_modal.style.display = "none"; };
 
-      const resumen = {};
-      const detallesMes = {};
-      const totalesPorMes = Array(12).fill(0);
-
-      data.forEach(item => {
-        const fecha = new Date(item.fecha_consumo);
-        const mes = fecha.getMonth(); // 0 = Enero
-        const gramaje = item.gms;
-        const linea = item.linea;
-        const cantidad = parseFloat(item.cantidad) || 0;
-        const ancho = item.ancho;
-
-        const clave = `${gramaje}|${linea}`; // Separador seguro
-
-        if (!resumen[clave]) resumen[clave] = Array(12).fill(0);
-        if (!detallesMes[`${clave}-${mes}`]) detallesMes[`${clave}-${mes}`] = [];
-
-        resumen[clave][mes] += cantidad;
-        detallesMes[`${clave}-${mes}`].push({ ancho, cantidad });
-        totalesPorMes[mes] += cantidad;
-      });
-
-      Object.entries(resumen).forEach(([clave, cantidades]) => {
-        const [gramaje, linea] = clave.split('|');
-        const fila = document.createElement('tr');
-        fila.innerHTML = `<td>${gramaje}</td><td>${linea}</td>`;
-        let totalFila = 0;
-
-        for (let i = 0; i < 12; i++) {
-          const cantidad = cantidades[i] || 0;
-          const celda = document.createElement('td');
-          if (cantidad > 0) {
-            celda.innerHTML = `<span style="cursor:pointer;color:#007BFF" onclick="proy_mostrarModal('${clave}', ${i})">${cantidad.toFixed(2)}</span>`;
-            totalFila += cantidad;
-          } else {
-            celda.textContent = '';
+      fetch('https://megawebsistem.com/admin/api/apiproyecciones')
+        .then(res => res.ok ? res.json() : Promise.reject(`Status: ${res.status}`))
+        .then(data => {
+          if (!Array.isArray(data) || data.length === 0) {
+            console.warn("⚠️ Sin datos desde la API.");
+            return;
           }
-          fila.appendChild(celda);
-        }
 
-        fila.innerHTML += `<td><strong>${totalFila.toFixed(2)}</strong></td>`;
-        proy_tablaBody.appendChild(fila);
-      });
+          const resumen = {};
+          const detallesMes = {};
+          const totalesPorMes = Array(12).fill(0);
 
-      const filaTotal = document.createElement('tr');
-      filaTotal.innerHTML = `<td colspan="2"><strong>TOTAL</strong></td>`;
-      let totalGeneral = 0;
-      for (let i = 0; i < 12; i++) {
-        const totalMes = totalesPorMes[i];
-        filaTotal.innerHTML += `<td><strong>${totalMes.toFixed(2)}</strong></td>`;
-        totalGeneral += totalMes;
-      }
-      filaTotal.innerHTML += `<td><strong>${totalGeneral.toFixed(2)}</strong></td>`;
-      proy_tablaBody.appendChild(filaTotal);
+          data.forEach(item => {
+            const fecha = new Date(item.fecha_consumo);
+            const mes = fecha.getMonth(); // 0 = Enero
+            const gramaje = item.gms;
+            const linea = item.linea;
+            const cantidad = parseFloat(item.cantidad) || 0;
+            const ancho = item.ancho;
 
-      window.proy_mostrarModal = function(clave, mesIndex) {
-        const lista = detallesMes[`${clave}-${mesIndex}`] || [];
-        proy_detalles.innerHTML = lista.map(e => `<li>Ancho: ${e.ancho} - Cantidad: ${e.cantidad}</li>`).join('');
-        proy_modal.style.display = "flex";
-      };
-    })
-    .catch(err => {
-      console.error("❌ Error al obtener datos:", err);
-    });
-}
+            const clave = `${gramaje}|${linea}`;
 
-document.addEventListener("DOMContentLoaded", initProyecciones);
-</script>
+            if (!resumen[clave]) resumen[clave] = Array(12).fill(0);
+            if (!detallesMes[`${clave}-${mes}`]) detallesMes[`${clave}-${mes}`] = [];
+
+            resumen[clave][mes] += cantidad;
+            detallesMes[`${clave}-${mes}`].push({ ancho, cantidad });
+            totalesPorMes[mes] += cantidad;
+          });
+
+          Object.entries(resumen).forEach(([clave, cantidades]) => {
+            const [gramaje, linea] = clave.split('|');
+            const fila = document.createElement('tr');
+            fila.innerHTML = `<td>${gramaje}</td><td>${linea}</td>`;
+            let totalFila = 0;
+
+            for (let i = 0; i < 12; i++) {
+              const cantidad = cantidades[i] || 0;
+              const celda = document.createElement('td');
+              if (cantidad > 0) {
+                celda.innerHTML = `<span style="cursor:pointer;color:#007BFF" onclick="proy_mostrarModal('${clave}', ${i})">${cantidad.toFixed(2)}</span>`;
+                totalFila += cantidad;
+              } else {
+                celda.textContent = '';
+              }
+              fila.appendChild(celda);
+            }
+
+            fila.innerHTML += `<td><strong>${totalFila.toFixed(2)}</strong></td>`;
+            proy_tablaBody.appendChild(fila);
+          });
+
+          const filaTotal = document.createElement('tr');
+          filaTotal.innerHTML = `<td colspan="2"><strong>TOTAL</strong></td>`;
+          let totalGeneral = 0;
+          for (let i = 0; i < 12; i++) {
+            const totalMes = totalesPorMes[i];
+            filaTotal.innerHTML += `<td><strong>${totalMes.toFixed(2)}</strong></td>`;
+            totalGeneral += totalMes;
+          }
+          filaTotal.innerHTML += `<td><strong>${totalGeneral.toFixed(2)}</strong></td>`;
+          proy_tablaBody.appendChild(filaTotal);
+
+          window.proy_mostrarModal = function(clave, mesIndex) {
+            const lista = detallesMes[`${clave}-${mesIndex}`] || [];
+            proy_detalles.innerHTML = lista.map(e => `<li>Ancho: ${e.ancho} - Cantidad: ${e.cantidad}</li>`).join('');
+            proy_modal.style.display = "flex";
+          };
+        })
+        .catch(err => {
+          console.error("❌ Error al obtener datos:", err);
+        });
+    }
+
+    document.addEventListener("DOMContentLoaded", initProyecciones);
+  </script>
+</body>
+</html>
