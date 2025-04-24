@@ -70,8 +70,6 @@
   <script src="https://cdn.datatables.net/responsive/2.5.0/js/dataTables.responsive.min.js"></script>
 
   <style>
-  
-
 /* ====== Estilos Generales ====== */
 body {
   margin: 0;
@@ -90,6 +88,7 @@ h1, h2 {
 /* ====== Estilo para Tablas ====== */
 table {
   width: 100%;
+  table-layout: fixed;
   border-collapse: collapse;
   margin-top: 10px;
   background: #ffffff;
@@ -98,9 +97,12 @@ table {
 
 th, td {
   border: 1px solid #ccc;
-  padding: 8px 10px;
-  text-align: center;
+  padding: 6px 4px;
+  font-size: 12px;
   white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: center;
 }
 
 th {
@@ -136,7 +138,7 @@ td:last-child, th:last-child {
   padding-bottom: 1rem;
 }
 
-table.dataTable tbody tr:hover {
+.dataTable tbody tr:hover {
   background-color: #f4f6f9;
 }
 
@@ -169,6 +171,11 @@ table.dataTable tbody tr:hover {
     flex-direction: column;
   }
 
+  th, td {
+    font-size: 10px;
+    padding: 4px 2px;
+  }
+
   td.child {
     text-align: left;
   }
@@ -199,6 +206,7 @@ table.dataTable tbody tr:hover {
   max-height: 80vh;
   overflow-y: auto;
   animation: modalFadeIn 0.3s ease;
+  position: relative;
 }
 
 #close-modal, #close {
@@ -300,8 +308,6 @@ ul.lista-areas-produccion a {
 .areas-produccion-craft { border-left-color: #e67e22; }
 .areas-produccion-blanco { border-left-color: #95a5a6; }
 .areas-produccion-medium { border-left-color: #9b59b6; }
-
-
 
   </style>
 </head>
