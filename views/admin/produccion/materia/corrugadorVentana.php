@@ -668,13 +668,27 @@ table.dataTable {
       margin-top: 20px;
     }
 
-    .contenedor-proyecciones {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-      padding: 20px;
-    }
+ 
+
+
+    .proyecciones {
+  display: flex;
+  flex-wrap: wrap; /* NUEVO: permite que las columnas se bajen en pantallas chicas */
+}
+
+.columna {
+  flex: 1 1 50%; /* NUEVO: mínimo 50% de ancho, flexible */
+  padding: 10px;
+  min-width: 300px; /* NUEVO: evita que se comprima demasiado */
+  box-sizing: border-box;
+}
+
+table.dataTable {
+  width: 100% !important; /* Asegura que no se desborde */
+  overflow-x: auto;       /* Evita que se rompa el diseño */
+  display: block;         /* Necesario para aplicar scroll */
+}
+
 
     #proy_modal {
       display: none;
