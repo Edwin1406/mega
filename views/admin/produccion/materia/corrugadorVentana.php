@@ -674,29 +674,6 @@ table.dataTable {
       margin-top: 20px;
     }
 
-    .contenedor {
-      max-width: 100%;
-      padding: 10px;
-      overflow-x: auto;
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 20px;
-    }
-
-    th, td {
-      border: 1px solid #ccc;
-      padding: 8px;
-      text-align: center;
-      white-space: nowrap;
-    }
-
-    th {
-      background-color: #f4f4f4;
-      font-weight: bold;
-    }
 
     #proy_modal {
       display: none;
