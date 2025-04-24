@@ -648,7 +648,38 @@ table.dataTable {
 
 
 
-
+<style>
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    th, td {
+      border: 1px solid #ccc;
+      padding: 8px;
+      text-align: center;
+    }
+    th {
+      background-color: #f4f4f4;
+      font-weight: bold;
+    }
+    #proy_modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background-color: rgba(0,0,0,0.5);
+      justify-content: center;
+      align-items: center;
+    }
+    #proy_modal .contenido {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      max-width: 500px;
+      width: 90%;
+    }
+  </style>
 
 
 <h2>Proyecciones Mensuales por Gramaje y Línea</h2>
