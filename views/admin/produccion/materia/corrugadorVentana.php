@@ -648,9 +648,6 @@ table.dataTable {
 
 
 
-
-
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -668,7 +665,12 @@ table.dataTable {
   <script src="https://cdn.datatables.net/responsive/2.5.0/js/dataTables.responsive.min.js"></script>
 
   <style>
- 
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #f5f5f5;
+      font-family: Arial, sans-serif;
+    }
 
     h2 {
       text-align: center;
@@ -686,7 +688,6 @@ table.dataTable {
 
     table {
       width: 100%;
-      min-width: 1200px;
       border-collapse: collapse;
     }
 
@@ -730,16 +731,6 @@ table.dataTable {
       border-radius: 5px;
       cursor: pointer;
     }
-
-    .display {
-    display: flex
-;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto;
-    gap: 1rem;
-}
   </style>
 </head>
 
@@ -747,7 +738,7 @@ table.dataTable {
   <h2>Proyecciones Mensuales por Gramaje y Línea</h2>
 
   <div class="contenedor-scroll">
-    <table id="proy_tabla" class="display nowrap">
+    <table id="proy_tabla" class="nowrap display responsive">
       <thead>
         <tr>
           <th>Gramaje</th>
@@ -864,9 +855,17 @@ table.dataTable {
         });
     }
 
-    document.addEventListener("DOMContentLoaded", initProyecciones);
+    document.addEventListener("DOMContentLoaded", () => {
+      initProyecciones();
+
+      // Inicializar DataTable con opciones
+      $('#proy_tabla').DataTable({
+        responsive: true,
+        paging: false,
+        searching: false,
+        info: false
+      });
+    });
   </script>
 </body>
 </html>
-
-
