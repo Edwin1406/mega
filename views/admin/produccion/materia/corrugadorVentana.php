@@ -674,6 +674,13 @@ table.dataTable {
       margin-top: 20px;
     }
 
+    .contenedor {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      padding: 20px;
+    }
 
     #proy_modal {
       display: none;
