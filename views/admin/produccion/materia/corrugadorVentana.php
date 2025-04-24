@@ -72,193 +72,235 @@
   <style>
   
 
-    h1 {
-      font-size: 24px;
-      color: #2c3e50;
-      margin-bottom: 20px;
-    }
+/* ====== Estilos Generales ====== */
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #f5f5f5;
+  font-family: Arial, sans-serif;
+}
 
-    table.dataTable {
-      width: 100%;
-      border-collapse: collapse;
-      background: #ffffff;
-      border: none;
-      font-size: 14px;
-    }
+h1, h2 {
+  font-size: 24px;
+  color: #2c3e50;
+  margin: 20px 0;
+  text-align: center;
+}
 
-    th{
-      background-color: #2c3e50;
-      color: rgb(14, 12, 12);
-      text-align: center;
-      padding: 10px;
-    }
+/* ====== Estilo para Tablas ====== */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+  background: #ffffff;
+  font-size: 14px;
+}
 
-    table.dataTable thead {
-      background-color: #2c3e50;
-      color: white;
-      text-transform: uppercase;
-    }
+th, td {
+  border: 1px solid #ccc;
+  padding: 8px 10px;
+  text-align: center;
+  white-space: nowrap;
+}
 
-    .dataTables_wrapper .dataTables_filter{
-      padding-bottom: 1rem;
-    }
+th {
+  background-color: #2c3e50;
+  color: white;
+  text-transform: uppercase;
+}
 
-    table.dataTable tbody tr:hover {
-      background-color: #f4f6f9;
-    }
+tr:nth-child(even) td {
+  background-color: #f9f9f9;
+}
 
-    table.dataTable td, table.dataTable th {
-      text-align: center;
-      padding: 10px;
-    }
+td.highlight {
+  font-weight: bold;
+  background-color: #fcefe3 !important;
+  color: #2d3436;
+}
 
-    .dt-center {
-      text-align: center;
-    }
+td:last-child, th:last-child {
+  font-weight: bold;
+  color: #27ae60;
+  background-color: #f0fdf4;
+}
 
-    td.highlight {
-      font-weight: bold;
-      background-color: #fcefe3 !important;
-      color: #2d3436;
-    }
+.total-row td {
+  background-color: #dfe6e9;
+  font-weight: bold;
+  text-transform: uppercase;
+}
 
-    td:last-child, th:last-child {
-      font-weight: bold;
-      color: #27ae60;
-      background-color: #f0fdf4;
-    }
+/* ====== DataTables Wrapper ====== */
+.dataTables_wrapper .dataTables_filter {
+  padding-bottom: 1rem;
+}
 
-    .total-row td {
-      background-color: #dfe6e9;
-      font-weight: bold;
-      text-transform: uppercase;
-    }
+table.dataTable tbody tr:hover {
+  background-color: #f4f6f9;
+}
 
-    #modal {
-      display: none;
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background-color: rgba(0, 0, 0, 0.5);
-      justify-content: center;
-      align-items: center;
-      z-index: 1000;
-      backdrop-filter: blur(3px);
-    }
+.dataTable td, .dataTable th {
+  text-align: center;
+}
 
-    #modal-content {
-      background: #ffffff;
-      padding: 30px;
-      border-radius: 12px;
-      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
-      width: 550px;
-      max-height: 80vh;
-      overflow-y: auto;
-      position: relative;
-      font-family: 'Segoe UI', sans-serif;
-      animation: modalFadeIn 0.3s ease;
-    }
+.dt-center {
+  text-align: center;
+}
 
-    #modal h2 {
-      margin-top: 0;
-      margin-bottom: 20px;
-      font-size: 22px;
-      font-weight: 700;
-      color: #2c3e50;
-      border-bottom: 1px solid #eee;
-      padding-bottom: 10px;
-    }
-
-    #close-modal {
-      position: absolute;
-      top: 14px;
-      right: 18px;
-      font-size: 20px;
-      color: #999;
-      cursor: pointer;
-      transition: color 0.3s;
-    }
-
-    #close-modal:hover {
-      color: #e74c3c;
-    }
-
-    #detalles {
-      list-style: none;
-      padding-left: 0;
-    }
-
-    #detalles li {
-      margin-bottom: 12px;
-      padding: 10px 12px;
-      background: #f9f9f9;
-      border-left: 4px solid #3498db;
-      border-radius: 6px;
-      color: #333;
-      font-size: 15px;
-    }
-
-    .ancho-1100 {
-      background-color: #dff9fb !important;
-      border-left-color: #0984e3 !important;
-    }
-
-    .ancho-1880 {
-      background-color: #ffeaa7 !important;
-      border-left-color: #fdcb6e !important;
-    }
-
-    @keyframes modalFadeIn {
-      from { opacity: 0; transform: scale(0.95); }
-      to { opacity: 1; transform: scale(1); }
-    }
-
-
-    .contenedor {
+/* ====== Responsive Contenedor ====== */
+.contenedor {
   display: flex;
-  flex-wrap: wrap; /* NUEVO: permite que las columnas se bajen en pantallas chicas */
+  flex-wrap: wrap;
+  margin: 20px auto;
+  max-width: 1200px;
+  gap: 20px;
 }
 
 .columna {
-  flex: 1 1 50%; /* NUEVO: mínimo 50% de ancho, flexible */
+  flex: 1 1 45%;
   padding: 10px;
-  min-width: 300px; /* NUEVO: evita que se comprima demasiado */
+  min-width: 300px;
   box-sizing: border-box;
 }
-
-table.dataTable {
-  width: 100% !important; /* Asegura que no se desborde */
-  overflow-x: auto;       /* Evita que se rompa el diseño */
-  display: block;         /* Necesario para aplicar scroll */
-}
-
-
-.columna {
-  flex: 1;
-  padding: 10px;
-}
-
-/* opcional: separación entre columnas */
-.columna + .columna {
-  margin-left: 20px;
-}
-
-
 
 @media (max-width: 768px) {
   .contenedor {
     flex-direction: column;
   }
 
-  .columna + .columna {
-    margin-left: 0;
-    margin-top: 20px;
-  }
-
-  td.child{
+  td.child {
     text-align: left;
   }
 }
+
+/* ====== Modales ====== */
+#modal, #modal1, #proy_modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.5);
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  backdrop-filter: blur(3px);
+}
+
+#modal-content, #modal1 .contenido, #proy_modal .contenido {
+  background: #ffffff;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+  max-width: 600px;
+  width: 90%;
+  max-height: 80vh;
+  overflow-y: auto;
+  animation: modalFadeIn 0.3s ease;
+}
+
+#close-modal, #close {
+  position: absolute;
+  top: 14px;
+  right: 18px;
+  font-size: 20px;
+  color: #999;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+#close-modal:hover, #close:hover {
+  color: #e74c3c;
+}
+
+@keyframes modalFadeIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+ul#detalles, ul#detalles-lista, ul#proy_detalles_lista {
+  list-style: none;
+  padding-left: 0;
+}
+
+ul#detalles li, ul#detalles-lista li, ul#proy_detalles_lista li {
+  margin-bottom: 12px;
+  padding: 10px 12px;
+  background: #f9f9f9;
+  border-left: 4px solid #3498db;
+  border-radius: 6px;
+  color: #333;
+  font-size: 15px;
+}
+
+.ancho-1100 {
+  background-color: #dff9fb !important;
+  border-left-color: #0984e3 !important;
+}
+
+.ancho-1880 {
+  background-color: #ffeaa7 !important;
+  border-left-color: #fdcb6e !important;
+}
+
+/* ====== Botón Modal ====== */
+#proy_modal button {
+  margin-top: 10px;
+  padding: 8px 16px;
+  background-color: #007BFF;
+  border: none;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* ====== Encabezados Dinámicos ====== */
+.dashboard__heading {
+  text-align: center;
+  font-size: 28px;
+  margin: 20px 0;
+}
+
+/* ====== Listas Producción ====== */
+ul.lista-areas-produccion {
+  list-style: none;
+  padding: 0;
+  margin: 0 auto;
+  max-width: 600px;
+}
+
+ul.lista-areas-produccion li {
+  margin: 10px 0;
+  padding: 12px 18px;
+  background-color: #ecf0f1;
+  border-left: 5px solid #3498db;
+  border-radius: 8px;
+  transition: background-color 0.3s;
+}
+
+ul.lista-areas-produccion li:hover {
+  background-color: #d6eaf8;
+}
+
+ul.lista-areas-produccion a {
+  color: #2c3e50;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.areas-produccion__numero {
+  font-weight: bold;
+  color: #2d3436;
+}
+
+.areas-produccion-craft { border-left-color: #e67e22; }
+.areas-produccion-blanco { border-left-color: #95a5a6; }
+.areas-produccion-medium { border-left-color: #9b59b6; }
+
 
 
   </style>
@@ -459,85 +501,7 @@ table.dataTable {
 <head>
   <meta charset="UTF-8">
   <title>Inventario Detallado</title>
-  <style>
-    body { font-family: Arial; }
-    h2 { margin-top: 20px; }
-    table { border-collapse: collapse; width: 100%; margin-top: 10px; }
-    th, td { border: 1px solid #aaa; padding: 8px; text-align: center; }
-    th { background-color: #f2f2f2; }
-    tr:nth-child(even) td { background-color: #f9f9f9; }
-    td:first-child { font-weight: bold; }
-
-    #modal1 {
-    display: none;
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-    backdrop-filter: blur(3px);
-  }
-
-  #modal-content {
-    background: #ffffff;
-    padding: 30px;
-    border-radius: 12px;
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
-    width: 550px;
-    max-height: 80vh;
-    overflow-y: auto;
-    position: relative;
-    font-family: 'Segoe UI', sans-serif;
-    animation: modalFadeIn 0.3s ease;
-  }
-
-  #modal1 h2 {
-    margin-top: 0;
-    margin-bottom: 20px;
-    font-size: 22px;
-    font-weight: 700;
-    color: #2c3e50;
-    border-bottom: 1px solid #eee;
-    padding-bottom: 10px;
-  }
-
-  #close-modal {
-    position: absolute;
-    top: 14px;
-    right: 18px;
-    font-size: 20px;
-    color: #999;
-    cursor: pointer;
-    transition: color 0.3s;
-  }
-
-  #close-modal:hover {
-    color: #e74c3c;
-  }
-  #detalles-lista {
-    list-style: none;
-    padding-left: 0;
-  }
-
-  #detalles-lista li {
-    margin-bottom: 12px;
-    padding: 10px 12px;
-    background: #f9f9f9;
-    border-left: 4px solid #3498db;
-    border-radius: 6px;
-    color: #333;
-    font-size: 15px;
-  }
-
-  @keyframes modalFadeIn {
-    from { opacity: 0; transform: scale(0.95); }
-    to { opacity: 1; transform: scale(1); }
-  }
-
-
-  </style>
+ 
 </head>
 <body>
 
@@ -669,75 +633,6 @@ table.dataTable {
   <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
   <script src="https://cdn.datatables.net/responsive/2.5.0/js/dataTables.responsive.min.js"></script>
 
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-      background-color: #f5f5f5;
-      font-family: Arial, sans-serif;
-    }
-
-    h2 {
-      text-align: center;
-      margin-top: 20px;
-    }
-
-    .contenedor-scroll {
-      overflow-x: auto;
-      margin: 20px;
-      background-color: #fff;
-      border-radius: 10px;
-      padding: 10px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-    }
-
-    table {
-      width: 100%;
-      min-width: 1200px;
-      border-collapse: collapse;
-    }
-
-    th, td {
-      border: 1px solid #ccc;
-      padding: 8px;
-      text-align: center;
-      white-space: nowrap;
-    }
-
-    th {
-      background-color: #f4f4f4;
-      font-weight: bold;
-    }
-
-    #proy_modal {
-      display: none;
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background-color: rgba(0,0,0,0.5);
-      justify-content: center;
-      align-items: center;
-      z-index: 999;
-    }
-
-    #proy_modal .contenido {
-      background: white;
-      padding: 20px;
-      border-radius: 10px;
-      max-width: 500px;
-      width: 90%;
-    }
-
-    #proy_modal button {
-      margin-top: 10px;
-      padding: 8px 16px;
-      background-color: #007BFF;
-      border: none;
-      color: white;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-  </style>
 </head>
 
 <body>
