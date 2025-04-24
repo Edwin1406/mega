@@ -8,6 +8,7 @@ use Classes\Pdf;
 use Classes\Paginacion;
 use Model\MateriaPrima;
 use Model\MateriaPrimaV;
+use Model\Proyecciones;
 
 class MateriaPrimaController
 {
@@ -690,7 +691,7 @@ class MateriaPrimaController
                     echo 'Archivo subido correctamente';
 
                     // Llamar al método de Producto para procesar el archivo
-                    if (MateriaPrimaV::procesarArchivoExcelMateria($rutaDestino)) {
+                    if (Proyecciones::procesarArchivoExcelProyecciones($rutaDestino)) {
                         header('Location: /admin/produccion/materia/crear');
                     } else {
                         echo 'Hubo un error al procesar el archivo Excel';
