@@ -644,6 +644,15 @@ table.dataTable {
 </html>
 
 
+
+
+
+
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -661,34 +670,44 @@ table.dataTable {
   <script src="https://cdn.datatables.net/responsive/2.5.0/js/dataTables.responsive.min.js"></script>
 
   <style>
- 
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #f5f5f5;
+      font-family: Arial, sans-serif;
+    }
 
     h2 {
       text-align: center;
       margin-top: 20px;
     }
 
- 
+    .contenedor-scroll {
+      overflow-x: auto;
+      margin: 20px;
+      background-color: #fff;
+      border-radius: 10px;
+      padding: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
 
+    table {
+      width: 100%;
+      min-width: 1200px;
+      border-collapse: collapse;
+    }
 
-    .proyecciones {
-  display: flex;
-  flex-wrap: wrap; /* NUEVO: permite que las columnas se bajen en pantallas chicas */
-}
+    th, td {
+      border: 1px solid #ccc;
+      padding: 8px;
+      text-align: center;
+      white-space: nowrap;
+    }
 
-.columna {
-  flex: 1 1 50%; /* NUEVO: mínimo 50% de ancho, flexible */
-  padding: 10px;
-  min-width: 300px; /* NUEVO: evita que se comprima demasiado */
-  box-sizing: border-box;
-}
-
-table.dataTable {
-  width: 100% !important; /* Asegura que no se desborde */
-  overflow-x: auto;       /* Evita que se rompa el diseño */
-  display: block;         /* Necesario para aplicar scroll */
-}
-
+    th {
+      background-color: #f4f4f4;
+      font-weight: bold;
+    }
 
     #proy_modal {
       display: none;
@@ -724,8 +743,8 @@ table.dataTable {
 <body>
   <h2>Proyecciones Mensuales por Gramaje y Línea</h2>
 
-  <div class="contenedor-proyecciones">
-    <table id="proy_tabla" class="display responsive nowrap">
+  <div class="contenedor-scroll">
+    <table id="proy_tabla" class="display nowrap">
       <thead>
         <tr>
           <th>Gramaje</th>
