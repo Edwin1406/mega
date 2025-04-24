@@ -653,6 +653,11 @@ table.dataTable {
 
 <h2>Proyecciones Mensuales por Gramaje y Línea</h2>
 
+<div class="contenedor">
+
+
+</div>
+
 <table id="proy_tabla" class="display responsive nowrap">
   <thead>
     <tr>
@@ -675,6 +680,7 @@ table.dataTable {
   </thead>
   <tbody></tbody>
 </table>
+</div>
 
 <!-- Modal -->
 <div id="proy_modal">
