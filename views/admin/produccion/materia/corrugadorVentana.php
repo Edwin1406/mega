@@ -52,14 +52,6 @@
 
 </ul>
 
-<!-- <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
-<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script> -->
-
-
-
-
 
 
 
