@@ -91,7 +91,7 @@ td {
 th{
   font-weight: bold;
   text-align: center;
-  color: black;
+  color: white;
 }
 
 tr:hover td {
