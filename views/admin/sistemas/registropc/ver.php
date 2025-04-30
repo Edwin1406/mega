@@ -179,6 +179,9 @@
                             <option value="Instalación">Instalación</option>
                             <option value="Actualización">Actualización</option>
                             <option value="Respaldos">Respaldos</option>
+                            <option value="Toner">Toner</option>
+                            <option value="Unidad de Imagen">Unidad de Imagen</option>
+                            
 
                         </select>
                     </div>
