@@ -352,7 +352,7 @@ button{
                 .then(response => response.json())
                 .then(data => {
                     // Filtrar productos con stock menor a 2
-                    const lowStockProducts = data.filter(producto => parseInt(producto.stock_actual) === 1);
+                    const lowStockProducts = data.filter(producto => parseInt(producto.stock_actual) === 0);
 
                     // Set temporal para los productos que deben notificarse en esta ejecución
                     let currentNotified = new Set();
@@ -527,7 +527,7 @@ button{
 
     // Filtrar productos con stock menor a 2 y con categorías 'toner' o 'unidades de imagen'
     const lowStockProducts = datos.filter(producto => 
-        parseInt(producto.stock_actual) < 2 && 
+        parseInt(producto.stock_actual) < 1 && 
         (producto.categoria === 'Tóner' || producto.categoria === 'Unidades de Imagen')
     );
 
