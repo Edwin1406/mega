@@ -560,7 +560,7 @@ button{
         data: {
             labels: labels,
             datasets: [{
-                label: 'PRODUCTOS CON STOCK MÍNIMO (TONER Y UNIDADES DE IMAGEN)',
+                label: ' (Stock: ' + producto.stock_actual + ')',
                 data: data,
                 backgroundColor: backgroundColors,
                 borderColor: 'rgb(203, 223, 223)',
