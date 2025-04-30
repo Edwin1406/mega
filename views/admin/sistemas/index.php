@@ -560,7 +560,7 @@ button{
         data: {
             labels: labels,
             datasets: [{
-                label: ' (Stock: ' + producto.stock_actual + ')',
+                label: 'Stock mínimo',
                 data: data,
                 backgroundColor: backgroundColors,
                 borderColor: 'rgb(203, 223, 223)',
