@@ -96,7 +96,7 @@ $totalKgAll = number_format($totalKgAll, 0, '.', ',');
             'totalExistenciaPeriodico' => $totalExistenciaPeriodico,
             'allkilos' => $allkilos,
             'totalKgAll' => $totalKgAll,
-            
+
       ]);
    }
 
@@ -651,7 +651,7 @@ $totalKgAll = number_format($totalKgAll, 0, '.', ',');
 
         session_start();
 
-        $totalExistencia = MateriaPrimaV::sumarExistencia('CAJA');
+        $totalExistencia = MateriaPrimaV::sumarExistenciaPorMes('CAJA');
         // debuguear($totalExistencia);
       
       $totalExistenciaMedium = MateriaPrimaV::sumarExistencia('MEDIUM');      
