@@ -93,7 +93,7 @@ $totalKgAll = number_format($totalKgAll, 0, '.', ',');
       $router->render('admin/produccion/materia/crear' , [
          'titulo' => 'MEGASTOCK-MATERIA PRIMA',
          'alertas' => $alertas,
-            'totalExistencia' => $totalExistencia,
+            'totalExistenciaCaja' => $totalExistenciaCaja,
             'totalExistenciaMicro' => $totalExistenciaMicro,
             'totalExistenciaPeriodico' => $totalExistenciaPeriodico,
             'allkilos' => $allkilos,

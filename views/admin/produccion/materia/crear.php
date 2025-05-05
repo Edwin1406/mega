@@ -105,8 +105,8 @@
     <li class="areas-produccion-estatico"  data-aos="flip-up">
         <a >
             <i class="fas fa-industry"></i> EXISTENCIA CORRUGADOR :
-            <?php if ($totalExistencia > 0) : ?>
-                <span id="valor1"  class="areas-produccion__numero"> <?php echo $totalExistencia ?> KG</span>
+            <?php if ($totalExistenciaCaja > 0) : ?>
+                <span id="valor1"  class="areas-produccion__numero"> <?php echo $totalExistenciaCaja ?> KG</span>
             <?php endif; ?>
         </a>
     </li>
