@@ -138,7 +138,8 @@
         <div class="side-bar"></div>
         <div class="content">
             <div class="percentage">TOTAL KILOGRAMOS</div>
-            <div class="amount"><?php echo $allkilos?> KG</div>
+            <div class="amount"><?php echo $totalKgAll ?> KG</div>
+
             <div class="label">KG</div>
         </div>
     </div>
