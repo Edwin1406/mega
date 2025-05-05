@@ -95,7 +95,8 @@ $totalKgAll = number_format($totalKgAll, 0, '.', ',');
             'totalExistencia' => $totalExistencia,
             'totalExistenciaMicro' => $totalExistenciaMicro,
             'totalExistenciaPeriodico' => $totalExistenciaPeriodico,
-            'allkilos' => $allkilos
+            'allkilos' => $allkilos,
+            'totalKgAll' => $totalKgAll,
       ]);
    }
 
