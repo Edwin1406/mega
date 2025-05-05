@@ -84,10 +84,10 @@ class MateriaPrimaController
          }
       }
       $totalKgAll = 0;
-foreach ($allkilos as $item) {
-    $totalKgAll += $item->existencia; // o $item['existencia'] si es array asociativo
-}
-$totalKgAll = number_format($totalKgAll, 0, '.', ',');
+        foreach ($allkilos as $item) {
+            $totalKgAll += $item->existencia; // o $item['existencia'] si es array asociativo
+        }
+        $totalKgAll = number_format($totalKgAll, 0, '.', ',');
 
 
       $router->render('admin/produccion/materia/crear' , [
@@ -652,13 +652,13 @@ $totalKgAll = number_format($totalKgAll, 0, '.', ',');
 
         session_start();
 
-        $totalExistencia = MateriaPrimaV::sumarExistenciaPorMes('CAJA');
-        // debuguear($totalExistencia);
+    //     $totalExistencia = MateriaPrimaV::sumarExistenciaPorMes('CAJA-KRAFT');
+    //     // debuguear($totalExistencia);
       
-      $totalExistenciaMedium = MateriaPrimaV::sumarExistenciaPorMes('MEDIUM');      
+    //   $totalExistenciaMedium = MateriaPrimaV::sumarExistenciaPorMes('MEDIUM');      
     // //   debuguear($totalExistenciaMedium);
       
-        $totalExistencia = $totalExistencia + $totalExistenciaMedium;
+        // $totalExistencia = $totalExistencia + $totalExistenciaMedium;
 
         // debuguear($totalExistencia);
 
@@ -672,6 +672,11 @@ $totalKgAll = number_format($totalKgAll, 0, '.', ',');
  
          // MEDIUM
          $totalExistenciaM = MateriaPrimaV::sumarExistenciaPorMes('MEDIUM');
+
+
+         $totalExistencia = $totalExistenciaK + $totalExistenciaB + $totalExistenciaM;
+
+
          
 
         
