@@ -41,19 +41,14 @@ class MateriaPrimaController
 
     $fechaHoy = date('Y-m-d');
 
-    $totalExistenciaCaja = MateriaPrimaV::sumarExistenciaPorFecha('CAJA', $fechaHoy);
-    $totalExistenciaMedium = MateriaPrimaV::sumarExistenciaPorFecha('MEDIUM', $fechaHoy);
-    $totalExistenciaMicro = MateriaPrimaV::sumarExistenciaPorFecha('MICRO', $fechaHoy);
-    $totalExistenciaPeriodico = MateriaPrimaV::sumarExistenciaPorFecha('PERIODICO', $fechaHoy);
+    $totalExistenciaCaja = MateriaPrimaV::sumarExistenciaPorMes('CAJA');
+    $totalExistenciaMedium = MateriaPrimaV::sumarExistenciaPorMes('MEDIUM');
+    $totalExistenciaMicro = MateriaPrimaV::sumarExistenciaPorMes('MICRO');
+    $totalExistenciaPeriodico = MateriaPrimaV::sumarExistenciaPorMes('PERIODICO');
     
-    // Total general
     $totalExistencia = $totalExistenciaCaja + $totalExistenciaMedium;
     
-    $totalExistencia = number_format($totalExistencia, 0, '.', ',');
-    $totalExistenciaMicro = number_format($totalExistenciaMicro, 0, '.', ',');
-    $totalExistenciaPeriodico = number_format($totalExistenciaPeriodico, 0, '.', ',');
-    
-    $allkilos = MateriaPrimaV::allkilogramosPorFecha('DESC', $fechaHoy);
+    $allkilos = MateriaPrimaV::allkilogramosPorMes('DESC');
     
 
 
