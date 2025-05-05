@@ -46,19 +46,15 @@ class MateriaPrimaController
     $totalExistenciaMedium = MateriaPrimaV::sumarExistenciaPorMes('MEDIUM');
 
     $totalExistenciaCaja = $totalExistenciaCaja + $totalExistenciaCajaBlanco+ $totalExistenciaMedium;
-    
-    debuguear($totalExistenciaCaja);
-    // debuguear($totalExistenciaCaja);
-
 
     // debuguear($totalExistenciaMedium);
     $totalExistenciaMicro = MateriaPrimaV::sumarExistenciaPorMes('MICRO');
     // debuguear($totalExistenciaMicro);
     $totalExistenciaPeriodico = MateriaPrimaV::sumarExistenciaPorMes('PERIODICO');
     
-    $totalExistencia = $totalExistenciaCaja + $totalExistenciaMedium;
+  
 
-    $totalExistencia = number_format($totalExistencia, 0, '.', ',');
+    $totalExistenciaCaja = number_format($totalExistenciaCaja, 0, '.', ',');
     $totalExistenciaMicro = number_format($totalExistenciaMicro, 0, '.', ',');
     $totalExistenciaPeriodico = number_format($totalExistenciaPeriodico, 0, '.', ',');
     
