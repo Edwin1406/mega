@@ -82,6 +82,12 @@ class MateriaPrimaController
             }
          }
       }
+      $totalKgAll = 0;
+foreach ($allkilos as $item) {
+    $totalKgAll += $item->existencia; // o $item['existencia'] si es array asociativo
+}
+$totalKgAll = number_format($totalKgAll, 0, '.', ',');
+
 
       $router->render('admin/produccion/materia/crear' , [
          'titulo' => 'MEGASTOCK-MATERIA PRIMA',
