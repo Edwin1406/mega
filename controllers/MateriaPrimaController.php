@@ -96,7 +96,7 @@ $totalKgAll = number_format($totalKgAll, 0, '.', ',');
             'totalExistenciaPeriodico' => $totalExistenciaPeriodico,
             'allkilos' => $allkilos,
             'totalKgAll' => $totalKgAll,
-
+            
       ]);
    }
 
@@ -651,10 +651,10 @@ $totalKgAll = number_format($totalKgAll, 0, '.', ',');
 
         session_start();
 
-        $totalExistencia = MateriaPrimaV::sumarExistenciaPorMes('CAJA');
+        $totalExistencia = MateriaPrimaV::sumarExistencia('CAJA');
         // debuguear($totalExistencia);
       
-      $totalExistenciaMedium = MateriaPrimaV::sumarExistenciaPorMes('MEDIUM');      
+      $totalExistenciaMedium = MateriaPrimaV::sumarExistencia('MEDIUM');      
     // //   debuguear($totalExistenciaMedium);
       
         $totalExistencia = $totalExistencia + $totalExistenciaMedium;
@@ -662,15 +662,15 @@ $totalKgAll = number_format($totalKgAll, 0, '.', ',');
         // debuguear($totalExistencia);
 
          // KRAFT
-         $totalExistenciaK = MateriaPrimaV::sumarExistenciaPorMes('CAJA-KRAFT');
+         $totalExistenciaK = MateriaPrimaV::sumarExistencia('CAJA-KRAFT');
        
 
          // BLANCO
-         $totalExistenciaB = MateriaPrimaV::sumarExistenciaPorMes('CAJA-BLANCO');
+         $totalExistenciaB = MateriaPrimaV::sumarExistencia('CAJA-BLANCO');
     
  
          // MEDIUM
-         $totalExistenciaM = MateriaPrimaV::sumarExistenciaPorMes('MEDIUM');
+         $totalExistenciaM = MateriaPrimaV::sumarExistencia('MEDIUM');
          
 
         
