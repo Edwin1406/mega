@@ -12,30 +12,52 @@ use Model\Proyecciones;
 
 class MateriaPrimaController
 {
+
    public static function materia(Router $router)
    {
       $alertas = [];
       $materiaprima = new MateriaPrima;
 
-      $totalExistencia = MateriaPrimaV::sumarExistencia('CAJA');
-        // debuguear($totalExistencia);
+    //   $totalExistencia = MateriaPrimaV::sumarExistencia('CAJA');
+    //     // debuguear($totalExistencia);
       
-      $totalExistenciaMedium = MateriaPrimaV::sumarExistencia('MEDIUM');      
-    //   debuguear($totalExistenciaMedium);
+    //   $totalExistenciaMedium = MateriaPrimaV::sumarExistencia('MEDIUM');      
+    // //   debuguear($totalExistenciaMedium);
       
-        $totalExistencia = $totalExistencia + $totalExistenciaMedium;
+    //     $totalExistencia = $totalExistencia + $totalExistenciaMedium;
         
         
 
-      $totalExistenciaMicro = MateriaPrimaV::sumarExistencia('MICRO');
-      $totalExistenciaPeriodico = MateriaPrimaV::sumarExistencia('PERIODICO');
+    //   $totalExistenciaMicro = MateriaPrimaV::sumarExistencia('MICRO');
+    //   $totalExistenciaPeriodico = MateriaPrimaV::sumarExistencia('PERIODICO');
    
-      $totalExistencia = number_format($totalExistencia, 0, '.', ',');
-      $totalExistenciaMicro = number_format($totalExistenciaMicro, 0, '.', ',');
-      $totalExistenciaPeriodico = number_format($totalExistenciaPeriodico, 0, '.', ',');
+    //   $totalExistencia = number_format($totalExistencia, 0, '.', ',');
+    //   $totalExistenciaMicro = number_format($totalExistenciaMicro, 0, '.', ',');
+    //   $totalExistenciaPeriodico = number_format($totalExistenciaPeriodico, 0, '.', ',');
 
 
-      $allkilos = MateriaPrimaV::allkilogramos('DESC');
+    //   $allkilos = MateriaPrimaV::allkilogramos('DESC');
+
+
+    $fechaHoy = date('Y-m-d');
+
+    $totalExistenciaCaja = MateriaPrimaV::sumarExistenciaPorFecha('CAJA', $fechaHoy);
+    $totalExistenciaMedium = MateriaPrimaV::sumarExistenciaPorFecha('MEDIUM', $fechaHoy);
+    $totalExistenciaMicro = MateriaPrimaV::sumarExistenciaPorFecha('MICRO', $fechaHoy);
+    $totalExistenciaPeriodico = MateriaPrimaV::sumarExistenciaPorFecha('PERIODICO', $fechaHoy);
+    
+    // Total general
+    $totalExistencia = $totalExistenciaCaja + $totalExistenciaMedium;
+    
+    $totalExistencia = number_format($totalExistencia, 0, '.', ',');
+    $totalExistenciaMicro = number_format($totalExistenciaMicro, 0, '.', ',');
+    $totalExistenciaPeriodico = number_format($totalExistenciaPeriodico, 0, '.', ',');
+    
+    $allkilos = MateriaPrimaV::allkilogramosPorFecha('DESC', $fechaHoy);
+    
+
+
+
         // debuguear($allkilos);
 
       if($_SERVER['REQUEST_METHOD'] === 'POST') {
