@@ -45,24 +45,27 @@ class MateriaPrimaV extends ActiveRecord
     }
 
 
-    public static function sumarExistenciaPorFecha($tipo, $fecha)
+    public static function sumarExistenciaPorMes($tipo)
     {
-        $query = "SELECT SUM(existencia) as total FROM " . static::$tabla . " 
+        $query = "SELECT SUM(existencia) AS total 
+                  FROM " . static::$tabla . " 
                   WHERE linea = '" . self::$db->real_escape_string($tipo) . "'
-                  AND fecha_corte = '$fecha'";
+                  AND MONTH(fecha_corte) = MONTH(CURDATE())
+                  AND YEAR(fecha_corte) = YEAR(CURDATE())";
         $resultado = self::$db->query($query);
         $fila = $resultado->fetch_assoc();
         return (float) $fila['total'] ?? 0;
     }
     
-    public static function allkilogramosPorFecha($orden = 'DESC', $fecha)
-    {
-        $query = "SELECT * FROM " . static::$tabla . " 
-                  WHERE fecha_corte = '$fecha'
-                  ORDER BY existencia $orden";
-        return self::consultarSQL($query);
-    }
-    
+    public static function allkilogramosPorMes($orden = 'DESC')
+{
+    $query = "SELECT * FROM " . static::$tabla . "
+              WHERE MONTH(fecha_corte) = MONTH(CURDATE())
+              AND YEAR(fecha_corte) = YEAR(CURDATE())
+              ORDER BY existencia $orden";
+    return self::consultarSQL($query);
+}
+
 
 
 }
