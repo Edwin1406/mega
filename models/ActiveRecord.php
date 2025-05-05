@@ -920,18 +920,20 @@ public static function procesarArchivoExcel($filePath)
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+// Procesar un archivo Excel para Materia Prima
+
 
 // public static function procesarArchivoExcelMateria($filePath)
 // {
 //     $spreadsheet = IOFactory::load($filePath);
 //     $sheet = $spreadsheet->getActiveSheet();
 
-//     // Crear la tabla si no existe
+//     // Crear la tabla SIN restricciones de UNIQUE en 'codigo'
 //     $queryCrearTabla = "
 //         CREATE TABLE IF NOT EXISTS " . static::$tabla . " (
 //             id INT AUTO_INCREMENT PRIMARY KEY,
 //             almacen VARCHAR(255),
-//             codigo VARCHAR(255) UNIQUE,
+//             codigo VARCHAR(255),
 //             descripcion VARCHAR(500),
 //             existencia INT,
 //             costo DECIMAL(10, 2),
@@ -941,101 +943,75 @@ public static function procesarArchivoExcel($filePath)
 //             gramaje VARCHAR(255),
 //             proveedor VARCHAR(255),
 //             sustrato VARCHAR(255),
-//             ancho VARCHAR(255)
+//             ancho VARCHAR(255),
+//             fecha_corte DATE DEFAULT CURRENT_DATE
 //         )
 //     ";
-
-//     // Ejecutar la creación de la tabla
 //     self::$db->query($queryCrearTabla);
 
-//     // Procesar cada fila del Excel
+//     // Procesar cada fila del Excel (desde la fila 2)
 //     foreach ($sheet->getRowIterator(2) as $row) {
 //         $data = [];
 //         $cellIterator = $row->getCellIterator();
 //         $cellIterator->setIterateOnlyExistingCells(false);
 
 //         foreach ($cellIterator as $cell) {
-//             $data[] = $cell->getValue(); // Obtener el valor de la celda
+//             $data[] = trim((string)$cell->getFormattedValue());
 //         }
 
-//         // Mapear los datos a las columnas
+//         // Validar al menos 12 columnas (sin fecha_corte)
+//         if (count($data) < 12) {
+//             continue;
+//         }
+
+//         // Mapear los datos (sin fecha_corte)
 //         list(
-//             $almacen, $codigo, $descripcion, $nueva_existencia, $costo,
+//             $almacen, $codigo, $descripcion, $existencia, $costo,
 //             $promedio, $talla, $linea, $gramaje, $proveedor,
 //             $sustrato, $ancho
 //         ) = array_map(function ($value) {
-//             return trim($value ?? '');  // Limpia los valores y reemplaza null con cadena vacía
+//             return trim($value ?? '');
 //         }, $data);
 
-//         // Normalizar el separador decimal
-//         $costo = str_replace(',', '.', $costo);
-//         $promedio = str_replace(',', '.', $promedio);
+//         // Convertir tipos
+//         $costo = floatval(str_replace(',', '.', $costo));
+//         $promedio = floatval(str_replace(',', '.', $promedio));
+//         $existencia = intval($existencia);
 
-//         // Verificar si el registro ya existe
-//         $queryVerificar = "
-//             SELECT existencia 
-//             FROM " . static::$tabla . " 
-//             WHERE codigo = '$codigo'
+//         // Insertar SIN fecha_corte (MySQL la pone automáticamente)
+//         $queryInsertar = "
+//             INSERT INTO " . static::$tabla . " (
+//                 almacen, codigo, descripcion, existencia, costo,
+//                 promedio, talla, linea, gramaje, proveedor,
+//                 sustrato, ancho
+//             ) VALUES (
+//                 '" . self::$db->real_escape_string($almacen) . "',
+//                 '" . self::$db->real_escape_string($codigo) . "',
+//                 '" . self::$db->real_escape_string($descripcion) . "',
+//                 $existencia,
+//                 $costo,
+//                 $promedio,
+//                 '" . self::$db->real_escape_string($talla) . "',
+//                 '" . self::$db->real_escape_string($linea) . "',
+//                 '" . self::$db->real_escape_string($gramaje) . "',
+//                 '" . self::$db->real_escape_string($proveedor) . "',
+//                 '" . self::$db->real_escape_string($sustrato) . "',
+//                 '" . self::$db->real_escape_string($ancho) . "'
+//             )
 //         ";
-//         $resultado = self::$db->query($queryVerificar)->fetch_assoc();
-
-//         if ($resultado) {
-//             // Si existe el registro, calcular la diferencia
-//             $existencia_actual = (int)$resultado['existencia'];
-//             $nueva_existencia = (int)$nueva_existencia;
-
-//             if ($nueva_existencia != $existencia_actual) {
-//                 // Calcular la nueva existencia como la diferencia
-//                 $diferencia = $nueva_existencia - $existencia_actual;
-
-//                 // Actualizar la existencia en la base de datos
-//                 $queryActualizar = "
-//                     UPDATE " . static::$tabla . "
-//                     SET 
-//                         almacen = '$almacen',
-//                         descripcion = '$descripcion',
-//                         existencia = $diferencia, -- Actualizar con la diferencia
-//                         costo = '$costo',
-//                         promedio = '$promedio',
-//                         talla = '$talla',
-//                         linea = '$linea',
-//                         gramaje = '$gramaje',
-//                         proveedor = '$proveedor',
-//                         sustrato = '$sustrato',
-//                         ancho = '$ancho'
-//                     WHERE codigo = '$codigo'
-//                 ";
-//                 self::$db->query($queryActualizar);
-//             } else {
-//                 // No hacer nada si la existencia es igual
-//                 error_log("La existencia para el código $codigo no cambió.");
-//             }
-//         } else {
-//             // Insertar un nuevo registro si no existe
-//             $queryInsertar = "
-//                 INSERT INTO " . static::$tabla . " (
-//                     almacen, codigo, descripcion, existencia, costo,
-//                     promedio, talla, linea, gramaje, proveedor,
-//                     sustrato, ancho
-//                 ) VALUES (
-//                     '$almacen', '$codigo', '$descripcion', '$nueva_existencia', '$costo',
-//                     '$promedio', '$talla', '$linea', '$gramaje', '$proveedor',
-//                     '$sustrato', '$ancho'
-//                 )
-//             ";
-//             self::$db->query($queryInsertar);
-//         }
+//         self::$db->query($queryInsertar);
 //     }
 
 //     return true;
 // }
+
 
 public static function procesarArchivoExcelMateria($filePath)
 {
     $spreadsheet = IOFactory::load($filePath);
     $sheet = $spreadsheet->getActiveSheet();
 
-    // Crear la tabla SIN restricciones de UNIQUE en 'codigo'
+    // Crear la tabla si no existe (sin restricción UNIQUE)
     $queryCrearTabla = "
         CREATE TABLE IF NOT EXISTS " . static::$tabla . " (
             id INT AUTO_INCREMENT PRIMARY KEY,
@@ -1056,7 +1032,21 @@ public static function procesarArchivoExcelMateria($filePath)
     ";
     self::$db->query($queryCrearTabla);
 
-    // Procesar cada fila del Excel (desde la fila 2)
+    // Verificar si ya existen registros con la fecha actual
+    $queryFechaActual = "
+        SELECT COUNT(*) AS cantidad 
+        FROM " . static::$tabla . " 
+        WHERE fecha_corte = CURRENT_DATE
+    ";
+    $resultado = self::$db->query($queryFechaActual);
+    $fila = $resultado->fetch_assoc();
+
+    if ($fila['cantidad'] > 0) {
+        // Ya hay registros con la fecha de hoy: evitar duplicar
+        return false;
+    }
+
+    // Procesar cada fila desde la fila 2
     foreach ($sheet->getRowIterator(2) as $row) {
         $data = [];
         $cellIterator = $row->getCellIterator();
@@ -1066,12 +1056,10 @@ public static function procesarArchivoExcelMateria($filePath)
             $data[] = trim((string)$cell->getFormattedValue());
         }
 
-        // Validar al menos 12 columnas (sin fecha_corte)
         if (count($data) < 12) {
-            continue;
+            continue; // Ignorar filas incompletas
         }
 
-        // Mapear los datos (sin fecha_corte)
         list(
             $almacen, $codigo, $descripcion, $existencia, $costo,
             $promedio, $talla, $linea, $gramaje, $proveedor,
@@ -1080,12 +1068,10 @@ public static function procesarArchivoExcelMateria($filePath)
             return trim($value ?? '');
         }, $data);
 
-        // Convertir tipos
         $costo = floatval(str_replace(',', '.', $costo));
         $promedio = floatval(str_replace(',', '.', $promedio));
         $existencia = intval($existencia);
 
-        // Insertar SIN fecha_corte (MySQL la pone automáticamente)
         $queryInsertar = "
             INSERT INTO " . static::$tabla . " (
                 almacen, codigo, descripcion, existencia, costo,
@@ -1111,6 +1097,7 @@ public static function procesarArchivoExcelMateria($filePath)
 
     return true;
 }
+
 
 
 
