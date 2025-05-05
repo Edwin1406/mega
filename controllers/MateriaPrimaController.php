@@ -659,7 +659,7 @@ $totalKgAll = number_format($totalKgAll, 0, '.', ',');
       
         $totalExistencia = $totalExistencia + $totalExistenciaMedium;
 
-        // debuguear($totalExistencia);
+        debuguear($totalExistencia);
 
          // KRAFT
          $totalExistenciaK = MateriaPrimaV::sumarExistenciaPorMes('CAJA-KRAFT');
