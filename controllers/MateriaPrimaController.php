@@ -47,6 +47,10 @@ class MateriaPrimaController
     $totalExistenciaPeriodico = MateriaPrimaV::sumarExistenciaPorMes('PERIODICO');
     
     $totalExistencia = $totalExistenciaCaja + $totalExistenciaMedium;
+
+    $totalExistencia = number_format($totalExistencia, 0, '.', ',');
+    $totalExistenciaMicro = number_format($totalExistenciaMicro, 0, '.', ',');
+    $totalExistenciaPeriodico = number_format($totalExistenciaPeriodico, 0, '.', ',');
     
     $allkilos = MateriaPrimaV::allkilogramosPorMes('DESC');
     
@@ -92,6 +96,7 @@ $totalKgAll = number_format($totalKgAll, 0, '.', ',');
             'totalExistenciaPeriodico' => $totalExistenciaPeriodico,
             'allkilos' => $allkilos,
             'totalKgAll' => $totalKgAll,
+            
       ]);
    }
 
