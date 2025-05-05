@@ -251,7 +251,7 @@
 <canvas id="existenciaChart"></canvas>
 
     <div id="cantidadInfo">
-        <div>TOTAL CORRU&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: <?php echo $totalExistencia ?> KG</div>
+        <div>TOTAL CORRU&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: <?php echo $totalExistenciaCaja ?> KG</div>
         <div>TOTAL MICRO&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: <?php echo $totalExistenciaMicro ?> KG</div>
         <div>TOTAL PERIÓDICO: <?php echo $totalExistenciaPeriodico ?> KG</div>
     </div>
