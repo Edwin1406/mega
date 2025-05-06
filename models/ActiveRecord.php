@@ -1279,6 +1279,87 @@ public static function procesarArchivoExcelProyecciones($filePath)
 }
 
 
+
+
+// excel de pedidos 
+
+
+public static function procesarArchivoExcelpedidos($filePath)
+{
+    $spreadsheet = IOFactory::load($filePath);
+    $sheet = $spreadsheet->getActiveSheet();
+
+    // Crear la tabla con los nuevos campos que se ven en la imagen
+    $queryCrearTabla = "
+        CREATE TABLE IF NOT EXISTS " . static::$tabla . " (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            fecha_consumo DATE,
+            nombre_pedido VARCHAR(255),
+            cantidad INT,
+            largo INT,
+            ancho INT,
+            alto INT,
+            flauta VARCHAR(255),
+            test INT
+        )
+    ";
+    self::$db->query($queryCrearTabla);
+
+    // Procesar cada fila del Excel (desde la fila 2)
+    foreach ($sheet->getRowIterator(2) as $row) {
+        $data = [];
+        $cellIterator = $row->getCellIterator();
+        $cellIterator->setIterateOnlyExistingCells(false);
+
+        foreach ($cellIterator as $cell) {
+            $data[] = trim((string)$cell->getFormattedValue());
+        }
+
+        // Validar al menos 9 columnas
+        if (count($data) < 9) {
+            continue;
+        }
+
+        // Mapear columnas
+        list($fecha_consumo, $nombre_pedido, $cantidad, $largo, $ancho, $alto, $flauta, $test) = array_map(function ($v) {
+            return trim($v ?? '');
+        }, $data);
+
+        // Convertir valores numéricos
+        $cantidad = intval($cantidad);
+        $largo = intval($largo);
+        $ancho = intval($ancho);
+        $alto = intval($alto);
+        $test = intval($test);
+
+        // Insertar en la base de datos
+        $queryInsertar = "
+            INSERT INTO " . static::$tabla . " (
+                fecha_consumo, nombre_pedido, cantidad, largo, ancho, alto, flauta, test
+            ) VALUES (
+                '" . self::$db->real_escape_string($fecha_consumo) . "',
+                '" . self::$db->real_escape_string($nombre_pedido) . "',
+                $cantidad,
+                $largo,
+                $ancho,
+                $alto,
+                '" . self::$db->real_escape_string($flauta) . "',
+                $test
+            )
+        ";
+        self::$db->query($queryInsertar);
+    }
+
+    return true;
+}
+
+
+
+
+
+
+
+
     
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
 

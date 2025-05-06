@@ -116,7 +116,7 @@
     const refile = 30;
     
     async function filtradoPendientes() {
-        const url = 'https://megawebsistem.com/admin/api/allpedidos2';
+        const url = 'https://megawebsistem.com/admin/api/productos';
         const response = await fetch(url);
         const pedidos = await response.json();
         return pedidos.filter(pedido => pedido.estado_pedido === "pendiente");
@@ -369,11 +369,6 @@ function mostrarResultadosEnTabla(resultados) {
         tbody.appendChild(tr);
     });
 }
-
-
-
-
-
 
 
 
