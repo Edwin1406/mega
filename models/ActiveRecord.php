@@ -1284,6 +1284,7 @@ public static function procesarArchivoExcelProyecciones($filePath)
 // excel de pedidos 
 public static function procesarArchivoExcelpedidos($filePath)
 {
+    // Cargar el archivo Excel
     $spreadsheet = IOFactory::load($filePath);
     $sheet = $spreadsheet->getActiveSheet();
 
@@ -1303,6 +1304,7 @@ public static function procesarArchivoExcelpedidos($filePath)
             fecha_entrega DATE
         )
     ";
+    // Ejecutar la consulta para crear la tabla
     if (!self::$db->query($queryCrearTabla)) {
         echo "Error al crear la tabla: " . self::$db->error;
         return false;
@@ -1314,28 +1316,29 @@ public static function procesarArchivoExcelpedidos($filePath)
         $cellIterator = $row->getCellIterator();
         $cellIterator->setIterateOnlyExistingCells(false);
 
+        // Recoger todos los valores de las celdas en la fila
         foreach ($cellIterator as $cell) {
             $data[] = trim((string)$cell->getFormattedValue());
         }
 
-        // Validar al menos 11 columnas
+        // Validar que haya al menos 11 columnas
         if (count($data) < 11) {
-            continue;
+            continue;  // Ignorar filas con menos de 11 columnas
         }
 
-        // Mapear columnas con el nuevo orden
+        // Mapear las columnas con el orden adecuado
         list($numero_pedido, $nombre_pedido, $cantidad, $largo, $ancho, $alto, $flauta, $test, $fecha_ingreso, $fecha_entrega) = array_map(function ($v) {
             return trim($v ?? '');
         }, $data);
 
-        // Convertir valores numéricos
+        // Convertir los valores a los tipos correspondientes
         $cantidad = intval($cantidad);
         $largo = intval($largo);
         $ancho = intval($ancho);
         $alto = intval($alto);
         $test = intval($test);
 
-        // Insertar en la base de datos
+        // Insertar los datos en la base de datos
         $queryInsertar = "
             INSERT INTO " . static::$tabla . " (
                 numero_pedido, nombre_pedido, cantidad, largo, ancho, alto, flauta, test, fecha_ingreso, fecha_entrega
@@ -1353,6 +1356,7 @@ public static function procesarArchivoExcelpedidos($filePath)
             )
         ";
 
+        // Ejecutar la consulta de inserción y manejar errores
         if (!self::$db->query($queryInsertar)) {
             echo "Error en la consulta de inserción: " . self::$db->error . "\n";
         }
@@ -1360,7 +1364,6 @@ public static function procesarArchivoExcelpedidos($filePath)
 
     return true;
 }
-
 
 
 
