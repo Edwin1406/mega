@@ -1322,7 +1322,7 @@ public static function procesarArchivoExcelpedidos($filePath)
         }
 
         // Validar que haya al menos 11 columnas
-        if (count($data) < 11) {
+        if (count($data) < 10) {
             continue;  // Ignorar filas con menos de 11 columnas
         }
 
