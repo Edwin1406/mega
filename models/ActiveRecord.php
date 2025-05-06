@@ -1282,7 +1282,6 @@ public static function procesarArchivoExcelProyecciones($filePath)
 
 
 // excel de pedidos 
-
 public static function procesarArchivoExcelpedidos($filePath)
 {
     $spreadsheet = IOFactory::load($filePath);
@@ -1304,7 +1303,10 @@ public static function procesarArchivoExcelpedidos($filePath)
             fecha_entrega DATE
         )
     ";
-    self::$db->query($queryCrearTabla);
+    if (!self::$db->query($queryCrearTabla)) {
+        echo "Error al crear la tabla: " . self::$db->error;
+        return false;
+    }
 
     // Procesar cada fila del Excel (desde la fila 2)
     foreach ($sheet->getRowIterator(2) as $row) {
@@ -1350,16 +1352,14 @@ public static function procesarArchivoExcelpedidos($filePath)
                 '" . self::$db->real_escape_string($fecha_entrega) . "'
             )
         ";
-        self::$db->query($queryInsertar);
+
+        if (!self::$db->query($queryInsertar)) {
+            echo "Error en la consulta de inserción: " . self::$db->error . "\n";
+        }
     }
 
     return true;
 }
-
-
-
-
-
 
 
 
