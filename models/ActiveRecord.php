@@ -1283,7 +1283,6 @@ public static function procesarArchivoExcelProyecciones($filePath)
 
 // excel de pedidos 
 
-
 public static function procesarArchivoExcelpedidos($filePath)
 {
     $spreadsheet = IOFactory::load($filePath);
@@ -1293,14 +1292,16 @@ public static function procesarArchivoExcelpedidos($filePath)
     $queryCrearTabla = "
         CREATE TABLE IF NOT EXISTS " . static::$tabla . " (
             id INT AUTO_INCREMENT PRIMARY KEY,
-            fecha_consumo DATE,
+            numero_pedido VARCHAR(255),
             nombre_pedido VARCHAR(255),
             cantidad INT,
             largo INT,
             ancho INT,
             alto INT,
             flauta VARCHAR(255),
-            test INT
+            test INT,
+            fecha_ingreso DATE,
+            fecha_entrega DATE
         )
     ";
     self::$db->query($queryCrearTabla);
@@ -1315,13 +1316,13 @@ public static function procesarArchivoExcelpedidos($filePath)
             $data[] = trim((string)$cell->getFormattedValue());
         }
 
-        // Validar al menos 9 columnas
-        if (count($data) < 9) {
+        // Validar al menos 11 columnas
+        if (count($data) < 11) {
             continue;
         }
 
-        // Mapear columnas
-        list($fecha_consumo, $nombre_pedido, $cantidad, $largo, $ancho, $alto, $flauta, $test) = array_map(function ($v) {
+        // Mapear columnas con el nuevo orden
+        list($numero_pedido, $nombre_pedido, $cantidad, $largo, $ancho, $alto, $flauta, $test, $fecha_ingreso, $fecha_entrega) = array_map(function ($v) {
             return trim($v ?? '');
         }, $data);
 
@@ -1335,16 +1336,18 @@ public static function procesarArchivoExcelpedidos($filePath)
         // Insertar en la base de datos
         $queryInsertar = "
             INSERT INTO " . static::$tabla . " (
-                fecha_consumo, nombre_pedido, cantidad, largo, ancho, alto, flauta, test
+                numero_pedido, nombre_pedido, cantidad, largo, ancho, alto, flauta, test, fecha_ingreso, fecha_entrega
             ) VALUES (
-                '" . self::$db->real_escape_string($fecha_consumo) . "',
+                '" . self::$db->real_escape_string($numero_pedido) . "',
                 '" . self::$db->real_escape_string($nombre_pedido) . "',
                 $cantidad,
                 $largo,
                 $ancho,
                 $alto,
                 '" . self::$db->real_escape_string($flauta) . "',
-                $test
+                $test,
+                '" . self::$db->real_escape_string($fecha_ingreso) . "',
+                '" . self::$db->real_escape_string($fecha_entrega) . "'
             )
         ";
         self::$db->query($queryInsertar);
@@ -1352,6 +1355,7 @@ public static function procesarArchivoExcelpedidos($filePath)
 
     return true;
 }
+
 
 
 
