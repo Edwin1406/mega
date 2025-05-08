@@ -64,7 +64,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
-    const bobinas= [1600];
+    const bobinas= [1700];
     const trim = 30;
 
 
