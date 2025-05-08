@@ -65,7 +65,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     const bobinas= [1600,1700,1880];
-    const trim = 30;
+    const trim = 0;
 
 
 // restar el trim a la bobina sin modificar el array original
@@ -244,7 +244,7 @@ let todosLosCombosFinales = [];
 
 function eliminarNan(mejoresCombos) {
     let idsVistos = new Set();
-    const trim = 30; // Ajuste de 30 unidades
+    const trim = 0; // Ajuste de 30 unidades
 
     // Filtrar combos con 'N/A' en el sobrante
     let mejoresCombosSinNan = mejoresCombos.filter(combo => combo.sobrante !== 'N/A');
@@ -573,7 +573,7 @@ const pedidosCalculadosAgrupadosNuevos = pedidosNuevos.map(pedido => ({
 
     function eliminarNanNuevos(mejoresCombosNuevos) {
         let idsVistos = new Set();
-        const trim = 30; // Ajuste de 30 unidades
+        const trim = 0; // Ajuste de 30 unidades
 
         // Filtrar combos con 'N/A' en el sobrante
         let mejoresCombosSinNan = mejoresCombosNuevos.filter(combo => combo.sobrante !== 'N/A');
