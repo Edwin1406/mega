@@ -464,6 +464,8 @@ table.dataTable {
       const fechaCorte = `${fechaActual.getFullYear()}-${String(fechaActual.getMonth() + 1).padStart(2, '0')}-${String(fechaActual.getDate()).padStart(2, '0')}`;
       data = data.filter(item => item.fecha_corte === fechaCorte);
 
+      console.log('informacion',data);
+
 
 
 
