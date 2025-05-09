@@ -460,9 +460,9 @@ table.dataTable {
       const data = await response.json();
 
       // quiero  que solo la dara sea de la fecha actual de corte 
-      const fechaActual = new Date();
-      const fechaCorte = `${fechaActual.getFullYear()}-${String(fechaActual.getMonth() + 1).padStart(2, '0')}-${String(fechaActual.getDate()).padStart(2, '0')}`;
-      data = data.filter(item => item.fecha_corte === fechaCorte);
+      // const fechaActual = new Date();
+      // const fechaCorte = `${fechaActual.getFullYear()}-${String(fechaActual.getMonth() + 1).padStart(2, '0')}-${String(fechaActual.getDate()).padStart(2, '0')}`;
+      // data = data.filter(item => item.fecha_corte === fechaCorte);
 
       console.log('informacion',data);
 
