@@ -1301,7 +1301,9 @@ public static function procesarArchivoExcelComercial($filePath)
             AND arribo_planta = '$arribo_planta'
             AND transito = '$transito'
             AND fecha_en_planta = '$fecha_en_planta'
-            AND estado = '$estado'
+            AND estado = '$estado',
+            AND fecha_corte = CURRENT_DATE
+
         ";
 
         $resultado = self::$db->query($queryExistente);
