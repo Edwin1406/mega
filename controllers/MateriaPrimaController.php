@@ -679,7 +679,7 @@ class MateriaPrimaController
          $totalExistencia = $totalExistenciaK + $totalExistenciaB + $totalExistenciaM;
 
 
-         debuguear($totalExistenciaK);
+        //  debuguear($totalExistenciaK);
 
 
          
