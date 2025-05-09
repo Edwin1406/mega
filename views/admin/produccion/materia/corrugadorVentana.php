@@ -504,7 +504,7 @@ table.dataTable {
         totalesMensuales[mes] += cantidad;
 
         if (!detallePorClave[keyMes]) detallePorClave[keyMes] = [];
-        detallePorClave[keyMes].push({ ancho: item.ancho, cantidad, fecha: fechaStr });
+        detallePorClave[keyMes].push({ ancho: item.ancho,lineaOriginal, cantidad, fecha: fechaStr });
       });
 
       // Resolver los "PENDIENTE" en las líneas según lo que hay en cada gramaje
