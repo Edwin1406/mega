@@ -467,7 +467,9 @@ table.dataTable {
 
       data.forEach(item => {
         let lineaOriginal = item.linea ? item.linea.toUpperCase().trim() : '';
-        if (lineaOriginal === 'MICRO - BLANCO' || lineaOriginal === 'PERIODICO') return;
+
+        // Solo aceptar líneas que empiecen por "CAJAS" o "MEDIUM"
+        if (!/^CAJAS|^MEDIUM/.test(lineaOriginal)) return;
 
         const fechaStr = item.arribo_planta;
         if (!fechaStr || fechaStr === "0000-00-00") return;
