@@ -714,6 +714,23 @@ table.dataTable {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -760,7 +777,7 @@ table.dataTable {
       background-color: #d4edda;
       font-weight: bold;
     }
-    #modal {
+    #modal-detalles {
       display: none;
       position: fixed;
       z-index: 999;
@@ -770,7 +787,7 @@ table.dataTable {
       justify-content: center;
       align-items: center;
     }
-    #modal-content {
+    #modal-detalles-content {
       background: white;
       padding: 20px;
       border-radius: 10px;
@@ -789,7 +806,7 @@ table.dataTable {
 <div class="contenedor">
   <div class="columna">
     <h2>Proyecciones por Gramaje</h2>
-    <table id="tabla-gramajes" class="display nowrap">
+    <table id="tabla-proyecciones" class="display nowrap">
       <thead>
         <tr>
           <th>Gramaje</th>
@@ -814,20 +831,20 @@ table.dataTable {
   </div>
 </div>
 
-<div id="modal">
-  <div id="modal-content">
+<!-- MODAL CAMBIADO -->
+<div id="modal-detalles">
+  <div id="modal-detalles-content">
     <span id="close-modal">&times;</span>
-    <h3>Detalles</h3>
+    <h3>Detalles por Mes</h3>
     <ul id="detalles"></ul>
   </div>
 </div>
 
-<!-- Scripts necesarios -->
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
 
 <script>
-  async function cargarDats() {
+  async function cargarDatos() {
     try {
       const response = await fetch('https://megawebsistem.com/admin/api/apiproyecciones');
       const data = await response.json();
@@ -868,7 +885,7 @@ table.dataTable {
         });
       });
 
-      const tabla = document.querySelector("#tabla-gramajes tbody");
+      const tabla = document.querySelector("#tabla-proyecciones tbody");
       tabla.innerHTML = "";
       let totalGeneral = 0;
 
@@ -895,7 +912,7 @@ table.dataTable {
       totalRow.innerHTML = htmlTotales;
       tabla.appendChild(totalRow);
 
-      $('#tabla-gramajes').DataTable({
+      $('#tabla-proyecciones').DataTable({
         responsive: true,
         paging: false,
         searching: true,
@@ -924,16 +941,16 @@ table.dataTable {
             lista.appendChild(li);
           });
         }
-        document.getElementById("modal").style.display = "flex";
+        document.getElementById("modal-detalles").style.display = "flex";
       };
 
       document.getElementById("close-modal").onclick = () => {
-        document.getElementById("modal").style.display = "none";
+        document.getElementById("modal-detalles").style.display = "none";
       };
 
       window.onclick = (e) => {
-        if (e.target === document.getElementById("modal")) {
-          document.getElementById("modal").style.display = "none";
+        if (e.target === document.getElementById("modal-detalles")) {
+          document.getElementById("modal-detalles").style.display = "none";
         }
       };
 
@@ -942,7 +959,7 @@ table.dataTable {
     }
   }
 
-  cargarDats();
+  cargarDatos();
 </script>
 
 </body>
