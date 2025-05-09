@@ -599,7 +599,7 @@ table.dataTable {
         } else {
           detalles.forEach((item, i) => {
             const li = document.createElement('li');
-            li.textContent = `#${i + 1} → Ancho: ${item.ancho} | Cantidad: ${item.cantidad.toFixed(3)} | Fecha: ${item.fecha}`;
+            li.textContent = `#${i + 1} → Ancho: ${item.ancho}|Linea: ${item.linea}|  | Cantidad: ${item.cantidad.toFixed(3)} | Fecha: ${item.fecha}`;
             const anchoNumerico = parseInt(item.ancho);
             if (anchoNumerico === 1100) li.classList.add('ancho-1100');
             else if (anchoNumerico === 1880) li.classList.add('ancho-1880');
