@@ -16,7 +16,7 @@
 </ul>
 
 
-
+<H1>MATERIA PRIMA</H1>
 
 <ul class="lista-areas-produccion">
     <li class="areas-produccion-craft" data-aos="flip-left">
@@ -53,6 +53,7 @@
 </ul>
 
 
+<H1> IMPORTACIONES</H1>
 
 <ul class="lista-areas-produccion">
     <li class="areas-produccion-craft" data-aos="flip-left">
