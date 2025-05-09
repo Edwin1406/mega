@@ -26,7 +26,8 @@ class Comercial extends ActiveRecord {
         'arribo_planta',
         'transito',
         'fecha_en_planta',
-        'estado'
+        'estado',
+        'fecha_corte',
     ];
 
     public $id;
@@ -51,6 +52,7 @@ class Comercial extends ActiveRecord {
     public $transito;
     public $fecha_en_planta;
     public $estado;
+    public $fecha_corte;
 
 
 
@@ -78,6 +80,7 @@ class Comercial extends ActiveRecord {
         $this->transito = $args['transito'] ?? '';
         $this->fecha_en_planta = $args['fecha_en_planta'] ?? '';
         $this->estado = $args['estado'] ?? '';
+        $this->fecha_corte = $args['fecha_corte'] ?? '';
     }
 
 
