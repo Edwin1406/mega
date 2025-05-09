@@ -714,9 +714,6 @@ table.dataTable {
 
 
 
-
-
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -726,102 +723,72 @@ table.dataTable {
   <style>
     body {
       font-family: Arial, sans-serif;
-      margin: 0;
       padding: 20px;
-      background-color: #f5f5f5;
+      background-color: #f0f0f0;
     }
-
     .contenedor {
       display: flex;
       flex-wrap: wrap;
       gap: 20px;
     }
-
     .columna {
       flex: 1;
       min-width: 300px;
     }
-
     table {
       width: 100%;
       border-collapse: collapse;
-      margin-bottom: 20px;
-      background-color: #fff;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      background-color: white;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
       border-radius: 8px;
       overflow: hidden;
     }
-
     th, td {
+      border: 1px solid #ddd;
       padding: 8px;
       text-align: center;
-      border: 1px solid #ddd;
     }
-
     th {
       background-color: #007bff;
       color: white;
     }
-
     .highlight {
       font-weight: bold;
-      background-color: #e0f7fa;
+      background-color: #e6f7ff;
     }
-
     .total-row {
-      background-color: #d0e9c6;
+      background-color: #d4edda;
       font-weight: bold;
     }
-
     #modal {
       display: none;
       position: fixed;
-      z-index: 1000;
-      left: 0;
-      top: 0;
-      width: 100vw;
-      height: 100vh;
-      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 999;
+      left: 0; top: 0;
+      width: 100vw; height: 100vh;
+      background-color: rgba(0,0,0,0.5);
       justify-content: center;
       align-items: center;
     }
-
     #modal-content {
-      background-color: white;
+      background: white;
       padding: 20px;
       border-radius: 10px;
-      max-width: 500px;
       width: 90%;
+      max-width: 500px;
     }
-
     #close-modal {
       float: right;
-      font-size: 20px;
       cursor: pointer;
-    }
-
-    #detalles {
-      list-style: none;
-      padding: 0;
-    }
-
-    #detalles li {
-      margin-bottom: 10px;
-      border-bottom: 1px solid #ddd;
-      padding-bottom: 5px;
-    }
-
-    h1, h2 {
-      text-align: center;
+      font-size: 20px;
     }
   </style>
 </head>
 <body>
 
 <div class="contenedor">
-
-  <div class="columna izquierda">
-    <h1>INGRESOS</h1>
+  <div class="columna">
+    <h2>Proyecciones por Gramaje</h2>
     <table id="tabla-gramajes" class="display nowrap">
       <thead>
         <tr>
@@ -845,151 +812,88 @@ table.dataTable {
       <tbody></tbody>
     </table>
   </div>
-
-  <div class="columna derecha">
-    <h2>Inventario</h2>
-    <table id="tabla-ingresos">
-      <thead>
-        <tr id="encabezado">
-          <th>Gramaje</th>
-        </tr>
-      </thead>
-      <tbody></tbody>
-    </table>
-  </div>
-
 </div>
 
-<!-- Modal de detalles -->
 <div id="modal">
   <div id="modal-content">
     <span id="close-modal">&times;</span>
-    <h2>Detalles de Anchos</h2>
+    <h3>Detalles</h3>
     <ul id="detalles"></ul>
   </div>
 </div>
 
-
-<!-- Tu script aquí -->
-<!-- pega aquí el <script> que ya te generé antes -->
-</body>
-</html>
-
-
+<!-- Scripts necesarios -->
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
 
 <script>
-  let datosOriginale = [];
-
   async function cargarDatos() {
     try {
       const response = await fetch('https://megawebsistem.com/admin/api/apiproyecciones');
       const data = await response.json();
-      datosOriginale = data;
 
-      const resumenPorClave = {};
-      const detallePorClave = {};
-      const totalesMensuales = Array(12).fill(0);
+      const resumen = {};
+      const detalles = {};
+      const totalesMes = Array(12).fill(0);
       const combinaciones = {};
 
       data.forEach(item => {
-        let lineaOriginal = item.linea ? item.linea.toUpperCase().trim() : '';
-        if (!/^CAJAS|^MEDIUM/.test(lineaOriginal)) return;
+        const linea = item.linea?.toUpperCase().trim();
+        if (!/^CAJAS|^MEDIUM/.test(linea)) return;
 
-        const fechaStr = item.fecha_consumo;
-        if (!fechaStr || fechaStr === "0000-00-00") return;
-        const fecha = new Date(fechaStr.replace(/-/g, '/'));
-        if (isNaN(fecha.getTime())) return;
+        const fecha = new Date(item.fecha_consumo);
         const mes = fecha.getMonth();
-        const cantidad = parseFloat(item.cantidad) || 0;
         const gramaje = item.gms;
-
-        if (!combinaciones[gramaje]) combinaciones[gramaje] = new Set();
-        combinaciones[gramaje].add(lineaOriginal);
-
-        let lineaFusionada = (lineaOriginal === 'CAJAS-KRAFT' || lineaOriginal === 'MEDIUM') ? 'PENDIENTE' : lineaOriginal;
-        const clave = `${gramaje}||${lineaFusionada}`;
+        const cantidad = parseFloat(item.cantidad) || 0;
+        const clave = `${gramaje}||${linea}`;
         const keyMes = `${clave}-${mes}`;
 
-        if (!resumenPorClave[clave]) {
-          resumenPorClave[clave] = {
-            gramaje,
-            linea: lineaFusionada,
-            cantidades: Array(12).fill(0),
-            total: 0
-          };
+        if (!combinaciones[gramaje]) combinaciones[gramaje] = new Set();
+        combinaciones[gramaje].add(linea);
+
+        if (!resumen[clave]) {
+          resumen[clave] = { gramaje, linea, cantidades: Array(12).fill(0), total: 0 };
         }
 
-        resumenPorClave[clave].cantidades[mes] += cantidad;
-        resumenPorClave[clave].total += cantidad;
-        totalesMensuales[mes] += cantidad;
+        resumen[clave].cantidades[mes] += cantidad;
+        resumen[clave].total += cantidad;
+        totalesMes[mes] += cantidad;
 
-        if (!detallePorClave[keyMes]) detallePorClave[keyMes] = [];
-        detallePorClave[keyMes].push({
+        if (!detalles[keyMes]) detalles[keyMes] = [];
+        detalles[keyMes].push({
           ancho: item.ancho,
-          lineaOriginal,
+          producto: item.producto,
           cantidad,
-          fecha: fechaStr
+          fecha: item.fecha_consumo
         });
       });
 
-      Object.entries(resumenPorClave).forEach(([clave, info]) => {
-        if (info.linea === 'PENDIENTE') {
-          const lineas = combinaciones[info.gramaje];
-          if (lineas.has('CAJAS-KRAFT') && lineas.has('MEDIUM')) {
-            info.linea = 'CAJAS-KRAFT/MEDIUM';
-          } else if (lineas.has('CAJAS-KRAFT')) {
-            info.linea = 'CAJAS-KRAFT';
-          } else if (lineas.has('MEDIUM')) {
-            info.linea = 'MEDIUM';
-          }
-        }
-      });
-
-      const columnasActivas = Array(12).fill(false);
-      Object.values(resumenPorClave).forEach(info => {
-        info.cantidades.forEach((cant, i) => {
-          if (cant > 0) columnasActivas[i] = true;
-        });
-      });
-
-      const tbody = document.querySelector('#tabla-gramajes tbody');
-      tbody.innerHTML = '';
+      const tabla = document.querySelector("#tabla-gramajes tbody");
+      tabla.innerHTML = "";
       let totalGeneral = 0;
 
-      const encabezado = document.querySelector('#tabla-gramajes thead tr');
-      const nombresMeses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
-                            'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
-      let encabezadoHtml = `<th>Gramaje</th><th>Línea</th>`;
-      columnasActivas.forEach((activa, idx) => {
-        if (activa) encabezadoHtml += `<th>${nombresMeses[idx]}</th>`;
-      });
-      encabezadoHtml += `<th>Total</th>`;
-      encabezado.innerHTML = encabezadoHtml;
-
-      Object.entries(resumenPorClave).forEach(([clave, info]) => {
-        const row = document.createElement('tr');
+      Object.entries(resumen).forEach(([clave, info]) => {
+        const fila = document.createElement("tr");
         let html = `<td class="highlight">${info.gramaje}</td><td>${info.linea}</td>`;
-        info.cantidades.forEach((cant, idx) => {
-          if (columnasActivas[idx]) {
-            const keyMes = `${clave}-${idx}`;
-            html += `<td onclick="mostrarDetalles('${keyMes}')">${cant.toFixed(2)}</td>`;
-          }
+        info.cantidades.forEach((val, i) => {
+          const key = `${clave}-${i}`;
+          html += `<td onclick="mostrarDetalles('${key}')">${val.toFixed(2)}</td>`;
         });
         html += `<td><strong>${info.total.toFixed(2)}</strong></td>`;
+        fila.innerHTML = html;
+        tabla.appendChild(fila);
         totalGeneral += info.total;
-        row.innerHTML = html;
-        tbody.appendChild(row);
       });
 
-      const totalRow = document.createElement('tr');
-      totalRow.classList.add('total-row');
+      const totalRow = document.createElement("tr");
+      totalRow.className = "total-row";
       let htmlTotales = `<td><strong>Total</strong></td><td></td>`;
-      columnasActivas.forEach((activa, idx) => {
-        if (activa) htmlTotales += `<td><strong>${totalesMensuales[idx].toFixed(2)}</strong></td>`;
+      totalesMes.forEach(val => {
+        htmlTotales += `<td><strong>${val.toFixed(2)}</strong></td>`;
       });
       htmlTotales += `<td><strong>${totalGeneral.toFixed(2)}</strong></td>`;
       totalRow.innerHTML = htmlTotales;
-      tbody.appendChild(totalRow);
+      tabla.appendChild(totalRow);
 
       $('#tabla-gramajes').DataTable({
         responsive: true,
@@ -999,43 +903,47 @@ table.dataTable {
         info: false,
         language: {
           search: "Buscar:",
-          zeroRecords: "No se encontraron resultados",
-          infoEmpty: "No hay registros disponibles"
+          zeroRecords: "Sin resultados",
+          infoEmpty: "Sin registros"
         },
-        columnDefs: [{ targets: '_all', className: 'dt-center' }]
+        columnDefs: [
+          { targets: "_all", className: "dt-center" }
+        ]
       });
 
-      window.mostrarDetalles = (key) => {
-        const lista = document.getElementById('detalles');
-        lista.innerHTML = '';
-        const detalles = detallePorClave[key] || [];
-
-        if (detalles.length === 0) {
-          lista.innerHTML = '<li>No hay detalles disponibles.</li>';
+      window.mostrarDetalles = (clave) => {
+        const lista = document.getElementById("detalles");
+        lista.innerHTML = "";
+        const data = detalles[clave] || [];
+        if (data.length === 0) {
+          lista.innerHTML = "<li>No hay datos</li>";
         } else {
-          detalles.forEach((item, i) => {
-            const li = document.createElement('li');
-            li.textContent = `#${i + 1} → Ancho: ${item.ancho} | Línea: ${item.lineaOriginal} | Cantidad: ${item.cantidad.toFixed(2)} | Fecha: ${item.fecha}`;
+          data.forEach((d, i) => {
+            const li = document.createElement("li");
+            li.innerText = `#${i + 1} → Ancho: ${d.ancho} | Producto: ${d.producto} | Cantidad: ${d.cantidad} | Fecha: ${d.fecha}`;
             lista.appendChild(li);
           });
         }
-        document.getElementById('modal').style.display = 'flex';
+        document.getElementById("modal").style.display = "flex";
       };
 
-      document.getElementById('close-modal').onclick = function () {
-        document.getElementById('modal').style.display = 'none';
+      document.getElementById("close-modal").onclick = () => {
+        document.getElementById("modal").style.display = "none";
       };
-      window.onclick = function (event) {
-        if (event.target === document.getElementById('modal')) {
-          document.getElementById('modal').style.display = 'none';
+
+      window.onclick = (e) => {
+        if (e.target === document.getElementById("modal")) {
+          document.getElementById("modal").style.display = "none";
         }
       };
 
-    } catch (error) {
-      console.error('Error al cargar datos:', error);
-      document.querySelector('#tabla-gramajes tbody').innerHTML = '<tr><td colspan="15">Error al cargar datos</td></tr>';
+    } catch (err) {
+      console.error("Error cargando datos:", err);
     }
   }
 
   cargarDatos();
 </script>
+
+</body>
+</html>
