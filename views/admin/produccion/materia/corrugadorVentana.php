@@ -779,6 +779,12 @@ table.dataTable {
       border-radius: 5px;
       cursor: pointer;
     }
+
+
+    thead tr:nth-child(2) {
+  display: none !important;
+}
+
   </style>
 </head>
 
