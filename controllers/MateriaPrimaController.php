@@ -688,7 +688,7 @@ class MateriaPrimaController
         $totalExistenciaBI= Comercial::sumarExistenciaPorMes('CAJAS-BLANCO');
         $totalExistenciaMI= Comercial::sumarExistenciaPorMes('CAJAS-MEDIUM');
 
-        debuguear($totalExistenciaKI);
+        // debuguear($totalExistenciaKI);
 
 
          
@@ -720,7 +720,7 @@ class MateriaPrimaController
             'totalExistenciaKI' => $totalExistenciaKI,
             'totalExistenciaBI' => $totalExistenciaBI,
             'totalExistenciaMI' => $totalExistenciaMI,
-            
+
         ]);
 
     }
