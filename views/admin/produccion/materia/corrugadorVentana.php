@@ -464,32 +464,11 @@ table.dataTable {
       const resumenPorGramaje = {};
       const detallePorClave = {};
       const totalesMensuales = Array(12).fill(0);
-      const lineasPorGramaje = {};
 
-      // Primera pasada: agrupar líneas por gramaje
       data.forEach(item => {
         let linea = item.linea ? item.linea.toUpperCase().trim() : '';
         if (linea === 'MICRO - BLANCO' || linea === 'PERIODICO') return;
-
-        const gramaje = item.gramaje;
-        if (!lineasPorGramaje[gramaje]) lineasPorGramaje[gramaje] = new Set();
-        lineasPorGramaje[gramaje].add(linea);
-      });
-
-      // Segunda pasada: procesar datos y combinar si corresponde
-      data.forEach(item => {
-        let linea = item.linea ? item.linea.toUpperCase().trim() : '';
-        if (linea === 'MICRO - BLANCO' || linea === 'PERIODICO') return;
-
-        const gramaje = item.gramaje;
-        if (!lineasPorGramaje[gramaje]) return;
-
-        const tieneAmbas = lineasPorGramaje[gramaje].has('CAJAS-KRAFT') &&
-                           lineasPorGramaje[gramaje].has('MEDIUM');
-
-        if (tieneAmbas && (linea === 'CAJAS-KRAFT' || linea === 'MEDIUM')) {
-          linea = 'CAJAS-KRAFT/MEDIUM';
-        }
+        if (linea === 'CAJAS-KRAFT' || linea === 'MEDIUM') linea = 'CAJAS-KRAFT/MEDIUM';
 
         const fechaStr = item.arribo_planta;
         if (!fechaStr || fechaStr === "0000-00-00") return;
@@ -499,18 +478,17 @@ table.dataTable {
         if (isNaN(mes)) return;
 
         const cantidad = parseFloat(item.cantidad.toString().replace(',', '').replace(' ', '')) || 0;
+        const gramaje = item.gramaje;
         const key = `${gramaje}-${mes}`;
-        const resumenKey = `${gramaje}-${linea}`;
 
-        if (!resumenPorGramaje[resumenKey]) resumenPorGramaje[resumenKey] = {
-          gramaje: gramaje,
+        if (!resumenPorGramaje[gramaje]) resumenPorGramaje[gramaje] = {
           linea: linea,
           cantidades: Array(12).fill(0),
           total: 0
         };
 
-        resumenPorGramaje[resumenKey].cantidades[mes] += cantidad;
-        resumenPorGramaje[resumenKey].total += cantidad;
+        resumenPorGramaje[gramaje].cantidades[mes] += cantidad;
+        resumenPorGramaje[gramaje].total += cantidad;
         totalesMensuales[mes] += cantidad;
 
         if (!detallePorClave[key]) detallePorClave[key] = [];
@@ -525,7 +503,6 @@ table.dataTable {
         });
       });
 
-      // Renderizar tabla
       const tbody = document.querySelector('#tabla-gramajes tbody');
       tbody.innerHTML = '';
       let totalGeneral = 0;
@@ -542,12 +519,12 @@ table.dataTable {
       encabezado.innerHTML = encabezadoHtml;
 
       // Crear filas
-      Object.values(resumenPorGramaje).forEach(info => {
+      Object.entries(resumenPorGramaje).forEach(([gramaje, info]) => {
         const row = document.createElement('tr');
-        let html = `<td class="highlight">${info.gramaje}</td><td>${info.linea}</td>`;
+        let html = `<td class="highlight">${gramaje}</td><td>${info.linea}</td>`;
         info.cantidades.forEach((cant, idx) => {
           if (columnasActivas[idx]) {
-            const key = `${info.gramaje}-${idx}`;
+            const key = `${gramaje}-${idx}`;
             html += `<td onclick="mostrarDetalles('${key}')">${cant.toFixed(3)}</td>`;
           }
         });
@@ -584,7 +561,6 @@ table.dataTable {
         ]
       });
 
-      // Función para mostrar detalles
       window.mostrarDetalles = (key) => {
         const lista = document.getElementById('detalles');
         lista.innerHTML = '';
@@ -596,6 +572,9 @@ table.dataTable {
           detalles.forEach((item, i) => {
             const li = document.createElement('li');
             li.textContent = `#${i + 1} → Ancho: ${item.ancho} | Cantidad: ${item.cantidad.toFixed(3)} | Fecha: ${item.fecha}`;
+            const anchoNumerico = parseInt(item.ancho);
+            if (anchoNumerico === 1100) li.classList.add('ancho-1100');
+            else if (anchoNumerico === 1880) li.classList.add('ancho-1880');
             lista.appendChild(li);
           });
         }
