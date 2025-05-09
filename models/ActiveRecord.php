@@ -1102,6 +1102,118 @@ public static function procesarArchivoExcelMateria($filePath)
 
 
 // ----------------------------------------------------------------------------EXCEL COMERCIAL---------------------------------------------------------------------------
+// public static function procesarArchivoExcelComercial($filePath)
+// {
+//     $spreadsheet = IOFactory::load($filePath);
+//     $sheet = $spreadsheet->getActiveSheet();
+    
+//     // Crear la tabla si no existe
+//     $queryCrearTabla = "
+//         CREATE TABLE IF NOT EXISTS " . static::$tabla . " (
+//             id INT AUTO_INCREMENT PRIMARY KEY,
+//             import VARCHAR(255),
+//             proyecto VARCHAR(255),
+//             pedido_interno VARCHAR(255),
+//             fecha_solicitud DATE,
+//             trader VARCHAR(255),
+//             marca VARCHAR(255),
+//             linea VARCHAR(255),
+//             producto VARCHAR(500),
+//             gramaje VARCHAR(255),
+//             ancho VARCHAR(255),
+//             cantidad VARCHAR(255),
+//             precio VARCHAR(255),
+//             total_item VARCHAR(255),
+//             fecha_produccion DATE,
+//             ets DATE,
+//             eta DATE,
+//             arribo_planta DATE,
+//             transito INT,
+//             fecha_en_planta DATE,
+//             estado VARCHAR(255),
+//             fecha_corte DATE DEFAULT CURRENT_DATE,
+
+//             UNIQUE KEY (import, proyecto, pedido_interno, fecha_solicitud, trader, marca, linea, producto, gramaje, ancho, cantidad, precio, total_item, fecha_produccion, ets, eta, arribo_planta, transito, fecha_en_planta, estado)
+//         )
+//     ";
+
+//     self::$db->query($queryCrearTabla);
+
+//     $highestRow = $sheet->getHighestRow();
+//     for ($row = 2; $row <= $highestRow; $row++) {
+//         $data = [];
+//         for ($col = 'A'; $col <= 'U'; $col++) {
+//             $data[] = trim($sheet->getCell($col . $row)->getFormattedValue() ?? '');
+//         }
+
+//         list(
+//             $import, $proyecto, $pedido_interno, $fecha_solicitud,
+//             $trader, $marca, $linea, $producto, $gramaje, $ancho, $cantidad,
+//             $precio, $total_item, $fecha_produccion, $ets, $eta,
+//             $arribo_planta, $transito, $fecha_en_planta, $estado
+//         ) = array_map(fn($value) => is_numeric(str_replace(',', '.', $value)) ? str_replace(',', '.', $value) : trim($value), $data);
+
+//         // Validación de fechas
+//         $fechas = ['fecha_solicitud', 'fecha_produccion', 'ets', 'eta', 'arribo_planta', 'fecha_en_planta'];
+//         foreach ($fechas as $fecha) {
+//             if (!empty($$fecha) && strtotime($$fecha) !== false) {
+//                 $$fecha = date('Y-m-d', strtotime($$fecha));
+//             } else {
+//                 $$fecha = null; // Evita insertar valores inválidos
+//             }
+//         }
+
+//         // Asegurar que `gms` y `ancho` sean numéricos
+//         $gramaje = is_numeric($gramaje) ? floatval($gramaje) : null;
+//         $ancho = is_numeric($ancho) ? floatval($ancho) : null;
+
+//         // **Verificar si el registro ya existe antes de insertarlo**
+//         $queryExistente = "
+//             SELECT id FROM " . static::$tabla . "
+//             WHERE import = '$import' 
+//             AND proyecto = '$proyecto'
+//             AND pedido_interno = '$pedido_interno'
+//             AND fecha_solicitud = '$fecha_solicitud'
+//             AND trader = '$trader'
+//             AND marca = '$marca'
+//             AND linea = '$linea'
+//             AND producto = '$producto'
+//             AND gramaje = '$gramaje'
+//             AND ancho = '$ancho'
+//             AND cantidad = '$cantidad'
+//             AND precio = '$precio'
+//             AND total_item = '$total_item'
+//             AND fecha_produccion = '$fecha_produccion'
+//             AND ets = '$ets'
+//             AND eta = '$eta'
+//             AND arribo_planta = '$arribo_planta'
+//             AND transito = '$transito'
+//             AND fecha_en_planta = '$fecha_en_planta'
+//             AND estado = '$estado'
+//         ";
+
+//         $resultado = self::$db->query($queryExistente);
+//         if ($resultado->num_rows == 0) {
+//             // Solo insertar si NO existe
+//             $queryInsertar = "
+//                 INSERT INTO " . static::$tabla . " (
+//                     import, proyecto, pedido_interno, fecha_solicitud, trader, marca, linea, producto,
+//                     gramaje, ancho, cantidad, precio, total_item, fecha_produccion, ets, eta,
+//                     arribo_planta, transito, fecha_en_planta, estado
+//                 ) VALUES (
+//                     '$import', '$proyecto', '$pedido_interno', '$fecha_solicitud', '$trader',
+//                     '$marca', '$linea', '$producto', '$gramaje', '$ancho', '$cantidad',
+//                     '$precio', '$total_item', '$fecha_produccion', '$ets', '$eta',
+//                     '$arribo_planta', '$transito', '$fecha_en_planta', '$estado'
+//                 )
+//             ";
+//             self::$db->query($queryInsertar);
+//         }
+//     }
+
+//     return true;
+// }
+
 public static function procesarArchivoExcelComercial($filePath)
 {
     $spreadsheet = IOFactory::load($filePath);
@@ -1131,6 +1243,8 @@ public static function procesarArchivoExcelComercial($filePath)
             transito INT,
             fecha_en_planta DATE,
             estado VARCHAR(255),
+            fecha_corte DATE DEFAULT CURRENT_DATE,
+
             UNIQUE KEY (import, proyecto, pedido_interno, fecha_solicitud, trader, marca, linea, producto, gramaje, ancho, cantidad, precio, total_item, fecha_produccion, ets, eta, arribo_planta, transito, fecha_en_planta, estado)
         )
     ";
@@ -1161,11 +1275,11 @@ public static function procesarArchivoExcelComercial($filePath)
             }
         }
 
-        // Asegurar que `gms` y `ancho` sean numéricos
+        // Asegurar que `gramaje` y `ancho` sean numéricos
         $gramaje = is_numeric($gramaje) ? floatval($gramaje) : null;
         $ancho = is_numeric($ancho) ? floatval($ancho) : null;
 
-        // **Verificar si el registro ya existe antes de insertarlo**
+        // Verificar si el registro ya existe
         $queryExistente = "
             SELECT id FROM " . static::$tabla . "
             WHERE import = '$import' 
@@ -1192,17 +1306,18 @@ public static function procesarArchivoExcelComercial($filePath)
 
         $resultado = self::$db->query($queryExistente);
         if ($resultado->num_rows == 0) {
-            // Solo insertar si NO existe
+            // Insertar si no existe
+            $fecha_corte = date('Y-m-d');
             $queryInsertar = "
                 INSERT INTO " . static::$tabla . " (
                     import, proyecto, pedido_interno, fecha_solicitud, trader, marca, linea, producto,
                     gramaje, ancho, cantidad, precio, total_item, fecha_produccion, ets, eta,
-                    arribo_planta, transito, fecha_en_planta, estado
+                    arribo_planta, transito, fecha_en_planta, estado, fecha_corte
                 ) VALUES (
                     '$import', '$proyecto', '$pedido_interno', '$fecha_solicitud', '$trader',
                     '$marca', '$linea', '$producto', '$gramaje', '$ancho', '$cantidad',
                     '$precio', '$total_item', '$fecha_produccion', '$ets', '$eta',
-                    '$arribo_planta', '$transito', '$fecha_en_planta', '$estado'
+                    '$arribo_planta', '$transito', '$fecha_en_planta', '$estado', '$fecha_corte'
                 )
             ";
             self::$db->query($queryInsertar);
@@ -1211,6 +1326,12 @@ public static function procesarArchivoExcelComercial($filePath)
 
     return true;
 }
+
+
+
+
+
+
 
 // ---------------------------------------------------------- EXCEL PROYECCIONES -------------------------------------------------------------------------
 
