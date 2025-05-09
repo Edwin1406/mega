@@ -685,6 +685,8 @@ class MateriaPrimaController
 
 
         $totalExistenciaKI= Comercial::sumarExistenciaPorMes('CAJAS-KRAFT');
+        $totalExistenciaBI= Comercial::sumarExistenciaPorMes('CAJAS-BLANCO');
+        $totalExistenciaMI= Comercial::sumarExistenciaPorMes('CAJAS-MEDIUM');
 
         debuguear($totalExistenciaKI);
 
@@ -692,6 +694,9 @@ class MateriaPrimaController
          
 
         
+        $totalExistenciaKI = number_format($totalExistenciaKI, 0, '.', ',');
+        $totalExistenciaBI = number_format($totalExistenciaBI, 0, '.', ',');
+        $totalExistenciaMI = number_format($totalExistenciaMI, 0, '.', ',');
 
    
         $totalExistencia = number_format($totalExistencia, 0, '.', ',');
@@ -711,7 +716,11 @@ class MateriaPrimaController
             'totalExistencia' => $totalExistencia,
             'totalExistenciaK' => $totalExistenciaK,
             'totalExistenciaB' => $totalExistenciaB,
-            'totalExistenciaM' => $totalExistenciaM
+            'totalExistenciaM' => $totalExistenciaM,
+            'totalExistenciaKI' => $totalExistenciaKI,
+            'totalExistenciaBI' => $totalExistenciaBI,
+            'totalExistenciaMI' => $totalExistenciaMI,
+            
         ]);
 
     }
