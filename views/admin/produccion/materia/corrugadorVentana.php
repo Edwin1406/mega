@@ -467,58 +467,65 @@ table.dataTable {
       const totalesMensuales = Array(12).fill(0);
       const lineasPorGramaje = {};
 
-      // Primera pasada: agrupar líneas por gramaje
+      // Paso 1: detectar líneas presentes por gramaje
       data.forEach(item => {
-        let linea = item.linea ? item.linea.toUpperCase().trim() : '';
-        if (linea === 'MICRO - BLANCO' || linea === 'PERIODICO') return;
-
+        const linea = item.linea ? item.linea.toUpperCase().trim() : '';
         const gramaje = item.gramaje;
         if (!lineasPorGramaje[gramaje]) lineasPorGramaje[gramaje] = new Set();
         lineasPorGramaje[gramaje].add(linea);
       });
 
-      // Segunda pasada: procesar datos y combinar si corresponde
+      // Paso 2: marcar gramajes que deben combinarse
+      const gramajesUnificados = {};
+      Object.entries(lineasPorGramaje).forEach(([gramaje, set]) => {
+        if (set.has('CAJAS-KRAFT') && set.has('MEDIUM')) {
+          gramajesUnificados[gramaje] = 'CAJAS-KRAFT/MEDIUM';
+        }
+      });
+
+      // Paso 3: procesar y agrupar datos
       data.forEach(item => {
         let linea = item.linea ? item.linea.toUpperCase().trim() : '';
-        if (linea === 'MICRO - BLANCO' || linea === 'PERIODICO') return;
-
         const gramaje = item.gramaje;
-        if (!lineasPorGramaje[gramaje]) return;
 
-        const tieneAmbas = lineasPorGramaje[gramaje].has('CAJAS-KRAFT') &&
-                           lineasPorGramaje[gramaje].has('MEDIUM');
+        if (linea === 'MICRO - BLANCO' || linea === 'PERIODICO') return;
+        if (!item.arribo_planta || item.arribo_planta === "0000-00-00") return;
 
-        if (tieneAmbas && (linea === 'CAJAS-KRAFT' || linea === 'MEDIUM')) {
-          linea = 'CAJAS-KRAFT/MEDIUM';
-        }
-
-        const fechaStr = item.arribo_planta;
-        if (!fechaStr || fechaStr === "0000-00-00") return;
-        const fecha = new Date(fechaStr.replace(/-/g, '/'));
+        const fecha = new Date(item.arribo_planta.replace(/-/g, '/'));
         if (isNaN(fecha.getTime())) return;
         const mes = fecha.getMonth();
         if (isNaN(mes)) return;
 
+        if (gramajesUnificados[gramaje] && (linea === 'CAJAS-KRAFT' || linea === 'MEDIUM')) {
+          linea = 'CAJAS-KRAFT/MEDIUM';
+        }
+
         const cantidad = parseFloat(item.cantidad.toString().replace(',', '').replace(' ', '')) || 0;
-        const key = `${gramaje}-${mes}`;
-        const resumenKey = `${gramaje}-${linea}`;
+        const keyResumen = `${gramaje}||${linea}`;
+        const keyDetalle = `${gramaje}-${mes}`;
 
-        if (!resumenPorGramaje[resumenKey]) resumenPorGramaje[resumenKey] = {
-          gramaje: gramaje,
-          linea: linea,
-          cantidades: Array(12).fill(0),
-          total: 0
-        };
+        if (!resumenPorGramaje[keyResumen]) {
+          resumenPorGramaje[keyResumen] = {
+            gramaje: gramaje,
+            linea: linea,
+            cantidades: Array(12).fill(0),
+            total: 0
+          };
+        }
 
-        resumenPorGramaje[resumenKey].cantidades[mes] += cantidad;
-        resumenPorGramaje[resumenKey].total += cantidad;
+        resumenPorGramaje[keyResumen].cantidades[mes] += cantidad;
+        resumenPorGramaje[keyResumen].total += cantidad;
         totalesMensuales[mes] += cantidad;
 
-        if (!detallePorClave[key]) detallePorClave[key] = [];
-        detallePorClave[key].push({ ancho: item.ancho, cantidad, fecha: fechaStr });
+        if (!detallePorClave[keyDetalle]) detallePorClave[keyDetalle] = [];
+        detallePorClave[keyDetalle].push({
+          ancho: item.ancho,
+          cantidad,
+          fecha: item.arribo_planta
+        });
       });
 
-      // Detectar columnas activas
+      // Paso 4: detectar columnas activas (con datos)
       const columnasActivas = Array(12).fill(false);
       Object.values(resumenPorGramaje).forEach(info => {
         info.cantidades.forEach((cant, i) => {
@@ -526,12 +533,7 @@ table.dataTable {
         });
       });
 
-      // Renderizar tabla
-      const tbody = document.querySelector('#tabla-gramajes tbody');
-      tbody.innerHTML = '';
-      let totalGeneral = 0;
-
-      // Crear encabezado dinámico
+      // Paso 5: construir encabezado
       const encabezado = document.querySelector('#tabla-gramajes thead tr');
       const nombresMeses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
                             'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
@@ -542,7 +544,11 @@ table.dataTable {
       encabezadoHtml += `<th>Total</th>`;
       encabezado.innerHTML = encabezadoHtml;
 
-      // Crear filas
+      // Paso 6: construir cuerpo de tabla
+      const tbody = document.querySelector('#tabla-gramajes tbody');
+      tbody.innerHTML = '';
+      let totalGeneral = 0;
+
       Object.values(resumenPorGramaje).forEach(info => {
         const row = document.createElement('tr');
         let html = `<td class="highlight">${info.gramaje}</td><td>${info.linea}</td>`;
@@ -558,7 +564,7 @@ table.dataTable {
         tbody.appendChild(row);
       });
 
-      // Fila de totales
+      // Paso 7: fila de totales
       const totalRow = document.createElement('tr');
       totalRow.classList.add('total-row');
       let htmlTotales = `<td><strong>Total</strong></td><td></td>`;
@@ -569,6 +575,7 @@ table.dataTable {
       totalRow.innerHTML = htmlTotales;
       tbody.appendChild(totalRow);
 
+      // Activar DataTables
       $('#tabla-gramajes').DataTable({
         responsive: true,
         paging: false,
@@ -585,7 +592,7 @@ table.dataTable {
         ]
       });
 
-      // Función para mostrar detalles
+      // Función para modal de detalles
       window.mostrarDetalles = (key) => {
         const lista = document.getElementById('detalles');
         lista.innerHTML = '';
@@ -621,6 +628,7 @@ table.dataTable {
 
   cargarDatos();
 </script>
+
 
 
 </body>
