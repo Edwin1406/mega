@@ -713,6 +713,10 @@ table.dataTable {
 
 
 
+
+
+
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -751,6 +755,17 @@ table.dataTable {
       font-weight: bold;
     }
 
+    /* Elimina la fila verde (segunda fila de <thead>) generada por DataTables */
+    thead tr:nth-child(2) {
+      display: none !important;
+    }
+
+    /* Por si DataTable intenta aplicar colores extra */
+    table.dataTable tfoot th,
+    table.dataTable tfoot td {
+      background-color: transparent !important;
+    }
+
     #proy_modal {
       display: none;
       position: fixed;
@@ -779,12 +794,6 @@ table.dataTable {
       border-radius: 5px;
       cursor: pointer;
     }
-
-
-    thead tr:nth-child(2) {
-  display: none !important;
-}
-
   </style>
 </head>
 
@@ -794,23 +803,7 @@ table.dataTable {
   <div class="contenedor-scroll">
     <table id="proy_tabla" class="nowrap display responsive">
       <thead>
-        <tr>
-          <th>Gramaje</th>
-          <th>Línea</th>
-          <th>Enero</th>
-          <th>Febrero</th>
-          <th>Marzo</th>
-          <th>Abril</th>
-          <th>Mayo</th>
-          <th>Junio</th>
-          <th>Julio</th>
-          <th>Agosto</th>
-          <th>Septiembre</th>
-          <th>Octubre</th>
-          <th>Noviembre</th>
-          <th>Diciembre</th>
-          <th>Total</th>
-        </tr>
+        <tr></tr>
       </thead>
       <tbody></tbody>
     </table>
@@ -843,11 +836,9 @@ table.dataTable {
             return;
           }
 
-          // ORDENAR por fecha, luego gramaje, luego línea
           data.sort((a, b) => {
             const fechaA = new Date(a.fecha_consumo);
             const fechaB = new Date(b.fecha_consumo);
-
             if (fechaA - fechaB !== 0) return fechaA - fechaB;
             if (a.gms !== b.gms) return a.gms - b.gms;
             return (a.linea || "").localeCompare(b.linea || "");
@@ -875,6 +866,19 @@ table.dataTable {
             totalesPorMes[mes] += cantidad;
           });
 
+          // Mostrar solo meses con datos
+          const mesesVisibles = totalesPorMes.map(v => v > 0);
+
+          const encabezado = document.querySelector('#proy_tabla thead tr');
+          encabezado.innerHTML = `<th>Gramaje</th><th>Línea</th>`;
+          for (let i = 0; i < 12; i++) {
+            if (mesesVisibles[i]) {
+              const nombreMes = new Date(2000, i, 1).toLocaleString('es', { month: 'long' }).toUpperCase();
+              encabezado.innerHTML += `<th>${nombreMes}</th>`;
+            }
+          }
+          encabezado.innerHTML += `<th>TOTAL</th>`;
+
           Object.entries(resumen).forEach(([clave, cantidades]) => {
             const [gramaje, linea] = clave.split('|');
             const fila = document.createElement('tr');
@@ -882,6 +886,7 @@ table.dataTable {
             let totalFila = 0;
 
             for (let i = 0; i < 12; i++) {
+              if (!mesesVisibles[i]) continue;
               const cantidad = cantidades[i] || 0;
               const celda = document.createElement('td');
               if (cantidad > 0) {
@@ -901,6 +906,7 @@ table.dataTable {
           filaTotal.innerHTML = `<td colspan="2"><strong>TOTAL</strong></td>`;
           let totalGeneral = 0;
           for (let i = 0; i < 12; i++) {
+            if (!mesesVisibles[i]) continue;
             const totalMes = totalesPorMes[i];
             filaTotal.innerHTML += `<td><strong>${totalMes.toFixed(2)}</strong></td>`;
             totalGeneral += totalMes;
@@ -922,12 +928,14 @@ table.dataTable {
     document.addEventListener("DOMContentLoaded", () => {
       initProyecciones();
 
-      // Inicializar DataTable con opciones
       $('#proy_tabla').DataTable({
         responsive: true,
         paging: false,
         searching: false,
-        info: false
+        info: false,
+        initComplete: function () {
+          // Evitar fila de filtros por columna
+        }
       });
     });
   </script>
