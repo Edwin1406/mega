@@ -326,131 +326,6 @@ table.dataTable {
       <ul id="detalles"></ul>
     </div>
   </div>
-<!-- api comercial  -->
-  <!-- <script>
-    let datosOriginales = [];
-
-    async function cargarDatos() {
-      try {
-        const response = await fetch('https://megawebsistem.com/admin/api/apicomercial');
-        const data = await response.json();
-        datosOriginales = data;
-
-        const resumenPorGramaje = {};
-        const detallePorClave = {};
-        const totalesMensuales = Array(12).fill(0);
-
-        data.forEach(item => {
-          const gramaje = item.gramaje;
-          const linea = item.linea ? item.linea.toUpperCase().trim() : '';
-          const fechaStr = item.arribo_planta;
-          if (linea === 'MICRO - BLANCO' || linea === 'PERIODICO') return;
-          if (!fechaStr || fechaStr === "0000-00-00") return;
-          const fecha = new Date(fechaStr.replace(/-/g, '/'));
-          if (isNaN(fecha.getTime())) return;
-          const mes = fecha.getMonth();
-          if (isNaN(mes)) return;
-
-          const cantidad = parseFloat(item.cantidad.toString().replace(',', '').replace(' ', '')) || 0;
-          const key = `${gramaje}-${mes}`;
-
-          if (!resumenPorGramaje[gramaje]) resumenPorGramaje[gramaje] = {
-            linea: linea,
-            cantidades: Array(12).fill(0),
-            total: 0
-          };
-
-          resumenPorGramaje[gramaje].cantidades[mes] += cantidad;
-          resumenPorGramaje[gramaje].total += cantidad;
-          totalesMensuales[mes] += cantidad;
-
-          if (!detallePorClave[key]) detallePorClave[key] = [];
-          detallePorClave[key].push({ ancho: item.ancho, cantidad, fecha: fechaStr });
-        });
-
-        const tbody = document.querySelector('#tabla-gramajes tbody');
-        tbody.innerHTML = '';
-        let totalGeneral = 0;
-
-        Object.entries(resumenPorGramaje).forEach(([gramaje, info]) => {
-          const row = document.createElement('tr');
-          let html = `<td class="highlight">${gramaje}</td><td>${info.linea}</td>`;
-          info.cantidades.forEach((cant, idx) => {
-            const key = `${gramaje}-${idx}`;
-            html += `<td onclick="mostrarDetalles('${key}')">${cant.toFixed(3)}</td>`;
-          });
-          html += `<td><strong>${info.total.toFixed(3)}</strong></td>`;
-          totalGeneral += info.total;
-          row.innerHTML = html;
-          tbody.appendChild(row);
-        });
-
-        const totalRow = document.createElement('tr');
-        totalRow.classList.add('total-row');
-        let htmlTotales = `<td><strong>Total</strong></td><td></td>`;
-        totalesMensuales.forEach(val => {
-          htmlTotales += `<td><strong>${val.toFixed(3)}</strong></td>`;
-        });
-        htmlTotales += `<td><strong>${totalGeneral.toFixed(3)}</strong></td>`;
-        totalRow.innerHTML = htmlTotales;
-        tbody.appendChild(totalRow);
-
-        $('#tabla-gramajes').DataTable({
-          responsive: true,
-          paging: false,
-          searching: true,
-          ordering: true,
-          info: false,
-          language: {
-            search: "Buscar:",
-            zeroRecords: "No se encontraron resultados",
-            infoEmpty: "No hay registros disponibles"
-          },
-          columnDefs: [
-            { targets: '_all', className: 'dt-center' }
-          ]
-        });
-
-        window.mostrarDetalles = (key) => {
-          const lista = document.getElementById('detalles');
-          lista.innerHTML = '';
-          const detalles = detallePorClave[key] || [];
-
-          if (detalles.length === 0) {
-            lista.innerHTML = '<li>No hay detalles disponibles.</li>';
-          } else {
-            detalles.forEach((item, i) => {
-              const li = document.createElement('li');
-              li.textContent = `#${i + 1} → Ancho: ${item.ancho} | Cantidad: ${item.cantidad.toFixed(3)} | Fecha: ${item.fecha}`;
-
-              const anchoNumerico = parseInt(item.ancho);
-              if (anchoNumerico === 1100) li.classList.add('ancho-1100');
-              else if (anchoNumerico === 1880) li.classList.add('ancho-1880');
-
-              lista.appendChild(li);
-            });
-          }
-          document.getElementById('modal').style.display = 'flex';
-        };
-
-        document.getElementById('close-modal').onclick = function () {
-          document.getElementById('modal').style.display = 'none';
-        };
-
-        window.onclick = function (event) {
-          if (event.target === document.getElementById('modal')) {
-            document.getElementById('modal').style.display = 'none';
-          }
-        };
-
-      } catch (error) {
-        console.error('Error al cargar datos:', error);
-        document.querySelector('#tabla-gramajes tbody').innerHTML = '<tr><td colspan="15">Error al cargar datos</td></tr>';
-      }
-    }
-
-    cargarDatos();
-  </script> -->
 <script>
   let datosOriginales = [];
 
@@ -459,22 +334,27 @@ table.dataTable {
       const response = await fetch('https://megawebsistem.com/admin/api/apicomercial');
       const data = await response.json();
 
-      // quiero
+      // Obtener mes y año actual
+      const fechaActual = new Date();
+      const mesActual = fechaActual.getMonth(); // 0 = Enero
+      const anioActual = fechaActual.getFullYear();
 
+      // Filtrar solo datos con fecha_corte en el mes actual
+      const dataFiltrada = data.filter(item => {
+        if (!item.fecha_corte || item.fecha_corte === "0000-00-00") return false;
+        const fechaCorte = new Date(item.fecha_corte.replace(/-/g, '/'));
+        return fechaCorte.getMonth() === mesActual && fechaCorte.getFullYear() === anioActual;
+      });
 
-
-
-      datosOriginales = data;
+      datosOriginales = dataFiltrada;
 
       const resumenPorClave = {};
       const detallePorClave = {};
       const totalesMensuales = Array(12).fill(0);
       const combinaciones = {}; // gramaje => Set de líneas reales
 
-      data.forEach(item => {
+      dataFiltrada.forEach(item => {
         let lineaOriginal = item.linea ? item.linea.toUpperCase().trim() : '';
-
-        // Solo aceptar líneas que empiecen por "CAJAS" o "MEDIUM"
         if (!/^CAJAS|^MEDIUM/.test(lineaOriginal)) return;
 
         const fechaStr = item.arribo_planta;
@@ -487,11 +367,9 @@ table.dataTable {
         const cantidad = parseFloat(item.cantidad.toString().replace(',', '').replace(' ', '')) || 0;
         const gramaje = item.gramaje;
 
-        // Guardar líneas reales por gramaje
         if (!combinaciones[gramaje]) combinaciones[gramaje] = new Set();
         combinaciones[gramaje].add(lineaOriginal);
 
-        // Línea provisional si es KRAFT o MEDIUM
         let lineaFusionada = (lineaOriginal === 'CAJAS-KRAFT' || lineaOriginal === 'MEDIUM') ? 'PENDIENTE' : lineaOriginal;
         const clave = `${gramaje}||${lineaFusionada}`;
         const keyMes = `${clave}-${mes}`;
@@ -510,10 +388,9 @@ table.dataTable {
         totalesMensuales[mes] += cantidad;
 
         if (!detallePorClave[keyMes]) detallePorClave[keyMes] = [];
-        detallePorClave[keyMes].push({ ancho: item.ancho,lineaOriginal, cantidad, fecha: fechaStr });
+        detallePorClave[keyMes].push({ ancho: item.ancho, lineaOriginal, cantidad, fecha: fechaStr });
       });
 
-      // Resolver los "PENDIENTE" en las líneas según lo que hay en cada gramaje
       Object.entries(resumenPorClave).forEach(([clave, info]) => {
         if (info.linea === 'PENDIENTE') {
           const lineas = combinaciones[info.gramaje];
@@ -527,7 +404,6 @@ table.dataTable {
         }
       });
 
-      // Detectar columnas activas
       const columnasActivas = Array(12).fill(false);
       Object.values(resumenPorClave).forEach(info => {
         info.cantidades.forEach((cant, i) => {
@@ -539,7 +415,6 @@ table.dataTable {
       tbody.innerHTML = '';
       let totalGeneral = 0;
 
-      // Encabezado
       const encabezado = document.querySelector('#tabla-gramajes thead tr');
       const nombresMeses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
                             'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
@@ -550,7 +425,6 @@ table.dataTable {
       encabezadoHtml += `<th>Total</th>`;
       encabezado.innerHTML = encabezadoHtml;
 
-      // Filas por gramaje + línea
       Object.entries(resumenPorClave).forEach(([clave, info]) => {
         const row = document.createElement('tr');
         let html = `<td class="highlight">${info.gramaje}</td><td>${info.linea}</td>`;
@@ -566,7 +440,6 @@ table.dataTable {
         tbody.appendChild(row);
       });
 
-      // Totales por mes
       const totalRow = document.createElement('tr');
       totalRow.classList.add('total-row');
       let htmlTotales = `<td><strong>Total</strong></td><td></td>`;
@@ -577,7 +450,6 @@ table.dataTable {
       totalRow.innerHTML = htmlTotales;
       tbody.appendChild(totalRow);
 
-      // Activar DataTable
       $('#tabla-gramajes').DataTable({
         responsive: true,
         paging: false,
@@ -594,7 +466,6 @@ table.dataTable {
         ]
       });
 
-      // Función para mostrar detalles
       window.mostrarDetalles = (key) => {
         const lista = document.getElementById('detalles');
         lista.innerHTML = '';
@@ -615,7 +486,6 @@ table.dataTable {
         document.getElementById('modal').style.display = 'flex';
       };
 
-      // Cerrar modal
       document.getElementById('close-modal').onclick = function () {
         document.getElementById('modal').style.display = 'none';
       };
@@ -633,7 +503,6 @@ table.dataTable {
 
   cargarDatos();
 </script>
-
 
 
 </body>
