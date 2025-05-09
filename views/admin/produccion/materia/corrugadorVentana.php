@@ -461,7 +461,7 @@ table.dataTable {
       const data = await response.json();
       datosOriginales = data;
 
-      const resumenPorGramaje = {};
+      const resumenPorClave = {};
       const detallePorClave = {};
       const totalesMensuales = Array(12).fill(0);
 
@@ -479,25 +479,29 @@ table.dataTable {
 
         const cantidad = parseFloat(item.cantidad.toString().replace(',', '').replace(' ', '')) || 0;
         const gramaje = item.gramaje;
-        const key = `${gramaje}-${mes}`;
+        const clave = `${gramaje}||${linea}`;
+        const keyMes = `${clave}-${mes}`;
 
-        if (!resumenPorGramaje[gramaje]) resumenPorGramaje[gramaje] = {
-          linea: linea,
-          cantidades: Array(12).fill(0),
-          total: 0
-        };
+        if (!resumenPorClave[clave]) {
+          resumenPorClave[clave] = {
+            gramaje,
+            linea,
+            cantidades: Array(12).fill(0),
+            total: 0
+          };
+        }
 
-        resumenPorGramaje[gramaje].cantidades[mes] += cantidad;
-        resumenPorGramaje[gramaje].total += cantidad;
+        resumenPorClave[clave].cantidades[mes] += cantidad;
+        resumenPorClave[clave].total += cantidad;
         totalesMensuales[mes] += cantidad;
 
-        if (!detallePorClave[key]) detallePorClave[key] = [];
-        detallePorClave[key].push({ ancho: item.ancho, cantidad, fecha: fechaStr });
+        if (!detallePorClave[keyMes]) detallePorClave[keyMes] = [];
+        detallePorClave[keyMes].push({ ancho: item.ancho, cantidad, fecha: fechaStr });
       });
 
       // Detectar columnas activas
       const columnasActivas = Array(12).fill(false);
-      Object.values(resumenPorGramaje).forEach(info => {
+      Object.values(resumenPorClave).forEach(info => {
         info.cantidades.forEach((cant, i) => {
           if (cant > 0) columnasActivas[i] = true;
         });
@@ -507,7 +511,7 @@ table.dataTable {
       tbody.innerHTML = '';
       let totalGeneral = 0;
 
-      // Crear encabezado dinámico
+      // Encabezado
       const encabezado = document.querySelector('#tabla-gramajes thead tr');
       const nombresMeses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
                             'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
@@ -518,14 +522,14 @@ table.dataTable {
       encabezadoHtml += `<th>Total</th>`;
       encabezado.innerHTML = encabezadoHtml;
 
-      // Crear filas
-      Object.entries(resumenPorGramaje).forEach(([gramaje, info]) => {
+      // Filas
+      Object.entries(resumenPorClave).forEach(([clave, info]) => {
         const row = document.createElement('tr');
-        let html = `<td class="highlight">${gramaje}</td><td>${info.linea}</td>`;
+        let html = `<td class="highlight">${info.gramaje}</td><td>${info.linea}</td>`;
         info.cantidades.forEach((cant, idx) => {
           if (columnasActivas[idx]) {
-            const key = `${gramaje}-${idx}`;
-            html += `<td onclick="mostrarDetalles('${key}')">${cant.toFixed(3)}</td>`;
+            const keyMes = `${clave}-${idx}`;
+            html += `<td onclick="mostrarDetalles('${keyMes}')">${cant.toFixed(3)}</td>`;
           }
         });
         html += `<td><strong>${info.total.toFixed(3)}</strong></td>`;
@@ -534,7 +538,7 @@ table.dataTable {
         tbody.appendChild(row);
       });
 
-      // Fila de totales
+      // Totales
       const totalRow = document.createElement('tr');
       totalRow.classList.add('total-row');
       let htmlTotales = `<td><strong>Total</strong></td><td></td>`;
@@ -599,6 +603,7 @@ table.dataTable {
 
   cargarDatos();
 </script>
+
 
 
 </body>
