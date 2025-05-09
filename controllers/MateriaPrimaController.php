@@ -684,7 +684,7 @@ class MateriaPrimaController
 
 
 
-        $totalExistenciaKI= Comercial::sumarExistenciaPorMes('CAJAS-KRAFT');
+        $totalExistenciaKI= Comercial::sumarExistenciaPorMes('MEDIUM');
 
         debuguear($totalExistenciaKI);
 
