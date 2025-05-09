@@ -717,17 +717,174 @@ table.dataTable {
 
 
 
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Proyecciones Mensuales</title>
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background-color: #f5f5f5;
+    }
+
+    .contenedor {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .columna {
+      flex: 1;
+      min-width: 300px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+      background-color: #fff;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    th, td {
+      padding: 8px;
+      text-align: center;
+      border: 1px solid #ddd;
+    }
+
+    th {
+      background-color: #007bff;
+      color: white;
+    }
+
+    .highlight {
+      font-weight: bold;
+      background-color: #e0f7fa;
+    }
+
+    .total-row {
+      background-color: #d0e9c6;
+      font-weight: bold;
+    }
+
+    #modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(0, 0, 0, 0.5);
+      justify-content: center;
+      align-items: center;
+    }
+
+    #modal-content {
+      background-color: white;
+      padding: 20px;
+      border-radius: 10px;
+      max-width: 500px;
+      width: 90%;
+    }
+
+    #close-modal {
+      float: right;
+      font-size: 20px;
+      cursor: pointer;
+    }
+
+    #detalles {
+      list-style: none;
+      padding: 0;
+    }
+
+    #detalles li {
+      margin-bottom: 10px;
+      border-bottom: 1px solid #ddd;
+      padding-bottom: 5px;
+    }
+
+    h1, h2 {
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+<div class="contenedor">
+
+  <div class="columna izquierda">
+    <h1>INGRESOS</h1>
+    <table id="tabla-gramajes" class="display nowrap">
+      <thead>
+        <tr>
+          <th>Gramaje</th>
+          <th>Línea</th>
+          <th>Enero</th>
+          <th>Febrero</th>
+          <th>Marzo</th>
+          <th>Abril</th>
+          <th>Mayo</th>
+          <th>Junio</th>
+          <th>Julio</th>
+          <th>Agosto</th>
+          <th>Septiembre</th>
+          <th>Octubre</th>
+          <th>Noviembre</th>
+          <th>Diciembre</th>
+          <th>Total</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <div class="columna derecha">
+    <h2>Inventario</h2>
+    <table id="tabla-ingresos">
+      <thead>
+        <tr id="encabezado">
+          <th>Gramaje</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+</div>
+
+<!-- Modal de detalles -->
+<div id="modal">
+  <div id="modal-content">
+    <span id="close-modal">&times;</span>
+    <h2>Detalles de Anchos</h2>
+    <ul id="detalles"></ul>
+  </div>
+</div>
+
+
+<!-- Tu script aquí -->
+<!-- pega aquí el <script> que ya te generé antes -->
+</body>
+</html>
 
 
 
 <script>
-  let datosOriginales = [];
+  let datosOriginale = [];
 
   async function cargarDatos() {
     try {
       const response = await fetch('https://megawebsistem.com/admin/api/apiproyecciones');
       const data = await response.json();
-      datosOriginales = data;
+      datosOriginale = data;
 
       const resumenPorClave = {};
       const detallePorClave = {};
