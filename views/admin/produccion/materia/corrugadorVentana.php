@@ -327,7 +327,7 @@ table.dataTable {
     </div>
   </div>
 <!-- api comercial  -->
-  <script>
+  <!-- <script>
     let datosOriginales = [];
 
     async function cargarDatos() {
@@ -450,8 +450,8 @@ table.dataTable {
     }
 
     cargarDatos();
-  </script>
-<!-- <script>
+  </script> -->
+<script>
   let datosOriginales = [];
 
   async function cargarDatos() {
@@ -627,7 +627,7 @@ table.dataTable {
   }
 
   cargarDatos();
-</script> -->
+</script>
 
 
 
