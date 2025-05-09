@@ -451,7 +451,6 @@ table.dataTable {
 
     cargarDatos();
   </script> -->
-
 <script>
   let datosOriginales = [];
 
@@ -464,11 +463,11 @@ table.dataTable {
       const resumenPorClave = {};
       const detallePorClave = {};
       const totalesMensuales = Array(12).fill(0);
+      const combinaciones = {}; // gramaje => Set de líneas reales
 
       data.forEach(item => {
-        let linea = item.linea ? item.linea.toUpperCase().trim() : '';
-        if (linea === 'MICRO - BLANCO' || linea === 'PERIODICO') return;
-        if (linea === 'CAJAS-KRAFT' || linea === 'MEDIUM') linea = 'CAJAS-KRAFT/MEDIUM';
+        let lineaOriginal = item.linea ? item.linea.toUpperCase().trim() : '';
+        if (lineaOriginal === 'MICRO - BLANCO' || lineaOriginal === 'PERIODICO') return;
 
         const fechaStr = item.arribo_planta;
         if (!fechaStr || fechaStr === "0000-00-00") return;
@@ -479,13 +478,20 @@ table.dataTable {
 
         const cantidad = parseFloat(item.cantidad.toString().replace(',', '').replace(' ', '')) || 0;
         const gramaje = item.gramaje;
-        const clave = `${gramaje}||${linea}`;
+
+        // Guardar líneas reales por gramaje
+        if (!combinaciones[gramaje]) combinaciones[gramaje] = new Set();
+        combinaciones[gramaje].add(lineaOriginal);
+
+        // Línea provisional si es KRAFT o MEDIUM
+        let lineaFusionada = (lineaOriginal === 'CAJAS-KRAFT' || lineaOriginal === 'MEDIUM') ? 'PENDIENTE' : lineaOriginal;
+        const clave = `${gramaje}||${lineaFusionada}`;
         const keyMes = `${clave}-${mes}`;
 
         if (!resumenPorClave[clave]) {
           resumenPorClave[clave] = {
             gramaje,
-            linea,
+            linea: lineaFusionada,
             cantidades: Array(12).fill(0),
             total: 0
           };
@@ -497,6 +503,20 @@ table.dataTable {
 
         if (!detallePorClave[keyMes]) detallePorClave[keyMes] = [];
         detallePorClave[keyMes].push({ ancho: item.ancho, cantidad, fecha: fechaStr });
+      });
+
+      // Resolver los "PENDIENTE" en las líneas según lo que hay en cada gramaje
+      Object.entries(resumenPorClave).forEach(([clave, info]) => {
+        if (info.linea === 'PENDIENTE') {
+          const lineas = combinaciones[info.gramaje];
+          if (lineas.has('CAJAS-KRAFT') && lineas.has('MEDIUM')) {
+            info.linea = 'CAJAS-KRAFT/MEDIUM';
+          } else if (lineas.has('CAJAS-KRAFT')) {
+            info.linea = 'CAJAS-KRAFT';
+          } else if (lineas.has('MEDIUM')) {
+            info.linea = 'MEDIUM';
+          }
+        }
       });
 
       // Detectar columnas activas
@@ -522,7 +542,7 @@ table.dataTable {
       encabezadoHtml += `<th>Total</th>`;
       encabezado.innerHTML = encabezadoHtml;
 
-      // Filas
+      // Filas por gramaje + línea
       Object.entries(resumenPorClave).forEach(([clave, info]) => {
         const row = document.createElement('tr');
         let html = `<td class="highlight">${info.gramaje}</td><td>${info.linea}</td>`;
@@ -538,7 +558,7 @@ table.dataTable {
         tbody.appendChild(row);
       });
 
-      // Totales
+      // Totales por mes
       const totalRow = document.createElement('tr');
       totalRow.classList.add('total-row');
       let htmlTotales = `<td><strong>Total</strong></td><td></td>`;
@@ -549,6 +569,7 @@ table.dataTable {
       totalRow.innerHTML = htmlTotales;
       tbody.appendChild(totalRow);
 
+      // Activar DataTable
       $('#tabla-gramajes').DataTable({
         responsive: true,
         paging: false,
@@ -565,6 +586,7 @@ table.dataTable {
         ]
       });
 
+      // Función para mostrar detalles
       window.mostrarDetalles = (key) => {
         const lista = document.getElementById('detalles');
         lista.innerHTML = '';
@@ -585,10 +607,10 @@ table.dataTable {
         document.getElementById('modal').style.display = 'flex';
       };
 
+      // Cerrar modal
       document.getElementById('close-modal').onclick = function () {
         document.getElementById('modal').style.display = 'none';
       };
-
       window.onclick = function (event) {
         if (event.target === document.getElementById('modal')) {
           document.getElementById('modal').style.display = 'none';
