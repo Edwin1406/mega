@@ -6,6 +6,7 @@ namespace Controllers;
 use MVC\Router;
 use Classes\Pdf;
 use Classes\Paginacion;
+use Model\Comercial;
 use Model\MateriaPrima;
 use Model\MateriaPrimaV;
 use Model\Pedido;
@@ -682,6 +683,10 @@ class MateriaPrimaController
         //  debuguear($totalExistenciaK);
 
 
+
+        $totalExistenciaKI= Comercial::sumarExistenciaPorMes('CAJA-KRAFT');
+
+        
          
 
         
