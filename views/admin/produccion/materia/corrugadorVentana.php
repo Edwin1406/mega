@@ -713,21 +713,13 @@ table.dataTable {
 
 
 
-
-
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Proyecciones Mensuales</title>
-
-
-
   <style>
- 
-
     h2 {
       text-align: center;
       margin-top: 20px;
@@ -844,6 +836,16 @@ table.dataTable {
             console.warn("⚠️ Sin datos desde la API.");
             return;
           }
+
+          // ORDENAR por fecha, luego gramaje, luego línea
+          data.sort((a, b) => {
+            const fechaA = new Date(a.fecha_consumo);
+            const fechaB = new Date(b.fecha_consumo);
+
+            if (fechaA - fechaB !== 0) return fechaA - fechaB;
+            if (a.gms !== b.gms) return a.gms - b.gms;
+            return (a.linea || "").localeCompare(b.linea || "");
+          });
 
           const resumen = {};
           const detallesMes = {};
