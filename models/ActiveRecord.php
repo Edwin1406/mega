@@ -1334,7 +1334,7 @@ public static function procesarArchivoExcelComercial($filePath)
     $spreadsheet = IOFactory::load($filePath);
     $sheet = $spreadsheet->getActiveSheet();
     
-    // Crear la tabla si no existe
+    // Crear la tabla si no existe (sin restricción UNIQUE)
     $queryCrearTabla = "
         CREATE TABLE IF NOT EXISTS " . static::$tabla . " (
             id INT AUTO_INCREMENT PRIMARY KEY,
@@ -1393,7 +1393,7 @@ public static function procesarArchivoExcelComercial($filePath)
         // Fecha de corte actual
         $fecha_corte = date('Y-m-d');
 
-        // Verificar si el registro ya existe con esa fecha_corte
+        // Verificar si ya existe con la misma fecha_corte
         $queryExistente = "
             SELECT id FROM " . static::$tabla . "
             WHERE import = '$import' 
