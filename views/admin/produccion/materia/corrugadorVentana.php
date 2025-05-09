@@ -459,27 +459,27 @@ table.dataTable {
       const response = await fetch('https://megawebsistem.com/admin/api/apicomercial');
       const data = await response.json();
 
-      // quiero  que solo la dara sea de la fecha actual de corte 
-      // const fechaActual = new Date();
-      // const fechaCorte = `${fechaActual.getFullYear()}-${String(fechaActual.getMonth() + 1).padStart(2, '0')}-${String(fechaActual.getDate()).padStart(2, '0')}`;
-      // data = data.filter(item => item.fecha_corte === fechaCorte);
+      // Obtener mes y año actual
+      const fechaActual = new Date();
+      const mesActual = fechaActual.getMonth(); // 0 = Enero
+      const anioActual = fechaActual.getFullYear();
 
-      console.log('informacion',data);
+      // Filtrar solo datos con fecha_corte en el mes actual
+      const dataFiltrada = data.filter(item => {
+        if (!item.fecha_corte || item.fecha_corte === "0000-00-00") return false;
+        const fechaCorte = new Date(item.fecha_corte.replace(/-/g, '/'));
+        return fechaCorte.getMonth() === mesActual && fechaCorte.getFullYear() === anioActual;
+      });
 
-
-
-
-      datosOriginales = data;
+      datosOriginales = dataFiltrada;
 
       const resumenPorClave = {};
       const detallePorClave = {};
       const totalesMensuales = Array(12).fill(0);
       const combinaciones = {}; // gramaje => Set de líneas reales
 
-      data.forEach(item => {
+      dataFiltrada.forEach(item => {
         let lineaOriginal = item.linea ? item.linea.toUpperCase().trim() : '';
-
-        // Solo aceptar líneas que empiecen por "CAJAS" o "MEDIUM"
         if (!/^CAJAS|^MEDIUM/.test(lineaOriginal)) return;
 
         const fechaStr = item.arribo_planta;
@@ -492,11 +492,9 @@ table.dataTable {
         const cantidad = parseFloat(item.cantidad.toString().replace(',', '').replace(' ', '')) || 0;
         const gramaje = item.gramaje;
 
-        // Guardar líneas reales por gramaje
         if (!combinaciones[gramaje]) combinaciones[gramaje] = new Set();
         combinaciones[gramaje].add(lineaOriginal);
 
-        // Línea provisional si es KRAFT o MEDIUM
         let lineaFusionada = (lineaOriginal === 'CAJAS-KRAFT' || lineaOriginal === 'MEDIUM') ? 'PENDIENTE' : lineaOriginal;
         const clave = `${gramaje}||${lineaFusionada}`;
         const keyMes = `${clave}-${mes}`;
@@ -515,10 +513,9 @@ table.dataTable {
         totalesMensuales[mes] += cantidad;
 
         if (!detallePorClave[keyMes]) detallePorClave[keyMes] = [];
-        detallePorClave[keyMes].push({ ancho: item.ancho,lineaOriginal, cantidad, fecha: fechaStr });
+        detallePorClave[keyMes].push({ ancho: item.ancho, lineaOriginal, cantidad, fecha: fechaStr });
       });
 
-      // Resolver los "PENDIENTE" en las líneas según lo que hay en cada gramaje
       Object.entries(resumenPorClave).forEach(([clave, info]) => {
         if (info.linea === 'PENDIENTE') {
           const lineas = combinaciones[info.gramaje];
@@ -532,7 +529,6 @@ table.dataTable {
         }
       });
 
-      // Detectar columnas activas
       const columnasActivas = Array(12).fill(false);
       Object.values(resumenPorClave).forEach(info => {
         info.cantidades.forEach((cant, i) => {
@@ -544,7 +540,6 @@ table.dataTable {
       tbody.innerHTML = '';
       let totalGeneral = 0;
 
-      // Encabezado
       const encabezado = document.querySelector('#tabla-gramajes thead tr');
       const nombresMeses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
                             'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
@@ -555,7 +550,6 @@ table.dataTable {
       encabezadoHtml += `<th>Total</th>`;
       encabezado.innerHTML = encabezadoHtml;
 
-      // Filas por gramaje + línea
       Object.entries(resumenPorClave).forEach(([clave, info]) => {
         const row = document.createElement('tr');
         let html = `<td class="highlight">${info.gramaje}</td><td>${info.linea}</td>`;
@@ -571,7 +565,6 @@ table.dataTable {
         tbody.appendChild(row);
       });
 
-      // Totales por mes
       const totalRow = document.createElement('tr');
       totalRow.classList.add('total-row');
       let htmlTotales = `<td><strong>Total</strong></td><td></td>`;
@@ -582,7 +575,6 @@ table.dataTable {
       totalRow.innerHTML = htmlTotales;
       tbody.appendChild(totalRow);
 
-      // Activar DataTable
       $('#tabla-gramajes').DataTable({
         responsive: true,
         paging: false,
@@ -599,7 +591,6 @@ table.dataTable {
         ]
       });
 
-      // Función para mostrar detalles
       window.mostrarDetalles = (key) => {
         const lista = document.getElementById('detalles');
         lista.innerHTML = '';
@@ -620,7 +611,6 @@ table.dataTable {
         document.getElementById('modal').style.display = 'flex';
       };
 
-      // Cerrar modal
       document.getElementById('close-modal').onclick = function () {
         document.getElementById('modal').style.display = 'none';
       };
@@ -842,7 +832,7 @@ table.dataTable {
       console.error("Error al obtener los datos:", err);
       tabla.innerHTML = `<tr><td colspan="13">Error cargando datos</td></tr>`;
     });
-</script>
+</>
 
 </body>
 </html>
