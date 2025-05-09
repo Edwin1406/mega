@@ -827,7 +827,7 @@ table.dataTable {
 <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
 
 <script>
-  async function cargarDatos() {
+  async function cargarDats() {
     try {
       const response = await fetch('https://megawebsistem.com/admin/api/apiproyecciones');
       const data = await response.json();
@@ -942,7 +942,7 @@ table.dataTable {
     }
   }
 
-  cargarDatos();
+  cargarDats();
 </script>
 
 </body>
