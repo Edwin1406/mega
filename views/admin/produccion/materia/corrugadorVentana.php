@@ -678,7 +678,7 @@ table.dataTable {
     padding: 30px;
     border-radius: 12px;
     box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
-    width: 550px;
+    width: 700px;
     max-height: 80vh;
     overflow-y: auto;
     position: relative;
