@@ -842,3 +842,85 @@ table.dataTable {
 
 </body>
 </html>
+
+
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Consumo por Línea y Gramaje</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    h2 { margin-top: 40px; }
+    table { border-collapse: collapse; width: 100%; margin-bottom: 40px; }
+    th, td { border: 1px solid #ccc; padding: 8px; text-align: center; }
+    th { background-color: #f2f2f2; }
+    .ancho-1880 { background-color: #cfe2ff; } /* azul claro */
+    .ancho-1100 { background-color: #d1e7dd; } /* verde claro */
+  </style>
+</head>
+<body>
+
+<h1>Tabla de Proyecciones de Consumo</h1>
+<div id="contenido"></div>
+
+<script>
+  async function cargarDatos() {
+    const respuesta = await fetch('https://megawebsistem.com/admin/api/apiproyecciones');
+    const datos = await respuesta.json();
+
+    // Agrupar por línea y gms
+    const agrupado = {};
+
+    datos.forEach(item => {
+      const clave = `${item.linea} - ${item.gms}g`;
+      if (!agrupado[clave]) agrupado[clave] = [];
+      agrupado[clave].push(item);
+    });
+
+    const contenedor = document.getElementById('contenido');
+
+    for (const clave in agrupado) {
+      const grupo = agrupado[clave];
+
+      const titulo = document.createElement('h2');
+      titulo.textContent = clave;
+      contenedor.appendChild(titulo);
+
+      const tabla = document.createElement('table');
+      const thead = document.createElement('thead');
+      thead.innerHTML = `
+        <tr>
+          <th>Fecha</th>
+          <th>Producto</th>
+          <th>Ancho</th>
+          <th>Cantidad</th>
+        </tr>
+      `;
+      tabla.appendChild(thead);
+
+      const tbody = document.createElement('tbody');
+      grupo.forEach(item => {
+        const fila = document.createElement('tr');
+        fila.className = item.ancho === "1880" ? 'ancho-1880' :
+                         item.ancho === "1100" ? 'ancho-1100' : '';
+        fila.innerHTML = `
+          <td>${item.fecha_consumo}</td>
+          <td>${item.producto}</td>
+          <td>${item.ancho}</td>
+          <td>${item.cantidad}</td>
+        `;
+        tbody.appendChild(fila);
+      });
+
+      tabla.appendChild(tbody);
+      contenedor.appendChild(tabla);
+    }
+  }
+
+  cargarDatos();
+</script>
+
+</body>
+</html>
