@@ -364,8 +364,6 @@ table.dataTable {
     </div>
   </div>
 
-<!-- jQuery (necesario para DataTables) -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <!-- DataTables core -->
 <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
