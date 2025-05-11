@@ -489,7 +489,6 @@ table.dataTable {
 
       $('#tabla-gramajes').DataTable({
         //excel
-        dom: 'Bfrtip',
         buttons: [
           {
             extend: 'excelHtml5',
