@@ -577,8 +577,6 @@ table.dataTable {
 
 
 
-
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -721,9 +719,8 @@ table.dataTable {
 <div class="tabla-container">
   <table id="tabla-ingresos">
     <thead>
-      <tr>
+      <tr id="encabezado">
         <th>Gramaje</th>
-        <thead id="encabezado"></thead>
       </tr>
     </thead>
     <tbody></tbody>
@@ -732,8 +729,8 @@ table.dataTable {
 
 <div id="modal1">
   <div id="modal-content">
-    <span id="close-modal" onclick="modal.style.display='none'">&times;</span>
-    <h2>Detalles por Mes</h2>
+    <span id="close-modal">&times;</span>
+    <h2>Detalles de Anchos</h2>
     <ul id="detalles-lista"></ul>
   </div>
 </div>
@@ -743,9 +740,11 @@ table.dataTable {
                  'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
 
   const tabla = document.querySelector('#tabla-ingresos tbody');
-  const encabezado = document.querySelector('#tabla-ingresos thead tr');
+  const encabezado = document.querySelector('#encabezado');
   const modal = document.getElementById('modal1');
+  const modalContent = document.getElementById('modal-content');
   const detallesLista = document.getElementById('detalles-lista');
+  const closeModal = document.getElementById('close-modal');
 
   fetch('https://megawebsistem.com/admin/api/apimateriaprimajson')
     .then(res => res.json())
@@ -772,7 +771,6 @@ table.dataTable {
       });
 
       // Agregar encabezado con meses activos
-      encabezado.innerHTML = '<th>Gramaje</th>';
       meses.forEach((mes, i) => {
         if (mesesConDatos[i]) {
           const th = document.createElement('th');
@@ -812,7 +810,7 @@ table.dataTable {
       });
       tabla.appendChild(filaTotal);
 
-      // Modal
+      // Mostrar modal
       window.mostrarModal = (gramaje, mesIndex) => {
         const clave = `${gramaje}-${mesIndex}`;
         const elementos = detalles[clave] || [];
@@ -826,6 +824,25 @@ table.dataTable {
       console.error("Error al obtener los datos:", err);
       tabla.innerHTML = `<tr><td colspan="13">Error cargando datos</td></tr>`;
     });
+
+  // Cerrar modal al hacer clic fuera
+  modal.addEventListener('click', function(e) {
+    if (e.target === modal) {
+      modal.style.display = 'none';
+    }
+  });
+
+  // Cerrar con la X
+  closeModal.addEventListener('click', () => {
+    modal.style.display = 'none';
+  });
+
+  // Cerrar con tecla ESC
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      modal.style.display = 'none';
+    }
+  });
 </script>
 
 </body>
