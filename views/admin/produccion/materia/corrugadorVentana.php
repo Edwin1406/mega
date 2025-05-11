@@ -584,17 +584,7 @@ table.dataTable {
   <title>Inventario Detallado</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
   <style>
-    * {
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: 'Poppins', sans-serif;
-      background: #f4f7fa;
-      margin: 0;
-      padding: 20px;
-      color: #2c3e50;
-    }
+   
 
     h2 {
       font-size: 24px;
