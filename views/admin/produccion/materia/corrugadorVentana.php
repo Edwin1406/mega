@@ -481,7 +481,7 @@ table.dataTable {
 
       Object.entries(resumenPorClave).forEach(([clave, info]) => {
         const row = document.createElement('tr');
-        let html = `<td class="highlight">${info.gramaje}</td><td>${info.linea}</td>`;
+        let html = `<td class="highlight">${info.gramaje}</td><td>${info.linea}</td><td>${info.producto}</td>`;
         info.cantidades.forEach((cant, idx) => {
           if (columnasActivas[idx]) {
             const keyMes = `${clave}-${idx}`;
