@@ -579,124 +579,185 @@ table.dataTable {
 
 
 
-
-
-
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
   <title>Inventario Detallado</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
   <style>
-    body { font-family: Arial; }
-    h2 { margin-top: 20px; }
-    table { border-collapse: collapse; width: 100%; margin-top: 10px; }
-    th, td { border: 1px solid #aaa; padding: 8px; text-align: center; }
-    th { background-color: #f2f2f2; }
-    tr:nth-child(even) td { background-color: #f9f9f9; }
-    td:first-child { font-weight: bold; }
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #f4f7fa;
+      margin: 0;
+      padding: 20px;
+      color: #2c3e50;
+    }
+
+    h2 {
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+
+    .tabla-container {
+      overflow-x: auto;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 600px;
+    }
+
+    th, td {
+      padding: 12px 15px;
+      text-align: center;
+    }
+
+    th {
+      position: sticky;
+      top: 0;
+      background-color: #3498db;
+      color: #fff;
+      font-weight: 600;
+      z-index: 10;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f9fbfd;
+    }
+
+    tr:hover {
+      background-color: #eaf3fb;
+    }
+
+    td:first-child {
+      font-weight: 600;
+      color: #2c3e50;
+    }
+
+    td span {
+      cursor: pointer;
+      color: #007BFF;
+      transition: color 0.3s;
+    }
+
+    td span:hover {
+      color: #0056b3;
+      text-decoration: underline;
+    }
 
     #modal1 {
-    display: none;
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-    backdrop-filter: blur(3px);
-  }
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      backdrop-filter: blur(3px);
+    }
 
-  #modal-content {
-    background: #ffffff;
-    padding: 30px;
-    border-radius: 12px;
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
-    width: 700px;
-    max-height: 80vh;
-    overflow-y: auto;
-    position: relative;
-    font-family: 'Segoe UI', sans-serif;
-    animation: modalFadeIn 0.3s ease;
-  }
+    #modal-content {
+      background: #ffffff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+      width: 600px;
+      max-height: 80vh;
+      overflow-y: auto;
+      position: relative;
+    }
 
-  #modal1 h2 {
-    margin-top: 0;
-    margin-bottom: 20px;
-    font-size: 22px;
-    font-weight: 700;
-    color: #2c3e50;
-    border-bottom: 1px solid #eee;
-    padding-bottom: 10px;
-  }
+    #modal-content h2 {
+      margin-top: 0;
+      margin-bottom: 15px;
+      font-size: 20px;
+      font-weight: 600;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 10px;
+    }
 
-  #close-modal {
-    position: absolute;
-    top: 14px;
-    right: 18px;
-    font-size: 20px;
-    color: #999;
-    cursor: pointer;
-    transition: color 0.3s;
-  }
+    #close-modal {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      font-size: 22px;
+      color: #888;
+      cursor: pointer;
+    }
 
-  #close-modal:hover {
-    color: #e74c3c;
-  }
-  #detalles-lista {
-    list-style: none;
-    padding-left: 0;
-  }
+    #close-modal:hover {
+      color: #e74c3c;
+    }
 
-  #detalles-lista li {
-    margin-bottom: 12px;
-    padding: 10px 12px;
-    background: #f9f9f9;
-    border-left: 4px solid #3498db;
-    border-radius: 6px;
-    color: #333;
-    font-size: 15px;
-  }
+    #detalles-lista {
+      list-style: none;
+      padding-left: 0;
+    }
 
-  @keyframes modalFadeIn {
-    from { opacity: 0; transform: scale(0.95); }
-    to { opacity: 1; transform: scale(1); }
-  }
-
-
+    #detalles-lista li {
+      margin-bottom: 10px;
+      padding: 10px;
+      background: #f1f1f1;
+      border-left: 4px solid #3498db;
+      border-radius: 6px;
+      font-size: 14px;
+    }
   </style>
 </head>
 <body>
 
+<h2>Inventario Detallado</h2>
+
+<div class="tabla-container">
+  <table id="tabla-ingresos">
+    <thead>
+      <tr>
+        <th>Gramaje</th>
+        <thead id="encabezado"></thead>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+</div>
+
+<div id="modal1">
+  <div id="modal-content">
+    <span id="close-modal" onclick="modal.style.display='none'">&times;</span>
+    <h2>Detalles por Mes</h2>
+    <ul id="detalles-lista"></ul>
+  </div>
+</div>
+
 <script>
-  const meses = [
-    'Enero', 'Febrero', 'Marzo', 'Abril',
-    'Mayo', 'Junio', 'Julio', 'Agosto',
-    'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'
-  ];
+  const meses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
+                 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
 
   const tabla = document.querySelector('#tabla-ingresos tbody');
-  const encabezado = document.querySelector('#encabezado');
+  const encabezado = document.querySelector('#tabla-ingresos thead tr');
   const modal = document.getElementById('modal1');
-  const closeModal = document.getElementById('close');
   const detallesLista = document.getElementById('detalles-lista');
-
-  closeModal.onclick = () => modal.style.display = "none";
-  window.onclick = e => { if (e.target == modal) modal.style.display = "none"; };
 
   fetch('https://megawebsistem.com/admin/api/apimateriaprimajson')
     .then(res => res.json())
     .then(data => {
       const resumen = {};
       const detalles = {};
-      const mesesConDatos = new Array(12).fill(false);
-      const totalesPorMes = new Array(12).fill(0);
+      const mesesConDatos = Array(12).fill(false);
+      const totalesPorMes = Array(12).fill(0);
 
       data.forEach(item => {
         const fecha = new Date(item.fecha_corte);
-        const mes = fecha.getMonth(); // 0 = Enero
+        const mes = fecha.getMonth();
         const gramaje = item.gramaje;
         const cantidad = parseInt(item.existencia) || 0;
         const ancho = item.ancho;
@@ -710,7 +771,8 @@ table.dataTable {
         if (cantidad > 0) mesesConDatos[mes] = true;
       });
 
-      // Cabecera solo con meses con datos
+      // Agregar encabezado con meses activos
+      encabezado.innerHTML = '<th>Gramaje</th>';
       meses.forEach((mes, i) => {
         if (mesesConDatos[i]) {
           const th = document.createElement('th');
@@ -719,11 +781,8 @@ table.dataTable {
         }
       });
 
-      // Crear filas
+      // Filas de datos
       Object.entries(resumen).forEach(([gramaje, cantidades]) => {
-        const tieneDatos = cantidades.some((c, i) => mesesConDatos[i] && c > 0);
-        if (!tieneDatos) return;
-
         const fila = document.createElement('tr');
         fila.innerHTML = `<td>${gramaje}</td>`;
 
@@ -731,10 +790,10 @@ table.dataTable {
           if (mesesConDatos[i]) {
             const celda = document.createElement('td');
             if (cantidad > 0) {
-              celda.innerHTML = `<span style="cursor:pointer;color:#007BFF" onclick="mostrarModal('${gramaje}', ${i})">${cantidad}</span>`;
+              celda.innerHTML = `<span onclick="mostrarModal('${gramaje}', ${i})">${cantidad}</span>`;
               totalesPorMes[i] += cantidad;
             } else {
-              celda.textContent = "";
+              celda.textContent = '';
             }
             fila.appendChild(celda);
           }
@@ -743,7 +802,7 @@ table.dataTable {
         tabla.appendChild(fila);
       });
 
-      // Fila de totales
+      // Totales
       const filaTotal = document.createElement('tr');
       filaTotal.innerHTML = `<td><strong>TOTAL</strong></td>`;
       mesesConDatos.forEach((activo, i) => {
@@ -753,15 +812,15 @@ table.dataTable {
       });
       tabla.appendChild(filaTotal);
 
-      // Modal de detalles
-      window.mostrarModal = function(gramaje, mesIndex) {
+      // Modal
+      window.mostrarModal = (gramaje, mesIndex) => {
         const clave = `${gramaje}-${mesIndex}`;
         const elementos = detalles[clave] || [];
-        detallesLista.innerHTML = elementos.map(e =>
-          `<li>Ancho: ${e.ancho} - Cantidad: ${e.cantidad}</li>`).join('');
-        modal.style.display = "flex";
+        detallesLista.innerHTML = elementos
+          .map(e => `<li>Ancho: ${e.ancho} - Cantidad: ${e.cantidad}</li>`)
+          .join('');
+        modal.style.display = 'flex';
       };
-
     })
     .catch(err => {
       console.error("Error al obtener los datos:", err);
@@ -771,24 +830,3 @@ table.dataTable {
 
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
