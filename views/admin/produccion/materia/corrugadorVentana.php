@@ -714,18 +714,6 @@ table.dataTable {
 </head>
 <body>
 
-<h2>Inventario Detallado</h2>
-
-<div class="tabla-container">
-  <table id="tabla-ingresos">
-    <thead>
-      <tr id="encabezado">
-        <th>Gramaje</th>
-      </tr>
-    </thead>
-    <tbody></tbody>
-  </table>
-</div>
 
 <div id="modal1">
   <div id="modal-content">
