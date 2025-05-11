@@ -854,45 +854,64 @@ table.dataTable {
 
 
 
-
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Totales Mensuales de Consumo</title>
+  <title>Totales Mensuales</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      padding: 20px;
-      background-color: #dbe2e8;
+      background-color: #cfd4d9;
+      padding: 30px;
     }
+
     h1 {
       text-align: center;
-      margin-bottom: 30px;
-    }
-    .tabla-bloque {
       margin-bottom: 40px;
-      width: 300px;
-      background-color: white;
-      padding: 10px;
-      border-radius: 8px;
-      box-shadow: 0 0 5px #aaa;
-      display: inline-block;
-      margin-right: 20px;
     }
+
+    .mes-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+    }
+
+    .tabla-bloque {
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      padding: 10px;
+      width: 350px;
+      min-width: 320px;
+    }
+
+    h3 {
+      text-align: center;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+      font-weight: bold;
+      font-size: 20px;
+    }
+
     table {
       width: 100%;
       border-collapse: collapse;
-    }
-    th, td {
-      border: 1px solid #888;
-      padding: 8px;
       text-align: center;
     }
-    th {
-      background-color: #f0f0f0;
+
+    th, td {
+      border: 1px solid #bbb;
+      padding: 8px;
     }
+
+    th {
+      background-color: #f1f1f1;
+      font-weight: bold;
+      color: #333;
+    }
+
     td:last-child {
       font-weight: bold;
       color: green;
@@ -902,7 +921,7 @@ table.dataTable {
 <body>
 
 <h1>CONSUMOS PROYECTADOS POR MES - 2025</h1>
-<div id="contenedor"></div>
+<div class="mes-grid" id="contenedor"></div>
 
 <script>
 async function mostrarTotalesMensuales() {
@@ -913,7 +932,7 @@ async function mostrarTotalesMensuales() {
 
   data.forEach(item => {
     const fecha = new Date(item.fecha_consumo);
-    const mes = fecha.toLocaleString('es-ES', { month: 'long' });
+    const mes = fecha.toLocaleString('es-ES', { month: 'long' }).toUpperCase();
     if (!meses[mes]) {
       meses[mes] = { '1880': 0, '1100': 0 };
     }
@@ -924,38 +943,43 @@ async function mostrarTotalesMensuales() {
     }
   });
 
+  // Orden cronológico manual
+  const ordenMeses = ['ENERO','FEBRERO','MARZO','ABRIL','MAYO','JUNIO','JULIO','AGOSTO','SEPTIEMBRE','OCTUBRE','NOVIEMBRE','DICIEMBRE'];
+
   const contenedor = document.getElementById('contenedor');
 
-  Object.entries(meses).forEach(([mes, valores]) => {
-    const total188 = valores['1880'];
-    const total110 = valores['1100'];
-    const total = total188 + total110;
+  ordenMeses.forEach(mes => {
+    if (meses[mes]) {
+      const total188 = meses[mes]['1880'];
+      const total110 = meses[mes]['1100'];
+      const total = total188 + total110;
 
-    const div = document.createElement('div');
-    div.className = 'tabla-bloque';
+      const bloque = document.createElement('div');
+      bloque.className = 'tabla-bloque';
 
-    div.innerHTML = `
-      <h3 style="text-align:center; text-transform:uppercase;">${mes}</h3>
-      <table>
-        <thead>
-          <tr>
-            <th>GRAMAJE</th>
-            <th>188</th>
-            <th>110</th>
-            <th>CANT</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><strong>TOTAL</strong></td>
-            <td>${total188.toFixed(1)}</td>
-            <td>${total110.toFixed(1)}</td>
-            <td>${total.toFixed(1)}</td>
-          </tr>
-        </tbody>
-      </table>
-    `;
-    contenedor.appendChild(div);
+      bloque.innerHTML = `
+        <h3>${mes}</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>GRAMAJE</th>
+              <th>188</th>
+              <th>110</th>
+              <th>CANT</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>TOTAL</strong></td>
+              <td>${total188.toFixed(1)}</td>
+              <td>${total110.toFixed(1)}</td>
+              <td>${total.toFixed(1)}</td>
+            </tr>
+          </tbody>
+        </table>
+      `;
+      contenedor.appendChild(bloque);
+    }
   });
 }
 
