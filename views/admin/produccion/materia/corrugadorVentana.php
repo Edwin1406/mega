@@ -378,8 +378,6 @@ table.dataTable {
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 
 
-
-
 <script>
   let datosOriginales = [];
 
@@ -388,12 +386,10 @@ table.dataTable {
       const response = await fetch('https://megawebsistem.com/admin/api/apicomercial');
       const data = await response.json();
 
-      // Obtener mes y año actual
       const fechaActual = new Date();
-      const mesActual = fechaActual.getMonth(); // 0 = Enero
+      const mesActual = fechaActual.getMonth();
       const anioActual = fechaActual.getFullYear();
 
-      // Filtrar solo datos con fecha_corte en el mes actual
       const dataFiltrada = data.filter(item => {
         if (!item.fecha_corte || item.fecha_corte === "0000-00-00") return false;
         const fechaCorte = new Date(item.fecha_corte.replace(/-/g, '/'));
@@ -405,7 +401,7 @@ table.dataTable {
       const resumenPorClave = {};
       const detallePorClave = {};
       const totalesMensuales = Array(12).fill(0);
-      const combinaciones = {}; // gramaje => Set de líneas reales
+      const combinaciones = {};
 
       dataFiltrada.forEach(item => {
         let lineaOriginal = item.linea ? item.linea.toUpperCase().trim() : '';
@@ -420,18 +416,20 @@ table.dataTable {
 
         const cantidad = parseFloat(item.cantidad.toString().replace(',', '').replace(' ', '')) || 0;
         const gramaje = item.gramaje;
+        const producto = item.nombre_producto || 'Sin nombre';
 
         if (!combinaciones[gramaje]) combinaciones[gramaje] = new Set();
         combinaciones[gramaje].add(lineaOriginal);
 
         let lineaFusionada = (lineaOriginal === 'CAJAS-KRAFT' || lineaOriginal === 'MEDIUM') ? 'PENDIENTE' : lineaOriginal;
-        const clave = `${gramaje}||${lineaFusionada}`;
+        const clave = `${gramaje}||${lineaFusionada}||${producto}`;
         const keyMes = `${clave}-${mes}`;
 
         if (!resumenPorClave[clave]) {
           resumenPorClave[clave] = {
             gramaje,
             linea: lineaFusionada,
+            producto,
             cantidades: Array(12).fill(0),
             total: 0
           };
@@ -472,7 +470,7 @@ table.dataTable {
       const encabezado = document.querySelector('#tabla-gramajes thead tr');
       const nombresMeses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
                             'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
-      let encabezadoHtml = `<th>Gramaje</th><th>Línea</th>`;
+      let encabezadoHtml = `<th>Gramaje</th><th>Línea</th><th>Producto</th>`;
       columnasActivas.forEach((activa, idx) => {
         if (activa) encabezadoHtml += `<th>${nombresMeses[idx]}</th>`;
       });
@@ -496,7 +494,7 @@ table.dataTable {
 
       const totalRow = document.createElement('tr');
       totalRow.classList.add('total-row');
-      let htmlTotales = `<td><strong>Total</strong></td><td></td>`;
+      let htmlTotales = `<td><strong>Total</strong></td><td></td><td></td>`;
       columnasActivas.forEach((activa, idx) => {
         if (activa) htmlTotales += `<td><strong>${totalesMensuales[idx].toFixed(3)}</strong></td>`;
       });
@@ -505,9 +503,7 @@ table.dataTable {
       tbody.appendChild(totalRow);
 
       $('#tabla-gramajes').DataTable({
-        //excel
-        dom: 'Bfrtip', // ¡importante para mostrar botones!
-
+        dom: 'Bfrtip',
         buttons: [
           {
             extend: 'excelHtml5',
@@ -570,8 +566,6 @@ table.dataTable {
 
   cargarDatos();
 </script>
-
-
 </body>
 </html>
 
