@@ -383,10 +383,6 @@ table.dataTable {
 <script src="https://cdn.datatables.net/responsive/2.5.0/js/dataTables.responsive.min.js"></script>
 <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.5.0/css/responsive.dataTables.min.css">
 
-<!-- Donde se mostrarán los botones -->
-<div style="margin: 10px 0;">
-  <button id="exportExcel">Exportar a Excel</button>
-</div>
 
 
 
