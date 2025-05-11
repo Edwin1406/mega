@@ -849,141 +849,162 @@ table.dataTable {
 
 
 
-
-
-
-
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Totales Mensuales</title>
+  <title>Consumos Proyectados por Mes</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #cfd4d9;
-      padding: 30px;
-    }
+  
 
     h1 {
       text-align: center;
       margin-bottom: 40px;
-    }
-
-    .mes-grid {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 20px;
-      justify-content: center;
-    }
-
-    .tabla-bloque {
-      background: #fff;
-      border-radius: 8px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-      padding: 10px;
-      width: 350px;
-      min-width: 320px;
-    }
-
-    h3 {
-      text-align: center;
-      margin-bottom: 10px;
       text-transform: uppercase;
-      font-weight: bold;
-      font-size: 20px;
     }
 
     table {
       width: 100%;
       border-collapse: collapse;
+      background-color: #fff;
+      box-shadow: 0 0 6px rgba(0,0,0,0.1);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    thead th {
+      background-color: #f4f4f4;
+      border: 1px solid #ccc;
+      padding: 8px;
       text-align: center;
     }
 
-    th, td {
-      border: 1px solid #bbb;
-      padding: 8px;
+    tbody td {
+      border: 1px solid #ccc;
+      padding: 6px;
+      text-align: center;
     }
 
-    th {
-      background-color: #f1f1f1;
+    .header-mes {
+      background-color: #e1e7ec;
       font-weight: bold;
-      color: #333;
     }
 
-    td:last-child {
+    .total {
       font-weight: bold;
       color: green;
+    }
+
+    .footer-row td {
+      background-color: #f8f9fa;
+      font-weight: bold;
+      color: #000;
     }
   </style>
 </head>
 <body>
 
-<h1>CONSUMOS PROYECTADOS POR MES - 2025</h1>
-<div class="mes-grid" id="contenedor"></div>
+<h1>Consumos Proyectados por Mes - 2025</h1>
+<div style="overflow-x: auto;">
+  <table id="tablaConsumos">
+    <thead id="thead"></thead>
+    <tbody id="tbody"></tbody>
+    <tfoot id="tfoot"></tfoot>
+  </table>
+</div>
 
 <script>
-async function mostrarTotalesMensuales() {
+async function construirTabla() {
   const response = await fetch('https://megawebsistem.com/admin/api/apiproyecciones');
   const data = await response.json();
 
-  const meses = {};
+  const mesesES = ['ENERO','FEBRERO','MARZO','ABRIL','MAYO','JUNIO','JULIO','AGOSTO','SEPTIEMBRE','OCTUBRE','NOVIEMBRE','DICIEMBRE'];
+  const tabla = {};
+  const gramajes = new Set();
+  const mesesEnData = new Set();
+  const totalesPorMes = {}; // para la fila final
 
   data.forEach(item => {
-    const fecha = new Date(item.fecha_consumo);
-    const mes = fecha.toLocaleString('es-ES', { month: 'long' }).toUpperCase();
-    if (!meses[mes]) {
-      meses[mes] = { '1880': 0, '1100': 0 };
+    const mesIndex = parseInt(item.fecha_consumo.slice(5, 7), 10) - 1;
+    const mes = mesesES[mesIndex];
+    const gms = item.gms;
+    const ancho = item.ancho;
+    const cantidad = parseFloat(item.cantidad);
+
+    if (!tabla[gms]) tabla[gms] = {};
+    if (!tabla[gms][mes]) tabla[gms][mes] = { '188': 0, '110': 0, 'CANT': 0 };
+
+    if (!totalesPorMes[mes]) totalesPorMes[mes] = { '188': 0, '110': 0, 'CANT': 0 };
+
+    if (ancho === "1880") {
+      tabla[gms][mes]['188'] += cantidad;
+      totalesPorMes[mes]['188'] += cantidad;
+    } else if (ancho === "1100") {
+      tabla[gms][mes]['110'] += cantidad;
+      totalesPorMes[mes]['110'] += cantidad;
     }
-    if (item.ancho === '1880') {
-      meses[mes]['1880'] += parseFloat(item.cantidad);
-    } else if (item.ancho === '1100') {
-      meses[mes]['1100'] += parseFloat(item.cantidad);
-    }
+
+    tabla[gms][mes]['CANT'] += cantidad;
+    totalesPorMes[mes]['CANT'] += cantidad;
+
+    gramajes.add(gms);
+    mesesEnData.add(mes);
   });
 
-  // Orden cronológico manual
-  const ordenMeses = ['ENERO','FEBRERO','MARZO','ABRIL','MAYO','JUNIO','JULIO','AGOSTO','SEPTIEMBRE','OCTUBRE','NOVIEMBRE','DICIEMBRE'];
+  const mesesOrdenados = mesesES.filter(m => mesesEnData.has(m));
+  const gramajesOrdenados = Array.from(gramajes).sort((a, b) => a - b);
 
-  const contenedor = document.getElementById('contenedor');
+  // Construir encabezado
+  const thead = document.getElementById("thead");
+  const header1 = document.createElement("tr");
+  header1.innerHTML = `<th rowspan="2">GRAMAJE</th>`;
+  mesesOrdenados.forEach(mes => {
+    header1.innerHTML += `<th class="header-mes" colspan="3">${mes}</th>`;
+  });
 
-  ordenMeses.forEach(mes => {
-    if (meses[mes]) {
-      const total188 = meses[mes]['1880'];
-      const total110 = meses[mes]['1100'];
-      const total = total188 + total110;
+  const header2 = document.createElement("tr");
+  mesesOrdenados.forEach(() => {
+    header2.innerHTML += `<th>188</th><th>110</th><th>CANT</th>`;
+  });
 
-      const bloque = document.createElement('div');
-      bloque.className = 'tabla-bloque';
+  thead.appendChild(header1);
+  thead.appendChild(header2);
 
-      bloque.innerHTML = `
-        <h3>${mes}</h3>
-        <table>
-          <thead>
-            <tr>
-              <th>GRAMAJE</th>
-              <th>188</th>
-              <th>110</th>
-              <th>CANT</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><strong>TOTAL</strong></td>
-              <td>${total188.toFixed(1)}</td>
-              <td>${total110.toFixed(1)}</td>
-              <td>${total.toFixed(1)}</td>
-            </tr>
-          </tbody>
-        </table>
+  // Construir cuerpo
+  const tbody = document.getElementById("tbody");
+  gramajesOrdenados.forEach(gms => {
+    const fila = document.createElement("tr");
+    fila.innerHTML = `<td>${gms}</td>`;
+
+    mesesOrdenados.forEach(mes => {
+      const valores = tabla[gms][mes] || { '188': 0, '110': 0, 'CANT': 0 };
+      fila.innerHTML += `
+        <td>${valores['188'].toFixed(1)}</td>
+        <td>${valores['110'].toFixed(1)}</td>
+        <td class="total">${valores['CANT'].toFixed(1)}</td>
       `;
-      contenedor.appendChild(bloque);
-    }
+    });
+
+    tbody.appendChild(fila);
   });
+
+  // Construir pie (totales por mes)
+  const tfoot = document.getElementById("tfoot");
+  const filaTotal = document.createElement("tr");
+  filaTotal.className = "footer-row";
+  filaTotal.innerHTML = `<td>TOTAL</td>`;
+  mesesOrdenados.forEach(mes => {
+    const t = totalesPorMes[mes];
+    filaTotal.innerHTML += `
+      <td>${t['188'].toFixed(1)}</td>
+      <td>${t['110'].toFixed(1)}</td>
+      <td class="total">${t['CANT'].toFixed(1)}</td>
+    `;
+  });
+  tfoot.appendChild(filaTotal);
 }
 
-mostrarTotalesMensuales();
+construirTabla();
 </script>
 
 </body>
