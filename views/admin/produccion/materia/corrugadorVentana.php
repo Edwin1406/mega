@@ -488,6 +488,18 @@ table.dataTable {
       tbody.appendChild(totalRow);
 
       $('#tabla-gramajes').DataTable({
+        //excel
+        dom: 'Bfrtip',
+        buttons: [
+          {
+            extend: 'excelHtml5',
+            text: 'Exportar a Excel',
+            title: 'Tabla de Ingresos',
+            exportOptions: {
+              columns: ':visible:not(.no-export)'
+            }
+          }
+        ],
         responsive: true,
         paging: false,
         searching: true,
