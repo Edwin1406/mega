@@ -845,81 +845,140 @@ table.dataTable {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Consumo por Línea y Gramaje</title>
+  <title>Consumos Proyectados por Mes</title>
   <style>
     body { font-family: Arial, sans-serif; padding: 20px; }
-    h2 { margin-top: 40px; }
-    table { border-collapse: collapse; width: 100%; margin-bottom: 40px; }
-    th, td { border: 1px solid #ccc; padding: 8px; text-align: center; }
-    th { background-color: #f2f2f2; }
-    .ancho-1880 { background-color: #cfe2ff; } /* azul claro */
-    .ancho-1100 { background-color: #d1e7dd; } /* verde claro */
+    h1 { text-align: center; margin-bottom: 30px; }
+    .mes-bloque {
+      display: inline-block;
+      width: 45%;
+      vertical-align: top;
+      margin: 1%;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+    th, td {
+      border: 1px solid #888;
+      padding: 6px;
+      text-align: center;
+      font-size: 14px;
+    }
+    th {
+      background-color: #f0f0f0;
+    }
+    .mes-titulo {
+      text-align: center;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
   </style>
 </head>
 <body>
 
-<h1>Tabla de Proyecciones de Consumo</h1>
-<div id="contenido"></div>
+<h1>CONSUMOS PROYECTADOS POR MES - 2025</h1>
+<div id="contenedor-tablas"></div>
 
 <script>
-  async function cargarDatos() {
-    const respuesta = await fetch('https://megawebsistem.com/admin/api/apiproyecciones');
-    const datos = await respuesta.json();
+async function cargarDatos() {
+  const response = await fetch('https://megawebsistem.com/admin/api/apiproyecciones');
+  const data = await response.json();
 
-    // Agrupar por línea y gms
-    const agrupado = {};
+  // Agrupar por MES y GMS
+  const agrupado = {};
 
-    datos.forEach(item => {
-      const clave = `${item.linea} - ${item.gms}g`;
-      if (!agrupado[clave]) agrupado[clave] = [];
-      agrupado[clave].push(item);
+  data.forEach(item => {
+    const fecha = new Date(item.fecha_consumo);
+    const mes = fecha.toLocaleString('es-ES', { month: 'long' }).toUpperCase();
+    const keyMes = mes;
+
+    if (!agrupado[keyMes]) agrupado[keyMes] = {};
+    if (!agrupado[keyMes][item.gms]) agrupado[keyMes][item.gms] = { ancho1880: 0, ancho1100: 0 };
+
+    if (item.ancho === "1880") {
+      agrupado[keyMes][item.gms].ancho1880 += parseFloat(item.cantidad);
+    } else if (item.ancho === "1100") {
+      agrupado[keyMes][item.gms].ancho1100 += parseFloat(item.cantidad);
+    }
+  });
+
+  const contenedor = document.getElementById('contenedor-tablas');
+
+  for (const mes in agrupado) {
+    const bloque = document.createElement('div');
+    bloque.className = 'mes-bloque';
+
+    const titulo = document.createElement('div');
+    titulo.className = 'mes-titulo';
+    titulo.textContent = mes;
+    bloque.appendChild(titulo);
+
+    const tabla = document.createElement('table');
+    tabla.innerHTML = `
+      <thead>
+        <tr>
+          <th>GRAMAJE</th>
+          <th>PROY.</th>
+          <th>188</th>
+          <th>110</th>
+          <th>CANT</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    `;
+
+    const tbody = tabla.querySelector('tbody');
+    let totalProy = 0;
+
+    Object.entries(agrupado[mes]).sort((a, b) => a[0] - b[0]).forEach(([gms, valores]) => {
+      const total = valores.ancho1880 + valores.ancho1100;
+      totalProy += total;
+
+      const fila = document.createElement('tr');
+      fila.innerHTML = `
+        <td>${gms}</td>
+        <td>${total.toFixed(1)}</td>
+        <td>${valores.ancho1880.toFixed(1)}</td>
+        <td>${valores.ancho1100.toFixed(1)}</td>
+        <td>${total.toFixed(1)}</td>
+      `;
+      tbody.appendChild(fila);
     });
 
-    const contenedor = document.getElementById('contenido');
+    // Fila total
+    const filaTotal = document.createElement('tr');
+    filaTotal.innerHTML = `
+      <td><strong>TOTAL</strong></td>
+      <td><strong>${totalProy.toFixed(1)}</strong></td>
+      <td colspan="3"></td>
+    `;
+    tbody.appendChild(filaTotal);
 
-    for (const clave in agrupado) {
-      const grupo = agrupado[clave];
-
-      const titulo = document.createElement('h2');
-      titulo.textContent = clave;
-      contenedor.appendChild(titulo);
-
-      const tabla = document.createElement('table');
-      const thead = document.createElement('thead');
-      thead.innerHTML = `
-        <tr>
-          <th>Fecha</th>
-          <th>Producto</th>
-          <th>Ancho</th>
-          <th>Cantidad</th>
-        </tr>
-      `;
-      tabla.appendChild(thead);
-
-      const tbody = document.createElement('tbody');
-      grupo.forEach(item => {
-        const fila = document.createElement('tr');
-        fila.className = item.ancho === "1880" ? 'ancho-1880' :
-                         item.ancho === "1100" ? 'ancho-1100' : '';
-        fila.innerHTML = `
-          <td>${item.fecha_consumo}</td>
-          <td>${item.producto}</td>
-          <td>${item.ancho}</td>
-          <td>${item.cantidad}</td>
-        `;
-        tbody.appendChild(fila);
-      });
-
-      tabla.appendChild(tbody);
-      contenedor.appendChild(tabla);
-    }
+    bloque.appendChild(tabla);
+    contenedor.appendChild(bloque);
   }
+}
 
-  cargarDatos();
+cargarDatos();
 </script>
 
 </body>
