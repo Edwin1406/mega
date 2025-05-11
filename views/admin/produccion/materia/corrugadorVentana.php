@@ -856,129 +856,110 @@ table.dataTable {
 
 
 
-
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Consumos Proyectados por Mes</title>
+  <title>Totales Mensuales de Consumo</title>
   <style>
-    body { font-family: Arial, sans-serif; padding: 20px; }
-    h1 { text-align: center; margin-bottom: 30px; }
-    .mes-bloque {
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background-color: #dbe2e8;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    .tabla-bloque {
+      margin-bottom: 40px;
+      width: 300px;
+      background-color: white;
+      padding: 10px;
+      border-radius: 8px;
+      box-shadow: 0 0 5px #aaa;
       display: inline-block;
-      width: 45%;
-      vertical-align: top;
-      margin: 1%;
+      margin-right: 20px;
     }
     table {
       width: 100%;
       border-collapse: collapse;
-      margin-bottom: 20px;
     }
     th, td {
       border: 1px solid #888;
-      padding: 6px;
+      padding: 8px;
       text-align: center;
-      font-size: 14px;
     }
     th {
       background-color: #f0f0f0;
     }
-    .mes-titulo {
-      text-align: center;
+    td:last-child {
       font-weight: bold;
-      margin-bottom: 10px;
+      color: green;
     }
   </style>
 </head>
 <body>
 
 <h1>CONSUMOS PROYECTADOS POR MES - 2025</h1>
-<div id="contenedor-tablas"></div>
+<div id="contenedor"></div>
 
 <script>
-async function cargarDatos() {
+async function mostrarTotalesMensuales() {
   const response = await fetch('https://megawebsistem.com/admin/api/apiproyecciones');
   const data = await response.json();
 
-  // Agrupar por MES y GMS
-  const agrupado = {};
+  const meses = {};
 
   data.forEach(item => {
     const fecha = new Date(item.fecha_consumo);
-    const mes = fecha.toLocaleString('es-ES', { month: 'long' }).toUpperCase();
-    const keyMes = mes;
-
-    if (!agrupado[keyMes]) agrupado[keyMes] = {};
-    if (!agrupado[keyMes][item.gms]) agrupado[keyMes][item.gms] = { ancho1880: 0, ancho1100: 0 };
-
-    if (item.ancho === "1880") {
-      agrupado[keyMes][item.gms].ancho1880 += parseFloat(item.cantidad);
-    } else if (item.ancho === "1100") {
-      agrupado[keyMes][item.gms].ancho1100 += parseFloat(item.cantidad);
+    const mes = fecha.toLocaleString('es-ES', { month: 'long' });
+    if (!meses[mes]) {
+      meses[mes] = { '1880': 0, '1100': 0 };
+    }
+    if (item.ancho === '1880') {
+      meses[mes]['1880'] += parseFloat(item.cantidad);
+    } else if (item.ancho === '1100') {
+      meses[mes]['1100'] += parseFloat(item.cantidad);
     }
   });
 
-  const contenedor = document.getElementById('contenedor-tablas');
+  const contenedor = document.getElementById('contenedor');
 
-  for (const mes in agrupado) {
-    const bloque = document.createElement('div');
-    bloque.className = 'mes-bloque';
+  Object.entries(meses).forEach(([mes, valores]) => {
+    const total188 = valores['1880'];
+    const total110 = valores['1100'];
+    const total = total188 + total110;
 
-    const titulo = document.createElement('div');
-    titulo.className = 'mes-titulo';
-    titulo.textContent = mes;
-    bloque.appendChild(titulo);
+    const div = document.createElement('div');
+    div.className = 'tabla-bloque';
 
-    const tabla = document.createElement('table');
-    tabla.innerHTML = `
-      <thead>
-        <tr>
-          <th>GRAMAJE</th>
-          <th>PROY.</th>
-          <th>188</th>
-          <th>110</th>
-          <th>CANT</th>
-        </tr>
-      </thead>
-      <tbody></tbody>
+    div.innerHTML = `
+      <h3 style="text-align:center; text-transform:uppercase;">${mes}</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>GRAMAJE</th>
+            <th>188</th>
+            <th>110</th>
+            <th>CANT</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>TOTAL</strong></td>
+            <td>${total188.toFixed(1)}</td>
+            <td>${total110.toFixed(1)}</td>
+            <td>${total.toFixed(1)}</td>
+          </tr>
+        </tbody>
+      </table>
     `;
-
-    const tbody = tabla.querySelector('tbody');
-    let totalProy = 0;
-
-    Object.entries(agrupado[mes]).sort((a, b) => a[0] - b[0]).forEach(([gms, valores]) => {
-      const total = valores.ancho1880 + valores.ancho1100;
-      totalProy += total;
-
-      const fila = document.createElement('tr');
-      fila.innerHTML = `
-        <td>${gms}</td>
-        <td>${total.toFixed(1)}</td>
-        <td>${valores.ancho1880.toFixed(1)}</td>
-        <td>${valores.ancho1100.toFixed(1)}</td>
-        <td>${total.toFixed(1)}</td>
-      `;
-      tbody.appendChild(fila);
-    });
-
-    // Fila total
-    const filaTotal = document.createElement('tr');
-    filaTotal.innerHTML = `
-      <td><strong>TOTAL</strong></td>
-      <td><strong>${totalProy.toFixed(1)}</strong></td>
-      <td colspan="3"></td>
-    `;
-    tbody.appendChild(filaTotal);
-
-    bloque.appendChild(tabla);
-    contenedor.appendChild(bloque);
-  }
+    contenedor.appendChild(div);
+  });
 }
 
-cargarDatos();
+mostrarTotalesMensuales();
 </script>
 
 </body>
