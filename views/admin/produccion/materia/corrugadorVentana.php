@@ -574,9 +574,6 @@ table.dataTable {
 <!-- api inventario  -->
 
 
-
-
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -584,7 +581,7 @@ table.dataTable {
   <title>Inventario Detallado</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
   <style>
-   
+  
 
     h2 {
       font-size: 24px;
@@ -624,6 +621,14 @@ table.dataTable {
 
     tr:hover {
       background-color: #eaf3fb;
+    }
+
+    tr.resaltado-1100 {
+      background-color: #d1ecf1 !important;
+    }
+
+    tr.resaltado-1880 {
+      background-color: #fff3cd !important;
     }
 
     td:first-child {
@@ -669,7 +674,7 @@ table.dataTable {
       margin-top: 0;
       margin-bottom: 15px;
       font-size: 20px;
-      font-weight: 600;
+      font-weight: 700;
       border-bottom: 1px solid #eee;
       padding-bottom: 10px;
     }
@@ -699,6 +704,16 @@ table.dataTable {
       border-left: 4px solid #3498db;
       border-radius: 6px;
       font-size: 14px;
+    }
+
+    #detalles-lista li.ancho-1100 {
+      background-color: #d1ecf1 !important;
+      border-left-color: #17a2b8;
+    }
+
+    #detalles-lista li.ancho-1880 {
+      background-color: #fff3cd !important;
+      border-left-color: #ffc107;
     }
   </style>
 </head>
@@ -748,7 +763,6 @@ table.dataTable {
         if (cantidad > 0) mesesConDatos[mes] = true;
       });
 
-      // Agregar encabezado con meses activos
       meses.forEach((mes, i) => {
         if (mesesConDatos[i]) {
           const th = document.createElement('th');
@@ -757,9 +771,12 @@ table.dataTable {
         }
       });
 
-      // Filas de datos
       Object.entries(resumen).forEach(([gramaje, cantidades]) => {
         const fila = document.createElement('tr');
+
+        if (gramaje === "1100") fila.classList.add('resaltado-1100');
+        else if (gramaje === "1880") fila.classList.add('resaltado-1880');
+
         fila.innerHTML = `<td>${gramaje}</td>`;
 
         cantidades.forEach((cantidad, i) => {
@@ -778,7 +795,6 @@ table.dataTable {
         tabla.appendChild(fila);
       });
 
-      // Totales
       const filaTotal = document.createElement('tr');
       filaTotal.innerHTML = `<td><strong>TOTAL</strong></td>`;
       mesesConDatos.forEach((activo, i) => {
@@ -788,12 +804,16 @@ table.dataTable {
       });
       tabla.appendChild(filaTotal);
 
-      // Mostrar modal
       window.mostrarModal = (gramaje, mesIndex) => {
         const clave = `${gramaje}-${mesIndex}`;
         const elementos = detalles[clave] || [];
         detallesLista.innerHTML = elementos
-          .map(e => `<li>Ancho: ${e.ancho} - Cantidad: ${e.cantidad}</li>`)
+          .map(e => {
+            let clase = '';
+            if (e.ancho == 1100) clase = 'ancho-1100';
+            else if (e.ancho == 1880) clase = 'ancho-1880';
+            return `<li class="${clase}">Ancho: ${e.ancho} - Cantidad: ${e.cantidad}</li>`;
+          })
           .join('');
         modal.style.display = 'flex';
       };
@@ -803,19 +823,16 @@ table.dataTable {
       tabla.innerHTML = `<tr><td colspan="13">Error cargando datos</td></tr>`;
     });
 
-  // Cerrar modal al hacer clic fuera
   modal.addEventListener('click', function(e) {
     if (e.target === modal) {
       modal.style.display = 'none';
     }
   });
 
-  // Cerrar con la X
   closeModal.addEventListener('click', () => {
     modal.style.display = 'none';
   });
 
-  // Cerrar con tecla ESC
   document.addEventListener('keydown', function(e) {
     if (e.key === 'Escape') {
       modal.style.display = 'none';
