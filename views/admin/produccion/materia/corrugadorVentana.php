@@ -416,7 +416,7 @@ table.dataTable {
 
         const cantidad = parseFloat(item.cantidad.toString().replace(',', '').replace(' ', '')) || 0;
         const gramaje = item.gramaje;
-        const producto = item.nombre_producto || 'Sin nombre';
+        const producto = item.producto || 'Sin nombre';
 
         if (!combinaciones[gramaje]) combinaciones[gramaje] = new Set();
         combinaciones[gramaje].add(lineaOriginal);
