@@ -391,10 +391,12 @@ public static function menosDeCien($orden = 'DESC') {
     }
 
 
-    //API IMPORTACIONES 
-    public static function allcIMPORT($orden = 'DESC', $lineas = null) {
+public static function allcIMPORT($orden = 'DESC', $lineas = null) {
     // Construye la consulta base con las columnas correctas
-    $query = "SELECT id, import, proyecto, pedido_interno, fecha_solicitud, trader, marca, linea, producto, gramaje, ancho, cantidad, precio, total_item, fecha_produccion, ets, eta, arribo_planta, transito, fecha_en_planta, estado, fecha_corte FROM " . static::$tabla;
+    $query = "SELECT id, import, proyecto, pedido_interno, fecha_solicitud, trader, marca, linea, producto, gramaje, ancho, 
+              ROUND(cantidad, 3) AS cantidad, precio, total_item, fecha_produccion, ets, eta, arribo_planta, transito, 
+              fecha_en_planta, estado, fecha_corte 
+              FROM " . static::$tabla;
     
     // Manejar múltiples líneas con coincidencias parciales
     if ($lineas !== null) {
@@ -417,6 +419,7 @@ public static function menosDeCien($orden = 'DESC') {
     $resultado = self::consultarSQL($query);
     return $resultado;
 }
+
 
 
 
