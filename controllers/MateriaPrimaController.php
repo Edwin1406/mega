@@ -695,7 +695,7 @@ class MateriaPrimaController
 
         
         $totalExistenciaKI = number_format($totalExistenciaKI, 0, '.', ',');
-        $totalExistenciaBI = number_format($totalExistenciaBI, 0, '.', ',');
+        // $totalExistenciaBI = number_format($totalExistenciaBI, 0, '.', ',');
         $totalExistenciaMI = number_format($totalExistenciaMI, 0, '.', ',');
 
    
