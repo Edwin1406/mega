@@ -533,7 +533,7 @@ class MateriaPrimaController
     $agregados = [];
     foreach ($corrugador as $item) {
         // Convierte la cantidad a float antes de hacer cualquier operación
-        $cantidad = floatval($item->cantidad); // Convierte de string a float
+        $cantidad = $item->cantidad; // Convierte de string a float
 
         $key = $item->gramaje . '-' . $item->ancho; // Llave única basada en gramaje y ancho
         if (!isset($agregados[$key])) {
