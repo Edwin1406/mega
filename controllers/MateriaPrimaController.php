@@ -666,11 +666,11 @@ class MateriaPrimaController
         // debuguear($totalExistencia);
 
          // KRAFT
-         $totalExistenciaK = MateriaPrimaV::sumarExistenciaPorMes('CAJA-KRAFT');
+         $totalExistenciaK = MateriaPrimaV::sumarExistenciaPorMes('CAJAS-KRAFT');
        
 
          // BLANCO
-         $totalExistenciaB = MateriaPrimaV::sumarExistenciaPorMes('CAJA-BLANCO');
+         $totalExistenciaB = MateriaPrimaV::sumarExistenciaPorMes('CAJAS-BLANCO');
     
  
          // MEDIUM
