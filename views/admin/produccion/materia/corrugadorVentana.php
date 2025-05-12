@@ -940,7 +940,7 @@ async function construirTabla() {
     const mes = mesesES[mesIndex];
     const gms = item.gms;
     const producto = item.producto;
-    const clave = `${gms} - ${producto}`;
+    const clave = `${gms}|${producto}`;
     const ancho = item.ancho;
     const cantidad = parseFloat(item.cantidad);
 
@@ -966,15 +966,15 @@ async function construirTabla() {
 
   const mesesOrdenados = mesesES.filter(m => mesesEnData.has(m));
   const clavesOrdenadas = Array.from(claves).sort((a, b) => {
-    const [gmsA] = a.split(" - ").map(Number);
-    const [gmsB] = b.split(" - ").map(Number);
+    const [gmsA] = a.split("|").map(Number);
+    const [gmsB] = b.split("|").map(Number);
     return gmsA - gmsB;
   });
 
   // Construir encabezado
   const thead = document.getElementById("thead");
   const header1 = document.createElement("tr");
-  header1.innerHTML = `<th rowspan="2">GRAMAJE - PRODUCTO</th>`;
+  header1.innerHTML = `<th rowspan="2">GRAMAJE</th><th rowspan="2">PRODUCTO</th>`;
   mesesOrdenados.forEach(mes => {
     header1.innerHTML += `<th class="header-mes" colspan="3">${mes}</th>`;
   });
@@ -990,8 +990,9 @@ async function construirTabla() {
   // Construir cuerpo
   const tbody = document.getElementById("tbody");
   clavesOrdenadas.forEach(clave => {
+    const [gms, producto] = clave.split("|");
     const fila = document.createElement("tr");
-    fila.innerHTML = `<td>${clave}</td>`;
+    fila.innerHTML = `<td>${gms}</td><td>${producto}</td>`;
 
     mesesOrdenados.forEach(mes => {
       const valores = tabla[clave][mes] || { '188': 0, '110': 0, 'CANT': 0 };
@@ -1009,7 +1010,7 @@ async function construirTabla() {
   const tfoot = document.getElementById("tfoot");
   const filaTotal = document.createElement("tr");
   filaTotal.className = "footer-row";
-  filaTotal.innerHTML = `<td>TOTAL</td>`;
+  filaTotal.innerHTML = `<td colspan="2">TOTAL</td>`;
   mesesOrdenados.forEach(mes => {
     const t = totalesPorMes[mes];
     filaTotal.innerHTML += `
