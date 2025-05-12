@@ -692,12 +692,12 @@ class MateriaPrimaController
 
 
         $totalExistenciasComercial= $totalExistenciaKI + $totalExistenciaBI + $totalExistenciaMI;
+        $totalExistenciasComercial = number_format($totalExistenciasComercial, 0, '.', ',');
 
         debuguear($totalExistenciasComercial);
          
 
         
-        // $totalExistenciaKI = number_format($totalExistenciaKI, 0, '.', ',');
         // // $totalExistenciaBI = number_format($totalExistenciaBI, 0, '.', ',');
         // $totalExistenciaMI = number_format($totalExistenciaMI, 0, '.', ',');
 
