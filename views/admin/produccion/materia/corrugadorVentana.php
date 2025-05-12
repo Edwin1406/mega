@@ -55,9 +55,10 @@
 
 <H1> IMPORTACIONES</H1>
 
+
 <ul class="lista-areas-produccion">
     <li class="areas-produccion-craft" data-aos="flip-left">
-        <a href="/admin/produccion/materia/corrugador/cajacraft">
+        <a href="#">
             <i class="fas fa-scroll"></i> TOTAL CAJA-KRAFT :
             <?php if ($totalExistenciaKI > 0) : ?>
                 <span class="areas-produccion__numero"> <?php echo $totalExistenciaKI ?> KG</span>
@@ -66,7 +67,7 @@
     </li>
 
     <li class="areas-produccion-blanco" data-aos="flip-left">
-        <a href="/admin/produccion/materia/corrugador/cajablanco">
+        <a href="#">
             <i class="fas fa-scroll"></i> TOTAL CAJA-BLANCO :
             <?php if ($totalExistenciaBI > 0) : ?>
                 <span class="areas-produccion__numero"> <?php echo $totalExistenciaBI ?> KG </span>
@@ -76,7 +77,7 @@
 
 
     <li class="areas-produccion-medium" data-aos="flip-left">
-        <a href="/admin/produccion/materia/corrugador/cajamedium">
+        <a href="#">
             <i class="fas fa-shopping-cart"></i> TOTAL CAJA-MEDIUM :
             <?php if (isset($totalExistenciaMI) && $totalExistenciaMI > 0) : ?>
                 <span class="areas-produccion__numero"> <?php echo $totalExistenciaMI ?> KG </span>
@@ -88,6 +89,7 @@
 
 
 </ul>
+
 
 
 <!DOCTYPE html>
