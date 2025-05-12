@@ -648,13 +648,13 @@ class MateriaPrimaController
 
     public static function cajakraftimport(Router $router)
     {
-        
-
-        
+        $totalExistenciaKI= Comercial::sumarExistenciaPorMesComercial('CAJAS-KRAFT');
+        $totalExistenciaKI = number_format($totalExistenciaKI, 2, '.', ',');
         
         // debuguear($cajacraft);
         $router->render('admin/produccion/materia/corrugador/cajakraftimport', [
             'titulo' => 'CAJA kRAFT IMPORTACION',
+            'totalExistenciaKI' => $totalExistenciaKI
             
 
         ]);

@@ -9,8 +9,8 @@
   <li class="areas-produccion-estatico-craft">
     <a href="#">
       <i class="fas fa-shopping-cart"></i> TOTAL CAJAS KRAFT :
-      <?php if ($totalExistenciaK > 0) : ?>
-        <span class="areas-produccion__numero"> <?php echo $totalExistenciaK ?> KG </span>
+      <?php if ($totalExistenciaKI > 0) : ?>
+        <span class="areas-produccion__numero"> <?php echo $totalExistenciaKI ?> KG </span>
       <?php endif; ?>
     </a>
   </li>
