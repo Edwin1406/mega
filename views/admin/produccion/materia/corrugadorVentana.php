@@ -455,12 +455,14 @@ table.dataTable {
       Object.entries(resumenPorClave).forEach(([clave, info]) => {
         if (info.linea === 'PENDIENTE') {
           const lineas = combinaciones[info.gramaje];
-          if (lineas.has('CAJAS-KRAFT') && lineas.has('MEDIUM')) {
-            info.linea = 'CAJAS-KRAFT/MEDIUM';
+          if (lineas.has('CAJAS-KRAFT') && lineas.has('MEDIUM') && lineas.has('CAJAS-BLANCO')) {
+            info.linea = 'CAJAS-KRAFT/MEDIUM/CAJAS-BLANCO';
           } else if (lineas.has('CAJAS-KRAFT')) {
             info.linea = 'CAJAS-KRAFT';
           } else if (lineas.has('MEDIUM')) {
             info.linea = 'MEDIUM';
+          }else if (lineas.has('CAJAS-BLANCO')) {
+            info.linea = 'CAJAS-BLANCO';
           }
         }
       });
