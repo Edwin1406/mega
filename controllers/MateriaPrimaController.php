@@ -525,7 +525,7 @@ class MateriaPrimaController
         header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
     
         // Obtén los datos desde la consulta base
-        $corrugador = MateriaPrimaV::allcIMPORT('ASC', 'CAJAS-KRAFT');
+        $corrugador = Comercial::allcIMPORT('ASC', 'CAJAS-KRAFT');
 
       
         // Procesa los datos para agrupar por gramaje y ancho
