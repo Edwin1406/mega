@@ -614,7 +614,7 @@ class MateriaPrimaController
         $totalCostoB = number_format($totalCostoB, 2, '.', ',');
             $totalExistenciaB = MateriaPrimaV::sumarExistenciaPorMes('CAJAS-BLANCO');
 
-        $totalExistenciaK = number_format($totalExistenciaB, 2, '.', ',');
+        $totalExistenciaB = number_format($totalExistenciaB, 2, '.', ',');
 
         $router->render('admin/produccion/materia/corrugador/cajablanco', [
             'titulo' => 'CAJA BLANCO',
