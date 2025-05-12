@@ -533,9 +533,9 @@ class MateriaPrimaController
             $key = $item->gramaje . '-' . $item->ancho; // Llave única basada en gramaje y ancho
             if (!isset($agregados[$key])) {
                 $agregados[$key] = $item; // Almacena el objeto original
-                $agregados[$key]->cantidad = intval($item->cantidad); // Inicializa la existencia como entero
+                $agregados[$key]->cantidad = floatval($item->cantidad); // Inicializa la existencia como entero
             } else {
-                $agregados[$key]->cantidad += intval($item->cantidad); // Suma las existencias
+                $agregados[$key]->cantidad += floatval($item->cantidad); // Suma las existencias
             }
         }
         debuguear($corrugador);
