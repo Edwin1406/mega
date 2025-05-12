@@ -465,8 +465,7 @@ class MateriaPrimaController
         // Obtén los datos desde la consulta base
         $corrugador = MateriaPrimaV::allc('ASC', 'CAJAS-BLANCO');
 
-        debuguear($corrugador);
-    
+      
         // Procesa los datos para agrupar por gramaje y ancho
         $agregados = [];
         foreach ($corrugador as $item) {
@@ -481,6 +480,8 @@ class MateriaPrimaController
     
         // Convierte el arreglo asociativo a un índice simple
         $resultadosFinales = array_values($agregados);
+
+        debuguear($resultadosFinales);
     
         // Devuelve los datos procesados como JSON
         echo json_encode($resultadosFinales);
