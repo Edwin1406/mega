@@ -456,11 +456,27 @@ async function cargarDatos() {
                 const lineas = combinaciones[info.gramaje];
                 if (lineas.has('CAJAS-KRAFT') && lineas.has('MEDIUM') && lineas.has('CAJAS-BLANCO')) {
                     info.linea = 'CAJAS-KRAFT/MEDIUM/CAJAS-BLANCO';
+                }else if (lineas.has('CAJAS-KRAFT') && lineas.has('MEDIUM')) {
+                    info.linea = 'CAJAS-KRAFT/MEDIUM';
+                } else if (lineas.has('CAJAS-BLANCO') && lineas.has('MEDIUM')) {
+                    info.linea = 'CAJAS-BLANCO/MEDIUM';
+                } else if (lineas.has('CAJAS-BLANCO')) {
+                    info.linea = 'CAJAS-BLANCO';
+                }
+                else if (lineas.has('CAJAS-KRAFT') && lineas.has('CAJAS-BLANCO')) {
+                    info.linea = 'CAJAS-KRAFT/CAJAS-BLANCO';
                 } else if (lineas.has('CAJAS-KRAFT')) {
                     info.linea = 'CAJAS-KRAFT';
-                } else if (lineas.has('MEDIUM')) {
-                    info.linea = 'MEDIUM';
+                } else if (lineas.has('MEDIUM') && lineas.has('CAJAS-BLANCO')) {
+                    info.linea = 'MEDIUM/CAJAS-BLANCO';
                 }
+                else if (lineas.has('MEDIUM')) {
+                    info.linea = 'MEDIUM';
+                } else {
+                    info.linea = Array.from(lineas).join(', ');
+                }
+                
+               
             }
         });
 
