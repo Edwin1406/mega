@@ -394,7 +394,7 @@ public static function menosDeCien($orden = 'DESC') {
 public static function allcIMPORT($orden = 'DESC', $lineas = null) {
     // Construye la consulta base con las columnas correctas
     $query = "SELECT id, import, proyecto, pedido_interno, fecha_solicitud, trader, marca, linea, producto, gramaje, ancho, 
-              ROUND(cantidad, 3) AS cantidad, precio, total_item, fecha_produccion, ets, eta, arribo_planta, transito, 
+              FORMAT(cantidad, 3) AS cantidad, precio, total_item, fecha_produccion, ets, eta, arribo_planta, transito, 
               fecha_en_planta, estado, fecha_corte 
               FROM " . static::$tabla;
     
@@ -419,6 +419,7 @@ public static function allcIMPORT($orden = 'DESC', $lineas = null) {
     $resultado = self::consultarSQL($query);
     return $resultado;
 }
+
 
 
 
