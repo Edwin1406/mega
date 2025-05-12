@@ -72,7 +72,9 @@ class Comercial extends ActiveRecord {
         $this->producto = $args['producto'] ?? '';
         $this->gramaje = $args['gramaje'] ?? '';
         $this->ancho = $args['ancho'] ?? '';
-        $this->cantidad = $args['cantidad'] ?? '';
+        // $this->cantidad = $args['cantidad'] ?? '';
+            $this->cantidad = isset($args['cantidad']) ? floatval($args['cantidad']) : 0.0; // Asegura que cantidad sea un float
+
         $this->precio = $args['precio'] ?? '';
         $this->total_item = $args['total_item'] ?? '';
         $this->fecha_produccion = $args['fecha_produccion'] ?? '';
