@@ -691,6 +691,9 @@ class MateriaPrimaController
         // debuguear($totalExistenciaBI);
 
 
+        $totalExistenciasComercial= $totalExistenciaKI + $totalExistenciaBI + $totalExistenciaMI;
+
+        debueguer($totalExistenciasComercial);
          
 
         
