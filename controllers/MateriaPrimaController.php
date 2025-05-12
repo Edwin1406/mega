@@ -526,22 +526,19 @@ class MateriaPrimaController
 
     // Obtén los datos desde la consulta base
     $corrugador = Comercial::allcIMPORT('ASC', 'CAJAS-KRAFT');
-
-foreach ($corrugador as $item) {
-    var_dump($item->cantidad); // Verifica si es float o int
-}
-
-
     
     // Procesa los datos para agrupar por gramaje y ancho
     $agregados = [];
     foreach ($corrugador as $item) {
+        // Convierte la cantidad a float antes de hacer cualquier operación
+        $cantidad = floatval($item->cantidad); // Convierte de string a float
+
         $key = $item->gramaje . '-' . $item->ancho; // Llave única basada en gramaje y ancho
         if (!isset($agregados[$key])) {
             $agregados[$key] = $item; // Almacena el objeto original
-            $agregados[$key]->cantidad = round(floatval($item->cantidad), 3); // Mantén la cantidad como decimal con 3 decimales
+            $agregados[$key]->cantidad = $cantidad; // Asigna la cantidad como float
         } else {
-            $agregados[$key]->cantidad += round(floatval($item->cantidad), 3); // Suma las existencias como decimales con 3 decimales
+            $agregados[$key]->cantidad += $cantidad; // Suma las cantidades como float
         }
     }
 
@@ -552,6 +549,7 @@ foreach ($corrugador as $item) {
     echo json_encode($resultadosFinales);
     exit;
 }
+
 
     
 
