@@ -43,8 +43,8 @@ class MateriaPrimaController
 
     $fechaHoy = date('Y-m-d');
 
-    $totalExistenciaCaja = MateriaPrimaV::sumarExistenciaPorMes('CAJA-KRAFT');
-    $totalExistenciaCajaBlanco = MateriaPrimaV::sumarExistenciaPorMes('CAJA-BLANCO');
+    $totalExistenciaCaja = MateriaPrimaV::sumarExistenciaPorMes('CAJAS-KRAFT');
+    $totalExistenciaCajaBlanco = MateriaPrimaV::sumarExistenciaPorMes('CAJAS-BLANCO');
     $totalExistenciaMedium = MateriaPrimaV::sumarExistenciaPorMes('MEDIUM');
 
     $totalExistenciaCaja = $totalExistenciaCaja + $totalExistenciaCajaBlanco+ $totalExistenciaMedium;
