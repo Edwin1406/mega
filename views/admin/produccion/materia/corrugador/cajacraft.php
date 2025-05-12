@@ -46,9 +46,9 @@
 <ul class="lista-areas-produccion">
   <li class="areas-produccion-estatico-craft">
     <a href="#">
-      <i class="fas fa-shopping-cart"></i> TOTAL COSTO KRAFT :
-      <?php if ($totalCostoK > 0) : ?>
-        <span class="areas-produccion__numero"> <?php echo $totalCostoK ?> $ </span>
+      <i class="fas fa-shopping-cart"></i> TOTAL CAJAS KRAFT :
+      <?php if ($totalExistenciaK > 0) : ?>
+        <span class="areas-produccion__numero"> <?php echo $totalExistenciaK ?> KG </span>
       <?php endif; ?>
     </a>
   </li>

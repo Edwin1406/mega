@@ -557,6 +557,8 @@ class MateriaPrimaController
 
         $totalCostoK = MateriaPrimaV::sumarCosto('CAJA-KRAFT');
 
+        $totalExistenciaK = MateriaPrimaV::sumarExistenciaPorMes('CAJAS-KRAFT');
+
         $totalCostoK = number_format($totalCostoK, 2, '.', ',');
 
         
@@ -565,7 +567,7 @@ class MateriaPrimaController
         $router->render('admin/produccion/materia/corrugador/cajacraft', [
             'titulo' => 'CAJA CRAFT',
             'cajacraft' => $cajacraft,
-            'totalCostoK' => $totalCostoK
+            'totalExistenciaK' => $totalExistenciaK
 
         ]);
     }
