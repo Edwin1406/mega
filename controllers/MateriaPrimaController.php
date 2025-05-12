@@ -646,14 +646,14 @@ class MateriaPrimaController
 
     // CAJAS KRAFT IMPORTACION
 
-    public static function cajacraftimportacion(Router $router)
+    public static function cajakraftimport(Router $router)
     {
         
 
         
         
         // debuguear($cajacraft);
-        $router->render('admin/produccion/materia/corrugador/cajacraftimportacion', [
+        $router->render('admin/produccion/materia/corrugador/cajakraftimport', [
             'titulo' => 'CAJA kRAFT IMPORTACION',
             
 
