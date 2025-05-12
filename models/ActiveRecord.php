@@ -416,6 +416,7 @@ public static function allcIMPORT($orden = 'DESC', $lineas = null) {
 
     // Ejecuta la consulta y devuelve el resultado
     $resultado = self::consultarSQL($query);
+    debuguear($query);
     return $resultado;
 }
 
