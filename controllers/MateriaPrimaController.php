@@ -625,7 +625,6 @@ class MateriaPrimaController
     }
 
 
-
     public static function cajamedium(Router $router)
     {
         $cajamedium = MateriaPrimaV::datoscompletos('DESC', 'MEDIUM');
@@ -644,6 +643,29 @@ class MateriaPrimaController
             'totalExistenciaM' => $totalExistenciaM
         ]);
     }
+
+    // CAJAS KRAFT IMPORTACION
+
+    public static function cajacraftimportacion(Router $router)
+    {
+        
+
+        
+        
+        // debuguear($cajacraft);
+        $router->render('admin/produccion/materia/corrugador/cajacraftimportacion', [
+            'titulo' => 'CAJA kRAFT IMPORTACION',
+            
+
+        ]);
+    }
+
+
+
+
+
+
+
 
 
     public static function apicorrugador2(){
