@@ -178,6 +178,19 @@ public function calcularTotal() {
         return (float) $fila['total'] ?? 0;
     }
 
+ public static function sumarExistenciaPorMesComercial($tipo)
+    {
+        $query = "SELECT SUM(cantidad) AS total 
+                  FROM " . static::$tabla . " 
+                  WHERE linea = '" . self::$db->real_escape_string($tipo) . "'
+                  AND MONTH(fecha_corte) = MONTH(CURDATE())
+                  AND YEAR(fecha_corte) = YEAR(CURDATE())";
+        $resultado = self::$db->query($query);
+        $fila = $resultado->fetch_assoc();
+        return number_format((float) $fila['total'] ?? 0, 2, '.', '');
+
+    }
+
 
 
 
