@@ -15,7 +15,7 @@
       justify-content: center;
     }
     
-    .item:nth-child(1), .item:nth-child(2), .item:nth-child(3), .item:nth-child(4), .item:nth-child(5) {
+    .item:nth-child(1), .item:nth-child(2), .item:nth-child(3), .item:nth-child(4), .item:nth-child(5), .item:nth-child(6), .item:nth-child(7) {
       width: 10%;
     }
 
@@ -50,6 +50,15 @@
     .item:nth-child(5) {
       width: 20%;
     }
+    .item:nth-child(6) {
+      width: 20%;
+    }
+
+    .item:nth-child(7) {
+      width: 20%;
+    }
+
+
 
 
     
