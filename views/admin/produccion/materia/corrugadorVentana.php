@@ -931,44 +931,50 @@ async function construirTabla() {
 
   const mesesES = ['ENERO','FEBRERO','MARZO','ABRIL','MAYO','JUNIO','JULIO','AGOSTO','SEPTIEMBRE','OCTUBRE','NOVIEMBRE','DICIEMBRE'];
   const tabla = {};
-  const gramajes = new Set();
+  const claves = new Set();
   const mesesEnData = new Set();
-  const totalesPorMes = {}; // para la fila final
+  const totalesPorMes = {};
 
   data.forEach(item => {
     const mesIndex = parseInt(item.fecha_consumo.slice(5, 7), 10) - 1;
     const mes = mesesES[mesIndex];
     const gms = item.gms;
+    const producto = item.producto;
+    const clave = `${gms} - ${producto}`;
     const ancho = item.ancho;
     const cantidad = parseFloat(item.cantidad);
 
-    if (!tabla[gms]) tabla[gms] = {};
-    if (!tabla[gms][mes]) tabla[gms][mes] = { '188': 0, '110': 0, 'CANT': 0 };
+    if (!tabla[clave]) tabla[clave] = {};
+    if (!tabla[clave][mes]) tabla[clave][mes] = { '188': 0, '110': 0, 'CANT': 0 };
 
     if (!totalesPorMes[mes]) totalesPorMes[mes] = { '188': 0, '110': 0, 'CANT': 0 };
 
     if (ancho === "1880") {
-      tabla[gms][mes]['188'] += cantidad;
+      tabla[clave][mes]['188'] += cantidad;
       totalesPorMes[mes]['188'] += cantidad;
     } else if (ancho === "1100") {
-      tabla[gms][mes]['110'] += cantidad;
+      tabla[clave][mes]['110'] += cantidad;
       totalesPorMes[mes]['110'] += cantidad;
     }
 
-    tabla[gms][mes]['CANT'] += cantidad;
+    tabla[clave][mes]['CANT'] += cantidad;
     totalesPorMes[mes]['CANT'] += cantidad;
 
-    gramajes.add(gms);
+    claves.add(clave);
     mesesEnData.add(mes);
   });
 
   const mesesOrdenados = mesesES.filter(m => mesesEnData.has(m));
-  const gramajesOrdenados = Array.from(gramajes).sort((a, b) => a - b);
+  const clavesOrdenadas = Array.from(claves).sort((a, b) => {
+    const [gmsA] = a.split(" - ").map(Number);
+    const [gmsB] = b.split(" - ").map(Number);
+    return gmsA - gmsB;
+  });
 
   // Construir encabezado
   const thead = document.getElementById("thead");
   const header1 = document.createElement("tr");
-  header1.innerHTML = `<th rowspan="2">GRAMAJE</th>`;
+  header1.innerHTML = `<th rowspan="2">GRAMAJE - PRODUCTO</th>`;
   mesesOrdenados.forEach(mes => {
     header1.innerHTML += `<th class="header-mes" colspan="3">${mes}</th>`;
   });
@@ -983,12 +989,12 @@ async function construirTabla() {
 
   // Construir cuerpo
   const tbody = document.getElementById("tbody");
-  gramajesOrdenados.forEach(gms => {
+  clavesOrdenadas.forEach(clave => {
     const fila = document.createElement("tr");
-    fila.innerHTML = `<td>${gms}</td>`;
+    fila.innerHTML = `<td>${clave}</td>`;
 
     mesesOrdenados.forEach(mes => {
-      const valores = tabla[gms][mes] || { '188': 0, '110': 0, 'CANT': 0 };
+      const valores = tabla[clave][mes] || { '188': 0, '110': 0, 'CANT': 0 };
       fila.innerHTML += `
         <td>${valores['188'].toFixed(1)}</td>
         <td>${valores['110'].toFixed(1)}</td>
