@@ -520,35 +520,33 @@ class MateriaPrimaController
     }
     
     public static function apicajakraftimport() {
-        // CORS
-        header("Access-Control-Allow-Origin: *");
-        header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
-    
-        // Obtén los datos desde la consulta base
-        $corrugador = Comercial::allcIMPORT('ASC', 'CAJAS-KRAFT');
-        
-        // Procesa los datos para agrupar por gramaje y ancho
-        $agregados = [];
-        foreach ($corrugador as $item) {
-            $key = $item->gramaje . '-' . $item->ancho; // Llave única basada en gramaje y ancho
-            if (!isset($agregados[$key])) {
-                $agregados[$key] = $item; // Almacena el objeto original
-                $agregados[$key]->cantidad = floatval($item->cantidad); // Inicializa la existencia como entero
-            } else {
-                $agregados[$key]->cantidad += floatval($item->cantidad); // Suma las existencias
-            }
-        }
-        // debuguear($corrugador);
-    
-        // Convierte el arreglo asociativo a un índice simple
-        $resultadosFinales = array_values($agregados);
+    // CORS
+    header("Access-Control-Allow-Origin: *");
+    header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
 
-        // debuguear($resultadosFinales);
+    // Obtén los datos desde la consulta base
+    $corrugador = Comercial::allcIMPORT('ASC', 'CAJAS-KRAFT');
     
-        // Devuelve los datos procesados como JSON
-        echo json_encode($resultadosFinales);
-        exit;
+    // Procesa los datos para agrupar por gramaje y ancho
+    $agregados = [];
+    foreach ($corrugador as $item) {
+        $key = $item->gramaje . '-' . $item->ancho; // Llave única basada en gramaje y ancho
+        if (!isset($agregados[$key])) {
+            $agregados[$key] = $item; // Almacena el objeto original
+            $agregados[$key]->cantidad = floatval($item->cantidad); // Mantén la cantidad como decimal
+        } else {
+            $agregados[$key]->cantidad += floatval($item->cantidad); // Suma las existencias como decimales
+        }
     }
+
+    // Convierte el arreglo asociativo a un índice simple
+    $resultadosFinales = array_values($agregados);
+
+    // Devuelve los datos procesados como JSON
+    echo json_encode($resultadosFinales);
+    exit;
+}
+
     
 
 
