@@ -526,6 +526,12 @@ class MateriaPrimaController
 
     // Obtén los datos desde la consulta base
     $corrugador = Comercial::allcIMPORT('ASC', 'CAJAS-KRAFT');
+
+foreach ($corrugador as $item) {
+    var_dump($item->cantidad); // Verifica si es float o int
+}
+
+
     
     // Procesa los datos para agrupar por gramaje y ancho
     $agregados = [];
