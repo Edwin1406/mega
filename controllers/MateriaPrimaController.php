@@ -538,7 +538,7 @@ class MateriaPrimaController
                 $agregados[$key]->cantidad += floatval($item->cantidad); // Suma las existencias
             }
         }
-        debuguear($corrugador);
+        // debuguear($corrugador);
     
         // Convierte el arreglo asociativo a un índice simple
         $resultadosFinales = array_values($agregados);
