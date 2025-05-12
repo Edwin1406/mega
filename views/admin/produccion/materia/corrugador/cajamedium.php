@@ -9,8 +9,8 @@
   <li class="areas-produccion-estatico-craft">
     <a href="#">
       <i class="fas fa-shopping-cart"></i> TOTAL MEDIUM :
-      <?php if ($totalExistenciaK > 0) : ?>
-        <span class="areas-produccion__numero"> <?php echo $totalExistenciaK ?> KG </span>
+      <?php if ($totalExistenciaM > 0) : ?>
+        <span class="areas-produccion__numero"> <?php echo $totalExistenciaM ?> KG </span>
       <?php endif; ?>
     </a>
   </li>

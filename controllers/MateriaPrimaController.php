@@ -632,16 +632,16 @@ class MateriaPrimaController
 
         $totalCostoM = MateriaPrimaV::sumarCosto('MEDIUM');
 
-            $totalExistenciaK = MateriaPrimaV::sumarExistenciaPorMes('MEDIUM');
+            $totalExistenciaM = MateriaPrimaV::sumarExistenciaPorMes('MEDIUM');
 
         $totalCostoM = number_format($totalCostoM, 2, '.', ',');
-        $totalExistenciaK = number_format($totalExistenciaK, 2, '.', ',');
+        $totalExistenciaM = number_format($totalExistenciaM, 2, '.', ',');
 
         $router->render('admin/produccion/materia/corrugador/cajamedium', [
             'titulo' => 'CAJA MEDIUM',
             'cajamedium' => $cajamedium,
             'totalCostoM' => $totalCostoM,
-            'totalExistenciaK' => $totalExistenciaK
+            'totalExistenciaM' => $totalExistenciaM
         ]);
     }
 
