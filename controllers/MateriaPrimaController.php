@@ -526,11 +526,7 @@ class MateriaPrimaController
 
     // Obtén los datos desde la consulta base
     $corrugador = Comercial::allcIMPORT('ASC', 'CAJAS-KRAFT');
-// debuguear($corrugador);
-    foreach ($corrugador as $registro) {
-    $cantidad = (doubleval( $registro->cantidad));  // Convierte la cantidad a número flotante
-    echo $cantidad;  // Ahora puedes trabajar con el valor numérico
-}
+debuguear($corrugador);
 
     // debuguear($corrugador);
     
