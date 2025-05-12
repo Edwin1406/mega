@@ -1348,7 +1348,7 @@ public static function procesarArchivoExcelComercial($filePath)
             producto VARCHAR(500),
             gramaje VARCHAR(255),
             ancho VARCHAR(255),
-            cantidad VARCHAR(255),
+            cantidad DECIMAL(10, 3),
             precio VARCHAR(255),
             total_item VARCHAR(255),
             fecha_produccion DATE,
