@@ -519,7 +519,7 @@ class MateriaPrimaController
         exit;
     }
     
-    public static function apicajakraftimport() {
+  public static function apicajakraftimport() {
     // CORS
     header("Access-Control-Allow-Origin: *");
     header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
@@ -533,9 +533,9 @@ class MateriaPrimaController
         $key = $item->gramaje . '-' . $item->ancho; // Llave única basada en gramaje y ancho
         if (!isset($agregados[$key])) {
             $agregados[$key] = $item; // Almacena el objeto original
-            $agregados[$key]->cantidad = floatval($item->cantidad); // Mantén la cantidad como decimal
+            $agregados[$key]->cantidad = round(floatval($item->cantidad), 3); // Mantén la cantidad como decimal con 3 decimales
         } else {
-            $agregados[$key]->cantidad += floatval($item->cantidad); // Suma las existencias como decimales
+            $agregados[$key]->cantidad += round(floatval($item->cantidad), 3); // Suma las existencias como decimales con 3 decimales
         }
     }
 
