@@ -461,8 +461,6 @@ table.dataTable {
             info.linea = 'CAJAS-KRAFT';
           } else if (lineas.has('MEDIUM')) {
             info.linea = 'MEDIUM';
-          }else if (lineas.has('CAJAS-BLANCO')) {
-            info.linea = 'CAJAS-BLANCO';
           }
         }
       });
