@@ -420,11 +420,11 @@ public static function menosDeCien($orden = 'DESC') {
 //     return $resultado;
 // }
 public static function allcIMPORT($orden = 'DESC', $lineas = null) {
-    // Construye la consulta base con las columnas correctas
+    // Construye la consulta base sin el formato de cantidad
     $query = "SELECT id, import, proyecto, pedido_interno, fecha_solicitud, trader, marca, linea, producto, gramaje, ancho, 
-              cantidad, precio, total_item, fecha_produccion, ets, eta, arribo_planta, transito, 
-              fecha_en_planta, estado, fecha_corte 
-              FROM " . static::$tabla;
+                 cantidad, precio, total_item, fecha_produccion, ets, eta, arribo_planta, transito, 
+                 fecha_en_planta, estado, fecha_corte 
+                 FROM " . static::$tabla;
     
     // Manejar múltiples líneas con coincidencias parciales
     if ($lineas !== null) {
@@ -446,13 +446,14 @@ public static function allcIMPORT($orden = 'DESC', $lineas = null) {
     // Ejecuta la consulta y obtiene el resultado
     $resultado = self::consultarSQL($query);
 
-    // Convertir la cantidad a float para cada resultado
+    // Convierte la cantidad a float para cada resultado
     foreach ($resultado as $item) {
-        $item->cantidad = floatval($item->cantidad); // Convierte la cantidad a float
+        $item->cantidad = (float)$item->cantidad; // Convierte la cantidad a float
     }
 
     return $resultado;
 }
+
 
 
 
