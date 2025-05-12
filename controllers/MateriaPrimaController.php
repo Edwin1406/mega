@@ -532,7 +532,7 @@ class MateriaPrimaController
     echo $cantidad;  // Ahora puedes trabajar con el valor numérico
 }
 
-    debuguear($corrugador);
+    // debuguear($corrugador);
     
     // Procesa los datos para agrupar por gramaje y ancho
     $agregados = [];
