@@ -737,6 +737,17 @@ table.dataTable {
     <ul id="detalles-lista"></ul>
   </div>
 </div>
+
+
+<!-- Segundo Modal para mostrar líneas -->
+<div id="modal-detalle-linea" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); align-items:center; justify-content:center;">
+  <div style="background:#fff; padding:20px; border-radius:8px; max-width:500px;">
+    <h3>Detalles por Línea</h3>
+    <ul id="lista-lineas"></ul>
+    <button onclick="cerrarModalLinea()">Cerrar</button>
+  </div>
+</div>
+
 <script>
   const meses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
                  'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
