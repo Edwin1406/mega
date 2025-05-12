@@ -187,7 +187,8 @@ public function calcularTotal() {
                   AND YEAR(fecha_corte) = YEAR(CURDATE())";
         $resultado = self::$db->query($query);
         $fila = $resultado->fetch_assoc();
-        return number_format((float) $fila['total'] ?? 0, 2, '.', '');
+        return (float) ($fila['total'] ?? 0);
+
 
     }
 
