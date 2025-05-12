@@ -533,8 +533,6 @@ class MateriaPrimaController
         // Convierte la cantidad a float antes de hacer cualquier operación
         $cantidad = floatval($item->cantidad); // Convierte de string a float
 
-        debuguear($cantidad);
-
         $key = $item->gramaje . '-' . $item->ancho; // Llave única basada en gramaje y ancho
         if (!isset($agregados[$key])) {
             $agregados[$key] = $item; // Almacena el objeto original
