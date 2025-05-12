@@ -612,7 +612,7 @@ class MateriaPrimaController
         $totalCostoB = MateriaPrimaV::sumarCosto('CAJA-BLANCO');
 
         $totalCostoB = number_format($totalCostoB, 2, '.', ',');
-            $totalExistenciaK = MateriaPrimaV::sumarExistenciaPorMes('CAJA-BLANCO');
+            $totalExistenciaK = MateriaPrimaV::sumarExistenciaPorMes('CAJAS-BLANCO');
 
         $totalExistenciaK = number_format($totalExistenciaK, 2, '.', ',');
 
