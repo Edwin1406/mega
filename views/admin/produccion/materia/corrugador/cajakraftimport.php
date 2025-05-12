@@ -138,7 +138,7 @@
         name: `Ancho : ${ancho}m`,
         data: gramajes.map(gramaje => {
           const items = data.filter(item => item.ancho === ancho && item.gramaje === gramaje);
-          return items.reduce((sum, item) => sum + parseFloat(item.existencia), 0);
+          return items.reduce((sum, item) => sum + parseFloat(item.cantidad), 0);
         }),
       }));
 
@@ -196,7 +196,7 @@
         table.row.add([
           item.ancho,
           item.gramaje,
-          item.existencia,
+          item.cantidad,
           item.descripcion,
         ]);
       });
