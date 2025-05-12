@@ -187,7 +187,17 @@ $router->post('/admin/produccion/materia/eliminarTabla', [MateriaPrimaController
 $router->get('/admin/produccion/materia/corrugador/cajacraft', [MateriaPrimaController::class, 'cajacraft']);
 $router->get('/admin/produccion/materia/corrugador/cajablanco', [MateriaPrimaController::class, 'cajablanco']);
 $router->get('/admin/produccion/materia/corrugador/cajamedium', [MateriaPrimaController::class, 'cajamedium']);
+
+// CARPEATA CORRUGADOR IMPORTACIONES
+
+$router->get('/admin/produccion/materia/corrugador/cajakraftimport', [MateriaPrimaController::class, 'cajakraftimport']);
+
+
 // CARPETA MICRO CORRUGADOR EXISTENCIA
+
+
+
+
 
 // CARPETA PERIODICO EXISTENCIA 
 

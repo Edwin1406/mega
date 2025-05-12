@@ -66,7 +66,7 @@
 
 <ul class="lista-areas-produccion">
     <li class="areas-produccion-craft" >
-        <a href="#">
+        <a href="/admin/produccion/materia/corrugador/cajakraftimport">
             <i class="fas fa-scroll"></i> TOTAL CAJA-KRAFT :
             <?php if ($totalExistenciaKI > 0) : ?>
                 <span class="areas-produccion__numero"> <?php echo $totalExistenciaKI ?> KG</span>
