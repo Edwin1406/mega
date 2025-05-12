@@ -101,6 +101,9 @@ $router->get('/admin/produccion/cotizador/crear', [CotizadorController::class, '
 $router->get('/admin/produccion/subirexcel/crear', [Subirexcel::class, 'subirexcel']);
 $router->post('/admin/produccion/subirexcel/crear', [Subirexcel::class, 'subirexcel']);
 
+
+
+
 // AREA DE ESTADISTICAS DE PRODUCCION
 $router->get('/admin/produccion/estadistica/crear', [EstadisticaProdController::class, 'crear']);
 $router->get('/admin/produccion/estadistica/tabla', [EstadisticaProdController::class, 'tabla']);
@@ -156,6 +159,17 @@ $router->get('/admin/produccion/materia/graficas', [MateriaPrimaController::clas
 
 $router->get('/admin/produccion/materia/excel', [MateriaPrimaController::class, 'excel']);
 $router->post('/admin/produccion/materia/excel', [MateriaPrimaController::class, 'excel']);
+
+
+
+// subier excel proyecciones
+$router->get('/admin/produccion/materia/subirexcelproyecciones', [Subirexcel::class, 'subirexcelproyecciones']);
+$router->post('/admin/produccion/materia/subirexcelproyecciones', [Subirexcel::class, 'subirexcelproyecciones']);
+
+
+
+
+
 
 // CORRUGADOR 
 $router->get('/admin/produccion/materia/corrugador', [MateriaPrimaController::class, 'corrugador']);
