@@ -193,6 +193,8 @@ $router->get('/admin/produccion/materia/corrugador/cajamedium', [MateriaPrimaCon
 $router->get('/admin/produccion/materia/corrugador/cajakraftimport', [MateriaPrimaController::class, 'cajakraftimport']);
 
 
+
+
 // CARPETA MICRO CORRUGADOR EXISTENCIA
 
 
@@ -208,6 +210,8 @@ $router->get('/admin/api/apiAnchossobrantes', [MateriaPrimaController::class, 'a
 $router->get('/admin/api/apicajacraft', [MateriaPrimaController::class, 'apicajacraft']);
 $router->get('/admin/api/apicajablanco', [MateriaPrimaController::class, 'apicajablanco']);
 $router->get('/admin/api/apicajamedium', [MateriaPrimaController::class, 'apicajamedium']);
+
+$router->get('/admin/api/apicajakraftimport', [MateriaPrimaController::class, 'apicajakraftimport']);
 
 // MICROCORRUGADOR
 $router->get('/admin/produccion/materia/microcorrugador', [MateriaPrimaController::class, 'microcorrugador']);

@@ -361,6 +361,9 @@ public static function menosDeCien($orden = 'DESC') {
     //     return $resultado;
     // }
 
+
+    // MATERIA PRIMA APIS
+
     public static function allc($orden = 'DESC', $lineas = null) {
         // Construye la consulta base
         $query = "SELECT id, existencia, linea, gramaje, proveedor, sustrato, ancho FROM " . static::$tabla;
@@ -388,6 +391,32 @@ public static function menosDeCien($orden = 'DESC') {
     }
 
 
+    //API IMPORTACIONES 
+    public static function allcIMPORT($orden = 'DESC', $lineas = null) {
+    // Construye la consulta base con las columnas correctas
+    $query = "SELECT id, import, proyecto, pedido_interno, fecha_solicitud, trader, marca, linea, producto, gramaje, ancho, cantidad, precio, total_item, fecha_produccion, ets, efa, arribo_planta, transito, fecha_en_planta, estado, fecha_corte FROM " . static::$tabla;
+    
+    // Manejar múltiples líneas con coincidencias parciales
+    if ($lineas !== null) {
+        if (is_array($lineas)) {
+            // Crear condiciones con LIKE para cada línea
+            $condiciones = array_map(function($linea) {
+                return "linea LIKE '%" . addslashes($linea) . "%'";
+            }, $lineas);
+            $query .= " WHERE " . implode(" OR ", $condiciones);
+        } else {
+            // Aplicar filtro normal si es solo un string
+            $query .= " WHERE linea LIKE '%" . addslashes($lineas) . "%'";
+        }
+    }
+
+    // Agrega la cláusula ORDER BY
+    $query .= " ORDER BY id {$orden}";
+
+    // Ejecuta la consulta y devuelve el resultado
+    $resultado = self::consultarSQL($query);
+    return $resultado;
+}
 
 
 
