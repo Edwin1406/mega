@@ -532,6 +532,8 @@ debuguear($corrugador);
     
     // Procesa los datos para agrupar por gramaje y ancho
     $agregados = [];
+
+    
     foreach ($corrugador as $item) {
         // Convierte la cantidad a float antes de hacer cualquier operación
         $cantidad = $item->cantidad; // Convierte de string a float
@@ -544,6 +546,8 @@ debuguear($corrugador);
             $agregados[$key]->cantidad += $cantidad; // Suma las cantidades como float
         }
     }
+
+    debuguear($agregados);
 
     // Convierte el arreglo asociativo a un índice simple
     $resultadosFinales = array_values($agregados);
