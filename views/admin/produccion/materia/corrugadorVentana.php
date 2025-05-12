@@ -737,7 +737,6 @@ table.dataTable {
     <ul id="detalles-lista"></ul>
   </div>
 </div>
-
 <script>
   const meses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
                  'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
@@ -817,14 +816,26 @@ table.dataTable {
       window.mostrarModal = (gramaje, mesIndex) => {
         const clave = `${gramaje}-${mesIndex}`;
         const elementos = detalles[clave] || [];
-        detallesLista.innerHTML = elementos
-          .map(e => {
+
+        // Agrupar por ancho y sumar cantidades
+        const agrupados = {};
+        elementos.forEach(e => {
+          if (!agrupados[e.ancho]) agrupados[e.ancho] = 0;
+          agrupados[e.ancho] += e.cantidad;
+        });
+
+        // Convertir a HTML ordenado por ancho
+        const html = Object.entries(agrupados)
+          .sort(([a], [b]) => parseInt(a) - parseInt(b))
+          .map(([ancho, suma]) => {
             let clase = '';
-            if (e.ancho == 1100) clase = 'ancho-1100';
-            else if (e.ancho == 1880) clase = 'ancho-1880';
-            return `<li class="${clase}">Ancho: ${e.ancho} - Cantidad: ${e.cantidad}</li>`;
+            if (ancho == 1100) clase = 'ancho-1100';
+            else if (ancho == 1880) clase = 'ancho-1880';
+            return `<li class="${clase}">Ancho: ${ancho} - Total Cantidad: ${suma}</li>`;
           })
           .join('');
+
+        detallesLista.innerHTML = html;
         modal.style.display = 'flex';
       };
     })
