@@ -6,7 +6,7 @@
 <ul class="lista-areas-produccion">
     <li class="areas-produccion-estatico" data-aos="fade-up">
         <a>
-            <i class="fa-solid fa-vault"></i> TOTAL MATERIA PRIMA CORRUGADOR :
+            <i class="fa-solid fa-vault"> </i> TOTAL MATERIA PRIMA CORRUGADOR :
             <?php if ($totalExistencia > 0) : ?>
                 <span class="areas-produccion__numero"> <?php echo $totalExistencia ?> KG </span>
             <?php endif; ?>
