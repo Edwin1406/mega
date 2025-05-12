@@ -877,6 +877,7 @@ table.dataTable {
       border: 1px solid #ccc;
       padding: 8px;
       text-align: center;
+      color: black;
     }
 
     tbody td {
