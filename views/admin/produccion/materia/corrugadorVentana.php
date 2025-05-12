@@ -898,7 +898,7 @@ table.dataTable {
     .footer-row td {
       background-color: #f8f9fa;
       font-weight: bold;
-      color: #000;
+      color: black;
     }
   </style>
 </head>
