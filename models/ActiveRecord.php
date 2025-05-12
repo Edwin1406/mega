@@ -426,6 +426,8 @@ public static function allcIMPORT($orden = 'DESC', $lineas = null) {
        fecha_en_planta, estado, fecha_corte 
 FROM " . static::$tabla;
 ;
+
+debuguear($query);
     
     // Manejar múltiples líneas con coincidencias parciales
     if ($lineas !== null) {
