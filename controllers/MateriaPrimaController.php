@@ -693,7 +693,7 @@ class MateriaPrimaController
 
         $totalExistenciasComercial= $totalExistenciaKI + $totalExistenciaBI + $totalExistenciaMI;
 
-        debueguer($totalExistenciasComercial);
+        debuguear($totalExistenciasComercial);
          
 
         
