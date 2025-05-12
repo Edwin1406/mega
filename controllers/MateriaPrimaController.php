@@ -528,7 +528,7 @@ class MateriaPrimaController
     $corrugador = Comercial::allcIMPORT('ASC', 'CAJAS-KRAFT');
 
 foreach ($corrugador as $item) {
-    debuguear($item->cantidad); // Verifica si es float o int
+    var_dump($item->cantidad); // Verifica si es float o int
 }
 
 
