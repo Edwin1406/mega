@@ -527,7 +527,7 @@ class MateriaPrimaController
     // Obtén los datos desde la consulta base
     $corrugador = Comercial::allcIMPORT('ASC', 'CAJAS-KRAFT');
 
-    // debuguear($corrugador);
+    debuguear($corrugador);
     
     // Procesa los datos para agrupar por gramaje y ancho
     $agregados = [];
