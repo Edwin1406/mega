@@ -2,9 +2,9 @@
 <ul class="lista-areas-produccion">
     <li class="areas-produccion-estatico">
         <a href="#">
-            <i class="fas fa-shopping-cart"></i> TOTAL COSTO BLANCO :
-            <?php if ($totalCostoB > 0) : ?>
-                <span class="areas-produccion__numero"> <?php echo $totalCostoB ?> $ </span>
+            <i class="fas fa-shopping-cart"></i> TOTAL CAJAS BLANCO :
+            <?php if ($totalExistenciaB > 0) : ?>
+                <span class="areas-produccion__numero"> <?php echo $totalExistenciaB ?> $ </span>
             <?php endif; ?>
         </a>
     </li>

@@ -612,15 +612,15 @@ class MateriaPrimaController
         $totalCostoB = MateriaPrimaV::sumarCosto('CAJA-BLANCO');
 
         $totalCostoB = number_format($totalCostoB, 2, '.', ',');
-            $totalExistenciaK = MateriaPrimaV::sumarExistenciaPorMes('CAJAS-BLANCO');
+            $totalExistenciaB = MateriaPrimaV::sumarExistenciaPorMes('CAJAS-BLANCO');
 
-        $totalExistenciaK = number_format($totalExistenciaK, 2, '.', ',');
+        $totalExistenciaK = number_format($totalExistenciaB, 2, '.', ',');
 
         $router->render('admin/produccion/materia/corrugador/cajablanco', [
             'titulo' => 'CAJA BLANCO',
             'cajablanco' => $cajablanco,
             'totalCostoB' => $totalCostoB,
-            'totalExistenciaK' => $totalExistenciaK
+            'totalExistenciaB' => $totalExistenciaB
         ]);
     }
 
