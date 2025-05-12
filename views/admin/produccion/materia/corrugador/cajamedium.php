@@ -75,7 +75,7 @@
 
 <script>
   (function() {
-    const apiUrl = `${location.origin}/admin/api/`;
+    const apiUrl = `${location.origin}/admin/api/apicajamedium`;
     let originalData = [];
     let chart;
 
