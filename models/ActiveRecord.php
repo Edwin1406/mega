@@ -449,7 +449,7 @@ public static function allcIMPORT($orden = 'DESC', $lineas = null) {
     // Convierte la cantidad a float para cada resultado
     foreach ($resultado as $item) {
         // decimal_format($item->cantidad, 3);
-        $item->cantidad = number_format((float)$item->cantidad, 1, '.', '');
+        $item->cantidad = $item->cantidad; // Convierte la cantidad a float
     }
 
     return $resultado;
