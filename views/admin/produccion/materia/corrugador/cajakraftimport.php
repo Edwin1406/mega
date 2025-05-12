@@ -75,7 +75,7 @@
 
 <script>
   (function() {
-    const apiUrl = `${location.origin}/admin/api/apicajacraft`;
+    const apiUrl = `${location.origin}/admin/api/apicajakraftimport`;
     let originalData = [];
     let chart;
 
