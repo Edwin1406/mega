@@ -424,11 +424,7 @@ public static function allcIMPORT($orden = 'DESC', $lineas = null) {
     $query = "SELECT id, import, proyecto, pedido_interno, fecha_solicitud, trader, marca, linea, producto, gramaje, ancho, 
        CAST(cantidad AS DECIMAL(10,3)) AS cantidad, precio, total_item, fecha_produccion, ets, eta, arribo_planta, transito, 
        fecha_en_planta, estado, fecha_corte 
-FROM " . static::$tabla;
-;
-
-debuguear($query);
-    
+        FROM " . static::$tabla;
     // Manejar múltiples líneas con coincidencias parciales
     if ($lineas !== null) {
         if (is_array($lineas)) {
