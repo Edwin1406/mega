@@ -29,6 +29,7 @@ use Controllers\ProduccionController;
 use Controllers\MateriaPrimaController;
 use Controllers\EstadisticaProdController;
 use Controllers\SistemasController;
+use Model\MateriaPrima;
 
 $router = new Router();
 
@@ -162,12 +163,6 @@ $router->post('/admin/produccion/materia/excel', [MateriaPrimaController::class,
 
 
 
-// subier excel proyecciones
-$router->get('/admin/produccion/materia/subirexcelproyecciones', [Subirexcel::class, 'subirexcelproyecciones']);
-$router->post('/admin/produccion/materia/subirexcelproyecciones', [Subirexcel::class, 'subirexcelproyecciones']);
-
-
-
 
 
 
@@ -195,8 +190,6 @@ $router->get('/admin/produccion/materia/corrugador/cajamedium', [MateriaPrimaCon
 // CARPETA MICRO CORRUGADOR EXISTENCIA
 
 // CARPETA PERIODICO EXISTENCIA 
-
-
 
 // API CORRUGADOR 
 $router->get('/admin/api/apicorrugador', [MateriaPrimaController::class, 'apicorrugador']);

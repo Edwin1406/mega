@@ -1448,12 +1448,78 @@ public static function procesarArchivoExcelComercial($filePath)
 // ---------------------------------------------------------- EXCEL PROYECCIONES -------------------------------------------------------------------------
 
 
+// public static function procesarArchivoExcelProyecciones($filePath)
+// {
+//     $spreadsheet = IOFactory::load($filePath);
+//     $sheet = $spreadsheet->getActiveSheet();
+
+//     // Crear la tabla con los nuevos campos que se ven en la imagen
+//     $queryCrearTabla = "
+//         CREATE TABLE IF NOT EXISTS " . static::$tabla . " (
+//             id INT AUTO_INCREMENT PRIMARY KEY,
+//             fecha_consumo DATE,
+//             linea VARCHAR(255),
+//             producto VARCHAR(255),
+//             gms INT,
+//             ancho INT,
+//             cantidad DECIMAL(10,2)
+//         )
+//     ";
+//     self::$db->query($queryCrearTabla);
+
+//     // Procesar cada fila del Excel (desde la fila 2)
+//     foreach ($sheet->getRowIterator(2) as $row) {
+//         $data = [];
+//         $cellIterator = $row->getCellIterator();
+//         $cellIterator->setIterateOnlyExistingCells(false);
+
+//         foreach ($cellIterator as $cell) {
+//             $data[] = trim((string)$cell->getFormattedValue());
+//         }
+
+//         // Validar al menos 6 columnas
+//         if (count($data) < 6) {
+//             continue;
+//         }
+
+//         // Mapear columnas
+//         list($fecha_consumo, $linea, $producto, $gms, $ancho, $cantidad) = array_map(function ($v) {
+//             return trim($v ?? '');
+//         }, $data);
+
+//         // Convertir valores numéricos
+//         $gms = intval($gms);
+//         $ancho = intval($ancho);
+//         $cantidad = floatval(str_replace(',', '.', $cantidad));
+
+//         // Insertar en la base de datos
+//         $queryInsertar = "
+//             INSERT INTO " . static::$tabla . " (
+//                 fecha_consumo, linea, producto, gms, ancho, cantidad
+//             ) VALUES (
+//                 '" . self::$db->real_escape_string($fecha_consumo) . "',
+//                 '" . self::$db->real_escape_string($linea) . "',
+//                 '" . self::$db->real_escape_string($producto) . "',
+//                 $gms,
+//                 $ancho,
+//                 $cantidad
+//             )
+//         ";
+//         self::$db->query($queryInsertar);
+//     }
+
+//     return true;
+// }
+
+
+
+
 public static function procesarArchivoExcelProyecciones($filePath)
 {
     $spreadsheet = IOFactory::load($filePath);
     $sheet = $spreadsheet->getActiveSheet();
 
-    // Crear la tabla con los nuevos campos que se ven en la imagen
+    // Crear tabla si no existe
     $queryCrearTabla = "
         CREATE TABLE IF NOT EXISTS " . static::$tabla . " (
             id INT AUTO_INCREMENT PRIMARY KEY,
@@ -1467,7 +1533,6 @@ public static function procesarArchivoExcelProyecciones($filePath)
     ";
     self::$db->query($queryCrearTabla);
 
-    // Procesar cada fila del Excel (desde la fila 2)
     foreach ($sheet->getRowIterator(2) as $row) {
         $data = [];
         $cellIterator = $row->getCellIterator();
@@ -1477,39 +1542,61 @@ public static function procesarArchivoExcelProyecciones($filePath)
             $data[] = trim((string)$cell->getFormattedValue());
         }
 
-        // Validar al menos 6 columnas
         if (count($data) < 6) {
             continue;
         }
 
-        // Mapear columnas
         list($fecha_consumo, $linea, $producto, $gms, $ancho, $cantidad) = array_map(function ($v) {
             return trim($v ?? '');
         }, $data);
 
-        // Convertir valores numéricos
         $gms = intval($gms);
         $ancho = intval($ancho);
         $cantidad = floatval(str_replace(',', '.', $cantidad));
 
-        // Insertar en la base de datos
-        $queryInsertar = "
-            INSERT INTO " . static::$tabla . " (
-                fecha_consumo, linea, producto, gms, ancho, cantidad
-            ) VALUES (
-                '" . self::$db->real_escape_string($fecha_consumo) . "',
-                '" . self::$db->real_escape_string($linea) . "',
-                '" . self::$db->real_escape_string($producto) . "',
-                $gms,
-                $ancho,
-                $cantidad
-            )
+        // Verifica si ya existe un registro con los mismos datos y mes
+        $mes = date('Y-m', strtotime($fecha_consumo));
+        $checkQuery = "
+            SELECT COUNT(*) as total FROM " . static::$tabla . "
+            WHERE DATE_FORMAT(fecha_consumo, '%Y-%m') = '" . self::$db->real_escape_string($mes) . "'
+              AND linea = '" . self::$db->real_escape_string($linea) . "'
+              AND producto = '" . self::$db->real_escape_string($producto) . "'
+              AND gms = $gms
+              AND ancho = $ancho
+              AND cantidad = $cantidad
         ";
-        self::$db->query($queryInsertar);
+        $result = self::$db->query($checkQuery);
+        $rowExists = $result->fetch_assoc();
+
+        if ((int)$rowExists['total'] === 0) {
+            // Insertar solo si no existe
+            $queryInsertar = "
+                INSERT INTO " . static::$tabla . " (
+                    fecha_consumo, linea, producto, gms, ancho, cantidad
+                ) VALUES (
+                    '" . self::$db->real_escape_string($fecha_consumo) . "',
+                    '" . self::$db->real_escape_string($linea) . "',
+                    '" . self::$db->real_escape_string($producto) . "',
+                    $gms,
+                    $ancho,
+                    $cantidad
+                )
+            ";
+            self::$db->query($queryInsertar);
+        }
     }
 
     return true;
 }
+
+
+
+
+
+
+
+
+
 
 
 
