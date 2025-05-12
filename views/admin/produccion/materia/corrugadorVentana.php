@@ -65,7 +65,7 @@
 
 
 <ul class="lista-areas-produccion">
-    <li class="areas-produccion-craft" data-aos="flip-left">
+    <li class="areas-produccion-craft" >
         <a href="#">
             <i class="fas fa-scroll"></i> TOTAL CAJA-KRAFT :
             <?php if ($totalExistenciaKI > 0) : ?>
@@ -74,7 +74,7 @@
         </a>
     </li>
 
-    <li class="areas-produccion-blanco" data-aos="flip-left">
+    <li class="areas-produccion-blanco" >
         <a href="#">
             <i class="fas fa-scroll"></i> TOTAL CAJA-BLANCO :
             <?php if ($totalExistenciaBI > 0) : ?>
@@ -84,7 +84,7 @@
     </li>
 
 
-    <li class="areas-produccion-medium" data-aos="flip-left">
+    <li class="areas-produccion-medium" >
         <a href="#">
             <i class="fas fa-shopping-cart"></i> TOTAL CAJA-MEDIUM :
             <?php if (isset($totalExistenciaMI) && $totalExistenciaMI > 0) : ?>
