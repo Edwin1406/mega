@@ -526,7 +526,7 @@ class MateriaPrimaController
 
     // Obtén los datos desde la consulta base
     $corrugador = Comercial::allcIMPORT('ASC', 'CAJAS-KRAFT');
-debuguear($corrugador);
+// debuguear($corrugador);
 
     // debuguear($corrugador);
     
