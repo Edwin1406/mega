@@ -463,7 +463,9 @@ class MateriaPrimaController
         header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
     
         // Obtén los datos desde la consulta base
-        $corrugador = MateriaPrimaV::allc('ASC', 'CAJA-BLANCO');
+        $corrugador = MateriaPrimaV::allc('ASC', 'CAJAS-BLANCO');
+
+        debuguear($corrugador);
     
         // Procesa los datos para agrupar por gramaje y ancho
         $agregados = [];
