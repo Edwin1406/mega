@@ -73,7 +73,7 @@
   <div class="item"><a href="/admin/produccion/materia/microcorrugador"> <i class="fas fa-scroll"></i> MICRO CORRUGADOR</a></div>
   <div class="item"><a href="/admin/produccion/materia/periodico">  <i class="fas fa-newspaper"></i> PERIÓDICO</a></div>
   <div class="item"><a href="/admin/produccion/materia/excel"><i class="fa-solid fa-arrow-right"></i> SUBIR EXCEL</a></div>
-  <div class="item"><a href="/admin/produccion/materia/nuevoexcel"><i class="fa-solid fa-arrow-right"></i> PROYECCIONES EXCEL</a></div>
+  <div class="item"><a href="/admin/produccion/materia/nuevoExcel"><i class="fa-solid fa-arrow-right"></i> PROYECCIONES EXCEL</a></div>
   <div class="item"><a href="/admin/comercial/excel"><i class="fa-solid fa-arrow-right"></i> SUBIR EXCEL IMPORT</a></div>
 
 </div>
