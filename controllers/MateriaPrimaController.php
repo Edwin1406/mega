@@ -519,6 +519,9 @@ class MateriaPrimaController
         exit;
     }
     
+
+
+// PENDIENTE DECIMALES IMPORTACIONES 
   public static function apicajakraftimport() {
     // CORS
     header("Access-Control-Allow-Origin: *");
@@ -532,8 +535,6 @@ class MateriaPrimaController
     
     // Procesa los datos para agrupar por gramaje y ancho
     $agregados = [];
-
-    
     foreach ($corrugador as $item) {
         // Convierte la cantidad a float antes de hacer cualquier operación
         $cantidad = $item->cantidad; // Convierte de string a float
@@ -582,20 +583,21 @@ class MateriaPrimaController
     public static function microcorrugador(Router $router)
     {
         $microcorrugador = MateriaPrimaV::allc('DESC', 'MICRO');
-        $totalCosto = MateriaPrimaV::sumarCosto('MICRO');
+        // $totalCosto = MateriaPrimaV::sumarCosto('MICRO');
+        // $totalRegistros = MateriaPrimaV::countByLinea('MICRO');
+        $totalExistencia = MateriaPrimaV::sumarExistencia('MICRO');
+
 
         
-        $totalRegistros = MateriaPrimaV::countByLinea('MICRO');
-        $totalExistencia = MateriaPrimaV::sumarExistencia('MICRO');
         // con deciamles 
         $totalExistencia = number_format($totalExistencia, 2, '.', ',');
         
         $router->render('admin/produccion/materia/microcorrugador', [
             'titulo' => 'MICRO CORRUGADOR',
             'microcorrugador' => $microcorrugador,
-            'totalRegistros' => $totalRegistros,
+     
             'totalExistencia' => $totalExistencia,
-            'totalCosto' => $totalCosto
+           
         ]);
     }
 
