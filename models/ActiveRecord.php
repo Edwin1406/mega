@@ -390,7 +390,6 @@ public static function menosDeCien($orden = 'DESC') {
         return $resultado;
     }
 
-
 public static function allcIMPORT($orden = 'DESC', $lineas = null) {
     // Construye la consulta base con las columnas correctas
     $query = "SELECT id, import, proyecto, pedido_interno, fecha_solicitud, trader, marca, linea, producto, gramaje, ancho, 
@@ -419,6 +418,7 @@ public static function allcIMPORT($orden = 'DESC', $lineas = null) {
     $resultado = self::consultarSQL($query);
     return $resultado;
 }
+
 
 
 
