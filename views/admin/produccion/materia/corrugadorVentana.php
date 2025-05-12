@@ -388,181 +388,181 @@ table.dataTable {
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 
 <script>
-  let datosOriginales = [];
+let datosOriginales = [];
 
-  async function cargarDatos() {
+async function cargarDatos() {
     try {
-      const response = await fetch('https://megawebsistem.com/admin/api/apicomercial');
-      const data = await response.json();
+        const response = await fetch('https://megawebsistem.com/admin/api/apicomercial');
+        const data = await response.json();
 
-      // Obtener mes y año actual
-      const fechaActual = new Date();
-      const mesActual = fechaActual.getMonth(); // 0 = Enero
-      const anioActual = fechaActual.getFullYear();
+        // Obtener mes y año actual
+        const fechaActual = new Date();
+        const mesActual = fechaActual.getMonth(); // 0 = Enero
+        const anioActual = fechaActual.getFullYear();
 
-      // Filtrar solo datos con fecha_corte en el mes actual
-      const dataFiltrada = data.filter(item => {
-        if (!item.fecha_corte || item.fecha_corte === "0000-00-00") return false;
-        const fechaCorte = new Date(item.fecha_corte.replace(/-/g, '/'));
-        return fechaCorte.getMonth() === mesActual && fechaCorte.getFullYear() === anioActual;
-      });
-
-      datosOriginales = dataFiltrada;
-
-      const resumenPorClave = {};
-      const detallePorClave = {};
-      const totalesMensuales = Array(12).fill(0);
-      const combinaciones = {}; // gramaje => Set de líneas reales
-
-      dataFiltrada.forEach(item => {
-        let lineaOriginal = item.linea ? item.linea.toUpperCase().trim() : '';
-        if (!/^CAJAS|^MEDIUM/.test(lineaOriginal)) return;
-
-        const fechaStr = item.arribo_planta;
-        if (!fechaStr || fechaStr === "0000-00-00") return;
-        const fecha = new Date(fechaStr.replace(/-/g, '/'));
-        if (isNaN(fecha.getTime())) return;
-        const mes = fecha.getMonth();
-        if (isNaN(mes)) return;
-
-        const cantidad = parseFloat(item.cantidad.toString().replace(',', '').replace(' ', '')) || 0;
-        const gramaje = item.gramaje;
-
-        if (!combinaciones[gramaje]) combinaciones[gramaje] = new Set();
-        combinaciones[gramaje].add(lineaOriginal);
-
-        let lineaFusionada = (lineaOriginal === 'CAJAS-KRAFT' || lineaOriginal === 'MEDIUM') ? 'PENDIENTE' : lineaOriginal;
-        const clave = `${gramaje}||${lineaFusionada}`;
-        const keyMes = `${clave}-${mes}`;
-
-        if (!resumenPorClave[clave]) {
-          resumenPorClave[clave] = {
-            gramaje,
-            linea: lineaFusionada,
-            cantidades: Array(12).fill(0),
-            total: 0
-          };
-        }
-
-        resumenPorClave[clave].cantidades[mes] += cantidad;
-        resumenPorClave[clave].total += cantidad;
-        totalesMensuales[mes] += cantidad;
-
-        if (!detallePorClave[keyMes]) detallePorClave[keyMes] = [];
-        detallePorClave[keyMes].push({ ancho: item.ancho, lineaOriginal, cantidad, fecha: fechaStr });
-      });
-
-      Object.entries(resumenPorClave).forEach(([clave, info]) => {
-        if (info.linea === 'PENDIENTE') {
-          const lineas = combinaciones[info.gramaje];
-          if (lineas.has('CAJAS-KRAFT') && lineas.has('MEDIUM') && lineas.has('CAJAS-BLANCO')) {
-            info.linea = 'CAJAS-KRAFT/MEDIUM/CAJAS-BLANCO';
-          } else if (lineas.has('CAJAS-KRAFT')) {
-            info.linea = 'CAJAS-KRAFT';
-          } else if (lineas.has('MEDIUM')) {
-            info.linea = 'MEDIUM';
-          }
-        }
-      });
-
-      const columnasActivas = Array(12).fill(false);
-      Object.values(resumenPorClave).forEach(info => {
-        info.cantidades.forEach((cant, i) => {
-          if (cant > 0) columnasActivas[i] = true;
+        // Filtrar solo datos con fecha_corte en el mes actual
+        const dataFiltrada = data.filter(item => {
+            if (!item.fecha_corte || item.fecha_corte === "0000-00-00") return false;
+            const fechaCorte = new Date(item.fecha_corte.replace(/-/g, '/'));
+            return fechaCorte.getMonth() === mesActual && fechaCorte.getFullYear() === anioActual;
         });
-      });
 
-      const tbody = document.querySelector('#tabla-gramajes tbody');
-      tbody.innerHTML = '';
-      let totalGeneral = 0;
+        datosOriginales = dataFiltrada;
 
-      const encabezado = document.querySelector('#tabla-gramajes thead tr');
-      const nombresMeses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
-                            'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
-      let encabezadoHtml = `<th>Gramaje</th><th>Línea</th>`;
-      columnasActivas.forEach((activa, idx) => {
-        if (activa) encabezadoHtml += `<th>${nombresMeses[idx]}</th>`;
-      });
-      encabezadoHtml += `<th>Total</th>`;
-      encabezado.innerHTML = encabezadoHtml;
+        const resumenPorClave = {};
+        const detallePorClave = {};
+        const totalesMensuales = Array(12).fill(0);
+        const combinaciones = {}; // gramaje => Set de líneas reales
 
-      Object.entries(resumenPorClave).forEach(([clave, info]) => {
-        const row = document.createElement('tr');
-        let html = `<td class="highlight">${info.gramaje}</td><td>${info.linea}</td>`;
-        info.cantidades.forEach((cant, idx) => {
-          if (columnasActivas[idx]) {
-            const keyMes = `${clave}-${idx}`;
-            html += `<td onclick="mostrarDetalles('${keyMes}')">${cant.toFixed(3)}</td>`;
-          }
+        dataFiltrada.forEach(item => {
+            let lineaOriginal = item.linea ? item.linea.toUpperCase().trim() : '';
+            if (!/^CAJAS|^MEDIUM/.test(lineaOriginal)) return;
+
+            const fechaStr = item.arribo_planta;
+            if (!fechaStr || fechaStr === "0000-00-00") return;
+            const fecha = new Date(fechaStr.replace(/-/g, '/'));
+            if (isNaN(fecha.getTime())) return;
+            const mes = fecha.getMonth();
+            if (isNaN(mes)) return;
+
+            const cantidad = parseFloat(item.cantidad.toString().replace(',', '').replace(' ', '')) || 0;
+            const gramaje = item.gramaje;
+
+            if (!combinaciones[gramaje]) combinaciones[gramaje] = new Set();
+            combinaciones[gramaje].add(lineaOriginal);
+
+            // Agrupar solo por gramaje, sin incluir la línea
+            const clave = `${gramaje}`;
+
+            if (!resumenPorClave[clave]) {
+                resumenPorClave[clave] = {
+                    gramaje,
+                    linea: 'PENDIENTE', // Mantener la línea como 'PENDIENTE' para todos los casos
+                    cantidades: Array(12).fill(0),
+                    total: 0
+                };
+            }
+
+            resumenPorClave[clave].cantidades[mes] += cantidad;
+            resumenPorClave[clave].total += cantidad;
+            totalesMensuales[mes] += cantidad;
+
+            if (!detallePorClave[`${clave}-${mes}`]) detallePorClave[`${clave}-${mes}`] = [];
+            detallePorClave[`${clave}-${mes}`].push({ ancho: item.ancho, lineaOriginal, cantidad, fecha: fechaStr });
         });
-        html += `<td><strong>${info.total.toFixed(3)}</strong></td>`;
-        totalGeneral += info.total;
-        row.innerHTML = html;
-        tbody.appendChild(row);
-      });
 
-      const totalRow = document.createElement('tr');
-      totalRow.classList.add('total-row');
-      let htmlTotales = `<td><strong>Total</strong></td><td></td>`;
-      columnasActivas.forEach((activa, idx) => {
-        if (activa) htmlTotales += `<td><strong>${totalesMensuales[idx].toFixed(3)}</strong></td>`;
-      });
-      htmlTotales += `<td><strong>${totalGeneral.toFixed(3)}</strong></td>`;
-      totalRow.innerHTML = htmlTotales;
-      tbody.appendChild(totalRow);
+        Object.entries(resumenPorClave).forEach(([clave, info]) => {
+            if (info.linea === 'PENDIENTE') {
+                const lineas = combinaciones[info.gramaje];
+                if (lineas.has('CAJAS-KRAFT') && lineas.has('MEDIUM') && lineas.has('CAJAS-BLANCO')) {
+                    info.linea = 'CAJAS-KRAFT/MEDIUM/CAJAS-BLANCO';
+                } else if (lineas.has('CAJAS-KRAFT')) {
+                    info.linea = 'CAJAS-KRAFT';
+                } else if (lineas.has('MEDIUM')) {
+                    info.linea = 'MEDIUM';
+                }
+            }
+        });
 
-      $('#tabla-gramajes').DataTable({
-        responsive: true,
-        paging: false,
-        searching: true,
-        ordering: true,
-        info: false,
-        language: {
-          search: "Buscar:",
-          zeroRecords: "No se encontraron resultados",
-          infoEmpty: "No hay registros disponibles"
-        },
-        columnDefs: [
-          { targets: '_all', className: 'dt-center' }
-        ]
-      });
+        const columnasActivas = Array(12).fill(false);
+        Object.values(resumenPorClave).forEach(info => {
+            info.cantidades.forEach((cant, i) => {
+                if (cant > 0) columnasActivas[i] = true;
+            });
+        });
 
-      window.mostrarDetalles = (key) => {
-        const lista = document.getElementById('detalles');
-        lista.innerHTML = '';
-        const detalles = detallePorClave[key] || [];
+        const tbody = document.querySelector('#tabla-gramajes tbody');
+        tbody.innerHTML = '';
+        let totalGeneral = 0;
 
-        if (detalles.length === 0) {
-          lista.innerHTML = '<li>No hay detalles disponibles.</li>';
-        } else {
-          detalles.forEach((item, i) => {
-            const li = document.createElement('li');
-            li.textContent = `#${i + 1} → Ancho: ${item.ancho} | | Linea: ${item.lineaOriginal} |  | Cantidad: ${item.cantidad.toFixed(3)} | | Fecha: ${item.fecha}`;
-            const anchoNumerico = parseInt(item.ancho);
-            if (anchoNumerico === 1100) li.classList.add('ancho-1100');
-            else if (anchoNumerico === 1880) li.classList.add('ancho-1880');
-            lista.appendChild(li);
-          });
-        }
-        document.getElementById('modal').style.display = 'flex';
-      };
+        const encabezado = document.querySelector('#tabla-gramajes thead tr');
+        const nombresMeses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
+                                'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+        let encabezadoHtml = `<th>Gramaje</th><th>Línea</th>`;
+        columnasActivas.forEach((activa, idx) => {
+            if (activa) encabezadoHtml += `<th>${nombresMeses[idx]}</th>`;
+        });
+        encabezadoHtml += `<th>Total</th>`;
+        encabezado.innerHTML = encabezadoHtml;
 
-      document.getElementById('close-modal').onclick = function () {
-        document.getElementById('modal').style.display = 'none';
-      };
-      window.onclick = function (event) {
-        if (event.target === document.getElementById('modal')) {
-          document.getElementById('modal').style.display = 'none';
-        }
-      };
+        Object.entries(resumenPorClave).forEach(([clave, info]) => {
+            const row = document.createElement('tr');
+            let html = `<td class="highlight">${info.gramaje}</td><td>${info.linea}</td>`;
+            info.cantidades.forEach((cant, idx) => {
+                if (columnasActivas[idx]) {
+                    const keyMes = `${clave}-${idx}`;
+                    html += `<td onclick="mostrarDetalles('${keyMes}')">${cant.toFixed(3)}</td>`;
+                }
+            });
+            html += `<td><strong>${info.total.toFixed(3)}</strong></td>`;
+            totalGeneral += info.total;
+            row.innerHTML = html;
+            tbody.appendChild(row);
+        });
+
+        const totalRow = document.createElement('tr');
+        totalRow.classList.add('total-row');
+        let htmlTotales = `<td><strong>Total</strong></td><td></td>`;
+        columnasActivas.forEach((activa, idx) => {
+            if (activa) htmlTotales += `<td><strong>${totalesMensuales[idx].toFixed(3)}</strong></td>`;
+        });
+        htmlTotales += `<td><strong>${totalGeneral.toFixed(3)}</strong></td>`;
+        totalRow.innerHTML = htmlTotales;
+        tbody.appendChild(totalRow);
+
+        $('#tabla-gramajes').DataTable({
+            responsive: true,
+            paging: false,
+            searching: true,
+            ordering: true,
+            info: false,
+            language: {
+                search: "Buscar:",
+                zeroRecords: "No se encontraron resultados",
+                infoEmpty: "No hay registros disponibles"
+            },
+            columnDefs: [
+                { targets: '_all', className: 'dt-center' }
+            ]
+        });
+
+        window.mostrarDetalles = (key) => {
+            const lista = document.getElementById('detalles');
+            lista.innerHTML = '';
+            const detalles = detallePorClave[key] || [];
+
+            if (detalles.length === 0) {
+                lista.innerHTML = '<li>No hay detalles disponibles.</li>';
+            } else {
+                detalles.forEach((item, i) => {
+                    const li = document.createElement('li');
+                    li.textContent = `#${i + 1} → Ancho: ${item.ancho} | | Linea: ${item.lineaOriginal} |  | Cantidad: ${item.cantidad.toFixed(3)} | | Fecha: ${item.fecha}`;
+                    const anchoNumerico = parseInt(item.ancho);
+                    if (anchoNumerico === 1100) li.classList.add('ancho-1100');
+                    else if (anchoNumerico === 1880) li.classList.add('ancho-1880');
+                    lista.appendChild(li);
+                });
+            }
+            document.getElementById('modal').style.display = 'flex';
+        };
+
+        document.getElementById('close-modal').onclick = function () {
+            document.getElementById('modal').style.display = 'none';
+        };
+        window.onclick = function (event) {
+            if (event.target === document.getElementById('modal')) {
+                document.getElementById('modal').style.display = 'none';
+            }
+        };
 
     } catch (error) {
-      console.error('Error al cargar datos:', error);
-      document.querySelector('#tabla-gramajes tbody').innerHTML = '<tr><td colspan="15">Error al cargar datos</td></tr>';
+        console.error('Error al cargar datos:', error);
+        document.querySelector('#tabla-gramajes tbody').innerHTML = '<tr><td colspan="15">Error al cargar datos</td></tr>';
     }
-  }
+}
 
-  cargarDatos();
+cargarDatos();
+
 </script>
 </body>
 </html>
