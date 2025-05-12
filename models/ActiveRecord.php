@@ -392,9 +392,10 @@ public static function menosDeCien($orden = 'DESC') {
 
 
 public static function allcIMPORT($orden = 'DESC', $lineas = null) {
-    // Construye la consulta base sin redondeo
+    // Construye la consulta base con las columnas correctas
     $query = "SELECT id, import, proyecto, pedido_interno, fecha_solicitud, trader, marca, linea, producto, gramaje, ancho, 
-              cantidad, precio, total_item, fecha_produccion, ets, eta, arribo_planta, transito, fecha_en_planta, estado, fecha_corte 
+              ROUND(cantidad, 3) AS cantidad, precio, total_item, fecha_produccion, ets, eta, arribo_planta, transito, 
+              fecha_en_planta, estado, fecha_corte 
               FROM " . static::$tabla;
     
     // Manejar múltiples líneas con coincidencias parciales
@@ -414,14 +415,8 @@ public static function allcIMPORT($orden = 'DESC', $lineas = null) {
     // Agrega la cláusula ORDER BY
     $query .= " ORDER BY id {$orden}";
 
-    // Ejecuta la consulta y obtiene los resultados
+    // Ejecuta la consulta y devuelve el resultado
     $resultado = self::consultarSQL($query);
-
-    // Redondear la cantidad a 3 decimales en PHP
-    foreach ($resultado as &$row) {
-        $row['cantidad'] = round($row['cantidad'], 3);
-    }
-
     return $resultado;
 }
 
