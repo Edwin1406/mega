@@ -481,7 +481,7 @@ class MateriaPrimaController
         // Convierte el arreglo asociativo a un índice simple
         $resultadosFinales = array_values($agregados);
 
-        debuguear($resultadosFinales);
+        // debuguear($resultadosFinales);
     
         // Devuelve los datos procesados como JSON
         echo json_encode($resultadosFinales);
