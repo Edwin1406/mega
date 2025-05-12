@@ -428,17 +428,14 @@ async function cargarDatos() {
       const gramaje = item.gramaje;
       const producto = item.producto || 'Sin nombre';
 
-      if (!combinaciones[gramaje]) combinaciones[gramaje] = new Set();
-      combinaciones[gramaje].add(lineaOriginal);
-
-      // Cambio en la combinación de línea
+      // Combinación de líneas
       let lineaFusionada = '';
       if (lineaOriginal === 'CAJAS-KRAFT' || lineaOriginal === 'MEDIUM') {
         lineaFusionada = 'CAJAS-KRAFT/MEDIUM';
       } else {
         lineaFusionada = lineaOriginal;
       }
-      
+
       const clave = `${gramaje}||${lineaFusionada}||${producto}`;
       const keyMes = `${clave}-${mes}`;
 
@@ -460,7 +457,7 @@ async function cargarDatos() {
       detallePorClave[keyMes].push({ ancho: item.ancho, lineaOriginal, cantidad, fecha: fechaStr });
     });
 
-    // Ajustar la línea si hay combinaciones
+    // Crear las filas de la tabla sin duplicar
     Object.entries(resumenPorClave).forEach(([clave, info]) => {
       if (info.linea === 'PENDIENTE') {
         const lineas = combinaciones[info.gramaje];
@@ -474,7 +471,7 @@ async function cargarDatos() {
       }
     });
 
-    // Crear encabezado de la tabla con los meses activos
+    // Encabezado de la tabla
     const columnasActivas = Array(12).fill(false);
     Object.values(resumenPorClave).forEach(info => {
       info.cantidades.forEach((cant, i) => {
@@ -496,7 +493,7 @@ async function cargarDatos() {
     encabezadoHtml += `<th>Total</th>`;
     encabezado.innerHTML = encabezadoHtml;
 
-    // Crear las filas de la tabla con los datos de resumen
+    // Filas de la tabla con los datos
     Object.entries(resumenPorClave).forEach(([clave, info]) => {
       const row = document.createElement('tr');
       let html = `<td class="highlight">${info.gramaje}</td><td>${info.linea}</td><td>${info.producto}</td>`;
@@ -523,7 +520,7 @@ async function cargarDatos() {
     totalRow.innerHTML = htmlTotales;
     tbody.appendChild(totalRow);
 
-    // Inicializar DataTable
+    // Inicialización de DataTable
     $('#tabla-gramajes').DataTable({
       dom: 'Bfrtip',
       buttons: [
