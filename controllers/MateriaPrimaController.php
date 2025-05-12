@@ -723,6 +723,7 @@ class MateriaPrimaController
             'totalExistenciaKI' => $totalExistenciaKI,
             'totalExistenciaBI' => $totalExistenciaBI,
             'totalExistenciaMI' => $totalExistenciaMI,
+            'totalExistenciasComercial' => $totalExistenciasComercial
 
         ]);
 

@@ -6,9 +6,17 @@
 <ul class="lista-areas-produccion">
     <li class="areas-produccion-estatico" data-aos="fade-up">
         <a>
-            <i class="fas fa-scroll"></i> TOTAL EN EXISTENCIA :
+            <i class="fas fa-scroll"></i> TOTAL MATERIA PRIMA CORRUGADOR :
             <?php if ($totalExistencia > 0) : ?>
                 <span class="areas-produccion__numero"> <?php echo $totalExistencia ?> KG </span>
+            <?php endif; ?>
+        </a>
+    </li>
+    <li class="areas-produccion-estatico" data-aos="fade-up">
+        <a>
+            <i class="fas fa-scroll"></i> TOTAL IMPORT :
+            <?php if ($totalExistenciasComercial > 0) : ?>
+                <span class="areas-produccion__numero"> <?php echo $totalExistenciasComercial ?> KG </span>
             <?php endif; ?>
         </a>
     </li>
