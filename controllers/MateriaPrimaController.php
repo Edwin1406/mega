@@ -614,6 +614,8 @@ class MateriaPrimaController
         $totalCostoB = number_format($totalCostoB, 2, '.', ',');
             $totalExistenciaK = MateriaPrimaV::sumarExistenciaPorMes('CAJAS-KRAFT');
 
+        $totalExistenciaK = number_format($totalExistenciaK, 2, '.', ',');
+
         $router->render('admin/produccion/materia/corrugador/cajablanco', [
             'titulo' => 'CAJA BLANCO',
             'cajablanco' => $cajablanco,
@@ -633,6 +635,7 @@ class MateriaPrimaController
             $totalExistenciaK = MateriaPrimaV::sumarExistenciaPorMes('CAJAS-KRAFT');
 
         $totalCostoM = number_format($totalCostoM, 2, '.', ',');
+        $totalExistenciaK = number_format($totalExistenciaK, 2, '.', ',');
 
         $router->render('admin/produccion/materia/corrugador/cajamedium', [
             'titulo' => 'CAJA MEDIUM',
