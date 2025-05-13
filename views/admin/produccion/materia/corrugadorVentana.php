@@ -316,7 +316,7 @@ table.dataTable {
 
     <div class="columna izquierda">
 
-    <h1>INGRESOS</h1>
+    <h1>INGRESO DE IMPORTACIONES </h1>
     <table id="tabla-gramajes" class="display responsive nowrap">
       <thead>
         <tr>
