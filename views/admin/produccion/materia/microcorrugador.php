@@ -49,7 +49,7 @@
     }
 
     th{
-      background-color: #2c3e50;
+      background-color:rgb(157, 166, 175);
       color: rgb(14, 12, 12);
       text-align: center;
       padding: 10px;
