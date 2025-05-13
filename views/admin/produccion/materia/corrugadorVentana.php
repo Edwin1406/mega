@@ -343,7 +343,7 @@ table.dataTable {
   <div class="columna derecha">
 
   
-<h2>inventario</h2>
+<h2>INVENTARIO CORRUGADOR</h2>
 
 <table id="tabla-ingresos">
   <thead>
