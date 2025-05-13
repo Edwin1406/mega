@@ -126,7 +126,7 @@
       margin-bottom: 20px;
       font-size: 22px;
       font-weight: 700;
-      color: #2c3e50;
+      color:rgb(244, 250, 255);
       border-bottom: 1px solid #eee;
       padding-bottom: 10px;
     }
