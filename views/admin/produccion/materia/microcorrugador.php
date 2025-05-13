@@ -332,7 +332,8 @@ async function cargarDatos() {
 
         dataFiltrada.forEach(item => {
             let lineaOriginal = item.linea ? item.linea.toUpperCase().trim() : '';
-            if (!/^CAJAS|^MEDIUM/.test(lineaOriginal)) return;
+            // if (!/^MICRO|^MEDIUM/.test(lineaOriginal)) return;
+            if (!/^MICRO/.test(lineaOriginal)) return;
 
             const fechaStr = item.arribo_planta;
             if (!fechaStr || fechaStr === "0000-00-00") return;
