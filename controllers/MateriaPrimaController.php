@@ -50,7 +50,7 @@ class MateriaPrimaController
     $totalExistenciaCaja = $totalExistenciaCaja + $totalExistenciaCajaBlanco+ $totalExistenciaMedium;
 
     // debuguear($totalExistenciaMedium);
-    $totalExistenciaMicro = MateriaPrimaV::sumarExistenciaPorMes('MICRO');
+    $totalExistenciaMicro = MateriaPrimaV::sumarExistenciaPorMes('MICRO-KRAFT');
     debuguear($totalExistenciaMicro);
     // debuguear($totalExistenciaMicro);
     $totalExistenciaPeriodico = MateriaPrimaV::sumarExistenciaPorMes('PERIODICO');
