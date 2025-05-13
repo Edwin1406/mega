@@ -825,7 +825,7 @@ class MateriaPrimaController
 
 
         $router->render('admin/produccion/materia/corrugadorVentana', [
-            'titulo' => 'CORRUGADOR VENTANA',
+            'titulo' => 'CORRUGADOR',
             'totalExistencia' => $totalExistencia,
             'totalExistenciaK' => $totalExistenciaK,
             'totalExistenciaB' => $totalExistenciaB,
