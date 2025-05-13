@@ -371,29 +371,16 @@ async function cargarDatos() {
         Object.entries(resumenPorClave).forEach(([clave, info]) => {
             if (info.linea === 'PENDIENTE') {
                 const lineas = combinaciones[info.gramaje];
-                if (lineas.has('CAJAS-KRAFT') && lineas.has('MEDIUM') && lineas.has('CAJAS-BLANCO')) {
-                    info.linea = 'CAJAS-KRAFT/MEDIUM/CAJAS-BLANCO';
-                }else if (lineas.has('CAJAS-KRAFT') && lineas.has('MEDIUM')) {
-                    info.linea = 'CAJAS-KRAFT/MEDIUM';
-                } else if (lineas.has('CAJAS-BLANCO') && lineas.has('MEDIUM')) {
-                    info.linea = 'CAJAS-BLANCO/MEDIUM';
-                } else if (lineas.has('CAJAS-BLANCO')) {
-                    info.linea = 'CAJAS-BLANCO';
-                }
-                else if (lineas.has('CAJAS-KRAFT') && lineas.has('CAJAS-BLANCO')) {
-                    info.linea = 'CAJAS-KRAFT/CAJAS-BLANCO';
-                } else if (lineas.has('CAJAS-KRAFT')) {
-                    info.linea = 'CAJAS-KRAFT';
-                } else if (lineas.has('MEDIUM') && lineas.has('CAJAS-BLANCO')) {
-                    info.linea = 'MEDIUM/CAJAS-BLANCO';
-                }
-                else if (lineas.has('MEDIUM')) {
-                    info.linea = 'MEDIUM';
+                if (lineas.has('MICRO.KRAFT') && lineas.has('MICRO-BLANCO')) {
+                    info.linea = 'MICRO.KRAFT/MICRO-BLANCO';
+                } else if (lineas.has('MICRO.KRAFT')) {
+                    info.linea = 'MICRO.KRAFT';
+                } else if (lineas.has('MICRO-BLANCO')) {
+                    info.linea = 'MICRO-BLANCO';
                 } else {
                     info.linea = Array.from(lineas).join(', ');
                 }
                 
-               
             }
         });
 
