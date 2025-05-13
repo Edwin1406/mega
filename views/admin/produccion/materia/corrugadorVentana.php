@@ -6,7 +6,7 @@
 <ul class="lista-areas-produccion">
     <li class="areas-produccion-estatico" data-aos="fade-up">
         <a>
-            <i class="fa-solid fa-vault"> </i> TOTAL MATERIA PRIMA CORRUGADOR :
+            <i class="fa-solid fa-vault"> </i> INVENTARIO CORRUGADOR :
             <?php if ($totalExistencia > 0) : ?>
                 <span class="areas-produccion__numero"> <?php echo $totalExistencia ?> KG </span>
             <?php endif; ?>
@@ -24,7 +24,7 @@
 </ul>
 
 
-<H1>MATERIA PRIMA</H1>
+<H1>INVENTARIO POR LINEA</H1>
 
 <ul class="lista-areas-produccion">
     <li class="areas-produccion-craft" data-aos="flip-left">
@@ -61,7 +61,7 @@
 </ul>
 
 
-<H1> IMPORTACIONES</H1>
+<H1> IMPORTACIONES POR LINEA</H1>
 
 
 <ul class="lista-areas-produccion">
