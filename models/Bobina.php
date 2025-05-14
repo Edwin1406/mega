@@ -5,20 +5,54 @@ namespace Model;
 class Bobina extends ActiveRecord
 {
     
-    protected static $tabla = 'bobinas';
-    protected static $columnasDB = ['id', 'tipo_maquina', 'SF', 'LG','ERRO','HUN','MDO','consumo_papel', 'TOTAL','created_at','updated_at'];
+protected static $tabla = 'desperdicio_papel';
+protected static $columnasDB = [
+    'id',
+    'tipo_maquina',
+    'tipo_clasificacion',
+    'SINGLEFACE',
+    'EMPALME',
+    'RECUB',
+    'MECANICO',
+    'GALLET',
+    'HUMEDO',
+    'COMBADO',
+    'DESPE',
+    'ERROM',
+    'DESHOJE',
+    'CAMBIO_PEDIDO',
+    'FILOS_ROTOS',
+    'OTROS',
+    'PEDIDOS_CORTOS',
+    'DIFER_ANCHO',
+    'CAMBIO_GRAMAJE',
+    'EXTRA_TRIM',
+    'created_at'
+];
+
 
     public $id;
     public $tipo_maquina;
-    public $SF;
-    public $LG;
-    public $ERRO;
-    public $HUN;
-    public $MDO;
-    public $consumo_papel;
-    public $TOTAL;
+    public $tipo_clasificacion;
+    public $SINGLEFACE;
+    public $EMPALME;
+    public $RECUB;
+    public $MECANICO;
+    public $GALLET;
+    public $HUMEDO;
+    public $COMBADO;
+    public $DESPE;
+    public $ERROM;
+    public $DESHOJE;
+    public $CAMBIO_PEDIDO;
+    public $FILOS_ROTOS;
+    public $OTROS;
+    public $PEDIDOS_CORTOS;
+    public $DIFER_ANCHO;
+    public $CAMBIO_GRAMAJE;
+    public $EXTRA_TRIM;
     public $created_at;
-    public $updated_at;
+   
 
     public function __construct($args = [])
     {
@@ -26,14 +60,26 @@ class Bobina extends ActiveRecord
 
         $this->id = $args['id'] ?? null;
         $this->tipo_maquina = $args['tipo_maquina'] ?? '';
-        $this->SF = $args['SF'] ?? '';
-        $this->LG = $args['LG'] ?? '';
-        $this->ERRO = $args['ERRO'] ?? '';
-        $this->HUN = $args['HUN'] ?? '';
-        $this->MDO = $args['MDO'] ?? '';
-        $this->TOTAL = $args['TOTAL'] ?? '';
+        $this->tipo_clasificacion = $args['tipo_clasificacion'] ?? '';
+        $this->SINGLEFACE = $args['SINGLEFACE'] ?? '';
+        $this->EMPALME = $args['EMPALME'] ?? '';
+        $this->RECUB = $args['RECUB'] ?? '';
+        $this->MECANICO = $args['MECANICO'] ?? '';
+        $this->GALLET = $args['GALLET'] ?? '';
+        $this->HUMEDO = $args['HUMEDO'] ?? '';
+        $this->COMBADO = $args['COMBADO'] ?? '';
+        $this->DESPE = $args['DESPE'] ?? '';
+        $this->ERROM = $args['ERROM'] ?? '';
+        $this->DESHOJE = $args['DESHOJE'] ?? '';
+        $this->CAMBIO_PEDIDO = $args['CAMBIO_PEDIDO'] ?? '';
+        $this->FILOS_ROTOS = $args['FILOS_ROTOS'] ?? '';
+        $this->OTROS = $args['OTROS'] ?? '';
+        $this->PEDIDOS_CORTOS = $args['PEDIDOS_CORTOS'] ?? '';
+        $this->DIFER_ANCHO = $args['DIFER_ANCHO'] ?? '';
+        $this->CAMBIO_GRAMAJE = $args['CAMBIO_GRAMAJE'] ?? '';
+        $this->EXTRA_TRIM = $args['EXTRA_TRIM'] ?? '';
         $this->created_at = $args['created_at'] ?? date('Y-m-d H:i:s');
-        $this->updated_at = $args['updated_at'] ?? date('Y-m-d H:i:s');        
+        
     }
 
 
@@ -43,21 +89,7 @@ class Bobina extends ActiveRecord
         if(!$this->tipo_maquina) {
             self::$alertas['error'][] = 'El Campo Tipo papel es Obligatorio';
         }
-        if(!$this->SF) {
-            self::$alertas['error'][] = 'El Campo SF es Obligatorio';
-        }
-        if(!$this->LG) {
-            self::$alertas['error'][] = 'El Campo LG es Obligatorio';
-        }
-        if(!$this->ERRO) {
-            self::$alertas['error'][] = 'El Campo ERRO es Obligatorio';
-        }
-        if(!$this->HUN) {
-            self::$alertas['error'][] = 'El Campo HUN es Obligatorio';
-        }
-        if(!$this->MDO) {
-            self::$alertas['error'][] = 'El Campo MDO es Obligatorio';
-        }
+       
         
         return self::$alertas;
     }
