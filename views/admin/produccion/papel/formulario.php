@@ -25,163 +25,77 @@
 
 
 </style>
+<!-- Tipo Maquina -->
+<select id="tipo_maquina">
+  <option value="">-- Selecciona tipo --</option>
+  <option value="CORRUGADOR">CORRUGADOR</option>
+  <option value="ADMINISTRATIVO">ADMINISTRATIVO</option>
+</select>
 
-<?php $editando = strpos($_SERVER['REQUEST_URI'], 'editar') !== false; ?>
+<!-- Clasificación -->
+<select id="clasificacion">
+  <option value="">-- Clasificación --</option>
+  <option value="OPERATIVO">OPERATIVO</option>
+  <option value="NO OPERATIVO">NO OPERATIVO</option>
+</select>
 
-<fieldset class="formulario__fieldset">
-    <legend class="formulario__legend">Información de la Papel</legend>
-   <!-- TIPO PRINCIPAL -->
-<div class="formulario__campo">
-  <label class="formulario__label" for="tipo_maquina">Tipo Maquina</label>
-  <select class="formulario__input select2" name="tipo_maquina" id="tipo_maquina">
-    <option value="">-- Selecciona un tipo --</option>
-    <option value="CORRUGADOR">CORRUGADOR</option>
-    <option value="ADMINISTRATIVO">ADMINISTRATIVO</option>
-  </select>
-</div>
+<!-- Contenedor de campos dinámicos -->
+<div id="campos_dinamicos"></div>
 
-<!-- CLASIFICACIÓN -->
-<div class="formulario__campo">
-  <label class="formulario__label" for="clasificacion">Clasificación</label>
-  <select class="formulario__input select2" name="clasificacion" id="clasificacion">
-    <option value="">-- Selecciona clasificación --</option>
-    <option value="OPERATIVO">OPERATIVO</option>
-    <option value="NO OPERATIVO">NO OPERATIVO</option>
-  </select>
-</div>
+<!-- Estilos rápidos para ejemplo visual -->
+<style>
+  #campos_dinamicos label {
+    display: block;
+    margin-top: 5px;
+    font-weight: bold;
+  }
+  #campos_dinamicos input {
+    margin-bottom: 10px;
+    width: 200px;
+  }
+</style>
 
-<!-- DETALLE -->
-<div class="formulario__campo">
-  <label class="formulario__label" for="detalle_maquina">Detalle Máquina</label>
-  <select class="formulario__input select2" name="detalle_maquina" id="detalle_maquina">
-    <option value="">-- Selecciona detalle --</option>
-  </select>
-</div>
-
-<!-- JS -->
+<!-- Script -->
 <script>
-  const datosMaquina = {
+  const camposPorTipoClasificacion = {
     CORRUGADOR: {
-      OPERATIVO: ["GALLETAS TRUCK", "TRUCK", "CLAVES", "1600"],
-      "NO OPERATIVO": ["REYMER 120", "REYMER 180"]
+      OPERATIVO: ["Empalme", "Cambio", "Recubrimiento"]
     },
     ADMINISTRATIVO: {
-      OPERATIVO: ["PAPEL 300"],
-      "NO OPERATIVO": ["BOM", "100"]
+      OPERATIVO: ["Papel"],
+      "NO OPERATIVO": ["Bom"]
     }
   };
 
-  $(document).ready(function () {
-    // Inicializa select2
-    $('#tipo_maquina, #clasificacion, #detalle_maquina').select2({
-      placeholder: "-- Selecciona --",
-      allowClear: true
+  function mostrarCampos(tipo, clasificacion) {
+    const contenedor = document.getElementById("campos_dinamicos");
+    contenedor.innerHTML = ""; // Limpia todo
+
+    const campos = (camposPorTipoClasificacion[tipo] || {})[clasificacion] || [];
+
+    campos.forEach(campo => {
+      const label = document.createElement("label");
+      label.textContent = `${campo}:`;
+
+      const input = document.createElement("input");
+      input.type = "number";
+      input.name = campo.toLowerCase().replace(/\s+/g, '_');
+      input.placeholder = "Peso (kg)";
+
+      contenedor.appendChild(label);
+      contenedor.appendChild(input);
     });
+  }
 
-    // Al cambiar el tipo
-    $('#tipo_maquina').on('change', function () {
-      const tipo = $(this).val();
-      if (!tipo) return;
+  document.getElementById("tipo_maquina").addEventListener("change", function () {
+    const tipo = this.value;
+    const clasificacion = document.getElementById("clasificacion").value;
+    mostrarCampos(tipo, clasificacion);
+  });
 
-      // Si tiene solo una clasificación (como en tu imagen), la selecciona automáticamente
-      const clasificaciones = Object.keys(datosMaquina[tipo]);
-      if (clasificaciones.length === 1) {
-        $('#clasificacion').val(clasificaciones[0]).trigger('change');
-      } else {
-        $('#clasificacion').val('').trigger('change');
-      }
-
-      // Limpiar detalle
-      $('#detalle_maquina').html('<option value="">-- Selecciona detalle --</option>').trigger('change');
-    });
-
-    // Al cambiar la clasificación
-    $('#clasificacion').on('change', function () {
-      const tipo = $('#tipo_maquina').val();
-      const clasificacion = $(this).val();
-      const detalles = (datosMaquina[tipo] && datosMaquina[tipo][clasificacion]) || [];
-
-      // Rellenar detalle
-      const opciones = detalles.map(op => `<option value="${op}">${op}</option>`).join('');
-      $('#detalle_maquina').html('<option value="">-- Selecciona detalle --</option>' + opciones).trigger('change');
-    });
+  document.getElementById("clasificacion").addEventListener("change", function () {
+    const tipo = document.getElementById("tipo_maquina").value;
+    const clasificacion = this.value;
+    mostrarCampos(tipo, clasificacion);
   });
 </script>
-
-
-
-    <div class="formulario__campo">
-        <label class="formulario__label" for="SF">SF</label>
-        <input
-            type="number"
-            name="SF"
-            id="SF"
-            class="formulario__input"
-            placeholder="SF"
-            value="<?php echo $papel->SF ?? '' ?>">
-    </div>
-    <div class="formulario__campo">
-        <label class="formulario__label" for="SF">LG</label>
-        <input
-            type="number"
-            name="LG"
-            id="LG"
-            class="formulario__input"
-            placeholder="LG"
-            value="<?php echo $papel->LG ?? '' ?>">
-    </div>
-    <div class="formulario__campo">
-        <label class="formulario__label" for="ERRO">ERRO</label>
-        <input
-            type="number"
-            name="ERRO"
-            id="ERRO"
-            class="formulario__input"
-            placeholder="ERRO"
-            value="<?php echo $papel->ERRO ?? '' ?>">
-    </div>
-    <div class="formulario__campo">
-        <label class="formulario__label" for="HUN">HUN</label>
-        <input
-            type="number"
-            name="HUN"
-            id="HUN"
-            class="formulario__input"
-            placeholder="HUN"
-            value="<?php echo $papel->HUN ?? '' ?>">
-    </div>
-    <div class="formulario__campo">
-        <label class="formulario__label" for="MDO">MDO</label>
-        <input
-            type="number"
-            name="MDO"
-            id="MDO"
-            class="formulario__input"
-            placeholder="MDO"
-            value="<?php echo $papel->MDO ?? '' ?>">
-    </div>
-
-    <?php if ($editando): ?>
-        <div class="formulario__campo">
-            <label class="formulario__label" for="consumo_papel">Consumo Papel</label>
-            <input
-                type="number"
-                name="consumo_papel"
-                id="consumo_papel"
-                class="formulario__input"
-                placeholder="Consumo Papel"
-                value="<?php echo $papel->consumo_papel ?? '' ?>">
-        </div>
-        <div class="formulario__campo">
-            <label class="formulario__label" for="TOTAL">TOTAL</label>
-            <input
-                type="number"
-                name="TOTAL"
-                id="TOTAL"
-                class="formulario__input"
-                placeholder="TOTAL"
-                value="<?php echo $papel->TOTAL ?? '' ?>">
-        </div>
-    <?php endif; ?>
-
-</fieldset>
