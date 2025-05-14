@@ -22,43 +22,6 @@
     transition: border-color 0.2s ease-in-out;
 }
 
-/* Texto dentro del select */
-.select2-container--default .select2-selection--single .select2-selection__rendered {
-    line-height: 28px;
-    color: #333;
-}
-
-/* Flechita del select */
-.select2-container--default .select2-selection--single .select2-selection__arrow {
-    height: 100%;
-    right: 8px;
-}
-
-/* Efecto al hacer focus */
-.select2-container--default .select2-selection--single:focus,
-.select2-container--default .select2-selection--single:focus-visible,
-.select2-container--default .select2-selection--single:focus-within {
-    border-color: #007bff;
-    outline: none;
-}
-
-/* Quitar borde azul de focus por defecto */
-.select2-container--default .select2-selection--single:focus {
-    box-shadow: none;
-}
-
-/* Menú desplegable */
-.select2-container--default .select2-results__option {
-    padding: 8px 12px;
-    font-size: 1rem;
-}
-
-/* Estilo cuando está seleccionado */
-.select2-container--default .select2-results__option--highlighted[aria-selected] {
-    background-color: #007bff;
-    color: white;
-}
-
 
 
 </style>
