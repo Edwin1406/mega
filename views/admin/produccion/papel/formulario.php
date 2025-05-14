@@ -152,6 +152,37 @@
 
 
 
+<script>
+  const camposPorMaquina = {
+    'PREPRINTER': ['SF', 'LG'],
+    'CORRUGADORA': ['ERRO', 'HUN'],
+    'FLEXO': ['MDO']
+    // Agrega más tipos y sus respectivos campos si lo necesitas
+  };
+
+  function actualizarCamposVisibles() {
+    const tipo = document.getElementById('tipo_maquina').value;
+    const camposVisibles = camposPorMaquina[tipo] || [];
+
+    // Ocultar todos los campos primero
+    ['SF', 'LG', 'ERRO', 'HUN', 'MDO'].forEach(id => {
+      const divCampo = document.getElementById(id)?.closest('.formulario__campo');
+      if (divCampo) divCampo.style.display = 'none';
+    });
+
+    // Mostrar solo los necesarios
+    camposVisibles.forEach(id => {
+      const divCampo = document.getElementById(id)?.closest('.formulario__campo');
+      if (divCampo) divCampo.style.display = '';
+    });
+  }
+
+  // Ejecutar al cambiar el tipo de máquina
+  document.getElementById('tipo_maquina').addEventListener('change', actualizarCamposVisibles);
+
+  // Ejecutar una vez al cargar la página por si ya hay un tipo seleccionado
+  document.addEventListener('DOMContentLoaded', actualizarCamposVisibles);
+</script>
 
 
 </fieldset>
