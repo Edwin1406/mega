@@ -54,7 +54,7 @@ class PapelController
 
 
 
-            debuguear($papel);
+            // debuguear($papel);
 
         
             // validar
