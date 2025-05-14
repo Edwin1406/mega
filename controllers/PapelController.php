@@ -67,7 +67,7 @@ $clasificacionesConvertidas = array_filter($clasificacionesConvertidas);
 $papel->tipo_clasificacion = implode(',', $clasificacionesConvertidas);
 
 
-            debuguear($papel);
+            // debuguear($papel);
 
         
             // validar
