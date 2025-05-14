@@ -262,7 +262,7 @@
 <script>
     const camposPorMaquinaYClasificacion = {
         'PREPRINTER': {
-            'a': ['SINGLEFACE'], // CONTROLABLE
+            'a': ['HOLA'], // CONTROLABLE
             'b': ['MDO'], // NO CONTROLABLE
         },
         'CORRUGADOR': {
