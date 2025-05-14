@@ -61,4 +61,28 @@
             placeholder="MDO"
             value="<?php echo $papel->MDO ?? '' ?>">
     </div>
+
+<?php if ($editando): ?>
+    <div class="formulario__campo">
+        <label class="formulario__label" for="consumo_papel">Consumo Papel</label>
+        <input
+            type="number"
+            name="consumo_papel"
+            id="consumo_papel"
+            class="formulario__input"
+            placeholder="Consumo Papel"
+            value="<?php echo $papel->consumo_papel ?? '' ?>">
+    </div>
+    <div class="formulario__campo">
+        <label class="formulario__label" for="TOTAL">TOTAL</label>
+        <input
+            type="number"
+            name="TOTAL"
+            id="TOTAL"
+            class="formulario__input"
+            placeholder="TOTAL"
+            value="<?php echo $papel->TOTAL ?? '' ?>">
+    </div>
+<?php endif; ?>
+
 </fieldset>
