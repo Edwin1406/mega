@@ -30,32 +30,77 @@
 
 <fieldset class="formulario__fieldset">
     <legend class="formulario__legend">Información de la Papel</legend>
-    <div class="formulario__campo">
-        <label class="formulario__label" for="tipo_maquina">Tipo Maquina</label>
-        <select class="formulario__input select2" name="tipo_maquina" id="tipo_maquina">
-            <option value="">-- Selecciona un tipo --</option>
-            <option value="PREPRINTER" <?= trim(strtolower($papel->tipo_maquina ?? '')) == 'preprinter' ? 'selected' : '' ?>>PRE-PRINTER</option>
-            <option value="CALDERO" <?= trim(strtolower($papel->tipo_maquina ?? '')) == 'caldero' ? 'selected' : '' ?>>CALDERO</option>
-            <option value="ELECTRICO" <?= trim(strtolower($papel->tipo_maquina ?? '')) == 'electrico' ? 'selected' : '' ?>>ELECTRICO</option>
-            <option value="COMPRESOR" <?= trim(strtolower($papel->tipo_maquina ?? '')) == 'compresor' ? 'selected' : '' ?>>COMPRESOR</option>
-            <option value="HUMEDO" <?= trim(strtolower($papel->tipo_maquina ?? '')) == 'humedo' ? 'selected' : '' ?>>HUMEDO</option>
-            <option value="FRENO" <?= trim(strtolower($papel->tipo_maquina ?? '')) == 'freno' ? 'selected' : '' ?>>FRENO</option>
-            <option value="PRESION" <?= trim(strtolower($papel->tipo_maquina ?? '')) == 'presion' ? 'selected' : '' ?>>PRESION</option>
-            <option value="DESPEGADO" <?= trim(strtolower($papel->tipo_maquina ?? '')) == 'despegado' ? 'selected' : '' ?>>DESPEGADO</option>
-            <option value="EXTRATRIM" <?= trim(strtolower($papel->tipo_maquina ?? '')) == 'extratrim' ? 'selected' : '' ?>>EXTRATRIM</option>
-            <option value="OTRO" <?= trim(strtolower($papel->tipo_maquina ?? '')) == 'otro' ? 'selected' : '' ?>>OTRO</option>
-        </select>
-    </div>
+   <!-- Select principal -->
+<div class="formulario__campo">
+    <label class="formulario__label" for="tipo_maquina">Tipo Maquina</label>
+    <select class="formulario__input select2" name="tipo_maquina" id="tipo_maquina">
+        <option value="">-- Selecciona un tipo --</option>
+        <option value="CORRUGADOR">CORRUGADOR</option>
+        <option value="MICRO">MICRO</option>
+        <option value="PREPRINTER">PREPRINTER</option>
+        <option value="KL">KL</option>
+        <option value="RESMAS">RESMAS</option>
+        <option value="DOBLADORA">DOBLADORA</option>
+    </select>
+</div>
 
+<!-- Segundo select dinámico -->
+<div class="formulario__campo">
+    <label class="formulario__label" for="opciones_subtipo">Subtipo</label>
+    <select class="formulario__input select2" name="opciones_subtipo" id="opciones_subtipo">
+        <option value="">-- Selecciona una opción --</option>
+    </select>
+</div>
 
-    <script>
-        $(document).ready(function() {
-            $('#tipo_maquina').select2({
-                placeholder: "-- Selecciona un tipo --",
-                allowClear: true,
+<!-- Script para manejar las opciones dinámicas -->
+<script>
+    const opcionesPorTipo = {
+        CORRUGADOR: ["PAPEL", "TRIM"],
+        MICRO: ["MICRO1", "MICRO2"],
+        PREPRINTER: ["TINTA", "PLACA"],
+        KL: ["LINEA1", "LINEA2"],
+        RESMAS: ["A4", "OFICIO", "CARTA"],
+        DOBLADORA: ["MODO 1", "MODO 2"]
+    };
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const tipoMaquina = document.getElementById('tipo_maquina');
+        const subtipo = document.getElementById('opciones_subtipo');
+
+        tipoMaquina.addEventListener('change', function () {
+            const seleccionado = this.value;
+            const opciones = opcionesPorTipo[seleccionado] || [];
+
+            // Limpiar el segundo select
+            subtipo.innerHTML = '<option value="">-- Selecciona una opción --</option>';
+
+            // Agregar las nuevas opciones
+            opciones.forEach(function (opcion) {
+                const opt = document.createElement('option');
+                opt.value = opcion;
+                opt.textContent = opcion;
+                subtipo.appendChild(opt);
             });
+
+            // Si estás usando Select2, recarga
+            if ($(subtipo).hasClass('select2')) {
+                $(subtipo).trigger('change.select2');
+            }
         });
-    </script>
+
+        // Activar select2 si es necesario
+        $('#tipo_maquina').select2({
+            placeholder: "-- Selecciona un tipo --",
+            allowClear: true
+        });
+
+        $('#opciones_subtipo').select2({
+            placeholder: "-- Selecciona una opción --",
+            allowClear: true
+        });
+    });
+</script>
+
 
 
     <div class="formulario__campo">
