@@ -23,7 +23,7 @@
                     <th scope="col" class="table__th">TOTAL</th>
                     <th scope="col" class="table__th">Fecha Creacion</th>
                     <th scope="col" class="table__th">Fecha Actualizacion</th>
-                    <th scope="col" class="table__th"></th>
+                    <th scope="col" class="table__th">Acciones</th>
                 </tr>
             </thead>
             <tbody class="table__tbody">
