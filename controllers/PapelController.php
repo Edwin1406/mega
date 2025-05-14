@@ -46,17 +46,22 @@ class PapelController
         $papel = new Bobina;
         if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
-            $clasificaciones = $_POST['MDO'] ?? []; // puede ser ['a', 'b']
+      $entrada = $_POST['MDO'] ?? [];
 
-            $mapa = [
-                'a' => 'CONTROLABLE',
-                'b' => 'NO CONTROLABLE'
-            ];
+$valores = is_array($entrada) ? $entrada : [$entrada];
 
-            $clasificacionesConvertidas = array_map(fn($c) => $mapa[$c], $clasificaciones);
+$mapa = [
+    'a' => 'CONTROLABLE',
+    'b' => 'NO CONTROLABLE'
+];
 
-            $papel->tipo_clasificacion = implode(',', $clasificacionesConvertidas);
+$clasificacionesConvertidas = array_map(fn($c) => $mapa[$c] ?? '', $valores);
 
+// Limpia los vacíos por si acaso
+$clasificacionesConvertidas = array_filter($clasificacionesConvertidas);
+
+// Guarda como texto separado por comas
+$papel->tipo_clasificacion = implode(',', $clasificacionesConvertidas);
 
 
             
