@@ -35,18 +35,33 @@
         <select class="formulario__input select2" name="tipo_maquina" id="tipo_maquina">
             <option value="">-- Selecciona un tipo --</option>
             <option value="PREPRINTER" <?= trim(strtolower($papel->tipo_maquina ?? '')) == 'preprinter' ? 'selected' : '' ?>>PRE-PRINTER</option>
-            <option value="CALDERO" <?= trim(strtolower($papel->tipo_maquina ?? '')) == 'caldero' ? 'selected' : '' ?>>CALDERO</option>
-            <option value="ELECTRICO" <?= trim(strtolower($papel->tipo_maquina ?? '')) == 'electrico' ? 'selected' : '' ?>>ELECTRICO</option>
-            <option value="COMPRESOR" <?= trim(strtolower($papel->tipo_maquina ?? '')) == 'compresor' ? 'selected' : '' ?>>COMPRESOR</option>
-            <option value="HUMEDO" <?= trim(strtolower($papel->tipo_maquina ?? '')) == 'humedo' ? 'selected' : '' ?>>HUMEDO</option>
-            <option value="FRENO" <?= trim(strtolower($papel->tipo_maquina ?? '')) == 'freno' ? 'selected' : '' ?>>FRENO</option>
-            <option value="PRESION" <?= trim(strtolower($papel->tipo_maquina ?? '')) == 'presion' ? 'selected' : '' ?>>PRESION</option>
-            <option value="DESPEGADO" <?= trim(strtolower($papel->tipo_maquina ?? '')) == 'despegado' ? 'selected' : '' ?>>DESPEGADO</option>
-            <option value="EXTRATRIM" <?= trim(strtolower($papel->tipo_maquina ?? '')) == 'extratrim' ? 'selected' : '' ?>>EXTRATRIM</option>
-            <option value="OTRO" <?= trim(strtolower($papel->tipo_maquina ?? '')) == 'otro' ? 'selected' : '' ?>>OTRO</option>
         </select>
     </div>
 
+
+
+<div class="formulario__campo">
+    <label class="formulario__label">CLASIFICACION</label>
+
+    <div>
+        <label>
+            <input type="checkbox" name="MDO[]" value="a">
+            OPERATIVO
+        </label>
+    </div>
+    <div>
+        <label>
+            <input type="checkbox" name="MDO[]" value="b" checked>
+            NO OPERATIVO
+        </label>
+    </div>
+    <div>
+        <label>
+            <input type="checkbox" name="MDO[]" value="c" checked>
+            ADMINISTRATIVO
+        </label>
+    </div>
+</div>
 
 
 
@@ -135,30 +150,6 @@
     <?php endif; ?>
 
 
-
-
-<div class="formulario__campo">
-    <label class="formulario__label">MDO</label>
-
-    <div>
-        <label>
-            <input type="checkbox" name="MDO[]" value="a">
-            OPERATIVO
-        </label>
-    </div>
-    <div>
-        <label>
-            <input type="checkbox" name="MDO[]" value="b" checked>
-            NO OPERATIVO
-        </label>
-    </div>
-    <div>
-        <label>
-            <input type="checkbox" name="MDO[]" value="c" checked>
-            ADMINISTRATIVO
-        </label>
-    </div>
-</div>
 
 
 
