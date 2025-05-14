@@ -127,6 +127,18 @@
             value="<?php echo $papel->EXTRATRIM ?? '' ?>">
     </div>
 
+    <div class="formulario__campo">
+        <label class="formulario__label" for="MDO">MDO</label>
+        <input
+            type="number"
+            name="MDO"
+            id="MDO"
+            class="formulario__input"
+            placeholder="MDO"
+            value="<?php echo $papel->MDO ?? '' ?>">
+    </div>
+
+    
 
 
 
