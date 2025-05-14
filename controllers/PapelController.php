@@ -40,24 +40,48 @@ class PapelController
         ]);
     }
 
-    public static function crear(Router $router)
-    {
-        $alertas = [];
-        $papel = new Bobina;
-        if($_SERVER['REQUEST_METHOD'] === 'POST'){
+public static function crear(Router $router)
+{
+    $alertas = [];
+    $papel = new Bobina;
 
-      
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-             var_dump($_POST['MDO'] ?? 'NO LLEGA');
-    exit;
+        // Sincronizar primero los datos normales
+        $papel->sincronizar($_POST);
 
-        }   
+        // Ahora procesar tipo_clasificacion
+        $entrada = $_POST['MDO'] ?? [];
 
-        $router->render('admin/produccion/papel/crear', [
-            'titulo' => 'CREAR PAPEL',
-            'alertas' => $alertas
-        ]);
+        $valores = is_array($entrada) ? $entrada : [$entrada];
+
+        $mapa = [
+            'a' => 'CONTROLABLE',
+            'b' => 'NO CONTROLABLE'
+        ];
+
+        $clasificacionesConvertidas = array_map(fn($c) => $mapa[$c] ?? '', $valores);
+        $clasificacionesConvertidas = array_filter($clasificacionesConvertidas);
+
+        // IMPORTANTE: Asignar después de sincronizar
+        $papel->tipo_clasificacion = implode(',', $clasificacionesConvertidas);
+
+        // debug opcional
+        // debuguear($papel);
+
+        $alertas = $papel->validar();
+
+        if (empty($alertas)) {
+            $papel->guardar();
+            header('Location: /admin/produccion/papel/tabla');
+        }
     }
+
+    $router->render('admin/produccion/papel/crear', [
+        'titulo' => 'CREAR PAPEL',
+        'alertas' => $alertas
+    ]);
+}
 
 
 
