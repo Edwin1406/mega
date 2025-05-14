@@ -8,8 +8,17 @@
         <label class="formulario__label" for="tipo_maquina">Tipo Maquina</label>
         <select class="formulario__input" name="tipo_maquina" id="tipo_maquina">
             <option value="">-- Selecciona un tipo --</option>
-            <option value="corrugador" <?= trim(strtolower($papel->tipo_maquina ?? '')) == 'corrugador' ? 'selected' : '' ?>>Corrugador</option>
-            <option value="micro" <?= trim(strtolower($papel->tipo_maquina ?? '')) == 'micro' ? 'selected' : '' ?>>Micro</option>
+            <option value="PREPRINTER" <?= trim(strtolower($papel->tipo_maquina ?? '')) == 'PRE-PRINTER' ? 'selected' : '' ?>>PRE-PRINTER</option>
+            <option value="CALDERO" <?= trim(strtolower($papel->tipo_maquina ?? '')) == 'CALDERO' ? 'selected' : '' ?>>CALDERO</option>
+            <option value="ELECTRICO" <?= trim(strtolower($papel->tipo_maquina ?? '')) == 'ELECTRICO' ? 'selected' : '' ?>>ELECTRICO</option>
+            <option value="COMPRESOR" <?= trim(strtolower($papel->tipo_maquina ?? '')) == 'COMPRESOR' ? 'selected' : '' ?>>COMPRESOR</option>
+            <option value="HUMEDO" <?= trim(strtolower($papel->tipo_maquina ?? '')) == 'HUMEDO' ? 'selected' : '' ?>>HUMEDO</option>
+            <option value="FRENO" <?= trim(strtolower($papel->tipo_maquina ?? '')) == 'FRENO' ? 'selected' : '' ?>>FRENO</option>
+            <option value="PRESION" <?= trim(strtolower($papel->tipo_maquina ?? '')) == 'PRESION' ? 'selected' : '' ?>>PRESION</option>
+            <option value="DESPEGADO" <?= trim(strtolower($papel->tipo_maquina ?? '')) == 'DESPEGADO' ? 'selected' : '' ?>>DESPEGADO</option>
+            <option value="EXTRATRIM" <?= trim(strtolower($papel->tipo_maquina ?? '')) == 'EXTRATRIM' ? 'selected' : '' ?>>EXTRATRIM</option>
+            <option value="OTRO" <?= trim(strtolower($papel->tipo_maquina ?? '')) == 'OTRO' ? 'selected' : '' ?>>OTRO</option>
+
         </select>
 
     </div>
