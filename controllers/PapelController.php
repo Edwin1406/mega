@@ -45,8 +45,22 @@ class PapelController
         $alertas = [];
         $papel = new Bobina;
         if($_SERVER['REQUEST_METHOD'] === 'POST'){
+
+            $clasificaciones = $_POST['MDO'] ?? []; // puede ser ['a', 'b']
+
+            $mapa = [
+                'a' => 'CONTROLABLE',
+                'b' => 'NO CONTROLABLE'
+            ];
+
+            $clasificacionesConvertidas = array_map(fn($c) => $mapa[$c], $clasificaciones);
+
+            $papel->tipo_clasificacion = implode(',', $clasificacionesConvertidas);
+
+
+
+            
             $papel->sincronizar($_POST);
-            $papel->tipo_clasificacion = json_encode($clasificacionesConvertidas); // ["CONTROLABLE","NO CONTROLABLE"]
 
 
             debuguear($papel);
