@@ -48,7 +48,12 @@ class PapelController
             $papel->sincronizar($_POST);
 
             //sumar los totales
-            $papel->TOTAL = $papel->SF + $papel->LG + $papel->ERRO + $papel->HUN + $papel->MDO;
+            $papel->TOTAL = 
+                ($papel->SF ?: 0) + 
+                ($papel->LG ?: 0) + 
+                ($papel->ERRO ?: 0) + 
+                ($papel->HUN ?: 0) + 
+                ($papel->MDO ?: 0);
             
             debuguear($papel);
         
