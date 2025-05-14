@@ -39,10 +39,14 @@
   </select>
 </div>
 
-<!-- CAMPO DE CLASIFICACIÓN -->
+<!-- SELECT CLASIFICACIÓN EDITABLE -->
 <div class="formulario__campo">
   <label class="formulario__label" for="clasificacion">Clasificación</label>
-  <input type="text" id="clasificacion" class="formulario__input" readonly>
+  <select class="formulario__input select2" name="clasificacion" id="clasificacion">
+    <option value="">-- Selecciona clasificación --</option>
+    <option value="OPERATIVO">OPERATIVO</option>
+    <option value="NO OPERATIVO">NO OPERATIVO</option>
+  </select>
 </div>
 
 <!-- SCRIPT -->
@@ -57,15 +61,17 @@
   };
 
   $(document).ready(function () {
-    $('#tipo_maquina').select2({
-      placeholder: "-- Selecciona un tipo --",
+    $('#tipo_maquina, #clasificacion').select2({
+      placeholder: "-- Selecciona --",
       allowClear: true
     });
 
     $('#tipo_maquina').on('change', function () {
       const seleccionado = $(this).val();
       const clasificacion = datosMaquina[seleccionado] || "";
-      $('#clasificacion').val(clasificacion);
+
+      // Seleccionar automáticamente la clasificación correspondiente
+      $('#clasificacion').val(clasificacion).trigger('change');
     });
   });
 </script>
