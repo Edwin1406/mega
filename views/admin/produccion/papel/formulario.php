@@ -63,32 +63,7 @@
         DOBLADORA: ["MODO 1", "MODO 2"]
     };
 
-    document.addEventListener('DOMContentLoaded', function () {
-        const tipoMaquina = document.getElementById('tipo_maquina');
-        const subtipo = document.getElementById('opciones_subtipo');
-
-        tipoMaquina.addEventListener('change', function () {
-            const seleccionado = this.value;
-            const opciones = opcionesPorTipo[seleccionado] || [];
-
-            // Limpiar el segundo select
-            subtipo.innerHTML = '<option value="">-- Selecciona una opción --</option>';
-
-            // Agregar las nuevas opciones
-            opciones.forEach(function (opcion) {
-                const opt = document.createElement('option');
-                opt.value = opcion;
-                opt.textContent = opcion;
-                subtipo.appendChild(opt);
-            });
-
-            // Si estás usando Select2, recarga
-            if ($(subtipo).hasClass('select2')) {
-                $(subtipo).trigger('change.select2');
-            }
-        });
-
-        // Activar select2 si es necesario
+    $(document).ready(function () {
         $('#tipo_maquina').select2({
             placeholder: "-- Selecciona un tipo --",
             allowClear: true
@@ -97,6 +72,19 @@
         $('#opciones_subtipo').select2({
             placeholder: "-- Selecciona una opción --",
             allowClear: true
+        });
+
+        $('#tipo_maquina').on('change', function () {
+            const seleccionado = $(this).val();
+            const opciones = opcionesPorTipo[seleccionado] || [];
+
+            // Reinicializar select2 con nuevas opciones
+            const nuevoData = opciones.map(op => ({ id: op, text: op }));
+            $('#opciones_subtipo').empty().select2({
+                data: nuevoData,
+                placeholder: "-- Selecciona una opción --",
+                allowClear: true
+            });
         });
     });
 </script>
