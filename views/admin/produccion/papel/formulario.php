@@ -298,11 +298,11 @@
 
         // 1. Deseleccionar todos los checkboxes
         const checkboxes = document.querySelectorAll('input[name="MDO[]"]');
-        checkboxes.forEach(chk => {
-            chk.checked = false;
-            // OPCIONAL: deshabilitar si no hay tipo de máquina seleccionado
-            chk.disabled = !tipoMaquina;
-        });
+        // checkboxes.forEach(chk => {
+        //     chk.checked = false;
+        //     // OPCIONAL: deshabilitar si no hay tipo de máquina seleccionado
+        //     chk.disabled = !tipoMaquina;
+        // });
 
         // 2. Ocultar todos los campos conocidos
         const todosLosCampos = [
