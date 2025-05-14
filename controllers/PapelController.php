@@ -146,6 +146,14 @@ class PapelController
 
 
 
+        public static function apidesperdiciopapel(){
+            header('Content-Type: application/json');
+            $papel = Bobina::all();
+            echo json_encode($papel);
+        }
+
+
+
 
 
 
