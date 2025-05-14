@@ -14,10 +14,15 @@
         <table class="table">
             <thead class="table__thead">
                 <tr>
-                    <th scope="col" class="table__th">Tipo de Papel</th>
-                    <th scope="col" class="table__th">Gramaje</th>
-                    <th scope="col" class="table__th">Ancho</th>
-                    <th scope="col" class="table__th">Fecha y Hora </th>
+                    <th scope="col" class="table__th">Tipo de maquina</th>
+                    <th scope="col" class="table__th">SF</th>
+                    <th scope="col" class="table__th">LG</th>
+                    <th scope="col" class="table__th">ERRO</th>
+                    <th scope="col" class="table__th">HUN</th>
+                    <th scope="col" class="table__th">MDO</th>
+                    <th scope="col" class="table__th">TOTAL</th>
+                    <th scope="col" class="table__th">Fecha Creacion</th>
+                    <th scope="col" class="table__th">Fecha Actualizacion</th>
                     <th scope="col" class="table__th"></th>
                 </tr>
             </thead>
