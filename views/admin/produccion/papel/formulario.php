@@ -277,8 +277,8 @@
 
         // Ocultar todos los inputs conocidos
         const todosLosCampos = [
-            'SF', 'LG', 'ERRO', 'HUN', 'MDO',
-            'GALLET', 'HUMEDO', 'DESHOJE', 'SINGLEFACE', 'EXTRATRIM'
+            'SINGLEFACE', 'EMPALME', 'RECUB', 'MECANICO', 'GALLET', 'HUMEDO', 'COMBADO', 'DESPE', 'ERROM',
+            'DESHOJE', 'CAMBIO_PEDIDO', 'FILOS_ROTOS', 'OTROS', 'PEDIDOS_CORTOS', 'DIFER_ANCHO', 'CAMBIO_GRAMAJE', 'EXTRA_TRIM'
         ];
 
         todosLosCampos.forEach(id => {
