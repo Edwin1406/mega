@@ -1,211 +1,76 @@
-<h2 class="dashboard__heading"> <?php echo $titulo ?> </h2>
+<!-- Select2 CSS -->
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
+<!-- jQuery y Select2 JS -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+
+<!-- Select de máquina -->
+<select id="maquina" class="select2">
+  <option value="">-- Selecciona máquina --</option>
+  <option value="CORRUGADOR">CORRUGADOR</option>
+  <option value="PREPRINTER">PREPRINTER</option>
+</select>
+
+<!-- Select de tipo operativo -->
+<select id="tipo_operativo" class="select2">
+  <option value="">-- Selecciona tipo --</option>
+</select>
+
+<!-- Contenedor de causas con campos de peso -->
+<div id="causas_container"></div>
 
 
 
+<script>
+const data = {
+  "CORRUGADOR": {
+    "OPERATIVO": ["Empalme", "Cambio", "Recubrimiento"],
+    "NO OPERATIVO": ["Mecánico", "Fallas", "Otros"]
+  },
+  "PREPRINTER": {
+    "OPERATIVO": ["Cambio Tinta", "Ajuste Registro"],
+    "NO OPERATIVO": ["Eléctrico", "Hidráulico"]
+  }
+};
 
-<style>
+document.getElementById("maquina").addEventListener("change", function () {
+  const tipoSelect = document.getElementById("tipo_operativo");
+  tipoSelect.innerHTML = '<option value="">-- Selecciona tipo --</option>';
+  const maquina = this.value;
 
-.contenedor{
-    display: grid;
-    grid-template-columns: auto auto;
-    gap: 2rem;
-}
-.caracteristicas {
-  display: grid;
-  grid-template-columns: auto auto auto auto;
-  gap: 1.5rem;
-  background-color:rgb(255, 255, 255);
-  padding: 2rem;
-  border-radius: 1rem;
-  max-width: 50%;
-  margin: auto;
-}
+  if (maquina && data[maquina]) {
+    Object.keys(data[maquina]).forEach(tipo => {
+      const option = document.createElement("option");
+      option.value = tipo;
+      option.textContent = tipo;
+      tipoSelect.appendChild(option);
+    });
+  }
 
-.caracteristicas__item {
-    background: radial-gradient(circle, rgb(196, 166, 138) 0%, rgb(218, 158, 109) 100%);
-  color:rgb(2, 2, 2);
-  padding: 1.5rem;
-  border-radius: 1rem;
-  text-align: center;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  box-shadow: 0 2px 5px rgba(135, 164, 165, 0.2);
-}
+  // limpia causas
+  document.getElementById("causas_container").innerHTML = '';
+});
 
-.caracteristicas__item:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 5px 15px rgba(114, 156, 149, 0.3);
-}
+document.getElementById("tipo_operativo").addEventListener("change", function () {
+  const maquina = document.getElementById("maquina").value;
+  const tipo = this.value;
+  const contenedor = document.getElementById("causas_container");
 
-.caracteristicas__item p:first-child {
-  font-weight: bold;
-  font-size: 1.2rem;
-  margin-bottom: 0.5rem;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
+  contenedor.innerHTML = ''; // limpiar antes
 
-.caracteristicas__item p:last-child {
-  font-size: 1.5rem;
-  margin: 0;
-  color:rgb(0, 0, 0);
-}
-
-.contenido{
-    display: flex;
-    justify-content: space-between;
-   
-}
-
-.designar{
-    font-size: 2.5rem;
-    color:rgb(0, 0, 0);
-    font-weight: bold;
-}
-
-
-
-</style>
-
-<!-- nombre del usuario --> 
-
-
-
-
-<div class="contenedor">
-  
-  <div class="caracteristicas">
-      <div class="caracteristicas__item">
-          <p> ID DEL EQUIPO: </p>
-          <p> sadsad</p>
-      
-      </div>
-      <div class="caracteristicas__item">
-          <p> AREA: </p>
-          <p> asdsadsad </p>
-      </div>
-      
-      <div class="caracteristicas__item">
-          <p> USUARIO ASIGNADO: </p>
-          <p> asdsadas </p>
-      </div>
-      
-      <div class="caracteristicas__item">
-          <p> FECHA COMPRA: </p>
-          <p> asdsadsadsad </p>
-      </div>
-      
-      <div class="caracteristicas__item">
-          <p> MARCA O MODELO: </p>
-          <p> <?php echo $computadora->marca_modelo ?> </p>
-      </div>
-      
-      <div class="caracteristicas__item">
-          <p> PROCESADOR: </p>
-          <p> <?php echo $computadora->procesador ?> </p>
-      </div>
-      
-      <div class="caracteristicas__item">
-          <p> RAM: </p>
-          <p> <?php echo $computadora->ram ?> </p>
-      </div>
-      
-      <div class="caracteristicas__item">
-          <p> DISCO DURO: </p>
-          <p> <?php echo $computadora->disco_duro ?> </p>
-      </div>
-      
-      <div class="caracteristicas__item">
-          <p> SISTEMA OPERATIVO: </p>
-          <p> <?php echo $computadora->sistema_operativo ?> </p>
-      </div>
-      
-      <div class="caracteristicas__item">
-          <p> ESTADO ACTUAL: </p>
-          <p> <?php echo $computadora->estado_actual ?> </p>
-      </div>
-      
-      <div class="caracteristicas__item">
-          <p> DIRECCION IP: </p>
-          <p> <?php echo $computadora->direccion_ip ?> </p>
-      </div>
-      
-      <div class="caracteristicas__item">
-          <p> CONTRASEÑA: </p>
-          <p> <?php echo $computadora->contrasena ?> </p>
-      </div>
-      
-      <div class="caracteristicas__item">
-          <p> FECHA DE REGISTRO: </p>
-          <p> <?php echo $computadora->created_at ?> </p>
-      </div>
-  </div>
-  <div class="caracteristicas">
-      <div class="caracteristicas__item">
-          <p> ID DEL EQUIPO: </p>
-          <p> sadsad</p>
-      
-      </div>
-      <div class="caracteristicas__item">
-          <p> AREA: </p>
-          <p> asdsadsad </p>
-      </div>
-      
-      <div class="caracteristicas__item">
-          <p> USUARIO ASIGNADO: </p>
-          <p> asdsadas </p>
-      </div>
-      
-      <div class="caracteristicas__item">
-          <p> FECHA COMPRA: </p>
-          <p> asdsadsadsad </p>
-      </div>
-      
-      <div class="caracteristicas__item">
-          <p> MARCA O MODELO: </p>
-          <p> <?php echo $computadora->marca_modelo ?> </p>
-      </div>
-      
-      <div class="caracteristicas__item">
-          <p> PROCESADOR: </p>
-          <p> <?php echo $computadora->procesador ?> </p>
-      </div>
-      
-      <div class="caracteristicas__item">
-          <p> RAM: </p>
-          <p> <?php echo $computadora->ram ?> </p>
-      </div>
-      
-      <div class="caracteristicas__item">
-          <p> DISCO DURO: </p>
-          <p> <?php echo $computadora->disco_duro ?> </p>
-      </div>
-      
-      <div class="caracteristicas__item">
-          <p> SISTEMA OPERATIVO: </p>
-          <p> <?php echo $computadora->sistema_operativo ?> </p>
-      </div>
-      
-      <div class="caracteristicas__item">
-          <p> ESTADO ACTUAL: </p>
-          <p> <?php echo $computadora->estado_actual ?> </p>
-      </div>
-      
-      <div class="caracteristicas__item">
-          <p> DIRECCION IP: </p>
-          <p> <?php echo $computadora->direccion_ip ?> </p>
-      </div>
-      
-      <div class="caracteristicas__item">
-          <p> CONTRASEÑA: </p>
-          <p> <?php echo $computadora->contrasena ?> </p>
-      </div>
-      
-      <div class="caracteristicas__item">
-          <p> FECHA DE REGISTRO: </p>
-          <p> <?php echo $computadora->created_at ?> </p>
-      </div>
-  </div>
-    
-</div>
-
-
+  if (maquina && tipo && data[maquina][tipo]) {
+    data[maquina][tipo].forEach(causa => {
+      const div = document.createElement("div");
+      div.innerHTML = `
+        <label>
+          ${causa}: 
+          <input type="number" step="0.01" name="peso_${causa}" placeholder="Peso (kg)">
+        </label>
+      `;
+      contenedor.appendChild(div);
+    });
+  }
+});
+</script>

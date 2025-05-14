@@ -25,12 +25,7 @@
 
 
 </style>
-
-<?php $editando = strpos($_SERVER['REQUEST_URI'], 'editar') !== false; ?>
-
-<fieldset class="formulario__fieldset">
-    <legend class="formulario__legend">Información de la Papel</legend>
-   <!-- SELECT PRINCIPAL -->
+<!-- SELECT TIPO MAQUINA -->
 <div class="formulario__campo">
   <label class="formulario__label" for="tipo_maquina">Tipo Maquina</label>
   <select class="formulario__input select2" name="tipo_maquina" id="tipo_maquina">
@@ -44,47 +39,21 @@
   </select>
 </div>
 
-<!-- SELECT SUBTIPO -->
-<div class="formulario__campo">
-  <label class="formulario__label" for="opciones_subtipo">Subtipo</label>
-  <select class="formulario__input select2" name="opciones_subtipo" id="opciones_subtipo">
-    <option value="">-- Selecciona una opción --</option>
-  </select>
-</div>
-
-<!-- OPERATIVO / NO OPERATIVO -->
+<!-- CAMPO DE CLASIFICACIÓN -->
 <div class="formulario__campo">
   <label class="formulario__label" for="clasificacion">Clasificación</label>
-  <input type="text" id="clasificacion" class="formulario__input" disabled>
+  <input type="text" id="clasificacion" class="formulario__input" readonly>
 </div>
 
 <!-- SCRIPT -->
 <script>
   const datosMaquina = {
-    CORRUGADOR: {
-      subtipo: ["PAPEL", "TRIM"],
-      clasificacion: "OPERATIVO"
-    },
-    MICRO: {
-      subtipo: ["MICRO1", "MICRO2"],
-      clasificacion: "OPERATIVO"
-    },
-    PREPRINTER: {
-      subtipo: ["TINTA", "PLACA"],
-      clasificacion: "OPERATIVO"
-    },
-    KL: {
-      subtipo: ["LINEA1", "LINEA2"],
-      clasificacion: "NO OPERATIVO"
-    },
-    RESMAS: {
-      subtipo: ["A4", "OFICIO", "CARTA"],
-      clasificacion: "NO OPERATIVO"
-    },
-    DOBLADORA: {
-      subtipo: ["MODO 1", "MODO 2"],
-      clasificacion: "NO OPERATIVO"
-    }
+    CORRUGADOR: "OPERATIVO",
+    MICRO: "OPERATIVO",
+    PREPRINTER: "OPERATIVO",
+    KL: "NO OPERATIVO",
+    RESMAS: "NO OPERATIVO",
+    DOBLADORA: "NO OPERATIVO"
   };
 
   $(document).ready(function () {
@@ -93,103 +62,10 @@
       allowClear: true
     });
 
-    $('#opciones_subtipo').select2({
-      placeholder: "-- Selecciona una opción --",
-      allowClear: true
-    });
-
     $('#tipo_maquina').on('change', function () {
       const seleccionado = $(this).val();
-      const datos = datosMaquina[seleccionado] || { subtipo: [], clasificacion: "" };
-
-      // Actualizar subtipos
-      const nuevoData = datos.subtipo.map(op => ({ id: op, text: op }));
-      $('#opciones_subtipo').empty().select2({
-        data: nuevoData,
-        placeholder: "-- Selecciona una opción --",
-        allowClear: true
-      });
-
-      // Mostrar clasificación
-      $('#clasificacion').val(datos.clasificacion);
+      const clasificacion = datosMaquina[seleccionado] || "";
+      $('#clasificacion').val(clasificacion);
     });
   });
 </script>
-
-
-
-    <div class="formulario__campo">
-        <label class="formulario__label" for="SF">SF</label>
-        <input
-            type="number"
-            name="SF"
-            id="SF"
-            class="formulario__input"
-            placeholder="SF"
-            value="<?php echo $papel->SF ?? '' ?>">
-    </div>
-    <div class="formulario__campo">
-        <label class="formulario__label" for="SF">LG</label>
-        <input
-            type="number"
-            name="LG"
-            id="LG"
-            class="formulario__input"
-            placeholder="LG"
-            value="<?php echo $papel->LG ?? '' ?>">
-    </div>
-    <div class="formulario__campo">
-        <label class="formulario__label" for="ERRO">ERRO</label>
-        <input
-            type="number"
-            name="ERRO"
-            id="ERRO"
-            class="formulario__input"
-            placeholder="ERRO"
-            value="<?php echo $papel->ERRO ?? '' ?>">
-    </div>
-    <div class="formulario__campo">
-        <label class="formulario__label" for="HUN">HUN</label>
-        <input
-            type="number"
-            name="HUN"
-            id="HUN"
-            class="formulario__input"
-            placeholder="HUN"
-            value="<?php echo $papel->HUN ?? '' ?>">
-    </div>
-    <div class="formulario__campo">
-        <label class="formulario__label" for="MDO">MDO</label>
-        <input
-            type="number"
-            name="MDO"
-            id="MDO"
-            class="formulario__input"
-            placeholder="MDO"
-            value="<?php echo $papel->MDO ?? '' ?>">
-    </div>
-
-    <?php if ($editando): ?>
-        <div class="formulario__campo">
-            <label class="formulario__label" for="consumo_papel">Consumo Papel</label>
-            <input
-                type="number"
-                name="consumo_papel"
-                id="consumo_papel"
-                class="formulario__input"
-                placeholder="Consumo Papel"
-                value="<?php echo $papel->consumo_papel ?? '' ?>">
-        </div>
-        <div class="formulario__campo">
-            <label class="formulario__label" for="TOTAL">TOTAL</label>
-            <input
-                type="number"
-                name="TOTAL"
-                id="TOTAL"
-                class="formulario__input"
-                placeholder="TOTAL"
-                value="<?php echo $papel->TOTAL ?? '' ?>">
-        </div>
-    <?php endif; ?>
-
-</fieldset>
