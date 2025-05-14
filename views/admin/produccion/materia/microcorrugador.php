@@ -488,3 +488,301 @@ cargarDatos();
 </html>
 
 
+
+
+
+<!-- inventario -->
+
+
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Inventario Detallado</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+  <style>
+  
+
+    h2 {
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+
+    .tabla-container {
+      overflow-x: auto;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 600px;
+    }
+
+    th, td {
+      padding: 12px 15px;
+      text-align: center;
+    }
+
+    th {
+      position: sticky;
+      top: 0;
+      background-color: #3498db;
+      color: #fff;
+      font-weight: 600;
+      z-index: 10;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f9fbfd;
+    }
+
+    tr:hover {
+      background-color: #eaf3fb;
+    }
+
+    tr.resaltado-1100 {
+      background-color: #d1ecf1 !important;
+    }
+
+    tr.resaltado-1880 {
+      background-color: #fff3cd !important;
+    }
+
+    td:first-child {
+      font-weight: 600;
+      color: #2c3e50;
+    }
+
+    td span {
+      cursor: pointer;
+      color: #007BFF;
+      transition: color 0.3s;
+    }
+
+    td span:hover {
+      color: #0056b3;
+      text-decoration: underline;
+    }
+
+    #modal1 {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      backdrop-filter: blur(3px);
+    }
+
+    #modal-content {
+      background: #ffffff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+      width: 600px;
+      max-height: 80vh;
+      overflow-y: auto;
+      position: relative;
+    }
+
+    #modal-content h2 {
+      margin-top: 0;
+      margin-bottom: 15px;
+      font-size: 20px;
+      font-weight: 700;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 10px;
+    }
+
+    #close-modal {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      font-size: 22px;
+      color: #888;
+      cursor: pointer;
+    }
+
+    #close-modal:hover {
+      color: #e74c3c;
+    }
+
+    #detalles-lista {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    #detalles-lista li {
+      margin-bottom: 10px;
+      padding: 10px;
+      background: #f1f1f1;
+      border-left: 4px solid #3498db;
+      border-radius: 6px;
+      font-size: 14px;
+    }
+
+    #detalles-lista li.ancho-1100 {
+      background-color: #d1ecf1 !important;
+      border-left-color: #17a2b8;
+    }
+
+    #detalles-lista li.ancho-1880 {
+      background-color: #fff3cd !important;
+      border-left-color: #ffc107;
+    }
+  </style>
+</head>
+<body>
+
+
+<div id="modal1">
+  <div id="modal-content">
+    <span id="close-modal">&times;</span>
+    <h2>Detalles de Anchos</h2>
+    <ul id="detalles-lista"></ul>
+  </div>
+</div>
+
+
+<!-- Segundo Modal para mostrar líneas -->
+<div id="modal-detalle-linea" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); align-items:center; justify-content:center;">
+  <div style="background:#fff; padding:20px; border-radius:8px; max-width:500px;">
+    <h3>Detalles por Línea</h3>
+    <ul id="lista-lineas"></ul>
+    <button onclick="cerrarModalLinea()">Cerrar</button>
+  </div>
+</div>
+
+<script>
+  const meses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
+                 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+
+  const tabla = document.querySelector('#tabla-ingresos tbody');
+  const encabezado = document.querySelector('#encabezado');
+  const modal = document.getElementById('modal1');
+  const modalContent = document.getElementById('modal-content');
+  const detallesLista = document.getElementById('detalles-lista');
+  const closeModal = document.getElementById('close-modal');
+
+  fetch('https://megawebsistem.com/admin/api/apimateriaprimajson')
+    .then(res => res.json())
+    .then(data => {
+      const resumen = {};
+      const detalles = {};
+      const mesesConDatos = Array(12).fill(false);
+      const totalesPorMes = Array(12).fill(0);
+
+      data.forEach(item => {
+        const fecha = new Date(item.fecha_corte);
+        const mes = fecha.getMonth();
+        const gramaje = item.gramaje;
+        const cantidad = parseInt(item.existencia) || 0;
+        const ancho = item.ancho;
+
+        if (!resumen[gramaje]) resumen[gramaje] = Array(12).fill(0);
+        if (!detalles[`${gramaje}-${mes}`]) detalles[`${gramaje}-${mes}`] = [];
+
+        resumen[gramaje][mes] += cantidad;
+        detalles[`${gramaje}-${mes}`].push({ ancho, cantidad });
+
+        if (cantidad > 0) mesesConDatos[mes] = true;
+      });
+
+      meses.forEach((mes, i) => {
+        if (mesesConDatos[i]) {
+          const th = document.createElement('th');
+          th.textContent = mes;
+          encabezado.appendChild(th);
+        }
+      });
+
+      Object.entries(resumen).forEach(([gramaje, cantidades]) => {
+        const fila = document.createElement('tr');
+
+        if (gramaje === "1100") fila.classList.add('resaltado-1100');
+        else if (gramaje === "1880") fila.classList.add('resaltado-1880');
+
+        fila.innerHTML = `<td>${gramaje}</td>`;
+
+        cantidades.forEach((cantidad, i) => {
+          if (mesesConDatos[i]) {
+            const celda = document.createElement('td');
+            if (cantidad > 0) {
+              celda.innerHTML = `<span onclick="mostrarModal('${gramaje}', ${i})">${cantidad}</span>`;
+              totalesPorMes[i] += cantidad;
+            } else {
+              celda.textContent = '';
+            }
+            fila.appendChild(celda);
+          }
+        });
+
+        tabla.appendChild(fila);
+      });
+
+      const filaTotal = document.createElement('tr');
+      filaTotal.innerHTML = `<td><strong>TOTAL</strong></td>`;
+      mesesConDatos.forEach((activo, i) => {
+        if (activo) {
+          filaTotal.innerHTML += `<td><strong>${totalesPorMes[i]}</strong></td>`;
+        }
+      });
+      tabla.appendChild(filaTotal);
+
+      window.mostrarModal = (gramaje, mesIndex) => {
+        const clave = `${gramaje}-${mesIndex}`;
+        const elementos = detalles[clave] || [];
+
+        // Agrupar por ancho y sumar cantidades
+        const agrupados = {};
+        elementos.forEach(e => {
+          if (!agrupados[e.ancho]) agrupados[e.ancho] = 0;
+          agrupados[e.ancho] += e.cantidad;
+        });
+
+        // Convertir a HTML ordenado por ancho
+        const html = Object.entries(agrupados)
+          .sort(([a], [b]) => parseInt(a) - parseInt(b))
+          .map(([ancho, suma]) => {
+            let clase = '';
+            if (ancho == 1100) clase = 'ancho-1100';
+            else if (ancho == 1880) clase = 'ancho-1880';
+            return `<li class="${clase}">Ancho: ${ancho} - Total Cantidad: ${suma}</li>`;
+          })
+          .join('');
+
+        detallesLista.innerHTML = html;
+        modal.style.display = 'flex';
+      };
+    })
+    .catch(err => {
+      console.error("Error al obtener los datos:", err);
+      tabla.innerHTML = `<tr><td colspan="13">Error cargando datos</td></tr>`;
+    });
+
+  modal.addEventListener('click', function(e) {
+    if (e.target === modal) {
+      modal.style.display = 'none';
+    }
+  });
+
+  closeModal.addEventListener('click', () => {
+    modal.style.display = 'none';
+  });
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      modal.style.display = 'none';
+    }
+  });
+</script>
+
+</body>
+</html>
+
