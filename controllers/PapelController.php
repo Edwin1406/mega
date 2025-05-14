@@ -97,6 +97,18 @@ class PapelController
             if($_SERVER['REQUEST_METHOD']=='POST'){
                 $papel->sincronizar($_POST);
                 // debuguear($papel);
+
+                //sumar los totales
+                $papel->TOTAL = 
+                    ($papel->SF ?: 0) + 
+                    ($papel->LG ?: 0) + 
+                    ($papel->ERRO ?: 0) + 
+                    ($papel->HUN ?: 0) + 
+                    ($papel->MDO ?: 0);
+                //fehcha de actualizacion en basio porque solo estoy creando
+                $papel->updated_at = date('Y-m-d H:i:s');
+
+
                 $alertas = $papel->validar();
                 if(empty($alertas)){
                     $papel->actualizar();
