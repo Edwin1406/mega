@@ -280,12 +280,11 @@
 
 
 </fieldset>
-
 <script>
     const camposPorMaquinaYClasificacion = {
         'PREPRINTER': {
-            'a': ['HOLA'], // CONTROLABLE
-            'b': ['MDO'],  // NO CONTROLABLE
+            'a': ['HOLA'], // CONTROLABLE (si lo usas)
+            'b': ['MDO'],  // NO CONTROLABLE (si lo usas)
         },
         'CORRUGADOR': {
             'a': ['SINGLEFACE','EMPALME', 'RECUB', 'MECANICO','GALLET', 'HUMEDO', 'COMBADO', 'DESPE', 'ERROM'],
@@ -295,24 +294,27 @@
 
     const todosLosCampos = [
         'SINGLEFACE', 'EMPALME', 'RECUB', 'MECANICO', 'GALLET', 'HUMEDO', 'COMBADO', 'DESPE', 'ERROM',
-        'DESHOJE', 'CAMBIO_PEDIDO', 'FILOS_ROTOS', 'OTROS', 'PEDIDOS_CORTOS', 'DIFER_ANCHO', 'CAMBIO_GRAMAJE', 'EXTRA_TRIM',
-        'HOLA', 'MDO'
+        'DESHOJE', 'CAMBIO_PEDIDO', 'FILOS_ROTOS', 'OTROS', 'PEDIDOS_CORTOS', 'DIFER_ANCHO', 'CAMBIO_GRAMAJE', 'EXTRA_TRIM'
     ];
 
-    function ocultarTodosLosCampos() {
+    // Oculta y limpia todos los campos
+    function ocultarYLimpiarTodosLosCampos() {
         todosLosCampos.forEach(id => {
-            const campo = document.getElementById(id)?.closest('.formulario__campo');
+            const input = document.getElementById(id);
+            const campo = input?.closest('.formulario__campo');
             if (campo) campo.style.display = 'none';
+            if (input) input.value = '';
         });
     }
 
+    // Deselecciona todos los checkboxes
     function resetearCheckboxes() {
         document.querySelectorAll('input[name="MDO[]"]').forEach(chk => {
             chk.checked = false;
-            chk.disabled = false; // Opcional: puedes desactivar si no hay tipo
         });
     }
 
+    // Muestra campos según tipo de máquina y clasificación
     function mostrarCamposSeleccionados() {
         const tipoMaquina = document.getElementById('tipo_maquina').value;
         const clasificaciones = document.querySelectorAll('input[name="MDO[]"]:checked');
@@ -327,33 +329,31 @@
         });
     }
 
+    // Cuando se cambia el tipo de máquina
     function alCambiarMaquina() {
-        ocultarTodosLosCampos();
+        ocultarYLimpiarTodosLosCampos();
         resetearCheckboxes();
     }
 
+    // Cuando se marca o desmarca una clasificación
     function alCambiarClasificacion() {
-        ocultarTodosLosCampos();
+        ocultarYLimpiarTodosLosCampos();
         mostrarCamposSeleccionados();
     }
 
     document.addEventListener('DOMContentLoaded', () => {
-        // Select2
         $('#tipo_maquina').select2({
             placeholder: "-- Selecciona un tipo --",
             allowClear: true,
         });
 
-        // Cambio de tipo de máquina
+        // Eventos
         document.getElementById('tipo_maquina').addEventListener('change', alCambiarMaquina);
-
-        // Cambio de clasificación
         document.querySelectorAll('input[name="MDO[]"]').forEach(chk => {
             chk.addEventListener('change', alCambiarClasificacion);
         });
 
-        // Estado inicial
-        ocultarTodosLosCampos();
+        // Inicial
+        ocultarYLimpiarTodosLosCampos();
     });
 </script>
-
