@@ -30,63 +30,90 @@
 
 <fieldset class="formulario__fieldset">
     <legend class="formulario__legend">Información de la Papel</legend>
-   <!-- Select principal -->
+   <!-- SELECT PRINCIPAL -->
 <div class="formulario__campo">
-    <label class="formulario__label" for="tipo_maquina">Tipo Maquina</label>
-    <select class="formulario__input select2" name="tipo_maquina" id="tipo_maquina">
-        <option value="">-- Selecciona un tipo --</option>
-        <option value="CORRUGADOR">CORRUGADOR</option>
-        <option value="MICRO">MICRO</option>
-        <option value="PREPRINTER">PREPRINTER</option>
-        <option value="KL">KL</option>
-        <option value="RESMAS">RESMAS</option>
-        <option value="DOBLADORA">DOBLADORA</option>
-    </select>
+  <label class="formulario__label" for="tipo_maquina">Tipo Maquina</label>
+  <select class="formulario__input select2" name="tipo_maquina" id="tipo_maquina">
+    <option value="">-- Selecciona un tipo --</option>
+    <option value="CORRUGADOR">CORRUGADOR</option>
+    <option value="MICRO">MICRO</option>
+    <option value="PREPRINTER">PREPRINTER</option>
+    <option value="KL">KL</option>
+    <option value="RESMAS">RESMAS</option>
+    <option value="DOBLADORA">DOBLADORA</option>
+  </select>
 </div>
 
-<!-- Segundo select dinámico -->
+<!-- SELECT SUBTIPO -->
 <div class="formulario__campo">
-    <label class="formulario__label" for="opciones_subtipo">Subtipo</label>
-    <select class="formulario__input select2" name="opciones_subtipo" id="opciones_subtipo">
-        <option value="">-- Selecciona una opción --</option>
-    </select>
+  <label class="formulario__label" for="opciones_subtipo">Subtipo</label>
+  <select class="formulario__input select2" name="opciones_subtipo" id="opciones_subtipo">
+    <option value="">-- Selecciona una opción --</option>
+  </select>
 </div>
 
-<!-- Script para manejar las opciones dinámicas -->
+<!-- OPERATIVO / NO OPERATIVO -->
+<div class="formulario__campo">
+  <label class="formulario__label" for="clasificacion">Clasificación</label>
+  <input type="text" id="clasificacion" class="formulario__input" readonly>
+</div>
+
+<!-- SCRIPT -->
 <script>
-    const opcionesPorTipo = {
-        CORRUGADOR: ["PAPEL", "TRIM"],
-        MICRO: ["MICRO1", "MICRO2"],
-        PREPRINTER: ["TINTA", "PLACA"],
-        KL: ["LINEA1", "LINEA2"],
-        RESMAS: ["A4", "OFICIO", "CARTA"],
-        DOBLADORA: ["MODO 1", "MODO 2"]
-    };
+  const datosMaquina = {
+    CORRUGADOR: {
+      subtipo: ["PAPEL", "TRIM"],
+      clasificacion: "OPERATIVO"
+    },
+    MICRO: {
+      subtipo: ["MICRO1", "MICRO2"],
+      clasificacion: "OPERATIVO"
+    },
+    PREPRINTER: {
+      subtipo: ["TINTA", "PLACA"],
+      clasificacion: "OPERATIVO"
+    },
+    KL: {
+      subtipo: ["LINEA1", "LINEA2"],
+      clasificacion: "NO OPERATIVO"
+    },
+    RESMAS: {
+      subtipo: ["A4", "OFICIO", "CARTA"],
+      clasificacion: "NO OPERATIVO"
+    },
+    DOBLADORA: {
+      subtipo: ["MODO 1", "MODO 2"],
+      clasificacion: "NO OPERATIVO"
+    }
+  };
 
-    $(document).ready(function () {
-        $('#tipo_maquina').select2({
-            placeholder: "-- Selecciona un tipo --",
-            allowClear: true
-        });
-
-        $('#opciones_subtipo').select2({
-            placeholder: "-- Selecciona una opción --",
-            allowClear: true
-        });
-
-        $('#tipo_maquina').on('change', function () {
-            const seleccionado = $(this).val();
-            const opciones = opcionesPorTipo[seleccionado] || [];
-
-            // Reinicializar select2 con nuevas opciones
-            const nuevoData = opciones.map(op => ({ id: op, text: op }));
-            $('#opciones_subtipo').empty().select2({
-                data: nuevoData,
-                placeholder: "-- Selecciona una opción --",
-                allowClear: true
-            });
-        });
+  $(document).ready(function () {
+    $('#tipo_maquina').select2({
+      placeholder: "-- Selecciona un tipo --",
+      allowClear: true
     });
+
+    $('#opciones_subtipo').select2({
+      placeholder: "-- Selecciona una opción --",
+      allowClear: true
+    });
+
+    $('#tipo_maquina').on('change', function () {
+      const seleccionado = $(this).val();
+      const datos = datosMaquina[seleccionado] || { subtipo: [], clasificacion: "" };
+
+      // Actualizar subtipos
+      const nuevoData = datos.subtipo.map(op => ({ id: op, text: op }));
+      $('#opciones_subtipo').empty().select2({
+        data: nuevoData,
+        placeholder: "-- Selecciona una opción --",
+        allowClear: true
+      });
+
+      // Mostrar clasificación
+      $('#clasificacion').val(datos.clasificacion);
+    });
+  });
 </script>
 
 
