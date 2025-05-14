@@ -7,23 +7,18 @@
 
 
 <style>
-
-
-/* Contenedor principal del select2 */
-.select2-container .select2-selection--single {
-    height: 42px;
-    padding: 6px 12px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    font-size: 2rem;
-    font-family: inherit;
-    background-color: white;
-    box-shadow: none;
-    transition: border-color 0.2s ease-in-out;
-}
-
-
-
+    /* Contenedor principal del select2 */
+    .select2-container .select2-selection--single {
+        height: 42px;
+        padding: 6px 12px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        font-size: 2rem;
+        font-family: inherit;
+        background-color: white;
+        box-shadow: none;
+        transition: border-color 0.2s ease-in-out;
+    }
 </style>
 
 <?php $editando = strpos($_SERVER['REQUEST_URI'], 'editar') !== false; ?>
@@ -41,23 +36,23 @@
 
 
 
-<div class="formulario__campo">
-    <label class="formulario__label">CLASIFICACION</label>
+    <div class="formulario__campo">
+        <label class="formulario__label">CLASIFICACION</label>
 
-    <div>
-        <label>
-            <input type="checkbox" name="MDO[]" value="a">
-            CONTROLABLE
-        </label>
+        <div>
+            <label>
+                <input type="checkbox" name="MDO[]" value="a">
+                CONTROLABLE
+            </label>
+        </div>
+        <div>
+            <label>
+                <input type="checkbox" name="MDO[]" value="b" checked>
+                NO CONTROLABLE
+            </label>
+        </div>
+
     </div>
-    <div>
-        <label>
-            <input type="checkbox" name="MDO[]" value="b" checked>
-            NO CONTROLABLE
-        </label>
-    </div>
- 
-</div>
 
 
 
@@ -69,7 +64,52 @@
             });
         });
     </script>
+    <!-- CORRUGADOR  CONTROLABLE -->
 
+
+    <div class="formulario__campo">
+        <label class="formulario__label" for="SINGLEFACE">SINGLE FACE</label>
+        <input
+            type="number"
+            name="SINGLEFACE"
+            id="SINGLEFACE"
+            class="formulario__input"
+            placeholder="SINGLEFACE"
+            value="<?php echo $papel->SINGLEFACE ?? '' ?>">
+    </div>
+
+    <div class="formulario__campo">
+        <label class="formulario__label" for="EMPALME">EMPALME</label>
+        <input
+            type="number"
+            name="EMPALME"
+            id="EMPALME"
+            class="formulario__input"
+            placeholder="EMPALME"
+            value="<?php echo $papel->EMPALME ?? '' ?>">
+    </div>
+
+    <div class="formulario__campo">
+        <label class="formulario__label" for="RECUB">RECUB</label>
+        <input
+            type="number"
+            name="RECUB"
+            id="RECUB"
+            class="formulario__input"
+            placeholder="RECUB"
+            value="<?php echo $papel->RECUB ?? '' ?>">
+    </div>
+
+    <div class="formulario__campo">
+        <label class="formulario__label" for="MECANICO">MECANICO </label>
+        <input
+            type="number"
+            name="MECANICO"
+            id="V"
+            class="formulario__input"
+            placeholder="MECANICO"
+            value="<?php echo $papel->MECANICO ?? '' ?>">
+    </div>
 
     <div class="formulario__campo">
         <label class="formulario__label" for="GALLET">GALLET</label>
@@ -88,9 +128,44 @@
             name="HUMEDO"
             id="HUMEDO"
             class="formulario__input"
-            placeholder="LG"
+            placeholder="HUMEDO"
             value="<?php echo $papel->HUMEDO ?? '' ?>">
     </div>
+    <div class="formulario__campo">
+        <label class="formulario__label" for="COMBADO">COMBADO</label>
+        <input
+            type="number"
+            name="COMBADO"
+            id="COMBADO"
+            class="formulario__input"
+            placeholder="COMBADO"
+            value="<?php echo $papel->COMBADO ?? '' ?>">
+    </div>
+
+    <div class="formulario__campo">
+        <label class="formulario__label" for="DESPE">DESPE</label>
+        <input
+            type="number"
+            name="DESPE"
+            id="DESPE"
+            class="formulario__input"
+            placeholder="DESPE"
+            value="<?php echo $papel->DESPE ?? '' ?>">
+    </div>
+
+    <div class="formulario__campo">
+        <label class="formulario__label" for="ERROM">ERROM</label>
+        <input
+            type="number"
+            name="ERROM"
+            id="ERROM"
+            class="formulario__input"
+            placeholder="ERROM"
+            value="<?php echo $papel->ERROM ?? '' ?>">
+    </div>
+
+
+    <!-- CORRUGADOR NO CONTROLABLE  -->
     <div class="formulario__campo">
         <label class="formulario__label" for="DESHOJE">DESHOJE</label>
         <input
@@ -102,37 +177,82 @@
             value="<?php echo $papel->DESHOJE ?? '' ?>">
     </div>
     <div class="formulario__campo">
-        <label class="formulario__label" for="SINGLEFACE">SINGLE FACE</label>
+        <label class="formulario__label" for="CAMBIO_PEDIDO">CAMBIO PEDIDO</label>
         <input
             type="number"
-            name="SINGLEFACE"
-            id="SINGLEFACE"
+            name="CAMBIO_PEDIDO"
+            id="CAMBIO_PEDIDO"
             class="formulario__input"
-            placeholder="SINGLEFACE"
-            value="<?php echo $papel->SINGLEFACE ?? '' ?>">
+            placeholder="CAMBIO_PEDIDO"
+            value="<?php echo $papel->CAMBIO_PEDIDO ?? '' ?>">
     </div>
     <div class="formulario__campo">
-        <label class="formulario__label" for="EXTRATRIM">EXTRA TRIM</label>
+        <label class="formulario__label" for="FILOS_ROTOS">FILOS ROTOS</label>
         <input
             type="number"
-            name="EXTRATRIM"
-            id="EXTRATRIM"
+            name="FILOS_ROTOS"
+            id="FILOS_ROTOS"
             class="formulario__input"
-            placeholder="EXTRATRIM"
-            value="<?php echo $papel->EXTRATRIM ?? '' ?>">
+            placeholder="FILOS_ROTOS"
+            value="<?php echo $papel->FILOS_ROTOS ?? '' ?>">
+    </div>
+
+    
+
+    <div class="formulario__campo">
+        <label class="formulario__label" for="OTROS">OTROS</label>
+        <input
+            type="number"
+            name="OTROS"
+            id="OTROS"
+            class="formulario__input"
+            placeholder="OTROS"
+            value="<?php echo $papel->OTROS ?? '' ?>">
     </div>
 
     <div class="formulario__campo">
-        <label class="formulario__label" for="MDO">MDO</label>
+        <label class="formulario__label" for="PEDIDOS_CORTOS">PEDIDOS CORTOS</label>
         <input
             type="number"
-            name="MDO"
-            id="MDO"
+            name="PEDIDOS_CORTOS"
+            id="PEDIDOS_CORTOS"
             class="formulario__input"
-            placeholder="MDO"
-            value="<?php echo $papel->MDO ?? '' ?>">
+            placeholder="PEDIDOS_CORTOS"
+            value="<?php echo $papel->PEDIDOS_CORTOS ?? '' ?>">
     </div>
 
+    <div class="formulario__campo">
+        <label class="formulario__label" for="DIFER_ANCHO">DIFER-ANCHO</label>
+        <input
+            type="number"
+            name="DIFER_ANCHO"
+            id="DIFER_ANCHO"
+            class="formulario__input"
+            placeholder="DIFER_ANCHO"
+            value="<?php echo $papel->DIFER_ANCHO ?? '' ?>">
+    </div>
+
+    <div class="formulario__campo">
+        <label class="formulario__label" for="CAMBIO_GRAMAJE">CAMBIO GRAMAJE</label>
+        <input
+            type="number"
+            name="CAMBIO_GRAMAJE"
+            id="CAMBIO_GRAMAJE"
+            class="formulario__input"
+            placeholder="CAMBIO_GRAMAJE"
+            value="<?php echo $papel->CAMBIO_GRAMAJE ?? '' ?>">
+    </div>
+
+    <div class="formulario__campo">
+        <label class="formulario__label" for="EXTRA_TRIM">EXTRA TRIM </label>
+        <input
+            type="number"
+            name="EXTRA_TRIM"
+            id="EXTRA_TRIM"
+            class="formulario__input"
+            placeholder="EXTRA_TRIM"
+            value="<?php echo $papel->EXTRA_TRIM ?? '' ?>">
+    </div>
 
 
 
@@ -140,48 +260,48 @@
 
 </fieldset>
 <script>
-  const camposPorMaquinaYClasificacion = {
-    'PREPRINTER': {
-      'a': ['SF', 'LG'],            // OPERATIVO
-      'b': ['MDO'],         // NO OPERATIVO
-    },
-    'CORRUGADOR': {
-      'a': ['GALLET'],             // OPERATIVO
-      'b': ['HUMEDO', 'DESHOJE'],  // NO OPERATIVO
+    const camposPorMaquinaYClasificacion = {
+        'PREPRINTER': {
+            'a': ['SINGLEFACE'], // CONTROLABLE
+            'b': ['MDO'], // NO CONTROLABLE
+        },
+        'CORRUGADOR': {
+            'a': ['SINGLEFACE','EMPALME', 'RECUB', 'MECANICO','GALLET', 'HUMEDO', 'COMBADO', 'DESPE', 'ERROM'], // CONTROLABLE
+            'b': ['DESHOJE', 'CAMBIO_PEDIDO', 'FILOS_ROTOS', 'OTROS', 'PEDIDOS_CORTOS', 'DIFER_ANCHO', 'CAMBIO_GRAMAJE', 'EXTRA_TRIM'], // NO CONTROLABLE
+        }
+    };
+
+    function actualizarVisibilidadCampos() {
+        const tipoMaquina = document.getElementById('tipo_maquina').value;
+        const clasificaciones = document.querySelectorAll('input[name="MDO[]"]:checked');
+
+        // Ocultar todos los inputs conocidos
+        const todosLosCampos = [
+            'SF', 'LG', 'ERRO', 'HUN', 'MDO',
+            'GALLET', 'HUMEDO', 'DESHOJE', 'SINGLEFACE', 'EXTRATRIM'
+        ];
+
+        todosLosCampos.forEach(id => {
+            const campo = document.getElementById(id)?.closest('.formulario__campo');
+            if (campo) campo.style.display = 'none';
+        });
+
+        // Mostrar según tipo y clasificación
+        clasificaciones.forEach(chk => {
+            const clasificacion = chk.value; // 'a', 'b', 'c'
+            const campos = camposPorMaquinaYClasificacion[tipoMaquina]?.[clasificacion] || [];
+            campos.forEach(id => {
+                const campo = document.getElementById(id)?.closest('.formulario__campo');
+                if (campo) campo.style.display = '';
+            });
+        });
     }
-  };
 
-  function actualizarVisibilidadCampos() {
-    const tipoMaquina = document.getElementById('tipo_maquina').value;
-    const clasificaciones = document.querySelectorAll('input[name="MDO[]"]:checked');
-
-    // Ocultar todos los inputs conocidos
-    const todosLosCampos = [
-      'SF', 'LG', 'ERRO', 'HUN', 'MDO',
-      'GALLET', 'HUMEDO', 'DESHOJE', 'SINGLEFACE', 'EXTRATRIM'
-    ];
-
-    todosLosCampos.forEach(id => {
-      const campo = document.getElementById(id)?.closest('.formulario__campo');
-      if (campo) campo.style.display = 'none';
+    document.addEventListener('DOMContentLoaded', () => {
+        document.getElementById('tipo_maquina').addEventListener('change', actualizarVisibilidadCampos);
+        document.querySelectorAll('input[name="MDO[]"]').forEach(chk => {
+            chk.addEventListener('change', actualizarVisibilidadCampos);
+        });
+        actualizarVisibilidadCampos();
     });
-
-    // Mostrar según tipo y clasificación
-    clasificaciones.forEach(chk => {
-      const clasificacion = chk.value; // 'a', 'b', 'c'
-      const campos = camposPorMaquinaYClasificacion[tipoMaquina]?.[clasificacion] || [];
-      campos.forEach(id => {
-        const campo = document.getElementById(id)?.closest('.formulario__campo');
-        if (campo) campo.style.display = '';
-      });
-    });
-  }
-
-  document.addEventListener('DOMContentLoaded', () => {
-    document.getElementById('tipo_maquina').addEventListener('change', actualizarVisibilidadCampos);
-    document.querySelectorAll('input[name="MDO[]"]').forEach(chk => {
-      chk.addEventListener('change', actualizarVisibilidadCampos);
-    });
-    actualizarVisibilidadCampos();
-  });
 </script>
