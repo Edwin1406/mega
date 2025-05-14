@@ -51,6 +51,9 @@
             </label>
         </div>
 
+        <input type="hidden" name="tipo_clasificacion" id="tipo_clasificacion">
+
+
     </div>
 
 
@@ -280,11 +283,13 @@
 
 
 </fieldset>
+
+
 <script>
     const camposPorMaquinaYClasificacion = {
         'PREPRINTER': {
-            'a': ['HOLA'], // CONTROLABLE (si lo usas)
-            'b': ['MDO'],  // NO CONTROLABLE (si lo usas)
+            'a': ['HOLA'], // CONTROLABLE
+            'b': ['MDO'],  // NO CONTROLABLE
         },
         'CORRUGADOR': {
             'a': ['SINGLEFACE','EMPALME', 'RECUB', 'MECANICO','GALLET', 'HUMEDO', 'COMBADO', 'DESPE', 'ERROM'],
@@ -298,7 +303,6 @@
         'HOLA', 'MDO'
     ];
 
-    // Oculta y limpia todos los campos
     function ocultarYLimpiarTodosLosCampos() {
         todosLosCampos.forEach(id => {
             const input = document.getElementById(id);
@@ -308,15 +312,14 @@
         });
     }
 
-    // Deselecciona todos los checkboxes
     function resetearCheckboxes() {
         document.querySelectorAll('input[name="MDO[]"]').forEach(chk => {
             chk.checked = false;
         });
+        actualizarTipoClasificacion();
     }
 
-    // Muestra campos según tipo de máquina y clasificación
-    function mostrarCamposSeleccionados() {
+    function mostrarCamposSegunSeleccion() {
         const tipoMaquina = document.getElementById('tipo_maquina').value;
         const clasificaciones = document.querySelectorAll('input[name="MDO[]"]:checked');
 
@@ -330,31 +333,38 @@
         });
     }
 
-    // Cuando se cambia el tipo de máquina
-    function alCambiarMaquina() {
-        ocultarYLimpiarTodosLosCampos();
-        resetearCheckboxes();
-    }
+    function actualizarTipoClasificacion() {
+        const seleccionados = Array.from(document.querySelectorAll('input[name="MDO[]"]:checked')).map(el => {
+            return el.value === 'a' ? 'CONTROLABLE' : (el.value === 'b' ? 'NO CONTROLABLE' : '');
+        });
 
-    // Cuando se marca o desmarca una clasificación
-    function alCambiarClasificacion() {
-        ocultarYLimpiarTodosLosCampos();
-        mostrarCamposSeleccionados();
+        document.getElementById('tipo_clasificacion').value = seleccionados.join(',');
     }
 
     document.addEventListener('DOMContentLoaded', () => {
+        // Inicializar select2
         $('#tipo_maquina').select2({
             placeholder: "-- Selecciona un tipo --",
             allowClear: true,
         });
 
         // Eventos
-        document.getElementById('tipo_maquina').addEventListener('change', alCambiarMaquina);
+        document.getElementById('tipo_maquina').addEventListener('change', () => {
+            ocultarYLimpiarTodosLosCampos();
+            resetearCheckboxes();
+            actualizarTipoClasificacion();
+        });
+
         document.querySelectorAll('input[name="MDO[]"]').forEach(chk => {
-            chk.addEventListener('change', alCambiarClasificacion);
+            chk.addEventListener('change', () => {
+                ocultarYLimpiarTodosLosCampos();
+                mostrarCamposSegunSeleccion();
+                actualizarTipoClasificacion();
+            });
         });
 
         // Inicial
         ocultarYLimpiarTodosLosCampos();
+        actualizarTipoClasificacion();
     });
 </script>
