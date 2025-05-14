@@ -59,7 +59,6 @@ class PapelController
             $papel->updated_at = '';
 
 
-            debuguear($papel);
             
         
             // validar
