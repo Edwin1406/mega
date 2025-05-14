@@ -1,3 +1,7 @@
+
+
+<?php $editando = strpos($_SERVER['REQUEST_URI'], 'editar') !== false; ?>
+
 <fieldset class="formulario__fieldset">
     <legend class="formulario__legend">Información de la Papel</legend>
     <div class="formulario__campo">
