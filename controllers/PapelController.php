@@ -46,6 +46,8 @@ class PapelController
         $papel = new Bobina;
         if($_SERVER['REQUEST_METHOD'] === 'POST'){
             $papel->sincronizar($_POST);
+            $papel->tipo_clasificacion = json_encode($clasificacionesConvertidas); // ["CONTROLABLE","NO CONTROLABLE"]
+
 
             debuguear($papel);
 
