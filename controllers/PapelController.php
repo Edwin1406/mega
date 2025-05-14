@@ -46,6 +46,9 @@ class PapelController
         $papel = new Bobina;
         if($_SERVER['REQUEST_METHOD'] === 'POST'){
             $papel->sincronizar($_POST);
+
+
+            debuguear($papel);
         
             // validar
             $alertas = $papel->validar();

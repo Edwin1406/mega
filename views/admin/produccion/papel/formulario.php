@@ -9,8 +9,6 @@
         </select>
     </div>
 
-
-
     <div class="formulario__campo">
         <label class="formulario__label" for="SF">SF</label>
         <input
