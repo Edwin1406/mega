@@ -26,73 +26,153 @@
 
 </style>
 
+<?php $editando = strpos($_SERVER['REQUEST_URI'], 'editar') !== false; ?>
 
-<div class="formulario__campo campo-dinamico campo-corrug-operativo">
-    <label class="formulario__label" for="EMPALME">EMPALME</label>
-    <input
-        type="text"
-        name="EMPALME"
-        id="EMPALME"
-        class="formulario__input"
-        placeholder=" EMPALME" 
-        value="<?php echo $materia->EMPALME ?? '' ?>">
+<fieldset class="formulario__fieldset">
+    <legend class="formulario__legend">Información de la Papel</legend>
+    <div class="formulario__campo">
+        <label class="formulario__label" for="tipo_maquina">Tipo Maquina</label>
+        <select class="formulario__input select2" name="tipo_maquina" id="tipo_maquina">
+            <option value="">-- Selecciona un tipo --</option>
+            <option value="PREPRINTER" <?= trim(strtolower($papel->tipo_maquina ?? '')) == 'preprinter' ? 'selected' : '' ?>>PRE-PRINTER</option>
+            <option value="CALDERO" <?= trim(strtolower($papel->tipo_maquina ?? '')) == 'caldero' ? 'selected' : '' ?>>CALDERO</option>
+            <option value="ELECTRICO" <?= trim(strtolower($papel->tipo_maquina ?? '')) == 'electrico' ? 'selected' : '' ?>>ELECTRICO</option>
+            <option value="COMPRESOR" <?= trim(strtolower($papel->tipo_maquina ?? '')) == 'compresor' ? 'selected' : '' ?>>COMPRESOR</option>
+            <option value="HUMEDO" <?= trim(strtolower($papel->tipo_maquina ?? '')) == 'humedo' ? 'selected' : '' ?>>HUMEDO</option>
+            <option value="FRENO" <?= trim(strtolower($papel->tipo_maquina ?? '')) == 'freno' ? 'selected' : '' ?>>FRENO</option>
+            <option value="PRESION" <?= trim(strtolower($papel->tipo_maquina ?? '')) == 'presion' ? 'selected' : '' ?>>PRESION</option>
+            <option value="DESPEGADO" <?= trim(strtolower($papel->tipo_maquina ?? '')) == 'despegado' ? 'selected' : '' ?>>DESPEGADO</option>
+            <option value="EXTRATRIM" <?= trim(strtolower($papel->tipo_maquina ?? '')) == 'extratrim' ? 'selected' : '' ?>>EXTRATRIM</option>
+            <option value="OTRO" <?= trim(strtolower($papel->tipo_maquina ?? '')) == 'otro' ? 'selected' : '' ?>>OTRO</option>
+        </select>
+    </div>
+
+
+
+
+    <script>
+        $(document).ready(function() {
+            $('#tipo_maquina').select2({
+                placeholder: "-- Selecciona un tipo --",
+                allowClear: true,
+            });
+        });
+    </script>
+
+
+    <div class="formulario__campo">
+        <label class="formulario__label" for="SF">SF</label>
+        <input
+            type="number"
+            name="SF"
+            id="SF"
+            class="formulario__input"
+            placeholder="SF"
+            value="<?php echo $papel->SF ?? '' ?>">
+    </div>
+    <div class="formulario__campo">
+        <label class="formulario__label" for="SF">LG</label>
+        <input
+            type="number"
+            name="LG"
+            id="LG"
+            class="formulario__input"
+            placeholder="LG"
+            value="<?php echo $papel->LG ?? '' ?>">
+    </div>
+    <div class="formulario__campo">
+        <label class="formulario__label" for="ERRO">ERRO</label>
+        <input
+            type="number"
+            name="ERRO"
+            id="ERRO"
+            class="formulario__input"
+            placeholder="ERRO"
+            value="<?php echo $papel->ERRO ?? '' ?>">
+    </div>
+    <div class="formulario__campo">
+        <label class="formulario__label" for="HUN">HUN</label>
+        <input
+            type="number"
+            name="HUN"
+            id="HUN"
+            class="formulario__input"
+            placeholder="HUN"
+            value="<?php echo $papel->HUN ?? '' ?>">
+    </div>
+    <div class="formulario__campo">
+        <label class="formulario__label" for="MDO">MDO</label>
+        <input
+            type="number"
+            name="MDO"
+            id="MDO"
+            class="formulario__input"
+            placeholder="MDO"
+            value="<?php echo $papel->MDO ?? '' ?>">
+    </div>
+
+    <?php if ($editando): ?>
+        <div class="formulario__campo">
+            <label class="formulario__label" for="consumo_papel">Consumo Papel</label>
+            <input
+                type="number"
+                name="consumo_papel"
+                id="consumo_papel"
+                class="formulario__input"
+                placeholder="Consumo Papel"
+                value="<?php echo $papel->consumo_papel ?? '' ?>">
+        </div>
+        <div class="formulario__campo">
+            <label class="formulario__label" for="TOTAL">TOTAL</label>
+            <input
+                type="number"
+                name="TOTAL"
+                id="TOTAL"
+                class="formulario__input"
+                placeholder="TOTAL"
+                value="<?php echo $papel->TOTAL ?? '' ?>">
+        </div>
+    <?php endif; ?>
+
+
+
+
+<div class="formulario__campo">
+    <label class="formulario__label">MDO</label>
+
+    <div>
+        <label>
+            <input type="checkbox" name="MDO[]" value="a">
+            [a] Mifepristone
+        </label>
+    </div>
+    <div>
+        <label>
+            <input type="checkbox" name="MDO[]" value="b" checked>
+            [b] Misoprostol
+        </label>
+    </div>
+    <div>
+        <label>
+            <input type="checkbox" name="MDO[]" value="c" checked>
+            [c] Mifepristone-Misoprostol
+        </label>
+    </div>
+    <div>
+        <label>
+            <input type="checkbox" name="MDO[]" value="d">
+            [d] Manual Vacuum Aspiration
+        </label>
+    </div>
+    <div>
+        <label>
+            <input type="checkbox" name="MDO[]" value="e" checked>
+            [e] Not Applicable
+        </label>
+    </div>
 </div>
 
 
-<!-- CORRUGADOR + OPERATIVO -->
-<div class="formulario__campo campo-dinamico campo-corrug-operativo">
-    <label class="formulario__label" for="EMPALME">EMPALME</label>
-    <input type="text" name="EMPALME" id="EMPALME" class="formulario__input" placeholder=" EMPALME" value="<?php echo $materia->EMPALME ?? '' ?>">
-</div>
-
-<div class="formulario__campo campo-dinamico campo-corrug-operativo">
-    <label class="formulario__label" for="CAMBIO">CAMBIO</label>
-    <input type="text" name="CAMBIO" id="CAMBIO" class="formulario__input" placeholder=" CAMBIO" value="<?php echo $materia->CAMBIO ?? '' ?>">
-</div>
-
-<div class="formulario__campo campo-dinamico campo-corrug-operativo">
-    <label class="formulario__label" for="RECUBRIMIENTO">RECUBRIMIENTO</label>
-    <input type="text" name="RECUBRIMIENTO" id="RECUBRIMIENTO" class="formulario__input" placeholder=" RECUBRIMIENTO" value="<?php echo $materia->RECUBRIMIENTO ?? '' ?>">
-</div>
-
-<!-- ADMINISTRATIVO + NO OPERATIVO -->
-<div class="formulario__campo campo-dinamico campo-admin-nooperativo">
-    <label class="formulario__label" for="BOM">BOM</label>
-    <input type="text" name="BOM" id="BOM" class="formulario__input" placeholder=" BOM" value="<?php echo $materia->BOM ?? '' ?>">
-</div>
-
-<div class="formulario__campo campo-dinamico campo-admin-nooperativo">
-    <label class="formulario__label" for="CIEN">100</label>
-    <input type="text" name="CIEN" id="CIEN" class="formulario__input" placeholder=" 100" value="<?php echo $materia->CIEN ?? '' ?>">
-</div>
 
 
-
-
-
-
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-    const tipoMaquina = document.getElementById('tipo_maquina');
-    const clasificacion = document.getElementById('clasificacion');
-    
-    function actualizarCampos() {
-        const tipo = tipoMaquina.value.toLowerCase();
-        const claseTipo = tipo === "corrugador" ? "corrug" : tipo === "administrativo" ? "admin" : "";
-        const claseClasif = clasificacion.value.toLowerCase().includes("no") ? "nooperativo" : "operativo";
-
-        // Ocultar todos los campos dinámicos
-        document.querySelectorAll('.campo-dinamico').forEach(el => el.style.display = 'none');
-
-        // Mostrar los que coinciden con la combinación
-        const claseFinal = `.campo-${claseTipo}-${claseClasif}`;
-        document.querySelectorAll(claseFinal).forEach(el => el.style.display = 'block');
-    }
-
-    tipoMaquina.addEventListener('change', actualizarCampos);
-    clasificacion.addEventListener('change', actualizarCampos);
-
-    // Llamada inicial por si ya viene cargado
-    actualizarCampos();
-});
-</script>
+</fieldset>
