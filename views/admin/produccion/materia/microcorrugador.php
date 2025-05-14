@@ -678,9 +678,12 @@ cargarDatos();
       const mesesConDatos = Array(12).fill(false);
       const totalesPorMes = Array(12).fill(0);
 
-     data
-  .filter(item => item.linea !== "CAJAS-KRAFT" && item.linea !== "MEDIUM" && item.linea !== "CAJAS-BLANCO")
-  .forEach(item => {
+
+           let lineaOriginal = item.linea ? item.linea.toUpperCase().trim() : '';
+            // if (!/^MICRO|^MEDIUM/.test(lineaOriginal)) return;
+            if (!/^MICRO/.test(lineaOriginal)) return;
+
+      data.forEach(item => {
 
         const fecha = new Date(item.fecha_corte);
         const mes = fecha.getMonth();
