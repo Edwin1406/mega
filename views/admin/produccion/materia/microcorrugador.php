@@ -685,7 +685,7 @@ cargarDatos();
         const fecha = new Date(item.fecha_corte);
         const mes = fecha.getMonth();
         const gramaje = item.gramaje;
-        const cantidad = parseInt(item.existencia) || 0;
+       const cantidad = parseFloat(item.existencia.replace(',', '.')) || 0;
         const ancho = item.ancho;
 
         if (!resumen[gramaje]) resumen[gramaje] = Array(12).fill(0);
