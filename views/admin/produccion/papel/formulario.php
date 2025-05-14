@@ -55,7 +55,7 @@
 <!-- OPERATIVO / NO OPERATIVO -->
 <div class="formulario__campo">
   <label class="formulario__label" for="clasificacion">Clasificación</label>
-  <input type="text" id="clasificacion" class="formulario__input" readonly>
+  <input type="text" id="clasificacion" class="formulario__input" disabled>
 </div>
 
 <!-- SCRIPT -->
