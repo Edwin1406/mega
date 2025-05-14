@@ -143,31 +143,19 @@
     <div>
         <label>
             <input type="checkbox" name="MDO[]" value="a">
-            [a] Mifepristone
+            OPERATIVO
         </label>
     </div>
     <div>
         <label>
             <input type="checkbox" name="MDO[]" value="b" checked>
-            [b] Misoprostol
+            NO OPERATIVO
         </label>
     </div>
     <div>
         <label>
             <input type="checkbox" name="MDO[]" value="c" checked>
-            [c] Mifepristone-Misoprostol
-        </label>
-    </div>
-    <div>
-        <label>
-            <input type="checkbox" name="MDO[]" value="d">
-            [d] Manual Vacuum Aspiration
-        </label>
-    </div>
-    <div>
-        <label>
-            <input type="checkbox" name="MDO[]" value="e" checked>
-            [e] Not Applicable
+            ADMINISTRATIVO
         </label>
     </div>
 </div>
