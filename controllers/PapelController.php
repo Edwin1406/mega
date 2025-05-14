@@ -54,6 +54,12 @@ class PapelController
                 ($papel->ERRO ?: 0) + 
                 ($papel->HUN ?: 0) + 
                 ($papel->MDO ?: 0);
+
+            //fehcha de actualizacion en basio porque solo estoy creando 
+            $papel->created_at = '';
+
+
+            debuguear($papel);
             
         
             // validar
