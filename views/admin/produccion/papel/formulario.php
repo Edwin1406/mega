@@ -30,88 +30,80 @@
 
 <fieldset class="formulario__fieldset">
     <legend class="formulario__legend">Información de la Papel</legend>
-   <!-- SELECT PRINCIPAL -->
+   <!-- TIPO PRINCIPAL -->
 <div class="formulario__campo">
   <label class="formulario__label" for="tipo_maquina">Tipo Maquina</label>
   <select class="formulario__input select2" name="tipo_maquina" id="tipo_maquina">
     <option value="">-- Selecciona un tipo --</option>
     <option value="CORRUGADOR">CORRUGADOR</option>
-    <option value="MICRO">MICRO</option>
-    <option value="PREPRINTER">PREPRINTER</option>
-    <option value="KL">KL</option>
-    <option value="RESMAS">RESMAS</option>
-    <option value="DOBLADORA">DOBLADORA</option>
+    <option value="ADMINISTRATIVO">ADMINISTRATIVO</option>
   </select>
 </div>
 
-<!-- SELECT SUBTIPO -->
-<div class="formulario__campo">
-  <label class="formulario__label" for="opciones_subtipo">Subtipo</label>
-  <select class="formulario__input select2" name="opciones_subtipo" id="opciones_subtipo">
-    <option value="">-- Selecciona una opción --</option>
-  </select>
-</div>
-
-<!-- OPERATIVO / NO OPERATIVO -->
+<!-- CLASIFICACIÓN -->
 <div class="formulario__campo">
   <label class="formulario__label" for="clasificacion">Clasificación</label>
-  <input type="text" id="clasificacion" class="formulario__input" disabled>
+  <select class="formulario__input select2" name="clasificacion" id="clasificacion">
+    <option value="">-- Selecciona clasificación --</option>
+    <option value="OPERATIVO">OPERATIVO</option>
+    <option value="NO OPERATIVO">NO OPERATIVO</option>
+  </select>
 </div>
 
-<!-- SCRIPT -->
+<!-- DETALLE -->
+<div class="formulario__campo">
+  <label class="formulario__label" for="detalle_maquina">Detalle Máquina</label>
+  <select class="formulario__input select2" name="detalle_maquina" id="detalle_maquina">
+    <option value="">-- Selecciona detalle --</option>
+  </select>
+</div>
+
+<!-- JS -->
 <script>
   const datosMaquina = {
     CORRUGADOR: {
-      subtipo: ["PAPEL", "TRIM"],
-      clasificacion: "OPERATIVO"
+      OPERATIVO: ["GALLETAS TRUCK", "TRUCK", "CLAVES", "1600"],
+      "NO OPERATIVO": ["REYMER 120", "REYMER 180"]
     },
-    MICRO: {
-      subtipo: ["MICRO1", "MICRO2"],
-      clasificacion: "OPERATIVO"
-    },
-    PREPRINTER: {
-      subtipo: ["TINTA", "PLACA"],
-      clasificacion: "OPERATIVO"
-    },
-    KL: {
-      subtipo: ["LINEA1", "LINEA2"],
-      clasificacion: "NO OPERATIVO"
-    },
-    RESMAS: {
-      subtipo: ["A4", "OFICIO", "CARTA"],
-      clasificacion: "NO OPERATIVO"
-    },
-    DOBLADORA: {
-      subtipo: ["MODO 1", "MODO 2"],
-      clasificacion: "NO OPERATIVO"
+    ADMINISTRATIVO: {
+      OPERATIVO: ["PAPEL 300"],
+      "NO OPERATIVO": ["BOM", "100"]
     }
   };
 
   $(document).ready(function () {
-    $('#tipo_maquina').select2({
-      placeholder: "-- Selecciona un tipo --",
+    // Inicializa select2
+    $('#tipo_maquina, #clasificacion, #detalle_maquina').select2({
+      placeholder: "-- Selecciona --",
       allowClear: true
     });
 
-    $('#opciones_subtipo').select2({
-      placeholder: "-- Selecciona una opción --",
-      allowClear: true
-    });
-
+    // Al cambiar el tipo
     $('#tipo_maquina').on('change', function () {
-      const seleccionado = $(this).val();
-      const datos = datosMaquina[seleccionado] || { subtipo: [], clasificacion: "" };
+      const tipo = $(this).val();
+      if (!tipo) return;
 
-      // Actualizar subtipos
-      const nuevoData = datos.subtipo.map(op => ({ id: op, text: op }));
-      $('#opciones_subtipo').empty().select2({
-        data: nuevoData,
-        placeholder: "-- Selecciona una opción --",
-        allowClear: true
-      });
+      // Si tiene solo una clasificación (como en tu imagen), la selecciona automáticamente
+      const clasificaciones = Object.keys(datosMaquina[tipo]);
+      if (clasificaciones.length === 1) {
+        $('#clasificacion').val(clasificaciones[0]).trigger('change');
+      } else {
+        $('#clasificacion').val('').trigger('change');
+      }
 
-      // Mostrar clasificación
-      $('#clasificacion').val(datos.clasificacion);
+      // Limpiar detalle
+      $('#detalle_maquina').html('<option value="">-- Selecciona detalle --</option>').trigger('change');
+    });
+
+    // Al cambiar la clasificación
+    $('#clasificacion').on('change', function () {
+      const tipo = $('#tipo_maquina').val();
+      const clasificacion = $(this).val();
+      const detalles = (datosMaquina[tipo] && datosMaquina[tipo][clasificacion]) || [];
+
+      // Rellenar detalle
+      const opciones = detalles.map(op => `<option value="${op}">${op}</option>`).join('');
+      $('#detalle_maquina').html('<option value="">-- Selecciona detalle --</option>' + opciones).trigger('change');
     });
   });
 </script>
