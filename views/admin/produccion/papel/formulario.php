@@ -1,13 +1,14 @@
 <fieldset class="formulario__fieldset">
     <legend class="formulario__legend">Información de la Papel</legend>
     <div class="formulario__campo">
-        <label class="formulario__label" for="tipo_maquina">Tipo</label>
+        <label class="formulario__label" for="tipo_maquina">Tipo Maquina</label>
         <select class="formulario__input" name="tipo_maquina" id="tipo_maquina">
             <option value="">-- Selecciona un tipo --</option>
-            <option value="corrugador">Corrugador</option>
-            <option value="micro">Micro</option>
+            <option value="corrugador" <?= ($papel->tipo_maquina ?? '') == 'corrugador' ? 'selected' : '' ?>>Corrugador</option>
+            <option value="micro" <?= ($papel->tipo_maquina ?? '') == 'micro' ? 'selected' : '' ?>>Micro</option>
         </select>
     </div>
+
 
     <div class="formulario__campo">
         <label class="formulario__label" for="SF">SF</label>
