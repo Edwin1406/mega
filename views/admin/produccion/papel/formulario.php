@@ -253,8 +253,30 @@
             value="<?php echo $papel->EXTRA_TRIM ?? '' ?>">
     </div>
 
+<!-- PRE PRINTER   CONTROLABLE  -->
 
+    <div class="formulario__campo">
+        <label class="formulario__label" for="HOLA">HOLA</label>
+        <input
+            type="number"
+            name="HOLA"
+            id="HOLA"
+            class="formulario__input"
+            placeholder="HOLA"
+            value="<?php echo $papel->HOLA ?? '' ?>">
+    </div>
 
+    <!-- PRE PRINTER   NO CONTROLABLE  -->
+    <div class="formulario__campo">
+        <label class="formulario__label" for="MDO">MDO</label>
+        <input
+            type="number"
+            name="MDO"
+            id="MDO"
+            class="formulario__input"
+            placeholder="MDO"
+            value="<?php echo $papel->MDO ?? '' ?>">
+    </div>
 
 
 </fieldset>
