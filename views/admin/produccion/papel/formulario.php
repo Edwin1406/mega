@@ -139,11 +139,11 @@
         const camposPorClasificacion = {
             'a': ['GALLET', 'HUMEDO'],           // OPERATIVO
             'b': ['DESHOJE', 'SINGLEFACE'],        // NO OPERATIVO
-            'c': ['MDO']                 // ADMINISTRATIVO
+            'c': ['EXTRATRIM']                 // ADMINISTRATIVO
         };
 
         // Ocultar todos los campos primero
-        const todosLosCampos = ['SF', 'LG', 'ERRO', 'HUN', 'MDO'];
+        const todosLosCampos = ['GALLET', 'HUMEDO', 'DESHOJE', 'SINGLEFACE', 'EXTRATRIM'];
         todosLosCampos.forEach(id => {
             const campo = document.getElementById(id)?.closest('.formulario__campo');
             if (campo) campo.style.display = 'none';
