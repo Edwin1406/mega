@@ -4,10 +4,10 @@
         <label class="formulario__label" for="tipo_maquina">Tipo Maquina</label>
         <select class="formulario__input" name="tipo_maquina" id="tipo_maquina">
             <option value="">-- Selecciona un tipo --</option>
-           <option value="corrugador" <?= strtolower($papel->tipo_maquina ?? '') == 'corrugador' ? 'selected' : '' ?>>Corrugador</option>
-<option value="micro" <?= strtolower($papel->tipo_maquina ?? '') == 'micro' ? 'selected' : '' ?>>Micro</option>
-
+            <option value="corrugador" <?= trim(strtolower($papel->tipo_maquina ?? '')) == 'corrugador' ? 'selected' : '' ?>>Corrugador</option>
+            <option value="micro" <?= trim(strtolower($papel->tipo_maquina ?? '')) == 'micro' ? 'selected' : '' ?>>Micro</option>
         </select>
+
     </div>
 
 
