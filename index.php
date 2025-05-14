@@ -253,6 +253,9 @@ $router->get('/admin/produccion/papel/editar', [PapelController::class, 'editar'
 $router->post('/admin/produccion/papel/editar', [PapelController::class, 'editar']);
 $router->post('/admin/produccion/papel/eliminar', [PapelController::class, 'eliminar']);
 
+// API PAPEL
+$router->get('/admin/api/apidesperdiciopapel', [PapelController::class, 'apidesperdiciopapel']);
+
 
 // Cliente
 
