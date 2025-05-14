@@ -55,7 +55,6 @@ class PapelController
                 ($papel->HUN ?: 0) + 
                 ($papel->MDO ?: 0);
             
-            debuguear($papel);
         
             // validar
             $alertas = $papel->validar();
