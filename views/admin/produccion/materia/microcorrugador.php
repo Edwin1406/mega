@@ -678,7 +678,7 @@ cargarDatos();
       const mesesConDatos = Array(12).fill(false);
       const totalesPorMes = Array(12).fill(0);
 
-      data.filter(item => item.linea === "CAJAS" || item.linea === "MEDIUM").forEach(item => {
+      data.filter(item => item.linea === "CAJAS-KRAFT" ||item.linea === "CAJAS-BLANCO" || item.linea === "MEDIUM").forEach(item => {
         const fecha = new Date(item.fecha_corte);
         const mes = fecha.getMonth();
         const gramaje = item.gramaje;
