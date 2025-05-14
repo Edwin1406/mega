@@ -107,8 +107,6 @@ class PapelController
                     ($papel->MDO ?: 0);
                 //fehcha de actualizacion en basio porque solo estoy creando
                 $papel->updated_at = date('Y-m-d H:i:s');
-
-
                 $alertas = $papel->validar();
                 if(empty($alertas)){
                     $papel->actualizar();
