@@ -6,14 +6,16 @@ class Bobina extends ActiveRecord
 {
     
     protected static $tabla = 'bobinas';
-    protected static $columnasDB = ['id', 'tipo_papel', 'gramaje', 'ancho','qr','cantidad','created_at','updated_at'];
+    protected static $columnasDB = ['id', 'tipo_maquina', 'SF', 'LG','ERRO','HUN','MDO','TOTAL','created_at','updated_at'];
 
     public $id;
-    public $tipo_papel;
-    public $gramaje;
-    public $ancho;
-    public $qr;
-    public $cantidad;
+    public $tipo_maquina;
+    public $SF;
+    public $LG;
+    public $ERRO;
+    public $HUN;
+    public $MDO;
+    public $TOTAL;
     public $created_at;
     public $updated_at;
 
@@ -22,11 +24,13 @@ class Bobina extends ActiveRecord
         date_default_timezone_set('America/Guayaquil');
 
         $this->id = $args['id'] ?? null;
-        $this->tipo_papel = $args['tipo_papel'] ?? '';
-        $this->gramaje = $args['gramaje'] ?? '';
-        $this->ancho = $args['ancho'] ?? '';
-        $this->qr = $args['qr'] ?? '';
-        $this->cantidad = $args['cantidad'] ?? '';
+        $this->tipo_maquina = $args['tipo_maquina'] ?? '';
+        $this->SF = $args['SF'] ?? '';
+        $this->LG = $args['LG'] ?? '';
+        $this->ERRO = $args['ERRO'] ?? '';
+        $this->HUN = $args['HUN'] ?? '';
+        $this->MDO = $args['MDO'] ?? '';
+        $this->TOTAL = $args['TOTAL'] ?? '';
         $this->created_at = $args['created_at'] ?? date('Y-m-d H:i:s');
         $this->updated_at = $args['updated_at'] ?? date('Y-m-d H:i:s');        
     }
@@ -35,17 +39,25 @@ class Bobina extends ActiveRecord
     
     public function validar() {
 
-        if(!$this->tipo_papel) {
+        if(!$this->tipo_maquina) {
             self::$alertas['error'][] = 'El Campo Tipo papel es Obligatorio';
         }
-
-        if(!$this->gramaje) {
-            self::$alertas['error'][] = 'El Campo Gramaje es Obligatorio';
+        if(!$this->SF) {
+            self::$alertas['error'][] = 'El Campo SF es Obligatorio';
         }
-
-        if(!$this->ancho) {
-            self::$alertas['error'][] = 'El Campo Ancho es Obligatorio';
+        if(!$this->LG) {
+            self::$alertas['error'][] = 'El Campo LG es Obligatorio';
         }
+        if(!$this->ERRO) {
+            self::$alertas['error'][] = 'El Campo ERRO es Obligatorio';
+        }
+        if(!$this->HUN) {
+            self::$alertas['error'][] = 'El Campo HUN es Obligatorio';
+        }
+        if(!$this->MDO) {
+            self::$alertas['error'][] = 'El Campo MDO es Obligatorio';
+        }
+        
         return self::$alertas;
     }
 
