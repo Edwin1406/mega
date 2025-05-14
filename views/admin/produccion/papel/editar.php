@@ -15,7 +15,7 @@
     <form method="POST"   class="formulario" enctype="multipart/form-data">
 
      
-    <?php include_once __DIR__.'/formulario.php'  ?>
+    <?php include_once __DIR__.'/formulario2.php'  ?>
 
         <input class="formulario__submit formulario__submit--registrar" type="submit" value="Actualizar Papel">
 
