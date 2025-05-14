@@ -280,11 +280,12 @@
 
 
 </fieldset>
+
 <script>
     const camposPorMaquinaYClasificacion = {
         'PREPRINTER': {
             'a': ['HOLA'], // CONTROLABLE
-            'b': ['MDO'], // NO CONTROLABLE
+            'b': ['MDO'],  // NO CONTROLABLE
         },
         'CORRUGADOR': {
             'a': ['SINGLEFACE','EMPALME', 'RECUB', 'MECANICO','GALLET', 'HUMEDO', 'COMBADO', 'DESPE', 'ERROM'], // CONTROLABLE
@@ -294,13 +295,19 @@
 
     function actualizarVisibilidadCampos() {
         const tipoMaquina = document.getElementById('tipo_maquina').value;
-        const clasificaciones = document.querySelectorAll('input[name="MDO[]"]:checked');
 
-        // Ocultar todos los inputs conocidos
+        // 1. Deseleccionar todos los checkboxes
+        const checkboxes = document.querySelectorAll('input[name="MDO[]"]');
+        checkboxes.forEach(chk => {
+            chk.checked = false;
+            // OPCIONAL: deshabilitar si no hay tipo de máquina seleccionado
+            chk.disabled = !tipoMaquina;
+        });
+
+        // 2. Ocultar todos los campos conocidos
         const todosLosCampos = [
             'SINGLEFACE', 'EMPALME', 'RECUB', 'MECANICO', 'GALLET', 'HUMEDO', 'COMBADO', 'DESPE', 'ERROM',
-            'DESHOJE', 'CAMBIO_PEDIDO', 'FILOS_ROTOS', 'OTROS', 'PEDIDOS_CORTOS', 'DIFER_ANCHO', 'CAMBIO_GRAMAJE', 'EXTRA_TRIM',
-            'HOLA', 'MDO'
+            'DESHOJE', 'CAMBIO_PEDIDO', 'FILOS_ROTOS', 'OTROS', 'PEDIDOS_CORTOS', 'DIFER_ANCHO', 'CAMBIO_GRAMAJE', 'EXTRA_TRIM'
         ];
 
         todosLosCampos.forEach(id => {
@@ -308,9 +315,10 @@
             if (campo) campo.style.display = 'none';
         });
 
-        // Mostrar según tipo y clasificación
+        // 3. Mostrar campos solo si hay tipo y clasificación (esto se activa después manualmente al marcar)
+        const clasificaciones = document.querySelectorAll('input[name="MDO[]"]:checked');
         clasificaciones.forEach(chk => {
-            const clasificacion = chk.value; // 'a', 'b', 'c'
+            const clasificacion = chk.value;
             const campos = camposPorMaquinaYClasificacion[tipoMaquina]?.[clasificacion] || [];
             campos.forEach(id => {
                 const campo = document.getElementById(id)?.closest('.formulario__campo');
@@ -320,10 +328,19 @@
     }
 
     document.addEventListener('DOMContentLoaded', () => {
+        // Activar select2 (si no está ya cargado)
+        $('#tipo_maquina').select2({
+            placeholder: "-- Selecciona un tipo --",
+            allowClear: true,
+        });
+
+        // Listeners
         document.getElementById('tipo_maquina').addEventListener('change', actualizarVisibilidadCampos);
         document.querySelectorAll('input[name="MDO[]"]').forEach(chk => {
             chk.addEventListener('change', actualizarVisibilidadCampos);
         });
+
+        // Primera ejecución para ocultar todo al inicio
         actualizarVisibilidadCampos();
     });
 </script>
