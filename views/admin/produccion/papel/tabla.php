@@ -20,6 +20,7 @@
                     <th scope="col" class="table__th">ERRO</th>
                     <th scope="col" class="table__th">HUN</th>
                     <th scope="col" class="table__th">MDO</th>
+                    <th scope="col" class="table__th">Consumo</th>
                     <th scope="col" class="table__th">TOTAL</th>
                     <th scope="col" class="table__th">Fecha Creacion</th>
                     <th scope="col" class="table__th">Fecha Actualizacion</th>
@@ -36,6 +37,7 @@
                         <td class="table__td"><?php echo $bobina->ERRO?></td>
                         <td class="table__td"><?php echo $bobina->HUN?></td>
                         <td class="table__td"><?php echo $bobina->MDO?></td>
+                        <td class="table__td"><?php echo $bobina->consumo_papel?></td>
                         <td class="table__td"><?php echo $bobina->TOTAL?></td>
                         <td class="table__td"><?php echo $bobina->created_at?></td>
                         <td class="table__td"><?php echo $bobina->updated_at?></td>
