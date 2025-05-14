@@ -104,7 +104,7 @@
         <input
             type="number"
             name="MECANICO"
-            id="V"
+            id="MECANICO"
             class="formulario__input"
             placeholder="MECANICO"
             value="<?php echo $papel->MECANICO ?? '' ?>">
