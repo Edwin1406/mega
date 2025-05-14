@@ -34,7 +34,7 @@
                     <th scope="col" class="table__th">Cambio de gramaje</th>
                     <th scope="col" class="table__th">Extra trim</th>
                     <th scope="col" class="table__th">Fecha</th>
-                    
+
                     
                     <th scope="col" class="table__th">Acciones</th>
                 </tr>
@@ -67,10 +67,10 @@
                         <td class="table__td--acciones"><a class="table__accion table__accion--editar" href="/admin/produccion/papel/editar?id=<?php echo $bobina->id; ?>"><i class="fa-solid fa-user-pen"></i>Ver</a>
                         <form method="POST" action="/admin/produccion/papel/eliminar" class="table__formulario">
                             <input type="hidden" name="id" value="<?php echo $bobina->id; ?>">
-                            <button class="table__accion table__accion--eliminar" type="submit">
+                            <!-- <button class="table__accion table__accion--eliminar" type="submit">
                                 <i class="fa-solid fa-user-slash"></i>
                                     Eliminar
-                            </button>
+                            </button> -->
                         </form>
                         </td>
                     </tr>
