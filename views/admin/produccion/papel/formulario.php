@@ -11,7 +11,15 @@
 .select2-container--default .select2-selection--single .select2-selection__rendered
  {
     color: #444;
-    line-height: 1rem
+    line-height: 28px;
+    font-size: 16px;
+    font-weight: 400;
+    padding: 0 10px;
+    height: 40px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #fff;
+    transition: border-color 0.3s;
 }
     
 </style>
