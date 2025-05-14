@@ -104,7 +104,8 @@ class PapelController
                     ($papel->LG ?: 0) + 
                     ($papel->ERRO ?: 0) + 
                     ($papel->HUN ?: 0) + 
-                    ($papel->MDO ?: 0);
+                    ($papel->MDO ?: 0)+
+                    ($papel->consumo_papel ?: 0);
                 //fehcha de actualizacion en basio porque solo estoy creando
                 $papel->updated_at = date('Y-m-d H:i:s');
                 $alertas = $papel->validar();
