@@ -17,7 +17,7 @@
             id="SF"
             class="formulario__input"
             placeholder="SF"
-            value="<?php echo $papel->SF ?? '0' ?>">
+            value="<?php echo $papel->SF ?? '' ?>">
     </div>
     <div class="formulario__campo">
         <label class="formulario__label" for="SF">LG</label>
@@ -27,7 +27,7 @@
             id="LG"
             class="formulario__input"
             placeholder="LG"
-            value="<?php echo $papel->LG ?? '0' ?>">
+            value="<?php echo $papel->LG ?? '' ?>">
     </div>
     <div class="formulario__campo">
         <label class="formulario__label" for="ERRO">ERRO</label>
@@ -37,7 +37,7 @@
             id="ERRO"
             class="formulario__input"
             placeholder="ERRO"
-            value="<?php echo $papel->ERRO ?? '0' ?>">
+            value="<?php echo $papel->ERRO ?? '' ?>">
     </div>
     <div class="formulario__campo">
         <label class="formulario__label" for="HUN">HUN</label>
@@ -47,7 +47,7 @@
             id="HUN"
             class="formulario__input"
             placeholder="HUN"
-            value="<?php echo $papel->HUN ?? '0' ?>">
+            value="<?php echo $papel->HUN ?? '' ?>">
     </div>
     <div class="formulario__campo">
         <label class="formulario__label" for="MDO">MDO</label>
@@ -57,6 +57,6 @@
             id="MDO"
             class="formulario__input"
             placeholder="MDO"
-            value="<?php echo $papel->MDO ?? '0' ?>">
+            value="<?php echo $papel->MDO ?? '' ?>">
     </div>
 </fieldset>
