@@ -77,78 +77,57 @@
 
 
     <div class="formulario__campo">
-        <label class="formulario__label" for="SF">SF</label>
+        <label class="formulario__label" for="GALLET">GALLET</label>
         <input
             type="number"
-            name="SF"
-            id="SF"
+            name="GALLET"
+            id="GALLET"
             class="formulario__input"
-            placeholder="SF"
-            value="<?php echo $papel->SF ?? '' ?>">
+            placeholder="GALLET"
+            value="<?php echo $papel->GALLET ?? '' ?>">
     </div>
     <div class="formulario__campo">
-        <label class="formulario__label" for="SF">LG</label>
+        <label class="formulario__label" for="HUMEDO">HUMEDO</label>
         <input
             type="number"
-            name="LG"
-            id="LG"
+            name="HUMEDO"
+            id="HUMEDO"
             class="formulario__input"
             placeholder="LG"
-            value="<?php echo $papel->LG ?? '' ?>">
+            value="<?php echo $papel->HUMEDO ?? '' ?>">
     </div>
     <div class="formulario__campo">
-        <label class="formulario__label" for="ERRO">ERRO</label>
+        <label class="formulario__label" for="DESHOJE">DESHOJE</label>
         <input
             type="number"
-            name="ERRO"
-            id="ERRO"
+            name="DESHOJE"
+            id="DESHOJE"
             class="formulario__input"
-            placeholder="ERRO"
-            value="<?php echo $papel->ERRO ?? '' ?>">
+            placeholder="DESHOJE"
+            value="<?php echo $papel->DESHOJE ?? '' ?>">
     </div>
     <div class="formulario__campo">
-        <label class="formulario__label" for="HUN">HUN</label>
+        <label class="formulario__label" for="SINGLEFACE">SINGLE FACE</label>
         <input
             type="number"
-            name="HUN"
-            id="HUN"
+            name="SINGLEFACE"
+            id="SINGLEFACE"
             class="formulario__input"
-            placeholder="HUN"
-            value="<?php echo $papel->HUN ?? '' ?>">
+            placeholder="SINGLEFACE"
+            value="<?php echo $papel->SINGLEFACE ?? '' ?>">
     </div>
     <div class="formulario__campo">
-        <label class="formulario__label" for="MDO">MDO</label>
+        <label class="formulario__label" for="EXTRATRIM">EXTRA TRIM</label>
         <input
             type="number"
-            name="MDO"
-            id="MDO"
+            name="EXTRATRIM"
+            id="EXTRATRIM"
             class="formulario__input"
-            placeholder="MDO"
-            value="<?php echo $papel->MDO ?? '' ?>">
+            placeholder="EXTRATRIM"
+            value="<?php echo $papel->EXTRATRIM ?? '' ?>">
     </div>
 
-    <?php if ($editando): ?>
-        <div class="formulario__campo">
-            <label class="formulario__label" for="consumo_papel">Consumo Papel</label>
-            <input
-                type="number"
-                name="consumo_papel"
-                id="consumo_papel"
-                class="formulario__input"
-                placeholder="Consumo Papel"
-                value="<?php echo $papel->consumo_papel ?? '' ?>">
-        </div>
-        <div class="formulario__campo">
-            <label class="formulario__label" for="TOTAL">TOTAL</label>
-            <input
-                type="number"
-                name="TOTAL"
-                id="TOTAL"
-                class="formulario__input"
-                placeholder="TOTAL"
-                value="<?php echo $papel->TOTAL ?? '' ?>">
-        </div>
-    <?php endif; ?>
+
 
 
 
@@ -158,8 +137,8 @@
     function actualizarCamposPorClasificacion() {
         // Map de clasificación a los campos que deben mostrarse
         const camposPorClasificacion = {
-            'a': ['SF', 'LG'],           // OPERATIVO
-            'b': ['ERRO', 'HUN'],        // NO OPERATIVO
+            'a': ['GALLET', 'HUMEDO'],           // OPERATIVO
+            'b': ['DESHOJE', 'SINGLEFACE'],        // NO OPERATIVO
             'c': ['MDO']                 // ADMINISTRATIVO
         };
 
