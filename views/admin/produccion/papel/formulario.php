@@ -15,7 +15,7 @@
     padding: 6px 12px;
     border: 1px solid #ccc;
     border-radius: 6px;
-    font-size: 1rem;
+    font-size: 2rem;
     font-family: inherit;
     background-color: white;
     box-shadow: none;
