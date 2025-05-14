@@ -15,15 +15,27 @@
             <thead class="table__thead">
                 <tr>
                     <th scope="col" class="table__th">Tipo de maquina</th>
-                    <th scope="col" class="table__th">SF</th>
-                    <th scope="col" class="table__th">LG</th>
-                    <th scope="col" class="table__th">ERRO</th>
-                    <th scope="col" class="table__th">HUN</th>
-                    <th scope="col" class="table__th">MDO</th>
-                    <th scope="col" class="table__th">Consumo</th>
-                    <th scope="col" class="table__th">TOTAL</th>
-                    <th scope="col" class="table__th">Fecha Creacion</th>
-                    <th scope="col" class="table__th">Fecha Actualizacion</th>
+                    <th scope="col" class="table__th">Tipo de clasificacion</th>
+                    <th scope="col" class="table__th">Single Face</th>
+                    <th scope="col" class="table__th">Empalme</th>
+                    <th scope="col" class="table__th">Recub</th>
+                    <th scope="col" class="table__th">Mecanico</th>
+                    <th scope="col" class="table__th">Gallet</th>
+                    <th scope="col" class="table__th">Humedo</th>
+                    <th scope="col" class="table__th">Combinado</th>
+                    <th scope="col" class="table__th">Despe</th>
+                    <th scope="col" class="table__th">Errom</th>
+                    <th scope="col" class="table__th">Deshoje</th>
+                    <th scope="col" class="table__th">Cambio de pedido</th>
+                    <th scope="col" class="table__th">Filos rotos</th>
+                    <th scope="col" class="table__th">Otros</th>
+                    <th scope="col" class="table__th">Pedidos cortos</th>
+                    <th scope="col" class="table__th">Difer ancho</th>
+                    <th scope="col" class="table__th">Cambio de gramaje</th>
+                    <th scope="col" class="table__th">Extra trim</th>
+                    <th scope="col" class="table__th">Fecha</th>
+                    
+                    
                     <th scope="col" class="table__th">Acciones</th>
                 </tr>
             </thead>
@@ -32,15 +44,26 @@
                 <?php foreach ($bobinas as $bobina):?>
                     <tr class="table__tr">
                         <td class="table__td"><?php echo $bobina->tipo_maquina?></td>
-                        <td class="table__td"><?php echo $bobina->SF?></td>
-                        <td class="table__td"><?php echo $bobina->LG?></td>
-                        <td class="table__td"><?php echo $bobina->ERRO?></td>
-                        <td class="table__td"><?php echo $bobina->HUN?></td>
-                        <td class="table__td"><?php echo $bobina->MDO?></td>
-                        <td class="table__td"><?php echo $bobina->consumo_papel?></td>
-                        <td class="table__td"><?php echo $bobina->TOTAL?></td>
+                        <td class="table__td"><?php echo $bobina->tipo_clasificacion?></td>
+                        <td class="table__td"><?php echo $bobina->SINGLEFACE?></td>
+                        <td class="table__td"><?php echo $bobina->EMPALME?></td>
+                        <td class="table__td"><?php echo $bobina->RECUB?></td>
+                        <td class="table__td"><?php echo $bobina->MECANICO?></td>
+                        <td class="table__td"><?php echo $bobina->GALLET?></td>
+                        <td class="table__td"><?php echo $bobina->HUMEDO?></td>
+                        <td class="table__td"><?php echo $bobina->COMBADO?></td>
+                        <td class="table__td"><?php echo $bobina->DESPE?></td>
+                        <td class="table__td"><?php echo $bobina->ERROM?></td>
+                        <td class="table__td"><?php echo $bobina->DESHOJE?></td>
+                        <td class="table__td"><?php echo $bobina->CAMBIO_PEDIDO?></td>
+                        <td class="table__td"><?php echo $bobina->FILOS_ROTOS?></td>
+                        <td class="table__td"><?php echo $bobina->OTROS?></td>
+                        <td class="table__td"><?php echo $bobina->PEDIDOS_CORTOS?></td>
+                        <td class="table__td"><?php echo $bobina->DIFER_ANCHO?></td>
+                        <td class="table__td"><?php echo $bobina->CAMBIO_GRAMAJE?></td>
+                        <td class="table__td"><?php echo $bobina->EXTRA_TRIM?></td>
                         <td class="table__td"><?php echo $bobina->created_at?></td>
-                        <td class="table__td"><?php echo $bobina->updated_at?></td>
+                     
                         <td class="table__td--acciones"><a class="table__accion table__accion--editar" href="/admin/produccion/papel/editar?id=<?php echo $bobina->id; ?>"><i class="fa-solid fa-user-pen"></i>Ver</a>
                         <form method="POST" action="/admin/produccion/papel/eliminar" class="table__formulario">
                             <input type="hidden" name="id" value="<?php echo $bobina->id; ?>">
