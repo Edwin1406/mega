@@ -288,36 +288,34 @@
             'b': ['MDO'],  // NO CONTROLABLE
         },
         'CORRUGADOR': {
-            'a': ['SINGLEFACE','EMPALME', 'RECUB', 'MECANICO','GALLET', 'HUMEDO', 'COMBADO', 'DESPE', 'ERROM'], // CONTROLABLE
-            'b': ['DESHOJE', 'CAMBIO_PEDIDO', 'FILOS_ROTOS', 'OTROS', 'PEDIDOS_CORTOS', 'DIFER_ANCHO', 'CAMBIO_GRAMAJE', 'EXTRA_TRIM'], // NO CONTROLABLE
+            'a': ['SINGLEFACE','EMPALME', 'RECUB', 'MECANICO','GALLET', 'HUMEDO', 'COMBADO', 'DESPE', 'ERROM'],
+            'b': ['DESHOJE', 'CAMBIO_PEDIDO', 'FILOS_ROTOS', 'OTROS', 'PEDIDOS_CORTOS', 'DIFER_ANCHO', 'CAMBIO_GRAMAJE', 'EXTRA_TRIM'],
         }
     };
 
-    function actualizarVisibilidadCampos() {
-        const tipoMaquina = document.getElementById('tipo_maquina').value;
+    const todosLosCampos = [
+        'SINGLEFACE', 'EMPALME', 'RECUB', 'MECANICO', 'GALLET', 'HUMEDO', 'COMBADO', 'DESPE', 'ERROM',
+        'DESHOJE', 'CAMBIO_PEDIDO', 'FILOS_ROTOS', 'OTROS', 'PEDIDOS_CORTOS', 'DIFER_ANCHO', 'CAMBIO_GRAMAJE', 'EXTRA_TRIM'
+    ];
 
-        // 1. Deseleccionar todos los checkboxes
-        const checkboxes = document.querySelectorAll('input[name="MDO[]"]');
-        // checkboxes.forEach(chk => {
-        //     chk.checked = false;
-        //     // OPCIONAL: deshabilitar si no hay tipo de máquina seleccionado
-        //     chk.disabled = !tipoMaquina;
-        // });
-
-        // 2. Ocultar todos los campos conocidos
-        const todosLosCampos = [
-            'SINGLEFACE', 'EMPALME', 'RECUB', 'MECANICO', 'GALLET', 'HUMEDO', 'COMBADO', 'DESPE', 'ERROM',
-            'DESHOJE', 'CAMBIO_PEDIDO', 'FILOS_ROTOS', 'OTROS', 'PEDIDOS_CORTOS', 'DIFER_ANCHO', 'CAMBIO_GRAMAJE', 'EXTRA_TRIM',
-            'HOLA', 'MDO'
-        ];
-
+    function ocultarTodosLosCampos() {
         todosLosCampos.forEach(id => {
             const campo = document.getElementById(id)?.closest('.formulario__campo');
             if (campo) campo.style.display = 'none';
         });
+    }
 
-        // 3. Mostrar campos solo si hay tipo y clasificación (esto se activa después manualmente al marcar)
+    function resetearCheckboxes() {
+        document.querySelectorAll('input[name="MDO[]"]').forEach(chk => {
+            chk.checked = false;
+            chk.disabled = false; // Opcional: puedes desactivar si no hay tipo
+        });
+    }
+
+    function mostrarCamposSeleccionados() {
+        const tipoMaquina = document.getElementById('tipo_maquina').value;
         const clasificaciones = document.querySelectorAll('input[name="MDO[]"]:checked');
+
         clasificaciones.forEach(chk => {
             const clasificacion = chk.value;
             const campos = camposPorMaquinaYClasificacion[tipoMaquina]?.[clasificacion] || [];
@@ -328,20 +326,33 @@
         });
     }
 
+    function alCambiarMaquina() {
+        ocultarTodosLosCampos();
+        resetearCheckboxes();
+    }
+
+    function alCambiarClasificacion() {
+        ocultarTodosLosCampos();
+        mostrarCamposSeleccionados();
+    }
+
     document.addEventListener('DOMContentLoaded', () => {
-        // Activar select2 (si no está ya cargado)
+        // Select2
         $('#tipo_maquina').select2({
             placeholder: "-- Selecciona un tipo --",
             allowClear: true,
         });
 
-        // Listeners
-        document.getElementById('tipo_maquina').addEventListener('change', actualizarVisibilidadCampos);
+        // Cambio de tipo de máquina
+        document.getElementById('tipo_maquina').addEventListener('change', alCambiarMaquina);
+
+        // Cambio de clasificación
         document.querySelectorAll('input[name="MDO[]"]').forEach(chk => {
-            chk.addEventListener('change', actualizarVisibilidadCampos);
+            chk.addEventListener('change', alCambiarClasificacion);
         });
 
-        // Primera ejecución para ocultar todo al inicio
-        actualizarVisibilidadCampos();
+        // Estado inicial
+        ocultarTodosLosCampos();
     });
 </script>
+
