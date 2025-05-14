@@ -56,7 +56,7 @@ class PapelController
                 ($papel->MDO ?: 0);
 
             //fehcha de actualizacion en basio porque solo estoy creando 
-            $papel->created_at = '';
+            $papel->updated_at = '';
 
 
             debuguear($papel);
