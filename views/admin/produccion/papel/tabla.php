@@ -30,10 +30,15 @@
 
                 <?php foreach ($bobinas as $bobina):?>
                     <tr class="table__tr">
-                        <td class="table__td"><?php echo $bobina->tipo_papel?></td>
-                        <td class="table__td"><?php echo $bobina->gramaje?></td>
-                        <td class="table__td"><?php echo $bobina->ancho?></td>
+                        <td class="table__td"><?php echo $bobina->tipo_maquina?></td>
+                        <td class="table__td"><?php echo $bobina->SF?></td>
+                        <td class="table__td"><?php echo $bobina->LG?></td>
+                        <td class="table__td"><?php echo $bobina->ERRO?></td>
+                        <td class="table__td"><?php echo $bobina->HUN?></td>
+                        <td class="table__td"><?php echo $bobina->MDO?></td>
+                        <td class="table__td"><?php echo $bobina->TOTAL?></td>
                         <td class="table__td"><?php echo $bobina->created_at?></td>
+                        <td class="table__td"><?php echo $bobina->updated_at?></td>
                         <td class="table__td--acciones"><a class="table__accion table__accion--editar" href="/admin/produccion/papel/editar?id=<?php echo $bobina->id; ?>"><i class="fa-solid fa-user-pen"></i>Editar</a>
                         <form method="POST" action="/admin/produccion/papel/eliminar" class="table__formulario">
                             <input type="hidden" name="id" value="<?php echo $bobina->id; ?>">
