@@ -9,25 +9,10 @@
 
 <style>
 
-.formulario__input {
-    width: 100%;
-    padding: 0.5rem;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    font-size: 1rem;
-    font-family: inherit;
-    background-color: white;
-    appearance: none; /* Elimina el estilo por defecto en algunos navegadores */
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    background-image: url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L5 5L9 1' stroke='%23666' stroke-width='1.5'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: right 0.75rem center;
-    background-size: 10px 6px;
-    cursor: pointer;
-}
-
-
+    .formulario_input select2 {
+        width: 100%;
+    }
+    
 </style>
 
 <?php $editando = strpos($_SERVER['REQUEST_URI'], 'editar') !== false; ?>
@@ -36,7 +21,7 @@
     <legend class="formulario__legend">Información de la Papel</legend>
     <div class="formulario__campo">
         <label class="formulario__label" for="tipo_maquina">Tipo Maquina</label>
-        <select class="formulario__input" name="tipo_maquina" id="tipo_maquina">
+        <select class="formulario__input select2" name="tipo_maquina" id="tipo_maquina">
             <option value="">-- Selecciona un tipo --</option>
             <option value="PREPRINTER" <?= trim(strtolower($papel->tipo_maquina ?? '')) == 'preprinter' ? 'selected' : '' ?>>PRE-PRINTER</option>
             <option value="CALDERO" <?= trim(strtolower($papel->tipo_maquina ?? '')) == 'caldero' ? 'selected' : '' ?>>CALDERO</option>
