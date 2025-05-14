@@ -47,6 +47,8 @@ class PapelController
         if($_SERVER['REQUEST_METHOD'] === 'POST'){
             $papel->sincronizar($_POST);
 
+            debuguear($papel);
+
             //sumar los totales
             $papel->TOTAL = 
                 ($papel->SF ?: 0) + 
