@@ -35,6 +35,7 @@
         <select class="formulario__input select2" name="tipo_maquina" id="tipo_maquina">
             <option value="">-- Selecciona un tipo --</option>
             <option value="PREPRINTER" <?= trim(strtolower($papel->tipo_maquina ?? '')) == 'preprinter' ? 'selected' : '' ?>>PRE-PRINTER</option>
+            <option value="CORRUGADOR" <?= trim(strtolower($papel->tipo_maquina ?? '')) == 'corrugador' ? 'selected' : '' ?>>CORRUGADOR</option>
         </select>
     </div>
 
