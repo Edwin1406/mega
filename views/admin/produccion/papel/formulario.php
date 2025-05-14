@@ -6,22 +6,61 @@
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
 
-
 <style>
-.select2-container--default .select2-selection--single .select2-selection__rendered
- {
-    color: #444;
-    line-height: 28px;
-    font-size: 16px;
-    font-weight: 400;
-    padding: 0 10px;
-    height: 40px;
+
+
+/* Contenedor principal del select2 */
+.select2-container .select2-selection--single {
+    height: 42px;
+    padding: 6px 12px;
     border: 1px solid #ccc;
-    border-radius: 4px;
-    background-color: #fff;
-    transition: border-color 0.3s;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-family: inherit;
+    background-color: white;
+    box-shadow: none;
+    transition: border-color 0.2s ease-in-out;
 }
-    
+
+/* Texto dentro del select */
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+    line-height: 28px;
+    color: #333;
+}
+
+/* Flechita del select */
+.select2-container--default .select2-selection--single .select2-selection__arrow {
+    height: 100%;
+    right: 8px;
+}
+
+/* Efecto al hacer focus */
+.select2-container--default .select2-selection--single:focus,
+.select2-container--default .select2-selection--single:focus-visible,
+.select2-container--default .select2-selection--single:focus-within {
+    border-color: #007bff;
+    outline: none;
+}
+
+/* Quitar borde azul de focus por defecto */
+.select2-container--default .select2-selection--single:focus {
+    box-shadow: none;
+}
+
+/* Menú desplegable */
+.select2-container--default .select2-results__option {
+    padding: 8px 12px;
+    font-size: 1rem;
+}
+
+/* Estilo cuando está seleccionado */
+.select2-container--default .select2-results__option--highlighted[aria-selected] {
+    background-color: #007bff;
+    color: white;
+}
+
+
+
 </style>
 
 <?php $editando = strpos($_SERVER['REQUEST_URI'], 'editar') !== false; ?>
