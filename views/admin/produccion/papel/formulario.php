@@ -11,7 +11,7 @@
 .select2-container--default .select2-selection--single .select2-selection__placeholder {
     color: #999;
     background-color: red;
-    padding: 5px;
+    padding: 1rem;
     border-radius: 4px;
 }
     
