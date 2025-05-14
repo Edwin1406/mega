@@ -47,21 +47,16 @@
     <div>
         <label>
             <input type="checkbox" name="MDO[]" value="a">
-            OPERATIVO
+            CONTROLABLE
         </label>
     </div>
     <div>
         <label>
             <input type="checkbox" name="MDO[]" value="b" checked>
-            NO OPERATIVO
+            NO CONTROLABLE
         </label>
     </div>
-    <div>
-        <label>
-            <input type="checkbox" name="MDO[]" value="c" checked>
-            ADMINISTRATIVO
-        </label>
-    </div>
+ 
 </div>
 
 
@@ -138,7 +133,7 @@
             value="<?php echo $papel->MDO ?? '' ?>">
     </div>
 
-    
+
 
 
 
@@ -148,13 +143,11 @@
   const camposPorMaquinaYClasificacion = {
     'PREPRINTER': {
       'a': ['SF', 'LG'],            // OPERATIVO
-      'b': ['ERRO', 'HUN'],         // NO OPERATIVO
-      'c': ['MDO']                  // ADMINISTRATIVO
+      'b': ['MDO'],         // NO OPERATIVO
     },
     'CORRUGADOR': {
       'a': ['GALLET'],             // OPERATIVO
       'b': ['HUMEDO', 'DESHOJE'],  // NO OPERATIVO
-      'c': ['SINGLEFACE', 'EXTRATRIM'] // ADMINISTRATIVO
     }
   };
 
