@@ -5,6 +5,31 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
+
+
+<style>
+
+.formulario__input {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-family: inherit;
+    background-color: white;
+    appearance: none; /* Elimina el estilo por defecto en algunos navegadores */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L5 5L9 1' stroke='%23666' stroke-width='1.5'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+    background-size: 10px 6px;
+    cursor: pointer;
+}
+
+
+</style>
+
 <?php $editando = strpos($_SERVER['REQUEST_URI'], 'editar') !== false; ?>
 
 <fieldset class="formulario__fieldset">
@@ -31,7 +56,7 @@
         $(document).ready(function() {
             $('#tipo_maquina').select2({
                 placeholder: "-- Selecciona un tipo --",
-                allowClear: true
+                allowClear: true,
             });
         });
     </script>
