@@ -132,41 +132,51 @@
 
 
 </fieldset>
-
 <script>
-    function actualizarCamposPorClasificacion() {
-        // Map de clasificación a los campos que deben mostrarse
-        const camposPorClasificacion = {
-            'a': ['GALLET', 'HUMEDO'],           // OPERATIVO
-            'b': ['DESHOJE', 'SINGLEFACE'],        // NO OPERATIVO
-            'c': ['EXTRATRIM']                 // ADMINISTRATIVO
-        };
-
-        // Ocultar todos los campos primero
-        const todosLosCampos = ['GALLET', 'HUMEDO', 'DESHOJE', 'SINGLEFACE', 'EXTRATRIM'];
-        todosLosCampos.forEach(id => {
-            const campo = document.getElementById(id)?.closest('.formulario__campo');
-            if (campo) campo.style.display = 'none';
-        });
-
-        // Obtener los checkboxes marcados
-        const checkboxes = document.querySelectorAll('input[name="MDO[]"]:checked');
-        checkboxes.forEach(chk => {
-            const claves = camposPorClasificacion[chk.value];
-            if (claves) {
-                claves.forEach(id => {
-                    const campo = document.getElementById(id)?.closest('.formulario__campo');
-                    if (campo) campo.style.display = '';
-                });
-            }
-        });
+  const camposPorMaquinaYClasificacion = {
+    'PREPRINTER': {
+      'a': ['SF', 'LG'],            // OPERATIVO
+      'b': ['ERRO', 'HUN'],         // NO OPERATIVO
+      'c': ['MDO']                  // ADMINISTRATIVO
+    },
+    'CORRUGADOR': {
+      'a': ['GALLET'],             // OPERATIVO
+      'b': ['HUMEDO', 'DESHOJE'],  // NO OPERATIVO
+      'c': ['SINGLEFACE', 'EXTRATRIM'] // ADMINISTRATIVO
     }
+  };
 
-    // Ejecutar cuando se cambie un checkbox
-    document.querySelectorAll('input[name="MDO[]"]').forEach(chk => {
-        chk.addEventListener('change', actualizarCamposPorClasificacion);
+  function actualizarVisibilidadCampos() {
+    const tipoMaquina = document.getElementById('tipo_maquina').value;
+    const clasificaciones = document.querySelectorAll('input[name="MDO[]"]:checked');
+
+    // Ocultar todos los inputs conocidos
+    const todosLosCampos = [
+      'SF', 'LG', 'ERRO', 'HUN', 'MDO',
+      'GALLET', 'HUMEDO', 'DESHOJE', 'SINGLEFACE', 'EXTRATRIM'
+    ];
+
+    todosLosCampos.forEach(id => {
+      const campo = document.getElementById(id)?.closest('.formulario__campo');
+      if (campo) campo.style.display = 'none';
     });
 
-    // Ejecutar al cargar la página
-    document.addEventListener('DOMContentLoaded', actualizarCamposPorClasificacion);
+    // Mostrar según tipo y clasificación
+    clasificaciones.forEach(chk => {
+      const clasificacion = chk.value; // 'a', 'b', 'c'
+      const campos = camposPorMaquinaYClasificacion[tipoMaquina]?.[clasificacion] || [];
+      campos.forEach(id => {
+        const campo = document.getElementById(id)?.closest('.formulario__campo');
+        if (campo) campo.style.display = '';
+      });
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('tipo_maquina').addEventListener('change', actualizarVisibilidadCampos);
+    document.querySelectorAll('input[name="MDO[]"]').forEach(chk => {
+      chk.addEventListener('change', actualizarVisibilidadCampos);
+    });
+    actualizarVisibilidadCampos();
+  });
 </script>
