@@ -48,35 +48,8 @@ class PapelController
 
       
 
-            
-            $papel->sincronizar($_POST);
-
-            
-// Asignar tipo_clasificacion DESPUÉS de sincronizar
-$entrada = $_POST['MDO'] ?? [];
-$valores = is_array($entrada) ? $entrada : [$entrada];
-
-$mapa = [
-    'a' => 'CONTROLABLE',
-    'b' => 'NO CONTROLABLE'
-];
-
-$clasificacionesConvertidas = array_map(fn($c) => $mapa[$c] ?? '', $valores);
-$clasificacionesConvertidas = array_filter($clasificacionesConvertidas);
-
-$papel->tipo_clasificacion = implode(',', $clasificacionesConvertidas);
-
-
-            // debuguear($papel);
-
-        
-            // validar
-            $alertas = $papel->validar();
-            if(empty($alertas)){
-                // guardar en la base de datos
-                $papel->guardar();
-                header('Location: /admin/produccion/papel/tabla');
-            }
+             var_dump($_POST['MDO'] ?? 'NO LLEGA');
+    exit;
 
         }   
 
