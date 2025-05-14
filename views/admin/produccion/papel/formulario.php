@@ -25,77 +25,74 @@
 
 
 </style>
-<!-- Tipo Maquina -->
-<select id="tipo_maquina">
-  <option value="">-- Selecciona tipo --</option>
-  <option value="CORRUGADOR">CORRUGADOR</option>
-  <option value="ADMINISTRATIVO">ADMINISTRATIVO</option>
-</select>
 
-<!-- Clasificación -->
-<select id="clasificacion">
-  <option value="">-- Clasificación --</option>
-  <option value="OPERATIVO">OPERATIVO</option>
-  <option value="NO OPERATIVO">NO OPERATIVO</option>
-</select>
 
-<!-- Contenedor de campos dinámicos -->
-<div id="campos_dinamicos"></div>
+<div class="formulario__campo campo-dinamico campo-corrug-operativo">
+    <label class="formulario__label" for="EMPALME">EMPALME</label>
+    <input
+        type="text"
+        name="EMPALME"
+        id="EMPALME"
+        class="formulario__input"
+        placeholder=" EMPALME" 
+        value="<?php echo $materia->EMPALME ?? '' ?>">
+</div>
 
-<!-- Estilos rápidos para ejemplo visual -->
-<style>
-  #campos_dinamicos label {
-    display: block;
-    margin-top: 5px;
-    font-weight: bold;
-  }
-  #campos_dinamicos input {
-    margin-bottom: 10px;
-    width: 200px;
-  }
-</style>
 
-<!-- Script -->
+<!-- CORRUGADOR + OPERATIVO -->
+<div class="formulario__campo campo-dinamico campo-corrug-operativo">
+    <label class="formulario__label" for="EMPALME">EMPALME</label>
+    <input type="text" name="EMPALME" id="EMPALME" class="formulario__input" placeholder=" EMPALME" value="<?php echo $materia->EMPALME ?? '' ?>">
+</div>
+
+<div class="formulario__campo campo-dinamico campo-corrug-operativo">
+    <label class="formulario__label" for="CAMBIO">CAMBIO</label>
+    <input type="text" name="CAMBIO" id="CAMBIO" class="formulario__input" placeholder=" CAMBIO" value="<?php echo $materia->CAMBIO ?? '' ?>">
+</div>
+
+<div class="formulario__campo campo-dinamico campo-corrug-operativo">
+    <label class="formulario__label" for="RECUBRIMIENTO">RECUBRIMIENTO</label>
+    <input type="text" name="RECUBRIMIENTO" id="RECUBRIMIENTO" class="formulario__input" placeholder=" RECUBRIMIENTO" value="<?php echo $materia->RECUBRIMIENTO ?? '' ?>">
+</div>
+
+<!-- ADMINISTRATIVO + NO OPERATIVO -->
+<div class="formulario__campo campo-dinamico campo-admin-nooperativo">
+    <label class="formulario__label" for="BOM">BOM</label>
+    <input type="text" name="BOM" id="BOM" class="formulario__input" placeholder=" BOM" value="<?php echo $materia->BOM ?? '' ?>">
+</div>
+
+<div class="formulario__campo campo-dinamico campo-admin-nooperativo">
+    <label class="formulario__label" for="CIEN">100</label>
+    <input type="text" name="CIEN" id="CIEN" class="formulario__input" placeholder=" 100" value="<?php echo $materia->CIEN ?? '' ?>">
+</div>
+
+
+
+
+
+
 <script>
-  const camposPorTipoClasificacion = {
-    CORRUGADOR: {
-      OPERATIVO: ["Empalme", "Cambio", "Recubrimiento"]
-    },
-    ADMINISTRATIVO: {
-      OPERATIVO: ["Papel"],
-      "NO OPERATIVO": ["Bom"]
+document.addEventListener('DOMContentLoaded', function () {
+    const tipoMaquina = document.getElementById('tipo_maquina');
+    const clasificacion = document.getElementById('clasificacion');
+    
+    function actualizarCampos() {
+        const tipo = tipoMaquina.value.toLowerCase();
+        const claseTipo = tipo === "corrugador" ? "corrug" : tipo === "administrativo" ? "admin" : "";
+        const claseClasif = clasificacion.value.toLowerCase().includes("no") ? "nooperativo" : "operativo";
+
+        // Ocultar todos los campos dinámicos
+        document.querySelectorAll('.campo-dinamico').forEach(el => el.style.display = 'none');
+
+        // Mostrar los que coinciden con la combinación
+        const claseFinal = `.campo-${claseTipo}-${claseClasif}`;
+        document.querySelectorAll(claseFinal).forEach(el => el.style.display = 'block');
     }
-  };
 
-  function mostrarCampos(tipo, clasificacion) {
-    const contenedor = document.getElementById("campos_dinamicos");
-    contenedor.innerHTML = ""; // Limpia todo
+    tipoMaquina.addEventListener('change', actualizarCampos);
+    clasificacion.addEventListener('change', actualizarCampos);
 
-    const campos = (camposPorTipoClasificacion[tipo] || {})[clasificacion] || [];
-
-    campos.forEach(campo => {
-      const label = document.createElement("label");
-      label.textContent = `${campo}:`;
-
-      const input = document.createElement("input");
-      input.type = "number";
-      input.name = campo.toLowerCase().replace(/\s+/g, '_');
-      input.placeholder = "Peso (kg)";
-
-      contenedor.appendChild(label);
-      contenedor.appendChild(input);
-    });
-  }
-
-  document.getElementById("tipo_maquina").addEventListener("change", function () {
-    const tipo = this.value;
-    const clasificacion = document.getElementById("clasificacion").value;
-    mostrarCampos(tipo, clasificacion);
-  });
-
-  document.getElementById("clasificacion").addEventListener("change", function () {
-    const tipo = document.getElementById("tipo_maquina").value;
-    const clasificacion = this.value;
-    mostrarCampos(tipo, clasificacion);
-  });
+    // Llamada inicial por si ya viene cargado
+    actualizarCampos();
+});
 </script>
