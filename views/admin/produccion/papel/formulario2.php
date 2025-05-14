@@ -18,7 +18,7 @@
     <div class="formulario__campo">
         <label class="formulario__label" for="tipo_clasificacion">SINGLE FACE</label>
         <input
-            type="number"
+            type="text"
             name="tipo_clasificacion"
             id="tipo_clasificacion"
             class="formulario__input"
