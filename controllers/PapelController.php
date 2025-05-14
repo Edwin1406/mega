@@ -145,6 +145,8 @@ class PapelController
 
         public static function apidesperdiciopapel(){
             header('Content-Type: application/json');
+            header('Access-Control-Allow-Origin: *');
+            header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE');
             $papel = Bobina::all();
             echo json_encode($papel);
         }

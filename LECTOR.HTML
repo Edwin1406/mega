@@ -1,76 +1,126 @@
-<!-- Select2 CSS -->
-<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Tabla de Desperdicio</title>
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    tfoot input {
+      width: 100%;
+      box-sizing: border-box;
+    }
+    .filtros {
+      margin-bottom: 20px;
+    }
+    .filtros label {
+      margin-right: 10px;
+    }
+    .filtros select, .filtros input {
+      margin-right: 20px;
+    }
+  </style>
+</head>
+<body>
 
-<!-- jQuery y Select2 JS -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+  <h2>Desperdicio de Papel</h2>
 
+  <div class="filtros">
+    <label for="filtroMaquina">Filtrar por tipo de máquina:</label>
+    <select id="filtroMaquina"><option value="">Todos</option></select>
 
-<!-- Select de máquina -->
-<select id="maquina" class="select2">
-  <option value="">-- Selecciona máquina --</option>
-  <option value="CORRUGADOR">CORRUGADOR</option>
-  <option value="PREPRINTER">PREPRINTER</option>
-</select>
+    <label for="filtroClasificacion">Filtrar por tipo de clasificación:</label>
+    <select id="filtroClasificacion"><option value="">Todos</option></select>
 
-<!-- Select de tipo operativo -->
-<select id="tipo_operativo" class="select2">
-  <option value="">-- Selecciona tipo --</option>
-</select>
+    <label for="filtroFecha">Filtrar por fecha:</label>
+    <input type="date" id="filtroFecha">
+  </div>
 
-<!-- Contenedor de causas con campos de peso -->
-<div id="causas_container"></div>
+  <table id="tablaDesperdicio" class="display" style="width:100%">
+    <thead><tr></tr></thead>
+    <tfoot><tr></tr></tfoot>
+    <tbody></tbody>
+  </table>
 
+  <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+  <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
 
+  <script>
+    const columnas = [
+      { title: "Tipo de máquina", data: "tipo_maquina" },
+      { title: "Tipo de clasificación", data: "tipo_clasificacion" },
+      { title: "Single Face", data: "SINGLEFACE" },
+      { title: "Empalme", data: "EMPALME" },
+      { title: "Recub", data: "RECUB" },
+      { title: "Mecánico", data: "MECANICO" },
+      { title: "Gallet", data: "GALLET" },
+      { title: "Húmedo", data: "HUMEDO" },
+      { title: "Combinado", data: "COMBADO" },
+      { title: "Despe", data: "DESPE" },
+      { title: "Errom", data: "ERROM" },
+      { title: "Deshoje", data: "DESHOJE" },
+      { title: "Cambio de pedido", data: "CAMBIO_PEDIDO" },
+      { title: "Filos rotos", data: "FILOS_ROTOS" },
+      { title: "Otros", data: "OTROS" },
+      { title: "Pedidos cortos", data: "PEDIDOS_CORTOS" },
+      { title: "Difer ancho", data: "DIFER_ANCHO" },
+      { title: "Cambio de gramaje", data: "CAMBIO_GRAMAJE" },
+      { title: "Extra trim", data: "EXTRA_TRIM" },
+      { title: "Fecha", data: "created_at" }
+    ];
 
-<script>
-const data = {
-  "CORRUGADOR": {
-    "OPERATIVO": ["Empalme", "Cambio", "Recubrimiento"],
-    "NO OPERATIVO": ["Mecánico", "Fallas", "Otros"]
-  },
-  "PREPRINTER": {
-    "OPERATIVO": ["Cambio Tinta", "Ajuste Registro"],
-    "NO OPERATIVO": ["Eléctrico", "Hidráulico"]
-  }
-};
+    $(document).ready(function () {
+      fetch('https://megawebsistem.com/admin/api/apidesperdiciopapel')
+        .then(res => res.json())
+        .then(data => {
+          // Crear encabezado y pie de tabla
+          columnas.forEach(col => {
+            $('#tablaDesperdicio thead tr').append(`<th>${col.title}</th>`);
+            $('#tablaDesperdicio tfoot tr').append(`<th></th>`);
+          });
 
-document.getElementById("maquina").addEventListener("change", function () {
-  const tipoSelect = document.getElementById("tipo_operativo");
-  tipoSelect.innerHTML = '<option value="">-- Selecciona tipo --</option>';
-  const maquina = this.value;
+          const tabla = $('#tablaDesperdicio').DataTable({
+            data: data,
+            columns: columnas,
+            footerCallback: function (row, data, start, end, display) {
+              const api = this.api();
+              for (let i = 2; i < columnas.length - 1; i++) {
+                const total = api.column(i, { search: 'applied' }).data().reduce((a, b) => {
+                  return parseFloat(a) + parseFloat(b);
+                }, 0);
+                $(api.column(i).footer()).html(total.toFixed(2));
+              }
+            }
+          });
 
-  if (maquina && data[maquina]) {
-    Object.keys(data[maquina]).forEach(tipo => {
-      const option = document.createElement("option");
-      option.value = tipo;
-      option.textContent = tipo;
-      tipoSelect.appendChild(option);
+          // Filtros dinámicos
+          const tiposMaquina = [...new Set(data.map(e => e.tipo_maquina.trim()))];
+          tiposMaquina.forEach(tipo => {
+            $('#filtroMaquina').append(`<option value="${tipo}">${tipo}</option>`);
+          });
+
+          const tiposClasificacion = [...new Set(data.map(e => e.tipo_clasificacion.trim()))];
+          tiposClasificacion.forEach(tipo => {
+            $('#filtroClasificacion').append(`<option value="${tipo}">${tipo}</option>`);
+          });
+
+          // Aplicar filtros
+          $('#filtroMaquina').on('change', function () {
+            tabla.column(0).search(this.value).draw();
+          });
+
+          $('#filtroClasificacion').on('change', function () {
+            tabla.column(1).search(this.value).draw();
+          });
+
+          $('#filtroFecha').on('change', function () {
+            tabla.column(19).search(this.value).draw();
+          });
+        });
     });
-  }
-
-  // limpia causas
-  document.getElementById("causas_container").innerHTML = '';
-});
-
-document.getElementById("tipo_operativo").addEventListener("change", function () {
-  const maquina = document.getElementById("maquina").value;
-  const tipo = this.value;
-  const contenedor = document.getElementById("causas_container");
-
-  contenedor.innerHTML = ''; // limpiar antes
-
-  if (maquina && tipo && data[maquina][tipo]) {
-    data[maquina][tipo].forEach(causa => {
-      const div = document.createElement("div");
-      div.innerHTML = `
-        <label>
-          ${causa}: 
-          <input type="number" step="0.01" name="peso_${causa}" placeholder="Peso (kg)">
-        </label>
-      `;
-      contenedor.appendChild(div);
-    });
-  }
-});
-</script>
+  </script>
+</body>
+</html>
