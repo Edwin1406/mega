@@ -6,7 +6,7 @@ class Bobina extends ActiveRecord
 {
     
     protected static $tabla = 'bobinas';
-    protected static $columnasDB = ['id', 'tipo_maquina', 'SF', 'LG','ERRO','HUN','MDO','TOTAL','created_at','updated_at'];
+    protected static $columnasDB = ['id', 'tipo_maquina', 'SF', 'LG','ERRO','HUN','MDO','consumo_papel', 'TOTAL','created_at','updated_at'];
 
     public $id;
     public $tipo_maquina;
@@ -15,6 +15,7 @@ class Bobina extends ActiveRecord
     public $ERRO;
     public $HUN;
     public $MDO;
+    public $consumo_papel;
     public $TOTAL;
     public $created_at;
     public $updated_at;
