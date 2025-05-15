@@ -27,6 +27,7 @@ protected static $columnasDB = [
     'DIFER_ANCHO',
     'CAMBIO_GRAMAJE',
     'EXTRA_TRIM',
+    'COMSUMO',
     'created_at'
 ];
 
