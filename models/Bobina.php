@@ -27,7 +27,7 @@ protected static $columnasDB = [
     'DIFER_ANCHO',
     'CAMBIO_GRAMAJE',
     'EXTRA_TRIM',
-    'COMSUMO',
+    'CONSUMO',
     'created_at'
 ];
 
@@ -52,7 +52,7 @@ protected static $columnasDB = [
     public $DIFER_ANCHO;
     public $CAMBIO_GRAMAJE;
     public $EXTRA_TRIM;
-    public $COMSUMO;
+    public $CONSUMO;
     public $created_at;
    
 
@@ -80,8 +80,8 @@ protected static $columnasDB = [
         $this->DIFER_ANCHO = $args['DIFER_ANCHO'] ?? '';
         $this->CAMBIO_GRAMAJE = $args['CAMBIO_GRAMAJE'] ?? '';
         $this->EXTRA_TRIM = $args['EXTRA_TRIM'] ?? '';
-        $this->COMSUMO = $args['COMSUMO'] ?? '';
-        
+        $this->CONSUMO = $args['CONSUMO'] ?? '';
+
         $this->created_at = $args['created_at'] ?? date('Y-m-d H:i:s');
         
     }
