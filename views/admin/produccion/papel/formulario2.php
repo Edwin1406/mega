@@ -218,14 +218,14 @@
 <!-- PRE PRINTER   CONTROLABLE  -->
 
     <div class="formulario__campo">
-        <label class="formulario__label" for="COMSUMO">CONSUMO PAPEL</label>
+        <label class="formulario__label" for="CONSUMO">CONSUMO PAPEL</label>
         <input
             type="number"
-            name="COMSUMO"
-            id="COMSUMO"
+            name="CONSUMO"
+            id="CONSUMO"
             class="formulario__input"
-            placeholder="COMSUMO PAPEL"
-            value="<?php echo $papel->COMSUMO ?? '' ?>">
+            placeholder="CONSUMO PAPEL"
+            value="<?php echo $papel->CONSUMO ?? '' ?>">
     </div>
 
 
