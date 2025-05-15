@@ -282,16 +282,7 @@
     </div>
 
 
-    <div class="formulario__campo">
-        <label class="formulario__label" for="CONSUMO">CONSUMO PAPEL</label>
-        <input
-            type="number"
-            name="CONSUMO"
-            id="CONSUMO"
-            class="formulario__input"
-            placeholder="CONSUMO PAPEL"
-            value="<?php echo $papel->CONSUMO ?? '' ?>">
-    </div>
+
 
 
 </fieldset>
