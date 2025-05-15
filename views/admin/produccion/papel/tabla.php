@@ -33,6 +33,7 @@
                     <th scope="col" class="table__th">Difer ancho</th>
                     <th scope="col" class="table__th">Cambio de gramaje</th>
                     <th scope="col" class="table__th">Extra trim</th>
+                    <th scope="col" class="table__th">Consumo</th>
                     <th scope="col" class="table__th">Fecha</th>
 
                     
@@ -62,6 +63,7 @@
                         <td class="table__td"><?php echo $bobina->DIFER_ANCHO?></td>
                         <td class="table__td"><?php echo $bobina->CAMBIO_GRAMAJE?></td>
                         <td class="table__td"><?php echo $bobina->EXTRA_TRIM?></td>
+                        <td class="table__td"><?php echo $bobina->CONSUMO?></td>
                         <td class="table__td"><?php echo $bobina->created_at?></td>
                      
                         <td class="table__td--acciones"><a class="table__accion table__accion--editar" href="/admin/produccion/papel/editar?id=<?php echo $bobina->id; ?>"><i class="fa-solid fa-user-pen"></i>Ver</a>
