@@ -102,7 +102,7 @@ class PapelController
                 //     ($papel->HUN ?: 0) + 
                 //     ($papel->MDO ?: 0)+
                 //     ($papel->consumo_papel ?: 0);
-             debuguear($papel);
+            //  debuguear($papel);
                 $alertas = $papel->validar();
                 if(empty($alertas)){
                     $papel->actualizar();
