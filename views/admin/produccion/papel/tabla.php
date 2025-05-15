@@ -14,7 +14,7 @@
         <table class="table">
             <thead class="table__thead">
                 <tr>
-                    <th scope="col" class="table__th">Tipo de maquina</th>
+                    <!-- <th scope="col" class="table__th">Tipo de maquina</th> -->
                     <th scope="col" class="table__th">Tipo de clasificacion</th>
                     <th scope="col" class="table__th">Single Face</th>
                     <th scope="col" class="table__th">Empalme</th>
@@ -43,7 +43,7 @@
 
                 <?php foreach ($bobinas as $bobina):?>
                     <tr class="table__tr">
-                        <td class="table__td"><?php echo $bobina->tipo_maquina?></td>
+                        <!-- <td class="table__td"><?php echo $bobina->tipo_maquina?></td> -->
                         <td class="table__td"><?php echo $bobina->tipo_clasificacion?></td>
                         <td class="table__td"><?php echo $bobina->SINGLEFACE?></td>
                         <td class="table__td"><?php echo $bobina->EMPALME?></td>

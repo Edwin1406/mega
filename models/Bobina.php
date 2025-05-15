@@ -51,6 +51,7 @@ protected static $columnasDB = [
     public $DIFER_ANCHO;
     public $CAMBIO_GRAMAJE;
     public $EXTRA_TRIM;
+    public $COMSUMO;
     public $created_at;
    
 
