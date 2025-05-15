@@ -81,6 +81,7 @@ protected static $columnasDB = [
         $this->CAMBIO_GRAMAJE = $args['CAMBIO_GRAMAJE'] ?? '';
         $this->EXTRA_TRIM = $args['EXTRA_TRIM'] ?? '';
         $this->COMSUMO = $args['COMSUMO'] ?? '';
+        
         $this->created_at = $args['created_at'] ?? date('Y-m-d H:i:s');
         
     }
