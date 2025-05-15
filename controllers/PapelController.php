@@ -115,7 +115,7 @@ class PapelController
     $papel->EXTRA_TRIM;
 
 // Calcula el porcentaje
-$papel->full = ($papel->CONSUMO != 0) ? $papel->TOTAL / $papel->CONSUMO : 0;
+$papel->full = ($papel->CONSUMO != 0) ? $papel->TOTAL * $papel->CONSUMO : 0 / 100;
 
 // Para verificar
 debuguear($papel->full);
