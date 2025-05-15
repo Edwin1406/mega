@@ -113,11 +113,14 @@ class PapelController
                 $papel->DIFER_ANCHO +
                 $papel->CAMBIO_GRAMAJE +
                 $papel->EXTRA_TRIM +
-                $papel->CONSUMO;
+                
+                $papel->full= $papel->TOTAL / $papel->CONSUMO;
+
+                debuguear($papel->full);
 
 
 
-                debuguear($papel->TOTAL);
+                // debuguear($papel->TOTAL);
                 
             //  debuguear($papel);
                 $alertas = $papel->validar();
