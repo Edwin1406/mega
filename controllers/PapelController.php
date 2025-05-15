@@ -94,14 +94,31 @@ class PapelController
                 $papel->sincronizar($_POST);
                 // debuguear($papel);
 
-                //sumar los totales
-                // $papel->TOTAL = 
-                //     ($papel->SF ?: 0) + 
-                //     ($papel->LG ?: 0) + 
-                //     ($papel->ERRO ?: 0) + 
-                //     ($papel->HUN ?: 0) + 
-                //     ($papel->MDO ?: 0)+
-                //     ($papel->consumo_papel ?: 0);
+                //sumar los totales pero dependiendo de la clasificacion si es controlable solo se suman algunas columnas 
+                $papel->TOTAL =  
+                $papel->SINGLEFACE +
+                $papel->EMPALME +
+                $papel->RECUB +
+                $papel->MECANICO +
+                $papel->GALLET +
+                $papel->HUMEDO +
+                $papel->COMBADO +
+                $papel->DESPE +
+                $papel->ERROM +
+                $papel->DESHOJE +
+                $papel->CAMBIO_PEDIDO +
+                $papel->FILOS_ROTOS +
+                $papel->OTROS +
+                $papel->PEDIDOS_CORTOS +
+                $papel->DIFER_ANCHO +
+                $papel->CAMBIO_GRAMAJE +
+                $papel->EXTRA_TRIM +
+                $papel->CONSUMO;
+
+
+
+                debuguear($papel->TOTAL);
+                
             //  debuguear($papel);
                 $alertas = $papel->validar();
                 if(empty($alertas)){

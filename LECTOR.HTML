@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <title>Tabla de Desperdicio</title>
   <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
-   <style>
+  <style>
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background-color: #f4f6f8;
@@ -33,11 +33,11 @@
     .filtros input[type="date"] {
       padding: 5px;
       border-radius: 5px;
-      border: 1px solid #ccc;
+      border: 1px solid #d85a5a;
     }
 
     table.dataTable thead {
-      background-color: #2c3e50;
+      background-color: #5388bd;
       color: white;
     }
 
@@ -51,7 +51,7 @@
 
     table.dataTable tfoot th {
       font-weight: bold;
-      background-color: #f9f9f9;
+      background-color: #9b5050;
     }
 
     .dataTables_wrapper .dataTables_paginate .paginate_button {
@@ -64,7 +64,7 @@
     }
 
     .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
-      background: #3498db;
+      background: #358ac4;
       color: white !important;
     }
   </style>
@@ -85,15 +85,48 @@
   </div>
 
   <table id="tablaDesperdicio" class="display" style="width:100%">
-    <thead><tr></tr></thead>
-    <tfoot><tr></tr></tfoot>
+    <thead>
+      <tr>
+        <th rowspan="2">Tipo de máquina</th>
+        <th rowspan="2">Tipo de clasificación</th>
+        <th colspan="9" style="background-color:#9f5fa5 ;text-align: center">CONTROLABLE</th>
+        <th colspan="8" style="background-color:#4988a8  ;text-align: center;">NO CONTROLABLE</th>
+        <th rowspan="2">Fecha</th>
+      </tr>
+      <tr>
+        <th>Single Face</th>
+        <th>Empalme</th>
+        <th>Recub</th>
+        <th>Mecánico</th>
+        <th>Gallet</th>
+        <th>Húmedo</th>
+        <th>Combinado</th>
+        <th>Despe</th>
+        <th>Errom</th>
+        <th>Deshoje</th>
+        <th>Cambio de pedido</th>
+        <th>Filos rotos</th>
+        <th>Otros</th>
+        <th>Pedidos cortos</th>
+        <th>Difer ancho</th>
+        <th>Cambio de gramaje</th>
+        <th>Extra trim</th>
+      </tr>
+    </thead>
+    <tfoot>
+      <tr>
+        <th colspan="2">Totales:</th>
+        <th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th>
+        <th></th><th></th><th></th><th></th><th></th><th></th><th></th>
+        <th></th>
+      </tr>
+    </tfoot>
     <tbody></tbody>
   </table>
 
   <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
   <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-
-  <script>
+<script>
     const columnas = [
       { title: "Tipo de máquina", data: "tipo_maquina" },
       { title: "Tipo de clasificación", data: "tipo_clasificacion" },
@@ -117,18 +150,40 @@
       { title: "Fecha", data: "created_at" }
     ];
 
+    const columnasControlable = ["SINGLEFACE", "EMPALME", "RECUB", "MECANICO", "GALLET", "HUMEDO", "COMBADO", "DESPE", "ERROM", "DESHOJE"];
+    const columnasNoControlable = ["CAMBIO_PEDIDO", "FILOS_ROTOS", "OTROS", "PEDIDOS_CORTOS", "DIFER_ANCHO", "CAMBIO_GRAMAJE", "EXTRA_TRIM"];
+
     $(document).ready(function () {
+      let tabla;
       fetch('https://megawebsistem.com/admin/api/apidesperdiciopapel')
         .then(res => res.json())
-        .then(data => {
-          // Crear encabezado y pie de tabla
-          columnas.forEach(col => {
-            $('#tablaDesperdicio thead tr').append(`<th>${col.title}</th>`);
-            $('#tablaDesperdicio tfoot tr').append(`<th></th>`);
-          });
+        .then(dataOriginal => {
+          const aplicarFiltroYMostrar = () => {
+            const filtroMaquina = $('#filtroMaquina').val();
+            const filtroClasificacion = $('#filtroClasificacion').val();
+            const filtroFecha = $('#filtroFecha').val();
 
-          const tabla = $('#tablaDesperdicio').DataTable({
-            data: data,
+            let datosFiltrados = dataOriginal.filter(registro => {
+              return (!filtroMaquina || registro.tipo_maquina === filtroMaquina)
+                && (!filtroClasificacion || registro.tipo_clasificacion.includes(filtroClasificacion))
+                && (!filtroFecha || registro.created_at.includes(filtroFecha));
+            });
+
+            datosFiltrados = datosFiltrados.map(reg => {
+              const copia = { ...reg };
+              if (filtroClasificacion === "CONTROLABLE" && reg.tipo_clasificacion.includes("NO CONTROLABLE")) {
+                columnasNoControlable.forEach(col => copia[col] = "0.00");
+              } else if (filtroClasificacion === "NO CONTROLABLE" && reg.tipo_clasificacion.includes("CONTROLABLE")) {
+                columnasControlable.forEach(col => copia[col] = "0.00");
+              }
+              return copia;
+            });
+
+            tabla.clear().rows.add(datosFiltrados).draw();
+          };
+
+          tabla = $('#tablaDesperdicio').DataTable({
+            data: [],
             columns: columnas,
             footerCallback: function (row, data, start, end, display) {
               const api = this.api();
@@ -141,29 +196,21 @@
             }
           });
 
-          // Filtros dinámicos
-          const tiposMaquina = [...new Set(data.map(e => e.tipo_maquina.trim()))];
+          const tiposMaquina = [...new Set(dataOriginal.map(e => e.tipo_maquina.trim()))];
           tiposMaquina.forEach(tipo => {
             $('#filtroMaquina').append(`<option value="${tipo}">${tipo}</option>`);
           });
 
-          const tiposClasificacion = [...new Set(data.map(e => e.tipo_clasificacion.trim()))];
+          const tiposClasificacion = [...new Set(dataOriginal.flatMap(e => e.tipo_clasificacion.split(',').map(x => x.trim())))];
           tiposClasificacion.forEach(tipo => {
             $('#filtroClasificacion').append(`<option value="${tipo}">${tipo}</option>`);
           });
 
-          // Aplicar filtros
-          $('#filtroMaquina').on('change', function () {
-            tabla.column(0).search(this.value).draw();
-          });
+          $('#filtroMaquina').on('change', aplicarFiltroYMostrar);
+          $('#filtroClasificacion').on('change', aplicarFiltroYMostrar);
+          $('#filtroFecha').on('change', aplicarFiltroYMostrar);
 
-          $('#filtroClasificacion').on('change', function () {
-            tabla.column(1).search(this.value).draw();
-          });
-
-          $('#filtroFecha').on('change', function () {
-            tabla.column(19).search(this.value).draw();
-          });
+          aplicarFiltroYMostrar(); // inicial
         });
     });
   </script>
