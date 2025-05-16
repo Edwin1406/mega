@@ -5,6 +5,7 @@ namespace Controllers;
 use MVC\Router;
 use Model\Bobina;
 use Classes\Paginacion;
+use Model\Preprinter;
 
 class PapelController
 {
@@ -101,60 +102,129 @@ public static function tabla(Router $router)
 
 
 
-    public static function crear(Router $router)
-    {
-        $alertas = [];
-        $papel = new Bobina;
-        if($_SERVER['REQUEST_METHOD'] === 'POST'){
+    // public static function crear(Router $router)
+    // {
+    //     $alertas = [];
+    //     $papel = new Bobina;
+    //     if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
       
 
             
-            $papel->sincronizar($_POST);
-            $papel->tipo_clasificacion = $_POST['tipo_clasificacion'] ?? '';
+    //         $papel->sincronizar($_POST);
+    //         $papel->tipo_clasificacion = $_POST['tipo_clasificacion'] ?? '';
 
-            //sumar los totales pero dependiendo de la clasificacion si es controlable solo se suman algunas columnas
-       $papel->TOTAL =  
-        floatval($papel->SINGLEFACE) +
-        floatval($papel->EMPALME) +
-        floatval($papel->RECUB) +
-        floatval($papel->MECANICO) +
-        floatval($papel->GALLET) +
-        floatval($papel->HUMEDO) +
-        floatval($papel->COMBADO) +
-        floatval($papel->DESPE) +
-        floatval($papel->ERROM) +
-        floatval($papel->DESHOJE) +
-        floatval($papel->CAMBIO_PEDIDO) +
-        floatval($papel->FILOS_ROTOS) +
-        floatval($papel->OTROS) +
-        floatval($papel->PEDIDOS_CORTOS) +
-        floatval($papel->DIFER_ANCHO) +
-        floatval($papel->CAMBIO_GRAMAJE) +
-        floatval($papel->EXTRA_TRIM);
+    //         //sumar los totales pero dependiendo de la clasificacion si es controlable solo se suman algunas columnas
+    //    $papel->TOTAL =  
+    //     floatval($papel->SINGLEFACE) +
+    //     floatval($papel->EMPALME) +
+    //     floatval($papel->RECUB) +
+    //     floatval($papel->MECANICO) +
+    //     floatval($papel->GALLET) +
+    //     floatval($papel->HUMEDO) +
+    //     floatval($papel->COMBADO) +
+    //     floatval($papel->DESPE) +
+    //     floatval($papel->ERROM) +
+    //     floatval($papel->DESHOJE) +
+    //     floatval($papel->CAMBIO_PEDIDO) +
+    //     floatval($papel->FILOS_ROTOS) +
+    //     floatval($papel->OTROS) +
+    //     floatval($papel->PEDIDOS_CORTOS) +
+    //     floatval($papel->DIFER_ANCHO) +
+    //     floatval($papel->CAMBIO_GRAMAJE) +
+    //     floatval($papel->EXTRA_TRIM);
 
-            // Calcula el porcentaje
+    //         // Calcula el porcentaje
 
 
 
-            // debuguear($papel);
+    //         // debuguear($papel);
 
         
-            // validar
-            $alertas = $papel->validar();
-            if(empty($alertas)){
-                // guardar en la base de datos
-                $papel->guardar();
+    //         // validar
+    //         $alertas = $papel->validar();
+    //         if(empty($alertas)){
+    //             // guardar en la base de datos
+    //             $papel->guardar();
+    //             header('Location: /admin/produccion/papel/tabla');
+    //         }
+
+    //     }   
+
+    //     $router->render('admin/produccion/papel/crear', [
+    //         'titulo' => 'CREAR PAPEL',
+    //         'alertas' => $alertas
+    //     ]);
+    // }
+
+
+
+public static function crear(Router $router)
+{
+    $alertas = [];
+    $modelo = null;
+
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $tipo_maquina = $_POST['tipo_maquina'] ?? '';
+
+        // Seleccionar el modelo según el tipo de máquina
+        switch (strtoupper($tipo_maquina)) {
+            case 'CORRUGADOR':
+                $modelo = new Bobina;
+                break;
+
+            case 'PRE-PRINTER':
+                $modelo = new Preprinter;
+                break;
+
+            // Puedes seguir agregando más tipos si es necesario
+            default:
+                $alertas['error'][] = 'Tipo de máquina no reconocido.';
+                $modelo = null;
+        }
+
+        if ($modelo) {
+            $modelo->sincronizar($_POST);
+            $modelo->tipo_clasificacion = $_POST['tipo_clasificacion'] ?? '';
+
+            // Cálculo de total (puedes mover esto dentro del modelo si prefieres)
+            $modelo->TOTAL =  
+                floatval($modelo->SINGLEFACE) +
+                floatval($modelo->EMPALME) +
+                floatval($modelo->RECUB) +
+                floatval($modelo->MECANICO) +
+                floatval($modelo->GALLET) +
+                floatval($modelo->HUMEDO) +
+                floatval($modelo->COMBADO) +
+                floatval($modelo->DESPE) +
+                floatval($modelo->ERROM) +
+                floatval($modelo->DESHOJE) +
+                floatval($modelo->CAMBIO_PEDIDO) +
+                floatval($modelo->FILOS_ROTOS) +
+                floatval($modelo->OTROS) +
+                floatval($modelo->PEDIDOS_CORTOS) +
+                floatval($modelo->DIFER_ANCHO) +
+                floatval($modelo->CAMBIO_GRAMAJE) +
+                floatval($modelo->EXTRA_TRIM);
+
+            // Validar
+            $alertas = $modelo->validar();
+
+            if (empty($alertas)) {
+                $modelo->guardar();
                 header('Location: /admin/produccion/papel/tabla');
+                exit;
             }
-
-        }   
-
-        $router->render('admin/produccion/papel/crear', [
-            'titulo' => 'CREAR PAPEL',
-            'alertas' => $alertas
-        ]);
+        }
     }
+
+    $router->render('admin/produccion/papel/crear', [
+        'titulo' => 'CREAR PAPEL',
+        'alertas' => $alertas
+    ]);
+}
+
+
 
 
 
