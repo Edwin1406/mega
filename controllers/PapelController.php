@@ -14,6 +14,10 @@ class PapelController
 
            // PAGINACION DE MAQUINAS
 
+$total = Bobina::sumarColumna('SINGLEFACE');
+
+debuguear($total);
+
            $pagina_actual = $_GET['page'];
            $pagina_actual = filter_var($pagina_actual, FILTER_VALIDATE_INT);
            // debuguear($pagina_actual);

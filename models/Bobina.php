@@ -104,4 +104,15 @@ protected static $columnasDB = [
     }
 
 
+
+    public static function sumarColumna($columna)
+{
+    $columna = self::$db->real_escape_string($columna);
+    $query = "SELECT SUM($columna) AS total FROM " . static::$tabla;
+    $resultado = self::$db->query($query);
+    $fila = $resultado->fetch_assoc();
+    return (float) ($fila['total'] ?? 0);
+}
+
+
 }
