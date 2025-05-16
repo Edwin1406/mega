@@ -228,6 +228,17 @@
             value="<?php echo $papel->CONSUMO ?? '' ?>">
     </div>
 
+    <div class="formulario__campo">
+        <label class="formulario__label" for="TOTAL">TOTAL</label>
+        <input
+            type="number"
+            name="TOTAL"
+            id="TOTAL"
+            class="formulario__input"
+            placeholder="TOTAL"
+            value="<?php echo $papel->TOTAL ?? '' ?>">
+    </div>
+
 
 </fieldset>
 
