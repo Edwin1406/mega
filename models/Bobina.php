@@ -105,7 +105,48 @@ protected static $columnasDB = [
 
 
 
-public static function sumarTodasLasColumnas()
+// public static function sumarTodasLasColumnas()
+// {
+//     $columnas = [
+//         'SINGLEFACE', 'EMPALME', 'RECUB', 'MECANICO', 'GALLET',
+//         'HUMEDO', 'COMBADO', 'DESPE', 'ERROM', 'DESHOJE',
+//         'CAMBIO_PEDIDO', 'FILOS_ROTOS', 'OTROS', 'PEDIDOS_CORTOS',
+//         'DIFER_ANCHO', 'CAMBIO_GRAMAJE', 'EXTRA_TRIM',
+//         'CONSUMO', 'TOTAL', 'PORCENTAJE'
+//     ];
+
+//     $columnasEscapadas = array_map(fn($col) => "`" . self::$db->real_escape_string($col) . "`", $columnas);
+//     $query = "SELECT " . implode(", ", array_map(fn($col) => "SUM($col) AS $col", $columnasEscapadas)) . " FROM " . static::$tabla;
+
+//     $resultado = self::$db->query($query);
+//     return $resultado->fetch_assoc();
+// }
+
+
+public static function contarFiltradas($where)
+{
+    $query = "SELECT COUNT(*) AS total FROM " . static::$tabla . " $where";
+    $resultado = self::$db->query($query);
+    $fila = $resultado->fetch_assoc();
+    return (int) $fila['total'];
+}
+public static function filtrarPaginadas($where, $limit, $offset)
+{
+    $query = "SELECT * FROM " . static::$tabla . " $where ORDER BY fecha_corte DESC LIMIT $limit OFFSET $offset";
+    $resultado = self::$db->query($query);
+    return self::crearObjetos($resultado);
+}
+
+public static function crearObjetos($resultado)
+{
+    $bobinas = [];
+    while ($fila = $resultado->fetch_assoc()) {
+        $bobinas[] = new self($fila);
+    }
+    return $bobinas;
+}
+
+public static function sumarFiltradas($where)
 {
     $columnas = [
         'SINGLEFACE', 'EMPALME', 'RECUB', 'MECANICO', 'GALLET',
@@ -116,12 +157,11 @@ public static function sumarTodasLasColumnas()
     ];
 
     $columnasEscapadas = array_map(fn($col) => "`" . self::$db->real_escape_string($col) . "`", $columnas);
-    $query = "SELECT " . implode(", ", array_map(fn($col) => "SUM($col) AS $col", $columnasEscapadas)) . " FROM " . static::$tabla;
+    $query = "SELECT " . implode(", ", array_map(fn($col) => "SUM($col) AS $col", $columnasEscapadas)) . " FROM " . static::$tabla . " $where";
 
     $resultado = self::$db->query($query);
     return $resultado->fetch_assoc();
 }
-
 
 
 }
