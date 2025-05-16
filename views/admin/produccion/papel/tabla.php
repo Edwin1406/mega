@@ -38,6 +38,8 @@
                     <th scope="col" class="table__th">Cambio de gramaje</th>
                     <th scope="col" class="table__th">Extra trim</th>
                     <th scope="col" class="table__th">Consumo</th>
+                    <th scope="col" class="table__th">Total</th>
+                    <th scope="col" class="table__th">Porcentaje</th>
                     <th scope="col" class="table__th">Fecha</th>
                     <th scope="col" class="table__th">Acciones</th>
                 </tr>
@@ -65,6 +67,8 @@
                         <td class="table__td"><?php echo boldIfGreaterThanZero($bobina->CAMBIO_GRAMAJE) ?></td>
                         <td class="table__td"><?php echo boldIfGreaterThanZero($bobina->EXTRA_TRIM) ?></td>
                         <td class="table__td"><?php echo boldIfGreaterThanZero($bobina->CONSUMO) ?></td>
+                        <td class="table__td"><?php echo boldIfGreaterThanZero($bobina->TOTAL) ?></td>
+                        <td class="table__td"><?php echo boldIfGreaterThanZero($bobina->full) ?></td>
                         <td class="table__td"><?php echo $bobina->created_at ?></td>
                         <td class="table__td--acciones">
                             <a class="table__accion table__accion--editar" href="/admin/produccion/papel/editar?id=<?php echo $bobina->id; ?>">
