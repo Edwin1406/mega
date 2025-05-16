@@ -7,6 +7,30 @@
     </a>
 
 </div>
+
+
+
+
+<form method="GET" class="filtros" style="margin-bottom: 20px;">
+  <label>Mes inicio:
+    <input type="month" name="inicio" value="<?php echo $_GET['inicio'] ?? ''; ?>">
+  </label>
+
+  <label>Mes fin:
+    <input type="month" name="fin" value="<?php echo $_GET['fin'] ?? ''; ?>">
+  </label>
+
+  <label>Tipo:
+    <select name="tipo">
+      <option value="">Todos</option>
+      <option value="CONTROLABLE" <?php if(($_GET['tipo'] ?? '') == 'CONTROLABLE') echo 'selected'; ?>>CONTROLABLE</option>
+      <option value="NO CONTROLABLE" <?php if(($_GET['tipo'] ?? '') == 'NO CONTROLABLE') echo 'selected'; ?>>NO CONTROLABLE</option>
+    </select>
+  </label>
+
+  <button type="submit">Filtrar</button>
+</form>
+
 <div class="dashboard__contenedor">
     <?php if (!empty($bobinas)): ?>
 
