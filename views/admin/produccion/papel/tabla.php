@@ -11,7 +11,7 @@
     <?php if (!empty($bobinas)): ?>
 
         <?php 
-            function boldIfGreaterThanZero($value) {
+            function letranegrita($value) {
                 return $value > 0 ? '<strong>' . $value . '</strong>' : $value;
             }
         ?>
@@ -49,26 +49,26 @@
                 <?php foreach ($bobinas as $bobina): ?>
                     <tr class="table__tr">
                         <td class="table__td"><?php echo $bobina->tipo_clasificacion ?></td>
-                        <td class="table__td"><?php echo boldIfGreaterThanZero($bobina->SINGLEFACE) ?></td>
-                        <td class="table__td"><?php echo boldIfGreaterThanZero($bobina->EMPALME) ?></td>
-                        <td class="table__td"><?php echo boldIfGreaterThanZero($bobina->RECUB) ?></td>
-                        <td class="table__td"><?php echo boldIfGreaterThanZero($bobina->MECANICO) ?></td>
-                        <td class="table__td"><?php echo boldIfGreaterThanZero($bobina->GALLET) ?></td>
-                        <td class="table__td"><?php echo boldIfGreaterThanZero($bobina->HUMEDO) ?></td>
-                        <td class="table__td"><?php echo boldIfGreaterThanZero($bobina->COMBADO) ?></td>
-                        <td class="table__td"><?php echo boldIfGreaterThanZero($bobina->DESPE) ?></td>
-                        <td class="table__td"><?php echo boldIfGreaterThanZero($bobina->ERROM) ?></td>
-                        <td class="table__td"><?php echo boldIfGreaterThanZero($bobina->DESHOJE) ?></td>
-                        <td class="table__td"><?php echo boldIfGreaterThanZero($bobina->CAMBIO_PEDIDO) ?></td>
-                        <td class="table__td"><?php echo boldIfGreaterThanZero($bobina->FILOS_ROTOS) ?></td>
-                        <td class="table__td"><?php echo boldIfGreaterThanZero($bobina->OTROS) ?></td>
-                        <td class="table__td"><?php echo boldIfGreaterThanZero($bobina->PEDIDOS_CORTOS) ?></td>
-                        <td class="table__td"><?php echo boldIfGreaterThanZero($bobina->DIFER_ANCHO) ?></td>
-                        <td class="table__td"><?php echo boldIfGreaterThanZero($bobina->CAMBIO_GRAMAJE) ?></td>
-                        <td class="table__td"><?php echo boldIfGreaterThanZero($bobina->EXTRA_TRIM) ?></td>
-                        <td class="table__td"><?php echo boldIfGreaterThanZero($bobina->CONSUMO) ?></td>
-                        <td class="table__td"><?php echo boldIfGreaterThanZero($bobina->TOTAL) ?></td>
-                        <td class="table__td"><?php echo boldIfGreaterThanZero($bobina->full) ?></td>
+                        <td class="table__td"><?php echo letranegrita($bobina->SINGLEFACE) ?></td>
+                        <td class="table__td"><?php echo letranegrita($bobina->EMPALME) ?></td>
+                        <td class="table__td"><?php echo letranegrita($bobina->RECUB) ?></td>
+                        <td class="table__td"><?php echo letranegrita($bobina->MECANICO) ?></td>
+                        <td class="table__td"><?php echo letranegrita($bobina->GALLET) ?></td>
+                        <td class="table__td"><?php echo letranegrita($bobina->HUMEDO) ?></td>
+                        <td class="table__td"><?php echo letranegrita($bobina->COMBADO) ?></td>
+                        <td class="table__td"><?php echo letranegrita($bobina->DESPE) ?></td>
+                        <td class="table__td"><?php echo letranegrita($bobina->ERROM) ?></td>
+                        <td class="table__td"><?php echo letranegrita($bobina->DESHOJE) ?></td>
+                        <td class="table__td"><?php echo letranegrita($bobina->CAMBIO_PEDIDO) ?></td>
+                        <td class="table__td"><?php echo letranegrita($bobina->FILOS_ROTOS) ?></td>
+                        <td class="table__td"><?php echo letranegrita($bobina->OTROS) ?></td>
+                        <td class="table__td"><?php echo letranegrita($bobina->PEDIDOS_CORTOS) ?></td>
+                        <td class="table__td"><?php echo letranegrita($bobina->DIFER_ANCHO) ?></td>
+                        <td class="table__td"><?php echo letranegrita($bobina->CAMBIO_GRAMAJE) ?></td>
+                        <td class="table__td"><?php echo letranegrita($bobina->EXTRA_TRIM) ?></td>
+                        <td class="table__td"><?php echo letranegrita($bobina->CONSUMO) ?></td>
+                        <td class="table__td"><?php echo letranegrita($bobina->TOTAL) ?></td>
+                        <td class="table__td"><?php echo letranegrita($bobina->full) ?></td>
                         <td class="table__td"><?php echo $bobina->created_at ?></td>
                         <td class="table__td--acciones">
                             <a class="table__accion table__accion--editar" href="/admin/produccion/papel/editar?id=<?php echo $bobina->id; ?>">
