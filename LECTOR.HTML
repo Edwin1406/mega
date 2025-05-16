@@ -80,8 +80,12 @@
     <label for="filtroClasificacion">Filtrar por tipo de clasificación:</label>
     <select id="filtroClasificacion"><option value="">Todos</option></select>
 
-    <label for="filtroFecha">Filtrar por fecha:</label>
-    <input type="date" id="filtroFecha">
+   <label for="fechaInicio">Desde:</label>
+<input type="date" id="fechaInicio">
+
+<label for="fechaFin">Hasta:</label>
+<input type="date" id="fechaFin">
+
   </div>
 
   <table id="tablaDesperdicio" class="display" style="width:100%">
@@ -126,6 +130,8 @@
 
   <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
   <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 <script>
   const columnas = [
     { title: "Tipo de máquina", data: "tipo_maquina" },
@@ -150,52 +156,66 @@
     { title: "Fecha", data: "created_at" }
   ];
 
-  const columnasControlable = ["SINGLEFACE", "EMPALME", "RECUB", "MECANICO", "GALLET", "HUMEDO", "COMBADO", "DESPE", "ERROM"];
-  const columnasNoControlable = ["DESHOJE","CAMBIO_PEDIDO", "FILOS_ROTOS", "OTROS", "PEDIDOS_CORTOS", "DIFER_ANCHO", "CAMBIO_GRAMAJE", "EXTRA_TRIM"];
+  const columnasControlable = ["SINGLEFACE", "EMPALME", "RECUB", "MECANICO", "GALLET", "HUMEDO", "COMBADO", "DESPE", "ERROM", "DESHOJE"];
+  const columnasNoControlable = ["CAMBIO_PEDIDO", "FILOS_ROTOS", "OTROS", "PEDIDOS_CORTOS", "DIFER_ANCHO", "CAMBIO_GRAMAJE", "EXTRA_TRIM"];
+
+  let tabla;
 
   $(document).ready(function () {
-    let tabla;
     fetch('https://megawebsistem.com/admin/api/apidesperdiciopapel')
       .then(res => res.json())
       .then(dataOriginal => {
+
         const aplicarFiltroYMostrar = () => {
           const filtroMaquina = $('#filtroMaquina').val();
           const filtroClasificacion = $('#filtroClasificacion').val();
-          const filtroFecha = $('#filtroFecha').val();
+          const fechaInicio = $('#fechaInicio').val();
+          const fechaFin = $('#fechaFin').val();
 
           let datosFiltrados = dataOriginal.filter(registro => {
             const clasificaciones = registro.tipo_clasificacion.split(',').map(x => x.trim());
+
+            const cumpleFecha = () => {
+              const fechaRegistro = new Date(registro.created_at);
+              const inicio = fechaInicio ? new Date(fechaInicio) : null;
+              const fin = fechaFin ? new Date(fechaFin) : null;
+
+              fechaRegistro.setHours(0, 0, 0, 0);
+              if (inicio) inicio.setHours(0, 0, 0, 0);
+              if (fin) fin.setHours(0, 0, 0, 0);
+
+              return (!inicio || fechaRegistro >= inicio) && (!fin || fechaRegistro <= fin);
+            };
+
             return (!filtroMaquina || registro.tipo_maquina === filtroMaquina)
               && (!filtroClasificacion || clasificaciones.includes(filtroClasificacion))
-              && (!filtroFecha || registro.created_at.includes(filtroFecha));
+              && cumpleFecha();
           });
 
-         datosFiltrados = datosFiltrados.map(reg => {
-  const copia = { ...reg };
-  const clasificaciones = reg.tipo_clasificacion.split(',').map(x => x.trim());
+          // Resetear columnas no aplicables
+          datosFiltrados = datosFiltrados.map(reg => {
+            const copia = { ...reg };
+            const clasificaciones = reg.tipo_clasificacion.split(',').map(x => x.trim());
 
-  if (filtroClasificacion === "CONTROLABLE") {
-    // Si no tiene exactamente CONTROLABLE, anula columnas NO CONTROLABLE
-    if (!clasificaciones.includes("CONTROLABLE")) {
-      columnasControlable.forEach(col => copia[col] = "0.00");
-    }
-    // Siempre anula las no controlables si estoy filtrando controlables
-    columnasNoControlable.forEach(col => copia[col] = "0.00");
-  }
+            if (filtroClasificacion === "CONTROLABLE") {
+              if (!clasificaciones.includes("CONTROLABLE")) {
+                columnasControlable.forEach(col => copia[col] = "0.00");
+              }
+              columnasNoControlable.forEach(col => copia[col] = "0.00");
+            }
 
-  if (filtroClasificacion === "NO CONTROLABLE") {
-    if (!clasificaciones.includes("NO CONTROLABLE")) {
-      columnasNoControlable.forEach(col => copia[col] = "0.00");
-    }
-    // Siempre anula las controlables si estoy filtrando no controlables
-    columnasControlable.forEach(col => copia[col] = "0.00");
-  }
+            if (filtroClasificacion === "NO CONTROLABLE") {
+              if (!clasificaciones.includes("NO CONTROLABLE")) {
+                columnasNoControlable.forEach(col => copia[col] = "0.00");
+              }
+              columnasControlable.forEach(col => copia[col] = "0.00");
+            }
 
-  return copia;
-});
-
+            return copia;
+          });
 
           tabla.clear().rows.add(datosFiltrados).draw();
+          actualizarGraficos(datosFiltrados);
         };
 
         tabla = $('#tablaDesperdicio').DataTable({
@@ -224,12 +244,61 @@
 
         $('#filtroMaquina').on('change', aplicarFiltroYMostrar);
         $('#filtroClasificacion').on('change', aplicarFiltroYMostrar);
-        $('#filtroFecha').on('change', aplicarFiltroYMostrar);
+        $('#fechaInicio').on('change', aplicarFiltroYMostrar);
+        $('#fechaFin').on('change', aplicarFiltroYMostrar);
 
         aplicarFiltroYMostrar(); // inicial
       });
   });
+
+  function actualizarGraficos(data) {
+    const sumaColumnas = (cols) => {
+      return cols.map(col => {
+        return data.reduce((acc, fila) => acc + parseFloat(fila[col]), 0);
+      });
+    };
+
+    const totalesControlables = sumaColumnas(columnasControlable);
+    const totalesNoControlables = sumaColumnas(columnasNoControlable);
+
+    if (window.chartControlables) window.chartControlables.destroy();
+    if (window.chartNoControlables) window.chartNoControlables.destroy();
+
+    const colores = [
+      '#7cb342', '#f44336', '#2196f3', '#ff9800',
+      '#9c27b0', '#00acc1', '#cddc39', '#795548', '#e91e63', '#607d8b'
+    ];
+
+    window.chartControlables = new Chart(document.getElementById('graficoControlables'), {
+      type: 'pie',
+      data: {
+        labels: columnasControlable,
+        datasets: [{
+          data: totalesControlables,
+          backgroundColor: colores
+        }]
+      },
+      options: {
+        responsive: true
+      }
+    });
+
+    window.chartNoControlables = new Chart(document.getElementById('graficoNoControlables'), {
+      type: 'pie',
+      data: {
+        labels: columnasNoControlable,
+        datasets: [{
+          data: totalesNoControlables,
+          backgroundColor: colores
+        }]
+      },
+      options: {
+        responsive: true
+      }
+    });
+  }
 </script>
+
 
 </body>
 </html>

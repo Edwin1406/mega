@@ -28,6 +28,8 @@ protected static $columnasDB = [
     'CAMBIO_GRAMAJE',
     'EXTRA_TRIM',
     'CONSUMO',
+    'TOTAL',
+    'PORCENTAJE',
     'created_at'
 ];
 
@@ -53,6 +55,8 @@ protected static $columnasDB = [
     public $CAMBIO_GRAMAJE;
     public $EXTRA_TRIM;
     public $CONSUMO;
+    public $TOTAL;
+    public $PORCENTAJE;
     public $created_at;
    
 
@@ -81,7 +85,8 @@ protected static $columnasDB = [
         $this->CAMBIO_GRAMAJE = $args['CAMBIO_GRAMAJE'] ?? '';
         $this->EXTRA_TRIM = $args['EXTRA_TRIM'] ?? '';
         $this->CONSUMO = $args['CONSUMO'] ?? '';
-
+        $this->TOTAL = $args['TOTAL'] ?? '';
+        $this->PORCENTAJE = $args['PORCENTAJE'] ?? '';
         $this->created_at = $args['created_at'] ?? date('Y-m-d H:i:s');
         
     }
