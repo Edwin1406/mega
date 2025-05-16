@@ -17,33 +17,39 @@
         ?>
 
         <table class="table">
-            <thead class="table__thead">
-                <tr>
-                    <th scope="col" class="table__th">Tipo de clasificacion</th>
-                    <th scope="col" class="table__th">Single Face</th>
-                    <th scope="col" class="table__th">Empalme</th>
-                    <th scope="col" class="table__th">Recub</th>
-                    <th scope="col" class="table__th">Mecanico</th>
-                    <th scope="col" class="table__th">Gallet</th>
-                    <th scope="col" class="table__th">Humedo</th>
-                    <th scope="col" class="table__th">Combinado</th>
-                    <th scope="col" class="table__th">Despe</th>
-                    <th scope="col" class="table__th">Errom</th>
-                    <th scope="col" class="table__th">Deshoje</th>
-                    <th scope="col" class="table__th">Cambio de pedido</th>
-                    <th scope="col" class="table__th">Filos rotos</th>
-                    <th scope="col" class="table__th">Otros</th>
-                    <th scope="col" class="table__th">Pedidos cortos</th>
-                    <th scope="col" class="table__th">Difer ancho</th>
-                    <th scope="col" class="table__th">Cambio de gramaje</th>
-                    <th scope="col" class="table__th">Extra trim</th>
-                    <th scope="col" class="table__th">Consumo</th>
-                    <th scope="col" class="table__th">Total</th>
-                    <th scope="col" class="table__th">Porcentaje</th>
-                    <th scope="col" class="table__th">Fecha</th>
-                    <th scope="col" class="table__th">Acciones</th>
-                </tr>
-            </thead>
+        <thead class="table__thead">
+    <tr>
+        <th rowspan="2" class="table__th">Tipo de clasificación</th>
+        <th colspan="8" class="table__th" style="background-color: #a564a8; color: white;">CONTROLABLE</th>
+        <th colspan="9" class="table__th" style="background-color: #4a90e2; color: white;">NO CONTROLABLE</th>
+        <th rowspan="2" class="table__th">Consumo</th>
+        <th rowspan="2" class="table__th">Total</th>
+        <th rowspan="2" class="table__th">Porcentaje</th>
+        <th rowspan="2" class="table__th">Fecha</th>
+        <th rowspan="2" class="table__th">Acciones</th>
+    </tr>
+    <tr>
+        <th class="table__th">Single Face</th>
+        <th class="table__th">Empalme</th>
+        <th class="table__th">Recub</th>
+        <th class="table__th">Mecánico</th>
+        <th class="table__th">Gallet</th>
+        <th class="table__th">Húmedo</th>
+        <th class="table__th">Combinado</th>
+        <th class="table__th">Despe</th>
+
+        <th class="table__th">Errom</th>
+        <th class="table__th">Deshoje</th>
+        <th class="table__th">Cambio de pedido</th>
+        <th class="table__th">Filos rotos</th>
+        <th class="table__th">Otros</th>
+        <th class="table__th">Pedidos cortos</th>
+        <th class="table__th">Difer ancho</th>
+        <th class="table__th">Cambio de gramaje</th>
+        <th class="table__th">Extra trim</th>
+    </tr>
+</thead>
+
             <tbody class="table__tbody">
 
                 <?php foreach ($bobinas as $bobina): ?>
