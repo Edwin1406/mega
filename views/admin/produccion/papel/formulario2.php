@@ -23,7 +23,7 @@
             id="tipo_clasificacion"
             class="formulario__input"
             placeholder="tipo_clasificacion"
-            value="<?php echo $papel->tipo_clasificacion ?? '' ?>">
+            value="<?php echo $papel->tipo_clasificacion ?? '' ?>"disabled>
     </div>
 
 
@@ -36,7 +36,7 @@
             id="SINGLEFACE"
             class="formulario__input"
             placeholder="SINGLEFACE"
-            value="<?php echo $papel->SINGLEFACE ?? '' ?>">
+            value="<?php echo $papel->SINGLEFACE ?? '' ?>"disabled>
     </div>
 
     <div class="formulario__campo">
@@ -47,7 +47,7 @@
             id="EMPALME"
             class="formulario__input"
             placeholder="EMPALME"
-            value="<?php echo $papel->EMPALME ?? '' ?>">
+            value="<?php echo $papel->EMPALME ?? '' ?>"disabled>
     </div>
 
     <div class="formulario__campo">
@@ -58,7 +58,7 @@
             id="RECUB"
             class="formulario__input"
             placeholder="RECUB"
-            value="<?php echo $papel->RECUB ?? '' ?>">
+            value="<?php echo $papel->RECUB ?? '' ?>"disabled>
     </div>
 
     <div class="formulario__campo">
@@ -69,7 +69,7 @@
             id="MECANICO"
             class="formulario__input"
             placeholder="MECANICO"
-            value="<?php echo $papel->MECANICO ?? '' ?>">
+            value="<?php echo $papel->MECANICO ?? '' ?>"disabled>
     </div>
 
     <div class="formulario__campo">
@@ -80,7 +80,7 @@
             id="GALLET"
             class="formulario__input"
             placeholder="GALLET"
-            value="<?php echo $papel->GALLET ?? '' ?>">
+            value="<?php echo $papel->GALLET ?? '' ?>"disabled>
     </div>
     <div class="formulario__campo">
         <label class="formulario__label" for="HUMEDO">HUMEDO</label>
@@ -90,7 +90,7 @@
             id="HUMEDO"
             class="formulario__input"
             placeholder="HUMEDO"
-            value="<?php echo $papel->HUMEDO ?? '' ?>">
+            value="<?php echo $papel->HUMEDO ?? '' ?>"disabled>
     </div>
     <div class="formulario__campo">
         <label class="formulario__label" for="COMBADO">COMBADO</label>
@@ -100,7 +100,7 @@
             id="COMBADO"
             class="formulario__input"
             placeholder="COMBADO"
-            value="<?php echo $papel->COMBADO ?? '' ?>">
+            value="<?php echo $papel->COMBADO ?? '' ?>"disabled>
     </div>
 
     <div class="formulario__campo">
@@ -111,7 +111,7 @@
             id="DESPE"
             class="formulario__input"
             placeholder="DESPE"
-            value="<?php echo $papel->DESPE ?? '' ?>">
+            value="<?php echo $papel->DESPE ?? '' ?>"disabled>
     </div>
 
     <div class="formulario__campo">
@@ -122,7 +122,7 @@
             id="ERROM"
             class="formulario__input"
             placeholder="ERROM"
-            value="<?php echo $papel->ERROM ?? '' ?>">
+            value="<?php echo $papel->ERROM ?? '' ?>"disabled>
     </div>
 
 
@@ -135,7 +135,7 @@
             id="DESHOJE"
             class="formulario__input"
             placeholder="DESHOJE"
-            value="<?php echo $papel->DESHOJE ?? '' ?>">
+            value="<?php echo $papel->DESHOJE ?? '' ?>"disabled>
     </div>
     <div class="formulario__campo">
         <label class="formulario__label" for="CAMBIO_PEDIDO">CAMBIO PEDIDO</label>
@@ -145,7 +145,7 @@
             id="CAMBIO_PEDIDO"
             class="formulario__input"
             placeholder="CAMBIO_PEDIDO"
-            value="<?php echo $papel->CAMBIO_PEDIDO ?? '' ?>">
+            value="<?php echo $papel->CAMBIO_PEDIDO ?? '' ?>"disabled>
     </div>
     <div class="formulario__campo">
         <label class="formulario__label" for="FILOS_ROTOS">FILOS ROTOS</label>
@@ -155,7 +155,7 @@
             id="FILOS_ROTOS"
             class="formulario__input"
             placeholder="FILOS_ROTOS"
-            value="<?php echo $papel->FILOS_ROTOS ?? '' ?>">
+            value="<?php echo $papel->FILOS_ROTOS ?? '' ?>"disabled>
     </div>
 
     
@@ -168,7 +168,7 @@
             id="OTROS"
             class="formulario__input"
             placeholder="OTROS"
-            value="<?php echo $papel->OTROS ?? '' ?>">
+            value="<?php echo $papel->OTROS ?? '' ?>"disabled>
     </div>
 
     <div class="formulario__campo">
@@ -179,7 +179,7 @@
             id="PEDIDOS_CORTOS"
             class="formulario__input"
             placeholder="PEDIDOS_CORTOS"
-            value="<?php echo $papel->PEDIDOS_CORTOS ?? '' ?>">
+            value="<?php echo $papel->PEDIDOS_CORTOS ?? '' ?>"disabled>
     </div>
 
     <div class="formulario__campo">
@@ -190,7 +190,7 @@
             id="DIFER_ANCHO"
             class="formulario__input"
             placeholder="DIFER_ANCHO"
-            value="<?php echo $papel->DIFER_ANCHO ?? '' ?>">
+            value="<?php echo $papel->DIFER_ANCHO ?? '' ?>"disabled>
     </div>
 
     <div class="formulario__campo">
@@ -201,7 +201,7 @@
             id="CAMBIO_GRAMAJE"
             class="formulario__input"
             placeholder="CAMBIO_GRAMAJE"
-            value="<?php echo $papel->CAMBIO_GRAMAJE ?? '' ?>">
+            value="<?php echo $papel->CAMBIO_GRAMAJE ?? '' ?>"disabled>
     </div>
 
     <div class="formulario__campo">
@@ -212,7 +212,7 @@
             id="EXTRA_TRIM"
             class="formulario__input"
             placeholder="EXTRA_TRIM"
-            value="<?php echo $papel->EXTRA_TRIM ?? '' ?>">
+            value="<?php echo $papel->EXTRA_TRIM ?? '' ?>" disabled>
     </div>
 
 <!-- PRE PRINTER   CONTROLABLE  -->
