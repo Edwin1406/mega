@@ -110,17 +110,11 @@ public static function tabla(Router $router)
 
     $condiciones = [];
 
-    if ($inicio) {
-        $condiciones[] = "created_at >= '" . self::$db->real_escape_string($inicio) . "'";
-    }
+    Bobina::escapar($inicio);
+    Bobina::escapar($fin);
+    Bobina::escapar($tipo);
 
-    if ($fin) {
-        $condiciones[] = "created_at <= '" . self::$db->real_escape_string($fin) . "'";
-    }
-
-    if ($tipo) {
-        $condiciones[] = "tipo_clasificacion = '" . self::$db->real_escape_string($tipo) . "'";
-    }
+   
 
     $where = !empty($condiciones) ? "WHERE " . implode(" AND ", $condiciones) : "";
 

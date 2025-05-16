@@ -164,4 +164,10 @@ public static function sumarFiltradas($where)
 }
 
 
+public static function escapar($valor) {
+    return self::$db->real_escape_string($valor);
+}
+
+
+
 }
