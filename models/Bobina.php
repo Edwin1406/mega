@@ -105,14 +105,21 @@ protected static $columnasDB = [
 
 
 
-    public static function sumarColumna($columna)
+public static function sumarColumna($columna, $clasificacion = null)
 {
     $columna = self::$db->real_escape_string($columna);
     $query = "SELECT SUM($columna) AS total FROM " . static::$tabla;
+
+    if ($clasificacion !== null) {
+        $clasificacion = self::$db->real_escape_string($clasificacion);
+        $query .= " WHERE tipo_clasificacion = '$clasificacion'";
+    }
+
     $resultado = self::$db->query($query);
     $fila = $resultado->fetch_assoc();
     return (float) ($fila['total'] ?? 0);
 }
+
 
 
 }

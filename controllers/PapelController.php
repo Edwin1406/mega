@@ -78,7 +78,7 @@ public static function tabla(Router $router)
     }
 
     $pagina_por_registros = 10;
-    $total = Bobina::total();
+    $total = Bobina::sumarColumna($columnas);
     $paginacion = new Paginacion($pagina_actual, $pagina_por_registros, $total);
 
     if ($paginacion->total_paginas() < $pagina_actual) {
