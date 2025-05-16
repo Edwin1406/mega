@@ -291,8 +291,8 @@
 <script>
     const camposPorMaquinaYClasificacion = {
         'PREPRINTER': {
-            'a': ['HOLA'], // CONTROLABLE
-            'b': ['MDO'],  // NO CONTROLABLE
+            'a': ['hola'], // CONTROLABLE
+            'b': ['mdo'],  // NO CONTROLABLE
         },
         'CORRUGADOR': {
             'a': ['SINGLEFACE','EMPALME', 'RECUB', 'MECANICO','GALLET', 'HUMEDO', 'COMBADO', 'DESPE', 'ERROM'],
