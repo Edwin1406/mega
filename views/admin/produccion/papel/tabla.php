@@ -89,7 +89,7 @@
 
             </tbody>
            <tfoot>
-  <tr style="background-color: #f5f5f5; font-weight: bold;">
+  <tr style="background-color: #f5f5f5; font-weight: bold;  text-align: center;">
     <th>Totales:</th>
     <?php 
       $columnas = [
