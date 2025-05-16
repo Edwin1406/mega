@@ -93,7 +93,7 @@
     <th>Totales:</th>
     <?php 
       // Del total1 al total22 (las 22 columnas de datos)
-      for ($i = 2; $i <= 22; $i++): 
+      for ($i = 3; $i <= 22; $i++): 
           $var = 'totales' . $i;
     ?>
       <td><?php echo isset($$var) ? letranegrita($$var) : '0'; ?></td>
