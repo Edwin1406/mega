@@ -130,6 +130,7 @@ public static function contarFiltradas($where)
     $fila = $resultado->fetch_assoc();
     return (int) $fila['total'];
 }
+
 public static function filtrarPaginadas($where, $limit, $offset)
 {
     $query = "SELECT * FROM " . static::$tabla . " $where ORDER BY created_at DESC LIMIT $limit OFFSET $offset";
@@ -146,22 +147,21 @@ public static function crearObjetos($resultado)
     return $bobinas;
 }
 
+
 public static function sumarFiltradas($where)
 {
-    $columnas = [
+     $columnas = [
         'SINGLEFACE', 'EMPALME', 'RECUB', 'MECANICO', 'GALLET',
         'HUMEDO', 'COMBADO', 'DESPE', 'ERROM', 'DESHOJE',
         'CAMBIO_PEDIDO', 'FILOS_ROTOS', 'OTROS', 'PEDIDOS_CORTOS',
         'DIFER_ANCHO', 'CAMBIO_GRAMAJE', 'EXTRA_TRIM',
         'CONSUMO', 'TOTAL', 'PORCENTAJE'
     ];
-
-    $columnasEscapadas = array_map(fn($col) => "`" . self::$db->real_escape_string($col) . "`", $columnas);
-    $query = "SELECT " . implode(", ", array_map(fn($col) => "SUM($col) AS $col", $columnasEscapadas)) . " FROM " . static::$tabla . " $where";
-
+    $query = "SELECT " . implode(", ", array_map(fn($col) => "SUM($col) AS $col", $columnas)) . " FROM " . static::$tabla . " $where";
     $resultado = self::$db->query($query);
     return $resultado->fetch_assoc();
 }
+
 
 
 public static function escapar($valor) {
