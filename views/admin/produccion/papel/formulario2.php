@@ -236,7 +236,7 @@
             id="TOTAL"
             class="formulario__input"
             placeholder="TOTAL"
-            value="<?php echo $papel->TOTAL ?? '' ?>">
+            value="<?php echo $papel->TOTAL ?? '' ?>" disabled>
     </div>
 
 
