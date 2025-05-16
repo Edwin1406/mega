@@ -9,63 +9,108 @@ use Classes\Paginacion;
 class PapelController
 {
    
-    public static function tabla(Router $router)
-    {
+//     public static function tabla(Router $router)
+//     {
 
-           // PAGINACION DE MAQUINAS
+//            // PAGINACION DE MAQUINAS
 
-$total = Bobina::sumarColumna('SINGLEFACE');
+// $total = Bobina::sumarColumna('SINGLEFACE');
 
-// debuguear($total);
+// // debuguear($total);
 
-           $pagina_actual = $_GET['page'];
-           $pagina_actual = filter_var($pagina_actual, FILTER_VALIDATE_INT);
-           // debuguear($pagina_actual);
+//            $pagina_actual = $_GET['page'];
+//            $pagina_actual = filter_var($pagina_actual, FILTER_VALIDATE_INT);
+//            // debuguear($pagina_actual);
 
-           if(!$pagina_actual|| $pagina_actual <1){
-               header('Location: /admin/produccion/papel/tabla?page=1');
-               exit;
-           }
+//            if(!$pagina_actual|| $pagina_actual <1){
+//                header('Location: /admin/produccion/papel/tabla?page=1');
+//                exit;
+//            }
            
-           $pagina_por_registros = 10;
-           $total = Bobina:: total();
-           $paginacion = new Paginacion($pagina_actual, $pagina_por_registros, $total);
-           if($paginacion->total_paginas() < $pagina_actual){
-               header('Location: /admin/produccion/papel/tabla?page=1');
-           }
+//            $pagina_por_registros = 10;
+//            $total = Bobina:: total();
+//            $paginacion = new Paginacion($pagina_actual, $pagina_por_registros, $total);
+//            if($paginacion->total_paginas() < $pagina_actual){
+//                header('Location: /admin/produccion/papel/tabla?page=1');
+//            }
        
-           $bobinas = Bobina::paginar($pagina_por_registros, $paginacion->offset());
+//            $bobinas = Bobina::paginar($pagina_por_registros, $paginacion->offset());
 
-        // debuguear($papel);
-        $router->render('admin/produccion/papel/tabla', [
-            'titulo' => 'TABLA DE PAPEL',
-            'bobinas' => $bobinas,
-            'paginacion' => $paginacion->paginacion(),
-            'totales' => Bobina::sumarColumna('SINGLEFACE'),
-            'totales2' => Bobina::sumarColumna('EMPALME'),
-            'totales3' => Bobina::sumarColumna('RECUB'),
-            'totales4' => Bobina::sumarColumna('MECANICO'),
-            'totales5' => Bobina::sumarColumna('GALLET'),
-            'totales6' => Bobina::sumarColumna('HUMEDO'),
-            'totales7' => Bobina::sumarColumna('COMBADO'),
-            'totales8' => Bobina::sumarColumna('DESPE'),
-            'totales9' => Bobina::sumarColumna('ERROM'),
-            'totales10' => Bobina::sumarColumna('DESHOJE'),
-            'totales11' => Bobina::sumarColumna('CAMBIO_PEDIDO'),
-            'totales12' => Bobina::sumarColumna('FILOS_ROTOS'),
-            'totales13' => Bobina::sumarColumna('OTROS'),
-            'totales14' => Bobina::sumarColumna('PEDIDOS_CORTOS'),
-            'totales15' => Bobina::sumarColumna('DIFER_ANCHO'),
-            'totales16' => Bobina::sumarColumna('CAMBIO_GRAMAJE'),
-            'totales17' => Bobina::sumarColumna('EXTRA_TRIM'),
-            'totales18' => Bobina::sumarColumna('CONSUMO'),
-            'totales19' => Bobina::sumarColumna('TOTAL'),
-            'totales20' => Bobina::sumarColumna('PORCENTAJE'),
+//         // debuguear($papel);
+//         $router->render('admin/produccion/papel/tabla', [
+//             'titulo' => 'TABLA DE PAPEL',
+//             'bobinas' => $bobinas,
+//             'paginacion' => $paginacion->paginacion(),
+//             'totales' => Bobina::sumarColumna('SINGLEFACE'),
+//             'totales2' => Bobina::sumarColumna('EMPALME'),
+//             'totales3' => Bobina::sumarColumna('RECUB'),
+//             'totales4' => Bobina::sumarColumna('MECANICO'),
+//             'totales5' => Bobina::sumarColumna('GALLET'),
+//             'totales6' => Bobina::sumarColumna('HUMEDO'),
+//             'totales7' => Bobina::sumarColumna('COMBADO'),
+//             'totales8' => Bobina::sumarColumna('DESPE'),
+//             'totales9' => Bobina::sumarColumna('ERROM'),
+//             'totales10' => Bobina::sumarColumna('DESHOJE'),
+//             'totales11' => Bobina::sumarColumna('CAMBIO_PEDIDO'),
+//             'totales12' => Bobina::sumarColumna('FILOS_ROTOS'),
+//             'totales13' => Bobina::sumarColumna('OTROS'),
+//             'totales14' => Bobina::sumarColumna('PEDIDOS_CORTOS'),
+//             'totales15' => Bobina::sumarColumna('DIFER_ANCHO'),
+//             'totales16' => Bobina::sumarColumna('CAMBIO_GRAMAJE'),
+//             'totales17' => Bobina::sumarColumna('EXTRA_TRIM'),
+//             'totales18' => Bobina::sumarColumna('CONSUMO'),
+//             'totales19' => Bobina::sumarColumna('TOTAL'),
+//             'totales20' => Bobina::sumarColumna('PORCENTAJE'),
             
-        ]);
+//         ]);
+//     }
+
+
+public static function tabla(Router $router)
+{
+    // Paginación
+    $pagina_actual = $_GET['page'];
+    $pagina_actual = filter_var($pagina_actual, FILTER_VALIDATE_INT);
+
+    if (!$pagina_actual || $pagina_actual < 1) {
+        header('Location: /admin/produccion/papel/tabla?page=1');
+        exit;
     }
 
+    $pagina_por_registros = 10;
+    $total = Bobina::total();
+    $paginacion = new Paginacion($pagina_actual, $pagina_por_registros, $total);
 
+    if ($paginacion->total_paginas() < $pagina_actual) {
+        header('Location: /admin/produccion/papel/tabla?page=1');
+        exit;
+    }
+
+    $bobinas = Bobina::paginar($pagina_por_registros, $paginacion->offset());
+
+    // Totales de columnas
+    $columnas = [
+        'SINGLEFACE', 'EMPALME', 'RECUB', 'MECANICO', 'GALLET',
+        'HUMEDO', 'COMBADO', 'DESPE', 'ERROM', 'DESHOJE',
+        'CAMBIO_PEDIDO', 'FILOS_ROTOS', 'OTROS', 'PEDIDOS_CORTOS',
+        'DIFER_ANCHO', 'CAMBIO_GRAMAJE', 'EXTRA_TRIM',
+        'CONSUMO', 'TOTAL', 'PORCENTAJE'
+    ];
+
+    $totales = [];
+
+    foreach ($columnas as $index => $columna) {
+        $totales['totales' . ($index + 1)] = Bobina::sumarColumna($columna);
+    }
+
+    // Renderizado
+    $router->render('admin/produccion/papel/tabla', [
+        'titulo' => 'TABLA DE PAPEL',
+        'bobinas' => $bobinas,
+        'paginacion' => $paginacion->paginacion(),
+        'totales' => $totales
+    ]);
+}
 
 
 
