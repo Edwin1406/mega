@@ -188,25 +188,9 @@ public static function crear(Router $router)
             $modelo->tipo_clasificacion = $_POST['tipo_clasificacion'] ?? '';
 
             // Cálculo de total (puedes mover esto dentro del modelo si prefieres)
-            $modelo->TOTAL =  
-                floatval($modelo->SINGLEFACE) +
-                floatval($modelo->EMPALME) +
-                floatval($modelo->RECUB) +
-                floatval($modelo->MECANICO) +
-                floatval($modelo->GALLET) +
-                floatval($modelo->HUMEDO) +
-                floatval($modelo->COMBADO) +
-                floatval($modelo->DESPE) +
-                floatval($modelo->ERROM) +
-                floatval($modelo->DESHOJE) +
-                floatval($modelo->CAMBIO_PEDIDO) +
-                floatval($modelo->FILOS_ROTOS) +
-                floatval($modelo->OTROS) +
-                floatval($modelo->PEDIDOS_CORTOS) +
-                floatval($modelo->DIFER_ANCHO) +
-                floatval($modelo->CAMBIO_GRAMAJE) +
-                floatval($modelo->EXTRA_TRIM);
 
+            $modelo->calcularTotal();
+            
             // Validar
             $alertas = $modelo->validar();
 

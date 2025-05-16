@@ -12,6 +12,7 @@ protected static $columnasDB = [
     'tipo_clasificacion',
     'hola',
     'mdo',
+    'TOTAL'
   
 ];
 
@@ -21,6 +22,7 @@ protected static $columnasDB = [
     public $tipo_clasificacion;
     public $hola;
     public $mdo;
+    public $TOTAL;
 
     
    
@@ -34,6 +36,7 @@ protected static $columnasDB = [
         $this->tipo_clasificacion = $args['tipo_clasificacion'] ?? '';
         $this->hola = $args['hola'] ?? '';
         $this->mdo = $args['mdo'] ?? '';
+        $this->TOTAL = $args['TOTAL'] ?? '';
      
         
     }
@@ -50,6 +53,13 @@ protected static $columnasDB = [
         return self::$alertas;
     }
 
+public function calcularTotal()
+{
+    $this->TOTAL =  
+        floatval($this->hola) +
+        floatval($this->mdo);
+        
+}
 
 
 

@@ -124,4 +124,30 @@ public static function sumarTodasLasColumnas()
 
 
 
+
+public function calcularTotal()
+{
+    $this->TOTAL =  
+        floatval($this->SINGLEFACE) +
+        floatval($this->EMPALME) +
+        floatval($this->RECUB) +
+        floatval($this->MECANICO) +
+        floatval($this->GALLET) +
+        floatval($this->HUMEDO) +
+        floatval($this->COMBADO) +
+        floatval($this->DESPE) +
+        floatval($this->ERROM) +
+        floatval($this->DESHOJE) +
+        floatval($this->CAMBIO_PEDIDO) +
+        floatval($this->FILOS_ROTOS) +
+        floatval($this->OTROS) +
+        floatval($this->PEDIDOS_CORTOS) +
+        floatval($this->DIFER_ANCHO) +
+        floatval($this->CAMBIO_GRAMAJE) +
+        floatval($this->EXTRA_TRIM);
+}
+
+
+
+
 }
