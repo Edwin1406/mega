@@ -40,9 +40,37 @@ $total = Bobina::sumarColumna('SINGLEFACE');
         $router->render('admin/produccion/papel/tabla', [
             'titulo' => 'TABLA DE PAPEL',
             'bobinas' => $bobinas,
-            'paginacion' => $paginacion->paginacion()
+            'paginacion' => $paginacion->paginacion(),
+            'totales' => Bobina::sumarColumna('SINGLEFACE'),
+            'totales2' => Bobina::sumarColumna('EMPALME'),
+            'totales3' => Bobina::sumarColumna('RECUB'),
+            'totales4' => Bobina::sumarColumna('MECANICO'),
+            'totales5' => Bobina::sumarColumna('GALLET'),
+            'totales6' => Bobina::sumarColumna('HUMEDO'),
+            'totales7' => Bobina::sumarColumna('COMBADO'),
+            'totales8' => Bobina::sumarColumna('DESPE'),
+            'totales9' => Bobina::sumarColumna('ERROM'),
+            'totales10' => Bobina::sumarColumna('DESHOJE'),
+            'totales11' => Bobina::sumarColumna('CAMBIO_PEDIDO'),
+            'totales12' => Bobina::sumarColumna('FILOS_ROTOS'),
+            'totales13' => Bobina::sumarColumna('OTROS'),
+            'totales14' => Bobina::sumarColumna('PEDIDOS_CORTOS'),
+            'totales15' => Bobina::sumarColumna('DIFER_ANCHO'),
+            'totales16' => Bobina::sumarColumna('CAMBIO_GRAMAJE'),
+            'totales17' => Bobina::sumarColumna('EXTRA_TRIM'),
+            'totales18' => Bobina::sumarColumna('CONSUMO'),
+            'totales19' => Bobina::sumarColumna('TOTAL'),
+            'totales20' => Bobina::sumarColumna('PORCENTAJE'),
+            
         ]);
     }
+
+
+
+
+
+
+
 
     public static function crear(Router $router)
     {

@@ -91,12 +91,28 @@
               <tfoot>
       <tr>
         <th colspan="2">Totales:</th>
-        <th><?php echo letranegrita($totales->SINGLEFACE) ?></th>
-        <th><?php echo letranegrita($totales->EMPALME) ?></th>
-        <th><?php echo letranegrita($totales->RECUB) ?></th>
-        <th><?php echo letranegrita($totales->MECANICO) ?></th>
-        <th><?php echo letranegrita($totales->GALLET) ?></th>
-        <th><?php echo letranegrita($totales->HUMEDO) ?></th>
+        <th><?php echo letranegrita($totales) ?></th>
+        <?php echo letranegrita($totales1) ?></td>
+        <td><?php echo letranegrita($totales2) ?></td>
+        <td><?php echo letranegrita($totales3) ?></td>
+        <td><?php echo letranegrita($totales4) ?></td>
+        <td><?php echo letranegrita($totales5) ?></td>
+        <td><?php echo letranegrita($totales6) ?></td>
+        <td><?php echo letranegrita($totales7) ?></td>
+        <td><?php echo letranegrita($totales8) ?></td>
+        <td><?php echo letranegrita($totales9) ?></td>
+        <td><?php echo letranegrita($totales10) ?></td>
+        <td><?php echo letranegrita($totales11) ?></td>
+        <td><?php echo letranegrita($totales12) ?></td>
+        <td><?php echo letranegrita($totales13) ?></td>
+        <td><?php echo letranegrita($totales14) ?></td>
+        <td><?php echo letranegrita($totales15) ?></td>
+        <td><?php echo letranegrita($totales16) ?></td>
+        <td><?php echo letranegrita($totales17) ?></td>
+        <td><?php echo letranegrita($totales18) ?></td>
+        <td><?php echo letranegrita($totales19) ?></td>
+        <td><?php echo letranegrita($totales20) ?></td>
+        <td colspan="2"></td>
       </tr>
     </tfoot>
         </table>
