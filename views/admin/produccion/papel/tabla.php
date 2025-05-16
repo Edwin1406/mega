@@ -92,7 +92,6 @@
       <tr>
         <th colspan="2">Totales:</th>
         <th><?php echo letranegrita($totales) ?></th>
-        <?php echo letranegrita($totales1) ?></td>
         <td><?php echo letranegrita($totales2) ?></td>
         <td><?php echo letranegrita($totales3) ?></td>
         <td><?php echo letranegrita($totales4) ?></td>
