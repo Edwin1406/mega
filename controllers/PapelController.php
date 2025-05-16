@@ -5,6 +5,7 @@ namespace Controllers;
 use MVC\Router;
 use Model\Bobina;
 use Classes\Paginacion;
+use Model\Computadora;
 use Model\Preprinter;
 
 class PapelController
@@ -284,8 +285,15 @@ public static function crear(Router $router)
             header('Content-Type: application/json');
             header('Access-Control-Allow-Origin: *');
             header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE');
-            $papel = Bobina::all();
+            // $papel = Bobina::all();
+            // echo json_encode($papel);
+
+            $papel = Computadora::all();
             echo json_encode($papel);
+
+
+
+
         }
 
 
