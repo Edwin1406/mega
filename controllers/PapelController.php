@@ -66,77 +66,36 @@ class PapelController
 //     }
 
 
-// public static function tabla(Router $router)
-// {
-//     $pagina_actual = $_GET['page'];
-//     $pagina_actual = filter_var($pagina_actual, FILTER_VALIDATE_INT);
-
-//     if (!$pagina_actual || $pagina_actual < 1) {
-//         header('Location: /admin/produccion/papel/tabla?page=1');
-//         exit;
-//     }
-
-//     $pagina_por_registros = 10;
-//     $total = Bobina::total();
-//     $paginacion = new Paginacion($pagina_actual, $pagina_por_registros, $total);
-
-//     if ($paginacion->total_paginas() < $pagina_actual) {
-//         header('Location: /admin/produccion/papel/tabla?page=1');
-//         exit;
-//     }
-
-//     $bobinas = Bobina::paginar($pagina_por_registros, $paginacion->offset());
-//     $totales = Bobina::sumarTodasLasColumnas();
-
-//     $router->render('admin/produccion/papel/tabla', [
-//         'titulo' => 'TABLA DE PAPEL',
-//         'bobinas' => $bobinas,
-//         'paginacion' => $paginacion->paginacion(),
-//         'totales' => $totales
-//     ]);
-// }
-
 public static function tabla(Router $router)
 {
-    $pagina_actual = $_GET['page'] ?? 1;
-    $pagina_actual = filter_var($pagina_actual, FILTER_VALIDATE_INT) ?: 1;
+    $pagina_actual = $_GET['page'];
+    $pagina_actual = filter_var($pagina_actual, FILTER_VALIDATE_INT);
+
+    if (!$pagina_actual || $pagina_actual < 1) {
+        header('Location: /admin/produccion/papel/tabla?page=1');
+        exit;
+    }
 
     $pagina_por_registros = 10;
-
-    // FILTROS
-    $inicio = $_GET['inicio'] ?? null;
-    $fin = $_GET['fin'] ?? null;
-    $tipo = $_GET['tipo'] ?? null;
-
-    $condiciones = [];
-
-    Bobina::escapar($inicio);
-    Bobina::escapar($fin);
-    Bobina::escapar($tipo);
-
-   
-
-    $where = !empty($condiciones) ? "WHERE " . implode(" AND ", $condiciones) : "";
-
-    $total = Bobina::contarFiltradas($where);
+    $total = Bobina::total();
     $paginacion = new Paginacion($pagina_actual, $pagina_por_registros, $total);
 
-    $offset = $paginacion->offset();
+    if ($paginacion->total_paginas() < $pagina_actual) {
+        header('Location: /admin/produccion/papel/tabla?page=1');
+        exit;
+    }
 
-    $bobinas = Bobina::filtrarPaginadas($where, $pagina_por_registros, $offset);
-    $totales = Bobina::sumarFiltradas($where);
+    $bobinas = Bobina::paginar($pagina_por_registros, $paginacion->offset());
+    $totales = Bobina::sumarTodasLasColumnas();
 
     $router->render('admin/produccion/papel/tabla', [
         'titulo' => 'TABLA DE PAPEL',
         'bobinas' => $bobinas,
-        'paginacion' => $paginacion->paginacion([
-            'inicio' => $inicio,
-            'fin' => $fin,
-            'tipo' => $tipo
-        ]),
+        'paginacion' => $paginacion->paginacion(),
         'totales' => $totales
     ]);
 }
+
 
 
 
