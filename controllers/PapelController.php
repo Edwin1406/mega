@@ -116,31 +116,11 @@ class PapelController
                 $papel->sincronizar($_POST);
                 // debuguear($papel);
 
-                //sumar los totales pero dependiendo de la clasificacion si es controlable solo se suman algunas columnas 
-            $papel->TOTAL =  
-            $papel->SINGLEFACE +
-            $papel->EMPALME +
-            $papel->RECUB +
-            $papel->MECANICO +
-            $papel->GALLET +
-            $papel->HUMEDO +
-            $papel->COMBADO +
-            $papel->DESPE +
-            $papel->ERROM +
-            $papel->DESHOJE +
-            $papel->CAMBIO_PEDIDO +
-            $papel->FILOS_ROTOS +
-            $papel->OTROS +
-            $papel->PEDIDOS_CORTOS +
-            $papel->DIFER_ANCHO +
-            $papel->CAMBIO_GRAMAJE +
-            $papel->EXTRA_TRIM;
-
-// Calcula el porcentaje
-$papel->full = ($papel->CONSUMO != 0) ? $papel->TOTAL * $papel->CONSUMO : 0;
+                $papel->PORCENTAJE=($papel->TOTAL / $papel->CONSUMO) * 100; 
+          
 
 // Para verificar
-debuguear($papel->full);
+debuguear($papel);
 
 
                 // debuguear($papel->TOTAL);
