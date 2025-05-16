@@ -87,7 +87,7 @@ protected static $columnasDB = [
         $this->CONSUMO = $args['CONSUMO'] ?? '';
         $this->TOTAL = $args['TOTAL'] ?? '';
         $this->PORCENTAJE = $args['PORCENTAJE'] ?? '';
-        $this->created_at = $args['created_at'] ?? date('Y-m-d H:i:s');
+        $this->created_at = $args['created_at'] ?? date('Y-m-d');
         
     }
 
