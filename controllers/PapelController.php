@@ -173,7 +173,7 @@ public static function crear(Router $router)
                 $modelo = new Bobina;
                 break;
 
-            case 'PRE-PRINTER':
+            case 'PREPRINTER':
                 $modelo = new Preprinter;
                 break;
 
