@@ -116,7 +116,7 @@ class PapelController
                 $papel->sincronizar($_POST);
                 // debuguear($papel);
 
-                $papel->PORCENTAJE=($papel->TOTAL / $papel->CONSUMO) * 100; 
+                $papel->PORCENTAJE=($papel->TOTAL* $papel->CONSUMO) / 100; 
           
 
 // Para verificar
