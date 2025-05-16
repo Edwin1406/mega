@@ -132,7 +132,7 @@ public static function contarFiltradas($where)
 }
 public static function filtrarPaginadas($where, $limit, $offset)
 {
-    $query = "SELECT * FROM " . static::$tabla . " $where ORDER BY fecha_corte DESC LIMIT $limit OFFSET $offset";
+    $query = "SELECT * FROM " . static::$tabla . " $where ORDER BY created_at DESC LIMIT $limit OFFSET $offset";
     $resultado = self::$db->query($query);
     return self::crearObjetos($resultado);
 }
