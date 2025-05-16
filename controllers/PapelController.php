@@ -111,11 +111,11 @@ public static function tabla(Router $router)
     $condiciones = [];
 
     if ($inicio) {
-        $condiciones[] = "fecha_corte >= '" . self::$db->real_escape_string($inicio) . "'";
+        $condiciones[] = "created_at >= '" . self::$db->real_escape_string($inicio) . "'";
     }
 
     if ($fin) {
-        $condiciones[] = "fecha_corte <= '" . self::$db->real_escape_string($fin) . "'";
+        $condiciones[] = "created_at <= '" . self::$db->real_escape_string($fin) . "'";
     }
 
     if ($tipo) {
