@@ -100,7 +100,7 @@ public static function tabla(Router $router)
     $totales = [];
 
     foreach ($columnas as $index => $columna) {
-        $totales['totales' . ($index + 1)] = Bobina::sumarColumna($columna);
+        $totales['totales' . ($index + 1)] = Bobina::sumarTodasLasColumnas($columna);
     }
 
     // Renderizado
