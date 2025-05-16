@@ -259,26 +259,26 @@
 <!-- PRE PRINTER   CONTROLABLE  -->
 
     <div class="formulario__campo">
-        <label class="formulario__label" for="HOLA">HOLA</label>
+        <label class="formulario__label" for="hola">HOLA</label>
         <input
             type="number"
-            name="HOLA"
-            id="HOLA"
+            name="hola"
+            id="hola"
             class="formulario__input"
-            placeholder="HOLA"
-            value="<?php echo $papel->HOLA ?? '' ?>">
+            placeholder="hola"
+            value="<?php echo $papel->hola ?? '' ?>">
     </div>
 
     <!-- PRE PRINTER   NO CONTROLABLE  -->
     <div class="formulario__campo">
-        <label class="formulario__label" for="MDO">MDO</label>
+        <label class="formulario__label" for="mdo">MDO</label>
         <input
             type="number"
-            name="MDO"
-            id="MDO"
+            name="mdo"
+            id="mdo"
             class="formulario__input"
-            placeholder="MDO"
-            value="<?php echo $papel->MDO ?? '' ?>">
+            placeholder="mdo"
+            value="<?php echo $papel->mdo ?? '' ?>">
     </div>
 
 
