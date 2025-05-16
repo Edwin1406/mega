@@ -120,7 +120,7 @@ class PapelController
           
 
 // Para verificar
-debuguear($papel);
+// debuguear($papel);
 
 
                 // debuguear($papel->TOTAL);
