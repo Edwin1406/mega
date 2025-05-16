@@ -11,13 +11,13 @@
 
 
 
-<form method="GET" class="filtros" style="margin-bottom: 20px;">
-  <label>Mes inicio:
-    <input type="month" name="inicio" value="<?php echo $_GET['inicio'] ?? ''; ?>">
+<form method="GET" class="filtros" style="margin-bottom: 20px; display: flex; gap: 20px;">
+  <label>Fecha inicio:
+    <input type="date" name="inicio" value="<?php echo $_GET['inicio'] ?? ''; ?>">
   </label>
 
-  <label>Mes fin:
-    <input type="month" name="fin" value="<?php echo $_GET['fin'] ?? ''; ?>">
+  <label>Fecha fin:
+    <input type="date" name="fin" value="<?php echo $_GET['fin'] ?? ''; ?>">
   </label>
 
   <label>Tipo:
