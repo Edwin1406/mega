@@ -53,24 +53,25 @@ class PapelController
             $papel->tipo_clasificacion = $_POST['tipo_clasificacion'] ?? '';
 
             //sumar los totales pero dependiendo de la clasificacion si es controlable solo se suman algunas columnas
-            $papel->TOTAL =
-            $papel->SINGLEFACE +
-            $papel->EMPALME +
-            $papel->RECUB +
-            $papel->MECANICO +
-            $papel->GALLET +
-            $papel->HUMEDO +
-            $papel->COMBADO +
-            $papel->DESPE +
-            $papel->ERROM +
-            $papel->DESHOJE +
-            $papel->CAMBIO_PEDIDO +
-            $papel->FILOS_ROTOS +
-            $papel->OTROS +
-            $papel->PEDIDOS_CORTOS +
-            $papel->DIFER_ANCHO +
-            $papel->CAMBIO_GRAMAJE +
-            $papel->EXTRA_TRIM;
+       $papel->TOTAL =  
+        floatval($papel->SINGLEFACE) +
+        floatval($papel->EMPALME) +
+        floatval($papel->RECUB) +
+        floatval($papel->MECANICO) +
+        floatval($papel->GALLET) +
+        floatval($papel->HUMEDO) +
+        floatval($papel->COMBADO) +
+        floatval($papel->DESPE) +
+        floatval($papel->ERROM) +
+        floatval($papel->DESHOJE) +
+        floatval($papel->CAMBIO_PEDIDO) +
+        floatval($papel->FILOS_ROTOS) +
+        floatval($papel->OTROS) +
+        floatval($papel->PEDIDOS_CORTOS) +
+        floatval($papel->DIFER_ANCHO) +
+        floatval($papel->CAMBIO_GRAMAJE) +
+        floatval($papel->EXTRA_TRIM);
+
             // Calcula el porcentaje
 
 
