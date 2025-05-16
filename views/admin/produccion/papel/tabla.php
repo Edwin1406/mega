@@ -88,19 +88,26 @@
                 <?php endforeach; ?>
 
             </tbody>
-            <tfoot>
-  <tr style="background-color: #f9f9f9; font-weight: bold;">
+           <tfoot>
+  <tr style="background-color: #f5f5f5; font-weight: bold;">
     <th>Totales:</th>
     <?php 
-      // Del total1 al total22 (las 22 columnas de datos)
-      for ($i = 3; $i <= 22; $i++): 
-          $var = 'totales' . $i;
+      $columnas = [
+          'SINGLEFACE', 'EMPALME', 'RECUB', 'MECANICO', 'GALLET',
+          'HUMEDO', 'COMBADO', 'DESPE', 'ERROM', 'DESHOJE',
+          'CAMBIO_PEDIDO', 'FILOS_ROTOS', 'OTROS', 'PEDIDOS_CORTOS',
+          'DIFER_ANCHO', 'CAMBIO_GRAMAJE', 'EXTRA_TRIM',
+          'CONSUMO', 'TOTAL', 'PORCENTAJE'
+      ];
+
+      foreach ($columnas as $col) {
+          echo '<td>' . letranegrita(number_format($totales[$col], 2)) . '</td>';
+      }
     ?>
-      <td><?php echo isset($$var) ? letranegrita($$var) : '0'; ?></td>
-    <?php endfor; ?>
     <td></td> <!-- Acciones -->
   </tr>
 </tfoot>
+
 
         </table>
 

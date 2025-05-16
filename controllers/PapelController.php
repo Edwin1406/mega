@@ -68,7 +68,6 @@ class PapelController
 
 public static function tabla(Router $router)
 {
-    // Paginación
     $pagina_actual = $_GET['page'];
     $pagina_actual = filter_var($pagina_actual, FILTER_VALIDATE_INT);
 
@@ -87,23 +86,8 @@ public static function tabla(Router $router)
     }
 
     $bobinas = Bobina::paginar($pagina_por_registros, $paginacion->offset());
+    $totales = Bobina::sumarTodasLasColumnas();
 
-    // Totales de columnas
-    $columnas = [
-        'SINGLEFACE', 'EMPALME', 'RECUB', 'MECANICO', 'GALLET',
-        'HUMEDO', 'COMBADO', 'DESPE', 'ERROM', 'DESHOJE',
-        'CAMBIO_PEDIDO', 'FILOS_ROTOS', 'OTROS', 'PEDIDOS_CORTOS',
-        'DIFER_ANCHO', 'CAMBIO_GRAMAJE', 'EXTRA_TRIM',
-        'CONSUMO', 'TOTAL', 'PORCENTAJE'
-    ];
-
-    $totales = [];
-
-    foreach ($columnas as $index => $columna) {
-        $totales['totales' . ($index + 1)] = Bobina::sumarTodasLasColumnas($columna);
-    }
-
-    // Renderizado
     $router->render('admin/produccion/papel/tabla', [
         'titulo' => 'TABLA DE PAPEL',
         'bobinas' => $bobinas,
