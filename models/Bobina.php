@@ -105,19 +105,21 @@ protected static $columnasDB = [
 
 
 
-public static function sumarColumna($columna, $clasificacion = null)
+public static function sumarTodasLasColumnas()
 {
-    $columna = self::$db->real_escape_string($columna);
-    $query = "SELECT SUM($columna) AS total FROM " . static::$tabla;
+    $columnas = [
+        'SINGLEFACE', 'EMPALME', 'RECUB', 'MECANICO', 'GALLET',
+        'HUMEDO', 'COMBADO', 'DESPE', 'ERROM', 'DESHOJE',
+        'CAMBIO_PEDIDO', 'FILOS_ROTOS', 'OTROS', 'PEDIDOS_CORTOS',
+        'DIFER_ANCHO', 'CAMBIO_GRAMAJE', 'EXTRA_TRIM',
+        'CONSUMO', 'TOTAL', 'PORCENTAJE'
+    ];
 
-    if ($clasificacion !== null) {
-        $clasificacion = self::$db->real_escape_string($clasificacion);
-        $query .= " WHERE tipo_clasificacion = '$clasificacion'";
-    }
+    $columnasEscapadas = array_map(fn($col) => "`" . self::$db->real_escape_string($col) . "`", $columnas);
+    $query = "SELECT " . implode(", ", array_map(fn($col) => "SUM($col) AS $col", $columnasEscapadas)) . " FROM " . static::$tabla;
 
     $resultado = self::$db->query($query);
-    $fila = $resultado->fetch_assoc();
-    return (float) ($fila['total'] ?? 0);
+    return $resultado->fetch_assoc();
 }
 
 
