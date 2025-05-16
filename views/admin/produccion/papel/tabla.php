@@ -91,9 +91,12 @@
               <tfoot>
       <tr>
         <th colspan="2">Totales:</th>
-        <th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th>
-        <th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th>
-        <th></th>
+        <th><?php echo letranegrita($totales->SINGLEFACE) ?></th>
+        <th><?php echo letranegrita($totales->EMPALME) ?></th>
+        <th><?php echo letranegrita($totales->RECUB) ?></th>
+        <th><?php echo letranegrita($totales->MECANICO) ?></th>
+        <th><?php echo letranegrita($totales->GALLET) ?></th>
+        <th><?php echo letranegrita($totales->HUMEDO) ?></th>
       </tr>
     </tfoot>
         </table>
