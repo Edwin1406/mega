@@ -111,7 +111,9 @@
         <td><?php echo letranegrita($totales18) ?></td>
         <td><?php echo letranegrita($totales19) ?></td>
         <td><?php echo letranegrita($totales20) ?></td>
+        <td></td>
         <td colspan="2"></td>
+
       </tr>
     </tfoot>
         </table>
