@@ -57,8 +57,6 @@
                     <option value="<?= htmlspecialchars($desc) ?>"
                         <?= $desc === $descripcionSeleccionada ? 'selected' : '' ?>>
                         <?= $desc ?>
-
-                        <?= htmlspecialchars($desc) ?></option>
                 <?php endforeach; ?>
             </select>
 
