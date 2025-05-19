@@ -167,7 +167,7 @@ public static function crear(Router $router)
     }
 
     $router->render('admin/comercial/crear', [
-        'titulo' => 'GENERAR ORDEN DE COMPRA',
+        'titulo' => 'GENERAR QUEJAS',
         'alertas' => $alertas,
         'clientes' => $clientes,
         'facturas' => $facturas,
