@@ -66,6 +66,13 @@
                 readonly>
         </div>
 
+<script>
+document.querySelectorAll('input[name="descripcion_producto[]"]').forEach(function(checkbox) {
+  checkbox.addEventListener('change', function() {
+    this.form.submit();
+  });
+});
+</script>
 
 
 
