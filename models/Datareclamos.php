@@ -69,15 +69,15 @@ public static function descripcionesPorClienteFactura($cliente, $factura)
 }
 
 
-public static function fechaPorClienteFactura($cliente, $factura)
+public static function fechaPorClienteDescripcion($cliente, $descripcion)
 {
     $cliente = self::$db->real_escape_string($cliente);
-    $factura = self::$db->real_escape_string($factura);
+    $descripcion = self::$db->real_escape_string($descripcion);
 
     $sql = "SELECT emision 
             FROM " . static::$tabla . " 
             WHERE cliente = '{$cliente}' 
-              AND numero = '{$factura}' 
+              AND descripcion = '{$descripcion}' 
             LIMIT 1";
 
     $resultado = self::consultarSQL($sql);

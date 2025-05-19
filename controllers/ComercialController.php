@@ -61,12 +61,12 @@ public static function crear(Router $router)
         $descripciones = Datareclamos::descripcionesPorClienteFactura($clienteSeleccionado, $facturaSeleccionada);
     }
 
+$descripcionSeleccionada = $_POST['descripcion'] ?? '';
+$fechaFactura = '';
 
-    $fechaFactura = '';
-
-    if ($clienteSeleccionado && $facturaSeleccionada) {
-        $fechaFactura = Datareclamos::fechaPorClienteFactura($clienteSeleccionado, $facturaSeleccionada);
-    }
+if ($clienteSeleccionado && $descripcionSeleccionada) {
+    $fechaFactura = Datareclamos::fechaPorClienteDescripcion($clienteSeleccionado, $descripcionSeleccionada);
+}
 
 
 

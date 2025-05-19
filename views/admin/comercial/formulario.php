@@ -62,17 +62,16 @@
 
 
 
-    <div class="formulario__campo">
-    <label class="formulario__label" for="fecha_factura">fecha_factura</label>
-    <input
-        type="text"
-        name="fecha_factura"
-        id="fecha_factura"
-        class="formulario__input"
-        placeholder="Nombre de la fecha_factura"
-        value="<?= htmlspecialchars($fechaFactura ?? '') ?>">
-</div>
-
+<input
+    type="text"
+    name="fecha_factura"
+    id="fecha_factura"
+    class="formulario__input"
+    placeholder="Nombre de la fecha_factura"
+    value="<?= htmlspecialchars($fechaFactura ?? '') ?>"
+    readonly
+>
+                    
 
 
 
