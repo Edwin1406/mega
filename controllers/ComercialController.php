@@ -56,6 +56,8 @@ public static function crear(Router $router)
 
     // Paso 4: Si se selecciona una factura, obtener la descripción
     $descripcionSeleccionada = $_POST['descripcion'] ?? '';
+
+    $descripcion = [];
     if ($clienteSeleccionado && $descripcionSeleccionada) {
         $facturas = Datareclamos::facturasPorClienteDescripcion($clienteSeleccionado, $descripcionSeleccionada);
     }
@@ -82,6 +84,7 @@ public static function crear(Router $router)
         'facturas' => $facturas,
         'clienteSeleccionado' => $clienteSeleccionado,
         'descripcionSeleccionada' => $descripcionSeleccionada,
+        'descripcion' => $descripcion
     ]);
 }
 

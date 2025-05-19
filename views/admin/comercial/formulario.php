@@ -52,8 +52,8 @@
         <label class="formulario__label" for="descripcion">descripcion</label>
         <select name="descripcion" class="formulario__input">
             <option value="">-- Seleccione descripcion --</option>
-            <?php foreach ($facturas as $factura): ?>
-                <option value="<?= $factura ?>"><?= $factura ?></option>
+            <?php foreach ($descripcion as $descrip): ?>
+                <option value="<?= $descrip ?>"><?= $descrip ?></option>
             <?php endforeach; ?>
         </select>
     </div>
