@@ -48,17 +48,14 @@
     </div>
 
     
-    <div class="formulario__campo">
-        <label class="formulario__label" for="descripcion">descripcion</label>
-        <select name="descripcion" class="formulario__input">
-            <option value="">-- Seleccione descripcion --</option>
-            <?php foreach ($descripciones as $descripcion): ?>
-                <option value="<?= $descripcion ?>"><?= $descripcion ?></option>
-            <?php endforeach; ?>
-        </select>
-    </div>
-
+   
     
+<select name="descripcion">
+    <option value="">-- Seleccione descripción --</option>
+    <?php foreach ($descripciones as $desc): ?>
+        <option value="<?= htmlspecialchars($desc) ?>"><?= htmlspecialchars($desc) ?></option>
+    <?php endforeach; ?>
+</select>
 
 
 
