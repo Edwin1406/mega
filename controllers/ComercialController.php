@@ -82,7 +82,7 @@ public static function crear(Router $router)
         'clientes' => $clientes,
         'facturas' => $facturas,
         'clienteSeleccionado' => $clienteSeleccionado,
-        'descripcionSeleccionada' => $descripcionSeleccionada,
+        'facturaSeleccionada' => $facturaSeleccionada,
         'descripciones' => $descripciones
     ]);
 }
