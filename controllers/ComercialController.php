@@ -85,7 +85,7 @@ if ($clienteSeleccionado && !empty($descripcionSeleccionada)) {
         $data['descripcion_producto'] = $desc;
         $nuevo->sincronizar($data);
 
-        // debuguear($nuevo);
+        debuguear($nuevo);
 
         $alertas = $nuevo->validar();
         if (empty($alertas)) {
