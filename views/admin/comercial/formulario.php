@@ -36,16 +36,15 @@
 
 
 
-     <div class="formulario__campo">
-                <label class="formulario__label" for="factura">factura</label>
-
 <select name="factura" class="formulario__input" onchange="this.form.submit()">
-            <option value="">-- Seleccione factura --</option>
-            <?php foreach ($facturas as $factura): ?>
-                <option value="<?= $factura ?>"><?= $factura ?></option>
-            <?php endforeach; ?>
-        </select>
-    </div>
+    <option value="">-- Seleccione factura --</option>
+    <?php foreach ($facturas as $factura): ?>
+        <option value="<?= $factura ?>" 
+            <?= $factura === $facturaSeleccionada ? 'selected' : '' ?>>
+            <?= $factura ?>
+        </option>
+    <?php endforeach; ?>
+</select>
 
     
    
