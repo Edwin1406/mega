@@ -297,6 +297,18 @@ public static function crear(Router $router)
         }
 
 
+        public static function graficos(Router $router)
+        {
+            
+            
+            $router->render('admin/produccion/papel/graficos', [
+                'titulo' => 'GRAFICOS',
+            ]);
+
+
+        }
+
+
 
 
 

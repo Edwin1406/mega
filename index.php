@@ -291,6 +291,10 @@ $router->get('/admin/produccion/materia/corrugador/cartonera/combinacion', [Cart
 $router->get('/admin/api/apipapel', [CartoneraController::class, 'apipapel']);
 
 
+// VER PAPEL Y ESTADISTICAS
+
+$router->get('/admin/produccion/papel/graficos', [CartoneraController::class, 'graficos']);
+
 
 
 
