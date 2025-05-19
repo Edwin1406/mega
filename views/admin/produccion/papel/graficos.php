@@ -9,7 +9,7 @@
 
  <style>
  table.dataTable {
-  width: 50% !important; /* Asegura que no se desborde */
+  width: 110% !important; /* Asegura que no se desborde */
   overflow-x: auto;       /* Evita que se rompa el diseño */
   display: block;         /* Necesario para aplicar scroll */
 }
