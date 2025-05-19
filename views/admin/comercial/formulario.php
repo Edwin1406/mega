@@ -11,19 +11,8 @@
             value="<?php echo $comercial->responsable_reporte ?? '' ?>">
     </div>
 
-    <!-- option de clientes  -->
-    <!-- <div class="formulario__campo">
-        <label class="formulario__label" for="cliente">cliente</label>
-        <select name="cliente" id="cliente" class="formulario__input">
-            <option value="" disabled selected>-- Seleccione --</option>
-            <?php foreach ($clientes as $cliente) : ?>
-                <option <?php echo $cliente->cliente === $cliente->id ? 'selected' : ''; ?> value="<?php echo $cliente->id; ?>"><?php echo $cliente->cliente; ?></option>
-            <?php endforeach; ?>
-        </select>
-    </div>
-     -->
 
-    <form method="POST">
+
         <select name="cliente" onchange="this.form.submit()" class="formulario__input">
             <option value="">-- Seleccione --</option>
             <?php foreach ($clientes as $cliente): ?>
