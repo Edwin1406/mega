@@ -1,7 +1,7 @@
 <fieldset class="formulario__fieldset">
     <legend class="formulario__legend">RELCAMOS Y QUEJAS </legend>
     <div class="formulario__campo">
-        <label class="formulario__label" for="responsable_reporte">responsable</label>
+        <label class="formulario__label" for="responsable_reporte">Responsable</label>
         <input
             type="text"
             name="responsable_reporte"
@@ -24,6 +24,8 @@
      -->
 
     <form method="POST">
+                <label class="formulario__label" for="cliente">Cliente</label>
+
         <select name="cliente" onchange="this.form.submit()" class="formulario__input">
             <option value="">-- Seleccione --</option>
             <?php foreach ($clientes as $cliente): ?>
@@ -36,6 +38,8 @@
 
 
         <div class="formulario__campo">
+                            <label class="formulario__label" for="numero">N. Factura</label>
+
             <select name="factura" class="formulario__input" onchange="this.form.submit()">
                 <option value="">-- Seleccione factura --</option>
                 <?php foreach ($facturas as $factura): ?>
@@ -50,6 +54,7 @@
 
 
         <div class="formulario__campo">
+                <label class="formulario__label" for="descripcion">Descripcion</label>
 
             <select name="descripcion" onchange="this.form.submit()" class="formulario__input">
                 <option value="">-- Seleccione descripción --</option>
@@ -63,6 +68,7 @@
         </div>
 
         <div class="formulario__campo">
+                <label class="formulario__label" for="fecha_factura">Fecha Factura</label>
 
             <input
                 type="text"
