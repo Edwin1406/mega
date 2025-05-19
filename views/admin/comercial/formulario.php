@@ -57,7 +57,7 @@
         <div class="formulario__campo">
             <label class="formulario__label" for="fecha_factura">Fecha Factura</label>
             <input
-                type="text"
+                type="date"
                 name="fecha_factura"
                 id="fecha_factura"
                 class="formulario__input"
@@ -67,6 +67,13 @@
         </div>
 
 
+<script>
+  document.querySelectorAll('input[name="descripcion_producto[]"]').forEach(function(checkbox) {
+    checkbox.addEventListener('change', function() {
+      this.form.submit();
+    });
+  });
+</script>
 
 
 
