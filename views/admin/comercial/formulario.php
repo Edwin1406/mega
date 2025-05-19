@@ -36,15 +36,6 @@
 
 
 
-     <div class="formulario__campo">
-        <select name="factura" class="formulario__input">
-            <option value="">-- Seleccione factura --</option>
-            <?php foreach ($facturas as $factura): ?>
-                <option value="<?= $factura ?>"><?= $factura ?></option>
-            <?php endforeach; ?>
-        </select>
-    </div>
-
 
      <div class="formulario__campo">
         <label class="formulario__label" for="per_reporta_reclamo">per_reporta_reclamo</label>
@@ -57,16 +48,19 @@
             value="<?php echo $comercial->per_reporta_reclamo ?? '' ?>">
     </div>
 
-    <div class="formulario__campo">
-        <label class="formulario__label" for="factura">factura</label>
-        <input
-            type="text"
-            name="factura"
-            id="trafacturader"
-            class="formulario__input"
-            placeholder="Nombre del factura"
-            value="<?php echo $comercial->factura ?? '' ?>">
+    
+     <div class="formulario__campo">
+                <label class="formulario__label" for="factura">factura</label>
+
+        <select name="factura" class="formulario__input">
+            <option value="">-- Seleccione factura --</option>
+            <?php foreach ($facturas as $factura): ?>
+                <option value="<?= $factura ?>"><?= $factura ?></option>
+            <?php endforeach; ?>
+        </select>
     </div>
+
+
 
     <div class="formulario__campo">
         <label class="formulario__label" for="fecha_factura">fecha_factura</label>
