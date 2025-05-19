@@ -1,185 +1,94 @@
 <fieldset class="formulario__fieldset">
     <legend class="formulario__legend">Ingresar la información de la orden de compra  </legend>
     <div class="formulario__campo">
-        <label class="formulario__label" for="import">Import</label>
+        <label class="formulario__label" for="responsable_reporte">responsable</label>
         <input
             type="text"
-            name="import"
-            id="import"
+            name="responsable_reporte"
+            id="responsable_reporte"
             class="formulario__input"
-            placeholder="Número de Import"
-            value="<?php echo $comercial->import ?? '' ?>">
+            placeholder="responsable_reporte"
+            value="<?php echo $comercial->responsable_reporte ?? '' ?>">
     </div>
 
-    <!-- <div class="formulario__campo">
-        <label class="formulario__label" for="proyecto">Proyecto</label>
+
+    <div class="formulario__campo">
+        <label class="formulario__label" for="cliente">cliente</label>
         <input
             type="text"
-            name="proyecto"
-            id="proyecto"
+            name="cliente"
+            id="cliente"
             class="formulario__input"
-            placeholder="Número de Proyecto"
-            value="<?php echo $comercial->proyecto ?? '' ?>">
-    </div> -->
+            placeholder="Nombre del Cliente"
+            value="<?php echo $comercial->cliente ?? '' ?>">
+    </div>
 
     <div class="formulario__campo">
-        <label class="formulario__label" for="pedido_interno">Pedido Interno</label>
+        <label class="formulario__label" for="per_reporta_reclamo">per_reporta_reclamo</label>
         <input
             type="text"
-            name="pedido_interno"
-            id="pedido_interno"
-            class="formulario__input"
-            placeholder="Número de Pedido Interno"
-            value="<?php echo $comercial->pedido_interno ?? '' ?>">
+            name="per_reporta_reclamo"
+            id="per_reporta_reclamo"
+            class="per_reporta_reclamo"
+            placeholder="per_reporta_reclamo"
+            value="<?php echo $comercial->per_reporta_reclamo ?? '' ?>">
     </div>
 
-    <!-- <div class="formulario__campo">
-        <label class="formulario__label" for="fecha_solicitud">Fecha Solicitud</label>
-        <input
-            type="date"
-            name="fecha_solicitud"
-            id="fecha_solicitud"
-            class="formulario__input"
-            value="<?php echo $comercial->fecha_solicitud ?? '' ?>">
-    </div> -->
-
     <div class="formulario__campo">
-        <label class="formulario__label" for="puerto_destino">Puerto Destino</label>
+        <label class="formulario__label" for="factura">factura</label>
         <input
             type="text"
-            name="puerto_destino"
-            id="puerto_destino"
+            name="factura"
+            id="trafacturader"
             class="formulario__input"
-            placeholder="Puerto de Destino"
-            value="<?php echo $comercial->puerto_destino ?? '' ?>">
+            placeholder="Nombre del factura"
+            value="<?php echo $comercial->factura ?? '' ?>">
     </div>
 
     <div class="formulario__campo">
-        <label class="formulario__label" for="trader">Trader</label>
+        <label class="formulario__label" for="fecha_factura">fecha_factura</label>
         <input
             type="text"
-            name="trader"
-            id="trader"
+            name="fecha_factura"
+            id="fecha_factura"
             class="formulario__input"
-            placeholder="Nombre del Trader"
-            value="<?php echo $comercial->trader ?? '' ?>">
+            placeholder="Nombre de la fecha_factura"
+            value="<?php echo $comercial->fecha_factura ?? '' ?>">
     </div>
 
     <div class="formulario__campo">
-        <label class="formulario__label" for="marca">Marca</label>
+        <label class="formulario__label" for="descripcion_producto">descripcion_producto</label>
         <input
             type="text"
-            name="marca"
-            id="marca"
+            name="descripcion_producto"
+            id="descripcion_producto"
             class="formulario__input"
-            placeholder="Nombre de la Marca"
-            value="<?php echo $comercial->marca ?? '' ?>">
+            placeholder="Nombre de la descripcion_producto"
+            value="<?php echo $comercial->descripcion_producto ?? '' ?>">
     </div>
 
+
     <div class="formulario__campo">
-        <label class="formulario__label" for="linea">Linea</label>
+        <label class="formulario__label" for="motivo_reclamo">motivo_reclamo</label>
         <input
             type="text"
-            name="linea"
-            id="linea"
+            name="motivo_reclamo"
+            id="motivo_reclamo"
             class="formulario__input"
-            placeholder="Nombre de la Linea"
-            value="<?php echo $comercial->linea ?? '' ?>">
+            placeholder="motivo_reclamo"
+            value="<?php echo $comercial->motivo_reclamo ?? '' ?>">
     </div>
 
-
     <div class="formulario__campo">
-        <label class="formulario__label" for="producto">Producto</label>
+        <label class="formulario__label" for="accion_solicitada">accion_solicitada</label>
         <input
             type="text"
-            name="producto"
-            id="producto"
+            name="accion_solicitada"
+            id="accion_solicitada"
             class="formulario__input"
-            placeholder="Tipo de Producto"
-            value="<?php echo $comercial->producto ?? '' ?>">
+            placeholder="accion_solicitada)"
+            value="<?php echo $comercial->accion_solicitada ?? '' ?>">
     </div>
-
-    <div class="formulario__campo">
-        <label class="formulario__label" for="gms">GMS</label>
-        <input
-            type="number"
-            name="gms"
-            id="gms"
-            class="formulario__input"
-            placeholder="Gramaje (GMS)"
-            value="<?php echo $comercial->gms ?? '' ?>">
-    </div>
-
-    <div class="formulario__campo">
-        <label class="formulario__label" for="ancho">Ancho</label>
-        <input
-            type="number"
-            name="ancho"
-            id="ancho"
-            class="formulario__input"
-            placeholder="Ancho del Producto"
-            value="<?php echo $comercial->ancho ?? '' ?>">
-    </div>
-
-    <div class="formulario__campo">
-        <label class="formulario__label" for="cantidad">Cantidad</label>
-        <input
-            type="number"
-            name="cantidad"
-            id="cantidad"
-            class="formulario__input"
-            placeholder="Cantidad del Producto"
-            value="<?php echo $comercial->cantidad ?? '' ?>">
-    </div>
-
-    <div class="formulario__campo">
-        <label class="formulario__label" for="precio">Precio</label>
-        <input
-            type="text"
-            name="precio"
-            id="precio"
-            class="formulario__input"
-            placeholder="Precio Unitario"
-            value="<?php echo $comercial->precio ?? '' ?>">
-    </div>
-
-    <div class="formulario__campo">
-        <label class="formulario__label" for="fecha_produccion">Fecha Producción</label>
-        <input
-            type="date"
-            name="fecha_produccion"
-            id="fecha_produccion"
-            class="formulario__input"
-            value="<?php echo $comercial->fecha_produccion ?? '' ?>">
-    </div>
-
-    <div class="formulario__campo">
-        <label class="formulario__label" for="arribo_planta">Arribo a Planta</label>
-        <input
-            type="date"
-            name="arribo_planta"
-            id="arribo_planta"
-            class="formulario__input"
-            value="<?php echo $comercial->arribo_planta ?? '' ?>">
-    </div>
-
-
-    <div class="formulario__campo">
-        <label class="formulario__label" for="observaciones">Observaciones</label>
-        <textarea
-            name="observaciones"
-            id="observaciones"
-            class="formulario__input"
-            placeholder="Observaciones"><?php echo $comercial->observaciones ?? '' ?></textarea>
-    </div>
-
-    <div class="formulario__campo">
-        <label class="formulario__label" for="estado">Estado</label>
-        <select name="estado" id="estado" class="formulario__input">
-            <option value="Pendiente" <?php echo $comercial->estado == 'Pendiente' ? 'selected' : '' ?>>Pendiente</option>
-        </select>
-    </div>
-
 
 </fieldset>
 
