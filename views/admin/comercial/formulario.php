@@ -36,19 +36,6 @@
 
 
 
-
-     <div class="formulario__campo">
-        <label class="formulario__label" for="per_reporta_reclamo">per_reporta_reclamo</label>
-        <input
-            type="text"
-            name="per_reporta_reclamo"
-            id="per_reporta_reclamo"
-            class="formulario__input"
-            placeholder="Nombre del per_reporta_reclamo"
-            value="<?php echo $comercial->per_reporta_reclamo ?? '' ?>">
-    </div>
-
-    
      <div class="formulario__campo">
                 <label class="formulario__label" for="factura">factura</label>
 
@@ -60,6 +47,17 @@
         </select>
     </div>
 
+
+     <div class="formulario__campo">
+        <label class="formulario__label" for="per_reporta_reclamo">per_reporta_reclamo</label>
+        <input
+            type="text"
+            name="per_reporta_reclamo"
+            id="per_reporta_reclamo"
+            class="formulario__input"
+            placeholder="Nombre del per_reporta_reclamo"
+            value="<?php echo $comercial->per_reporta_reclamo ?? '' ?>">
+    </div>
 
 
     <div class="formulario__campo">
