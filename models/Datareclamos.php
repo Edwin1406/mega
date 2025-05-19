@@ -54,14 +54,18 @@ public static function facturasPorCliente($cliente)
 }
 
 // factura por numeropordescricion del cliente
-
-public static function facturasPorClienteDescripcion($cliente, $descripcion)
+public static function descripcionesPorClienteFactura($cliente, $factura)
 {
     $cliente = self::$db->real_escape_string($cliente);
-    $descripcion = self::$db->real_escape_string($descripcion);
-    $sql = "SELECT DISTINCT numero FROM " . static::$tabla . " WHERE cliente = '{$cliente}' AND descripcion = '{$descripcion}' ORDER BY numero ASC";
+    $factura = self::$db->real_escape_string($factura);
+
+    $sql = "SELECT DISTINCT descripcion 
+            FROM " . static::$tabla . " 
+            WHERE cliente = '{$cliente}' AND numero = '{$factura}'
+            ORDER BY descripcion ASC";
+
     $resultados = self::consultarSQL($sql);
-    return array_map(fn($row) => $row->numero, $resultados);
+    return array_map(fn($row) => $row->descripcion, $resultados);
 }
 
 
