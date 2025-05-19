@@ -33,12 +33,17 @@
             </option>
         <?php endforeach; ?>
     </select>
-    <select name="factura" class="formulario__input">
-        <option value="">-- Seleccione factura --</option>
-        <?php foreach ($facturas as $factura): ?>
-            <option value="<?= $factura ?>"><?= $factura ?></option>
-        <?php endforeach; ?>
-    </select>
+
+
+
+     <div class="formulario__campo">
+        <select name="factura" class="formulario__input">
+            <option value="">-- Seleccione factura --</option>
+            <?php foreach ($facturas as $factura): ?>
+                <option value="<?= $factura ?>"><?= $factura ?></option>
+            <?php endforeach; ?>
+        </select>
+    </div>
 
 
      <div class="formulario__campo">
