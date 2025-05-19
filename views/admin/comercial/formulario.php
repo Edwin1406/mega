@@ -51,13 +51,13 @@
 
         <div class="formulario__campo">
 
-            <select name="descripcion" onchange="this.form.submit()" class="formulario__input" >
+            <select name="descripcion" onchange="this.form.submit()" class="formulario__input">
                 <option value="">-- Seleccione descripción --</option>
                 <?php foreach ($descripciones as $desc): ?>
                     <option value="<?= htmlspecialchars($desc) ?>"
                         <?= $desc === $descripcionSeleccionada ? 'selected' : '' ?>>
                         <?= $desc ?>
-                <?php endforeach; ?>
+                    <?php endforeach; ?>
             </select>
 
         </div>
@@ -90,34 +90,30 @@
         </div>
 
 
-
         <div class="formulario__campo">
             <label class="formulario__label" for="motivo_reclamo">motivo_reclamo</label>
-            <input
-                type="text"
-                name="motivo_reclamo"
-                id="motivo_reclamo"
-                class="formulario__input"
-                placeholder="motivo_reclamo"
-                value="<?php echo $comercial->motivo_reclamo ?? '' ?>">
+            <select name="motivo_reclamo" id="motivo_reclamo" class="formulario__input">
+                <option value="" disabled selected>-- Seleccione --</option>
+                <option value="impresion">impresion</option>
+                <option value="calidad papel">Calidad papel</option>
+                <option value="pegado">Pegado</option>
+                <option value="empaque">empaque</option>
+            </select>
         </div>
 
         <div class="formulario__campo">
             <label class="formulario__label" for="accion_solicitada">accion_solicitada</label>
-            <input
-                type="text"
-                name="accion_solicitada"
-                id="accion_solicitada"
-                class="formulario__input"
-                placeholder="accion_solicitada)"
-                value="<?php echo $comercial->accion_solicitada ?? '' ?>">
+            <select name="accion_solicitada" id="accion_solicitada" class="formulario__input">
+                <option value="" disabled selected>-- Seleccione --</option>
+                <option value="CLASIFICACION">CLASIFICACION</option>
+                <option value="REPOSICION">REPOSICION</option>
+                <option value="NOTA DE VREDITO">NOTA DE VREDITO</option>
+                <option value="DESCUENTO 5%">DESCUENTO 5%</option>
+                <option value="DESCUENTO 10%">DESCUENTO 10%</option>
+                <option value="DESCUENTO AUTORIZADO">DESCUENTO AUTORIZADO</option>
+
+            </select>
         </div>
 
+
 </fieldset>
-
-
-
-
-
-
-
