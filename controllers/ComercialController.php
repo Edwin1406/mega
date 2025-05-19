@@ -89,7 +89,8 @@ if ($clienteSeleccionado && $descripcionSeleccionada) {
         'clienteSeleccionado' => $clienteSeleccionado,
         'facturaSeleccionada' => $facturaSeleccionada,
         'descripciones' => $descripciones,
-            'fechaFactura' => $fechaFactura
+               'fechaFactura' => $fechaFactura
+
 
     ]);
 }
