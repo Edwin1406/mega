@@ -134,6 +134,16 @@
 </div>
 
 <script>
+
+
+    document.addEventListener('DOMContentLoaded', function () {
+      const filtroClasificacion = document.getElementById('filtroClasificacion');
+      const fechaInicio = document.getElementById('fechaInicio');
+      const fechaFin = document.getElementById('fechaFin');
+    });
+
+
+
   const columnas = [
     { title: "Tipo de clasificación", data: "tipo_clasificacion" },
     { title: "Single Face", data: "SINGLEFACE" },
