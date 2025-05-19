@@ -21,7 +21,7 @@ class ComercialController {
         $alertas = [];
 
         $clientes = Datareclamos::all('ASC');
-        debuguear($clientes);
+        // debuguear($clientes);
 
         // debuguear($clientes);
 
