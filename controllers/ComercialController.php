@@ -67,7 +67,7 @@ public static function crear(Router $router)
     // if ($clienteSeleccionado && $descripcionSeleccionada) {
     //     $fecha_factura = Datareclamos::fechaPorClienteDescripcion($clienteSeleccionado, $descripcionSeleccionada);
     // }
-$descripcionSeleccionada = $_POST['descripcion'] ?? [];
+$descripcionSeleccionada = $_POST['descripcion_producto'] ?? [];
 $fecha_factura = '';
 
 if ($clienteSeleccionado && !empty($descripcionSeleccionada)) {
@@ -79,10 +79,10 @@ if ($clienteSeleccionado && !empty($descripcionSeleccionada)) {
 
     // Manejo del POST del formulario principal
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['guardar'])) {
-        foreach ($_POST['descripcion'] as $desc) {
+        foreach ($_POST['descripcion_producto'] as $desc) {
         $nuevo = new Quejas;
         $data = $_POST;
-        $data['descripcion'] = $desc;
+        $data['descripcion_producto'] = $desc;
         $nuevo->sincronizar($data);
 
         debuguear($nuevo);
