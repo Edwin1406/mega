@@ -41,13 +41,15 @@
     <label class="formulario__label">Descripciones</label>
     <?php foreach ($descripciones as $desc): ?>
         <div>
-            <input 
-                type="checkbox" 
-                name="descripcion_producto[]" 
-                value="<?= htmlspecialchars($desc) ?>"
-                <?= (isset($descripcionSeleccionada) && in_array($desc, (array)$descripcionSeleccionada)) ? 'checked' : '' ?>
-                id="<?= md5($desc) ?>"
-            >
+           <input 
+    type="checkbox" 
+    name="descripcion_producto[]" 
+    value="<?= htmlspecialchars($desc) ?>"
+    onchange="this.form.submit()"
+    <?= (isset($descripcionSeleccionada) && in_array($desc, (array)$descripcionSeleccionada)) ? 'checked' : '' ?>
+    id="<?= md5($desc) ?>"
+>
+
             <label for="<?= md5($desc) ?>"><?= $desc ?></label>
         </div>
     <?php endforeach; ?>
