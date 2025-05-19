@@ -24,7 +24,7 @@
      -->
 
 <form method="POST">
-    <select name="cliente" onchange="this.form.submit()">
+    <select name="cliente" onchange="this.form.submit()" class="formulario__input">
         <option value="">-- Seleccione --</option>
         <?php foreach ($clientes as $cliente): ?>
             <option value="<?= $cliente->cliente ?>" 
@@ -33,7 +33,7 @@
             </option>
         <?php endforeach; ?>
     </select>
-    <select name="factura">
+    <select name="factura" class="formulario__input">
         <option value="">-- Seleccione factura --</option>
         <?php foreach ($facturas as $factura): ?>
             <option value="<?= $factura ?>"><?= $factura ?></option>
