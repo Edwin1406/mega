@@ -20,7 +20,7 @@ class ComercialController {
         $alertas = [];
 
         $clientes = Quejas::all('ASC');
-        debuguear($clientes);
+        // debuguear($clientes);
 
         // debuguear($clientes);
 
