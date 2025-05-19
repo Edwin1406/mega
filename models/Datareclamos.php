@@ -50,7 +50,7 @@ public static function facturasPorCliente($cliente)
     $cliente = self::$db->real_escape_string($cliente);
     $sql = "SELECT DISTINCT factura FROM " . static::$tabla . " WHERE cliente = '{$cliente}' ORDER BY factura ASC";
     $resultados = self::consultarSQL($sql);
-    return array_map(fn($row) => $row->factura, $resultados);
+    return array_map(fn($row) => $row->numero, $resultados);
 }
 
 
