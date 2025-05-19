@@ -70,70 +70,76 @@
   </style>
 </head>
 <body>
+<h2>Desperdicio de Papel</h2>
 
-  <h2>Desperdicio de Papel</h2>
+<div class="filtros">
+  <label for="filtroMaquina">Filtrar por tipo de máquina:</label>
+  <select id="filtroMaquina"><option value="">Todos</option></select>
 
-  <div class="filtros">
-    <label for="filtroMaquina">Filtrar por tipo de máquina:</label>
-    <select id="filtroMaquina"><option value="">Todos</option></select>
+  <label for="filtroClasificacion">Filtrar por tipo de clasificación:</label>
+  <select id="filtroClasificacion"><option value="">Todos</option></select>
 
-    <label for="filtroClasificacion">Filtrar por tipo de clasificación:</label>
-    <select id="filtroClasificacion"><option value="">Todos</option></select>
+  <label for="fechaInicio">Desde:</label>
+  <input type="date" id="fechaInicio">
 
-   <label for="fechaInicio">Desde:</label>
-<input type="date" id="fechaInicio">
+  <label for="fechaFin">Hasta:</label>
+  <input type="date" id="fechaFin">
+</div>
 
-<label for="fechaFin">Hasta:</label>
-<input type="date" id="fechaFin">
+<table id="tablaDesperdicio" class="display" style="width:100%">
+  <thead>
+    <tr>
+      <th rowspan="2">Tipo de clasificación</th>
+      <th colspan="9" style="background-color:#9f5fa5 ;text-align: center">CONTROLABLE</th>
+      <th colspan="8" style="background-color:#4988a8  ;text-align: center;">NO CONTROLABLE</th>
+      <th rowspan="2">Fecha</th>
+    </tr>
+    <tr>
+      <th>Single Face</th>
+      <th>Empalme</th>
+      <th>Recub</th>
+      <th>Mecánico</th>
+      <th>Gallet</th>
+      <th>Húmedo</th>
+      <th>Combinado</th>
+      <th>Despe</th>
+      <th>Errom</th>
+      <th>Deshoje</th>
+      <th>Cambio de pedido</th>
+      <th>Filos rotos</th>
+      <th>Otros</th>
+      <th>Pedidos cortos</th>
+      <th>Difer ancho</th>
+      <th>Cambio de gramaje</th>
+      <th>Extra trim</th>
+      <th>TOTAL</th>
+      <th>PORCENTAJE</th>
+    </tr>
+  </thead>
+  <tfoot>
+    <tr>
+      <th colspan="2">Totales:</th>
+      <th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th>
+      <th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th>
+      <th></th>
+    </tr>
+  </tfoot>
+  <tbody></tbody>
+</table>
 
+<div style="display: flex; justify-content: center; gap: 50px; margin-top: 40px;">
+  <div>
+    <h3 style="text-align:center">Controlables</h3>
+    <canvas id="graficoControlables" width="400" height="400"></canvas>
   </div>
+  <div>
+    <h3 style="text-align:center">No Controlables</h3>
+    <canvas id="graficoNoControlables" width="400" height="400"></canvas>
+  </div>
+</div>
 
-  <table id="tablaDesperdicio" class="display" style="width:100%">
-    <thead>
-      <tr>
-        <!-- <th rowspan="2">Tipo de máquina</th> -->
-        <th rowspan="2">Tipo de clasificación</th>
-        <th colspan="9" style="background-color:#9f5fa5 ;text-align: center">CONTROLABLE</th>
-        <th colspan="8" style="background-color:#4988a8  ;text-align: center;">NO CONTROLABLE</th>
-        <th rowspan="2">Fecha</th>
-      </tr>
-      <tr>
-        <th>Single Face</th>
-        <th>Empalme</th>
-        <th>Recub</th>
-        <th>Mecánico</th>
-        <th>Gallet</th>
-        <th>Húmedo</th>
-        <th>Combinado</th>
-        <th>Despe</th>
-        <th>Errom</th>
-        <th>Deshoje</th>
-        <th>Cambio de pedido</th>
-        <th>Filos rotos</th>
-        <th>Otros</th>
-        <th>Pedidos cortos</th>
-        <th>Difer ancho</th>
-        <th>Cambio de gramaje</th>
-        <th>Extra trim</th>
-        <th>TOTAL</th>
-        <th>PORCENTAJE</th>
-
-        
-      </tr>
-    </thead>
-    <tfoot>
-      <tr>
-        <th colspan="2">Totales:</th>
-        <th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th>
-        <th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th>
-        <th></th>
-      </tr>
-    </tfoot>
-    <tbody></tbody>
-  </table>
-
-  <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
-  <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <script>
@@ -161,67 +167,18 @@
     { title: "Fecha", data: "created_at" }
   ];
 
-  const columnasControlable = ["SINGLEFACE", "EMPALME", "RECUB", "MECANICO", "GALLET", "HUMEDO", "COMBADO", "DESPE", "ERROM", "DESHOJE"];
-  const columnasNoControlable = ["CAMBIO_PEDIDO", "FILOS_ROTOS", "OTROS", "PEDIDOS_CORTOS", "DIFER_ANCHO", "CAMBIO_GRAMAJE", "EXTRA_TRIM"];
+  const columnasControlable = ["SINGLEFACE", "EMPALME", "RECUB", "MECANICO", "GALLET", "HUMEDO", "COMBADO", "DESPE", "ERROM"];
+  const columnasNoControlable = ["DESHOJE","CAMBIO_PEDIDO", "FILOS_ROTOS", "OTROS", "PEDIDOS_CORTOS", "DIFER_ANCHO", "CAMBIO_GRAMAJE", "EXTRA_TRIM"];
 
   let tabla;
+  let chartControlables, chartNoControlables;
+  let dataOriginal = [];
 
   $(document).ready(function () {
     fetch('https://megawebsistem.com/admin/api/apidesperdiciopapel')
       .then(res => res.json())
-      .then(dataOriginal => {
-
-        const aplicarFiltroYMostrar = () => {
-          const filtroMaquina = $('#filtroMaquina').val();
-          const filtroClasificacion = $('#filtroClasificacion').val();
-          const fechaInicio = $('#fechaInicio').val();
-          const fechaFin = $('#fechaFin').val();
-
-          let datosFiltrados = dataOriginal.filter(registro => {
-            const clasificaciones = registro.tipo_clasificacion.split(',').map(x => x.trim());
-
-            const cumpleFecha = () => {
-              const fechaRegistro = new Date(registro.created_at);
-              const inicio = fechaInicio ? new Date(fechaInicio) : null;
-              const fin = fechaFin ? new Date(fechaFin) : null;
-
-              fechaRegistro.setHours(0, 0, 0, 0);
-              if (inicio) inicio.setHours(0, 0, 0, 0);
-              if (fin) fin.setHours(0, 0, 0, 0);
-
-              return (!inicio || fechaRegistro >= inicio) && (!fin || fechaRegistro <= fin);
-            };
-
-            return (!filtroMaquina || registro.tipo_maquina === filtroMaquina)
-              && (!filtroClasificacion || clasificaciones.includes(filtroClasificacion))
-              && cumpleFecha();
-          });
-
-          // Resetear columnas no aplicables
-          datosFiltrados = datosFiltrados.map(reg => {
-            const copia = { ...reg };
-            const clasificaciones = reg.tipo_clasificacion.split(',').map(x => x.trim());
-
-            if (filtroClasificacion === "CONTROLABLE") {
-              if (!clasificaciones.includes("CONTROLABLE")) {
-                columnasControlable.forEach(col => copia[col] = "0.00");
-              }
-              columnasNoControlable.forEach(col => copia[col] = "0.00");
-            }
-
-            if (filtroClasificacion === "NO CONTROLABLE") {
-              if (!clasificaciones.includes("NO CONTROLABLE")) {
-                columnasNoControlable.forEach(col => copia[col] = "0.00");
-              }
-              columnasControlable.forEach(col => copia[col] = "0.00");
-            }
-
-            return copia;
-          });
-
-          tabla.clear().rows.add(datosFiltrados).draw();
-          actualizarGraficos(datosFiltrados);
-        };
+      .then(data => {
+        dataOriginal = data;
 
         tabla = $('#tablaDesperdicio').DataTable({
           data: [],
@@ -237,164 +194,113 @@
           }
         });
 
-        const tiposMaquina = [...new Set(dataOriginal.map(e => e.tipo_maquina.trim()))];
+        // Cargar filtros
+        const tiposMaquina = [...new Set(data.map(e => e.tipo_maquina?.trim()))];
         tiposMaquina.forEach(tipo => {
-          $('#filtroMaquina').append(`<option value="${tipo}">${tipo}</option>`);
+          if (tipo) $('#filtroMaquina').append(`<option value="${tipo}">${tipo}</option>`);
         });
 
-        const tiposClasificacion = [...new Set(dataOriginal.flatMap(e => e.tipo_clasificacion.split(',').map(x => x.trim())))];
+        const tiposClasificacion = [...new Set(data.flatMap(e => e.tipo_clasificacion.split(',').map(x => x.trim())))];
         tiposClasificacion.forEach(tipo => {
           $('#filtroClasificacion').append(`<option value="${tipo}">${tipo}</option>`);
         });
 
-        $('#filtroMaquina').on('change', aplicarFiltroYMostrar);
-        $('#filtroClasificacion').on('change', aplicarFiltroYMostrar);
-        $('#fechaInicio').on('change', aplicarFiltroYMostrar);
-        $('#fechaFin').on('change', aplicarFiltroYMostrar);
+        // Eventos de filtro
+        $('#filtroMaquina, #filtroClasificacion, #fechaInicio, #fechaFin').on('change', aplicarFiltroYMostrar);
 
-        aplicarFiltroYMostrar(); // inicial
+        aplicarFiltroYMostrar(); // Cargar al inicio
       });
-  });
 
-  function actualizarGraficos(data) {
-    const sumaColumnas = (cols) => {
-      return cols.map(col => {
-        return data.reduce((acc, fila) => acc + parseFloat(fila[col]), 0);
+    function aplicarFiltroYMostrar() {
+      const filtroMaquina = $('#filtroMaquina').val();
+      const filtroClasificacion = $('#filtroClasificacion').val();
+      const fechaInicio = $('#fechaInicio').val();
+      const fechaFin = $('#fechaFin').val();
+
+      let datosFiltrados = dataOriginal.filter(registro => {
+        const clasificaciones = registro.tipo_clasificacion.split(',').map(x => x.trim());
+
+        const fechaRegistro = new Date(registro.created_at);
+        const inicio = fechaInicio ? new Date(fechaInicio) : null;
+        const fin = fechaFin ? new Date(fechaFin) : null;
+
+        fechaRegistro.setHours(0, 0, 0, 0);
+        if (inicio) inicio.setHours(0, 0, 0, 0);
+        if (fin) fin.setHours(0, 0, 0, 0);
+
+        return (!filtroMaquina || registro.tipo_maquina === filtroMaquina)
+          && (!filtroClasificacion || clasificaciones.includes(filtroClasificacion))
+          && (!inicio || fechaRegistro >= inicio)
+          && (!fin || fechaRegistro <= fin);
       });
-    };
 
-    const totalesControlables = sumaColumnas(columnasControlable);
-    const totalesNoControlables = sumaColumnas(columnasNoControlable);
+      // Aplicar ceros a columnas que no correspondan según filtro
+      datosFiltrados = datosFiltrados.map(reg => {
+        const copia = { ...reg };
+        const clasificaciones = reg.tipo_clasificacion.split(',').map(x => x.trim());
 
-    if (window.chartControlables) window.chartControlables.destroy();
-    if (window.chartNoControlables) window.chartNoControlables.destroy();
+        if (filtroClasificacion === "CONTROLABLE") {
+          if (!clasificaciones.includes("CONTROLABLE")) {
+            columnasControlable.forEach(col => copia[col] = "0.00");
+          }
+          columnasNoControlable.forEach(col => copia[col] = "0.00");
+        }
 
-    const colores = [
-      '#7cb342', '#f44336', '#2196f3', '#ff9800',
-      '#9c27b0', '#00acc1', '#cddc39', '#795548', '#e91e63', '#607d8b'
-    ];
+        if (filtroClasificacion === "NO CONTROLABLE") {
+          if (!clasificaciones.includes("NO CONTROLABLE")) {
+            columnasNoControlable.forEach(col => copia[col] = "0.00");
+          }
+          columnasControlable.forEach(col => copia[col] = "0.00");
+        }
 
-    window.chartControlables = new Chart(document.getElementById('graficoControlables'), {
-      type: 'pie',
-      data: {
-        labels: columnasControlable,
-        datasets: [{
-          data: totalesControlables,
-          backgroundColor: colores
-        }]
-      },
-      options: {
-        responsive: true
-      }
-    });
+        return copia;
+      });
 
-    window.chartNoControlables = new Chart(document.getElementById('graficoNoControlables'), {
-      type: 'pie',
-      data: {
-        labels: columnasNoControlable,
-        datasets: [{
-          data: totalesNoControlables,
-          backgroundColor: colores
-        }]
-      },
-      options: {
-        responsive: true
-      }
-    });
-  }
-</script>
+      tabla.clear().rows.add(datosFiltrados).draw();
+      actualizarGraficos(datosFiltrados);
+    }
 
+    function actualizarGraficos(data) {
+      const sumaColumnas = (cols) => {
+        return cols.map(col =>
+          data.reduce((acc, fila) => acc + parseFloat(fila[col] || 0), 0)
+        );
+      };
 
-</body>
-</html>
+      const totalesControlables = sumaColumnas(columnasControlable);
+      const totalesNoControlables = sumaColumnas(columnasNoControlable);
 
+      const colores = [
+        '#7cb342', '#f44336', '#2196f3', '#ff9800',
+        '#9c27b0', '#00acc1', '#cddc39', '#795548', '#e91e63', '#607d8b'
+      ];
 
+      if (chartControlables) chartControlables.destroy();
+      if (chartNoControlables) chartNoControlables.destroy();
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<div style="display: flex; justify-content: center; gap: 50px; margin-top: 40px;">
-  <div>
-    <h3 style="text-align:center">Controlables</h3>
-    <canvas id="graficoControlables" width="300" height="300"></canvas>
-  </div>
-  <div>
-    <h3 style="text-align:center">No Controlables</h3>
-    <canvas id="graficoNoControlables" width="300" height="300"></canvas>
-  </div>
-</div>
-<script>
-  const columnasGraficoControl = ["SINGLEFACE", "EMPALME", "RECUB", "MECANICO", "GALLET", "HUMEDO", "COMBADO", "DESPE", "ERROM", "DESHOJE"];
-  const columnasGraficoNoControl = ["CAMBIO_PEDIDO", "FILOS_ROTOS", "OTROS", "PEDIDOS_CORTOS", "DIFER_ANCHO", "CAMBIO_GRAMAJE", "EXTRA_TRIM"];
+      chartControlables = new Chart(document.getElementById('graficoControlables'), {
+        type: 'pie',
+        data: {
+          labels: columnasControlable,
+          datasets: [{
+            data: totalesControlables,
+            backgroundColor: colores
+          }]
+        },
+        options: { responsive: true }
+      });
 
-  // Función para generar los gráficos
-  function generarGraficosPastel(datos) {
-    const sumarColumnas = (cols, data) => cols.map(col => 
-      data.reduce((acc, fila) => acc + parseFloat(fila[col] || 0), 0)
-    );
-
-    const datosCtrl = sumarColumnas(columnasGraficoControl, datos);
-    const datosNoCtrl = sumarColumnas(columnasGraficoNoControl, datos);
-
-    const colores = [
-      '#7cb342', '#f44336', '#2196f3', '#ff9800',
-      '#9c27b0', '#00acc1', '#cddc39', '#795548', '#e91e63', '#607d8b'
-    ];
-
-    if (window.graficoCtrl) window.graficoCtrl.destroy();
-    if (window.graficoNoCtrl) window.graficoNoCtrl.destroy();
-
-    window.graficoCtrl = new Chart(document.getElementById('graficoControlables'), {
-      type: 'pie',
-      data: {
-        labels: columnasGraficoControl,
-        datasets: [{
-          data: datosCtrl,
-          backgroundColor: colores
-        }]
-      },
-      options: {
-        responsive: true
-      }
-    });
-
-    window.graficoNoCtrl = new Chart(document.getElementById('graficoNoControlables'), {
-      type: 'pie',
-      data: {
-        labels: columnasGraficoNoControl,
-        datasets: [{
-          data: datosNoCtrl,
-          backgroundColor: colores
-        }]
-      },
-      options: {
-        responsive: true
-      }
-    });
-  }
-
-  // Variable global para los datos originales
-  let datosOriginalGraficos = [];
-
-  // Cargar datos y mostrar gráficos por primera vez
-  fetch('https://megawebsistem.com/admin/api/apidesperdiciopapel')
-    .then(res => res.json())
-    .then(data => {
-      datosOriginalGraficos = data;
-      generarGraficosPastel(datosOriginalGraficos);
-    });
-
-  // Actualizar gráficos al cambiar filtros
-  $('#filtroMaquina, #filtroClasificacion, #filtroFecha').on('change', function () {
-    const filtroMaquina = $('#filtroMaquina').val();
-    const filtroClasificacion = $('#filtroClasificacion').val();
-    const filtroFecha = $('#filtroFecha').val();
-
-    const datosFiltradosGraficos = datosOriginalGraficos.filter(registro => {
-      const clasificaciones = registro.tipo_clasificacion.split(',').map(x => x.trim());
-      return (!filtroMaquina || registro.tipo_maquina === filtroMaquina)
-        && (!filtroClasificacion || clasificaciones.includes(filtroClasificacion))
-        && (!filtroFecha || registro.created_at.includes(filtroFecha));
-    });
-
-    generarGraficosPastel(datosFiltradosGraficos);
+      chartNoControlables = new Chart(document.getElementById('graficoNoControlables'), {
+        type: 'pie',
+        data: {
+          labels: columnasNoControlable,
+          datasets: [{
+            data: totalesNoControlables,
+            backgroundColor: colores
+          }]
+        },
+        options: { responsive: true }
+      });
+    }
   });
 </script>
