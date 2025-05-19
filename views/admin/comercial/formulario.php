@@ -35,8 +35,8 @@
     </select>
     <select name="factura">
         <option value="">-- Seleccione factura --</option>
-        <?php foreach ($facturas as $factura): ?>
-            <option value="<?= $factura ?>"><?= $factura ?></option>
+        <?php foreach ($numeros as $factura): ?>
+            <option value="<?= $factura ?>"><?= $numero ?></option>
         <?php endforeach; ?>
     </select>
 

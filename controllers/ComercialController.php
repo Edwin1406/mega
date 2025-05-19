@@ -69,7 +69,7 @@ public static function crear(Router $router)
         'titulo' => 'GENERAR ORDEN DE COMPRA',
         'alertas' => $alertas,
         'clientes' => $clientes,
-        'facturas' => $facturas,
+        'numeros' => $numeros,
         'clienteSeleccionado' => $clienteSeleccionado
     ]);
 }
