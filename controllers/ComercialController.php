@@ -158,7 +158,7 @@ public static function crear(Router $router)
 
             if (empty($alertas)) {
                 $comercial->guardar();
-                $alertas = ['Reclamo guardado correctamente con múltiples descripciones.'];
+                header('Location: /admin/comercial/tabla?id=1');
             }
         } else {
             $comercial->sincronizar($_POST);
