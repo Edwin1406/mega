@@ -17,7 +17,7 @@
         <select name="cliente" id="cliente" class="formulario__input">
             <option value="" disabled selected>-- Seleccione --</option>
             <?php foreach ($clientes as $cliente) : ?>
-                <option <?php echo $cliente->id === $cliente->id ? 'selected' : ''; ?> value="<?php echo $cliente->id; ?>"><?php echo $cliente->cliente; ?></option>
+                <option <?php echo $cliente->cliente === $cliente->id ? 'selected' : ''; ?> value="<?php echo $cliente->id; ?>"><?php echo $cliente->cliente; ?></option>
             <?php endforeach; ?>
         </select>
     </div>
