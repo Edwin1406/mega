@@ -41,15 +41,13 @@
     <label class="formulario__label">Descripciones</label>
     <?php foreach ($descripciones as $desc): ?>
         <div>
-           <input 
-    type="checkbox" 
-    name="descripcion_producto[]" 
-    value="<?= htmlspecialchars($desc) ?>"
-    onchange="this.form.submit()"
-    <?= (isset($descripcionSeleccionada) && in_array($desc, (array)$descripcionSeleccionada)) ? 'checked' : '' ?>
-    id="<?= md5($desc) ?>"
->
-
+            <input 
+                type="checkbox" 
+                name="descripcion_producto[]" 
+                value="<?= htmlspecialchars($desc) ?>"
+                <?= (isset($descripcionSeleccionada) && in_array($desc, (array)$descripcionSeleccionada)) ? 'checked' : '' ?>
+                id="<?= md5($desc) ?>"
+            >
             <label for="<?= md5($desc) ?>"><?= $desc ?></label>
         </div>
     <?php endforeach; ?>
@@ -59,7 +57,7 @@
         <div class="formulario__campo">
             <label class="formulario__label" for="fecha_factura">Fecha Factura</label>
             <input
-                type="date"
+                type="text"
                 name="fecha_factura"
                 id="fecha_factura"
                 class="formulario__input"
@@ -69,13 +67,6 @@
         </div>
 
 
-<script>
-  document.querySelectorAll('input[name="descripcion_producto[]"]').forEach(function(checkbox) {
-    checkbox.addEventListener('change', function() {
-      this.form.submit();
-    });
-  });
-</script>
 
 
 
