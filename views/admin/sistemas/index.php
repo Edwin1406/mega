@@ -586,7 +586,7 @@ productosconstockminimo();
         const url = 'https://megawebsistem.com/admin/api/apimovimientos';
         const response = await fetch(url);
         const datos = await response.json();
-        // console.log(datos);
+        console.log(datos);
 
         // Filtrar los datos por el mes actual
         const currentMonth = new Date().getMonth(); // Obtener el mes actual (0 - 11)
