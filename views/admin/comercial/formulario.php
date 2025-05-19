@@ -109,9 +109,10 @@
             <label class="formulario__label" for="motivo_reclamo">motivo_reclamo</label>
             <select name="motivo_reclamo" id="motivo_reclamo" class="formulario__input">
                 <option value="" disabled selected>-- Seleccione --</option>
-                <option value="lista">Lista</option>
-                <option value="impresion">Impresión</option>
+                <option value="impresion">impresion</option>
+                <option value="calidad papel">Calidad papel</option>
                 <option value="pegado">Pegado</option>
+                <option value="empaque">empaque</option>
             </select>
         </div>
 
@@ -119,9 +120,13 @@
             <label class="formulario__label" for="accion_solicitada">accion_solicitada</label>
             <select name="accion_solicitada" id="accion_solicitada" class="formulario__input">
                 <option value="" disabled selected>-- Seleccione --</option>
-                <option value="lista">Lista</option>
-                <option value="impresion">Impresión</option>
-                <option value="pegado">Pegado</option>
+                <option value="CLASIFICACION">CLASIFICACION</option>
+                <option value="REPOSICION">REPOSICION</option>
+                <option value="NOTA DE VREDITO">NOTA DE VREDITO</option>
+                <option value="DESCUENTO 5%">DESCUENTO 5%</option>
+                <option value="DESCUENTO 10%">DESCUENTO 10%</option>
+                <option value="DESCUENTO AUTORIZADO">DESCUENTO AUTORIZADO</option>
+            
             </select>
         </div>
 
