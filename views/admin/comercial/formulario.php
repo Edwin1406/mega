@@ -27,8 +27,10 @@
     <select name="cliente" onchange="this.form.submit()" class="formulario__input">
         <option value="">-- Seleccione --</option>
         <?php foreach ($clientes as $cliente): ?>
-         <option value="<?= $cliente->cliente ?>" <?= $cliente->cliente === $clienteSeleccionado ? 'selected' : '' ?>>
-
+            <option value="<?= $cliente->cliente ?>" 
+                <?= $cliente->cliente === $clienteSeleccionado ? 'selected' : '' ?>>
+                <?= $cliente->cliente ?>
+            </option>
         <?php endforeach; ?>
     </select>
 
@@ -40,8 +42,7 @@
 <select name="factura" class="formulario__input" onchange="this.form.submit()">
             <option value="">-- Seleccione factura --</option>
             <?php foreach ($facturas as $factura): ?>
-                <option value="<?= $factura ?>" <?= $factura === $facturaSeleccionada ? 'selected' : '' ?>>
-
+                <option value="<?= $factura ?>"><?= $factura ?></option>
             <?php endforeach; ?>
         </select>
     </div>
@@ -52,8 +53,7 @@
 <select name="descripcion">
     <option value="">-- Seleccione descripción --</option>
     <?php foreach ($descripciones as $desc): ?>
-        <option value="<?= $desc ?>" <?= $desc === ($_POST['descripcion'] ?? '') ? 'selected' : '' ?>>
-
+        <option value="<?= htmlspecialchars($desc) ?>"><?= htmlspecialchars($desc) ?></option>
     <?php endforeach; ?>
 </select>
 
