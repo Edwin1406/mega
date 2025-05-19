@@ -19,6 +19,10 @@ class ComercialController {
         $comercial = new Quejas();
         $alertas = [];
 
+        $clientes = Comercial::all('ASC');
+
+        debuguear($clientes);
+
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
