@@ -7,6 +7,7 @@ use MVC\Router;
 use Model\Comercial;
 use Classes\Paginacion;
 use GuzzleHttp\Psr7\Header;
+use Model\Datareclamos;
 use Model\Quejas;
 use Model\Ubicaciones;
 
@@ -19,7 +20,7 @@ class ComercialController {
         $comercial = new Quejas();
         $alertas = [];
 
-        $clientes = Quejas::all('ASC');
+        $clientes = Datareclamos::all('ASC');
         debuguear($clientes);
 
         // debuguear($clientes);
