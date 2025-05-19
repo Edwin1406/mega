@@ -92,18 +92,6 @@
 
 
         <div class="formulario__campo">
-            <label class="formulario__label" for="descripcion_producto">descripcion_producto</label>
-            <input
-                type="text"
-                name="descripcion_producto"
-                id="descripcion_producto"
-                class="formulario__input"
-                placeholder="Nombre de la descripcion_producto"
-                value="<?php echo $comercial->descripcion_producto ?? '' ?>">
-        </div>
-
-
-        <div class="formulario__campo">
             <label class="formulario__label" for="motivo_reclamo">motivo_reclamo</label>
             <input
                 type="text"
