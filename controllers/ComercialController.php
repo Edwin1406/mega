@@ -61,18 +61,20 @@ public static function crear(Router $router)
         $descripciones = Datareclamos::descripcionesPorClienteFactura($clienteSeleccionado, $facturaSeleccionada);
     }
 
-$descripcionSeleccionada = $_POST['descripcion'] ?? '';
-$fechaFactura = '';
+    $descripcionSeleccionada = $_POST['descripcion'] ?? '';
+    $fechaFactura = '';
 
-if ($clienteSeleccionado && $descripcionSeleccionada) {
-    $fechaFactura = Datareclamos::fechaPorClienteDescripcion($clienteSeleccionado, $descripcionSeleccionada);
-}
+    if ($clienteSeleccionado && $descripcionSeleccionada) {
+        $fechaFactura = Datareclamos::fechaPorClienteDescripcion($clienteSeleccionado, $descripcionSeleccionada);
+    }
 
 
 
     // Manejo del POST del formulario principal
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['guardar'])) {
         $comercial->sincronizar($_POST);
+
+        debuguear($comercial);
         $alertas = $comercial->validar();
 
         if (empty($alertas)) {
