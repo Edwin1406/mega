@@ -23,7 +23,7 @@
     </div>
      -->
 
-    <form method="POST">
+
                 <label class="formulario__label" for="cliente">Cliente</label>
 
         <select name="cliente" onchange="this.form.submit()" class="formulario__input">
@@ -35,7 +35,7 @@
                 </option>
             <?php endforeach; ?>
         </select>
-    </form>
+
 
 
         <div class="formulario__campo">
