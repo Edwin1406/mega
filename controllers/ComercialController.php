@@ -48,10 +48,16 @@ class ComercialController {
         $router->render('admin/comercial/crear', [
             'titulo' => 'GENERAR ORDEN DE COMPRA',
             'alertas' => $alertas,
-            'comercial' => $comercial
+            'comercial' => $comercial,
+            'clientes' => $clientes
         ]);
     }
 
+
+
+
+
+    
 
 
     public static function tabla(Router $router)
