@@ -3,12 +3,12 @@
 <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
  <style>
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #f4f6f8;
-      padding: 20px;
-      display: block;
-    }
+ table.dataTable {
+  width: 100% !important; /* Asegura que no se desborde */
+  overflow-x: auto;       /* Evita que se rompa el diseño */
+  display: block;         /* Necesario para aplicar scroll */
+}
+
 
     h2 {
       text-align: center;
