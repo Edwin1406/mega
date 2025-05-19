@@ -101,15 +101,19 @@ public static function crear(Router $router)
 
 
 
-
+    // tabla 
     
+    
+
+
+
 
 
     public static function tabla(Router $router)
     {
         $id = $_GET['id'] ?? null;
         if ($id == 1) {
-            Quejas::setAlerta('exito', 'El Cliente se guardo correctamente');
+            Comercial::setAlerta('exito', 'El Cliente se guardo correctamente');
         }
 
         $pagina_actual = $_GET['page'] ?? 1;
@@ -122,13 +126,13 @@ public static function crear(Router $router)
          // Obtener el número de registros por página
          $registros_por_pagina = $_GET['per_page'] ?? 10;
          if ($registros_por_pagina === 'all') {
-             $total = Quejas::total();
+             $total = Comercial::total();
              $registros_por_pagina = $total; // Mostrar todos los registros
          } else {
              $registros_por_pagina = filter_var($registros_por_pagina, FILTER_VALIDATE_INT) ?: 10;
          }
 
-         $total = Quejas::total();
+         $total = Comercial::total();
         $paginacion = new Paginacion($pagina_actual, $registros_por_pagina, $total);
 
         if ($paginacion->total_paginas() < $pagina_actual) {
@@ -136,7 +140,7 @@ public static function crear(Router $router)
             exit;
         }
     
-        $comercial = Quejas::paginar($registros_por_pagina, $paginacion->offset());
+        $comercial = Comercial::paginar($registros_por_pagina, $paginacion->offset());
     
 
 
