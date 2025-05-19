@@ -38,18 +38,22 @@
         </div>
 
 
-        <div class="formulario__campo">
-
-            <select name="descripcion" onchange="this.form.submit()" class="formulario__input">
-                <option value="">-- Seleccione descripción --</option>
-                <?php foreach ($descripciones as $desc): ?>
-                    <option value="<?= htmlspecialchars($desc) ?>"
-                        <?= $desc === $descripcionSeleccionada ? 'selected' : '' ?>>
-                        <?= $desc ?>
-                    <?php endforeach; ?>
-            </select>
-
+     <div class="formulario__campo">
+    <label class="formulario__label">Descripciones</label>
+    <?php foreach ($descripciones as $desc): ?>
+        <div>
+            <input 
+                type="checkbox" 
+                name="descripcion[]" 
+                value="<?= htmlspecialchars($desc) ?>"
+                <?= (isset($descripcionSeleccionada) && in_array($desc, (array)$descripcionSeleccionada)) ? 'checked' : '' ?>
+                id="<?= md5($desc) ?>"
+            >
+            <label for="<?= md5($desc) ?>"><?= $desc ?></label>
         </div>
+    <?php endforeach; ?>
+</div>
+
 
         <div class="formulario__campo">
             <label class="formulario__label" for="fecha_factura">Fecha Factura</label>
