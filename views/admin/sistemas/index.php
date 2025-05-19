@@ -581,119 +581,97 @@ productosconstockminimo();
 
 
 
+async function entradasysalidas() {
+    const url = 'https://megawebsistem.com/admin/api/apimovimientos';
+    const response = await fetch(url);
+    const datos = await response.json();
+    console.log(datos);
 
-    async function entradasysalidas() {
-        const url = 'https://megawebsistem.com/admin/api/apimovimientos';
-        const response = await fetch(url);
-        const datos = await response.json();
-        console.log(datos);
+    // Obtener mes y año actual
+    const currentMonth = new Date().getMonth(); // 0 - 11
+    const currentYear = new Date().getFullYear();
+    const monthNames = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+    const monthName = monthNames[currentMonth];
 
-        // Filtrar los datos por el mes actual
-        const currentMonth = new Date().getMonth(); // Obtener el mes actual (0 - 11)
-        const currentYear = new Date().getFullYear(); // Obtener el año actual
-        const monthNames = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
-        const monthName = monthNames[currentMonth]; // Obtener el nombre del mes
+    // Filtrar por mes y año actual
+    const filteredData = datos.filter(item => {
+        const itemDate = new Date(item.fecha_movimiento);
+        return itemDate.getMonth() === currentMonth && itemDate.getFullYear() === currentYear;
+    });
 
-        // entradas y salidas del mes actual
-        const filteredData = datos.filter(item => {
-            const itemDate = new Date(item.fecha_movimiento);
+    // Separar entradas y salidas
+    const entradas = filteredData.filter(item => item.tipo_movimiento === 'Entrada');
+    const salidas = filteredData.filter(item => item.tipo_movimiento === 'Salida');
 
-            return itemDate.getMonth() === currentMonth && itemDate.getFullYear() === currentYear;
+    // Agrupar entradas por área
+    const entradasPorArea = {};
+    entradas.forEach(item => {
+        if (!entradasPorArea[item.area]) {
+            entradasPorArea[item.area] = 0;
+        }
+        entradasPorArea[item.area] += parseFloat(item.costo_nuevo) * parseFloat(item.cantidad);
+    });
 
-        });
+    // Agrupar salidas por área
+    const salidasPorArea = {};
+    salidas.forEach(item => {
+        if (!salidasPorArea[item.area]) {
+            salidasPorArea[item.area] = 0;
+        }
+        salidasPorArea[item.area] += parseFloat(item.valor) * parseFloat(item.cantidad);
+    });
 
-        // Filtrar entradas y salidas por tipo de movimiento separando en dos grupos
-        const entradas = filteredData.filter(item => item.tipo_movimiento === 'Entrada');
-        const salidas = filteredData.filter(item => item.tipo_movimiento === 'Salida');
+    // Unir todas las áreas de entradas y salidas
+    const allAreas = Array.from(new Set([
+        ...Object.keys(entradasPorArea),
+        ...Object.keys(salidasPorArea)
+    ]));
 
-        // console.log("Entradas del mes actual:", entradas);
-        // console.log("Salidas del mes actual:", salidas);
-
-        // Agrupar las entradas por área
-        const entradasPorArea = {};
-        entradas.forEach(item => {
-            if (!entradasPorArea[item.area]) {
-                entradasPorArea[item.area] = 0;
+    // Crear datos para el gráfico
+    const data = {
+        labels: allAreas,
+        datasets: [
+            {
+                label: 'Entradas',
+                data: allAreas.map(area => entradasPorArea[area] || 0),
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                borderColor: 'rgb(146, 192, 192)',
+                borderWidth: 1
+            },
+            {
+                label: 'Salidas',
+                data: allAreas.map(area => salidasPorArea[area] || 0),
+                backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                borderColor: 'rgb(255, 99, 132)',
+                borderWidth: 1
             }
-            entradasPorArea[item.area] += parseFloat(item.costo_nuevo * item.cantidad); // Sumar la cantidad de cada área
-        });
+        ]
+    };
 
-        // Agrupar las salidas por área
-        const salidasPorArea = {};
-
-        salidas.forEach(item => {
-            console.log(item.area); // Verifica qué valor tiene "area"
-
-            if (!salidasPorArea[item.area]) {
-                salidasPorArea[item.area] = 0;
-            }
-            salidasPorArea[item.area] += parseFloat(item.valor * item.cantidad); // Sumar la cantidad de cada área
-        });
-
-
-        // console.log("Entradas por área:", entradasPorArea);
-        // console.log("Salidas por área:", salidasPorArea);
-
-        const labels = Object.keys(entradasPorArea); // Las etiquetas (áreas)
-        const data = {
-            labels: labels,
-            datasets: [{
-                    label: 'Entradas',
-                    data: labels.map(area => entradasPorArea[area] || 0), // Asegurando que las entradas coincidan con las etiquetas
-                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                    borderColor: 'rgb(146, 192, 192)',
-                    borderWidth: 1
-                },
-                {
-                    label: 'Salidas',
-                    data: labels.map(area => salidasPorArea[area] || 0), // Asegurando que las salidas coincidan con las etiquetas
-                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                    borderColor: 'rgb(255, 99, 132)',
-                    borderWidth: 1
-                }
-            ]
-        };
-
-
-        // Configuración del gráfico
-
-        const config = {
-            type: 'bar',
-            data: data,
-            options: {
-                scales: {
-                    x: {
-                        stacked: true
-                    },
-                    y: {
-                        stacked: true
-                    }
-                },
-                plugins: {
-                    title: {
-                        display: true,
-                        text: `ENTRADAS Y SALIDAS POR AREA Y MES: ${monthName} ${currentYear}` // Título con el mes y año actual
-                    }
+    // Configuración del gráfico
+    const config = {
+        type: 'bar',
+        data: data,
+        options: {
+            scales: {
+                x: { stacked: true },
+                y: { stacked: true }
+            },
+            plugins: {
+                title: {
+                    display: true,
+                    text: `ENTRADAS Y SALIDAS POR AREA Y MES: ${monthName} ${currentYear}`
                 }
             }
-        };
+        }
+    };
 
+    // Renderizar el gráfico
+    const ctx = document.getElementById('entradasysalidas').getContext('2d');
+    new Chart(ctx, config);
+}
 
-        // Creación del gráfico
-
-        const ctx = document.getElementById('entradasysalidas').getContext('2d');
-        new Chart(ctx, config);
-
-
-
-
-    }
-
-
-
-    entradasysalidas();
-
-
+entradasysalidas();
 
 
 
