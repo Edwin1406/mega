@@ -145,7 +145,7 @@ public static function crear(Router $router)
 
 
         $router->render('admin/comercial/tabla', [
-            'titulo' => 'ORDENES DE COMPRA',
+            'titulo' => 'RECLAMOS Y QUEJAS',
             'comercial' => $comercial,
             'paginacion' => $paginacion->paginacion()
         ]);
