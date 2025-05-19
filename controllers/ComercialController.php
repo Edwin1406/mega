@@ -17,7 +17,7 @@ class ComercialController {
        
        
         $comercial = new Quejas();
-
+        $alertas = [];
 
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
