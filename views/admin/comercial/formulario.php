@@ -52,7 +52,7 @@
         </div>
 
         <div class="formulario__campo">
-
+            <label class="formulario__label" for="fecha_factura">Fecha Factura</label>
             <input
                 type="text"
                 name="fecha_factura"
