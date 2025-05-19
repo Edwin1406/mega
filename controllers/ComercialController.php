@@ -72,9 +72,12 @@ public static function crear(Router $router)
 
     // Manejo del POST del formulario principal
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['guardar'])) {
+        $data = $_POST;
+        $data['descripcion'] = $desc;
+        // debuguear($comercial);
         $comercial->sincronizar($_POST);
 
-        // debuguear($comercial);
+        debuguear($comercial);
         $alertas = $comercial->validar();
 
         if (empty($alertas)) {
