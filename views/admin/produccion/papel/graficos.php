@@ -1,7 +1,62 @@
 
-
  <style>
+ 
+    h2 {
+      text-align: center;
+      color: #333;
+    }
 
+    .filtros {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    .filtros label {
+      font-weight: bold;
+      margin-right: 5px;
+    }
+
+    .filtros select,
+    .filtros input[type="date"] {
+      padding: 5px;
+      border-radius: 5px;
+      border: 1px solid #d85a5a;
+    }
+
+    table.dataTable thead {
+      background-color: #5388bd;
+      color: white;
+    }
+
+    table.dataTable tbody tr {
+      background-color: #fff;
+    }
+
+    table.dataTable tbody tr:hover {
+      background-color: #ecf0f1;
+    }
+
+    table.dataTable tfoot th {
+      font-weight: bold;
+      background-color: #bb8b8b;
+    }
+
+    .dataTables_wrapper .dataTables_paginate .paginate_button {
+      padding: 0.5em 1em;
+      margin-left: 4px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      background: #f1f1f1;
+      color: #333;
+    }
+
+    .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+      background: #358ac4;
+      color: white !important;
+    }
   </style>
 
 
