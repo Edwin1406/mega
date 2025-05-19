@@ -51,10 +51,14 @@
 
         <div class="formulario__campo">
 
-<select name="descripcion" onchange="this.form.submit()">
+            <select name="descripcion" onchange="this.form.submit()" class="formulario__input" >
                 <option value="">-- Seleccione descripción --</option>
                 <?php foreach ($descripciones as $desc): ?>
-                    <option value="<?= htmlspecialchars($desc) ?>"><?= htmlspecialchars($desc) ?></option>
+                    <option value="<?= htmlspecialchars($desc) ?>">
+                        <?= $desc === $descripcionSeleccionada ? 'selected' : '' ?>>
+                        <?= $desc ?>
+
+                        <?= htmlspecialchars($desc) ?></option>
                 <?php endforeach; ?>
             </select>
 
@@ -62,16 +66,15 @@
 
 
 
-<input
-    type="text"
-    name="fecha_factura"
-    id="fecha_factura"
-    class="formulario__input"
-    placeholder="Nombre de la fecha_factura"
-    value="<?= htmlspecialchars($fechaFactura ?? '') ?>"
-    readonly
->
-                 
+        <input
+            type="text"
+            name="fecha_factura"
+            id="fecha_factura"
+            class="formulario__input"
+            placeholder="Nombre de la fecha_factura"
+            value="<?= htmlspecialchars($fechaFactura ?? '') ?>"
+            readonly>
+
 
 
 
