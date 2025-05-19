@@ -128,13 +128,13 @@ public static function crear(Router $router)
 
     $facturaSeleccionada = $_POST['factura'] ?? '';
 
-    // Descripciones
+    // Descripciones disponibles
     $descripciones = [];
     if ($clienteSeleccionado && $facturaSeleccionada) {
         $descripciones = Datareclamos::descripcionesPorClienteFactura($clienteSeleccionado, $facturaSeleccionada);
     }
 
-    // NUEVO: leer múltiples descripciones seleccionadas
+    // Descripciones seleccionadas
     $descripcionSeleccionada = isset($_POST['descripcion_producto']) ? (array)$_POST['descripcion_producto'] : [];
 
     // Fecha basada en la primera descripción seleccionada
@@ -143,23 +143,23 @@ public static function crear(Router $router)
         $fecha_factura = Datareclamos::fechaPorClienteDescripcion($clienteSeleccionado, $descripcionSeleccionada[0]);
     }
 
-    // GUARDAR reclamos
+    // GUARDAR reclamo único con todas las descripciones
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['guardar'])) {
+
         $descripcionSeleccionada = $_POST['descripcion_producto'] ?? [];
 
         if (!empty($descripcionSeleccionada)) {
-            foreach ($descripcionSeleccionada as $desc) {
-                $nuevo = new Quejas;
-                $datos = $_POST;
-                $datos['descripcion_producto'] = $desc;
-                $nuevo->sincronizar($datos);
+            // Unir todas las descripciones en una sola cadena
+            $_POST['descripcion_producto'] = implode(', ', $descripcionSeleccionada);
 
-                $alertas = $nuevo->validar();
-                if (empty($alertas)) {
-                    $nuevo->guardar();
-                }
+            $comercial = new Quejas;
+            $comercial->sincronizar($_POST);
+            $alertas = $comercial->validar();
+
+            if (empty($alertas)) {
+                $comercial->guardar();
+                $alertas = ['Reclamo guardado correctamente con múltiples descripciones.'];
             }
-            $alertas = ['Reclamos guardados correctamente.'];
         } else {
             $comercial->sincronizar($_POST);
             $alertas = $comercial->validar();
