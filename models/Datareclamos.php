@@ -39,6 +39,19 @@ class Datareclamos extends ActiveRecord {
     }
 
 
+public static function clientesUnicos()
+{
+    $sql = "SELECT DISTINCT cliente FROM " . static::$tabla . " ORDER BY cliente ASC";
+    return self::consultarSQL($sql);
+}
+
+public static function facturasPorCliente($cliente)
+{
+    $cliente = self::$db->real_escape_string($cliente);
+    $sql = "SELECT DISTINCT factura FROM " . static::$tabla . " WHERE cliente = '{$cliente}' ORDER BY factura ASC";
+    $resultados = self::consultarSQL($sql);
+    return array_map(fn($row) => $row->factura, $resultados);
+}
 
 
 

@@ -13,30 +13,66 @@ use Model\Ubicaciones;
 
 class ComercialController {
 
-    public static function crear(Router $router)
-    {
+    // public static function crear(Router $router)
+    // {
        
-        $alertas = [];
+    //     $alertas = [];
 
-        $clientes = Datareclamos::clientesUnicos();
-        // debuguear($clientes);
-
-
+    //     $clientes = Datareclamos::clientesUnicos();
+    //     // debuguear($clientes);
 
 
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+
+    //     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             
 
-        }
+    //     }
 
 
-        $router->render('admin/comercial/crear', [
-            'titulo' => 'GENERAR ORDEN DE COMPRA',
-            'alertas' => $alertas,
-            'clientes' => $clientes
-        ]);
+    //     $router->render('admin/comercial/crear', [
+    //         'titulo' => 'GENERAR ORDEN DE COMPRA',
+    //         'alertas' => $alertas,
+    //         'clientes' => $clientes
+    //     ]);
+    // }
+public static function crear(Router $router)
+{
+    $comercial = new Quejas();
+    $alertas = [];
+
+    // Paso 1: Todos los clientes únicos
+    $clientes = Datareclamos::clientesUnicos();
+
+    // Paso 2: Cliente seleccionado si lo hay (de un POST previo o GET oculto)
+    $clienteSeleccionado = $_POST['cliente'] ?? '';
+
+    // Paso 3: Traer facturas solo si ya se eligió un cliente
+    $facturas = [];
+    if ($clienteSeleccionado) {
+        $facturas = Datareclamos::facturasPorCliente($clienteSeleccionado);
     }
+
+    // Manejo del POST del formulario principal
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['guardar'])) {
+        $comercial->sincronizar($_POST);
+        $alertas = $comercial->validar();
+
+        if (empty($alertas)) {
+            $comercial->guardar();
+            $alertas = $comercial->getAlertas();
+        }
+    }
+
+    $router->render('admin/comercial/crear', [
+        'titulo' => 'GENERAR ORDEN DE COMPRA',
+        'alertas' => $alertas,
+        'clientes' => $clientes,
+        'facturas' => $facturas,
+        'clienteSeleccionado' => $clienteSeleccionado
+    ]);
+}
 
 
 
