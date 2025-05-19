@@ -17,11 +17,11 @@
         <select name="cliente" id="cliente" class="formulario__input">
             <option value="" disabled selected>-- Seleccione --</option>
             <?php foreach ($clientes as $cliente) : ?>
-                <option <?php echo $comercial->cliente === $cliente->id ? 'selected' : ''; ?> value="<?php echo $cliente->id; ?>"><?php echo $cliente->nombre; ?></option>
+                <option <?php echo $comercial->cliente === $cliente->id ? 'selected' : ''; ?> value="<?php echo $cliente->id; ?>"><?php echo $cliente->cliente; ?></option>
             <?php endforeach; ?>
         </select>
     </div>
-    
+
 
     <div class="formulario__campo">
         <label class="formulario__label" for="per_reporta_reclamo">per_reporta_reclamo</label>
