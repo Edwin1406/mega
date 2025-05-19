@@ -1,5 +1,5 @@
 <fieldset class="formulario__fieldset">
-    <legend class="formulario__legend">Ingresar la información de la orden de compra  </legend>
+    <legend class="formulario__legend">RELCAMOS Y QUEJAS  </legend>
     <div class="formulario__campo">
         <label class="formulario__label" for="responsable_reporte">responsable</label>
         <input

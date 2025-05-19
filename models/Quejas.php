@@ -24,7 +24,7 @@ class Quejas extends ActiveRecord {
     public function __construct($args = [])
     {
         $this->id = $args['id'] ?? null;
-        $this->fecha = $args['fecha'] ?? '';
+         $this->fecha = $args['fecha'] ?? date('Y-m-d'); // Aquí se asigna la fecha actual
         $this->responsable_reporte = $args['responsable_reporte'] ?? '';
         $this->cliente = $args['cliente'] ?? '';
         $this->per_reporta_reclamo = $args['per_reporta_reclamo'] ?? '';
