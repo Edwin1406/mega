@@ -54,7 +54,7 @@
         <div class="formulario__campo">
             <label class="formulario__label" for="fecha_factura">Fecha Factura</label>
             <input
-                type="checkbox"
+                type="text"
                 name="fecha_factura"
                 id="fecha_factura"
                 class="formulario__input"
