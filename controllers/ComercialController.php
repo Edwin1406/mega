@@ -16,33 +16,17 @@ class ComercialController {
     public static function crear(Router $router)
     {
        
-       
-        $comercial = new Quejas();
         $alertas = [];
 
-$clientes = Datareclamos::clientesUnicos();
+        $clientes = Datareclamos::clientesUnicos();
         // debuguear($clientes);
 
-        // debuguear($clientes);
+
 
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-            $comercial->sincronizar($_POST);
-            debuguear($comercial);
-       
-
-            // debuguear($comercial);
-            $alertas = $comercial->validar();
-
-            // debuguear($comercial);
-
-           if (empty($alertas)) {
-                $comercial->guardar();
-                $alertas = $comercial->getAlertas();
-               
-            }
-
+            
 
         }
 
