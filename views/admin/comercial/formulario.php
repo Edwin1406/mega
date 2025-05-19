@@ -48,6 +48,27 @@
     </div>
 
 
+    <div class="formulario__campo">
+        <label class="formulario__label" for="descripcion">descripcion</label>
+        <select name="descripcion" class="formulario__input">
+            <option value="">-- Seleccione descripcion --</option>
+            <?php foreach ($facturas as $factura): ?>
+                <option value="<?= $factura ?>"><?= $factura ?></option>
+            <?php endforeach; ?>
+        </select>
+    </div>
+
+    
+
+
+
+
+
+
+
+
+
+
      <div class="formulario__campo">
         <label class="formulario__label" for="per_reporta_reclamo">per_reporta_reclamo</label>
         <input
