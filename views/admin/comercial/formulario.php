@@ -51,29 +51,28 @@
 
         <div class="formulario__campo">
 
-            <select name="descripcion" onchange="this.form.submit()" class="formulario__input" >
+            <select name="descripcion" onchange="this.form.submit()" class="formulario__input">
                 <option value="">-- Seleccione descripción --</option>
                 <?php foreach ($descripciones as $desc): ?>
                     <option value="<?= htmlspecialchars($desc) ?>"
                         <?= $desc === $descripcionSeleccionada ? 'selected' : '' ?>>
                         <?= $desc ?>
-                <?php endforeach; ?>
+                    <?php endforeach; ?>
             </select>
 
         </div>
 
+        <div class="formulario__campo">
 
-
-        <input
-            type="text"
-            name="fecha_factura"
-            id="fecha_factura"
-            class="formulario__input"
-            placeholder="Nombre de la fecha_factura"
-            value="<?= htmlspecialchars($fechaFactura ?? '') ?>"
-            readonly>
-
-
+            <input
+                type="text"
+                name="fecha_factura"
+                id="fecha_factura"
+                class="formulario__input"
+                placeholder="Nombre de la fecha_factura"
+                value="<?= htmlspecialchars($fechaFactura ?? '') ?>"
+                readonly>
+        </div>
 
 
 
@@ -104,26 +103,29 @@
         </div>
 
 
+
+
         <div class="formulario__campo">
             <label class="formulario__label" for="motivo_reclamo">motivo_reclamo</label>
-            <input
-                type="text"
-                name="motivo_reclamo"
-                id="motivo_reclamo"
-                class="formulario__input"
-                placeholder="motivo_reclamo"
-                value="<?php echo $comercial->motivo_reclamo ?? '' ?>">
+            <select name="motivo_reclamo" id="motivo_reclamo" class="formulario__input">
+                <option value="" disabled selected>-- Seleccione --</option>
+                <option value="lista">Lista</option>
+                <option value="impresion">Impresión</option>
+                <option value="pegado">Pegado</option>
+            </select>
         </div>
 
         <div class="formulario__campo">
             <label class="formulario__label" for="accion_solicitada">accion_solicitada</label>
-            <input
-                type="text"
-                name="accion_solicitada"
-                id="accion_solicitada"
-                class="formulario__input"
-                placeholder="accion_solicitada)"
-                value="<?php echo $comercial->accion_solicitada ?? '' ?>">
+            <select name="accion_solicitada" id="accion_solicitada" class="formulario__input">
+                <option value="" disabled selected>-- Seleccione --</option>
+                <option value="lista">Lista</option>
+                <option value="impresion">Impresión</option>
+                <option value="pegado">Pegado</option>
+            </select>
         </div>
+
+
+
 
 </fieldset>
