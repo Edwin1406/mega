@@ -257,6 +257,21 @@ $router->post('/admin/produccion/papel/eliminar', [PapelController::class, 'elim
 $router->get('/admin/api/apidesperdiciopapel', [PapelController::class, 'apidesperdiciopapel']);
 
 
+
+
+// API LISTA DE PAPELES
+$router->get('/admin/api/apipapel', [CartoneraController::class, 'apipapel']);
+
+
+// VER PAPEL Y ESTADISTICAS
+
+$router->get('/admin/produccion/papel/graficos', [PapelController::class, 'graficos']);
+
+
+
+
+
+
 // Cliente
 
 $router->get('/admin/vendedor/cliente/crear', [ClienteController::class, 'crear']);
@@ -286,14 +301,6 @@ $router->get('/admin/produccion/materia/corrugador/cartonera/combinacion', [Cart
 
 
 
-
-// API LISTA DE PAPELES
-$router->get('/admin/api/apipapel', [CartoneraController::class, 'apipapel']);
-
-
-// VER PAPEL Y ESTADISTICAS
-
-$router->get('/admin/produccion/papel/graficos', [CartoneraController::class, 'graficos']);
 
 
 
