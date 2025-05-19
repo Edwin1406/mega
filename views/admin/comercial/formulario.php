@@ -44,7 +44,7 @@
         <div>
             <input 
                 type="checkbox" 
-                name="descripcion[]" 
+                name="descripcion_producto[]" 
                 value="<?= htmlspecialchars($desc) ?>"
                 <?= (isset($descripcionSeleccionada) && in_array($desc, (array)$descripcionSeleccionada)) ? 'checked' : '' ?>
                 id="<?= md5($desc) ?>"
