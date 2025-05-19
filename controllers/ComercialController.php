@@ -20,7 +20,7 @@ class ComercialController {
         $alertas = [];
 
         $clientes = Quejas::all('ASC');
-        // debuguear($clientes);
+        debuguear($clientes);
 
         // debuguear($clientes);
 
@@ -49,7 +49,6 @@ class ComercialController {
         $router->render('admin/comercial/crear', [
             'titulo' => 'GENERAR ORDEN DE COMPRA',
             'alertas' => $alertas,
-            'comercial' => $comercial,
             'clientes' => $clientes
         ]);
     }
