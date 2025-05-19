@@ -1,1 +1,335 @@
-asdasdas
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+  <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+ <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f4f6f8;
+      padding: 20px;
+    }
+
+    h2 {
+      text-align: center;
+      color: #333;
+    }
+
+    .filtros {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    .filtros label {
+      font-weight: bold;
+      margin-right: 5px;
+    }
+
+    .filtros select,
+    .filtros input[type="date"] {
+      padding: 5px;
+      border-radius: 5px;
+      border: 1px solid #d85a5a;
+    }
+
+    table.dataTable thead {
+      background-color: #5388bd;
+      color: white;
+    }
+
+    table.dataTable tbody tr {
+      background-color: #fff;
+    }
+
+    table.dataTable tbody tr:hover {
+      background-color: #ecf0f1;
+    }
+
+    table.dataTable tfoot th {
+      font-weight: bold;
+      background-color: #bb8b8b;
+    }
+
+    .dataTables_wrapper .dataTables_paginate .paginate_button {
+      padding: 0.5em 1em;
+      margin-left: 4px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      background: #f1f1f1;
+      color: #333;
+    }
+
+    .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+      background: #358ac4;
+      color: white !important;
+    }
+  </style>
+
+
+
+<div class="filtros">
+  <label for="filtroClasificacion">Filtrar por tipo de clasificación:</label>
+  <select id="filtroClasificacion"><option value="">Todos</option></select>
+
+  <label for="fechaInicio">Desde:</label>
+  <input type="date" id="fechaInicio">
+
+  <label for="fechaFin">Hasta:</label>
+  <input type="date" id="fechaFin">
+</div>
+
+<table id="tablaDesperdicio" class="display" style="width:100%">
+  <thead>
+    <tr>
+      <th rowspan="2">Tipo de clasificación</th>
+      <th colspan="9" style="background-color:#9f5fa5 ;text-align: center">CONTROLABLE</th>
+      <th colspan="8" style="background-color:#4988a8  ;text-align: center;">NO CONTROLABLE</th>
+      <th rowspan="2">Fecha</th>
+    </tr>
+    <tr>
+      <th>Single Face</th>
+      <th>Empalme</th>
+      <th>Recub</th>
+      <th>Mecánico</th>
+      <th>Gallet</th>
+      <th>Húmedo</th>
+      <th>Combinado</th>
+      <th>Despe</th>
+      <th>Errom</th>
+      <th>Deshoje</th>
+      <th>Cambio de pedido</th>
+      <th>Filos rotos</th>
+      <th>Otros</th>
+      <th>Pedidos cortos</th>
+      <th>Difer ancho</th>
+      <th>Cambio de gramaje</th>
+      <th>Extra trim</th>
+      <th>TOTAL</th>
+      <th>PORCENTAJE</th>
+    </tr>
+  </thead>
+  <tfoot>
+    <tr>
+      <th colspan="2">Totales:</th>
+      <th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th>
+      <th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th>
+      <th></th>
+    </tr>
+  </tfoot>
+  <tbody></tbody>
+</table>
+
+<div style="display: flex; justify-content: center; gap: 50px; margin-top: 40px;">
+  <div>
+    <h3 style="text-align:center">Controlables</h3>
+    <canvas id="graficoControlables" width="700" height="700"></canvas>
+  </div>
+  <div>
+    <h3 style="text-align:center">No Controlables</h3>
+    <canvas id="graficoNoControlables" width="700" height="700"></canvas>
+  </div>
+</div>
+
+<script>
+  const columnas = [
+    { title: "Tipo de clasificación", data: "tipo_clasificacion" },
+    { title: "Single Face", data: "SINGLEFACE" },
+    { title: "Empalme", data: "EMPALME" },
+    { title: "Recub", data: "RECUB" },
+    { title: "Mecánico", data: "MECANICO" },
+    { title: "Gallet", data: "GALLET" },
+    { title: "Húmedo", data: "HUMEDO" },
+    { title: "Combinado", data: "COMBADO" },
+    { title: "Despe", data: "DESPE" },
+    { title: "Errom", data: "ERROM" },
+    { title: "Deshoje", data: "DESHOJE" },
+    { title: "Cambio de pedido", data: "CAMBIO_PEDIDO" },
+    { title: "Filos rotos", data: "FILOS_ROTOS" },
+    { title: "Otros", data: "OTROS" },
+    { title: "Pedidos cortos", data: "PEDIDOS_CORTOS" },
+    { title: "Difer ancho", data: "DIFER_ANCHO" },
+    { title: "Cambio de gramaje", data: "CAMBIO_GRAMAJE" },
+    { title: "Extra trim", data: "EXTRA_TRIM" },
+    { title: "TOTAL", data: "TOTAL" },
+    { title: "PORCENTAJE", data: "PORCENTAJE" },
+    { title: "Fecha", data: "created_at" }
+  ];
+
+  const columnasControlable = ["SINGLEFACE", "EMPALME", "RECUB", "MECANICO", "GALLET", "HUMEDO", "COMBADO", "DESPE", "ERROM"];
+  const columnasNoControlable = [ "DESHOJE","CAMBIO_PEDIDO", "FILOS_ROTOS", "OTROS", "PEDIDOS_CORTOS", "DIFER_ANCHO", "CAMBIO_GRAMAJE", "EXTRA_TRIM"];
+
+  let tabla;
+  let chartControlables, chartNoControlables;
+  let dataOriginal = [];
+
+  $(document).ready(function () {
+    fetch('https://megawebsistem.com/admin/api/apidesperdiciopapel')
+      .then(res => res.json())
+      .then(data => {
+        dataOriginal = data;
+
+        tabla = $('#tablaDesperdicio').DataTable({
+          data: [],
+          columns: columnas,
+          footerCallback: function (row, data, start, end, display) {
+            const api = this.api();
+            for (let i = 2; i < columnas.length - 1; i++) {
+              const total = api.column(i, { search: 'applied' }).data().reduce((a, b) => {
+                return parseFloat(a) + parseFloat(b);
+              }, 0);
+              $(api.column(i).footer()).html(total.toFixed(2));
+            }
+          }
+        });
+
+        const tiposClasificacion = [...new Set(data.flatMap(e => e.tipo_clasificacion.split(',').map(x => x.trim())))];
+        tiposClasificacion.forEach(tipo => {
+          $('#filtroClasificacion').append(`<option value="${tipo}">${tipo}</option>`);
+        });
+
+        $('#filtroClasificacion, #fechaInicio, #fechaFin').on('change', aplicarFiltroYMostrar);
+        aplicarFiltroYMostrar(); // inicial
+      });
+
+    function aplicarFiltroYMostrar() {
+      const filtroClasificacion = $('#filtroClasificacion').val();
+      const fechaInicio = $('#fechaInicio').val();
+      const fechaFin = $('#fechaFin').val();
+
+      let datosFiltrados = dataOriginal.filter(registro => {
+        const clasificaciones = registro.tipo_clasificacion.split(',').map(x => x.trim());
+
+        const fechaRegistro = new Date(registro.created_at);
+        const inicio = fechaInicio ? new Date(fechaInicio) : null;
+        const fin = fechaFin ? new Date(fechaFin) : null;
+
+        fechaRegistro.setHours(0, 0, 0, 0);
+        if (inicio) inicio.setHours(0, 0, 0, 0);
+        if (fin) fin.setHours(0, 0, 0, 0);
+
+        return (!filtroClasificacion || clasificaciones.includes(filtroClasificacion))
+          && (!inicio || fechaRegistro >= inicio)
+          && (!fin || fechaRegistro <= fin);
+      });
+
+      datosFiltrados = datosFiltrados.map(reg => {
+        const copia = { ...reg };
+        const clasificaciones = reg.tipo_clasificacion.split(',').map(x => x.trim());
+
+        if (filtroClasificacion === "CONTROLABLE") {
+          if (!clasificaciones.includes("CONTROLABLE")) {
+            columnasControlable.forEach(col => copia[col] = "0.00");
+          }
+          columnasNoControlable.forEach(col => copia[col] = "0.00");
+        }
+
+        if (filtroClasificacion === "NO CONTROLABLE") {
+          if (!clasificaciones.includes("NO CONTROLABLE")) {
+            columnasNoControlable.forEach(col => copia[col] = "0.00");
+          }
+          columnasControlable.forEach(col => copia[col] = "0.00");
+        }
+
+        return copia;
+      });
+
+      tabla.clear().rows.add(datosFiltrados).draw();
+      actualizarGraficos(datosFiltrados);
+    }
+
+function actualizarGraficos(data) {
+      const sumaColumnas = (cols) => {
+        return cols.map(col =>
+          data.reduce((acc, fila) => acc + parseFloat(fila[col] || 0), 0)
+        );
+      };
+
+      const totalesControlables = sumaColumnas(columnasControlable);
+      const totalesNoControlables = sumaColumnas(columnasNoControlable);
+
+      const totalControl = totalesControlables.reduce((a, b) => a + b, 0);
+      const totalNoControl = totalesNoControlables.reduce((a, b) => a + b, 0);
+
+     const colores = [
+          '#ffcccc', // rosa claro
+          '#ffe6cc', // durazno claro
+          '#ffffcc', // amarillo claro
+          '#e6ffcc', // verde lima claro
+          '#ccffff', // cian muy claro
+          '#e6ccff', // lavanda claro
+          '#f0f8ff', // azul Alice
+          '#f5f5dc', // beige
+          '#fafad2', // amarillo pálido
+          '#e0ffff', // celeste claro
+          '#f5e6ff', // lila claro
+          '#d0f0c0', // verde té claro
+          '#fdfd96', // amarillo pastel
+          '#ffb3ba', // rosa pastel
+          '#baffc9', // verde menta
+          '#bae1ff', // azul bebé
+          '#fff0f5', // lavanda rosado
+          '#e6ffe9', // verde hielo
+          '#ffe6f2', // rosa suave
+          '#e0e0e0'  // gris muy claro
+        ];
+
+
+      if (chartControlables) chartControlables.destroy();
+      if (chartNoControlables) chartNoControlables.destroy();
+
+      const crearConfig = (labels, datos, total) => ({
+        type: 'pie',
+        data: {
+          labels: labels,
+          datasets: [{
+            data: datos,
+            backgroundColor: colores
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            legend: {
+              position: 'right',
+              labels: {
+                generateLabels: function (chart) {
+                  const data = chart.data;
+                  return data.labels.map((label, i) => {
+                    const value = data.datasets[0].data[i];
+                    const percentage = total > 0 ? ((value / total) * 100).toFixed(1) : 0;
+                    return {
+                      text: `${label} - ${percentage}%`,
+                      fillStyle: data.datasets[0].backgroundColor[i],
+                      strokeStyle: data.datasets[0].backgroundColor[i],
+                      index: i
+                    };
+                  });
+                }
+              }
+            },
+            tooltip: {
+              callbacks: {
+                label: function (context) {
+                  const label = context.label || '';
+                  const value = context.parsed;
+                  return `${label}: ${value.toFixed(2)}`;
+                }
+              }
+            }
+          }
+        }
+      });
+
+      chartControlables = new Chart(document.getElementById('graficoControlables'), crearConfig(columnasControlable, totalesControlables, totalControl));
+      chartNoControlables = new Chart(document.getElementById('graficoNoControlables'), crearConfig(columnasNoControlable, totalesNoControlables, totalNoControl));
+    }
+
+  });
+  
+
+
+
+
+</script>
