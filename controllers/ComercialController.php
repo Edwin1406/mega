@@ -62,6 +62,11 @@ public static function crear(Router $router)
     }
 
 
+    $fechaFactura = '';
+
+    if ($clienteSeleccionado && $facturaSeleccionada) {
+        $fechaFactura = Datareclamos::fechaPorClienteFactura($clienteSeleccionado, $facturaSeleccionada);
+    }
 
 
 
@@ -83,7 +88,9 @@ public static function crear(Router $router)
         'facturas' => $facturas,
         'clienteSeleccionado' => $clienteSeleccionado,
         'facturaSeleccionada' => $facturaSeleccionada,
-        'descripciones' => $descripciones
+        'descripciones' => $descripciones,
+            'fechaFactura' => $fechaFactura
+
     ]);
 }
 

@@ -69,6 +69,22 @@ public static function descripcionesPorClienteFactura($cliente, $factura)
 }
 
 
+public static function fechaPorClienteFactura($cliente, $factura)
+{
+    $cliente = self::$db->real_escape_string($cliente);
+    $factura = self::$db->real_escape_string($factura);
+
+    $sql = "SELECT emision 
+            FROM " . static::$tabla . " 
+            WHERE cliente = '{$cliente}' 
+              AND numero = '{$factura}' 
+            LIMIT 1";
+
+    $resultado = self::consultarSQL($sql);
+    return $resultado[0]->emision ?? '';
+}
+
+
 
     
 }
