@@ -35,6 +35,7 @@
                 </option>
             <?php endforeach; ?>
         </select>
+    </form>
 
 
         <div class="formulario__campo">
