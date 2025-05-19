@@ -51,7 +51,7 @@
 
     table.dataTable tfoot th {
       font-weight: bold;
-      background-color: #9b5050;
+      background-color: #bb8b8b;
     }
 
     .dataTables_wrapper .dataTables_paginate .paginate_button {
@@ -73,9 +73,6 @@
 <h2>Desperdicio de Papel</h2>
 
 <div class="filtros">
-  <label for="filtroMaquina">Filtrar por tipo de máquina:</label>
-  <select id="filtroMaquina"><option value="">Todos</option></select>
-
   <label for="filtroClasificacion">Filtrar por tipo de clasificación:</label>
   <select id="filtroClasificacion"><option value="">Todos</option></select>
 
@@ -130,11 +127,11 @@
 <div style="display: flex; justify-content: center; gap: 50px; margin-top: 40px;">
   <div>
     <h3 style="text-align:center">Controlables</h3>
-    <canvas id="graficoControlables" width="400" height="400"></canvas>
+    <canvas id="graficoControlables" width="700" height="700"></canvas>
   </div>
   <div>
     <h3 style="text-align:center">No Controlables</h3>
-    <canvas id="graficoNoControlables" width="400" height="400"></canvas>
+    <canvas id="graficoNoControlables" width="700" height="700"></canvas>
   </div>
 </div>
 
@@ -168,7 +165,7 @@
   ];
 
   const columnasControlable = ["SINGLEFACE", "EMPALME", "RECUB", "MECANICO", "GALLET", "HUMEDO", "COMBADO", "DESPE", "ERROM"];
-  const columnasNoControlable = ["DESHOJE","CAMBIO_PEDIDO", "FILOS_ROTOS", "OTROS", "PEDIDOS_CORTOS", "DIFER_ANCHO", "CAMBIO_GRAMAJE", "EXTRA_TRIM"];
+  const columnasNoControlable = [ "DESHOJE","CAMBIO_PEDIDO", "FILOS_ROTOS", "OTROS", "PEDIDOS_CORTOS", "DIFER_ANCHO", "CAMBIO_GRAMAJE", "EXTRA_TRIM"];
 
   let tabla;
   let chartControlables, chartNoControlables;
@@ -194,25 +191,16 @@
           }
         });
 
-        // Cargar filtros
-        const tiposMaquina = [...new Set(data.map(e => e.tipo_maquina?.trim()))];
-        tiposMaquina.forEach(tipo => {
-          if (tipo) $('#filtroMaquina').append(`<option value="${tipo}">${tipo}</option>`);
-        });
-
         const tiposClasificacion = [...new Set(data.flatMap(e => e.tipo_clasificacion.split(',').map(x => x.trim())))];
         tiposClasificacion.forEach(tipo => {
           $('#filtroClasificacion').append(`<option value="${tipo}">${tipo}</option>`);
         });
 
-        // Eventos de filtro
-        $('#filtroMaquina, #filtroClasificacion, #fechaInicio, #fechaFin').on('change', aplicarFiltroYMostrar);
-
-        aplicarFiltroYMostrar(); // Cargar al inicio
+        $('#filtroClasificacion, #fechaInicio, #fechaFin').on('change', aplicarFiltroYMostrar);
+        aplicarFiltroYMostrar(); // inicial
       });
 
     function aplicarFiltroYMostrar() {
-      const filtroMaquina = $('#filtroMaquina').val();
       const filtroClasificacion = $('#filtroClasificacion').val();
       const fechaInicio = $('#fechaInicio').val();
       const fechaFin = $('#fechaFin').val();
@@ -228,13 +216,11 @@
         if (inicio) inicio.setHours(0, 0, 0, 0);
         if (fin) fin.setHours(0, 0, 0, 0);
 
-        return (!filtroMaquina || registro.tipo_maquina === filtroMaquina)
-          && (!filtroClasificacion || clasificaciones.includes(filtroClasificacion))
+        return (!filtroClasificacion || clasificaciones.includes(filtroClasificacion))
           && (!inicio || fechaRegistro >= inicio)
           && (!fin || fechaRegistro <= fin);
       });
 
-      // Aplicar ceros a columnas que no correspondan según filtro
       datosFiltrados = datosFiltrados.map(reg => {
         const copia = { ...reg };
         const clasificaciones = reg.tipo_clasificacion.split(',').map(x => x.trim());
@@ -260,7 +246,7 @@
       actualizarGraficos(datosFiltrados);
     }
 
-    function actualizarGraficos(data) {
+function actualizarGraficos(data) {
       const sumaColumnas = (cols) => {
         return cols.map(col =>
           data.reduce((acc, fila) => acc + parseFloat(fila[col] || 0), 0)
@@ -270,37 +256,87 @@
       const totalesControlables = sumaColumnas(columnasControlable);
       const totalesNoControlables = sumaColumnas(columnasNoControlable);
 
-      const colores = [
-        '#7cb342', '#f44336', '#2196f3', '#ff9800',
-        '#9c27b0', '#00acc1', '#cddc39', '#795548', '#e91e63', '#607d8b'
-      ];
+      const totalControl = totalesControlables.reduce((a, b) => a + b, 0);
+      const totalNoControl = totalesNoControlables.reduce((a, b) => a + b, 0);
+
+     const colores = [
+          '#ffcccc', // rosa claro
+          '#ffe6cc', // durazno claro
+          '#ffffcc', // amarillo claro
+          '#e6ffcc', // verde lima claro
+          '#ccffff', // cian muy claro
+          '#e6ccff', // lavanda claro
+          '#f0f8ff', // azul Alice
+          '#f5f5dc', // beige
+          '#fafad2', // amarillo pálido
+          '#e0ffff', // celeste claro
+          '#f5e6ff', // lila claro
+          '#d0f0c0', // verde té claro
+          '#fdfd96', // amarillo pastel
+          '#ffb3ba', // rosa pastel
+          '#baffc9', // verde menta
+          '#bae1ff', // azul bebé
+          '#fff0f5', // lavanda rosado
+          '#e6ffe9', // verde hielo
+          '#ffe6f2', // rosa suave
+          '#e0e0e0'  // gris muy claro
+        ];
+
 
       if (chartControlables) chartControlables.destroy();
       if (chartNoControlables) chartNoControlables.destroy();
 
-      chartControlables = new Chart(document.getElementById('graficoControlables'), {
+      const crearConfig = (labels, datos, total) => ({
         type: 'pie',
         data: {
-          labels: columnasControlable,
+          labels: labels,
           datasets: [{
-            data: totalesControlables,
+            data: datos,
             backgroundColor: colores
           }]
         },
-        options: { responsive: true }
+        options: {
+          responsive: true,
+          plugins: {
+            legend: {
+              position: 'right',
+              labels: {
+                generateLabels: function (chart) {
+                  const data = chart.data;
+                  return data.labels.map((label, i) => {
+                    const value = data.datasets[0].data[i];
+                    const percentage = total > 0 ? ((value / total) * 100).toFixed(1) : 0;
+                    return {
+                      text: `${label} - ${percentage}%`,
+                      fillStyle: data.datasets[0].backgroundColor[i],
+                      strokeStyle: data.datasets[0].backgroundColor[i],
+                      index: i
+                    };
+                  });
+                }
+              }
+            },
+            tooltip: {
+              callbacks: {
+                label: function (context) {
+                  const label = context.label || '';
+                  const value = context.parsed;
+                  return `${label}: ${value.toFixed(2)}`;
+                }
+              }
+            }
+          }
+        }
       });
 
-      chartNoControlables = new Chart(document.getElementById('graficoNoControlables'), {
-        type: 'pie',
-        data: {
-          labels: columnasNoControlable,
-          datasets: [{
-            data: totalesNoControlables,
-            backgroundColor: colores
-          }]
-        },
-        options: { responsive: true }
-      });
+      chartControlables = new Chart(document.getElementById('graficoControlables'), crearConfig(columnasControlable, totalesControlables, totalControl));
+      chartNoControlables = new Chart(document.getElementById('graficoNoControlables'), crearConfig(columnasNoControlable, totalesNoControlables, totalNoControl));
     }
+
   });
+  
+
+
+
+
 </script>
