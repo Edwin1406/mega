@@ -54,7 +54,7 @@
             <select name="descripcion" onchange="this.form.submit()" class="formulario__input" >
                 <option value="">-- Seleccione descripción --</option>
                 <?php foreach ($descripciones as $desc): ?>
-                    <option value="<?= htmlspecialchars($desc) ?>">
+                    <option value="<?= htmlspecialchars($desc) ?>"
                         <?= $desc === $descripcionSeleccionada ? 'selected' : '' ?>>
                         <?= $desc ?>
 
