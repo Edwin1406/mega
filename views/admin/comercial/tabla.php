@@ -59,25 +59,15 @@
             <thead class="tables__thead">
                 <tr>
                     <th scope="col" class="tables__th">Nro.</th>
-                    <th scope="col" class="tables__th">Import</th>
-                    <th scope="col" class="tables__th">Proyecto</th>
-                    <th scope="col" class="tables__th">Pedido Interno</th>
-                    <th scope="col" class="tables__th">Fecha Solicitud</th>
-                    <!-- <th scope="col" class="tables__th">Puerto Destino</th> -->
-                    <th scope="col" class="tables__th">Trader</th>
-                    <th scope="col" class="tables__th">Marca</th>
-                    <th scope="col" class="tables__th">Linea</th>
-                    <th scope="col" class="tables__th">Producto</th>
-                    <th scope="col" class="tables__th">GMS</th>
-                    <th scope="col" class="tables__th">Ancho</th>
-                    <th scope="col" class="tables__th">Cantidad</th>
-                    <th scope="col" class="tables__th">Precio</th>
-                    <th scope="col" class="tables__th">Total Item</th>
-                    <th scope="col" class="tables__th">Fecha Producción</th>
-                    <th scope="col" class="tables__th">Arribo Planta</th>
-                    <th scope="col" class="tables__th">Transito</th>
-                    <th scope="col" class="tables__th">Fecha en Planta</th>
-                    <th scope="col" class="tables__th">Estado</th>
+                    <th scope="col" class="tables__th">Fecha</th>
+                    <th scope="col" class="tables__th">Cliente</th>
+                    <th scope="col" class="tables__th">Responsable</th>
+                    <th scope="col" class="tables__th">Persona Reporta Reclamo</th>
+                    <th scope="col" class="tables__th">N. Factura</th>
+                    <th scope="col" class="tables__th">Fecha. Factura</th>
+                    <th scope="col" class="tables__th">Descripcion</th>
+                    <th scope="col" class="tables__th">Motivo reclamo</th>
+                    <th scope="col" class="tables__th">Accion Solicitada</th>
                     <th scope="col" class="tables__th">Acciones</th>
                 </tr>
             </thead>
