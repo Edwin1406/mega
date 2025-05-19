@@ -7,6 +7,7 @@ use MVC\Router;
 use Model\Comercial;
 use Classes\Paginacion;
 use GuzzleHttp\Psr7\Header;
+use Model\Quejas;
 use Model\Ubicaciones;
 
 class ComercialController {
@@ -15,7 +16,7 @@ class ComercialController {
     {
        
        
-        $comercial = new Comercial;
+        $comercial = new Quejas();
 
 
 
