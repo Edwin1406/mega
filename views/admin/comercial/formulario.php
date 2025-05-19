@@ -12,7 +12,7 @@
     </div>
 
  <!-- option de clientes  -->
-    <div class="formulario__campo">
+    <!-- <div class="formulario__campo">
         <label class="formulario__label" for="cliente">cliente</label>
         <select name="cliente" id="cliente" class="formulario__input">
             <option value="" disabled selected>-- Seleccione --</option>
@@ -21,8 +21,24 @@
             <?php endforeach; ?>
         </select>
     </div>
-    
+     -->
 
+<form method="POST">
+    <select name="cliente" onchange="this.form.submit()">
+        <option value="">-- Seleccione --</option>
+        <?php foreach ($clientes as $cliente): ?>
+            <option value="<?= $cliente->cliente ?>" 
+                <?= $cliente->cliente === $clienteSeleccionado ? 'selected' : '' ?>>
+                <?= $cliente->cliente ?>
+            </option>
+        <?php endforeach; ?>
+    </select>
+    <select name="factura">
+        <option value="">-- Seleccione factura --</option>
+        <?php foreach ($facturas as $factura): ?>
+            <option value="<?= $factura ?>"><?= $factura ?></option>
+        <?php endforeach; ?>
+    </select>
 
 
      <div class="formulario__campo">
