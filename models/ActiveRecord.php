@@ -176,6 +176,11 @@ class ActiveRecord {
         return $resultado;
     }
 
+public static function clientesUnicos() {
+    $query = "SELECT DISTINCT cliente FROM " . static::$tabla . " ORDER BY cliente ASC";
+    $resultado = self::consultarSQL($query);
+    return $resultado;
+}
 
     
 

@@ -20,7 +20,7 @@ class ComercialController {
         $comercial = new Quejas();
         $alertas = [];
 
-        $clientes = Datareclamos::all('ASC');
+$clientes = Datareclamos::clientesUnicos();
         // debuguear($clientes);
 
         // debuguear($clientes);
