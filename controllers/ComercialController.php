@@ -79,10 +79,10 @@ if ($clienteSeleccionado && !empty($descripcionSeleccionada)) {
 
     // Manejo del POST del formulario principal
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['guardar'])) {
-        foreach ($_POST['descripcion_producto'] as $desc) {
+        foreach ($_POST['descripcion'] as $desc) {
         $nuevo = new Quejas;
         $data = $_POST;
-        $data['descripcion_producto'] = $desc;
+        $data['descripcion'] = $desc;
         $nuevo->sincronizar($data);
 
         $alertas = $nuevo->validar();
