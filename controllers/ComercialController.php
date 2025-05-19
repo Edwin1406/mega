@@ -39,7 +39,7 @@ class ComercialController {
     // }
 public static function crear(Router $router)
 {
-    $comercial = new Quejas();
+    $comercial = new Quejas;
     $alertas = [];
 
     // Paso 1: Todos los clientes únicos
