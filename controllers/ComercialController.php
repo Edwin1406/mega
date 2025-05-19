@@ -21,7 +21,7 @@ class ComercialController {
 
         $clientes = Comercial::all('ASC');
 
-        debuguear($clientes);
+        // debuguear($clientes);
 
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
