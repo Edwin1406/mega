@@ -19,7 +19,7 @@ class ComercialController {
         $comercial = new Quejas();
         $alertas = [];
 
-        $clientes = Comercial::all('ASC');
+        $clientes = Quejas::all('ASC');
         debuguear($clientes);
 
         // debuguear($clientes);
