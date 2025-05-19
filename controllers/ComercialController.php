@@ -61,12 +61,19 @@ public static function crear(Router $router)
         $descripciones = Datareclamos::descripcionesPorClienteFactura($clienteSeleccionado, $facturaSeleccionada);
     }
 
-    $descripcionSeleccionada = $_POST['descripcion'] ?? '';
-    $fecha_factura = '';
+    // $descripcionSeleccionada = $_POST['descripcion'] ?? '';
+    // $fecha_factura = '';
 
-    if ($clienteSeleccionado && $descripcionSeleccionada) {
-        $fecha_factura = Datareclamos::fechaPorClienteDescripcion($clienteSeleccionado, $descripcionSeleccionada);
-    }
+    // if ($clienteSeleccionado && $descripcionSeleccionada) {
+    //     $fecha_factura = Datareclamos::fechaPorClienteDescripcion($clienteSeleccionado, $descripcionSeleccionada);
+    // }
+$descripcionSeleccionada = $_POST['descripcion'] ?? [];
+$fecha_factura = '';
+
+if ($clienteSeleccionado && !empty($descripcionSeleccionada)) {
+    // Aquí está el problema: $descripcionSeleccionada es array
+    $fecha_factura = Datareclamos::fechaPorClienteDescripcion($clienteSeleccionado, $descripcionSeleccionada[0]);
+}
 
 
 
