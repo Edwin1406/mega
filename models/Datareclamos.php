@@ -3,7 +3,7 @@
 namespace Model;
 
 class Datareclamos extends ActiveRecord {
-    protected static $tabla = '';
+    protected static $tabla = 'data_reclamos';
     protected static $columnasDB = ['id','numero','emision','cliente','codigo','descripcion','cantidad','pvp_total','costo','pvp_unid','costo_unid','margen'];
 
 
@@ -38,7 +38,7 @@ class Datareclamos extends ActiveRecord {
 
     }
 
-    
+
 
 
 
