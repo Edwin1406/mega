@@ -37,61 +37,133 @@ class ComercialController {
     //         'clientes' => $clientes
     //     ]);
     // }
+// public static function crear(Router $router)
+// {
+//     $comercial = new Quejas;
+//     $alertas = [];
+
+//     // Paso 1: Todos los clientes únicos
+//     $clientes = Datareclamos::clientesUnicos();
+
+//     // Paso 2: Cliente seleccionado si lo hay (de un POST previo o GET oculto)
+//     $clienteSeleccionado = $_POST['cliente'] ?? '';
+
+//     // Paso 3: Traer facturas solo si ya se eligió un cliente
+//     $facturas = [];
+//     if ($clienteSeleccionado) {
+//         $facturas = Datareclamos::facturasPorCliente($clienteSeleccionado);
+//     }
+
+//     $facturaSeleccionada = $_POST['factura'] ?? '';
+//     $descripciones = [];
+
+//     if ($clienteSeleccionado && $facturaSeleccionada) {
+//         $descripciones = Datareclamos::descripcionesPorClienteFactura($clienteSeleccionado, $facturaSeleccionada);
+//     }
+
+//     // $descripcionSeleccionada = $_POST['descripcion'] ?? '';
+//     // $fecha_factura = '';
+
+//     // if ($clienteSeleccionado && $descripcionSeleccionada) {
+//     //     $fecha_factura = Datareclamos::fechaPorClienteDescripcion($clienteSeleccionado, $descripcionSeleccionada);
+//     // }
+// $descripcionSeleccionada = $_POST['descripcion_producto'] ?? [];
+// $fecha_factura = '';
+
+// if ($clienteSeleccionado && !empty($descripcionSeleccionada)) {
+//     // Aquí está el problema: $descripcionSeleccionada es array
+//     $fecha_factura = Datareclamos::fechaPorClienteDescripcion($clienteSeleccionado, $descripcionSeleccionada[0]);
+// }
+
+
+
+//     // Manejo del POST del formulario principal
+//     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['guardar'])) {
+//         foreach ($_POST['descripcion_producto'] as $desc) {
+//         $nuevo = new Quejas;
+//         $data = $_POST;
+//         $data['descripcion_producto'] = $desc;
+//         $nuevo->sincronizar($data);
+
+//         debuguear($nuevo);
+
+//         $alertas = $nuevo->validar();
+//         if (empty($alertas)) {
+//             $nuevo->guardar();
+//         }
+//     }
+//     }
+
+//     $router->render('admin/comercial/crear', [
+//         'titulo' => 'GENERAR ORDEN DE COMPRA',
+//         'alertas' => $alertas,
+//         'clientes' => $clientes,
+//         'facturas' => $facturas,
+//         'clienteSeleccionado' => $clienteSeleccionado,
+//         'facturaSeleccionada' => $facturaSeleccionada,
+//         'descripcionSeleccionada' => $descripcionSeleccionada,
+//         'descripciones' => $descripciones,
+//                'fecha_factura' => $fecha_factura
+
+
+//     ]);
+// }
+
+
+
 public static function crear(Router $router)
 {
     $comercial = new Quejas;
     $alertas = [];
 
-    // Paso 1: Todos los clientes únicos
+    // Clientes únicos
     $clientes = Datareclamos::clientesUnicos();
-
-    // Paso 2: Cliente seleccionado si lo hay (de un POST previo o GET oculto)
     $clienteSeleccionado = $_POST['cliente'] ?? '';
 
-    // Paso 3: Traer facturas solo si ya se eligió un cliente
+    // Facturas
     $facturas = [];
     if ($clienteSeleccionado) {
         $facturas = Datareclamos::facturasPorCliente($clienteSeleccionado);
     }
 
     $facturaSeleccionada = $_POST['factura'] ?? '';
-    $descripciones = [];
 
+    // Descripciones
+    $descripciones = [];
     if ($clienteSeleccionado && $facturaSeleccionada) {
         $descripciones = Datareclamos::descripcionesPorClienteFactura($clienteSeleccionado, $facturaSeleccionada);
     }
 
-    // $descripcionSeleccionada = $_POST['descripcion'] ?? '';
-    // $fecha_factura = '';
+    // NUEVO: leer múltiples descripciones seleccionadas
+    $descripcionSeleccionada = isset($_POST['descripcion_producto']) ? (array)$_POST['descripcion_producto'] : [];
 
-    // if ($clienteSeleccionado && $descripcionSeleccionada) {
-    //     $fecha_factura = Datareclamos::fechaPorClienteDescripcion($clienteSeleccionado, $descripcionSeleccionada);
-    // }
-$descripcionSeleccionada = $_POST['descripcion_producto'] ?? [];
-$fecha_factura = '';
-
-if ($clienteSeleccionado && !empty($descripcionSeleccionada)) {
-    // Aquí está el problema: $descripcionSeleccionada es array
-    $fecha_factura = Datareclamos::fechaPorClienteDescripcion($clienteSeleccionado, $descripcionSeleccionada[0]);
-}
-
-
-
-    // Manejo del POST del formulario principal
-    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['guardar'])) {
-        foreach ($_POST['descripcion_producto'] as $desc) {
-        $nuevo = new Quejas;
-        $data = $_POST;
-        $data['descripcion_producto'] = $desc;
-        $nuevo->sincronizar($data);
-
-        debuguear($nuevo);
-
-        $alertas = $nuevo->validar();
-        if (empty($alertas)) {
-            $nuevo->guardar();
-        }
+    // Fecha basada en la primera descripción seleccionada
+    $fecha_factura = '';
+    if ($clienteSeleccionado && count($descripcionSeleccionada) > 0) {
+        $fecha_factura = Datareclamos::fechaPorClienteDescripcion($clienteSeleccionado, $descripcionSeleccionada[0]);
     }
+
+    // GUARDAR reclamos
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['guardar'])) {
+        $descripcionSeleccionada = $_POST['descripcion_producto'] ?? [];
+
+        if (!empty($descripcionSeleccionada)) {
+            foreach ($descripcionSeleccionada as $desc) {
+                $nuevo = new Quejas;
+                $datos = $_POST;
+                $datos['descripcion_producto'] = $desc;
+                $nuevo->sincronizar($datos);
+
+                $alertas = $nuevo->validar();
+                if (empty($alertas)) {
+                    $nuevo->guardar();
+                }
+            }
+            $alertas = ['Reclamos guardados correctamente.'];
+        } else {
+            $comercial->sincronizar($_POST);
+            $alertas = $comercial->validar();
+        }
     }
 
     $router->render('admin/comercial/crear', [
@@ -103,13 +175,9 @@ if ($clienteSeleccionado && !empty($descripcionSeleccionada)) {
         'facturaSeleccionada' => $facturaSeleccionada,
         'descripcionSeleccionada' => $descripcionSeleccionada,
         'descripciones' => $descripciones,
-               'fecha_factura' => $fecha_factura
-
-
+        'fecha_factura' => $fecha_factura
     ]);
 }
-
-
 
 
     // tabla 
