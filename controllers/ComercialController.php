@@ -72,18 +72,17 @@ public static function crear(Router $router)
 
     // Manejo del POST del formulario principal
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['guardar'])) {
+        foreach ($_POST['descripcion'] as $desc) {
+        $nuevo = new Quejas;
         $data = $_POST;
         $data['descripcion'] = $desc;
-        // debuguear($comercial);
-        $comercial->sincronizar($_POST);
+        $nuevo->sincronizar($data);
 
-        debuguear($comercial);
-        $alertas = $comercial->validar();
-
+        $alertas = $nuevo->validar();
         if (empty($alertas)) {
-            $comercial->guardar();
-            $alertas = $comercial->getAlertas();
+            $nuevo->guardar();
         }
+    }
     }
 
     $router->render('admin/comercial/crear', [
