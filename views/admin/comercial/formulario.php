@@ -68,7 +68,7 @@
             id="fecha_factura"
             class="formulario__input"
             placeholder="Nombre de la fecha_factura"
-            value="<?= htmlspecialchars($fechaFactura ?? '') ?>"
+            value="<?= htmlspecialchars($fecha_factura ?? '') ?>"
             readonly>
     </div>
 
