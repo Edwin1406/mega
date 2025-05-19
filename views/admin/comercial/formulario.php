@@ -35,7 +35,7 @@
     </select>
 
 
-
+   <div class="formulario__campo">
 <select name="factura" class="formulario__input" onchange="this.form.submit()">
     <option value="">-- Seleccione factura --</option>
     <?php foreach ($facturas as $factura): ?>
@@ -45,6 +45,8 @@
         </option>
     <?php endforeach; ?>
 </select>
+
+</div>
 
     
    <div class="formulario__campo">
