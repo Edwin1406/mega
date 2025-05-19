@@ -46,12 +46,12 @@
 
 
     <div class="formulario__campo">
-        <label class="formulario__label" for="descripcion">Descripcion</label>
+        <label class="formulario__label" for="descripcion_producto">Descripcion</label>
 
         <select name="descripcion" onchange="this.form.submit()" class="formulario__input">
             <option value="">-- Seleccione descripción --</option>
             <?php foreach ($descripciones as $desc): ?>
-                <option value="<?= htmlspecialchars($descripcion_producto) ?>"
+                <option value="<?= htmlspecialchars($desc) ?>"
                     <?= $desc === $descripcionSeleccionada ? 'selected' : '' ?>>
                     <?= $desc ?>
                 <?php endforeach; ?>
