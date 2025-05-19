@@ -72,10 +72,10 @@ public static function crear(Router $router)
 
     // Manejo del POST del formulario principal
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['guardar'])) {
-        foreach ($_POST['descripcion'] as $desc) {
+        foreach ($_POST['descripcion_producto'] as $desc) {
         $nuevo = new Quejas;
         $data = $_POST;
-        $data['descripcion'] = $desc;
+        $data['descripcion_producto'] = $desc;
         $nuevo->sincronizar($data);
 
         $alertas = $nuevo->validar();
