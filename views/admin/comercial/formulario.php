@@ -38,7 +38,7 @@
         </div>
 
 
-     <div class="formulario__campo">
+<div class="formulario__campo">
     <label class="formulario__label">Descripciones</label>
     <?php foreach ($descripciones as $desc): ?>
         <div>
@@ -53,6 +53,7 @@
         </div>
     <?php endforeach; ?>
 </div>
+
 
 
         <div class="formulario__campo">
