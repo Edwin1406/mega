@@ -25,7 +25,7 @@ class pdfQuejas extends TCPDF
         $this->SetFont('helvetica', 'B', 16);
         $this->Rect(10, 10, 40, 30, 'F'); // barra naranja logo
         $this->SetXY(10, 15);
-        $this->MultiCell(40, 10, "MEGA\nSTOCK", 0, 'C', false);
+        $this->Cell(40, 20, "MEGA\nSTOCK", 0, 0, 'C');
 
         $this->SetTextColor(0);
         $this->SetFont('helvetica', 'B', 14);
@@ -35,37 +35,34 @@ class pdfQuejas extends TCPDF
         // Checkbox QUEJA / RECLAMO
         $this->SetFont('helvetica', '', 10);
         $this->SetXY(160, 10);
-        $this->Cell(25, 10, 'QUEJA', 0, 0, 'L');
+        $this->Cell(25, 10, 'QUEJA');
         $this->Rect(190, 12, 8, 8);
-        $this->SetXY(160, 22);
-        $this->Cell(30, 10, 'RECLAMO', 0, 0, 'L');
+        $this->Ln(12);
+        $this->SetX(160);
+        $this->Cell(30, 10, 'RECLAMO');
         $this->Rect(190, 24, 8, 8);
 
-        // --- Barra lateral naranja rotada (1. INFORMACIÓN DEL RECLAMO) ---
+        // ----------------------------
+        // 1. INFORMACIÓN DEL RECLAMO - barra lateral vertical naranja
         $this->SetFillColor(255, 140, 0);
         $this->SetTextColor(255);
         $this->SetFont('helvetica', 'B', 9);
         $this->Rect(10, 45, 20, 115, 'F');
-
-        // Rotar texto vertical para barra lateral 1
-        $this->StartTransform();
-        $this->Rotate(90, 20, 45);
-        $this->SetXY(20, 45);
-        $this->MultiCell(115, 6, "1.- INFORMACIÓN\nDEL RECLAMO.\nCLIENTE / VENTAS / DESPACHOS", 0, 'C', false);
-        $this->StopTransform();
+        $this->SetXY(10, 45);
+        $this->MultiCell(20, 6, "1.- INFORMACIÓN\nDEL RECLAMO.\nCLIENTE / VENTAS / DESPACHOS", 0, 'C');
 
         // Sección 1 contenido
         $this->SetTextColor(0);
         $this->SetFont('helvetica', '', 10);
         $this->SetXY(35, 45);
 
-        // Fila 1: Fecha - Cliente
+        // Primera fila: Fecha - Cliente
         $this->Cell(25, 8, 'Fecha:', 0, 0);
         $this->Cell(65, 8, $this->queja->fecha ?? '____________________', 'B', 0);
         $this->Cell(20, 8, 'Cliente:', 0, 0);
         $this->Cell(55, 8, $this->queja->cliente ?? '_____________________________', 'B', 1);
 
-        // Fila 2: Pedido N° - Referencia - Fecha-Factura
+        // Segunda fila: Pedido N° - Referencia - Fecha-Factura
         $this->Cell(30, 8, 'Pedido N°:', 0, 0);
         $this->Cell(50, 8, $this->queja->pedido_numero ?? '__________', 'B', 0);
         $this->Cell(25, 8, 'Referencia:', 0, 0);
@@ -73,7 +70,7 @@ class pdfQuejas extends TCPDF
         $this->Cell(30, 8, 'Fecha-Factura:', 0, 0);
         $this->Cell(25, 8, $this->queja->fecha_factura ?? '__________', 'B', 1);
 
-        // Fila 3: Num-Lote - Num-Factura
+        // Tercera fila: Num-Lote - Num-Factura
         $this->Cell(30, 8, 'Num-Lote:', 0, 0);
         $this->Cell(50, 8, $this->queja->num_lote ?? '____________________', 'B', 0);
         $this->Cell(30, 8, 'Num-Factura:', 0, 0);
@@ -97,45 +94,35 @@ class pdfQuejas extends TCPDF
         $this->Cell(20, 8, 'Teléfono:', 0, 0);
         $this->Cell(0, 8, '________________________', 'B', 1);
 
-        // --- Barra lateral naranja rotada (2. SOLUCIÓN INMEDIATA) ---
+        // ----------------------------
+        // 2. SOLUCIÓN INMEDIATA - barra lateral naranja
         $this->SetFillColor(255, 140, 0);
         $this->SetTextColor(255);
         $this->SetFont('helvetica', 'B', 9);
         $this->Rect(10, 160, 20, 85, 'F');
+        $this->SetXY(10, 160);
+        $this->MultiCell(20, 6, "2.- SOLUCIÓN\nINMEDIATA\nVENTAS / DESPACHOS / PRODUCCIÓN", 0, 'C');
 
-        $this->StartTransform();
-        $this->Rotate(90, 20, 160);
-        $this->SetXY(20, 160);
-        $this->MultiCell(85, 6, "2.- SOLUCIÓN\nINMEDIATA\nVENTAS / DESPACHOS / PRODUCCIÓN", 0, 'C', false);
-        $this->StopTransform();
-
-        // Sección 2 contenido
+        // Contenido sección 2
         $this->SetTextColor(0);
         $this->SetFont('helvetica', '', 10);
         $this->SetXY(35, 160);
 
         // Solución inmediata texto largo
-        $solucionTexto = "Solución inmediata:\n" . ($this->queja->solucion_inmediata ?? "__________________________________________________________");
-        $this->MultiCell(0, 30, $solucionTexto, 0, 'L');
+        $this->MultiCell(0, 30, "Solución inmediata:\n" . ($this->queja->solucion_inmediata ?? "__________________________________________________________"), 0, 'L');
 
         // Checkboxes: VENTAS, DESPACHOS, PRODUCCIÓN
         $this->SetXY(35, 195);
         $checkboxes = ['VENTAS', 'DESPACHOS', 'PRODUCCIÓN'];
-        $checkboxWidth = 6;
-        $checkboxHeight = 6;
-        $gap = 35;
-        $x = $this->GetX();
-        $y = $this->GetY() + 2;
         foreach ($checkboxes as $ch) {
             $this->Cell(30, 8, $ch, 0, 0);
-            $this->Rect($x + 30, $y, $checkboxWidth, $checkboxHeight);
-            $x += $gap + 30;
-            $this->SetX($x);
+            $x = $this->GetX();
+            $y = $this->GetY() + 2;
+            $this->Rect($x, $y, 6, 6);
+            $this->Cell(10, 8, '', 0, 0);
         }
 
         // Fecha
-        $this->SetX(35);
-        $this->Ln(10);
         $this->Cell(25, 8, 'Fecha:', 0, 0);
         $this->Cell(40, 8, $this->queja->fecha_solucion ?? '__________', 'B', 1);
 
@@ -188,17 +175,14 @@ class pdfQuejas extends TCPDF
         $this->Cell(40, 8, 'Responsable:', 0, 0);
         $this->Cell(0, 8, $this->queja->responsable ?? '_________________', 'B', 1);
 
-        // --- Barra lateral naranja rotada (3. TRAZABILIDAD CONTROL DE CALIDAD) ---
+        // ----------------------------
+        // 3. TRAZABILIDAD CONTROL DE CALIDAD - barra lateral naranja
         $this->SetFillColor(255, 140, 0);
         $this->SetTextColor(255);
         $this->SetFont('helvetica', 'B', 9);
         $this->Rect(10, 250, 20, 80, 'F');
-
-        $this->StartTransform();
-        $this->Rotate(90, 20, 250);
-        $this->SetXY(20, 250);
-        $this->MultiCell(80, 6, "3.- TRAZABILIDAD\nCONTROL DE CALIDAD", 0, 'C', false);
-        $this->StopTransform();
+        $this->SetXY(10, 250);
+        $this->MultiCell(20, 6, "3.- TRAZABILIDAD\nCONTROL DE CALIDAD", 0, 'C');
 
         // Sección 3 contenido
         $this->SetTextColor(0);
@@ -248,35 +232,31 @@ class pdfQuejas extends TCPDF
         $this->Cell(15, 8, 'Control:', 0, 1);
         $this->Cell(20, 8, $this->queja->control ?? '', 1, 1, 'C');
 
-        // --- Barra lateral naranja rotada (4. ACCIÓN CORRECTIVA) ---
+        // ----------------------------
+        // 4. ACCIÓN CORRECTIVA - barra lateral naranja
         $this->SetFillColor(255, 140, 0);
         $this->SetTextColor(255);
         $this->SetFont('helvetica', 'B', 9);
         $this->Rect(10, 335, 20, 60, 'F');
+        $this->SetXY(10, 335);
+        $this->MultiCell(20, 6, "4.- ACCIÓN\nCORRECTIVA\nPERSONA RESPONSABLE", 0, 'C');
 
-        $this->StartTransform();
-        $this->Rotate(90, 20, 335);
-        $this->SetXY(20, 335);
-        $this->MultiCell(60, 6, "4.- ACCIÓN\nCORRECTIVA\nPERSONA RESPONSABLE", 0, 'C', false);
-        $this->StopTransform();
-
-        // Sección 4 contenido
+        // Contenido sección 4
         $this->SetTextColor(0);
         $this->SetFont('helvetica', '', 10);
         $this->SetXY(35, 335);
 
-        $causaTexto = "Causa del problema:\n" . ($this->queja->causa_problema ?? "__________________________________________________");
-        $this->MultiCell(0, 20, $causaTexto, 0, 'L');
+        $this->MultiCell(0, 20, "Causa del problema:\n" . ($this->queja->causa_problema ?? "__________________________________________________"), 0, 'L');
         $this->Ln(5);
-        $accionTexto = "Acción correctiva y/o preventiva:\n" . ($this->queja->accion_correctiva ?? "__________________________________________________");
-        $this->MultiCell(0, 25, $accionTexto, 0, 'L');
+        $this->MultiCell(0, 25, "Acción correctiva y/o preventiva:\n" . ($this->queja->accion_correctiva ?? "__________________________________________________"), 0, 'L');
 
         $this->Cell(50, 8, 'Fecha de la Acción:', 0, 0);
         $this->Cell(50, 8, $this->queja->fecha_accion ?? '_________________', 'B', 0);
         $this->Cell(40, 8, 'Responsable:', 0, 0);
         $this->Cell(0, 8, $this->queja->responsable_accion ?? '_________________', 'B', 1);
 
-        // --- Pie de página ---
+        // ----------------------------
+        // Pie de página - recibe el reclamo y fecha/hora
         $this->Ln(8);
         $this->Cell(80, 8, 'Recibe el reclamo:', 0, 0);
         $this->Cell(80, 8, 'Fecha y hora:', 0, 1);
