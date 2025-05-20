@@ -1518,7 +1518,7 @@ public static function procesarArchivoExcelComercial($filePath)
 
 
 // EXCEL QEUJAS RECIBIDAS
-public static function procesarArchivoExcelComercial($filePath)
+public static function procesarArchivoExcelReclamos($filePath)
 {
     $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($filePath);
     $sheet = $spreadsheet->getActiveSheet();
