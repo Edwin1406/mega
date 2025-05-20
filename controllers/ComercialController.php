@@ -366,7 +366,7 @@ public static function pdfquejas(Router $router)
                 $ext = pathinfo($nombreArchivo, PATHINFO_EXTENSION);
                 if ($ext === 'xlsx' || $ext === 'xls') {
                     // Mover el archivo a la carpeta de subidas
-                    $rutaDestino = __DIR__ . "/../compras/$nombreArchivo";
+                    $rutaDestino = __DIR__ . "/../reclamos/$nombreArchivo";
                     move_uploaded_file($tempArchivo, $rutaDestino);
                     echo 'Archivo subido correctamente';
                  
