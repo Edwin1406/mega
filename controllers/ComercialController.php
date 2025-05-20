@@ -265,13 +265,18 @@ public static function crear(Router $router)
 
 public static function pdfquejas(Router $router)
 {
-    ob_start(); // Evita errores por salida previa
+    ob_start(); // Evitar salida previa que cause error TCPDF
 
-    $quejas = Quejas::find($_GET['id']);
-    debuguear($quejas);
-    $pdf = new pdfQuejas();
-    
-  
+    $queja = Quejas::find($_GET['id']); // Trae el objeto queja
+
+    $pdf = new \Classes\pdfQuejas();
+
+    $pdf->setQueja($queja);   // Pasar la info a la clase
+    $pdf->generarPdf();       // Generar contenido del PDF
+
+    $pdf->Output('reporte_queja.pdf', 'I'); // Mostrar PDF en el navegador
+
+    ob_end_flush();
 }
 
 
