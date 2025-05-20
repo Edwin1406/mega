@@ -82,21 +82,21 @@ class pdfQuejas extends TCPDF
         // Descripción Producto
         $this->Ln(3);
         $this->Cell(0, 8, "Descripción de Producto:", 0, 1);
-        $this->MultiCell(0, 20, $this->queja->descripcion_producto ?? "___________________________________________", 1, 'L', false, 1);
+        $this->MultiCell(0, 20, $this->queja->descripcion_producto ?? "____________", 1, 'L', false, 1);
 
         // Motivo del reclamo
         $this->Ln(3);
         $this->Cell(0, 8, "Motivo del reclamo:", 0, 1);
-        $this->MultiCell(0, 25, $this->queja->motivo_reclamo ?? "__________________________________________________", 1, 'L', false, 1);
+        $this->MultiCell(0, 25, $this->queja->motivo_reclamo ?? "__________________", 1, 'L', false, 1);
 
         // Persona que genera reclamo, Cargo, Teléfono
         $this->Ln(3);
         $this->Cell(90, 8, "Persona que generará el reclamo (Cliente):", 0, 0);
-        $this->Cell(0, 8, $this->queja->per_reporta_reclamo ?? "_____________________________", 'B', 1);
+        $this->Cell(0, 8, $this->queja->per_reporta_reclamo ?? "____________", 'B', 1);
         $this->Cell(50, 8, "Cargo o área de la empresa:", 0, 0);
-        $this->Cell(80, 8, "_____________________________", 'B', 0);
+        $this->Cell(80, 8, "______________", 'B', 0);
         $this->Cell(20, 8, "Teléfono:", 0, 0);
-        $this->Cell(0, 8, "________________________", 'B', 1);
+        $this->Cell(0, 8, "__________", 'B', 1);
 
         $this->Ln(8);
 
@@ -109,7 +109,7 @@ class pdfQuejas extends TCPDF
         $this->SetTextColor(...$black);
         $this->SetFont('helvetica', '', 10);
 
-        $solucion = "Solución inmediata:\n" . ($this->queja->solucion_inmediata ?? "___________________________________________");
+        $solucion = "Solución inmediata:\n" . ($this->queja->solucion_inmediata ?? "_______________");
         $this->MultiCell(0, 35, $solucion, 1, 'L', false, 1);
 
         $this->Ln(3);
