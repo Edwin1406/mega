@@ -239,7 +239,6 @@ $this->SetX(55);
 $this->Cell(12, 8, "PESO", 0, 0);
 $this->Cell(20, 8, $this->queja->peso ?? "", 1, 1);
 
-// Sub-etiquetas: columna derecha
 $this->Ln(-32); // Regresa arriba
 $this->SetX(90); // Posición inicial a la derecha
 
@@ -256,6 +255,12 @@ $this->Cell(20, 8, $this->queja->tinta3 ?? "", 1, 0);
 $this->Cell(12, 8, "GCMI", 0, 0);
 $this->Cell(20, 8, $this->queja->tinta4 ?? "", 1, 1);
 
+// Tercera fila
+$this->SetX(90);
+$this->Cell(12, 8, "GCMI", 0, 0);
+$this->Cell(20, 8, $this->queja->tinta5 ?? "", 1, 0);
+$this->Cell(12, 8, "GCMI", 0, 0);
+$this->Cell(20, 8, $this->queja->tinta6 ?? "", 1, 1);
 
 
 
