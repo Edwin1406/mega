@@ -1517,6 +1517,99 @@ public static function procesarArchivoExcelComercial($filePath)
 
 
 
+// EXCEL QEUJAS RECIBIDAS
+
+public static function procesarArchivoExcelReclamos($filePath)
+{
+    $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($filePath);
+    $sheet = $spreadsheet->getActiveSheet();
+
+    // Crear tabla con las nuevas columnas
+    $queryCrearTabla = "
+        CREATE TABLE IF NOT EXISTS " . static::$tabla . " (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            numero VARCHAR(255),
+            emision DATE,
+            cliente VARCHAR(255),
+            codigo VARCHAR(255),
+            descripcion VARCHAR(500),
+            cantidad DECIMAL(10, 2),
+            pvp_total DECIMAL(10, 2),
+            costo DECIMAL(10, 2),
+            pvp_unid DECIMAL(10, 2),
+            costo_unid DECIMAL(10, 2),
+            margen DECIMAL(10, 2),
+            fecha_corte DATE DEFAULT CURRENT_DATE
+        )
+    ";
+    self::$db->query($queryCrearTabla);
+
+    $highestRow = $sheet->getHighestRow();
+
+    for ($row = 2; $row <= $highestRow; $row++) {
+        $data = [];
+        for ($col = 'A'; $col <= 'L'; $col++) {
+            $data[] = trim($sheet->getCell($col . $row)->getFormattedValue() ?? '');
+        }
+
+        list(
+            $numero, $emision, $cliente, $codigo, $descripcion,
+            $cantidad, $pvp_total, $costo, $pvp_unid, $costo_unid, $margen
+        ) = array_slice($data, 1); // Saltamos el ID que es autoincremental
+
+        // Validar fecha de emisión
+        $emision = !empty($emision) && strtotime($emision) ? date('Y-m-d', strtotime($emision)) : null;
+
+        // Convertir valores numéricos
+        $cantidad = floatval(str_replace(',', '.', $cantidad));
+        $pvp_total = floatval(str_replace(',', '.', $pvp_total));
+        $costo = floatval(str_replace(',', '.', $costo));
+        $pvp_unid = floatval(str_replace(',', '.', $pvp_unid));
+        $costo_unid = floatval(str_replace(',', '.', $costo_unid));
+        $margen = floatval(str_replace(',', '.', $margen));
+
+        $fecha_corte = date('Y-m-d');
+
+        // Evitar duplicados con todos los datos relevantes
+        $queryExistente = "
+            SELECT id FROM " . static::$tabla . "
+            WHERE numero = '$numero' 
+              AND emision = '$emision'
+              AND cliente = '$cliente'
+              AND codigo = '$codigo'
+              AND descripcion = '$descripcion'
+              AND cantidad = '$cantidad'
+              AND pvp_total = '$pvp_total'
+              AND costo = '$costo'
+              AND pvp_unid = '$pvp_unid'
+              AND costo_unid = '$costo_unid'
+              AND margen = '$margen'
+              AND fecha_corte = '$fecha_corte'
+        ";
+
+        $resultado = self::$db->query($queryExistente);
+        if ($resultado->num_rows == 0) {
+            $queryInsertar = "
+                INSERT INTO " . static::$tabla . " (
+                    numero, emision, cliente, codigo, descripcion,
+                    cantidad, pvp_total, costo, pvp_unid, costo_unid, margen, fecha_corte
+                ) VALUES (
+                    '$numero', '$emision', '$cliente', '$codigo', '$descripcion',
+                    '$cantidad', '$pvp_total', '$costo', '$pvp_unid', '$costo_unid', '$margen', '$fecha_corte'
+                )
+            ";
+            self::$db->query($queryInsertar);
+        }
+    }
+
+    return true;
+}
+
+
+
+
+
+
 
 // ---------------------------------------------------------- EXCEL PROYECCIONES -------------------------------------------------------------------------
 
