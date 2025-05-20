@@ -1,5 +1,9 @@
 <?php
+
 namespace Classes;
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
+
 use TCPDF;
 class pdfQuejas extends TCPDF 
 {

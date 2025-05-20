@@ -260,6 +260,9 @@ public static function crear(Router $router)
         ]);
     }
 
+
+    
+
 public static function pdfquejas(Router $router)
 {
     ob_start(); // Evita errores por salida previa
