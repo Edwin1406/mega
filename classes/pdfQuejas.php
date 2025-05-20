@@ -94,7 +94,7 @@ class pdfQuejas extends TCPDF
         $this->Cell(70, 8, "Persona que generará el reclamo (Cliente):", 0, 0);
         $this->Cell(0, 8, $this->queja->per_reporta_reclamo ?? "_", 'B', 1);
         $this->Cell(40, 8, "Cargo o área de la empresa:", 0, 0);
-        $this->Cell(60, 8, "", 'B', 0);
+        $this->Cell(40, 8, "", 'B', 0);
         $this->Cell(20, 8, "Teléfono:", 0, 0);
         $this->Cell(0, 8, "", 'B', 1);
 
