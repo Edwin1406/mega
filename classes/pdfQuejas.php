@@ -240,7 +240,7 @@ $this->Cell(12, 8, "PESO", 0, 0);
 $this->Cell(20, 8, $this->queja->peso ?? "", 1, 1);
 
 // Sub-etiquetas: columna derecha
-$this->Ln(-40); // Regresa arriba
+$this->Ln(-32); // Regresa arriba
 $this->SetX(90); // Mueve a la tercera columna
 $this->Cell(12, 8, "GCMI", 0, 0);
 $this->Cell(20, 8, $this->queja->tinta1 ?? "", 1, 1);
