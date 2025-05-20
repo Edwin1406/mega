@@ -30,17 +30,19 @@ class pdfQuejas extends TCPDF
         $this->SetFont('helvetica', 'B', 18);
         $this->Cell(40, 25, "MEGA\nSTOCK", 1, 0, 'C', true);
 
-        $this->SetTextColor(...$black);
+       $this->SetTextColor(0);
         $this->SetFont('helvetica', 'B', 14);
-        $this->Cell(0, 25, "FORMATO DE QUEJAS Y RECLAMOS", 1, 1, 'C');
+        $this->SetXY(55, 15);
+        $this->Cell(0, 10, 'FORMATO DE QUEJAS Y RECLAMOS', 0, 1, 'C');
 
-        // --- Checkbox QUEJA / RECLAMO ---
-        $this->SetFont('helvetica', '', 12);
-        $this->Cell(30, 10, 'QUEJA');
-        $this->Rect($this->GetX() + 2, $this->GetY() - 7, 8, 8);
-        $this->Cell(40, 10, 'RECLAMO');
-        $this->Rect($this->GetX() + 2, $this->GetY() - 7, 8, 8);
-        $this->Ln(15);
+        // Checkbox QUEJA / RECLAMO
+        $this->SetFont('helvetica', '', 10);
+        $this->SetXY(160, 10);
+        $this->Cell(25, 10, 'QUEJA', 0, 0, 'L');
+        $this->Rect(190, 12, 8, 8);
+        $this->SetXY(160, 22);
+        $this->Cell(30, 10, 'RECLAMO', 0, 0, 'L');
+        $this->Rect(190, 24, 8, 8);
 
         // --- Sección 1: INFORMACIÓN DEL RECLAMO ---
         $this->SetFillColor(...$orange);
