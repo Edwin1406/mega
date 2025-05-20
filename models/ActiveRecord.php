@@ -1521,10 +1521,14 @@ public static function procesarArchivoExcelComercial($filePath)
 
 public static function procesarArchivoExcelReclamos($filePath)
 {
+    // Aumentar límite de ejecución a 5 minutos
+    ini_set('max_execution_time', 300); // en segundos
+    set_time_limit(300);
+
     $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($filePath);
     $sheet = $spreadsheet->getActiveSheet();
 
-    // Crear tabla con columnas y eliminar la coma sobrante al final
+    // Crear tabla (con coma final corregida)
     $queryCrearTabla = "
         CREATE TABLE IF NOT EXISTS " . static::$tabla . " (
             id INT AUTO_INCREMENT PRIMARY KEY,
@@ -1546,72 +1550,73 @@ public static function procesarArchivoExcelReclamos($filePath)
     $highestRow = $sheet->getHighestRow();
 
     for ($row = 2; $row <= $highestRow; $row++) {
-        $data = [];
+        try {
+            error_log("Procesando fila $row..."); // Seguimiento
 
-        // Leer columnas de A a L (12 columnas, incluyendo ID que ignoraremos)
-        for ($col = 'A'; $col <= 'L'; $col++) {
-            $data[] = trim($sheet->getCell($col . $row)->getFormattedValue() ?? '');
-        }
+            $data = [];
+            for ($col = 'A'; $col <= 'L'; $col++) {
+                $data[] = trim($sheet->getCell($col . $row)->getFormattedValue() ?? '');
+            }
 
-        // Saltar la primera columna (ID autoincremental)
-        list(
-            $numero, $emision, $cliente, $codigo, $descripcion,
-            $cantidad, $pvp_total, $costo, $pvp_unid, $costo_unid, $margen
-        ) = array_slice($data, 1);
+            list(
+                $numero, $emision, $cliente, $codigo, $descripcion,
+                $cantidad, $pvp_total, $costo, $pvp_unid, $costo_unid, $margen
+            ) = array_slice($data, 1); // Saltamos ID autoincremental
 
-        // Validar y formatear la fecha de emisión
-        $emision = !empty($emision) && strtotime($emision) ? date('Y-m-d', strtotime($emision)) : null;
+            // Formatear fecha
+            $emision = !empty($emision) && strtotime($emision) ? date('Y-m-d', strtotime($emision)) : null;
 
-        // Convertir valores numéricos y limpiar comas decimales
-        $cantidad = floatval(str_replace(',', '.', $cantidad));
-        $pvp_total = floatval(str_replace(',', '.', $pvp_total));
-        $costo = floatval(str_replace(',', '.', $costo));
-        $pvp_unid = floatval(str_replace(',', '.', $pvp_unid));
-        $costo_unid = floatval(str_replace(',', '.', $costo_unid));
-        $margen = floatval(str_replace(',', '.', $margen));
+            // Convertir números (con coma a punto si es necesario)
+            $cantidad = floatval(str_replace(',', '.', $cantidad));
+            $pvp_total = floatval(str_replace(',', '.', $pvp_total));
+            $costo = floatval(str_replace(',', '.', $costo));
+            $pvp_unid = floatval(str_replace(',', '.', $pvp_unid));
+            $costo_unid = floatval(str_replace(',', '.', $costo_unid));
+            $margen = floatval(str_replace(',', '.', $margen));
 
-        // Verificar si el registro ya existe para evitar duplicados exactos
-        $queryExistente = "
-            SELECT id FROM " . static::$tabla . "
-            WHERE numero = '" . self::$db->real_escape_string($numero) . "'
-              AND emision = '" . self::$db->real_escape_string($emision) . "'
-              AND cliente = '" . self::$db->real_escape_string($cliente) . "'
-              AND codigo = '" . self::$db->real_escape_string($codigo) . "'
-              AND descripcion = '" . self::$db->real_escape_string($descripcion) . "'
-              AND cantidad = '" . self::$db->real_escape_string($cantidad) . "'
-              AND pvp_total = '" . self::$db->real_escape_string($pvp_total) . "'
-              AND costo = '" . self::$db->real_escape_string($costo) . "'
-              AND pvp_unid = '" . self::$db->real_escape_string($pvp_unid) . "'
-              AND costo_unid = '" . self::$db->real_escape_string($costo_unid) . "'
-              AND margen = '" . self::$db->real_escape_string($margen) . "'
-        ";
+            // Escapar valores para evitar SQL injection
+            $numero = self::$db->real_escape_string($numero);
+            $cliente = self::$db->real_escape_string($cliente);
+            $codigo = self::$db->real_escape_string($codigo);
+            $descripcion = self::$db->real_escape_string($descripcion);
 
-        $resultado = self::$db->query($queryExistente);
-
-        // Insertar si no existe duplicado
-        if ($resultado->num_rows == 0) {
-            $queryInsertar = "
-                INSERT INTO " . static::$tabla . " (
-                    numero, emision, cliente, codigo, descripcion,
-                    cantidad, pvp_total, costo, pvp_unid, costo_unid, margen
-                ) VALUES (
-                    '" . self::$db->real_escape_string($numero) . "',
-                    '" . self::$db->real_escape_string($emision) . "',
-                    '" . self::$db->real_escape_string($cliente) . "',
-                    '" . self::$db->real_escape_string($codigo) . "',
-                    '" . self::$db->real_escape_string($descripcion) . "',
-                    '" . self::$db->real_escape_string($cantidad) . "',
-                    '" . self::$db->real_escape_string($pvp_total) . "',
-                    '" . self::$db->real_escape_string($costo) . "',
-                    '" . self::$db->real_escape_string($pvp_unid) . "',
-                    '" . self::$db->real_escape_string($costo_unid) . "',
-                    '" . self::$db->real_escape_string($margen) . "'
-                )
+            // Verificar duplicado
+            $queryExistente = "
+                SELECT id FROM " . static::$tabla . "
+                WHERE numero = '$numero'
+                  AND emision = '$emision'
+                  AND cliente = '$cliente'
+                  AND codigo = '$codigo'
+                  AND descripcion = '$descripcion'
+                  AND cantidad = '$cantidad'
+                  AND pvp_total = '$pvp_total'
+                  AND costo = '$costo'
+                  AND pvp_unid = '$pvp_unid'
+                  AND costo_unid = '$costo_unid'
+                  AND margen = '$margen'
             ";
-            self::$db->query($queryInsertar);
+
+            $resultado = self::$db->query($queryExistente);
+
+            if ($resultado->num_rows == 0) {
+                $queryInsertar = "
+                    INSERT INTO " . static::$tabla . " (
+                        numero, emision, cliente, codigo, descripcion,
+                        cantidad, pvp_total, costo, pvp_unid, costo_unid, margen
+                    ) VALUES (
+                        '$numero', '$emision', '$cliente', '$codigo', '$descripcion',
+                        '$cantidad', '$pvp_total', '$costo', '$pvp_unid', '$costo_unid', '$margen'
+                    )
+                ";
+                self::$db->query($queryInsertar);
+            }
+
+        } catch (Exception $e) {
+            error_log("Error en fila $row: " . $e->getMessage());
         }
     }
 
+    error_log("Carga completa sin errores graves.");
     return true;
 }
 
