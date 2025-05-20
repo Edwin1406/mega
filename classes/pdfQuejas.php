@@ -260,7 +260,7 @@ $this->Ln(-32); // Regresa arriba
 $this->SetX(150);
 $this->Cell(30, 8, $this->queja->tinta5 ?? "", 1, 0);
 $this->Cell(30, 8, $this->queja->tinta5 ?? "", 1, 1);
-$this->Cell(30, 8, $this->queja->tinta5 ?? "", 1, 1);
+$this->Cell(30, 8, $this->queja->tinta5 ?? "", 1, 0);
 
 
 
