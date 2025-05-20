@@ -384,6 +384,12 @@ public static function pdfquejas(Router $router)
             }
         }
 
+
+         $router->render('admin/comercial/subirexcelreclamos', [
+            'titulo' => 'SUBIR EXCEL',
+            'alertas' => $alertas
+        ]);
+
     }
 
 
