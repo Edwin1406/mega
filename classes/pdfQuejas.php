@@ -254,6 +254,20 @@ $this->SetX(90);
 $this->Cell(12, 8, "GCMI", 0, 0);
 $this->Cell(20, 8, $this->queja->tinta4 ?? "", 1, 1);
 
+$this->Ln(-40); // Regresa arriba
+$this->SetX(90); // Mueve a la tercera columna
+$this->Cell(12, 8, "GCMI", 0, 0);
+$this->Cell(20, 8, $this->queja->tinta1 ?? "", 1, 1);
+$this->SetX(90);
+$this->Cell(12, 8, "GCMI", 0, 0);
+$this->Cell(20, 8, $this->queja->tinta2 ?? "", 1, 1);
+$this->SetX(90);
+$this->Cell(12, 8, "GCMI", 0, 0);
+$this->Cell(20, 8, $this->queja->tinta3 ?? "", 1, 1);
+$this->SetX(90);
+$this->Cell(12, 8, "GCMI", 0, 0);
+$this->Cell(20, 8, $this->queja->tinta4 ?? "", 1, 1);
+
 // Lote y control al final
 $this->SetX(130);
 $this->Cell(20, 8, "Lote:", 0, 0);
