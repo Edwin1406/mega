@@ -28,6 +28,7 @@
 
 
     <div class="formulario__campo">
+        <label class="formulario__label" for="factura">NRO.Factura</label>
         <select name="factura" class="formulario__input" onchange="this.form.submit()">
             <option value="">-- Seleccione factura --</option>
             <?php foreach ($facturas as $factura): ?>
