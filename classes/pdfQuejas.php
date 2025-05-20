@@ -224,7 +224,7 @@ $this->Cell(20, 8, $this->queja->ancho ?? "", 1, 1);
 // Sub-etiquetas: columna central
 $this->Ln(-32); // Regresa arriba
 $this->SetX(55); // Mueve a la segunda columna
-$this->Cell(18, 8, "ECT", 0, 0);
+$this->Cell(8, 8, "ECT", 0, 0);
 $this->Cell(20, 8, $this->queja->ect ?? "", 1, 1); //ancho del caudro
 $this->SetX(55);
 $this->Cell(20, 8, "FCT", 0, 0);
