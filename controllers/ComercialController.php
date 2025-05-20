@@ -263,7 +263,9 @@ public static function crear(Router $router)
     public static function pdfquejas(Router $router)
 {
    
-    $inventarioProductos= Productos_inventario::allSis('producto','DESC');
+
+    $quejas = Quejas::find($_GET['id']);
+    debuguear($quejas);
 
     $pdf = new InventarioPdf();
     $datos = [

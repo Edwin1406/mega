@@ -507,6 +507,8 @@ public static function pdfinventario(Router $router)
    
     $inventarioProductos= Productos_inventario::allSis('producto','DESC');
 
+    // 
+
     $pdf = new InventarioPdf();
     $datos = [
         'inventarioProductos' => $inventarioProductos,
