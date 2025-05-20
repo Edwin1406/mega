@@ -245,7 +245,7 @@ $this->SetX(90); // Posición inicial a la derecha
 // Fila 1
 $this->Cell(12, 8, "GCMI", 0, 0);
 $this->Cell(20, 8, $this->queja->tinta1 ?? "", 1, 0);
-$this->Cell(12, 8, "GCMI", 0, 0);
+// $this->Cell(12, 8, "GCMI", 0, 0);
 $this->Cell(20, 8, $this->queja->tinta2 ?? "", 1, 1);
 
 // Fila 2
@@ -257,12 +257,16 @@ $this->Cell(20, 8, $this->queja->tinta4 ?? "", 1, 1);
 
 // Fila 3
 $this->SetX(90);
+$this->Cell(12, 8, "GCMI", 0, 0);
 $this->Cell(20, 8, $this->queja->tinta5 ?? "", 1, 0);
+$this->Cell(12, 8, "GCMI", 0, 0);
 $this->Cell(20, 8, $this->queja->tinta6 ?? "", 1, 1);
 
 // Fila 4
 $this->SetX(90);
+$this->Cell(12, 8, "GCMI", 0, 0);
 $this->Cell(20, 8, $this->queja->tinta7 ?? "", 1, 0);
+$this->Cell(12, 8, "GCMI", 0, 0);
 $this->Cell(20, 8, $this->queja->tinta8 ?? "", 1, 1);
 
 
