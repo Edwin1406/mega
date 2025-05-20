@@ -336,7 +336,7 @@ $this->SetXY($this->GetX() + 40, $this->GetY()); // Mueves el cursor a la derech
         // --- Pie de página ---
         $this->Cell(80, 8, "Recibe el reclamo:", 0, 0);
         $this->Cell(80, 8, "Fecha y hora:", 0, 1);
-        $this->Cell(80, 8, "", 0, 0);
-        $this->Cell(80, 8, "", 0, 1);
+        $this->Cell(80, 8, "___________", 0, 0);
+        $this->Cell(80, 8, "___________", 0, 1);
     }
 }
