@@ -239,7 +239,7 @@ $this->SetX(55);
 $this->Cell(12, 8, "PESO", 0, 0);
 $this->Cell(20, 8, $this->queja->peso ?? "", 1, 1);
 
-$th$this->Ln(-32); // Subimos
+$this->Ln(-32); // Subimos
 $this->SetX(90); // Columna derecha
 
 // Fila 1
