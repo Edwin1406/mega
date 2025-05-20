@@ -321,9 +321,9 @@ $this->Cell(20, 8, $this->queja->tinta8 ?? "", 1, 1);
         $accion = "Acción correctiva y/o preventiva:\n" . ($this->queja->accion_correctiva ?? "");
         $this->MultiCell(0, 25, $accion, 1, 'L', false, 1);
 
-        $this->Cell(30, 8, "Fecha de la Acción:", 0, 0);
+        $this->Cell(35, 8, "Fecha de la Acción:", 0, 0);
         $this->Cell(50, 8, $this->queja->fecha_accion ?? "", 'B', 0);
-        $this->Cell(20, 8, "Responsable:", 0, 0);
+        $this->Cell(25, 8, "Responsable:", 0, 0);
         $this->Cell(0, 8, $this->queja->responsable_accion ?? "", 'B', 1);
 
         $this->Ln(12);
