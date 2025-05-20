@@ -223,7 +223,7 @@ $this->Cell(30, 8, $this->queja->ancho ?? "", 1, 1);
 
 // Sub-etiquetas: columna central
 $this->Ln(-32); // Regresa arriba
-$this->SetX(70); // Mueve a la segunda columna
+$this->SetX(65); // Mueve a la segunda columna
 $this->Cell(20, 8, "ECT", 0, 0);
 $this->Cell(30, 8, $this->queja->ect ?? "", 1, 1);
 $this->SetX(70);
