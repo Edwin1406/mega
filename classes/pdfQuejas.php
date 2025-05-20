@@ -258,7 +258,10 @@ $this->Cell(20, 8, $this->queja->tinta4 ?? "", 1, 1);
 // Tercera fila
 $this->Ln(-32); // Regresa arriba
 $this->SetX(150);
-$this->Cell(20, 8, $this->queja->tinta5 ?? "", 1, 0);
+$this->Cell(30, 8, $this->queja->tinta5 ?? "", 1, 0);
+$this->Cell(30, 8, $this->queja->tinta5 ?? "", 1, 0);
+$this->Cell(30, 8, $this->queja->tinta5 ?? "", 1, 0);
+
 
 
         $this->Ln(50);
