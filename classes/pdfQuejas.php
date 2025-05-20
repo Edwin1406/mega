@@ -243,7 +243,7 @@ $this->Cell(20, 8, $this->queja->peso ?? "", 1, 1);
 $this->Ln(-40); // Regresa arriba
 $this->SetX(90); // Mueve a la tercera columna
 $this->Cell(20, 8, "GCMI", 0, 0);
-$this->Cell(30, 8, $this->queja->tinta1 ?? "", 1, 1);
+$this->Cell(20, 8, $this->queja->tinta1 ?? "", 1, 1);
 $this->SetX(130);
 $this->Cell(20, 8, "GCMI", 0, 0);
 $this->Cell(30, 8, $this->queja->tinta2 ?? "", 1, 1);
