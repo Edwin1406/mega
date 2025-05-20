@@ -133,7 +133,7 @@ class pdfQuejas extends TCPDF
         $this->Cell(55, 8, "Clasificación / Arreglo:", 0, 0);
         $this->Cell(20, 8, "SI", 0, 0);
         $this->Rect($this->GetX() - 14, $this->GetY() + 2, 6, 6);
-        $this->Cell(25, 8, "NO", 0, 0);
+        $this->Cell(22, 8, "NO", 0, 0);
         $this->Rect($this->GetX() - 14, $this->GetY() + 2, 6, 6);
         $this->Cell(25, 8, "Buenas:", 0, 0);
         $this->Cell(40, 8, $this->queja->buenas ?? "", 'B', 1);
