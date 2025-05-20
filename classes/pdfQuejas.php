@@ -87,16 +87,16 @@ class pdfQuejas extends TCPDF
         // Motivo del reclamo
         $this->Ln(3);
         $this->Cell(0, 8, "Motivo del reclamo:", 0, 1);
-        $this->MultiCell(0, 25, $this->queja->motivo_reclamo ?? "__________________", 1, 'L', false, 1);
+        $this->MultiCell(0, 25, $this->queja->motivo_reclamo ?? "_", 1, 'L', false, 1);
 
         // Persona que genera reclamo, Cargo, Teléfono
         $this->Ln(3);
         $this->Cell(90, 8, "Persona que generará el reclamo (Cliente):", 0, 0);
-        $this->Cell(0, 8, $this->queja->per_reporta_reclamo ?? "____________", 'B', 1);
+        $this->Cell(0, 8, $this->queja->per_reporta_reclamo ?? "_", 'B', 1);
         $this->Cell(50, 8, "Cargo o área de la empresa:", 0, 0);
-        $this->Cell(80, 8, "______________", 'B', 0);
+        $this->Cell(80, 8, "___", 'B', 0);
         $this->Cell(20, 8, "Teléfono:", 0, 0);
-        $this->Cell(0, 8, "__________", 'B', 1);
+        $this->Cell(0, 8, "____", 'B', 1);
 
         $this->Ln(8);
 
