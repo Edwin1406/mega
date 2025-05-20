@@ -74,7 +74,7 @@ class pdfQuejas extends TCPDF
         $this->Cell(0, 8, $this->queja->fecha_factura ?? "", 'B', 1);
 
         // Num Lote y Factura
-        $this->Cell(30, 8, "Num-Lote:", 0, 0);
+        $this->Cell(20, 8, "Num-Lote:", 0, 0);
         $this->Cell(40, 8, $this->queja->num_lote ?? "", 'B', 0);
         $this->Cell(30, 8, "Num-Factura:", 0, 0);
         $this->Cell(0, 8, $this->queja->factura ?? "", 'B', 1);
