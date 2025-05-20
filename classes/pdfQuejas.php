@@ -203,30 +203,65 @@ class pdfQuejas extends TCPDF
         $this->Ln(5);
 
         // Datos Corrugado y Datos Impresión
-        $this->SetFont('helvetica', 'B', 10);
-        $this->Cell(90, 8, "Datos Corrugado:", 0, 0);
-        $this->Cell(0, 8, "Datos Impresión:", 0, 1);
+        // Encabezados
+$this->SetFont('helvetica', 'B', 10);
+$this->Cell(50, 8, "Datos Corrugado:", 0, 0);
+$this->Cell(70, 8, "", 0, 0); // espacio
+$this->Cell(50, 8, "Datos Impresión:", 0, 1);
 
-        $this->SetFont('helvetica', '', 10);
+// Sub-etiquetas: columna izquierda
+$this->SetFont('helvetica', '', 10);
+$this->Cell(25, 8, "Materiales:", 0, 1);
+$this->Cell(25, 8, "L. EXT", 0, 0);
+$this->Cell(30, 8, $this->queja->l_ext ?? "", 1, 1);
+$this->Cell(25, 8, "C. MED", 0, 0);
+$this->Cell(30, 8, $this->queja->c_med ?? "", 1, 1);
+$this->Cell(25, 8, "L. INT", 0, 0);
+$this->Cell(30, 8, $this->queja->l_int ?? "", 1, 1);
+$this->Cell(25, 8, "ANCHO", 0, 0);
+$this->Cell(30, 8, $this->queja->ancho ?? "", 1, 1);
 
-        $this->Cell(25, 8, "Materiales:", 0, 0);
-        $this->Cell(20, 8, "L. EXT", 0, 0);
-        $this->Cell(20, 8, $this->queja->l_ext ?? "", 1, 0, 'C');
-        $this->Cell(20, 8, "C. MED", 0, 0);
-        $this->Cell(20, 8, $this->queja->c_med ?? "", 1, 0, 'C');
-        $this->Cell(20, 8, "L. INT", 0, 0);
-        $this->Cell(20, 8, $this->queja->l_int ?? "", 1, 0, 'C');
-        $this->Cell(20, 8, "ANCHO", 0, 0);
-        $this->Cell(20, 8, $this->queja->ancho ?? "", 1, 0, 'C');
+// Sub-etiquetas: columna central
+$this->Ln(-32); // Regresa arriba
+$this->SetX(70); // Mueve a la segunda columna
+$this->Cell(20, 8, "ECT", 0, 0);
+$this->Cell(30, 8, $this->queja->ect ?? "", 1, 1);
+$this->SetX(70);
+$this->Cell(20, 8, "FCT", 0, 0);
+$this->Cell(30, 8, $this->queja->fct ?? "", 1, 1);
+$this->SetX(70);
+$this->Cell(20, 8, "PAT", 0, 0);
+$this->Cell(30, 8, $this->queja->pat1 ?? "", 1, 1);
+$this->SetX(70);
+$this->Cell(20, 8, "PAT", 0, 0);
+$this->Cell(30, 8, $this->queja->pat2 ?? "", 1, 1);
+$this->SetX(70);
+$this->Cell(20, 8, "PESO", 0, 0);
+$this->Cell(30, 8, $this->queja->peso ?? "", 1, 1);
 
-        $this->Cell(15, 8, "Tintas:", 0, 0);
-        $this->Cell(20, 8, $this->queja->tinta1 ?? "", 1, 0, 'C');
-        $this->Cell(20, 8, $this->queja->tinta2 ?? "", 1, 0, 'C');
-        $this->Cell(20, 8, $this->queja->tinta3 ?? "", 1, 0, 'C');
-        $this->Cell(15, 8, "Lote:", 0, 0);
-        $this->Cell(20, 8, $this->queja->lote ?? "", 1, 0, 'C');
-        $this->Cell(15, 8, "Control:", 0, 1);
-        $this->Cell(20, 8, $this->queja->control ?? "", 1, 1, 'C');
+// Sub-etiquetas: columna derecha
+$this->Ln(-40); // Regresa arriba
+$this->SetX(130); // Mueve a la tercera columna
+$this->Cell(20, 8, "GCMI", 0, 0);
+$this->Cell(30, 8, $this->queja->tinta1 ?? "", 1, 1);
+$this->SetX(130);
+$this->Cell(20, 8, "GCMI", 0, 0);
+$this->Cell(30, 8, $this->queja->tinta2 ?? "", 1, 1);
+$this->SetX(130);
+$this->Cell(20, 8, "GCMI", 0, 0);
+$this->Cell(30, 8, $this->queja->tinta3 ?? "", 1, 1);
+$this->SetX(130);
+$this->Cell(20, 8, "GCMI", 0, 0);
+$this->Cell(30, 8, $this->queja->tinta4 ?? "", 1, 1);
+
+// Lote y control al final
+$this->SetX(130);
+$this->Cell(20, 8, "Lote:", 0, 0);
+$this->Cell(30, 8, $this->queja->lote ?? "", 1, 1);
+$this->SetX(130);
+$this->Cell(20, 8, "Control:", 0, 0);
+$this->Cell(30, 8, $this->queja->control ?? "", 1, 1);
+
 
         $this->Ln(8);
 
