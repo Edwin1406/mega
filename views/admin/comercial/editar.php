@@ -1,6 +1,4 @@
-
 <?php
-
 use TCPDF;
 
 // Crear nuevo documento PDF
