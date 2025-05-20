@@ -122,11 +122,12 @@ class pdfQuejas extends TCPDF
             $this->Cell(40, 8, $checkbox, 0, 0, 'L');
             $this->Rect($this->GetX() - 12, $this->GetY() + 2, 6, 6);
         }
+         $this->Cell(20, 10, "Fecha:", 0, 0);
+        $this->Cell(20, 8, $this->queja->fecha_solucion ?? "", 'B', 1);
         $this->Ln(12);
 
         // Fecha solución
-        $this->Cell(20, 10, "Fecha:", 0, 0);
-        $this->Cell(20, 10, $this->queja->fecha_solucion ?? "", 'B', 0);
+       
 
         // Clasificación / Arreglo con checkboxes SI/NO + Buenas
         $this->Cell(55, 8, "Clasificación / Arreglo:", 0, 0);
