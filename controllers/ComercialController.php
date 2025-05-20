@@ -144,10 +144,15 @@ public static function crear(Router $router)
         $fecha_factura = Datareclamos::fechaPorClienteDescripcion($clienteSeleccionado, $descripcionSeleccionada[0]);
     }
 
+    // ManTENER LOS INPUT LLENOS AL HACER UN POST
+
+
     // GUARDAR reclamo único con todas las descripciones
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['guardar'])) {
 
         $descripcionSeleccionada = $_POST['descripcion_producto'] ?? [];
+        $responsable_reporte = $_POST['responsable_reporte'] ?? '';
+
 
         if (!empty($descripcionSeleccionada)) {
             // Unir todas las descripciones en una sola cadena
