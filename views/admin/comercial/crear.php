@@ -7,7 +7,7 @@
 </div>
 
 <div class="dashboard__contenedor-boton">
-    <a class="dashboard__boton" href="/admin/comercial/excel">
+    <a class="dashboard__boton" href="/admin/comercial/subirexcelreclamos">
         <i class="fa-solid fa-arrow-right"></i>
         SUBIR EXCEL
     </a>

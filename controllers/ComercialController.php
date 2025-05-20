@@ -350,7 +350,7 @@ public static function pdfquejas(Router $router)
 
 
 
-    public static function subirexcelcomercial(Router $router)
+    public static function subirexcelreclamos(Router $router)
     {
         $alertas = [];
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {

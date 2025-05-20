@@ -127,6 +127,10 @@ $router->post('/admin/comercial/editar', [ComercialController::class, 'editar'])
 $router->get('/admin/comercial/excel', [ComercialController::class, 'excel']);
 $router->post('/admin/comercial/excel', [ComercialController::class, 'excel']);
 
+
+$router->get('/admin/comercial/subirexcelreclamos', [ComercialController::class, 'subirexcelreclamos']);
+$router->post('/admin/comercial/subirexcelreclamos', [ComercialController::class, 'subirexcelreclamos']);
+
 // Api Comercial
 $router->get('/admin/api/apicomercial', [ComercialController::class, 'apicomercial']);
 
