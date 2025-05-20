@@ -13,7 +13,7 @@
 
 
     <div class="formulario__campo">
-        <label class="formulario__label" for="cliente">Cliente</label>
+        <label class="formulario__label" for="cliente">CLIENTE</label>
 
         <select name="cliente" onchange="this.form.submit()" class="formulario__input">
             <option value="">-- Seleccione --</option>
@@ -81,7 +81,7 @@
 
 
     <div class="formulario__campo">
-        <label class="formulario__label" for="per_reporta_reclamo">Persona que reporta el reclamo</label>
+        <label class="formulario__label" for="per_reporta_reclamo">PERSONA QUE REPORTA EL RECLAMO</label>
         <input
             type="text"
             name="per_reporta_reclamo"
