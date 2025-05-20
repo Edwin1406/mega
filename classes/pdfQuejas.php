@@ -239,32 +239,32 @@ $this->SetX(55);
 $this->Cell(12, 8, "PESO", 0, 0);
 $this->Cell(20, 8, $this->queja->peso ?? "", 1, 1);
 
-// Subimos a la altura deseada
-$this->Ln(-32); 
+// Guarda la posición Y inicial
+$yInicio = $this->GetY();
+$xInicio = 90; // Ajusta si querés más a la derecha
 
-// Fila 1
-$this->SetXY(90, $this->GetY());
+// Fila 1 (Y sin offset)
+$this->SetXY($xInicio, $yInicio);
 $this->Cell(12, 8, "GCMI", 0, 0);
-$this->Cell(10, 8, $this->queja->tinta1 ?? "", 1, 0);
+$this->Cell(20, 8, $this->queja->tinta1 ?? "", 1, 0);
 $this->Cell(12, 8, "GCMI", 0, 0);
-$this->Cell(10, 8, $this->queja->tinta2 ?? "", 1, 1);
+$this->Cell(20, 8, $this->queja->tinta2 ?? "", 1, 0);
 
-// Fila 2
-$this->SetXY(90, $this->GetY());
+// Fila 2 (+8 de altura)
+$this->SetXY($xInicio, $yInicio + 8);
 $this->Cell(12, 8, "GCMI", 0, 0);
-$this->Cell(10, 8, $this->queja->tinta3 ?? "", 1, 0);
+$this->Cell(20, 8, $this->queja->tinta3 ?? "", 1, 0);
 $this->Cell(12, 8, "GCMI", 0, 0);
-$this->Cell(10, 8, $this->queja->tinta4 ?? "", 1, 1);
+$this->Cell(20, 8, $this->queja->tinta4 ?? "", 1, 0);
 
-// Fila 3
-$this->SetXY(90, $this->GetY());
+// Fila 3 (+16 de altura)
+$this->SetXY($xInicio, $yInicio + 16);
 $this->Cell(12, 8, "GCMI", 0, 0);
-$this->Cell(10, 8, $this->queja->tinta5 ?? "", 1, 0);
-$this->Cell(12, 8, "GCMI", 0, 0);
-$this->Cell(10, 8, $this->queja->tinta6 ?? "", 1, 1);
-
-
 $this->Cell(20, 8, $this->queja->tinta5 ?? "VACÍO", 1, 0);
+$this->Cell(12, 8, "GCMI", 0, 0);
+$this->Cell(20, 8, $this->queja->tinta6 ?? "", 1, 0);
+
+
 
 
         $this->Ln(20);
