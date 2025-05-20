@@ -63,7 +63,7 @@ class pdfQuejas extends TCPDF
         $this->Cell(25, 8, "Fecha:", 0, 0);
         $this->Cell(60, 8, $this->queja->fecha ?? "____________________", 'B', 0);
         $this->Cell(30, 8, "Cliente:", 0, 0);
-        $this->Cell(0, 6, $this->queja->cliente ?? "_____________________________", 'B', 1);
+        $this->Cell(0, 8, $this->queja->cliente ?? "_____________________________", 'B', 1);
 
         // Pedido N°, Referencia, Fecha Factura
         $this->Cell(30, 8, "Pedido N°:", 0, 0);
@@ -82,12 +82,12 @@ class pdfQuejas extends TCPDF
         // Descripción Producto
         $this->Ln(3);
         $this->Cell(0, 8, "Descripción de Producto:", 0, 1);
-        $this->MultiCell(0, 20, $this->queja->descripcion_producto ?? "__________________________________________________________", 1, 'L', false, 1);
+        $this->MultiCell(0, 20, $this->queja->descripcion_producto ?? "___________________________________________", 1, 'L', false, 1);
 
         // Motivo del reclamo
         $this->Ln(3);
         $this->Cell(0, 8, "Motivo del reclamo:", 0, 1);
-        $this->MultiCell(0, 25, $this->queja->motivo_reclamo ?? "__________________________________________________________", 1, 'L', false, 1);
+        $this->MultiCell(0, 25, $this->queja->motivo_reclamo ?? "__________________________________________________", 1, 'L', false, 1);
 
         // Persona que genera reclamo, Cargo, Teléfono
         $this->Ln(3);
@@ -109,7 +109,7 @@ class pdfQuejas extends TCPDF
         $this->SetTextColor(...$black);
         $this->SetFont('helvetica', '', 10);
 
-        $solucion = "Solución inmediata:\n" . ($this->queja->solucion_inmediata ?? "__________________________________________________________");
+        $solucion = "Solución inmediata:\n" . ($this->queja->solucion_inmediata ?? "___________________________________________");
         $this->MultiCell(0, 35, $solucion, 1, 'L', false, 1);
 
         $this->Ln(3);
@@ -238,12 +238,12 @@ class pdfQuejas extends TCPDF
         $this->SetTextColor(...$black);
         $this->SetFont('helvetica', '', 10);
 
-        $causa = "Causa del problema:\n" . ($this->queja->causa_problema ?? "__________________________________________________");
+        $causa = "Causa del problema:\n" . ($this->queja->causa_problema ?? "_________________________________");
         $this->MultiCell(0, 25, $causa, 1, 'L', false, 1);
 
         $this->Ln(3);
 
-        $accion = "Acción correctiva y/o preventiva:\n" . ($this->queja->accion_correctiva ?? "__________________________________________________");
+        $accion = "Acción correctiva y/o preventiva:\n" . ($this->queja->accion_correctiva ?? "_________________________________");
         $this->MultiCell(0, 25, $accion, 1, 'L', false, 1);
 
         $this->Cell(50, 8, "Fecha de la Acción:", 0, 0);
