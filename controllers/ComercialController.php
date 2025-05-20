@@ -232,32 +232,37 @@ public static function crear(Router $router)
 
 
 
-    public static function editar(Router $router)
-    {
-        $alertas = [];
-            $id = $_GET['id'];
-            $id = filter_var($id, FILTER_VALIDATE_INT);
-            // validar que el id sea un entero
-            if (!$id) {
-                header('Location: /admin/comercial/tabla');
-            }
-            $comercial = Comercial::find($id);
+   public static function editar(Router $router)
+{
+    // Asegúrate de tener TCPDF cargado correctamente
+    require_once __DIR__ . '/../../../libs/tcpdf/tcpdf.php'; // Ajusta la ruta según tu proyecto
 
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $comercial->sincronizar($_POST);
-            $alertas = $comercial->validar();
-            if (empty($alertas)) {
-                $comercial->actualizar();
-                $alertas = $comercial->getAlertas();
-                header('Location: /admin/comercial/tabla?id='.$id);
-            }
-        }
-        $router->render('admin/comercial/editar', [
-            'titulo' => 'EDITAR ORDEN DE COMPRA',
-            'comercial' => $comercial,
-            'alertas' => $alertas
-        ]);
-    }
+    $pdf = new \TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+    $pdf->SetCreator(PDF_CREATOR);
+    $pdf->SetAuthor('MegaStock');
+    $pdf->SetTitle('Formato de Quejas y Reclamos');
+    $pdf->SetMargins(10, 20, 10);
+    $pdf->SetAutoPageBreak(TRUE, 10);
+    $pdf->SetFont('helvetica', '', 9);
+    $pdf->AddPage();
+
+    // Aquí va tu contenido
+    $pdf->SetFont('helvetica', 'B', 12);
+    $pdf->Cell(0, 10, 'FORMATO DE QUEJAS Y RECLAMOS', 0, 1, 'C');
+    $pdf->SetFont('helvetica', '', 9);
+
+    // Simulamos el resto del formulario
+    $pdf->MultiCell(200, 6, "Cliente:\nProducto:\nMotivo del Reclamo:\n...", 1, 'L');
+
+    // LIMPIAR cualquier salida previa (clave)
+    ob_clean();
+
+    // Mostrar PDF en navegador
+    $pdf->Output('formato_quejas.pdf', 'I');
+
+    // DETENER la ejecución
+    exit;
+}
 
 
 
