@@ -203,66 +203,68 @@ class pdfQuejas extends TCPDF
         $this->Ln(5);
 
         // Datos Corrugado y Datos Impresión
-// Títulos principales
+// Títulos
 $this->SetFont('helvetica', 'B', 10);
 $this->Cell(60, 6, "Datos Corrugado:", 0, 0);
 $this->Cell(60, 6, "", 0, 0);
 $this->Cell(60, 6, "Datos Impresión:", 0, 1);
 
-// Corrugado - Columna 1: Materiales
+$this->Ln(2);
+
+// ---------------------- BLOQUE 1: Corrugado - Materiales ----------------------
 $this->SetFont('helvetica', '', 9);
-$this->Cell(20, 5, "Materiales:", 0, 1);
-$this->Cell(18, 5, "L. EXT", 0, 0);
-$this->Cell(22, 5, $this->queja->l_ext ?? "", 1, 1, 'C');
-$this->Cell(18, 5, "C. MED", 0, 0);
-$this->Cell(22, 5, $this->queja->c_med ?? "", 1, 1, 'C');
-$this->Cell(18, 5, "L. INT", 0, 0);
-$this->Cell(22, 5, $this->queja->l_int ?? "", 1, 1, 'C');
-$this->Cell(18, 5, "ANCHO", 0, 0);
-$this->Cell(22, 5, $this->queja->ancho ?? "", 1, 1, 'C');
+$startY = $this->GetY();
+$startX = $this->GetX();
 
-// Corrugado - Columna 2: Pruebas
-$this->Ln(-22); // Regresa hacia arriba
-$this->SetX(60); // Segunda columna
-$this->Cell(15, 5, "ECT", 0, 0);
-$this->Cell(25, 5, $this->queja->ect ?? "", 1, 1, 'C');
-$this->SetX(60);
-$this->Cell(15, 5, "FCT", 0, 0);
-$this->Cell(25, 5, $this->queja->fct ?? "", 1, 1, 'C');
-$this->SetX(60);
-$this->Cell(15, 5, "PAT", 0, 0);
-$this->Cell(25, 5, $this->queja->pat1 ?? "", 1, 1, 'C');
-$this->SetX(60);
-$this->Cell(15, 5, "PAT", 0, 0);
-$this->Cell(25, 5, $this->queja->pat2 ?? "", 1, 1, 'C');
-$this->SetX(60);
-$this->Cell(15, 5, "PESO", 0, 0);
-$this->Cell(25, 5, $this->queja->peso ?? "", 1, 1, 'C');
+$this->SetXY($startX, $startY);
+$this->Cell(25, 5, "Materiales:", 0, 1);
+$labels = ["L. EXT", "C. MED", "L. INT", "ANCHO"];
+foreach ($labels as $i => $label) {
+    $value = $this->queja->{strtolower(str_replace('.', '', str_replace(' ', '_', $label)))} ?? "";
+    $this->Cell(20, 5, $label, 0, 0);
+    $this->Cell(25, 5, $value, 1, 1, 'C');
+}
 
-// Impresión - Columna 3: Tintas
-$this->Ln(-26); // Regresa arriba
-$this->SetX(100); // Tercera columna
+// ---------------------- BLOQUE 2: Corrugado - ECT, FCT, PAT ----------------------
+$this->SetXY($startX + 50, $startY + 5);
+$etiquetas2 = ["ECT", "FCT", "PAT", "PAT", "PESO"];
+$valores2 = [
+    $this->queja->ect ?? "",
+    $this->queja->fct ?? "",
+    $this->queja->pat1 ?? "",
+    $this->queja->pat2 ?? "",
+    $this->queja->peso ?? ""
+];
+foreach ($etiquetas2 as $i => $etiqueta) {
+    $this->Cell(20, 5, $etiqueta, 0, 0);
+    $this->Cell(25, 5, $valores2[$i], 1, 1, 'C');
+}
+
+// ---------------------- BLOQUE 3: Impresión - Tintas ----------------------
+$this->SetXY($startX + 100, $startY + 5);
 for ($i = 1; $i <= 4; $i++) {
-    $this->Cell(15, 5, "GCMI", 0, 0);
+    $this->Cell(20, 5, "GCMI", 0, 0);
     $tinta = 'tinta' . $i;
-    $this->Cell(20, 5, $this->queja->$tinta ?? "", 1, 1, 'C');
+    $this->Cell(25, 5, $this->queja->$tinta ?? "", 1, 1, 'C');
 }
 
-// Impresión - Columna 4: Lote
-$this->Ln(-20); // Regresa al nivel de las tintas
-$this->SetX(140); // Cuarta columna (lote)
-for ($i = 0; $i < 4; $i++) {
-    $this->Cell(20, 5, "", 1, 1); // vacío pero con borde
-}
-$this->Cell(20, 5, $this->queja->lote ?? "", 1, 1, 'C');
+// ---------------------- BLOQUE 4: Lote ----------------------
+$this->SetXY($startX + 150, $startY + 5);
+$this->Cell(20, 5, "", 0, 1); // espacio visual
+$this->Cell(25, 5, "", 1, 1); // espacio 1
+$this->Cell(25, 5, "", 1, 1); // espacio 2
+$this->Cell(25, 5, "", 1, 1); // espacio 3
+$this->Cell(25, 5, "", 1, 1); // espacio 4
+$this->Cell(25, 5, $this->queja->lote ?? "", 1, 1, 'C');
 
-// Impresión - Columna 5: Control
-$this->Ln(-25); // Regresa arriba
-$this->SetX(160); // Quinta columna (control)
-for ($i = 0; $i < 4; $i++) {
-    $this->Cell(20, 5, "", 1, 1); // vacío pero con borde
-}
-$this->Cell(20, 5, $this->queja->control ?? "", 1, 1, 'C');
+// ---------------------- BLOQUE 5: Control ----------------------
+$this->SetXY($startX + 180, $startY + 5);
+$this->Cell(20, 5, "", 0, 1); // espacio visual
+$this->Cell(25, 5, "", 1, 1); // espacio 1
+$this->Cell(25, 5, "", 1, 1); // espacio 2
+$this->Cell(25, 5, "", 1, 1); // espacio 3
+$this->Cell(25, 5, "", 1, 1); // espacio 4
+$this->Cell(25, 5, $this->queja->control ?? "", 1, 1, 'C');
 
 
         $this->Ln(8);
