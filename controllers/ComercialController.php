@@ -268,7 +268,22 @@ public static function pdfquejas(Router $router)
     ob_start(); // Evita errores por salida previa
 
     $quejas = Quejas::find($_GET['id']);
-    debuguear($quejas);
+    // debuguear($quejas);
+    $pdf = new pdfQuejas();
+    $pdf->SetTitle('Formato de Quejas y Reclamos');
+    $pdf->SetSubject('Formulario');
+    $pdf->SetMargins(10, 20, 10);
+    $pdf->SetHeaderMargin(5);
+    $pdf->SetFooterMargin(10);
+    $pdf->SetAutoPageBreak(TRUE, 10);
+    $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
+    $pdf->SetFont('helvetica', '', 9);
+    $pdf->AddPage();
+
+    $pdf->SetFont('helvetica', 'B', 12);
+    $pdf->Cell(0, 10, 'FORMATO DE QUEJAS Y RECLAMOS', 0, 1, 'C');
+    $pdf->SetFont('helvetica', '', 9);
+    $pdf->SetXY(180, 20);
   
 }
 
