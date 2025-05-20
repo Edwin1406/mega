@@ -224,19 +224,19 @@ $this->Cell(20, 8, $this->queja->ancho ?? "", 1, 1);
 // Sub-etiquetas: columna central
 $this->Ln(-32); // Regresa arriba
 $this->SetX(55); // Mueve a la segunda columna
-$this->Cell(8, 8, "ECT", 0, 0);
+$this->Cell(12, 8, "ECT", 0, 0);
 $this->Cell(20, 8, $this->queja->ect ?? "", 1, 1); //ancho del caudro
 $this->SetX(55);
-$this->Cell(20, 8, "FCT", 0, 0);
+$this->Cell(12, 8, "FCT", 0, 0);
 $this->Cell(20, 8, $this->queja->fct ?? "", 1, 1);
 $this->SetX(55);
-$this->Cell(20, 8, "PAT", 0, 0);
+$this->Cell(12, 8, "PAT", 0, 0);
 $this->Cell(20, 8, $this->queja->pat1 ?? "", 1, 1);
 $this->SetX(55);
-$this->Cell(20, 8, "PAT", 0, 0);
+$this->Cell(12, 8, "PAT", 0, 0);
 $this->Cell(20, 8, $this->queja->pat2 ?? "", 1, 1);
 $this->SetX(55);
-$this->Cell(20, 8, "PESO", 0, 0);
+$this->Cell(12, 8, "PESO", 0, 0);
 $this->Cell(20, 8, $this->queja->peso ?? "", 1, 1);
 
 // Sub-etiquetas: columna derecha
