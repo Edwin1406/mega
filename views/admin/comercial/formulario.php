@@ -101,10 +101,10 @@
         <label class="formulario__label" for="motivo_reclamo">MOTIVO DEL RECLAMO</label>
         <select name="motivo_reclamo" id="motivo_reclamo" class="formulario__input">
             <option value="" disabled selected>-- Seleccione --</option>
-            <option value="impresion">impresion</option>
-            <option value="calidad papel">Calidad papel</option>
-            <option value="pegado">Pegado</option>
-            <option value="empaque">empaque</option>
+            <option value="IMPRESIÓN">IMPRESIÓN</option>
+            <option value="CALIDAD DE PAPEL">CALIDAD DE PAPEL</option>
+            <option value="PEGADO">PEGADO</option>
+            <option value="EMPAQUE">EMPAQUE</option>
         </select>
     </div>
 
