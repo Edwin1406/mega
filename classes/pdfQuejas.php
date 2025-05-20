@@ -320,7 +320,7 @@ $this->SetXY($this->GetX() + 40, $this->GetY()); // Mueves el cursor a la derech
         $causa = "Causa del problema:\n" . ($this->queja->causa_problema ?? "");
         $this->MultiCell(0, 25, $causa, 1, 'L', false, 1);
 
-        $this->Ln(5);
+        $this->Ln(3);
 
         $accion = "Acción correctiva y/o preventiva:\n" . ($this->queja->accion_correctiva ?? "");
         $this->MultiCell(0, 25, $accion, 1, 'L', false, 1);
@@ -330,7 +330,7 @@ $this->SetXY($this->GetX() + 40, $this->GetY()); // Mueves el cursor a la derech
         $this->Cell(25, 8, "Responsable:", 0, 0);
         $this->Cell(0, 8, $this->queja->responsable_accion ?? "", 'B', 1);
 
-        $this->Ln(12);
+        $this->Ln(20);
 
         // --- Pie de página ---
         $this->Cell(80, 8, "Recibe el reclamo:", 0, 0);
