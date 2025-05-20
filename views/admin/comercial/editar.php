@@ -1,6 +1,7 @@
 
 <?php
-require_once('tcpdf_include.php'); // Asegúrate de que la ruta sea correcta
+require_once(__DIR__ . '/../../../tcpdf/tcpdf.php'); // Ajusta según tu estructura
+
 
 // Crear nuevo documento PDF
 $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
