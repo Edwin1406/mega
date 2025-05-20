@@ -62,7 +62,7 @@ class pdfQuejas extends TCPDF
         // Fecha y Cliente
         $this->Cell(25, 8, "Fecha:", 0, 0);
         $this->Cell(60, 8, $this->queja->fecha ?? "", 'B', 0);
-        $this->Cell(30, 8, "Cliente:", 0, 0);
+        $this->Cell(20, 8, "Cliente:", 0, 0);
         $this->Cell(0, 8, $this->queja->cliente ?? "", 'B', 1);
 
         // Pedido N°, Referencia, Fecha Factura
