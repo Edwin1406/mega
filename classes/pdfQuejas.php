@@ -212,6 +212,8 @@ $this->Cell(50, 8, "Datos Impresión:", 0, 1);
 // Sub-etiquetas: columna izquierda
 $this->SetFont('helvetica', '', 10);
 $this->Cell(20, 8, "Materiales:", 0, 1);
+$this->Cell(100, 8, "tales:", 0, 1);
+
 $this->Cell(15, 8, "L. EXT", 0, 0);
 $this->Cell(20, 8, $this->queja->l_ext ?? "", 1, 1);
 $this->Cell(15, 8, "C. MED", 0, 0);
