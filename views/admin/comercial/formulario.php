@@ -78,7 +78,7 @@ document.querySelectorAll('input[name="descripcion_producto[]"]').forEach(functi
 
 
         <div class="formulario__campo">
-            <label class="formulario__label" for="per_reporta_reclamo">per_reporta_reclamo</label>
+            <label class="formulario__label" for="per_reporta_reclamo">Persona que reporta el reclamo</label>
             <input
                 type="text"
                 name="per_reporta_reclamo"
