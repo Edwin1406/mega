@@ -239,28 +239,32 @@ $this->SetX(55);
 $this->Cell(12, 8, "PESO", 0, 0);
 $this->Cell(20, 8, $this->queja->peso ?? "", 1, 1);
 
-$this->Ln(-32); // Regresa arriba
-$this->SetX(90); // Posición inicial a la derecha
+$th$this->Ln(-32); // Subimos
+$this->SetX(90); // Columna derecha
 
-// Primera fila
+// Fila 1
 $this->Cell(12, 8, "GCMI", 0, 0);
 $this->Cell(20, 8, $this->queja->tinta1 ?? "", 1, 0);
 $this->Cell(12, 8, "GCMI", 0, 0);
 $this->Cell(20, 8, $this->queja->tinta2 ?? "", 1, 1);
 
-// Segunda fila
+// Fila 2
 $this->SetX(90);
 $this->Cell(12, 8, "GCMI", 0, 0);
 $this->Cell(20, 8, $this->queja->tinta3 ?? "", 1, 0);
 $this->Cell(12, 8, "GCMI", 0, 0);
 $this->Cell(20, 8, $this->queja->tinta4 ?? "", 1, 1);
 
-// Tercera fila
+// Agregamos un poco de espacio antes de la fila 3
+$this->Ln(1); 
 $this->SetX(90);
+
+// Fila 3
 $this->Cell(12, 8, "GCMI", 0, 0);
 $this->Cell(20, 8, $this->queja->tinta5 ?? "", 1, 0);
 $this->Cell(12, 8, "GCMI", 0, 0);
 $this->Cell(20, 8, $this->queja->tinta6 ?? "", 1, 1);
+
 
 
 
