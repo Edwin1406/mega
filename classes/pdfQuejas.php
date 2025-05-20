@@ -290,7 +290,7 @@ $this->SetX(155);
 $this->Cell(20, 8, $this->queja->tinta8 ?? "", 1, 1);
 
 
-        $this->Ln(30);
+        $this->Ln(20);
 
         // --- Sección 4: ACCIÓN CORRECTIVA ---
         $this->SetFillColor(...$orange);
