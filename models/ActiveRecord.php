@@ -1539,7 +1539,7 @@ public static function procesarArchivoExcelReclamos($filePath)
             pvp_unid DECIMAL(10, 2),
             costo_unid DECIMAL(10, 2),
             margen DECIMAL(10, 2),
-            fecha_corte DATE DEFAULT CURRENT_DATE
+           
         )
     ";
     self::$db->query($queryCrearTabla);
@@ -1568,7 +1568,7 @@ public static function procesarArchivoExcelReclamos($filePath)
         $costo_unid = floatval(str_replace(',', '.', $costo_unid));
         $margen = floatval(str_replace(',', '.', $margen));
 
-        $fecha_corte = date('Y-m-d');
+  
 
         // Evitar duplicados con todos los datos relevantes
         $queryExistente = "
@@ -1584,7 +1584,6 @@ public static function procesarArchivoExcelReclamos($filePath)
               AND pvp_unid = '$pvp_unid'
               AND costo_unid = '$costo_unid'
               AND margen = '$margen'
-              AND fecha_corte = '$fecha_corte'
         ";
 
         $resultado = self::$db->query($queryExistente);
@@ -1592,10 +1591,10 @@ public static function procesarArchivoExcelReclamos($filePath)
             $queryInsertar = "
                 INSERT INTO " . static::$tabla . " (
                     numero, emision, cliente, codigo, descripcion,
-                    cantidad, pvp_total, costo, pvp_unid, costo_unid, margen, fecha_corte
+                    cantidad, pvp_total, costo, pvp_unid, costo_unid, margen
                 ) VALUES (
                     '$numero', '$emision', '$cliente', '$codigo', '$descripcion',
-                    '$cantidad', '$pvp_total', '$costo', '$pvp_unid', '$costo_unid', '$margen', '$fecha_corte'
+                    '$cantidad', '$pvp_total', '$costo', '$pvp_unid', '$costo_unid', '$margen'
                 )
             ";
             self::$db->query($queryInsertar);
