@@ -167,8 +167,8 @@ class pdfQuejas extends TCPDF
         // Fecha solución y responsable
         $this->Cell(50, 8, "Fecha de la Solución:", 0, 0);
         $this->Cell(60, 8, $this->queja->fecha_solucion ?? "", 'B', 0);
-        $this->Cell(25, 8, "Responsable:", 0, 0);
-        $this->Cell(0, 8, $this->queja->responsable ?? "", 'B', 1);
+        $this->Cell(20, 8, "Responsable:", 0, 0);
+        $this->Cell(40, 8, $this->queja->responsable ?? "", 'B', 1);
 
         $this->Ln(8);
 
