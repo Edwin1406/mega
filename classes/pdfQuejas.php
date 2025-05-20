@@ -18,27 +18,27 @@ class pdfQuejas extends TCPDF
 
     
 
-    public function verPdf($materias)
+    public function verPdf($quejas)
     {
-        $this->generarPdf($materias);
+        $this->generarPdf($quejas);
         $this->Output('reporte.pdf', 'I');
     }
 
-    public function guardarPdf($materias)
+    public function guardarPdf($quejas)
     {
-        $this->generarPdf($materias);
+        $this->generarPdf($quejas);
         $this->Output('reporte.pdf', 'F');
     }
 
-    public function enviarPdf($materias)
+    public function enviarPdf($quejas)
     {
-        $this->generarPdf($materias);
+        $this->generarPdf($quejas);
         $this->Output('reporte.pdf', 'E');
     }
 
-    public function imprimirPdf($materias)
+    public function imprimirPdf($quejas)
     {
-        $this->generarPdf($materias);
+        $this->generarPdf($quejas);
         $this->Output('reporte.pdf', 'I');
     }
 
