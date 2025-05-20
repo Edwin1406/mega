@@ -190,13 +190,13 @@ class pdfQuejas extends TCPDF
 
         // Segunda fila de datos
         $this->Cell(20, 8, "Operario:", 0, 0);
-        $this->Cell(60, 8, $this->queja->operario ?? "", 'B', 0);
+        $this->Cell(70, 8, $this->queja->operario ?? "", 'B', 0);
         $this->Cell(20, 8, "Fecha-Prod:", 0, 0);
         $this->Cell(40, 8, $this->queja->fecha_prod2 ?? "", 'B', 1);
 
         // Tercera fila de datos
         $this->Cell(20, 8, "Máquina:", 0, 0);
-        $this->Cell(60, 8, $this->queja->maquina2 ?? "", 'B', 0);
+        $this->Cell(70, 8, $this->queja->maquina2 ?? "", 'B', 0);
         $this->Cell(20, 8, "Operario:", 0, 0);
         $this->Cell(40, 8, $this->queja->operario2 ?? "", 'B', 1);
 
