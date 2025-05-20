@@ -225,7 +225,7 @@ $this->Cell(30, 8, $this->queja->ancho ?? "", 1, 1);
 $this->Ln(-32); // Regresa arriba
 $this->SetX(65); // Mueve a la segunda columna
 $this->Cell(20, 8, "ECT", 0, 0);
-$this->Cell(30, 8, $this->queja->ect ?? "", 1, 1);
+$this->Cell(20, 8, $this->queja->ect ?? "", 1, 1);
 $this->SetX(65);
 $this->Cell(20, 8, "FCT", 0, 0);
 $this->Cell(30, 8, $this->queja->fct ?? "", 1, 1);
