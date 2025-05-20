@@ -270,6 +270,7 @@ public static function pdfquejas(Router $router)
     $quejas = Quejas::find($_GET['id']);
 
     $pdf = new pdfQuejas();
+    debuguear($pdf);
     $datos = [
         'quejas' => $quejas,
     ];
