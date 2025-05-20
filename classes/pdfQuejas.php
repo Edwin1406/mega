@@ -109,7 +109,7 @@ class pdfQuejas extends TCPDF
         $this->SetTextColor(...$black);
         $this->SetFont('helvetica', '', 10);
 
-        $solucion = "Solución inmediata:\n" . ($this->queja->solucion_inmediata ?? "_______________");
+        $solucion = "Solución inmediata:\n" . ($this->queja->solucion_inmediata ?? "");
         $this->MultiCell(0, 35, $solucion, 1, 'L', false, 1);
 
         $this->Ln(3);
@@ -126,7 +126,7 @@ class pdfQuejas extends TCPDF
 
         // Fecha solución
         $this->Cell(30, 8, "Fecha:", 0, 0);
-        $this->Cell(50, 8, $this->queja->fecha_solucion ?? "__________", 'B', 1);
+        $this->Cell(50, 8, $this->queja->fecha_solucion ?? "", 'B', 1);
 
         // Clasificación / Arreglo con checkboxes SI/NO + Buenas
         $this->Cell(55, 8, "Clasificación / Arreglo:", 0, 0);
@@ -135,7 +135,7 @@ class pdfQuejas extends TCPDF
         $this->Cell(20, 8, "NO", 0, 0);
         $this->Rect($this->GetX() - 14, $this->GetY() + 2, 6, 6);
         $this->Cell(25, 8, "Buenas:", 0, 0);
-        $this->Cell(40, 8, $this->queja->buenas ?? "_______", 'B', 1);
+        $this->Cell(40, 8, $this->queja->buenas ?? "", 'B', 1);
 
         // Reposición SI/NO + Autorizado por
         $this->Cell(55, 8, "Reposición:", 0, 0);
@@ -144,7 +144,7 @@ class pdfQuejas extends TCPDF
         $this->Cell(20, 8, "NO", 0, 0);
         $this->Rect($this->GetX() - 14, $this->GetY() + 2, 6, 6);
         $this->Cell(50, 8, "Autorizado por:", 0, 0);
-        $this->Cell(50, 8, "_________________________", 'B', 1);
+        $this->Cell(50, 8, "", 'B', 1);
 
         // Genera Nota Crédito SI/NO + Autorizado por
         $this->Cell(55, 8, "Genera Nota Crédito:", 0, 0);
@@ -153,22 +153,22 @@ class pdfQuejas extends TCPDF
         $this->Cell(20, 8, "NO", 0, 0);
         $this->Rect($this->GetX() - 14, $this->GetY() + 2, 6, 6);
         $this->Cell(50, 8, "Autorizado por:", 0, 0);
-        $this->Cell(50, 8, "_________________________", 'B', 1);
+        $this->Cell(50, 8, "", 'B', 1);
 
         // Genera Descuento SI/% + Autorizado por
         $this->Cell(55, 8, "Genera Descuento:", 0, 0);
         $this->Cell(20, 8, "SI", 0, 0);
         $this->Rect($this->GetX() - 14, $this->GetY() + 2, 6, 6);
         $this->Cell(20, 8, "%", 0, 0);
-        $this->Cell(20, 8, $this->queja->descuento ?? "___", 'B', 0);
+        $this->Cell(20, 8, $this->queja->descuento ?? "", 'B', 0);
         $this->Cell(50, 8, "Autorizado por:", 0, 0);
-        $this->Cell(50, 8, "_________________________", 'B', 1);
+        $this->Cell(50, 8, "", 'B', 1);
 
         // Fecha solución y responsable
         $this->Cell(50, 8, "Fecha de la Solución:", 0, 0);
-        $this->Cell(60, 8, $this->queja->fecha_solucion ?? "_________________", 'B', 0);
+        $this->Cell(60, 8, $this->queja->fecha_solucion ?? "", 'B', 0);
         $this->Cell(40, 8, "Responsable:", 0, 0);
-        $this->Cell(0, 8, $this->queja->responsable ?? "_________________", 'B', 1);
+        $this->Cell(0, 8, $this->queja->responsable ?? "", 'B', 1);
 
         $this->Ln(8);
 
@@ -183,21 +183,21 @@ class pdfQuejas extends TCPDF
 
         // Primer fila de datos
         $this->Cell(40, 8, "Fecha-Prod:", 0, 0);
-        $this->Cell(60, 8, $this->queja->fecha_prod ?? "__________", 'B', 0);
+        $this->Cell(60, 8, $this->queja->fecha_prod ?? "", 'B', 0);
         $this->Cell(40, 8, "Máquina:", 0, 0);
-        $this->Cell(40, 8, $this->queja->maquina ?? "__________", 'B', 1);
+        $this->Cell(40, 8, $this->queja->maquina ?? "", 'B', 1);
 
         // Segunda fila de datos
         $this->Cell(40, 8, "Operario:", 0, 0);
-        $this->Cell(60, 8, $this->queja->operario ?? "__________", 'B', 0);
+        $this->Cell(60, 8, $this->queja->operario ?? "", 'B', 0);
         $this->Cell(40, 8, "Fecha-Prod:", 0, 0);
-        $this->Cell(40, 8, $this->queja->fecha_prod2 ?? "__________", 'B', 1);
+        $this->Cell(40, 8, $this->queja->fecha_prod2 ?? "", 'B', 1);
 
         // Tercera fila de datos
         $this->Cell(40, 8, "Máquina:", 0, 0);
-        $this->Cell(60, 8, $this->queja->maquina2 ?? "__________", 'B', 0);
+        $this->Cell(60, 8, $this->queja->maquina2 ?? "", 'B', 0);
         $this->Cell(40, 8, "Operario:", 0, 0);
-        $this->Cell(40, 8, $this->queja->operario2 ?? "__________", 'B', 1);
+        $this->Cell(40, 8, $this->queja->operario2 ?? "", 'B', 1);
 
         $this->Ln(5);
 
@@ -238,25 +238,25 @@ class pdfQuejas extends TCPDF
         $this->SetTextColor(...$black);
         $this->SetFont('helvetica', '', 10);
 
-        $causa = "Causa del problema:\n" . ($this->queja->causa_problema ?? "_________________________________");
+        $causa = "Causa del problema:\n" . ($this->queja->causa_problema ?? "");
         $this->MultiCell(0, 25, $causa, 1, 'L', false, 1);
 
         $this->Ln(3);
 
-        $accion = "Acción correctiva y/o preventiva:\n" . ($this->queja->accion_correctiva ?? "_________________________________");
+        $accion = "Acción correctiva y/o preventiva:\n" . ($this->queja->accion_correctiva ?? "");
         $this->MultiCell(0, 25, $accion, 1, 'L', false, 1);
 
         $this->Cell(50, 8, "Fecha de la Acción:", 0, 0);
-        $this->Cell(50, 8, $this->queja->fecha_accion ?? "_________________", 'B', 0);
+        $this->Cell(50, 8, $this->queja->fecha_accion ?? "", 'B', 0);
         $this->Cell(40, 8, "Responsable:", 0, 0);
-        $this->Cell(0, 8, $this->queja->responsable_accion ?? "_________________", 'B', 1);
+        $this->Cell(0, 8, $this->queja->responsable_accion ?? "", 'B', 1);
 
         $this->Ln(12);
 
         // --- Pie de página ---
         $this->Cell(80, 8, "Recibe el reclamo:", 0, 0);
         $this->Cell(80, 8, "Fecha y hora:", 0, 1);
-        $this->Cell(80, 8, "______________________________", 0, 0);
-        $this->Cell(80, 8, "______________________________", 0, 1);
+        $this->Cell(80, 8, "", 0, 0);
+        $this->Cell(80, 8, "", 0, 1);
     }
 }
