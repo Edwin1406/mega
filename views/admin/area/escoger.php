@@ -1,5 +1,13 @@
 <h1 class="titulo__heading"> <?php echo $titulo ?> </h1>
 
+<div class="dashboard__contenedor-boton">
+    <a class="dashboard__boton" href="/admin/comercial/subirexcelreclamos">
+        <i class="fa-solid fa-arrow-right"></i>
+        SUBIR EXCEL
+    </a>
+</div>
+
+
 <?php if(count($escoger)===0) {?>
     <p class="no-areas">NO HAY AREAS ASIGNADAS </p>
 
