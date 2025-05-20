@@ -275,22 +275,18 @@ $this->Ln(-32); // Regresa arriba
 
 // Fila 1
 $this->SetX(155);
-$this->Cell(12, 8, "GCMI", 0, 0);
 $this->Cell(20, 8, $this->queja->tinta5 ?? "", 1, 1);
 
 // Fila 2
 $this->SetX(155);
-$this->Cell(12, 8, "GCMI", 0, 0);
 $this->Cell(20, 8, $this->queja->tinta6 ?? "", 1, 1);
 
 // Fila 3
 $this->SetX(155);
-$this->Cell(12, 8, "GCMI", 0, 0);
 $this->Cell(20, 8, $this->queja->tinta7 ?? "", 1, 1);
 
 // Fila 4 - nueva fila que agregas
 $this->SetX(155);
-$this->Cell(12, 8, "GCMI", 0, 0);
 $this->Cell(20, 8, $this->queja->tinta8 ?? "", 1, 1);
 
 
