@@ -219,11 +219,11 @@ $this->SetXY($this->GetX() + 40, $this->GetY()); // Mueves el cursor a la derech
 
         // sub-etiquetas: columna derecha
         $this->SetX(135); // Mueve a la segunda columna
-        $this->Cell(20, 8, "lote:", 0, 0);
+        $this->Cell(20, 8, "Lote:", 0, 0);
 
         // sub-etiquetas: columna derecha
         $this->SetX(158); // Mueve a la segunda columna
-        $this->Cell(20, 8, "control:", 0, 1);
+        $this->Cell(20, 8, "Control:", 0, 1);
 
 
 
