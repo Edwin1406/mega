@@ -47,8 +47,8 @@ class pdfQuejas extends TCPDF
         // --- Sección 1: Información del Reclamo ---
         $this->SetFont('helvetica', 'B', 12);
         $this->SetTextColor(255, 87, 34); // naranja brillante
-        $this->Ln(4); // menos espacio para que quede más pegado a la línea
-        $this->Cell(0, 10, '1. INFORMACIÓN DEL RECLAMO', 0, 1, 'L');  // alineado a la izquierda
+        $this->Ln(8);
+        $this->Cell(0, 10, '1. INFORMACIÓN DEL RECLAMO', 0, 1);
 
         $this->SetFont('helvetica', '', 11);
         $this->SetTextColor(0);
