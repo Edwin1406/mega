@@ -93,7 +93,7 @@
 
 
     <div class="formulario__campo">
-        <label class="formulario__label" for="motivo_reclamo">motivo_reclamo</label>
+        <label class="formulario__label" for="motivo_reclamo">MOTIVO DEL RECLAMO</label>
         <select name="motivo_reclamo" id="motivo_reclamo" class="formulario__input">
             <option value="" disabled selected>-- Seleccione --</option>
             <option value="impresion">impresion</option>
@@ -104,7 +104,7 @@
     </div>
 
     <div class="formulario__campo">
-        <label class="formulario__label" for="accion_solicitada">accion_solicitada</label>
+        <label class="formulario__label" for="accion_solicitada">ACCION SOLICITADA</label>
         <select name="accion_solicitada" id="accion_solicitada" class="formulario__input">
             <option value="" disabled selected>-- Seleccione --</option>
             <option value="CLASIFICACION">CLASIFICACION</option>
