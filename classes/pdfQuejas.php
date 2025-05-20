@@ -218,7 +218,7 @@ $this->SetX(50); // Mueve a la segunda columna
 $this->Cell(20, 8, "lote:", 0, 1);
 
 // sub-etiquetas: columna derecha
-$this->SetX(50); // Mueve a la segunda columna
+$this->SetX(100); // Mueve a la segunda columna
 $this->Cell(20, 8, "control:", 0, 1);
 
 
