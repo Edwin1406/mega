@@ -181,7 +181,8 @@ public static function crear(Router $router)
         'facturaSeleccionada' => $facturaSeleccionada,
         'descripcionSeleccionada' => $descripcionSeleccionada,
         'descripciones' => $descripciones,
-        'fecha_factura' => $fecha_factura
+        'fecha_factura' => $fecha_factura,
+        'responsable_reporte' => $responsable_reporte
     ]);
 }
 
