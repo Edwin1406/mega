@@ -142,7 +142,7 @@ class pdfQuejas extends TCPDF
         $this->Cell(55, 8, "Reposición:", 0, 0);
         $this->Cell(20, 8, "SI", 0, 0);
         $this->Rect($this->GetX() - 14, $this->GetY() + 2, 6, 6);
-        $this->Cell(20, 8, "NO", 0, 0);
+        $this->Cell(22, 8, "NO", 0, 0);
         $this->Rect($this->GetX() - 14, $this->GetY() + 2, 6, 6);
         $this->Cell(25, 8, "Autorizado por:", 0, 0);
         $this->Cell(40, 8, "", 'B', 1);
@@ -151,7 +151,7 @@ class pdfQuejas extends TCPDF
         $this->Cell(55, 8, "Genera Nota Crédito:", 0, 0);
         $this->Cell(20, 8, "SI", 0, 0);
         $this->Rect($this->GetX() - 14, $this->GetY() + 2, 6, 6);
-        $this->Cell(20, 8, "NO", 0, 0);
+        $this->Cell(22, 8, "NO", 0, 0);
         $this->Rect($this->GetX() - 14, $this->GetY() + 2, 6, 6);
         $this->Cell(25, 8, "Autorizado por:", 0, 0);
         $this->Cell(40, 8, "", 'B', 1);
