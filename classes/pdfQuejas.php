@@ -61,28 +61,28 @@ class pdfQuejas extends TCPDF
 
         // Fecha y Cliente
         $this->Cell(25, 8, "Fecha:", 0, 0);
-        $this->Cell(60, 8, $this->queja->fecha ?? "____________________", 'B', 0);
+        $this->Cell(60, 8, $this->queja->fecha ?? "", 'B', 0);
         $this->Cell(30, 8, "Cliente:", 0, 0);
-        $this->Cell(0, 8, $this->queja->cliente ?? "_____________________________", 'B', 1);
+        $this->Cell(0, 8, $this->queja->cliente ?? "", 'B', 1);
 
         // Pedido N°, Referencia, Fecha Factura
         $this->Cell(30, 8, "Pedido N°:", 0, 0);
-        $this->Cell(40, 8, $this->queja->pedido_numero ?? "__________", 'B', 0);
+        $this->Cell(40, 8, $this->queja->pedido_numero ?? "", 'B', 0);
         $this->Cell(25, 8, "Referencia:", 0, 0);
-        $this->Cell(40, 8, $this->queja->referencia ?? "________", 'B', 0);
+        $this->Cell(40, 8, $this->queja->referencia ?? "", 'B', 0);
         $this->Cell(30, 8, "Fecha-Factura:", 0, 0);
-        $this->Cell(0, 8, $this->queja->fecha_factura ?? "__________", 'B', 1);
+        $this->Cell(0, 8, $this->queja->fecha_factura ?? "", 'B', 1);
 
         // Num Lote y Factura
         $this->Cell(30, 8, "Num-Lote:", 0, 0);
-        $this->Cell(40, 8, $this->queja->num_lote ?? "____________________", 'B', 0);
+        $this->Cell(40, 8, $this->queja->num_lote ?? "", 'B', 0);
         $this->Cell(30, 8, "Num-Factura:", 0, 0);
-        $this->Cell(0, 8, $this->queja->factura ?? "_________________________", 'B', 1);
+        $this->Cell(0, 8, $this->queja->factura ?? "", 'B', 1);
 
         // Descripción Producto
         $this->Ln(3);
         $this->Cell(0, 8, "Descripción de Producto:", 0, 1);
-        $this->MultiCell(0, 20, $this->queja->descripcion_producto ?? "____________", 1, 'L', false, 1);
+        $this->MultiCell(0, 20, $this->queja->descripcion_producto ?? "", 1, 'L', false, 1);
 
         // Motivo del reclamo
         $this->Ln(3);
@@ -94,9 +94,9 @@ class pdfQuejas extends TCPDF
         $this->Cell(90, 8, "Persona que generará el reclamo (Cliente):", 0, 0);
         $this->Cell(0, 8, $this->queja->per_reporta_reclamo ?? "_", 'B', 1);
         $this->Cell(50, 8, "Cargo o área de la empresa:", 0, 0);
-        $this->Cell(80, 8, "___", 'B', 0);
+        $this->Cell(80, 8, "", 'B', 0);
         $this->Cell(20, 8, "Teléfono:", 0, 0);
-        $this->Cell(0, 8, "____", 'B', 1);
+        $this->Cell(0, 8, "", 'B', 1);
 
         $this->Ln(8);
 
