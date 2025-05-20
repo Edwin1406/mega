@@ -22,7 +22,7 @@
      
     <?php include_once __DIR__.'/formulario.php'  ?>
 
-        <input class="formulario__submit formulario__submit--registrar" name="guardar" type="submit" value="Registrar Maquina">
+        <input class="formulario__submit formulario__submit--registrar" name="guardar" type="submit" value="Registrar Reclamo">
 
         
     </form>
