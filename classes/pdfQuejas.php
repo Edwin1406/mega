@@ -29,7 +29,7 @@ class pdfQuejas extends TCPDF
    $this->SetFillColor(...$orange);     // Mantienes el fondo naranja si quieres que la celda siga con el color
 $this->Rect($this->GetX(), $this->GetY(), 40, 25, 'F');  // Dibuja el fondo naranja (relleno)
 
-$imagePath = 'ruta/a/tu/imagen.png'; // Aquí va la ruta de tu imagen
+$imagePath = '/src/img/logo2.png'; // Aquí va la ruta de tu imagen
 $this->Image($imagePath, $this->GetX() + 5, $this->GetY() + 3, 30, 19); // Ajusta posición y tamaño de la imagen
 
 $this->SetXY($this->GetX() + 40, $this->GetY()); // Mueves el cursor a la derecha para seguir con el resto del contenido (si hay)
