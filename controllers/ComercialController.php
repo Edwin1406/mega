@@ -151,7 +151,6 @@ public static function crear(Router $router)
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['guardar'])) {
 
         $descripcionSeleccionada = $_POST['descripcion_producto'] ?? [];
-        $responsable_reporte = $_POST['responsable_reporte'] ?? '';
 
 
         if (!empty($descripcionSeleccionada)) {
@@ -181,8 +180,7 @@ public static function crear(Router $router)
         'facturaSeleccionada' => $facturaSeleccionada,
         'descripcionSeleccionada' => $descripcionSeleccionada,
         'descripciones' => $descripciones,
-        'fecha_factura' => $fecha_factura,
-        'responsable_reporte' => $responsable_reporte
+        'fecha_factura' => $fecha_factura
     ]);
 }
 

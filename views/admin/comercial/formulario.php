@@ -10,6 +10,8 @@
             placeholder="responsable_reporte"
             value="<?php echo $comercial->responsable_reporte ?? '' ?>">
     </div> -->
+    <?php         $responsable_reporte = $_POST['responsable_reporte'] ?? '';
+?>
    <div class="formulario__campo">
         <label class="formulario__label" for="responsable_reporte">RESPONSABLE DEL REPORTE</label>
         <input
