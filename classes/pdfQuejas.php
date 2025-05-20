@@ -124,7 +124,7 @@ class pdfQuejas extends TCPDF
         }
          $this->Cell(20, 10, "Fecha:", 0, 0);
         $this->Cell(40, 8, $this->queja->fecha_solucion ?? "", 'B', 1);
-        $this->Ln(12);
+        $this->Ln(10);
 
         // Fecha solución
        
