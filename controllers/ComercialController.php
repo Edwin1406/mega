@@ -264,23 +264,22 @@ public static function crear(Router $router)
     
 public static function pdfquejas(Router $router)
 {
-    ob_start(); // Inicia buffer de salida
+    ini_set('display_errors', 0);
+    error_reporting(0);
+
+    ob_start();
 
     $quejas = Quejas::find($_GET['id']);
 
-    // NO imprimir debuguear ni nada acá
-
     $pdf = new pdfQuejas();
-    $datos = [
-        'quejas' => $quejas,
-    ];
 
-    $pdf->generarPdf($datos);
+    $pdf->generarPdf($quejas);
 
-    ob_end_clean(); // Limpia cualquier salida accidental
+    ob_end_clean();
     $pdf->Output('inventario.pdf', 'I');
-    exit; // Termina ejecución
+    exit;
 }
+
 
 
 
