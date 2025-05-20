@@ -6,6 +6,7 @@ use Model\Area;
 use MVC\Router;
 use Model\Comercial;
 use Classes\Paginacion;
+use Classes\pdfQuejas;
 use GuzzleHttp\Psr7\Header;
 use Model\Datareclamos;
 use Model\Quejas;
@@ -265,11 +266,10 @@ public static function crear(Router $router)
    
 
     $quejas = Quejas::find($_GET['id']);
-    debuguear($quejas);
 
-    $pdf = new InventarioPdf();
+    $pdf = new pdfQuejas();
     $datos = [
-        'inventarioProductos' => $inventarioProductos,
+        'quejas' => $quejas,
     ];
 
     // debuguear($datos);
