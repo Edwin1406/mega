@@ -15,240 +15,272 @@ class pdfQuejas extends TCPDF
     public function generarPdf()
     {
         $this->AddPage();
-        $this->SetMargins(15, 15, 15);
-        $this->SetAutoPageBreak(true, 15);
+        $this->SetMargins(10, 10, 10);
+        $this->SetAutoPageBreak(true, 10);
         $this->SetFont('helvetica', '', 10);
 
-        // --- Colores y estilos ---
-        $orange = [255, 140, 0];
-        $lightGrey = [230, 230, 230];
-        $black = [0, 0, 0];
-
-        // --- Encabezado ---
-        $this->SetFillColor(...$orange);
+        // --- Encabezado y logo ---
+        $this->SetFillColor(255, 140, 0);
         $this->SetTextColor(255);
-        $this->SetFont('helvetica', 'B', 18);
-        $this->Cell(40, 25, "MEGA\nSTOCK", 1, 0, 'C', true);
+        $this->SetFont('helvetica', 'B', 16);
+        $this->Rect(10, 10, 40, 30, 'F'); // barra naranja logo
+        $this->SetXY(10, 15);
+        $this->MultiCell(40, 10, "MEGA\nSTOCK", 0, 'C', false);
 
-        $this->SetTextColor(...$black);
+        $this->SetTextColor(0);
         $this->SetFont('helvetica', 'B', 14);
-        $this->Cell(0, 25, "FORMATO DE QUEJAS Y RECLAMOS", 1, 1, 'C');
+        $this->SetXY(55, 15);
+        $this->Cell(0, 10, 'FORMATO DE QUEJAS Y RECLAMOS', 0, 1, 'C');
 
-        // --- Checkbox QUEJA / RECLAMO ---
-        $this->SetFont('helvetica', '', 12);
-        $this->Cell(30, 10, 'QUEJA');
-        $this->Rect($this->GetX() + 2, $this->GetY() - 7, 8, 8);
-        $this->Cell(40, 10, 'RECLAMO');
-        $this->Rect($this->GetX() + 2, $this->GetY() - 7, 8, 8);
-        $this->Ln(15);
-
-        // --- Sección 1: INFORMACIÓN DEL RECLAMO ---
-        $this->SetFillColor(...$orange);
-        $this->SetTextColor(255);
-        $this->SetFont('helvetica', 'B', 11);
-        $this->Cell(0, 10, "1.- INFORMACIÓN DEL RECLAMO", 1, 1, 'L', true);
-
-        $this->SetTextColor(...$black);
+        // Checkbox QUEJA / RECLAMO
         $this->SetFont('helvetica', '', 10);
+        $this->SetXY(160, 10);
+        $this->Cell(25, 10, 'QUEJA', 0, 0, 'L');
+        $this->Rect(190, 12, 8, 8);
+        $this->SetXY(160, 22);
+        $this->Cell(30, 10, 'RECLAMO', 0, 0, 'L');
+        $this->Rect(190, 24, 8, 8);
 
-        // Fecha y Cliente
-        $this->Cell(25, 8, "Fecha:", 0, 0);
-        $this->Cell(60, 8, $this->queja->fecha ?? "____________________", 'B', 0);
-        $this->Cell(30, 8, "Cliente:", 0, 0);
-        $this->Cell(0, 8, $this->queja->cliente ?? "_____________________________", 'B', 1);
+        // --- Barra lateral naranja rotada (1. INFORMACIÓN DEL RECLAMO) ---
+        $this->SetFillColor(255, 140, 0);
+        $this->SetTextColor(255);
+        $this->SetFont('helvetica', 'B', 9);
+        $this->Rect(10, 45, 20, 115, 'F');
 
-        // Pedido N°, Referencia, Fecha Factura
-        $this->Cell(30, 8, "Pedido N°:", 0, 0);
-        $this->Cell(40, 8, $this->queja->pedido_numero ?? "__________", 'B', 0);
-        $this->Cell(25, 8, "Referencia:", 0, 0);
-        $this->Cell(40, 8, $this->queja->referencia ?? "________", 'B', 0);
-        $this->Cell(30, 8, "Fecha-Factura:", 0, 0);
-        $this->Cell(0, 8, $this->queja->fecha_factura ?? "__________", 'B', 1);
+        // Rotar texto vertical para barra lateral 1
+        $this->StartTransform();
+        $this->Rotate(90, 20, 45);
+        $this->SetXY(20, 45);
+        $this->MultiCell(115, 6, "1.- INFORMACIÓN\nDEL RECLAMO.\nCLIENTE / VENTAS / DESPACHOS", 0, 'C', false);
+        $this->StopTransform();
 
-        // Num Lote y Factura
-        $this->Cell(30, 8, "Num-Lote:", 0, 0);
-        $this->Cell(40, 8, $this->queja->num_lote ?? "____________________", 'B', 0);
-        $this->Cell(30, 8, "Num-Factura:", 0, 0);
-        $this->Cell(0, 8, $this->queja->factura ?? "_________________________", 'B', 1);
+        // Sección 1 contenido
+        $this->SetTextColor(0);
+        $this->SetFont('helvetica', '', 10);
+        $this->SetXY(35, 45);
 
-        // Descripción Producto
-        $this->Ln(3);
-        $this->Cell(0, 8, "Descripción de Producto:", 0, 1);
-        $this->MultiCell(0, 20, $this->queja->descripcion_producto ?? "__________________________________________________________", 1, 'L', false, 1);
+        // Fila 1: Fecha - Cliente
+        $this->Cell(25, 8, 'Fecha:', 0, 0);
+        $this->Cell(65, 8, $this->queja->fecha ?? '____________________', 'B', 0);
+        $this->Cell(20, 8, 'Cliente:', 0, 0);
+        $this->Cell(55, 8, $this->queja->cliente ?? '_____________________________', 'B', 1);
+
+        // Fila 2: Pedido N° - Referencia - Fecha-Factura
+        $this->Cell(30, 8, 'Pedido N°:', 0, 0);
+        $this->Cell(50, 8, $this->queja->pedido_numero ?? '__________', 'B', 0);
+        $this->Cell(25, 8, 'Referencia:', 0, 0);
+        $this->Cell(25, 8, $this->queja->referencia ?? '________', 'B', 0);
+        $this->Cell(30, 8, 'Fecha-Factura:', 0, 0);
+        $this->Cell(25, 8, $this->queja->fecha_factura ?? '__________', 'B', 1);
+
+        // Fila 3: Num-Lote - Num-Factura
+        $this->Cell(30, 8, 'Num-Lote:', 0, 0);
+        $this->Cell(50, 8, $this->queja->num_lote ?? '____________________', 'B', 0);
+        $this->Cell(30, 8, 'Num-Factura:', 0, 0);
+        $this->Cell(55, 8, $this->queja->factura ?? '_________________________', 'B', 1);
+
+        // Descripción de Producto
+        $this->Cell(50, 8, 'Descripción de Producto:', 0, 1);
+        $this->MultiCell(0, 25, $this->queja->descripcion_producto ?? "__________________________________________________________", 0, 'L');
 
         // Motivo del reclamo
-        $this->Ln(3);
-        $this->Cell(0, 8, "Motivo del reclamo:", 0, 1);
-        $this->MultiCell(0, 25, $this->queja->motivo_reclamo ?? "__________________________________________________________", 1, 'L', false, 1);
+        $this->Cell(50, 8, 'Motivo del reclamo:', 0, 1);
+        $this->MultiCell(0, 30, $this->queja->motivo_reclamo ?? "__________________________________________________________", 0, 'L');
 
-        // Persona que genera reclamo, Cargo, Teléfono
-        $this->Ln(3);
-        $this->Cell(90, 8, "Persona que generará el reclamo (Cliente):", 0, 0);
-        $this->Cell(0, 8, $this->queja->per_reporta_reclamo ?? "_____________________________", 'B', 1);
-        $this->Cell(50, 8, "Cargo o área de la empresa:", 0, 0);
-        $this->Cell(80, 8, "_____________________________", 'B', 0);
-        $this->Cell(20, 8, "Teléfono:", 0, 0);
-        $this->Cell(0, 8, "________________________", 'B', 1);
+        // Persona que generará el reclamo (Cliente)
+        $this->Cell(90, 8, 'Persona que generará el reclamo (Cliente):', 0, 0);
+        $this->Cell(0, 8, $this->queja->per_reporta_reclamo ?? '_____________________________', 0, 1);
 
-        $this->Ln(8);
+        // Cargo o área y teléfono
+        $this->Cell(50, 8, 'Cargo o área de la empresa:', 0, 0);
+        $this->Cell(80, 8, '_____________________________', 'B', 0);
+        $this->Cell(20, 8, 'Teléfono:', 0, 0);
+        $this->Cell(0, 8, '________________________', 'B', 1);
 
-        // --- Sección 2: SOLUCIÓN INMEDIATA ---
-        $this->SetFillColor(...$orange);
+        // --- Barra lateral naranja rotada (2. SOLUCIÓN INMEDIATA) ---
+        $this->SetFillColor(255, 140, 0);
         $this->SetTextColor(255);
-        $this->SetFont('helvetica', 'B', 11);
-        $this->Cell(0, 10, "2.- SOLUCIÓN INMEDIATA", 1, 1, 'L', true);
+        $this->SetFont('helvetica', 'B', 9);
+        $this->Rect(10, 160, 20, 85, 'F');
 
-        $this->SetTextColor(...$black);
+        $this->StartTransform();
+        $this->Rotate(90, 20, 160);
+        $this->SetXY(20, 160);
+        $this->MultiCell(85, 6, "2.- SOLUCIÓN\nINMEDIATA\nVENTAS / DESPACHOS / PRODUCCIÓN", 0, 'C', false);
+        $this->StopTransform();
+
+        // Sección 2 contenido
+        $this->SetTextColor(0);
         $this->SetFont('helvetica', '', 10);
+        $this->SetXY(35, 160);
 
-        $solucion = "Solución inmediata:\n" . ($this->queja->solucion_inmediata ?? "__________________________________________________________");
-        $this->MultiCell(0, 35, $solucion, 1, 'L', false, 1);
+        // Solución inmediata texto largo
+        $solucionTexto = "Solución inmediata:\n" . ($this->queja->solucion_inmediata ?? "__________________________________________________________");
+        $this->MultiCell(0, 30, $solucionTexto, 0, 'L');
 
-        $this->Ln(3);
-
-        // Checkboxes alineados
+        // Checkboxes: VENTAS, DESPACHOS, PRODUCCIÓN
+        $this->SetXY(35, 195);
         $checkboxes = ['VENTAS', 'DESPACHOS', 'PRODUCCIÓN'];
-        $this->SetFont('helvetica', '', 10);
-        $startX = $this->GetX();
-        foreach ($checkboxes as $checkbox) {
-            $this->Cell(40, 8, $checkbox, 0, 0, 'L');
-            $this->Rect($this->GetX() - 12, $this->GetY() + 2, 6, 6);
+        $checkboxWidth = 6;
+        $checkboxHeight = 6;
+        $gap = 35;
+        $x = $this->GetX();
+        $y = $this->GetY() + 2;
+        foreach ($checkboxes as $ch) {
+            $this->Cell(30, 8, $ch, 0, 0);
+            $this->Rect($x + 30, $y, $checkboxWidth, $checkboxHeight);
+            $x += $gap + 30;
+            $this->SetX($x);
         }
-        $this->Ln(12);
 
-        // Fecha solución
-        $this->Cell(30, 8, "Fecha:", 0, 0);
-        $this->Cell(50, 8, $this->queja->fecha_solucion ?? "__________", 'B', 1);
+        // Fecha
+        $this->SetX(35);
+        $this->Ln(10);
+        $this->Cell(25, 8, 'Fecha:', 0, 0);
+        $this->Cell(40, 8, $this->queja->fecha_solucion ?? '__________', 'B', 1);
 
-        // Clasificación / Arreglo con checkboxes SI/NO + Buenas
-        $this->Cell(55, 8, "Clasificación / Arreglo:", 0, 0);
-        $this->Cell(20, 8, "SI", 0, 0);
-        $this->Rect($this->GetX() - 14, $this->GetY() + 2, 6, 6);
-        $this->Cell(20, 8, "NO", 0, 0);
-        $this->Rect($this->GetX() - 14, $this->GetY() + 2, 6, 6);
-        $this->Cell(25, 8, "Buenas:", 0, 0);
-        $this->Cell(40, 8, $this->queja->buenas ?? "_______", 'B', 1);
+        // Clasificación / Arreglo - SI NO + Buenas
+        $this->Cell(40, 8, 'Clasificación / Arreglo:', 0, 0);
+        $this->Cell(15, 8, 'SI', 0, 0);
+        $x = $this->GetX(); $y = $this->GetY() + 2;
+        $this->Rect($x, $y, 6, 6);
+        $this->Cell(15, 8, 'NO', 0, 0);
+        $x = $this->GetX();
+        $this->Rect($x, $y, 6, 6);
+        $this->Cell(30, 8, 'Buenas:', 0, 0);
+        $this->Cell(40, 8, $this->queja->buenas ?? '_______', 'B', 1);
 
-        // Reposición SI/NO + Autorizado por
-        $this->Cell(55, 8, "Reposición:", 0, 0);
-        $this->Cell(20, 8, "SI", 0, 0);
-        $this->Rect($this->GetX() - 14, $this->GetY() + 2, 6, 6);
-        $this->Cell(20, 8, "NO", 0, 0);
-        $this->Rect($this->GetX() - 14, $this->GetY() + 2, 6, 6);
-        $this->Cell(50, 8, "Autorizado por:", 0, 0);
-        $this->Cell(50, 8, "_________________________", 'B', 1);
+        // Reposición - SI NO + Autorizado por
+        $this->Cell(40, 8, 'Reposición:', 0, 0);
+        $this->Cell(15, 8, 'SI', 0, 0);
+        $x = $this->GetX();
+        $this->Rect($x, $y, 6, 6);
+        $this->Cell(15, 8, 'NO', 0, 0);
+        $x = $this->GetX();
+        $this->Rect($x, $y, 6, 6);
+        $this->Cell(50, 8, 'Autorizado por:', 0, 0);
+        $this->Cell(50, 8, '_________________________', 'B', 1);
 
-        // Genera Nota Crédito SI/NO + Autorizado por
-        $this->Cell(55, 8, "Genera Nota Crédito:", 0, 0);
-        $this->Cell(20, 8, "SI", 0, 0);
-        $this->Rect($this->GetX() - 14, $this->GetY() + 2, 6, 6);
-        $this->Cell(20, 8, "NO", 0, 0);
-        $this->Rect($this->GetX() - 14, $this->GetY() + 2, 6, 6);
-        $this->Cell(50, 8, "Autorizado por:", 0, 0);
-        $this->Cell(50, 8, "_________________________", 'B', 1);
+        // Genera Nota Crédito - SI NO + Autorizado por
+        $this->Cell(40, 8, 'Genera Nota Crédito:', 0, 0);
+        $this->Cell(15, 8, 'SI', 0, 0);
+        $x = $this->GetX();
+        $this->Rect($x, $y, 6, 6);
+        $this->Cell(15, 8, 'NO', 0, 0);
+        $x = $this->GetX();
+        $this->Rect($x, $y, 6, 6);
+        $this->Cell(50, 8, 'Autorizado por:', 0, 0);
+        $this->Cell(50, 8, '_________________________', 'B', 1);
 
-        // Genera Descuento SI/% + Autorizado por
-        $this->Cell(55, 8, "Genera Descuento:", 0, 0);
-        $this->Cell(20, 8, "SI", 0, 0);
-        $this->Rect($this->GetX() - 14, $this->GetY() + 2, 6, 6);
-        $this->Cell(20, 8, "%", 0, 0);
-        $this->Cell(20, 8, $this->queja->descuento ?? "___", 'B', 0);
-        $this->Cell(50, 8, "Autorizado por:", 0, 0);
-        $this->Cell(50, 8, "_________________________", 'B', 1);
+        // Genera Descuento - SI % + Autorizado por
+        $this->Cell(40, 8, 'Genera Descuento:', 0, 0);
+        $this->Cell(15, 8, 'SI', 0, 0);
+        $x = $this->GetX();
+        $this->Rect($x, $y, 6, 6);
+        $this->Cell(15, 8, '%', 0, 0);
+        $this->Cell(20, 8, $this->queja->descuento ?? '___', 'B', 0);
+        $this->Cell(50, 8, 'Autorizado por:', 0, 0);
+        $this->Cell(50, 8, '_________________________', 'B', 1);
 
         // Fecha solución y responsable
-        $this->Cell(50, 8, "Fecha de la Solución:", 0, 0);
-        $this->Cell(60, 8, $this->queja->fecha_solucion ?? "_________________", 'B', 0);
-        $this->Cell(40, 8, "Responsable:", 0, 0);
-        $this->Cell(0, 8, $this->queja->responsable ?? "_________________", 'B', 1);
+        $this->Cell(50, 8, 'Fecha de la Solución:', 0, 0);
+        $this->Cell(60, 8, $this->queja->fecha_solucion ?? '_________________', 'B', 0);
+        $this->Cell(40, 8, 'Responsable:', 0, 0);
+        $this->Cell(0, 8, $this->queja->responsable ?? '_________________', 'B', 1);
 
-        $this->Ln(8);
-
-        // --- Sección 3: TRAZABILIDAD CONTROL DE CALIDAD ---
-        $this->SetFillColor(...$orange);
+        // --- Barra lateral naranja rotada (3. TRAZABILIDAD CONTROL DE CALIDAD) ---
+        $this->SetFillColor(255, 140, 0);
         $this->SetTextColor(255);
-        $this->SetFont('helvetica', 'B', 11);
-        $this->Cell(0, 10, "3.- TRAZABILIDAD CONTROL DE CALIDAD", 1, 1, 'L', true);
+        $this->SetFont('helvetica', 'B', 9);
+        $this->Rect(10, 250, 20, 80, 'F');
 
-        $this->SetTextColor(...$black);
+        $this->StartTransform();
+        $this->Rotate(90, 20, 250);
+        $this->SetXY(20, 250);
+        $this->MultiCell(80, 6, "3.- TRAZABILIDAD\nCONTROL DE CALIDAD", 0, 'C', false);
+        $this->StopTransform();
+
+        // Sección 3 contenido
+        $this->SetTextColor(0);
         $this->SetFont('helvetica', '', 10);
+        $this->SetXY(35, 250);
 
-        // Primer fila de datos
-        $this->Cell(40, 8, "Fecha-Prod:", 0, 0);
-        $this->Cell(60, 8, $this->queja->fecha_prod ?? "__________", 'B', 0);
-        $this->Cell(40, 8, "Máquina:", 0, 0);
-        $this->Cell(40, 8, $this->queja->maquina ?? "__________", 'B', 1);
+        // Filas Fecha-Prod - Máquina - Operario (2 filas)
+        $this->Cell(40, 8, 'Fecha-Prod:', 0, 0);
+        $this->Cell(60, 8, $this->queja->fecha_prod ?? '__________', 'B', 0);
+        $this->Cell(40, 8, 'Máquina:', 0, 0);
+        $this->Cell(40, 8, $this->queja->maquina ?? '__________', 'B', 1);
+        $this->Cell(40, 8, 'Operario:', 0, 0);
+        $this->Cell(60, 8, $this->queja->operario ?? '__________', 'B', 1);
 
-        // Segunda fila de datos
-        $this->Cell(40, 8, "Operario:", 0, 0);
-        $this->Cell(60, 8, $this->queja->operario ?? "__________", 'B', 0);
-        $this->Cell(40, 8, "Fecha-Prod:", 0, 0);
-        $this->Cell(40, 8, $this->queja->fecha_prod2 ?? "__________", 'B', 1);
+        $this->Cell(40, 8, 'Fecha-Prod:', 0, 0);
+        $this->Cell(60, 8, $this->queja->fecha_prod2 ?? '__________', 'B', 0);
+        $this->Cell(40, 8, 'Máquina:', 0, 0);
+        $this->Cell(40, 8, $this->queja->maquina2 ?? '__________', 'B', 1);
+        $this->Cell(40, 8, 'Operario:', 0, 0);
+        $this->Cell(60, 8, $this->queja->operario2 ?? '__________', 'B', 1);
 
-        // Tercera fila de datos
-        $this->Cell(40, 8, "Máquina:", 0, 0);
-        $this->Cell(60, 8, $this->queja->maquina2 ?? "__________", 'B', 0);
-        $this->Cell(40, 8, "Operario:", 0, 0);
-        $this->Cell(40, 8, $this->queja->operario2 ?? "__________", 'B', 1);
-
+        // Datos Corrugado y Datos impresión tablas resumidas
         $this->Ln(5);
-
-        // Datos Corrugado y Datos Impresión
-        $this->SetFont('helvetica', 'B', 10);
-        $this->Cell(90, 8, "Datos Corrugado:", 0, 0);
-        $this->Cell(0, 8, "Datos Impresión:", 0, 1);
+        $this->SetFont('helvetica', 'B', 9);
+        $this->Cell(90, 8, 'Datos Corrugado:', 0, 0, 'L');
+        $this->Cell(70, 8, 'Datos Impresión:', 0, 1, 'L');
 
         $this->SetFont('helvetica', '', 10);
 
-        $this->Cell(25, 8, "Materiales:", 0, 0);
-        $this->Cell(20, 8, "L. EXT", 0, 0);
-        $this->Cell(20, 8, $this->queja->l_ext ?? "", 1, 0, 'C');
-        $this->Cell(20, 8, "C. MED", 0, 0);
-        $this->Cell(20, 8, $this->queja->c_med ?? "", 1, 0, 'C');
-        $this->Cell(20, 8, "L. INT", 0, 0);
-        $this->Cell(20, 8, $this->queja->l_int ?? "", 1, 0, 'C');
-        $this->Cell(20, 8, "ANCHO", 0, 0);
-        $this->Cell(20, 8, $this->queja->ancho ?? "", 1, 0, 'C');
+        // Primera fila materiales y tintas
+        $this->Cell(25, 8, 'Materiales:', 0, 0);
+        $this->Cell(20, 8, 'L. EXT', 0, 0);
+        $this->Cell(20, 8, $this->queja->l_ext ?? '', 1, 0, 'C');
+        $this->Cell(20, 8, 'C. MED', 0, 0);
+        $this->Cell(20, 8, $this->queja->c_med ?? '', 1, 0, 'C');
+        $this->Cell(20, 8, 'L. INT', 0, 0);
+        $this->Cell(20, 8, $this->queja->l_int ?? '', 1, 0, 'C');
+        $this->Cell(20, 8, 'ANCHO', 0, 0);
+        $this->Cell(20, 8, $this->queja->ancho ?? '', 1, 0, 'C');
 
-        $this->Cell(15, 8, "Tintas:", 0, 0);
-        $this->Cell(20, 8, $this->queja->tinta1 ?? "", 1, 0, 'C');
-        $this->Cell(20, 8, $this->queja->tinta2 ?? "", 1, 0, 'C');
-        $this->Cell(20, 8, $this->queja->tinta3 ?? "", 1, 0, 'C');
-        $this->Cell(15, 8, "Lote:", 0, 0);
-        $this->Cell(20, 8, $this->queja->lote ?? "", 1, 0, 'C');
-        $this->Cell(15, 8, "Control:", 0, 1);
-        $this->Cell(20, 8, $this->queja->control ?? "", 1, 1, 'C');
+        $this->Cell(15, 8, 'Tintas:', 0, 0);
+        $this->Cell(20, 8, $this->queja->tinta1 ?? '', 1, 0, 'C');
+        $this->Cell(20, 8, $this->queja->tinta2 ?? '', 1, 0, 'C');
+        $this->Cell(20, 8, $this->queja->tinta3 ?? '', 1, 0, 'C');
+        $this->Cell(15, 8, 'Lote:', 0, 0);
+        $this->Cell(20, 8, $this->queja->lote ?? '', 1, 0, 'C');
+        $this->Cell(15, 8, 'Control:', 0, 1);
+        $this->Cell(20, 8, $this->queja->control ?? '', 1, 1, 'C');
 
-        $this->Ln(8);
-
-        // --- Sección 4: ACCIÓN CORRECTIVA ---
-        $this->SetFillColor(...$orange);
+        // --- Barra lateral naranja rotada (4. ACCIÓN CORRECTIVA) ---
+        $this->SetFillColor(255, 140, 0);
         $this->SetTextColor(255);
-        $this->SetFont('helvetica', 'B', 11);
-        $this->Cell(0, 10, "4.- ACCIÓN CORRECTIVA", 1, 1, 'L', true);
+        $this->SetFont('helvetica', 'B', 9);
+        $this->Rect(10, 335, 20, 60, 'F');
 
-        $this->SetTextColor(...$black);
+        $this->StartTransform();
+        $this->Rotate(90, 20, 335);
+        $this->SetXY(20, 335);
+        $this->MultiCell(60, 6, "4.- ACCIÓN\nCORRECTIVA\nPERSONA RESPONSABLE", 0, 'C', false);
+        $this->StopTransform();
+
+        // Sección 4 contenido
+        $this->SetTextColor(0);
         $this->SetFont('helvetica', '', 10);
+        $this->SetXY(35, 335);
 
-        $causa = "Causa del problema:\n" . ($this->queja->causa_problema ?? "__________________________________________________");
-        $this->MultiCell(0, 25, $causa, 1, 'L', false, 1);
+        $causaTexto = "Causa del problema:\n" . ($this->queja->causa_problema ?? "__________________________________________________");
+        $this->MultiCell(0, 20, $causaTexto, 0, 'L');
+        $this->Ln(5);
+        $accionTexto = "Acción correctiva y/o preventiva:\n" . ($this->queja->accion_correctiva ?? "__________________________________________________");
+        $this->MultiCell(0, 25, $accionTexto, 0, 'L');
 
-        $this->Ln(3);
-
-        $accion = "Acción correctiva y/o preventiva:\n" . ($this->queja->accion_correctiva ?? "__________________________________________________");
-        $this->MultiCell(0, 25, $accion, 1, 'L', false, 1);
-
-        $this->Cell(50, 8, "Fecha de la Acción:", 0, 0);
-        $this->Cell(50, 8, $this->queja->fecha_accion ?? "_________________", 'B', 0);
-        $this->Cell(40, 8, "Responsable:", 0, 0);
-        $this->Cell(0, 8, $this->queja->responsable_accion ?? "_________________", 'B', 1);
-
-        $this->Ln(12);
+        $this->Cell(50, 8, 'Fecha de la Acción:', 0, 0);
+        $this->Cell(50, 8, $this->queja->fecha_accion ?? '_________________', 'B', 0);
+        $this->Cell(40, 8, 'Responsable:', 0, 0);
+        $this->Cell(0, 8, $this->queja->responsable_accion ?? '_________________', 'B', 1);
 
         // --- Pie de página ---
-        $this->Cell(80, 8, "Recibe el reclamo:", 0, 0);
-        $this->Cell(80, 8, "Fecha y hora:", 0, 1);
-        $this->Cell(80, 8, "______________________________", 0, 0);
-        $this->Cell(80, 8, "______________________________", 0, 1);
+        $this->Ln(8);
+        $this->Cell(80, 8, 'Recibe el reclamo:', 0, 0);
+        $this->Cell(80, 8, 'Fecha y hora:', 0, 1);
+        $this->Cell(80, 8, '______________________________', 0, 0);
+        $this->Cell(80, 8, '______________________________', 0, 1);
     }
 }
