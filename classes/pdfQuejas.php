@@ -203,64 +203,66 @@ class pdfQuejas extends TCPDF
         $this->Ln(5);
 
         // Datos Corrugado y Datos Impresión
-        // Encabezados
+// Títulos principales
 $this->SetFont('helvetica', 'B', 10);
-$this->Cell(50, 8, "Datos Corrugado:", 0, 0);
-$this->Cell(70, 8, "", 0, 0); // espacio
-$this->Cell(50, 8, "Datos Impresión:", 0, 1);
+$this->Cell(60, 6, "Datos Corrugado:", 0, 0);
+$this->Cell(60, 6, "", 0, 0);
+$this->Cell(60, 6, "Datos Impresión:", 0, 1);
 
-// Sub-etiquetas: columna izquierda
-$this->SetFont('helvetica', '', 10);
-$this->Cell(25, 8, "Materiales:", 0, 1);
-$this->Cell(25, 8, "L. EXT", 0, 0);
-$this->Cell(30, 8, $this->queja->l_ext ?? "", 1, 1);
-$this->Cell(25, 8, "C. MED", 0, 0);
-$this->Cell(30, 8, $this->queja->c_med ?? "", 1, 1);
-$this->Cell(25, 8, "L. INT", 0, 0);
-$this->Cell(30, 8, $this->queja->l_int ?? "", 1, 1);
-$this->Cell(25, 8, "ANCHO", 0, 0);
-$this->Cell(30, 8, $this->queja->ancho ?? "", 1, 1);
+// Corrugado - Columna 1: Materiales
+$this->SetFont('helvetica', '', 9);
+$this->Cell(20, 5, "Materiales:", 0, 1);
+$this->Cell(18, 5, "L. EXT", 0, 0);
+$this->Cell(22, 5, $this->queja->l_ext ?? "", 1, 1, 'C');
+$this->Cell(18, 5, "C. MED", 0, 0);
+$this->Cell(22, 5, $this->queja->c_med ?? "", 1, 1, 'C');
+$this->Cell(18, 5, "L. INT", 0, 0);
+$this->Cell(22, 5, $this->queja->l_int ?? "", 1, 1, 'C');
+$this->Cell(18, 5, "ANCHO", 0, 0);
+$this->Cell(22, 5, $this->queja->ancho ?? "", 1, 1, 'C');
 
-// Sub-etiquetas: columna central
-$this->Ln(-32); // Regresa arriba
-$this->SetX(70); // Mueve a la segunda columna
-$this->Cell(20, 8, "ECT", 0, 0);
-$this->Cell(30, 8, $this->queja->ect ?? "", 1, 1);
-$this->SetX(70);
-$this->Cell(20, 8, "FCT", 0, 0);
-$this->Cell(30, 8, $this->queja->fct ?? "", 1, 1);
-$this->SetX(70);
-$this->Cell(20, 8, "PAT", 0, 0);
-$this->Cell(30, 8, $this->queja->pat1 ?? "", 1, 1);
-$this->SetX(70);
-$this->Cell(20, 8, "PAT", 0, 0);
-$this->Cell(30, 8, $this->queja->pat2 ?? "", 1, 1);
-$this->SetX(70);
-$this->Cell(20, 8, "PESO", 0, 0);
-$this->Cell(30, 8, $this->queja->peso ?? "", 1, 1);
+// Corrugado - Columna 2: Pruebas
+$this->Ln(-22); // Regresa hacia arriba
+$this->SetX(60); // Segunda columna
+$this->Cell(15, 5, "ECT", 0, 0);
+$this->Cell(25, 5, $this->queja->ect ?? "", 1, 1, 'C');
+$this->SetX(60);
+$this->Cell(15, 5, "FCT", 0, 0);
+$this->Cell(25, 5, $this->queja->fct ?? "", 1, 1, 'C');
+$this->SetX(60);
+$this->Cell(15, 5, "PAT", 0, 0);
+$this->Cell(25, 5, $this->queja->pat1 ?? "", 1, 1, 'C');
+$this->SetX(60);
+$this->Cell(15, 5, "PAT", 0, 0);
+$this->Cell(25, 5, $this->queja->pat2 ?? "", 1, 1, 'C');
+$this->SetX(60);
+$this->Cell(15, 5, "PESO", 0, 0);
+$this->Cell(25, 5, $this->queja->peso ?? "", 1, 1, 'C');
 
-// Sub-etiquetas: columna derecha
-$this->Ln(-40); // Regresa arriba
-$this->SetX(130); // Mueve a la tercera columna
-$this->Cell(20, 8, "GCMI", 0, 0);
-$this->Cell(30, 8, $this->queja->tinta1 ?? "", 1, 1);
-$this->SetX(130);
-$this->Cell(20, 8, "GCMI", 0, 0);
-$this->Cell(30, 8, $this->queja->tinta2 ?? "", 1, 1);
-$this->SetX(130);
-$this->Cell(20, 8, "GCMI", 0, 0);
-$this->Cell(30, 8, $this->queja->tinta3 ?? "", 1, 1);
-$this->SetX(130);
-$this->Cell(20, 8, "GCMI", 0, 0);
-$this->Cell(30, 8, $this->queja->tinta4 ?? "", 1, 1);
+// Impresión - Columna 3: Tintas
+$this->Ln(-26); // Regresa arriba
+$this->SetX(100); // Tercera columna
+for ($i = 1; $i <= 4; $i++) {
+    $this->Cell(15, 5, "GCMI", 0, 0);
+    $tinta = 'tinta' . $i;
+    $this->Cell(20, 5, $this->queja->$tinta ?? "", 1, 1, 'C');
+}
 
-// Lote y control al final
-$this->SetX(130);
-$this->Cell(20, 8, "Lote:", 0, 0);
-$this->Cell(30, 8, $this->queja->lote ?? "", 1, 1);
-$this->SetX(130);
-$this->Cell(20, 8, "Control:", 0, 0);
-$this->Cell(30, 8, $this->queja->control ?? "", 1, 1);
+// Impresión - Columna 4: Lote
+$this->Ln(-20); // Regresa al nivel de las tintas
+$this->SetX(140); // Cuarta columna (lote)
+for ($i = 0; $i < 4; $i++) {
+    $this->Cell(20, 5, "", 1, 1); // vacío pero con borde
+}
+$this->Cell(20, 5, $this->queja->lote ?? "", 1, 1, 'C');
+
+// Impresión - Columna 5: Control
+$this->Ln(-25); // Regresa arriba
+$this->SetX(160); // Quinta columna (control)
+for ($i = 0; $i < 4; $i++) {
+    $this->Cell(20, 5, "", 1, 1); // vacío pero con borde
+}
+$this->Cell(20, 5, $this->queja->control ?? "", 1, 1, 'C');
 
 
         $this->Ln(8);
