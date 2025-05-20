@@ -262,10 +262,10 @@ $this->Cell(12, 8, "GCMI", 0, 0);
 $this->Cell(20, 8, $this->queja->tinta5 ?? "", 1, 0);
 $this->Cell(12, 8, "GCMI", 0, 0);
 $this->Cell(20, 8, $this->queja->tinta6 ?? "", 1, 1);
-$this->SetX(150);
 $this->Cell(12, 8, "GCMI", 0, 0);
 $this->Cell(20, 8, $this->queja->tinta7 ?? "", 1, 0);
-$this->Cell(12, 8, "GCMI", 0, 0);
+
+
 
 
         $this->Ln(50);
