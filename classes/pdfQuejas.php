@@ -261,7 +261,7 @@ $this->SetX(150);
 $this->Cell(12, 8, "GCMI", 0, 0);
 
 
-        $this->Ln(20);
+        $this->Ln(50);
 
         // --- Sección 4: ACCIÓN CORRECTIVA ---
         $this->SetFillColor(...$orange);
