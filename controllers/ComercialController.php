@@ -264,20 +264,23 @@ public static function crear(Router $router)
     
 public static function pdfquejas(Router $router)
 {
-    ini_set('display_errors', 0);
-    error_reporting(0);
+   ob_start();
 
-    ob_start();
+$quejas = Quejas::find($_GET['id']);
 
-    $quejas = Quejas::find($_GET['id']);
+$pdf = new pdfQuejas();
+$pdf->generarPdf($quejas);
 
-    $pdf = new pdfQuejas();
+$content = ob_get_contents();
+if ($content) {
+    error_log("¡SALIDA PREVIA DETECTADA ANTES DE PDF: " . substr($content, 0, 1000) . "...");
+}
 
-    $pdf->generarPdf($quejas);
+ob_end_clean();
 
-    ob_end_clean();
-    $pdf->Output('inventario.pdf', 'I');
-    exit;
+$pdf->Output('inventario.pdf', 'I');
+exit;
+
 }
 
 
