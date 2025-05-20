@@ -11,6 +11,11 @@
             value="<?php echo $comercial->responsable_reporte ?? '' ?>">
     </div> -->
     <?php         $responsable_reporte = $_POST['responsable_reporte'] ?? '';
+   
+ 
+    $per_reporta_reclamo = $_POST['per_reporta_reclamo'] ?? '';
+    $motivo_reclamo = $_POST['motivo_reclamo'] ?? '';
+    $accion_solicitada = $_POST['accion_solicitada'] ?? '';
 ?>
    <div class="formulario__campo">
         <label class="formulario__label" for="responsable_reporte">RESPONSABLE DEL REPORTE</label>
