@@ -42,7 +42,7 @@
     </div>
 
     <div class="formulario__campo">
-        <label class="formulario__label">Descripciones</label>
+        <label class="formulario__label">DESCRICPION DEL PRODUCTO</label>
         <?php foreach ($descripciones as $desc): ?>
             <div>
                 <input
