@@ -144,7 +144,7 @@ class pdfQuejas extends TCPDF
         $this->Cell(20, 8, "NO", 0, 0);
         $this->Rect($this->GetX() - 14, $this->GetY() + 2, 6, 6);
         $this->Cell(50, 8, "Autorizado por:", 0, 0);
-        $this->Cell(40, 8, "", 'B', 1);
+        $this->Cell(10, 8, "", 'B', 1);
 
         // Genera Nota Crédito SI/NO + Autorizado por
         $this->Cell(55, 8, "Genera Nota Crédito:", 0, 0);
