@@ -268,13 +268,6 @@ $this->SetX(90);
 $this->Cell(12, 8, "GCMI", 0, 0);
 $this->Cell(20, 8, $this->queja->tinta4 ?? "", 1, 1);
 
-// Lote y control al final
-$this->SetX(130);
-$this->Cell(20, 8, "Lote:", 0, 0);
-$this->Cell(30, 8, $this->queja->lote ?? "", 1, 1);
-$this->SetX(130);
-$this->Cell(20, 8, "Control:", 0, 0);
-$this->Cell(30, 8, $this->queja->control ?? "", 1, 1);
 
 
         $this->Ln(8);
