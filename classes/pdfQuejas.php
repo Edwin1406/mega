@@ -320,7 +320,7 @@ $this->SetXY($this->GetX() + 40, $this->GetY()); // Mueves el cursor a la derech
         $causa = "Causa del problema:\n" . ($this->queja->causa_problema ?? "");
         $this->MultiCell(0, 25, $causa, 1, 'L', false, 1);
 
-        $this->Ln(3);
+        $this->Ln(5);
 
         $accion = "Acción correctiva y/o preventiva:\n" . ($this->queja->accion_correctiva ?? "");
         $this->MultiCell(0, 25, $accion, 1, 'L', false, 1);
