@@ -84,7 +84,7 @@
                         <td class="tables__td"><?php echo $comerciales->descripcion_producto?></td>
                         <td class="tables__td"><?php echo $comerciales->motivo_reclamo?></td>
                         <td class="tables__td"><?php echo $comerciales->accion_solicitada?></td>
-                        <td  class="tables__td--acciones"><a class="tables__accion tables__accion--editar" href="/admin/comercial/editar?id=<?php echo $comerciales->id; ?>"><i class="fa-solid fa-user-pen"></i>Editar</a>
+                        <td  class="tables__td--acciones"><a class="tables__accion tables__accion--editar" href="/admin/comercial/pdfquejas?id=<?php echo $comerciales->id; ?>"><i class="fa-solid fa-user-pen"></i>Editar</a>
 
                     </tr>
                 <?php endforeach;?>

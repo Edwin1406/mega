@@ -130,6 +130,9 @@ $router->post('/admin/comercial/excel', [ComercialController::class, 'excel']);
 // Api Comercial
 $router->get('/admin/api/apicomercial', [ComercialController::class, 'apicomercial']);
 
+$router->get('/admin/comercial/pdfquejas', [ComercialController::class, 'pdfquejas']);
+
+
 
 
 // AREA DE FINANCIERO
