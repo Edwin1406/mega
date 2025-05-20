@@ -215,11 +215,11 @@ $this->Cell(20, 8, "Materiales:", 0, 1);
 
 // sub-etiquetas: columna derecha
 $this->SetX(150); // Mueve a la segunda columna
-$this->Cell(20, 8, "lote:", 0, 1);
+$this->Cell(20, 8, "lote:", 0, 0);
 
 // sub-etiquetas: columna derecha
 $this->SetX(150); // Mueve a la segunda columna
-$this->Cell(20, 8, "control:", 0, 1);
+$this->Cell(20, 8, "control:", 0, 0);
 
 
 
