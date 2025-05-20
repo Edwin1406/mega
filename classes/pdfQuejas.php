@@ -64,5 +64,3 @@ class pdfQuejas extends TCPDF
         $this->Output('reporte.pdf', 'I');
     }
 }
-
-
