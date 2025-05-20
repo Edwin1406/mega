@@ -183,7 +183,7 @@ class pdfQuejas extends TCPDF
         $this->SetFont('helvetica', '', 10);
 
         // Primer fila de datos
-        $this->Cell(40, 8, "Fecha-Prod:", 0, 0);
+        $this->Cell(30, 8, "Fecha-Prod:", 0, 0);
         $this->Cell(70, 8, $this->queja->fecha_prod ?? "", 'B', 0);
         $this->Cell(40, 8, "Máquina:", 0, 0);
         $this->Cell(40, 8, $this->queja->maquina ?? "", 'B', 1);
