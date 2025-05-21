@@ -142,20 +142,24 @@ public function calcularTotal()
         floatval($this->SINGLEFACE) +
         floatval($this->EMPALME) +
         floatval($this->RECUB) +
-        floatval($this->MECANICO) +
         floatval($this->GALLET) +
         floatval($this->HUMEDO) +
         floatval($this->COMBADO) +
         floatval($this->DESPE) +
         floatval($this->ERROM) +
         floatval($this->DESHOJE) +
-        floatval($this->CAMBIO_PEDIDO) +
+        floatval($this->MECANICO) +
+        floatval($this->ELECTRICO) +
         floatval($this->FILOS_ROTOS) +
-        floatval($this->OTROS) +
+        floatval($this->REFILE_PEQUENO) +
         floatval($this->PEDIDOS_CORTOS) +
         floatval($this->DIFER_ANCHO) +
+        floatval($this->SUSTRATO) +
         floatval($this->CAMBIO_GRAMAJE) +
-        floatval($this->EXTRA_TRIM);
+        floatval($this->CAMBIO_PEDIDO) +
+        floatval($this->EXTRA_TRIM) +
+        floatval($this->CONSUMO);
+    $this->PORCENTAJE = ($this->TOTAL / 100) * 100; // Cambia esto según tu lógica
 }
 
 
