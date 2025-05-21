@@ -26,6 +26,10 @@
       .formulario__grid {
           grid-template-columns: 1fr;
       }
+
+      .dashboard_sidebar{
+            display: none;
+      }
   }
 </style>
 
