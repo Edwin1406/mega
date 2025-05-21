@@ -21,59 +21,63 @@
     }
 
 
- .formulario__campo {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr); /* 3 columnas iguales */
-    gap: 1rem; /* Espacio entre columnas */
-    margin-top: 1rem;
+    .formulario__campo {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        /* 3 columnas iguales */
+        gap: 1rem;
+        /* Espacio entre columnas */
+        margin-top: 1rem;
 
-}
-
-
-.dashboard__formulario {
-    width: 120rem;
-    margin: 0 auto;
-}
-
-
-
-.formulario__input {
-    padding: 1rem;
-    border: 1px solid #64748B;
-    border-radius: 1rem;
-    width: 14rem;
-}
-
-.formulario__legend{
-    text-align: center;
-}
-
-.formulario_campito{
-    display: grid;
-    grid-template-columns: repeat(3, 1fr); /* 3 columnas iguales */
-    gap: 1.5rem; /* Espacio entre columnas */
-    margin-top: 1rem;
-}
-
-
-.formulario__submit{
-    margin-top: 3rem;
-    align-self: center;
-}
-
-@media (max-width: 1024px) {
-    .formulario {
-        grid-template-columns: repeat(2, 1fr); /* 2 columnas en tablet */
     }
-}
 
-@media (max-width: 768px) {
-    .formulario {
-        grid-template-columns: 1fr; /* 1 columna en móvil */
+
+    .dashboard__formulario {
+        width: 120rem;
+        margin: 0 auto;
     }
-}
 
 
+
+    .formulario__input {
+        padding: 1rem;
+        border: 1px solid #64748B;
+        border-radius: 1rem;
+        width: 14rem;
+    }
+
+    .formulario__legend {
+        text-align: center;
+    }
+
+    .formulario_campito {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        /* 3 columnas iguales */
+        gap: 1.5rem;
+        /* Espacio entre columnas */
+        margin-top: 1rem;
+    }
+
+
+    .formulario__submit {
+        margin-top: 3rem;
+        align-self: center;
+    }
+
+    @media (max-width: 1024px) {
+        .formulario {
+            grid-template-columns: repeat(2, 1fr);
+            /* 2 columnas en tablet */
+        }
+    }
+
+    @media (max-width: 768px) {
+        .formulario {
+            grid-template-columns: 1fr;
+            /* 1 columna en móvil */
+        }
+    }
 </style>
 
 
@@ -125,251 +129,239 @@
 
 
     <div class="formulario_campito">
+        <div class="formulario__campo">
+            <label class="formulario__label" for="SINGLEFACE">SINGLE FACE</label>
+            <input
+                type="number"
+                name="SINGLEFACE"
+                id="SINGLEFACE"
+                class="formulario__input"
+                placeholder="SINGLEFACE"
+                value="<?php echo $papel->SINGLEFACE ?? '' ?>">
+        </div>
+
+        <div class="formulario__campo">
+            <label class="formulario__label" for="EMPALME">EMPALME</label>
+            <input
+                type="number"
+                name="EMPALME"
+                id="EMPALME"
+                class="formulario__input"
+                placeholder="EMPALME"
+                value="<?php echo $papel->EMPALME ?? '' ?>">
+        </div>
+
+        <div class="formulario__campo">
+            <label class="formulario__label" for="RECUB">RECUB</label>
+            <input
+                type="number"
+                name="RECUB"
+                id="RECUB"
+                class="formulario__input"
+                placeholder="RECUB"
+                value="<?php echo $papel->RECUB ?? '' ?>">
+        </div>
+        <div class="formulario__campo">
+            <label class="formulario__label" for="GALLET">GALLET</label>
+            <input
+                type="number"
+                name="GALLET"
+                id="GALLET"
+                class="formulario__input"
+                placeholder="GALLET"
+                value="<?php echo $papel->GALLET ?? '' ?>">
+        </div>
+
+        <div class="formulario__campo">
+            <label class="formulario__label" for="HUMEDO">HUMEDO</label>
+            <input
+                type="number"
+                name="HUMEDO"
+                id="HUMEDO"
+                class="formulario__input"
+                placeholder="HUMEDO"
+                value="<?php echo $papel->HUMEDO ?? '' ?>">
+        </div>
+        <div class="formulario__campo">
+            <label class="formulario__label" for="COMBADO">COMBADO</label>
+            <input
+                type="number"
+                name="COMBADO"
+                id="COMBADO"
+                class="formulario__input"
+                placeholder="COMBADO"
+                value="<?php echo $papel->COMBADO ?? '' ?>">
+        </div>
+
+        <div class="formulario__campo">
+            <label class="formulario__label" for="DESPE">DESPE</label>
+            <input
+                type="number"
+                name="DESPE"
+                id="DESPE"
+                class="formulario__input"
+                placeholder="DESPE"
+                value="<?php echo $papel->DESPE ?? '' ?>">
+        </div>
+
+        <div class="formulario__campo">
+            <label class="formulario__label" for="ERROM">ERROM</label>
+            <input
+                type="number"
+                name="ERROM"
+                id="ERROM"
+                class="formulario__input"
+                placeholder="ERROM"
+                value="<?php echo $papel->ERROM ?? '' ?>">
+        </div>
+
+
+        <!-- CORRUGADOR NO CONTROLABLE  -->
+        <div class="formulario__campo">
+            <label class="formulario__label" for="DESHOJE">DESHOJE</label>
+            <input
+                type="number"
+                name="DESHOJE"
+                id="DESHOJE"
+                class="formulario__input"
+                placeholder="DESHOJE"
+                value="<?php echo $papel->DESHOJE ?? '' ?>">
+        </div>
+
+        <div class="formulario__campo">
+            <label class="formulario__label" for="MECANICO">MECANICO</label>
+            <input
+                type="number"
+                name="MECANICO"
+                id="MECANICO"
+                class="formulario__input"
+                placeholder="MECANICO"
+                value="<?php echo $papel->MECANICO ?? '' ?>">
+        </div>
+        <div class="formulario__campo">
+            <label class="formulario__label" for="ELECTRICO">ELECTRICO</label>
+            <input
+                type="number"
+                name="ELECTRICO"
+                id="ELECTRICO"
+                class="formulario__input"
+                placeholder="ELECTRICO"
+                value="<?php echo $papel->ELECTRICO ?? '' ?>">
+        </div>
+        <div class="formulario__campo">
+            <label class="formulario__label" for="FILOS_ROTOS">FILOS ROTOS</label>
+            <input
+                type="number"
+                name="FILOS_ROTOS"
+                id="FILOS_ROTOS"
+                class="formulario__input"
+                placeholder="FILOS_ROTOS"
+                value="<?php echo $papel->FILOS_ROTOS ?? '' ?>">
+        </div>
+
+        <div class="formulario__campo">
+            <label class="formulario__label" for="PEDIDOS_CORTOS">PEDIDOS CORTOS</label>
+            <input
+                type="number"
+                name="PEDIDOS_CORTOS"
+                id="PEDIDOS_CORTOS"
+                class="formulario__input"
+                placeholder="PEDIDOS_CORTOS"
+                value="<?php echo $papel->PEDIDOS_CORTOS ?? '' ?>">
+        </div>
+
+
+        <div class="formulario__campo">
+            <label class="formulario__label" for="DIFER_ANCHO">DIFER-ANCHO</label>
+            <input
+                type="number"
+                name="DIFER_ANCHO"
+                id="DIFER_ANCHO"
+                class="formulario__input"
+                placeholder="DIFER_ANCHO"
+                value="<?php echo $papel->DIFER_ANCHO ?? '' ?>">
+        </div>
+
+        <div class="formulario__campo">
+            <label class="formulario__label" for="SUSTRATO">SUSTRATO</label>
+            <input
+                type="number"
+                name="SUSTRATO"
+                id="SUSTRATO"
+                class="formulario__input"
+                placeholder="SUSTRATO"
+                value="<?php echo $papel->SUSTRATO ?? '' ?>">
+        </div>
+
+        <div class="formulario__campo">
+            <label class="formulario__label" for="CAMBIO_GRAMAJE">CAMBIO GRAMAJE</label>
+            <input
+                type="number"
+                name="CAMBIO_GRAMAJE"
+                id="CAMBIO_GRAMAJE"
+                class="formulario__input"
+                placeholder="CAMBIO_GRAMAJE"
+                value="<?php echo $papel->CAMBIO_GRAMAJE ?? '' ?>">
+        </div>
 
 
 
-
-    <div class="formulario__campo">
-        <label class="formulario__label" for="SINGLEFACE">SINGLE FACE</label>
-        <input
-            type="number"
-            name="SINGLEFACE"
-            id="SINGLEFACE"
-            class="formulario__input"
-            placeholder="SINGLEFACE"
-            value="<?php echo $papel->SINGLEFACE ?? '' ?>">
-    </div>
-
-    <div class="formulario__campo">
-        <label class="formulario__label" for="EMPALME">EMPALME</label>
-        <input
-            type="number"
-            name="EMPALME"
-            id="EMPALME"
-            class="formulario__input"
-            placeholder="EMPALME"
-            value="<?php echo $papel->EMPALME ?? '' ?>">
-    </div>
-
-    <div class="formulario__campo">
-        <label class="formulario__label" for="RECUB">RECUB</label>
-        <input
-            type="number"
-            name="RECUB"
-            id="RECUB"
-            class="formulario__input"
-            placeholder="RECUB"
-            value="<?php echo $papel->RECUB ?? '' ?>">
-    </div>
-
-    <div class="formulario__campo">
-        <label class="formulario__label" for="MECANICO">MECANICO </label>
-        <input
-            type="number"
-            name="MECANICO"
-            id="MECANICO"
-            class="formulario__input"
-            placeholder="MECANICO"
-            value="<?php echo $papel->MECANICO ?? '' ?>">
-    </div>
-
-    <div class="formulario__campo">
-        <label class="formulario__label" for="GALLET">GALLET</label>
-        <input
-            type="number"
-            name="GALLET"
-            id="GALLET"
-            class="formulario__input"
-            placeholder="GALLET"
-            value="<?php echo $papel->GALLET ?? '' ?>">
-    </div>
-    <div class="formulario__campo">
-        <label class="formulario__label" for="HUMEDO">HUMEDO</label>
-        <input
-            type="number"
-            name="HUMEDO"
-            id="HUMEDO"
-            class="formulario__input"
-            placeholder="HUMEDO"
-            value="<?php echo $papel->HUMEDO ?? '' ?>">
-    </div>
-    <div class="formulario__campo">
-        <label class="formulario__label" for="COMBADO">COMBADO</label>
-        <input
-            type="number"
-            name="COMBADO"
-            id="COMBADO"
-            class="formulario__input"
-            placeholder="COMBADO"
-            value="<?php echo $papel->COMBADO ?? '' ?>">
-    </div>
-
-    <div class="formulario__campo">
-        <label class="formulario__label" for="DESPE">DESPE</label>
-        <input
-            type="number"
-            name="DESPE"
-            id="DESPE"
-            class="formulario__input"
-            placeholder="DESPE"
-            value="<?php echo $papel->DESPE ?? '' ?>">
-    </div>
-
-    <div class="formulario__campo">
-        <label class="formulario__label" for="ERROM">ERROM</label>
-        <input
-            type="number"
-            name="ERROM"
-            id="ERROM"
-            class="formulario__input"
-            placeholder="ERROM"
-            value="<?php echo $papel->ERROM ?? '' ?>">
-    </div>
-
-
-    <!-- CORRUGADOR NO CONTROLABLE  -->
-    <div class="formulario__campo">
-        <label class="formulario__label" for="DESHOJE">DESHOJE</label>
-        <input
-            type="number"
-            name="DESHOJE"
-            id="DESHOJE"
-            class="formulario__input"
-            placeholder="DESHOJE"
-            value="<?php echo $papel->DESHOJE ?? '' ?>">
-    </div>
-    <div class="formulario__campo">
-        <label class="formulario__label" for="CAMBIO_PEDIDO">CAMBIO PEDIDO</label>
-        <input
-            type="number"
-            name="CAMBIO_PEDIDO"
-            id="CAMBIO_PEDIDO"
-            class="formulario__input"
-            placeholder="CAMBIO_PEDIDO"
-            value="<?php echo $papel->CAMBIO_PEDIDO ?? '' ?>">
-    </div>
-    <div class="formulario__campo">
-        <label class="formulario__label" for="FILOS_ROTOS">FILOS ROTOS</label>
-        <input
-            type="number"
-            name="FILOS_ROTOS"
-            id="FILOS_ROTOS"
-            class="formulario__input"
-            placeholder="FILOS_ROTOS"
-            value="<?php echo $papel->FILOS_ROTOS ?? '' ?>">
-    </div>
-
-    <div class="formulario__campo">
-        <label class="formulario__label" for="PEDIDOS_CORTOS">PEDIDOS CORTOS</label>
-        <input
-            type="number"
-            name="PEDIDOS_CORTOS"
-            id="PEDIDOS_CORTOS"
-            class="formulario__input"
-            placeholder="PEDIDOS_CORTOS"
-            value="<?php echo $papel->PEDIDOS_CORTOS ?? '' ?>">
-    </div>
-
-    <div class="formulario__campo">
-        <label class="formulario__label" for="DIFER_ANCHO">DIFER-ANCHO</label>
-        <input
-            type="number"
-            name="DIFER_ANCHO"
-            id="DIFER_ANCHO"
-            class="formulario__input"
-            placeholder="DIFER_ANCHO"
-            value="<?php echo $papel->DIFER_ANCHO ?? '' ?>">
-    </div>
-
-    <div class="formulario__campo">
-        <label class="formulario__label" for="CAMBIO_GRAMAJE">CAMBIO GRAMAJE</label>
-        <input
-            type="number"
-            name="CAMBIO_GRAMAJE"
-            id="CAMBIO_GRAMAJE"
-            class="formulario__input"
-            placeholder="CAMBIO_GRAMAJE"
-            value="<?php echo $papel->CAMBIO_GRAMAJE ?? '' ?>">
-    </div>
-
-    <div class="formulario__campo">
-        <label class="formulario__label" for="EXTRA_TRIM">EXTRA TRIM </label>
-        <input
-            type="number"
-            name="EXTRA_TRIM"
-            id="EXTRA_TRIM"
-            class="formulario__input"
-            placeholder="EXTRA_TRIM"
-            value="<?php echo $papel->EXTRA_TRIM ?? '' ?>">
-    </div>
-
-
-        <!-- AGREADOS RECEINTEMENTE PARA CORRUGADOR  -->
-
-        
-    <div class="formulario__campo">
-        <label class="formulario__label" for="MECANICO">MECANICO </label>
-        <input
-            type="number"
-            name="MECANICO"
-            id="MECANICO"
-            class="formulario__input"
-            placeholder="MECANICO"
-            value="<?php echo $papel->MECANICO ?? '' ?>">
-    </div>
-
-
-    
-    <div class="formulario__campo">
-        <label class="formulario__label" for="ELECTRICO">ELECTRICO </label>
-        <input
-            type="number"
-            name="ELECTRICO"
-            id="ELECTRICO"
-            class="formulario__input"
-            placeholder="ELECTRICO"
-            value="<?php echo $papel->ELECTRICO ?? '' ?>">
-    </div>
-    <div class="formulario__campo">
-        <label class="formulario__label" for="REFILE_PEQUEÑO">REFILE PEQUEÑO </label>
-        <input
-            type="number"
-            name="REFILE_PEQUEÑO"
-            id="REFILE_PEQUEÑO"
-            class="formulario__input"
-            placeholder="REFILE_PEQUEÑO"
-            value="<?php echo $papel->REFILE_PEQUEÑO ?? '' ?>">
-    </div>
+        <div class="formulario__campo">
+            <label class="formulario__label" for="CAMBIO_PEDIDO">CAMBIO PEDIDO</label>
+            <input
+                type="number"
+                name="CAMBIO_PEDIDO"
+                id="CAMBIO_PEDIDO"
+                class="formulario__input"
+                placeholder="CAMBIO_PEDIDO"
+                value="<?php echo $papel->CAMBIO_PEDIDO ?? '' ?>">
+        </div>
 
 
 
 
 
 
-<!-- PRE PRINTER   CONTROLABLE  -->
+        <div class="formulario__campo">
+            <label class="formulario__label" for="EXTRA_TRIM">EXTRA TRIM </label>
+            <input
+                type="number"
+                name="EXTRA_TRIM"
+                id="EXTRA_TRIM"
+                class="formulario__input"
+                placeholder="EXTRA_TRIM"
+                value="<?php echo $papel->EXTRA_TRIM ?? '' ?>">
+        </div>
 
-    <div class="formulario__campo">
-        <label class="formulario__label" for="hola">HOLA</label>
-        <input
-            type="number"
-            name="hola"
-            id="hola"
-            class="formulario__input"
-            placeholder="hola"
-            value="<?php echo $papel->hola ?? '' ?>">
-    </div>
 
-    <!-- PRE PRINTER   NO CONTROLABLE  -->
-    <div class="formulario__campo">
-        <label class="formulario__label" for="mdo">MDO</label>
-        <input
-            type="number"
-            name="mdo"
-            id="mdo"
-            class="formulario__input"
-            placeholder="mdo"
-            value="<?php echo $papel->mdo ?? '' ?>">
-    </div>
+
+
+
+
+        <!-- PRE PRINTER   CONTROLABLE  -->
+
+        <div class="formulario__campo">
+            <label class="formulario__label" for="hola">HOLA</label>
+            <input
+                type="number"
+                name="hola"
+                id="hola"
+                class="formulario__input"
+                placeholder="hola"
+                value="<?php echo $papel->hola ?? '' ?>">
+        </div>
+
+        <!-- PRE PRINTER   NO CONTROLABLE  -->
+        <div class="formulario__campo">
+            <label class="formulario__label" for="mdo">MDO</label>
+            <input
+                type="number"
+                name="mdo"
+                id="mdo"
+                class="formulario__input"
+                placeholder="mdo"
+                value="<?php echo $papel->mdo ?? '' ?>">
+        </div>
 
 
 
@@ -382,17 +374,18 @@
     const camposPorMaquinaYClasificacion = {
         'PREPRINTER': {
             'a': ['hola'], // CONTROLABLE
-            'b': ['mdo'],  // NO CONTROLABLE
+            'b': ['mdo'], // NO CONTROLABLE
         },
         'CORRUGADOR': {
-            'a': ['SINGLEFACE','EMPALME', 'RECUB', 'MECANICO','GALLET', 'HUMEDO', 'COMBADO', 'DESPE', 'ERROM'],
-            'b': ['DESHOJE', 'CAMBIO_PEDIDO', 'FILOS_ROTOS', 'OTROS', 'PEDIDOS_CORTOS', 'DIFER_ANCHO', 'CAMBIO_GRAMAJE', 'EXTRA_TRIM'],
+            'a': ['SINGLEFACE', 'EMPALME', 'RECUB', 'GALLET', 'HUMEDO', 'COMBADO', 'DESPE', 'ERROM'],
+            'b': ['DESHOJE','MECANICO','ELECTRICO', 'FILOS_ROTOS', 'REFILE_PEQUENO', 'PEDIDOS_CORTOS', 'DIFER_ANCHO','SUSTRATO','CAMBIO_GRAMAJE','CAMBIO_PEDIDO', 'EXTRA_TRIM'],
         }
     };
 
     const todosLosCampos = [
-        'SINGLEFACE', 'EMPALME', 'RECUB', 'MECANICO', 'GALLET', 'HUMEDO', 'COMBADO', 'DESPE', 'ERROM',
-        'DESHOJE', 'CAMBIO_PEDIDO', 'FILOS_ROTOS', 'OTROS', 'PEDIDOS_CORTOS', 'DIFER_ANCHO', 'CAMBIO_GRAMAJE', 'EXTRA_TRIM',
+        'SINGLEFACE', 'EMPALME', 'RECUB', 'GALLET', 'HUMEDO', 'COMBADO', 'DESPE', 'ERROM',
+        'DESHOJE', 'MECANICO', 'ELECTRICO', 'FILOS_ROTOS', 'REFILE_PEQUENO', 'PEDIDOS_CORTOS',
+        'DIFER_ANCHO', 'SUSTRATO', 'CAMBIO_GRAMAJE', 'CAMBIO_PEDIDO','EXTRA_TRIM',
         'hola', 'mdo'
     ];
 

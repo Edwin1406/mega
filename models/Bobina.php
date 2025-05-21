@@ -10,22 +10,26 @@ protected static $columnasDB = [
     'id',
     'tipo_maquina',
     'tipo_clasificacion',
+    // CONTROLABLE
     'SINGLEFACE',
     'EMPALME',
     'RECUB',
-    'MECANICO',
     'GALLET',
     'HUMEDO',
     'COMBADO',
     'DESPE',
     'ERROM',
+    // NO CONTROLABLE
     'DESHOJE',
-    'CAMBIO_PEDIDO',
+    'MECANICO',
+    'ELECTRICO',
     'FILOS_ROTOS',
-    'OTROS',
+    'REFILE_PEQUENO',
     'PEDIDOS_CORTOS',
     'DIFER_ANCHO',
+    'SUSTRATO',
     'CAMBIO_GRAMAJE',
+    'CAMBIO_PEDIDO',
     'EXTRA_TRIM',
     'CONSUMO',
     'TOTAL',
@@ -40,19 +44,22 @@ protected static $columnasDB = [
     public $SINGLEFACE;
     public $EMPALME;
     public $RECUB;
-    public $MECANICO;
     public $GALLET;
     public $HUMEDO;
     public $COMBADO;
     public $DESPE;
     public $ERROM;
+    // NO CONTROLABLE
     public $DESHOJE;
-    public $CAMBIO_PEDIDO;
+    public $MECANICO;
+    public $ELECTRICO;
     public $FILOS_ROTOS;
-    public $OTROS;
+    public $REFILE_PEQUENO;
     public $PEDIDOS_CORTOS;
     public $DIFER_ANCHO;
+    public $SUSTRATO;
     public $CAMBIO_GRAMAJE;
+    public $CAMBIO_PEDIDO;
     public $EXTRA_TRIM;
     public $CONSUMO;
     public $TOTAL;
@@ -70,20 +77,24 @@ protected static $columnasDB = [
         $this->SINGLEFACE = $args['SINGLEFACE'] ?? '';
         $this->EMPALME = $args['EMPALME'] ?? '';
         $this->RECUB = $args['RECUB'] ?? '';
-        $this->MECANICO = $args['MECANICO'] ?? '';
         $this->GALLET = $args['GALLET'] ?? '';
         $this->HUMEDO = $args['HUMEDO'] ?? '';
         $this->COMBADO = $args['COMBADO'] ?? '';
         $this->DESPE = $args['DESPE'] ?? '';
         $this->ERROM = $args['ERROM'] ?? '';
+        // NO CONTROLABLE
         $this->DESHOJE = $args['DESHOJE'] ?? '';
-        $this->CAMBIO_PEDIDO = $args['CAMBIO_PEDIDO'] ?? '';
+        $this->MECANICO = $args['MECANICO'] ?? '';
+        $this->ELECTRICO = $args['ELECTRICO'] ?? '';
         $this->FILOS_ROTOS = $args['FILOS_ROTOS'] ?? '';
-        $this->OTROS = $args['OTROS'] ?? '';
+        $this->REFILE_PEQUENO = $args['REFILE_PEQUENO'] ?? '';
         $this->PEDIDOS_CORTOS = $args['PEDIDOS_CORTOS'] ?? '';
         $this->DIFER_ANCHO = $args['DIFER_ANCHO'] ?? '';
+        $this->SUSTRATO = $args['SUSTRATO'] ?? '';
         $this->CAMBIO_GRAMAJE = $args['CAMBIO_GRAMAJE'] ?? '';
+        $this->CAMBIO_PEDIDO = $args['CAMBIO_PEDIDO'] ?? '';
         $this->EXTRA_TRIM = $args['EXTRA_TRIM'] ?? '';
+    
         $this->CONSUMO = $args['CONSUMO'] ?? '';
         $this->TOTAL = $args['TOTAL'] ?? '';
         $this->PORCENTAJE = $args['PORCENTAJE'] ?? '';
