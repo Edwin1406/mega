@@ -21,26 +21,25 @@
     }
 
 
-    .formulario__legend {
+ .formulario {
     display: grid;
     grid-template-columns: repeat(3, 1fr); /* 3 columnas iguales */
-    gap: 1.5rem; /* Espacio entre columnas y filas */
+    gap: 1.5rem; /* Espacio entre columnas */
     margin-top: 1rem;
 }
 
-/* Adaptar a pantallas medianas (tablets) */
 @media (max-width: 1024px) {
-    .formulario__grid {
-        grid-template-columns: repeat(2, 1fr); /* 2 columnas */
+    .formulario {
+        grid-template-columns: repeat(2, 1fr); /* 2 columnas en tablet */
     }
 }
 
-/* Adaptar a móviles */
 @media (max-width: 768px) {
-    .formulario__grid {
-        grid-template-columns: 1fr; /* 1 columna */
+    .formulario {
+        grid-template-columns: 1fr; /* 1 columna en móvil */
     }
 }
+
 
 </style>
 
