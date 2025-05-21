@@ -55,6 +55,11 @@
     margin-top: 1rem;
 }
 
+
+.formulario__submit{
+    align-self: center;
+}
+
 @media (max-width: 1024px) {
     .formulario {
         grid-template-columns: repeat(2, 1fr); /* 2 columnas en tablet */
