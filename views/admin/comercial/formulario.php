@@ -109,10 +109,7 @@
       </select>
     </div>
 
-    <!-- BOTÓN -->
-    <div class="formulario__campo" style="grid-column: 1 / -1;">
-      <button type="submit" class="formulario__boton" style="padding: 0.5rem 1rem; background: #1d4ed8; color: white; border: none; border-radius: 4px;">Registrar Reclamo</button>
-    </div>
+
   </div>
 </fieldset>
 
