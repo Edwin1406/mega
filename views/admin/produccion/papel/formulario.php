@@ -406,6 +406,45 @@
 
 
 
+        <!-- FLEXOGRAFICA CONGTROLABLE  -->
+        <div class="formulario__campo">
+            <label class="formulario__label" for="CUADRE">CUADRE</label>
+            <input
+                type="number"
+                name="CUADRE"
+                id="CUADRE"
+                class="formulario__input"
+                placeholder="CUADRE"
+                value="<?php echo $papel->CUADRE ?? '' ?>">
+        </div>
+
+        <div class="formulario__campo">
+            <label class="formulario__label" for="FALTA_TINTA">FALTA TINTA</label>
+            <input
+                type="number"
+                name="FALTA_TINTA"
+                id="FALTA_TINTA"
+                class="formulario__input"
+                placeholder="FALTA TINTA"
+                value="<?php echo $papel->FALTA_TINTA ?? '' ?>">
+        </div>
+
+
+        <div class="formulario__campo">
+            <label class="formulario__label" for="MALTRATO_TRASPORT">MALTRATO TRASPORT</label>
+            <input
+                type="number"
+                name="MALTRATO_TRASPORT"
+                id="MALTRATO_TRASPORT"
+                class="formulario__input"
+                placeholder="MALTRATO TRASPORT"
+                value="<?php echo $papel->MALTRATO_TRASPORT ?? '' ?>">
+        </div>
+
+
+
+
+
     </div>
 
 </fieldset>
@@ -414,19 +453,23 @@
 <script>
     const camposPorMaquinaYClasificacion = {
         'PREPRINTER': {
-            'a': ['GALLET','COMBADO','HUMEDO','FRENO','DESPE','PRESION','ERROM','SINGLEFACE','CUADRE','EMPALME','RECUB','PREPRINTER'], // CONTROLABLE
-            'b': ['DESHOJE','FILOS_ROTOS','ELECTRICO','MECANICO','PEDIDOS_CORTOS','DIFER_ANCHO','REFILE_PEQUENO','CAMBIO_GRAMAJE','EXTRA_TRIM','SUSTRATO'], // NO CONTROLABLE
+            'a': ['GALLET', 'COMBADO', 'HUMEDO', 'FRENO', 'DESPE', 'PRESION', 'ERROM', 'SINGLEFACE', 'CUADRE', 'EMPALME', 'RECUB', 'PREPRINTER'], // CONTROLABLE
+            'b': ['DESHOJE', 'FILOS_ROTOS', 'ELECTRICO', 'MECANICO', 'PEDIDOS_CORTOS', 'DIFER_ANCHO', 'REFILE_PEQUENO', 'CAMBIO_GRAMAJE', 'EXTRA_TRIM', 'SUSTRATO'], // NO CONTROLABLE
         },
         'CORRUGADOR': {
             'a': ['SINGLEFACE', 'EMPALME', 'RECUB', 'GALLET', 'HUMEDO', 'COMBADO', 'DESPE', 'ERROM'],
-            'b': ['DESHOJE','MECANICO','ELECTRICO', 'FILOS_ROTOS', 'REFILE_PEQUENO', 'PEDIDOS_CORTOS', 'DIFER_ANCHO','SUSTRATO','CAMBIO_GRAMAJE','CAMBIO_PEDIDO', 'EXTRA_TRIM'],
+            'b': ['DESHOJE', 'MECANICO', 'ELECTRICO', 'FILOS_ROTOS', 'REFILE_PEQUENO', 'PEDIDOS_CORTOS', 'DIFER_ANCHO', 'SUSTRATO', 'CAMBIO_GRAMAJE', 'CAMBIO_PEDIDO', 'EXTRA_TRIM'],
+        },
+        'FLEXOGRAFICA': {
+            'a': ['CUADRE', 'FALTA_TINTA', 'MALTRATO_TRASPORT', 'MALTRATO_MONTACARGAS', 'TONALIDAD_TINTAS'],
+            'b': ['TROQUEL', 'MONTAJE_CLICHE', 'MECANICO', 'ELECTRICO', 'GALLET', 'COMBADO', 'HUMEDO', 'SUSTRATO', 'DESPEGADO', 'ERROM', 'SUSTRATO'],
         }
     };
 
     const todosLosCampos = [
         'SINGLEFACE', 'EMPALME', 'RECUB', 'GALLET', 'HUMEDO', 'COMBADO', 'DESPE', 'ERROM',
         'DESHOJE', 'MECANICO', 'ELECTRICO', 'FILOS_ROTOS', 'REFILE_PEQUENO', 'PEDIDOS_CORTOS',
-        'DIFER_ANCHO', 'SUSTRATO', 'CAMBIO_GRAMAJE', 'CAMBIO_PEDIDO','EXTRA_TRIM','FRENO',
+        'DIFER_ANCHO', 'SUSTRATO', 'CAMBIO_GRAMAJE', 'CAMBIO_PEDIDO', 'EXTRA_TRIM', 'FRENO',
         'PRESION', 'CUADRE', 'PREPRINTER',
         'hola', 'mdo'
     ];
