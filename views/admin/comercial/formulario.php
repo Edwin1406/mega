@@ -11,6 +11,13 @@
       flex-direction: column;
   }
 
+  .formulario__input{
+        padding: 0.5rem;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        width: 100%;
+  }
+
   @media (max-width: 768px) {
       .formulario__grid {
           grid-template-columns: 1fr;
