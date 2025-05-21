@@ -22,7 +22,7 @@
         text-align: center;
   }
 
-  @media (max-width: 768px) {
+  @media (min-width: 768px) {
       .formulario__grid {
           grid-template-columns: 1fr;
       }
