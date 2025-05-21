@@ -72,7 +72,7 @@
     <legend class="formulario__legend">Información de la Papel</legend>
     <div class="formulario__campo">
         <label class="formulario__label1" for="tipo_maquina">Tipo Maquina</label>
-        <select class="formulario__input select2" name="tipo_maquina" id="tipo_maquina">
+        <select class="formulario__input1 select2" name="tipo_maquina" id="tipo_maquina">
             <option value="">-- Selecciona un tipo --</option>
             <option value="PREPRINTER" <?= trim(strtolower($papel->tipo_maquina ?? '')) == 'preprinter' ? 'selected' : '' ?>>PRE-PRINTER</option>
             <option value="CORRUGADOR" <?= trim(strtolower($papel->tipo_maquina ?? '')) == 'corrugador' ? 'selected' : '' ?>>CORRUGADOR</option>
