@@ -1562,14 +1562,26 @@ public static function procesarArchivoExcelReclamos($filePath)
             }
         }
 
-        // DEBUG: imprime contenido leído
-        error_log("Fila $row: " . json_encode($data));
-
-        // Limpieza y mapeo
+        // Limpieza y mapeo mejorado para números con separadores de miles y decimales
         $data = array_map(function($value) {
             $value = trim($value);
-            if (preg_match('/^\d+,\d+$/', $value)) {
-                $value = str_replace(',', '.', $value);
+            if (is_string($value)) {
+                // Primero elimina espacios no visibles
+                $value = preg_replace('/\s+/', '', $value);
+
+                // Eliminar separadores de miles (puntos o comas) y normalizar decimales a punto
+                // Detecta si el valor tiene coma y punto para diferenciar miles y decimales
+                if (preg_match('/^\d{1,3}(\.\d{3})*(,\d+)?$/', $value)) {
+                    // Ejemplo: 3.060,50 => 3060.50
+                    $value = str_replace('.', '', $value);
+                    $value = str_replace(',', '.', $value);
+                } elseif (preg_match('/^\d{1,3}(,\d{3})*(\.\d+)?$/', $value)) {
+                    // Ejemplo: 3,060.50 => 3060.50
+                    $value = str_replace(',', '', $value);
+                } elseif (preg_match('/^\d+,\d+$/', $value)) {
+                    // Caso simple: 123,45 => 123.45
+                    $value = str_replace(',', '.', $value);
+                }
             }
             return $value;
         }, $data);
@@ -1611,12 +1623,12 @@ public static function procesarArchivoExcelReclamos($filePath)
               AND cliente = '$cliente'
               AND codigo = '$codigo'
               AND descripcion = '$descripcion'
-              AND cantidad = " . ($cantidad !== null ? $cantidad : "NULL") . "
-              AND pvp_total = " . ($pvp_total !== null ? $pvp_total : "NULL") . "
-              AND costo = " . ($costo !== null ? $costo : "NULL") . "
-              AND pvp_unid = " . ($pvp_unid !== null ? $pvp_unid : "NULL") . "
-              AND costo_unid = " . ($costo_unid !== null ? $costo_unid : "NULL") . "
-              AND margen = " . ($margen !== null ? $margen : "NULL") . "
+              AND (cantidad " . ($cantidad !== null ? "= $cantidad" : "IS NULL") . ")
+              AND (pvp_total " . ($pvp_total !== null ? "= $pvp_total" : "IS NULL") . ")
+              AND (costo " . ($costo !== null ? "= $costo" : "IS NULL") . ")
+              AND (pvp_unid " . ($pvp_unid !== null ? "= $pvp_unid" : "IS NULL") . ")
+              AND (costo_unid " . ($costo_unid !== null ? "= $costo_unid" : "IS NULL") . ")
+              AND (margen " . ($margen !== null ? "= $margen" : "IS NULL") . ")
         ";
 
         $resultado = self::$db->query($queryExistente);
@@ -1642,8 +1654,6 @@ public static function procesarArchivoExcelReclamos($filePath)
 
     return true;
 }
-
-
 
 // ---------------------------------------------------------- EXCEL PROYECCIONES -------------------------------------------------------------------------
 
