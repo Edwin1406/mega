@@ -1556,30 +1556,31 @@ public static function procesarArchivoExcelReclamos($filePath)
             $calculated = $cell->getCalculatedValue();
 
             if (($value === null || $value === '') && $calculated !== null && $calculated !== '') {
-                $data[] = $calculated;
+                $rawValue = $calculated;
             } else {
-                $data[] = $value ?? '';
+                $rawValue = $value ?? '';
             }
+
+            // DEBUG: imprime valores leídos para cada celda
+            error_log("Fila $row, Col $col: value='$value', calculated='$calculated', raw='$rawValue'");
+
+            $data[] = $rawValue;
         }
 
-        // Limpieza y mapeo mejorado para números con separadores de miles y decimales
+        // Limpieza y normalización de números y valores vacíos
         $data = array_map(function($value) {
-            $value = trim($value);
             if (is_string($value)) {
-                // Primero elimina espacios no visibles
-                $value = preg_replace('/\s+/', '', $value);
-
-                // Eliminar separadores de miles (puntos o comas) y normalizar decimales a punto
-                // Detecta si el valor tiene coma y punto para diferenciar miles y decimales
+                $value = trim($value);
+                if ($value === '') {
+                    return null;
+                }
+                // Limpieza para separar miles y decimales
                 if (preg_match('/^\d{1,3}(\.\d{3})*(,\d+)?$/', $value)) {
-                    // Ejemplo: 3.060,50 => 3060.50
                     $value = str_replace('.', '', $value);
                     $value = str_replace(',', '.', $value);
                 } elseif (preg_match('/^\d{1,3}(,\d{3})*(\.\d+)?$/', $value)) {
-                    // Ejemplo: 3,060.50 => 3060.50
                     $value = str_replace(',', '', $value);
                 } elseif (preg_match('/^\d+,\d+$/', $value)) {
-                    // Caso simple: 123,45 => 123.45
                     $value = str_replace(',', '.', $value);
                 }
             }
@@ -1591,7 +1592,7 @@ public static function procesarArchivoExcelReclamos($filePath)
             $cantidad, $pvp_total, $costo, $pvp_unid, $costo_unid, $margen
         ) = $data;
 
-        // Fecha Excel como número a DateTime
+        // Conversión de fecha
         if (!empty($emision)) {
             if (is_numeric($emision)) {
                 $emision = \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($emision)->format('Y-m-d');
@@ -1604,13 +1605,15 @@ public static function procesarArchivoExcelReclamos($filePath)
             $emision = null;
         }
 
-        $cantidad = is_numeric($cantidad) ? floatval($cantidad) : null;
-        $pvp_total = is_numeric($pvp_total) ? floatval($pvp_total) : null;
-        $costo = is_numeric($costo) ? floatval($costo) : null;
-        $pvp_unid = is_numeric($pvp_unid) ? floatval($pvp_unid) : null;
-        $costo_unid = is_numeric($costo_unid) ? floatval($costo_unid) : null;
-        $margen = is_numeric($margen) ? floatval($margen) : null;
+        // Conversión segura a float o null
+        $cantidad = (is_numeric($cantidad) && $cantidad !== null) ? floatval($cantidad) : null;
+        $pvp_total = (is_numeric($pvp_total) && $pvp_total !== null) ? floatval($pvp_total) : null;
+        $costo = (is_numeric($costo) && $costo !== null) ? floatval($costo) : null;
+        $pvp_unid = (is_numeric($pvp_unid) && $pvp_unid !== null) ? floatval($pvp_unid) : null;
+        $costo_unid = (is_numeric($costo_unid) && $costo_unid !== null) ? floatval($costo_unid) : null;
+        $margen = (is_numeric($margen) && $margen !== null) ? floatval($margen) : null;
 
+        // Escapado para seguridad SQL
         $numero = self::$db->real_escape_string($numero);
         $cliente = self::$db->real_escape_string($cliente);
         $codigo = self::$db->real_escape_string($codigo);
