@@ -1,3 +1,10 @@
+
+<!-- CSS de Select2 -->
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
+<!-- JS de Select2 -->
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
 <fieldset class="formulario__fieldset">
     <legend class="formulario__legend">RELCAMOS Y QUEJAS </legend>
 
@@ -30,6 +37,24 @@
             <?php endforeach; ?>
         </select>
     </div>
+
+
+    <script>
+  $(document).ready(function() {
+    $('#selectCliente').select2({
+      placeholder: "-- Seleccione --",
+      allowClear: true // Permite limpiar la selección
+    });
+
+    // Escuchar cuando cambia la opción seleccionada
+    $('#selectCliente').on('change', function() {
+      const valor = $(this).val();
+      console.log('Cliente seleccionado:', valor);
+      // Aquí haces lo que necesites con la opción seleccionada
+    });
+  });
+</script>
+
 
 
     <div class="formulario__campo">
