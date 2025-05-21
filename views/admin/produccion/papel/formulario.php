@@ -57,6 +57,7 @@
 
 
 .formulario__submit{
+    margin-top: 3rem;
     align-self: center;
 }
 
