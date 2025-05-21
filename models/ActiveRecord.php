@@ -1561,20 +1561,19 @@ public static function procesarArchivoExcelReclamos($filePath)
                 $rawValue = $value ?? '';
             }
 
-            // DEBUG: imprime valores leídos para cada celda
+            // DEBUG: valores leídos en cada celda
             error_log("Fila $row, Col $col: value='$value', calculated='$calculated', raw='$rawValue'");
 
             $data[] = $rawValue;
         }
 
-        // Limpieza y normalización de números y valores vacíos
+        // Limpieza y normalización de valores
         $data = array_map(function($value) {
             if (is_string($value)) {
                 $value = trim($value);
                 if ($value === '') {
                     return null;
                 }
-                // Limpieza para separar miles y decimales
                 if (preg_match('/^\d{1,3}(\.\d{3})*(,\d+)?$/', $value)) {
                     $value = str_replace('.', '', $value);
                     $value = str_replace(',', '.', $value);
@@ -1592,7 +1591,7 @@ public static function procesarArchivoExcelReclamos($filePath)
             $cantidad, $pvp_total, $costo, $pvp_unid, $costo_unid, $margen
         ) = $data;
 
-        // Conversión de fecha
+        // Conversión fecha
         if (!empty($emision)) {
             if (is_numeric($emision)) {
                 $emision = \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($emision)->format('Y-m-d');
@@ -1605,7 +1604,7 @@ public static function procesarArchivoExcelReclamos($filePath)
             $emision = null;
         }
 
-        // Conversión segura a float o null
+        // Conversión a float o null
         $cantidad = (is_numeric($cantidad) && $cantidad !== null) ? floatval($cantidad) : null;
         $pvp_total = (is_numeric($pvp_total) && $pvp_total !== null) ? floatval($pvp_total) : null;
         $costo = (is_numeric($costo) && $costo !== null) ? floatval($costo) : null;
@@ -1613,7 +1612,7 @@ public static function procesarArchivoExcelReclamos($filePath)
         $costo_unid = (is_numeric($costo_unid) && $costo_unid !== null) ? floatval($costo_unid) : null;
         $margen = (is_numeric($margen) && $margen !== null) ? floatval($margen) : null;
 
-        // Escapado para seguridad SQL
+        // Escapado SQL
         $numero = self::$db->real_escape_string($numero);
         $cliente = self::$db->real_escape_string($cliente);
         $codigo = self::$db->real_escape_string($codigo);
@@ -1637,7 +1636,22 @@ public static function procesarArchivoExcelReclamos($filePath)
         $resultado = self::$db->query($queryExistente);
 
         if ($resultado->num_rows == 0) {
-            // DEBUG: datos a insertar
+            $queryInsertar = "
+                INSERT INTO " . static::$tabla . " (
+                    numero, emision, cliente, codigo, descripcion,
+                    cantidad, pvp_total, costo, pvp_unid, costo_unid, margen
+                ) VALUES (
+                    '$numero', " . ($emision ? "'$emision'" : "NULL") . ", '$cliente', '$codigo', '$descripcion',
+                    " . ($cantidad !== null ? $cantidad : "NULL") . ",
+                    " . ($pvp_total !== null ? $pvp_total : "NULL") . ",
+                    " . ($costo !== null ? $costo : "NULL") . ",
+                    " . ($pvp_unid !== null ? $pvp_unid : "NULL") . ",
+                    " . ($costo_unid !== null ? $costo_unid : "NULL") . ",
+                    " . ($margen !== null ? $margen : "NULL") . "
+                )
+            ";
+
+            // Debug datos a insertar
             error_log("Datos a insertar fila $row: " . json_encode([
                 'numero' => $numero,
                 'emision' => $emision,
@@ -1652,7 +1666,7 @@ public static function procesarArchivoExcelReclamos($filePath)
                 'margen' => $margen
             ]));
 
-            // DEBUG: query que se va a ejecutar
+            // Debug query a ejecutar
             error_log("Query a ejecutar: " . $queryInsertar);
 
             self::$db->query($queryInsertar);
