@@ -43,7 +43,7 @@
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.min.js"></script> -->
 
-  <script src="https://cdn.jsdelivr.net/npm/quagga/dist/quagga.min.js"></script>
+  <!-- <script src="https://cdn.jsdelivr.net/npm/quagga/dist/quagga.min.js"></script> -->
 
   <script>
   AOS.init();
