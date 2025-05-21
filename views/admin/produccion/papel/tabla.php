@@ -99,7 +99,7 @@
       $columnas = [
           'SINGLEFACE', 'EMPALME', 'RECUB', 'MECANICO', 'GALLET',
           'HUMEDO', 'COMBADO', 'DESPE', 'ERROM', 'DESHOJE',
-          'CAMBIO_PEDIDO', 'FILOS_ROTOS', 'OTROS', 'PEDIDOS_CORTOS',
+          'CAMBIO_PEDIDO', 'FILOS_ROTOS', 'REFILE_PEQUENO', 'PEDIDOS_CORTOS',
           'DIFER_ANCHO', 'CAMBIO_GRAMAJE', 'EXTRA_TRIM',
           'CONSUMO', 'TOTAL', 'PORCENTAJE'
       ];
