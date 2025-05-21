@@ -1527,7 +1527,6 @@ public static function procesarArchivoExcelReclamos($filePath)
     $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($filePath);
     $sheet = $spreadsheet->getActiveSheet();
 
-    // Crear tabla si no existe
     $queryCrearTabla = "
         CREATE TABLE IF NOT EXISTS " . static::$tabla . " (
             id INT AUTO_INCREMENT PRIMARY KEY,
@@ -1547,23 +1546,28 @@ public static function procesarArchivoExcelReclamos($filePath)
     self::$db->query($queryCrearTabla);
 
     $highestRow = $sheet->getHighestRow();
-
-    // Definir rango exacto de columnas para evitar confusión
     $cols = range('A', 'K');
 
     for ($row = 2; $row <= $highestRow; $row++) {
         $data = [];
-
-        // Leer valores “crudos” en orden correcto
         foreach ($cols as $col) {
-            // getValue() para evitar problemas con formato
-            $data[] = $sheet->getCell($col . $row)->getValue() ?? '';
+            $cell = $sheet->getCell($col . $row);
+            $value = $cell->getValue();
+            $calculated = $cell->getCalculatedValue();
+
+            if (($value === null || $value === '') && $calculated !== null && $calculated !== '') {
+                $data[] = $calculated;
+            } else {
+                $data[] = $value ?? '';
+            }
         }
 
-        // Limpiar y mapear datos
+        // DEBUG: imprime contenido leído
+        error_log("Fila $row: " . json_encode($data));
+
+        // Limpieza y mapeo
         $data = array_map(function($value) {
             $value = trim($value);
-            // Solo reemplazar coma decimal si parece número decimal con coma
             if (preg_match('/^\d+,\d+$/', $value)) {
                 $value = str_replace(',', '.', $value);
             }
@@ -1575,9 +1579,8 @@ public static function procesarArchivoExcelReclamos($filePath)
             $cantidad, $pvp_total, $costo, $pvp_unid, $costo_unid, $margen
         ) = $data;
 
-        // Validar y formatear fecha
+        // Fecha Excel como número a DateTime
         if (!empty($emision)) {
-            // Si la fecha viene en formato Excel como número, convertirla a fecha PHP
             if (is_numeric($emision)) {
                 $emision = \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($emision)->format('Y-m-d');
             } elseif (strtotime($emision) !== false) {
@@ -1589,7 +1592,6 @@ public static function procesarArchivoExcelReclamos($filePath)
             $emision = null;
         }
 
-        // Convertir a float o NULL
         $cantidad = is_numeric($cantidad) ? floatval($cantidad) : null;
         $pvp_total = is_numeric($pvp_total) ? floatval($pvp_total) : null;
         $costo = is_numeric($costo) ? floatval($costo) : null;
@@ -1597,13 +1599,11 @@ public static function procesarArchivoExcelReclamos($filePath)
         $costo_unid = is_numeric($costo_unid) ? floatval($costo_unid) : null;
         $margen = is_numeric($margen) ? floatval($margen) : null;
 
-        // Escapar para SQL
         $numero = self::$db->real_escape_string($numero);
         $cliente = self::$db->real_escape_string($cliente);
         $codigo = self::$db->real_escape_string($codigo);
         $descripcion = self::$db->real_escape_string($descripcion);
 
-        // Verificar duplicado (opcional)
         $queryExistente = "
             SELECT id FROM " . static::$tabla . "
             WHERE numero = '$numero'
