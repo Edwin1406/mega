@@ -27,7 +27,7 @@
           grid-template-columns: 1fr;
       }
 
-      .dashboard_sidebar{
+      .sidebar{
     display: none !important;
       }
   }
