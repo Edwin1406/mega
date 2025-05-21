@@ -12,7 +12,7 @@
   }
 
   .formulario__input{
-        padding: 0.5rem;
+        padding: 1rem;
         border: 1px solid #ccc;
         border-radius: 4px;
         width: 100%;
