@@ -47,7 +47,7 @@
         <th class="table__th">Deshoje</th>
         <th class="table__th">Cambio de pedido</th>
         <th class="table__th">Filos rotos</th>
-        <th class="table__th">Otros</th>
+        <th class="table__th">Refile pequeño</th>
         <th class="table__th">Pedidos cortos</th>
         <th class="table__th">Difer ancho</th>
         <th class="table__th">Cambio de gramaje</th>
@@ -72,7 +72,7 @@
                         <td class="table__td"><?php echo letranegrita($bobina->DESHOJE) ?></td>
                         <td class="table__td"><?php echo letranegrita($bobina->CAMBIO_PEDIDO) ?></td>
                         <td class="table__td"><?php echo letranegrita($bobina->FILOS_ROTOS) ?></td>
-                        <td class="table__td"><?php echo letranegrita($bobina->OTROS) ?></td>
+                        <td class="table__td"><?php echo letranegrita($bobina->REFILE_PEQUENO) ?></td>
                         <td class="table__td"><?php echo letranegrita($bobina->PEDIDOS_CORTOS) ?></td>
                         <td class="table__td"><?php echo letranegrita($bobina->DIFER_ANCHO) ?></td>
                         <td class="table__td"><?php echo letranegrita($bobina->CAMBIO_GRAMAJE) ?></td>
