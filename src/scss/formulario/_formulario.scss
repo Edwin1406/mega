@@ -1,85 +1,87 @@
 @use 'base/variables' as v;
 @use 'base/mixins' as m;
-@use "sass:color";
+@use 'sass:color';
 
-
-
-.auth__heading{
+.auth__heading {
     @include m.textoDegradado-heading(v.$indigo);
 }
-.auth__texto{
-    
+
+.auth__texto {
     @include m.textoDegradado-texto(v.$secundario);
 }
 
-.formulario{
-    // display: flex;
-    // flex-direction: column;
-
-    // 3 columnas 
+.formulario {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
+    grid-template-columns: repeat(3, 1fr); // Tres columnas fijas
     gap: 2rem;
-    
 
-    &__fieldset{
+    // Responsive
+    @media (max-width: 1024px) {
+        grid-template-columns: repeat(2, 1fr); // Dos columnas en tablet
+    }
+
+    @media (max-width: 768px) {
+        grid-template-columns: 1fr; // Una columna en móvil
+    }
+
+    &__fieldset {
         border: none;
         margin-top: 1rem;
         padding: 0;
+        grid-column: 1 / -1; // Que ocupe todo el ancho
     }
 
-    &__legend{
-        columns: v.$gris;
+    &__legend {
+        color: v.$gris;
         font-size: 2.2rem;
         margin-bottom: 2rem;
     }
 
-
-    &__campo{
+    &__campo {
         display: flex;
         flex-direction: column;
         gap: 1rem;
         margin: 1.5rem 0;
     }
 
-    &__contenedor-icono{
+    &__contenedor-icono {
         display: flex;
         border-radius: .5rem;
         overflow: hidden;
     }
-    &__icono{
+
+    &__icono {
         background-color: v.$gris-oscuro;
         width: 4rem;
         display: flex;
         align-items: center;
         justify-content: center;
-        i{
+
+        i {
             color: v.$blanco;
             font-size: 2rem;
         }
     }
 
-
-
-    &__label{
+    &__label {
         display: block;
         font-size: 1.8rem;
         font-weight: 700;
-        color: rgba(v.$negro,.8);
+        color: rgba(v.$negro, .8);
     }
+
     &__input,
-    &__select{
+    &__select {
         padding: 1rem;
         font-size: 1.6rem;
-        // border: 1px solid darken(v.$gris, 20%);
         border: 1px solid color.adjust(v.$gris, $lightness: -20%);
         border-radius: .5rem;
 
-        &--file{
+        &--file {
             border: none;
         }
 
-        &--sociales{
+        &--sociales {
             @extend .formulario__input;
             flex: 1;
             border-top-left-radius: 0;
@@ -87,37 +89,30 @@
         }
     }
 
-    &__radio{
+    &__radio {
         display: flex;
         gap: 2rem;
         align-items: center;
     }
 
-    &__texto{
+    &__texto {
         margin-top: 3rem;
     }
 
-    &__imagen{
+    &__imagen {
         max-width: 20rem;
     }
 
-
-
-
-
-    &__listado{
+    &__listado {
         @include m.tags;
     }
 
-
-
-
-    &__submit{
+    &__submit {
         @include m.boton-pequeño(v.$azul, v.$blanco);
 
-        &--registrar{
+        &--registrar {
             width: 100%;
+            grid-column: 1 / -1; // Que el botón ocupe el ancho total
         }
     }
 }
-

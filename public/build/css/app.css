@@ -1170,16 +1170,27 @@ h3 {
 
 .formulario {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
+  grid-template-columns: repeat(3, 1fr);
   gap: 2rem;
+}
+@media (max-width: 1024px) {
+  .formulario {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 768px) {
+  .formulario {
+    grid-template-columns: 1fr;
+  }
 }
 .formulario__fieldset {
   border: none;
   margin-top: 1rem;
   padding: 0;
+  grid-column: 1/-1;
 }
 .formulario__legend {
-  columns: #64748B;
+  color: #64748B;
   font-size: 2.2rem;
   margin-bottom: 2rem;
 }
@@ -1274,6 +1285,7 @@ h3 {
 }
 .formulario__submit--registrar {
   width: 100%;
+  grid-column: 1/-1;
 }
 
 .acciones, .acciones--centrar {
