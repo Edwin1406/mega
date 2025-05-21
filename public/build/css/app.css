@@ -1169,8 +1169,9 @@ h3 {
 }
 
 .formulario {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
+  gap: 2rem;
 }
 .formulario__fieldset {
   border: none;
