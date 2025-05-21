@@ -258,6 +258,16 @@
                 placeholder="FILOS_ROTOS"
                 value="<?php echo $papel->FILOS_ROTOS ?? '' ?>">
         </div>
+        <div class="formulario__campo">
+            <label class="formulario__label" for="REFILE_PEQUENO">REFILE PEQUEÑO</label>
+            <input
+                type="number"
+                name="REFILE_PEQUENO"
+                id="REFILE_PEQUENO"
+                class="formulario__input"
+                placeholder="REFILE_PEQUENO"
+                value="<?php echo $papel->REFILE_PEQUENO ?? '' ?>">
+        </div>
 
         <div class="formulario__campo">
             <label class="formulario__label" for="PEDIDOS_CORTOS">PEDIDOS CORTOS</label>
