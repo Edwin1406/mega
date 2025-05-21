@@ -442,8 +442,55 @@
         </div>
 
 
+        <div class="formulario__campo">
+            <label class="formulario__label" for="MALTRATO_MONTACARGAS">MALTRATO MONTACARGAS</label>
+            <input
+                type="number"
+                name="MALTRATO_MONTACARGAS"
+                id="MALTRATO_MONTACARGAS"
+                class="formulario__input"
+                placeholder="MALTRATO MONTACARGAS"
+                value="<?php echo $papel->MALTRATO_MONTACARGAS ?? '' ?>">
+        </div>
+
+        <div class="formulario__campo">
+            <label class="formulario__label" for="TONALIDAD_TINTAS">TONALIDAD TINTAS</label>
+            <input
+                type="number"
+                name="TONALIDAD_TINTAS"
+                id="TONALIDAD_TINTAS"
+                class="formulario__input"
+                placeholder="TONALIDAD TINTAS"
+                value="<?php echo $papel->TONALIDAD_TINTAS ?? '' ?>">
+
+        </div>
 
 
+
+        <!-- no controlables flexo -->
+        <div class="formulario__campo">
+            <label class="formulario__label" for="TROQUEL">TROQUEL</label>
+            <input
+                type="number"
+                name="TROQUEL"
+                id="TROQUEL"
+                class="formulario__input"
+                placeholder="TROQUEL"
+                value="<?php echo $papel->TROQUEL ?? '' ?>">
+
+        </div>
+        
+        
+        <div class="formulario__campo">
+            <label class="formulario__label" for="MONTAJE_CLICHE">MONTAJE CLICHE</label>
+            <input
+            type="number"
+            name="MONTAJE_CLICHE"
+            id="MONTAJE_CLICHE"
+            class="formulario__input"
+            placeholder="MONTAJE CLICHE"
+            value="<?php echo $papel->MONTAJE_CLICHE ?? '' ?>">
+        </div>
 
     </div>
 
@@ -470,7 +517,8 @@
         'SINGLEFACE', 'EMPALME', 'RECUB', 'GALLET', 'HUMEDO', 'COMBADO', 'DESPE', 'ERROM',
         'DESHOJE', 'MECANICO', 'ELECTRICO', 'FILOS_ROTOS', 'REFILE_PEQUENO', 'PEDIDOS_CORTOS',
         'DIFER_ANCHO', 'SUSTRATO', 'CAMBIO_GRAMAJE', 'CAMBIO_PEDIDO', 'EXTRA_TRIM', 'FRENO',
-        'PRESION', 'CUADRE', 'PREPRINTER',
+        'PRESION', 'CUADRE', 'PREPRINTER', 'FALTA_TINTA', 'MALTRATO_TRASPORT',
+        'MALTRATO_MONTACARGAS', 'TONALIDAD_TINTAS', 'TROQUEL', 'MONTAJE_CLICHE',
         'hola', 'mdo'
     ];
 
