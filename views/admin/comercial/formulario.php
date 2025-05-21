@@ -61,7 +61,7 @@
 
     <div class="formulario__campo">
         <label class="formulario__label" for="factura">NRO.Factura</label>
-        <select name="factura" class="formulario__input" onchange="this.form.submit()">
+        <select id="selectFactura" name="factura" class="formulario__input" onchange="this.form.submit()">
             <option value="">-- Seleccione factura --</option>
             <?php foreach ($facturas as $factura): ?>
                 <option value="<?= $factura ?>"
@@ -72,6 +72,22 @@
         </select>
 
     </div>
+
+    <script>
+  $(document).ready(function() {
+    $('#selectFactura').select2({
+      placeholder: "-- Seleccione --",
+      allowClear: true
+    });
+
+    $('#selectFactura').on('change', function() {
+      const valor = $(this).val();
+      console.log('Cliente seleccionado:', valor);
+      // Aquí puedes manejar lo que quieres cuando cambia el select
+    });
+  });
+</script>
+
 
     <div class="formulario__campo">
         <label class="formulario__label">DESCRICPION DEL PRODUCTO</label>
