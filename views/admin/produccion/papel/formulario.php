@@ -37,6 +37,14 @@
 
 
 
+.formulario__input {
+    padding: 1rem;
+    border: 1px solid #64748B;
+    border-radius: 1rem;
+    width: 14rem;
+}
+
+
 .formulario_campito{
     display: grid;
     grid-template-columns: repeat(3, 1fr); /* 3 columnas iguales */
