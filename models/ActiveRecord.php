@@ -1637,20 +1637,24 @@ public static function procesarArchivoExcelReclamos($filePath)
         $resultado = self::$db->query($queryExistente);
 
         if ($resultado->num_rows == 0) {
-            $queryInsertar = "
-                INSERT INTO " . static::$tabla . " (
-                    numero, emision, cliente, codigo, descripcion,
-                    cantidad, pvp_total, costo, pvp_unid, costo_unid, margen
-                ) VALUES (
-                    '$numero', " . ($emision ? "'$emision'" : "NULL") . ", '$cliente', '$codigo', '$descripcion',
-                    " . ($cantidad !== null ? $cantidad : "NULL") . ",
-                    " . ($pvp_total !== null ? $pvp_total : "NULL") . ",
-                    " . ($costo !== null ? $costo : "NULL") . ",
-                    " . ($pvp_unid !== null ? $pvp_unid : "NULL") . ",
-                    " . ($costo_unid !== null ? $costo_unid : "NULL") . ",
-                    " . ($margen !== null ? $margen : "NULL") . "
-                )
-            ";
+            // DEBUG: datos a insertar
+            error_log("Datos a insertar fila $row: " . json_encode([
+                'numero' => $numero,
+                'emision' => $emision,
+                'cliente' => $cliente,
+                'codigo' => $codigo,
+                'descripcion' => $descripcion,
+                'cantidad' => $cantidad,
+                'pvp_total' => $pvp_total,
+                'costo' => $costo,
+                'pvp_unid' => $pvp_unid,
+                'costo_unid' => $costo_unid,
+                'margen' => $margen
+            ]));
+
+            // DEBUG: query que se va a ejecutar
+            error_log("Query a ejecutar: " . $queryInsertar);
+
             self::$db->query($queryInsertar);
         }
     }
