@@ -351,14 +351,44 @@
         <!-- PRE PRINTER   CONTROLABLE  -->
 
         <div class="formulario__campo">
-            <label class="formulario__label" for="hola">HOLA</label>
+            <label class="formulario__label" for="FRENO">FRENO</label>
             <input
                 type="number"
-                name="hola"
-                id="hola"
+                name="FRENO"
+                id="FRENO"
                 class="formulario__input"
-                placeholder="hola"
-                value="<?php echo $papel->hola ?? '' ?>">
+                placeholder="FRENO"
+                value="<?php echo $papel->FRENO ?? '' ?>">
+        </div>
+        <div class="formulario__campo">
+            <label class="formulario__label" for="PRESION">PRESION</label>
+            <input
+                type="number"
+                name="PRESION"
+                id="PRESION"
+                class="formulario__input"
+                placeholder="PRESION"
+                value="<?php echo $papel->PRESION ?? '' ?>">
+        </div>
+        <div class="formulario__campo">
+            <label class="formulario__label" for="CUADRE">CUADRE</label>
+            <input
+                type="number"
+                name="CUADRE"
+                id="CUADRE"
+                class="formulario__input"
+                placeholder="CUADRE"
+                value="<?php echo $papel->CUADRE ?? '' ?>">
+        </div>
+        <div class="formulario__campo">
+            <label class="formulario__label" for="PREPRINTER">PREPRINTER</label>
+            <input
+                type="number"
+                name="PREPRINTER"
+                id="PREPRINTER"
+                class="formulario__input"
+                placeholder="PREPRINTER"
+                value="<?php echo $papel->PREPRINTER ?? '' ?>">
         </div>
 
         <!-- PRE PRINTER   NO CONTROLABLE  -->
