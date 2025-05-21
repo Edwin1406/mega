@@ -30,6 +30,12 @@
 }
 
 
+.dashboard__formulario {
+    width: 110rem;
+    margin: 0 auto;
+}
+
+
 
 .formulario_campito{
     display: grid;
