@@ -26,6 +26,16 @@
     grid-template-columns: repeat(3, 1fr); /* 3 columnas iguales */
     gap: 1.5rem; /* Espacio entre columnas */
     margin-top: 1rem;
+
+}
+
+
+
+.formulario_campito{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 columnas iguales */
+    gap: 1.5rem; /* Espacio entre columnas */
+    margin-top: 1rem;
 }
 
 @media (max-width: 1024px) {
@@ -89,6 +99,11 @@
         });
     </script>
     <!-- CORRUGADOR  CONTROLABLE -->
+
+
+    <div class="formulario_campito">
+
+
 
 
     <div class="formulario__campo">
@@ -305,7 +320,7 @@
 
 
 
-
+    </div>
 
 </fieldset>
 
