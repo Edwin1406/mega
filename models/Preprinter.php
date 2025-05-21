@@ -10,8 +10,28 @@ protected static $columnasDB = [
     'id',
     'tipo_maquina',
     'tipo_clasificacion',
-    'hola',
-    'mdo',
+    'GALLET',
+    'COMBADO',
+    'HUMEDO',
+    'FRENO',
+    'DESPE',
+    'PRESION',
+    'ERROM',
+    'SINGLEFACE',
+    'CUADRE',
+    'EMPALME',
+    'RECUB',
+    'PREPRINTER',
+    'DESHOJE',
+    'FILOS_ROTOS',
+    'ELECTRICO',
+    'MECANICO',
+    'PEDIDOS_CORTOS',
+    'DIFER_ANCHO',
+    'REFILE_PEQUENO',
+    'CAMBIO_GRAMAJE',
+    'EXTRA_TRIM',
+    'SUSTRATO',
     'TOTAL'
   
 ];
@@ -20,8 +40,28 @@ protected static $columnasDB = [
     public $id;
     public $tipo_maquina;
     public $tipo_clasificacion;
-    public $hola;
-    public $mdo;
+    public $GALLET;
+    public $COMBADO;
+    public $HUMEDO;
+    public $FRENO;
+    public $DESPE;
+    public $PRESION;
+    public $ERROM;
+    public $SINGLEFACE;
+    public $CUADRE;
+    public $EMPALME;
+    public $RECUB;
+    public $PREPRINTER;
+    public $DESHOJE;
+    public $FILOS_ROTOS;
+    public $ELECTRICO;
+    public $MECANICO;
+    public $PEDIDOS_CORTOS;
+    public $DIFER_ANCHO;
+    public $REFILE_PEQUENO;
+    public $CAMBIO_GRAMAJE;
+    public $EXTRA_TRIM;
+    public $SUSTRATO;
     public $TOTAL;
 
     
@@ -34,8 +74,28 @@ protected static $columnasDB = [
         $this->id = $args['id'] ?? null;
         $this->tipo_maquina = $args['tipo_maquina'] ?? '';
         $this->tipo_clasificacion = $args['tipo_clasificacion'] ?? '';
-        $this->hola = $args['hola'] ?? '';
-        $this->mdo = $args['mdo'] ?? '';
+        $this->GALLET = $args['GALLET'] ?? '';
+        $this->COMBADO = $args['COMBADO'] ?? '';
+        $this->HUMEDO = $args['HUMEDO'] ?? '';
+        $this->FRENO = $args['FRENO'] ?? '';
+        $this->DESPE = $args['DESPE'] ?? '';
+        $this->PRESION = $args['PRESION'] ?? '';
+        $this->ERROM = $args['ERROM'] ?? '';
+        $this->SINGLEFACE = $args['SINGLEFACE'] ?? '';
+        $this->CUADRE = $args['CUADRE'] ?? '';
+        $this->EMPALME = $args['EMPALME'] ?? '';
+        $this->RECUB = $args['RECUB'] ?? '';
+        $this->PREPRINTER = $args['PREPRINTER'] ?? '';
+        $this->DESHOJE = $args['DESHOJE'] ?? '';
+        $this->FILOS_ROTOS = $args['FILOS_ROTOS'] ?? '';
+        $this->ELECTRICO = $args['ELECTRICO'] ?? '';
+        $this->MECANICO = $args['MECANICO'] ?? '';
+        $this->PEDIDOS_CORTOS = $args['PEDIDOS_CORTOS'] ?? '';
+        $this->DIFER_ANCHO = $args['DIFER_ANCHO'] ?? '';
+        $this->REFILE_PEQUENO = $args['REFILE_PEQUENO'] ?? '';
+        $this->CAMBIO_GRAMAJE = $args['CAMBIO_GRAMAJE'] ?? '';
+        $this->EXTRA_TRIM = $args['EXTRA_TRIM'] ?? '';
+        $this->SUSTRATO = $args['SUSTRATO'] ?? '';     
         $this->TOTAL = $args['TOTAL'] ?? '';
      
         
@@ -56,8 +116,31 @@ protected static $columnasDB = [
 public function calcularTotal()
 {
     $this->TOTAL =  
-        floatval($this->hola) +
-        floatval($this->mdo);
+        floatval($this->GALLET) +
+        floatval($this->COMBADO) +
+        floatval($this->HUMEDO) +
+        floatval($this->FRENO) +
+        floatval($this->DESPE) +
+        floatval($this->PRESION) +
+        floatval($this->ERROM) +
+        floatval($this->SINGLEFACE) +
+        floatval($this->CUADRE) +
+        floatval($this->EMPALME) +
+        floatval($this->RECUB) +
+        floatval($this->PREPRINTER) +
+        floatval($this->DESHOJE) +
+        floatval($this->FILOS_ROTOS) +
+        floatval($this->ELECTRICO) +
+        floatval($this->MECANICO) +
+        floatval($this->PEDIDOS_CORTOS) +
+        floatval($this->DIFER_ANCHO) +
+        floatval($this->REFILE_PEQUENO) +
+        floatval($this->CAMBIO_GRAMAJE) +
+        floatval($this->EXTRA_TRIM) +
+        floatval($this->SUSTRATO);
+    // $this->TOTAL = number_format($this->TOTAL, 2);
+    $this->TOTAL = round($this->TOTAL, 2);
+    return $this->TOTAL;
         
 }
 
