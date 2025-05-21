@@ -44,6 +44,9 @@
     width: 14rem;
 }
 
+.formulario__legend{
+    text-align: center;
+}
 
 .formulario_campito{
     display: grid;
