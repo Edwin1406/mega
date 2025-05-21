@@ -407,16 +407,7 @@
 
 
         <!-- FLEXOGRAFICA CONGTROLABLE  -->
-        <div class="formulario__campo">
-            <label class="formulario__label" for="CUADRE">CUADRE</label>
-            <input
-                type="number"
-                name="CUADRE"
-                id="CUADRE"
-                class="formulario__input"
-                placeholder="CUADRE"
-                value="<?php echo $papel->CUADRE ?? '' ?>">
-        </div>
+    
 
         <div class="formulario__campo">
             <label class="formulario__label" for="FALTA_TINTA">FALTA TINTA</label>
