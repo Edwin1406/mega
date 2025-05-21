@@ -1548,26 +1548,48 @@ public static function procesarArchivoExcelReclamos($filePath)
 
     $highestRow = $sheet->getHighestRow();
 
+    // Definir rango exacto de columnas para evitar confusión
+    $cols = range('A', 'K');
+
     for ($row = 2; $row <= $highestRow; $row++) {
         $data = [];
-        for ($col = 'A'; $col <= 'K'; $col++) {  // columnas A a K
-            $data[] = trim($sheet->getCell($col . $row)->getFormattedValue() ?? '');
+
+        // Leer valores “crudos” en orden correcto
+        foreach ($cols as $col) {
+            // getValue() para evitar problemas con formato
+            $data[] = $sheet->getCell($col . $row)->getValue() ?? '';
         }
 
-        // Limpiar y mapear datos (convierte números con coma a punto, y trim a texto)
+        // Limpiar y mapear datos
+        $data = array_map(function($value) {
+            $value = trim($value);
+            // Solo reemplazar coma decimal si parece número decimal con coma
+            if (preg_match('/^\d+,\d+$/', $value)) {
+                $value = str_replace(',', '.', $value);
+            }
+            return $value;
+        }, $data);
+
         list(
             $numero, $emision, $cliente, $codigo, $descripcion,
             $cantidad, $pvp_total, $costo, $pvp_unid, $costo_unid, $margen
-        ) = array_map(fn($value) => is_numeric(str_replace(',', '.', $value)) ? str_replace(',', '.', $value) : trim($value), $data);
+        ) = $data;
 
         // Validar y formatear fecha
-        if (!empty($emision) && strtotime($emision) !== false) {
-            $emision = date('Y-m-d', strtotime($emision));
+        if (!empty($emision)) {
+            // Si la fecha viene en formato Excel como número, convertirla a fecha PHP
+            if (is_numeric($emision)) {
+                $emision = \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($emision)->format('Y-m-d');
+            } elseif (strtotime($emision) !== false) {
+                $emision = date('Y-m-d', strtotime($emision));
+            } else {
+                $emision = null;
+            }
         } else {
             $emision = null;
         }
 
-        // Convertir valores numéricos a float para insertar correctamente
+        // Convertir a float o NULL
         $cantidad = is_numeric($cantidad) ? floatval($cantidad) : null;
         $pvp_total = is_numeric($pvp_total) ? floatval($pvp_total) : null;
         $costo = is_numeric($costo) ? floatval($costo) : null;
@@ -1581,7 +1603,7 @@ public static function procesarArchivoExcelReclamos($filePath)
         $codigo = self::$db->real_escape_string($codigo);
         $descripcion = self::$db->real_escape_string($descripcion);
 
-        // Verificar duplicado (opcional, puedes ajustar campos si quieres menos estrictos)
+        // Verificar duplicado (opcional)
         $queryExistente = "
             SELECT id FROM " . static::$tabla . "
             WHERE numero = '$numero'
@@ -1620,8 +1642,6 @@ public static function procesarArchivoExcelReclamos($filePath)
 
     return true;
 }
-
-
 
 
 
