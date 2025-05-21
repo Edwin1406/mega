@@ -21,7 +21,7 @@
     }
 
 
-    .formulario__grid {
+    .formulario__legend {
     display: grid;
     grid-template-columns: repeat(3, 1fr); /* 3 columnas iguales */
     gap: 1.5rem; /* Espacio entre columnas y filas */
