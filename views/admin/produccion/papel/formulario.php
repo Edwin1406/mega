@@ -31,7 +31,7 @@
 
 
 .dashboard__formulario {
-    width: 110rem;
+    width: 120rem;
     margin: 0 auto;
 }
 
