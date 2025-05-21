@@ -1,5 +1,6 @@
 <?php
 namespace Model;
+use Exception;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
@@ -1518,7 +1519,6 @@ public static function procesarArchivoExcelComercial($filePath)
 
 
 // EXCEL QEUJAS RECIBIDAS
-
 public static function procesarArchivoExcelReclamos($filePath)
 {
     // Aumentar límite de ejecución a 5 minutos
@@ -1558,15 +1558,16 @@ public static function procesarArchivoExcelReclamos($filePath)
                 $data[] = trim($sheet->getCell($col . $row)->getFormattedValue() ?? '');
             }
 
+            // Aquí se asignan los valores SIN hacer array_slice para no saltar la columna A
             list(
                 $numero, $emision, $cliente, $codigo, $descripcion,
                 $cantidad, $pvp_total, $costo, $pvp_unid, $costo_unid, $margen
-            ) = array_slice($data, 1); // Saltamos ID autoincremental
+            ) = $data;
 
-            // Formatear fecha
+            // Formatear fecha correctamente
             $emision = !empty($emision) && strtotime($emision) ? date('Y-m-d', strtotime($emision)) : null;
 
-            // Convertir números (con coma a punto si es necesario)
+            // Convertir números con coma a punto si es necesario
             $cantidad = floatval(str_replace(',', '.', $cantidad));
             $pvp_total = floatval(str_replace(',', '.', $pvp_total));
             $costo = floatval(str_replace(',', '.', $costo));
@@ -1580,7 +1581,7 @@ public static function procesarArchivoExcelReclamos($filePath)
             $codigo = self::$db->real_escape_string($codigo);
             $descripcion = self::$db->real_escape_string($descripcion);
 
-            // Verificar duplicado
+            // Verificar si el registro ya existe para evitar duplicados
             $queryExistente = "
                 SELECT id FROM " . static::$tabla . "
                 WHERE numero = '$numero'
@@ -1619,9 +1620,6 @@ public static function procesarArchivoExcelReclamos($filePath)
     error_log("Carga completa sin errores graves.");
     return true;
 }
-
-
-
 
 
 

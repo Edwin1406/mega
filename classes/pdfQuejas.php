@@ -26,13 +26,13 @@ class pdfQuejas extends TCPDF
         $black = [0, 0, 0];
 
         // --- Encabezado ---
-   $this->SetFillColor(...$orange);     // Mantienes el fondo naranja si quieres que la celda siga con el color
-$this->Rect($this->GetX(), $this->GetY(), 42, 25, 'F');  // Dibuja el fondo naranja (relleno)
+        $this->SetFillColor(...$orange);     // Mantienes el fondo naranja si quieres que la celda siga con el color
+        $this->Rect($this->GetX(), $this->GetY(), 42, 25, 'F');  // Dibuja el fondo naranja (relleno)
 
-$imagePath = 'src/img/logo2.png'; // Aquí va la ruta de tu imagen
-$this->Image($imagePath, $this->GetX() + 5, $this->GetY() + 3, 30, 25); // Ajusta posición y tamaño de la imagen
+        $imagePath = 'src/img/logo2.png'; // Aquí va la ruta de tu imagen
+        $this->Image($imagePath, $this->GetX() + 5, $this->GetY() + 3, 30, 25); // Ajusta posición y tamaño de la imagen
 
-$this->SetXY($this->GetX() + 40, $this->GetY()); // Mueves el cursor a la derecha para seguir con el resto del contenido (si hay)
+        $this->SetXY($this->GetX() + 40, $this->GetY()); // Mueves el cursor a la derecha para seguir con el resto del contenido (si hay)
 
 
 
@@ -338,6 +338,5 @@ $this->SetXY($this->GetX() + 40, $this->GetY()); // Mueves el cursor a la derech
         $this->Cell(50, 8, $this->queja->fecha_accion ?? "", 'B', 0);
         $this->Cell(25, 8, "Fecha y hora:", 0, 0);
         $this->Cell(65, 8, $this->queja->fecha_accion ?? "", 'B', 0);
-        
     }
 }
