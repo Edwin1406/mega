@@ -1521,14 +1521,12 @@ public static function procesarArchivoExcelComercial($filePath)
 // EXCEL QEUJAS RECIBIDAS
 public static function procesarArchivoExcelReclamos($filePath)
 {
-    // Aumentar límite de ejecución a 5 minutos
-    ini_set('max_execution_time', 300); // en segundos
+    ini_set('max_execution_time', 300);
     set_time_limit(300);
 
     $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($filePath);
     $sheet = $spreadsheet->getActiveSheet();
 
-    // Crear tabla (con coma final corregida)
     $queryCrearTabla = "
         CREATE TABLE IF NOT EXISTS " . static::$tabla . " (
             id INT AUTO_INCREMENT PRIMARY KEY,
@@ -1551,23 +1549,22 @@ public static function procesarArchivoExcelReclamos($filePath)
 
     for ($row = 2; $row <= $highestRow; $row++) {
         try {
-            error_log("Procesando fila $row..."); // Seguimiento
+            error_log("Procesando fila $row...");
 
             $data = [];
-            for ($col = 'A'; $col <= 'L'; $col++) {
+            for ($col = 'A'; $col <= 'K'; $col++) {  // Aquí cambiamos L por K
                 $data[] = trim($sheet->getCell($col . $row)->getFormattedValue() ?? '');
             }
 
-            // Aquí se asignan los valores SIN hacer array_slice para no saltar la columna A
             list(
                 $numero, $emision, $cliente, $codigo, $descripcion,
                 $cantidad, $pvp_total, $costo, $pvp_unid, $costo_unid, $margen
             ) = $data;
 
-            // Formatear fecha correctamente
+            // Formatear fecha
             $emision = !empty($emision) && strtotime($emision) ? date('Y-m-d', strtotime($emision)) : null;
 
-            // Convertir números con coma a punto si es necesario
+            // Convertir números
             $cantidad = floatval(str_replace(',', '.', $cantidad));
             $pvp_total = floatval(str_replace(',', '.', $pvp_total));
             $costo = floatval(str_replace(',', '.', $costo));
@@ -1575,13 +1572,12 @@ public static function procesarArchivoExcelReclamos($filePath)
             $costo_unid = floatval(str_replace(',', '.', $costo_unid));
             $margen = floatval(str_replace(',', '.', $margen));
 
-            // Escapar valores para evitar SQL injection
+            // Escapar para SQL
             $numero = self::$db->real_escape_string($numero);
             $cliente = self::$db->real_escape_string($cliente);
             $codigo = self::$db->real_escape_string($codigo);
             $descripcion = self::$db->real_escape_string($descripcion);
 
-            // Verificar si el registro ya existe para evitar duplicados
             $queryExistente = "
                 SELECT id FROM " . static::$tabla . "
                 WHERE numero = '$numero'
@@ -1611,7 +1607,6 @@ public static function procesarArchivoExcelReclamos($filePath)
                 ";
                 self::$db->query($queryInsertar);
             }
-
         } catch (Exception $e) {
             error_log("Error en fila $row: " . $e->getMessage());
         }
@@ -1620,6 +1615,7 @@ public static function procesarArchivoExcelReclamos($filePath)
     error_log("Carga completa sin errores graves.");
     return true;
 }
+
 
 
 
