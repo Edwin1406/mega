@@ -24,33 +24,31 @@
             value="<?php echo htmlspecialchars($responsable_reporte); ?>">
     </div>
 
-    <div class="formulario__campo">
-        <label class="formulario__label" for="cliente">CLIENTE</label>
+ <div class="formulario__campo">
+    <label class="formulario__label" for="cliente">CLIENTE</label>
 
-        <select name="cliente" onchange="this.form.submit()" class="formulario__input">
-            <option value="">-- Seleccione --</option>
-            <?php foreach ($clientes as $cliente): ?>
-                <option value="<?= $cliente->cliente ?>"
-                    <?= $cliente->cliente === $clienteSeleccionado ? 'selected' : '' ?>>
-                    <?= $cliente->cliente ?>
-                </option>
-            <?php endforeach; ?>
-        </select>
-    </div>
+    <select id="selectCliente" name="cliente" onchange="this.form.submit()" class="formulario__input">
+        <option value="">-- Seleccione --</option>
+        <?php foreach ($clientes as $cliente): ?>
+            <option value="<?= $cliente->cliente ?>"
+                <?= $cliente->cliente === $clienteSeleccionado ? 'selected' : '' ?>>
+                <?= $cliente->cliente ?>
+            </option>
+        <?php endforeach; ?>
+    </select>
+</div>
 
-
-    <script>
+<script>
   $(document).ready(function() {
     $('#selectCliente').select2({
       placeholder: "-- Seleccione --",
-      allowClear: true // Permite limpiar la selección
+      allowClear: true
     });
 
-    // Escuchar cuando cambia la opción seleccionada
     $('#selectCliente').on('change', function() {
       const valor = $(this).val();
       console.log('Cliente seleccionado:', valor);
-      // Aquí haces lo que necesites con la opción seleccionada
+      // Aquí puedes manejar lo que quieres cuando cambia el select
     });
   });
 </script>
