@@ -259,19 +259,6 @@
             value="<?php echo $papel->FILOS_ROTOS ?? '' ?>">
     </div>
 
-    
-
-    <div class="formulario__campo">
-        <label class="formulario__label" for="OTROS">OTROS</label>
-        <input
-            type="number"
-            name="OTROS"
-            id="OTROS"
-            class="formulario__input"
-            placeholder="OTROS"
-            value="<?php echo $papel->OTROS ?? '' ?>">
-    </div>
-
     <div class="formulario__campo">
         <label class="formulario__label" for="PEDIDOS_CORTOS">PEDIDOS CORTOS</label>
         <input
@@ -315,6 +302,49 @@
             placeholder="EXTRA_TRIM"
             value="<?php echo $papel->EXTRA_TRIM ?? '' ?>">
     </div>
+
+
+        <!-- AGREADOS RECEINTEMENTE PARA CORRUGADOR  -->
+
+        
+    <div class="formulario__campo">
+        <label class="formulario__label" for="MECANICO">MECANICO </label>
+        <input
+            type="number"
+            name="MECANICO"
+            id="MECANICO"
+            class="formulario__input"
+            placeholder="MECANICO"
+            value="<?php echo $papel->MECANICO ?? '' ?>">
+    </div>
+
+
+    
+    <div class="formulario__campo">
+        <label class="formulario__label" for="ELECTRICO">ELECTRICO </label>
+        <input
+            type="number"
+            name="ELECTRICO"
+            id="ELECTRICO"
+            class="formulario__input"
+            placeholder="ELECTRICO"
+            value="<?php echo $papel->ELECTRICO ?? '' ?>">
+    </div>
+    <div class="formulario__campo">
+        <label class="formulario__label" for="REFILE_PEQUEÑO">REFILE PEQUEÑO </label>
+        <input
+            type="number"
+            name="REFILE_PEQUEÑO"
+            id="REFILE_PEQUEÑO"
+            class="formulario__input"
+            placeholder="REFILE_PEQUEÑO"
+            value="<?php echo $papel->REFILE_PEQUEÑO ?? '' ?>">
+    </div>
+
+
+
+
+
 
 <!-- PRE PRINTER   CONTROLABLE  -->
 
