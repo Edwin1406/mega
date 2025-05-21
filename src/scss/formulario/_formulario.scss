@@ -13,8 +13,13 @@
 }
 
 .formulario{
-    display: flex;
-    flex-direction: column;
+    // display: flex;
+    // flex-direction: column;
+
+    // 3 columnas 
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
+    gap: 2rem;
 
     &__fieldset{
         border: none;
