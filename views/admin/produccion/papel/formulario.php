@@ -19,6 +19,29 @@
         box-shadow: none;
         transition: border-color 0.2s ease-in-out;
     }
+
+
+    .formulario__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 columnas iguales */
+    gap: 1.5rem; /* Espacio entre columnas y filas */
+    margin-top: 1rem;
+}
+
+/* Adaptar a pantallas medianas (tablets) */
+@media (max-width: 1024px) {
+    .formulario__grid {
+        grid-template-columns: repeat(2, 1fr); /* 2 columnas */
+    }
+}
+
+/* Adaptar a móviles */
+@media (max-width: 768px) {
+    .formulario__grid {
+        grid-template-columns: 1fr; /* 1 columna */
+    }
+}
+
 </style>
 
 
