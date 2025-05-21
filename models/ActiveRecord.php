@@ -1527,11 +1527,13 @@ public static function procesarArchivoExcelReclamos($filePath)
     $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($filePath);
     $sheet = $spreadsheet->getActiveSheet();
 
+    // Crear tabla si no existe (ajusta nombre de tabla en static::$tabla)
     $queryCrearTabla = "
         CREATE TABLE IF NOT EXISTS " . static::$tabla . " (
             id INT AUTO_INCREMENT PRIMARY KEY,
             numero VARCHAR(255),
             emision DATE,
+            vendedor VARCHAR(255),
             cliente VARCHAR(255),
             codigo VARCHAR(255),
             descripcion VARCHAR(500),
@@ -1546,91 +1548,59 @@ public static function procesarArchivoExcelReclamos($filePath)
     self::$db->query($queryCrearTabla);
 
     $highestRow = $sheet->getHighestRow();
-    $cols = range('A', 'K');
 
     for ($row = 2; $row <= $highestRow; $row++) {
         $data = [];
-        foreach ($cols as $col) {
-            $cell = $sheet->getCell($col . $row);
-            $value = $cell->getValue();
-            $calculated = $cell->getCalculatedValue();
-
-            if (($value === null || $value === '') && $calculated !== null && $calculated !== '') {
-                $rawValue = $calculated;
-            } else {
-                $rawValue = $value ?? '';
-            }
-
-            // DEBUG: valores leídos en cada celda
-            error_log("Fila $row, Col $col: value='$value', calculated='$calculated', raw='$rawValue'");
-
-            $data[] = $rawValue;
+        for ($col = 'A'; $col <= 'L'; $col++) {  // A hasta L (12 columnas)
+            $data[] = trim($sheet->getCell($col . $row)->getFormattedValue() ?? '');
         }
 
-        // Limpieza y normalización de valores
-        $data = array_map(function($value) {
-            if (is_string($value)) {
-                $value = trim($value);
-                if ($value === '') {
-                    return null;
-                }
-                if (preg_match('/^\d{1,3}(\.\d{3})*(,\d+)?$/', $value)) {
-                    $value = str_replace('.', '', $value);
-                    $value = str_replace(',', '.', $value);
-                } elseif (preg_match('/^\d{1,3}(,\d{3})*(\.\d+)?$/', $value)) {
-                    $value = str_replace(',', '', $value);
-                } elseif (preg_match('/^\d+,\d+$/', $value)) {
-                    $value = str_replace(',', '.', $value);
-                }
-            }
-            return $value;
-        }, $data);
-
+        // Mapeo correcto de columnas:
         list(
-            $numero, $emision, $cliente, $codigo, $descripcion,
+            $numero, $emision, $vendedor, $cliente, $codigo, $descripcion,
             $cantidad, $pvp_total, $costo, $pvp_unid, $costo_unid, $margen
-        ) = $data;
+        ) = array_map(
+            fn($value) => is_numeric(str_replace(',', '.', $value)) ? str_replace(',', '.', $value) : trim($value),
+            $data
+        );
 
-        // Conversión fecha
-        if (!empty($emision)) {
-            if (is_numeric($emision)) {
-                $emision = \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($emision)->format('Y-m-d');
-            } elseif (strtotime($emision) !== false) {
-                $emision = date('Y-m-d', strtotime($emision));
-            } else {
-                $emision = null;
-            }
+        // Validar y formatear fecha
+        if (!empty($emision) && strtotime($emision) !== false) {
+            $emision = date('Y-m-d', strtotime($emision));
         } else {
             $emision = null;
         }
 
-        // Conversión a float o null
-        $cantidad = (is_numeric($cantidad) && $cantidad !== null) ? floatval($cantidad) : null;
-        $pvp_total = (is_numeric($pvp_total) && $pvp_total !== null) ? floatval($pvp_total) : null;
-        $costo = (is_numeric($costo) && $costo !== null) ? floatval($costo) : null;
-        $pvp_unid = (is_numeric($pvp_unid) && $pvp_unid !== null) ? floatval($pvp_unid) : null;
-        $costo_unid = (is_numeric($costo_unid) && $costo_unid !== null) ? floatval($costo_unid) : null;
-        $margen = (is_numeric($margen) && $margen !== null) ? floatval($margen) : null;
+        // Convertir valores numéricos a float para insertar correctamente
+        $cantidad = is_numeric($cantidad) ? floatval($cantidad) : null;
+        $pvp_total = is_numeric($pvp_total) ? floatval($pvp_total) : null;
+        $costo = is_numeric($costo) ? floatval($costo) : null;
+        $pvp_unid = is_numeric($pvp_unid) ? floatval($pvp_unid) : null;
+        $costo_unid = is_numeric($costo_unid) ? floatval($costo_unid) : null;
+        $margen = is_numeric($margen) ? floatval($margen) : null;
 
-        // Escapado SQL
+        // Escapar para SQL
         $numero = self::$db->real_escape_string($numero);
+        $vendedor = self::$db->real_escape_string($vendedor);
         $cliente = self::$db->real_escape_string($cliente);
         $codigo = self::$db->real_escape_string($codigo);
         $descripcion = self::$db->real_escape_string($descripcion);
 
+        // Verificar duplicado
         $queryExistente = "
             SELECT id FROM " . static::$tabla . "
             WHERE numero = '$numero'
               AND emision " . ($emision ? "= '$emision'" : "IS NULL") . "
+              AND vendedor = '$vendedor'
               AND cliente = '$cliente'
               AND codigo = '$codigo'
               AND descripcion = '$descripcion'
-              AND (cantidad " . ($cantidad !== null ? "= $cantidad" : "IS NULL") . ")
-              AND (pvp_total " . ($pvp_total !== null ? "= $pvp_total" : "IS NULL") . ")
-              AND (costo " . ($costo !== null ? "= $costo" : "IS NULL") . ")
-              AND (pvp_unid " . ($pvp_unid !== null ? "= $pvp_unid" : "IS NULL") . ")
-              AND (costo_unid " . ($costo_unid !== null ? "= $costo_unid" : "IS NULL") . ")
-              AND (margen " . ($margen !== null ? "= $margen" : "IS NULL") . ")
+              AND cantidad = " . ($cantidad !== null ? $cantidad : "NULL") . "
+              AND pvp_total = " . ($pvp_total !== null ? $pvp_total : "NULL") . "
+              AND costo = " . ($costo !== null ? $costo : "NULL") . "
+              AND pvp_unid = " . ($pvp_unid !== null ? $pvp_unid : "NULL") . "
+              AND costo_unid = " . ($costo_unid !== null ? $costo_unid : "NULL") . "
+              AND margen = " . ($margen !== null ? $margen : "NULL") . "
         ";
 
         $resultado = self::$db->query($queryExistente);
@@ -1638,10 +1608,10 @@ public static function procesarArchivoExcelReclamos($filePath)
         if ($resultado->num_rows == 0) {
             $queryInsertar = "
                 INSERT INTO " . static::$tabla . " (
-                    numero, emision, cliente, codigo, descripcion,
+                    numero, emision, vendedor, cliente, codigo, descripcion,
                     cantidad, pvp_total, costo, pvp_unid, costo_unid, margen
                 ) VALUES (
-                    '$numero', " . ($emision ? "'$emision'" : "NULL") . ", '$cliente', '$codigo', '$descripcion',
+                    '$numero', " . ($emision ? "'$emision'" : "NULL") . ", '$vendedor', '$cliente', '$codigo', '$descripcion',
                     " . ($cantidad !== null ? $cantidad : "NULL") . ",
                     " . ($pvp_total !== null ? $pvp_total : "NULL") . ",
                     " . ($costo !== null ? $costo : "NULL") . ",
@@ -1650,31 +1620,14 @@ public static function procesarArchivoExcelReclamos($filePath)
                     " . ($margen !== null ? $margen : "NULL") . "
                 )
             ";
-
-            // Debug datos a insertar
-            error_log("Datos a insertar fila $row: " . json_encode([
-                'numero' => $numero,
-                'emision' => $emision,
-                'cliente' => $cliente,
-                'codigo' => $codigo,
-                'descripcion' => $descripcion,
-                'cantidad' => $cantidad,
-                'pvp_total' => $pvp_total,
-                'costo' => $costo,
-                'pvp_unid' => $pvp_unid,
-                'costo_unid' => $costo_unid,
-                'margen' => $margen
-            ]));
-
-            // Debug query a ejecutar
-            error_log("Query a ejecutar: " . $queryInsertar);
-
             self::$db->query($queryInsertar);
         }
     }
 
     return true;
 }
+
+
 
 // ---------------------------------------------------------- EXCEL PROYECCIONES -------------------------------------------------------------------------
 
