@@ -18,6 +18,10 @@
         width: 100%;
   }
 
+  .formulario__legend {
+        text-align: center;
+  }
+
   @media (max-width: 768px) {
       .formulario__grid {
           grid-template-columns: 1fr;
