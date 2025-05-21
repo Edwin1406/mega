@@ -6,6 +6,7 @@ use MVC\Router;
 use Model\Bobina;
 use Classes\Paginacion;
 use Model\Computadora;
+use Model\Desflexografica;
 use Model\Preprinter;
 
 class PapelController
@@ -177,7 +178,10 @@ public static function crear(Router $router)
             case 'PREPRINTER':
                 $modelo = new Preprinter;
                 break;
-
+            
+            case 'FLEXOGRAFICA':
+                $modelo = new Desflexografica;
+                break;
             // Puedes seguir agregando más tipos si es necesario
             default:
                 $alertas['error'][] = 'Tipo de máquina no reconocido.';
