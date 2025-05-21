@@ -12,7 +12,7 @@
 
 .formulario {
     display: grid;
-    grid-template-columns: repeat(3, 1fr); // Tres columnas fijas
+    grid-template-columns: repeat(3, 1fr) !important; // Tres columnas fijas
     gap: 2rem;
 
     // Responsive
