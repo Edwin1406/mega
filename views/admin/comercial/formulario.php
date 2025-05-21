@@ -22,14 +22,12 @@
         text-align: center;
   }
 
-  @media (min-width: 768px) {
+  @media (max-width: 768px) {
       .formulario__grid {
           grid-template-columns: 1fr;
       }
 
-      .sidebar{
-    display: none !important;
-      }
+      
   }
 </style>
 
