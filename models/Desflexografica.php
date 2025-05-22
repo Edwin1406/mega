@@ -25,7 +25,9 @@ protected static $columnasDB = [
     'DESPEGADO',
     'ERROM',
     'SUSTRATO',
-    'TOTAL'
+    'TOTAL',
+    'PORCENTAJE',
+    'created_at'
   
 ];
 
@@ -49,6 +51,8 @@ protected static $columnasDB = [
     public $ERROM;
     public $SUSTRATO;
     public $TOTAL;
+    public $PORCENTAJE;
+    public $created_at;
 
     
    
@@ -76,6 +80,8 @@ protected static $columnasDB = [
         $this->ERROM = $args['ERROM'] ?? '';
         $this->SUSTRATO = $args['SUSTRATO'] ?? '';     
         $this->TOTAL = $args['TOTAL'] ?? '';
+        $this->PORCENTAJE = $args['PORCENTAJE'] ?? '';
+        $this->created_at = date('Y-m-d');
      
         
     }
@@ -110,8 +116,9 @@ public function calcularTotal()
         floatval($this->DESPEGADO) +
         floatval($this->ERROM) +
         floatval($this->SUSTRATO);
-    // $this->TOTAL = number_format($this->TOTAL, 2);
-    $this->TOTAL = round($this->TOTAL, 2);
+   
+    // PPORCENTAJE
+    $this->PORCENTAJE = round(($this->TOTAL / 100) * 100, 2); 
     return $this->TOTAL;
         
 }
