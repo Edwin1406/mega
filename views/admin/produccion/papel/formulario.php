@@ -684,14 +684,14 @@
 
         <!-- GUILLOTINA LAMINA -->
         <div class="formulario__campo">
-            <label class="formulario__label" for="REFILE">REFILE</label>
+            <label class="formulario__label" for="REFILES">REFILES</label>
             <input
                 type="number"
-                name="REFILE"
-                id="REFILE"
+                name="REFILES"
+                id="REFILES"
                 class="formulario__input"
-                placeholder="REFILE"
-                value="<?php echo $papel->REFILE ?? '' ?>">
+                placeholder="REFILES"
+                value="<?php echo $papel->REFILES ?? '' ?>">
         </div>
 
         <!-- GUILLOTINA PAPEL -->
