@@ -490,7 +490,7 @@
 
 <script>
     const camposPorMaquinaYClasificacion = {
-        'PREPRINTER': {
+        'MICRO': {
             'a': ['GALLET', 'COMBADO', 'HUMEDO', 'FRENO', 'DESPE', 'PRESION', 'ERROM', 'SINGLEFACE', 'CUADRE', 'EMPALME', 'RECUB', 'PREPRINTER'], // CONTROLABLE
             'b': ['DESHOJE', 'FILOS_ROTOS', 'ELECTRICO', 'MECANICO', 'PEDIDOS_CORTOS', 'DIFER_ANCHO', 'REFILE_PEQUENO', 'CAMBIO_GRAMAJE', 'EXTRA_TRIM', 'SUSTRATO'], // NO CONTROLABLE
         },
