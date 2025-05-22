@@ -16,6 +16,11 @@ protected static $columnasDB = [
     'PH',
     'CUADRE',
     'APROBACION_COLOR',
+    'FILOS_ROTOS',
+    'CIREL_CORTADO',
+    'ELECTRICO',
+    'MECANICO',
+    'SUSTRATO',
     'TOTAL'
   
 ];
@@ -30,6 +35,11 @@ protected static $columnasDB = [
     public $PH;
     public $CUADRE;
     public $APROBACION_COLOR;
+    public $FILOS_ROTOS;
+    public $CIREL_CORTADO;
+    public $ELECTRICO;
+    public $MECANICO;
+    public $SUSTRATO;
     public $TOTAL;
 
     
@@ -48,6 +58,11 @@ protected static $columnasDB = [
         $this->PH = $args['PH'] ?? '';
         $this->CUADRE = $args['CUADRE'] ?? '';
         $this->APROBACION_COLOR = $args['APROBACION_COLOR'] ?? '';
+        $this->FILOS_ROTOS = $args['FILOS_ROTOS'] ?? '';
+        $this->CIREL_CORTADO = $args['CIREL_CORTADO'] ?? '';
+        $this->ELECTRICO = $args['ELECTRICO'] ?? '';
+        $this->MECANICO = $args['MECANICO'] ?? '';
+        $this->SUSTRATO = $args['SUSTRATO'] ?? '';
         $this->TOTAL = $args['TOTAL'] ?? '';
      
         
@@ -74,6 +89,11 @@ public function calcularTotal()
         floatval($this->PH) +
         floatval($this->CUADRE) +
         floatval($this->APROBACION_COLOR);
+        floatval($this->FILOS_ROTOS) +
+        floatval($this->CIREL_CORTADO) +
+        floatval($this->ELECTRICO) +
+        floatval($this->MECANICO) +
+        floatval($this->SUSTRATO);
     // $this->TOTAL = number_format($this->TOTAL, 2);
     $this->TOTAL = round($this->TOTAL, 2);
     return $this->TOTAL;
