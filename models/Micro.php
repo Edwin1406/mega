@@ -32,6 +32,7 @@ protected static $columnasDB = [
     'CAMBIO_GRAMAJE',
     'EXTRA_TRIM',
     'SUSTRATO',
+    'CONSUMO',
     'TOTAL',
     'PORCENTAJE',
     'created_at'
@@ -64,6 +65,7 @@ protected static $columnasDB = [
     public $CAMBIO_GRAMAJE;
     public $EXTRA_TRIM;
     public $SUSTRATO;
+    public $CONSUMO;
     public $TOTAL;
     public $PORCENTAJE;
     public $created_at;
@@ -99,7 +101,8 @@ protected static $columnasDB = [
         $this->REFILE_PEQUENO = $args['REFILE_PEQUENO'] ?? '';
         $this->CAMBIO_GRAMAJE = $args['CAMBIO_GRAMAJE'] ?? '';
         $this->EXTRA_TRIM = $args['EXTRA_TRIM'] ?? '';
-        $this->SUSTRATO = $args['SUSTRATO'] ?? '';     
+        $this->SUSTRATO = $args['SUSTRATO'] ?? '';  
+        $this->CONSUMO = $args['CONSUMO'] ?? '';   
         $this->TOTAL = $args['TOTAL'] ?? '';
         $this->PORCENTAJE = $args['PORCENTAJE'] ?? '';
         $this->created_at = date('Y-m-d');
@@ -145,9 +148,9 @@ public function calcularTotal()
         floatval($this->EXTRA_TRIM) +
         floatval($this->SUSTRATO);
     // $this->TOTAL = number_format($this->TOTAL, 2);
-    // $this->TOTAL = round($this->TOTAL, 2);
+    $this->TOTAL = round($this->TOTAL, 2);
     // PPORCENTAJE
-    $this->PORCENTAJE = round(($this->TOTAL / 100) * 100, 2);
+    // $this->PORCENTAJE = round(($this->TOTAL / 100) * 100, 2);
     return $this->TOTAL;
         
 }
