@@ -32,7 +32,9 @@ protected static $columnasDB = [
     'CAMBIO_GRAMAJE',
     'EXTRA_TRIM',
     'SUSTRATO',
-    'TOTAL'
+    'TOTAL',
+    'PORCENTAJE',
+    'created_at'
   
 ];
 
@@ -63,6 +65,8 @@ protected static $columnasDB = [
     public $EXTRA_TRIM;
     public $SUSTRATO;
     public $TOTAL;
+    public $PORCENTAJE;
+    public $created_at;
 
     
    
@@ -97,6 +101,8 @@ protected static $columnasDB = [
         $this->EXTRA_TRIM = $args['EXTRA_TRIM'] ?? '';
         $this->SUSTRATO = $args['SUSTRATO'] ?? '';     
         $this->TOTAL = $args['TOTAL'] ?? '';
+        $this->PORCENTAJE = $args['PORCENTAJE'] ?? '';
+        $this->created_at = date('Y-m-d');
      
         
     }
@@ -139,7 +145,9 @@ public function calcularTotal()
         floatval($this->EXTRA_TRIM) +
         floatval($this->SUSTRATO);
     // $this->TOTAL = number_format($this->TOTAL, 2);
-    $this->TOTAL = round($this->TOTAL, 2);
+    // $this->TOTAL = round($this->TOTAL, 2);
+    // PPORCENTAJE
+    $this->PORCENTAJE = round(($this->TOTAL / 100) * 100, 2);
     return $this->TOTAL;
         
 }
