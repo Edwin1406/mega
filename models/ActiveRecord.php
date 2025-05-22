@@ -1527,7 +1527,7 @@ public static function procesarArchivoExcelReclamos($filePath)
     $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($filePath);
     $sheet = $spreadsheet->getActiveSheet();
 
-    // Crear tabla si no existe (ajusta nombre de tabla en static::$tabla)
+    // Crear tabla si no existe (sin la columna vendedor)
     $queryCrearTabla = "
         CREATE TABLE IF NOT EXISTS " . static::$tabla . " (
             id INT AUTO_INCREMENT PRIMARY KEY,
@@ -1550,27 +1550,25 @@ public static function procesarArchivoExcelReclamos($filePath)
 
     for ($row = 2; $row <= $highestRow; $row++) {
         $data = [];
-        for ($col = 'A'; $col <= 'L'; $col++) {  // A hasta L (12 columnas)
+        for ($col = 'A'; $col <= 'K'; $col++) {  // A hasta K (11 columnas sin vendedor)
             $data[] = trim($sheet->getCell($col . $row)->getFormattedValue() ?? '');
         }
 
-        // Mapeo correcto de columnas:
+        // Mapeo correcto de columnas sin vendedor:
         list(
-            $numero, $emision, $vendedor, $cliente, $codigo, $descripcion,
+            $numero, $emision, $cliente, $codigo, $descripcion,
             $cantidad, $pvp_total, $costo, $pvp_unid, $costo_unid, $margen
         ) = array_map(
             fn($value) => is_numeric(str_replace(',', '.', $value)) ? str_replace(',', '.', $value) : trim($value),
             $data
         );
 
-        // Validar y formatear fecha
         if (!empty($emision) && strtotime($emision) !== false) {
             $emision = date('Y-m-d', strtotime($emision));
         } else {
             $emision = null;
         }
 
-        // Convertir valores numéricos a float para insertar correctamente
         $cantidad = is_numeric($cantidad) ? floatval($cantidad) : null;
         $pvp_total = is_numeric($pvp_total) ? floatval($pvp_total) : null;
         $costo = is_numeric($costo) ? floatval($costo) : null;
@@ -1578,13 +1576,11 @@ public static function procesarArchivoExcelReclamos($filePath)
         $costo_unid = is_numeric($costo_unid) ? floatval($costo_unid) : null;
         $margen = is_numeric($margen) ? floatval($margen) : null;
 
-        // Escapar para SQL
         $numero = self::$db->real_escape_string($numero);
         $cliente = self::$db->real_escape_string($cliente);
         $codigo = self::$db->real_escape_string($codigo);
         $descripcion = self::$db->real_escape_string($descripcion);
 
-        // Verificar duplicado
         $queryExistente = "
             SELECT id FROM " . static::$tabla . "
             WHERE numero = '$numero'
@@ -1623,6 +1619,7 @@ public static function procesarArchivoExcelReclamos($filePath)
 
     return true;
 }
+
 
 
 
