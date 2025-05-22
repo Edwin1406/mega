@@ -6,6 +6,7 @@ use MVC\Router;
 use Model\Bobina;
 use Classes\Paginacion;
 use Model\Computadora;
+use Model\Convertidor;
 use Model\Corte_ceja;
 use Model\Desflexografica;
 use Model\Doblado;
@@ -201,6 +202,10 @@ public static function crear(Router $router)
 
             case 'TROQUEL':
                 $modelo = new Troquel;
+                break;
+
+            case 'CONVERTIDOR':
+                $modelo = new Convertidor;
                 break;
 
             // Puedes seguir agregando más tipos si es necesario
