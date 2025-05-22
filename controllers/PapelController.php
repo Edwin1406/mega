@@ -184,7 +184,7 @@ public static function crear(Router $router)
                 $modelo = new Desflexografica;
                 break;
 
-            case 'PREPRINT':
+            case 'PREPRINTER':
                 $modelo = new Preprinter;
                 break;
 
