@@ -12,6 +12,7 @@ protected static $columnasDB = [
     'tipo_clasificacion',
     'REFILES',
     'TOTAL',
+    'PORCENTAJE',
     'created_at',
 
 
@@ -26,6 +27,7 @@ protected static $columnasDB = [
     public $tipo_clasificacion;
     public $REFILES;
     public $TOTAL;
+    public $PORCENTAJE;
     public $created_at;
 
     
@@ -40,6 +42,7 @@ protected static $columnasDB = [
         $this->tipo_clasificacion = $args['tipo_clasificacion'] ?? '';
         $this->REFILES = $args['REFILES'] ?? '';
         $this->TOTAL = $args['TOTAL'] ?? '';
+        $this->PORCENTAJE = $args['PORCENTAJE'] ?? '';
         $this->created_at = date('Y-m-d');
         
     }
@@ -60,7 +63,11 @@ public function calcularTotal()
 {
     $refiles = floatval($this->REFILES);
 
-    $this->TOTAL = round($refiles, 2);
+    // $this->TOTAL = round($refiles, 2);
+    // PORCENTAJE
+    $this->PORCENTAJE = (($this->TOTAL / 100) * 100);
+
+
     return $this->TOTAL;
 }
 
