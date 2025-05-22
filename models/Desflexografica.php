@@ -22,7 +22,7 @@ protected static $columnasDB = [
     'GALLET',
     'COMBADO',
     'HUMEDO',
-    'DESPEGADO',
+    'DESPE',
     'ERROM',
     'SUSTRATO',
     'TOTAL',
@@ -47,7 +47,7 @@ protected static $columnasDB = [
     public $GALLET;
     public $COMBADO;
     public $HUMEDO;
-    public $DESPEGADO;
+    public $DESPE;
     public $ERROM;
     public $SUSTRATO;
     public $TOTAL;
@@ -76,7 +76,7 @@ protected static $columnasDB = [
         $this->GALLET = $args['GALLET'] ?? '';
         $this->COMBADO = $args['COMBADO'] ?? '';
         $this->HUMEDO = $args['HUMEDO'] ?? '';
-        $this->DESPEGADO = $args['DESPEGADO'] ?? '';
+        $this->DESPE = $args['DESPE'] ?? '';
         $this->ERROM = $args['ERROM'] ?? '';
         $this->SUSTRATO = $args['SUSTRATO'] ?? '';     
         $this->TOTAL = $args['TOTAL'] ?? '';
@@ -113,7 +113,7 @@ public function calcularTotal()
         floatval($this->GALLET) +
         floatval($this->COMBADO) +
         floatval($this->HUMEDO) +
-        floatval($this->DESPEGADO) +
+        floatval($this->DESPE) +
         floatval($this->ERROM) +
         floatval($this->SUSTRATO);
    
