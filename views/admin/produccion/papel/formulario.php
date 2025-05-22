@@ -92,6 +92,7 @@
             <option value="FLEXOGRAFICA" <?= trim(strtolower($papel->tipo_maquina ?? '')) == 'flexografica' ? 'selected' : '' ?>>FLEXOGRAFICA</option>
             <option value="PREPRINTER" <?= trim(strtolower($papel->tipo_maquina ?? '')) == 'preprinter' ? 'selected' : '' ?>>PREPRINTER</option>
             <option value="DOBLADO" <?= trim(strtolower($papel->tipo_maquina ?? '')) == 'doblado' ? 'selected' : '' ?>>DOBLADO</option>
+            <option value="CORTE CEJA" <?= trim(strtolower($papel->tipo_maquina ?? '')) == 'corte ceja' ? 'selected' : '' ?>>CORTE CEJA</option>
         </select>
     </div>
 
@@ -600,6 +601,31 @@
                 placeholder="LAM SECA"
                 value="<?php echo $papel->LAM_SECA ?? '' ?>">
         </div>
+
+        <!-- CORTE CEJA  CONTROLABLES-->
+
+        <div class="formulario__campo">
+            <label class="formulario__label" for="CUADRE_SIERRA">CUADRE SIERRA</label>
+            <input
+                type="number"
+                name="CUADRE_SIERRA"
+                id="CUADRE_SIERRA"
+                class="formulario__input"
+                placeholder="CUADRE SIERRA"
+                value="<?php echo $papel->CUADRE_SIERRA ?? '' ?>">
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
     </div>
 
 </fieldset>
@@ -626,6 +652,10 @@
         'DOBLADO': {
             'a': ['MAL_DOBLADO_CEJA', 'EXCESO_GOMA', 'DESCUADRE_DOBLADO'],
             'b': ['LAM_HUMEDA', 'LAM_SECA'],
+        },
+        'CORTE CEJA': {
+            'a': ['CUADRE_SIERRA'],
+            'b': [],
         }
     };
 
@@ -637,6 +667,7 @@
         'MALTRATO_MONTACARGAS', 'TONALIDAD_TINTAS', 'TROQUEL', 'MONTAJE_CLICHE',
         'DERRAME_TINTA', 'VISCOSIDAD', 'PH', 'APROBACION_COLOR', 'CIREL_CORTADO',
         'MAL_DOBLADO_CEJA', 'EXCESO_GOMA', 'DESCUADRE_DOBLADO', 'LAM_HUMEDA', 'LAM_SECA',
+        'CUADRE_SIERRA',
         'hola', 'mdo'
     ];
 

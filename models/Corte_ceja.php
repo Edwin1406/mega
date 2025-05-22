@@ -2,19 +2,15 @@
 
 namespace Model;
 
-class Doblado extends ActiveRecord
+class Corte_ceja extends ActiveRecord
 {
     
-protected static $tabla = 'desperdicio_doblado';
+protected static $tabla = 'desperdicio_corte_ceja';
 protected static $columnasDB = [
     'id',
     'tipo_maquina',
     'tipo_clasificacion',
-    'MAL_DOBLADO_CEJA',
-    'EXCESO_GOMA',
-    'DESCUADRE_DOBLADO',
-    'LAM_HUMEDA',
-    'LAM_SECA',
+    'CUADRE_SIERRA',
     'TOTAL'
   
 ];
@@ -23,11 +19,7 @@ protected static $columnasDB = [
     public $id;
     public $tipo_maquina;
     public $tipo_clasificacion;
-    public $MAL_DOBLADO_CEJA;
-    public $EXCESO_GOMA;
-    public $DESCUADRE_DOBLADO;
-    public $LAM_HUMEDA;
-    public $LAM_SECA;
+    public $CUADRE_SIERRA;
     public $TOTAL;
 
     
@@ -40,11 +32,7 @@ protected static $columnasDB = [
         $this->id = $args['id'] ?? null;
         $this->tipo_maquina = $args['tipo_maquina'] ?? '';
         $this->tipo_clasificacion = $args['tipo_clasificacion'] ?? '';
-        $this->MAL_DOBLADO_CEJA = $args['MAL_DOBLADO_CEJA'] ?? '';
-        $this->EXCESO_GOMA = $args['EXCESO_GOMA'] ?? '';
-        $this->DESCUADRE_DOBLADO = $args['DESCUADRE_DOBLADO'] ?? '';
-        $this->LAM_HUMEDA = $args['LAM_HUMEDA'] ?? '';
-        $this->LAM_SECA = $args['LAM_SECA'] ?? '';
+        $this->CUADRE_SIERRA = $args['CUADRE_SIERRA'] ?? '';
         $this->TOTAL = $args['TOTAL'] ?? '';
      
         
@@ -65,11 +53,7 @@ protected static $columnasDB = [
 public function calcularTotal()
 {
     $this->TOTAL =  
-        floatval($this->MAL_DOBLADO_CEJA) +
-        floatval($this->EXCESO_GOMA) +
-        floatval($this->DESCUADRE_DOBLADO) +
-        floatval($this->LAM_HUMEDA) +
-        floatval($this->LAM_SECA);
+        floatval($this->CUADRE_SIERRA) +
         
         
     // $this->TOTAL = number_format($this->TOTAL, 2);

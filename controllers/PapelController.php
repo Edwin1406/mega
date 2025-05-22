@@ -6,6 +6,7 @@ use MVC\Router;
 use Model\Bobina;
 use Classes\Paginacion;
 use Model\Computadora;
+use Model\Corte_ceja;
 use Model\Desflexografica;
 use Model\Doblado;
 use Model\Micro;
@@ -191,6 +192,10 @@ public static function crear(Router $router)
             
             case 'DOBLADO':
                 $modelo = new Doblado;
+                break;
+
+            case 'CORTE CEJA':
+                $modelo = new Corte_ceja;
                 break;
 
             // Puedes seguir agregando más tipos si es necesario
