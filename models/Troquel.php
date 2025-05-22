@@ -13,7 +13,9 @@ protected static $columnasDB = [
     'COMBADO',
     'MERMA',
     'EXCEDENTES_PLANCHAS',
-    'TOTAL'
+    'TOTAL',
+    'PORCENTAJE',
+    'created_at'
   
 ];
 
@@ -25,6 +27,8 @@ protected static $columnasDB = [
     public $MERMA;
     public $EXCEDENTES_PLANCHAS;
     public $TOTAL;
+    public $PORCENTAJE;
+    public $created_at;
 
     
    
@@ -40,6 +44,8 @@ protected static $columnasDB = [
         $this->MERMA = $args['MERMA'] ?? '';
         $this->EXCEDENTES_PLANCHAS = $args['EXCEDENTES_PLANCHAS'] ?? '';     
         $this->TOTAL = $args['TOTAL'] ?? '';
+        $this->PORCENTAJE = $args['PORCENTAJE'] ?? '';
+        $this->created_at = date('Y-m-d');
      
         
     }
@@ -63,7 +69,9 @@ public function calcularTotal()
         floatval($this->MERMA) +
         floatval($this->EXCEDENTES_PLANCHAS);
     // $this->TOTAL = number_format($this->TOTAL, 2);
-    $this->TOTAL = round($this->TOTAL, 2);
+    // $this->TOTAL = round($this->TOTAL, 2);
+    // PORCENTAJE
+    $this->PORCENTAJE = round(($this->TOTAL / 100) * 100, 2); // Assuming you want to calculate percentage based on TOTAL
     return $this->TOTAL;
         
 }
