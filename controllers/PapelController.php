@@ -11,6 +11,7 @@ use Model\Corte_ceja;
 use Model\Desflexografica;
 use Model\Doblado;
 use Model\Guillotina_lamina;
+use Model\Guillotina_papel;
 use Model\Micro;
 use Model\Preprinter;
 use Model\Troquel;
@@ -211,6 +212,9 @@ public static function crear(Router $router)
 
             case 'GUILLOTINA LAMINA':
                 $modelo = new Guillotina_lamina;
+                break;
+            case 'GUILLOTINA PAPEL':
+                $modelo = new Guillotina_papel;
                 break;
 
             // Puedes seguir agregando más tipos si es necesario

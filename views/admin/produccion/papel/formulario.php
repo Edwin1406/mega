@@ -95,6 +95,8 @@
             <option value="CORTE CEJA" <?= trim(strtolower($papel->tipo_maquina ?? '')) == 'corte ceja' ? 'selected' : '' ?>>CORTE CEJA</option>
             <option value="TROQUEL" <?= trim(strtolower($papel->tipo_maquina ?? '')) == 'troquel' ? 'selected' : '' ?>>TROQUEL</option>
             <option value="CONVERTIDOR" <?= trim(strtolower($papel->tipo_maquina ?? '')) == 'convertidor' ? 'selected' : '' ?>>CONVERTIDOR</option>
+            <option value="GUILLOTINA LAMINA" <?= trim(strtolower($papel->tipo_maquina ?? '')) == 'guillotina lamina' ? 'selected' : '' ?>>GUILLOTINA LAMINA</option>
+            <option value="GUILLOTINA PAPEL" <?= trim(strtolower($papel->tipo_maquina ?? '')) == 'guillotina papel' ? 'selected' : '' ?>>GUILLOTINA PAPEL</option>
         </select>
     </div>
 
@@ -692,6 +694,19 @@
                 value="<?php echo $papel->REFILE ?? '' ?>">
         </div>
 
+        <!-- GUILLOTINA PAPEL -->
+
+        <div class="formulario__campo">
+            <label class="formulario__label" for="INICIO_CORRIDA">INICIO CORRIDA</label>
+            <input
+                type="number"
+                name="INICIO_CORRIDA"
+                id="INICIO_CORRIDA"
+                class="formulario__input"
+                placeholder="INICIO CORRIDA"
+                value="<?php echo $papel->INICIO_CORRIDA ?? '' ?>">
+        </div>
+
 </fieldset>
 
 
@@ -729,7 +744,19 @@
             'a': ['CUADRE','CAMBIO_MEDIDA'],
             'b': ['DIFERENCIA_PESO','FILOS_ROTOS'],
         },
+        'GUILLOTINA LAMINA': {
+            'a': [],
+            'b': ['REFILES'],
+        },
+        'GUILLOTINA PAPEL': {
+            'a': [],
+            'b': ['INICIO_CORRIDA'],
+        },
         
+        
+
+
+
 
     };
 
