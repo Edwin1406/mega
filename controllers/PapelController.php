@@ -11,6 +11,7 @@ use Model\Desflexografica;
 use Model\Doblado;
 use Model\Micro;
 use Model\Preprinter;
+use Model\Troquel;
 
 class PapelController
 {
@@ -196,6 +197,10 @@ public static function crear(Router $router)
 
             case 'CORTE CEJA':
                 $modelo = new Corte_ceja;
+                break;
+
+            case 'TROQUEL':
+                $modelo = new Troquel;
                 break;
 
             // Puedes seguir agregando más tipos si es necesario

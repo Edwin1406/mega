@@ -93,6 +93,7 @@
             <option value="PREPRINTER" <?= trim(strtolower($papel->tipo_maquina ?? '')) == 'preprinter' ? 'selected' : '' ?>>PREPRINTER</option>
             <option value="DOBLADO" <?= trim(strtolower($papel->tipo_maquina ?? '')) == 'doblado' ? 'selected' : '' ?>>DOBLADO</option>
             <option value="CORTE CEJA" <?= trim(strtolower($papel->tipo_maquina ?? '')) == 'corte ceja' ? 'selected' : '' ?>>CORTE CEJA</option>
+            <option value="TROQUEL" <?= trim(strtolower($papel->tipo_maquina ?? '')) == 'troquel' ? 'selected' : '' ?>>TROQUEL</option>
         </select>
     </div>
 
@@ -616,8 +617,30 @@
         </div>
 
 
+        <!-- TROQUEL NO CONTROLABLES -->
 
+        <div class="formulario__campo">
+            <label class="formulario__label" for="MERMA">MERMA</label>
+            <input
+                type="number"
+                name="MERMA"
+                id="MERMA"
+                class="formulario__input"
+                placeholder="MERMA"
+                value="<?php echo $papel->MERMA ?? '' ?>">
 
+        </div>
+
+        <div class="formulario__campo">
+            <label class="formulario__label" for="EXCEDENTES_PLANCHAS">EXCEDENTES PLANCHAS</label>
+            <input
+                type="number"
+                name="EXCEDENTES_PLANCHAS"
+                id="EXCEDENTES_PLANCHAS"
+                class="formulario__input"
+                placeholder="EXCEDENTES_PLANCHAS"
+                value="<?php echo $papel->EXCEDENTES_PLANCHAS ?? '' ?>">
+        </div>
 
 
 
@@ -656,7 +679,13 @@
         'CORTE CEJA': {
             'a': ['CUADRE_SIERRA'],
             'b': [],
-        }
+        },
+
+        'TROQUEL': {
+            'a': [],
+            'b': ['MERMA', 'EXCEDENTES_PLANCHAS'],
+        },
+
     };
 
     const todosLosCampos = [
@@ -667,7 +696,7 @@
         'MALTRATO_MONTACARGAS', 'TONALIDAD_TINTAS', 'TROQUEL', 'MONTAJE_CLICHE',
         'DERRAME_TINTA', 'VISCOSIDAD', 'PH', 'APROBACION_COLOR', 'CIREL_CORTADO',
         'MAL_DOBLADO_CEJA', 'EXCESO_GOMA', 'DESCUADRE_DOBLADO', 'LAM_HUMEDA', 'LAM_SECA',
-        'CUADRE_SIERRA',
+        'CUADRE_SIERRA', 'MERMA', 'EXCEDENTES_PLANCHAS',
         'hola', 'mdo'
     ];
 
