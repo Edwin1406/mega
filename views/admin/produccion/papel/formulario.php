@@ -649,8 +649,36 @@
 
 
 
+        <!-- CONTROLABLES CONVERTIDOR  -->
+
+  
+
+        <div class="formulario__campo">
+            <label class="formulario__label" for="CAMBIO_MEDIDA">CAMBIO MEDIDA</label>
+            <input
+                type="number"
+                name="CAMBIO_MEDIDA"
+                id="CAMBIO_MEDIDA"
+                class="formulario__input"
+                placeholder="CAMBIO MEDIDA"
+                value="<?php echo $papel->CAMBIO_MEDIDA ?? '' ?>">  
 
     </div>
+
+
+    <!-- NO CONTROLABLE CONVERTIDOR -->
+
+        <div class="formulario__campo">
+            <label class="formulario__label" for="DIFERENCIA_PESO">DIFERENCIA PESO</label>
+            <input
+                type="number"
+                name="DIFERENCIA_PESO"
+                id="DIFERENCIA_PESO"
+                class="formulario__input"
+                placeholder="DIFERENCIA PESO"
+                value="<?php echo $papel->DIFERENCIA_PESO ?? '' ?>">
+        </div>
+
 
 </fieldset>
 
@@ -685,6 +713,10 @@
             'a': [],
             'b': ['MERMA','COMBADO','EXCEDENTES_PLANCHAS'],
         },
+        'CONVERTIDOR': {
+            'a': ['CUADRE','CAMBIO_MEDIDA'],
+            'b': ['DIFERENCIA_PESO','FILOS_ROTOS'],
+        },
 
     };
 
@@ -696,7 +728,7 @@
         'MALTRATO_MONTACARGAS', 'TONALIDAD_TINTAS', 'TROQUEL', 'MONTAJE_CLICHE',
         'DERRAME_TINTA', 'VISCOSIDAD', 'PH', 'APROBACION_COLOR', 'CIREL_CORTADO',
         'MAL_DOBLADO_CEJA', 'EXCESO_GOMA', 'DESCUADRE_DOBLADO', 'LAM_HUMEDA', 'LAM_SECA',
-        'CUADRE_SIERRA', 'MERMA', 'EXCEDENTES_PLANCHAS',
+        'CUADRE_SIERRA', 'MERMA', 'EXCEDENTES_PLANCHAS', 'CAMBIO_MEDIDA','DIFERENCIA_PESO',
         'hola', 'mdo'
     ];
 
