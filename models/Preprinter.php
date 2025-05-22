@@ -22,6 +22,7 @@ protected static $columnasDB = [
     'ELECTRICO',
     'MECANICO',
     'SUSTRATO',
+    'CONSUMO',
     'TOTAL',
     'PORCENTAJE',
     'created_at'
@@ -44,6 +45,7 @@ protected static $columnasDB = [
     public $ELECTRICO;
     public $MECANICO;
     public $SUSTRATO;
+    public $CONSUMO;
     public $TOTAL;
     public $PORCENTAJE;
     public $created_at;
@@ -70,6 +72,7 @@ protected static $columnasDB = [
         $this->ELECTRICO = $args['ELECTRICO'] ?? '';
         $this->MECANICO = $args['MECANICO'] ?? '';
         $this->SUSTRATO = $args['SUSTRATO'] ?? '';
+        $this->CONSUMO = $args['CONSUMO'] ?? '';
         $this->TOTAL = $args['TOTAL'] ?? '';
         $this->PORCENTAJE = $args['PORCENTAJE'] ?? '';
         $this->created_at = date('Y-m-d');
@@ -107,9 +110,9 @@ public function calcularTotal()
         floatval($this->SUSTRATO);
 
     // $this->TOTAL = number_format($this->TOTAL, 2);
-    // $this->TOTAL = round($this->TOTAL, 2);
+    $this->TOTAL = round($this->TOTAL, 2);
     // PORCENTAJE
-    $this->PORCENTAJE = round(($this->TOTAL / 100) * 100, 2); // Assuming you want to calculate percentage based on TOTAL
+    // $this->PORCENTAJE = round(($this->TOTAL / 100) * 100, 2); // Assuming you want to calculate percentage based on TOTAL
     return $this->TOTAL;
         
 }
