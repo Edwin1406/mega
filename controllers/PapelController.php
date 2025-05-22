@@ -183,6 +183,11 @@ public static function crear(Router $router)
             case 'FLEXOGRAFICA':
                 $modelo = new Desflexografica;
                 break;
+
+            case 'PREPRINT':
+                $modelo = new Preprinter;
+                break;
+
             // Puedes seguir agregando más tipos si es necesario
             default:
                 $alertas['error'][] = 'Tipo de máquina no reconocido.';

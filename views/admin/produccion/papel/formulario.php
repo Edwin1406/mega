@@ -90,6 +90,7 @@
             <option value="CORRUGADOR" <?= trim(strtolower($papel->tipo_maquina ?? '')) == 'corrugador' ? 'selected' : '' ?>>CORRUGADOR</option>
             <option value="MICRO" <?= trim(strtolower($papel->tipo_maquina ?? '')) == 'micro' ? 'selected' : '' ?>>MICRO</option>
             <option value="FLEXOGRAFICA" <?= trim(strtolower($papel->tipo_maquina ?? '')) == 'flexografica' ? 'selected' : '' ?>>FLEXOGRAFICA</option>
+            <option value="PREPRINTER" <?= trim(strtolower($papel->tipo_maquina ?? '')) == 'preprinter' ? 'selected' : '' ?>>PREPRINTER</option>
         </select>
     </div>
 
@@ -407,7 +408,7 @@
 
 
         <!-- FLEXOGRAFICA CONGTROLABLE  -->
-     
+
 
         <div class="formulario__campo">
             <label class="formulario__label" for="FALTA_TINTA">FALTA TINTA</label>
@@ -470,18 +471,66 @@
                 value="<?php echo $papel->TROQUEL ?? '' ?>">
 
         </div>
-        
-        
+
+
         <div class="formulario__campo">
             <label class="formulario__label" for="MONTAJE_CLICHE">MONTAJE CLICHE</label>
             <input
-            type="number"
-            name="MONTAJE_CLICHE"
-            id="MONTAJE_CLICHE"
-            class="formulario__input"
-            placeholder="MONTAJE CLICHE"
-            value="<?php echo $papel->MONTAJE_CLICHE ?? '' ?>">
+                type="number"
+                name="MONTAJE_CLICHE"
+                id="MONTAJE_CLICHE"
+                class="formulario__input"
+                placeholder="MONTAJE CLICHE"
+                value="<?php echo $papel->MONTAJE_CLICHE ?? '' ?>">
         </div>
+
+
+        <!-- PRE-PRINTER -->
+
+
+        <div class="formulario__campo">
+            <label class="formulario__label" for="DERRAME_TINTA">DERRAME TINTA</label>
+            <input
+                type="number"
+                name="DERRAME_TINTA"
+                id="DERRAME_TINTA"
+                class="formulario__input"
+                placeholder="DERRAME_TINTA"
+                value="<?php echo $papel->DERRAME_TINTA ?? '' ?>">
+        </div>
+        <div class="formulario__campo">
+            <label class="formulario__label" for="VISCOSIDAD">VISCOSIDAD</label>
+            <input
+            type="number"
+            name="VISCOSIDAD"
+            id="VISCOSIDAD"
+            class="formulario__input"
+            placeholder="VISCOSIDAD"
+            value="<?php echo $papel->VISCOSIDAD ?? '' ?>">
+        </div>
+        
+        <div class="formulario__campo">
+            <label class="formulario__label" for="PH">PH</label>
+            <input
+            type="number"
+            name="PH"
+            id="PH"
+            class="formulario__input"
+            placeholder="PH"
+            value="<?php echo $papel->PH ?? '' ?>">
+        </div>
+        <div class="formulario__campo">
+            <label class="formulario__label" for="APROBACION_COLOR">APROBACION COLOR</label>
+            <input
+            type="number"
+            name="APROBACION_COLOR"
+            id="APROBACION_COLOR"
+            class="formulario__input"
+            placeholder="APROBACION_COLOR"
+            value="<?php echo $papel->APROBACION_COLOR ?? '' ?>">
+        </div>
+            
+
 
     </div>
 
@@ -501,6 +550,10 @@
         'FLEXOGRAFICA': {
             'a': ['CUADRE', 'FALTA_TINTA', 'MALTRATO_TRASPORT', 'MALTRATO_MONTACARGAS', 'TONALIDAD_TINTAS'],
             'b': ['TROQUEL', 'MONTAJE_CLICHE', 'MECANICO', 'ELECTRICO', 'GALLET', 'COMBADO', 'HUMEDO', 'SUSTRATO', 'DESPEGADO', 'ERROM', 'SUSTRATO'],
+        },
+        'PREPRINTER': {
+            'a': ['FALTA_TINTA', 'DERRAME_TINTA', 'VISCOSIDAD', 'PH', 'CUADRE', 'EMPALME', 'APROBACION_COLOR'],
+            'b': ['FILOS_ROTOS', 'CIREL_CORTADO', 'MECANICO', 'ELECTRICO', 'SUSTRATO'],
         }
     };
 
@@ -508,8 +561,9 @@
         'SINGLEFACE', 'EMPALME', 'RECUB', 'GALLET', 'HUMEDO', 'COMBADO', 'DESPE', 'ERROM',
         'DESHOJE', 'MECANICO', 'ELECTRICO', 'FILOS_ROTOS', 'REFILE_PEQUENO', 'PEDIDOS_CORTOS',
         'DIFER_ANCHO', 'SUSTRATO', 'CAMBIO_GRAMAJE', 'CAMBIO_PEDIDO', 'EXTRA_TRIM', 'FRENO',
-        'PRESION','CUADRE', 'PREPRINTER', 'FALTA_TINTA', 'MALTRATO_TRASPORT',
+        'PRESION', 'CUADRE', 'PREPRINTER', 'FALTA_TINTA', 'MALTRATO_TRASPORT',
         'MALTRATO_MONTACARGAS', 'TONALIDAD_TINTAS', 'TROQUEL', 'MONTAJE_CLICHE',
+        'DERRAME_TINTA', 'VISCOSIDAD', 'PH', 'APROBACION_COLOR',
         'hola', 'mdo'
     ];
 
