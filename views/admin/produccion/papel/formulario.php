@@ -87,8 +87,8 @@
         <label class="formulario__label1" for="tipo_maquina">Tipo Maquina</label>
         <select class="formulario__input1 select2" name="tipo_maquina" id="tipo_maquina">
             <option value="">-- Selecciona un tipo --</option>
-            <option value="PREPRINTER" <?= trim(strtolower($papel->tipo_maquina ?? '')) == 'preprinter' ? 'selected' : '' ?>>PRE-PRINTER</option>
             <option value="CORRUGADOR" <?= trim(strtolower($papel->tipo_maquina ?? '')) == 'corrugador' ? 'selected' : '' ?>>CORRUGADOR</option>
+            <option value="MICRO" <?= trim(strtolower($papel->tipo_maquina ?? '')) == 'micro' ? 'selected' : '' ?>>MICRO</option>
             <option value="FLEXOGRAFICA" <?= trim(strtolower($papel->tipo_maquina ?? '')) == 'flexografica' ? 'selected' : '' ?>>FLEXOGRAFICA</option>
         </select>
     </div>
@@ -349,7 +349,7 @@
 
 
 
-        <!-- PRE PRINTER   CONTROLABLE  -->
+        <!-- MICRO   CONTROLABLE  -->
 
         <div class="formulario__campo">
             <label class="formulario__label" for="FRENO">FRENO</label>
@@ -392,7 +392,7 @@
                 value="<?php echo $papel->PREPRINTER ?? '' ?>">
         </div>
 
-        <!-- PRE PRINTER   NO CONTROLABLE  -->
+        <!-- MICRO   NO CONTROLABLE  -->
         <div class="formulario__campo">
             <label class="formulario__label" for="mdo">MDO</label>
             <input
