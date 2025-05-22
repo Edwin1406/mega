@@ -139,7 +139,8 @@ public function calcularTotal()
         floatval($this->EXCESO_GOMA) +
         floatval($this->CUADRE_SIERRA) +
         floatval($this->CONSUMO);
-    $this->PORCENTAJE = ($this->TOTAL / 100) * 100; // Cambia esto según tu lógica
+   
+        $this->TOTAL = round($this->TOTAL, 2);
 }
 
 
