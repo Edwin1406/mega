@@ -680,10 +680,9 @@
             'a': ['CUADRE_SIERRA'],
             'b': [],
         },
-
         'TROQUEL': {
             'a': [],
-            'b': ['MERMA', 'EXCEDENTES_PLANCHAS'],
+            'b': ['MERMA','COMBADO','EXCEDENTES_PLANCHAS'],
         },
 
     };
