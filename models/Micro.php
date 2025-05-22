@@ -2,10 +2,10 @@
 
 namespace Model;
 
-class Preprinter extends ActiveRecord
+class Micro extends ActiveRecord
 {
     
-protected static $tabla = 'desperdicio_preprinter';
+protected static $tabla = 'desperdicio_micro';
 protected static $columnasDB = [
     'id',
     'tipo_maquina',

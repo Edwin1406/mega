@@ -7,6 +7,7 @@ use Model\Bobina;
 use Classes\Paginacion;
 use Model\Computadora;
 use Model\Desflexografica;
+use Model\Micro;
 use Model\Preprinter;
 
 class PapelController
@@ -176,7 +177,7 @@ public static function crear(Router $router)
                 break;
 
             case 'MICRO':
-                $modelo = new Preprinter;
+                $modelo = new Micro;
                 break;
             
             case 'FLEXOGRAFICA':
