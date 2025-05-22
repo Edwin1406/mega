@@ -10,6 +10,7 @@ use Model\Convertidor;
 use Model\Corte_ceja;
 use Model\Desflexografica;
 use Model\Doblado;
+use Model\Empaque;
 use Model\Guillotina_lamina;
 use Model\Guillotina_papel;
 use Model\Micro;
@@ -215,6 +216,9 @@ public static function crear(Router $router)
                 break;
             case 'GUILLOTINA PAPEL':
                 $modelo = new Guillotina_papel;
+                break;
+            case 'EMPAQUE':
+                $modelo = new Empaque;
                 break;
 
             // Puedes seguir agregando más tipos si es necesario

@@ -64,8 +64,21 @@ protected static $columnasDB = [
         $this->id = $args['id'] ?? null;
         $this->tipo_maquina = $args['tipo_maquina'] ?? '';
         $this->tipo_clasificacion = $args['tipo_clasificacion'] ?? '';
-        
-    
+        $this->GALLET = $args['GALLET'] ?? '';
+        $this->COMBADO = $args['COMBADO'] ?? '';
+        $this->HUMEDO = $args['HUMEDO'] ?? '';
+        $this->FRENO = $args['FRENO'] ?? '';
+        $this->DESPE = $args['DESPE'] ?? '';
+        $this->PRESION = $args['PRESION'] ?? '';
+        $this->ERROM = $args['ERROM'] ?? '';
+        $this->CUADRE = $args['CUADRE'] ?? '';
+        $this->RECUB = $args['RECUB'] ?? '';
+        $this->FALTA_TINTA = $args['FALTA_TINTA'] ?? '';
+        $this->DERRAME_TINTA = $args['DERRAME_TINTA'] ?? '';
+        $this->SUSTRATO = $args['SUSTRATO'] ?? '';
+        $this->MAL_DOBLADO_CEJA = $args['MAL_DOBLADO_CEJA'] ?? '';
+        $this->EXCESO_GOMA = $args['EXCESO_GOMA'] ?? '';
+        $this->CUADRE_SIERRA = $args['CUADRE_SIERRA'] ?? '';
         $this->CONSUMO = $args['CONSUMO'] ?? '';
         $this->TOTAL = $args['TOTAL'] ?? '';
         $this->PORCENTAJE = $args['PORCENTAJE'] ?? '';
@@ -110,25 +123,21 @@ public static function sumarTodasLasColumnas()
 public function calcularTotal()
 {
     $this->TOTAL =  
-        floatval($this->SINGLEFACE) +
-        floatval($this->EMPALME) +
-        floatval($this->RECUB) +
         floatval($this->GALLET) +
-        floatval($this->HUMEDO) +
         floatval($this->COMBADO) +
+        floatval($this->HUMEDO) +
+        floatval($this->FRENO) +
         floatval($this->DESPE) +
+        floatval($this->PRESION) +
         floatval($this->ERROM) +
-        floatval($this->DESHOJE) +
-        floatval($this->MECANICO) +
-        floatval($this->ELECTRICO) +
-        floatval($this->FILOS_ROTOS) +
-        floatval($this->REFILE_PEQUENO) +
-        floatval($this->PEDIDOS_CORTOS) +
-        floatval($this->DIFER_ANCHO) +
+        floatval($this->CUADRE) +
+        floatval($this->RECUB) +
+        floatval($this->FALTA_TINTA) +
+        floatval($this->DERRAME_TINTA) +
         floatval($this->SUSTRATO) +
-        floatval($this->CAMBIO_GRAMAJE) +
-        floatval($this->CAMBIO_PEDIDO) +
-        floatval($this->EXTRA_TRIM) +
+        floatval($this->MAL_DOBLADO_CEJA) +
+        floatval($this->EXCESO_GOMA) +
+        floatval($this->CUADRE_SIERRA) +
         floatval($this->CONSUMO);
     $this->PORCENTAJE = ($this->TOTAL / 100) * 100; // Cambia esto según tu lógica
 }

@@ -97,6 +97,8 @@
             <option value="CONVERTIDOR" <?= trim(strtolower($papel->tipo_maquina ?? '')) == 'convertidor' ? 'selected' : '' ?>>CONVERTIDOR</option>
             <option value="GUILLOTINA LAMINA" <?= trim(strtolower($papel->tipo_maquina ?? '')) == 'guillotina lamina' ? 'selected' : '' ?>>GUILLOTINA LAMINA</option>
             <option value="GUILLOTINA PAPEL" <?= trim(strtolower($papel->tipo_maquina ?? '')) == 'guillotina papel' ? 'selected' : '' ?>>GUILLOTINA PAPEL</option>
+            <option value="EMPAQUE" <?= trim(strtolower($papel->tipo_maquina ?? '')) == 'empaque' ? 'selected' : '' ?>>EMPAQUE</option>
+
         </select>
     </div>
 
@@ -752,6 +754,12 @@
             'a': [],
             'b': ['INICIO_CORRIDA'],
         },
+        'EMPAQUE': {
+            'a': [],
+            'b': ['GALLET', 'COMBADO', 'HUMEDO', 'FRENO', 'DESPE','PRESION','ERROM','CUADRE','RECUB','FALTA_TINTA','DERRAME_TINTA','SUSTRATO','MAL_DOBLADO_CEJA','EXCESO_GOMA','CUADRE_SIERRA'],
+        },
+        
+
         
         
 
