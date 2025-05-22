@@ -15,6 +15,7 @@ protected static $columnasDB = [
     'DESCUADRE_DOBLADO',
     'LAM_HUMEDA',
     'LAM_SECA',
+    'CONSUMO',
     'TOTAL',
     'PORCENTAJE',
     'created_at'
@@ -30,6 +31,7 @@ protected static $columnasDB = [
     public $DESCUADRE_DOBLADO;
     public $LAM_HUMEDA;
     public $LAM_SECA;
+    public $CONSUMO;
     public $TOTAL;
     public $PORCENTAJE;
     public $created_at;
@@ -49,6 +51,7 @@ protected static $columnasDB = [
         $this->DESCUADRE_DOBLADO = $args['DESCUADRE_DOBLADO'] ?? '';
         $this->LAM_HUMEDA = $args['LAM_HUMEDA'] ?? '';
         $this->LAM_SECA = $args['LAM_SECA'] ?? '';
+        $this->CONSUMO = $args['CONSUMO'] ?? '';
         $this->TOTAL = $args['TOTAL'] ?? '';
         $this->PORCENTAJE = $args['PORCENTAJE'] ?? '';
         $this->created_at = date('Y-m-d');
@@ -74,9 +77,11 @@ public function calcularTotal()
         floatval($this->DESCUADRE_DOBLADO) +
         floatval($this->LAM_HUMEDA) +
         floatval($this->LAM_SECA);
-        
+
+           $this->TOTAL = round($this->TOTAL, 2);
+ 
     // PORCENTAJE
-    $this->PORCENTAJE = ($this->TOTAL / 100) * 100;
+    // $this->PORCENTAJE = ($this->TOTAL / 100) * 100;
     return $this->TOTAL;
         
 }
