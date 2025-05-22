@@ -92,12 +92,13 @@ public function calcularTotal()
         floatval($this->PH) +
         floatval($this->CUADRE) +
         floatval($this->EMPALME) +
-        floatval($this->APROBACION_COLOR);
+        floatval($this->APROBACION_COLOR) +
         floatval($this->FILOS_ROTOS) +
         floatval($this->CIREL_CORTADO) +
         floatval($this->ELECTRICO) +
         floatval($this->MECANICO) +
         floatval($this->SUSTRATO);
+
     // $this->TOTAL = number_format($this->TOTAL, 2);
     $this->TOTAL = round($this->TOTAL, 2);
     return $this->TOTAL;
