@@ -501,36 +501,47 @@
         <div class="formulario__campo">
             <label class="formulario__label" for="VISCOSIDAD">VISCOSIDAD</label>
             <input
-            type="number"
-            name="VISCOSIDAD"
-            id="VISCOSIDAD"
-            class="formulario__input"
-            placeholder="VISCOSIDAD"
-            value="<?php echo $papel->VISCOSIDAD ?? '' ?>">
+                type="number"
+                name="VISCOSIDAD"
+                id="VISCOSIDAD"
+                class="formulario__input"
+                placeholder="VISCOSIDAD"
+                value="<?php echo $papel->VISCOSIDAD ?? '' ?>">
         </div>
-        
+
         <div class="formulario__campo">
             <label class="formulario__label" for="PH">PH</label>
             <input
-            type="number"
-            name="PH"
-            id="PH"
-            class="formulario__input"
-            placeholder="PH"
-            value="<?php echo $papel->PH ?? '' ?>">
+                type="number"
+                name="PH"
+                id="PH"
+                class="formulario__input"
+                placeholder="PH"
+                value="<?php echo $papel->PH ?? '' ?>">
         </div>
         <div class="formulario__campo">
             <label class="formulario__label" for="APROBACION_COLOR">APROBACION COLOR</label>
             <input
-            type="number"
-            name="APROBACION_COLOR"
-            id="APROBACION_COLOR"
-            class="formulario__input"
-            placeholder="APROBACION_COLOR"
-            value="<?php echo $papel->APROBACION_COLOR ?? '' ?>">
+                type="number"
+                name="APROBACION_COLOR"
+                id="APROBACION_COLOR"
+                class="formulario__input"
+                placeholder="APROBACION_COLOR"
+                value="<?php echo $papel->APROBACION_COLOR ?? '' ?>">
         </div>
-            
 
+
+        <!-- PRE PRINTER NO CONTROLABLE  -->
+        <div class="formulario__campo">
+            <label class="formulario__label" for="CIREL_CORTADO">CIREL CORTADO</label>
+            <input
+                type="number"
+                name="CIREL_CORTADO"
+                id="CIREL_CORTADO"
+                class="formulario__input"
+                placeholder="CIREL CORTADO"
+                value="<?php echo $papel->CIREL_CORTADO ?? '' ?>">
+        </div>
 
     </div>
 
