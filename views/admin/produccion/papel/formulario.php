@@ -680,6 +680,18 @@
         </div>
 
 
+        <!-- GUILLOTINA LAMINA -->
+        <div class="formulario__campo">
+            <label class="formulario__label" for="REFILE">REFILE</label>
+            <input
+                type="number"
+                name="REFILE"
+                id="REFILE"
+                class="formulario__input"
+                placeholder="REFILE"
+                value="<?php echo $papel->REFILE ?? '' ?>">
+        </div>
+
 </fieldset>
 
 
@@ -717,6 +729,7 @@
             'a': ['CUADRE','CAMBIO_MEDIDA'],
             'b': ['DIFERENCIA_PESO','FILOS_ROTOS'],
         },
+        
 
     };
 

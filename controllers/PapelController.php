@@ -10,6 +10,7 @@ use Model\Convertidor;
 use Model\Corte_ceja;
 use Model\Desflexografica;
 use Model\Doblado;
+use Model\Guillotina_lamina;
 use Model\Micro;
 use Model\Preprinter;
 use Model\Troquel;
@@ -206,6 +207,10 @@ public static function crear(Router $router)
 
             case 'CONVERTIDOR':
                 $modelo = new Convertidor;
+                break;
+
+            case 'GUILLOTINA LAMINA':
+                $modelo = new Guillotina_lamina;
                 break;
 
             // Puedes seguir agregando más tipos si es necesario
