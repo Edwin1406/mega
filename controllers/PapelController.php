@@ -7,6 +7,7 @@ use Model\Bobina;
 use Classes\Paginacion;
 use Model\Computadora;
 use Model\Desflexografica;
+use Model\Doblado;
 use Model\Micro;
 use Model\Preprinter;
 
@@ -186,6 +187,10 @@ public static function crear(Router $router)
 
             case 'PREPRINTER':
                 $modelo = new Preprinter;
+                break;
+            
+            case 'DOBLADO':
+                $modelo = new Doblado;
                 break;
 
             // Puedes seguir agregando más tipos si es necesario

@@ -544,6 +544,62 @@
                 value="<?php echo $papel->CIREL_CORTADO ?? '' ?>">
         </div>
 
+        <!-- DOBLADORA -->
+
+        <div class="formulario__campo">
+            <label class="formulario__label" for="MAL_DOBLADO_CEJA">MAL DOBLADO CEJA</label>
+            <input
+                type="number"
+                name="MAL_DOBLADO_CEJA"
+                id="MAL_DOBLADO_CEJA"
+                class="formulario__input"
+                placeholder="MAL DOBLADO CEJA"
+                value="<?php echo $papel->MAL_DOBLADO_CEJA ?? '' ?>">
+        </div>
+
+        <div class="formulario__campo">
+            <label class="formulario__label" for="EXCESO_GOMA">EXCESO GOMA</label>
+            <input
+                type="number"
+                name="EXCESO_GOMA"
+                id="EXCESO_GOMA"
+                class="formulario__input"
+                placeholder="EXCESO GOMA"
+                value="<?php echo $papel->EXCESO_GOMA ?? '' ?>">
+        </div>
+
+        <div class="formulario__campo">
+            <label class="formulario__label" for="DESCUADRE_DOBLADO">DESCUADRE DOBLADO</label>
+            <input
+                type="number"
+                name="DESCUADRE_DOBLADO"
+                id="DESCUADRE_DOBLADO"
+                class="formulario__input"
+                placeholder="DESCUADRE DOBLADO"
+                value="<?php echo $papel->DESCUADRE_DOBLADO ?? '' ?>">
+        </div>
+
+        <div class="formulario__campo">
+            <label class="formulario__label" for="LAM_HUMEDA">LAM HUMEDA</label>
+            <input
+                type="number"
+                name="LAM_HUMEDA"
+                id="LAM_HUMEDA"
+                class="formulario__input"
+                placeholder="LAM HUMEDA"
+                value="<?php echo $papel->LAM_HUMEDA ?? '' ?>">
+        </div>
+
+        <div class="formulario__campo">
+            <label class="formulario__label" for="LAM_SECA">LAM SECA</label>
+            <input
+                type="number"
+                name="LAM_SECA"
+                id="LAM_SECA"
+                class="formulario__input"
+                placeholder="LAM SECA"
+                value="<?php echo $papel->LAM_SECA ?? '' ?>">
+        </div>
     </div>
 
 </fieldset>
@@ -566,6 +622,10 @@
         'PREPRINTER': {
             'a': ['FALTA_TINTA', 'DERRAME_TINTA', 'VISCOSIDAD', 'PH', 'CUADRE', 'EMPALME', 'APROBACION_COLOR'],
             'b': ['FILOS_ROTOS', 'CIREL_CORTADO', 'MECANICO', 'ELECTRICO', 'SUSTRATO'],
+        },
+        'DOBLADO': {
+            'a': ['MAL_DOBLADO_CEJA', 'EXCESO_GOMA', 'DESCUADRE_DOBLADO'],
+            'b': ['LAM_HUMEDA', 'LAM_SECA'],
         }
     };
 
@@ -576,6 +636,7 @@
         'PRESION', 'CUADRE', 'PREPRINTER', 'FALTA_TINTA', 'MALTRATO_TRASPORT',
         'MALTRATO_MONTACARGAS', 'TONALIDAD_TINTAS', 'TROQUEL', 'MONTAJE_CLICHE',
         'DERRAME_TINTA', 'VISCOSIDAD', 'PH', 'APROBACION_COLOR', 'CIREL_CORTADO',
+        'MAL_DOBLADO_CEJA', 'EXCESO_GOMA', 'DESCUADRE_DOBLADO', 'LAM_HUMEDA', 'LAM_SECA',
         'hola', 'mdo'
     ];
 
