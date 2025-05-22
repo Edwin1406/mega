@@ -63,10 +63,11 @@ public function calcularTotal()
 {
     $refiles = floatval($this->REFILES);
 
-    // $this->TOTAL = round($refiles, 2);
-    // PORCENTAJE
-    $this->PORCENTAJE = (($this->TOTAL / 100) * 100);
+    // Si quieres usar el valor de $refiles como total:
+    $this->TOTAL = round($refiles, 2);
 
+    // Asegurarte que TOTAL es un número antes de dividir
+    $this->PORCENTAJE = ((floatval($this->TOTAL) / 100) * 100);
 
     return $this->TOTAL;
 }
