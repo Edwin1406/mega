@@ -15,6 +15,7 @@ protected static $columnasDB = [
     'VISCOSIDAD',
     'PH',
     'CUADRE',
+    'EMPALME',
     'APROBACION_COLOR',
     'FILOS_ROTOS',
     'CIREL_CORTADO',
@@ -34,6 +35,7 @@ protected static $columnasDB = [
     public $VISCOSIDAD;
     public $PH;
     public $CUADRE;
+    public $EMPALME;
     public $APROBACION_COLOR;
     public $FILOS_ROTOS;
     public $CIREL_CORTADO;
@@ -57,6 +59,7 @@ protected static $columnasDB = [
         $this->VISCOSIDAD = $args['VISCOSIDAD'] ?? '';
         $this->PH = $args['PH'] ?? '';
         $this->CUADRE = $args['CUADRE'] ?? '';
+        $this->EMPALME = $args['EMPALME'] ?? '';
         $this->APROBACION_COLOR = $args['APROBACION_COLOR'] ?? '';
         $this->FILOS_ROTOS = $args['FILOS_ROTOS'] ?? '';
         $this->CIREL_CORTADO = $args['CIREL_CORTADO'] ?? '';
@@ -88,6 +91,7 @@ public function calcularTotal()
         floatval($this->VISCOSIDAD) +
         floatval($this->PH) +
         floatval($this->CUADRE) +
+        floatval($this->EMPALME) +
         floatval($this->APROBACION_COLOR);
         floatval($this->FILOS_ROTOS) +
         floatval($this->CIREL_CORTADO) +
