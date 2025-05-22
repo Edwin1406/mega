@@ -52,14 +52,10 @@ protected static $columnasDB = [
 
 public function calcularTotal()
 {
-    $this->TOTAL =  
-        floatval($this->CUADRE_SIERRA) +
-        
-        
-    // $this->TOTAL = number_format($this->TOTAL, 2);
-    $this->TOTAL = round($this->TOTAL, 2);
+    $cuadreSierra = floatval($this->CUADRE_SIERRA);
+
+    $this->TOTAL = round($cuadreSierra, 2);
     return $this->TOTAL;
-        
 }
 
 
