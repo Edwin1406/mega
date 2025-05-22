@@ -1533,7 +1533,6 @@ public static function procesarArchivoExcelReclamos($filePath)
             id INT AUTO_INCREMENT PRIMARY KEY,
             numero VARCHAR(255),
             emision DATE,
-            vendedor VARCHAR(255),
             cliente VARCHAR(255),
             codigo VARCHAR(255),
             descripcion VARCHAR(500),
@@ -1581,7 +1580,6 @@ public static function procesarArchivoExcelReclamos($filePath)
 
         // Escapar para SQL
         $numero = self::$db->real_escape_string($numero);
-        $vendedor = self::$db->real_escape_string($vendedor);
         $cliente = self::$db->real_escape_string($cliente);
         $codigo = self::$db->real_escape_string($codigo);
         $descripcion = self::$db->real_escape_string($descripcion);
@@ -1591,7 +1589,6 @@ public static function procesarArchivoExcelReclamos($filePath)
             SELECT id FROM " . static::$tabla . "
             WHERE numero = '$numero'
               AND emision " . ($emision ? "= '$emision'" : "IS NULL") . "
-              AND vendedor = '$vendedor'
               AND cliente = '$cliente'
               AND codigo = '$codigo'
               AND descripcion = '$descripcion'
@@ -1608,10 +1605,10 @@ public static function procesarArchivoExcelReclamos($filePath)
         if ($resultado->num_rows == 0) {
             $queryInsertar = "
                 INSERT INTO " . static::$tabla . " (
-                    numero, emision, vendedor, cliente, codigo, descripcion,
+                    numero, emision, cliente, codigo, descripcion,
                     cantidad, pvp_total, costo, pvp_unid, costo_unid, margen
                 ) VALUES (
-                    '$numero', " . ($emision ? "'$emision'" : "NULL") . ", '$vendedor', '$cliente', '$codigo', '$descripcion',
+                    '$numero', " . ($emision ? "'$emision'" : "NULL") . ", '$cliente', '$codigo', '$descripcion',
                     " . ($cantidad !== null ? $cantidad : "NULL") . ",
                     " . ($pvp_total !== null ? $pvp_total : "NULL") . ",
                     " . ($costo !== null ? $costo : "NULL") . ",
