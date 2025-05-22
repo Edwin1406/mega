@@ -14,6 +14,7 @@ protected static $columnasDB = [
     'CAMBIO_MEDIDA',
     'DIFERENCIA_PESO',
     'FILOS_ROTOS',
+    'CONSUMO',
     'TOTAL',
     'PORCENTAJE',
     'created_at'
@@ -28,6 +29,7 @@ protected static $columnasDB = [
     public $CAMBIO_MEDIDA;
     public $DIFERENCIA_PESO;
     public $FILOS_ROTOS;
+    public $CONSUMO;
     public $TOTAL;
     public $PORCENTAJE;
     public $created_at;
@@ -46,6 +48,7 @@ protected static $columnasDB = [
         $this->CAMBIO_MEDIDA = $args['CAMBIO_MEDIDA'] ?? '';
         $this->DIFERENCIA_PESO = $args['DIFERENCIA_PESO'] ?? '';
         $this->FILOS_ROTOS = $args['FILOS_ROTOS'] ?? '';  
+        $this->CONSUMO = $args['CONSUMO'] ?? '';
         $this->TOTAL = $args['TOTAL'] ?? '';
         $this->PORCENTAJE = $args['PORCENTAJE'] ?? '';
         $this->created_at = date('Y-m-d');
@@ -73,8 +76,8 @@ public function calcularTotal()
         floatval($this->DIFERENCIA_PESO) +
         floatval($this->FILOS_ROTOS);
     // $this->TOTAL = number_format($this->TOTAL, 2);
-    // $this->TOTAL = round($this->TOTAL, 2);
-    $this->PORCENTAJE = ($this->TOTAL / 100) * 100;
+    $this->TOTAL = round($this->TOTAL, 2);
+    // $this->PORCENTAJE = ($this->TOTAL / 100) * 100;
     return $this->TOTAL;
         
 }
