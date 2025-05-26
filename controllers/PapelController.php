@@ -170,15 +170,12 @@ public static function tabla(Router $router)
 public static function crear(Router $router)
 {
     $alertas = [];
-    //  $modelo = null;
-    $id_orden = $_GET['id_orden'] ?? null;  // Guarda el id_orden de GET
 
-    // debuguear($id_orden);
-    // debuguear($id_orden);
-    
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $id_orden = $_POST['id_orden'] ?? $id_orden;  // Usa el id_orden de POST si está presente
+        $id_orden = $_POST['id_orden'] ?? '';  // Usa el id_orden de POST si está presente
+
+        debuguear($id_orden);  // Verifica que tiene el valor esperado
 
         $tipo_maquina = $_POST['tipo_maquina'] ?? '';
 
