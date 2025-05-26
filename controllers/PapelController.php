@@ -176,7 +176,7 @@ public static function crear(Router $router)
 
     if (isset($_GET['id_orden'])) {
         $id_orden = $_GET['id_orden'];
-        $id_orden = filter_var($id_orden, FILTER_VALIDATE_INT);
+        // $id_orden = filter_var($id_orden, FILTER_VALIDATE_INT);
     } else {
         $id_orden = null; // O maneja el caso según tu lógica
     }
