@@ -170,16 +170,8 @@ public static function tabla(Router $router)
 public static function crear(Router $router)
 {
     $alertas = [];
-    $modelo = null;
-
-    // id_orden de la url 
-
-  if (isset($_GET['id_orden'])) {
-    $modelo->id_orden = $_GET['id_orden'];
-} else {
-    $modelo->id_orden = null;
-}
-
+     $modelo = null;
+    $id_orden = $_GET['id_orden'] ?? null;  // Guarda el id_orden de GET
 
     // debuguear($id_orden);
     
@@ -205,8 +197,8 @@ public static function crear(Router $router)
             case 'FLEXOGRAFICA':
                 $modelo = new Desflexografica;
                 // id_orden de la url
-               debuguear($modelo->id_orden);  // Debe mostrar el id_orden correcto
 
+                                $modelo->id_orden = $id_orden;  // Asignar aquí
 
 
 
