@@ -65,7 +65,7 @@
                     <th>Totales:</th>
                     <?php 
                       $columnas = [
-                          'CUADRE', 'CAMBIO_MEDIDA', 'DIFERENCIA_PESO', 'FILOS_ROTOS',
+                          'CUADRE_SIERRA',
                           'CONSUMO', 'TOTAL', 'PORCENTAJE'
                       ];
 
