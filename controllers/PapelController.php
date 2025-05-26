@@ -174,12 +174,11 @@ public static function crear(Router $router)
 
     // id_orden de la url 
 
-    if (isset($_GET['id_orden'])) {
-        $id_orden = $_GET['id_orden'];
-        
-    } else {
-        $id_orden = null; // O maneja el caso según tu lógica
-    }
+  if (isset($_GET['id_orden'])) {
+    $modelo->id_orden = $_GET['id_orden'];
+} else {
+    $modelo->id_orden = null;
+}
 
 
     // debuguear($id_orden);
