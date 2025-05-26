@@ -673,6 +673,46 @@ public static function tabla_preprinter(Router $router)
 
 
 
+// EDITAR CONVERTIDOR 
+public static function editar_convertidor(Router $router)
+{
+    $alertas = [];
+    $id = $_GET['id'];
+    $id = filter_var($id, FILTER_VALIDATE_INT);
+    
+    if (!$id) {
+        header('Location: /admin/produccion/papel/tabla_convertidor');
+        exit;
+    }
+
+    $convertidor = Convertidor::find($id);
+
+    if (!$convertidor) {
+        header('Location: /admin/produccion/papel/tabla_convertidor');
+        exit;
+    }
+
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $convertidor->sincronizar($_POST);
+        $convertidor->PORCENTAJE = ($convertidor->TOTAL * $convertidor->CONSUMO) / 100;
+
+        $alertas = $convertidor->validar();
+        if (empty($alertas)) {
+            $convertidor->actualizar();
+            header('Location: /admin/produccion/papel/tabla_convertidor');
+            exit;
+        }
+    }
+
+    $router->render('admin/produccion/papel/editar_convertidor', [
+        'titulo' => 'EDITAR CONVERTIDOR',
+        'alertas' => $alertas,
+        'convertidor' => $convertidor
+    ]);
+
+}
+
+
 
 
 

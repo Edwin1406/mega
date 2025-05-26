@@ -267,6 +267,11 @@ $router->get('/admin/produccion/papel/tabla_empaque', [PapelController::class, '
 
 
 
+// Editar PAPEL
+$router->get('/admin/produccion/papel/editar_convertidor', [PapelController::class, 'editar_convertidor']);
+
+
+
 // papel
 $router->get('/admin/produccion/papel/crear', [PapelController::class, 'crear']);
 $router->post('/admin/produccion/papel/crear', [PapelController::class, 'crear']);
