@@ -70,7 +70,7 @@
                         <td class="table__td"><?php echo letranegrita($bobina->EXCESO_GOMA) ?></td>
                         <td class="table__td"><?php echo letranegrita($bobina->CUADRE_SIERRA) ?></td>
                         <td class="table__td"><?php echo letranegrita($bobina->CONSUMO) ?></td>
-                        <!-- <td class="table__td"><?php echo letranegrita($bobina->TOTAL) ?></td> -->
+                        <td class="table__td"><?php echo letranegrita($bobina->TOTAL) ?></td>
                         <td class="table__td"><?php echo letranegrita($bobina->PORCENTAJE) ?></td>
                         <td class="table__td"><?php echo $bobina->created_at ?></td>
                         <td class="table__td--acciones">
