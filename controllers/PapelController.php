@@ -170,6 +170,14 @@ public static function tabla(Router $router)
 public static function crear(Router $router)
 {
     $alertas = [];
+    $id_orden = $_GET['id_orden'] ?? null;  // Obtiene el id_orden de la URL si está presente
+
+    $desperdicio_corrugador = Bobina::find($id_orden);
+
+    debuguear($desperdicio_corrugador);
+
+
+
 
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
