@@ -73,4 +73,23 @@ public function calcularTotal()
 }
 
 
+
+
+
+public static function sumarTodasLasColumnas()
+{
+    $columnas = [
+        'REFILES',
+
+        'CONSUMO', 'TOTAL', 'PORCENTAJE'
+    ];
+
+    $columnasEscapadas = array_map(fn($col) => "`" . self::$db->real_escape_string($col) . "`", $columnas);
+    $query = "SELECT " . implode(", ", array_map(fn($col) => "SUM($col) AS $col", $columnasEscapadas)) . " FROM " . static::$tabla;
+
+    $resultado = self::$db->query($query);
+    return $resultado->fetch_assoc();
+}
+
+
 }
