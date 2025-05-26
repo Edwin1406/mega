@@ -197,9 +197,10 @@ public static function crear(Router $router)
             
             case 'FLEXOGRAFICA':
                 $modelo = new Desflexografica;
-                // id_orden de la url
+                debuguear($id_orden);  // Asegúrate que tiene el valor esperado
+$modelo->id_orden = $id_orden;
+debuguear($modelo->id_orden);  // Verifica que quedó asignado
 
-                                $modelo->id_orden = $id_orden;  // Asignar aquí
 
 
 
