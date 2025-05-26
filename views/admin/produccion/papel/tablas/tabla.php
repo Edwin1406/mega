@@ -98,7 +98,7 @@ function enviarIdOrden() {
     if (opcion) {
         // Aquí haces lo que necesites para enviar idOrden a otro formulario.
         // Por ejemplo, abrir otro formulario con parámetros en URL:
-        window.location.href = `/admin/produccion/papel/crear?opcion=${opcion}&id_orden=${idOrden}`;
+        window.location.href = `/admin/produccion/papel/crear?id_orden=${idOrden}`;
         
         // O si quieres ponerlo en un campo hidden de otro formulario en la misma página,
         // necesitaría más detalles del formulario destino.
