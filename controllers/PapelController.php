@@ -368,7 +368,7 @@ public static function crear(Router $router)
     }
 
     $pagina_por_registros = 10;
-    $total = Bobina::total();
+    $total = Convertidor::total();
     $paginacion = new Paginacion($pagina_actual, $pagina_por_registros, $total);
 
     if ($paginacion->total_paginas() < $pagina_actual) {
@@ -376,8 +376,8 @@ public static function crear(Router $router)
         exit;
     }
 
-    $bobinas = Bobina::paginar($pagina_por_registros, $paginacion->offset());
-    $totales = Bobina::sumarTodasLasColumnas();
+    $bobinas = Convertidor::paginar($pagina_por_registros, $paginacion->offset());
+    $totales = Convertidor::sumarTodasLasColumnas();
 
     $router->render('admin/produccion/papel/tabla_convertidor', [
         'titulo' => 'TABLA DE PAPEL',
