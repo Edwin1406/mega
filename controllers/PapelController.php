@@ -197,7 +197,7 @@ public static function crear(Router $router)
             case 'FLEXOGRAFICA':
                 $modelo = new Desflexografica;
                 $modelo->id_orden = $id_orden;
-debuguear($modelo->id_orden);  // Verifica que quedó asignado
+
 
 
 
