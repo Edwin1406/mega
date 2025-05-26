@@ -100,22 +100,7 @@ protected static $columnasDB = [
 
 
 
-public static function sumarTodasLasColumnas()
-{
-    $columnas = [
-        'SINGLEFACE', 'EMPALME', 'RECUB', 'MECANICO', 'GALLET',
-        'HUMEDO', 'COMBADO', 'DESPE', 'ERROM', 'DESHOJE',
-        'CAMBIO_PEDIDO', 'FILOS_ROTOS','REFILE_PEQUENO', 'PEDIDOS_CORTOS',
-        'DIFER_ANCHO', 'CAMBIO_GRAMAJE', 'EXTRA_TRIM',
-        'CONSUMO', 'TOTAL', 'PORCENTAJE'
-    ];
 
-    $columnasEscapadas = array_map(fn($col) => "`" . self::$db->real_escape_string($col) . "`", $columnas);
-    $query = "SELECT " . implode(", ", array_map(fn($col) => "SUM($col) AS $col", $columnasEscapadas)) . " FROM " . static::$tabla;
-
-    $resultado = self::$db->query($query);
-    return $resultado->fetch_assoc();
-}
 
 
 
@@ -152,8 +137,11 @@ public function calcularTotal()
 public static function sumarTodasLasColumnas()
 {
     $columnas = [
-         'MAL_DOBLADO_CEJA',
-        'EXCESO_GOMA', 'DESCUADRE_DOBLADO', 'LAM_HUMEDA','LAM_SECA',
+        'GALLET', 'COMBADO', 'HUMEDO', 'FRENO', 'DESPE',
+        'PRESION', 'ERROM', 'CUADRE', 'RECUB', 'FALTA_TINTA',
+        'DERRAME_TINTA', 'SUSTRATO', 'MAL_DOBLADO_CEJA', 'EXCESO_GOMA',
+        'CUADRE_SIERRA',
+
         'CONSUMO', 'TOTAL', 'PORCENTAJE'
     ];
 
