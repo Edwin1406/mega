@@ -94,8 +94,8 @@ public function calcularTotal()
 public static function sumarTodasLasColumnas()
 {
     $columnas = [
-         'CUADRE_SIERRA',
-        'CONSUMO', 'TOTAL', 'PORCENTAJE',
+         'MAL_DOBLADO_CEJA',
+        'EXCESO_GOMA', 'DESCUADRE_DOBLADO', 'LAM_HUMEDA','LAM_SECA',
         'CONSUMO', 'TOTAL', 'PORCENTAJE'
     ];
 
