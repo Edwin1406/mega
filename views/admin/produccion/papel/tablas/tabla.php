@@ -81,6 +81,32 @@
                         <td class="table__td"><?php echo $bobina->created_at ?></td>
                         <td class="table__td--acciones">
                             <a class="table__accion table__accion--editar" href="/admin/produccion/papel/editar?id=<?php echo $bobina->id; ?>">
+                                <!-- id_orden -->
+
+                                <!-- Select con opciones -->
+<select id="opciones" onchange="enviarIdOrden()">
+    <option value="">Selecciona una opción</option>
+    <option value="flexografica">Flexográfica</option>
+    <option value="troquel">Troquel</option>
+</select>
+
+<script>
+function enviarIdOrden() {
+    const opcion = document.getElementById('opciones').value;
+    const idOrden = '<?php echo $bobina->id_orden; ?>';  // Obtiene el id_orden desde PHP
+
+    if (opcion) {
+        // Aquí haces lo que necesites para enviar idOrden a otro formulario.
+        // Por ejemplo, abrir otro formulario con parámetros en URL:
+        window.location.href = `/ruta_del_otro_formulario?opcion=${opcion}&id_orden=${idOrden}`;
+        
+        // O si quieres ponerlo en un campo hidden de otro formulario en la misma página,
+        // necesitaría más detalles del formulario destino.
+    }
+}
+</script>
+
+                            
                                 <i class="fa-solid fa-user-pen"></i>Ver
                             </a>
                             <form method="POST" action="/admin/produccion/papel/eliminar" class="table__formulario">
