@@ -181,7 +181,7 @@ public static function crear(Router $router)
                 $modelo = new Bobina;
                 // id_orden 
                 $modelo->generarIdUnico();
-                // debuguear($modelo);
+                debuguear($modelo);
                 $redireccion = '/admin/produccion/papel/tabla';
                 break;
 
