@@ -92,9 +92,10 @@
                     <th>Totales:</th>
                     <?php 
                       $columnas = [
-                          'FALTA_TINTA', 'DERRAME_TINTA', 'VISCOSIDAD', 'PH',
-                            'CUADRE', 'EMPALME', 'APROBACION_COLOR', 'FILOS_ROTOS',
-                            'CIREL_CORTADO', 'ELECTRICO', 'MECANICO', 'SUSTRATO',
+                           'CUADRE', 'FALTA_TINTA', 'MALTRATO_TRASPORT', 'MALTRATO_MONTACARGAS',
+                            'TONALIDAD_TINTAS', 'TROQUEL', 'MONTAJE_CLICHE', 'MECANICO', 'ELECTRICO',
+                            'GALLET', 'COMBADO', 'HUMEDO', 'DESPE', 'ERROM', 'SUSTRATO',
+
                             'CONSUMO', 'TOTAL', 'PORCENTAJE'
                       ];
 

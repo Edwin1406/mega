@@ -609,6 +609,69 @@ public static function tabla_micro(Router $router)
 }
 
 
+public static function tabla_troquel(Router $router)
+{
+    $pagina_actual = $_GET['page'];
+    $pagina_actual = filter_var($pagina_actual, FILTER_VALIDATE_INT);
+
+    if (!$pagina_actual || $pagina_actual < 1) {
+        header('Location: /admin/produccion/papel/tabla_troquel?page=1');
+        exit;
+    }
+
+    $pagina_por_registros = 10;
+    $total = Troquel::total();
+    $paginacion = new Paginacion($pagina_actual, $pagina_por_registros, $total);
+
+    if ($paginacion->total_paginas() < $pagina_actual) {
+        header('Location: /admin/produccion/papel/tabla_troquel?page=1');
+        exit;
+    }
+
+    $bobinas = Troquel::paginar($pagina_por_registros, $paginacion->offset());
+    $totales = Troquel::sumarTodasLasColumnas();
+
+    $router->render('admin/produccion/papel/tabla_troquel', [
+        'titulo' => 'TABLA DESPERDICIO TROQUEL',
+        'bobinas' => $bobinas,
+        'paginacion' => $paginacion->paginacion(),
+        'totales' => $totales
+    ]);
+}
+public static function tabla_preprinter(Router $router)
+{
+    $pagina_actual = $_GET['page'];
+    $pagina_actual = filter_var($pagina_actual, FILTER_VALIDATE_INT);
+
+    if (!$pagina_actual || $pagina_actual < 1) {
+        header('Location: /admin/produccion/papel/tabla_preprinter?page=1');
+        exit;
+    }
+
+    $pagina_por_registros = 10;
+    $total = Preprinter::total();
+    $paginacion = new Paginacion($pagina_actual, $pagina_por_registros, $total);
+
+    if ($paginacion->total_paginas() < $pagina_actual) {
+        header('Location: /admin/produccion/papel/tabla_preprinter?page=1');
+        exit;
+    }
+
+    $bobinas = Preprinter::paginar($pagina_por_registros, $paginacion->offset());
+    $totales = Preprinter::sumarTodasLasColumnas();
+
+    $router->render('admin/produccion/papel/tabla_preprinter', [
+        'titulo' => 'TABLA DESPERDICIO PREPRINTER',
+        'bobinas' => $bobinas,
+        'paginacion' => $paginacion->paginacion(),
+        'totales' => $totales
+    ]);
+}
+
+
+
+
+
 
 
 
