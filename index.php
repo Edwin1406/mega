@@ -262,6 +262,7 @@ $router->get('/admin/produccion/papel/tabla_preprinter', [PapelController::class
 $router->get('/admin/produccion/papel/tabla_troquel', [PapelController::class, 'tabla_troquel']);
 $router->get('/admin/produccion/papel/tabla_guillotina_lamina', [PapelController::class, 'tabla_guillotina_lamina']);
 $router->get('/admin/produccion/papel/tabla_guillotina_papel', [PapelController::class, 'tabla_guillotina_papel']);
+$router->get('/admin/produccion/papel/tabla_micro', [PapelController::class, 'tabla_micro']);
 $router->get('/admin/produccion/papel/tabla_empaque', [PapelController::class, 'tabla_empaque']);
 
 
