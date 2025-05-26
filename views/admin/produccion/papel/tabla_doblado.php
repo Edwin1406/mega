@@ -29,10 +29,12 @@
                     <th rowspan="2" class="table__th">Acciones</th>
                 </tr>
                 <tr>
-                    <th class="table__th">Cuadre</th>
-                    <th class="table__th">Cambio de medida</th>
-                    <th class="table__th">Diferencia de peso</th>
-                    <th class="table__th">Filos rotos</th>
+                    <th class="table__th">MAL_DOBLADO_CEJA</th>
+                    <th class="table__th">EXCESO_GOMA</th>
+                    <th class="table__th">DESCUADRE_DOBLADO</th>
+                    <th class="table__th">LAM_HUMEDA</th>
+                    <th class="table__th">LAM_SECA</th>
+
                 </tr>
             </thead>
 
@@ -41,10 +43,11 @@
                 <?php foreach ($bobinas as $bobina): ?>
                     <tr class="table__tr">
                         <td class="table__td"><?php echo $bobina->tipo_clasificacion ?></td>
-                        <td class="table__td"><?php echo letranegrita($bobina->CUADRE) ?></td>
-                        <td class="table__td"><?php echo letranegrita($bobina->CAMBIO_MEDIDA) ?></td>
-                        <td class="table__td"><?php echo letranegrita($bobina->DIFERENCIA_PESO) ?></td>
-                        <td class="table__td"><?php echo letranegrita($bobina->FILOS_ROTOS) ?></td>
+                        <td class="table__td"><?php echo letranegrita($bobina->MAL_DOBLADO_CEJA) ?></td>
+                        <td class="table__td"><?php echo letranegrita($bobina->EXCESO_GOMA) ?></td>
+                        <td class="table__td"><?php echo letranegrita($bobina->DESCUADRE_DOBLADO) ?></td>
+                        <td class="table__td"><?php echo letranegrita($bobina->LAM_HUMEDA) ?></td>
+                        <td class="table__td"><?php echo letranegrita($bobina->LAM_SECA) ?></td>
                         <td class="table__td"><?php echo letranegrita($bobina->CONSUMO) ?></td>
                         <td class="table__td"><?php echo letranegrita($bobina->TOTAL) ?></td>
                         <td class="table__td"><?php echo letranegrita($bobina->PORCENTAJE) ?></td>
