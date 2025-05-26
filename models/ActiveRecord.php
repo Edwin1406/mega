@@ -661,6 +661,16 @@ public static function allcIMPORT($orden = 'DESC', $lineas = null) {
     }
 
   
+    // Busca un registro por su id_orden
+public static function find_orden($id_orden) {
+    // Escapar el valor para evitar inyección SQL
+    $id_orden = self::escapeString($id_orden);
+
+    $query = "SELECT * FROM " . static::$tabla  ." WHERE id_orden = '{$id_orden}'";
+    $resultado = self::consultarSQL($query);
+    return array_shift($resultado);
+}
+
     
 
     // Obtener Registros con cierta cantidad
