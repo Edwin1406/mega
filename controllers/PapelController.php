@@ -196,6 +196,7 @@ public static function crear(Router $router)
             case 'FLEXOGRAFICA':
                 $modelo = new Desflexografica;
                 $modelo->id_orden = $id_orden;
+                debuguear($modelo);
 
                 $redireccion = '/admin/produccion/papel/tabla_flexografica';
                 break;
