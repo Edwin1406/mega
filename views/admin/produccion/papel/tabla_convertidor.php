@@ -69,10 +69,7 @@
                     <th>Totales:</th>
                     <?php 
                       $columnas = [
-                          'SINGLEFACE', 'EMPALME', 'RECUB', 'GALLET',
-                          'HUMEDO', 'COMBADO', 'DESPE', 'ERROM', 'DESHOJE', 'MECANICO', 'ELECTRICO',
-                          'SUSTRATO', 'CAMBIO_PEDIDO', 'FILOS_ROTOS', 'REFILE_PEQUENO',
-                          'PEDIDOS_CORTOS', 'DIFER_ANCHO', 'CAMBIO_GRAMAJE', 'EXTRA_TRIM',
+                          'CUADRE', 'CAMBIO_MEDIDA', 'DIFERENCIA_PESO', 'FILOS_ROTOS',
                           'CONSUMO', 'TOTAL', 'PORCENTAJE'
                       ];
 
