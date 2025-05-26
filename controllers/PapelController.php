@@ -704,7 +704,7 @@ public static function editar_convertidor(Router $router)
         }
     }
 
-    $router->render('admin/produccion/papel/editar_convertidor', [
+    $router->render('admin/produccion/papel/editar/editar_convertidor', [
         'titulo' => 'EDITAR CONVERTIDOR',
         'alertas' => $alertas,
         'convertidor' => $convertidor
