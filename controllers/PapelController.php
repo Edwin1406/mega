@@ -394,6 +394,36 @@ public static function crear(Router $router)
     ]);
 }
 
+        public static function tabla_corte_ceja(Router $router)
+{
+    $pagina_actual = $_GET['page'];
+    $pagina_actual = filter_var($pagina_actual, FILTER_VALIDATE_INT);
+
+    if (!$pagina_actual || $pagina_actual < 1) {
+        header('Location: /admin/produccion/papel/Corte_ceja?page=1');
+        exit;
+    }
+
+    $pagina_por_registros = 10;
+    $total = Corte_ceja::total();
+    $paginacion = new Paginacion($pagina_actual, $pagina_por_registros, $total);
+
+    if ($paginacion->total_paginas() < $pagina_actual) {
+        header('Location: /admin/produccion/papel/Corte_ceja?page=1');
+        exit;
+    }
+
+    $bobinas = Corte_ceja::paginar($pagina_por_registros, $paginacion->offset());
+    // $totales = Corte_ceja::sumarTodasLasColumnas();
+
+    $router->render('admin/produccion/papel/Corte_ceja', [
+        'titulo' => 'TABLA DESPERDICIO CORTE CEJA',
+        'bobinas' => $bobinas,
+        'paginacion' => $paginacion->paginacion(),
+        // 'totales' => $totales
+    ]);
+}
+
 
 
 
