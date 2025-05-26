@@ -453,6 +453,39 @@ public static function tabla_doblado(Router $router)
         'totales' => $totales
     ]);
 }
+
+
+public static function tabla_flexografica(Router $router)
+{
+    $pagina_actual = $_GET['page'];
+    $pagina_actual = filter_var($pagina_actual, FILTER_VALIDATE_INT);
+
+    if (!$pagina_actual || $pagina_actual < 1) {
+        header('Location: /admin/produccion/papel/tabla_flexografica?page=1');
+        exit;
+    }
+
+    $pagina_por_registros = 10;
+    $total = Desflexografica::total();
+    $paginacion = new Paginacion($pagina_actual, $pagina_por_registros, $total);
+
+    if ($paginacion->total_paginas() < $pagina_actual) {
+        header('Location: /admin/produccion/papel/tabla_flexografica?page=1');
+        exit;
+    }
+
+    $bobinas = Desflexografica::paginar($pagina_por_registros, $paginacion->offset());
+    $totales = Desflexografica::sumarTodasLasColumnas();
+
+    $router->render('admin/produccion/papel/tabla_flexografica', [
+        'titulo' => 'TABLA DESPERDICIO FLEXOGRAFICA',
+        'bobinas' => $bobinas,
+        'paginacion' => $paginacion->paginacion(),
+        'totales' => $totales
+    ]);
+}
+
+
 public static function tabla_empaque(Router $router)
 {
     $pagina_actual = $_GET['page'];
