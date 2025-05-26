@@ -20,8 +20,8 @@
             <thead class="table__thead">
                 <tr>
                     <th rowspan="2" class="table__th">Tipo de clasificación</th>
-                    <th colspan="2" class="table__th" style="background-color: #a564a8; color: white; text-align: center;">CONTROLABLE</th>
-                    <th colspan="2" class="table__th" style="background-color: #4a90e2; color: white; text-align: center;">NO CONTROLABLE</th>
+                    <th colspan="1" class="table__th" style="background-color: #a564a8; color: white; text-align: center;">CONTROLABLE</th>
+                    <th colspan="0" class="table__th" style="background-color: #4a90e2; color: white; text-align: center;">NO CONTROLABLE</th>
                     <th rowspan="2" class="table__th">Consumo</th>
                     <th rowspan="2" class="table__th">Total</th>
                     <th rowspan="2" class="table__th">Porcentaje</th>
@@ -29,10 +29,8 @@
                     <th rowspan="2" class="table__th">Acciones</th>
                 </tr>
                 <tr>
-                    <th class="table__th">Cuadre</th>
-                    <th class="table__th">Cambio de medida</th>
-                    <th class="table__th">Diferencia de peso</th>
-                    <th class="table__th">Filos rotos</th>
+                    <th class="table__th">Cuadre SIERRA</th>
+                
                 </tr>
             </thead>
 

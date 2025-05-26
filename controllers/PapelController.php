@@ -414,13 +414,13 @@ public static function crear(Router $router)
     }
 
     $bobinas = Corte_ceja::paginar($pagina_por_registros, $paginacion->offset());
-    // $totales = Corte_ceja::sumarTodasLasColumnas();
+    $totales = Corte_ceja::sumarTodasLasColumnas();
 
     $router->render('admin/produccion/papel/tabla_corte_ceja', [
         'titulo' => 'TABLA DESPERDICIO CORTE CEJA',
         'bobinas' => $bobinas,
         'paginacion' => $paginacion->paginacion(),
-        // 'totales' => $totales
+        'totales' => $totales
     ]);
 }
 
