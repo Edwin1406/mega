@@ -179,6 +179,7 @@ public static function crear(Router $router)
         switch (strtoupper($tipo_maquina)) {
             case 'CORRUGADOR':
                 $modelo = new Bobina;
+                debuguear($modelo);
                 $redireccion = '/admin/produccion/papel/tabla';
                 break;
 
