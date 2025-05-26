@@ -1,6 +1,6 @@
 <h2 class="dashboard__heading"> <?php echo $titulo ?> </h2>
 <div class="dashboard__contenedor-boton">
-    <a class="dashboard__boton" href="/admin/produccion/papel/tabla">
+    <a class="dashboard__boton" href="/admin/produccion/papel/tablas/tabla">
     <i class="fa-regular fa-eye"></i>
         VER PAPEL
     </a>
