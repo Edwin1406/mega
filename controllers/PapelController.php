@@ -453,6 +453,37 @@ public static function tabla_doblado(Router $router)
         'totales' => $totales
     ]);
 }
+public static function tabla_empaque(Router $router)
+{
+    $pagina_actual = $_GET['page'];
+    $pagina_actual = filter_var($pagina_actual, FILTER_VALIDATE_INT);
+
+    if (!$pagina_actual || $pagina_actual < 1) {
+        header('Location: /admin/produccion/papel/tabla_empaque?page=1');
+        exit;
+    }
+
+    $pagina_por_registros = 10;
+    $total = Empaque::total();
+    $paginacion = new Paginacion($pagina_actual, $pagina_por_registros, $total);
+
+    if ($paginacion->total_paginas() < $pagina_actual) {
+        header('Location: /admin/produccion/papel/tabla_empaque?page=1');
+        exit;
+    }
+
+    $bobinas = Empaque::paginar($pagina_por_registros, $paginacion->offset());
+    $totales = Empaque::sumarTodasLasColumnas();
+
+    $router->render('admin/produccion/papel/tabla_empaque', [
+        'titulo' => 'TABLA DESPERDICIO EMPAQUE',
+        'bobinas' => $bobinas,
+        'paginacion' => $paginacion->paginacion(),
+        'totales' => $totales
+    ]);
+}
+
+
 
 
 

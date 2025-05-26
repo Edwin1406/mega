@@ -146,6 +146,28 @@ public function calcularTotal()
 
 
 
+
+
+
+public static function sumarTodasLasColumnas()
+{
+    $columnas = [
+         'MAL_DOBLADO_CEJA',
+        'EXCESO_GOMA', 'DESCUADRE_DOBLADO', 'LAM_HUMEDA','LAM_SECA',
+        'CONSUMO', 'TOTAL', 'PORCENTAJE'
+    ];
+
+    $columnasEscapadas = array_map(fn($col) => "`" . self::$db->real_escape_string($col) . "`", $columnas);
+    $query = "SELECT " . implode(", ", array_map(fn($col) => "SUM($col) AS $col", $columnasEscapadas)) . " FROM " . static::$tabla;
+
+    $resultado = self::$db->query($query);
+    return $resultado->fetch_assoc();
+}
+
+
+
+
+
 }
 
 
