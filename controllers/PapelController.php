@@ -386,7 +386,7 @@ public static function crear(Router $router)
     $bobinas = Convertidor::paginar($pagina_por_registros, $paginacion->offset());
     $totales = Convertidor::sumarTodasLasColumnas();
 
-    $router->render('admin/produccion/papel/tabla_convertidor', [
+    $router->render('admin/produccion/papel/tablas/tabla_convertidor', [
         'titulo' => 'TABLA DESPERDICIO CONVERTIDOR',
         'bobinas' => $bobinas,
         'paginacion' => $paginacion->paginacion(),
