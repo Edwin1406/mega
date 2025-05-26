@@ -42,21 +42,8 @@
                 <?php foreach ($bobinas as $bobina): ?>
                     <tr class="table__tr">
                         <td class="table__td"><?php echo $bobina->tipo_clasificacion ?></td>
-                        <td class="table__td"><?php echo letranegrita($bobina->CUADRE) ?></td>
-                        <td class="table__td"><?php echo letranegrita($bobina->FALTA_TINTA) ?></td>
-                        <td class="table__td"><?php echo letranegrita($bobina->MALTRATO_TRASPORT) ?></td>
-                        <td class="table__td"><?php echo letranegrita($bobina->MALTRATO_MONTACARGAS) ?></td>
-                        <td class="table__td"><?php echo letranegrita($bobina->TONALIDAD_TINTAS) ?></td>
-                        <td class="table__td"><?php echo letranegrita($bobina->TROQUEL) ?></td>
-                        <td class="table__td"><?php echo letranegrita($bobina->MONTAJE_CLICHE) ?></td>
-                        <td class="table__td"><?php echo letranegrita($bobina->MECANICO) ?></td>
-                        <td class="table__td"><?php echo letranegrita($bobina->ELECTRICO) ?></td>
-                        <td class="table__td"><?php echo letranegrita($bobina->GALLET) ?></td>
-                        <td class="table__td"><?php echo letranegrita($bobina->COMBADO) ?></td>
-                        <td class="table__td"><?php echo letranegrita($bobina->HUMEDO) ?></td>
-                        <td class="table__td"><?php echo letranegrita($bobina->DESPE) ?></td>
-                        <td class="table__td"><?php echo letranegrita($bobina->ERROM) ?></td>
-                        <td class="table__td"><?php echo letranegrita($bobina->SUSTRATO) ?></td>
+                        <td class="table__td"><?php echo letranegrita($bobina->REFILES) ?></td>
+                       
                         <td class="table__td"><?php echo letranegrita($bobina->CONSUMO) ?></td>
                         <td class="table__td"><?php echo letranegrita($bobina->TOTAL) ?></td>
                         <td class="table__td"><?php echo letranegrita($bobina->PORCENTAJE) ?></td>
