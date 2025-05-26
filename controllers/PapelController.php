@@ -173,6 +173,10 @@ public static function crear(Router $router)
     $id_orden = $_GET['id_orden'] ?? null;  // Obtiene el id_orden de la URL si está presente
 
     $desperdicio_corrugador = Bobina::find_orden($id_orden);
+// recueprar galleteado
+      $HOLA=$desperdicio_corrugador->GALLET;
+      debuguear(    $HOLA);
+      
 
     debuguear($desperdicio_corrugador);
 
