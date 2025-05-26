@@ -86,12 +86,9 @@ public function calcularTotal()
 public static function sumarTodasLasColumnas()
 {
     $columnas = [
-        'GALLET', 'COMBADO', 'HUMEDO', 'FRENO',
-        'DESPE', 'PRESION', 'ERROM', 'SINGLEFACE',
-        'CUADRE', 'EMPALME', 'RECUB', 'PREPRINTER',
-        'DESHOJE', 'FILOS_ROTOS', 'ELECTRICO', 'MECANICO',
-        'PEDIDOS_CORTOS', 'DIFER_ANCHO', 'REFILE_PEQUENO',
-        'CAMBIO_GRAMAJE', 'EXTRA_TRIM', 'SUSTRATO',
+        'COMBADO',
+        'MERMA',
+        'EXCEDENTES_PLANCHAS',
         'CONSUMO', 'TOTAL', 'PORCENTAJE'
     ];
 
