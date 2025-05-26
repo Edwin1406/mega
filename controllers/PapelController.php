@@ -178,6 +178,8 @@ public static function crear(Router $router)
     
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $id_orden = $_POST['id_orden'] ?? $id_orden;  // Usa el id_orden de POST si está presente
+
         $tipo_maquina = $_POST['tipo_maquina'] ?? '';
 
         // Seleccionar el modelo según el tipo de máquina
