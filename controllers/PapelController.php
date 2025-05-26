@@ -99,7 +99,7 @@ public static function tabla(Router $router)
     $bobinas = Bobina::paginar($pagina_por_registros, $paginacion->offset());
     $totales = Bobina::sumarTodasLasColumnas();
 
-    $router->render('admin/produccion/papel/tabla', [
+    $router->render('admin/produccion/tablas/papel/tabla', [
         'titulo' => 'TABLA DE PAPEL',
         'bobinas' => $bobinas,
         'paginacion' => $paginacion->paginacion(),
