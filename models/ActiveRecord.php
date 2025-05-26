@@ -663,13 +663,16 @@ public static function allcIMPORT($orden = 'DESC', $lineas = null) {
   
     // Busca un registro por su id_orden
 public static function find_orden($id_orden) {
-    // Escapar el valor para evitar inyección SQL
-    $id_orden = self::escapeString($id_orden);
-
-    $query = "SELECT * FROM " . static::$tabla  ." WHERE id_orden = '{$id_orden}'";
-    $resultado = self::consultarSQL($query);
-    return array_shift($resultado);
+    // Suponiendo que $db es el objeto mysqli conectado
+    $stmt = self::$db->prepare("SELECT * FROM " . static::$tabla . " WHERE id_orden = ?");
+    $stmt->bind_param('s', $id_orden);  // 's' para string, cambia si es otro tipo
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $registro = $result->fetch_assoc();
+    $stmt->close();
+    return $registro;
 }
+
 
     
 
