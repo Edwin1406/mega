@@ -80,7 +80,7 @@
                         <td class="table__td"><?php echo letranegrita($bobina->PORCENTAJE) ?></td>
                         <td class="table__td"><?php echo $bobina->created_at ?></td>
                         <td class="table__td--acciones">
-                            <a class="table__accion table__accion--editar" href="/admin/produccion/papel/editar?id=<?php echo $bobina->id; ?>">
+                            <!-- <a class="table__accion table__accion--editar" href="/admin/produccion/papel/editar?id=<?php echo $bobina->id; ?>"> -->
                                 <!-- id_orden -->
 
                                 <!-- Select con opciones -->
