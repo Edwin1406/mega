@@ -83,7 +83,7 @@ public static function tabla(Router $router)
     $pagina_actual = filter_var($pagina_actual, FILTER_VALIDATE_INT);
 
     if (!$pagina_actual || $pagina_actual < 1) {
-        header('Location: /admin/produccion/papel/tabla?page=1');
+        header('Location: /admin/produccion/papel/tablas/tabla?page=1');
         exit;
     }
 
@@ -92,14 +92,14 @@ public static function tabla(Router $router)
     $paginacion = new Paginacion($pagina_actual, $pagina_por_registros, $total);
 
     if ($paginacion->total_paginas() < $pagina_actual) {
-        header('Location: /admin/produccion/papel/tabla?page=1');
+        header('Location: /admin/produccion/papel/tablas/tabla?page=1');
         exit;
     }
 
     $bobinas = Bobina::paginar($pagina_por_registros, $paginacion->offset());
     $totales = Bobina::sumarTodasLasColumnas();
 
-    $router->render('admin/produccion/papel/tabla', [
+    $router->render('admin/produccion/papel/tablas/tabla', [
         'titulo' => 'TABLA DE PAPEL',
         'bobinas' => $bobinas,
         'paginacion' => $paginacion->paginacion(),
