@@ -416,7 +416,7 @@ public static function tabla_corte_ceja(Router $router)
     $bobinas = Corte_ceja::paginar($pagina_por_registros, $paginacion->offset());
     $totales = Corte_ceja::sumarTodasLasColumnas();
 
-    $router->render('admin/produccion/papel/tabla_corte_ceja', [
+    $router->render('admin/produccion/papel/tablas/tabla_corte_ceja', [
         'titulo' => 'TABLA DESPERDICIO CORTE CEJA',
         'bobinas' => $bobinas,
         'paginacion' => $paginacion->paginacion(),
@@ -446,7 +446,7 @@ public static function tabla_doblado(Router $router)
     $bobinas = Doblado::paginar($pagina_por_registros, $paginacion->offset());
     $totales = Doblado::sumarTodasLasColumnas();
 
-    $router->render('admin/produccion/papel/tabla_doblado', [
+    $router->render('admin/produccion/papel/tablas/tabla_doblado', [
         'titulo' => 'TABLA DESPERDICIO DOBLADO',
         'bobinas' => $bobinas,
         'paginacion' => $paginacion->paginacion(),
@@ -477,7 +477,7 @@ public static function tabla_flexografica(Router $router)
     $bobinas = Desflexografica::paginar($pagina_por_registros, $paginacion->offset());
     $totales = Desflexografica::sumarTodasLasColumnas();
 
-    $router->render('admin/produccion/papel/tabla_flexografica', [
+    $router->render('admin/produccion/papel/tablas/tabla_flexografica', [
         'titulo' => 'TABLA DESPERDICIO FLEXOGRAFICA',
         'bobinas' => $bobinas,
         'paginacion' => $paginacion->paginacion(),
@@ -507,7 +507,7 @@ public static function tabla_guillotina_lamina(Router $router)
     $bobinas = Guillotina_lamina::paginar($pagina_por_registros, $paginacion->offset());
     $totales = Guillotina_lamina::sumarTodasLasColumnas();
 
-    $router->render('admin/produccion/papel/tabla_guillotina_lamina', [
+    $router->render('admin/produccion/papel/tablas/tabla_guillotina_lamina', [
         'titulo' => 'TABLA DESPERDICIO GUILLOTINA LAMINA',
         'bobinas' => $bobinas,
         'paginacion' => $paginacion->paginacion(),
@@ -537,7 +537,7 @@ public static function tabla_guillotina_papel(Router $router)
     $bobinas = Guillotina_papel::paginar($pagina_por_registros, $paginacion->offset());
     $totales = Guillotina_papel::sumarTodasLasColumnas();
 
-    $router->render('admin/produccion/papel/tabla_guillotina_papel', [
+    $router->render('admin/produccion/papel/tablas/tabla_guillotina_papel', [
         'titulo' => 'TABLA DESPERDICIO GUILLOTINA PAPEL',
         'bobinas' => $bobinas,
         'paginacion' => $paginacion->paginacion(),
@@ -568,7 +568,7 @@ public static function tabla_empaque(Router $router)
     $bobinas = Empaque::paginar($pagina_por_registros, $paginacion->offset());
     $totales = Empaque::sumarTodasLasColumnas();
 
-    $router->render('admin/produccion/papel/tabla_empaque', [
+    $router->render('admin/produccion/tablas/papel/tabla_empaque', [
         'titulo' => 'TABLA DESPERDICIO EMPAQUE',
         'bobinas' => $bobinas,
         'paginacion' => $paginacion->paginacion(),
@@ -599,7 +599,7 @@ public static function tabla_micro(Router $router)
     $bobinas = Micro::paginar($pagina_por_registros, $paginacion->offset());
     $totales = Micro::sumarTodasLasColumnas();
 
-    $router->render('admin/produccion/papel/tabla_micro', [
+    $router->render('admin/produccion/tablas/papel/tabla_micro', [
         'titulo' => 'TABLA DESPERDICIO MICRO',
         'bobinas' => $bobinas,
         'paginacion' => $paginacion->paginacion(),
@@ -631,7 +631,7 @@ public static function tabla_troquel(Router $router)
     $bobinas = Troquel::paginar($pagina_por_registros, $paginacion->offset());
     $totales = Troquel::sumarTodasLasColumnas();
 
-    $router->render('admin/produccion/papel/tabla_troquel', [
+    $router->render('admin/produccion/tablas/papel/tabla_troquel', [
         'titulo' => 'TABLA DESPERDICIO TROQUEL',
         'bobinas' => $bobinas,
         'paginacion' => $paginacion->paginacion(),
@@ -660,7 +660,7 @@ public static function tabla_preprinter(Router $router)
     $bobinas = Preprinter::paginar($pagina_por_registros, $paginacion->offset());
     $totales = Preprinter::sumarTodasLasColumnas();
 
-    $router->render('admin/produccion/papel/tabla_preprinter', [
+    $router->render('admin/produccion/tablas/papel/tabla_preprinter', [
         'titulo' => 'TABLA DESPERDICIO PREPRINTER',
         'bobinas' => $bobinas,
         'paginacion' => $paginacion->paginacion(),
