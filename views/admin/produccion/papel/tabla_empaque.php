@@ -21,7 +21,7 @@
                 <tr>
                     <th rowspan="2" class="table__th">Tipo de clasificación</th>
                     <!-- <th colspan="2" class="table__th" style="background-color: #a564a8; color: white; text-align: center;">CONTROLABLE</th> -->
-                    <th colspan="16" class="table__th" style="background-color: #4a90e2; color: white; text-align: center;">NO CONTROLABLE</th>
+                    <th colspan="14" class="table__th" style="background-color: #4a90e2; color: white; text-align: center;">NO CONTROLABLE</th>
                     <th rowspan="2" class="table__th">Consumo</th>
                     <th rowspan="2" class="table__th">Total</th>
                     <th rowspan="2" class="table__th">Porcentaje</th>
