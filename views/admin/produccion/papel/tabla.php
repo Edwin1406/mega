@@ -37,20 +37,22 @@
         <th class="table__th">Single Face</th>
         <th class="table__th">Empalme</th>
         <th class="table__th">Recub</th>
-        <th class="table__th">Mecánico</th>
         <th class="table__th">Gallet</th>
         <th class="table__th">Húmedo</th>
-        <th class="table__th">Combinado</th>
+        <th class="table__th">Combado</th>
         <th class="table__th">Despe</th>
-
         <th class="table__th">Errom</th>
+        
         <th class="table__th">Deshoje</th>
+        <th class="table__th">Mecánico</th>
         <th class="table__th">Cambio de pedido</th>
+        <th class="table__th">Electricoe pedido</th>
         <th class="table__th">Filos rotos</th>
         <th class="table__th">Refile pequeño</th>
         <th class="table__th">Pedidos cortos</th>
-        <th class="table__th">Difer ancho</th>
+        <th class="table__th">Electrico</th>
         <th class="table__th">Cambio de gramaje</th>
+        <th class="table__th">Difer ancho</th>
         <th class="table__th">Extra trim</th>
     </tr>
 </thead>
