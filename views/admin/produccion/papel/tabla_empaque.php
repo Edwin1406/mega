@@ -61,6 +61,7 @@
                         <td class="table__td"><?php echo letranegrita($bobina->DESPE) ?></td>
                         <td class="table__td"><?php echo letranegrita($bobina->PRESION) ?></td>
                         <td class="table__td"><?php echo letranegrita($bobina->ERROM) ?></td>
+                        <td class="table__td"><?php echo letranegrita($bobina->CUADRE) ?></td>
                         <td class="table__td"><?php echo letranegrita($bobina->RECUB) ?></td>
                         <td class="table__td"><?php echo letranegrita($bobina->FALTA_TINTA) ?></td>
                         <td class="table__td"><?php echo letranegrita($bobina->DERRAME_TINTA) ?></td>
