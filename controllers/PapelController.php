@@ -167,8 +167,6 @@ public static function tabla(Router $router)
     //     ]);
     // }
 
-
-
 public static function crear(Router $router)
 {
     $alertas = [];
@@ -181,71 +179,80 @@ public static function crear(Router $router)
         switch (strtoupper($tipo_maquina)) {
             case 'CORRUGADOR':
                 $modelo = new Bobina;
+                $redireccion = '/admin/produccion/papel/tabla';
                 break;
 
             case 'MICRO':
                 $modelo = new Micro;
+                $redireccion = '/admin/produccion/papel/tabla_micro';
                 break;
             
             case 'FLEXOGRAFICA':
                 $modelo = new Desflexografica;
+                $redireccion = '/admin/produccion/papel/tabla_flexografica';
                 break;
 
             case 'PREPRINTER':
                 $modelo = new Preprinter;
+                $redireccion = '/admin/produccion/papel/tabla_preprinter';
                 break;
             
             case 'DOBLADO':
                 $modelo = new Doblado;
+                $redireccion = '/admin/produccion/papel/tabla_doblado';
                 break;
 
             case 'CORTE CEJA':
                 $modelo = new Corte_ceja;
+                $redireccion = '/admin/produccion/papel/tabla_corte_ceja';
                 break;
 
             case 'TROQUEL':
                 $modelo = new Troquel;
+                $redireccion = '/admin/produccion/papel/tabla_troquel';
                 break;
 
             case 'CONVERTIDOR':
                 $modelo = new Convertidor;
+                $redireccion = '/admin/produccion/papel/tabla_convertidor';
                 break;
 
             case 'GUILLOTINA LAMINA':
                 $modelo = new Guillotina_lamina;
-                break;
-            case 'GUILLOTINA PAPEL':
-                $modelo = new Guillotina_papel;
-                break;
-            case 'EMPAQUE':
-                $modelo = new Empaque;
+                $redireccion = '/admin/produccion/papel/tabla_guillotina_lamina';
                 break;
 
-            // Puedes seguir agregando más tipos si es necesario
+            case 'GUILLOTINA PAPEL':
+                $modelo = new Guillotina_papel;
+                $redireccion = '/admin/produccion/papel/tabla_guillotina_papel';
+                break;
+
+            case 'EMPAQUE':
+                $modelo = new Empaque;
+                $redireccion = '/admin/produccion/papel/tabla_empaque';
+                break;
+
             default:
                 $alertas['error'][] = 'Tipo de máquina no reconocido.';
                 $modelo = null;
+                $redireccion = null;
         }
 
         if ($modelo) {
             $modelo->sincronizar($_POST);
             $modelo->tipo_clasificacion = $_POST['tipo_clasificacion'] ?? '';
-
-            // Cálculo de total (puedes mover esto dentro del modelo si prefieres)
-
             $modelo->calcularTotal();
-            
-            // Validar
             $alertas = $modelo->validar();
 
             if (empty($alertas)) {
                 $modelo->guardar();
-                header('Location: /admin/produccion/papel/tabla');
-                exit;
+                if ($redireccion) {
+                    header('Location: ' . $redireccion);
+                    exit;
+                }
             }
         }
     }
-
     $router->render('admin/produccion/papel/crear', [
         'titulo' => 'CREAR PAPEL',
         'alertas' => $alertas
