@@ -102,31 +102,35 @@ protected static $columnasDB = [
 
 
 
+// Esta función se puede usar para calcular el total de los desperdicios
 
 
 
-// public function calcularTotal()
-// {
-//     $this->TOTAL =  
-//         floatval($this->GALLET) +
-//         floatval($this->COMBADO) +
-//         floatval($this->HUMEDO) +
-//         floatval($this->FRENO) +
-//         floatval($this->DESPE) +
-//         floatval($this->PRESION) +
-//         floatval($this->ERROM) +
-//         floatval($this->CUADRE) +
-//         floatval($this->RECUB) +
-//         floatval($this->FALTA_TINTA) +
-//         floatval($this->DERRAME_TINTA) +
-//         floatval($this->SUSTRATO) +
-//         floatval($this->MAL_DOBLADO_CEJA) +
-//         floatval($this->EXCESO_GOMA) +
-//         floatval($this->CUADRE_SIERRA) +
-//         floatval($this->CONSUMO);
+
+
+
+public function calcularTotal()
+{
+    $this->TOTAL =  
+        floatval($this->GALLET) +
+        floatval($this->COMBADO) +
+        floatval($this->HUMEDO) +
+        floatval($this->FRENO) +
+        floatval($this->DESPE) +
+        floatval($this->PRESION) +
+        floatval($this->ERROM) +
+        floatval($this->CUADRE) +
+        floatval($this->RECUB) +
+        floatval($this->FALTA_TINTA) +
+        floatval($this->DERRAME_TINTA) +
+        floatval($this->SUSTRATO) +
+        floatval($this->MAL_DOBLADO_CEJA) +
+        floatval($this->EXCESO_GOMA) +
+        floatval($this->CUADRE_SIERRA) +
+        floatval($this->CONSUMO);
    
-//         $this->TOTAL = round($this->TOTAL, 2);
-// }
+        $this->TOTAL = round($this->TOTAL, 2);
+}
 
 
 
