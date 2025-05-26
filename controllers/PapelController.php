@@ -577,6 +577,37 @@ public static function tabla_empaque(Router $router)
 }
 
 
+public static function tabla_micro(Router $router)
+{
+    $pagina_actual = $_GET['page'];
+    $pagina_actual = filter_var($pagina_actual, FILTER_VALIDATE_INT);
+
+    if (!$pagina_actual || $pagina_actual < 1) {
+        header('Location: /admin/produccion/papel/tabla_micro?page=1');
+        exit;
+    }
+
+    $pagina_por_registros = 10;
+    $total = Micro::total();
+    $paginacion = new Paginacion($pagina_actual, $pagina_por_registros, $total);
+
+    if ($paginacion->total_paginas() < $pagina_actual) {
+        header('Location: /admin/produccion/papel/tabla_micro?page=1');
+        exit;
+    }
+
+    $bobinas = Micro::paginar($pagina_por_registros, $paginacion->offset());
+    $totales = Micro::sumarTodasLasColumnas();
+
+    $router->render('admin/produccion/papel/tabla_micro', [
+        'titulo' => 'TABLA DESPERDICIO MICRO',
+        'bobinas' => $bobinas,
+        'paginacion' => $paginacion->paginacion(),
+        'totales' => $totales
+    ]);
+   
+}
+
 
 
 

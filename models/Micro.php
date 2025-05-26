@@ -158,4 +158,29 @@ public function calcularTotal()
 
 
 
+
+
+public static function sumarTodasLasColumnas()
+{
+    $columnas = [
+        'GALLET', 'COMBADO', 'HUMEDO', 'FRENO',
+        'DESPE', 'PRESION', 'ERROM', 'SINGLEFACE',
+        'CUADRE', 'EMPALME', 'RECUB', 'PREPRINTER',
+        'DESHOJE', 'FILOS_ROTOS', 'ELECTRICO', 'MECANICO',
+        'PEDIDOS_CORTOS', 'DIFER_ANCHO', 'REFILE_PEQUENO',
+        'CAMBIO_GRAMAJE', 'EXTRA_TRIM', 'SUSTRATO',
+        'CONSUMO', 'TOTAL', 'PORCENTAJE'
+    ];
+
+    $columnasEscapadas = array_map(fn($col) => "`" . self::$db->real_escape_string($col) . "`", $columnas);
+    $query = "SELECT " . implode(", ", array_map(fn($col) => "SUM($col) AS $col", $columnasEscapadas)) . " FROM " . static::$tabla;
+
+    $resultado = self::$db->query($query);
+    return $resultado->fetch_assoc();
+}
+
+
+
+
+
 }
