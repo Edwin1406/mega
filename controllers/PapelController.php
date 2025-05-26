@@ -182,7 +182,7 @@ public static function crear(Router $router)
     }
 
 
-    debuguear($id_orden);
+    // debuguear($id_orden);
     
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -206,12 +206,8 @@ public static function crear(Router $router)
             case 'FLEXOGRAFICA':
                 $modelo = new Desflexografica;
                 // id_orden de la url
+                $modelo->id_orden = $id_orden;
 
-                if (isset($_GET['id_orden'])) {
-                    $modelo->id_orden = $_GET['id_orden'];
-                } else {
-                    $modelo->id_orden = null; // O maneja el caso según tu lógica
-                }
 
 
                 debuguear($modelo);
