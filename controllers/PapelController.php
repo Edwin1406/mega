@@ -192,6 +192,17 @@ public static function crear(Router $router)
             
             case 'FLEXOGRAFICA':
                 $modelo = new Desflexografica;
+                // id_orden de la url
+
+                if (isset($_GET['id_orden'])) {
+                    $modelo->id_orden = $_GET['id_orden'];
+                } else {
+                    $modelo->id_orden = null; // O maneja el caso según tu lógica
+                }
+
+
+                debuguear($modelo);
+
                 $redireccion = '/admin/produccion/papel/tabla_flexografica';
                 break;
 

@@ -84,27 +84,27 @@
                                 <!-- id_orden -->
 
                                 <!-- Select con opciones -->
-<select id="opciones" onchange="enviarIdOrden()">
-    <option value="">Selecciona una opción</option>
-    <option value="flexografica">Flexográfica</option>
-    <option value="troquel">Troquel</option>
-</select>
+                            <select id="opciones" onchange="enviarIdOrden()">
+                                <option value="">Selecciona una opción</option>
+                                <option value="flexografica">Flexográfica</option>
+                                <option value="troquel">Troquel</option>
+                            </select>
 
-<script>
-function enviarIdOrden() {
-    const opcion = document.getElementById('opciones').value;
-    const idOrden = '<?php echo trim($bobina->id_orden); ?>';
+                            <script>
+                            function enviarIdOrden() {
+                                const opcion = document.getElementById('opciones').value;
+                                const idOrden = '<?php echo trim($bobina->id_orden); ?>';
 
-    if (opcion) {
-        // Aquí haces lo que necesites para enviar idOrden a otro formulario.
-        // Por ejemplo, abrir otro formulario con parámetros en URL:
-        window.location.href = `/admin/produccion/papel/crear?id_orden=${idOrden}`;
-        
-        // O si quieres ponerlo en un campo hidden de otro formulario en la misma página,
-        // necesitaría más detalles del formulario destino.
-    }
-}
-</script>
+                                if (opcion) {
+                                    // Aquí haces lo que necesites para enviar idOrden a otro formulario.
+                                    // Por ejemplo, abrir otro formulario con parámetros en URL:
+                                    window.location.href = `/admin/produccion/papel/crear?id_orden=${idOrden}`;
+                                    
+                                    // O si quieres ponerlo en un campo hidden de otro formulario en la misma página,
+                                    // necesitaría más detalles del formulario destino.
+                                }
+                            }
+                            </script>
 
                             
                                 <i class="fa-solid fa-user-pen"></i>Ver

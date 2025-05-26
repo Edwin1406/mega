@@ -8,6 +8,7 @@ class Desflexografica extends ActiveRecord
 protected static $tabla = 'desperdicio_flexografica';
 protected static $columnasDB = [
     'id',
+    'id_orden',
     'tipo_maquina',
     'tipo_clasificacion',
     'CUADRE',
@@ -34,6 +35,7 @@ protected static $columnasDB = [
 
 
     public $id;
+    public $id_orden; // Nuevo campo para almacenar el ID de la orden
     public $tipo_maquina;
     public $tipo_clasificacion;
     public $CUADRE;
@@ -64,6 +66,7 @@ protected static $columnasDB = [
         date_default_timezone_set('America/Guayaquil');
 
         $this->id = $args['id'] ?? null;
+        $this->id_orden = $args['id_orden'] ?? null; // Asignar el ID de la orden
         $this->tipo_maquina = $args['tipo_maquina'] ?? '';
         $this->tipo_clasificacion = $args['tipo_clasificacion'] ?? '';
         $this->CUADRE = $args['CUADRE'] ?? '';
