@@ -20,8 +20,8 @@
             <thead class="table__thead">
                 <tr>
                     <th rowspan="2" class="table__th">Tipo de clasificación</th>
-                    <th colspan="5" class="table__th" style="background-color: #a564a8; color: white; text-align: center;">CONTROLABLE</th>
-                    <th colspan="10" class="table__th" style="background-color: #4a90e2; color: white; text-align: center;">NO CONTROLABLE</th>
+                    <th colspan="7" class="table__th" style="background-color: #a564a8; color: white; text-align: center;">CONTROLABLE</th>
+                    <th colspan="5" class="table__th" style="background-color: #4a90e2; color: white; text-align: center;">NO CONTROLABLE</th>
                     <th rowspan="2" class="table__th">Consumo</th>
                     <th rowspan="2" class="table__th">Total</th>
                     <th rowspan="2" class="table__th">Porcentaje</th>
@@ -29,21 +29,19 @@
                     <th rowspan="2" class="table__th">Acciones</th>
                 </tr>
                 <tr>
-                    <th class="table__th">CUADRE</th>
                     <th class="table__th">FALTA_TINTA</th>
-                    <th class="table__th">MALTRATO_TRASPORT</th>
-                    <th class="table__th">MALTRATO_MONTACARGAS</th>
-                    <th class="table__th">TONALIDAD_TINTAS</th>
-                    <th class="table__th">TROQUEL</th>
-                    <th class="table__th">MONTAJE_CLICHE</th>
-                    <th class="table__th">MECANICO</th>
+                    <th class="table__th">DERRAME_TINTA</th>
+                    <th class="table__th">VISCOSIDAD</th>
+                    <th class="table__th">PH</th>
+                    <th class="table__th">CUADRE</th>
+                    <th class="table__th">EMPALME</th>
+                    <th class="table__th">APROBACION_COLOR</th>
+                    <th class="table__th">FILOS_ROTOS</th>
+                    <th class="table__th">CIREL_CORTADO</th>
                     <th class="table__th">ELECTRICO</th>
-                    <th class="table__th">GALLET</th>
-                    <th class="table__th">COMBADO</th>
-                    <th class="table__th">HUMEDO</th>
-                    <th class="table__th">DESPE</th>
-                    <th class="table__th">ERROM</th>
+                    <th class="table__th">MECANICO</th>
                     <th class="table__th">SUSTRATO</th>
+
                   
                     
 
@@ -55,20 +53,17 @@
                 <?php foreach ($bobinas as $bobina): ?>
                     <tr class="table__tr">
                         <td class="table__td"><?php echo $bobina->tipo_clasificacion ?></td>
-                        <td class="table__td"><?php echo letranegrita($bobina->CUADRE) ?></td>
                         <td class="table__td"><?php echo letranegrita($bobina->FALTA_TINTA) ?></td>
-                        <td class="table__td"><?php echo letranegrita($bobina->MALTRATO_TRASPORT) ?></td>
-                        <td class="table__td"><?php echo letranegrita($bobina->MALTRATO_MONTACARGAS) ?></td>
-                        <td class="table__td"><?php echo letranegrita($bobina->TONALIDAD_TINTAS) ?></td>
-                        <td class="table__td"><?php echo letranegrita($bobina->TROQUEL) ?></td>
-                        <td class="table__td"><?php echo letranegrita($bobina->MONTAJE_CLICHE) ?></td>
-                        <td class="table__td"><?php echo letranegrita($bobina->MECANICO) ?></td>
+                        <td class="table__td"><?php echo letranegrita($bobina->DERRAME_TINTA) ?></td>
+                        <td class="table__td"><?php echo letranegrita($bobina->VISCOSIDAD) ?></td>
+                        <td class="table__td"><?php echo letranegrita($bobina->PH) ?></td>
+                        <td class="table__td"><?php echo letranegrita($bobina->CUADRE) ?></td>
+                        <td class="table__td"><?php echo letranegrita($bobina->EMPALME) ?></td>
+                        <td class="table__td"><?php echo letranegrita($bobina->APROBACION_COLOR) ?></td>
+                        <td class="table__td"><?php echo letranegrita($bobina->FILOS_ROTOS) ?></td>
+                        <td class="table__td"><?php echo letranegrita($bobina->CIREL_CORTADO) ?></td>
                         <td class="table__td"><?php echo letranegrita($bobina->ELECTRICO) ?></td>
-                        <td class="table__td"><?php echo letranegrita($bobina->GALLET) ?></td>
-                        <td class="table__td"><?php echo letranegrita($bobina->COMBADO) ?></td>
-                        <td class="table__td"><?php echo letranegrita($bobina->HUMEDO) ?></td>
-                        <td class="table__td"><?php echo letranegrita($bobina->DESPE) ?></td>
-                        <td class="table__td"><?php echo letranegrita($bobina->ERROM) ?></td>
+                        <td class="table__td"><?php echo letranegrita($bobina->MECANICO) ?></td>
                         <td class="table__td"><?php echo letranegrita($bobina->SUSTRATO) ?></td>
                         <td class="table__td"><?php echo letranegrita($bobina->CONSUMO) ?></td>
                         <td class="table__td"><?php echo letranegrita($bobina->TOTAL) ?></td>
