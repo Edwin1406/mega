@@ -173,6 +173,7 @@ public static function crear(Router $router)
      $modelo = null;
     $id_orden = $_GET['id_orden'] ?? null;  // Guarda el id_orden de GET
 
+    debuguear($id_orden);
     // debuguear($id_orden);
     
 
