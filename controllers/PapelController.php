@@ -515,6 +515,36 @@ public static function tabla_guillotina_lamina(Router $router)
     ]);
 }
 
+public static function tabla_guillotina_papel(Router $router)
+{
+    $pagina_actual = $_GET['page'];
+    $pagina_actual = filter_var($pagina_actual, FILTER_VALIDATE_INT);
+
+    if (!$pagina_actual || $pagina_actual < 1) {
+        header('Location: /admin/produccion/papel/tabla_guillotina_papel?page=1');
+        exit;
+    }
+
+    $pagina_por_registros = 10;
+    $total = Guillotina_papel::total();
+    $paginacion = new Paginacion($pagina_actual, $pagina_por_registros, $total);
+
+    if ($paginacion->total_paginas() < $pagina_actual) {
+        header('Location: /admin/produccion/papel/tabla_guillotina_papel?page=1');
+        exit;
+    }
+
+    $bobinas = Guillotina_papel::paginar($pagina_por_registros, $paginacion->offset());
+    $totales = Guillotina_papel::sumarTodasLasColumnas();
+
+    $router->render('admin/produccion/papel/tabla_guillotina_papel', [
+        'titulo' => 'TABLA DESPERDICIO GUILLOTINA PAPEL',
+        'bobinas' => $bobinas,
+        'paginacion' => $paginacion->paginacion(),
+        'totales' => $totales
+    ]);
+}
+
 
 public static function tabla_empaque(Router $router)
 {
