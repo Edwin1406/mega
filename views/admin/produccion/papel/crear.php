@@ -14,6 +14,7 @@
 
 <?php include_once __DIR__.'/../../../templates/alertas.php'  ?>
 
+
     <form method="POST" action="/admin/produccion/papel/crear"  class="formulario" enctype="multipart/form-data">
 
      
