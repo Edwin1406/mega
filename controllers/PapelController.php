@@ -99,7 +99,7 @@ public static function tabla(Router $router)
     $bobinas = Bobina::paginar($pagina_por_registros, $paginacion->offset());
     $totales = Bobina::sumarTodasLasColumnas();
 
-    $router->render('admin/produccion/tablas/papel/tabla', [
+    $router->render('admin/produccion/papel/tabla', [
         'titulo' => 'TABLA DE PAPEL',
         'bobinas' => $bobinas,
         'paginacion' => $paginacion->paginacion(),
@@ -179,57 +179,57 @@ public static function crear(Router $router)
         switch (strtoupper($tipo_maquina)) {
             case 'CORRUGADOR':
                 $modelo = new Bobina;
-                $redireccion = '/admin/produccion/papel/tabla';
+                $redireccion = '/admin/produccion/papel/tablas/tabla';
                 break;
 
             case 'MICRO':
                 $modelo = new Micro;
-                $redireccion = '/admin/produccion/papel/tabla_micro';
+                $redireccion = '/admin/produccion/papel/tablas/tabla_micro';
                 break;
             
             case 'FLEXOGRAFICA':
                 $modelo = new Desflexografica;
-                $redireccion = '/admin/produccion/papel/tabla_flexografica';
+                $redireccion = '/admin/produccion/papel/tablas/tabla_flexografica';
                 break;
 
             case 'PREPRINTER':
                 $modelo = new Preprinter;
-                $redireccion = '/admin/produccion/papel/tabla_preprinter';
+                $redireccion = '/admin/produccion/papel/tablas/tabla_preprinter';
                 break;
             
             case 'DOBLADO':
                 $modelo = new Doblado;
-                $redireccion = '/admin/produccion/papel/tabla_doblado';
+                $redireccion = '/admin/produccion/papel/tablas/tabla_doblado';
                 break;
 
             case 'CORTE CEJA':
                 $modelo = new Corte_ceja;
-                $redireccion = '/admin/produccion/papel/tabla_corte_ceja';
+                $redireccion = '/admin/produccion/papel/tablas/tabla_corte_ceja';
                 break;
 
             case 'TROQUEL':
                 $modelo = new Troquel;
-                $redireccion = '/admin/produccion/papel/tabla_troquel';
+                $redireccion = '/admin/produccion/papel/tablas/tabla_troquel';
                 break;
 
             case 'CONVERTIDOR':
                 $modelo = new Convertidor;
-                $redireccion = '/admin/produccion/papel/tabla_convertidor';
+                $redireccion = '/admin/produccion/papel/tablas/tabla_convertidor';
                 break;
 
             case 'GUILLOTINA LAMINA':
                 $modelo = new Guillotina_lamina;
-                $redireccion = '/admin/produccion/papel/tabla_guillotina_lamina';
+                $redireccion = '/admin/produccion/papel/tablas/tabla_guillotina_lamina';
                 break;
 
             case 'GUILLOTINA PAPEL':
                 $modelo = new Guillotina_papel;
-                $redireccion = '/admin/produccion/papel/tabla_guillotina_papel';
+                $redireccion = '/admin/produccion/papel/tablas/tabla_guillotina_papel';
                 break;
 
             case 'EMPAQUE':
                 $modelo = new Empaque;
-                $redireccion = '/admin/produccion/papel/tabla_empaque';
+                $redireccion = '/admin/produccion/papel/tablas/tabla_empaque';
                 break;
 
             default:
