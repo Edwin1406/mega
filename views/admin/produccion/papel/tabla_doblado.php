@@ -70,7 +70,7 @@
                     <th>Totales:</th>
                     <?php 
                       $columnas = [
-                          'CUADRE', 'CAMBIO_MEDIDA', 'DIFERENCIA_PESO', 'FILOS_ROTOS',
+                          'MAL_DOBLADO_CEJA', 'EXCESO_GOMA', 'DESCUADRE_DOBLADO', 'LAM_HUMEDA', 'LAM_SECA',
                           'CONSUMO', 'TOTAL', 'PORCENTAJE'
                       ];
 
