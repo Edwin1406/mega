@@ -30,7 +30,6 @@
                 </tr>
                 <tr>
                     <th class="table__th">Cuadre</th>
-                    <th class="table__th">Empalme</th>
                     <th class="table__th">Cambio de medida</th>
                     <th class="table__th">Diferencia de peso</th>
                     <th class="table__th">Filos rotos</th>
