@@ -93,7 +93,7 @@
 <script>
 function enviarIdOrden() {
     const opcion = document.getElementById('opciones').value;
-    const idOrden = '<?php echo $bobina->id_orden; ?>';  // Obtiene el id_orden desde PHP
+    const idOrden = '<?php echo trim($bobina->id_orden); ?>';
 
     if (opcion) {
         // Aquí haces lo que necesites para enviar idOrden a otro formulario.
