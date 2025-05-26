@@ -36,6 +36,7 @@
                     <th class="table__th">DESPE</th>
                     <th class="table__th">PRESION</th>
                     <th class="table__th">ERROM</th>
+                    <th class="table__th">CUADRE</th>
                     <th class="table__th">RECUB</th>
                     <th class="table__th">FALTA_TINTA</th>
                     <th class="table__th">DERRAME_TINTA</th>
