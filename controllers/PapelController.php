@@ -394,7 +394,7 @@ public static function crear(Router $router)
     ]);
 }
 
-        public static function tabla_corte_ceja(Router $router)
+public static function tabla_corte_ceja(Router $router)
 {
     $pagina_actual = $_GET['page'];
     $pagina_actual = filter_var($pagina_actual, FILTER_VALIDATE_INT);
@@ -423,6 +423,37 @@ public static function crear(Router $router)
         'totales' => $totales
     ]);
 }
+
+public static function tabla_doblado(Router $router)
+{
+    $pagina_actual = $_GET['page'];
+    $pagina_actual = filter_var($pagina_actual, FILTER_VALIDATE_INT);
+
+    if (!$pagina_actual || $pagina_actual < 1) {
+        header('Location: /admin/produccion/papel/tabla_doblado?page=1');
+        exit;
+    }
+
+    $pagina_por_registros = 10;
+    $total = Doblado::total();
+    $paginacion = new Paginacion($pagina_actual, $pagina_por_registros, $total);
+
+    if ($paginacion->total_paginas() < $pagina_actual) {
+        header('Location: /admin/produccion/papel/tabla_doblado?page=1');
+        exit;
+    }
+
+    $bobinas = Doblado::paginar($pagina_por_registros, $paginacion->offset());
+    $totales = Doblado::sumarTodasLasColumnas();
+
+    $router->render('admin/produccion/papel/tabla_doblado', [
+        'titulo' => 'TABLA DESPERDICIO DOBLADO',
+        'bobinas' => $bobinas,
+        'paginacion' => $paginacion->paginacion(),
+        'totales' => $totales
+    ]);
+}
+
 
 
 
