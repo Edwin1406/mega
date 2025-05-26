@@ -91,10 +91,11 @@
                     <th>Totales:</th>
                     <?php 
                       $columnas = [
-                          'GALLET', 'COMBADO', 'HUMEDO', 'FRENO', 'DESPE', 'PRESION', 'ERROM','CUADRE',
-                          'RECUB', 'FALTA_TINTA', 'DERRAME_TINTA', 'SUSTRATO',
-                          'MAL_DOBLADO_CEJA', 'EXCESO_GOMA', 'CUADRE_SIERRA',
-                          'CONSUMO', 'TOTAL', 'PORCENTAJE'
+                           'CUADRE', 'FALTA_TINTA', 'MALTRATO_TRASPORT', 'MALTRATO_MONTACARGAS',
+                            'TONALIDAD_TINTAS', 'TROQUEL', 'MONTAJE_CLICHE', 'MECANICO', 'ELECTRICO',
+                            'GALLET', 'COMBADO', 'HUMEDO', 'DESPE', 'ERROM', 'SUSTRATO',
+
+                            'CONSUMO', 'TOTAL', 'PORCENTAJE'
                       ];
 
                       foreach ($columnas as $col) {
