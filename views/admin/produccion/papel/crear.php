@@ -7,6 +7,9 @@
 
 </div>
 
+
+<a href="/admin/produccion/papel/crear">pruebas</a>
+
 <div class="dashboard__formulario">
 
 <?php include_once __DIR__.'/../../../templates/alertas.php'  ?>

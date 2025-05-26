@@ -272,6 +272,10 @@ $router->get('/admin/produccion/papel/editar_convertidor', [PapelController::cla
 
 
 
+
+
+
+
 // papel
 $router->get('/admin/produccion/papel/crear', [PapelController::class, 'crear']);
 $router->post('/admin/produccion/papel/crear', [PapelController::class, 'crear']);
