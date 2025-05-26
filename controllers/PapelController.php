@@ -100,7 +100,7 @@ public static function tabla(Router $router)
     $totales = Bobina::sumarTodasLasColumnas();
 
     $router->render('admin/produccion/papel/tablas/tabla', [
-        'titulo' => 'TABLA DE PAPEL',
+        'titulo' => 'TABLA DESPERDICIO CORRUGADOR',
         'bobinas' => $bobinas,
         'paginacion' => $paginacion->paginacion(),
         'totales' => $totales
