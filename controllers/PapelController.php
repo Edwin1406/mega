@@ -409,7 +409,7 @@ public static function crear(Router $router)
     $paginacion = new Paginacion($pagina_actual, $pagina_por_registros, $total);
 
     if ($paginacion->total_paginas() < $pagina_actual) {
-        header('Location: /admin/produccion/papel/Corte_ceja?page=1');
+        header('Location: /admin/produccion/papel/tabla_corte_ceja?page=1');
         exit;
     }
 
