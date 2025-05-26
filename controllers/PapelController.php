@@ -170,7 +170,7 @@ public static function tabla(Router $router)
 public static function crear(Router $router)
 {
     $alertas = [];
-     $modelo = null;
+    //  $modelo = null;
     $id_orden = $_GET['id_orden'] ?? null;  // Guarda el id_orden de GET
 
     // debuguear($id_orden);
