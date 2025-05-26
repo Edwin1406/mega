@@ -252,7 +252,7 @@ $router->post('/admin/produccion/maquinas/eliminar', [MaquinaController::class, 
 
 // TABLAS PAPEL 
 
-$router->get('/admin/produccion/papel/tabla', [PapelController::class, 'tabla']);
+$router->get('/admin/produccion/tablas/papel/tabla', [PapelController::class, 'tabla']);
 $router->get('/admin/produccion/papel/tabla_convertidor', [PapelController::class, 'tabla_convertidor']);
 $router->get('/admin/produccion/papel/tabla_corte_ceja', [PapelController::class, 'tabla_corte_ceja']);
 
