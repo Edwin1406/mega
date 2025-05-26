@@ -172,6 +172,19 @@ public static function crear(Router $router)
     $alertas = [];
     $modelo = null;
 
+    // id_orden de la url 
+
+    if (isset($_GET['id_orden'])) {
+        $id_orden = $_GET['id_orden'];
+        $id_orden = filter_var($id_orden, FILTER_VALIDATE_INT);
+    } else {
+        $id_orden = null; // O maneja el caso según tu lógica
+    }
+
+
+    debuguear($id_orden);
+    
+
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $tipo_maquina = $_POST['tipo_maquina'] ?? '';
 
