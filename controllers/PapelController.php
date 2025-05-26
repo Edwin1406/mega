@@ -175,7 +175,6 @@ public static function crear(Router $router)
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $id_orden = $_POST['id_orden'] ?? '';  // Usa el id_orden de POST si está presente
 
-        debuguear($id_orden);  // Verifica que tiene el valor esperado
 
         $tipo_maquina = $_POST['tipo_maquina'] ?? '';
 
@@ -197,12 +196,6 @@ public static function crear(Router $router)
             case 'FLEXOGRAFICA':
                 $modelo = new Desflexografica;
                 $modelo->id_orden = $id_orden;
-
-
-
-
-
-                debuguear($modelo);
 
                 $redireccion = '/admin/produccion/papel/tabla_flexografica';
                 break;
