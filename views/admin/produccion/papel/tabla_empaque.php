@@ -90,7 +90,7 @@
                     <th>Totales:</th>
                     <?php 
                       $columnas = [
-                          'GALLET', 'COMBADO', 'HUMEDO', 'FRENO', 'DESPE', 'PRESION', 'ERROM',
+                          'GALLET', 'COMBADO', 'HUMEDO', 'FRENO', 'DESPE', 'PRESION', 'ERROM','CUADRE',
                           'RECUB', 'FALTA_TINTA', 'DERRAME_TINTA', 'SUSTRATO',
                           'MAL_DOBLADO_CEJA', 'EXCESO_GOMA', 'CUADRE_SIERRA',
                           'CONSUMO', 'TOTAL', 'PORCENTAJE'
