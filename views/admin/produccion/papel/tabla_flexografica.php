@@ -29,21 +29,22 @@
                     <th rowspan="2" class="table__th">Acciones</th>
                 </tr>
                 <tr>
+                    <th class="table__th">CUADRE</th>
+                    <th class="table__th">FALTA_TINTA</th>
+                    <th class="table__th">MALTRATO_TRASPORT</th>
+                    <th class="table__th">MALTRATO_MONTACARGAS</th>
+                    <th class="table__th">TONALIDAD_TINTAS</th>
+                    <th class="table__th">TROQUEL</th>
+                    <th class="table__th">MONTAJE_CLICHE</th>
+                    <th class="table__th">MECANICO</th>
+                    <th class="table__th">ELECTRICO</th>
                     <th class="table__th">GALLET</th>
                     <th class="table__th">COMBADO</th>
                     <th class="table__th">HUMEDO</th>
-                    <th class="table__th">FRENO</th>
                     <th class="table__th">DESPE</th>
-                    <th class="table__th">PRESION</th>
                     <th class="table__th">ERROM</th>
-                    <th class="table__th">CUADRE</th>
-                    <th class="table__th">RECUB</th>
-                    <th class="table__th">FALTA_TINTA</th>
-                    <th class="table__th">DERRAME_TINTA</th>
                     <th class="table__th">SUSTRATO</th>
-                    <th class="table__th">MAL_DOBLADO_CEJA</th>
-                    <th class="table__th">EXCESO_GOMA</th>
-                    <th class="table__th">CUADRE_SIERRA</th>
+                  
                     
 
                 </tr>
@@ -54,21 +55,21 @@
                 <?php foreach ($bobinas as $bobina): ?>
                     <tr class="table__tr">
                         <td class="table__td"><?php echo $bobina->tipo_clasificacion ?></td>
+                        <td class="table__td"><?php echo letranegrita($bobina->CUADRE) ?></td>
+                        <td class="table__td"><?php echo letranegrita($bobina->FALTA_TINTA) ?></td>
+                        <td class="table__td"><?php echo letranegrita($bobina->MALTRATO_TRASPORT) ?></td>
+                        <td class="table__td"><?php echo letranegrita($bobina->MALTRATO_MONTACARGAS) ?></td>
+                        <td class="table__td"><?php echo letranegrita($bobina->TONALIDAD_TINTAS) ?></td>
+                        <td class="table__td"><?php echo letranegrita($bobina->TROQUEL) ?></td>
+                        <td class="table__td"><?php echo letranegrita($bobina->MONTAJE_CLICHE) ?></td>
+                        <td class="table__td"><?php echo letranegrita($bobina->MECANICO) ?></td>
+                        <td class="table__td"><?php echo letranegrita($bobina->ELECTRICO) ?></td>
                         <td class="table__td"><?php echo letranegrita($bobina->GALLET) ?></td>
                         <td class="table__td"><?php echo letranegrita($bobina->COMBADO) ?></td>
                         <td class="table__td"><?php echo letranegrita($bobina->HUMEDO) ?></td>
-                        <td class="table__td"><?php echo letranegrita($bobina->FRENO) ?></td>
                         <td class="table__td"><?php echo letranegrita($bobina->DESPE) ?></td>
-                        <td class="table__td"><?php echo letranegrita($bobina->PRESION) ?></td>
                         <td class="table__td"><?php echo letranegrita($bobina->ERROM) ?></td>
-                        <td class="table__td"><?php echo letranegrita($bobina->CUADRE) ?></td>
-                        <td class="table__td"><?php echo letranegrita($bobina->RECUB) ?></td>
-                        <td class="table__td"><?php echo letranegrita($bobina->FALTA_TINTA) ?></td>
-                        <td class="table__td"><?php echo letranegrita($bobina->DERRAME_TINTA) ?></td>
                         <td class="table__td"><?php echo letranegrita($bobina->SUSTRATO) ?></td>
-                        <td class="table__td"><?php echo letranegrita($bobina->MAL_DOBLADO_CEJA) ?></td>
-                        <td class="table__td"><?php echo letranegrita($bobina->EXCESO_GOMA) ?></td>
-                        <td class="table__td"><?php echo letranegrita($bobina->CUADRE_SIERRA) ?></td>
                         <td class="table__td"><?php echo letranegrita($bobina->CONSUMO) ?></td>
                         <td class="table__td"><?php echo letranegrita($bobina->TOTAL) ?></td>
                         <td class="table__td"><?php echo letranegrita($bobina->PORCENTAJE) ?></td>
