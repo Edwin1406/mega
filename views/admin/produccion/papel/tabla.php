@@ -11,6 +11,14 @@
 
 
 
+<h2 class="dashboard__heading"> <?php echo $titulo ?> </h2>
+
+<div class="dashboard__contenedor-boton">
+    <a class="dashboard__boton" href="/admin/produccion/papel/crear">
+        <i class="fa-solid fa-circle-arrow-left"></i>
+        REGRESAR A INICIO
+    </a>
+</div>
 
 <div class="dashboard__contenedor">
     <?php if (!empty($bobinas)): ?>
@@ -22,40 +30,39 @@
         ?>
 
         <table class="table">
-        <thead class="table__thead">
-    <tr>
-        <th rowspan="2" class="table__th">Tipo de clasificación</th>
-        <th colspan="9" class="table__th" style="background-color: #a564a8; color: white; text-align: center;">CONTROLABLE</th>
-        <th colspan="8" class="table__th" style="background-color: #4a90e2; color: white; text-align: center;">NO CONTROLABLE</th>
-        <th rowspan="2" class="table__th">Consumo</th>
-        <th rowspan="2" class="table__th">Total</th>
-        <th rowspan="2" class="table__th">Porcentaje</th>
-        <th rowspan="2" class="table__th">Fecha</th>
-        <th rowspan="2" class="table__th">Acciones</th>
-    </tr>
-    <tr>
-        <th class="table__th">Single Face</th>
-        <th class="table__th">Empalme</th>
-        <th class="table__th">Recub</th>
-        <th class="table__th">Gallet</th>
-        <th class="table__th">Húmedo</th>
-        <th class="table__th">Combado</th>
-        <th class="table__th">Despe</th>
-        <th class="table__th">Errom</th>
-        
-        <th class="table__th">Deshoje</th>
-        <th class="table__th">Mecánico</th>
-        <th class="table__th">Cambio de pedido</th>
-        <th class="table__th">Electricoe pedido</th>
-        <th class="table__th">Filos rotos</th>
-        <th class="table__th">Refile pequeño</th>
-        <th class="table__th">Pedidos cortos</th>
-        <th class="table__th">Electrico</th>
-        <th class="table__th">Cambio de gramaje</th>
-        <th class="table__th">Difer ancho</th>
-        <th class="table__th">Extra trim</th>
-    </tr>
-</thead>
+            <thead class="table__thead">
+                <tr>
+                    <th rowspan="2" class="table__th">Tipo de clasificación</th>
+                    <th colspan="9" class="table__th" style="background-color: #a564a8; color: white; text-align: center;">CONTROLABLE</th>
+                    <th colspan="8" class="table__th" style="background-color: #4a90e2; color: white; text-align: center;">NO CONTROLABLE</th>
+                    <th rowspan="2" class="table__th">Consumo</th>
+                    <th rowspan="2" class="table__th">Total</th>
+                    <th rowspan="2" class="table__th">Porcentaje</th>
+                    <th rowspan="2" class="table__th">Fecha</th>
+                    <th rowspan="2" class="table__th">Acciones</th>
+                </tr>
+                <tr>
+                    <th class="table__th">Single Face</th>
+                    <th class="table__th">Empalme</th>
+                    <th class="table__th">Recub</th>
+                    <th class="table__th">Gallet</th>
+                    <th class="table__th">Húmedo</th>
+                    <th class="table__th">Combado</th>
+                    <th class="table__th">Despe</th>
+                    <th class="table__th">Errom</th>
+                    <th class="table__th">Deshoje</th>
+                    <th class="table__th">Mecánico</th>
+                    <th class="table__th">Cambio de pedido</th>
+                    <th class="table__th">Electricoe pedido</th>
+                    <th class="table__th">Filos rotos</th>
+                    <th class="table__th">Refile pequeño</th>
+                    <th class="table__th">Pedidos cortos</th>
+                    <th class="table__th">Electrico</th>
+                    <th class="table__th">Cambio de gramaje</th>
+                    <th class="table__th">Difer ancho</th>
+                    <th class="table__th">Extra trim</th>
+                </tr>
+            </thead>
 
             <tbody class="table__tbody">
 
@@ -97,26 +104,27 @@
                 <?php endforeach; ?>
 
             </tbody>
-           <tfoot>
-  <tr style="background-color:rgb(113, 178, 204); font-weight: bold; ">
-    <th>Totales:</th>
-    <?php 
-      $columnas = [
-          'SINGLEFACE', 'EMPALME', 'RECUB', 'GALLET',
-          'HUMEDO', 'COMBADO', 'DESPE', 'ERROM', 'DESHOJE', 'MECANICO','ELECTRICO',
-          'SUSTRATO', 'CAMBIO_PEDIDO', 'FILOS_ROTOS', 'REFILE_PEQUENO',
-            'PEDIDOS_CORTOS', 'DIFER_ANCHO', 'CAMBIO_GRAMAJE', 'EXTRA_TRIM',
-          'CONSUMO', 'TOTAL', 'PORCENTAJE'
-      ];
 
-      foreach ($columnas as $col) {
-          echo '<td>' . letranegrita(number_format($totales[$col], 2)) . '</td>';
-      }
-    ?>
-    <td></td> <!-- Acciones -->
-  </tr>
-</tfoot>
+            <tfoot>
+                <tr style="background-color:rgb(113, 178, 204); font-weight: bold;">
+                    <th>Totales:</th>
+                    <?php 
+                      $columnas = [
+                          'SINGLEFACE', 'EMPALME', 'RECUB', 'GALLET',
+                          'HUMEDO', 'COMBADO', 'DESPE', 'ERROM', 'DESHOJE', 'MECANICO', 'ELECTRICO',
+                          'SUSTRATO', 'CAMBIO_PEDIDO', 'FILOS_ROTOS', 'REFILE_PEQUENO',
+                          'PEDIDOS_CORTOS', 'DIFER_ANCHO', 'CAMBIO_GRAMAJE', 'EXTRA_TRIM',
+                          'CONSUMO', 'TOTAL', 'PORCENTAJE'
+                      ];
 
+                      foreach ($columnas as $col) {
+                          $valor = isset($totales[$col]) && $totales[$col] !== null ? $totales[$col] : 0;
+                          echo '<td>' . letranegrita(number_format($valor, 2)) . '</td>';
+                      }
+                    ?>
+                    <td></td> <!-- Acciones -->
+                </tr>
+            </tfoot>
 
         </table>
 
@@ -124,7 +132,6 @@
         <a class="text-center"> No hay Papel Aún</a>
     <?php endif; ?>
 </div>
-
 
 <?php echo $paginacion; ?>
 
