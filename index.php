@@ -256,6 +256,14 @@ $router->get('/admin/produccion/papel/tabla', [PapelController::class, 'tabla'])
 $router->get('/admin/produccion/papel/tabla_convertidor', [PapelController::class, 'tabla_convertidor']);
 $router->get('/admin/produccion/papel/tabla_corte_ceja', [PapelController::class, 'tabla_corte_ceja']);
 
+$router->get('/admin/produccion/papel/tabla_doblado', [PapelController::class, 'tabla_doblado']);
+$router->get('/admin/produccion/papel/tabla_flexografica', [PapelController::class, 'tabla_flexografica']);
+$router->get('/admin/produccion/papel/tabla_preprinter', [PapelController::class, 'tabla_preprinter']);
+$router->get('/admin/produccion/papel/tabla_troquel', [PapelController::class, 'tabla_troquel']);
+$router->get('/admin/produccion/papel/tabla_guillotina_lamina', [PapelController::class, 'tabla_guillotina_lamina']);
+$router->get('/admin/produccion/papel/tabla_empaque', [PapelController::class, 'tabla_empaque']);
+
+
 
 // papel
 $router->get('/admin/produccion/papel/crear', [PapelController::class, 'crear']);
