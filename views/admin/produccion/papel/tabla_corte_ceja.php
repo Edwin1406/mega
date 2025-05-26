@@ -39,10 +39,7 @@
                 <?php foreach ($bobinas as $bobina): ?>
                     <tr class="table__tr">
                         <td class="table__td"><?php echo $bobina->tipo_clasificacion ?></td>
-                        <td class="table__td"><?php echo letranegrita($bobina->CUADRE) ?></td>
-                        <td class="table__td"><?php echo letranegrita($bobina->CAMBIO_MEDIDA) ?></td>
-                        <td class="table__td"><?php echo letranegrita($bobina->DIFERENCIA_PESO) ?></td>
-                        <td class="table__td"><?php echo letranegrita($bobina->FILOS_ROTOS) ?></td>
+                        <td class="table__td"><?php echo letranegrita($bobina->CUADRE_SIERRA) ?></td>
                         <td class="table__td"><?php echo letranegrita($bobina->CONSUMO) ?></td>
                         <td class="table__td"><?php echo letranegrita($bobina->TOTAL) ?></td>
                         <td class="table__td"><?php echo letranegrita($bobina->PORCENTAJE) ?></td>
