@@ -184,11 +184,6 @@
                 placeholder="GALLET"
                 value="<?php echo $papel->GALLET ?? '' ?>">
 
-                        <?php
-if (isset($_GET['id_orden'])) {
-    echo $orden;
-}
-?>
         </div>
 
         <div class="formulario__campo">
