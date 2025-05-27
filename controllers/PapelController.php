@@ -172,12 +172,19 @@ public static function crear(Router $router)
     $alertas = [];
     $id_orden = $_GET['id_orden'] ?? null;  // Obtiene el id_orden de la URL si está presente
 
-    $desperdicio_corrugador = Bobina::find_orden($id_orden);
-// recueprar galleteado
-     $desperdicio_corrugador->GALLET = $desperdicio_corrugador->GALLET ?? 0;
-    $desperdicio_corrugador->SINGLEFACE = $desperdicio_corrugador->SINGLEFACE ?? 0;
-    debuguear($desperdicio_corrugador);
-   
+    // recueprar galleteado
+    
+    
+    foreach ($desperdicio_corrugador as $key => $value) {
+        if (is_null($value)) {
+            $desperdicio_corrugador[$key] = 0; // Asigna 0 si el valor es nulo
+        }
+        
+$desperdicio_corrugador = Bobina::find_orden($id_orden);
+$desperdicio_corrugador['GALLET'] = $desperdicio_corrugador['GALLET'] ?? 0;
+$desperdicio_corrugador['SINGLEFACE'] = $desperdicio_corrugador['SINGLEFACE'] ?? 0;
+debuguear($desperdicio_corrugador);
+    
       
 
     // debuguear($desperdicio_corrugador);
