@@ -178,8 +178,7 @@ public static function crear(Router $router)
         
 $desperdicio_corrugador = Bobina::find_orden($id_orden);
 $orden=$desperdicio_corrugador['GALLET'] = $desperdicio_corrugador['GALLET'] ?? 0;
-$desperdicio_corrugador['SINGLEFACE'] = $desperdicio_corrugador['SINGLEFACE'] ?? 0;
-debuguear($orden);
+// $desperdicio_corrugador['SINGLEFACE'] = $desperdicio_corrugador['SINGLEFACE'] ?? 0;
     
       
 
@@ -281,7 +280,8 @@ debuguear($orden);
     }
     $router->render('admin/produccion/papel/crear', [
         'titulo' => 'CREAR PAPEL',
-        'alertas' => $alertas
+        'alertas' => $alertas,
+        'orden' => $orden,
     ]);
 }
 
