@@ -100,7 +100,7 @@
                                     if (opcion === 'flexografica') {
                                         window.location.href = `/admin/produccion/papel/crear?id_orden=${idOrden}`;
                                     } else if (opcion === 'troquel') {
-                                        window.location.href = `/admin/produccion/troquel/crear?id_orden=${idOrden}`;
+                                        window.location.href = `/admin/produccion/papel/crear?id_orden=${idOrden}`;
                                     } else if (opcion === 'editar') {
                                         window.location.href = `/admin/produccion/papel/editar?id=${idBobina}`;
                                     }
