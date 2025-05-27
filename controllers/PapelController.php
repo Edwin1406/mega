@@ -172,21 +172,9 @@ public static function crear(Router $router)
     $alertas = [];
     $id_orden = $_GET['id_orden'] ?? null;  // Obtiene el id_orden de la URL si está presente
 
-
-// $id_orden = $_GET['id_orden'] ?? null;
-
-if (!$id_orden) {
-    $alertas['error'][] = 'ID de orden no proporcionado.';
-    // Renderiza inmediatamente y detiene la ejecución
-    // return;
-}
-
     // recueprar galleteado
     
-// debuguear($id_orden);
-  
 
-    // Recuperar la información de la orden
         
 $desperdicio_corrugador = Bobina::find_orden($id_orden);
 $orden=$desperdicio_corrugador['GALLET'] = $desperdicio_corrugador['GALLET'] ?? 0;
@@ -211,14 +199,8 @@ $orden=$desperdicio_corrugador['GALLET'] = $desperdicio_corrugador['GALLET'] ?? 
             case 'CORRUGADOR':
                 $modelo = new Bobina;
                 // id_orden 
-                if ($id_orden) {
-                    $modelo->id_orden = $id_orden;
-                    $modelo->generarIdUnico();
-                } else {
-                    // $alertas['error'][] = 'ID de orden no proporcionado.';
-                    // $modelo = null;
-                }
-                debuguear($modelo);
+                $modelo->generarIdUnico();
+                // debuguear($modelo);
                 $redireccion = '/admin/produccion/papel/tabla';
                 break;
 
