@@ -174,11 +174,7 @@ public static function crear(Router $router)
 
     // recueprar galleteado
     
-    
-    foreach ($desperdicio_corrugador as $key => $value) {
-        if (is_null($value)) {
-            $desperdicio_corrugador[$key] = 0; // Asigna 0 si el valor es nulo
-        }
+
         
 $desperdicio_corrugador = Bobina::find_orden($id_orden);
 $desperdicio_corrugador['GALLET'] = $desperdicio_corrugador['GALLET'] ?? 0;
