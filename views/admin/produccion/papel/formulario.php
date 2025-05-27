@@ -121,7 +121,7 @@
             </label>
         </div>
 
-        <input type="hiden" name="tipo_clasificacion" id="tipo_clasificacion">
+        <input type="hidden" name="tipo_clasificacion" id="tipo_clasificacion">
 
 
     </div>
