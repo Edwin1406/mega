@@ -176,7 +176,7 @@
             <label class="formulario__label" for="GALLET">GALLET</label>
             
 <?php
-if (isset($_GET['id_orden'], $papel) && strtolower($papel->tipo_maquina) === 'fexografica') {
+if (isset($_GET['id_orden'], $papel) && strtolower($papel->tipo_maquina) === 'FLEXOGRAFICA') {
     echo $orden;
 }
 ?>
