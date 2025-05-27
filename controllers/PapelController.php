@@ -200,7 +200,7 @@ $orden=$desperdicio_corrugador['GALLET'] = $desperdicio_corrugador['GALLET'] ?? 
                 $modelo = new Bobina;
                 // id_orden 
                 $modelo->generarIdUnico();
-                // debuguear($modelo);
+                debuguear($modelo);
                 $redireccion = '/admin/produccion/papel/tabla';
                 break;
 
