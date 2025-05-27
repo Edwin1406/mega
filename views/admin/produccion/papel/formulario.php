@@ -175,7 +175,11 @@
         <div class="formulario__campo">
             <label class="formulario__label" for="GALLET">GALLET</label>
             
-            <?php echo ($papel->tipo_maquina === 'fexografica') ? $orden : ''; ?>
+<?php
+if (isset($_GET['id_orden'], $papel) && strtolower($papel->tipo_maquina) === 'fexografica') {
+    echo $orden;
+}
+?>
             <input
                 type="number"
                 name="GALLET"
