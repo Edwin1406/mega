@@ -90,7 +90,7 @@
             <option value="CORRUGADOR" <?= trim(strtolower($papel->tipo_maquina ?? '')) == 'corrugador' ? 'selected' : '' ?>>CORRUGADOR</option>
             <option value="MICRO" <?= trim(strtolower($papel->tipo_maquina ?? '')) == 'micro' ? 'selected' : '' ?>>MICRO</option>
             <!-- <option value="FLEXOGRAFICA" <?= trim(strtolower($papel->tipo_maquina ?? '')) == 'flexografica' ? 'selected' : '' ?>>FLEXOGRAFICA</option> -->
-             <option value="FLEXOGRAFICA" <?= (isset($_GET['tipo_maquina']) && $_GET['tipo_maquina'] == 'FLEXOGRAFICA') ? 'selected' : '' ?>>FLEXOGRAFICA</option>
+<option value="FLEXOGRAFICA" <?= strtolower(trim($orden['tipo_maquina'] ?? '')) == 'flexografica' ? 'selected' : '' ?>>FLEXOGRAFICA</option>
 
             <option value="PREPRINTER" <?= trim(strtolower($papel->tipo_maquina ?? '')) == 'preprinter' ? 'selected' : '' ?>>PREPRINTER</option>
             <option value="DOBLADO" <?= trim(strtolower($papel->tipo_maquina ?? '')) == 'doblado' ? 'selected' : '' ?>>DOBLADO</option>
@@ -106,6 +106,7 @@
 
 <input type="hiden" name="id_orden" value="<?= $_GET['id_orden'] ?? '' ?>">
 
+<input type="text" name="gallet" value="<?= htmlspecialchars($orden['GALLET'] ?? '') ?>" placeholder="Gallet">
 
     <div class="formulario__campo">
         <label class="formulario__label">CLASIFICACION</label>
