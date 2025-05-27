@@ -167,9 +167,14 @@ public function calcularTotal()
 
 
 // crear un id unico de id_orden  con letras y numeros
+// public function generarIdUnico()
+// {
+//     $this->id_orden = uniqid(true); // Genera un ID único basado en el tiempo actual
+//     return $this->id_orden;
+// }
 public function generarIdUnico()
 {
-    $this->id_orden = uniqid(true); // Genera un ID único basado en el tiempo actual
+    $this->id_orden = uniqid(true); // ✅ Correcto
     return $this->id_orden;
 }
 
