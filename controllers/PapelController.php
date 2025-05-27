@@ -199,8 +199,14 @@ $orden=$desperdicio_corrugador['GALLET'] = $desperdicio_corrugador['GALLET'] ?? 
             case 'CORRUGADOR':
                 $modelo = new Bobina;
                 // id_orden 
-                $modelo->generarIdUnico();
-                debuguear($modelo);
+                // $modelo->generarIdUnico();
+                // debuguear($modelo);
+
+                $modelo = new Bobina;
+$modelo->sincronizar($_POST); // primero sincronizas
+$modelo->generarIdUnico();    // luego sobreescribes el id_orden
+debuguear($modelo);
+
                 $redireccion = '/admin/produccion/papel/tabla';
                 break;
 
