@@ -88,6 +88,7 @@
                                 <option value="">Selecciona una opción</option>
                                 <option value="flexografica">Flexográfica</option>
                                 <option value="troquel">Troquel</option>
+                                <option value="editar">Editar</option>
                             </select>
 
                             <script>
@@ -95,10 +96,24 @@
                                 const opcion = document.getElementById('opciones').value;
                                 const idOrden = '<?php echo trim($bobina->id_orden); ?>';
 
-                                if (opcion) {
+                                if (opcion=== 'flexografica') {
                                     // Aquí haces lo que necesites para enviar idOrden a otro formulario.
                                     // Por ejemplo, abrir otro formulario con parámetros en URL:
                                     window.location.href = `/admin/produccion/papel/crear?id_orden=${idOrden}`;
+                                    
+                                    // O si quieres ponerlo en un campo hidden de otro formulario en la misma página,
+                                    // necesitaría más detalles del formulario destino.
+                                } else if (opcion === 'troquel') {
+                                    // Aquí haces lo que necesites para enviar idOrden a otro formulario.
+                                    // Por ejemplo, abrir otro formulario con parámetros en URL:
+                                    window.location.href = `/admin/produccion/troquel/crear?id_orden=${idOrden}`;
+                                    
+                                    // O si quieres ponerlo en un campo hidden de otro formulario en la misma página,
+                                    // necesitaría más detalles del formulario destino.
+                                }else if (opcion === 'editar') {
+                                    // Aquí haces lo que necesites para enviar idOrden a otro formulario.
+                                    // Por ejemplo, abrir otro formulario con parámetros en URL:
+                                    window.location.href = `/admin/produccion/papel/editar?id=${idOrden}`;
                                     
                                     // O si quieres ponerlo en un campo hidden de otro formulario en la misma página,
                                     // necesitaría más detalles del formulario destino.
