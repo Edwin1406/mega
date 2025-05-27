@@ -104,6 +104,7 @@
                                     } else if (opcion === 'editar') {
                                         window.location.href = `/admin/produccion/papel/editar?id=${idBobina}`;
                                     }
+                                    
                                 }
                             </script>
                         </td>
