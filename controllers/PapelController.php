@@ -184,16 +184,7 @@ if (!$id_orden) {
     // recueprar galleteado
     
 // debuguear($id_orden);
-    if (!$id_orden) {
-        $alertas['error'][] = 'ID de orden no proporcionado.';
-        $router->render('admin/produccion/papel/crear', [
-            'titulo' => 'CREAR PAPEL',
-            'alertas' => $alertas,
-            'orden' => null,
-            'id_orden' => null,
-        ]);
-        return;
-    }
+  
 
     // Recuperar la información de la orden
         
