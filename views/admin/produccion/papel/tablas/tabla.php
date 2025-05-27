@@ -10,10 +10,11 @@
 <div class="dashboard__contenedor">
     <?php if (!empty($bobinas)): ?>
 
-        <?php 
-            function letranegrita($value) {
-                return $value > 0 ? '<strong>' . $value . '</strong>' : $value;
-            }
+        <?php
+        function letranegrita($value)
+        {
+            return $value > 0 ? '<strong>' . $value . '</strong>' : $value;
+        }
         ?>
 
         <table class="table">
@@ -80,11 +81,9 @@
                         <td class="table__td"><?php echo letranegrita($bobina->PORCENTAJE) ?></td>
                         <td class="table__td"><?php echo $bobina->created_at ?></td>
                         <td class="table__td--acciones">
-                            <!-- <a class="table__accion table__accion--editar" href="/admin/produccion/papel/editar?id=<?php echo $bobina->id; ?>"> -->
-                                <!-- id_orden -->
-
-                                <!-- Select con opciones -->
-                            <select id="opciones" onchange="enviarIdOrden()">
+                            <select class="opciones" onchange="enviarIdOrden(this)"
+                                data-id-orden="<?php echo trim($bobina->id_orden); ?>"
+                                data-id-bobina="<?php echo $bobina->id; ?>">
                                 <option value="">Selecciona una opción</option>
                                 <option value="flexografica">Flexográfica</option>
                                 <option value="troquel">Troquel</option>
@@ -92,42 +91,25 @@
                             </select>
 
                             <script>
-                            function enviarIdOrden() {
-                                const opcion = document.getElementById('opciones').value;
-                                const idOrden = '<?php echo trim($bobina->id_orden); ?>';
-                                const idBobina = '<?php echo $bobina->id; ?>';
+                                function enviarIdOrden(selectElement) {
+                                    const opcion = selectElement.value;
+                                    const idOrden = selectElement.getAttribute('data-id-orden');
+                                    const idBobina = selectElement.getAttribute('data-id-bobina');
 
-                                if (opcion=== 'flexografica') {
-                                    // Aquí haces lo que necesites para enviar idOrden a otro formulario.
-                                    // Por ejemplo, abrir otro formulario con parámetros en URL:
-                                    window.location.href = `/admin/produccion/papel/crear?id_orden=${idOrden}`;
-                                    
-                                    // O si quieres ponerlo en un campo hidden de otro formulario en la misma página,
-                                    // necesitaría más detalles del formulario destino.
-                                } else if (opcion === 'troquel') {
-                                    // Aquí haces lo que necesites para enviar idOrden a otro formulario.
-                                    // Por ejemplo, abrir otro formulario con parámetros en URL:
-                                    window.location.href = `/admin/produccion/troquel/crear?id_orden=${idOrden}`;
-                                    
-                                    // O si quieres ponerlo en un campo hidden de otro formulario en la misma página,
-                                    // necesitaría más detalles del formulario destino.
-                                }else if (opcion === 'editar') {
-                                    // Aquí haces lo que necesites para enviar idOrden a otro formulario.
-                                    // Por ejemplo, abrir otro formulario con parámetros en URL:
-                                    window.location.href = `/admin/produccion/papel/editar?id=${idBobina}`;
-                                    
-                                    // O si quieres ponerlo en un campo hidden de otro formulario en la misma página,
-                                    // necesitaría más detalles del formulario destino.
+                                    if (opcion === 'flexografica') {
+                                        window.location.href = `/admin/produccion/papel/crear?id_orden=${idOrden}`;
+                                    } else if (opcion === 'troquel') {
+                                        window.location.href = `/admin/produccion/troquel/crear?id_orden=${idOrden}`;
+                                    } else if (opcion === 'editar') {
+                                        window.location.href = `/admin/produccion/papel/editar?id=${idBobina}`;
+                                    }
                                 }
-                            }
                             </script>
+                        </td>
 
-                            
-                                <i class="fa-solid fa-user-pen"></i>Ver
-                            </a>
-                            <form method="POST" action="/admin/produccion/papel/eliminar" class="table__formulario">
-                                <input type="hidden" name="id" value="<?php echo $bobina->id; ?>">
-                            </form>
+                        <form method="POST" action="/admin/produccion/papel/eliminar" class="table__formulario">
+                            <input type="hidden" name="id" value="<?php echo $bobina->id; ?>">
+                        </form>
                         </td>
                     </tr>
                 <?php endforeach; ?>
@@ -137,19 +119,36 @@
             <tfoot>
                 <tr style="background-color:rgb(113, 178, 204); font-weight: bold;">
                     <th>Totales:</th>
-                    <?php 
-                      $columnas = [
-                          'SINGLEFACE', 'EMPALME', 'RECUB', 'GALLET',
-                          'HUMEDO', 'COMBADO', 'DESPE', 'ERROM', 'DESHOJE', 'MECANICO', 'ELECTRICO',
-                          'SUSTRATO', 'CAMBIO_PEDIDO', 'FILOS_ROTOS', 'REFILE_PEQUENO',
-                          'PEDIDOS_CORTOS', 'DIFER_ANCHO', 'CAMBIO_GRAMAJE', 'EXTRA_TRIM',
-                          'CONSUMO', 'TOTAL', 'PORCENTAJE'
-                      ];
+                    <?php
+                    $columnas = [
+                        'SINGLEFACE',
+                        'EMPALME',
+                        'RECUB',
+                        'GALLET',
+                        'HUMEDO',
+                        'COMBADO',
+                        'DESPE',
+                        'ERROM',
+                        'DESHOJE',
+                        'MECANICO',
+                        'ELECTRICO',
+                        'SUSTRATO',
+                        'CAMBIO_PEDIDO',
+                        'FILOS_ROTOS',
+                        'REFILE_PEQUENO',
+                        'PEDIDOS_CORTOS',
+                        'DIFER_ANCHO',
+                        'CAMBIO_GRAMAJE',
+                        'EXTRA_TRIM',
+                        'CONSUMO',
+                        'TOTAL',
+                        'PORCENTAJE'
+                    ];
 
-                      foreach ($columnas as $col) {
-                          $valor = isset($totales[$col]) && $totales[$col] !== null ? $totales[$col] : 0;
-                          echo '<td>' . letranegrita(number_format($valor, 2)) . '</td>';
-                      }
+                    foreach ($columnas as $col) {
+                        $valor = isset($totales[$col]) && $totales[$col] !== null ? $totales[$col] : 0;
+                        echo '<td>' . letranegrita(number_format($valor, 2)) . '</td>';
+                    }
                     ?>
                     <td></td> <!-- Acciones -->
                 </tr>
@@ -163,4 +162,3 @@
 </div>
 
 <?php echo $paginacion; ?>
-
