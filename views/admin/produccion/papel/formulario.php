@@ -173,8 +173,8 @@
                 value="<?php echo $papel->RECUB ?? '' ?>">
         </div>
         <div class="formulario__campo">
-            <label > <?php echo $orden ?></label>
             <label class="formulario__label" for="GALLET">GALLET</label>
+            <?php echo $orden ?>
             <input
                 type="number"
                 name="GALLET"
