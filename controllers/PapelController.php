@@ -170,10 +170,10 @@ public static function tabla(Router $router)
 public static function crear(Router $router)
 {
     $alertas = [];
-    // $id_orden = $_GET['id_orden'] ?? null;  // Obtiene el id_orden de la URL si está presente
+    $id_orden = $_GET['id_orden'] ?? null;  // Obtiene el id_orden de la URL si está presente
 
 
-$id_orden = $_GET['id_orden'] ?? null;
+// $id_orden = $_GET['id_orden'] ?? null;
 
 if (!$id_orden) {
     $alertas['error'][] = 'ID de orden no proporcionado.';
