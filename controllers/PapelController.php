@@ -194,7 +194,7 @@ $orden=$desperdicio_corrugador['GALLET'] = $desperdicio_corrugador['GALLET'] ?? 
     
       
 
-    debuguear($desperdicio_corrugador);
+    // debuguear($desperdicio_corrugador);
 
 
 
