@@ -176,14 +176,11 @@
             <label class="formulario__label" for="GALLET">GALLET</label>
             
 <?php
-  
-$id_orden = $_GET['id_orden'] ?? null;
-
-if ($id_orden && $tipo_maquina) {
-   echo $orden;
+if (isset($_GET['id_orden'])) {
+    echo $orden;
 }
-
 ?>
+
 
 
             <input
