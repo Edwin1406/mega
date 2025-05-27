@@ -176,10 +176,12 @@
             <label class="formulario__label" for="GALLET">GALLET</label>
             
 <?php
-if (isset($_GET['id_orden'], $papel) && strtolower($papel->tipo_maquina) === 'FLEXOGRAFICA') {
+if (!empty($_GET['id_orden']) && isset($papel) && strtoupper($papel->tipo_maquina ?? '') === 'FLEXOGRAFICA') {
     echo $orden;
 }
 ?>
+
+
             <input
                 type="number"
                 name="GALLET"
