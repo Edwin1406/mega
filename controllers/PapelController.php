@@ -211,8 +211,14 @@ $orden=$desperdicio_corrugador['GALLET'] = $desperdicio_corrugador['GALLET'] ?? 
             case 'CORRUGADOR':
                 $modelo = new Bobina;
                 // id_orden 
-                $modelo->generarIdUnico();
-                // debuguear($modelo);
+                if ($id_orden) {
+                    $modelo->generarIdUnico();
+                } else {
+                    // $alertas['error'][] = 'ID de orden no proporcionado.';
+                    $modelo->id_orden = $id_orden;
+                    // $modelo = null;
+                }
+                debuguear($modelo);
                 $redireccion = '/admin/produccion/papel/tabla';
                 break;
 
