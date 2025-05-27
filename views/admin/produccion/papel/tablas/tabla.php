@@ -93,7 +93,8 @@
                             <script>
                                 function enviarIdOrden(selectElement) {
                                     const opcion = selectElement.value;
-                                    const idOrden = selectElement.getAttribute('data-id-orden');
+                                    const idOrdenRaw  = selectElement.getAttribute('data-id-orden');
+                                    const idOrden = idOrdenRaw ? idOrdenRaw.trim() : '';
                                     const idBobina = selectElement.getAttribute('data-id-bobina');
 
                                     if (opcion === 'flexografica') {
