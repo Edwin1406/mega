@@ -176,7 +176,9 @@
             <label class="formulario__label" for="GALLET">GALLET</label>
             
 <?php
+    debuguear($papel->tipo_maquina ?? '');
     debuguear($_GET['id_orden']);
+
 
 if (!empty($_GET['id_orden']) && isset($papel) && strtoupper($papel->tipo_maquina ?? '') === 'FLEXOGRAFICA') {
     echo $orden;
