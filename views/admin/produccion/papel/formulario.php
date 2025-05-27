@@ -172,10 +172,8 @@
                 placeholder="RECUB"
                 value="<?php echo $papel->RECUB ?? '' ?>">
         </div>
-
         <div class="formulario__campo">
             <label class="formulario__label" for="GALLET">GALLET</label>
-
             <input
                 type="number"
                 name="GALLET"
@@ -183,7 +181,6 @@
                 class="formulario__input"
                 placeholder="GALLET"
                 value="<?php echo $papel->GALLET ?? '' ?>">
-
         </div>
 
         <div class="formulario__campo">

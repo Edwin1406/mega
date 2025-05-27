@@ -172,17 +172,13 @@ public static function crear(Router $router)
     $alertas = [];
     $id_orden = $_GET['id_orden'] ?? null;  // Obtiene el id_orden de la URL si está presente
 
-    // recueprar galleteado
-    
-
-        
-$desperdicio_corrugador = Bobina::find_orden($id_orden);
-$orden=$desperdicio_corrugador['GALLET'] = $desperdicio_corrugador['GALLET'] ?? 0;
-// $desperdicio_corrugador['SINGLEFACE'] = $desperdicio_corrugador['SINGLEFACE'] ?? 0;
-    
+    $desperdicio_corrugador = Bobina::find_orden($id_orden);
+// recueprar galleteado
+      $HOLA=$desperdicio_corrugador->GALLET;
+      debuguear(    $HOLA);
       
 
-    // debuguear($desperdicio_corrugador);
+    debuguear($desperdicio_corrugador);
 
 
 
@@ -212,7 +208,7 @@ $orden=$desperdicio_corrugador['GALLET'] = $desperdicio_corrugador['GALLET'] ?? 
             case 'FLEXOGRAFICA':
                 $modelo = new Desflexografica;
                 $modelo->id_orden = $id_orden;
-                // debuguear($modelo);
+                debuguear($modelo);
 
                 $redireccion = '/admin/produccion/papel/tabla_flexografica';
                 break;
@@ -280,9 +276,7 @@ $orden=$desperdicio_corrugador['GALLET'] = $desperdicio_corrugador['GALLET'] ?? 
     }
     $router->render('admin/produccion/papel/crear', [
         'titulo' => 'CREAR PAPEL',
-        'alertas' => $alertas,
-        'orden' => $orden,
-        'id_orden' => $id_orden,
+        'alertas' => $alertas
     ]);
 }
 
