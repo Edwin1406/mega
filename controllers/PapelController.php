@@ -282,6 +282,7 @@ $orden=$desperdicio_corrugador['GALLET'] = $desperdicio_corrugador['GALLET'] ?? 
         'titulo' => 'CREAR PAPEL',
         'alertas' => $alertas,
         'orden' => $orden,
+        'id_orden' => $id_orden,
     ]);
 }
 
