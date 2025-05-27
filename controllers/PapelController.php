@@ -174,11 +174,10 @@ public static function crear(Router $router)
 
     $desperdicio_corrugador = Bobina::find_orden($id_orden);
 // recueprar galleteado
-      $HOLA=$desperdicio_corrugador->GALLET;
-      debuguear(    $HOLA);
+   
       
 
-    debuguear($desperdicio_corrugador);
+    // debuguear($desperdicio_corrugador);
 
 
 
