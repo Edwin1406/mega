@@ -178,7 +178,7 @@ $id_orden = $_GET['id_orden'] ?? null;
 if (!$id_orden) {
     $alertas['error'][] = 'ID de orden no proporcionado.';
     // Renderiza inmediatamente y detiene la ejecución
-    return;
+    // return;
 }
 
     // recueprar galleteado
