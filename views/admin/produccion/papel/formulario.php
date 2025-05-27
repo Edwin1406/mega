@@ -172,11 +172,7 @@
                 placeholder="RECUB"
                 value="<?php echo $papel->RECUB ?? '' ?>">
         </div>
-        <?php
-if (isset($_GET['id_orden'])) {
-    echo $orden;
-}
-?>
+
         <div class="formulario__campo">
             <label class="formulario__label" for="GALLET">GALLET</label>
 
@@ -187,6 +183,12 @@ if (isset($_GET['id_orden'])) {
                 class="formulario__input"
                 placeholder="GALLET"
                 value="<?php echo $papel->GALLET ?? '' ?>">
+
+                        <?php
+if (isset($_GET['id_orden'])) {
+    echo $orden;
+}
+?>
         </div>
 
         <div class="formulario__campo">
