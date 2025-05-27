@@ -95,6 +95,7 @@
                             function enviarIdOrden() {
                                 const opcion = document.getElementById('opciones').value;
                                 const idOrden = '<?php echo trim($bobina->id_orden); ?>';
+                                const idBobina = '<?php echo $bobina->id; ?>';
 
                                 if (opcion=== 'flexografica') {
                                     // Aquí haces lo que necesites para enviar idOrden a otro formulario.
@@ -113,7 +114,7 @@
                                 }else if (opcion === 'editar') {
                                     // Aquí haces lo que necesites para enviar idOrden a otro formulario.
                                     // Por ejemplo, abrir otro formulario con parámetros en URL:
-                                    window.location.href = `/admin/produccion/papel/editar?id=${idOrden}`;
+                                    window.location.href = `/admin/produccion/papel/editar?id=${idBobina}`;
                                     
                                     // O si quieres ponerlo en un campo hidden de otro formulario en la misma página,
                                     // necesitaría más detalles del formulario destino.
