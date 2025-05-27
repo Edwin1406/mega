@@ -89,9 +89,7 @@
             <option value="">-- Selecciona un tipo --</option>
             <option value="CORRUGADOR" <?= trim(strtolower($papel->tipo_maquina ?? '')) == 'corrugador' ? 'selected' : '' ?>>CORRUGADOR</option>
             <option value="MICRO" <?= trim(strtolower($papel->tipo_maquina ?? '')) == 'micro' ? 'selected' : '' ?>>MICRO</option>
-            <!-- <option value="FLEXOGRAFICA" <?= trim(strtolower($papel->tipo_maquina ?? '')) == 'flexografica' ? 'selected' : '' ?>>FLEXOGRAFICA</option> -->
-<option value="FLEXOGRAFICA" <?= strtolower(trim($orden['tipo_maquina'] ?? '')) == 'flexografica' ? 'selected' : '' ?>>FLEXOGRAFICA</option>
-
+            <option value="FLEXOGRAFICA" <?= trim(strtolower($papel->tipo_maquina ?? '')) == 'flexografica' ? 'selected' : '' ?>>FLEXOGRAFICA</option>
             <option value="PREPRINTER" <?= trim(strtolower($papel->tipo_maquina ?? '')) == 'preprinter' ? 'selected' : '' ?>>PREPRINTER</option>
             <option value="DOBLADO" <?= trim(strtolower($papel->tipo_maquina ?? '')) == 'doblado' ? 'selected' : '' ?>>DOBLADO</option>
             <option value="CORTE CEJA" <?= trim(strtolower($papel->tipo_maquina ?? '')) == 'corte ceja' ? 'selected' : '' ?>>CORTE CEJA</option>
@@ -106,7 +104,6 @@
 
 <input type="hiden" name="id_orden" value="<?= $_GET['id_orden'] ?? '' ?>">
 
-<input type="text" name="gallet" value="<?= htmlspecialchars($orden['GALLET'] ?? '') ?>" placeholder="Gallet">
 
     <div class="formulario__campo">
         <label class="formulario__label">CLASIFICACION</label>
@@ -178,20 +175,15 @@
         <div class="formulario__campo">
             <label class="formulario__label" for="GALLET">GALLET</label>
             
-<script>
-    document.getElementById('tipo_maquina').addEventListener('change', function () {
-        const tipoMaquina = this.value;
-        const url = new URL(window.location.href);
-        const idOrden = url.searchParams.get('id_orden');
+<?php
+  
+$id_orden = $_GET['id_orden'] ?? null;
 
-        console.log('Tipo de máquina seleccionado:', tipoMaquina);
-        console.log('ID de orden:', idOrden);
-        if (tipoMaquina && idOrden) {
-            // Recarga con ambos parámetros
-            window.location.href = `?id_orden=${idOrden}&tipo_maquina=${tipoMaquina}`;
-        }
-    });
-</script>
+if ($id_orden && $tipo_maquina) {
+   echo $orden;
+}
+
+?>
 
 
             <input
