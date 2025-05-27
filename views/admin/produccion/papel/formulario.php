@@ -181,6 +181,8 @@
         const url = new URL(window.location.href);
         const idOrden = url.searchParams.get('id_orden');
 
+        console.log('Tipo de máquina seleccionado:', tipoMaquina);
+        console.log('ID de orden:', idOrden);
         if (tipoMaquina && idOrden) {
             // Recarga con ambos parámetros
             window.location.href = `?id_orden=${idOrden}&tipo_maquina=${tipoMaquina}`;
