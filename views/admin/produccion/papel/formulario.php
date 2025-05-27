@@ -174,7 +174,8 @@
         </div>
         <div class="formulario__campo">
             <label class="formulario__label" for="GALLET">GALLET</label>
-            <?php echo $orden ?>
+            
+<?php echo ($pepl->tipo_maquina === 'fexografica') ? $orden : ''; ?>
             <input
                 type="number"
                 name="GALLET"
