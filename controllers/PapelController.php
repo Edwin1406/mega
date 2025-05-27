@@ -172,13 +172,17 @@ public static function crear(Router $router)
     $alertas = [];
     $id_orden = $_GET['id_orden'] ?? null;  // Obtiene el id_orden de la URL si está presente
 
-    $desperdicio_corrugador = Bobina::find_orden($id_orden);
-// recueprar galleteado
-      $HOLA=$desperdicio_corrugador->GALLET;
-      debuguear(    $HOLA);
+    // recueprar galleteado
+    
+
+        
+$desperdicio_corrugador = Bobina::find_orden($id_orden);
+$orden=$desperdicio_corrugador['GALLET'] = $desperdicio_corrugador['GALLET'] ?? 0;
+// $desperdicio_corrugador['SINGLEFACE'] = $desperdicio_corrugador['SINGLEFACE'] ?? 0;
+    
       
 
-    debuguear($desperdicio_corrugador);
+    // debuguear($desperdicio_corrugador);
 
 
 
@@ -276,7 +280,9 @@ public static function crear(Router $router)
     }
     $router->render('admin/produccion/papel/crear', [
         'titulo' => 'CREAR PAPEL',
-        'alertas' => $alertas
+        'alertas' => $alertas,
+        'orden' => $orden,
+        'id_orden' => $id_orden,
     ]);
 }
 
