@@ -172,16 +172,13 @@
                 placeholder="RECUB"
                 value="<?php echo $papel->RECUB ?? '' ?>">
         </div>
-        <div class="formulario__campo">
-            <label class="formulario__label" for="GALLET">GALLET</label>
-            
-<?php
+        <?php
 if (isset($_GET['id_orden'])) {
     echo $orden;
 }
 ?>
-
-
+        <div class="formulario__campo">
+            <label class="formulario__label" for="GALLET">GALLET</label>
 
             <input
                 type="number"
