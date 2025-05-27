@@ -175,16 +175,18 @@
         <div class="formulario__campo">
             <label class="formulario__label" for="GALLET">GALLET</label>
             
-<?php
-   $tipo_maquina = $_GET['tipo_maquina'] ?? '';
-   debuguear($tipo_maquina);
-$id_orden = $_GET['id_orden'] ?? null;
+<script>
+    document.getElementById('tipo_maquina').addEventListener('change', function () {
+        const tipoMaquina = this.value;
+        const url = new URL(window.location.href);
+        const idOrden = url.searchParams.get('id_orden');
 
-if ($id_orden && $tipo_maquina) {
-    // Aquí puedes cargar $papel o realizar la lógica que necesites
-}
-
-?>
+        if (tipoMaquina && idOrden) {
+            // Recarga con ambos parámetros
+            window.location.href = `?id_orden=${idOrden}&tipo_maquina=${tipoMaquina}`;
+        }
+    });
+</script>
 
 
             <input
