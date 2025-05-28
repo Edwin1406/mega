@@ -908,9 +908,10 @@ public static function ingresoConsumo(Router $router) {
     $id_orden = $_POST['id_orden'] ?? null;
     $consumo = $_POST['CONSUMO'] ?? null;
 
-    // Verificar si el id_orden existe en al menos una tabla
     $id_orden_existe = false;
+    $id_orden_duplicado = false;
 
+    // Validar si id_orden existe en alguna tabla relacionada
     if ($id_orden) {
         $modelos = [
             'Bobina' => Bobina::class,
@@ -933,27 +934,34 @@ public static function ingresoConsumo(Router $router) {
                 break;
             }
         }
+
+        // Verificar duplicado en IngresoConsumo
+        $duplicado = IngresoConsumo::where('id_orden', $id_orden);
+        if (!empty($duplicado)) {
+            $id_orden_duplicado = true;
+        }
     }
 
-    // Si se intenta registrar y existe el id_orden
+    // Validación al enviar el formulario
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (!$id_orden || !$consumo) {
             $alertas['error'][] = 'Debe proporcionar un ID de orden y un consumo.';
         } elseif (!$id_orden_existe) {
             $alertas['error'][] = 'El ID de orden no existe. No se puede registrar el consumo.';
+        } elseif ($id_orden_duplicado) {
+            $alertas['error'][] = 'Ya se ha registrado un consumo para esta orden.';
         } else {
             $registroConsumo = new IngresoConsumo([
                 'id_orden' => $id_orden,
                 'consumo' => $consumo
             ]);
-        
             $registroConsumo->guardar(); 
-            header('Location: /admin/produccion/papel/ingresoConsumo');
+            header('Location: /admin/produccion/papel/ingresoConsumo?guardado=' . urlencode('Consumo registrado correctamente'));
             exit;
         }
     }
 
-    // Obtener registros para mostrar
+    // Mostrar resultados si existe la orden
     $resultados = [];
     if ($id_orden_existe) {
         foreach ($modelos as $nombre => $modeloClase) {
