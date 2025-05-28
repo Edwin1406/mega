@@ -953,11 +953,15 @@ public static function ingresoConsumo(Router $router) {
         } else {
             // Calcular suma total desde otras tablas
             $total_suma = 0;
+
             foreach ($modelos as $modeloClase) {
                 $registros = $modeloClase::find_orden($id_orden);
                 foreach ($registros as $registro) {
-                    if (isset($registro->TOTAL)) {
-                        $total_suma += (float)$registro->TOTAL;
+                    foreach (get_object_vars($registro) as $clave => $valor) {
+                        if (strtolower($clave) === 'total') {
+                            $total_suma += (float)$valor;
+                            break;
+                        }
                     }
                 }
             }
@@ -972,8 +976,6 @@ public static function ingresoConsumo(Router $router) {
                 'total' => $total_suma,
                 'porcentaje' => round($porcentaje, 2)
             ]);
-
-            debuguear($registroConsumo);
             $registroConsumo->guardar();
 
             header('Location: /admin/produccion/papel/ingresoConsumo?guardado=' . urlencode('Consumo registrado correctamente'));
