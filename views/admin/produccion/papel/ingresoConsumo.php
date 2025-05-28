@@ -27,7 +27,7 @@
             id="CONSUMO"
             class="formulario__input"
             placeholder="CONSUMO PAPEL"
-            value="<?php echo $consumo->CONSUMO; ?>">
+            value="<?php echo $papel->CONSUMO ?? '' ?>">
     </div>
         <input class="formulario__submit formulario__submit--registrar" type="submit" value="Registrar Papel">
 
