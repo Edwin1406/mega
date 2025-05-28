@@ -906,10 +906,10 @@ class PapelController
 
         // buscar ordenes con el id 
         $id_orden = $_POST['id_orden'] ?? null;  // Obtiene el id_orden de la URL si está presente
-        if (!$id_orden) {
-            header('Location: /admin/produccion/papel/tabla');
-            exit;
-        }
+        // if (!$id_orden) {
+        //     header('Location: /admin/produccion/papel/tabla');
+        //     exit;
+        // }
 
 
         $desperdicio_corrugador = Bobina::find_orden($id_orden);
