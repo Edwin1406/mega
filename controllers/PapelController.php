@@ -756,7 +756,7 @@ class PapelController
         $bobinas = Empaque::paginar($pagina_por_registros, $paginacion->offset());
         $totales = Empaque::sumarTodasLasColumnas();
 
-        $router->render('admin/produccion/tablas/papel/tabla_empaque', [
+        $router->render('admin/produccion/papel/tablas/tabla_empaque', [
             'titulo' => 'TABLA DESPERDICIO EMPAQUE',
             'bobinas' => $bobinas,
             'paginacion' => $paginacion->paginacion(),
