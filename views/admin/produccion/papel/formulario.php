@@ -81,6 +81,50 @@
 </style>
 
 
+
+<script>
+
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    $('#tipo_maquina').select2({
+        placeholder: "-- Selecciona un tipo --",
+        allowClear: true,
+    });
+
+    // Detecta si ya hay un tipo seleccionado
+    const tipoInicial = document.getElementById('tipo_maquina').value;
+    const clasificacionInicial = Array.from(document.querySelectorAll('input[name="MDO[]"]:checked')).map(chk => chk.value);
+
+    if (tipoInicial && clasificacionInicial.length > 0) {
+        // Solo oculta los campos no usados, y muestra los válidos
+        ocultarYLimpiarTodosLosCampos();  // ⚠️ Puedes comentar esta línea si no quieres limpiar valores
+        mostrarCamposSegunSeleccion();
+    } else {
+        ocultarYLimpiarTodosLosCampos();
+    }
+
+    actualizarTipoClasificacion();
+
+    document.getElementById('tipo_maquina').addEventListener('change', () => {
+        ocultarYLimpiarTodosLosCampos();
+        resetearCheckboxes(); // Esto sí borra lo anterior
+        actualizarTipoClasificacion();
+    });
+
+    document.querySelectorAll('input[name="MDO[]"]').forEach(chk => {
+        chk.addEventListener('change', () => {
+            ocultarYLimpiarTodosLosCampos();
+            mostrarCamposSegunSeleccion();
+            actualizarTipoClasificacion();
+        });
+    });
+});
+
+
+</script>
+
+
 <fieldset class="formulario__fieldset">
     <legend class="formulario__legend">Información de la Papel</legend>
    
