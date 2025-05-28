@@ -86,66 +86,9 @@
 
 
 
-document.addEventListener('DOMContentLoaded', () => {
-    $('#tipo_maquina').select2({
-        placeholder: "-- Selecciona un tipo --",
-        allowClear: true,
-    });
 
-    // Detecta si ya hay un tipo seleccionado
-    const tipoInicial = document.getElementById('tipo_maquina').value;
-    const clasificacionInicial = Array.from(document.querySelectorAll('input[name="MDO[]"]:checked')).map(chk => chk.value);
-
-    if (tipoInicial && clasificacionInicial.length > 0) {
-        // Solo oculta los campos no usados, y muestra los válidos
-        ocultarYLimpiarTodosLosCampos();  // ⚠️ Puedes comentar esta línea si no quieres limpiar valores
-        mostrarCamposSegunSeleccion();
-    } else {
-        ocultarYLimpiarTodosLosCampos();
-    }
-
-    actualizarTipoClasificacion();
-
-    document.getElementById('tipo_maquina').addEventListener('change', () => {
-        ocultarYLimpiarTodosLosCampos();
-        resetearCheckboxes(); // Esto sí borra lo anterior
-        actualizarTipoClasificacion();
-    });
-
-    document.querySelectorAll('input[name="MDO[]"]').forEach(chk => {
-        chk.addEventListener('change', () => {
-            ocultarYLimpiarTodosLosCampos();
-            mostrarCamposSegunSeleccion();
-            actualizarTipoClasificacion();
-        });
-    });
-});
-
-
+    
 </script>
-
-
-<?php
-$clasificaciones = explode(',', strtoupper($papel->tipo_clasificacion ?? ''));
-
-$isControlable = in_array('CONTROLABLE', $clasificaciones);
-$isNoControlable = in_array('NO CONTROLABLE', $clasificaciones);
-?>
-
-<label>
-    <input type="checkbox" name="MDO[]" value="a" <?= $isControlable ? 'checked' : '' ?>>
-    CONTROLABLE
-</label>
-<label>
-    <input type="checkbox" name="MDO[]" value="b" <?= $isNoControlable ? 'checked' : '' ?>>
-    NO CONTROLABLE
-</label>
-
-
-
-
-
-
 
 
 <fieldset class="formulario__fieldset">
@@ -203,7 +146,7 @@ $isNoControlable = in_array('NO CONTROLABLE', $clasificaciones);
     <input type="hidden" name="id_orden" value="<?= $_GET['id_orden'] ?? '' ?>">
 
 
-    <!-- <div class="formulario__campo">
+    <div class="formulario__campo">
         <label class="formulario__label">CLASIFICACION</label>
 
         <div>
@@ -222,7 +165,7 @@ $isNoControlable = in_array('NO CONTROLABLE', $clasificaciones);
         <input type="hidden" name="tipo_clasificacion" id="tipo_clasificacion">
 
 
-    </div> -->
+    </div>
 
 
 
