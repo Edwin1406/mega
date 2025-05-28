@@ -673,6 +673,9 @@ class PapelController
         ]);
     }
 
+
+
+
     public static function tabla_guillotina_lamina(Router $router)
     {
         $pagina_actual = $_GET['page'];
@@ -695,13 +698,16 @@ class PapelController
         $bobinas = Guillotina_lamina::paginar($pagina_por_registros, $paginacion->offset());
         $totales = Guillotina_lamina::sumarTodasLasColumnas();
 
-        $router->render('admin/produccion/papel/tablas/tabla_guillotina_lamina', [
+        $router->render('admin/produccion/papel/tabla_guillotina_lamina', [
             'titulo' => 'TABLA DESPERDICIO GUILLOTINA LAMINA',
             'bobinas' => $bobinas,
             'paginacion' => $paginacion->paginacion(),
             'totales' => $totales
         ]);
     }
+
+
+
 
     public static function tabla_guillotina_papel(Router $router)
     {
