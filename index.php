@@ -265,6 +265,12 @@ $router->get('/admin/produccion/papel/tabla_micro', [PapelController::class, 'ta
 $router->get('/admin/produccion/papel/tabla_empaque', [PapelController::class, 'tabla_empaque']);
 
 
+
+
+// AREA DE CONSUMO DE PAPEL POR ID ORDEN
+$router->get('/admin/produccion/papel/ingresoConsumo', [PapelController::class, 'ingresoConsumo']);
+$router->post('/admin/produccion/papel/ingresoConsumo', [PapelController::class, 'ingresoConsumo']);
+
 // Editar PAPEL
 $router->get('/admin/produccion/papel/editar_convertidor', [PapelController::class, 'editar_convertidor']);
 

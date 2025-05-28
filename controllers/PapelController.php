@@ -16,6 +16,7 @@ use Model\Guillotina_papel;
 use Model\Micro;
 use Model\Preprinter;
 use Model\Troquel;
+use PhpOffice\PhpSpreadsheet\Calculation\Token\Stack;
 
 class PapelController
 {
@@ -898,4 +899,43 @@ class PapelController
             'convertidor' => $convertidor
         ]);
     }
+
+    public static function ingresoConsumo(){
+
+        // buscar ordenes con el id 
+        $id_orden = $_POST['id_orden'] ?? null;  // Obtiene el id_orden de la URL si está presente
+        if (!$id_orden) {
+            header('Location: /admin/produccion/papel/tabla');
+            exit;
+        }
+
+
+        $desperdicio_corrugador = Bobina::find_orden($id_orden);
+        debuguear($desperdicio_corrugador);
+        
+
+   $router->render('admin/produccion/papel/editar/editar_convertidor', [
+            'titulo' => 'EDITAR CONVERTIDOR',
+            'alertas' => $alertas,
+            'convertidor' => $convertidor
+        ]);
+
+
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
