@@ -902,7 +902,6 @@ class PapelController
         ]);
     }
 
-
 public static function ingresoConsumo(Router $router) {
     $alertas = [];
     $id_orden = $_POST['id_orden'] ?? null;
@@ -911,22 +910,23 @@ public static function ingresoConsumo(Router $router) {
     $id_orden_existe = false;
     $id_orden_duplicado = false;
 
-    // Validar si id_orden existe en alguna tabla relacionada
-    if ($id_orden) {
-        $modelos = [
-            'Bobina' => Bobina::class,
-            'Micro' => Micro::class,
-            'Desflexografica' => Desflexografica::class,
-            'Preprinter' => Preprinter::class,
-            'Doblado' => Doblado::class,
-            'Corte_ceja' => Corte_ceja::class,
-            'Troquel' => Troquel::class,
-            'Convertidor' => Convertidor::class,
-            'Guillotina_lamina' => Guillotina_lamina::class,
-            'Guillotina_papel' => Guillotina_papel::class,
-            'Empaque' => Empaque::class,
-        ];
+    // Modelos a revisar para la existencia de la orden
+    $modelos = [
+        'Bobina' => Bobina::class,
+        'Micro' => Micro::class,
+        'Desflexografica' => Desflexografica::class,
+        'Preprinter' => Preprinter::class,
+        'Doblado' => Doblado::class,
+        'Corte_ceja' => Corte_ceja::class,
+        'Troquel' => Troquel::class,
+        'Convertidor' => Convertidor::class,
+        'Guillotina_lamina' => Guillotina_lamina::class,
+        'Guillotina_papel' => Guillotina_papel::class,
+        'Empaque' => Empaque::class,
+    ];
 
+    // Verificar existencia de id_orden en alguna tabla
+    if ($id_orden) {
         foreach ($modelos as $modeloClase) {
             $registros = $modeloClase::find_orden($id_orden);
             if (!empty($registros)) {
@@ -935,14 +935,14 @@ public static function ingresoConsumo(Router $router) {
             }
         }
 
-        // Verificar duplicado en IngresoConsumo
+        // Verificar si ya se registró en IngresoConsumo
         $duplicado = IngresoConsumo::where('id_orden', $id_orden);
         if (!empty($duplicado)) {
             $id_orden_duplicado = true;
         }
     }
 
-    // Validación al enviar el formulario
+    // Procesar formulario POST
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (!$id_orden || !$consumo) {
             $alertas['error'][] = 'Debe proporcionar un ID de orden y un consumo.';
@@ -951,17 +951,35 @@ public static function ingresoConsumo(Router $router) {
         } elseif ($id_orden_duplicado) {
             $alertas['error'][] = 'Ya se ha registrado un consumo para esta orden.';
         } else {
+            // Calcular suma total desde otras tablas
+            $total_suma = 0;
+            foreach ($modelos as $modeloClase) {
+                $registros = $modeloClase::find_orden($id_orden);
+                foreach ($registros as $registro) {
+                    if (isset($registro->TOTAL)) {
+                        $total_suma += (float)$registro->TOTAL;
+                    }
+                }
+            }
+
+            // Calcular porcentaje
+            $porcentaje = ($total_suma > 0) ? ($consumo / $total_suma) * 100 : 0;
+
+            // Crear y guardar el registro
             $registroConsumo = new IngresoConsumo([
                 'id_orden' => $id_orden,
-                'consumo' => $consumo
+                'consumo' => $consumo,
+                'total' => $total_suma,
+                'porcentaje' => round($porcentaje, 2)
             ]);
-            $registroConsumo->guardar(); 
+            $registroConsumo->guardar();
+
             header('Location: /admin/produccion/papel/ingresoConsumo?guardado=' . urlencode('Consumo registrado correctamente'));
             exit;
         }
     }
 
-    // Mostrar resultados si existe la orden
+    // Mostrar resultados relacionados a la orden
     $resultados = [];
     if ($id_orden_existe) {
         foreach ($modelos as $nombre => $modeloClase) {
