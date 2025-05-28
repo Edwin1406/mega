@@ -189,6 +189,11 @@ public function generarIdUnico()
 }
 
 
+public static function find_orden($id_orden) {
+    $query = "SELECT * FROM " . static::$tabla . " WHERE id_orden = ?";
+    return self::consultarSQL($query, [$id_orden]);
+}
+
 
 
 
