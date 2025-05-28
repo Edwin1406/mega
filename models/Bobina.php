@@ -122,6 +122,7 @@ protected static $columnasDB = [
 public static function sumarTodasLasColumnas()
 {
     $columnas = [
+        'ID_ORDEN',
         'SINGLEFACE', 'EMPALME', 'RECUB', 'MECANICO', 'GALLET',
         'HUMEDO', 'COMBADO', 'DESPE', 'ERROM', 'DESHOJE',
         'CAMBIO_PEDIDO', 'FILOS_ROTOS','REFILE_PEQUENO', 'PEDIDOS_CORTOS',
