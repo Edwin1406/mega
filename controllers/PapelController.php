@@ -574,7 +574,7 @@ class PapelController
         $bobinas = Convertidor::paginar($pagina_por_registros, $paginacion->offset());
         $totales = Convertidor::sumarTodasLasColumnas();
 
-        $router->render('admin/produccion/papel/tabla_convertidor', [
+        $router->render('admin/produccion/papel/tablas/tabla_convertidor', [
             'titulo' => 'TABLA DESPERDICIO CONVERTIDOR',
             'bobinas' => $bobinas,
             'paginacion' => $paginacion->paginacion(),
@@ -604,7 +604,7 @@ class PapelController
         $bobinas = Corte_ceja::paginar($pagina_por_registros, $paginacion->offset());
         $totales = Corte_ceja::sumarTodasLasColumnas();
 
-        $router->render('admin/produccion/papel/tabla_corte_ceja', [
+        $router->render('admin/produccion/papel/tablas/tabla_corte_ceja', [
             'titulo' => 'TABLA DESPERDICIO CORTE CEJA',
             'bobinas' => $bobinas,
             'paginacion' => $paginacion->paginacion(),
@@ -634,7 +634,7 @@ class PapelController
         $bobinas = Doblado::paginar($pagina_por_registros, $paginacion->offset());
         $totales = Doblado::sumarTodasLasColumnas();
 
-        $router->render('admin/produccion/papel/tabla_doblado', [
+        $router->render('admin/produccion/papel/tablas/tabla_doblado', [
             'titulo' => 'TABLA DESPERDICIO DOBLADO',
             'bobinas' => $bobinas,
             'paginacion' => $paginacion->paginacion(),
@@ -673,9 +673,6 @@ class PapelController
         ]);
     }
 
-
-
-
     public static function tabla_guillotina_lamina(Router $router)
     {
         $pagina_actual = $_GET['page'];
@@ -698,16 +695,13 @@ class PapelController
         $bobinas = Guillotina_lamina::paginar($pagina_por_registros, $paginacion->offset());
         $totales = Guillotina_lamina::sumarTodasLasColumnas();
 
-        $router->render('admin/produccion/papel/tabla_guillotina_lamina', [
+        $router->render('admin/produccion/papel/tablas/tabla_guillotina_lamina', [
             'titulo' => 'TABLA DESPERDICIO GUILLOTINA LAMINA',
             'bobinas' => $bobinas,
             'paginacion' => $paginacion->paginacion(),
             'totales' => $totales
         ]);
     }
-
-
-
 
     public static function tabla_guillotina_papel(Router $router)
     {
