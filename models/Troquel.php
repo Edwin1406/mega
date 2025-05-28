@@ -110,11 +110,22 @@ public function generarIdUnico()
 }
 
 
-
 public static function find_orden($id_orden) {
     $query = "SELECT * FROM " . static::$tabla . " WHERE id_orden = ?";
-    return self::consultarSQL($query, [$id_orden]);
+    $stmt = self::$db->prepare($query);
+    $stmt->bind_param('s', $id_orden);  // 's' = string. Usa 'i' si es integer.
+    $stmt->execute();
+
+    $resultado = $stmt->get_result();
+    $registros = [];
+
+    while ($fila = $resultado->fetch_assoc()) {
+        $registros[] = $fila;
+    }
+
+    return $registros;
 }
+
 
 
 }
