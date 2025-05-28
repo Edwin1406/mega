@@ -84,7 +84,7 @@
                         <td class="table__td"><?php echo letranegrita($bobina->PORCENTAJE) ?></td>
                         <td class="table__td"><?php echo $bobina->created_at ?></td>
                         <td class="table__td--acciones">
-                            <select class="opciones table__accion table__accion--editar" onchange="enviarIdOrden(this)"
+                            <select class="opciones" onchange="enviarIdOrden(this)"
                                 data-id-orden="<?php echo trim($bobina->id_orden); ?>"
                                 data-id-bobina="<?php echo $bobina->id; ?>">
                                 <option value="">JALAR ID ORDEN</option>
