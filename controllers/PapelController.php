@@ -958,8 +958,8 @@ public static function ingresoConsumo(Router $router) {
                 $registros = $modeloClase::find_orden($id_orden);
 
                 foreach ($registros as $registro) {
-                    if (is_array($registro) && isset($registro['total'])) {
-                        $total_suma += (float)$registro['total'];
+                    if (is_array($registro) && isset($registro['TOTAL'])) {
+                        $total_suma += (float)$registro['TOTAL'];
                     } elseif (is_object($registro) && isset($registro->total)) {
                         $total_suma += (float)$registro->total;
                     }
