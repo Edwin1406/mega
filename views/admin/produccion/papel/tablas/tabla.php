@@ -104,7 +104,7 @@
 
                                     if (opcion === 'CORRUGADOR') {
                                         // window.location.href = `/admin/produccion/papel/crear?id_orden=${idOrden}&id_bobina=${idBobina}`; 
-                                        window.location.href = `/admin/produccion/papel/crear?id_orden=${idOrden}&id_bobina=${idBobina}`;
+                                        window.location.href = `/admin/produccion/papel/crear?id_orden=${idOrden}&tipo=${opcion}`;
 
                                     }  else if (opcion === 'EDITAR') {
                                         window.location.href = `/admin/produccion/papel/editar?id=${idBobina}`;
