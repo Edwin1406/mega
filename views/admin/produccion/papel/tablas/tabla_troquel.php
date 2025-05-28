@@ -97,6 +97,7 @@
 
             <tfoot>
                 <tr style="background-color:rgb(113, 178, 204); font-weight: bold;">
+                    <th></th> <!-- Id_orden -->
                     <th>Totales:</th>
                     <?php 
                       $columnas = [
