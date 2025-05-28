@@ -83,25 +83,7 @@
 
 <fieldset class="formulario__fieldset">
     <legend class="formulario__legend">Información de la Papel</legend>
-    <!-- <div class="formulario__campo">
-        <label class="formulario__label1" for="tipo_maquina">Tipo Maquina</label>
-        <select class="formulario__input1 select2" name="tipo_maquina" id="tipo_maquina">
-            <option value="">-- Selecciona un tipo --</option>
-            <option value="CORRUGADOR" <?= trim(strtolower($papel->tipo_maquina ?? '')) == 'corrugador' ? 'selected' : '' ?>>CORRUGADOR</option>
-            <option value="MICRO" <?= trim(strtolower($papel->tipo_maquina ?? '')) == 'micro' ? 'selected' : '' ?>>MICRO</option>
-            <option value="FLEXOGRAFICA" <?= trim(strtolower($papel->tipo_maquina ?? '')) == 'flexografica' ? 'selected' : '' ?>>FLEXOGRAFICA</option>
-            <option value="PREPRINTER" <?= trim(strtolower($papel->tipo_maquina ?? '')) == 'preprinter' ? 'selected' : '' ?>>PREPRINTER</option>
-            <option value="DOBLADO" <?= trim(strtolower($papel->tipo_maquina ?? '')) == 'doblado' ? 'selected' : '' ?>>DOBLADO</option>
-            <option value="CORTE CEJA" <?= trim(strtolower($papel->tipo_maquina ?? '')) == 'corte ceja' ? 'selected' : '' ?>>CORTE CEJA</option>
-            <option value="TROQUEL" <?= trim(strtolower($papel->tipo_maquina ?? '')) == 'troquel' ? 'selected' : '' ?>>TROQUEL</option>
-            <option value="CONVERTIDOR" <?= trim(strtolower($papel->tipo_maquina ?? '')) == 'convertidor' ? 'selected' : '' ?>>CONVERTIDOR</option>
-            <option value="GUILLOTINA LAMINA" <?= trim(strtolower($papel->tipo_maquina ?? '')) == 'guillotina lamina' ? 'selected' : '' ?>>GUILLOTINA LAMINA</option>
-            <option value="GUILLOTINA PAPEL" <?= trim(strtolower($papel->tipo_maquina ?? '')) == 'guillotina papel' ? 'selected' : '' ?>>GUILLOTINA PAPEL</option>
-            <option value="EMPAQUE" <?= trim(strtolower($papel->tipo_maquina ?? '')) == 'empaque' ? 'selected' : '' ?>>EMPAQUE</option>
-
-        </select>
-    </div> -->
-
+   
 
     <?php
     // Asigna el valor del parámetro 'tipo' al objeto $papel si no está ya definido
