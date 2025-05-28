@@ -27,6 +27,11 @@
             value="<?php echo isset($id_orden) ? htmlspecialchars($id_orden) : ''; ?>"
             onchange="buscarOrden(this.value)">
     </div>
+    <div class="formulario__campo">
+        <button type="submit" class="formulario__submit formulario__submit--registrar" onclick="buscarOrden(document.getElementById('id_orden').value)">
+            Buscar
+        </button>
+    </div>
 </form>
 
 <script>
