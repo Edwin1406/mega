@@ -102,7 +102,7 @@
         </select>
     </div>
 
-<input type="hiden" name="id_orden" value="<?= $_GET['id_orden'] ?? '' ?>">
+<input type="hidden" name="id_orden" value="<?= $_GET['id_orden'] ?? '' ?>">
 
 
     <div class="formulario__campo">
