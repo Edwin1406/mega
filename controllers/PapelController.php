@@ -917,7 +917,7 @@ class PapelController
         
 
    $router->render('admin/produccion/papel/ingresoConsumo', [
-            'titulo' => 'EDITAR CONVERTIDOR',
+            'titulo' => 'INGRESO CONSUMO',
             'alertas' => $alertas,
             'desperdicio_corrugador' => $desperdicio_corrugador,
 
