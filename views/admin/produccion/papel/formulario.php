@@ -125,6 +125,29 @@ document.addEventListener('DOMContentLoaded', () => {
 </script>
 
 
+<?php
+$clasificaciones = explode(',', strtoupper($papel->tipo_clasificacion ?? ''));
+
+$isControlable = in_array('CONTROLABLE', $clasificaciones);
+$isNoControlable = in_array('NO CONTROLABLE', $clasificaciones);
+?>
+
+<label>
+    <input type="checkbox" name="MDO[]" value="a" <?= $isControlable ? 'checked' : '' ?>>
+    CONTROLABLE
+</label>
+<label>
+    <input type="checkbox" name="MDO[]" value="b" <?= $isNoControlable ? 'checked' : '' ?>>
+    NO CONTROLABLE
+</label>
+
+
+
+
+
+
+
+
 <fieldset class="formulario__fieldset">
     <legend class="formulario__legend">Información de la Papel</legend>
    
@@ -180,7 +203,7 @@ document.addEventListener('DOMContentLoaded', () => {
     <input type="hidden" name="id_orden" value="<?= $_GET['id_orden'] ?? '' ?>">
 
 
-    <div class="formulario__campo">
+    <!-- <div class="formulario__campo">
         <label class="formulario__label">CLASIFICACION</label>
 
         <div>
@@ -199,7 +222,7 @@ document.addEventListener('DOMContentLoaded', () => {
         <input type="hidden" name="tipo_clasificacion" id="tipo_clasificacion">
 
 
-    </div>
+    </div> -->
 
 
 
