@@ -2,7 +2,7 @@
 
 namespace Model;
 
-class Consumo extends ActiveRecord {
+class IngresoConsumo extends ActiveRecord {
     protected static $tabla = 'consumo';
     protected static $columnasDB = ['id', 'id_orden', 'consumo'];
 

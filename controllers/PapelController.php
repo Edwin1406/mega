@@ -14,6 +14,7 @@ use Model\Doblado;
 use Model\Empaque;
 use Model\Guillotina_lamina;
 use Model\Guillotina_papel;
+use Model\IngresoConsumo;
 use Model\Micro;
 use Model\Preprinter;
 use Model\Troquel;
@@ -910,7 +911,7 @@ public static function ingresoConsumo(Router $router) {
 
     // Registrar consumo si se envió el formulario
     if ($id_orden && $consumo) {
-        $registroConsumo = new Consumo([
+        $registroConsumo = new IngresoConsumo([
             'id_orden' => $id_orden,
             'consumo' => $consumo
         ]);
