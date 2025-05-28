@@ -84,7 +84,7 @@
                             <select class="opciones table__accion table__accion--editar" onchange="enviarIdOrden(this)"
                                 data-id-orden="<?php echo trim($bobina->id_orden); ?>"
                                 data-id-bobina="<?php echo $bobina->id; ?>">
-                                <option value="">Selecciona una opción</option>
+                                <option value="">ID ORDEN</option>
                                 <option value="flexografica">Flexográfica</option>
                                 <option value="troquel">Troquel</option>
                                 <option value="editar">Editar</option>
