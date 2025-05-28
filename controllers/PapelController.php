@@ -913,13 +913,13 @@ class PapelController
 
 
         $desperdicio_corrugador = Bobina::find_orden($id_orden);
-        debuguear($desperdicio_corrugador);
+        // debuguear($desperdicio_corrugador);
         
 
    $router->render('admin/produccion/papel/ingresoConsumo', [
             'titulo' => 'EDITAR CONVERTIDOR',
             'alertas' => $alertas,
-            
+
         ]);
 
 
