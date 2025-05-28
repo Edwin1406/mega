@@ -167,30 +167,134 @@ public static function tabla(Router $router)
     //     ]);
     // }
 
-public static function crear(Router $router)
-{
-    $alertas = [];
-    $id_orden = $_GET['id_orden'] ?? null;  // Obtiene el id_orden de la URL si está presente
+// public static function crear(Router $router)
+// {
+//     $alertas = [];
+//     $id_orden = $_GET['id_orden'] ?? null;  // Obtiene el id_orden de la URL si está presente
 
-    // recueprar galleteado
+//     // recueprar galleteado
     
 
         
-$desperdicio_corrugador = Bobina::find_orden($id_orden);
-$orden=$desperdicio_corrugador['GALLET'] = $desperdicio_corrugador['GALLET'] ?? 0;
-// $desperdicio_corrugador['SINGLEFACE'] = $desperdicio_corrugador['SINGLEFACE'] ?? 0;
+// $desperdicio_corrugador = Bobina::find_orden($id_orden);
+// $orden=$desperdicio_corrugador['GALLET'] = $desperdicio_corrugador['GALLET'] ?? 0;
+// // $desperdicio_corrugador['SINGLEFACE'] = $desperdicio_corrugador['SINGLEFACE'] ?? 0;
     
       
 
-    // debuguear($desperdicio_corrugador);
+//     // debuguear($desperdicio_corrugador);
 
 
 
 
+
+//     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+//         $id_orden = $_POST['id_orden'] ?? '';  
+
+
+//         $tipo_maquina = $_POST['tipo_maquina'] ?? '';
+
+//         // Seleccionar el modelo según el tipo de máquina
+//         switch (strtoupper($tipo_maquina)) {
+//             case 'CORRUGADOR':
+//                 $modelo = new Bobina;
+//                 $modelo->generarIdUnico();
+//                 // id_orden 
+//                 debuguear($modelo);
+//                 $redireccion = '/admin/produccion/papel/tabla';
+//                 break;
+
+//             case 'MICRO':
+//                 $modelo = new Micro;
+//                 $redireccion = '/admin/produccion/papel/tabla_micro';
+//                 break;
+            
+//             case 'FLEXOGRAFICA':
+//                 $modelo = new Desflexografica;
+//                 $modelo->id_orden = $id_orden;
+//                 // debuguear($modelo);
+
+//                 $redireccion = '/admin/produccion/papel/tabla_flexografica';
+//                 break;
+
+//             case 'PREPRINTER':
+//                 $modelo = new Preprinter;
+//                 $redireccion = '/admin/produccion/papel/tabla_preprinter';
+//                 break;
+            
+//             case 'DOBLADO':
+//                 $modelo = new Doblado;
+//                 $redireccion = '/admin/produccion/papel/tabla_doblado';
+//                 break;
+
+//             case 'CORTE CEJA':
+//                 $modelo = new Corte_ceja;
+//                 $redireccion = '/admin/produccion/papel/tabla_corte_ceja';
+//                 break;
+
+//             case 'TROQUEL':
+//                 $modelo = new Troquel;
+//                 $redireccion = '/admin/produccion/papel/tabla_troquel';
+//                 break;
+
+//             case 'CONVERTIDOR':
+//                 $modelo = new Convertidor;
+//                 $redireccion = '/admin/produccion/papel/tabla_convertidor';
+//                 break;
+
+//             case 'GUILLOTINA LAMINA':
+//                 $modelo = new Guillotina_lamina;
+//                 $redireccion = '/admin/produccion/papel/tabla_guillotina_lamina';
+//                 break;
+
+//             case 'GUILLOTINA PAPEL':
+//                 $modelo = new Guillotina_papel;
+//                 $redireccion = '/admin/produccion/papel/tabla_guillotina_papel';
+//                 break;
+
+//             case 'EMPAQUE':
+//                 $modelo = new Empaque;
+//                 $redireccion = '/admin/produccion/papel/tabla_empaque';
+//                 break;
+
+//             default:
+//                 $alertas['error'][] = 'Tipo de máquina no reconocido.';
+//                 $modelo = null;
+//                 $redireccion = null;
+//         }
+
+//         if ($modelo) {
+//             $modelo->sincronizar($_POST);
+//             $modelo->tipo_clasificacion = $_POST['tipo_clasificacion'] ?? '';
+//             $modelo->calcularTotal();
+//             $alertas = $modelo->validar();
+
+//             if (empty($alertas)) {
+//                 $modelo->guardar();
+//                 if ($redireccion) {
+//                     header('Location: ' . $redireccion);
+//                     exit;
+//                 }
+//             }
+//         }
+//     }
+//     $router->render('admin/produccion/papel/crear', [
+//         'titulo' => 'CREAR PAPEL',
+//         'alertas' => $alertas,
+//         'orden' => $orden,
+//         'id_orden' => $id_orden,
+
+//     ]);
+// }
+
+
+public static function crear(Router $router)
+{
+    $alertas = [];
+    $modelo = null;
+    $id_orden = $_POST['id_orden'] ?? '';
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $id_orden = $_POST['id_orden'] ?? '';  
-
 
         $tipo_maquina = $_POST['tipo_maquina'] ?? '';
 
@@ -198,62 +302,76 @@ $orden=$desperdicio_corrugador['GALLET'] = $desperdicio_corrugador['GALLET'] ?? 
         switch (strtoupper($tipo_maquina)) {
             case 'CORRUGADOR':
                 $modelo = new Bobina;
-                $modelo->generarIdUnico();
-                // id_orden 
-                debuguear($modelo);
+
+                // Sincronizar primero los datos del POST
+                $modelo->sincronizar($_POST);
+
+                // Generar ID único solo si no se proporcionó uno en el formulario
+                if (empty($modelo->id_orden)) {
+                    $modelo->id_orden = $modelo->generarIdUnico();
+                }
+
                 $redireccion = '/admin/produccion/papel/tabla';
                 break;
 
             case 'MICRO':
                 $modelo = new Micro;
+                $modelo->sincronizar($_POST);
                 $redireccion = '/admin/produccion/papel/tabla_micro';
                 break;
-            
+
             case 'FLEXOGRAFICA':
                 $modelo = new Desflexografica;
+                $modelo->sincronizar($_POST);
                 $modelo->id_orden = $id_orden;
-                // debuguear($modelo);
-
                 $redireccion = '/admin/produccion/papel/tabla_flexografica';
                 break;
 
             case 'PREPRINTER':
                 $modelo = new Preprinter;
+                $modelo->sincronizar($_POST);
                 $redireccion = '/admin/produccion/papel/tabla_preprinter';
                 break;
-            
+
             case 'DOBLADO':
                 $modelo = new Doblado;
+                $modelo->sincronizar($_POST);
                 $redireccion = '/admin/produccion/papel/tabla_doblado';
                 break;
 
             case 'CORTE CEJA':
                 $modelo = new Corte_ceja;
+                $modelo->sincronizar($_POST);
                 $redireccion = '/admin/produccion/papel/tabla_corte_ceja';
                 break;
 
             case 'TROQUEL':
                 $modelo = new Troquel;
+                $modelo->sincronizar($_POST);
                 $redireccion = '/admin/produccion/papel/tabla_troquel';
                 break;
 
             case 'CONVERTIDOR':
                 $modelo = new Convertidor;
+                $modelo->sincronizar($_POST);
                 $redireccion = '/admin/produccion/papel/tabla_convertidor';
                 break;
 
             case 'GUILLOTINA LAMINA':
                 $modelo = new Guillotina_lamina;
+                $modelo->sincronizar($_POST);
                 $redireccion = '/admin/produccion/papel/tabla_guillotina_lamina';
                 break;
 
             case 'GUILLOTINA PAPEL':
                 $modelo = new Guillotina_papel;
+                $modelo->sincronizar($_POST);
                 $redireccion = '/admin/produccion/papel/tabla_guillotina_papel';
                 break;
 
             case 'EMPAQUE':
                 $modelo = new Empaque;
+                $modelo->sincronizar($_POST);
                 $redireccion = '/admin/produccion/papel/tabla_empaque';
                 break;
 
@@ -264,9 +382,13 @@ $orden=$desperdicio_corrugador['GALLET'] = $desperdicio_corrugador['GALLET'] ?? 
         }
 
         if ($modelo) {
-            $modelo->sincronizar($_POST);
+            // Asegurar que tipo_clasificacion también se asigna
             $modelo->tipo_clasificacion = $_POST['tipo_clasificacion'] ?? '';
+
+            // Calcular total antes de guardar
             $modelo->calcularTotal();
+
+            // Validar datos
             $alertas = $modelo->validar();
 
             if (empty($alertas)) {
@@ -278,16 +400,15 @@ $orden=$desperdicio_corrugador['GALLET'] = $desperdicio_corrugador['GALLET'] ?? 
             }
         }
     }
+
+    // Renderizar vista
     $router->render('admin/produccion/papel/crear', [
         'titulo' => 'CREAR PAPEL',
         'alertas' => $alertas,
-        'orden' => $orden,
+        'orden' => $modelo,
         'id_orden' => $id_orden,
-
     ]);
 }
-
-
 
 
 
