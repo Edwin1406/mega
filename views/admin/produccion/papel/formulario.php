@@ -103,49 +103,57 @@
     </div> -->
 
 
-<?php
-// Asigna el valor del parámetro 'tipo' al objeto $papel si no está ya definido
-if (!isset($papel->tipo_maquina) && isset($_GET['tipo'])) {
-    $tipo = strtoupper(trim($_GET['tipo']));
+    <?php
+    // Asigna el valor del parámetro 'tipo' al objeto $papel si no está ya definido
+    if (!isset($papel->tipo_maquina) && isset($_GET['tipo'])) {
+        $tipo = strtoupper(trim($_GET['tipo']));
 
-    // Lista blanca de valores permitidos
-    $tiposPermitidos = [
-        'CORRUGADOR', 'MICRO', 'FLEXOGRAFICA', 'PREPRINTER', 'DOBLADO',
-        'CORTE CEJA', 'TROQUEL', 'CONVERTIDOR', 'GUILLOTINA LAMINA',
-        'GUILLOTINA PAPEL', 'EMPAQUE'
-    ];
+        // Lista blanca de valores permitidos
+        $tiposPermitidos = [
+            'CORRUGADOR',
+            'MICRO',
+            'FLEXOGRAFICA',
+            'PREPRINTER',
+            'DOBLADO',
+            'CORTE CEJA',
+            'TROQUEL',
+            'CONVERTIDOR',
+            'GUILLOTINA LAMINA',
+            'GUILLOTINA PAPEL',
+            'EMPAQUE'
+        ];
 
-    if (in_array($tipo, $tiposPermitidos)) {
-        $papel = $papel ?? new stdClass();  // Asegura que $papel es un objeto
-        $papel->tipo_maquina = $tipo;
+        if (in_array($tipo, $tiposPermitidos)) {
+            $papel = $papel ?? new stdClass();  // Asegura que $papel es un objeto
+            $papel->tipo_maquina = $tipo;
+        }
     }
-}
-?>
+    ?>
 
-<div class="formulario__campo">
-    <label class="formulario__label1" for="tipo_maquina">Tipo Maquina</label>
-    <select class="formulario__input1 select2" name="tipo_maquina" id="tipo_maquina">
-        <option value="">-- Selecciona un tipo --</option>
-        <option value="CORRUGADOR" <?= trim(strtolower($papel->tipo_maquina ?? '')) == 'corrugador' ? 'selected' : '' ?>>CORRUGADOR</option>
-        <option value="MICRO" <?= trim(strtolower($papel->tipo_maquina ?? '')) == 'micro' ? 'selected' : '' ?>>MICRO</option>
-        <option value="FLEXOGRAFICA" <?= trim(strtolower($papel->tipo_maquina ?? '')) == 'flexografica' ? 'selected' : '' ?>>FLEXOGRAFICA</option>
-        <option value="PREPRINTER" <?= trim(strtolower($papel->tipo_maquina ?? '')) == 'preprinter' ? 'selected' : '' ?>>PREPRINTER</option>
-        <option value="DOBLADO" <?= trim(strtolower($papel->tipo_maquina ?? '')) == 'doblado' ? 'selected' : '' ?>>DOBLADO</option>
-        <option value="CORTE CEJA" <?= trim(strtolower($papel->tipo_maquina ?? '')) == 'corte ceja' ? 'selected' : '' ?>>CORTE CEJA</option>
-        <option value="TROQUEL" <?= trim(strtolower($papel->tipo_maquina ?? '')) == 'troquel' ? 'selected' : '' ?>>TROQUEL</option>
-        <option value="CONVERTIDOR" <?= trim(strtolower($papel->tipo_maquina ?? '')) == 'convertidor' ? 'selected' : '' ?>>CONVERTIDOR</option>
-        <option value="GUILLOTINA LAMINA" <?= trim(strtolower($papel->tipo_maquina ?? '')) == 'guillotina lamina' ? 'selected' : '' ?>>GUILLOTINA LAMINA</option>
-        <option value="GUILLOTINA PAPEL" <?= trim(strtolower($papel->tipo_maquina ?? '')) == 'guillotina papel' ? 'selected' : '' ?>>GUILLOTINA PAPEL</option>
-        <option value="EMPAQUE" <?= trim(strtolower($papel->tipo_maquina ?? '')) == 'empaque' ? 'selected' : '' ?>>EMPAQUE</option>
-    </select>
-</div>
+    <div class="formulario__campo">
+        <label class="formulario__label1" for="tipo_maquina">Tipo Maquina</label>
+        <select class="formulario__input1 select2" name="tipo_maquina" id="tipo_maquina">
+            <option value="">-- Selecciona un tipo --</option>
+            <option value="CORRUGADOR" <?= trim(strtolower($papel->tipo_maquina ?? '')) == 'corrugador' ? 'selected' : '' ?>>CORRUGADOR</option>
+            <option value="MICRO" <?= trim(strtolower($papel->tipo_maquina ?? '')) == 'micro' ? 'selected' : '' ?>>MICRO</option>
+            <option value="FLEXOGRAFICA" <?= trim(strtolower($papel->tipo_maquina ?? '')) == 'flexografica' ? 'selected' : '' ?>>FLEXOGRAFICA</option>
+            <option value="PREPRINTER" <?= trim(strtolower($papel->tipo_maquina ?? '')) == 'preprinter' ? 'selected' : '' ?>>PREPRINTER</option>
+            <option value="DOBLADO" <?= trim(strtolower($papel->tipo_maquina ?? '')) == 'doblado' ? 'selected' : '' ?>>DOBLADO</option>
+            <option value="CORTE CEJA" <?= trim(strtolower($papel->tipo_maquina ?? '')) == 'corte ceja' ? 'selected' : '' ?>>CORTE CEJA</option>
+            <option value="TROQUEL" <?= trim(strtolower($papel->tipo_maquina ?? '')) == 'troquel' ? 'selected' : '' ?>>TROQUEL</option>
+            <option value="CONVERTIDOR" <?= trim(strtolower($papel->tipo_maquina ?? '')) == 'convertidor' ? 'selected' : '' ?>>CONVERTIDOR</option>
+            <option value="GUILLOTINA LAMINA" <?= trim(strtolower($papel->tipo_maquina ?? '')) == 'guillotina lamina' ? 'selected' : '' ?>>GUILLOTINA LAMINA</option>
+            <option value="GUILLOTINA PAPEL" <?= trim(strtolower($papel->tipo_maquina ?? '')) == 'guillotina papel' ? 'selected' : '' ?>>GUILLOTINA PAPEL</option>
+            <option value="EMPAQUE" <?= trim(strtolower($papel->tipo_maquina ?? '')) == 'empaque' ? 'selected' : '' ?>>EMPAQUE</option>
+        </select>
+    </div>
 
 
 
 
     <input type="hidden" name="id_orden" value="<?= $_GET['id_orden'] ?? '' ?>">
 
-
+<!-- 
     <div class="formulario__campo">
         <label class="formulario__label">CLASIFICACION</label>
 
@@ -165,8 +173,42 @@ if (!isset($papel->tipo_maquina) && isset($_GET['tipo'])) {
         <input type="hidden" name="tipo_clasificacion" id="tipo_clasificacion">
 
 
+    </div> -->
+
+
+
+    <script>
+document.querySelector("form").addEventListener("submit", function () {
+    const seleccionados = [];
+    document.querySelectorAll('input[name="MDO[]"]:checked').forEach(el => {
+        seleccionados.push(el.value);
+    });
+    document.getElementById("tipo_clasificacion").value = seleccionados.join(',');
+});
+</script>
+
+
+<div class="formulario__campo">
+    <label class="formulario__label">CLASIFICACION</label>
+
+    <div>
+        <label>
+            <input type="checkbox" name="MDO[]" value="CONTROLABLE"
+                <?= (isset($papel->tipo_clasificacion) && strpos($papel->tipo_clasificacion, 'CONTROLABLE') !== false) ? 'checked' : '' ?>>
+            CONTROLABLE
+        </label>
     </div>
 
+    <div>
+        <label>
+            <input type="checkbox" name="MDO[]" value="NO CONTROLABLE"
+                <?= (isset($papel->tipo_clasificacion) && strpos($papel->tipo_clasificacion, 'NO CONTROLABLE') !== false) ? 'checked' : '' ?>>
+            NO CONTROLABLE
+        </label>
+    </div>
+
+    <input type="hidden" name="tipo_clasificacion" id="tipo_clasificacion">
+</div>
 
 
     <script>
