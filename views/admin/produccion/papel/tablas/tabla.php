@@ -122,7 +122,7 @@
             </tbody>
 
             <tfoot>
-                <tr style="background-color:rgb(113, 178, 204); font-weight: bold; text-right: 1rem;">
+                <tr style="background-color:rgb(113, 178, 204); font-weight: bold; text-align: right;">
                             <td></td> <!-- Id_orden -->
 
                     <th>Totales:</th>
