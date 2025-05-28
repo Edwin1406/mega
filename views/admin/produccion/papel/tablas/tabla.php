@@ -83,6 +83,8 @@
                         <td class="table__td"><?php echo letranegrita($bobina->TOTAL) ?></td>
                         <td class="table__td"><?php echo letranegrita($bobina->PORCENTAJE) ?></td>
                         <td class="table__td"><?php echo $bobina->created_at ?></td>
+
+
                         <td class="table__td--acciones">
                             <select class="opciones table__accion table__accion--editar" onchange="enviarIdOrden(this)"
                                 data-id-orden="<?php echo trim($bobina->id_orden); ?>"
@@ -101,7 +103,9 @@
                                     const idBobina = selectElement.getAttribute('data-id-bobina');
 
                                     if (opcion === 'CORRUGADOR') {
-                                        window.location.href = `/admin/produccion/papel/crear?id_orden=${idOrden}`;
+                                        // window.location.href = `/admin/produccion/papel/crear?id_orden=${idOrden}&id_bobina=${idBobina}`; 
+                                        window.location.href = `/admin/produccion/papel/crear?id_orden=${idOrden}&id_bobina=${idBobina}`;
+
                                     }  else if (opcion === 'EDITAR') {
                                         window.location.href = `/admin/produccion/papel/editar?id=${idBobina}`;
                                     }
