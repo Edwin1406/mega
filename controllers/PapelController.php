@@ -910,7 +910,7 @@ public static function ingresoConsumo(Router $router) {
     $id_orden_existe = false;
     $id_orden_duplicado = false;
 
-    // Modelos a revisar para la existencia de la orden
+    // Modelos relacionados
     $modelos = [
         'Bobina' => Bobina::class,
         'Micro' => Micro::class,
@@ -925,7 +925,7 @@ public static function ingresoConsumo(Router $router) {
         'Empaque' => Empaque::class,
     ];
 
-    // Verificar existencia de id_orden en alguna tabla
+    // Verificar existencia de la orden
     if ($id_orden) {
         foreach ($modelos as $modeloClase) {
             $registros = $modeloClase::find_orden($id_orden);
@@ -935,14 +935,14 @@ public static function ingresoConsumo(Router $router) {
             }
         }
 
-        // Verificar si ya se registró en IngresoConsumo
+        // Verificar duplicado
         $duplicado = IngresoConsumo::where('id_orden', $id_orden);
         if (!empty($duplicado)) {
             $id_orden_duplicado = true;
         }
     }
 
-    // Procesar formulario POST
+    // Procesar envío del formulario
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (!$id_orden || !$consumo) {
             $alertas['error'][] = 'Debe proporcionar un ID de orden y un consumo.';
@@ -951,17 +951,17 @@ public static function ingresoConsumo(Router $router) {
         } elseif ($id_orden_duplicado) {
             $alertas['error'][] = 'Ya se ha registrado un consumo para esta orden.';
         } else {
-            // Calcular suma total desde otras tablas
+            // Calcular total desde los modelos
             $total_suma = 0;
 
             foreach ($modelos as $modeloClase) {
                 $registros = $modeloClase::find_orden($id_orden);
+
                 foreach ($registros as $registro) {
-                    foreach (get_object_vars($registro) as $clave => $valor) {
-                        if (strtolower($clave) === 'total') {
-                            $total_suma += (float)$valor;
-                            break;
-                        }
+                    if (is_array($registro) && isset($registro['total'])) {
+                        $total_suma += (float)$registro['total'];
+                    } elseif (is_object($registro) && isset($registro->total)) {
+                        $total_suma += (float)$registro->total;
                     }
                 }
             }
@@ -983,7 +983,7 @@ public static function ingresoConsumo(Router $router) {
         }
     }
 
-    // Mostrar resultados relacionados a la orden
+    // Mostrar resultados relacionados con la orden
     $resultados = [];
     if ($id_orden_existe) {
         foreach ($modelos as $nombre => $modeloClase) {
