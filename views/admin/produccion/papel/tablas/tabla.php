@@ -126,6 +126,7 @@
                     <th>Totales:</th>
                     <?php
                     $columnas = [
+                        '',
                         'SINGLEFACE',
                         'EMPALME',
                         'RECUB',
