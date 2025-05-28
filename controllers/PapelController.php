@@ -6,6 +6,7 @@ use MVC\Router;
 use Model\Bobina;
 use Classes\Paginacion;
 use Model\Computadora;
+use Model\Consumo;
 use Model\Convertidor;
 use Model\Corte_ceja;
 use Model\Desflexografica;
@@ -900,24 +901,29 @@ class PapelController
         ]);
     }
 
+
+
 public static function ingresoConsumo(Router $router) {
     $alertas = [];
     $id_orden = $_POST['id_orden'] ?? null;
-    $resultados = [];
+    $consumo = $_POST['CONSUMO'] ?? null;
 
+    // Registrar consumo si se envió el formulario
+    if ($id_orden && $consumo) {
+        $registroConsumo = new Consumo([
+            'id_orden' => $id_orden,
+            'consumo' => $consumo
+        ]);
+        $registroConsumo->guardar();  // ✅ Usa tu sistema de guardado automático
+    }
+
+    // Obtener registros para mostrar
+    $resultados = [];
     if ($id_orden) {
         $modelos = [
-            'Corrugador' => Bobina::class,
+            'Bobina' => Bobina::class,
             'Micro' => Micro::class,
-            'Desflexografica' => Desflexografica::class,
-            'Preprinter' => Preprinter::class,
-            'Doblado' => Doblado::class,
-            'Corte_ceja' => Corte_ceja::class,
-            'Troquel' => Troquel::class,
-            'Convertidor' => Convertidor::class,
-            'Guillotina_lamina' => Guillotina_lamina::class,
-            'Guillotina_papel' => Guillotina_papel::class,
-            'Empaque' => Empaque::class
+            // Agrega otros modelos
         ];
 
         foreach ($modelos as $nombre => $modeloClase) {
@@ -927,7 +933,6 @@ public static function ingresoConsumo(Router $router) {
             }
         }
     }
-    
 
     $router->render('admin/produccion/papel/ingresoConsumo', [
         'titulo' => 'INGRESO CONSUMO',
@@ -936,16 +941,6 @@ public static function ingresoConsumo(Router $router) {
         'id_orden' => $id_orden
     ]);
 }
-
-
-
-
-
-
-
-
-
-
 
 
 
