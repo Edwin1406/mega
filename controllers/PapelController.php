@@ -574,7 +574,7 @@ class PapelController
         $bobinas = Convertidor::paginar($pagina_por_registros, $paginacion->offset());
         $totales = Convertidor::sumarTodasLasColumnas();
 
-        $router->render('admin/produccion/papel/tablas/tabla_convertidor', [
+        $router->render('admin/produccion/papel/tabla_convertidor', [
             'titulo' => 'TABLA DESPERDICIO CONVERTIDOR',
             'bobinas' => $bobinas,
             'paginacion' => $paginacion->paginacion(),
@@ -604,7 +604,7 @@ class PapelController
         $bobinas = Corte_ceja::paginar($pagina_por_registros, $paginacion->offset());
         $totales = Corte_ceja::sumarTodasLasColumnas();
 
-        $router->render('admin/produccion/papel/tablas/tabla_corte_ceja', [
+        $router->render('admin/produccion/papel/tabla_corte_ceja', [
             'titulo' => 'TABLA DESPERDICIO CORTE CEJA',
             'bobinas' => $bobinas,
             'paginacion' => $paginacion->paginacion(),
@@ -634,7 +634,7 @@ class PapelController
         $bobinas = Doblado::paginar($pagina_por_registros, $paginacion->offset());
         $totales = Doblado::sumarTodasLasColumnas();
 
-        $router->render('admin/produccion/papel/tablas/tabla_doblado', [
+        $router->render('admin/produccion/papel/tabla_doblado', [
             'titulo' => 'TABLA DESPERDICIO DOBLADO',
             'bobinas' => $bobinas,
             'paginacion' => $paginacion->paginacion(),
@@ -665,7 +665,7 @@ class PapelController
         $bobinas = Desflexografica::paginar($pagina_por_registros, $paginacion->offset());
         $totales = Desflexografica::sumarTodasLasColumnas();
 
-        $router->render('admin/produccion/papel/tablas/tabla_flexografica', [
+        $router->render('admin/produccion/papel/tabla_flexografica', [
             'titulo' => 'TABLA DESPERDICIO FLEXOGRAFICA',
             'bobinas' => $bobinas,
             'paginacion' => $paginacion->paginacion(),
