@@ -65,7 +65,7 @@
                                 data-id-orden="<?php echo trim($bobina->id_orden); ?>"
                                 data-id-bobina="<?php echo $bobina->id; ?>">
                                 <option value="">JALAR ID ORDEN</option>
-                                <option value="TROQUEL">CORRUGADOR</option>
+                                <option value="TROQUEL">TROQUEL</option>
                                 <!-- <option value="troquel">Troquel</option> -->
                                 <option value="EDITAR">EDITAR</option>
                             </select>
