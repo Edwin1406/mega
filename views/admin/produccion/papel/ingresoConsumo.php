@@ -77,5 +77,5 @@
     <?php endforeach; ?>
 
 <?php else : ?>
-    <p>No se encontraron resultados para el ID ORDEN: <strong><?php echo htmlspecialchars($id_orden); ?></strong>.</p>
+   
 <?php endif; ?>
