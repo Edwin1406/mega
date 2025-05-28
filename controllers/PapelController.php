@@ -916,7 +916,7 @@ public static function ingresoConsumo(Router $router) {
             'consumo' => $consumo
         ]);
         $registroConsumo->guardar(); 
-            header('Location: /admin/produccion/papel/ingresoConsumo');
+            header('Location: /admin/produccion/papel/ingresoConsumo?guardado=' . urlencode('Consumo registrado correctamente'));
             exit;
     }
 

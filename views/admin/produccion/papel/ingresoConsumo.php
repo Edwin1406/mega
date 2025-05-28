@@ -9,7 +9,7 @@
 
 
 
-
+    <!-- si en la url esta registo  -->
 
 <div class="dashboard__formulario">
 
