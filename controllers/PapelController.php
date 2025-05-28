@@ -916,6 +916,9 @@ public static function ingresoConsumo(Router $router) {
             'consumo' => $consumo
         ]);
         $registroConsumo->guardar();  // ✅ Usa tu sistema de guardado automático
+                    header('Location: /admin/produccion/papel/ingresoConsumo');
+
+                    exit;
     }
 
     // Obtener registros para mostrar
