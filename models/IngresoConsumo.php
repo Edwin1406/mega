@@ -3,7 +3,7 @@
 namespace Model;
 
 class IngresoConsumo extends ActiveRecord {
-    protected static $tabla = 'consumo';
+    protected static $tabla = 'ingreso_consumo';
     protected static $columnasDB = ['id', 'id_orden', 'consumo'];
 
     public $id;
