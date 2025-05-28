@@ -87,7 +87,7 @@
                             <select class="opciones table__accion table__accion--editar" onchange="enviarIdOrden(this)"
                                 data-id-orden="<?php echo trim($bobina->id_orden); ?>"
                                 data-id-bobina="<?php echo $bobina->id; ?>">
-                                <option value="">ID ORDEN</option>
+                                <option value="">JALAR ID ORDEN</option>
                                 <option value="flexografica">Flexográfica</option>
                                 <option value="troquel">Troquel</option>
                                 <option value="editar">Editar</option>
@@ -123,8 +123,7 @@
 
             <tfoot>
                 <tr style="background-color:rgb(113, 178, 204); font-weight: bold; padding-left: 20px;">
-                            <td></td> <!-- Id_orden -->
-
+                    <td></td> 
                     <th>Totales:</th>
                     <?php
                     $columnas = [
