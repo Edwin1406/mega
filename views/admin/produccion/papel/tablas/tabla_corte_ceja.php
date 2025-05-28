@@ -20,6 +20,7 @@
         <table class="table">
             <thead class="table__thead">
                 <tr>
+                    <th rowspan="2" class="table__th">Id_orden</th>
                     <th rowspan="2" class="table__th">Tipo de clasificación</th>
                     <th colspan="1" class="table__th" style="background-color: #a564a8; color: white; text-align: center;">CONTROLABLE</th>
                     <th rowspan="2" class="table__th">Consumo</th>
@@ -38,6 +39,7 @@
 
                 <?php foreach ($bobinas as $bobina): ?>
                     <tr class="table__tr">
+                        <td class="table__td"><?php echo $bobina->id_orden ?></td>
                         <td class="table__td"><?php echo $bobina->tipo_clasificacion ?></td>
                         <td class="table__td"><?php echo letranegrita($bobina->CUADRE_SIERRA) ?></td>
                         <td class="table__td"><?php echo letranegrita($bobina->CONSUMO) ?></td>
@@ -87,6 +89,7 @@
 
             <tfoot>
                 <tr style="background-color:rgb(113, 178, 204); font-weight: bold;">
+                    <th></th>
                     <th>Totales:</th>
                     <?php
                     $columnas = [
