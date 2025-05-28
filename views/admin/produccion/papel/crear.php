@@ -38,7 +38,6 @@
 
 
 
-<a href="/admin/produccion/papel/crear">pruebas</a>
 
 <div class="dashboard__formulario">
 
