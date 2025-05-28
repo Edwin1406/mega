@@ -173,6 +173,20 @@ public function generarIdUnico()
     return $this->id_orden;
 }
 
+public static function find_orden($id_orden) {
+    $query = "SELECT * FROM " . static::$tabla . " WHERE id_orden = ?";
+    $stmt = self::$db->prepare($query);
+    $stmt->bind_param('i', $id_orden);  // Usa 'i' si id_orden es entero
+    $stmt->execute();
+    $resultado = $stmt->get_result();
+
+    $registros = [];
+    while ($fila = $resultado->fetch_assoc()) {
+        $registros[] = $fila;
+    }
+
+    return $registros;
+}
 
 
 
