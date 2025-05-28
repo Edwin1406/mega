@@ -10,10 +10,11 @@
 <div class="dashboard__contenedor">
     <?php if (!empty($bobinas)): ?>
 
-        <?php 
-            function letranegrita($value) {
-                return $value > 0 ? '<strong>' . $value . '</strong>' : $value;
-            }
+        <?php
+        function letranegrita($value)
+        {
+            return $value > 0 ? '<strong>' . $value . '</strong>' : $value;
+        }
         ?>
 
         <table class="table">
@@ -98,7 +99,7 @@
                                 <input type="hidden" name="id" value="<?php echo $bobina->id; ?>">
                             </form>
                         </td> -->
-                           <td class="table__td--acciones">
+                        <td class="table__td--acciones">
                             <select class="opciones table__accion table__accion--editar" onchange="enviarIdOrden(this)"
                                 data-id-orden="<?php echo trim($bobina->id_orden); ?>"
                                 data-id-bobina="<?php echo $bobina->id; ?>">
@@ -135,21 +136,39 @@
                 <tr style="background-color:rgb(113, 178, 204); font-weight: bold;">
                     <td></td> <!-- Tipo de clasificación -->
                     <th>Totales:</th>
-                    <?php 
-                      $columnas = [
-                           'GALLET', 'COMBADO', 'HUMEDO', 'FRENO',
-                            'DESPE', 'PRESION', 'ERROM', 'SINGLEFACE',
-                            'CUADRE', 'EMPALME', 'RECUB', 'PREPRINTER',
-                            'DESHOJE', 'FILOS_ROTOS', 'ELECTRICO', 'MECANICO',
-                            'PEDIDOS_CORTOS', 'DIFER_ANCHO', 'REFILE_PEQUENO',
-                            'CAMBIO_GRAMAJE', 'EXTRA_TRIM', 'SUSTRATO',
-                            'CONSUMO', 'TOTAL', 'PORCENTAJE'
-                      ];
+                    <?php
+                    $columnas = [
+                        'GALLET',
+                        'COMBADO',
+                        'HUMEDO',
+                        'FRENO',
+                        'DESPE',
+                        'PRESION',
+                        'ERROM',
+                        'SINGLEFACE',
+                        'CUADRE',
+                        'EMPALME',
+                        'RECUB',
+                        'PREPRINTER',
+                        'DESHOJE',
+                        'FILOS_ROTOS',
+                        'ELECTRICO',
+                        'MECANICO',
+                        'PEDIDOS_CORTOS',
+                        'DIFER_ANCHO',
+                        'REFILE_PEQUENO',
+                        'CAMBIO_GRAMAJE',
+                        'EXTRA_TRIM',
+                        'SUSTRATO',
+                        'CONSUMO',
+                        'TOTAL',
+                        'PORCENTAJE'
+                    ];
 
-                      foreach ($columnas as $col) {
-                          $valor = isset($totales[$col]) && $totales[$col] !== null ? $totales[$col] : 0;
-                          echo '<td>' . letranegrita(number_format($valor, 2)) . '</td>';
-                      }
+                    foreach ($columnas as $col) {
+                        $valor = isset($totales[$col]) && $totales[$col] !== null ? $totales[$col] : 0;
+                        echo '<td>' . letranegrita(number_format($valor, 2)) . '</td>';
+                    }
                     ?>
                     <td></td> <!-- Acciones -->
                 </tr>
@@ -163,4 +182,3 @@
 </div>
 
 <?php echo $paginacion; ?>
-
