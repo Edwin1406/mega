@@ -84,7 +84,7 @@
                         <td class="table__td"><?php echo letranegrita($bobina->PORCENTAJE) ?></td>
                         <td class="table__td"><?php echo $bobina->created_at ?></td>
                         <td class="table__td--acciones">
-                            <select class="opciones" onchange="enviarIdOrden(this)"
+                            <select class="opciones table__accion table__accion--editar" onchange="enviarIdOrden(this)"
                                 data-id-orden="<?php echo trim($bobina->id_orden); ?>"
                                 data-id-bobina="<?php echo $bobina->id; ?>">
                                 <option value="">JALAR ID ORDEN</option>
@@ -100,11 +100,9 @@
                                     const idOrden = idOrdenRaw ? idOrdenRaw.trim() : '';
                                     const idBobina = selectElement.getAttribute('data-id-bobina');
 
-                                    if (opcion === 'flexografica') {
+                                    if (opcion === 'CORRUGADOR') {
                                         window.location.href = `/admin/produccion/papel/crear?id_orden=${idOrden}`;
-                                    } else if (opcion === 'troquel') {
-                                        window.location.href = `/admin/produccion/papel/crear?id_orden=${idOrden}`;
-                                    } else if (opcion === 'editar') {
+                                    }  else if (opcion === 'EDITAR') {
                                         window.location.href = `/admin/produccion/papel/editar?id=${idBobina}`;
                                     }
                                     
