@@ -85,7 +85,7 @@
                                 data-id-orden="<?php echo trim($bobina->id_orden); ?>"
                                 data-id-bobina="<?php echo $bobina->id; ?>">
                                 <option value="">JALAR ID ORDEN</option>
-                                <option value="TROQUEL">TROQUEL</option>
+                                <option value="PREPRINTER">PREPRINTER</option>
                                 <!-- <option value="troquel">Troquel</option> -->
                                 <option value="EDITAR">EDITAR</option>
                             </select>
@@ -97,7 +97,7 @@
                                     const idOrden = idOrdenRaw ? idOrdenRaw.trim() : '';
                                     const idBobina = selectElement.getAttribute('data-id-bobina');
 
-                                    if (opcion === 'TROQUEL') {
+                                    if (opcion === 'PREPRINTER') {
                                         // window.location.href = `/admin/produccion/papel/crear?id_orden=${idOrden}&id_bobina=${idBobina}`; 
                                         window.location.href = `/admin/produccion/papel/crear?id_orden=${idOrden}&tipo=${opcion}`;
 
