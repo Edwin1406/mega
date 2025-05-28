@@ -903,25 +903,14 @@ class PapelController
     }
 
 
-
 public static function ingresoConsumo(Router $router) {
     $alertas = [];
     $id_orden = $_POST['id_orden'] ?? null;
     $consumo = $_POST['CONSUMO'] ?? null;
 
-    // Registrar consumo si se envió el formulario
-    if ($id_orden && $consumo) {
-        $registroConsumo = new IngresoConsumo([
-            'id_orden' => $id_orden,
-            'consumo' => $consumo
-        ]);
-        $registroConsumo->guardar(); 
-            header('Location: /admin/produccion/papel/ingresoConsumo?guardado=' . urlencode('Consumo registrado correctamente'));
-            exit;
-    }
+    // Verificar si el id_orden existe en al menos una tabla
+    $id_orden_existe = false;
 
-    // Obtener registros para mostrar
-    $resultados = [];
     if ($id_orden) {
         $modelos = [
             'Bobina' => Bobina::class,
@@ -935,9 +924,37 @@ public static function ingresoConsumo(Router $router) {
             'Guillotina_lamina' => Guillotina_lamina::class,
             'Guillotina_papel' => Guillotina_papel::class,
             'Empaque' => Empaque::class,
-            
         ];
 
+        foreach ($modelos as $modeloClase) {
+            $registros = $modeloClase::find_orden($id_orden);
+            if (!empty($registros)) {
+                $id_orden_existe = true;
+                break;
+            }
+        }
+    }
+
+    // Si se intenta registrar y existe el id_orden
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        if (!$id_orden || !$consumo) {
+            $alertas['error'][] = 'Debe proporcionar un ID de orden y un consumo.';
+        } elseif (!$id_orden_existe) {
+            $alertas['error'][] = 'El ID de orden no existe. No se puede registrar el consumo.';
+        } else {
+            $registroConsumo = new IngresoConsumo([
+                'id_orden' => $id_orden,
+                'consumo' => $consumo
+            ]);
+            $registroConsumo->guardar(); 
+            header('Location: /admin/produccion/papel/ingresoConsumo?guardado=' . urlencode('Consumo registrado correctamente'));
+            exit;
+        }
+    }
+
+    // Obtener registros para mostrar
+    $resultados = [];
+    if ($id_orden_existe) {
         foreach ($modelos as $nombre => $modeloClase) {
             $registros = $modeloClase::find_orden($id_orden);
             if (!empty($registros)) {
