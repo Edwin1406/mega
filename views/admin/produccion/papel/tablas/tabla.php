@@ -21,7 +21,7 @@
             <thead class="table__thead">
                 <tr>
                     <th rowspan="1" class="table__th">Id_orden</th>
-                    <th rowspan="2" class="table__th">Tipo de clasificación</th>
+                    <th rowspan="3" class="table__th">Tipo de clasificación</th>
                     <th colspan="9" class="table__th" style="background-color: #a564a8; color: white; text-align: center;">CONTROLABLE</th>
                     <th colspan="10" class="table__th" style="background-color: #4a90e2; color: white; text-align: center;">NO CONTROLABLE</th>
                     <th rowspan="2" class="table__th">Consumo</th>
