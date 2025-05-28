@@ -972,6 +972,8 @@ public static function ingresoConsumo(Router $router) {
                 'total' => $total_suma,
                 'porcentaje' => round($porcentaje, 2)
             ]);
+
+            debuguear($registroConsumo);
             $registroConsumo->guardar();
 
             header('Location: /admin/produccion/papel/ingresoConsumo?guardado=' . urlencode('Consumo registrado correctamente'));
