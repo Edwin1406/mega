@@ -255,7 +255,6 @@ $router->post('/admin/produccion/maquinas/eliminar', [MaquinaController::class, 
 $router->get('/admin/produccion/papel/tabla', [PapelController::class, 'tabla']);
 $router->get('/admin/produccion/papel/tabla_convertidor', [PapelController::class, 'tabla_convertidor']);
 $router->get('/admin/produccion/papel/tabla_corte_ceja', [PapelController::class, 'tabla_corte_ceja']);
-
 $router->get('/admin/produccion/papel/tabla_doblado', [PapelController::class, 'tabla_doblado']);
 $router->get('/admin/produccion/papel/tabla_flexografica', [PapelController::class, 'tabla_flexografica']);
 $router->get('/admin/produccion/papel/tabla_preprinter', [PapelController::class, 'tabla_preprinter']);
@@ -266,14 +265,8 @@ $router->get('/admin/produccion/papel/tabla_micro', [PapelController::class, 'ta
 $router->get('/admin/produccion/papel/tabla_empaque', [PapelController::class, 'tabla_empaque']);
 
 
-
 // Editar PAPEL
 $router->get('/admin/produccion/papel/editar_convertidor', [PapelController::class, 'editar_convertidor']);
-
-
-
-
-
 
 
 // papel
