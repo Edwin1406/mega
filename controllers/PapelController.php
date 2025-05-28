@@ -915,10 +915,9 @@ public static function ingresoConsumo(Router $router) {
             'id_orden' => $id_orden,
             'consumo' => $consumo
         ]);
-        $registroConsumo->guardar();  // ✅ Usa tu sistema de guardado automático
-                    header('Location: /admin/produccion/papel/ingresoConsumo');
-
-                    exit;
+        $registroConsumo->guardar(); 
+            header('Location: /admin/produccion/papel/ingresoConsumo');
+            exit;
     }
 
     // Obtener registros para mostrar
@@ -927,7 +926,16 @@ public static function ingresoConsumo(Router $router) {
         $modelos = [
             'Bobina' => Bobina::class,
             'Micro' => Micro::class,
-            // Agrega otros modelos
+            'Desflexografica' => Desflexografica::class,
+            'Preprinter' => Preprinter::class,
+            'Doblado' => Doblado::class,
+            'Corte_ceja' => Corte_ceja::class,
+            'Troquel' => Troquel::class,
+            'Convertidor' => Convertidor::class,
+            'Guillotina_lamina' => Guillotina_lamina::class,
+            'Guillotina_papel' => Guillotina_papel::class,
+            'Empaque' => Empaque::class,
+            
         ];
 
         foreach ($modelos as $nombre => $modeloClase) {
