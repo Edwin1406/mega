@@ -10,10 +10,11 @@
 <div class="dashboard__contenedor">
     <?php if (!empty($bobinas)): ?>
 
-        <?php 
-            function letranegrita($value) {
-                return $value > 0 ? '<strong>' . $value . '</strong>' : $value;
-            }
+        <?php
+        function letranegrita($value)
+        {
+            return $value > 0 ? '<strong>' . $value . '</strong>' : $value;
+        }
         ?>
 
         <table class="table">
@@ -31,9 +32,9 @@
                 </tr>
                 <tr>
                     <th class="table__th">REFILES</th>
-                 
-                  
-                    
+
+
+
 
                 </tr>
             </thead>
@@ -45,7 +46,7 @@
                         <td class="table__td"><?php echo $bobina->id_orden ?></td>
                         <td class="table__td"><?php echo $bobina->tipo_clasificacion ?></td>
                         <td class="table__td"><?php echo letranegrita($bobina->REFILES) ?></td>
-                       
+
                         <td class="table__td"><?php echo letranegrita($bobina->CONSUMO) ?></td>
                         <td class="table__td"><?php echo letranegrita($bobina->TOTAL) ?></td>
                         <td class="table__td"><?php echo letranegrita($bobina->PORCENTAJE) ?></td>
@@ -59,7 +60,7 @@
                             </form>
                         </td> -->
 
-                          <td class="table__td--acciones">
+                        <td class="table__td--acciones">
                             <select class="opciones table__accion table__accion--editar" onchange="enviarIdOrden(this)"
                                 data-id-orden="<?php echo trim($bobina->id_orden); ?>"
                                 data-id-bobina="<?php echo $bobina->id; ?>">
@@ -97,17 +98,19 @@
 
                     <th></th>
                     <th>Totales:</th>
-                    <?php 
-                      $columnas = [
-                           'REFILES', 
+                    <?php
+                    $columnas = [
+                        'REFILES',
 
-                            'CONSUMO', 'TOTAL', 'PORCENTAJE'
-                      ];
+                        'CONSUMO',
+                        'TOTAL',
+                        'PORCENTAJE'
+                    ];
 
-                      foreach ($columnas as $col) {
-                          $valor = isset($totales[$col]) && $totales[$col] !== null ? $totales[$col] : 0;
-                          echo '<td>' . letranegrita(number_format($valor, 2)) . '</td>';
-                      }
+                    foreach ($columnas as $col) {
+                        $valor = isset($totales[$col]) && $totales[$col] !== null ? $totales[$col] : 0;
+                        echo '<td>' . letranegrita(number_format($valor, 2)) . '</td>';
+                    }
                     ?>
                     <td></td> <!-- Acciones -->
                 </tr>
@@ -121,4 +124,3 @@
 </div>
 
 <?php echo $paginacion; ?>
-
