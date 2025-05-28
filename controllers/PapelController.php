@@ -305,6 +305,7 @@ class PapelController
 
                     // Sincronizar primero los datos del POST
                     $modelo->sincronizar($_POST);
+                    $GALLET = $_POST['GALLET'] ?? 0;
                     if (empty($modelo->id_orden)) {
                         $modelo->id_orden = $modelo->generarIdUnico();
                     }
