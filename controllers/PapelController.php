@@ -189,7 +189,7 @@ $orden=$desperdicio_corrugador['GALLET'] = $desperdicio_corrugador['GALLET'] ?? 
 
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $id_orden = $_POST['id_orden'] ?? '';  // Usa el id_orden de POST si está presente
+        // $id_orden = $_POST['id_orden'] ?? '';  
 
 
         $tipo_maquina = $_POST['tipo_maquina'] ?? '';
@@ -198,8 +198,8 @@ $orden=$desperdicio_corrugador['GALLET'] = $desperdicio_corrugador['GALLET'] ?? 
         switch (strtoupper($tipo_maquina)) {
             case 'CORRUGADOR':
                 $modelo = new Bobina;
-                // id_orden 
                 $modelo->generarIdUnico();
+                // id_orden 
                 // debuguear($modelo);
                 $redireccion = '/admin/produccion/papel/tabla';
                 break;
