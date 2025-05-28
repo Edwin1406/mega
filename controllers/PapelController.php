@@ -907,7 +907,7 @@ public static function ingresoConsumo(Router $router) {
 
     if ($id_orden) {
         $modelos = [
-            'Bobina' => Bobina::class,
+            'Corrugador' => Bobina::class,
             'Micro' => Micro::class,
             'Desflexografica' => Desflexografica::class,
             'Preprinter' => Preprinter::class,
