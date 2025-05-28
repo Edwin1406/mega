@@ -189,7 +189,7 @@ $orden=$desperdicio_corrugador['GALLET'] = $desperdicio_corrugador['GALLET'] ?? 
 
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        // $id_orden = $_POST['id_orden'] ?? '';  
+        $id_orden = $_POST['id_orden'] ?? '';  
 
 
         $tipo_maquina = $_POST['tipo_maquina'] ?? '';
@@ -200,7 +200,7 @@ $orden=$desperdicio_corrugador['GALLET'] = $desperdicio_corrugador['GALLET'] ?? 
                 $modelo = new Bobina;
                 $modelo->generarIdUnico();
                 // id_orden 
-                // debuguear($modelo);
+                debuguear($modelo);
                 $redireccion = '/admin/produccion/papel/tabla';
                 break;
 
@@ -283,6 +283,7 @@ $orden=$desperdicio_corrugador['GALLET'] = $desperdicio_corrugador['GALLET'] ?? 
         'alertas' => $alertas,
         'orden' => $orden,
         'id_orden' => $id_orden,
+
     ]);
 }
 
