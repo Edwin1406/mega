@@ -15,33 +15,32 @@
 
     <?php include_once __DIR__ . '/../../../templates/alertas.php'  ?>
 
-<form method="GET" action="/admin/produccion/papel/ingresoConsumo" onsubmit="return false;">
-    <div class="formulario__campo">
-        <label class="formulario__label" for="id_orden">ID ORDEN</label>
-        <input
-            type="number"
-            name="id_orden"
-            id="id_orden"
-            class="formulario__input"
-            placeholder="id_orden"
-            value="<?php echo isset($id_orden) ? htmlspecialchars($id_orden) : ''; ?>"
-            onchange="buscarOrden(this.value)">
-    </div>
-    <div class="formulario__campo">
-        <button type="submit" class="formulario__submit formulario__submit--registrar" onclick="buscarOrden(document.getElementById('id_orden').value)">
-            Buscar
-        </button>
-    </div>
-</form>
 
-<script>
-function buscarOrden(id) {
-    if (id) {
-        window.location.href = '/admin/produccion/papel/ingresoConsumo?id_orden=' + encodeURIComponent(id);
-    }
-}
-</script>
+    <form method="POST" action="/admin/produccion/papel/ingresoConsumo" class="formulario" enctype="multipart/form-data">
 
+
+        <div class="formulario__campo">
+            <label class="formulario__label" for="id_orden">ID ORDEN</label>
+            <input
+                type="number"
+                name="id_orden"
+                id="id_orden"
+                class="formulario__input"
+                placeholder="id_orden "
+                value="<?php echo $papel->id_orden ?? '' ?>">
+        </div>
+        <div class="formulario__campo">
+            <label class="formulario__label" for="CONSUMO">CONSUMO PAPEL</label>
+            <input
+                type="number"
+                name="CONSUMO"
+                id="CONSUMO"
+                class="formulario__input"
+                placeholder="CONSUMO PAPEL"
+                value="<?php echo $papel->CONSUMO ?? '' ?>">
+        </div>
+        <input class="formulario__submit formulario__submit--registrar" type="submit" value="Registrar Papel">
+    </form>
 
 </div>
 
