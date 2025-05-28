@@ -30,7 +30,7 @@
         <div class="formulario__campo">
             <label class="formulario__label" for="CONSUMO">CONSUMO PAPEL</label>
             <input
-                type="number"
+                type="decimal"
                 name="CONSUMO"
                 id="CONSUMO"
                 class="formulario__input"
