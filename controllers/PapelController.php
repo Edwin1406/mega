@@ -682,7 +682,7 @@ class PapelController
         $pagina_actual = filter_var($pagina_actual, FILTER_VALIDATE_INT);
 
         if (!$pagina_actual || $pagina_actual < 1) {
-            header('Location: /admin/produccion/papel/tablas/tabla_guillotina_lamina?page=1');
+            header('Location: /admin/produccion/papel/tabla_guillotina_lamina?page=1');
             exit;
         }
 
@@ -691,7 +691,7 @@ class PapelController
         $paginacion = new Paginacion($pagina_actual, $pagina_por_registros, $total);
 
         if ($paginacion->total_paginas() < $pagina_actual) {
-            header('Location: /admin/produccion/papel/tablas/tabla_guillotina_lamina?page=1');
+            header('Location: /admin/produccion/papel/tabla_guillotina_lamina?page=1');
             exit;
         }
 
