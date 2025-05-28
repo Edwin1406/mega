@@ -8,6 +8,7 @@ class Convertidor extends ActiveRecord
 protected static $tabla = 'desperdicio_convertidor';
 protected static $columnasDB = [
     'id',
+    'id_orden',
     'tipo_maquina',
     'tipo_clasificacion',
     'CUADRE',
@@ -23,6 +24,7 @@ protected static $columnasDB = [
 
 
     public $id;
+    public $id_orden; // Nuevo campo para almacenar el ID de la orden
     public $tipo_maquina;
     public $tipo_clasificacion;
     public $CUADRE;
@@ -99,6 +101,12 @@ public static function sumarTodasLasColumnas()
     $resultado = self::$db->query($query);
     return $resultado->fetch_assoc();
 }
+public function generarIdUnico()
+{
+    $this->id_orden = str_pad(mt_rand(0, 99999), 5, '0', STR_PAD_LEFT);
+    return $this->id_orden;
+}
+
 
 
 

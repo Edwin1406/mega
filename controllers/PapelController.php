@@ -316,62 +316,111 @@ public static function crear(Router $router)
 
             case 'MICRO':
                 $modelo = new Micro;
-                $modelo->sincronizar($_POST);
+                  $modelo->sincronizar($_POST);
+
+                // Generar ID único solo si no se proporcionó uno en el formulario
+                if (empty($modelo->id_orden)) {
+                    $modelo->id_orden = $modelo->generarIdUnico();
+                }
                 $redireccion = '/admin/produccion/papel/tabla_micro';
                 break;
 
             case 'FLEXOGRAFICA':
                 $modelo = new Desflexografica;
                 $modelo->sincronizar($_POST);
-                $modelo->id_orden = $id_orden;
+
+                // Generar ID único solo si no se proporcionó uno en el formulario
+                if (empty($modelo->id_orden)) {
+                    $modelo->id_orden = $modelo->generarIdUnico();
+                }
                 $redireccion = '/admin/produccion/papel/tabla_flexografica';
                 break;
 
             case 'PREPRINTER':
                 $modelo = new Preprinter;
-                $modelo->sincronizar($_POST);
+                  $modelo->sincronizar($_POST);
+
+                // Generar ID único solo si no se proporcionó uno en el formulario
+                if (empty($modelo->id_orden)) {
+                    $modelo->id_orden = $modelo->generarIdUnico();
+                }
                 $redireccion = '/admin/produccion/papel/tabla_preprinter';
                 break;
 
             case 'DOBLADO':
                 $modelo = new Doblado;
                 $modelo->sincronizar($_POST);
+
+                // Generar ID único solo si no se proporcionó uno en el formulario
+                if (empty($modelo->id_orden)) {
+                    $modelo->id_orden = $modelo->generarIdUnico();
+                }
                 $redireccion = '/admin/produccion/papel/tabla_doblado';
                 break;
 
             case 'CORTE CEJA':
                 $modelo = new Corte_ceja;
-                $modelo->sincronizar($_POST);
+                  $modelo->sincronizar($_POST);
+
+                // Generar ID único solo si no se proporcionó uno en el formulario
+                if (empty($modelo->id_orden)) {
+                    $modelo->id_orden = $modelo->generarIdUnico();
+                }
                 $redireccion = '/admin/produccion/papel/tabla_corte_ceja';
                 break;
 
             case 'TROQUEL':
                 $modelo = new Troquel;
-                $modelo->sincronizar($_POST);
+                 $modelo->sincronizar($_POST);
+
+                // Generar ID único solo si no se proporcionó uno en el formulario
+                if (empty($modelo->id_orden)) {
+                    $modelo->id_orden = $modelo->generarIdUnico();
+                }
                 $redireccion = '/admin/produccion/papel/tabla_troquel';
                 break;
 
             case 'CONVERTIDOR':
                 $modelo = new Convertidor;
-                $modelo->sincronizar($_POST);
+                  $modelo->sincronizar($_POST);
+
+                // Generar ID único solo si no se proporcionó uno en el formulario
+                if (empty($modelo->id_orden)) {
+                    $modelo->id_orden = $modelo->generarIdUnico();
+                }
                 $redireccion = '/admin/produccion/papel/tabla_convertidor';
                 break;
 
             case 'GUILLOTINA LAMINA':
                 $modelo = new Guillotina_lamina;
-                $modelo->sincronizar($_POST);
+                  $modelo->sincronizar($_POST);
+
+                // Generar ID único solo si no se proporcionó uno en el formulario
+                if (empty($modelo->id_orden)) {
+                    $modelo->id_orden = $modelo->generarIdUnico();
+                }
                 $redireccion = '/admin/produccion/papel/tabla_guillotina_lamina';
                 break;
 
             case 'GUILLOTINA PAPEL':
                 $modelo = new Guillotina_papel;
-                $modelo->sincronizar($_POST);
+                  $modelo->sincronizar($_POST);
+
+                // Generar ID único solo si no se proporcionó uno en el formulario
+                if (empty($modelo->id_orden)) {
+                    $modelo->id_orden = $modelo->generarIdUnico();
+                }
                 $redireccion = '/admin/produccion/papel/tabla_guillotina_papel';
                 break;
 
             case 'EMPAQUE':
                 $modelo = new Empaque;
-                $modelo->sincronizar($_POST);
+                  $modelo->sincronizar($_POST);
+
+                // Generar ID único solo si no se proporcionó uno en el formulario
+                if (empty($modelo->id_orden)) {
+                    $modelo->id_orden = $modelo->generarIdUnico();
+                }
                 $redireccion = '/admin/produccion/papel/tabla_empaque';
                 break;
 

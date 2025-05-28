@@ -8,6 +8,7 @@ class Guillotina_lamina extends ActiveRecord
 protected static $tabla = 'desperdicio_guillotina_lamina';
 protected static $columnasDB = [
     'id',
+    'id_orden',
     'tipo_maquina',
     'tipo_clasificacion',
     'REFILES',
@@ -24,6 +25,7 @@ protected static $columnasDB = [
 
 
     public $id;
+    public $id_orden;
     public $tipo_maquina;
     public $tipo_clasificacion;
     public $REFILES;
@@ -40,6 +42,7 @@ protected static $columnasDB = [
         date_default_timezone_set('America/Guayaquil');
 
         $this->id = $args['id'] ?? null;
+        $this->id_orden = $args['id_orden'] ?? null;
         $this->tipo_maquina = $args['tipo_maquina'] ?? '';
         $this->tipo_clasificacion = $args['tipo_clasificacion'] ?? '';
         $this->REFILES = $args['REFILES'] ?? '';
@@ -90,6 +93,15 @@ public static function sumarTodasLasColumnas()
     $resultado = self::$db->query($query);
     return $resultado->fetch_assoc();
 }
+
+
+public function generarIdUnico()
+{
+    $this->id_orden = str_pad(mt_rand(0, 99999), 5, '0', STR_PAD_LEFT);
+    return $this->id_orden;
+}
+
+
 
 
 }
