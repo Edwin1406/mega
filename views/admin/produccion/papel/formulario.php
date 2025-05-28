@@ -83,7 +83,7 @@
 
 <fieldset class="formulario__fieldset">
     <legend class="formulario__legend">Información de la Papel</legend>
-    <div class="formulario__campo">
+    <!-- <div class="formulario__campo">
         <label class="formulario__label1" for="tipo_maquina">Tipo Maquina</label>
         <select class="formulario__input1 select2" name="tipo_maquina" id="tipo_maquina">
             <option value="">-- Selecciona un tipo --</option>
@@ -100,9 +100,50 @@
             <option value="EMPAQUE" <?= trim(strtolower($papel->tipo_maquina ?? '')) == 'empaque' ? 'selected' : '' ?>>EMPAQUE</option>
 
         </select>
-    </div>
+    </div> -->
 
-<input type="hidden" name="id_orden" value="<?= $_GET['id_orden'] ?? '' ?>">
+
+<?php
+// Asigna el valor del parámetro 'tipo' al objeto $papel si no está ya definido
+if (!isset($papel->tipo_maquina) && isset($_GET['tipo'])) {
+    $tipo = strtoupper(trim($_GET['tipo']));
+
+    // Lista blanca de valores permitidos
+    $tiposPermitidos = [
+        'CORRUGADOR', 'MICRO', 'FLEXOGRAFICA', 'PREPRINTER', 'DOBLADO',
+        'CORTE CEJA', 'TROQUEL', 'CONVERTIDOR', 'GUILLOTINA LAMINA',
+        'GUILLOTINA PAPEL', 'EMPAQUE'
+    ];
+
+    if (in_array($tipo, $tiposPermitidos)) {
+        $papel = $papel ?? new stdClass();  // Asegura que $papel es un objeto
+        $papel->tipo_maquina = $tipo;
+    }
+}
+?>
+
+<div class="formulario__campo">
+    <label class="formulario__label1" for="tipo_maquina">Tipo Maquina</label>
+    <select class="formulario__input1 select2" name="tipo_maquina" id="tipo_maquina">
+        <option value="">-- Selecciona un tipo --</option>
+        <option value="CORRUGADOR" <?= trim(strtolower($papel->tipo_maquina ?? '')) == 'corrugador' ? 'selected' : '' ?>>CORRUGADOR</option>
+        <option value="MICRO" <?= trim(strtolower($papel->tipo_maquina ?? '')) == 'micro' ? 'selected' : '' ?>>MICRO</option>
+        <option value="FLEXOGRAFICA" <?= trim(strtolower($papel->tipo_maquina ?? '')) == 'flexografica' ? 'selected' : '' ?>>FLEXOGRAFICA</option>
+        <option value="PREPRINTER" <?= trim(strtolower($papel->tipo_maquina ?? '')) == 'preprinter' ? 'selected' : '' ?>>PREPRINTER</option>
+        <option value="DOBLADO" <?= trim(strtolower($papel->tipo_maquina ?? '')) == 'doblado' ? 'selected' : '' ?>>DOBLADO</option>
+        <option value="CORTE CEJA" <?= trim(strtolower($papel->tipo_maquina ?? '')) == 'corte ceja' ? 'selected' : '' ?>>CORTE CEJA</option>
+        <option value="TROQUEL" <?= trim(strtolower($papel->tipo_maquina ?? '')) == 'troquel' ? 'selected' : '' ?>>TROQUEL</option>
+        <option value="CONVERTIDOR" <?= trim(strtolower($papel->tipo_maquina ?? '')) == 'convertidor' ? 'selected' : '' ?>>CONVERTIDOR</option>
+        <option value="GUILLOTINA LAMINA" <?= trim(strtolower($papel->tipo_maquina ?? '')) == 'guillotina lamina' ? 'selected' : '' ?>>GUILLOTINA LAMINA</option>
+        <option value="GUILLOTINA PAPEL" <?= trim(strtolower($papel->tipo_maquina ?? '')) == 'guillotina papel' ? 'selected' : '' ?>>GUILLOTINA PAPEL</option>
+        <option value="EMPAQUE" <?= trim(strtolower($papel->tipo_maquina ?? '')) == 'empaque' ? 'selected' : '' ?>>EMPAQUE</option>
+    </select>
+</div>
+
+
+
+
+    <input type="hidden" name="id_orden" value="<?= $_GET['id_orden'] ?? '' ?>">
 
 
     <div class="formulario__campo">
@@ -656,7 +697,7 @@
 
         <!-- CONTROLABLES CONVERTIDOR  -->
 
-  
+
 
         <div class="formulario__campo">
             <label class="formulario__label" for="CAMBIO_MEDIDA">CAMBIO MEDIDA</label>
@@ -666,12 +707,12 @@
                 id="CAMBIO_MEDIDA"
                 class="formulario__input"
                 placeholder="CAMBIO MEDIDA"
-                value="<?php echo $papel->CAMBIO_MEDIDA ?? '' ?>">  
+                value="<?php echo $papel->CAMBIO_MEDIDA ?? '' ?>">
 
-    </div>
+        </div>
 
 
-    <!-- NO CONTROLABLE CONVERTIDOR -->
+        <!-- NO CONTROLABLE CONVERTIDOR -->
 
         <div class="formulario__campo">
             <label class="formulario__label" for="DIFERENCIA_PESO">DIFERENCIA PESO</label>
@@ -741,11 +782,11 @@
         },
         'TROQUEL': {
             'a': [],
-            'b': ['MERMA','COMBADO','EXCEDENTES_PLANCHAS'],
+            'b': ['MERMA', 'COMBADO', 'EXCEDENTES_PLANCHAS'],
         },
         'CONVERTIDOR': {
-            'a': ['CUADRE','CAMBIO_MEDIDA'],
-            'b': ['DIFERENCIA_PESO','FILOS_ROTOS'],
+            'a': ['CUADRE', 'CAMBIO_MEDIDA'],
+            'b': ['DIFERENCIA_PESO', 'FILOS_ROTOS'],
         },
         'GUILLOTINA LAMINA': {
             'a': [],
@@ -757,12 +798,12 @@
         },
         'EMPAQUE': {
             'a': [],
-            'b': ['GALLET', 'COMBADO', 'HUMEDO', 'FRENO', 'DESPE','PRESION','ERROM','CUADRE','RECUB','FALTA_TINTA','DERRAME_TINTA','SUSTRATO','MAL_DOBLADO_CEJA','EXCESO_GOMA','CUADRE_SIERRA'],
+            'b': ['GALLET', 'COMBADO', 'HUMEDO', 'FRENO', 'DESPE', 'PRESION', 'ERROM', 'CUADRE', 'RECUB', 'FALTA_TINTA', 'DERRAME_TINTA', 'SUSTRATO', 'MAL_DOBLADO_CEJA', 'EXCESO_GOMA', 'CUADRE_SIERRA'],
         },
-        
 
-        
-        
+
+
+
 
 
 
@@ -777,7 +818,7 @@
         'MALTRATO_MONTACARGAS', 'TONALIDAD_TINTAS', 'TROQUEL', 'MONTAJE_CLICHE',
         'DERRAME_TINTA', 'VISCOSIDAD', 'PH', 'APROBACION_COLOR', 'CIREL_CORTADO',
         'MAL_DOBLADO_CEJA', 'EXCESO_GOMA', 'DESCUADRE_DOBLADO', 'LAM_HUMEDA', 'LAM_SECA',
-        'CUADRE_SIERRA', 'MERMA', 'EXCEDENTES_PLANCHAS', 'CAMBIO_MEDIDA','DIFERENCIA_PESO',
+        'CUADRE_SIERRA', 'MERMA', 'EXCEDENTES_PLANCHAS', 'CAMBIO_MEDIDA', 'DIFERENCIA_PESO',
         'REFILES', 'INICIO_CORRIDA',
         'hola', 'mdo'
     ];
