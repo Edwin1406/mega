@@ -847,7 +847,7 @@ class PapelController
         $bobinas = Preprinter::paginar($pagina_por_registros, $paginacion->offset());
         $totales = Preprinter::sumarTodasLasColumnas();
 
-        $router->render('admin/produccion/tablas/papel/tabla_preprinter', [
+        $router->render('admin/produccion/papel/tablas/tabla_preprinter', [
             'titulo' => 'TABLA DESPERDICIO PREPRINTER',
             'bobinas' => $bobinas,
             'paginacion' => $paginacion->paginacion(),
