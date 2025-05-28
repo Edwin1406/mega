@@ -900,32 +900,42 @@ class PapelController
         ]);
     }
 
-    public static function ingresoConsumo(Router $router){
+public static function ingresoConsumo(Router $router) {
+    $alertas = [];
+    $id_orden = $_POST['id_orden'] ?? null;
+    $resultados = [];
 
-        $alertas = [];
+    if ($id_orden) {
+        $modelos = [
+            'Bobina' => Bobina::class,
+            'Micro' => Micro::class,
+            'Desflexografica' => Desflexografica::class,
+            'Preprinter' => Preprinter::class,
+            'Doblado' => Doblado::class,
+            'Corte_ceja' => Corte_ceja::class,
+            'Troquel' => Troquel::class,
+            'Convertidor' => Convertidor::class,
+            'Guillotina_lamina' => Guillotina_lamina::class,
+            'Guillotina_papel' => Guillotina_papel::class,
+            'Empaque' => Empaque::class
+        ];
 
-        // buscar ordenes con el id 
-        $id_orden = $_POST['id_orden'] ?? null;  // Obtiene el id_orden de la URL si está presente
-        // if (!$id_orden) {
-        //     header('Location: /admin/produccion/papel/tabla');
-        //     exit;
-        // }
-
-
-        $desperdicio_corrugador = Bobina::find_orden($id_orden);
-        // debuguear($desperdicio_corrugador);
-        
-
-   $router->render('admin/produccion/papel/ingresoConsumo', [
-            'titulo' => 'INGRESO CONSUMO',
-            'alertas' => $alertas,
-            'desperdicio_corrugador' => $desperdicio_corrugador,
-
-        ]);
-
-
-
+        foreach ($modelos as $nombre => $modeloClase) {
+            $registros = $modeloClase::find_orden($id_orden);
+            if (!empty($registros)) {
+                $resultados[$nombre] = $registros;
+            }
+        }
     }
+
+    $router->render('admin/produccion/papel/ingresoConsumo', [
+        'titulo' => 'INGRESO CONSUMO',
+        'alertas' => $alertas,
+        'resultados' => $resultados,
+        'id_orden' => $id_orden
+    ]);
+}
+
 
 
 

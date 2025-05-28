@@ -40,10 +40,38 @@
                 value="<?php echo $papel->CONSUMO ?? '' ?>">
         </div>
         <input class="formulario__submit formulario__submit--registrar" type="submit" value="Registrar Papel">
-
-
     </form>
 
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+
+
+
+
+<?php if (!empty($resultados)) : ?>
+    <h3>Resultados para ID ORDEN: <?php echo htmlspecialchars($id_orden); ?></h3>
+
+    <?php foreach ($resultados as $modelo => $registros) : ?>
+        <h4><?php echo $modelo; ?></h4>
+        <table class="tabla">
+            <thead>
+                <tr>
+                    <?php foreach ($registros[0] as $campo => $valor) : ?>
+                        <th><?php echo htmlspecialchars($campo); ?></th>
+                    <?php endforeach; ?>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($registros as $registro) : ?>
+                    <tr>
+                        <?php foreach ($registro as $valor) : ?>
+                            <td><?php echo htmlspecialchars($valor); ?></td>
+                        <?php endforeach; ?>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    <?php endforeach; ?>
+<?php endif; ?>
