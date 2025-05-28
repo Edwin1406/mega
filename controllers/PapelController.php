@@ -900,7 +900,9 @@ class PapelController
         ]);
     }
 
-    public static function ingresoConsumo(){
+    public static function ingresoConsumo(Router $router){
+
+        $alertas = [];
 
         // buscar ordenes con el id 
         $id_orden = $_POST['id_orden'] ?? null;  // Obtiene el id_orden de la URL si está presente
@@ -914,10 +916,9 @@ class PapelController
         debuguear($desperdicio_corrugador);
         
 
-   $router->render('admin/produccion/papel/editar/editar_convertidor', [
+   $router->render('admin/produccion/papel/ingresoConsumo', [
             'titulo' => 'EDITAR CONVERTIDOR',
-            'alertas' => $alertas,
-            'convertidor' => $convertidor
+            'alertas' => $alertas
         ]);
 
 
