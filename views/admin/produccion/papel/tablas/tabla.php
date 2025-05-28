@@ -30,6 +30,7 @@
                     <th rowspan="2" class="table__th">Acciones</th>
                 </tr>
                 <tr>
+                    <th class="table__th">Id_orden</th>
                     <th class="table__th">Single Face</th>
                     <th class="table__th">Empalme</th>
                     <th class="table__th">Recub</th>
