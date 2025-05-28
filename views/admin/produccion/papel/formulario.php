@@ -153,7 +153,7 @@
 
     <input type="hidden" name="id_orden" value="<?= $_GET['id_orden'] ?? '' ?>">
 
-<!-- 
+
     <div class="formulario__campo">
         <label class="formulario__label">CLASIFICACION</label>
 
@@ -173,45 +173,8 @@
         <input type="hidden" name="tipo_clasificacion" id="tipo_clasificacion">
 
 
-    </div> -->
-
-
-
-  <script>
-document.querySelector("form").addEventListener("submit", function () {
-    const seleccionados = [];
-    document.querySelectorAll('input[name="MDO[]"]:checked').forEach(el => {
-        seleccionados.push(el.value);
-    });
-    document.getElementById("tipo_clasificacion").value = seleccionados.join(',');
-});
-</script>
-
-
-<div class="formulario__campo">
-    <label class="formulario__label">CLASIFICACION</label>
-
-    <?php
-        $clasificaciones = explode(',', strtoupper($papel->tipo_clasificacion ?? ''));
-    ?>
-
-    <div>
-        <label>
-            <input type="checkbox" name="MDO[]" value="CONTROLABLE"
-                <?= in_array('CONTROLABLE', $clasificaciones) ? 'checked' : '' ?>>
-            CONTROLABLE
-        </label>
-    </div>
-    <div>
-        <label>
-            <input type="checkbox" name="MDO[]" value="NO CONTROLABLE"
-                <?= in_array('NO CONTROLABLE', $clasificaciones) ? 'checked' : '' ?>>
-            NO CONTROLABLE
-        </label>
     </div>
 
-    <input type="hidden" name="tipo_clasificacion" id="tipo_clasificacion">
-</div>
 
 
     <script>
