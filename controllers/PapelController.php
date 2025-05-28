@@ -967,7 +967,8 @@ public static function ingresoConsumo(Router $router) {
             }
 
             // Calcular porcentaje
-            $porcentaje = ($total_suma > 0) ? ($consumo / $total_suma) * 100 : 0;
+            // $porcentaje = ($total_suma > 0) ? ($consumo / $total_suma) * 100 : 0;
+            $porcentaje = ($total_suma > 0) ? min(($consumo / $total_suma) * 100, 100) : 0;
 
             // Crear y guardar el registro
             $registroConsumo = new IngresoConsumo([
@@ -978,7 +979,7 @@ public static function ingresoConsumo(Router $router) {
             ]);
             $registroConsumo->guardar();
 
-            header('Location: /admin/produccion/papel/ingresoConsumo?guardado=' . urlencode('Consumo registrado correctamente'));
+            header('Location: /admin/produccion/papel/ingresoConsumo');
             exit;
         }
     }
