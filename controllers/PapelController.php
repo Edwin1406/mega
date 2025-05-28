@@ -787,7 +787,7 @@ class PapelController
         $bobinas = Micro::paginar($pagina_por_registros, $paginacion->offset());
         $totales = Micro::sumarTodasLasColumnas();
 
-        $router->render('admin/produccion/tablas/papel/tabla_micro', [
+        $router->render('admin/produccion/papel/tablas/tabla_micro', [
             'titulo' => 'TABLA DESPERDICIO MICRO',
             'bobinas' => $bobinas,
             'paginacion' => $paginacion->paginacion(),
