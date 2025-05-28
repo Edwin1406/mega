@@ -56,6 +56,8 @@
 
                 <?php foreach ($bobinas as $bobina): ?>
                     <tr class="table__tr">
+
+                        <td class="table__td"><?php echo $bobina->id_orden ?></td>
                         <td class="table__td"><?php echo $bobina->tipo_clasificacion ?></td>
                         <td class="table__td"><?php echo letranegrita($bobina->SINGLEFACE) ?></td>
                         <td class="table__td"><?php echo letranegrita($bobina->EMPALME) ?></td>
