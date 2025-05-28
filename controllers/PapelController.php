@@ -927,8 +927,7 @@ public static function ingresoConsumo(Router $router) {
             }
         }
     }
-
-    debuguear($resultados);
+    
 
     $router->render('admin/produccion/papel/ingresoConsumo', [
         'titulo' => 'INGRESO CONSUMO',
