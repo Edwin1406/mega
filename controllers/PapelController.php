@@ -818,7 +818,7 @@ class PapelController
         $bobinas = Troquel::paginar($pagina_por_registros, $paginacion->offset());
         $totales = Troquel::sumarTodasLasColumnas();
 
-        $router->render('admin/produccion/tablas/papel/tabla_troquel', [
+        $router->render('admin/produccion/papel/tablas/tabla_troquel', [
             'titulo' => 'TABLA DESPERDICIO TROQUEL',
             'bobinas' => $bobinas,
             'paginacion' => $paginacion->paginacion(),
