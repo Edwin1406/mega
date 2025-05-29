@@ -1,4 +1,5 @@
 <h2 class="dashboard__heading"> <?php echo $titulo ?> </h2>
+<h2 class="dashboard__heading"> <?php echo $titulo2 ?> </h2>
 <style>
     .item {
       background-color: #24292d;
@@ -67,7 +68,7 @@
 
 
     <div class="container">
-        <div class="item"><a href="/admin/produccion/estimar/index?id=20255"> <i class="fas fa-home"></i> INICIO</a></div>
+        <div class="item"><a href="/admin/produccion/estimar/index?id=20255"> <i class="fas fa-home"></i></a></div>
         <div class="item"><a href="/admin/produccion/estimar/micro"> <i class="fas fa-industry"></i> COTIZADOR MICRO</a></div>
         <div class="item"><a href="/admin/produccion/estimar/cajas"> <i class="fas fa-scroll"></i> COTIZADOR CAJAS</a></div>
         <div class="item"><a href="/admin/produccion/estimar/separadores">  <i class="fas fa-newspaper"></i> COTIZADOR SEPARADORES</a></div>

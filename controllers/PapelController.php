@@ -456,6 +456,7 @@ class PapelController
             'alertas' => $alertas,
             'orden' => $modelo,
             'id_orden' => $id_orden,
+            'titulo2' => 'TABLAS DE DESPERDICIO',
         ]);
     }
 
