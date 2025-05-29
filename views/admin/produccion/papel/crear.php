@@ -8,6 +8,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
+      margin-bottom: 1rem;
     }
     
     .container {
@@ -33,7 +34,7 @@
       display: block;
       text-align: center;
       font-size: 1.5rem;
-      margin-bottom: 1rem;
+      
     }
     @media (min-width: 1024px) {
     .item:nth-child(1) {
