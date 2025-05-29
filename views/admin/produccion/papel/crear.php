@@ -84,15 +84,15 @@
 
 <div class="container">
     <div class="item"><a href="/admin/produccion/estimar/index?id=20255"> </i>CORRUGADOR</a></div>
-    <div class="item"><a href="/admin/produccion/estimar/micro"> <i class="fas fa-industry"></i>MICRO</a></div>
-    <div class="item"><a href="/admin/produccion/estimar/cajas"> <i class="fas fa-scroll"></i> FLEXOGRAFICA</a></div>
-    <div class="item"><a href="/admin/produccion/estimar/separadores">  <i class="fas fa-newspaper"></i>PREPRINTER</a></div>
-    <div class="item"><a href="/admin/produccion/estimar/costos_generales/index">  <i class="fa-solid fa-calculator"></i>BODLADO</a></div>
-    <div class="item"><a href="/admin/produccion/estimar/costos_papel">  <i class="fa-solid fa-money-bill-1"></i> CORTE CEJA</a></div>
-    <div class="item"><a href="/admin/produccion/estimar/costos_papel">  <i class="fa-solid fa-money-bill-1"></i> TROQUEL</a></div>
-    <div class="item"><a href="/admin/produccion/estimar/costos_papel">  <i class="fa-solid fa-money-bill-1"></i> GUILLOTINA LAMINA</a></div>
-    <div class="item"><a href="/admin/produccion/estimar/costos_papel">  <i class="fa-solid fa-money-bill-1"></i> GUILLOTINA PAPEL</a></div>
-    <div class="item"><a href="/admin/produccion/estimar/costos_papel">  <i class="fa-solid fa-money-bill-1"></i> EMPAQUE</a></div>
+    <div class="item"><a href="/admin/produccion/estimar/micro"> </i>MICRO</a></div>
+    <div class="item"><a href="/admin/produccion/estimar/cajas"> </i> FLEXOGRAFICA</a></div>
+    <div class="item"><a href="/admin/produccion/estimar/separadores">  </i>PREPRINTER</a></div>
+    <div class="item"><a href="/admin/produccion/estimar/costos_generales/index">  ></i>BODLADO</a></div>
+    <div class="item"><a href="/admin/produccion/estimar/costos_papel"> </i> CORTE CEJA</a></div>
+    <div class="item"><a href="/admin/produccion/estimar/costos_papel"> </i> TROQUEL</a></div>
+    <div class="item"><a href="/admin/produccion/estimar/costos_papel"> </i> GUILLOTINA LAMINA</a></div>
+    <div class="item"><a href="/admin/produccion/estimar/costos_papel"> </i> GUILLOTINA PAPEL</a></div>
+    <div class="item"><a href="/admin/produccion/estimar/costos_papel"> </i> EMPAQUE</a></div>
 </div>
 
 
