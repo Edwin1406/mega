@@ -38,25 +38,41 @@
     }
     @media (min-width: 1024px) {
         .item:nth-child(1) {
-            width: 20%;
+            width: 10%;
         }
         
         .item:nth-child(2) {
-            width: 20%;
+            width: 10%;
         }
         
         .item:nth-child(3) {
-            width: 20%;
+            width: 10%;
     }
     
     .item:nth-child(4) {
-        width: 20%;
+        width: 10%;
     }
     
     .item:nth-child(5) {
-      width: 20%;
+      width: 10%;
     }
     
+    .item:nth-child(6) {
+        width: 10%;
+    }
+
+    .item:nth-child(7) {
+        width: 10%;
+    }
+    .item:nth-child(8) {
+        width: 10%;
+    }
+    .item:nth-child(9) {
+        width: 10%;
+    }
+    .item:nth-child(10) {
+        width: 10%;
+    }
     
     
     
