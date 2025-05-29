@@ -83,7 +83,7 @@
 
 
 <div class="container">
-    <div class="item"><a href="/admin/produccion/estimar/index?id=20255"> <i class="fas fa-home"></i>CORRUGADOR</a></div>
+    <div class="item"><a href="/admin/produccion/estimar/index?id=20255"> </i>CORRUGADOR</a></div>
     <div class="item"><a href="/admin/produccion/estimar/micro"> <i class="fas fa-industry"></i>MICRO</a></div>
     <div class="item"><a href="/admin/produccion/estimar/cajas"> <i class="fas fa-scroll"></i> FLEXOGRAFICA</a></div>
     <div class="item"><a href="/admin/produccion/estimar/separadores">  <i class="fas fa-newspaper"></i>PREPRINTER</a></div>
