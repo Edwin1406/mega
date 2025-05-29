@@ -59,6 +59,9 @@
         margin-top: 1rem;
     }
 
+    .formulario__fieldset {
+    margin-left: 3rem;
+}
 
     .formulario__submit {
         margin-top: 3rem;
