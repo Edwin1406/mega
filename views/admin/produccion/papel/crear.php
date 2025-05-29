@@ -80,19 +80,20 @@
   }
 
 </style>
-
+<!-- /admin/produccion/papel/tabla_convertidor?page=1 -->
 
 <div class="container">
-    <div class="item"><a href="/admin/produccion/estimar/index?id=20255"> </i>CORRUGADOR</a></div>
-    <div class="item"><a href="/admin/produccion/estimar/micro"> </i>MICRO</a></div>
-    <div class="item"><a href="/admin/produccion/estimar/cajas"> </i> FLEXOGRAFICA</a></div>
-    <div class="item"><a href="/admin/produccion/estimar/separadores">  </i>PREPRINTER</a></div>
-    <div class="item"><a href="/admin/produccion/estimar/costos_generales/index"></i>BODLADO</a></div>
-    <div class="item"><a href="/admin/produccion/estimar/costos_papel"> </i> CORTE CEJA</a></div>
-    <div class="item"><a href="/admin/produccion/estimar/costos_papel"> </i> TROQUEL</a></div>
-    <div class="item"><a href="/admin/produccion/estimar/costos_papel"> </i> GUILLOTINA LAMINA</a></div>
-    <div class="item"><a href="/admin/produccion/estimar/costos_papel"> </i> GUILLOTINA PAPEL</a></div>
-    <div class="item"><a href="/admin/produccion/estimar/costos_papel"> </i> EMPAQUE</a></div>
+    <div class="item"><a href="/admin/produccion/papel/tabla?page=1"> </i>CORRUGADOR</a></div>
+    <div class="item"><a href="/admin/produccion/papel/tabla_micro?page=1"> </i>MICRO</a></div>
+    <div class="item"><a href="/admin/produccion/papel/tabla_flexografica?page=1"> </i> FLEXOGRAFICA</a></div>
+    <div class="item"><a href="/admin/produccion/papel/tabla_preprinter?page=1">  </i>PREPRINTER</a></div>
+    <div class="item"><a href="/admin/produccion/papel/tabla_doblado?page=1"></i>BODLADO</a></div>
+    <div class="item"><a href="/admin/produccion/papel/tabla_corte_ceja?page=1"> </i> CORTE CEJA</a></div>
+    <div class="item"><a href="/admin/produccion/papel/tabla_troquel?page=1"> </i> TROQUEL</a></div>
+    <div class="item"><a href="/admin/produccion/papel/convertidor?page=1"> </i> CONVERTIDOR</a></div>
+    <div class="item"><a href="/admin/produccion/papel/tabla_guillotina_lamina?page=1"> </i> GUILLOTINA LAMINA</a></div>
+    <div class="item"><a href="/admin/produccion/papel/tabla_guillotina_papel?page=1"> </i> GUILLOTINA PAPEL</a></div>
+    <div class="item"><a href="/admin/produccion/papel/tabla_empaque?page=1"> </i> EMPAQUE</a></div>
 </div>
 
 
