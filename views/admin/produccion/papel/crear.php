@@ -90,7 +90,7 @@
     <div class="item"><a href="/admin/produccion/papel/tabla_doblado?page=1"></i>BODLADO</a></div>
     <div class="item"><a href="/admin/produccion/papel/tabla_corte_ceja?page=1"> </i> CORTE CEJA</a></div>
     <div class="item"><a href="/admin/produccion/papel/tabla_troquel?page=1"> </i> TROQUEL</a></div>
-    <div class="item"><a href="/admin/produccion/papel/convertidor?page=1"> </i> CONVERTIDOR</a></div>
+    <div class="item"><a href="/admin/produccion/papel/tabla_convertidor?page=1"> </i> CONVERTIDOR</a></div>
     <div class="item"><a href="/admin/produccion/papel/tabla_guillotina_lamina?page=1"> </i> GUILLOTINA LAMINA</a></div>
     <div class="item"><a href="/admin/produccion/papel/tabla_guillotina_papel?page=1"> </i> GUILLOTINA PAPEL</a></div>
     <div class="item"><a href="/admin/produccion/papel/tabla_empaque?page=1"> </i> EMPAQUE</a></div>
