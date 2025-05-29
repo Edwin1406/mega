@@ -87,7 +87,7 @@
     <div class="item"><a href="/admin/produccion/estimar/micro"> </i>MICRO</a></div>
     <div class="item"><a href="/admin/produccion/estimar/cajas"> </i> FLEXOGRAFICA</a></div>
     <div class="item"><a href="/admin/produccion/estimar/separadores">  </i>PREPRINTER</a></div>
-    <div class="item"><a href="/admin/produccion/estimar/costos_generales/index">  ></i>BODLADO</a></div>
+    <div class="item"><a href="/admin/produccion/estimar/costos_generales/index"></i>BODLADO</a></div>
     <div class="item"><a href="/admin/produccion/estimar/costos_papel"> </i> CORTE CEJA</a></div>
     <div class="item"><a href="/admin/produccion/estimar/costos_papel"> </i> TROQUEL</a></div>
     <div class="item"><a href="/admin/produccion/estimar/costos_papel"> </i> GUILLOTINA LAMINA</a></div>
