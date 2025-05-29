@@ -61,6 +61,7 @@
 
     .formulario__fieldset {
     margin-left: 3rem;
+    display: grid;
 }
 
     .formulario__submit {
