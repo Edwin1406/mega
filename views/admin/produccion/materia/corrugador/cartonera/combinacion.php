@@ -615,15 +615,7 @@ const pedidosCalculadosAgrupadosNuevos = pedidosNuevos.map(pedido => ({
         });
 
 
-    // VER CUANTAS VECES SE REPITE ESA BOBINA EN LOS MEJORES COMBOS
-        const bobinaCounts = mejoresCombosFinalesNuevos.reduce((acc, combo) => {
-            const bobina = combo.mejorBobina;
-            if (bobina !== "N/A") {
-                acc[bobina] = (acc[bobina] || 0) + 1;
-            }
-            return acc;
-        }, {});
-        console.log("Conteo de bobinas en los mejores combos finales nuevos:", bobinaCounts);
+ 
 
     
 
@@ -638,6 +630,16 @@ const pedidosCalculadosAgrupadosNuevos = pedidosNuevos.map(pedido => ({
                     
                         // Agregarlos al arreglo externo
                 todosLosCombosFinales.push(...mejoresCombosFinalesNuevos);
+
+                   // VER CUANTAS VECES SE REPITE ESA BOBINA EN LOS MEJORES COMBOS
+        const bobinaCounts = todosLosCombosFinales.reduce((acc, combo) => {
+            const bobina = combo.mejorBobina;
+            if (bobina !== "N/A") {
+                acc[bobina] = (acc[bobina] || 0) + 1;
+            }
+            return acc;
+        }, {});
+        console.log("Conteo de bobinas en los mejores combos finales nuevos:", bobinaCounts);
 
                 console.log("mejores combos finales nuevoss", todosLosCombosFinales);
 
