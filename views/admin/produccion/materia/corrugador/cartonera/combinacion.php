@@ -615,6 +615,15 @@ const pedidosCalculadosAgrupadosNuevos = pedidosNuevos.map(pedido => ({
         });
 
 
+    // VER CUANTAS VECES SE REPITE ESA BOBINA EN LOS MEJORES COMBOS
+        const bobinaCounts = mejoresCombosFinalesNuevos.reduce((acc, combo) => {
+            const bobina = combo.mejorBobina;
+            if (bobina !== "N/A") {
+                acc[bobina] = (acc[bobina] || 0) + 1;
+            }
+            return acc;
+        }, {});
+        console.log("Conteo de bobinas en los mejores combos finales nuevos:", bobinaCounts);
 
     
 
@@ -632,17 +641,10 @@ const pedidosCalculadosAgrupadosNuevos = pedidosNuevos.map(pedido => ({
 
                 console.log("mejores combos finales nuevoss", todosLosCombosFinales);
 
-    // VER CUANTAS VECES SE REPITE ESA BOBINA EN LOS MEJORES COMBOS
-    const bobinaRepetida = mejoresCombos.reduce((acc, combo) => {
-        if (combo.mejorBobina !== "N/A") {
-            acc[combo.mejorBobina] = (acc[combo.mejorBobina] || 0) + 1;
-        }
-        return acc;
-    }, {});
-    console.log("bobina repetida", bobinaRepetida);
 
 
 
+                
 
             // segundo trimado de sobrantes
                 ejemplopruebadevariable2(idsVistos,mejoresCombosNuevos,mejoresCombosFinalesNuevos);
