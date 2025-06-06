@@ -227,14 +227,7 @@ const encontrarMejorTrimado = (combinaciones, pedidos) => {
     console.log("mejores combos",mejoresCombos);
 
 
-    // VER CUANTAS VECES SE REPITE ESA BOBINA EN LOS MEJORES COMBOS
-    const bobinaRepetida = mejoresCombos.reduce((acc, combo) => {
-        if (combo.mejorBobina !== "N/A") {
-            acc[combo.mejorBobina] = (acc[combo.mejorBobina] || 0) + 1;
-        }
-        return acc;
-    }, {});
-    console.log("bobina repetida", bobinaRepetida);
+
 
     eliminarNan(mejoresCombos);
     return mejoresCombos;
@@ -638,6 +631,18 @@ const pedidosCalculadosAgrupadosNuevos = pedidosNuevos.map(pedido => ({
                 todosLosCombosFinales.push(...mejoresCombosFinalesNuevos);
 
                 console.log("mejores combos finales nuevoss", todosLosCombosFinales);
+
+    // VER CUANTAS VECES SE REPITE ESA BOBINA EN LOS MEJORES COMBOS
+    const bobinaRepetida = mejoresCombos.reduce((acc, combo) => {
+        if (combo.mejorBobina !== "N/A") {
+            acc[combo.mejorBobina] = (acc[combo.mejorBobina] || 0) + 1;
+        }
+        return acc;
+    }, {});
+    console.log("bobina repetida", bobinaRepetida);
+
+
+
 
             // segundo trimado de sobrantes
                 ejemplopruebadevariable2(idsVistos,mejoresCombosNuevos,mejoresCombosFinalesNuevos);
