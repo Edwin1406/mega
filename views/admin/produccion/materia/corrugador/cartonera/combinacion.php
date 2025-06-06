@@ -636,27 +636,30 @@ const pedidosCalculadosAgrupadosNuevos = pedidosNuevos.map(pedido => ({
                         // Agregarlos al arreglo externo
                 todosLosCombosFinales.push(...mejoresCombosFinalesNuevos);
 
-const bobinaCounts = todosLosCombosFinales.reduce((acc, combo) => {
-    const bobina = combo.mejorBobina;
-    if (bobina !== "N/A") {
-        acc[bobina] = (acc[bobina] || 0) + 1;
-    }
-    return acc;
-}, {});
 
-console.log("Conteo de bobinas en los mejores combos finales nuevos:", bobinaCounts);
+                // Conteo de bobinas en los combos finales nuevos
 
-// Mostrar en pantalla
-const resultadoDiv = document.getElementById("resultadoBobinas");
+                const bobinaCounts = todosLosCombosFinales.reduce((acc, combo) => {
+                    const bobina = combo.mejorBobina;
+                    if (bobina !== "N/A") {
+                        acc[bobina] = (acc[bobina] || 0) + 1;
+                    }
+                    return acc;
+                }, {});
 
-// Convertir el objeto a texto amigable
-let textoResultado = "<h3>Conteo de bobinas:</h3><ul>";
-for (const [bobina, count] of Object.entries(bobinaCounts)) {
-    textoResultado += `<li><strong>${bobina}:</strong> ${count}</li>`;
-}
-textoResultado += "</ul>";
+                console.log("Conteo de bobinas en los mejores combos finales nuevos:", bobinaCounts);
 
-resultadoDiv.innerHTML = textoResultado;
+                // Mostrar en pantalla
+                const resultadoDiv = document.getElementById("resultadoBobinas");
+
+                // Convertir el objeto a texto amigable
+                let textoResultado = "<h3>Conteo de bobinas:</h3><ul>";
+                for (const [bobina, count] of Object.entries(bobinaCounts)) {
+                    textoResultado += `<li><strong>${bobina}:</strong> ${count}</li>`;
+                }
+                textoResultado += "</ul>";
+
+                resultadoDiv.innerHTML = textoResultado;
 
                 console.log("mejores combos finales nuevoss", todosLosCombosFinales);
 
