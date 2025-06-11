@@ -111,8 +111,7 @@
       <th>CAMBIO PEDIDO</th>
       <th>EXTRA TRIM</th>
       <th>SUSTRATO</th>
-      <th>TOTAL</th>
-      <th>PORCENTAJE</th>
+
     </tr>
   </thead>
   <tfoot>
