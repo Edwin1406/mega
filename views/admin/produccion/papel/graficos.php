@@ -1,79 +1,74 @@
-  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
-  <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
 <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <h1 class="dashboard__heading"> <?php echo $titulo ?> </h1>
 
+<style>
+  table.dataTable {
+    width: 100% !important; /* Asegura que no se desborde */
+    overflow-x: auto;       /* Evita que se rompa el diseño */
+    display: block;         /* Necesario para aplicar scroll */
+  }
 
+  h2 {
+    text-align: center;
+    color: #333;
+  }
 
- <style>
- table.dataTable {
-  width: 100% !important; /* Asegura que no se desborde */
-  overflow-x: auto;       /* Evita que se rompa el diseño */
-  display: block;         /* Necesario para aplicar scroll */
-}
+  .filtros {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
 
+  .filtros label {
+    font-weight: bold;
+    margin-right: 5px;
+  }
 
-    h2 {
-      text-align: center;
-      color: #333;
-    }
+  .filtros select,
+  .filtros input[type="date"] {
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid #d85a5a;
+  }
 
-    .filtros {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 15px;
-      justify-content: center;
-      margin-bottom: 20px;
-    }
+  table.dataTable thead {
+    background-color: #5388bd;
+    color: white;
+  }
 
-    .filtros label {
-      font-weight: bold;
-      margin-right: 5px;
-    }
+  table.dataTable tbody tr {
+    background-color: #fff;
+  }
 
-    .filtros select,
-    .filtros input[type="date"] {
-      padding: 5px;
-      border-radius: 5px;
-      border: 1px solid #d85a5a;
-    }
+  table.dataTable tbody tr:hover {
+    background-color: #ecf0f1;
+  }
 
-    table.dataTable thead {
-      background-color: #5388bd;
-      color: white;
-    }
+  table.dataTable tfoot th {
+    font-weight: bold;
+    background-color: #bb8b8b;
+  }
 
-    table.dataTable tbody tr {
-      background-color: #fff;
-    }
+  .dataTables_wrapper .dataTables_paginate .paginate_button {
+    padding: 0.5em 1em;
+    margin-left: 4px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    background: #f1f1f1;
+    color: #333;
+  }
 
-    table.dataTable tbody tr:hover {
-      background-color: #ecf0f1;
-    }
-
-    table.dataTable tfoot th {
-      font-weight: bold;
-      background-color: #bb8b8b;
-    }
-
-    .dataTables_wrapper .dataTables_paginate .paginate_button {
-      padding: 0.5em 1em;
-      margin-left: 4px;
-      border-radius: 5px;
-      border: 1px solid #ccc;
-      background: #f1f1f1;
-      color: #333;
-    }
-
-    .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
-      background: #358ac4;
-      color: white !important;
-    }
-  </style>
-
-
+  .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+    background: #358ac4;
+    color: white !important;
+  }
+</style>
 
 <div class="filtros">
   <label for="filtroClasificacion">Filtrar por tipo de clasificación:</label>
@@ -143,15 +138,11 @@
 </div>
 
 <script>
-
-
-    document.addEventListener('DOMContentLoaded', function () {
-      const filtroClasificacion = document.getElementById('filtroClasificacion');
-      const fechaInicio = document.getElementById('fechaInicio');
-      const fechaFin = document.getElementById('fechaFin');
-    });
-
-
+  document.addEventListener('DOMContentLoaded', function () {
+    const filtroClasificacion = document.getElementById('filtroClasificacion');
+    const fechaInicio = document.getElementById('fechaInicio');
+    const fechaFin = document.getElementById('fechaFin');
+  });
 
   const columnas = [
     { title: "Tipo de clasificación", data: "tipo_clasificacion" },
@@ -229,9 +220,11 @@
         if (fin) fin.setHours(0, 0, 0, 0);
 
         return (!filtroClasificacion || clasificaciones.includes(filtroClasificacion))
-          && (!inicio || fechaRegistro >= inicio)
-          && (!fin || fechaRegistro <= fin);
+            && (!inicio || fechaRegistro >= inicio)
+            && (!fin || fechaRegistro <= fin);
       });
+
+      console.log('Datos Filtrados:', datosFiltrados);  // Debugging line to inspect filtered data
 
       datosFiltrados = datosFiltrados.map(reg => {
         const copia = { ...reg };
@@ -258,7 +251,7 @@
       actualizarGraficos(datosFiltrados);
     }
 
-function actualizarGraficos(data) {
+    function actualizarGraficos(data) {
       const sumaColumnas = (cols) => {
         return cols.map(col =>
           data.reduce((acc, fila) => acc + parseFloat(fila[col] || 0), 0)
@@ -271,29 +264,11 @@ function actualizarGraficos(data) {
       const totalControl = totalesControlables.reduce((a, b) => a + b, 0);
       const totalNoControl = totalesNoControlables.reduce((a, b) => a + b, 0);
 
-     const colores = [
-          '#ffcccc', // rosa claro
-          '#ffe6cc', // durazno claro
-          '#ffffcc', // amarillo claro
-          '#e6ffcc', // verde lima claro
-          '#ccffff', // cian muy claro
-          '#e6ccff', // lavanda claro
-          '#f0f8ff', // azul Alice
-          '#f5f5dc', // beige
-          '#fafad2', // amarillo pálido
-          '#e0ffff', // celeste claro
-          '#f5e6ff', // lila claro
-          '#d0f0c0', // verde té claro
-          '#fdfd96', // amarillo pastel
-          '#ffb3ba', // rosa pastel
-          '#baffc9', // verde menta
-          '#bae1ff', // azul bebé
-          '#fff0f5', // lavanda rosado
-          '#e6ffe9', // verde hielo
-          '#ffe6f2', // rosa suave
-          '#e0e0e0'  // gris muy claro
-        ];
-
+      const colores = [
+        '#ffcccc', '#ffe6cc', '#ffffcc', '#e6ffcc', '#ccffff', '#e6ccff', '#f0f8ff', '#f5f5dc',
+        '#fafad2', '#e0ffff', '#f5e6ff', '#d0f0c0', '#fdfd96', '#ffb3ba', '#baffc9', '#bae1ff',
+        '#fff0f5', '#e6ffe9', '#ffe6f2', '#e0e0e0'
+      ];
 
       if (chartControlables) chartControlables.destroy();
       if (chartNoControlables) chartNoControlables.destroy();
@@ -326,7 +301,7 @@ function actualizarGraficos(data) {
                     };
                   });
                 }
-              }
+              },
             },
             tooltip: {
               callbacks: {
@@ -344,11 +319,5 @@ function actualizarGraficos(data) {
       chartControlables = new Chart(document.getElementById('graficoControlables'), crearConfig(columnasControlable, totalesControlables, totalControl));
       chartNoControlables = new Chart(document.getElementById('graficoNoControlables'), crearConfig(columnasNoControlable, totalesNoControlables, totalNoControl));
     }
-
   });
-  
-
-
-
-
 </script>
