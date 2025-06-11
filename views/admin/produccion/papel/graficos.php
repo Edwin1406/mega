@@ -7,9 +7,9 @@
 
 <style>
   table.dataTable {
-    width: 100% !important; /* Asegura que no se desborde */
-    overflow-x: auto;       /* Evita que se rompa el diseño */
-    display: block;         /* Necesario para aplicar scroll */
+    width: 100% !important;
+    overflow-x: auto;
+    display: block;
   }
 
   h2 {
@@ -53,6 +53,7 @@
   table.dataTable tfoot th {
     font-weight: bold;
     background-color: #bb8b8b;
+    text-align: center; /* Alineación centrada de los totales */
   }
 
   .dataTables_wrapper .dataTables_paginate .paginate_button {
@@ -85,8 +86,8 @@
   <thead>
     <tr>
       <th rowspan="2">Tipo de clasificación</th>
-      <th colspan="9" style="background-color:#9f5fa5 ;text-align: center">CONTROLABLE</th>
-      <th colspan="11" style="background-color:#4988a8  ;text-align: center;">NO CONTROLABLE</th>
+      <th colspan="9" style="background-color:#9f5fa5; text-align:center">CONTROLABLE</th>
+      <th colspan="11" style="background-color:#4988a8; text-align:center;">NO CONTROLABLE</th>
       <th rowspan="2">Fecha</th>
     </tr>
     <tr>
@@ -99,7 +100,6 @@
       <th>COMBINADO</th>
       <th>DESPE</th>
       <th>ERROM</th>
-
       <th>DESHOJE</th>
       <th>MECÁNICO</th>
       <th>ELECTRICO</th>
@@ -111,7 +111,6 @@
       <th>CAMBIO PEDIDO</th>
       <th>EXTRA TRIM</th>
       <th>SUSTRATO</th>
-
     </tr>
   </thead>
   <tfoot>
@@ -169,7 +168,7 @@
   ];
 
   const columnasControlable = ["SINGLEFACE", "EMPALME", "RECUB", "GALLET", "HUMEDO", "COMBADO", "DESPE", "ERROM"];
-  const columnasNoControlable = [ "DESHOJE","MECANICO","ELECRICO","FILOS_ROTOS","REFILE_PEQUENO","PEDIDOS_CORTOS","DIFER_ANCHO","CAMBIO_GRAMAJE","CAMBIO_PEDIDO","EXTRA_TRIM","SUSTRATO"];
+  const columnasNoControlable = ["DESHOJE","MECANICO","ELECRICO","FILOS_ROTOS","REFILE_PEQUENO","PEDIDOS_CORTOS","DIFER_ANCHO","CAMBIO_GRAMAJE","CAMBIO_PEDIDO","EXTRA_TRIM","SUSTRATO"];
 
   let tabla;
   let chartControlables, chartNoControlables;
