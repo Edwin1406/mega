@@ -163,17 +163,16 @@
     { title: "Deshoje", data: "DESHOJE" },
     { title: "Cambio de pedido", data: "CAMBIO_PEDIDO" },
     { title: "Filos rotos", data: "FILOS_ROTOS" },
-    { title: "Otros", data: "OTROS" },
+    { title: "Otros", data: "EXTRA_TRIM" },
     { title: "Pedidos cortos", data: "PEDIDOS_CORTOS" },
     { title: "Difer ancho", data: "DIFER_ANCHO" },
     { title: "Cambio de gramaje", data: "CAMBIO_GRAMAJE" },
-    { title: "Extra trim", data: "EXTRA_TRIM" },
-    { title: "TOTAL", data: "TOTAL" },
-    { title: "PORCENTAJE", data: "PORCENTAJE" },
+    { title: "Total", data: "TOTAL" },
+    { title: "Porcentaje", data: "PORCENTAJE" },
     { title: "Fecha", data: "created_at" }
   ];
 
-  const columnasControlable = ["SINGLEFACE", "EMPALME", "RECUB", "MECANICO", "GALLET", "HUMEDO", "COMBADO", "DESPE", "ERROM"];
+  const columnasControlable = ["SINGLEFACE", "EMPALME", "RECUB", "GALLET", "HUMEDO", "COMBADO", "DESPE", "ERROM"];
   const columnasNoControlable = [ "DESHOJE","MECANICO","ELECRICO","FILOS_ROTOS","REFILE_PEQUENO","PEDIDOS_CORTOS","DIFER_ANCHO","CAMBIO_GRAMAJE","CAMBIO_PEDIDO","EXTRA_TRIM","SUSTRATO"];
 
   let tabla;
