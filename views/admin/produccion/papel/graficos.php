@@ -158,10 +158,12 @@
     { title: "Deshoje", data: "DESHOJE" },
     { title: "Cambio de pedido", data: "CAMBIO_PEDIDO" },
     { title: "Filos rotos", data: "FILOS_ROTOS" },
-    { title: "Otros", data: "EXTRA_TRIM" },
+    { title: "Extra trim", data: "EXTRA_TRIM" },
     { title: "Pedidos cortos", data: "PEDIDOS_CORTOS" },
     { title: "Difer ancho", data: "DIFER_ANCHO" },
     { title: "Cambio de gramaje", data: "CAMBIO_GRAMAJE" },
+    { title: "Refile pequeño", data: "REFILE_PEQUENO" },
+    { title: "Sustrato", data: "SUSTRATO" },
     { title: "Total", data: "TOTAL" },
     { title: "Porcentaje", data: "PORCENTAJE" },
     { title: "Fecha", data: "created_at" }
