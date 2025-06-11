@@ -91,27 +91,31 @@
     <tr>
       <th rowspan="2">Tipo de clasificación</th>
       <th colspan="9" style="background-color:#9f5fa5 ;text-align: center">CONTROLABLE</th>
-      <th colspan="8" style="background-color:#4988a8  ;text-align: center;">NO CONTROLABLE</th>
+      <th colspan="11" style="background-color:#4988a8  ;text-align: center;">NO CONTROLABLE</th>
       <th rowspan="2">Fecha</th>
     </tr>
     <tr>
-      <th>Single Face</th>
-      <th>Empalme</th>
-      <th>Recub</th>
-      <th>Mecánico</th>
-      <th>Gallet</th>
-      <th>Húmedo</th>
-      <th>Combinado</th>
-      <th>Despe</th>
-      <th>Errom</th>
-      <th>Deshoje</th>
-      <th>Cambio de pedido</th>
-      <th>Filos rotos</th>
-      <th>Otros</th>
-      <th>Pedidos cortos</th>
-      <th>Difer ancho</th>
-      <th>Cambio de gramaje</th>
-      <th>Extra trim</th>
+      <th>SINGLE FACE</th>
+      <th>EMPALME</th>
+      <th>RECUB</th>
+      <th>MECÁNICO</th>
+      <th>GALLET</th>
+      <th>HÚMEDO</th>
+      <th>COMBINADO</th>
+      <th>DESPE</th>
+      <th>ERROM</th>
+
+      <th>DESHOJE</th>
+      <th>MECÁNICO</th>
+      <th>ELECTRICO</th>
+      <th>FILOS ROTOS</th>
+      <th>REFILE PEQUEÑO</th>
+      <th>PEDIDOS CORTOS</th>
+      <th>DIFER ANCHO</th>
+      <th>CAMBIO GRAMAJE</th>
+      <th>CAMBIO PEDIDO</th>
+      <th>EXTRA TRIM</th>
+      <th>SUSTRATO</th>
       <th>TOTAL</th>
       <th>PORCENTAJE</th>
     </tr>
