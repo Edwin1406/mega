@@ -129,11 +129,11 @@
 <div style="display: flex; justify-content: center; gap: 50px; margin-top: 40px;">
   <div>
     <h3 style="text-align:center">Controlables</h3>
-    <canvas id="graficoControlables" width="700" height="700"></canvas>
+    <canvas id="graficoControlables" width="600" height="600"></canvas>
   </div>
   <div>
     <h3 style="text-align:center">No Controlables</h3>
-    <canvas id="graficoNoControlables" width="700" height="700"></canvas>
+    <canvas id="graficoNoControlables" width="600" height="600"></canvas>
   </div>
 </div>
 
