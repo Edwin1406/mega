@@ -154,7 +154,7 @@
 
     { title: "Deshoje", data: "DESHOJE" },
     { title: "Mecánico", data: "MECANICO" },
-    { title: "Eléctrico", data: "ELECTRICO" },
+    { title: "Eléctrico", data: "ELECRICO" },
     { title: "Filos rotos", data: "FILOS_ROTOS" },
     { title: "Refile pequeño", data: "REFILE_PEQUENO" },
     { title: "Pedidos cortos", data: "PEDIDOS_CORTOS" },
@@ -170,7 +170,7 @@
   ];
 
   const columnasControlable = ["SINGLEFACE", "EMPALME", "RECUB", "GALLET", "HUMEDO", "COMBADO", "DESPE", "ERROM"];
-  const columnasNoControlable = ["DESHOJE","MECANICO","ELECTRICO","FILOS_ROTOS","REFILE_PEQUENO","PEDIDOS_CORTOS","DIFER_ANCHO","CAMBIO_GRAMAJE","CAMBIO_PEDIDO","EXTRA_TRIM","SUSTRATO"];
+  const columnasNoControlable = ["DESHOJE","MECANICO","ELECRICO","FILOS_ROTOS","REFILE_PEQUENO","PEDIDOS_CORTOS","DIFER_ANCHO","CAMBIO_GRAMAJE","CAMBIO_PEDIDO","EXTRA_TRIM","SUSTRATO"];
 
   let tabla;
   let chartControlables, chartNoControlables;
@@ -182,6 +182,12 @@
       .then(data => {
         console.log("Datos recibidos:", data); // Verifica que los datos estén siendo recibidos correctamente
         dataOriginal = data;
+
+        // Verificar que los datos estén correctos
+        if (data.length === 0) {
+          console.error("No se recibieron datos válidos.");
+          return; // Salir si no hay datos válidos
+        }
 
         // Inicializar DataTable solo después de obtener los datos
         tabla = $('#tablaDesperdicio').DataTable({
