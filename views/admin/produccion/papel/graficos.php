@@ -112,6 +112,7 @@
       <th>CAMBIO PEDIDO</th>
       <th>EXTRA TRIM</th>
       <th>SUSTRATO</th>
+      <th>CONSUMO</th>
     </tr>
   </thead>
   <tfoot>
