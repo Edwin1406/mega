@@ -86,8 +86,8 @@
   <thead>
     <tr>
       <th rowspan="2">Tipo de clasificación</th>
-      <th colspan="8" style="background-color:#9f5fa5; text-align:center">CONTROLABLE</th>
-      <th colspan="10" style="background-color:#4988a8; text-align:center;">NO CONTROLABLE</th>
+      <th colspan="9" style="background-color:#9f5fa5; text-align:center">CONTROLABLE</th>
+      <th colspan="8" style="background-color:#4988a8; text-align:center;">NO CONTROLABLE</th>
       <th rowspan="2">Fecha</th>
     </tr>
     <tr>
@@ -96,10 +96,10 @@
       <th>RECUB</th>
       <th>GALLET</th>
       <th>HÚMEDO</th>
-      <th>COMBADO</th>
+      <th>COMBINADO</th>
       <th>DESPE</th>
       <th>ERROM</th>
-
+      <th>MECÁNICO</th>
       <th>DESHOJE</th>
       <th>MECÁNICO</th>
       <th>ELECTRICO</th>
@@ -117,7 +117,7 @@
     <tr>
       <th colspan="2">Totales:</th>
       <th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th>
-      <th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th>
+      <th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th>
       <th></th>
     </tr>
   </tfoot>
@@ -149,10 +149,9 @@
     { title: "Recub", data: "RECUB" },
     { title: "Gallet", data: "GALLET" },
     { title: "Húmedo", data: "HUMEDO" },
-    { title: "Combado", data: "COMBADO" },
+    { title: "Combinado", data: "COMBADO" },
     { title: "Despe", data: "DESPE" },
     { title: "Errom", data: "ERROM" },
-
     { title: "Deshoje", data: "DESHOJE" },
     { title: "Mecánico", data: "MECANICO" },
     { title: "Cambio de pedido", data: "CAMBIO_PEDIDO" },
@@ -181,9 +180,8 @@
       .then(data => {
         dataOriginal = data;
 
-        // Initialize DataTable after data is loaded
         tabla = $('#tablaDesperdicio').DataTable({
-          data: dataOriginal, // Use the data directly here
+          data: [],
           columns: columnas,
           footerCallback: function (row, data, start, end, display) {
             const api = this.api();
@@ -196,14 +194,13 @@
           }
         });
 
-        // Populate the classification filter dropdown
         const tiposClasificacion = [...new Set(data.flatMap(e => e.tipo_clasificacion.split(',').map(x => x.trim())))];
         tiposClasificacion.forEach(tipo => {
           $('#filtroClasificacion').append(`<option value="${tipo}">${tipo}</option>`);
         });
 
         $('#filtroClasificacion, #fechaInicio, #fechaFin').on('change', aplicarFiltroYMostrar);
-        aplicarFiltroYMostrar(); // initial call to apply filter
+        aplicarFiltroYMostrar(); // inicial
       });
 
     function aplicarFiltroYMostrar() {
