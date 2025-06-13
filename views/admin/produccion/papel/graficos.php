@@ -155,6 +155,7 @@
 
     { title: "Deshoje", data: "DESHOJE" },
     { title: "Mecánico", data: "MECANICO" },
+    { title: "Electrico", data: "ELECTRICO" },
     { title: "Cambio de pedido", data: "CAMBIO_PEDIDO" },
     { title: "Filos rotos", data: "FILOS_ROTOS" },
     { title: "Extra trim", data: "EXTRA_TRIM" },
