@@ -87,7 +87,7 @@
     <tr>
       <th rowspan="2">Tipo de clasificación</th>
       <th colspan="8" style="background-color:#9f5fa5; text-align:center">CONTROLABLE</th>
-      <th colspan="10" style="background-color:#4988a8; text-align:center;">NO CONTROLABLE</th>
+      <th colspan="11" style="background-color:#4988a8; text-align:center;">NO CONTROLABLE</th>
       <th rowspan="2">Fecha</th>
     </tr>
     <tr>
