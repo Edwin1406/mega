@@ -96,7 +96,7 @@
       <th>RECUB</th>
       <th>GALLET</th>
       <th>HÚMEDO</th>
-      <th>COMBADO</th>
+      <th>COMBINADO</th>
       <th>DESPE</th>
       <th>ERROM</th>
 
@@ -226,7 +226,7 @@
             && (!fin || fechaRegistro <= fin);
       });
 
-      console.log('Datos Filtrados:', datosFiltrados);  // Debugging line to inspect filtered data
+      console.log('Datos Filtrados:', datosFiltrados);
 
       datosFiltrados = datosFiltrados.map(reg => {
         const copia = { ...reg };
