@@ -150,7 +150,7 @@
     { title: "Recub", data: "RECUB" },
     { title: "Gallet", data: "GALLET" },
     { title: "Húmedo", data: "HUMEDO" },
-    { title: "Combinado", data: "COMBADO" },
+    { title: "Combado", data: "COMBADO" },
     { title: "Despe", data: "DESPE" },
     { title: "Errom", data: "ERROM" },
 
