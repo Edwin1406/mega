@@ -102,6 +102,7 @@
       <th>ERROM</th>
       <th>DESHOJE</th>
       <th>MECÁNICO</th>
+      <th>Electrico</th>
       <th>ELECTRICO</th>
       <th>FILOS ROTOS</th>
       <th>REFILE PEQUEÑO</th>
