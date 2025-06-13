@@ -147,7 +147,7 @@
     { title: "Single Face", data: "SINGLEFACE" },
     { title: "Empalme", data: "EMPALME" },
     { title: "Recub", data: "RECUB" },
-    { title: "Mecánico", data: "MECANICO" },
+    // { title: "Mecánico", data: "MECANICO" },
     { title: "Gallet", data: "GALLET" },
     { title: "Húmedo", data: "HUMEDO" },
     { title: "Combinado", data: "COMBADO" },
