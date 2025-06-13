@@ -152,8 +152,10 @@
     { title: "Combinado", data: "COMBADO" },
     { title: "Despe", data: "DESPE" },
     { title: "Errom", data: "ERROM" },
+
     { title: "Deshoje", data: "DESHOJE" },
     { title: "Mecánico", data: "MECANICO" },
+    { title: "Eléctrico", data: "ELECRICO" },
     { title: "Cambio de pedido", data: "CAMBIO_PEDIDO" },
     { title: "Filos rotos", data: "FILOS_ROTOS" },
     { title: "Extra trim", data: "EXTRA_TRIM" },
