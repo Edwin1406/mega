@@ -185,12 +185,13 @@
           columns: columnas,
           footerCallback: function (row, data, start, end, display) {
             const api = this.api();
-            for (let i = 2; i < columnas.length - 1; i++) {
-              const total = api.column(i, { search: 'applied' }).data().reduce((a, b) => {
-                return parseFloat(a) + parseFloat(b);
-              }, 0);
-              $(api.column(i).footer()).html(total.toFixed(2));
-            }
+           for (let i = 2; i < columnas.length - 2; i++) {
+  const total = api.column(i, { search: 'applied' }).data().reduce((a, b) => {
+    return parseFloat(a) + parseFloat(b);
+  }, 0);
+  $(api.column(i).footer()).html(total.toFixed(2));
+}
+
           }
         });
 
