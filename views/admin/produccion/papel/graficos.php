@@ -86,20 +86,20 @@
   <thead>
     <tr>
       <th rowspan="2">Tipo de clasificación</th>
-      <th colspan="8" style="background-color:#9f5fa5; text-align:center">CONTROLABLE</th>
-      <th colspan="10" style="background-color:#4988a8; text-align:center;">NO CONTROLABLE</th>
+      <th colspan="9" style="background-color:#9f5fa5; text-align:center">CONTROLABLE</th>
+      <th colspan="11" style="background-color:#4988a8; text-align:center;">NO CONTROLABLE</th>
       <th rowspan="2">Fecha</th>
     </tr>
     <tr>
-       <th>SINGLE FACE</th>
+      <th>SINGLE FACE</th>
       <th>EMPALME</th>
       <th>RECUB</th>
+      <th>MECÁNICO</th>
       <th>GALLET</th>
       <th>HÚMEDO</th>
       <th>COMBINADO</th>
       <th>DESPE</th>
       <th>ERROM</th>
-
       <th>DESHOJE</th>
       <th>MECÁNICO</th>
       <th>ELECTRICO</th>
@@ -117,7 +117,8 @@
     <tr>
       <th colspan="2">Totales:</th>
       <th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th>
-      <th></th><th></th><th></th><th></th><th></th><th></th><th></th><th>
+      <th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th>
+      <th></th>
     </tr>
   </tfoot>
   <tbody></tbody>
@@ -126,11 +127,11 @@
 <div style="display: flex; justify-content: center; gap: 50px; margin-top: 40px;">
   <div>
     <h3 style="text-align:center">Controlables</h3>
-    <canvas id="graficoControlables" width="600" height="600"></canvas>
+    <canvas id="graficoControlables" width="700" height="700"></canvas>
   </div>
   <div>
     <h3 style="text-align:center">No Controlables</h3>
-    <canvas id="graficoNoControlables" width="600" height="600"></canvas>
+    <canvas id="graficoNoControlables" width="700" height="700"></canvas>
   </div>
 </div>
 
@@ -146,31 +147,28 @@
     { title: "Single Face", data: "SINGLEFACE" },
     { title: "Empalme", data: "EMPALME" },
     { title: "Recub", data: "RECUB" },
+    { title: "Mecánico", data: "MECANICO" },
     { title: "Gallet", data: "GALLET" },
     { title: "Húmedo", data: "HUMEDO" },
     { title: "Combinado", data: "COMBADO" },
     { title: "Despe", data: "DESPE" },
     { title: "Errom", data: "ERROM" },
-
     { title: "Deshoje", data: "DESHOJE" },
-    { title: "Mecánico", data: "MECANICO" },
-    { title: "Eléctrico", data: "ELECTRICO" },
+    { title: "Cambio de pedido", data: "CAMBIO_PEDIDO" },
     { title: "Filos rotos", data: "FILOS_ROTOS" },
-    { title: "Refile pequeño", data: "REFILE_PEQUENO" },
+    { title: "Extra trim", data: "EXTRA_TRIM" },
     { title: "Pedidos cortos", data: "PEDIDOS_CORTOS" },
     { title: "Difer ancho", data: "DIFER_ANCHO" },
     { title: "Cambio de gramaje", data: "CAMBIO_GRAMAJE" },
-    { title: "Cambio de pedido", data: "CAMBIO_PEDIDO" },
-    { title: "Extra trim", data: "EXTRA_TRIM" },
+    { title: "Refile pequeño", data: "REFILE_PEQUENO" },
     { title: "Sustrato", data: "SUSTRATO" },
-    { title: "Consumo", data: "CONSUMO" },
     { title: "Total", data: "TOTAL" },
     { title: "Porcentaje", data: "PORCENTAJE" },
     { title: "Fecha", data: "created_at" }
   ];
 
   const columnasControlable = ["SINGLEFACE", "EMPALME", "RECUB", "GALLET", "HUMEDO", "COMBADO", "DESPE", "ERROM"];
-  const columnasNoControlable = ["DESHOJE","MECANICO","ELECTRICO","FILOS_ROTOS","REFILE_PEQUENO","PEDIDOS_CORTOS","DIFER_ANCHO","CAMBIO_GRAMAJE","CAMBIO_PEDIDO","EXTRA_TRIM","SUSTRATO"];
+  const columnasNoControlable = ["DESHOJE","MECANICO","ELECRICO","FILOS_ROTOS","REFILE_PEQUENO","PEDIDOS_CORTOS","DIFER_ANCHO","CAMBIO_GRAMAJE","CAMBIO_PEDIDO","EXTRA_TRIM","SUSTRATO"];
 
   let tabla;
   let chartControlables, chartNoControlables;
@@ -180,18 +178,10 @@
     fetch('https://megawebsistem.com/admin/api/apidesperdiciopapel')
       .then(res => res.json())
       .then(data => {
-        console.log("Datos recibidos:", data); // Verifica que los datos estén siendo recibidos correctamente
         dataOriginal = data;
 
-        // Verificar que los datos estén correctos
-        if (data.length === 0) {
-          console.error("No se recibieron datos válidos.");
-          return; // Salir si no hay datos válidos
-        }
-
-        // Inicializar DataTable solo después de obtener los datos
         tabla = $('#tablaDesperdicio').DataTable({
-          data: dataOriginal,  // Usar los datos obtenidos de la API
+          data: [],
           columns: columnas,
           footerCallback: function (row, data, start, end, display) {
             const api = this.api();
@@ -204,114 +194,130 @@
           }
         });
 
-        // Cargar las opciones del filtro
         const tiposClasificacion = [...new Set(data.flatMap(e => e.tipo_clasificacion.split(',').map(x => x.trim())))];
         tiposClasificacion.forEach(tipo => {
           $('#filtroClasificacion').append(`<option value="${tipo}">${tipo}</option>`);
         });
 
         $('#filtroClasificacion, #fechaInicio, #fechaFin').on('change', aplicarFiltroYMostrar);
-        aplicarFiltroYMostrar(); // Inicializar la tabla con los filtros aplicados
-      })
-      .catch(error => {
-        console.error("Error al obtener los datos:", error);
+        aplicarFiltroYMostrar(); // inicial
       });
-  });
 
-  function aplicarFiltroYMostrar() {
-    const filtroClasificacion = $('#filtroClasificacion').val();
-    const fechaInicio = $('#fechaInicio').val();
-    const fechaFin = $('#fechaFin').val();
+    function aplicarFiltroYMostrar() {
+      const filtroClasificacion = $('#filtroClasificacion').val();
+      const fechaInicio = $('#fechaInicio').val();
+      const fechaFin = $('#fechaFin').val();
 
-    console.log("Filtros aplicados:", filtroClasificacion, fechaInicio, fechaFin); // Depuración de filtros
+      let datosFiltrados = dataOriginal.filter(registro => {
+        const clasificaciones = registro.tipo_clasificacion.split(',').map(x => x.trim());
 
-    let datosFiltrados = dataOriginal.filter(registro => {
-      const clasificaciones = registro.tipo_clasificacion.split(',').map(x => x.trim());
-      const fechaRegistro = new Date(registro.created_at);
-      const inicio = fechaInicio ? new Date(fechaInicio) : null;
-      const fin = fechaFin ? new Date(fechaFin) : null;
+        const fechaRegistro = new Date(registro.created_at);
+        const inicio = fechaInicio ? new Date(fechaInicio) : null;
+        const fin = fechaFin ? new Date(fechaFin) : null;
 
-      fechaRegistro.setHours(0, 0, 0, 0);
-      if (inicio) inicio.setHours(0, 0, 0, 0);
-      if (fin) fin.setHours(0, 0, 0, 0);
+        fechaRegistro.setHours(0, 0, 0, 0);
+        if (inicio) inicio.setHours(0, 0, 0, 0);
+        if (fin) fin.setHours(0, 0, 0, 0);
 
-      return (!filtroClasificacion || clasificaciones.includes(filtroClasificacion))
-          && (!inicio || fechaRegistro >= inicio)
-          && (!fin || fechaRegistro <= fin);
-    });
+        return (!filtroClasificacion || clasificaciones.includes(filtroClasificacion))
+            && (!inicio || fechaRegistro >= inicio)
+            && (!fin || fechaRegistro <= fin);
+      });
 
-    console.log("Datos Filtrados:", datosFiltrados); // Verifica los datos filtrados
+      console.log('Datos Filtrados:', datosFiltrados);  // Debugging line to inspect filtered data
 
-    tabla.clear().rows.add(datosFiltrados).draw();
-    actualizarGraficos(datosFiltrados);
-  }
+      datosFiltrados = datosFiltrados.map(reg => {
+        const copia = { ...reg };
+        const clasificaciones = reg.tipo_clasificacion.split(',').map(x => x.trim());
 
-  function actualizarGraficos(data) {
-    const sumaColumnas = (cols) => {
-      return cols.map(col =>
-        data.reduce((acc, fila) => acc + parseFloat(fila[col] || 0), 0)
-      );
-    };
+        if (filtroClasificacion === "CONTROLABLE") {
+          if (!clasificaciones.includes("CONTROLABLE")) {
+            columnasControlable.forEach(col => copia[col] = "0.00");
+          }
+          columnasNoControlable.forEach(col => copia[col] = "0.00");
+        }
 
-    const totalesControlables = sumaColumnas(columnasControlable);
-    const totalesNoControlables = sumaColumnas(columnasNoControlable);
+        if (filtroClasificacion === "NO CONTROLABLE") {
+          if (!clasificaciones.includes("NO CONTROLABLE")) {
+            columnasNoControlable.forEach(col => copia[col] = "0.00");
+          }
+          columnasControlable.forEach(col => copia[col] = "0.00");
+        }
 
-    const totalControl = totalesControlables.reduce((a, b) => a + b, 0);
-    const totalNoControl = totalesNoControlables.reduce((a, b) => a + b, 0);
+        return copia;
+      });
 
-    const colores = [
-      '#ffcccc', '#ffe6cc', '#ffffcc', '#e6ffcc', '#ccffff', '#e6ccff', '#f0f8ff', '#f5f5dc',
-      '#fafad2', '#e0ffff', '#f5e6ff', '#d0f0c0', '#fdfd96', '#ffb3ba', '#baffc9', '#bae1ff',
-      '#fff0f5', '#e6ffe9', '#ffe6f2', '#e0e0e0'
-    ];
+      tabla.clear().rows.add(datosFiltrados).draw();
+      actualizarGraficos(datosFiltrados);
+    }
 
-    if (chartControlables) chartControlables.destroy();
-    if (chartNoControlables) chartNoControlables.destroy();
+    function actualizarGraficos(data) {
+      const sumaColumnas = (cols) => {
+        return cols.map(col =>
+          data.reduce((acc, fila) => acc + parseFloat(fila[col] || 0), 0)
+        );
+      };
 
-    const crearConfig = (labels, datos, total) => ({
-      type: 'pie',
-      data: {
-        labels: labels,
-        datasets: [{
-          data: datos,
-          backgroundColor: colores
-        }]
-      },
-      options: {
-        responsive: true,
-        plugins: {
-          legend: {
-            position: 'right',
-            labels: {
-              generateLabels: function (chart) {
-                const data = chart.data;
-                return data.labels.map((label, i) => {
-                  const value = data.datasets[0].data[i];
-                  const percentage = total > 0 ? ((value / total) * 100).toFixed(1) : 0;
-                  return {
-                    text: `${label} - ${percentage}%`,
-                    fillStyle: data.datasets[0].backgroundColor[i],
-                    strokeStyle: data.datasets[0].backgroundColor[i],
-                    index: i
-                  };
-                });
-              }
+      const totalesControlables = sumaColumnas(columnasControlable);
+      const totalesNoControlables = sumaColumnas(columnasNoControlable);
+
+      const totalControl = totalesControlables.reduce((a, b) => a + b, 0);
+      const totalNoControl = totalesNoControlables.reduce((a, b) => a + b, 0);
+
+      const colores = [
+        '#ffcccc', '#ffe6cc', '#ffffcc', '#e6ffcc', '#ccffff', '#e6ccff', '#f0f8ff', '#f5f5dc',
+        '#fafad2', '#e0ffff', '#f5e6ff', '#d0f0c0', '#fdfd96', '#ffb3ba', '#baffc9', '#bae1ff',
+        '#fff0f5', '#e6ffe9', '#ffe6f2', '#e0e0e0'
+      ];
+
+      if (chartControlables) chartControlables.destroy();
+      if (chartNoControlables) chartNoControlables.destroy();
+
+      const crearConfig = (labels, datos, total) => ({
+        type: 'pie',
+        data: {
+          labels: labels,
+          datasets: [{
+            data: datos,
+            backgroundColor: colores
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            legend: {
+              position: 'right',
+              labels: {
+                generateLabels: function (chart) {
+                  const data = chart.data;
+                  return data.labels.map((label, i) => {
+                    const value = data.datasets[0].data[i];
+                    const percentage = total > 0 ? ((value / total) * 100).toFixed(1) : 0;
+                    return {
+                      text: `${label} - ${percentage}%`,
+                      fillStyle: data.datasets[0].backgroundColor[i],
+                      strokeStyle: data.datasets[0].backgroundColor[i],
+                      index: i
+                    };
+                  });
+                }
+              },
             },
-          },
-          tooltip: {
-            callbacks: {
-              label: function (context) {
-                const label = context.label || '';
-                const value = context.parsed;
-                return `${label}: ${value.toFixed(2)}`;
+            tooltip: {
+              callbacks: {
+                label: function (context) {
+                  const label = context.label || '';
+                  const value = context.parsed;
+                  return `${label}: ${value.toFixed(2)}`;
+                }
               }
             }
           }
         }
-      }
-    });
+      });
 
-    chartControlables = new Chart(document.getElementById('graficoControlables'), crearConfig(columnasControlable, totalesControlables, totalControl));
-    chartNoControlables = new Chart(document.getElementById('graficoNoControlables'), crearConfig(columnasNoControlable, totalesNoControlables, totalNoControl));
-  }
+      chartControlables = new Chart(document.getElementById('graficoControlables'), crearConfig(columnasControlable, totalesControlables, totalControl));
+      chartNoControlables = new Chart(document.getElementById('graficoNoControlables'), crearConfig(columnasNoControlable, totalesNoControlables, totalNoControl));
+    }
+  });
 </script>
