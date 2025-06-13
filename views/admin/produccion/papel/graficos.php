@@ -147,13 +147,13 @@
     { title: "Single Face", data: "SINGLEFACE" },
     { title: "Empalme", data: "EMPALME" },
     { title: "Recub", data: "RECUB" },
-    { title: "Mecánico", data: "MECANICO" },
     { title: "Gallet", data: "GALLET" },
     { title: "Húmedo", data: "HUMEDO" },
     { title: "Combinado", data: "COMBADO" },
     { title: "Despe", data: "DESPE" },
     { title: "Errom", data: "ERROM" },
     { title: "Deshoje", data: "DESHOJE" },
+    { title: "Mecánico", data: "MECANICO" },
     { title: "Cambio de pedido", data: "CAMBIO_PEDIDO" },
     { title: "Filos rotos", data: "FILOS_ROTOS" },
     { title: "Extra trim", data: "EXTRA_TRIM" },
@@ -185,13 +185,12 @@
           columns: columnas,
           footerCallback: function (row, data, start, end, display) {
             const api = this.api();
-           for (let i = 2; i < columnas.length - 2; i++) {
-  const total = api.column(i, { search: 'applied' }).data().reduce((a, b) => {
-    return parseFloat(a) + parseFloat(b);
-  }, 0);
-  $(api.column(i).footer()).html(total.toFixed(2));
-}
-
+            for (let i = 2; i < columnas.length - 1; i++) {
+              const total = api.column(i, { search: 'applied' }).data().reduce((a, b) => {
+                return parseFloat(a) + parseFloat(b);
+              }, 0);
+              $(api.column(i).footer()).html(total.toFixed(2));
+            }
           }
         });
 
