@@ -91,15 +91,15 @@
       <th rowspan="2">Fecha</th>
     </tr>
     <tr>
-      <th>SINGLE FACE</th>
+       <th>SINGLE FACE</th>
       <th>EMPALME</th>
       <th>RECUB</th>
       <th>GALLET</th>
       <th>HÚMEDO</th>
-      <th>COMBINADO</th>
+      <th>COMBADO</th>
       <th>DESPE</th>
       <th>ERROM</th>
-      <th>MECÁNICO</th>
+
       <th>DESHOJE</th>
       <th>MECÁNICO</th>
       <th>ELECTRICO</th>
