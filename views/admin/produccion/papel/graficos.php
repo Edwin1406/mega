@@ -94,10 +94,10 @@
       <th>SINGLE FACE</th>
       <th>EMPALME</th>
       <th>RECUB</th>
-      <th>MECÁNICO</th>
       <th>GALLET</th>
       <th>HÚMEDO</th>
-      <th>COMBINADO</th>
+      <th>MECÁNICO</th>
+      <th>COMBADO</th>
       <th>DESPE</th>
       <th>ERROM</th>
       <th>DESHOJE</th>
