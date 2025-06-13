@@ -165,6 +165,8 @@
     { title: "Cambio de gramaje", data: "CAMBIO_GRAMAJE" },
     { title: "Cambio de pedido", data: "CAMBIO_PEDIDO" },
     { title: "Extra trim", data: "EXTRA_TRIM" },
+    
+    { title: "Consumo", data: "CONSUMO" },
     { title: "Total", data: "TOTAL" },
     { title: "Porcentaje", data: "PORCENTAJE" },
     { title: "Fecha", data: "created_at" }
