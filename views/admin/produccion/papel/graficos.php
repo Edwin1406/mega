@@ -154,7 +154,7 @@
 
     { title: "Deshoje", data: "DESHOJE" },
     { title: "Mecánico", data: "MECANICO" },
-    { title: "Eléctrico", data: "ELECRICO" },
+    { title: "Eléctrico", data: "ELECTRICO" },
     { title: "Filos rotos", data: "FILOS_ROTOS" },
     { title: "Refile pequeño", data: "REFILE_PEQUENO" },
     { title: "Pedidos cortos", data: "PEDIDOS_CORTOS" },
@@ -170,7 +170,7 @@
   ];
 
   const columnasControlable = ["SINGLEFACE", "EMPALME", "RECUB", "GALLET", "HUMEDO", "COMBADO", "DESPE", "ERROM"];
-  const columnasNoControlable = ["DESHOJE","MECANICO","ELECRICO","FILOS_ROTOS","REFILE_PEQUENO","PEDIDOS_CORTOS","DIFER_ANCHO","CAMBIO_GRAMAJE","CAMBIO_PEDIDO","EXTRA_TRIM","SUSTRATO"];
+  const columnasNoControlable = ["DESHOJE","MECANICO","ELECTRICO","FILOS_ROTOS","REFILE_PEQUENO","PEDIDOS_CORTOS","DIFER_ANCHO","CAMBIO_GRAMAJE","CAMBIO_PEDIDO","EXTRA_TRIM","SUSTRATO"];
 
   let tabla;
   let chartControlables, chartNoControlables;
