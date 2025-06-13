@@ -3,10 +3,6 @@
 <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
-<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-
-
 <h1 class="dashboard__heading"> <?php echo $titulo ?> </h1>
 
 <style>
@@ -185,8 +181,9 @@
       .then(data => {
         dataOriginal = data;
 
+        // Initialize DataTable after data is loaded
         tabla = $('#tablaDesperdicio').DataTable({
-          data: [],
+          data: dataOriginal, // Use the data directly here
           columns: columnas,
           footerCallback: function (row, data, start, end, display) {
             const api = this.api();
@@ -199,13 +196,14 @@
           }
         });
 
+        // Populate the classification filter dropdown
         const tiposClasificacion = [...new Set(data.flatMap(e => e.tipo_clasificacion.split(',').map(x => x.trim())))];
         tiposClasificacion.forEach(tipo => {
           $('#filtroClasificacion').append(`<option value="${tipo}">${tipo}</option>`);
         });
 
         $('#filtroClasificacion, #fechaInicio, #fechaFin').on('change', aplicarFiltroYMostrar);
-        aplicarFiltroYMostrar(); // inicial
+        aplicarFiltroYMostrar(); // initial call to apply filter
       });
 
     function aplicarFiltroYMostrar() {
