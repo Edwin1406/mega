@@ -41,7 +41,7 @@ class Pdf2 extends TCPDF
 
         // Encabezado
         $this->SetFont('helvetica', 'B', 12);
-        $this->SetXY(60, 20);
+        $this->SetXY(60, 10);
         $this->Cell(100, 6, 'MEGASTOCK S.A.', 0, 1, 'L');
         
         // Número de factura
