@@ -1,5 +1,5 @@
 
-const bobinas= [1100,1150,1400,1600,1700,1880];
+const bobinas= [1600,1700];
 const trim = 30;
 
 
@@ -336,7 +336,7 @@ const pedidosCalculadosAgrupados = pedidos.map(pedido => ({
     })
 }));
 
-// console.log(pedidos)
+console.log(pedidos)
 
 
 // Generar todas las combinaciones de variaciones entre los pedidos
