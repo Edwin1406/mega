@@ -338,6 +338,8 @@ const pedidosCalculadosAgrupados = pedidos.map(pedido => ({
 
 console.log(pedidos)
 
+console.log("pedidos calculados agrupados",pedidosCalculadosAgrupados);
+
 
 // Generar todas las combinaciones de variaciones entre los pedidos
 const generarCombinaciones = (pedidos) => {
