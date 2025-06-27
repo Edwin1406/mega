@@ -13,9 +13,9 @@ use Classes\Paginacion;
 class CartoneraController {
     public static function cartonera(Router $router)
     {
-        session_start();
-        isAuth();
-        $id= $_SESSION['id'];
+       // session_start();
+        //isAuth();
+        //$id= $_SESSION['id'];
         $alertas = [];
     
         // Obtener parámetros de paginación

@@ -164,7 +164,6 @@ $router->get('/admin/produccion/materia/lector', [MateriaPrimaController::class,
 
 $router->get('/admin/produccion/materia/graficas', [MateriaPrimaController::class, 'graficas']);
 
-
 $router->get('/admin/produccion/materia/excel', [MateriaPrimaController::class, 'excel']);
 $router->post('/admin/produccion/materia/excel', [MateriaPrimaController::class, 'excel']);
 
