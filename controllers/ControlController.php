@@ -1,10 +1,16 @@
 <?php
 
 namespace Controllers;
+
+use MVC\Router;
+
 class ControlController {
 
-    public static function crear()
+    public static function crear(Router $router)
     {
-       echo "hola como estas";
+        $router->render('admin/control/crear' , [
+            'titulo' => 'CONTROL DE PRODUCCION',
+        ]);
+
     }
 }
