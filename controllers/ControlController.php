@@ -34,7 +34,7 @@ if (!empty($control->horas_programadas) && !empty($control->golpes_maquina)) {
 
 $control->golpes_maquina_hora = $golpes_maquina_hora;
 
-            debuguear($control);
+            // debuguear($control);
             // Validar
             $alertas = $control->validar();
 
