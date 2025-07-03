@@ -20,8 +20,14 @@ class ControlController {
            
             $control->sincronizar($_POST);
 
-            // debuguear($control);
+            $golpes_maquina_hora = 0;
+            if($control->horas_programadas > 0) {
+                $golpes_maquina_hora =((($control->golpes_maquina) / ($control->horas_programadas)) /60);
 
+            }
+            $control->golpes_maquina_hora = $golpes_maquina_hora;
+
+            debuguear($control);
             // Validar
             $alertas = $control->validar();
 
