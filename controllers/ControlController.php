@@ -2,6 +2,7 @@
 
 namespace Controllers;
 
+use Model\Control;
 use MVC\Router;
 
 class ControlController {
@@ -12,6 +13,13 @@ class ControlController {
         session_start();
         isAuth();
 
+        $control = new Control;
+
+        // post 
+        if($_SERVER['REQUEST_METHOD'] === 'POST') {
+           
+            debuguear($_POST);
+        } 
 
         $alertas = [];
 
