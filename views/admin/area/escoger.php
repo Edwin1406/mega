@@ -41,6 +41,8 @@
                     $url = "/admin/comercial/crear?id=".$id;
                 } elseif($area === 'FINANCIERO') {
                     $url = "/admin/financiero/tabla?id=".$id;
+                }elseif($area === 'RECLAMOS') {
+                    $url = "/admin/comercial/subirexcelreclamos?id=".$id;
                 }
                     
 

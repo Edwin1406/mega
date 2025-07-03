@@ -338,6 +338,11 @@ const pedidosCalculadosAgrupados = pedidos.map(pedido => ({
 
 console.log(pedidos)
 
+
+
+
+
+
 console.log("pedidos calculados agrupados",pedidosCalculadosAgrupados);
 
 
