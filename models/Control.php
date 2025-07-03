@@ -101,8 +101,3 @@ function convertirHoraADecimal($hora_string) {
     list($horas, $minutos) = explode(':', $hora_string);
     return (int)$horas + ((int)$minutos / 60);
 }
-function convertirDecimalAHora($decimal) {
-    $horas = floor($decimal);
-    $minutos = round(($decimal - $horas) * 60);
-    return sprintf('%02d:%02d', $horas, $minutos);
-}
