@@ -12,21 +12,21 @@
     </div>
 
     <div class="formulario__campo">
-        <label class="formulario__label" for="n_turno">Nº Turnos:</label>
+        <label class="formulario__label" for="turnos">Nº Turnos:</label>
         <input
             type="number"
-            name="n_turno"
-            id="n_turno"
+            name="turnos"
+            id="turnos"
             class="formulario__input"
             placeholder="Nº Turnos"
             value="<?php echo $control->n_turno ?? '' ?>">
     </div>
 
     <div class="formulario__campo">
-        <label class="formulario__label" for="operadores">Operadores</label>
+        <label class="formulario__label" for="operador">Operadores</label>
         <select
-            name="operadores"
-            id="operadores"
+            name="operador"
+            id="operador"
             class="formulario__input">
             <option value="">Selecciona una opción</option>
             <option value="Luis Govea" <?php echo (isset($control->operadores) && $control->operadores == 'Luis Govea') ? 'selected' : ''; ?>>Luis Govea</option>

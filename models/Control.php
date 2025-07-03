@@ -6,7 +6,7 @@ class Control extends ActiveRecord {
     protected static $columnasDB = [
         'id',
         'fecha',
-        'n_turno',
+        'turnos',
         'area',
         'operador',
         'horas_programadas',
