@@ -20,19 +20,19 @@ class ControlController {
         // post 
         if($_SERVER['REQUEST_METHOD'] === 'POST') {
            
-            $control->sincronizar($_POST);
-
-          $golpes_maquina_hora = 0;
-
+            
+            $golpes_maquina_hora = 0;
+            
             if (!empty($control->horas_programadas) && !empty($control->golpes_maquina)) {
                 $horas_decimal = convertirHoraADecimal($control->horas_programadas);
-
+                
                 if ($horas_decimal > 0) {
                     $golpes_maquina_hora = $control->golpes_maquina / $horas_decimal;
                 }
             }
-
+            
             $control->golpes_maquina_hora = $golpes_maquina_hora;
+            $control->sincronizar($_POST);
 
             debuguear($control);
             // Validar
