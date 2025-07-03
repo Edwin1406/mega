@@ -11,12 +11,13 @@ class ControlController {
 
         session_start();
         isAuth();
-        
 
 
+        $alertas = [];
 
         $router->render('admin/control/crear' , [
             'titulo' => 'CONTROL DE PRODUCCION',
+            'alertas' => $alertas,
         ]);
 
     }
