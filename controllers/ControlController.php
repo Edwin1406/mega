@@ -20,6 +20,8 @@ class ControlController {
            
             $control->sincronizar($_POST);
 
+            debuguear($control);
+
             // Validar
             $alertas = $control->validar();
 
