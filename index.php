@@ -438,7 +438,7 @@ $router->get('/admin/api/citas', [EstimarController::class, 'citas']);
 
 
 // CONNTROL DE PORDUCCION
-$router->get('/admin/control/crear', [ControlController::class, 'control']);
-$router->post('/admin/control/crear', [ControlController::class, 'control']);
+$router->get('/admin/control/crear', [ControlController::class, 'crear']);
+$router->post('/admin/control/crear', [ControlController::class, 'crear']);
 
 $router->comprobarRutas();
