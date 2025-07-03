@@ -70,9 +70,7 @@ class Control extends ActiveRecord {
         if(!$this->golpes_maquina) {
             self::$alertas['error'][] = 'Los golpes de máquina son obligatorios';
         }
-        if(!$this->golpes_maquina_hora) {
-            self::$alertas['error'][] = 'Los golpes de máquina por hora son obligatorios';
-        }
+       
         if(!$this->cambios_medida) {
             self::$alertas['error'][] = 'Los cambios de medida son obligatorios';
         }
