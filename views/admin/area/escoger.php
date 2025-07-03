@@ -41,8 +41,8 @@
                     $url = "/admin/comercial/crear?id=".$id;
                 } elseif($area === 'FINANCIERO') {
                     $url = "/admin/financiero/tabla?id=".$id;
-                }elseif($area === 'RECLAMOS') {
-                    $url = "/admin/comercial/subirexcelreclamos?id=".$id;
+                }elseif($area === 'CONTROL') {
+                    $url = "/admin/control/crear?id=".$id;
                 }
                     
 
@@ -71,8 +71,9 @@
                         $icono = '<i class="fas fa-user-tie"></i>'; // ícono de comercial
                     } elseif($area === 'FINANCIERO') {
                         $icono = '<i class="fas fa-money-check-alt"></i>'; // ícono de financiero
+                    }elseif($area === 'CONTROL') {
+                        $icono = '<i class="fas fa-shield-alt"></i>'; // ícono de control
                     }
-
                     // Muestra el ícono y el nombre del área
                     echo $icono . ' ' . $area;
                 ?>
