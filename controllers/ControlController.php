@@ -18,7 +18,21 @@ class ControlController {
         // post 
         if($_SERVER['REQUEST_METHOD'] === 'POST') {
            
-            debuguear($_POST);
+            $control->sincronizar($_POST);
+
+            // Validar
+            $alertas = $control->validar();
+
+            if(empty($alertas)) {
+                // Guardar en la base de datos
+                $resultado = $control->guardar();
+                if($resultado) {
+                    header('Location: /admin/control/crear');
+                }
+            } else {
+                // Mostrar alertas
+                $alertas = Control::getAlertas();
+            }
         } 
 
         $alertas = [];
