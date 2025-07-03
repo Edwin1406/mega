@@ -5,7 +5,7 @@
 <div class="dashboard__contenedor-boton">
     <a class="dashboard__boton" href="/">
     <i class="fa-regular fa-eye"></i>
-        VER ARCHIVO 
+        VER TABLA
     </a>
 
 </div>
