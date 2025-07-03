@@ -22,6 +22,7 @@ use Controllers\EstimarController;
 use Controllers\MaquinaController;
 use Controllers\CartoneraController;
 use Controllers\ComercialController;
+use Controllers\ControlController;
 use Controllers\CotizadorController;
 use Controllers\PlanificoController;
 use Controllers\FinancieroController;
@@ -430,5 +431,14 @@ $router->get('/admin/api/apimateriaprimajson', [MateriaPrimaController::class, '
 // citas de prueba 
 
 $router->get('/admin/api/citas', [EstimarController::class, 'citas']);
+
+
+
+
+
+
+// CONNTROL DE PORDUCCION
+$router->get('/admin/control/crear', [ControlController::class, 'control']);
+$router->post('/admin/control/crear', [ControlController::class, 'control']);
 
 $router->comprobarRutas();
