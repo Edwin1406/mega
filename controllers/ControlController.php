@@ -5,6 +5,8 @@ namespace Controllers;
 use Model\Control;
 use MVC\Router;
 
+use function Model\convertirHoraADecimal;
+
 class ControlController {
 
     public static function crear(Router $router)
@@ -20,12 +22,17 @@ class ControlController {
            
             $control->sincronizar($_POST);
 
-            $golpes_maquina_hora = 0;
-            if($control->horas_programadas > 0) {
-                $golpes_maquina_hora =((($control->golpes_maquina) / ($control->horas_programadas)) /60);
+          $golpes_maquina_hora = 0;
 
-            }
-            $control->golpes_maquina_hora = $golpes_maquina_hora;
+if (!empty($control->horas_programadas) && !empty($control->golpes_maquina)) {
+    $horas_decimal = convertirHoraADecimal($control->horas_programadas);
+
+    if ($horas_decimal > 0) {
+        $golpes_maquina_hora = $control->golpes_maquina / $horas_decimal;
+    }
+}
+
+$control->golpes_maquina_hora = $golpes_maquina_hora;
 
             debuguear($control);
             // Validar
