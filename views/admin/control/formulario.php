@@ -22,7 +22,7 @@
             value="<?php echo $control->n_turno ?? '' ?>">
     </div>
 
-    
+
 
     <div class="formulario__campo">
         <label class="formulario__label" for="operador">Operadores</label>
@@ -58,7 +58,7 @@
             value="<?php echo $control->golpes_maquina ?? '' ?>">
     </div>
 
-    <div class="formulario__campo">
+    <!-- <div class="formulario__campo">
         <label class="formulario__label" for="golpes_maquina_hora">Golpes Máquina/Hora</label>
         <input
             type="number"
@@ -68,7 +68,7 @@
             placeholder="Golpes Máquina/Hora"
             value="<?php echo $control->golpes_maquina_hora ?? '' ?>">
 
-    </div>
+    </div> -->
 
     <div class="formulario__campo">
         <label class="formulario__label" for="cambios_medida">Nº Cambios de Medida</label>

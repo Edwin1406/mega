@@ -31,10 +31,10 @@ class ControlController {
                 }
             }
             
-            $control->golpes_maquina_hora = $golpes_maquina_hora;
             $control->sincronizar($_POST);
+            $control->golpes_maquina_hora = $golpes_maquina_hora;
 
-            // debuguear($control);
+            debuguear($control);
             // Validar
             $alertas = $control->validar();
 
