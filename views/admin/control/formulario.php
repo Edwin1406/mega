@@ -8,7 +8,7 @@
             name="fecha"
             id="fecha"
             class="formulario__input"
-            value="<?php echo $cliente->fecha ?? '' ?>">
+            value="<?php echo $control->fecha ?? '' ?>">
     </div>
 
     <div class="formulario__campo">
@@ -19,7 +19,7 @@
             id="n_turno"
             class="formulario__input"
             placeholder="Nº Turnos"
-            value="<?php echo $cliente->n_turno ?? '' ?>">
+            value="<?php echo $control->n_turno ?? '' ?>">
     </div>
 
     <div class="formulario__campo">
@@ -29,9 +29,9 @@
             id="operadores"
             class="formulario__input">
             <option value="">Selecciona una opción</option>
-            <option value="Luis Govea" <?php echo (isset($cliente->operadores) && $cliente->operadores == 'Luis Govea') ? 'selected' : ''; ?>>Luis Govea</option>
-            <option value="Guillermo Bonilla" <?php echo (isset($cliente->operadores) && $cliente->operadores == 'Guillermo Bonilla') ? 'selected' : ''; ?>>Guillermo Bonilla</option>
-            <option value="Carlos Govea" <?php echo (isset($cliente->operadores) && $cliente->operadores == 'Carlos Govea') ? 'selected' : ''; ?>>Carlos Govea</option>
+            <option value="Luis Govea" <?php echo (isset($control->operadores) && $control->operadores == 'Luis Govea') ? 'selected' : ''; ?>>Luis Govea</option>
+            <option value="Guillermo Bonilla" <?php echo (isset($control->operadores) && $control->operadores == 'Guillermo Bonilla') ? 'selected' : ''; ?>>Guillermo Bonilla</option>
+            <option value="Carlos Govea" <?php echo (isset($control->operadores) && $control->operadores == 'Carlos Govea') ? 'selected' : ''; ?>>Carlos Govea</option>
         </select>
     </div>
 
@@ -42,7 +42,7 @@
             name="horas_programadas"
             id="horas_programadas"
             class="formulario__input"
-            value="<?php echo $cliente->horas_programadas ?? '' ?>">
+            value="<?php echo $control->horas_programadas ?? '' ?>">
     </div>
 
     <div class="formulario__campo">
@@ -53,7 +53,7 @@
             id="golpes_maquina"
             class="formulario__input"
             placeholder="Golpes Máquina"
-            value="<?php echo $cliente->golpes_maquina ?? '' ?>">
+            value="<?php echo $control->golpes_maquina ?? '' ?>">
     </div>
 
     <div class="formulario__campo">
@@ -64,7 +64,7 @@
             id="golpes_maquina_hora"
             class="formulario__input"
             placeholder="Golpes Máquina/Hora"
-            value="<?php echo $cliente->golpes_maquina_hora ?? '' ?>">
+            value="<?php echo $control->golpes_maquina_hora ?? '' ?>">
 
     </div>
 
@@ -76,7 +76,7 @@
             id="cambios_medida"
             class="formulario__input"
             placeholder="Nº Cambios de Medida"
-            value="<?php echo $cliente->cambios_medida ?? '' ?>">
+            value="<?php echo $control->cambios_medida ?? '' ?>">
 
     </div>
 
@@ -88,7 +88,7 @@
             id="cantidad_separadores"
             class="formulario__input"
             placeholder="Cantidad de Separadores"
-            value="<?php echo $cliente->cantidad_separadores ?? '' ?>">
+            value="<?php echo $control->cantidad_separadores ?? '' ?>">
 
     </div>
 
@@ -100,7 +100,7 @@
             id="cantidad_cajas"
             class="formulario__input"
             placeholder="Cantidad de Cajas"
-            value="<?php echo $cliente->cantidad_cajas ?? '' ?>">
+            value="<?php echo $control->cantidad_cajas ?? '' ?>">
     </div>
     <div class="formulario__campo">
         <label class="formulario__label" for="cantidad_papel">Papel</label>
@@ -110,7 +110,7 @@
             id="cantidad_papel"
             class="formulario__input"
             placeholder="Cantidad de Papel"
-            value="<?php echo $cliente->cantidad_papel ?? '' ?>">
+            value="<?php echo $control->cantidad_papel ?? '' ?>">
     </div>
 
     <div class="formulario__campo">
@@ -121,7 +121,7 @@
             id="desperdicio_kg"
             class="formulario__input"
             placeholder="Desperdicio en Kg"
-            value="<?php echo $cliente->desperdicio_kg ?? '' ?>">
+            value="<?php echo $control->desperdicio_kg ?? '' ?>">
     </div>
 
 
