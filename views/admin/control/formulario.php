@@ -12,25 +12,27 @@
     </div>
 
     <div class="formulario__campo">
-        <label class="formulario__label" for="nombre_producto">Nombre Producto</label>
+        <label class="formulario__label" for="n_turno">Nº Turnos:</label>
         <input
-            type="text"
-            name="nombre_producto"
-            id="nombre_producto"
+            type="number"
+            name="n_turno"
+            id="n_turno"
             class="formulario__input"
-            placeholder="nombre_producto"
-            value="<?php echo $cliente->nombre_producto ?? '' ?>">
+            placeholder="Nº Turnos"
+            value="<?php echo $cliente->n_turno ?? '' ?>">
     </div>
 
     <div class="formulario__campo">
-        <label class="formulario__label" for="codigo_producto">Cod.Producto</label>
-        <input
-            type="text"
-            name="codigo_producto"
-            id="codigo_producto"
-            class="formulario__input"
-            placeholder="codigo_producto"
-            value="<?php echo $cliente->codigo_producto ?? '' ?>">
+        <label class="formulario__label" for="operadores">Operadores</label>
+        <select
+            name="operadores"
+            id="operadores"
+            class="formulario__input">
+            <option value="">Selecciona una opción</option>
+            <option value="Luis Govea" <?php echo (isset($cliente->operadores) && $cliente->operadores == 'Luis Govea') ? 'selected' : ''; ?>>Luis Govea</option>
+            <option value="Guillermo Bonilla" <?php echo (isset($cliente->operadores) && $cliente->operadores == 'Guillermo Bonilla') ? 'selected' : ''; ?>>Guillermo Bonilla</option>
+            <option value="Carlos Govea" <?php echo (isset($cliente->operadores) && $cliente->operadores == 'Carlos Govea') ? 'selected' : ''; ?>>Carlos Govea</option>
+        </select>
     </div>
 
     

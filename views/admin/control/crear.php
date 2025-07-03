@@ -5,6 +5,7 @@
     <select name="operador">
       <option value="Luis Govea">Luis Govea</option>
       <option value="Guillermo Bonilla">Guillermo Bonilla</option>
+        <option value="Carlos Govea">Carlos Govea</option>
     </select><br>
   Horas Programadas: <input type="time" name="horas_programadas"><br>
   Golpes Máquina: <input type="number" name="golpes_maquina"><br>
