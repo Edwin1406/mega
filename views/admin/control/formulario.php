@@ -47,6 +47,7 @@
             <option value="PAUSADO" <?php echo (isset($cliente->estado) && $cliente->estado == 'PAUSADO') ? 'selected' : ''; ?>>PAUSADO</option>
             <option value="TERMINADO" <?php echo (isset($cliente->estado) && $cliente->estado == 'TERMINADO') ? 'selected' : ''; ?>>TERMINADO</option>
         </select>
+        
     </div>
     <div class="formulario__campo">
     <label class="formulario__label" for="pdf">Subir PDF</label>
