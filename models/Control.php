@@ -23,7 +23,7 @@ class Control extends ActiveRecord {
 
     public $id;
     public $fecha;
-    public $n_turno; 
+    public $turnos; 
     public $area;
     public $operador;
     public $horas_programadas;
@@ -38,8 +38,8 @@ class Control extends ActiveRecord {
     public function __construct($args = []) {
         $this->id = $args['id'] ?? null;
         $this->fecha = $args['fecha'] ?? '';
-        $this->n_turno = $args['n_turno'] ?? '';
-        $this->area = $args['area'] ?? '';
+        $this->turnos = $args['turnos'] ?? '';
+        $this->area = $args['area'] ?? 'Troquel';
         $this->operador = $args['operador'] ?? '';
         $this->horas_programadas = $args['horas_programadas'] ?? '';
         $this->golpes_maquina = $args['golpes_maquina'] ?? '';
@@ -55,7 +55,7 @@ class Control extends ActiveRecord {
         if(!$this->fecha) {
             self::$alertas['error'][] = 'La fecha es obligatoria';
         }
-        if(!$this->n_turno) {
+        if(!$this->turnos) {
             self::$alertas['error'][] = 'El número de turno es obligatorio';
         }
         if(!$this->area) {

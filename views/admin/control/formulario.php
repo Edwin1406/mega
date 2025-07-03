@@ -22,6 +22,8 @@
             value="<?php echo $control->n_turno ?? '' ?>">
     </div>
 
+    
+
     <div class="formulario__campo">
         <label class="formulario__label" for="operador">Operadores</label>
         <select
