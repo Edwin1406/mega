@@ -34,7 +34,7 @@ class ControlController {
             $control->golpes_maquina_hora = $golpes_maquina_hora;
             $control->sincronizar($_POST);
 
-            debuguear($control);
+            // debuguear($control);
             // Validar
             $alertas = $control->validar();
 
