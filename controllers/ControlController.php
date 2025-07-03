@@ -18,39 +18,41 @@ class ControlController {
         $control = new Control;
 
         // post 
-        if($_SERVER['REQUEST_METHOD'] === 'POST') {
-           
-            
-            $golpes_maquina_hora = 0;
-            
-            if (!empty($control->horas_programadas) && !empty($control->golpes_maquina)) {
-                $horas_decimal = convertirHoraADecimal($control->horas_programadas);
-                
-                if ($horas_decimal > 0) {
-                    $golpes_maquina_hora = $control->golpes_maquina / $horas_decimal;
-                }
-            }
-            
-            $control->sincronizar($_POST);
-            $control->golpes_maquina_hora = $golpes_maquina_hora;
+      if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-            debuguear($control);
-            // Validar
-            $alertas = $control->validar();
+    // Primero sincroniza con los datos del formulario
+    $control->sincronizar($_POST);
 
-            if(empty($alertas)) {
-                // Guardar en la base de datos
-                $resultado = $control->guardar();
-                if($resultado) {
-                    header('Location: /admin/control/crear');
-                }
-            } else {
-                // Mostrar alertas
-                $alertas = Control::getAlertas();
-            }
-        } 
+    // Luego realiza el cálculo
+    $golpes_maquina_hora = 0;
+    
+    if (!empty($control->horas_programadas) && !empty($control->golpes_maquina)) {
+        $horas_decimal = convertirHoraADecimal($control->horas_programadas);
+        
+        if ($horas_decimal > 0) {
+            $golpes_maquina_hora = $control->golpes_maquina / $horas_decimal;
+        }
+    }
 
-        $alertas = [];
+    $control->golpes_maquina_hora = $golpes_maquina_hora;
+
+    debuguear($control);
+
+    // Validar
+    $alertas = $control->validar();
+
+    if (empty($alertas)) {
+        // Guardar en la base de datos
+        $resultado = $control->guardar();
+        if ($resultado) {
+            header('Location: /admin/control/crear');
+        }
+    } else {
+        // Mostrar alertas
+        $alertas = Control::getAlertas();
+    }
+}
+
 
         $router->render('admin/control/crear' , [
             'titulo' => 'CONTROL DE PRODUCCION',
