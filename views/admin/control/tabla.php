@@ -190,5 +190,65 @@ foreach ($data as $registro) {
         <?php endforeach; ?>
         </tbody>
     </table>
+
+
+
+<?php
+// Preparar arrays para Chart.js
+$labels = ['Separadores (UND)', 'Golpes', 'Golpes por Hora'];
+$datasets = [];
+
+foreach ($resumen as $operador => $valores) {
+    $horas = $valores['horas'] / 3600;
+    $golpesHora = $horas > 0 ? round($valores['golpes'] / $horas, 2) : 0;
+
+    $datasets[] = [
+        'label' => $operador . " / " . $golpesHora . " G/H",
+        'data' => [
+            $valores['separadores'],
+            $valores['golpes'],
+            $golpesHora
+        ]
+    ];
+}
+?>
+
+
+
+
+
+
+    <h2>Gráfico: Separadores / Golpes / Golpes por Hora</h2>
+<canvas id="graficoResumen" width="800" height="400"></canvas>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+const ctx = document.getElementById('graficoResumen').getContext('2d');
+
+const data = {
+    labels: <?php echo json_encode($labels); ?>,
+    datasets: <?php echo json_encode($datasets); ?>
+};
+
+new Chart(ctx, {
+    type: 'bar',
+    data: data,
+    options: {
+        responsive: true,
+        plugins: {
+            title: {
+                display: true,
+                text: 'SEPARADORES / GOLPES / GOLPES HORA'
+            }
+        },
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    }
+});
+</script>
+
 </body>
 </html>
