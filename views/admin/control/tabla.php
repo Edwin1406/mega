@@ -159,7 +159,7 @@ foreach ($data as $registro) {
     <h2>Resumen por Operador</h2>
     <table>
         <thead>
-            <tr>
+            <tr >
                 <th>Operador</th>
                 <th>Total Golpes</th>
                 <th>Total Cambios</th>
@@ -176,7 +176,7 @@ foreach ($data as $registro) {
             $horas = $valores['horas'] / 3600;
             $golpesHora = $horas > 0 ? round($valores['golpes'] / $horas, 2) : 0;
         ?>
-            <tr>
+            <tr  class="tables__tr">
                 <td><?= $operador ?></td>
                 <td><?= $valores['golpes'] ?></td>
                 <td><?= $valores['cambios'] ?></td>
