@@ -61,7 +61,8 @@ class ControlController {
         $router->render('admin/control/crear' , [
             'titulo' => 'CONTROL DE PRODUCCION',
             'alertas' => $alertas,
-            'control' => $control
+            'control' => $control,
+            'token' => $token
         ]);
 
     }
