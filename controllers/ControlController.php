@@ -103,10 +103,12 @@ class ControlController {
 
     public static function apicontroldeproduccion(Router $router)
     {
-        $Token = $_GET['token'] ?? '';
-        if ($Token !== '1234567890') {
-            header('HTTP/1.1 403 Forbidden');
-            echo json_encode(['error' => 'Acceso no autorizado']);
+        $token = $_SERVER['HTTP_AUTHORIZATION'] ?? '';
+
+        // Verificar el token de autorización
+        if ($token !== 'Bearer tu_token_aqui') {
+            header('HTTP/1.1 401 Unauthorized');
+            echo json_encode(['error' => 'Unauthorized']);
             exit;
         }
       
