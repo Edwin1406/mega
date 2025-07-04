@@ -16,7 +16,10 @@ $data = json_decode($response, true);
     th, td { padding: 8px 12px; text-align: center; border: 1px solid #ccc; }
     th { background: #f4a825; color: white; }
     input, button { padding: 5px 10px; margin-right: 10px; }
-    .card { padding: 20px; background: white; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+    .card { padding: 20px; background: white; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    
+        margin-bottom: 20px; }
+    
   </style>
 </head>
 <body>
