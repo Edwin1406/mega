@@ -17,6 +17,10 @@ class ControlController {
         isAuth();
 
         // Verifica si el usuario es administrador
+        if (!isAdmin()) {
+            header('Location: /');
+            return;
+        }
 
         $token = $_GET['id'] ?? '';
         // debuguear($token);
