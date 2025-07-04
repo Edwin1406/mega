@@ -171,7 +171,7 @@ foreach ($data as $registro) {
                 <th>Golpes/Hora</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody  class="tables__tbody">
         <?php foreach ($resumen as $operador => $valores): 
             $horas = $valores['horas'] / 3600;
             $golpesHora = $horas > 0 ? round($valores['golpes'] / $horas, 2) : 0;
