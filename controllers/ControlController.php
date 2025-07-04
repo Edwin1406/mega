@@ -102,16 +102,7 @@ class ControlController {
 
 
     public static function apicontroldeproduccion(Router $router)
-    {
-        $token = $_SERVER['HTTP_AUTHORIZATION'] ?? '';
-
-        // Verificar el token de autorización
-        if ($token !== '123abc') {
-            header('HTTP/1.1 401 Unauthorized');
-            echo json_encode(['error' => 'Unauthorized']);
-            exit;
-        }
-      
+    {  
         $control = Control::all();
 
         header('Content-Type: application/json');
