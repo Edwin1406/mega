@@ -8,7 +8,7 @@
 </div>
 
 <!-- Campo de búsqueda -->
-<div class="dashboard__contenedor" 
+<div class="dashboard__contenedor"
     style="
         margin-bottom: 15px; 
         padding: 20px; 
@@ -18,10 +18,10 @@
         background-color: #fff; 
         transition: all 0.3s ease-in-out;
     ">
-    <input 
-        type="text" 
-        id="filtros_ventas" 
-        class="dashboard__input" 
+    <input
+        type="text"
+        id="filtros_ventas"
+        class="dashboard__input"
         placeholder="Filtrar por nombre cliente o nombre producto"
         style="
             margin-bottom: 0; 
@@ -37,8 +37,7 @@
             transition: all 0.2s ease-in-out;
         "
         onfocus="this.style.boxShadow='0 0 5px rgba(0, 123, 255, 0.5)'; this.style.borderColor='#007bff';"
-        onblur="this.style.boxShadow='inset 0 2px 4px rgba(0, 0, 0, 0.1)'; this.style.borderColor='#ccc';"
-    >
+        onblur="this.style.boxShadow='inset 0 2px 4px rgba(0, 0, 0, 0.1)'; this.style.borderColor='#ccc';">
 </div>
 <form method="GET" action="/admin/comercial/tabla">
     <input type="hidden" name="page" value="1">
@@ -74,25 +73,25 @@
                 </tr>
             </thead>
             <tbody class="tables__tbody">
-                <?php foreach ($control as $controles):?>
+                <?php foreach ($control as $controles): ?>
                     <tr class="tables__tr">
-                        <td class="tables__td"><?php echo $controles->id?></td>
-                        <td class="tables__td"><?php echo $controles->fecha?></td>
-                        <td class="tables__td"><?php echo $controles->turnos?></td>
-                        <td class="tables__td"><?php echo $controles->area?></td>
-                        <td class="tables__td"><?php echo $controles->operador?></td>
-                        <td class="tables__td"><?php echo $controles->horas_programadas?></td>
-                        <td class="tables__td"><?php echo $controles->golpes_maquina?></td>
-                        <td class="tables__td"><?php echo $controles->golpes_maquina_hora?></td>
-                        <td class="tables__td"><?php echo $controles->cambios_medida?></td>
-                        <td class="tables__td"><?php echo $controles->cantidad_separadores?></td>
-                        <td class="tables__td"><?php echo $controles->cantidad_cajas?></td>
-                        <td class="tables__td"><?php echo $controles->cantidad_papel?></td>
-                        <td class="tables__td"><?php echo $controles->desperdicio_kg?></td> 
+                        <td class="tables__td"><?php echo $controles->id ?></td>
+                        <td class="tables__td"><?php echo $controles->fecha ?></td>
+                        <td class="tables__td"><?php echo $controles->turnos ?></td>
+                        <td class="tables__td"><?php echo $controles->area ?></td>
+                        <td class="tables__td"><?php echo $controles->operador ?></td>
+                        <td class="tables__td"><?php echo $controles->horas_programadas ?></td>
+                        <td class="tables__td"><?php echo $controles->golpes_maquina ?></td>
+                        <td class="tables__td"><?php echo $controles->golpes_maquina_hora ?></td>
+                        <td class="tables__td"><?php echo $controles->cambios_medida ?></td>
+                        <td class="tables__td"><?php echo $controles->cantidad_separadores ?></td>
+                        <td class="tables__td"><?php echo $controles->cantidad_cajas ?></td>
+                        <td class="tables__td"><?php echo $controles->cantidad_papel ?></td>
+                        <td class="tables__td"><?php echo $controles->desperdicio_kg ?></td>
                         <!-- <td  class="tables__td--acciones"><a class="tables__accion tables__accion--editar" href="/admin/comercial/pdfquejas?id=<?php echo $comerciales->id; ?>"><i class="fa-solid fa-file-pdf"></i>VER</a> -->
 
                     </tr>
-                <?php endforeach;?>
+                <?php endforeach; ?>
             </tbody>
         </table>
     <?php else: ?>
@@ -146,135 +145,153 @@ foreach ($data as $registro) {
 
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <title>Resumen de Producción</title>
     <style>
-        table { border-collapse: collapse; width: 100%; margin-top: 20px; }
-        th, td { border: 1px solid #ccc; padding: 6px 10px; text-align: center; }
-        th { background-color: #f0ad4e; }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        th,
+        td {
+            border: 1px solid #ccc;
+            padding: 6px 10px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #f0ad4e;
+        }
     </style>
 </head>
+
 <body>
     <h2>Resumen por Operador</h2>
-    <table>
-        <thead>
-            <tr >
-                <th>Operador</th>
-                <th>Total Golpes</th>
-                <th>Total Cambios</th>
-                <th>Total Separadores</th>
-                <th>Total Cajas</th>
-                <th>Total Papel</th>
-                <th>Total Desperdicio (kg)</th>
-                <th>Horas Trabajadas</th>
-                <th>Golpes/Hora</th>
-            </tr>
-        </thead>
-        <tbody  class="tables__tbody">
-        <?php foreach ($resumen as $operador => $valores): 
-            $horas = $valores['horas'] / 3600;
-            $golpesHora = $horas > 0 ? round($valores['golpes'] / $horas, 2) : 0;
-        ?>
-            <tr  class="tables__tr">
-                <td><?= $operador ?></td>
-                <td><?= $valores['golpes'] ?></td>
-                <td><?= $valores['cambios'] ?></td>
-                <td><?= $valores['separadores'] ?></td>
-                <td><?= $valores['cajas'] ?></td>
-                <td><?= $valores['papel'] ?></td>
-                <td><?= $valores['desperdicio'] ?></td>
-                <td><?= round($horas, 2) ?></td>
-                <td><?= $golpesHora ?></td>
-            </tr>
-        <?php endforeach; ?>
-        </tbody>
-    </table>
+    <div class="dashboard__contenedor">
+
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Operador</th>
+                    <th>Total Golpes</th>
+                    <th>Total Cambios</th>
+                    <th>Total Separadores</th>
+                    <th>Total Cajas</th>
+                    <th>Total Papel</th>
+                    <th>Total Desperdicio (kg)</th>
+                    <th>Horas Trabajadas</th>
+                    <th>Golpes/Hora</th>
+                </tr>
+            </thead>
+            <tbody class="tables__tbody">
+                <?php foreach ($resumen as $operador => $valores):
+                    $horas = $valores['horas'] / 3600;
+                    $golpesHora = $horas > 0 ? round($valores['golpes'] / $horas, 2) : 0;
+                ?>
+                    <tr class="tables__tr">
+                        <td class="tables__td"><?= $operador ?></td>
+                        <td class="tables__td"><?= $valores['golpes'] ?></td>
+                        <td class="tables__td"><?= $valores['cambios'] ?></td>
+                        <td class="tables__td"><?= $valores['separadores'] ?></td>
+                        <td class="tables__td"><?= $valores['cajas'] ?></td>
+                        <td class="tables__td"><?= $valores['papel'] ?></td>
+                        <td class="tables__td"><?= $valores['desperdicio'] ?></td>
+                        <td class="tables__td"><?= round($horas, 2) ?></td>
+                        <td class="tables__td"><?= $golpesHora ?></td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+
+    </div>
+
+    <?php
+    // Preparar arrays para Chart.js
+    $labels = ['Separadores (UND)', 'Golpes', 'Golpes por Hora'];
+    $datasets = [];
+
+    foreach ($resumen as $operador => $valores) {
+        $horas = $valores['horas'] / 3600;
+        $golpesHora = $horas > 0 ? round($valores['golpes'] / $horas, 2) : 0;
+
+        $datasets[] = [
+            'label' => $operador . " / " . $golpesHora . " G/H",
+            'data' => [
+                $valores['separadores'],
+                $valores['golpes'],
+                $golpesHora
+            ]
+        ];
+    }
+    ?>
 
 
 
-<?php
-// Preparar arrays para Chart.js
-$labels = ['Separadores (UND)', 'Golpes', 'Golpes por Hora'];
-$datasets = [];
 
-foreach ($resumen as $operador => $valores) {
-    $horas = $valores['horas'] / 3600;
-    $golpesHora = $horas > 0 ? round($valores['golpes'] / $horas, 2) : 0;
+    <style>
+        .grafico_control_produccion {
+            max-width: 600px;
+            width: 100%;
+            height: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+        }
 
-    $datasets[] = [
-        'label' => $operador . " / " . $golpesHora . " G/H",
-        'data' => [
-            $valores['separadores'],
-            $valores['golpes'],
-            $golpesHora
-        ]
-    ];
-}
-?>
-
-
-
-
-<style>
-
-.grafico_control_produccion{
-    max-width: 600px;
-    width: 100%;
-    height: 600px;
-    margin: 20px auto;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    background-color: #fff;
-}
-.titulo_grafico{
-    text-align: center;
-    font-size: 24px;
-    margin-bottom: 20px;
-    color: #333;
-}
-
-</style>
+        .titulo_grafico {
+            text-align: center;
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #333;
+        }
+    </style>
 
 
 
 
     <h2 class="titulo_grafico">Gráfico: Separadores / Golpes / Golpes por Hora</h2>
 
-<div class="grafico_control_produccion">
+    <div class="grafico_control_produccion">
 
-    <canvas id="graficoResumen" width="200px" height="200px"></canvas>
-</div>
+        <canvas id="graficoResumen" width="200px" height="200px"></canvas>
+    </div>
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script>
-const ctx = document.getElementById('graficoResumen').getContext('2d');
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        const ctx = document.getElementById('graficoResumen').getContext('2d');
 
-const data = {
-    labels: <?php echo json_encode($labels); ?>,
-    datasets: <?php echo json_encode($datasets); ?>
-};
+        const data = {
+            labels: <?php echo json_encode($labels); ?>,
+            datasets: <?php echo json_encode($datasets); ?>
+        };
 
-new Chart(ctx, {
-    type: 'bar',
-    data: data,
-    options: {
-        responsive: true,
-        plugins: {
-            title: {
-                display: true,
-                text: 'SEPARADORES / GOLPES / GOLPES HORA'
+        new Chart(ctx, {
+            type: 'bar',
+            data: data,
+            options: {
+                responsive: true,
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'SEPARADORES / GOLPES / GOLPES HORA'
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
             }
-        },
-        scales: {
-            y: {
-                beginAtZero: true
-            }
-        }
-    }
-});
-</script>
+        });
+    </script>
 
 </body>
+
 </html>
