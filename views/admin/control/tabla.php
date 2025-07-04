@@ -220,7 +220,7 @@ foreach ($resumen as $operador => $valores) {
 
     <h2>Gráfico: Separadores / Golpes / Golpes por Hora</h2>
 
-<div class="dashboard__contenedor-grafico" style="margin-top: 20px; padding: 20px; border-radius: 10px; border: 1px solid #ddd; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); background-color: #fff;">
+<div>
 
     <canvas id="graficoResumen" width="200px" height="200px"></canvas>
 </div>
