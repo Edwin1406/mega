@@ -110,7 +110,7 @@ $data = json_decode($response, true);
 
 
     <div class="card">
-        <h3>Gráfico: Separadores / Golpes / Golpes por Hora</h3>
+        <h2 style="text-align: center;" >Gráfico: Separadores / Golpes / Golpes por Hora</h2>
         <div class="grafico-container">
             <canvas id="graficoResumen" height="300"></canvas>
 
