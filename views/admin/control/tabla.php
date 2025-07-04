@@ -228,14 +228,19 @@ foreach ($resumen as $operador => $valores) {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     background-color: #fff;
 }
-
+.titulo_grafico{
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333;
+}
 
 </style>
 
 
 
 
-    <h2>Gráfico: Separadores / Golpes / Golpes por Hora</h2>
+    <h2 class="grfico_titulo">Gráfico: Separadores / Golpes / Golpes por Hora</h2>
 
 <div class="grafico_control_produccion">
 
