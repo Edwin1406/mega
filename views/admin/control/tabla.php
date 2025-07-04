@@ -60,15 +60,16 @@
                 <tr>
                     <th scope="col" class="tables__th">Nro.</th>
                     <th scope="col" class="tables__th">Fecha</th>
-                    <th scope="col" class="tables__th">Cliente</th>
-                    <th scope="col" class="tables__th">Responsable</th>
-                    <th scope="col" class="tables__th">Persona Reporta Reclamo</th>
-                    <th scope="col" class="tables__th">N. Factura</th>
-                    <th scope="col" class="tables__th">Fecha. Factura</th>
-                    <th scope="col" class="tables__th">Descripcion</th>
-                    <th scope="col" class="tables__th">Motivo reclamo</th>
-                    <th scope="col" class="tables__th">Accion Solicitada</th>
-                    <th scope="col" class="tables__th">Acciones</th>
+                    <th scope="col" class="tables__th">Turno</th>
+                    <th scope="col" class="tables__th">Operador</th>
+                    <th scope="col" class="tables__th">Horas programadas</th>
+                    <th scope="col" class="tables__th">Golpes maquina</th>
+                    <th scope="col" class="tables__th">Golpes maquina hora</th>
+                    <th scope="col" class="tables__th">Cambios medida</th>
+                    <th scope="col" class="tables__th">Cantidad de separadores</th>
+                    <th scope="col" class="tables__th">Cantidad cajas </th>
+                    <th scope="col" class="tables__th">Cantidad papel</th>
+                    <th scope="col" class="tables__th">Desperdicio kg</th>
                 </tr>
             </thead>
             <tbody class="tables__tbody">
@@ -76,14 +77,17 @@
                     <tr class="tables__tr">
                         <td class="tables__td"><?php echo $controles->id?></td>
                         <td class="tables__td"><?php echo $controles->fecha?></td>
-                        <td class="tables__td"><?php echo $controles->cliente?></td>
-                        <td class="tables__td"><?php echo $controles->responsable_reporte?></td>
-                        <td class="tables__td"><?php echo $controles->per_reporta_reclamo?></td>
-                        <td class="tables__td"><?php echo $comerciales->factura?></td>
-                        <td class="tables__td"><?php echo $comerciales->fecha_factura?></td>
-                        <td class="tables__td"><?php echo $comerciales->descripcion_producto?></td>
-                        <td class="tables__td"><?php echo $comerciales->motivo_reclamo?></td>
-                        <td class="tables__td"><?php echo $comerciales->accion_solicitada?></td>
+                        <td class="tables__td"><?php echo $controles->turnos?></td>
+                        <td class="tables__td"><?php echo $controles->area?></td>
+                        <td class="tables__td"><?php echo $controles->operador?></td>
+                        <td class="tables__td"><?php echo $controles->horas_programadas?></td>
+                        <td class="tables__td"><?php echo $controles->golpes_maquina?></td>
+                        <td class="tables__td"><?php echo $controles->golpes_maquina_hora?></td>
+                        <td class="tables__td"><?php echo $controles->cambios_medida?></td>
+                        <td class="tables__td"><?php echo $controles->cantidad_separadores?></td>
+                        <td class="tables__td"><?php echo $controles->cantidad_cajas?></td>
+                        <td class="tables__td"><?php echo $controles->cantidad_papel?></td>
+                        <td class="tables__td"><?php echo $controles->desperdicio_kg?></td> 
                         <td  class="tables__td--acciones"><a class="tables__accion tables__accion--editar" href="/admin/comercial/pdfquejas?id=<?php echo $comerciales->id; ?>"><i class="fa-solid fa-file-pdf"></i>VER</a>
 
                     </tr>
