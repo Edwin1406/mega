@@ -61,6 +61,7 @@
                     <th scope="col" class="tables__th">Nro.</th>
                     <th scope="col" class="tables__th">Fecha</th>
                     <th scope="col" class="tables__th">Turno</th>
+                    <th scope="col" class="tables__th">Area</th>
                     <th scope="col" class="tables__th">Operador</th>
                     <th scope="col" class="tables__th">Horas programadas</th>
                     <th scope="col" class="tables__th">Golpes maquina</th>
@@ -88,7 +89,7 @@
                         <td class="tables__td"><?php echo $controles->cantidad_cajas?></td>
                         <td class="tables__td"><?php echo $controles->cantidad_papel?></td>
                         <td class="tables__td"><?php echo $controles->desperdicio_kg?></td> 
-                        <td  class="tables__td--acciones"><a class="tables__accion tables__accion--editar" href="/admin/comercial/pdfquejas?id=<?php echo $comerciales->id; ?>"><i class="fa-solid fa-file-pdf"></i>VER</a>
+                        <!-- <td  class="tables__td--acciones"><a class="tables__accion tables__accion--editar" href="/admin/comercial/pdfquejas?id=<?php echo $comerciales->id; ?>"><i class="fa-solid fa-file-pdf"></i>VER</a> -->
 
                     </tr>
                 <?php endforeach;?>
