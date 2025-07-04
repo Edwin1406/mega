@@ -71,12 +71,14 @@ class ControlController {
 
         $control = Control::all();
 
+        debuguear($control);
+
         $router->render('admin/control/tabla', [
             'titulo' => 'TABLA DE CONTROL DE PRODUCCION',
             'control' => $control
         ]);
     }
-    
+
 
 
 
