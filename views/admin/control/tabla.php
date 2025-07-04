@@ -19,6 +19,14 @@ $data = json_decode($response, true);
     .card { padding: 20px; background: white; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);
     
         margin-bottom: 20px; }
+
+    .grafico-container { margin-top: 20px; }
+    canvas { max-width: 100%; }
+    .grafico-container canvas { width: 100% !important; height: auto !important; }
+    .card h2, .card h3 { margin-bottom: 15px; }
+    .card label { display: block; margin-bottom: 10px; }
+    .card input[type="date"], .card input[type="text"] { width: calc(100% - 20px); padding: 8px; margin-bottom: 10px; }
+    .card button { margin-right: 10px; }
     
   </style>
 </head>
@@ -42,7 +50,10 @@ $data = json_decode($response, true);
 
   <div class="card">
     <h3>Gráfico: Separadores / Golpes / Golpes por Hora</h3>
-    <canvas id="graficoResumen" height="300"></canvas>
+    <div class="grafico-container">
+        <canvas id="graficoResumen" height="300"></canvas>
+
+    </div>
   </div>
 
   <script>
