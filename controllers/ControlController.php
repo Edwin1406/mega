@@ -2,6 +2,7 @@
 
 namespace Controllers;
 
+use Classes\Paginacion;
 use Model\Control;
 use MVC\Router;
 
@@ -71,11 +72,30 @@ class ControlController {
 
         $control = Control::all();
 
+          $pagina_actual = $_GET['page'];
+            $pagina_actual = filter_var($pagina_actual, FILTER_VALIDATE_INT);
+            // debuguear($pagina_actual);
+
+            if(!$pagina_actual|| $pagina_actual <1){
+                header('Location: /admin/control/tabla?page=1');
+                exit;
+            }
+            
+            $pagina_por_registros = 5;
+            $total = Control:: total();
+            $paginacion = new Paginacion($pagina_actual, $pagina_por_registros, $total);
+            if($paginacion->total_paginas() < $pagina_actual){
+                header('Location: /admin/control/tabla?page=1');
+            }
+        
+            $maquinas = Control::paginar($pagina_por_registros, $paginacion->offset());
+
         debuguear($control);
 
         $router->render('admin/control/tabla', [
             'titulo' => 'TABLA DE CONTROL DE PRODUCCION',
-            'control' => $control
+            'control' => $control,
+            'paginacion' => $paginacion->paginacion()
         ]);
     }
 
