@@ -238,7 +238,7 @@ $data = json_decode($response, true);
             //     '#aec7e8', '#ffbb78', '#98df8a', '#ff9896', '#c5b0d5'
             //     ];
 
-            const Colors = [
+            const colors = [
   '#f8cfcf', '#ffe5b4', '#fff3b0', '#d4f4dd', '#cce5ff',
   '#f3d1f4', '#e6f7ff', '#fef6e4', '#e0f7fa', '#f9e2e7',
   '#d0ebff', '#fce1e4', '#fdf1f1', '#f4f4d7', '#eaf6f6',
