@@ -54,7 +54,7 @@
 
 
 <div class="dashboard__contenedor">
-    <?php if (!empty($comercial)): ?>
+    <?php if (!empty($control)): ?>
         <table class="tables" id="tabla">
             <thead class="tables__thead">
                 <tr>
@@ -72,13 +72,13 @@
                 </tr>
             </thead>
             <tbody class="tables__tbody">
-                <?php foreach ($comercial as $comerciales):?>
+                <?php foreach ($control as $controles):?>
                     <tr class="tables__tr">
-                        <td class="tables__td"><?php echo $comerciales->id?></td>
-                        <td class="tables__td"><?php echo $comerciales->fecha?></td>
-                        <td class="tables__td"><?php echo $comerciales->cliente?></td>
-                        <td class="tables__td"><?php echo $comerciales->responsable_reporte?></td>
-                        <td class="tables__td"><?php echo $comerciales->per_reporta_reclamo?></td>
+                        <td class="tables__td"><?php echo $controles->id?></td>
+                        <td class="tables__td"><?php echo $controles->fecha?></td>
+                        <td class="tables__td"><?php echo $controles->cliente?></td>
+                        <td class="tables__td"><?php echo $controles->responsable_reporte?></td>
+                        <td class="tables__td"><?php echo $controles->per_reporta_reclamo?></td>
                         <td class="tables__td"><?php echo $comerciales->factura?></td>
                         <td class="tables__td"><?php echo $comerciales->fecha_factura?></td>
                         <td class="tables__td"><?php echo $comerciales->descripcion_producto?></td>
