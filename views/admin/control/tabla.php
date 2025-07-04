@@ -219,7 +219,7 @@ foreach ($resumen as $operador => $valores) {
 <style>
 
 .grafico_control_produccion{
-    max-width: 700px;
+    max-width: 600px;
     width: 100%;
     height: 600px;
     margin: 20px auto;
