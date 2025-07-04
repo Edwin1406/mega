@@ -86,7 +86,7 @@ $data = json_decode($response, true);
 
 <body>
 
-    <div class="card normal">
+    <div class="normal">
         <h2>Filtros</h2>
         <label>Fecha inicio: <input type="date" id="fecha_inicio"></label>
         <label>Fecha fin: <input type="date" id="fecha_fin"></label>
