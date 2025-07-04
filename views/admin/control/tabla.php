@@ -104,21 +104,6 @@
 <?php echo $paginacion; ?>
 
 
-<form method="GET" style="margin-bottom: 20px;">
-  <label>Fecha inicio:
-    <input type="date" name="fecha_inicio" value="<?= $_GET['fecha_inicio'] ?? '' ?>">
-  </label>
-
-  <label>Fecha fin:
-    <input type="date" name="fecha_fin" value="<?= $_GET['fecha_fin'] ?? '' ?>">
-  </label>
-
-  <label>Operador:
-    <input type="text" name="operador" placeholder="Ej: Carlos Govea" value="<?= $_GET['operador'] ?? '' ?>">
-  </label>
-
-  <button type="submit">Filtrar</button>
-</form>
 
 
 
@@ -131,21 +116,9 @@ $response = file_get_contents($apiUrl);
 $data = json_decode($response, true);
 
 // Paso 2: Agrupar por operador
-$fecha_inicio = $_GET['fecha_inicio'] ?? null;
-$fecha_fin = $_GET['fecha_fin'] ?? null;
-$operador_filtro = $_GET['operador'] ?? null;
-
 $resumen = [];
 
 foreach ($data as $registro) {
-    // Filtrar por fechas
-    $fecha_registro = $registro['fecha'];
-    if ($fecha_inicio && $fecha_registro < $fecha_inicio) continue;
-    if ($fecha_fin && $fecha_registro > $fecha_fin) continue;
-
-    // Filtrar por operador si se especifica
-    if ($operador_filtro && stripos($registro['operador'], $operador_filtro) === false) continue;
-
     $operador = $registro['operador'];
 
     if (!isset($resumen[$operador])) {
@@ -162,13 +135,12 @@ foreach ($data as $registro) {
 
     $resumen[$operador]['separadores'] += (int)$registro['cantidad_separadores'];
     $resumen[$operador]['golpes'] += (int)$registro['golpes_maquina'];
-    $resumen[$operador]['horas'] += strtotime($registro['horas_programadas']) - strtotime("00:00:00");
+    $resumen[$operador]['horas'] += strtotime($registro['horas_programadas']) - strtotime("00:00:00"); // en segundos
     $resumen[$operador]['cambios'] += (int)$registro['cambios_medida'];
     $resumen[$operador]['cajas'] += (int)$registro['cantidad_cajas'];
     $resumen[$operador]['papel'] += (int)$registro['cantidad_papel'];
     $resumen[$operador]['desperdicio'] += (int)$registro['desperdicio_kg'];
 }
-
 ?>
 
 <!DOCTYPE html>
