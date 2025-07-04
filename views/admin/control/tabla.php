@@ -230,13 +230,20 @@ $data = json_decode($response, true);
 
         function randomColor() {
             // const colors = ['#4e79a7', '#f28e2b', '#e15759', '#76b7b2', '#59a14f'];
-            const colors = [
-                '#4e79a7', '#f28e2b', '#e15759', '#76b7b2', '#59a14f', // colores originales
-                '#edc948', '#b07aa1', '#ff9da7', '#9c755f', '#bab0ab',
-                '#1f77b4', '#ff7f0e', '#2ca02c', '#d62728', '#9467bd',
-                '#8c564b', '#e377c2', '#7f7f7f', '#bcbd22', '#17becf',
-                '#aec7e8', '#ffbb78', '#98df8a', '#ff9896', '#c5b0d5'
-                ];
+            // const colors = [
+            //     '#4e79a7', '#f28e2b', '#e15759', '#76b7b2', '#59a14f', // colores originales
+            //     '#edc948', '#b07aa1', '#ff9da7', '#9c755f', '#bab0ab',
+            //     '#1f77b4', '#ff7f0e', '#2ca02c', '#d62728', '#9467bd',
+            //     '#8c564b', '#e377c2', '#7f7f7f', '#bcbd22', '#17becf',
+            //     '#aec7e8', '#ffbb78', '#98df8a', '#ff9896', '#c5b0d5'
+            //     ];
+
+            const Colors = [
+  '#f8cfcf', '#ffe5b4', '#fff3b0', '#d4f4dd', '#cce5ff',
+  '#f3d1f4', '#e6f7ff', '#fef6e4', '#e0f7fa', '#f9e2e7',
+  '#d0ebff', '#fce1e4', '#fdf1f1', '#f4f4d7', '#eaf6f6',
+  '#fde2ff', '#fff5e1', '#e1f0d7', '#f5e1ff', '#f0fff0'
+];
 
             return colors[Math.floor(Math.random() * colors.length)];
 
