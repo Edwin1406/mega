@@ -16,7 +16,7 @@ class ControlController {
         session_start();
         isAuth();
 
-        $token = $_SESSION['token'] ?? '';
+        $token = $_GET['id'] ?? '';
         debuguear($token);
 
         $control = new Control;
