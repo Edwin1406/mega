@@ -107,18 +107,30 @@
 
 
 
-
-
 <?php
+// Paso 0: Leer filtros del formulario
+$fecha_inicio = $_GET['fecha_inicio'] ?? null;
+$fecha_fin = $_GET['fecha_fin'] ?? null;
+$operador_filtro = $_GET['operador'] ?? null;
+
 // Paso 1: Consumir la API
 $apiUrl = "https://megawebsistem.com/admin/api/apicontroldeproduccion";
 $response = file_get_contents($apiUrl);
 $data = json_decode($response, true);
 
-// Paso 2: Agrupar por operador
+// Paso 2: Agrupar por operador, aplicando filtros
 $resumen = [];
 
 foreach ($data as $registro) {
+    $fecha_registro = $registro['fecha'];
+
+    // Filtro por fecha inicio y fin
+    if ($fecha_inicio && $fecha_registro < $fecha_inicio) continue;
+    if ($fecha_fin && $fecha_registro > $fecha_fin) continue;
+
+    // Filtro por operador
+    if ($operador_filtro && stripos($registro['operador'], $operador_filtro) === false) continue;
+
     $operador = $registro['operador'];
 
     if (!isset($resumen[$operador])) {
@@ -135,13 +147,14 @@ foreach ($data as $registro) {
 
     $resumen[$operador]['separadores'] += (int)$registro['cantidad_separadores'];
     $resumen[$operador]['golpes'] += (int)$registro['golpes_maquina'];
-    $resumen[$operador]['horas'] += strtotime($registro['horas_programadas']) - strtotime("00:00:00"); // en segundos
+    $resumen[$operador]['horas'] += strtotime($registro['horas_programadas']) - strtotime("00:00:00");
     $resumen[$operador]['cambios'] += (int)$registro['cambios_medida'];
     $resumen[$operador]['cajas'] += (int)$registro['cantidad_cajas'];
     $resumen[$operador]['papel'] += (int)$registro['cantidad_papel'];
     $resumen[$operador]['desperdicio'] += (int)$registro['desperdicio_kg'];
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="es">
