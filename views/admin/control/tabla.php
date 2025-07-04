@@ -11,7 +11,7 @@ $data = json_decode($response, true);
   <title>Dashboard Producción</title>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
-    body { font-family: Arial; background: #d5d9dd; padding: 20px; }
+    /* body { font-family: Arial; background: #d5d9dd; padding: 20px; } */
     table { border-collapse: collapse; width: 100%; background: white; margin-top: 20px; box-shadow: 0 3px 10px rgba(0,0,0,0.1); }
     th, td { padding: 8px 12px; text-align: center; border: 1px solid #ccc; }
     th { background: #f4a825; color: white; }
