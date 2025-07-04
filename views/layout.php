@@ -27,7 +27,7 @@
         include_once __DIR__ .'/templates/footer.php'; 
     ?>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script src="public/build/js/main.min.js" defer></script>
+    <!-- <script src="public/build/js/main.min.js" defer></script> -->
  
 
 </body>
