@@ -88,9 +88,9 @@ class ControlController {
                 header('Location: /admin/control/tabla?page=1');
             }
         
-            $maquinas = Control::paginar($pagina_por_registros, $paginacion->offset());
+            $control = Control::paginar($pagina_por_registros, $paginacion->offset());
 
-        debuguear($control);
+        // debuguear($control);
 
         $router->render('admin/control/tabla', [
             'titulo' => 'TABLA DE CONTROL DE PRODUCCION',
