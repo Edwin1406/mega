@@ -16,6 +16,9 @@ class ControlController {
         session_start();
         isAuth();
 
+        $token = $_SESSION['token'] ?? '';
+        debuguear($token);
+
         $control = new Control;
         $alertas = [];
 
@@ -46,7 +49,7 @@ class ControlController {
                 // Guardar en la base de datos
                 $resultado = $control->guardar();
                 if ($resultado) {
-                    header('Location: /admin/control/crear');
+                    header('Location: /admin/control/crear?i');
                 }
             } else {
                 // Mostrar alertas
@@ -70,32 +73,17 @@ class ControlController {
         session_start();
         isAuth();
 
+
         $control = Control::all();
 
-          $pagina_actual = $_GET['page'];
-            $pagina_actual = filter_var($pagina_actual, FILTER_VALIDATE_INT);
-            // debuguear($pagina_actual);
 
-            if(!$pagina_actual|| $pagina_actual <1){
-                header('Location: /admin/control/tabla?page=1');
-                exit;
-            }
-            
-            $pagina_por_registros = 5;
-            $total = Control:: total();
-            $paginacion = new Paginacion($pagina_actual, $pagina_por_registros, $total);
-            if($paginacion->total_paginas() < $pagina_actual){
-                header('Location: /admin/control/tabla?page=1');
-            }
-        
-            $control = Control::paginar($pagina_por_registros, $paginacion->offset());
+      
 
         // debuguear($control);
 
         $router->render('admin/control/tabla', [
             'titulo' => 'TABLA DE CONTROL DE PRODUCCION',
             'control' => $control,
-            'paginacion' => $paginacion->paginacion()
         ]);
     }
 
