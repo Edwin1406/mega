@@ -24,7 +24,7 @@ $response = file_get_contents($apiUrl, false, $context);
 $data = json_decode($response, true);
 
 // Ver resultado (puedes eliminar esto en producción)
-print_r($data);
+// print_r($data);
 ?>
 
 
