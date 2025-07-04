@@ -62,4 +62,36 @@ class ControlController {
 
     }
 
+
+// TABLA 
+    public static function tabla(Router $router)
+    {
+        session_start();
+        isAuth();
+
+        $control = Control::all();
+
+        $router->render('admin/control/tabla', [
+            'titulo' => 'TABLA DE CONTROL DE PRODUCCION',
+            'control' => $control
+        ]);
+    }
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

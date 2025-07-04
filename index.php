@@ -441,4 +441,8 @@ $router->get('/admin/api/citas', [EstimarController::class, 'citas']);
 $router->get('/admin/control/crear', [ControlController::class, 'crear']);
 $router->post('/admin/control/crear', [ControlController::class, 'crear']);
 
+
+// TABLA DE CONTROL DE PRODUCCION
+$router->get('/admin/control/tabla', [ControlController::class, 'tabla']);
+
 $router->comprobarRutas();
