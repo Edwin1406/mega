@@ -222,7 +222,7 @@ foreach ($resumen as $operador => $valores) {
 
 <div class="dashboard__contenedor-grafico" style="margin-top: 20px; padding: 20px; border-radius: 10px; border: 1px solid #ddd; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); background-color: #fff;">
 
-    <canvas id="graficoResumen" width="800" height="400"></canvas>
+    <canvas id="graficoResumen" width="400" height="400"></canvas>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
