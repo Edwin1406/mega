@@ -101,6 +101,20 @@ class ControlController {
 
 
 
+    public static function apicontroldeproduccion(Router $router)
+    {
+      
+        $control = Control::all();
+
+        header('Content-Type: application/json');
+        // CORS
+        header('Access-Control-Allow-Origin: *');
+        header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE');
+        header('Access-Control-Allow-Headers: Content-Type, Authorization');
+        // debuguear($control);
+        echo json_encode($control);
+    }
+
 
 
 

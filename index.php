@@ -445,4 +445,7 @@ $router->post('/admin/control/crear', [ControlController::class, 'crear']);
 // TABLA DE CONTROL DE PRODUCCION
 $router->get('/admin/control/tabla', [ControlController::class, 'tabla']);
 
+// API CONTROL DE PRODUCCION
+$router->get('/admin/api/apicontroldeproduccion', [ControlController::class, 'apicontroldeproduccion']);
+
 $router->comprobarRutas();
