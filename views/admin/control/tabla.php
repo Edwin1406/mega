@@ -1,15 +1,14 @@
+<h2 class="dashboard__heading"> <?php echo $titulo ?> </h2>
+
+
+
 <?php
 // Paso 1: Consumir la API una vez
 $apiUrl = "https://megawebsistem.com/admin/api/apicontroldeproduccion";
 $response = file_get_contents($apiUrl);
 $data = json_decode($response, true);
 ?>
-<!DOCTYPE html>
-<html lang="es">
 
-<head>
-    <meta charset="UTF-8">
-    <title>Dashboard Producción</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         /* body { font-family: Arial; background: #d5d9dd; padding: 20px; } */
@@ -90,9 +89,7 @@ $data = json_decode($response, true);
             margin-right: 10px;
         }
     </style>
-</head>
 
-<body>
 
     <div class="normal">
         <label>Fecha inicio: <input type="date" id="fecha_inicio"></label>
@@ -259,6 +256,3 @@ $data = json_decode($response, true);
         // Cargar todo por defecto
         window.onload = filtrar;
     </script>
-</body>
-
-</html>
