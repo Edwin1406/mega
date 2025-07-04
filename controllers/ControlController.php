@@ -17,7 +17,7 @@ class ControlController {
         isAuth();
 
         $token = $_GET['id'] ?? '';
-        debuguear($token);
+        // debuguear($token);
 
         $control = new Control;
         $alertas = [];
@@ -49,7 +49,7 @@ class ControlController {
                 // Guardar en la base de datos
                 $resultado = $control->guardar();
                 if ($resultado) {
-                    header('Location: /admin/control/crear?i');
+                    header('Location: /admin/control/crear/tabla?id=' . $token);
                 }
             } else {
                 // Mostrar alertas
