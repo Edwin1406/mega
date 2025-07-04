@@ -104,7 +104,22 @@
 <?php echo $paginacion; ?>
 
 
+<form method="GET" style="margin-bottom: 20px;">
+  <label>Fecha inicio:
+    <input type="date" name="fecha_inicio" value="<?= $_GET['fecha_inicio'] ?? '' ?>">
+  </label>
 
+  <label>Fecha fin:
+    <input type="date" name="fecha_fin" value="<?= $_GET['fecha_fin'] ?? '' ?>">
+  </label>
+
+  <label>Operador:
+    <input type="text" name="operador" placeholder="Ej: Carlos Govea" value="<?= $_GET['operador'] ?? '' ?>">
+  </label>
+
+  <button type="submit">Filtrar</button>
+  <a href="<?= strtok($_SERVER["REQUEST_URI"], '?') ?>"><button type="button">Limpiar</button></a>
+</form>
 
 
 <?php
