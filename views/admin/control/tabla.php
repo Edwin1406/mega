@@ -38,7 +38,7 @@ $data = json_decode($response, true);
     <div id="tabla_contenedor"></div>
   </div>
 
-  <BR></BR>
+
 
   <div class="card">
     <h3>Gráfico: Separadores / Golpes / Golpes por Hora</h3>
