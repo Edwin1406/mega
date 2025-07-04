@@ -103,3 +103,92 @@
 
 
 <?php echo $paginacion; ?>
+
+
+
+
+
+
+
+<?php
+// Paso 1: Consumir la API
+$apiUrl = "https://megawebsistem.com/admin/api/apicontroldeproduccion";
+$response = file_get_contents($apiUrl);
+$data = json_decode($response, true);
+
+// Paso 2: Agrupar por operador
+$resumen = [];
+
+foreach ($data as $registro) {
+    $operador = $registro['operador'];
+
+    if (!isset($resumen[$operador])) {
+        $resumen[$operador] = [
+            'separadores' => 0,
+            'golpes' => 0,
+            'horas' => 0,
+            'cambios' => 0,
+            'cajas' => 0,
+            'papel' => 0,
+            'desperdicio' => 0
+        ];
+    }
+
+    $resumen[$operador]['separadores'] += (int)$registro['cantidad_separadores'];
+    $resumen[$operador]['golpes'] += (int)$registro['golpes_maquina'];
+    $resumen[$operador]['horas'] += strtotime($registro['horas_programadas']) - strtotime("00:00:00"); // en segundos
+    $resumen[$operador]['cambios'] += (int)$registro['cambios_medida'];
+    $resumen[$operador]['cajas'] += (int)$registro['cantidad_cajas'];
+    $resumen[$operador]['papel'] += (int)$registro['cantidad_papel'];
+    $resumen[$operador]['desperdicio'] += (int)$registro['desperdicio_kg'];
+}
+?>
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Resumen de Producción</title>
+    <style>
+        table { border-collapse: collapse; width: 100%; margin-top: 20px; }
+        th, td { border: 1px solid #ccc; padding: 6px 10px; text-align: center; }
+        th { background-color: #f0ad4e; }
+    </style>
+</head>
+<body>
+    <h2>Resumen por Operador</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Operador</th>
+                <th>Total Golpes</th>
+                <th>Total Cambios</th>
+                <th>Total Separadores</th>
+                <th>Total Cajas</th>
+                <th>Total Papel</th>
+                <th>Total Desperdicio (kg)</th>
+                <th>Horas Trabajadas</th>
+                <th>Golpes/Hora</th>
+            </tr>
+        </thead>
+        <tbody>
+        <?php foreach ($resumen as $operador => $valores): 
+            $horas = $valores['horas'] / 3600;
+            $golpesHora = $horas > 0 ? round($valores['golpes'] / $horas, 2) : 0;
+        ?>
+            <tr>
+                <td><?= $operador ?></td>
+                <td><?= $valores['golpes'] ?></td>
+                <td><?= $valores['cambios'] ?></td>
+                <td><?= $valores['separadores'] ?></td>
+                <td><?= $valores['cajas'] ?></td>
+                <td><?= $valores['papel'] ?></td>
+                <td><?= $valores['desperdicio'] ?></td>
+                <td><?= round($horas, 2) ?></td>
+                <td><?= $golpesHora ?></td>
+            </tr>
+        <?php endforeach; ?>
+        </tbody>
+    </table>
+</body>
+</html>
