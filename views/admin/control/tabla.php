@@ -240,7 +240,7 @@ foreach ($resumen as $operador => $valores) {
 
 
 
-    <h2 class="grfico_titulo">Gráfico: Separadores / Golpes / Golpes por Hora</h2>
+    <h2 class="titulo_grafico">Gráfico: Separadores / Golpes / Golpes por Hora</h2>
 
 <div class="grafico_control_produccion">
 
