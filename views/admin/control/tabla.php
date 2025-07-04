@@ -1,13 +1,32 @@
 <h2 class="dashboard__heading"> <?php echo $titulo ?> </h2>
 
 
-
 <?php
-// Paso 1: Consumir la API una vez
 $apiUrl = "https://megawebsistem.com/admin/api/apicontroldeproduccion";
-$response = file_get_contents($apiUrl);
+
+// Paso 1: Definir el token
+$token = '123abc'; // Asegúrate de que sea el mismo que en el backend
+
+// Paso 2: Crear los encabezados HTTP
+$options = [
+    'http' => [
+        'method' => 'GET',
+        'header' => "Authorization: $token\r\n"
+    ]
+];
+
+$context = stream_context_create($options);
+
+// Paso 3: Hacer la solicitud con el contexto
+$response = file_get_contents($apiUrl, false, $context);
+
+// Paso 4: Decodificar la respuesta
 $data = json_decode($response, true);
+
+// Ver resultado (puedes eliminar esto en producción)
+print_r($data);
 ?>
+
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>

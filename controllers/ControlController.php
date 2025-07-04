@@ -106,7 +106,7 @@ class ControlController {
         $token = $_SERVER['HTTP_AUTHORIZATION'] ?? '';
 
         // Verificar el token de autorización
-        if ($token !== 'Bearer tu_token_aqui') {
+        if ($token !== '123abc') {
             header('HTTP/1.1 401 Unauthorized');
             echo json_encode(['error' => 'Unauthorized']);
             exit;
