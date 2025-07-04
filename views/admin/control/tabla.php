@@ -221,7 +221,7 @@ foreach ($resumen as $operador => $valores) {
 .grafico_control_produccion{
     width: 100%;
     height: 400px;
-    margin: 20px auto;
+    /* margin: 20px auto; */
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
