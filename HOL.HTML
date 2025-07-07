@@ -1,160 +1,137 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <title>Calendario de Citas</title>
-    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.css" rel="stylesheet">
-     <!-- Scripts de FullCalendar -->
-     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
-     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/locales/es.global.min.js"></script>
- 
-    <style>
-        #calendar {
-            max-width: 900px;
-            margin: 40px auto;
-        }
-
-        .modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 999;
-        }
-
-        .modal_contenido {
-            background: #fff;
-            padding: 20px 30px;
-            border-radius: 12px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            width: 400px;
-            max-width: 90%;
-            max-height: 80vh;
-            overflow-y: auto;
-            position: relative;
-        }
-
-        .cerrar_modal {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            font-size: 20px;
-            font-weight: bold;
-            color: #333;
-            cursor: pointer;
-        }
-
-        .modal_titulo {
-            font-size: 20px;
-            font-weight: bold;
-            color: #333;
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        .modal_detalles p {
-            font-size: 16px;
-            line-height: 1.5;
-            color: #555;
-            margin-bottom: 10px;
-            word-wrap: break-word;
-        }
-
-        .modal_detalles p strong {
-            color: #333;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <title>Gráficas de Producción</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-    <!-- Contenedor del calendario -->
-    <div id="calendar"></div>
+  <h2>Filtros</h2>
 
-    <!-- Modal para mostrar información de la cita -->
-    <div id="modalInfoCita" class="modal" style="display: none;">
-        <div class="modal_contenido">
-            <span class="cerrar_modal" id="cerrarModal">&times;</span>
-            <h2 class="modal_titulo">Detalles de la Cita</h2>
-            <div class="modal_detalles">
-                <p><strong>Nombre del Paciente:</strong> <span id="nombre_paciente_info"></span></p>
-                <p><strong>Fecha:</strong> <span id="fecha_info"></span></p>
-                <p><strong>Hora:</strong> <span id="hora_info"></span></p>
-                <p><strong>Teléfono:</strong> <span id="telefono_info"></span></p>
-                <p><strong>Doctor:</strong> <span id="doctor_info"></span></p>
-                <p><strong>Asunto:</strong> <span id="asunto_info"></span></p>
-            </div>
-        </div>
-    </div>
+  <label for="agrupacion">Agrupar por:</label>
+  <select id="agrupacion">
+    <option value="dia">Día</option>
+    <option value="mes">Mes</option>
+  </select>
 
-   
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const calendarEl = document.getElementById('calendar');
-            const modal = document.getElementById('modalInfoCita');
-            const cerrarModal = document.getElementById('cerrarModal');
+  <label for="operador">Filtrar por Operador:</label>
+  <select id="operador">
+    <option value="todos">Todos</option>
+  </select>
 
-            // Cargar los eventos desde la API
-            fetch('https://megawebsistem.com/admin/api/citas')
-                .then(response => response.json())
-                .then(data => {
-                    const eventos = data.map(cita => ({
-                        id: cita.id,
-                        title: cita.nombre_paciente + ' - ' + cita.hora,
-                        start: cita.fecha,  // Solo se usa la fecha, sin hora
-                        extendedProps: {
-                            hora: cita.hora,
-                            telefono: cita.telefono,
-                            doctor: cita.doctor,
-                            asunto: cita.asunto
-                        }
-                    }));
+  <h2>Gráfica 1: Total de golpes por periodo</h2>
+  <canvas id="graficoGolpes"></canvas>
 
+  <h2>Gráfica 2: Promedio de golpes por hora</h2>
+  <canvas id="graficoGolpesHora"></canvas>
 
-                    // Crear el calendario con los eventos transformados
-                    const calendar = new FullCalendar.Calendar(calendarEl, {
-                        initialView: 'dayGridMonth',
-                        locale: 'es',  // Idioma en español
-                        headerToolbar: {
-                            left: 'prev,next today',
-                            center: 'title',
-                            right: 'dayGridMonth,timeGridWeek,timeGridDay'
-                        },
-                        buttonText: {
-                            today: 'Hoy',
-                            month: 'Mes',
-                            week: 'Semana',
-                            day: 'Día'
-                        },
-                        events: eventos,
-                        eventClick: function(info) {
-                            // Mostrar datos en el modal
-                            document.getElementById('nombre_paciente_info').textContent = info.event.title;
-                            document.getElementById('fecha_info').textContent = info.event.start.toISOString().split('T')[0];
-                            document.getElementById('hora_info').textContent = info.event.extendedProps.hora;
-                            document.getElementById('telefono_info').textContent = info.event.extendedProps.telefono;
-                            document.getElementById('doctor_info').textContent = info.event.extendedProps.doctor;
-                            document.getElementById('asunto_info').textContent = info.event.extendedProps.asunto;
+  <script>
+    let chartGolpes, chartGolpesHora;
 
-                            modal.style.display = 'flex';
-                        }
-                    });
+    function agrupar(data, tipoAgrupacion, operador, campo, esPromedio = false) {
+      const agrupado = {};
+      const conteo = {};
 
-                    calendar.render();
-                });
+      data.forEach(item => {
+        if (operador !== 'todos' && item.operador !== operador) return;
 
-            // Cerrar el modal
-            cerrarModal.addEventListener('click', function() {
-                modal.style.display = 'none';
-            });
+        const fecha = new Date(item.fecha);
+        const clave = tipoAgrupacion === 'mes'
+          ? `${fecha.getFullYear()}-${(fecha.getMonth() + 1).toString().padStart(2, '0')}`
+          : item.fecha;
+
+        const valor = parseFloat(item[campo]);
+        if (!agrupado[clave]) {
+          agrupado[clave] = 0;
+          conteo[clave] = 0;
+        }
+
+        agrupado[clave] += valor;
+        conteo[clave]++;
+      });
+
+      if (esPromedio) {
+        for (const clave in agrupado) {
+          agrupado[clave] = agrupado[clave] / conteo[clave];
+        }
+      }
+
+      return {
+        labels: Object.keys(agrupado),
+        valores: Object.values(agrupado)
+      };
+    }
+
+    function actualizarGraficas(data, agrupacion, operador) {
+      const g1 = agrupar(data, agrupacion, operador, 'golpes_maquina');
+      const g2 = agrupar(data, agrupacion, operador, 'golpes_maquina_hora', true);
+
+      if (chartGolpes) chartGolpes.destroy();
+      if (chartGolpesHora) chartGolpesHora.destroy();
+
+      chartGolpes = new Chart(document.getElementById('graficoGolpes'), {
+        type: 'bar',
+        data: {
+          labels: g1.labels,
+          datasets: [{
+            label: 'Total de golpes',
+            data: g1.valores,
+            backgroundColor: 'rgba(54, 162, 235, 0.6)'
+          }]
+        },
+        options: {
+          responsive: true,
+          scales: { y: { beginAtZero: true } }
+        }
+      });
+
+      chartGolpesHora = new Chart(document.getElementById('graficoGolpesHora'), {
+        type: 'line',
+        data: {
+          labels: g2.labels,
+          datasets: [{
+            label: 'Promedio de golpes por hora',
+            data: g2.valores,
+            fill: false,
+            borderColor: 'rgba(255, 99, 132, 1)',
+            tension: 0.2
+          }]
+        },
+        options: {
+          responsive: true,
+          scales: { y: { beginAtZero: true } }
+        }
+      });
+    }
+
+    fetch("https://megawebsistem.com/admin/api/apicontroldeproduccion")
+      .then(res => res.json())
+      .then(data => {
+        // Llenar filtro operador
+        const operadores = [...new Set(data.map(i => i.operador))];
+        const operadorSelect = document.getElementById('operador');
+        operadores.forEach(op => {
+          const opt = document.createElement('option');
+          opt.value = op;
+          opt.textContent = op;
+          operadorSelect.appendChild(opt);
         });
-    </script>
+
+        const agrupacionSelect = document.getElementById('agrupacion');
+
+        operadorSelect.addEventListener('change', () => {
+          actualizarGraficas(data, agrupacionSelect.value, operadorSelect.value);
+        });
+        agrupacionSelect.addEventListener('change', () => {
+          actualizarGraficas(data, agrupacionSelect.value, operadorSelect.value);
+        });
+
+        actualizarGraficas(data, agrupacionSelect.value, operadorSelect.value);
+      })
+      .catch(err => {
+        console.error("Error cargando datos", err);
+        alert("No se pudo cargar la API.");
+      });
+  </script>
 </body>
 </html>
-
-
-
-
