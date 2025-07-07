@@ -2,65 +2,69 @@
 
 namespace Controllers;
 
-use Classes\Paginacion;
 use Model\Control;
 use MVC\Router;
 
-use function Model\calcularGolpesPorHoraExcelEstilo;
-use function Model\convertirHoraADecimal;
+
 
 class ControlController {
 
- public static function crear(Router $router)
-{
-    session_start();
-    isAuth();
+    public static function crear(Router $router)
+    {
 
-    $control = new Control;
-    $token = $_GET['id'] ?? '';
-    $alertas = [];
+        session_start();
+        isAuth();
+        // debuguear($token);
+        
+        $control = new Control;
+        $token = $_GET['id'] ?? '';
+        $alertas = [];
 
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        // Sincronizar datos del formulario
-        $control->sincronizar($_POST);
+        // post 
+    
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $control->sincronizar($_POST);
 
-        // Calcular golpes por hora (basado en que 2.604 = 2604 golpes)
-        $control->golpes_maquina_hora = self::calcularGolpesPorHoraEntero(
-            $control->horas_programadas,
-            $control->golpes_maquina
-        );
+    // convertir horas a decimal aqui mismo 
+    $control->horas_programadas = $control->convertirHorasADecimal($control->horas_programadas);
 
-        // Validar
-        $alertas = $control->validar();
+    debuguear($control->horas_programadas);
 
-        if (empty($alertas)) {
-            $resultado = $control->guardar();
-            if ($resultado) {
-                header('Location: /admin/control/tabla?id=' . $token);
-                exit;
-            }
-        } else {
-            $alertas = Control::getAlertas();
+
+
+
+
+
+
+
+
+
+    $alertas = $control->validar();
+
+    if (empty($alertas)) {
+        $resultado = $control->guardar();
+        if ($resultado) {
+            header('Location: /admin/control/tabla?id=' . $token);
         }
+    } else {
+        $alertas = Control::getAlertas();
+    }
+}
+
+
+        $router->render('admin/control/crear' , [
+            'titulo' => 'CONTROL DE PRODUCCION',
+            'alertas' => $alertas,
+            'control' => $control,
+            'token' => $token
+        ]);
+
     }
 
-    $router->render('admin/control/crear', [
-        'titulo' => 'CONTROL DE PRODUCCIÓN',
-        'alertas' => $alertas,
-        'control' => $control,
-        'token' => $token
-    ]);
-}
 
 
-private static function calcularGolpesPorHoraEntero($hora, $golpes)
- {
-    list($h, $m) = explode(":", $hora);
-    $horasDecimales = $h + ($m / 60);
-    $golpesReales = (int)str_replace(".", "", $golpes); // punto = separador de miles
-    if ($horasDecimales == 0) return 0;
-    return round($golpesReales / $horasDecimales);
-}
+
+
 
 
 // TABLA 

@@ -92,8 +92,24 @@ class Control extends ActiveRecord {
 
 
 
+  
+  // convertir horas a formato decimal
+    public function convertirHorasADecimal($horas) {
+        $partes = explode(':', $horas);
+        if (count($partes) !== 2) {
+            return 0; // Formato incorrecto
+        }
+        $horasDecimal = (int)$partes[0] + ((int)$partes[1] / 60);
+        return $horasDecimal;
+    }
 
-
+    public function calcularGolpesPorHora() {
+        if ($this->horas_programadas > 0) {
+            $this->golpes_maquina_hora = round($this->golpes_maquina / $this->convertirHorasADecimal($this->horas_programadas), 2);
+        } else {
+            $this->golpes_maquina_hora = 0;
+        }
+    }
 
 
 
