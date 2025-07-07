@@ -33,7 +33,7 @@ class ControlController {
                 $horas_decimal = convertirHoraADecimal($control->horas_programadas);
                 
                 if ($horas_decimal > 0) {
-                    $golpes_maquina_hora = $control->golpes_maquina / $horas_decimal;
+                    $golpes_maquina_hora = (($control->golpes_maquina) / ($horas_decimal*1440));
                 }
             }
 
