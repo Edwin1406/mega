@@ -33,6 +33,8 @@ class ControlController {
         $control->golpes_maquina
     );
 
+    debuguear($control->golpes_maquina_hora);
+
             debuguear($control);
             // Validar
             $alertas = $control->validar();
