@@ -96,24 +96,31 @@ class Control extends ActiveRecord {
 
 }
 
-
-// function convertirHoraADecimal($hora_string) {
-//     list($horas, $minutos) = explode(':', $hora_string);
-//     return (int)$horas + ((int)$minutos / 60);
-// }
-
-
-function convertirHoraADecimal($hora) {
+function convertirHoraADecimalExcel($hora) {
     $partes = explode(':', $hora);
-    
-    // Asegurar que haya 3 partes (hh:mm:ss)
+
     while (count($partes) < 3) {
         $partes[] = "00";
     }
 
     list($h, $m, $s) = $partes;
 
-    // Convertir todo a horas decimales
     return (int)$h + ((int)$m / 60) + ((int)$s / 3600);
 }
+
+// Simular fórmula de Excel en PHP
+if (!empty($control->horas_programadas) && !empty($control->golpes_maquina)) {
+    $horas_decimal = convertirHoraADecimalExcel($control->horas_programadas);
+
+    if ($horas_decimal > 0) {
+        // Mimic Excel logic: (E / ((D * 1440) / 60))
+        $control->golpes_maquina_hora = intval(
+            $control->golpes_maquina / (($horas_decimal * 1440) / 60)
+        );
+    } else {
+        $control->golpes_maquina_hora = 0;
+    }
+}
+
+
 
