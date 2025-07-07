@@ -1,297 +1,288 @@
 <h2 class="dashboard__heading"> <?php echo $titulo ?> </h2>
 
-<div class="dashboard__contenedor-boton">
-    <a class="dashboard__boton" href="/admin/comercial/crear">
-        <i class="fa-solid fa-circle-arrow-left"></i>
-        REGRESAR A INICIO
-    </a>
-</div>
-
-<!-- Campo de búsqueda -->
-<div class="dashboard__contenedor"
-    style="
-        margin-bottom: 15px; 
-        padding: 20px; 
-        border-radius: 10px; 
-        border: 1px solid #ddd; 
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
-        background-color: #fff; 
-        transition: all 0.3s ease-in-out;
-    ">
-    <input
-        type="text"
-        id="filtros_ventas"
-        class="dashboard__input"
-        placeholder="Filtrar por nombre cliente o nombre producto"
-        style="
-            margin-bottom: 0; 
-            padding: 12px 15px; 
-            width: 100%; 
-            box-sizing: border-box; 
-            border: 1px solid #ccc; 
-            border-radius: 8px; 
-            outline: none; 
-            font-size: 16px; 
-            background-color: #f9f9f9; 
-            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1); 
-            transition: all 0.2s ease-in-out;
-        "
-        onfocus="this.style.boxShadow='0 0 5px rgba(0, 123, 255, 0.5)'; this.style.borderColor='#007bff';"
-        onblur="this.style.boxShadow='inset 0 2px 4px rgba(0, 0, 0, 0.1)'; this.style.borderColor='#ccc';">
-</div>
-<form method="GET" action="/admin/comercial/tabla">
-    <input type="hidden" name="page" value="1">
-    <label for="per_page">Registros por página:</label>
-    <select name="per_page" id="per_page" onchange="this.form.submit()">
-        <option value="10" <?php echo ($_GET['per_page'] ?? '10') == '10' ? 'selected' : ''; ?>>10</option>
-        <option value="25" <?php echo ($_GET['per_page'] ?? '') == '25' ? 'selected' : ''; ?>>25</option>
-        <option value="50" <?php echo ($_GET['per_page'] ?? '') == '50' ? 'selected' : ''; ?>>50</option>
-        <option value="all" <?php echo ($_GET['per_page'] ?? '') == 'all' ? 'selected' : ''; ?>>Todos</option>
-    </select>
-</form>
-
-
-
-<div class="dashboard__contenedor">
-    <?php if (!empty($control)): ?>
-        <table class="tables" id="tabla">
-            <thead class="tables__thead">
-                <tr>
-                    <th scope="col" class="tables__th">Nro.</th>
-                    <th scope="col" class="tables__th">Fecha</th>
-                    <th scope="col" class="tables__th">Turno</th>
-                    <th scope="col" class="tables__th">Area</th>
-                    <th scope="col" class="tables__th">Operador</th>
-                    <th scope="col" class="tables__th">Horas programadas</th>
-                    <th scope="col" class="tables__th">Golpes maquina</th>
-                    <th scope="col" class="tables__th">Golpes maquina hora</th>
-                    <th scope="col" class="tables__th">Cambios medida</th>
-                    <th scope="col" class="tables__th">Cantidad de separadores</th>
-                    <th scope="col" class="tables__th">Cantidad cajas </th>
-                    <th scope="col" class="tables__th">Cantidad papel</th>
-                    <th scope="col" class="tables__th">Desperdicio kg</th>
-                </tr>
-            </thead>
-            <tbody class="tables__tbody">
-                <?php foreach ($control as $controles): ?>
-                    <tr class="tables__tr">
-                        <td class="tables__td"><?php echo $controles->id ?></td>
-                        <td class="tables__td"><?php echo $controles->fecha ?></td>
-                        <td class="tables__td"><?php echo $controles->turnos ?></td>
-                        <td class="tables__td"><?php echo $controles->area ?></td>
-                        <td class="tables__td"><?php echo $controles->operador ?></td>
-                        <td class="tables__td"><?php echo $controles->horas_programadas ?></td>
-                        <td class="tables__td"><?php echo $controles->golpes_maquina ?></td>
-                        <td class="tables__td"><?php echo $controles->golpes_maquina_hora ?></td>
-                        <td class="tables__td"><?php echo $controles->cambios_medida ?></td>
-                        <td class="tables__td"><?php echo $controles->cantidad_separadores ?></td>
-                        <td class="tables__td"><?php echo $controles->cantidad_cajas ?></td>
-                        <td class="tables__td"><?php echo $controles->cantidad_papel ?></td>
-                        <td class="tables__td"><?php echo $controles->desperdicio_kg ?></td>
-                        <!-- <td  class="tables__td--acciones"><a class="tables__accion tables__accion--editar" href="/admin/comercial/pdfquejas?id=<?php echo $comerciales->id; ?>"><i class="fa-solid fa-file-pdf"></i>VER</a> -->
-
-                    </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
-    <?php else: ?>
-        <a class="text-center"> No hay orden Aún</a>
-    <?php endif; ?>
-</div>
-
-
-
-<?php echo $paginacion; ?>
-
-
-
-
-
 
 
 <?php
-// Paso 1: Consumir la API
+// Paso 1: Consumir la API una vez
 $apiUrl = "https://megawebsistem.com/admin/api/apicontroldeproduccion";
 $response = file_get_contents($apiUrl);
 $data = json_decode($response, true);
-
-// Paso 2: Agrupar por operador
-$resumen = [];
-
-foreach ($data as $registro) {
-    $operador = $registro['operador'];
-
-    if (!isset($resumen[$operador])) {
-        $resumen[$operador] = [
-            'separadores' => 0,
-            'golpes' => 0,
-            'horas' => 0,
-            'cambios' => 0,
-            'cajas' => 0,
-            'papel' => 0,
-            'desperdicio' => 0
-        ];
-    }
-
-    $resumen[$operador]['separadores'] += (int)$registro['cantidad_separadores'];
-    $resumen[$operador]['golpes'] += (int)$registro['golpes_maquina'];
-    $resumen[$operador]['horas'] += strtotime($registro['horas_programadas']) - strtotime("00:00:00"); // en segundos
-    $resumen[$operador]['cambios'] += (int)$registro['cambios_medida'];
-    $resumen[$operador]['cajas'] += (int)$registro['cantidad_cajas'];
-    $resumen[$operador]['papel'] += (int)$registro['cantidad_papel'];
-    $resumen[$operador]['desperdicio'] += (int)$registro['desperdicio_kg'];
-}
 ?>
 
-<!DOCTYPE html>
-<html lang="es">
-
-<head>
-    <meta charset="UTF-8">
-    <title>Resumen de Producción</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
+        /* body { font-family: Arial; background: #d5d9dd; padding: 20px; } */
         table {
             border-collapse: collapse;
             width: 100%;
+            background: white;
             margin-top: 20px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
         }
 
         th,
         td {
-            border: 1px solid #ccc;
-            padding: 6px 10px;
+            padding: 8px 12px;
             text-align: center;
+            border: 1px solid #ccc;
         }
 
         th {
-            background-color: #f0ad4e;
+            background: #f4a825;
+            color: white;
         }
-    </style>
-</head>
 
-<body>
-    <h2>Resumen por Operador</h2>
-    <div class="dashboard__contenedor">
+        input,
+        button {
+            padding: 5px 10px;
+            margin-right: 10px;
+        }
 
-
-        <table>
-            <thead>
-                <tr>
-                    <th>Operador</th>
-                    <th>Total Golpes</th>
-                    <th>Total Cambios</th>
-                    <th>Total Separadores</th>
-                    <th>Total Cajas</th>
-                    <th>Total Papel</th>
-                    <th>Total Desperdicio (kg)</th>
-                    <th>Horas Trabajadas</th>
-                    <th>Golpes/Hora</th>
-                </tr>
-            </thead>
-            <tbody class="tables__tbody">
-                <?php foreach ($resumen as $operador => $valores):
-                    $horas = $valores['horas'] / 3600;
-                    $golpesHora = $horas > 0 ? round($valores['golpes'] / $horas, 2) : 0;
-                ?>
-                    <tr class="tables__tr">
-                        <td class="tables__td"><?= $operador ?></td>
-                        <td class="tables__td"><?= $valores['golpes'] ?></td>
-                        <td class="tables__td"><?= $valores['cambios'] ?></td>
-                        <td class="tables__td"><?= $valores['separadores'] ?></td>
-                        <td class="tables__td"><?= $valores['cajas'] ?></td>
-                        <td class="tables__td"><?= $valores['papel'] ?></td>
-                        <td class="tables__td"><?= $valores['desperdicio'] ?></td>
-                        <td class="tables__td"><?= round($horas, 2) ?></td>
-                        <td class="tables__td"><?= $golpesHora ?></td>
-                    </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
-
-    </div>
-
-    <?php
-    // Preparar arrays para Chart.js
-    $labels = ['Separadores (UND)', 'Golpes', 'Golpes por Hora'];
-    $datasets = [];
-
-    foreach ($resumen as $operador => $valores) {
-        $horas = $valores['horas'] / 3600;
-        $golpesHora = $horas > 0 ? round($valores['golpes'] / $horas, 2) : 0;
-
-        $datasets[] = [
-            'label' => $operador . " / " . $golpesHora . " G/H",
-            'data' => [
-                $valores['separadores'],
-                $valores['golpes'],
-                $golpesHora
-            ]
-        ];
-    }
-    ?>
-
-
-
-
-    <style>
-        .grafico_control_produccion {
-            max-width: 600px;
-            width: 100%;
-            height: 600px;
-            margin: 20px auto;
+        .card {
             padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            background-color: #fff;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+
+            margin-bottom: 20px;
+        }
+        .normal {
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+
+            margin-bottom: 20px;
         }
 
-        .titulo_grafico {
-            text-align: center;
-            font-size: 24px;
-            margin-bottom: 20px;
-            color: #333;
+        .grafico-container {
+            margin-top: 20px;
+        }
+
+        canvas {
+            max-width: 100%;
+        }
+
+        .grafico-container canvas {
+            width: 100% !important;
+            height: auto !important;
+        }
+
+        .card h2,
+        .card h3 {
+            margin-bottom: 15px;
+        }
+
+        .card label {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .card input[type="date"],
+        .card input[type="text"] {
+            width: calc(100% - 20px);
+            padding: 8px;
+            margin-bottom: 10px;
+        }
+
+        .card button {
+            margin-right: 10px;
         }
     </style>
 
 
-
-
-    <h2 class="titulo_grafico">Gráfico: Separadores / Golpes / Golpes por Hora</h2>
-
-    <div class="grafico_control_produccion">
-
-        <canvas id="graficoResumen" width="200px" height="200px"></canvas>
+    <div class="normal">
+        <label>Fecha inicio: <input type="date" id="fecha_inicio"></label>
+        <label>Fecha fin: <input type="date" id="fecha_fin"></label>
+        <label>Operador: <input type="text" id="operador" placeholder="Ej: Carlos"></label>
+        <button onclick="filtrar()">Aplicar filtros</button>
+        <button onclick="resetear()">Reset</button>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <div class="card">
+        <h2>Tabla de Producción</h2>
+        <div id="tabla_contenedor"></div>
+    </div>
+
+
+
+    <div class="card">
+        <h2 style="text-align: center;" >Gráfico: Separadores / Golpes / Golpes por Hora</h2>
+        <div class="grafico-container">
+            <canvas id="graficoResumen" height="300"></canvas>
+
+        </div>
+    </div>
+
     <script>
-        const ctx = document.getElementById('graficoResumen').getContext('2d');
+        const datosOriginales = <?= json_encode($data) ?>;
+        let chart;
 
-        const data = {
-            labels: <?php echo json_encode($labels); ?>,
-            datasets: <?php echo json_encode($datasets); ?>
-        };
+        function filtrar() {
+            const fechaInicio = document.getElementById('fecha_inicio').value;
+            const fechaFin = document.getElementById('fecha_fin').value;
+            const operadorFiltro = document.getElementById('operador').value.toLowerCase();
 
-        new Chart(ctx, {
-            type: 'bar',
-            data: data,
-            options: {
-                responsive: true,
-                plugins: {
-                    title: {
-                        display: true,
-                        text: 'SEPARADORES / GOLPES / GOLPES HORA'
-                    }
+            const resumen = {};
+
+            datosOriginales.forEach(registro => {
+                const fecha = registro.fecha;
+                const operador = registro.operador;
+
+                // Filtros
+                if (fechaInicio && fecha < fechaInicio) return;
+                if (fechaFin && fecha > fechaFin) return;
+                if (operadorFiltro && !operador.toLowerCase().includes(operadorFiltro)) return;
+
+                if (!resumen[operador]) {
+                    resumen[operador] = {
+                        golpes: 0,
+                        cambios: 0,
+                        separadores: 0,
+                        cajas: 0,
+                        papel: 0,
+                        desperdicio: 0,
+                        horas: 0
+                    };
+                }
+
+                resumen[operador].golpes += +registro.golpes_maquina;
+                resumen[operador].cambios += +registro.cambios_medida;
+                resumen[operador].separadores += +registro.cantidad_separadores;
+                resumen[operador].cajas += +registro.cantidad_cajas;
+                resumen[operador].papel += +registro.cantidad_papel;
+                resumen[operador].desperdicio += +registro.desperdicio_kg;
+                resumen[operador].horas += tiempoAHoras(registro.horas_programadas);
+            });
+
+            renderTabla(resumen);
+            renderGrafico(resumen);
+        }
+
+        function tiempoAHoras(horaStr) {
+            const [h, m, s] = horaStr.split(':').map(Number);
+            return h + m / 60 + s / 3600;
+        }
+
+        function renderTabla(resumen) {
+            let html = '<table><thead><tr><th>Operador</th><th>Total Golpes</th><th>Total Cambios</th><th>Total Separadores</th><th>Total Cajas</th><th>Total Papel</th><th>Total Desperdicio (kg)</th><th>Horas Trabajadas</th><th>Golpes/Hora</th></tr></thead><tbody>';
+            for (const operador in resumen) {
+                const r = resumen[operador];
+                const gph = r.horas > 0 ? (r.golpes / r.horas).toFixed(2) : 0;
+                html += `<tr>
+          <td>${operador}</td>
+          <td>${r.golpes}</td>
+          <td>${r.cambios}</td>
+          <td>${r.separadores}</td>
+          <td>${r.cajas}</td>
+          <td>${r.papel}</td>
+          <td>${r.desperdicio}</td>
+          <td>${r.horas.toFixed(2)}</td>
+          <td>${gph}</td>
+        </tr>`;
+            }
+            html += '</tbody></table>';
+            document.getElementById('tabla_contenedor').innerHTML = html;
+        }
+
+      function renderGrafico(resumen) {
+    const operadores = Object.keys(resumen);
+    const separadores = [];
+    const cajas = [];
+    const papel = [];
+    const golpes = [];
+    const golpesHora = [];
+
+    operadores.forEach(op => {
+        const r = resumen[op];
+        separadores.push(r.separadores);
+        cajas.push(r.cajas);
+        papel.push(r.papel);
+        golpes.push(r.golpes);
+        golpesHora.push(r.horas > 0 ? (r.golpes / r.horas).toFixed(2) : 0);
+    });
+
+    const datasets = [
+        {
+            label: 'Separadores',
+            data: separadores,
+            backgroundColor: '#f4a261'
+        },
+        {
+            label: 'Cajas',
+            data: cajas,
+            backgroundColor: '#2a9d8f'
+        },
+        {
+            label: 'Papel',
+            data: papel,
+            backgroundColor: '#e9c46a'
+        },
+        {
+            label: 'Golpes',
+            data: golpes,
+            backgroundColor: '#264653'
+        },
+        {
+            label: 'Golpes por Hora',
+            data: golpesHora,
+            backgroundColor: '#e76f51'
+        }
+    ];
+
+    if (chart) chart.destroy();
+
+    const ctx = document.getElementById('graficoResumen').getContext('2d');
+    chart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: operadores,
+            datasets: datasets
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Producción por Operador'
                 },
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
+                tooltip: {
+                    mode: 'index',
+                    intersect: false
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true
                 }
             }
-        });
+        }
+    });
+}
+
+
+
+
+        function randomColor() {
+                
+            const colors = [
+            '#f8cfcf', '#ffe5b4', '#fff3b0', '#d4f4dd', '#cce5ff',
+            '#f3d1f4', '#e6f7ff', '#fef6e4', '#e0f7fa', '#f9e2e7',
+            '#d0ebff', '#fce1e4', '#fdf1f1', '#f4f4d7', '#eaf6f6',
+            '#fde2ff', '#fff5e1', '#e1f0d7', '#f5e1ff', '#f0fff0'
+            ];
+
+            return colors[Math.floor(Math.random() * colors.length)];
+
+        }
+
+        function resetear() {
+            document.getElementById('fecha_inicio').value = '';
+            document.getElementById('fecha_fin').value = '';
+            document.getElementById('operador').value = '';
+            filtrar();
+        }
+
+        // Cargar todo por defecto
+        window.onload = filtrar;
     </script>
-
-</body>
-
-</html>
