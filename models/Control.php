@@ -96,3 +96,18 @@ class Control extends ActiveRecord {
 
 }
 
+function calcularGolpesPorHora($horasProgramadas, $golpesMaquina) {
+    // Separar horas y minutos
+    list($horas, $minutos) = explode(':', $horasProgramadas);
+    
+    // Convertir a decimal
+    $horasDecimales = intval($horas) + (intval($minutos) / 60);
+
+    // Validación para evitar división por cero
+    if ($horasDecimales == 0) {
+        return 0;
+    }
+
+    // Cálculo
+    return floatval($golpesMaquina) / $horasDecimales;
+}

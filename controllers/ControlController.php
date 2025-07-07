@@ -25,6 +25,10 @@ class ControlController {
       if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Primero sincroniza con los datos del formulario
             $control->sincronizar($_POST);
+                $control->golpes_maquina_hora = calcularGolpesPorHora(
+        $control->horas_programadas,
+        $control->golpes_maquina
+    );
 
             debuguear($control);
             // Validar
