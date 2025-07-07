@@ -95,19 +95,15 @@ class Control extends ActiveRecord {
 
 
 }
-
-function calcularGolpesPorHora($horasProgramadas, $golpesMaquina) {
-    // Separar horas y minutos
+function calcularGolpesPorHoraFormatoExcel($horasProgramadas, $golpesMaquina) {
+    // Convertir "HH:MM" a fracción de día como en Excel
     list($horas, $minutos) = explode(':', $horasProgramadas);
-    
-    // Convertir a decimal
-    $horasDecimales = intval($horas) + (intval($minutos) / 60);
+    $fraccionDia = (intval($horas) * 60 + intval($minutos)) / 1440; // 1440 minutos en un día
 
-    // Validación para evitar división por cero
-    if ($horasDecimales == 0) {
-        return 0;
-    }
+    // Aplicar la fórmula: golpes / ((fracciónDia * 1440) / 60)
+    $denominador = ($fraccionDia * 1440) / 60;
 
-    // Cálculo
-    return floatval($golpesMaquina) / $horasDecimales;
+    if ($denominador == 0) return 0;
+
+    return floatval($golpesMaquina) / $denominador;
 }
