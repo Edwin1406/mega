@@ -32,14 +32,14 @@ class ControlController {
             if (!empty($control->horas_programadas) && !empty($control->golpes_maquina)) {
                 $horas_decimal = convertirHoraADecimal($control->horas_programadas);
 
-                debuguear($horas_decimal);
                 
                 if ($horas_decimal > 0) {
                     $golpes_maquina_hora = (($control->golpes_maquina) / ($horas_decimal*1440));
                 }
             }
-
+            
             $control->golpes_maquina_hora = $golpes_maquina_hora;
+            debuguear($horas_decimal);
 
             // debuguear($control);
 
