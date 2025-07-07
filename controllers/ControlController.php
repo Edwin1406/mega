@@ -26,10 +26,19 @@ class ControlController {
             // Primero sincroniza con los datos del formulario
             $control->sincronizar($_POST);
             
-          function convertirHoraAMinutos($hora) {
-    list($h, $m, $s) = explode(':', $hora);
-    return $h * 60 + $m + $s / 60;
+function convertirHoraAMinutos($hora) {
+    $partes = explode(':', $hora);
+    
+    // Rellenar con "00" si faltan elementos
+    while (count($partes) < 3) {
+        $partes[] = "00";
+    }
+
+    list($h, $m, $s) = $partes;
+
+    return (int)$h * 60 + (int)$m + (int)$s / 60;
 }
+
 
 // Cálculo correcto
 if (!empty($control->horas_programadas) && !empty($control->golpes_maquina)) {
