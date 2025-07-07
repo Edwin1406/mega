@@ -6,9 +6,7 @@ use Classes\Paginacion;
 use Model\Control;
 use MVC\Router;
 
-use function Model\calcularGolpesPorHora;
 use function Model\calcularGolpesPorHoraExcelEstilo;
-use function Model\calcularGolpesPorHoraFormatoExcel;
 use function Model\convertirHoraADecimal;
 
 class ControlController {
@@ -25,36 +23,27 @@ class ControlController {
         $alertas = [];
 
         // post 
-      if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            // Primero sincroniza con los datos del formulario
-            $control->sincronizar($_POST);
+    
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $control->sincronizar($_POST);
 
-   
-
-var_dump($control->golpes_maquina); // Debe mostrar "2.604"
-var_dump($control->horas_programadas); // Debe mostrar "07:00"
-
-         $control->golpes_maquina_hora = calcularGolpesPorHoraExcelEstilo(
+    // Calcular después de sincronizar
+    $control->golpes_maquina_hora = calcularGolpesPorHoraExcelEstilo(
         $control->horas_programadas,
         $control->golpes_maquina
     );
-    
 
-            debuguear($control);
-            // Validar
-            $alertas = $control->validar();
+    $alertas = $control->validar();
 
-            if (empty($alertas)) {
-                // Guardar en la base de datos
-                $resultado = $control->guardar();
-                if ($resultado) {
-                    header('Location: /admin/control/tabla?id='. $token);
-                }
-            } else {
-                // Mostrar alertas
-                $alertas = Control::getAlertas();
-            }
+    if (empty($alertas)) {
+        $resultado = $control->guardar();
+        if ($resultado) {
+            header('Location: /admin/control/tabla?id=' . $token);
         }
+    } else {
+        $alertas = Control::getAlertas();
+    }
+}
 
 
         $router->render('admin/control/crear' , [
@@ -65,6 +54,11 @@ var_dump($control->horas_programadas); // Debe mostrar "07:00"
         ]);
 
     }
+
+
+
+
+
 
 
 // TABLA 
