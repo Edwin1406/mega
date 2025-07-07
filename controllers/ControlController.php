@@ -25,12 +25,21 @@ class ControlController {
       if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Primero sincroniza con los datos del formulario
             $control->sincronizar($_POST);
-            
-            // Luego realiza el cálculo
-           $golpes_maquina_hora = $control->golpes_maquina / (($horas_decimal * 1440) / 60);
-debuguear($golpes_maquina_hora);
+       
+   // Calcular golpes por hora
+            if (!empty($control->horas_programadas) && !empty($control->golpes_maquina)) {
+                $horas_decimal = self::convertirHoraADecimalExcel($control->horas_programadas);
 
-            // debuguear($control);
+                if ($horas_decimal > 0) {
+                    $resultado = $control->golpes_maquina / (($horas_decimal * 1440) / 60);
+                    $control->golpes_maquina_hora = intval(round($resultado));
+                } else {
+                    $control->golpes_maquina_hora = 0;
+                }
+            } else {
+                $control->golpes_maquina_hora = 0;
+            }
+            debuguear($control);
 
             // Validar
             $alertas = $control->validar();
