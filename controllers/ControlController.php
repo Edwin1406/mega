@@ -6,6 +6,7 @@ use Classes\Paginacion;
 use Model\Control;
 use MVC\Router;
 
+use function Model\calcularGolpesPorHora;
 use function Model\convertirHoraADecimal;
 
 class ControlController {
