@@ -97,17 +97,5 @@ class Control extends ActiveRecord {
 }
 
 
-function calcularGolpesPorHoraExcelEstilo($horasProgramadas, $golpesMaquina) {
-    // Normalizar el número por si viene con coma o punto
-    $golpesMaquina = str_replace(',', '.', $golpesMaquina);
 
-    list($horas, $minutos) = explode(':', $horasProgramadas);
-    $fraccionDia = (intval($horas) * 60 + intval($minutos)) / 1440;
-
-    $denominador = ($fraccionDia * 1440) / 60;
-
-    if ($denominador == 0) return 0;
-
-    return intval(round(floatval($golpesMaquina) / $denominador));
-}
 

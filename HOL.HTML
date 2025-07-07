@@ -1,137 +1,23 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <title>Gráficas de Producción</title>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-</head>
-<body>
-  <h2>Filtros</h2>
+<script>
 
-  <label for="agrupacion">Agrupar por:</label>
-  <select id="agrupacion">
-    <option value="dia">Día</option>
-    <option value="mes">Mes</option>
-  </select>
+let hora = "07:30:00";
+let golpes = "2.604";
 
-  <label for="operador">Filtrar por Operador:</label>
-  <select id="operador">
-    <option value="todos">Todos</option>
-  </select>
+// Convertir a horas decimales
+let partes = hora.split(":");
+let horasDecimales = parseInt(partes[0]) + parseInt(partes[1]) / 60;
 
-  <h2>Gráfica 1: Total de golpes por periodo</h2>
-  <canvas id="graficoGolpes"></canvas>
+// Calcular golpes por hora (asumiendo que 2.604 significa 2,604 golpes reales)
+let golpesReales = parseFloat(golpes.replace(".", "")); // 2604
 
-  <h2>Gráfica 2: Promedio de golpes por hora</h2>
-  <canvas id="graficoGolpesHora"></canvas>
+let resultado = golpesReales / horasDecimales;
 
-  <script>
-    let chartGolpes, chartGolpesHora;
+console.log(Math.round(resultado)); // 347
 
-    function agrupar(data, tipoAgrupacion, operador, campo, esPromedio = false) {
-      const agrupado = {};
-      const conteo = {};
 
-      data.forEach(item => {
-        if (operador !== 'todos' && item.operador !== operador) return;
 
-        const fecha = new Date(item.fecha);
-        const clave = tipoAgrupacion === 'mes'
-          ? `${fecha.getFullYear()}-${(fecha.getMonth() + 1).toString().padStart(2, '0')}`
-          : item.fecha;
 
-        const valor = parseFloat(item[campo]);
-        if (!agrupado[clave]) {
-          agrupado[clave] = 0;
-          conteo[clave] = 0;
-        }
 
-        agrupado[clave] += valor;
-        conteo[clave]++;
-      });
 
-      if (esPromedio) {
-        for (const clave in agrupado) {
-          agrupado[clave] = agrupado[clave] / conteo[clave];
-        }
-      }
 
-      return {
-        labels: Object.keys(agrupado),
-        valores: Object.values(agrupado)
-      };
-    }
-
-    function actualizarGraficas(data, agrupacion, operador) {
-      const g1 = agrupar(data, agrupacion, operador, 'golpes_maquina');
-      const g2 = agrupar(data, agrupacion, operador, 'golpes_maquina_hora', true);
-
-      if (chartGolpes) chartGolpes.destroy();
-      if (chartGolpesHora) chartGolpesHora.destroy();
-
-      chartGolpes = new Chart(document.getElementById('graficoGolpes'), {
-        type: 'bar',
-        data: {
-          labels: g1.labels,
-          datasets: [{
-            label: 'Total de golpes',
-            data: g1.valores,
-            backgroundColor: 'rgba(54, 162, 235, 0.6)'
-          }]
-        },
-        options: {
-          responsive: true,
-          scales: { y: { beginAtZero: true } }
-        }
-      });
-
-      chartGolpesHora = new Chart(document.getElementById('graficoGolpesHora'), {
-        type: 'line',
-        data: {
-          labels: g2.labels,
-          datasets: [{
-            label: 'Promedio de golpes por hora',
-            data: g2.valores,
-            fill: false,
-            borderColor: 'rgba(255, 99, 132, 1)',
-            tension: 0.2
-          }]
-        },
-        options: {
-          responsive: true,
-          scales: { y: { beginAtZero: true } }
-        }
-      });
-    }
-
-    fetch("https://megawebsistem.com/admin/api/apicontroldeproduccion")
-      .then(res => res.json())
-      .then(data => {
-        // Llenar filtro operador
-        const operadores = [...new Set(data.map(i => i.operador))];
-        const operadorSelect = document.getElementById('operador');
-        operadores.forEach(op => {
-          const opt = document.createElement('option');
-          opt.value = op;
-          opt.textContent = op;
-          operadorSelect.appendChild(opt);
-        });
-
-        const agrupacionSelect = document.getElementById('agrupacion');
-
-        operadorSelect.addEventListener('change', () => {
-          actualizarGraficas(data, agrupacionSelect.value, operadorSelect.value);
-        });
-        agrupacionSelect.addEventListener('change', () => {
-          actualizarGraficas(data, agrupacionSelect.value, operadorSelect.value);
-        });
-
-        actualizarGraficas(data, agrupacionSelect.value, operadorSelect.value);
-      })
-      .catch(err => {
-        console.error("Error cargando datos", err);
-        alert("No se pudo cargar la API.");
-      });
-  </script>
-</body>
-</html>
+</script>
