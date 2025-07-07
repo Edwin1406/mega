@@ -32,8 +32,7 @@ class ControlController {
         $control->horas_programadas,
         $control->golpes_maquina
     );
-
-    debuguear($control->golpes_maquina_hora);
+    
 
             debuguear($control);
             // Validar
