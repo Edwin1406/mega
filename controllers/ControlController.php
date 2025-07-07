@@ -15,10 +15,10 @@ class ControlController {
 
         session_start();
         isAuth();
-        $token = $_GET['id'] ?? '';
-        debuguear($token);
-
+        // debuguear($token);
+        
         $control = new Control;
+        $token = $_GET['id'] ?? '';
         $alertas = [];
 
         // post 
