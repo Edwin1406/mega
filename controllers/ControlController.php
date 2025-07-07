@@ -7,6 +7,7 @@ use Model\Control;
 use MVC\Router;
 
 use function Model\calcularGolpesPorHora;
+use function Model\calcularGolpesPorHoraFormatoExcel;
 use function Model\convertirHoraADecimal;
 
 class ControlController {
@@ -26,7 +27,7 @@ class ControlController {
       if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Primero sincroniza con los datos del formulario
             $control->sincronizar($_POST);
-                $control->golpes_maquina_hora = calcularGolpesPorHora(
+                $control->golpes_maquina_hora = calcularGolpesPorHoraFormatoExcel(
         $control->horas_programadas,
         $control->golpes_maquina
     );
