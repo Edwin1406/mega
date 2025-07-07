@@ -25,6 +25,7 @@ class ControlController {
       if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Primero sincroniza con los datos del formulario
             $control->sincronizar($_POST);
+            
 function convertirHoraAMinutos($hora) {
     $partes = explode(':', $hora);
     
@@ -38,23 +39,18 @@ function convertirHoraAMinutos($hora) {
     return (int)$h * 60 + (int)$m + (int)$s / 60;
 }
 
-// Cálculo correcto con resultado entero
+
+// Cálculo correcto
 if (!empty($control->horas_programadas) && !empty($control->golpes_maquina)) {
     $minutos = convertirHoraAMinutos($control->horas_programadas);
-
+    
     if ($minutos > 0) {
-        $horas_decimal = $minutos / 60;
-        $resultado = $control->golpes_maquina / $horas_decimal;
-
-        // ✅ Convertir a entero (elige uno):
-        $control->golpes_maquina_hora = intval($resultado); // trunca decimales
-        // o:
-        // $control->golpes_maquina_hora = round($resultado); // redondea
+        $horas_decimal = $minutos / 60; // convierte minutos a horas decimales
+        $control->golpes_maquina_hora = $control->golpes_maquina / $horas_decimal;
     } else {
         $control->golpes_maquina_hora = 0;
     }
 }
-
 
             
             debuguear($control);
