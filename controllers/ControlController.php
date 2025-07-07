@@ -111,7 +111,7 @@ public static function apicontroldeproduccion(Router $router)
     foreach ($control as $registro) {
         // fecha date 
      
-         $registro->fecha = (int)$registro->fecha;
+         $registro->horas_programadas = (int)$registro->horas_programadas;
         $registro->golpes_maquina = (int)$registro->golpes_maquina;
         $registro->golpes_maquina_hora = (float)$registro->golpes_maquina_hora;
         $registro->cambios_medida = (int)$registro->cambios_medida;
