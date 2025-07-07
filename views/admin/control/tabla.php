@@ -260,7 +260,7 @@ $data = json_decode($response, true);
     });
 }
 
-}
+
 
 
         function randomColor() {
