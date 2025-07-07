@@ -107,15 +107,15 @@ public static function apicontroldeproduccion(Router $router)
 {  
     $control = Control::all();
 
-    // Convertir campos numéricos de string a tipo número
-    foreach ($control as &$registro) {
-        $registro['golpes_maquina'] = (int)$registro['golpes_maquina'];
-        $registro['golpes_maquina_hora'] = (float)$registro['golpes_maquina_hora'];
-        $registro['cambios_medida'] = (int)$registro['cambios_medida'];
-        $registro['cantidad_separadores'] = (int)$registro['cantidad_separadores'];
-        $registro['cantidad_cajas'] = (int)$registro['cantidad_cajas'];
-        $registro['cantidad_papel'] = (int)$registro['cantidad_papel'];
-        $registro['desperdicio_kg'] = (float)$registro['desperdicio_kg'];
+    // Convertir campos numéricos en cada objeto
+    foreach ($control as $registro) {
+        $registro->golpes_maquina = (int)$registro->golpes_maquina;
+        $registro->golpes_maquina_hora = (float)$registro->golpes_maquina_hora;
+        $registro->cambios_medida = (int)$registro->cambios_medida;
+        $registro->cantidad_separadores = (int)$registro->cantidad_separadores;
+        $registro->cantidad_cajas = (int)$registro->cantidad_cajas;
+        $registro->cantidad_papel = (int)$registro->cantidad_papel;
+        $registro->desperdicio_kg = (float)$registro->desperdicio_kg;
     }
 
     header('Content-Type: application/json');
