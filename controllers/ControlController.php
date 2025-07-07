@@ -53,6 +53,14 @@ class ControlController {
 }
 
 
+private static function calcularGolpesPorHoraEntero($hora, $golpes)
+ {
+    list($h, $m) = explode(":", $hora);
+    $horasDecimales = $h + ($m / 60);
+    $golpesReales = (int)str_replace(".", "", $golpes); // punto = separador de miles
+    if ($horasDecimales == 0) return 0;
+    return round($golpesReales / $horasDecimales);
+}
 
 
 // TABLA 
