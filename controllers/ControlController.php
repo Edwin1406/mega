@@ -26,7 +26,8 @@ class ControlController {
             // Primero sincroniza con los datos del formulario
             $control->sincronizar($_POST);
             
-
+            // convertir las horas a varchar
+            $control->horas_programadas = convertirHoraADecimal($control->horas_programadas);
 
             
             debuguear($control);
