@@ -89,44 +89,44 @@ class ControlController {
 
 
 
-    public static function apicontroldeproduccion(Router $router)
-    {  
-        $control = Control::all();
+    // public static function apicontroldeproduccion(Router $router)
+    // {  
+    //     $control = Control::all();
 
-        header('Content-Type: application/json');
-        // CORS
-        header('Access-Control-Allow-Origin: *');
-        header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE');
-        header('Access-Control-Allow-Headers: Content-Type, Authorization');
-        // debuguear($control);
-        echo json_encode($control);
+    //     header('Content-Type: application/json');
+    //     // CORS
+    //     header('Access-Control-Allow-Origin: *');
+    //     header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE');
+    //     header('Access-Control-Allow-Headers: Content-Type, Authorization');
+    //     // debuguear($control);
+    //     echo json_encode($control);
+    // }
+
+
+public static function apicontroldeproduccion(Router $router)
+{  
+    $control = Control::all();
+
+    // Convertir campos numéricos en cada objeto
+    foreach ($control as $registro) {
+        // fecha date 
+        
+        $registro->golpes_maquina = (int)$registro->golpes_maquina;
+        $registro->golpes_maquina_hora = (float)$registro->golpes_maquina_hora;
+        $registro->cambios_medida = (int)$registro->cambios_medida;
+        $registro->cantidad_separadores = (int)$registro->cantidad_separadores;
+        $registro->cantidad_cajas = (int)$registro->cantidad_cajas;
+        $registro->cantidad_papel = (int)$registro->cantidad_papel;
+        $registro->desperdicio_kg = (float)$registro->desperdicio_kg;
     }
 
+    header('Content-Type: application/json');
+    header('Access-Control-Allow-Origin: *');
+    header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE');
+    header('Access-Control-Allow-Headers: Content-Type, Authorization');
 
-// public static function apicontroldeproduccion(Router $router)
-// {  
-//     $control = Control::all();
-
-//     // Convertir campos numéricos en cada objeto
-//     foreach ($control as $registro) {
-//         // fecha date 
-        
-//         $registro->golpes_maquina = (int)$registro->golpes_maquina;
-//         $registro->golpes_maquina_hora = (float)$registro->golpes_maquina_hora;
-//         $registro->cambios_medida = (int)$registro->cambios_medida;
-//         $registro->cantidad_separadores = (int)$registro->cantidad_separadores;
-//         $registro->cantidad_cajas = (int)$registro->cantidad_cajas;
-//         $registro->cantidad_papel = (int)$registro->cantidad_papel;
-//         $registro->desperdicio_kg = (float)$registro->desperdicio_kg;
-//     }
-
-//     header('Content-Type: application/json');
-//     header('Access-Control-Allow-Origin: *');
-//     header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE');
-//     header('Access-Control-Allow-Headers: Content-Type, Authorization');
-
-//     echo json_encode($control);
-// }
+    echo json_encode($control);
+}
 
 
 
