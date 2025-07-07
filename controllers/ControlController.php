@@ -26,18 +26,23 @@ class ControlController {
             // Primero sincroniza con los datos del formulario
             $control->sincronizar($_POST);
             
-            // Luego realiza el cálculo
-            $golpes_maquina_hora = 0;
-            
-            if (!empty($control->horas_programadas) && !empty($control->golpes_maquina)) {
-                $horas_decimal = convertirHoraADecimal($control->horas_programadas);
-                
-                if ($horas_decimal > 0) {
-                    $golpes_maquina_hora = $control->golpes_maquina / $horas_decimal;
-                }
-            }
-            
-            $control->golpes_maquina_hora = $golpes_maquina_hora;
+          function convertirHoraAMinutos($hora) {
+    list($h, $m, $s) = explode(':', $hora);
+    return $h * 60 + $m + $s / 60;
+}
+
+// Cálculo correcto
+if (!empty($control->horas_programadas) && !empty($control->golpes_maquina)) {
+    $minutos = convertirHoraAMinutos($control->horas_programadas);
+    
+    if ($minutos > 0) {
+        $horas_decimal = $minutos / 60; // convierte minutos a horas decimales
+        $control->golpes_maquina_hora = $control->golpes_maquina / $horas_decimal;
+    } else {
+        $control->golpes_maquina_hora = 0;
+    }
+}
+
             
             debuguear($control);
             // debuguear($control);
