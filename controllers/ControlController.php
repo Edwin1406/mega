@@ -109,6 +109,8 @@ public static function apicontroldeproduccion(Router $router)
 
     // Convertir campos numéricos en cada objeto
     foreach ($control as $registro) {
+        // fecha date 
+        $registro->fecha = date('Y-m-d', strtotime($registro->fecha));
         $registro->golpes_maquina = (int)$registro->golpes_maquina;
         $registro->golpes_maquina_hora = (float)$registro->golpes_maquina_hora;
         $registro->cambios_medida = (int)$registro->cambios_medida;
