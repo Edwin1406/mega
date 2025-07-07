@@ -26,23 +26,7 @@ class ControlController {
             // Primero sincroniza con los datos del formulario
             $control->sincronizar($_POST);
 
-            // Luego realiza el cálculo
-            $golpes_maquina_hora = 0;
-            
-            if (!empty($control->horas_programadas) && !empty($control->golpes_maquina)) {
-                $horas_decimal = convertirHoraADecimal($control->horas_programadas);
-
-                
-                if ($horas_decimal > 0) {
-                    $golpes_maquina_hora = (($control->golpes_maquina) / ($horas_decimal*1440));
-                }
-            }
-            
-            $control->golpes_maquina_hora = $golpes_maquina_hora;
-            debuguear($horas_decimal);
-
-            // debuguear($control);
-
+            debuguear($control);
             // Validar
             $alertas = $control->validar();
 

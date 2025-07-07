@@ -96,8 +96,3 @@ class Control extends ActiveRecord {
 
 }
 
-
-function convertirHoraADecimal($hora_string) {
-    list($horas, $minutos) = explode(':', $hora_string);
-    return (int)$horas + ((int)$minutos / 60);
-}
