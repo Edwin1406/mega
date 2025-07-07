@@ -98,15 +98,16 @@ class Control extends ActiveRecord {
 
 
 function calcularGolpesPorHoraExcelEstilo($horasProgramadas, $golpesMaquina) {
-    // Paso 1: Convertir HH:MM a fracción de día (como lo guarda Excel)
-    list($horas, $minutos) = explode(':', $horasProgramadas);
-    $fraccionDia = (intval($horas) * 60 + intval($minutos)) / 1440; // 1440 minutos en un día
+    // Normalizar el número por si viene con coma o punto
+    $golpesMaquina = str_replace(',', '.', $golpesMaquina);
 
-    // Paso 2: Aplicar fórmula de Excel: golpes / ((fracciónDia * 1440) / 60)
+    list($horas, $minutos) = explode(':', $horasProgramadas);
+    $fraccionDia = (intval($horas) * 60 + intval($minutos)) / 1440;
+
     $denominador = ($fraccionDia * 1440) / 60;
 
     if ($denominador == 0) return 0;
 
-    // Paso 3: Calcular y redondear a entero
     return intval(round(floatval($golpesMaquina) / $denominador));
 }
+
