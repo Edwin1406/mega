@@ -48,7 +48,7 @@ class ControlController {
                 // Guardar en la base de datos
                 $resultado = $control->guardar();
                 if ($resultado) {
-                    header('Location: /admin/control/crear/tabla?id=' . $token);
+                    header('Location: /admin/control/crear/tabla');
                 }
             } else {
                 // Mostrar alertas
