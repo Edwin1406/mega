@@ -28,6 +28,12 @@ class ControlController {
       if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Primero sincroniza con los datos del formulario
             $control->sincronizar($_POST);
+
+   
+
+var_dump($control->golpes_maquina); // Debe mostrar "2.604"
+var_dump($control->horas_programadas); // Debe mostrar "07:00"
+
          $control->golpes_maquina_hora = calcularGolpesPorHoraExcelEstilo(
         $control->horas_programadas,
         $control->golpes_maquina
