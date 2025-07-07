@@ -47,16 +47,15 @@
             value="<?php echo $control->horas_programadas ?? '' ?>">
     </div>
 
-    <div class="formulario__campo">
-        <label class="formulario__label" for="golpes_maquina">Golpes Máquina</label>
-        <input
-            type="number"
-            name="golpes_maquina"
-            id="golpes_maquina"
-            class="formulario__input"
-            placeholder="Golpes Máquina"
-            value="<?php echo $control->golpes_maquina ?? '' ?>">
-    </div>
+<input
+    type="number"
+    step="any"
+    name="golpes_maquina"
+    id="golpes_maquina"
+    class="formulario__input"
+    placeholder="Golpes Máquina"
+    value="<?php echo $control->golpes_maquina ?? '' ?>">
+
 
     <!-- <div class="formulario__campo">
         <label class="formulario__label" for="golpes_maquina_hora">Golpes Máquina/Hora</label>
