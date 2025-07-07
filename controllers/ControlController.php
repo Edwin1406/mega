@@ -25,21 +25,21 @@ class ControlController {
       if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Primero sincroniza con los datos del formulario
             $control->sincronizar($_POST);
-       
-   // Calcular golpes por hora
-            if (!empty($control->horas_programadas) && !empty($control->golpes_maquina)) {
-                $horas_decimal = self::convertirHoraADecimalExcel($control->horas_programadas);
 
+            // Luego realiza el cálculo
+            $golpes_maquina_hora = 0;
+            
+            if (!empty($control->horas_programadas) && !empty($control->golpes_maquina)) {
+                $horas_decimal = convertirHoraADecimal($control->horas_programadas);
+                
                 if ($horas_decimal > 0) {
-                    $resultado = $control->golpes_maquina / (($horas_decimal * 1440) / 60);
-                    $control->golpes_maquina_hora = intval(round($resultado));
-                } else {
-                    $control->golpes_maquina_hora = 0;
+                    $golpes_maquina_hora = $control->golpes_maquina / $horas_decimal;
                 }
-            } else {
-                $control->golpes_maquina_hora = 0;
             }
-            debuguear($control);
+
+            $control->golpes_maquina_hora = $golpes_maquina_hora;
+
+            // debuguear($control);
 
             // Validar
             $alertas = $control->validar();
@@ -109,8 +109,7 @@ public static function apicontroldeproduccion(Router $router)
 
     // Convertir campos numéricos en cada objeto
     foreach ($control as $registro) {
-        // fecha date 
-        
+        // fecha date
         $registro->golpes_maquina = (int)$registro->golpes_maquina;
         $registro->golpes_maquina_hora = (float)$registro->golpes_maquina_hora;
         $registro->cambios_medida = (int)$registro->cambios_medida;

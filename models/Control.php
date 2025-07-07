@@ -95,36 +95,9 @@ class Control extends ActiveRecord {
 
 
 }
-function convertirHoraADecimalExcel($hora) {
-    // Separar horas, minutos y segundos
-    $partes = explode(':', $hora);
 
-    // Completar partes faltantes con "00"
-    while (count($partes) < 3) {
-        $partes[] = "00";
-    }
 
-    list($h, $m, $s) = $partes;
-
-    // Convertir todo a decimal
-    return (int)$h + ((int)$m / 60) + ((int)$s / 3600);
+function convertirHoraADecimal($hora_string) {
+    list($horas, $minutos) = explode(':', $hora_string);
+    return (int)$horas + ((int)$minutos / 60);
 }
-
-// Calcular golpes por hora como en Excel
-if (!empty($control->horas_programadas) && !empty($control->golpes_maquina)) {
-    $horas_decimal = convertirHoraADecimalExcel($control->horas_programadas);
-
-    if ($horas_decimal > 0) {
-        $resultado = $control->golpes_maquina / (($horas_decimal * 1440) / 60);
-
-        // ✅ Convertir a entero como en Excel
-        $control->golpes_maquina_hora = intval(round($resultado));
-    } else {
-        $control->golpes_maquina_hora = 0;
-    }
-} else {
-    $control->golpes_maquina_hora = 0;
-}
-
-
-
