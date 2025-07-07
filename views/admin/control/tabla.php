@@ -184,51 +184,26 @@ $data = json_decode($response, true);
             html += '</tbody></table>';
             document.getElementById('tabla_contenedor').innerHTML = html;
         }
+function renderGrafico(resumen) {
+    const labels = ["Separadores", "Cajas", "Papel", "Golpes", "Golpes por Hora"];
+    const datasets = [];
 
-      function renderGrafico(resumen) {
-    const operadores = Object.keys(resumen);
-    const separadores = [];
-    const cajas = [];
-    const papel = [];
-    const golpes = [];
-    const golpesHora = [];
+    for (const operador in resumen) {
+        const r = resumen[operador];
+        const gph = r.horas > 0 ? (r.golpes / r.horas).toFixed(2) : 0;
 
-    operadores.forEach(op => {
-        const r = resumen[op];
-        separadores.push(r.separadores);
-        cajas.push(r.cajas);
-        papel.push(r.papel);
-        golpes.push(r.golpes);
-        golpesHora.push(r.horas > 0 ? (r.golpes / r.horas).toFixed(2) : 0);
-    });
-
-    const datasets = [
-        {
-            label: 'Separadores',
-            data: separadores,
-            backgroundColor: '#f4a261'
-        },
-        {
-            label: 'Cajas',
-            data: cajas,
-            backgroundColor: '#2a9d8f'
-        },
-        {
-            label: 'Papel',
-            data: papel,
-            backgroundColor: '#e9c46a'
-        },
-        {
-            label: 'Golpes',
-            data: golpes,
-            backgroundColor: '#264653'
-        },
-        {
-            label: 'Golpes por Hora',
-            data: golpesHora,
-            backgroundColor: '#e76f51'
-        }
-    ];
+        datasets.push({
+            label: `${operador} / ${gph} G/H`,
+            data: [
+                r.separadores,
+                r.cajas,
+                r.papel,
+                r.golpes,
+                parseFloat(gph)
+            ],
+            backgroundColor: randomColor()
+        });
+    }
 
     if (chart) chart.destroy();
 
@@ -236,7 +211,7 @@ $data = json_decode($response, true);
     chart = new Chart(ctx, {
         type: 'bar',
         data: {
-            labels: operadores,
+            labels: labels,
             datasets: datasets
         },
         options: {
@@ -244,23 +219,25 @@ $data = json_decode($response, true);
             plugins: {
                 title: {
                     display: true,
-                    text: 'Producción por Operador'
+                    text: 'Separadores / Cajas / Papel / Golpes / Golpes por Hora'
                 },
                 tooltip: {
                     mode: 'index',
                     intersect: false
+                },
+                legend: {
+                    position: 'top'
                 }
             },
             scales: {
                 y: {
-                    beginAtZero: true
+                    beginAtZero: true,
+                    suggestedMax: 120000  // puedes ajustar este valor
                 }
             }
         }
     });
 }
-
-
 
 
         function randomColor() {
