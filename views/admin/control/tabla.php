@@ -185,45 +185,86 @@ $data = json_decode($response, true);
             document.getElementById('tabla_contenedor').innerHTML = html;
         }
 
+        // function renderGrafico(resumen) {
+        //     const labels = ["Separadores (UND)", "Golpes", "Golpes por Hora"];
+        //     const datasets = [];
+
+        //     for (const operador in resumen) {
+        //         const r = resumen[operador];
+        //         const gph = r.horas > 0 ? (r.golpes / r.horas).toFixed(2) : 0;
+        //         datasets.push({
+        //             label: `${operador} / ${gph} G/H`,
+        //             data: [r.separadores, r.golpes, parseFloat(gph)],
+        //             backgroundColor: randomColor()
+        //         });
+        //     }
+
+        //     if (chart) chart.destroy();
+
+        //     const ctx = document.getElementById('graficoResumen').getContext('2d');
+        //     chart = new Chart(ctx, {
+        //         type: 'bar',
+        //         data: {
+        //             labels: labels,
+        //             datasets: datasets
+        //         },
+        //         options: {
+        //             responsive: true,
+        //             plugins: {
+        //                 title: {
+        //                     display: true,
+        //                     text: 'SEPARADORES / GOLPES / GOLPES POR HORA'
+        //                 }
+        //             },
+        //             scales: {
+        //                 y: {
+        //                     beginAtZero: true
+        //                 }
+        //             }
+        //         }
+        //     });
+        // }
+
         function renderGrafico(resumen) {
-            const labels = ["Separadores (UND)", "Golpes", "Golpes por Hora"];
-            const datasets = [];
+    const labels = ["Separadores (UND)", "Golpes", "Golpes por Hora", "Cajas", "Papel"];
+    const datasets = [];
 
-            for (const operador in resumen) {
-                const r = resumen[operador];
-                const gph = r.horas > 0 ? (r.golpes / r.horas).toFixed(2) : 0;
-                datasets.push({
-                    label: `${operador} / ${gph} G/H`,
-                    data: [r.separadores, r.golpes, parseFloat(gph)],
-                    backgroundColor: randomColor()
-                });
-            }
+    for (const operador in resumen) {
+        const r = resumen[operador];
+        const gph = r.horas > 0 ? (r.golpes / r.horas).toFixed(2) : 0;
+        datasets.push({
+            label: `${operador} / ${gph} G/H`,
+            data: [r.separadores, r.golpes, parseFloat(gph), r.cajas, r.papel],
+            backgroundColor: randomColor()
+        });
+    }
 
-            if (chart) chart.destroy();
+    if (chart) chart.destroy();
 
-            const ctx = document.getElementById('graficoResumen').getContext('2d');
-            chart = new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: labels,
-                    datasets: datasets
-                },
-                options: {
-                    responsive: true,
-                    plugins: {
-                        title: {
-                            display: true,
-                            text: 'SEPARADORES / GOLPES / GOLPES POR HORA'
-                        }
-                    },
-                    scales: {
-                        y: {
-                            beginAtZero: true
-                        }
-                    }
+    const ctx = document.getElementById('graficoResumen').getContext('2d');
+    chart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: datasets
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'SEPARADORES / GOLPES / GOLPES POR HORA / CAJAS / PAPEL'
                 }
-            });
+            },
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
         }
+    });
+}
+
 
         function randomColor() {
                 
