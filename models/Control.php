@@ -97,7 +97,23 @@ class Control extends ActiveRecord {
 }
 
 
-function convertirHoraADecimal($hora_string) {
-    list($horas, $minutos) = explode(':', $hora_string);
-    return (int)$horas + ((int)$minutos / 60);
+// function convertirHoraADecimal($hora_string) {
+//     list($horas, $minutos) = explode(':', $hora_string);
+//     return (int)$horas + ((int)$minutos / 60);
+// }
+
+
+function convertirHoraADecimal($hora) {
+    $partes = explode(':', $hora);
+    
+    // Asegurar que haya 3 partes (hh:mm:ss)
+    while (count($partes) < 3) {
+        $partes[] = "00";
+    }
+
+    list($h, $m, $s) = $partes;
+
+    // Convertir todo a horas decimales
+    return (int)$h + ((int)$m / 60) + ((int)$s / 3600);
 }
+
