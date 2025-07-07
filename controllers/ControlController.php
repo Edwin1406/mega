@@ -26,6 +26,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $control->sincronizar($_POST);
 
     // convertir horas a decimal aqui mismo 
+
+    debuguear($control->horas_programadas);
     $control->horas_programadas = $control->convertirHorasADecimal($control->horas_programadas);
 
     debuguear($control->horas_programadas);
