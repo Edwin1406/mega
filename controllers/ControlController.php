@@ -25,20 +25,19 @@ class ControlController {
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $control->sincronizar($_POST);
 
-    // convertir horas a decimal aqui mismo 
-
-    // debuguear($control->horas_programadas); //aqui si me muestra el valor correcto 
+if ($control->horas_programadas > 0) {
+    // Convertir solo para el cálculo
+    $horasDecimal = $control->convertirHorasADecimal($control->horas_programadas);
     
-    // GOLPES MAQUINA / HORAS PROGRAMADAS
-    if ($control->horas_programadas > 0) {
-        $control->horas_programadas = $control->convertirHorasADecimal($control->horas_programadas); //cuando lo convierto a decimal me muestra nada 
-        // debuguear($control->golpes_maquina);
-        $control->golpes_maquina_hora = $control->golpes_maquina / $control->horas_programadas;
+    // Validar que el resultado de conversión sea mayor a 0
+    if ($horasDecimal > 0) {
+        $control->golpes_maquina_hora = $control->golpes_maquina / $horasDecimal;
     } else {
-        $control->golpes_maquina_hora = 0; // Evitar división por cero
+        $control->golpes_maquina_hora = 0;
     }
-
-
+} else {
+    $control->golpes_maquina_hora = 0;
+}
 
         debuguear($control);
     // debuguear($control->golpes_maquina_hora);
