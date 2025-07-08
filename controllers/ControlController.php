@@ -37,7 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $control->golpes_maquina_hora = 0; // Evitar división por cero
     }
 
-    debuguear($control->horas_programadas);
+    debuguear($control->golpes_maquina_hora);
 
 
 
