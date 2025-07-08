@@ -32,6 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // GOLPES MAQUINA / HORAS PROGRAMADAS
     if ($control->horas_programadas > 0) {
+        debuguear($control->golpes_maquina);
         $control->golpes_maquina_hora = $control->golpes_maquina / $control->horas_programadas;
     } else {
         $control->golpes_maquina_hora = 0; // Evitar división por cero
