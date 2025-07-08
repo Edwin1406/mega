@@ -74,15 +74,7 @@ class Control extends ActiveRecord {
         if(!$this->cambios_medida) {
             self::$alertas['error'][] = 'Los cambios de medida son obligatorios';
         }
-        if(!$this->cantidad_separadores) {
-            self::$alertas['error'][] = 'La cantidad de separadores es obligatoria';
-        }
-        if(!$this->cantidad_cajas) {
-            self::$alertas['error'][] = 'La cantidad de cajas es obligatoria';
-        }
-        if(!$this->cantidad_papel) {
-            self::$alertas['error'][] = 'La cantidad de papel es obligatoria';
-        }
+      
         if(!$this->desperdicio_kg) {
             self::$alertas['error'][] = 'El desperdicio en Kg es obligatorio';
         }
