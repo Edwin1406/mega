@@ -28,10 +28,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // convertir horas a decimal aqui mismo 
 
     // debuguear($control->horas_programadas); //aqui si me muestra el valor correcto 
-    $control->horas_programadas = $control->convertirHorasADecimal($control->horas_programadas); //cuando lo convierto a decimal me muestra nada 
-
+    
     // GOLPES MAQUINA / HORAS PROGRAMADAS
     if ($control->horas_programadas > 0) {
+        $control->horas_programadas = $control->convertirHorasADecimal($control->horas_programadas); //cuando lo convierto a decimal me muestra nada 
         // debuguear($control->golpes_maquina);
         $control->golpes_maquina_hora = $control->golpes_maquina / $control->horas_programadas;
     } else {
