@@ -39,7 +39,7 @@ if ($control->horas_programadas > 0) {
     $control->golpes_maquina_hora = 0;
 }
 
-        debuguear($control);
+        // debuguear($control);
     // debuguear($control->golpes_maquina_hora);
 
 
