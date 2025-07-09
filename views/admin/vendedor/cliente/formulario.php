@@ -13,6 +13,17 @@
     </div>
 
     <div class="formulario__campo">
+        <label class="formulario__label" for="proveedor">Proveedor</label>
+        <input
+            type="text"
+            name="proveedor"
+            id="proveedor"
+            class="formulario__input"
+            placeholder="proveedor"
+            value="<?php echo $cliente->proveedor ?? '' ?>">
+    </div>
+
+    <div class="formulario__campo">
         <label class="formulario__label" for="nombre_producto">Nombre Producto</label>
         <input
             type="text"
