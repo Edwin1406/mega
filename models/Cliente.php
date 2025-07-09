@@ -7,10 +7,11 @@ use Classes\ValidarCedula;
 class Cliente extends ActiveRecord {
 
     protected static $tabla = 'visor';
-    protected static $columnasDB = ['id', 'nombre_cliente','nombre_producto','codigo_producto','estado','pdf'];
+    protected static $columnasDB = ['id', 'nombre_cliente','proveedor','nombre_producto','codigo_producto','estado','pdf'];
 
     public $id;
     public $nombre_cliente;
+    public $proveedor; // Agregar la propiedad proveedor
     public $nombre_producto;
     public $codigo_producto;
     public $estado;
@@ -22,6 +23,7 @@ class Cliente extends ActiveRecord {
     {
         $this->id = $args['id'] ?? null;
         $this->nombre_cliente = $args['nombre_cliente'] ?? '';
+        $this->proveedor = $args['proveedor'] ?? ''; // Inicializar la propiedad proveedor
         $this->nombre_producto = $args['nombre_producto'] ?? '';
         $this->codigo_producto = $args['codigo_producto'] ?? '';
         $this->estado = $args['estado'] ?? 'ENVIADO';
