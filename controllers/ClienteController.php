@@ -198,7 +198,7 @@ class ClienteController
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $cliente->sincronizar($_POST);
 
-        debuguear($cliente);
+        // debuguear($cliente);
         $alertas = $cliente->validar();
 
         if (!empty($_FILES['pdf']['tmp_name'])) {
