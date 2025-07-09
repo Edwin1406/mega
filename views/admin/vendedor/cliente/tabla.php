@@ -63,6 +63,7 @@
                 <tr>
                     <th scope="col" class="table__th">ID</th>
                     <th scope="col" class="table__th">Nombre Cliente</th>
+                    <th scope="col" class="table__th">Proveedor</th>
                     <th scope="col" class="table__th">Nombre Producto</th>
                     <th scope="col" class="table__th">Codigo producto</th>
                     <th scope="col" class="table__th">Estado</th>
@@ -75,6 +76,7 @@
                     <tr class="table__tr">
                         <td class="table__td"><?php echo $visores->id?></td>
                         <td class="table__td"><?php echo $visores->nombre_cliente?></td>
+                        <td class="table__td"><?php echo $visores->proveedor?></td>
                         <td class="table__td"><?php echo $visores->nombre_producto?></td>
                         <td  class="table__td"><?php echo $visores->codigo_producto?></td>
                         <td data-id="<?php echo $visores->id; ?>" class="table__td" style="color: 
@@ -161,11 +163,12 @@
     
 
     async function  actualizarEstado(visor){
-        const {id,nombre_cliente,nombre_producto,codigo_producto,estado,pdf} = visor;
+        const {id,nombre_cliente,proveedor,nombre_producto,codigo_producto,estado,pdf} = visor;
 
         console.log('Datos antes de enviar:', { 
     id, 
     nombre_cliente, 
+    proveedor,
     nombre_producto, 
     codigo_producto, 
     estado, 
@@ -176,6 +179,7 @@
         const data = new FormData();
         data.append('id', id);
         data.append('nombre_cliente', visor.nombre_cliente);
+        data.append('proveedor', visor.proveedor);
         data.append('nombre_producto', visor.nombre_producto);
         data.append('codigo_producto', visor.codigo_producto);
         data.append('estado', estado);
