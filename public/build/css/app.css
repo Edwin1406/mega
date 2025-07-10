@@ -1361,7 +1361,7 @@ h3 {
   text-align: center;
 }
 .formulario__campo {
-  flex: 1 1 48%;
+  flex: 1 1 1 32%;
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
