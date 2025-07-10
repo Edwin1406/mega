@@ -10,6 +10,9 @@
 
 </div>
 
+<div class="dashboard__formulario">
+
+
 
 <?php if(isset($resultado) && $resultado == 1): ?>
     <div class="alerta alerta--exito">
@@ -21,7 +24,6 @@
     </div>
 <?php endif; ?>
 
-<div class="dashboard__formulario">
 
 <?php include_once __DIR__.'/../../templates/alertas.php'  ?>
 
