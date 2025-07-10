@@ -42,21 +42,12 @@ if ($control->horas_programadas > 0) {
         // debuguear($control);
     // debuguear($control->golpes_maquina_hora);
 
-
-
-
-
-
-
-
-
-
     $alertas = $control->validar();
 
     if (empty($alertas)) {
         $resultado = $control->guardar();
         if ($resultado) {
-            header('Location: /admin/control/tabla?id=' . $token);
+            header('Location: /admin/control/crear?id=86fb7dd77759eaa3d28cea5c3baa7c99');
         }
     } else {
         $alertas = Control::getAlertas();
