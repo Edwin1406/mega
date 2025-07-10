@@ -13,6 +13,7 @@
     border-radius: 1rem;
     max-width: 80rem ;
     font-size: 1.2rem;
+    box-shadow: 0 0 1rem rgba(0,0,0,0.1);
     &.error{
         // background-color:lighten(v.$rojo, 50%);
         background-color: color.adjust(v.$rojo, $lightness: 50%);

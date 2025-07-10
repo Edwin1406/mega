@@ -1645,6 +1645,7 @@ h3 {
   border-radius: 1rem;
   max-width: 80rem;
   font-size: 1.2rem;
+  box-shadow: 0 0 1rem rgba(0, 0, 0, 0.1);
 }
 .alerta.error {
   background-color: rgb(254.6739130435, 230.3260869565, 230.3260869565);
