@@ -1392,6 +1392,7 @@ h3 {
   border-radius: 0.8rem;
   margin-top: 2rem;
   align-self: flex-start;
+  width: 30%;
 }
 .formulario__submit:hover {
   background-color: rgb(83.7142857143, 132.4285714286, 239.2857142857);
