@@ -237,15 +237,12 @@ class ClienteController
             }
         }
     }
-
     // Render a la vista con alertas
     $router->render('admin/vendedor/cliente/crear', [
         'titulo' => 'CREAR REGISTRO',
         'alertas' => $alertas,
     ]);         
 }
-
-
 
 
 public static function editar(Router $router)
