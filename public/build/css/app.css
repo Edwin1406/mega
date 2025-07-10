@@ -1649,13 +1649,11 @@ h3 {
 }
 .alerta.error {
   background-color: rgb(227, 3, 3);
-  background-color: rgb(254.6739130435, 230.3260869565, 230.3260869565);
   border-left: 1.5rem solid rgb(227, 3, 3);
   color: rgb(227, 3, 3);
 }
 .alerta.exito {
   background-color: greenyellow;
-  background-color: rgb(221.3076923077, 254.6923076923, 221.3076923077);
   border-left: 1.5rem solid #02db02;
   color: #02db02;
 }
