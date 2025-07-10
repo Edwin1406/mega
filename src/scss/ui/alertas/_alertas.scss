@@ -21,6 +21,7 @@
         color: v.$rojo;
     }
     &.exito{
+        align-items: center;
         background-color: greenyellow;
         background-color: color.adjust(v.$verde, $lightness: 50%);
         border-left: 1.5rem solid v.$verde;

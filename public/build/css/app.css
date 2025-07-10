@@ -1655,6 +1655,7 @@ h3 {
   color: rgb(227, 3, 3);
 }
 .alerta.exito {
+  align-items: center;
   background-color: greenyellow;
   background-color: rgb(221.3076923077, 254.6923076923, 221.3076923077);
   border-left: 1.5rem solid #02db02;
