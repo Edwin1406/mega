@@ -1342,27 +1342,39 @@ h3 {
   font-size: 2rem;
 }
 
-.formulario {
+.formulario__fieldset {
   display: flex;
   flex-wrap: wrap;
   gap: 2rem;
+  justify-content: space-between;
+  padding: 2rem;
+  border: none;
+  background-color: #fff;
+  border-radius: 1rem;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+.formulario__legend {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  width: 100%;
 }
 .formulario__campo {
-  flex: 1 1 calc(50% - 1rem);
+  flex: 1 1 48%;
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
 }
 .formulario__label {
-  font-size: 1.6rem;
-  color: rgba(26, 27, 21, 0.8);
+  font-size: 1.4rem;
+  color: rgba(0, 0, 0, 0.8);
 }
 .formulario__input,
 .formulario select {
   padding: 0.8rem 1rem;
-  border: 1px solid #64748B;
-  border-radius: 0.8rem;
   font-size: 1.4rem;
+  border: 1px solid #ccc;
+  border-radius: 0.8rem;
 }
 .formulario__submit {
   background-color: #2563EB;
@@ -1385,6 +1397,11 @@ h3 {
   cursor: pointer;
 }
 
+@media (max-width: 768px) {
+  .formulario__campo {
+    flex: 1 1 100%;
+  }
+}
 .acciones, .acciones--centrar {
   margin-top: 3rem;
   display: flex;

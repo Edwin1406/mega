@@ -60,17 +60,7 @@
 
     </div>
 
-    <!-- <div class="formulario__campo">
-        <label class="formulario__label" for="golpes_maquina_hora">Golpes Máquina/Hora</label>
-        <input
-            type="number"
-            name="golpes_maquina_hora"
-            id="golpes_maquina_hora"
-            class="formulario__input"
-            placeholder="Golpes Máquina/Hora"
-            value="<?php echo $control->golpes_maquina_hora ?? '' ?>">
-
-    </div> -->
+  
 
     <div class="formulario__campo">
         <label class="formulario__label" for="cambios_medida">Nº Cambios de Medida</label>
