@@ -34,32 +34,32 @@
 
 .formulario {
     display: flex;
-    flex-wrap: wrap; // Permite que los elementos se acomoden en varias líneas
-    gap: 2rem; // Espacio entre columnas y filas
+    flex-wrap: wrap;
+    gap: 2rem;
 
     &__campo {
-        flex: 1 1 48%; // Ocupa aproximadamente la mitad del contenedor
+        flex: 1 1 calc(50% - 1rem); // Dos columnas con espacio entre ellas
         display: flex;
         flex-direction: column;
-        gap: 1rem;
-        margin-bottom: 2rem;
+        gap: 0.5rem;
     }
 
     &__label {
-        font-size: 1.8rem;
+        font-size: 1.6rem;
         color: rgba(v.$negro, .8);
     }
 
-    &__input {
-        padding: 1rem;
+    &__input,
+    select {
+        padding: 0.8rem 1rem;
         border: 1px solid v.$gris;
-        border-radius: 1rem;
+        border-radius: 0.8rem;
+        font-size: 1.4rem;
     }
 
     &__submit {
         @include m.boton(v.$azul, v.$blanco);
-        width: auto;
-        align-self: flex-start;
         margin-top: 2rem;
+        align-self: flex-start;
     }
 }
