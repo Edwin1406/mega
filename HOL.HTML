@@ -1,23 +1,142 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador</title>
+    <style>
+        :root {
+            --primary-color: #4CAF50;
+            --background: #f0f2f5;
+            --white: #fff;
+            --text-dark: #333;
+            --border-radius: 12px;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background-color: var(--background);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            background-color: var(--white);
+            padding: 30px;
+            border-radius: var(--border-radius);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 90%;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+        }
+
+        label {
+            font-weight: 600;
+            margin-top: 10px;
+            display: block;
+            color: var(--text-dark);
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: var(--border-radius);
+            font-size: 16px;
+        }
+
+        button {
+            margin-top: 20px;
+            width: 100%;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 12px;
+            font-size: 16px;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .resultado {
+            margin-top: 25px;
+            padding: 15px;
+            background-color: #e8f5e9;
+            border-left: 5px solid var(--primary-color);
+            border-radius: var(--border-radius);
+            font-size: 16px;
+            display: none;
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 20px;
+            }
+            h2 {
+                font-size: 22px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Simulador de Plazo Fijo</h2>
+
+    <label for="capital">Monto (USD):</label>
+    <input type="number" id="capital" placeholder="Ej: 1000" step="0.01" required>
+
+    <label for="tasa">Tasa Anual (%):</label>
+    <input type="number" id="tasa" placeholder="Ej: 10" step="0.01" required>
+
+    <label for="dias">Plazo (días):</label>
+    <input type="number" id="dias" placeholder="Ej: 30" required>
+
+    <button onclick="calcularPlazoFijo()">Calcular</button>
+
+    <div class="resultado" id="resultado"></div>
+</div>
+
 <script>
+    function calcularPlazoFijo() {
+        const capital = parseFloat(document.getElementById('capital').value);
+        const tasa = parseFloat(document.getElementById('tasa').value);
+        const dias = parseInt(document.getElementById('dias').value);
+        const resultado = document.getElementById('resultado');
 
-let hora = "07:30:00";
-let golpes = "2.604";
+        if (isNaN(capital) || isNaN(tasa) || isNaN(dias) || capital <= 0 || tasa < 0 || dias <= 0) {
+            resultado.style.display = 'block';
+            resultado.style.backgroundColor = '#ffebee';
+            resultado.style.borderLeft = '5px solid #e53935';
+            resultado.innerHTML = `❌ Por favor ingresa valores válidos.`;
+            return;
+        }
 
-// Convertir a horas decimales
-let partes = hora.split(":");
-let horasDecimales = parseInt(partes[0]) + parseInt(partes[1]) / 60;
+        const interes = (capital * tasa * dias) / (365 * 100);
+        const total = capital + interes;
 
-// Calcular golpes por hora (asumiendo que 2.604 significa 2,604 golpes reales)
-let golpesReales = parseFloat(golpes.replace(".", "")); // 2604
-
-let resultado = golpesReales / horasDecimales;
-
-console.log(Math.round(resultado)); // 347
-
-
-
-
-
-
-
+        resultado.style.display = 'block';
+        resultado.style.backgroundColor = '#e8f5e9';
+        resultado.style.borderLeft = '5px solid #4CAF50';
+        resultado.innerHTML = `
+            ✅ <strong>Interés ganado:</strong> $${interes.toFixed(2)}<br>
+            💰 <strong>Total al vencimiento:</strong> $${total.toFixed(2)}
+        `;
+    }
 </script>
+
+</body>
+</html>
