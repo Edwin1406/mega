@@ -47,7 +47,9 @@ if ($control->horas_programadas > 0) {
     if (empty($alertas)) {
         $resultado = $control->guardar();
         if ($resultado) {
-            header('Location: /admin/control/crear?id=86fb7dd77759eaa3d28cea5c3baa7c99');
+            // resu
+        header('Location: /admin/control/crear/?resultado=1');
+
         }
     } else {
         $alertas = Control::getAlertas();
