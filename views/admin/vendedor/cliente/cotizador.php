@@ -65,7 +65,7 @@
                 <?php foreach ($visor as $maquina):?>
                     <tr class="table__tr">
                         <td class="table__td"><?php echo $maquina->nombre_cliente?></td>
-                        <td class="table__td"><?php echo $visores->proveedor?></td>
+                        <td class="table__td"><?php echo $maquina->proveedor?></td>
                         <td class="table__td"><?php echo $maquina->nombre_producto?></td>
                         <td class="table__td"><?php echo $maquina->codigo_producto?></td>
                         <td data-id="<?php echo $maquina->id; ?>" class="table__td" style="color: 
