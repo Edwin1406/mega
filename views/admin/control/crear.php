@@ -19,7 +19,7 @@
         <p>Archivo registrado correctamente</p>
     </div>
 <?php elseif(isset($resultado) && $resultado == 0): ?>
-    <div class=" alerta--error">
+    <div class=" alerta error">
         <p>Error al registrar el archivo</p>
     </div>
 <?php endif; ?>
