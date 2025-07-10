@@ -15,7 +15,7 @@
 
 
 <?php if(isset($resultado) && $resultado == 1): ?>
-    <div class="alerta alerta--exito">
+    <div class="alerta exito">
         <p>Archivo registrado correctamente</p>
     </div>
 <?php elseif(isset($resultado) && $resultado == 0): ?>
