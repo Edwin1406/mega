@@ -12,11 +12,11 @@
 <?php include_once __DIR__.'/../../../templates/alertas.php'  ?>
 
 
-<?php if(isset($resultado) && $resultado === 1): ?>
+<?php if(isset($resultado) && $resultado == 1): ?>
     <div class="alerta alerta--exito">
         <p>Archivo registrado correctamente</p>
     </div>
-<?php elseif(isset($resultado) && $resultado === 0): ?>
+<?php elseif(isset($resultado) && $resultado == 0): ?>
     <div class="alerta alerta--error">
         <p>Error al registrar el archivo</p>
     </div>

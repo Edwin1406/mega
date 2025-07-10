@@ -52,7 +52,7 @@ if ($control->horas_programadas > 0) {
         $resultado = $control->guardar();
         if ($resultado) {
             // resu
-        header('Location: /admin/control/crear/?resultado=1');
+        header('Location: /admin/control/crear?resultado=1');
 
         }
     } else {
