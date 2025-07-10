@@ -1641,10 +1641,9 @@ h3 {
   text-transform: uppercase;
   text-align: center;
   font-weight: 900;
-  align-items: center;
   margin: 1rem 0;
   border-radius: 1rem;
-  max-width: 60rem;
+  max-width: 80rem;
   font-size: 1.2rem;
   box-shadow: 0 0 1rem rgba(0, 0, 0, 0.1);
 }
@@ -1655,7 +1654,6 @@ h3 {
   color: rgb(227, 3, 3);
 }
 .alerta.exito {
-  align-items: center;
   background-color: greenyellow;
   background-color: rgb(221.3076923077, 254.6923076923, 221.3076923077);
   border-left: 1.5rem solid #02db02;
