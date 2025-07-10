@@ -16,6 +16,10 @@ class ControlController {
         isAuth();
         // debuguear($token);
         
+        // get resultado 
+        $resultado = $_GET['resultado'] ?? null;
+
+
         $control = new Control;
         $token = $_GET['id'] ?? '';
         $alertas = [];
@@ -61,7 +65,8 @@ if ($control->horas_programadas > 0) {
             'titulo' => 'CONTROL DE PRODUCCION',
             'alertas' => $alertas,
             'control' => $control,
-            'token' => $token
+            'token' => $token,
+            'resultado' => $resultado,
         ]);
 
     }
