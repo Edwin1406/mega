@@ -15,13 +15,13 @@
     font-size: 1.2rem;
     box-shadow: 0 0 1rem rgba(0,0,0,0.1);
     &.error{
-        // background-color:lighten(v.$rojo, 50%);
+        background-color: v.$rojo;
         background-color: color.adjust(v.$rojo, $lightness: 50%);
         border-left: 1.5rem solid v.$rojo;
         color: v.$rojo;
     }
     &.exito{
-        // background-color:lighten(v.$verde, 50%);
+        background-color: v.$verde;
         background-color: color.adjust(v.$verde, $lightness: 50%);
         border-left: 1.5rem solid v.$verde;
         color: v.$verde;
