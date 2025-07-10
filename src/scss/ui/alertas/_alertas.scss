@@ -16,13 +16,13 @@
     box-shadow: 0 0 1rem rgba(0,0,0,0.1);
     &.error{
         background-color: v.$rojo;
-        // background-color: color.adjust(v.$rojo, $lightness: 50%);
+        background-color: color.adjust(v.$rojo, $lightness: 50%);
         border-left: 1.5rem solid v.$rojo;
         color: v.$rojo;
     }
     &.exito{
         background-color: greenyellow;
-        // background-color: color.adjust(v.$verde, $lightness: 50%);
+        background-color: color.adjust(v.$verde, $lightness: 50%);
         border-left: 1.5rem solid v.$verde;
         color: v.$verde;
     }
