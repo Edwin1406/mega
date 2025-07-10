@@ -1641,6 +1641,7 @@ h3 {
   text-transform: uppercase;
   text-align: center;
   font-weight: 900;
+  align-items: center;
   margin: 1rem 0;
   border-radius: 1rem;
   max-width: 60rem;
