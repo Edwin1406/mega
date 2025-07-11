@@ -120,8 +120,3 @@
 </fieldset>
 
 
-
-  <iframe 
-    src="https://app.powerbi.com/groups/me/reports/179016fb-973d-4354-ae7e-529216896ea4/a02c86b1e0dd0bc68053?experience=power-bi"
-    allowfullscreen="true">
-  </iframe>
