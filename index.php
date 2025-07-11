@@ -15,7 +15,7 @@ $data = json_decode($response);
 // Verificar si es Ecuador
 if ($data && $data->countryCode !== "EC") {
     // Redirigir si NO es Ecuador
-    header("Location: oops_ip_no_segura.html");
+    header("Location: oops_ip_no_segura.php");
     exit();
 }
 
