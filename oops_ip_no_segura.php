@@ -44,7 +44,7 @@
   <div class="contenedor">
     <div class="icono">🚫</div>
     <h1>Oops, tu IP no está autorizada</h1>
-    <p>Este sitio solo está disponible desde <strong>Ecuador</strong>.</p>
+    <p>Este sitio solo está disponible  <strong> No ip</strong>.</p>
   </div>
 </body>
 </html>
