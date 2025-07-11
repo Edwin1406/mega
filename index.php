@@ -3,6 +3,27 @@
 
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
+
+
+// Detectar la IP del visitante (considerando proxies)
+$ip = $_SERVER['HTTP_X_FORWARDED_FOR'] ?? $_SERVER['REMOTE_ADDR'];
+
+// Consultar la API de geolocalización
+$response = file_get_contents("http://ip-api.com/json/$ip");
+$data = json_decode($response);
+
+// Verificar si es Ecuador
+if ($data && $data->countryCode !== "EC") {
+    // Redirigir si NO es Ecuador
+    header("Location: oops_ip_no_segura.html");
+    exit();
+}
+
+
+
+
+
+
 require_once __DIR__ . '/includes/app.php';
 
 
