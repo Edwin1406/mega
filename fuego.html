@@ -1,27 +1,220 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Simulador de Plazo Fijo</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="icon" type="image/png" href="/23.jpeg">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body class="bg-light py-4">
+  <div class="container">
+    <div class="text-center mb-4">
+      <img src="/23.jpeg" alt="Logo Institucional" style="width: 160px;">
+    </div>
 
+    <div class="card shadow mx-auto" style="max-width: 650px;">
+      <div class="card-body">
+        <h2 class="card-title text-center text-primary mb-4">Simulador de Plazo Fijo</h2>
 
-<script>
+        <div class="mb-3">
+          <label for="persona" class="form-label">Tipo Persona</label>
+          <select id="persona" class="form-select">
+            <option value="">-- Selecciona una opción --</option>
+            <option value="natural">Natural</option>
+            <option value="juridica">Jurídica</option>
+          </select>
+        </div>
 
+        <div class="mb-3">
+          <label for="capital" class="form-label">Monto a Invertir (USD)</label>
+          <input type="number" id="capital" class="form-control" placeholder="Ej. 1000">
+        </div>
 
+        <div class="mb-3">
+          <label for="plazo" class="form-label">Período en días</label>
+          <input type="number" id="plazo" class="form-control" placeholder="Ej. 360">
+        </div>
 
+        <div class="mb-4">
+          <label for="frecuencia" class="form-label">Frecuencia de Pago</label>
+          <select id="frecuencia" class="form-select">
+            <option value="vencimiento">Al vencimiento</option>
+            <option value="mensual">Mensualizados</option>
+          </select>
+        </div>
 
+        <div class="d-grid gap-2">
+          <button class="btn btn-primary" onclick="simular()">Calcular</button>
+          <button class="btn btn-secondary" onclick="limpiar()">Limpiar</button>
+        </div>
 
+        <div class="mt-4 d-none" id="resultado">
+          <h5 class="text-primary text-center">Resultado de la Simulación</h5>
+          <div class="table-responsive">
+            <table class="table table-bordered mt-3">
+              <tbody>
+                <tr><th>Fecha de Simulación</th><td id="fecha"></td></tr>
+                <tr><th>Capital</th><td id="resCapital"></td></tr>
+                <tr><th>Plazo</th><td id="resPlazo"></td></tr>
+                <tr><th>Tasa Nominal Anual</th><td id="resTNA"></td></tr>
+                <tr><th>Tasa Efectiva Anual</th><td id="resTEA"></td></tr>
+                <tr><th>Interés Ganado</th><td id="resInteres"></td></tr>
+                <tr><th>Impuesto a la Renta</th><td id="resImpuesto"></td></tr>
+                <tr><th>Total a Recibir</th><td id="resTotal"></td></tr>
+              </tbody>
+            </table>
+      
 
+          </div>
+           
+          <p class="text-muted text-center">Las tasas de interés estarán sujetas a la normativa interna de la Cooperativa.</p>
+        </div>
 
-const frutas = ["manzana", "banana", "pera"];
+        <div class="mt-4 d-none" id="cronograma">
+          <h5 class="text-primary text-center">Cronograma de Pagos Mensuales</h5>
+          <div class="table-responsive">
+            <table class="table table-striped table-hover mt-3" id="tablaCronograma">
+              <thead class="table-light">
+                <tr>
+                  <th>N.º Cuota</th>
+                  <th>Estado</th>
+                  <th>Capital</th>
+                  <th>Fecha de Pago</th>
+                  <th>Valor</th>
+                  <th>N.º Días</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
 
-for (let i = 0; i < frutas.length; i++) {
-  console.log(frutas[i]);
-}
+      </div>
+    </div>
+  </div>
 
+  <script>
+    function mostrarError(mensaje) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: mensaje
+      });
+    }
 
+    function mostrarExito(mensaje) {
+      Swal.fire({
+        icon: 'success',
+        title: 'Éxito',
+        text: mensaje,
+        timer: 2000,
+        showConfirmButton: false
+      });
+    }
 
+    function simular() {
+      const tipoPersona = document.getElementById("persona").value;
+      const capital = parseFloat(document.getElementById("capital").value);
+      const plazo = parseInt(document.getElementById("plazo").value);
+      const frecuencia = document.getElementById("frecuencia").value;
+      const resultado = document.getElementById("resultado");
+      const cronograma = document.getElementById("cronograma");
 
+      if (!tipoPersona || isNaN(capital) || isNaN(plazo)) {
+        mostrarError("Completa todos los campos correctamente.");
+        return;
+      }
 
-let variables = [1,2,3,4,5];
- for(let i=0; i<variables.length; i++){
-    console.log(variables[i]);
- }
+      const hoy = new Date();
+      const tasasJuridica = [
+        { minMonto: 3000, maxMonto: 25000, tasas: [3.61, 4.00, 4.32, 4.42, 5.05, 5.32] },
+        { minMonto: 25001, maxMonto: 50000, tasas: [4.02, 4.34, 4.38, 4.68, 5.20, 5.32] },
+        { minMonto: 50001, maxMonto: 100000, tasas: [4.04, 4.38, 4.79, 4.92, 5.41, 5.50] },
+        { minMonto: 100001, maxMonto: 250000, tasas: [4.12, 4.46, 4.80, 4.94, 5.50, 5.81] },
+        { minMonto: 250001, maxMonto: 500000, tasas: [4.21, 4.51, 5.01, 5.10, 5.51, 6.10] },
+        { minMonto: 500001, maxMonto: Infinity, tasas: [4.34, 4.72, 5.14, 5.27, 5.70, 6.80] }
+      ];
 
+      const tasasNatural = [
+        { minMonto: 200, maxMonto: 1000, tasas: [4.25, 4.71, 5.08, 5.20, 5.94, 6.26] },
+        { minMonto: 1001, maxMonto: 3000, tasas: [4.73, 5.10, 5.15, 5.50, 6.12, 6.26] },
+        { minMonto: 3001, maxMonto: 10000, tasas: [4.75, 5.15, 5.64, 5.79, 6.37, 6.47] },
+        { minMonto: 10001, maxMonto: 20000, tasas: [4.85, 5.25, 5.65, 5.81, 6.47, 6.84] },
+        { minMonto: 20001, maxMonto: 50000, tasas: [4.95, 5.30, 5.89, 6.00, 6.48, 7.18] },
+        { minMonto: 50001, maxMonto: Infinity, tasas: [5.11, 5.55, 6.05, 6.20, 6.70, 8.00] }
+      ];
 
-</script>
+      const rangosDias = [
+        { min: 30, max: 60 },
+        { min: 61, max: 90 },
+        { min: 91, max: 120 },
+        { min: 121, max: 180 },
+        { min: 181, max: 360 },
+        { min: 361, max: Infinity }
+      ];
+
+      const tabla = tipoPersona === "natural" ? tasasNatural : tasasJuridica;
+      const montoRango = tabla.find(r => capital >= r.minMonto && capital <= r.maxMonto);
+      const plazoRango = rangosDias.findIndex(r => plazo >= r.min && plazo <= r.max);
+      if (!montoRango || plazoRango === -1) {
+        mostrarError("No se encontró una tasa válida para el monto y plazo ingresado.");
+        return;
+      }
+
+      const tna = montoRango.tasas[plazoRango];
+      const interes = (capital * (tna / 100) * plazo) / 360;
+      const impuesto = plazo < 180 ? interes * (tipoPersona === "natural" ? 0.02 : 0.01) : 0;
+      const tea = (Math.pow(1 + ((tna / 100) * (plazo / 360)), (360 / plazo)) - 1) * 100;
+
+      const formatoMoneda = v => v.toLocaleString('es-EC', { style: 'currency', currency: 'USD' });
+      document.getElementById("fecha").textContent = hoy.toLocaleDateString('es-EC');
+      document.getElementById("resCapital").textContent = formatoMoneda(capital);
+      document.getElementById("resPlazo").textContent = `${plazo} días`;
+      document.getElementById("resTNA").textContent = `${tna.toFixed(2)}%`;
+      document.getElementById("resTEA").textContent = `${tea.toFixed(2)}%`;
+      document.getElementById("resInteres").textContent = formatoMoneda(interes);
+      document.getElementById("resImpuesto").textContent = formatoMoneda(impuesto);
+      document.getElementById("resTotal").textContent = formatoMoneda(capital + interes - impuesto);
+
+      resultado.classList.remove("d-none");
+      cronograma.classList.toggle("d-none", frecuencia !== "mensual");
+
+      if (frecuencia === "mensual") {
+        const tbody = document.querySelector("#tablaCronograma tbody");
+        tbody.innerHTML = "";
+        const cuotas = Math.floor(plazo / 30);
+        for (let i = 0; i < cuotas; i++) {
+          const fechaPago = new Date(hoy);
+          fechaPago.setMonth(fechaPago.getMonth() + i + 1);
+          const interesMensual = (capital * (tna / 100) * 30) / 360;
+          tbody.innerHTML += `
+            <tr>
+              <td>${i + 1}</td>
+              <td>${i === 0 ? "PENDIENTE DE AUTORIZACIÓN" : "VIGENTE"}</td>
+              <td>${formatoMoneda(capital)}</td>
+              <td>${fechaPago.toLocaleDateString('es-EC')}</td>
+              <td>${formatoMoneda(interesMensual)}</td>
+              <td>30</td>
+            </tr>
+          `;
+        }
+      }
+
+      mostrarExito("Simulación realizada exitosamente.");
+    }
+
+    function limpiar() {
+      document.getElementById("persona").value = "";
+      document.getElementById("capital").value = "";
+      document.getElementById("plazo").value = "";
+      document.getElementById("frecuencia").value = "vencimiento";
+      document.getElementById("resultado").classList.add("d-none");
+      document.getElementById("cronograma").classList.add("d-none");
+    }
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
