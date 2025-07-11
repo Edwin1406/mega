@@ -27,12 +27,12 @@
 
 <?php include_once __DIR__.'/../../templates/alertas.php'  ?>
 
-    <form method="POST" action="/admin/control/crear"  class="formulario2" enctype="multipart/form-data">
+    <form method="POST" action="/admin/control/crear"  class="formulario-troquelado" enctype="multipart/form-data">
 
      
     <?php include_once __DIR__.'/formulario.php'  ?>
 
-        <input class="formulario__submit2 formulario__submit--registrar" type="submit" value="Registrar Control de Producción">
+        <input class="formulario-troquelado__submit formulario-troquelado__submit--registrar" type="submit" value="Registrar Control de Producción">
 
         
     </form>
