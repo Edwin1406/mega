@@ -1440,6 +1440,9 @@ h3 {
   .formulario-troquelado__campo {
     flex: 1 1 100%;
   }
+  .formulario-troquelado__summit {
+    width: 100%;
+  }
 }
 .acciones, .acciones--centrar {
   margin-top: 3rem;
