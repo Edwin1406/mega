@@ -1,34 +1,34 @@
-<fieldset class="formulario__fieldset2">
-    <legend class="formulario__legend2">Control Troquelado </legend>
+<fieldset class="formulario-troquelado__fieldset">
+    <legend class="formulario-troquelado__legend">Control Troquelado </legend>
 
-    <div class="formulario__campo2">
-        <label class="formulario__label2" for="fecha">Fecha </label>
+    <div class="formulario-troquelado__campo">
+        <label class="formulario-troquelado__label" for="fecha">Fecha </label>
         <input
             type="date"
             name="fecha"
             id="fecha"
-            class="formulario__input2"
+            class="formulario-troquelado__input"
             value="<?php echo $control->fecha ?? '' ?>">
     </div>
 
-    <div class="formulario__campo2">
-        <label class="formulario__label2" for="turnos">Nº Turnos:</label>
+    <div class="formulario__campo">
+        <label class="formulario__label" for="turnos">Nº Turnos:</label>
         <input
             type="number"
             name="turnos"
             id="turnos"
-            class="formulario__input2"
+            class="formulario__input"
             placeholder="Nº Turnos"
             value="<?php echo $control->n_turno ?? '' ?>">
     </div>
 
 
-    <div class="formulario__campo2">
-        <label class="formulario__label2" for="operador">Operadores</label>
+    <div class="formulario__campo">
+        <label class="formulario__label" for="operador">Operadores</label>
         <select
             name="operador"
             id="operador"
-            class="formulario__input2">
+            class="formulario__input">
             <option value="">Selecciona una opción</option>
             <option value="Luis Govea" <?php echo (isset($control->operadores) && $control->operadores == 'Luis Govea') ? 'selected' : ''; ?>>Luis Govea</option>
             <option value="Guillermo Bonilla" <?php echo (isset($control->operadores) && $control->operadores == 'Guillermo Bonilla') ? 'selected' : ''; ?>>Guillermo Bonilla</option>
@@ -36,18 +36,18 @@
         </select>
     </div>
 
-    <div class="formulario__campo2">
-        <label class="formulario__label2" for="horas_programadas">Horas Programadas</label>
+    <div class="formulario__campo">
+        <label class="formulario__label" for="horas_programadas">Horas Programadas</label>
         <input
             type="time"
             name="horas_programadas"
             id="horas_programadas"
-            class="formulario__input2"
+            class="formulario__input"
             value="<?php echo $control->horas_programadas ?? '' ?>">
     </div>
 
-    <div class="formulario__campo2">
-        <label class="formulario__label2" for="golpes_maquina">Golpes Máquina</label>
+    <div class="formulario__campo">
+        <label class="formulario__label" for="golpes_maquina">Golpes Máquina</label>
      <input
     type="number"
     step="any"
@@ -61,8 +61,8 @@
 
   
 
-    <div class="formulario__campo2">
-        <label class="formulario__label2" for="cambios_medida">Nº Cambios de Medida</label>
+    <div class="formulario__campo">
+        <label class="formulario__label" for="cambios_medida">Nº Cambios de Medida</label>
         <input
             type="number"
             name="cambios_medida"
@@ -73,8 +73,8 @@
 
     </div>
 
-    <div class="formulario__campo2">
-        <label class="formulario__label2" for="cantidad_separadores">Separadores</label>
+    <div class="formulario__campo">
+        <label class="formulario__label" for="cantidad_separadores">Separadores</label>
         <input
             type="number"
             name="cantidad_separadores"
@@ -85,8 +85,8 @@
 
     </div>
 
-    <div class="formulario__campo2">
-        <label class="formulario__label2" for="cantidad_cajas">Cajas</label>
+    <div class="formulario__campo">
+        <label class="formulario__label" for="cantidad_cajas">Cajas</label>
         <input
             type="number"
             name="cantidad_cajas"
@@ -95,8 +95,8 @@
             placeholder="Cantidad de Cajas"
             value="<?php echo $control->cantidad_cajas ?? '' ?>">
     </div>
-    <div class="formulario__campo2">
-        <label class="formulario__label2" for="cantidad_papel">Papel</label>
+    <div class="formulario__campo">
+        <label class="formulario__label" for="cantidad_papel">Papel</label>
         <input
             type="number"
             name="cantidad_papel"
@@ -106,8 +106,8 @@
             value="<?php echo $control->cantidad_papel ?? '' ?>">
     </div>
 
-    <div class="formulario__campo2">
-        <label class="formulario__label2" for="desperdicio_kg">Desperdicio (Kg)</label>
+    <div class="formulario__campo">
+        <label class="formulario__label" for="desperdicio_kg">Desperdicio (Kg)</label>
         <input
             type="number"
             name="desperdicio_kg"
