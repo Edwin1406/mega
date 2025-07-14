@@ -554,6 +554,7 @@ class PapelController
             $registro->CAMBIO_PEDIDO = (float)$registro->CAMBIO_PEDIDO;
             $registro->EXTRA_TRIM = (float)$registro->EXTRA_TRIM;
             $registro->CONSUMO = (float)$registro->CONSUMO;
+            $registro->TOTAL = (float)$registro->TOTAL;
         }
 
 
