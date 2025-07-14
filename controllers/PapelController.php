@@ -7,6 +7,7 @@ use Model\Bobina;
 use Classes\Paginacion;
 use Model\Computadora;
 use Model\Consumo;
+use Model\Consumo_general;
 use Model\Convertidor;
 use Model\Corte_ceja;
 use Model\Desflexografica;
@@ -1038,15 +1039,25 @@ public static function ingresoConsumo(Router $router) {
     public static function consumo_general(Router $router)
     {
         $alertas = [];
-        
+          $control = new Consumo_general;
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $control->sincronizar($_POST);
+            $alertas = $control->validar();
+
+            if (empty($alertas)) {
+                // Guardar el registro
+                $control->guardar();
+                header('Location: /admin/produccion/papel/consumo_general');
+                exit;
+            }
            
         }
 
         $router->render('admin/produccion/papel/consumo_general', [
             'titulo' => 'CONSUMO GENERAL',
             'alertas' => $alertas,
+            'control' => $control
         ]);
     }
 
