@@ -1064,5 +1064,29 @@ public static function ingresoConsumo(Router $router) {
 
 
 
+    // api 
+
+    public static function apiConsumoGeneral()
+    {
+        header('Content-Type: application/json');
+        header('Access-Control-Allow-Origin: *');
+        header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE');
+
+        $consumoGeneral = Consumo_general::all();
+
+        // Convertir campos numéricos en cada objeto
+        foreach ($consumoGeneral as $registro) {
+            $registro->consumo = (float)$registro->consumo;
+            $registro->total = (float)$registro->total;
+            $registro->porcentaje = (float)$registro->porcentaje;
+        }
+
+        echo json_encode($consumoGeneral);
+    }
+
+
+    
+
+
 
 }

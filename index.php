@@ -311,6 +311,9 @@ $router->get('/admin/api/apidesperdiciopapel', [PapelController::class, 'apidesp
 $router->get('/admin/produccion/papel/consumo_general', [PapelController::class, 'consumo_general']);
 $router->post('/admin/produccion/papel/consumo_general', [PapelController::class, 'consumo_general']);
 
+// API CONSUMO GENERAL
+$router->get('/admin/api/apiConsumoGeneral', [PapelController::class, 'apiConsumoGeneral']);
+
 
 
 
