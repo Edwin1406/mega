@@ -531,10 +531,18 @@ class PapelController
         header('Access-Control-Allow-Origin: *');
         header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE');
         $papel = Bobina::all();
+
+ // Convertir campos numéricos en cada objeto
+    foreach ($papel as $registro) {
+        // fecha date
+        $registro->SINGLEFACE = (float)$registro->SINGLEFACE;
+       
+    }
+
+
         echo json_encode($papel);
 
-        // $papel = Computadora::all();
-        // echo json_encode($papel);
+       
 
 
 
