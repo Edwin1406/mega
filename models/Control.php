@@ -71,13 +71,13 @@ class Control extends ActiveRecord {
             self::$alertas['error'][] = 'Los golpes de máquina son obligatorios';
         }
        
-        if(!$this->cambios_medida) {
-            self::$alertas['error'][] = 'Los cambios de medida son obligatorios';
-        }
+        // if(!$this->cambios_medida) {
+        //     self::$alertas['error'][] = 'Los cambios de medida son obligatorios';
+        // }
       
-        if(!$this->desperdicio_kg) {
-            self::$alertas['error'][] = 'El desperdicio en Kg es obligatorio';
-        }
+        // if(!$this->desperdicio_kg) {
+        //     self::$alertas['error'][] = 'El desperdicio en Kg es obligatorio';
+        // }
 
         return self::$alertas;
     }
