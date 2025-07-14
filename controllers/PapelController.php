@@ -532,13 +532,30 @@ class PapelController
         header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE');
         $papel = Bobina::all();
 
- // Convertir campos numéricos en cada objeto
-    foreach ($papel as $registro) {
-        // fecha date
-        $registro->SINGLEFACE = (float)$registro->SINGLEFACE;
-        $registro->EMPALME = (float)$registro->EMPALME;
-       
-    }
+    // Convertir campos numéricos en cada objeto
+     foreach ($papel as $registro) {
+            $registro->SINGLEFACE = (float)$registro->SINGLEFACE;
+            $registro->EMPALME = (float)$registro->EMPALME;
+            $registro->RECUB = (float)$registro->RECUB;
+            $registro->GALLET = (float)$registro->GALLET;
+            $registro->HUMEDO = (float)$registro->HUMEDO;
+            $registro->COMBADO = (float)$registro->COMBADO;
+            $registro->DESPE = (float)$registro->DESPE;
+            $registro->ERROM = (float)$registro->ERROM;
+            $registro->DESHOJE = (float)$registro->DESHOJE;
+            $registro->MECANICO = (float)$registro->MECANICO;
+            $registro->ELECTRICO = (float)$registro->ELECTRICO;
+            $registro->FILOS_ROTOS = (float)$registro->FILOS_ROTOS;
+            $registro->REFILE_PEQUENO = (float)$registro->REFILE_PEQUENO;
+            $registro->PEDIDOS_CORTOS = (float)$registro->PEDIDOS_CORTOS;
+            $registro->DIFER_ANCHO = (float)$registro->DIFER_ANCHO;
+            $registro->SUSTRATO = (float)$registro->SUSTRATO;
+            $registro->CAMBIO_GRAMAJE = (float)$registro->CAMBIO_GRAMAJE;
+            $registro->CAMBIO_PEDIDO = (float)$registro->CAMBIO_PEDIDO;
+            $registro->EXTRA_TRIM = (float)$registro->EXTRA_TRIM;
+            $registro->CONSUMO = (float)$registro->CONSUMO;
+        }
+
 
 
         echo json_encode($papel);
