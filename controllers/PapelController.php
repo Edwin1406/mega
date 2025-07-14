@@ -1076,6 +1076,8 @@ public static function ingresoConsumo(Router $router) {
 
         // Convertir campos numéricos en cada objeto
         foreach ($consumoGeneral as $registro) {
+            // eliminar espacios en blanco
+            $registro->tipo_maquina = trim($registro->tipo_maquina);
            
             $registro->total_general = (float)$registro->total_general;
       
