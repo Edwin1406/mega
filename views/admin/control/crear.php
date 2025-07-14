@@ -36,10 +36,3 @@
 </div>
 
 
-
-
-
-  <iframe 
-    src="https://app.powerbi.com/links/zTR1Xvjtsk?ctid=ab7267a0-b08e-48e3-abb3-a296fae02e3b&pbi_source=linkShare"
-    allowfullscreen="true">
-  </iframe>
