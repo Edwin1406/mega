@@ -17,6 +17,8 @@
             <option value="">Selecciona una opción</option>
             <option value="CORRUGADOR" <?php echo (isset($control->tipo_maquina) && $control->tipo_maquina == 'CORRUGADOR') ? 'selected' : ''; ?>>CORRUGADOR</option>
             <option value="MICRO" <?php echo (isset($control->tipo_maquina) && $control->tipo_maquina == 'MICRO') ? 'selected' : ''; ?>>MICRO</option>
+            <option value="TROQUELADOR" <?php echo (isset($control->tipo_maquina) && $control->tipo_maquina == 'TROQUELADOR') ? 'selected' : ''; ?>>TROQUELADOR</option>
+         
         </select>
         
         <div class="formulario__campo">
