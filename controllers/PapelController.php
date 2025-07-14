@@ -1043,6 +1043,7 @@ public static function ingresoConsumo(Router $router) {
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $control->sincronizar($_POST);
+            debuguear($control);
             $alertas = $control->validar();
 
             if (empty($alertas)) {
