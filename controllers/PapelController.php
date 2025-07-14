@@ -536,6 +536,7 @@ class PapelController
     foreach ($papel as $registro) {
         // fecha date
         $registro->SINGLEFACE = (float)$registro->SINGLEFACE;
+        $registro->EMPALME = (float)$registro->EMPALME;
        
     }
 
