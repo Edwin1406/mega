@@ -7,24 +7,24 @@
 
     <form method="POST" action="/admin/produccion/papel/crear" class="formulario" enctype="multipart/form-data">
 
-        <div class="formulario-troquelado__campo">
-            <label class="formulario-troquelado__label" for="turnos">Nº Turnos:</label>
+        <div class="formulario__campo">
+            <label class="formulario__label" for="turnos">Nº Turnos:</label>
             <input
                 type="number"
                 name="turnos"
                 id="turnos"
-                class="formulario-troquelado__input"
+                class="formulario__input"
                 placeholder="Nº Turnos"
                 value="<?php echo $control->n_turno ?? '' ?>">
         </div>
 
 
-        <div class="formulario-troquelado__campo">
-            <label class="formulario-troquelado__label" for="operador">Operadores</label>
+        <div class="formulario__campo">
+            <label class="formulario__label" for="operador">Operadores</label>
             <select
                 name="operador"
                 id="operador"
-                class="formulario-troquelado__input">
+                class="formulario__input">
                 <option value="">Selecciona una opción</option>
                 <option value="Luis Govea" <?php echo (isset($control->operadores) && $control->operadores == 'Luis Govea') ? 'selected' : ''; ?>>Luis Govea</option>
                 <option value="Guillermo Bonilla" <?php echo (isset($control->operadores) && $control->operadores == 'Guillermo Bonilla') ? 'selected' : ''; ?>>Guillermo Bonilla</option>
