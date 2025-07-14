@@ -1033,6 +1033,23 @@ public static function ingresoConsumo(Router $router) {
 
 
 
+    // consumo_general
+
+    public static function consumo_general(Router $router)
+    {
+        $alertas = [];
+        
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+           
+        }
+
+        $router->render('admin/produccion/papel/consumo_general', [
+            'titulo' => 'CONSUMO GENERAL',
+            'alertas' => $alertas,
+        ]);
+    }
+
 
 
 

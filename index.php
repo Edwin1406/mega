@@ -307,6 +307,12 @@ $router->post('/admin/produccion/papel/eliminar', [PapelController::class, 'elim
 $router->get('/admin/api/apidesperdiciopapel', [PapelController::class, 'apidesperdiciopapel']);
 
 
+// CONTROL GENERAL DE PAPELES
+$router->get('/admin/produccion/papel/consumo_general', [PapelController::class, 'consumo_general']);
+$router->post('/admin/produccion/papel/consumo_general', [PapelController::class, 'consumo_general']);
+
+
+
 
 
 // API LISTA DE PAPELES
