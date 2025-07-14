@@ -28,7 +28,6 @@
                     <option value="">Selecciona una opción</option>
                     <option value="Luis Govea" <?php echo (isset($control->operadores) && $control->operadores == 'Luis Govea') ? 'selected' : ''; ?>>Luis Govea</option>
                     <option value="Guillermo Bonilla" <?php echo (isset($control->operadores) && $control->operadores == 'Guillermo Bonilla') ? 'selected' : ''; ?>>Guillermo Bonilla</option>
-                    <!-- <option value="Carlos Govea" <?php echo (isset($control->operadores) && $control->operadores == 'Carlos Govea') ? 'selected' : ''; ?>>Carlos Govea</option> -->
                 </select>
             </div>
 
