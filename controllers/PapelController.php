@@ -1096,10 +1096,8 @@ public static function apiConsumoGeneral()
     $limite = isset($_GET['limite']) ? (int)$_GET['limite'] : 10;
     $offset = ($pagina - 1) * $limite;
 
-    // Obtener total de registros para paginador
     $total = Consumo_general::count();
 
-    // Obtener solo los registros necesarios
     $consumoGeneral = Consumo_general::limit($limite)->offset($offset)->get();
 
     foreach ($consumoGeneral as $registro) {
