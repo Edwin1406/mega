@@ -47,7 +47,7 @@
                 id="total_general"
                 class="formulario__input"
                 placeholder="total_general"
-                value="<?php echo $control->total_general ?? '' ?>">
+                value="<?php echo $consumo->total_general ?? '' ?>">
         </div>
 
         </div>
