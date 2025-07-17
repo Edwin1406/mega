@@ -11,8 +11,7 @@
 </div>
 
 
-<div class="dashboard__formulario"></div>
-<div class="tabla__contenedor"></div>
+
 
 <style>
 
@@ -93,7 +92,8 @@
 
 
 </style>
-
+<div class="dashboard__formulario"></div>
+<div class="tabla__contenedor"></div>
 <script>
 let paginaActual = 1;
 const porPagina = 10;
