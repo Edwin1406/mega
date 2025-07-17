@@ -102,36 +102,47 @@
 </style>
 
 
-
 <script>
 document.addEventListener('DOMContentLoaded', function () {
-    cargarApi(); // Usar camelCase consistente
-    
+    cargarApi();
 });
+
+let datosGlobales = [];
+let paginaActual = 1;
+const porPagina = 10;
 
 async function cargarApi() {
     try {
         const url = `${location.origin}/admin/api/apiConsumoGeneral`;
         const resultado = await fetch(url);
-        const pedidos = await resultado.json();
-        if (pedidos.length > 0) {
-            crearTabla(pedidos);
-        } else {
-            const contenedor = document.querySelector('.tabla__contenedor');
-            contenedor.innerHTML = '<p>No hay datos disponibles.</p>';
-        }
+        const datos = await resultado.json();
 
+        if (datos.length > 0) {
+            datosGlobales = datos;
+            mostrarPagina(paginaActual);
+            crearPaginador(datos.length);
+        } else {
+            document.querySelector('.tabla__contenedor').innerHTML = '<p>No hay datos disponibles.</p>';
+        }
     } catch (e) {
-        console.log(e);
+        console.error(e);
     }
 }
 
-// crear una tbla para mostrar los datos
+function mostrarPagina(pagina) {
+    const inicio = (pagina - 1) * porPagina;
+    const fin = inicio + porPagina;
+    const datosPagina = datosGlobales.slice(inicio, fin);
+
+    const contenedor = document.querySelector('.dashboard__formulario');
+    contenedor.innerHTML = ''; // Limpiar contenido anterior
+    crearTabla(datosPagina);
+}
+
 function crearTabla(datos) {
     const tabla = document.createElement('table');
     tabla.classList.add('tabla');
 
-    // Crear encabezados de la tabla
     const encabezado = document.createElement('thead');
     encabezado.innerHTML = `
         <tr>
@@ -143,7 +154,6 @@ function crearTabla(datos) {
     `;
     tabla.appendChild(encabezado);
 
-    // Crear cuerpo de la tabla
     const cuerpo = document.createElement('tbody');
     datos.forEach(dato => {
         const fila = document.createElement('tr');
@@ -157,13 +167,35 @@ function crearTabla(datos) {
     });
     tabla.appendChild(cuerpo);
 
-    // Agregar la tabla al contenedor deseado
-    const contenedor = document.querySelector('.dashboard__formulario');
-    contenedor.appendChild(tabla);
+    document.querySelector('.dashboard__formulario').appendChild(tabla);
 }
 
-</script>
+function crearPaginador(totalItems) {
+    const totalPaginas = Math.ceil(totalItems / porPagina);
+    const paginador = document.createElement('div');
+    paginador.classList.add('paginador');
 
+    for (let i = 1; i <= totalPaginas; i++) {
+        const boton = document.createElement('button');
+        boton.textContent = i;
+        if (i === paginaActual) boton.classList.add('active');
+
+        boton.addEventListener('click', () => {
+            paginaActual = i;
+            mostrarPagina(paginaActual);
+            document.querySelectorAll('.paginador button').forEach(b => b.classList.remove('active'));
+            boton.classList.add('active');
+        });
+
+        paginador.appendChild(boton);
+    }
+
+    // Limpiar y agregar al contenedor
+    const contenedor = document.querySelector('.tabla__contenedor');
+    contenedor.innerHTML = ''; // Limpiar anterior
+    contenedor.appendChild(paginador);
+}
+</script>
 
 
 
