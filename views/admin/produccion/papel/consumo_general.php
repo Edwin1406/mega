@@ -63,6 +63,7 @@
 <script>
 document.addEventListener('DOMContentLoaded', function () {
     cargarApi(); // Usar camelCase consistente
+    
 });
 
 async function cargarApi() {
@@ -70,8 +71,12 @@ async function cargarApi() {
         const url = `${location.origin}/admin/api/apiConsumoGeneral`;
         const resultado = await fetch(url);
         const pedidos = await resultado.json();
-        console.log(pedidos);
-        return pedidos;
+        if (pedidos.length > 0) {
+            crearTabla(pedidos);
+        } else {
+            const contenedor = document.querySelector('.tabla__contenedor');
+            contenedor.innerHTML = '<p>No hay datos disponibles.</p>';
+        }
 
     } catch (e) {
         console.log(e);
