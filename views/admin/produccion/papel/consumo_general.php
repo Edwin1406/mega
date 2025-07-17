@@ -47,7 +47,59 @@
 </div>
 
 
+<style>
 
+
+.tabla {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    font-family: Arial, sans-serif;
+}
+
+.tabla th,
+.tabla td {
+    padding: 12px;
+    border: 1px solid #ccc;
+    text-align: center;
+}
+
+.tabla th {
+    background-color: #f4f4f4;
+    font-weight: bold;
+}
+
+.tabla__contenedor {
+    margin-top: 30px;
+}
+
+.paginador {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    gap: 8px;
+}
+
+.paginador button {
+    padding: 8px 12px;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.paginador button:hover {
+    background-color: #0056b3;
+}
+
+.paginador button.active {
+    background-color: #0056b3;
+    font-weight: bold;
+}
+
+
+</style>
 
 
 
@@ -109,13 +161,6 @@ function crearTabla(datos) {
     const contenedor = document.querySelector('.dashboard__formulario');
     contenedor.appendChild(tabla);
 }
-
-
-
-
-
-
-
 
 </script>
 
