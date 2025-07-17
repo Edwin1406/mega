@@ -145,6 +145,7 @@ class ClienteController
 
         // session
         session_start();
+        debuguear($_SESSION);
         isAdmin();
 
         $id = $_GET['id'] ?? null;
