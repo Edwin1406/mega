@@ -1797,14 +1797,16 @@ public static function contarTotal() {
     $consulta = "SELECT COUNT(*) as total FROM consumo_general";
     $resultado = self::consultarSQL($consulta);
 
-    // Acceder como array directamente
+    // Forzar conversión a array para evitar error por propiedad no existente
     $array = json_decode(json_encode($resultado), true);
-    if (!empty($array)) {
+
+    if (!empty($array) && isset($array[0]['total'])) {
         return (int)$array[0]['total'];
     }
 
     return 0;
 }
+
 
 
 

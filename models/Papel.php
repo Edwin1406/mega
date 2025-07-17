@@ -12,7 +12,7 @@ class Papel extends ActiveRecord {
     public $peso;
     public $gramaje;
     // total
-    public $total;
+    
 
 
 
