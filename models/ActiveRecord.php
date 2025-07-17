@@ -1792,21 +1792,15 @@ public static function obtenerPaginado($limite, $offset)
     $sql = "SELECT * FROM " . static::$tabla . " ORDER BY id DESC LIMIT {$limite} OFFSET {$offset}";
     return self::consultarSQL($sql);
 }
-public static function contarTotal() {
-    $sql = "SELECT COUNT(*) as total FROM consumo_general";
 
-    $resultado = self::consultarSQL($sql);
 
-    debuguear($resultado);
-
-    // Convertimos el resultado a array para evitar el error de propiedad inexistente
-    $array = json_decode(json_encode($resultado), true);
-
-    if (!empty($array) && isset($array[0]['total'])) {
-        return (int)$array[0]['total'];
-    }
-
-    return 0;
+// necesito contar cuantos registros hay en la tabla
+public static function contarRegistros()
+{
+    $sql = "SELECT COUNT(*) as total FROM " . static::$tabla;
+    $resultado = self::$db->query($sql);
+    $fila = $resultado->fetch_assoc();
+    return $fila['total'];
 }
 
 
