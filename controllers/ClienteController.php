@@ -146,8 +146,7 @@ class ClienteController
         // session
         session_start();
         if (!isset($_SESSION['usuario'])) {
-            header('Location: /admin/login');
-            exit;
+            debuguear('No hay usuario en la sesión');
         }
 
         $id = $_GET['id'] ?? null;
