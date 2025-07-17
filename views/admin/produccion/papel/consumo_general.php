@@ -100,4 +100,12 @@
     .btn-editar:hover {
       background-color: #0056b3;
     }
+
+
+    table.dataTable {
+  width: 100% !important; /* Asegura que no se desborde */
+  overflow-x: auto;       /* Evita que se rompa el diseño */
+  display: block;         /* Necesario para aplicar scroll */
+}
+
   </style>
