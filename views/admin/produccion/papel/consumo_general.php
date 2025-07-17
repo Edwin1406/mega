@@ -50,18 +50,23 @@
 
 <h2 style="text-align:center;">Consumo General por Máquina</h2>
 
+
 <?php
 function obtenerDatosAPI($url) {
-    $ch = curl_init();
-    curl_setopt($ch, CURLOPT_URL, $url);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true); // sigue redirecciones
-    curl_setopt($ch, CURLOPT_MAXREDIRS, 10);         // máximo 10 redirecciones
-    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false); // evita error por SSL
+    $ch = curl_init($url);
+    curl_setopt_array($ch, [
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_FOLLOWLOCATION => true,
+        CURLOPT_MAXREDIRS => 5,
+        CURLOPT_SSL_VERIFYPEER => false,
+        CURLOPT_HEADER => false,
+        CURLOPT_USERAGENT => 'Mozilla/5.0'
+    ]);
+
     $respuesta = curl_exec($ch);
 
     if (curl_errno($ch)) {
-        echo "Error al conectar con la API: " . curl_error($ch);
+        echo "<p class='error'>Error al conectar con la API: " . curl_error($ch) . "</p>";
         return null;
     }
 
@@ -69,14 +74,22 @@ function obtenerDatosAPI($url) {
     return json_decode($respuesta, true);
 }
 
-// Uso:
 $apiUrl = "https://megawebsistem.com/admin/api/apiConsumoGeneral";
 $datos = obtenerDatosAPI($apiUrl);
 
+// Variables por defecto
+$porPagina = 5;
+$pagina = isset($_GET['pagina']) ? (int)$_GET['pagina'] : 1;
+$pagina = max($pagina, 1);
+$inicio = ($pagina - 1) * $porPagina;
+
 if (is_array($datos)) {
-    // Aquí haces count(), foreach, etc.
+    $totalRegistros = count($datos);
+    $totalPaginas = ceil($totalRegistros / $porPagina);
+    $datosPagina = array_slice($datos, $inicio, $porPagina);
 } else {
-    echo "<p style='color:red; text-align:center;'>No se pudo obtener datos de la API.</p>";
+    $totalPaginas = 0;
+    $datosPagina = [];
 }
 ?>
 
