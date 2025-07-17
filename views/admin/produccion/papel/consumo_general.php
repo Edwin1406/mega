@@ -1,5 +1,12 @@
 <h2 class="dashboard__heading"> <?php echo $titulo ?> </h2>
 
+<style>
+    .dashboard__sidebar {
+            /* Suponiendo que el contenedor tiene la clase .barra-lateral */
+            display: none;
+        }
+</style>
+
 <!-- VER TABLA -->
 <div class="dashboard__contenedor-boton">
     <a class="dashboard__boton" href="/admin/produccion/papel/tablaconsumo">

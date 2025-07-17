@@ -76,6 +76,10 @@ button.btn-editar {
     border-radius: 4px;
     transition: background-color 0.2s;
 }
+.dashboard__sidebar {
+            /* Suponiendo que el contenedor tiene la clase .barra-lateral */
+            display: none;
+        }
 
 </style>
 <div class="dashboard__formulario"></div>
