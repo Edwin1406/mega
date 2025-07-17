@@ -318,6 +318,10 @@ $router->get('/admin/api/apiConsumoTablaPaginador', [PapelController::class, 'ap
 // TABLA DE CONSUMO GENERAL
 $router->get('/admin/produccion/papel/tablaconsumo', [PapelController::class, 'tablaconsumo']);
 
+// EDITAR CONSUMO GENERAL
+$router->get('/admin/produccion/papel/editar_consumo', [PapelController::class, 'editar_consumo']);
+$router->post('/admin/produccion/papel/editar_consumo', [PapelController::class, 'editar_consumo']);
+
 
 
 

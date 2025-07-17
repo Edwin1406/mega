@@ -1129,6 +1129,47 @@ public static function apiConsumoTablaPaginador()
     }
 
 
+    // ediatar
+
+    public static function editar_consumo_general(Router $router)
+    {
+        $alertas = [];
+        $id = $_GET['id'];
+        $id = filter_var($id, FILTER_VALIDATE_INT);
+
+        if (!$id) {
+            header('Location: /admin/produccion/papel/tablaconsumo');
+            exit;
+        }
+
+        $consumo = Consumo_general::find($id);
+
+        if (!$consumo) {
+            header('Location: /admin/produccion/papel/tablaconsumo');
+            exit;
+        }
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $consumo->sincronizar($_POST);
+            $alertas = $consumo->validar();
+
+            if (empty($alertas)) {
+                $consumo->actualizar();
+                header('Location: /admin/produccion/papel/tablaconsumo');
+                exit;
+            }
+        }
+
+        $router->render('admin/produccion/papel/editar_consumo_general', [
+            'titulo' => 'EDITAR CONSUMO GENERAL',
+            'alertas' => $alertas,
+            'consumo' => $consumo
+        ]);
+    }
+
+    
+
+
 
 
 
