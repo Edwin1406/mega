@@ -1143,7 +1143,7 @@ public static function apiConsumoTablaPaginador()
         }
 
         $consumo = Consumo_general::find($id);
-        debuguear($consumo);
+        // debuguear($consumo);
 
         if (!$consumo) {
             header('Location: /admin/produccion/papel/tablaconsumo');
