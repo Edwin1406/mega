@@ -314,6 +314,8 @@ $router->post('/admin/produccion/papel/consumo_general', [PapelController::class
 // API CONSUMO GENERAL
 $router->get('/admin/api/apiConsumoGeneral', [PapelController::class, 'apiConsumoGeneral']);
 
+// TABLA DE CONSUMO GENERAL
+$router->get('/admin/produccion/papel/tablaconsumo', [PapelController::class, 'tablaconsumo']);
 
 
 
