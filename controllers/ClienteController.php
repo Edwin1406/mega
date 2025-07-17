@@ -143,15 +143,6 @@ class ClienteController
     public static function tabla(Router $router)
     {
 
-        // session
-        session_start();
-        // debuguear($_SESSION);
-        // Verificar si el usuario es artes@megaecuador.com
-        if ($_SESSION['usuario']->email !== 'artes@megaecuador.com') {
-            header('Location: /');
-            exit;
-        }
-
         $id = $_GET['id'] ?? null;
         if ($id == 1) {
             Cliente::setAlerta('exito', 'El Cliente se guardo correctamente');
