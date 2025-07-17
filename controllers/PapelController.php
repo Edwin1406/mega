@@ -1090,16 +1090,18 @@ public static function apiConsumoGeneral()
 {
     header('Content-Type: application/json');
     header('Access-Control-Allow-Origin: *');
-    header('Access-Control-Allow-Methods: GET');
 
     $pagina = isset($_GET['pagina']) ? (int)$_GET['pagina'] : 1;
     $limite = isset($_GET['limite']) ? (int)$_GET['limite'] : 10;
     $offset = ($pagina - 1) * $limite;
 
-    $total = Consumo_general::count();
+    // ✅ Obtener total de registros
+    $total = Consumo_general::contarTotal();
 
-    $consumoGeneral = Consumo_general::limit($limite)->offset($offset)->get();
+    // ✅ Obtener los registros paginados
+    $consumoGeneral = Consumo_general::obtenerPaginado($limite, $offset);
 
+    // ✅ Formatear resultados
     foreach ($consumoGeneral as $registro) {
         $registro->tipo_maquina = trim($registro->tipo_maquina);
         $registro->total_general = (float)$registro->total_general;

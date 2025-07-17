@@ -1787,6 +1787,19 @@ public static function procesarArchivoExcelProyecciones($filePath)
 
 
 
+public static function obtenerPaginado($limite, $offset)
+{
+    $sql = "SELECT * FROM " . static::$tabla . " ORDER BY id DESC LIMIT {$limite} OFFSET {$offset}";
+    return self::consultarSQL($sql);
+}
+
+public static function contarTotal()
+{
+    $sql = "SELECT COUNT(*) as total FROM " . static::$tabla;
+    $resultado = self::consultarSQL($sql);
+    return $resultado[0]->total ?? 0;
+}
+
 
 
 

@@ -13,6 +13,10 @@ class Papel extends ActiveRecord {
     public $gramaje;
 
 
+
+
+
+
     
 }
 
