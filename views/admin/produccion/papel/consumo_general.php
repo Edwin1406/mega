@@ -75,6 +75,8 @@ if(curl_errno($ch)) {
 } else {
     // Decodifica la respuesta JSON
     $data = json_decode($response, true);
+
+    debuguear($data); // Función para depurar, si la tienes definida
     echo "<pre>";
     print_r($data);
     echo "</pre>";
