@@ -1792,12 +1792,11 @@ public static function obtenerPaginado($limite, $offset)
     $sql = "SELECT * FROM " . static::$tabla . " ORDER BY id DESC LIMIT {$limite} OFFSET {$offset}";
     return self::consultarSQL($sql);
 }
-
 public static function contarTotal() {
-    $consulta = "SELECT COUNT(*) as total FROM consumo_general";
-    $resultado = self::consultarSQL($consulta);
+    $sql = "SELECT COUNT(*) as total FROM consumo_general";
+    $resultado = self::consultarSQL($sql);
 
-    // Forzar conversión a array para evitar error por propiedad no existente
+    // Convertimos el resultado a array para evitar el error de propiedad inexistente
     $array = json_decode(json_encode($resultado), true);
 
     if (!empty($array) && isset($array[0]['total'])) {
@@ -1806,7 +1805,6 @@ public static function contarTotal() {
 
     return 0;
 }
-
 
 
 
