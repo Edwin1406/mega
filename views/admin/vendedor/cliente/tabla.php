@@ -119,7 +119,7 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 ?>
 
-<?php if (isset($_SESSION['usuario']) && $_SESSION['usuario']->email === 'artes@megaecuador.com'): ?>
+<?php if (isset($_SESSION['usuario']) && $_SESSION['usuario']->email == 'artes@megaecuador.com'): ?>
     <td class="table__td--acciones">
         <a class="table__accion table__accion--editar" href="/admin/vendedor/cliente/editar?id=<?php echo $visores->id; ?>">
             <i class="fa-solid fa-user-pen"></i>Editar
