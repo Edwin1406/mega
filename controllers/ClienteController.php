@@ -145,9 +145,7 @@ class ClienteController
 
         // session
         session_start();
-        if (!isset($_SESSION['usuario'])) {
-            debuguear('No hay usuario en la sesión');
-        }
+        isAdmin();
 
         $id = $_GET['id'] ?? null;
         if ($id == 1) {
