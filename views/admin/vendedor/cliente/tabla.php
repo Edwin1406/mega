@@ -113,11 +113,20 @@
                                     <!-- debe ser artes@megaecuador.com par que salga el boton de editar  -->
                                     <!-- session -->
 
-                                    <?php session_start(); ?>
+                             <?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+?>
 
-                                    <?php if (isset($_SESSION['usuario']) && $_SESSION['usuario']->email === 'artes@megaecuador.com'): ?>
-                            <td  class="table__td--acciones"><a class="table__accion table__accion--editar" href="/admin/vendedor/cliente/editar?id=<?php echo $visores->id; ?>"><i class="fa-solid fa-user-pen"></i>Editar</a>
-                        <?php endif; ?>
+<?php if (isset($_SESSION['usuario']) && $_SESSION['usuario']->email === 'artes@megaecuador.com'): ?>
+    <td class="table__td--acciones">
+        <a class="table__accion table__accion--editar" href="/admin/vendedor/cliente/editar?id=<?php echo $visores->id; ?>">
+            <i class="fa-solid fa-user-pen"></i>Editar
+        </a>
+    </td>
+<?php endif; ?>
+
 
 
                     </tr>
