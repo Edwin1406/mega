@@ -79,6 +79,7 @@ async function cargarApi() {
         const url = `${location.origin}/admin/api/consumo_general`;
         const resultado = await fetch(url);
         const pedidos = await resultado.json();
+        console.log(pedidos);
         return pedidos;
 
     } catch (e) {
