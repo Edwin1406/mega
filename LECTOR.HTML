@@ -134,6 +134,9 @@ function mostrarTabla(datos) {
 
 function crearPaginador(totalItems, paginaActual) {
     const totalPaginas = Math.ceil(totalItems / porPagina);
+
+        console.log('👉 Total páginas:', totalPaginas, '| Página actual:', paginaActual);
+
     if (totalPaginas <= 1) return;
 
     const paginador = document.createElement('div');
