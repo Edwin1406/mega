@@ -52,7 +52,7 @@
 
         </div>
 
-        <input class="formulario__submit formulario__submit--registrar" type="submit" value="Registrar Papel">
+        <input class="formulario__submit formulario__submit--registrar" type="submit" value="Registrar Consumo General">
     </form>
 </div>
 
