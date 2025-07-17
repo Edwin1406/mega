@@ -68,7 +68,7 @@
 
 /* editar boton  */
 .paginador .btn-editar,
-.paginador .btn-eliminar {
+button .btn-eliminar {
     padding: 8px 12px;
     border: none;
     background-color: #28a745;
