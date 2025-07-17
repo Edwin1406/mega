@@ -44,5 +44,60 @@
 
         <input class="formulario__submit formulario__submit--registrar" type="submit" value="Registrar Papel">
     </form>
-
 </div>
+
+
+
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+  <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+  <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+
+
+  
+  <table id="tablaConsumo" class="display">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Tipo de Máquina</th>
+        <th>Total General</th>
+        <th>Fecha</th>
+        <th>Acción</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+  <script>
+    $(document).ready(function () {
+      $.getJSON('https://megawebsistem.com/admin/api/apiConsumoGeneral', function (data) {
+        $('#tablaConsumo').DataTable({
+          data: data,
+          columns: [
+            { data: 'id' },
+            { data: 'tipo_maquina' },
+            { data: 'total_general' },
+            { data: 'created_at' },
+            {
+              data: 'id',
+              render: function (data, type, row) {
+                return `<a href="editar_maquina.html?id=${data}" class="btn-editar">Editar</a>`;
+              }
+            }
+          ]
+        });
+      });
+    });
+  </script>
+
+  <style>
+    .btn-editar {
+      padding: 5px 10px;
+      background-color: #007bff;
+      color: white;
+      text-decoration: none;
+      border-radius: 4px;
+    }
+    .btn-editar:hover {
+      background-color: #0056b3;
+    }
+  </style>
