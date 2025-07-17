@@ -76,7 +76,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 async function cargarApi() {
     try {
-        const url = `${location.origin}/api/consumo_general`;
+        const url = `${location.origin}/admin/api/consumo_general`;
         const resultado = await fetch(url);
         const pedidos = await resultado.json();
         return pedidos;
