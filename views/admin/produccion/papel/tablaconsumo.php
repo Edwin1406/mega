@@ -94,6 +94,11 @@
 </style>
 <div class="dashboard__formulario"></div>
 <div class="tabla__contenedor"></div>
+
+
+
+
+
 <script>
 let paginaActual = 1;
 const porPagina = 10;
@@ -154,32 +159,42 @@ function mostrarTabla(datos) {
 
 function crearPaginador(totalItems, paginaActual) {
     const totalPaginas = Math.ceil(totalItems / porPagina);
+    if (totalPaginas <= 1) return;
+
     const paginador = document.createElement('div');
     paginador.classList.add('paginador');
 
-    if (totalPaginas <= 1) return; // Si hay solo una página, no mostramos paginador
+    // Botón anterior
+    if (paginaActual > 1) {
+        const btnAnterior = document.createElement('button');
+        btnAnterior.textContent = 'Anterior';
+        btnAnterior.addEventListener('click', () => cargarApi(paginaActual - 1));
+        paginador.appendChild(btnAnterior);
+    }
 
+    // Botones de páginas
     for (let i = 1; i <= totalPaginas; i++) {
         const boton = document.createElement('button');
         boton.textContent = i;
         if (i === paginaActual) boton.classList.add('active');
-
-        boton.addEventListener('click', () => {
-            cargarApi(i);
-        });
-
+        boton.addEventListener('click', () => cargarApi(i));
         paginador.appendChild(boton);
     }
 
-    const contenedor = document.querySelector('.tabla__contenedor');
-    contenedor.innerHTML = ''; // Limpiar paginador anterior si existe
-    contenedor.appendChild(paginador);
+    // Botón siguiente
+    if (paginaActual < totalPaginas) {
+        const btnSiguiente = document.createElement('button');
+        btnSiguiente.textContent = 'Siguiente';
+        btnSiguiente.addEventListener('click', () => cargarApi(paginaActual + 1));
+        paginador.appendChild(btnSiguiente);
+    }
 
-    console.log(`Mostrando página ${paginaActual} de ${totalPaginas}`);
+    const contenedor = document.querySelector('.tabla__contenedor');
+    contenedor.innerHTML = '';
+    contenedor.appendChild(paginador);
 }
 
 document.addEventListener('DOMContentLoaded', () => {
     cargarApi();
 });
 </script>
-
