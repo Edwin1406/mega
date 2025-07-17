@@ -80,7 +80,7 @@ const porPagina = 10;
 
 async function cargarApi(pagina = 1) {
     try {
-        const url = `${location.origin}/admin/api/apiConsumoGeneral?pagina=${pagina}&limite=${porPagina}`;
+        const url = `${location.origin}/admin/api/apiConsumoTablaPaginador?pagina=${pagina}&limite=${porPagina}`;
         const resultado = await fetch(url);
         const respuesta = await resultado.json();
 
