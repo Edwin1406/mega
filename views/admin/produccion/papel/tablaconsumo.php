@@ -70,7 +70,6 @@
 
 
 
-
 <script>
 let paginaActual = 1;
 const porPagina = 10;
@@ -81,21 +80,50 @@ async function cargarApi(pagina = 1) {
         const resultado = await fetch(url);
         const respuesta = await resultado.json();
 
-        if (respuesta.datos.length > 0) {
-            mostrarPagina(respuesta.datos);
+        if (respuesta.datos && respuesta.datos.length > 0) {
+            mostrarTabla(respuesta.datos);
             crearPaginador(respuesta.total);
         } else {
-            document.querySelector('.tabla__contenedor').innerHTML = '<p>No hay datos disponibles.</p>';
+            document.querySelector('.dashboard__formulario').innerHTML = '<p>No hay datos disponibles.</p>';
+            document.querySelector('.tabla__contenedor').innerHTML = '';
         }
     } catch (e) {
-        console.error(e);
+        console.error('Error al cargar los datos:', e);
     }
 }
 
-function mostrarPagina(datosPagina) {
+function mostrarTabla(datos) {
     const contenedor = document.querySelector('.dashboard__formulario');
     contenedor.innerHTML = '';
-    crearTabla(datosPagina);
+
+    const tabla = document.createElement('table');
+    tabla.classList.add('tabla');
+
+    const thead = document.createElement('thead');
+    thead.innerHTML = `
+        <tr>
+            <th>ID</th>
+            <th>Tipo Máquina</th>
+            <th>Total General</th>
+            <th>Fecha de Creación</th>
+        </tr>
+    `;
+    tabla.appendChild(thead);
+
+    const tbody = document.createElement('tbody');
+    datos.forEach(dato => {
+        const fila = document.createElement('tr');
+        fila.innerHTML = `
+            <td>${dato.id}</td>
+            <td>${dato.tipo_maquina}</td>
+            <td>${dato.total_general}</td>
+            <td>${dato.created_at}</td>
+        `;
+        tbody.appendChild(fila);
+    });
+
+    tabla.appendChild(tbody);
+    contenedor.appendChild(tabla);
 }
 
 function crearPaginador(totalItems) {
@@ -121,11 +149,9 @@ function crearPaginador(totalItems) {
     contenedor.appendChild(paginador);
 }
 
-// Inicializar
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', () => {
     cargarApi();
 });
-
 </script>
 
 
