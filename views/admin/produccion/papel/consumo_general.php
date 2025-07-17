@@ -52,23 +52,43 @@ document.addEventListener('DOMContentLoaded', function () {
     cargarApi(); // Usar camelCase consistente
 });
 
+// async function cargarApi() {
+//     const url = 'https://megawebsistem.com/admin/api/apiConsumoGeneral';
+
+//     try {
+//         const response = await fetch(url); // Corrección en el nombre de la variable
+//         const data = await response.json();
+
+//         if (!response.ok) {
+//             console.error('Error al cargar los datos:', data);
+//             return;
+//         }
+
+//         // Aquí puedes procesar los datos obtenidos de la API
+//         console.log(data);
+
+//     } catch (error) {
+//         console.error('Error de red o al procesar la respuesta:', error);
+//     }
+// }
+
+
+
 async function cargarApi() {
-    const url = 'https://megawebsistem.com/admin/api/apiConsumoGeneral';
-
     try {
-        const response = await fetch(url); // Corrección en el nombre de la variable
-        const data = await response.json();
+        const url = `${location.origin}/api/consumo_general`;
+        const resultado = await fetch(url);
+        const pedidos = await resultado.json();
+        return pedidos;
 
-        if (!response.ok) {
-            console.error('Error al cargar los datos:', data);
-            return;
-        }
-
-        // Aquí puedes procesar los datos obtenidos de la API
-        console.log(data);
-
-    } catch (error) {
-        console.error('Error de red o al procesar la respuesta:', error);
+    } catch (e) {
+        console.log(e);
     }
 }
+
+
+
+
+
+
 </script>
