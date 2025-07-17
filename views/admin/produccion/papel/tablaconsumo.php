@@ -72,24 +72,18 @@
 
 
 <script>
-document.addEventListener('DOMContentLoaded', function () {
-    cargarApi();
-});
-
-let datosGlobales = [];
 let paginaActual = 1;
 const porPagina = 10;
 
-async function cargarApi() {
+async function cargarApi(pagina = 1) {
     try {
-        const url = `${location.origin}/admin/api/apiConsumoGeneral`;
+        const url = `${location.origin}/admin/api/apiConsumoGeneral?pagina=${pagina}&limite=${porPagina}`;
         const resultado = await fetch(url);
-        const datos = await resultado.json();
+        const respuesta = await resultado.json();
 
-        if (datos.length > 0) {
-            datosGlobales = datos;
-            mostrarPagina(paginaActual);
-            crearPaginador(datos.length);
+        if (respuesta.datos.length > 0) {
+            mostrarPagina(respuesta.datos);
+            crearPaginador(respuesta.total);
         } else {
             document.querySelector('.tabla__contenedor').innerHTML = '<p>No hay datos disponibles.</p>';
         }
@@ -98,45 +92,10 @@ async function cargarApi() {
     }
 }
 
-function mostrarPagina(pagina) {
-    const inicio = (pagina - 1) * porPagina;
-    const fin = inicio + porPagina;
-    const datosPagina = datosGlobales.slice(inicio, fin);
-
+function mostrarPagina(datosPagina) {
     const contenedor = document.querySelector('.dashboard__formulario');
-    contenedor.innerHTML = ''; // Limpiar contenido anterior
+    contenedor.innerHTML = '';
     crearTabla(datosPagina);
-}
-
-function crearTabla(datos) {
-    const tabla = document.createElement('table');
-    tabla.classList.add('tabla');
-
-    const encabezado = document.createElement('thead');
-    encabezado.innerHTML = `
-        <tr>
-            <th>ID</th>
-            <th>Tipo Máquina</th>
-            <th>Total General</th>
-            <th>Fecha de Creación</th>
-        </tr>
-    `;
-    tabla.appendChild(encabezado);
-
-    const cuerpo = document.createElement('tbody');
-    datos.forEach(dato => {
-        const fila = document.createElement('tr');
-        fila.innerHTML = `
-            <td>${dato.id}</td>
-            <td>${dato.tipo_maquina}</td>
-            <td>${dato.total_general}</td>
-            <td>${dato.created_at}</td>
-        `;
-        cuerpo.appendChild(fila);
-    });
-    tabla.appendChild(cuerpo);
-
-    document.querySelector('.dashboard__formulario').appendChild(tabla);
 }
 
 function crearPaginador(totalItems) {
@@ -151,19 +110,22 @@ function crearPaginador(totalItems) {
 
         boton.addEventListener('click', () => {
             paginaActual = i;
-            mostrarPagina(paginaActual);
-            document.querySelectorAll('.paginador button').forEach(b => b.classList.remove('active'));
-            boton.classList.add('active');
+            cargarApi(paginaActual);
         });
 
         paginador.appendChild(boton);
     }
 
-    // Limpiar y agregar al contenedor
     const contenedor = document.querySelector('.tabla__contenedor');
-    contenedor.innerHTML = ''; // Limpiar anterior
+    contenedor.innerHTML = '';
     contenedor.appendChild(paginador);
 }
+
+// Inicializar
+document.addEventListener('DOMContentLoaded', function () {
+    cargarApi();
+});
+
 </script>
 
 

@@ -1066,26 +1066,54 @@ public static function ingresoConsumo(Router $router) {
 
     // api 
 
-    public static function apiConsumoGeneral()
-    {
-        header('Content-Type: application/json');
-        header('Access-Control-Allow-Origin: *');
-        header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE');
+    // public static function apiConsumoGeneral()
+    // {
+    //     header('Content-Type: application/json');
+    //     header('Access-Control-Allow-Origin: *');
+    //     header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE');
 
-        $consumoGeneral = Consumo_general::all();
+    //     $consumoGeneral = Consumo_general::all();
 
-        // Convertir campos numéricos en cada objeto
-        foreach ($consumoGeneral as $registro) {
-            // eliminar espacios en blanco
-            $registro->tipo_maquina = trim($registro->tipo_maquina);
+    //     // Convertir campos numéricos en cada objeto
+    //     foreach ($consumoGeneral as $registro) {
+    //         // eliminar espacios en blanco
+    //         $registro->tipo_maquina = trim($registro->tipo_maquina);
            
-            $registro->total_general = (float)$registro->total_general;
+    //         $registro->total_general = (float)$registro->total_general;
       
-        }
+    //     }
 
-        echo json_encode($consumoGeneral);
+    //     echo json_encode($consumoGeneral);
+    // }
+
+public static function apiConsumoGeneral()
+{
+    header('Content-Type: application/json');
+    header('Access-Control-Allow-Origin: *');
+    header('Access-Control-Allow-Methods: GET');
+
+    $pagina = isset($_GET['pagina']) ? (int)$_GET['pagina'] : 1;
+    $limite = isset($_GET['limite']) ? (int)$_GET['limite'] : 10;
+    $offset = ($pagina - 1) * $limite;
+
+    // Obtener total de registros para paginador
+    $total = Consumo_general::count();
+
+    // Obtener solo los registros necesarios
+    $consumoGeneral = Consumo_general::limit($limite)->offset($offset)->get();
+
+    foreach ($consumoGeneral as $registro) {
+        $registro->tipo_maquina = trim($registro->tipo_maquina);
+        $registro->total_general = (float)$registro->total_general;
     }
 
+    echo json_encode([
+        'datos' => $consumoGeneral,
+        'total' => $total,
+        'pagina' => $pagina,
+        'limite' => $limite
+    ]);
+}
 
 
 
