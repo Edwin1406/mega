@@ -44,6 +44,7 @@
     justify-content: center;
     margin-top: 20px;
     gap: 8px;
+    flex-wrap: wrap;
 }
 
 .paginador button {
@@ -53,6 +54,7 @@
     color: white;
     cursor: pointer;
     border-radius: 4px;
+    transition: background-color 0.2s;
 }
 
 .paginador button:hover {
@@ -63,33 +65,6 @@
     background-color: #0056b3;
     font-weight: bold;
 }
-
-.paginador {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
-    gap: 8px;
-}
-
-.paginador button {
-    padding: 8px 12px;
-    border: none;
-    background-color: #007bff;
-    color: white;
-    cursor: pointer;
-    border-radius: 4px;
-}
-
-.paginador button:hover {
-    background-color: #0056b3;
-}
-
-.paginador button.active {
-    background-color: #0056b3;
-    font-weight: bold;
-}
-
-
 
 </style>
 <div class="dashboard__formulario"></div>
