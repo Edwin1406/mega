@@ -1793,12 +1793,18 @@ public static function obtenerPaginado($limite, $offset)
     return self::consultarSQL($sql);
 }
 
-public static function contarTotal()
-{
-    $sql = "SELECT COUNT(*) as total FROM " . static::$tabla;
-    $resultado = self::consultarSQL($sql);
-    return $resultado[0]->total ?? 0;
+public static function contarTotal() {
+    $consulta = "SELECT COUNT(*) as total FROM consumo_general";
+    $resultado = self::consultarSQL($consulta); // Devuelve array de objetos o arrays
+
+    if (!empty($resultado)) {
+        return (int)$resultado[0]->total;
+    }
+
+    return 0; // Por si falla
 }
+
+
 
 
 
