@@ -1086,11 +1086,13 @@ public static function ingresoConsumo(Router $router) {
         echo json_encode($consumoGeneral);
     }
 
+
+
+    
+
     // tabla consumo general
     public static function tablaconsumo(Router $router)
     {
-       
-
         $router->render('admin/produccion/papel/tablaconsumo', [
             'titulo' => 'TABLA CONSUMO GENERAL',
             

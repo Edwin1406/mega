@@ -2,6 +2,8 @@
 
 <h2 class="dashboard__heading"> <?php echo $titulo ?> </h2>
 
+<div class="dashboard__formulario"></div>
+<div class="tabla__contenedor"></div>
 
 <style>
 
@@ -58,7 +60,7 @@
 </style>
 
 
-<div class="tabla__contenedor"></div>
+
 
 <script>
 document.addEventListener('DOMContentLoaded', function () {
