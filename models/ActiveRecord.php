@@ -1796,11 +1796,16 @@ public static function obtenerPaginado($limite, $offset)
 public static function contarTotal() {
     $consulta = "SELECT COUNT(*) as total FROM consumo_general";
     $resultado = self::consultarSQL($consulta);
-    if (!empty($resultado)) {
-        return (int)$resultado[0]->total;
+
+    // Acceder como array directamente
+    $array = json_decode(json_encode($resultado), true);
+    if (!empty($array)) {
+        return (int)$array[0]['total'];
     }
+
     return 0;
 }
+
 
 
 
