@@ -52,28 +52,6 @@ document.addEventListener('DOMContentLoaded', function () {
     cargarApi(); // Usar camelCase consistente
 });
 
-// async function cargarApi() {
-//     const url = 'https://megawebsistem.com/admin/api/apiConsumoGeneral';
-
-//     try {
-//         const response = await fetch(url); // Corrección en el nombre de la variable
-//         const data = await response.json();
-
-//         if (!response.ok) {
-//             console.error('Error al cargar los datos:', data);
-//             return;
-//         }
-
-//         // Aquí puedes procesar los datos obtenidos de la API
-//         console.log(data);
-
-//     } catch (error) {
-//         console.error('Error de red o al procesar la respuesta:', error);
-//     }
-// }
-
-
-
 async function cargarApi() {
     try {
         const url = `${location.origin}/admin/api/apiConsumoGeneral`;
@@ -87,9 +65,153 @@ async function cargarApi() {
     }
 }
 
+// crear una tbla para mostrar los datos
+function crearTabla(datos) {
+    const tabla = document.createElement('table');
+    tabla.classList.add('tabla');
+
+    // Crear encabezados de la tabla
+    const encabezado = document.createElement('thead');
+    encabezado.innerHTML = `
+        <tr>
+            <th>ID</th>
+            <th>Tipo Máquina</th>
+            <th>Total General</th>
+            <th>Fecha de Creación</th>
+        </tr>
+    `;
+    tabla.appendChild(encabezado);
+
+    // Crear cuerpo de la tabla
+    const cuerpo = document.createElement('tbody');
+    datos.forEach(dato => {
+        const fila = document.createElement('tr');
+        fila.innerHTML = `
+            <td>${dato.id}</td>
+            <td>${dato.tipo_maquina}</td>
+            <td>${dato.total_general}</td>
+            <td>${dato.created_at}</td>
+        `;
+        cuerpo.appendChild(fila);
+    });
+    tabla.appendChild(cuerpo);
+
+    // Agregar la tabla al contenedor deseado
+    const contenedor = document.querySelector('.dashboard__formulario');
+    contenedor.appendChild(tabla);
+}
+
+if (document.querySelector('.dashboard__formulario')) {
+    cargarApi().then(datos => crearTabla(datos));
+}
+
 
 
 
 
 
 </script>
+
+
+
+
+
+<?php
+if (isset($alertas)) {
+    foreach ($alertas as $tipo => $mensajes) {
+        foreach ($mensajes as $mensaje) {
+            echo "console.log('$mensaje');";
+        }
+    }
+}
+if (isset($control)) {
+    echo "const control = " . json_encode($control) . ";";
+} else {
+    echo "const control = {};";
+}
+if (isset($titulo)) {
+    echo "const titulo = '$titulo';";
+} else {
+    echo "const titulo = 'Consumo General';";
+}
+
+if (isset($control->tipo_maquina)) {
+    echo "const tipo_maquina = '{$control->tipo_maquina}';";
+} else {
+    echo "const tipo_maquina = '';";
+}
+if (isset($control->total_general)) {
+    echo "const total_general = '{$control->total_general}';";
+} else {
+    echo "const total_general = '';";
+}
+if (isset($control->created_at)) {
+    echo "const created_at = '{$control->created_at}';";
+} else {
+    echo "const created_at = '';";
+}
+if (isset($control->id)) {
+    echo "const id = {$control->id};";
+} else {
+    echo "const id = null;";
+}
+if (isset($control->alertas)) {
+    echo "const alertas = " . json_encode($control->alertas) . ";";
+} else {
+    echo "const alertas = {};";
+}
+if (isset($control->validar())) {
+    echo "const validaciones = " . json_encode($control->validar()) . ";";
+} else {
+    echo "const validaciones = {};";
+}
+if (isset($control->validar())) {
+    echo "console.log(validaciones);";
+}
+if (isset($control->validar())) {
+    echo "alertas = validaciones;";
+} else {
+    echo "alertas = {};";
+}
+if (isset($control->validar())) {
+    echo "console.log(alertas);";
+}
+if (isset($control->validar())) {
+    echo "alertas = validaciones;";
+} else {
+    echo "alertas = {};";
+}
+if (isset($control->validar())) {
+    echo "console.log(alertas);";
+}
+if (isset($control->validar())) {
+    echo "alertas = validaciones;";
+} else {
+    echo "alertas = {};";
+}
+if (isset($control->validar())) {
+    echo "console.log(alertas);";
+}
+if (isset($control->validar())) {
+    echo "alertas = validaciones;";
+} else {
+    echo "alertas = {};";
+}
+if (isset($control->validar())) {
+    echo "console.log(alertas);";
+} else {
+    echo "alertas = {};";
+}
+if (isset($control->validar())) {
+    echo "alertas = validaciones;";
+} else {
+    echo "alertas = {};";
+}
+
+
+
+
+
+
+
+
