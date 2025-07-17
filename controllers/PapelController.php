@@ -1098,7 +1098,7 @@ public static function apiConsumoGeneral()
     // ✅ Obtener total de registros
     // $total = Consumo_general::contarTotal();
 $total = Consumo_general::contarTotal();
-debuguear($total);
+// debuguear($total);
 
     // ✅ Obtener los registros paginados
     $consumoGeneral = Consumo_general::obtenerPaginado($limite, $offset);
