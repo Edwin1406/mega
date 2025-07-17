@@ -1792,22 +1792,14 @@ public static function obtenerPaginado($limite, $offset)
     $sql = "SELECT * FROM " . static::$tabla . " ORDER BY id DESC LIMIT {$limite} OFFSET {$offset}";
     return self::consultarSQL($sql);
 }
+public static function contarTotal() {
+    $sql = "SELECT COUNT(*) as total FROM consumo_general";
 
-
-
-public static function contarTotal($columna = null, $valor = null) {
-    // Construye la consulta base
-    $sql = "SELECT COUNT(*) as total FROM " . static::$tabla;
-
-    // Agrega filtro si se especifica columna y valor
-    if ($columna !== null && $valor !== null) {
-        $sql .= " WHERE `$columna` LIKE '%" . addslashes($valor) . "%'";
-    }
-
-    // Ejecuta consulta y obtiene resultado
     $resultado = self::consultarSQL($sql);
 
-    // Convertimos a array para acceder al campo 'total' sin errores
+    debuguear($resultado);
+
+    // Convertimos el resultado a array para evitar el error de propiedad inexistente
     $array = json_decode(json_encode($resultado), true);
 
     if (!empty($array) && isset($array[0]['total'])) {
