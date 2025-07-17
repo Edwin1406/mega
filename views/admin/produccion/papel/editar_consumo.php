@@ -34,7 +34,7 @@
                 <option value="MICRO" <?php echo (isset($consumo->tipo_maquina) && $consumo->tipo_maquina == 'MICRO') ? 'selected' : ''; ?>>MICRO</option>
                 <option value="TROQUEL" <?php echo (isset($consumo->tipo_maquina) && $consumo->tipo_maquina == 'TROQUEL') ? 'selected' : ''; ?>>TROQUEL</option>
                 <option value="FLEXOGRAFICA" <?php echo (isset($consumo->tipo_maquina) && $consumo->tipo_maquina == 'FLEXOGRAFICA') ? 'selected' : ''; ?>>FLEXOGRAFICA</option>
-                <option value="PRE PRINTER " <?php echo (isset($consumo->tipo_maquina) && $consumo->tipo_maquina == 'PRE PRINTER ') ? 'selected' : ''; ?>>PRE PRINTER </option>
+                <option value="PRE-PRINTER" <?php echo (isset($consumo->tipo_maquina) && $consumo->tipo_maquina == 'PRE-PRINTER') ? 'selected' : ''; ?>>PRE-PRINTER</option>
                 <option value="DOBLADO" <?php echo (isset($consumo->tipo_maquina) && $consumo->tipo_maquina == 'DOBLADO') ? 'selected' : ''; ?>>DOBLADO</option>
                 <option value="CORTE CEJA" <?php echo (isset($consumo->tipo_maquina) && $consumo->tipo_maquina == 'CORTE CEJA') ? 'selected' : ''; ?>>CORTE CEJA</option>
                 <option value="TROQUEL" <?php echo (isset($consumo->tipo_maquina) && $consumo->tipo_maquina == 'TROQUEL') ? 'selected' : ''; ?>>TROQUEL</option>
