@@ -66,6 +66,18 @@
     font-weight: bold;
 }
 
+/* editar boton  */
+.paginador .btn-editar,
+.paginador .btn-eliminar {
+    padding: 8px 12px;
+    border: none;
+    background-color: #28a745;
+    color: white;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.2s;
+}
+
 </style>
 <div class="dashboard__formulario"></div>
 <div class="tabla__contenedor"></div>
