@@ -53,7 +53,7 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 async function cargarApi() {
-    const url = 'http://localhost:3000/api/consumo_general';
+    const url = 'https://megawebsistem.com/admin/api/apiConsumoGeneral';
 
     try {
         const response = await fetch(url); // Corrección en el nombre de la variable
