@@ -1091,7 +1091,7 @@ public static function apiConsumoGeneral()
     header('Content-Type: application/json');
     header('Access-Control-Allow-Origin: *');
 
-    $pagina = isset($_GET['pagina']) ? (int)$_GET['pagina'] : 2;
+    $pagina = isset($_GET['pagina']) ? (int)$_GET['pagina'] : 1;
     $limite = isset($_GET['limite']) ? (int)$_GET['limite'] : 10;
     $offset = ($pagina - 1) * $limite;
 
