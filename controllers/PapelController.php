@@ -1049,7 +1049,7 @@ public static function ingresoConsumo(Router $router) {
             if (empty($alertas)) {
                 // Guardar el registro
                 $control->guardar();
-                header('Location: /admin/produccion/papel/consumo_general');
+                header('Location: /admin/produccion/papel/tablaconsumo');
                 exit;
             }
            
@@ -1088,7 +1088,7 @@ public static function ingresoConsumo(Router $router) {
 
 
 
-    
+
 
     // tabla consumo general
     public static function tablaconsumo(Router $router)
