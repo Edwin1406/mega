@@ -1795,14 +1795,13 @@ public static function obtenerPaginado($limite, $offset)
 
 public static function contarTotal() {
     $consulta = "SELECT COUNT(*) as total FROM consumo_general";
-    $resultado = self::consultarSQL($consulta); // Devuelve array de objetos o arrays
-
+    $resultado = self::consultarSQL($consulta);
     if (!empty($resultado)) {
         return (int)$resultado[0]->total;
     }
-
-    return 0; // Por si falla
+    return 0;
 }
+
 
 
 
