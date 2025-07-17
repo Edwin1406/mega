@@ -145,8 +145,12 @@ class ClienteController
 
         // session
         session_start();
-        debuguear($_SESSION);
-        isAdmin();
+        // debuguear($_SESSION);
+        // Verificar si el usuario es artes@megaecuador.com
+        if ($_SESSION['usuario']->email !== 'artes@megaecuador.com') {
+            header('Location: /');
+            exit;
+        }
 
         $id = $_GET['id'] ?? null;
         if ($id == 1) {
