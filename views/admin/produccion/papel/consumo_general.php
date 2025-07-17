@@ -48,28 +48,27 @@
 
 
 <script>
-
-
-document.addEventListener('DOMContentLoaded', function() {
-    cargarapi();
+document.addEventListener('DOMContentLoaded', function () {
+    cargarApi(); // Usar camelCase consistente
 });
 
-
-
-async function cargarapi(){
+async function cargarApi() {
     const url = 'http://localhost:3000/api/consumo_general';
-    const respoder = await fetch(url);
-    const response = await respoder.json();
-    if (!respoder.ok) {
-        console.error('Error al cargar los datos:', response);
-        return;
+
+    try {
+        const response = await fetch(url); // Corrección en el nombre de la variable
+        const data = await response.json();
+
+        if (!response.ok) {
+            console.error('Error al cargar los datos:', data);
+            return;
+        }
+
+        // Aquí puedes procesar los datos obtenidos de la API
+        console.log(data);
+
+    } catch (error) {
+        console.error('Error de red o al procesar la respuesta:', error);
     }
-    
-    // Aquí puedes procesar los datos obtenidos de la API
-    console.log(response);
 }
-
-
-
-
 </script>
