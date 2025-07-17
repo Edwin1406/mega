@@ -74,7 +74,7 @@ function obtenerDatosAPI($url) {
     return json_decode($respuesta, true);
 }
 
-$apiUrl = "https://megawebsistem.com/admin/api/apiConsumoGeneral";
+$apiUrl = "https://megawebsistem.com/admin/api/apiConsumoGeneral"; 
 $datos = obtenerDatosAPI($apiUrl);
 
 // Variables por defecto
