@@ -142,6 +142,14 @@ class ClienteController
 
     public static function tabla(Router $router)
     {
+
+        // session
+        session_start();
+        if (!isset($_SESSION['usuario'])) {
+            header('Location: /admin/login');
+            exit;
+        }
+
         $id = $_GET['id'] ?? null;
         if ($id == 1) {
             Cliente::setAlerta('exito', 'El Cliente se guardo correctamente');
