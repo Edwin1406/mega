@@ -174,6 +174,8 @@ function crearPaginador(totalItems, paginaActual) {
     const contenedor = document.querySelector('.tabla__contenedor');
     contenedor.innerHTML = ''; // Limpiar paginador anterior si existe
     contenedor.appendChild(paginador);
+
+    console.log(`Mostrando página ${paginaActual} de ${totalPaginas}`);
 }
 
 document.addEventListener('DOMContentLoaded', () => {
