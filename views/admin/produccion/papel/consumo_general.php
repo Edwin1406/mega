@@ -104,8 +104,7 @@
 
     table.dataTable {
   width: 100% !important; /* Asegura que no se desborde */
-  overflow-x: auto;       /* Evita que se rompa el diseño */
-  display: block;         /* Necesario para aplicar scroll */
+    margin: 0 auto; /* Centra la tabla */
 }
 
   </style>
