@@ -47,78 +47,38 @@
 </div>
 
 
-
-<h2 style="text-align:center;">Consumo General por Máquina</h2>
-
-
 <?php
-function obtenerDatosAPI($url) {
-    $ch = curl_init($url);
-    curl_setopt_array($ch, [
-        CURLOPT_RETURNTRANSFER => true,
-        CURLOPT_FOLLOWLOCATION => true,
-        CURLOPT_MAXREDIRS => 5,
-        CURLOPT_SSL_VERIFYPEER => false,
-        CURLOPT_HEADER => false,
-        CURLOPT_USERAGENT => 'Mozilla/5.0'
-    ]);
 
-    $respuesta = curl_exec($ch);
+// URL de la API
+$url = 'https://megawebsistem.com/admin/api/apiConsumoGeneral';
 
-    if (curl_errno($ch)) {
-        echo "<p class='error'>Error al conectar con la API: " . curl_error($ch) . "</p>";
-        return null;
-    }
+// Inicializa cURL
+$ch = curl_init($url);
 
-    curl_close($ch);
-    return json_decode($respuesta, true);
-}
+// Opciones de cURL
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true); // Retorna el resultado en lugar de imprimirlo
+curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false); // Solo si el certificado SSL no es válido
 
-$apiUrl = "https://megawebsistem.com/admin/api/apiConsumoGeneral"; 
-$datos = obtenerDatosAPI($apiUrl);
+// Si necesitas enviar encabezados personalizados, como un token:
+// $headers = [
+//     'Authorization: Bearer TU_TOKEN_AQUI',
+//     'Content-Type: application/json'
+// ];
+// curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 
-// Variables por defecto
-$porPagina = 5;
-$pagina = isset($_GET['pagina']) ? (int)$_GET['pagina'] : 1;
-$pagina = max($pagina, 1);
-$inicio = ($pagina - 1) * $porPagina;
+// Ejecuta la petición
+$response = curl_exec($ch);
 
-if (is_array($datos)) {
-    $totalRegistros = count($datos);
-    $totalPaginas = ceil($totalRegistros / $porPagina);
-    $datosPagina = array_slice($datos, $inicio, $porPagina);
+// Manejo de errores
+if(curl_errno($ch)) {
+    echo 'Error en la petición: ' . curl_error($ch);
 } else {
-    $totalPaginas = 0;
-    $datosPagina = [];
+    // Decodifica la respuesta JSON
+    $data = json_decode($response, true);
+    echo "<pre>";
+    print_r($data);
+    echo "</pre>";
 }
-?>
 
-
-<table>
-  <thead>
-    <tr>
-      <th>ID</th>
-      <th>Tipo de Máquina</th>
-      <th>Total General</th>
-      <th>Fecha</th>
-      <th>Acción</th>
-    </tr>
-  </thead>
-  <tbody>
-    <?php foreach ($datosPagina as $fila): ?>
-      <tr>
-        <td><?= htmlspecialchars($fila['id']) ?></td>
-        <td><?= htmlspecialchars($fila['tipo_maquina']) ?></td>
-        <td><?= htmlspecialchars($fila['total_general']) ?></td>
-        <td><?= htmlspecialchars($fila['created_at']) ?></td>
-        <td><a class="btn-editar" href="editar_maquina.php?id=<?= urlencode($fila['id']) ?>">Editar</a></td>
-      </tr>
-    <?php endforeach; ?>
-  </tbody>
-</table>
-
-<div class="paginador">
-  <?php for ($i = 1; $i <= $totalPaginas; $i++): ?>
-    <a href="?pagina=<?= $i ?>" class="<?= $i == $pagina ? 'active' : '' ?>"><?= $i ?></a>
-  <?php endfor; ?>
-</div>
+// Cierra cURL
+curl_close($ch);
