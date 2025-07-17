@@ -1,5 +1,13 @@
 <h2 class="dashboard__heading"> <?php echo $titulo ?> </h2>
 
+<!-- VER TABLA -->
+<div class="dashboard__contenedor-boton">
+    <a class="dashboard__boton" href="/admin/produccion/papel/tablaconsumo">
+        <i class="fa-regular fa-eye"></i>
+        VER TABLA DE CONSUMO GENERAL
+    </a>
+</div>
+
 <div class="dashboard__formulario">
 
     <?php include_once __DIR__ . '/../../../templates/alertas.php'  ?>
