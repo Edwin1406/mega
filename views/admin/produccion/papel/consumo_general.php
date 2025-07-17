@@ -47,6 +47,19 @@
 </div>
 
 
+
+
+<!-- tabla -->
+
+<div class="dashboard__formulario">
+    <h2 class="dashboard__heading">Consumo General</h2>
+    <div class="tabla__contenedor">
+        <!-- Aquí se cargará la tabla con los datos -->
+    </div>
+
+
+
+
 <script>
 document.addEventListener('DOMContentLoaded', function () {
     cargarApi(); // Usar camelCase consistente
