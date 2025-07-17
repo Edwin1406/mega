@@ -35,6 +35,8 @@
             <option value="GUILLOTINA LAMINA" <?php echo (isset($control->tipo_maquina) && $control->tipo_maquina == 'GUILLOTINA LAMINA') ? 'selected' : ''; ?>>GUILLOTINA LAMINA</option>
             <option value="GUILLOTINA PAPEL" <?php echo (isset($control->tipo_maquina) && $control->tipo_maquina == 'GUILLOTINA PAPEL') ? 'selected' : ''; ?>>GUILLOTINA PAPEL</option>
             <option value="EMPAQUE" <?php echo (isset($control->tipo_maquina) && $control->tipo_maquina == 'EMPAQUE') ? 'selected' : ''; ?>>EMPAQUE</option>
+             <option value="BODEGA" <?php echo (isset($control->tipo_maquina) && $control->tipo_maquina == 'BODEGA') ? 'selected' : ''; ?>>BODEGA</option>
+            
         </select>
         
         <div class="formulario__campo">
