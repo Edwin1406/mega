@@ -69,7 +69,6 @@
 </style>
 
 
-
 <script>
 let paginaActual = 1;
 const porPagina = 10;
@@ -80,9 +79,11 @@ async function cargarApi(pagina = 1) {
         const resultado = await fetch(url);
         const respuesta = await resultado.json();
 
+        paginaActual = pagina;
+
         if (respuesta.datos && respuesta.datos.length > 0) {
             mostrarTabla(respuesta.datos);
-            crearPaginador(respuesta.total);
+            crearPaginador(respuesta.total, paginaActual);
         } else {
             document.querySelector('.dashboard__formulario').innerHTML = '<p>No hay datos disponibles.</p>';
             document.querySelector('.tabla__contenedor').innerHTML = '';
@@ -126,7 +127,7 @@ function mostrarTabla(datos) {
     contenedor.appendChild(tabla);
 }
 
-function crearPaginador(totalItems) {
+function crearPaginador(totalItems, paginaActual) {
     const totalPaginas = Math.ceil(totalItems / porPagina);
     const paginador = document.createElement('div');
     paginador.classList.add('paginador');
@@ -137,8 +138,7 @@ function crearPaginador(totalItems) {
         if (i === paginaActual) boton.classList.add('active');
 
         boton.addEventListener('click', () => {
-            paginaActual = i;
-            cargarApi(paginaActual);
+            cargarApi(i);
         });
 
         paginador.appendChild(boton);
@@ -153,6 +153,4 @@ document.addEventListener('DOMContentLoaded', () => {
     cargarApi();
 });
 </script>
-
-
 
