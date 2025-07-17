@@ -47,40 +47,29 @@
 </div>
 
 
-<?php
+<script>
 
-// URL de la API
-$url = 'https://megawebsistem.com/admin/api/apiConsumoGeneral';
 
-// Inicializa cURL
-$ch = curl_init($url);
+document.addEventListener('DOMContentLoaded', function() {
+    cargarapi();
+});
 
-// Opciones de cURL
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, true); // Retorna el resultado en lugar de imprimirlo
-curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false); // Solo si el certificado SSL no es válido
 
-// Si necesitas enviar encabezados personalizados, como un token:
-// $headers = [
-//     'Authorization: Bearer TU_TOKEN_AQUI',
-//     'Content-Type: application/json'
-// ];
-// curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 
-// Ejecuta la petición
-$response = curl_exec($ch);
-
-// Manejo de errores
-if(curl_errno($ch)) {
-    echo 'Error en la petición: ' . curl_error($ch);
-} else {
-    // Decodifica la respuesta JSON
-    $data = json_decode($response, true);
-
-    debuguear($data); // Función para depurar, si la tienes definida
-    echo "<pre>";
-    print_r($data);
-    echo "</pre>";
+async function cargarapi(){
+    const url = 'http://localhost:3000/api/consumo_general';
+    const respoder = await fetch(url);
+    const response = await respoder.json();
+    if (!respoder.ok) {
+        console.error('Error al cargar los datos:', response);
+        return;
+    }
+    
+    // Aquí puedes procesar los datos obtenidos de la API
+    console.log(response);
 }
 
-// Cierra cURL
-curl_close($ch);
+
+
+
+</script>
