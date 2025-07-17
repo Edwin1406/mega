@@ -101,7 +101,7 @@
 
 </style>
 
-<div class="dashboard__formulario"></div>
+
 <div class="tabla__contenedor"></div>
 
 <script>
