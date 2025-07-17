@@ -51,23 +51,35 @@
 <h2 style="text-align:center;">Consumo General por Máquina</h2>
 
 <?php
-// Parámetros de paginación
-$porPagina = 5;
-$pagina = isset($_GET['pagina']) ? (int)$_GET['pagina'] : 1;
-$inicio = ($pagina - 1) * $porPagina;
+function obtenerDatosAPI($url) {
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true); // sigue redirecciones
+    curl_setopt($ch, CURLOPT_MAXREDIRS, 10);         // máximo 10 redirecciones
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false); // evita error por SSL
+    $respuesta = curl_exec($ch);
 
-// Obtener datos de la API
+    if (curl_errno($ch)) {
+        echo "Error al conectar con la API: " . curl_error($ch);
+        return null;
+    }
+
+    curl_close($ch);
+    return json_decode($respuesta, true);
+}
+
+// Uso:
 $apiUrl = "https://megawebsistem.com/admin/api/apiConsumoGeneral";
-$json = file_get_contents($apiUrl);
-$datos = json_decode($json, true);
+$datos = obtenerDatosAPI($apiUrl);
 
-// Total de registros y páginas
-$totalRegistros = count($datos);
-$totalPaginas = ceil($totalRegistros / $porPagina);
-
-// Extraer los datos para la página actual
-$datosPagina = array_slice($datos, $inicio, $porPagina);
+if (is_array($datos)) {
+    // Aquí haces count(), foreach, etc.
+} else {
+    echo "<p style='color:red; text-align:center;'>No se pudo obtener datos de la API.</p>";
+}
 ?>
+
 
 <table>
   <thead>
