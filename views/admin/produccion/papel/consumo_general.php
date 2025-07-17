@@ -104,7 +104,7 @@
 
     table.dataTable {
   width: 100% !important; /* Asegura que no se desborde */
-    margin: 0 auto; /* Centra la tabla */
+   
     border-collapse: collapse; /* Elimina el espacio entre celdas */
     font-size: 14px; /* Ajusta el tamaño de fuente */
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Añade sombra para un efecto de profundidad */
@@ -112,7 +112,7 @@
     border-radius: 8px; /* Bordes redondeados */
     overflow: hidden; /* Evita el desbordamiento de bordes redondeados */
     margin-top: 20px; /* Espacio superior */
-    
+
 }
 
   </style>
