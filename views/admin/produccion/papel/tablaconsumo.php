@@ -65,9 +65,34 @@
     font-weight: bold;
 }
 
+.paginador {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    gap: 8px;
+}
+
+.paginador button {
+    padding: 8px 12px;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.paginador button:hover {
+    background-color: #0056b3;
+}
+
+.paginador button.active {
+    background-color: #0056b3;
+    font-weight: bold;
+}
+
+
 
 </style>
-
 
 <script>
 let paginaActual = 1;
@@ -132,6 +157,8 @@ function crearPaginador(totalItems, paginaActual) {
     const paginador = document.createElement('div');
     paginador.classList.add('paginador');
 
+    if (totalPaginas <= 1) return; // Si hay solo una página, no mostramos paginador
+
     for (let i = 1; i <= totalPaginas; i++) {
         const boton = document.createElement('button');
         boton.textContent = i;
@@ -145,7 +172,7 @@ function crearPaginador(totalItems, paginaActual) {
     }
 
     const contenedor = document.querySelector('.tabla__contenedor');
-    contenedor.innerHTML = '';
+    contenedor.innerHTML = ''; // Limpiar paginador anterior si existe
     contenedor.appendChild(paginador);
 }
 
