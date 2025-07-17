@@ -48,64 +48,52 @@
 
 
 
-  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
-  <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
-  <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<h2 style="text-align:center;">Consumo General por Máquina</h2>
 
+<?php
+// Parámetros de paginación
+$porPagina = 5;
+$pagina = isset($_GET['pagina']) ? (int)$_GET['pagina'] : 1;
+$inicio = ($pagina - 1) * $porPagina;
 
-  
-  <table id="tablaConsumo" class="display">
-    <thead>
+// Obtener datos de la API
+$apiUrl = "https://megawebsistem.com/admin/api/apiConsumoGeneral";
+$json = file_get_contents($apiUrl);
+$datos = json_decode($json, true);
+
+// Total de registros y páginas
+$totalRegistros = count($datos);
+$totalPaginas = ceil($totalRegistros / $porPagina);
+
+// Extraer los datos para la página actual
+$datosPagina = array_slice($datos, $inicio, $porPagina);
+?>
+
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Tipo de Máquina</th>
+      <th>Total General</th>
+      <th>Fecha</th>
+      <th>Acción</th>
+    </tr>
+  </thead>
+  <tbody>
+    <?php foreach ($datosPagina as $fila): ?>
       <tr>
-        <th>ID</th>
-        <th>Tipo de Máquina</th>
-        <th>Total General</th>
-        <th>Fecha</th>
-        <th>Acción</th>
+        <td><?= htmlspecialchars($fila['id']) ?></td>
+        <td><?= htmlspecialchars($fila['tipo_maquina']) ?></td>
+        <td><?= htmlspecialchars($fila['total_general']) ?></td>
+        <td><?= htmlspecialchars($fila['created_at']) ?></td>
+        <td><a class="btn-editar" href="editar_maquina.php?id=<?= urlencode($fila['id']) ?>">Editar</a></td>
       </tr>
-    </thead>
-    <tbody></tbody>
-  </table>
+    <?php endforeach; ?>
+  </tbody>
+</table>
 
-  <script>
-    $(document).ready(function () {
-      $.getJSON('https://megawebsistem.com/admin/api/apiConsumoGeneral', function (data) {
-        $('#tablaConsumo').DataTable({
-          data: data,
-          columns: [
-            { data: 'id' },
-            { data: 'tipo_maquina' },
-            { data: 'total_general' },
-            { data: 'created_at' },
-            {
-              data: 'id',
-              render: function (data, type, row) {
-                return `<a href="editar_maquina.html?id=${data}" class="btn-editar">Editar</a>`;
-              }
-            }
-          ]
-        });
-      });
-    });
-  </script>
-
-  <style>
-    .btn-editar {
-      padding: 5px 10px;
-      background-color: #007bff;
-      color: white;
-      text-decoration: none;
-      border-radius: 4px;
-    }
-    .btn-editar:hover {
-      background-color: #0056b3;
-    }
-
-
-    table.dataTable {
-  width: 100% !important; /* Asegura que no se desborde */
-    margin: 0 auto; /* Centra la tabla */
-    
-}
-
-  </style>
+<div class="paginador">
+  <?php for ($i = 1; $i <= $totalPaginas; $i++): ?>
+    <a href="?pagina=<?= $i ?>" class="<?= $i == $pagina ? 'active' : '' ?>"><?= $i ?></a>
+  <?php endfor; ?>
+</div>
