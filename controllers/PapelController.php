@@ -1131,7 +1131,7 @@ public static function apiConsumoTablaPaginador()
 
     // ediatar
 
-    public static function editar_consumo_general(Router $router)
+    public static function editar_consumo(Router $router)
     {
         $alertas = [];
         $id = $_GET['id'];
@@ -1160,14 +1160,14 @@ public static function apiConsumoTablaPaginador()
             }
         }
 
-        $router->render('admin/produccion/papel/editar_consumo_general', [
+        $router->render('admin/produccion/papel/editar_consumo', [
             'titulo' => 'EDITAR CONSUMO GENERAL',
             'alertas' => $alertas,
             'consumo' => $consumo
         ]);
     }
 
-    
+
 
 
 
