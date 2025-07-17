@@ -11,6 +11,8 @@ class Papel extends ActiveRecord {
     public $descripcion;
     public $peso;
     public $gramaje;
+    // total
+    public $total;
 
 
 
