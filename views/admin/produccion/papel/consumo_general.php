@@ -101,9 +101,7 @@ function crearTabla(datos) {
     contenedor.appendChild(tabla);
 }
 
-if (document.querySelector('.dashboard__formulario')) {
-    cargarApi().then(datos => crearTabla(datos));
-}
+
 
 
 
@@ -113,100 +111,6 @@ if (document.querySelector('.dashboard__formulario')) {
 </script>
 
 
-
-
-
-<?php
-if (isset($alertas)) {
-    foreach ($alertas as $tipo => $mensajes) {
-        foreach ($mensajes as $mensaje) {
-            echo "console.log('$mensaje');";
-        }
-    }
-}
-if (isset($control)) {
-    echo "const control = " . json_encode($control) . ";";
-} else {
-    echo "const control = {};";
-}
-if (isset($titulo)) {
-    echo "const titulo = '$titulo';";
-} else {
-    echo "const titulo = 'Consumo General';";
-}
-
-if (isset($control->tipo_maquina)) {
-    echo "const tipo_maquina = '{$control->tipo_maquina}';";
-} else {
-    echo "const tipo_maquina = '';";
-}
-if (isset($control->total_general)) {
-    echo "const total_general = '{$control->total_general}';";
-} else {
-    echo "const total_general = '';";
-}
-if (isset($control->created_at)) {
-    echo "const created_at = '{$control->created_at}';";
-} else {
-    echo "const created_at = '';";
-}
-if (isset($control->id)) {
-    echo "const id = {$control->id};";
-} else {
-    echo "const id = null;";
-}
-if (isset($control->alertas)) {
-    echo "const alertas = " . json_encode($control->alertas) . ";";
-} else {
-    echo "const alertas = {};";
-}
-if (isset($control->validar())) {
-    echo "const validaciones = " . json_encode($control->validar()) . ";";
-} else {
-    echo "const validaciones = {};";
-}
-if (isset($control->validar())) {
-    echo "console.log(validaciones);";
-}
-if (isset($control->validar())) {
-    echo "alertas = validaciones;";
-} else {
-    echo "alertas = {};";
-}
-if (isset($control->validar())) {
-    echo "console.log(alertas);";
-}
-if (isset($control->validar())) {
-    echo "alertas = validaciones;";
-} else {
-    echo "alertas = {};";
-}
-if (isset($control->validar())) {
-    echo "console.log(alertas);";
-}
-if (isset($control->validar())) {
-    echo "alertas = validaciones;";
-} else {
-    echo "alertas = {};";
-}
-if (isset($control->validar())) {
-    echo "console.log(alertas);";
-}
-if (isset($control->validar())) {
-    echo "alertas = validaciones;";
-} else {
-    echo "alertas = {};";
-}
-if (isset($control->validar())) {
-    echo "console.log(alertas);";
-} else {
-    echo "alertas = {};";
-}
-if (isset($control->validar())) {
-    echo "alertas = validaciones;";
-} else {
-    echo "alertas = {};";
-}
 
 
 
