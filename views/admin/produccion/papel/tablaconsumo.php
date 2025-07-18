@@ -1,7 +1,42 @@
+ // eliminar consumo
+    public static function eliminar_consumo()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $id = $_POST['id'];
+            $id = filter_var($id, FILTER_VALIDATE_INT);
+            $consumo = Consumo_general::find($id);
 
+            if (!isset($consumo)) {
+                header('Location: /admin/produccion/papel/tablaconsumo');
+                exit;
+            }
+            $resultado = $consumo->eliminar();
+            if ($resultado) {
+                header('Location: /admin/produccion/papel/tablaconsumo');
+                exit;
+            }
+        }
+    }
+    
+    
+    
+    
+    
+    
+    
+    tabla consumo
+    
+    
+    
+    
+    
 
 <h2 class="dashboard__heading"> <?php echo $titulo ?> </h2>
 
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <div class="dashboard__contenedor-boton">
     <a class="dashboard__boton" href="/admin/produccion/papel/consumo_general">
@@ -22,6 +57,12 @@
     margin-top: 20px;
     font-family: Arial, sans-serif;
 }
+
+.swal-wide {
+    width: 800px !important;
+    font-size: 2rem;
+}
+
 
 .tabla th,
 .tabla td {
@@ -76,10 +117,34 @@ button.btn-editar {
     border-radius: 4px;
     transition: background-color 0.2s;
 }
+
+button.btn-editar:hover {
+    background-color: #218838;
+}
+
+/* eliminar boton  */
+button.btn-eliminar {
+    border: none;
+    background-color: #dc3545;
+    color: white;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.2s;
+}
+
+button.btn-eliminar:hover {
+    background-color: #c82333;
+}
+
 .dashboard__sidebar {
             /* Suponiendo que el contenedor tiene la clase .barra-lateral */
             display: none;
         }
+
+
+
+
+
 
 </style>
 <div class="dashboard__formulario"></div>
@@ -87,6 +152,133 @@ button.btn-editar {
 
 
 
+<!-- 
+
+<script>
+let paginaActual = 1;
+const porPagina = 10;
+
+async function cargarApi(pagina = 1) {
+    try {
+        const url = `${location.origin}/admin/api/apiConsumoTablaPaginador?pagina=${pagina}&limite=${porPagina}`;
+        const resultado = await fetch(url);
+        const respuesta = await resultado.json();
+
+        paginaActual = pagina;
+
+        if (respuesta.datos && respuesta.datos.length > 0) {
+            mostrarTabla(respuesta.datos);
+            crearPaginador(respuesta.total, paginaActual);
+        } else {
+            document.querySelector('.dashboard__formulario').innerHTML = '<p>No hay datos disponibles.</p>';
+            document.querySelector('.tabla__contenedor').innerHTML = '';
+        }
+    } catch (e) {
+        console.error('Error al cargar los datos:', e);
+    }
+}
+
+function mostrarTabla(datos) {
+    const contenedor = document.querySelector('.dashboard__formulario');
+    contenedor.innerHTML = '';
+
+    const tabla = document.createElement('table');
+    tabla.classList.add('tabla');
+
+    const thead = document.createElement('thead');
+    thead.innerHTML = `
+        <tr>
+            <th>ID</th>
+            <th>Tipo Máquina</th>
+            <th>Total General</th>
+            <th>Fecha de Creación</th>
+            <th>Acciones</th>
+        </tr>
+    `;
+    tabla.appendChild(thead);
+
+    const tbody = document.createElement('tbody');
+    datos.forEach(dato => {
+        const fila = document.createElement('tr');
+        const deshabilitar = dato.accion === 0 ? 'disabled' : '';
+
+        fila.innerHTML = `
+            <td>${dato.id}</td>
+            <td>${dato.tipo_maquina}</td>
+            <td>${dato.total_general}</td>
+            <td>${dato.created_at}</td>         
+            <td>
+            
+                 <button class="btn-editar" data-id="${dato.id}" ${deshabilitar}>Editar</button>
+                <button class="btn-eliminar" data-id="${dato.id}" ${deshabilitar}>Eliminar</button>
+            </td>
+        `;
+        tbody.appendChild(fila);
+    });
+
+    tabla.appendChild(tbody);
+    contenedor.appendChild(tabla);
+}
+
+// boton editar
+document.addEventListener('click', function(e) {
+    if (e.target.classList.contains('btn-editar')) {
+        const id = e.target.getAttribute('data-id');
+        window.location.href = `/admin/produccion/papel/editar_consumo?id=${id}`;
+    }
+});
+
+// boton eliminar
+document.addEventListener('click', function(e) {
+    if (e.target.classList.contains('btn-eliminar')) {
+        const id = e.target.getAttribute('data-id');
+        if (confirm('¿Estás seguro de que deseas eliminar este registro?')) {
+            window.location.href = `/admin/produccion/papel/editar_consumo?id=${id}`;
+        }
+    }
+});
+
+function crearPaginador(totalItems, paginaActual) {
+    const totalPaginas = Math.ceil(totalItems / porPagina);
+    if (totalPaginas <= 1) return;
+
+    const paginador = document.createElement('div');
+    paginador.classList.add('paginador');
+
+    // Botón anterior
+    if (paginaActual > 1) {
+        const btnAnterior = document.createElement('button');
+        btnAnterior.textContent = 'Anterior';
+        btnAnterior.addEventListener('click', () => cargarApi(paginaActual - 1));
+        paginador.appendChild(btnAnterior);
+    }
+
+    // Botones de páginas
+    for (let i = 1; i <= totalPaginas; i++) {
+        const boton = document.createElement('button');
+        boton.textContent = i;
+        if (i === paginaActual) boton.classList.add('active');
+        boton.addEventListener('click', () => cargarApi(i));
+        paginador.appendChild(boton);
+    }
+
+    // Botón siguiente
+    if (paginaActual < totalPaginas) {
+        const btnSiguiente = document.createElement('button');
+        btnSiguiente.textContent = 'Siguiente';
+        btnSiguiente.addEventListener('click', () => cargarApi(paginaActual + 1));
+        paginador.appendChild(btnSiguiente);
+    }
+
+    const contenedor = document.querySelector('.tabla__contenedor');
+    contenedor.innerHTML = '';
+    contenedor.appendChild(paginador);
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    cargarApi();
+});
+</script> -->
 
 
 <script>
@@ -135,13 +327,17 @@ function mostrarTabla(datos) {
     const tbody = document.createElement('tbody');
     datos.forEach(dato => {
         const fila = document.createElement('tr');
+
+        const deshabilitar = dato.accion === 0 ? 'disabled' : '';
+
         fila.innerHTML = `
             <td>${dato.id}</td>
             <td>${dato.tipo_maquina}</td>
             <td>${dato.total_general}</td>
-            <td>${dato.created_at}</td>
+            <td>${dato.created_at}</td>         
             <td>
                 <button class="btn-editar" data-id="${dato.id}">Editar</button>
+                <button class="btn-eliminar" data-id="${dato.id}" ${deshabilitar}>Eliminar</button>
             </td>
         `;
         tbody.appendChild(fila);
@@ -151,13 +347,48 @@ function mostrarTabla(datos) {
     contenedor.appendChild(tabla);
 }
 
-// boton editar
+// Botón editar
 document.addEventListener('click', function(e) {
-    if (e.target.classList.contains('btn-editar')) {
+    if (e.target.classList.contains('btn-editar') && !e.target.disabled) {
         const id = e.target.getAttribute('data-id');
         window.location.href = `/admin/produccion/papel/editar_consumo?id=${id}`;
     }
 });
+
+// Botón eliminar
+// botón eliminar con POST
+document.addEventListener('click', function(e) {
+    if (e.target.classList.contains('btn-eliminar') && !e.target.disabled) {
+        const id = e.target.getAttribute('data-id');
+        if (confirm('¿Estás seguro de que deseas eliminar este registro?')) {
+            fetch('/admin/produccion/papel/eliminar_consumo', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: `id=${encodeURIComponent(id)}`
+            })
+            .then(response => {
+                if (response.ok) {
+                    Swal.fire({
+                        title: 'Éxito',
+                        text: 'Registro eliminado correctamente.',
+                        icon: 'success',
+                        confirmButtonText: 'Aceptar'
+                    });
+                    cargarApi(paginaActual); // recarga la tabla
+                } else {
+                    alert('Error al eliminar el registro.');
+                }
+            })
+            .catch(error => {
+                console.error('Error en la solicitud:', error);
+                alert('Ocurrió un error inesperado.');
+            });
+        }
+    }
+});
+
 
 function crearPaginador(totalItems, paginaActual) {
     const totalPaginas = Math.ceil(totalItems / porPagina);
