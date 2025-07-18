@@ -332,6 +332,9 @@ $router->get('/admin/produccion/papel/desbloquearboton', [PapelController::class
 $router->post('/admin/produccion/papel/desbloquearboton', [PapelController::class, 'desbloquearboton']);
 
 // 
+$router->get('/admin/produccion/papel/tablaconsumoadmin', [PapelController::class, 'tablaconsumoadmin']);
+
+// 
 
 
 

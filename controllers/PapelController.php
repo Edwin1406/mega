@@ -1242,7 +1242,37 @@ public static function apiConsumoTablaPaginador()
 
 
 
+public static function tablaconsumoadmin()
+{
+    header('Content-Type: application/json');
+    header('Access-Control-Allow-Origin: *');
 
+    $pagina = isset($_GET['pagina']) ? (int)$_GET['pagina'] : 1;
+    $limite = isset($_GET['limite']) ? (int)$_GET['limite'] : 10;
+    $offset = ($pagina - 1) * $limite;
+
+    // ✅ Obtener total de registros
+    $total = Consumo_general::contarRegistros();
+
+    // ✅ Obtener los registros paginados
+    $consumoGeneral = Consumo_general::obtenerPaginado($limite, $offset);
+    
+
+    // ✅ Formatear resultados
+    foreach ($consumoGeneral as $registro) {
+        $registro->tipo_maquina = trim($registro->tipo_maquina);
+        $registro->total_general = (float)$registro->total_general;
+        $registro->accion = (float)$registro->accion;
+
+    }
+
+    echo json_encode([
+        'datos' => $consumoGeneral,
+        'total' => $total,
+        'pagina' => $pagina,
+        'limite' => $limite
+    ]);
+}
 
 
 
