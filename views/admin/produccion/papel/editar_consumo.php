@@ -45,8 +45,6 @@
                 <option value="BODEGA" <?php echo (isset($consumo->tipo_maquina) && $consumo->tipo_maquina == 'BODEGA') ? 'selected' : ''; ?>>BODEGA</option>
 
             </select>
-
-            
         </div>
 
         <div class="formulario__campo">

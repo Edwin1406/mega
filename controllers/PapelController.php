@@ -1174,6 +1174,16 @@ public static function apiConsumoTablaPaginador()
 
 
 
+    // editar 2 
+
+    public static function ediatr2(){
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+          debuguear($_POST);
+        }
+    }
+
+
 
 
 

@@ -323,6 +323,11 @@ $router->get('/admin/produccion/papel/editar_consumo', [PapelController::class, 
 $router->post('/admin/produccion/papel/editar_consumo', [PapelController::class, 'editar_consumo']);
 
 
+$router->get('/admin/produccion/papel/editar2', [PapelController::class, 'editar2']);
+$router->post('/admin/produccion/papel/editar2', [PapelController::class, 'editar2']);
+
+
+
 
 
 
