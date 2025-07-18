@@ -325,7 +325,12 @@ document.addEventListener('click', function(e) {
             })
             .then(response => {
                 if (response.ok) {
-                    alert('Registro eliminado correctamente.');
+                    Swal.fire({
+                        title: 'Éxito',
+                        text: 'Registro eliminado correctamente.',
+                        icon: 'success',
+                        confirmButtonText: 'Aceptar'
+                    });
                     cargarApi(paginaActual); // recarga la tabla
                 } else {
                     alert('Error al eliminar el registro.');
