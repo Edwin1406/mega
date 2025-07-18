@@ -4,6 +4,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
 
 
+
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <div class="dashboard__contenedor-boton">
@@ -25,6 +26,12 @@
     margin-top: 20px;
     font-family: Arial, sans-serif;
 }
+
+.swal-wide {
+    width: 400px !important;
+    font-size: 1rem;
+}
+
 
 .tabla th,
 .tabla td {
