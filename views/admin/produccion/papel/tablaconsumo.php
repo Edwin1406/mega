@@ -2,6 +2,7 @@
 
 <h2 class="dashboard__heading"> <?php echo $titulo ?> </h2>
 
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <div class="dashboard__contenedor-boton">
     <a class="dashboard__boton" href="/admin/produccion/papel/consumo_general">
