@@ -154,6 +154,8 @@ function mostrarTabla(datos) {
     const tbody = document.createElement('tbody');
     datos.forEach(dato => {
         const fila = document.createElement('tr');
+        const deshabilitar = dato.accion === 0 ? 'disabled' : '';
+
         fila.innerHTML = `
             <td>${dato.id}</td>
             <td>${dato.tipo_maquina}</td>
@@ -161,8 +163,8 @@ function mostrarTabla(datos) {
             <td>${dato.created_at}</td>         
             <td>
             
-                <button class="btn-editar" data-id="${dato.id}">Editar</button>
-                <button class="btn-eliminar" data-id="${dato.id}">Eliminar</button>
+                 <button class="btn-editar" data-id="${dato.id}" ${deshabilitar}>Editar</button>
+                <button class="btn-eliminar" data-id="${dato.id}" ${deshabilitar}>Eliminar</button>
             </td>
         `;
         tbody.appendChild(fila);
