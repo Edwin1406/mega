@@ -111,6 +111,29 @@ button.btn-eliminar:hover {
             display: none;
         }
 
+
+
+
+    .swal2-popup {
+  font-size: 1.1rem !important;
+  width: 450px !important;
+  padding: 2rem !important;
+}
+
+.swal2-title {
+  font-size: 1.6rem !important;
+}
+
+.swal2-html-container {
+  font-size: 1.1rem !important;
+}
+
+.swal2-confirm {
+  font-size: 1rem !important;
+  padding: 0.6rem 1.2rem !important;
+}
+
+
 </style>
 <div class="dashboard__formulario"></div>
 <div class="tabla__contenedor"></div>
