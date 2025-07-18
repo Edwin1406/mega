@@ -43,7 +43,7 @@
             <option value="GUILLOTINA PAPEL" <?php echo (isset($control->tipo_maquina) && $control->tipo_maquina == 'GUILLOTINA PAPEL') ? 'selected' : ''; ?>>GUILLOTINA PAPEL</option>
             <option value="EMPAQUE" <?php echo (isset($control->tipo_maquina) && $control->tipo_maquina == 'EMPAQUE') ? 'selected' : ''; ?>>EMPAQUE</option>
              <option value="BODEGA" <?php echo (isset($control->tipo_maquina) && $control->tipo_maquina == 'BODEGA') ? 'selected' : ''; ?>>BODEGA</option>
-            <option value="OTRO" <?php echo (isset($control->tipo_maquina) && $control->tipo_maquina == 'OTRO') ? 'selected' : ''; ?>>OTRO</option>
+            
         </select>
         
         <div class="formulario__campo">
