@@ -1144,11 +1144,11 @@ public static function editar_consumo(Router $router)
     }
 
 
-    $consumo = Consumo_general::find($id);
-    $consumo->sincronizar($_POST);
+    $control = Consumo_general::find($id);
+    $control->sincronizar($_POST);
 
 
-    if (!$consumo) {
+    if (!$control) {
         header('Location: /admin/produccion/papel/tablaconsumo');
         exit;
     }
@@ -1156,11 +1156,11 @@ public static function editar_consumo(Router $router)
 
     // Procesar POST
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $consumo->sincronizar($_POST);
-        $alertas = $consumo->validar();
+        $control->sincronizar($_POST);
+        $alertas = $control->validar();
 
         if (empty($alertas)) {
-            $resultado = $consumo->actualizar(); // También puedes usar guardar()
+            $resultado = $control->actualizar(); // También puedes usar guardar()
 
             // Puedes verificar si $resultado fue exitoso
             header('Location: /admin/produccion/papel/tablaconsumo');
@@ -1171,7 +1171,7 @@ public static function editar_consumo(Router $router)
     $router->render('admin/produccion/papel/editar_consumo', [
         'titulo' => 'EDITAR CONSUMO GENERAL',
         'alertas' => $alertas,
-        'consumo' => $consumo
+        'control' => $control
     ]);
 }
 
