@@ -1223,11 +1223,11 @@ public static function apiConsumoTablaPaginador()
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $consumo->sincronizar($_POST);
-            debuguear($consumo);
             $alertas = $consumo->validar();
 
             if (empty($alertas)) {
-                $consumo->actualizar();
+                // Actualizar el estado del botón
+                $consumo->estado_boton = $_POST['estado_boton'] ?? 1; // Asegurarse de que el estado del botón se actualice
                 header('Location: /admin/produccion/papel/tablaconsumoadmin');
                 exit;
             }
