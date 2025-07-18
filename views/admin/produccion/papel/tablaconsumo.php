@@ -310,14 +310,34 @@ document.addEventListener('click', function(e) {
 });
 
 // Botón eliminar
+// botón eliminar con POST
 document.addEventListener('click', function(e) {
     if (e.target.classList.contains('btn-eliminar') && !e.target.disabled) {
         const id = e.target.getAttribute('data-id');
         if (confirm('¿Estás seguro de que deseas eliminar este registro?')) {
-            window.location.href = `/admin/produccion/papel/eliminar_consumo?id=${id}`;
+            fetch('/admin/produccion/papel/eliminar_consumo', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: `id=${encodeURIComponent(id)}`
+            })
+            .then(response => {
+                if (response.ok) {
+                    alert('Registro eliminado correctamente.');
+                    cargarApi(paginaActual); // recarga la tabla
+                } else {
+                    alert('Error al eliminar el registro.');
+                }
+            })
+            .catch(error => {
+                console.error('Error en la solicitud:', error);
+                alert('Ocurrió un error inesperado.');
+            });
         }
     }
 });
+
 
 function crearPaginador(totalItems, paginaActual) {
     const totalPaginas = Math.ceil(totalItems / porPagina);
