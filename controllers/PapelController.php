@@ -1176,22 +1176,32 @@ public static function apiConsumoTablaPaginador()
 
 
 
-    // editar 2 
-
-    public static function editar2(Router $router){
-        $alertas = [];
-
+    public static function eliminar_consumo()
+    {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-          debuguear($_POST);
+            $id = $_POST['id'];
+            $id = filter_var($id, FILTER_VALIDATE_INT);
+            $consumo = Consumo_general::find($id);
+
+            if (!isset($consumo)) {
+                header('Location: /admin/produccion/papel/tablaconsumo');
+                exit;
+            }
+            $resultado = $consumo->eliminar();
+            if ($resultado) {
+                header('Location: /admin/produccion/papel/tablaconsumo');
+                exit;
+            }
         }
+    }
 
- $router->render('admin/produccion/papel/editar2', [
-            'titulo' => 'EDITAR CONSUMO GENERAL',
-            'alertas' => $alertas
+      // tabla consumo general
+    public static function tablaconsumoadmin(Router $router)
+    {
+        $router->render('admin/produccion/papel/tablaconsumo', [
+            'titulo' => 'TABLA CONSUMO GENERAL',
+            
         ]);
-
-
-
     }
 
 
