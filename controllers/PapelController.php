@@ -1175,6 +1175,30 @@ public static function apiConsumoTablaPaginador()
 
 
 
+    // eliminar consumo
+    public static function eliminar_consumo()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $id = $_POST['id'];
+            $id = filter_var($id, FILTER_VALIDATE_INT);
+            $consumo = Consumo_general::find($id);
+
+            if (!isset($consumo)) {
+                header('Location: /admin/produccion/papel/tablaconsumo');
+                exit;
+            }
+            $resultado = $consumo->eliminar();
+            if ($resultado) {
+                header('Location: /admin/produccion/papel/tablaconsumo');
+                exit;
+            }
+        }
+    }
+
+    
+
+
+
 
 
 
