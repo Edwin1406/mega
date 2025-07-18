@@ -10,7 +10,8 @@ protected static $columnasDB = [
     'id',
     'tipo_maquina',
     'total_general',
-    'created_at'
+    'created_at',
+    'accion'
 ];
 
 
@@ -18,6 +19,7 @@ protected static $columnasDB = [
     public $tipo_maquina;
     public $total_general;
     public $created_at;
+    public $accion;
 
     public function __construct($args = [])
     {
@@ -25,6 +27,7 @@ protected static $columnasDB = [
         $this->tipo_maquina = $args['tipo_maquina'] ?? '';
         $this->total_general = $args['total_general'] ?? '';
         $this->created_at = date('Y-m-d H:i:s');
+        $this->accion = $args['accion'] ?? '0';
     }
 
     public function validar()
