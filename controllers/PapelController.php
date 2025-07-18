@@ -1166,10 +1166,18 @@ public static function apiConsumoTablaPaginador()
         // }
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    echo '<pre>';
-    print_r($_POST);
-    echo '</pre>';
-    exit;
+            $consumo->sincronizar($_POST);
+            // debuguear($consumo);
+
+            // Validar los datos
+            $alertas = $consumo->validar();
+
+            if (empty($alertas)) {
+                // Actualizar el registro
+                $consumo->actualizar();
+                header('Location: /admin/produccion/papel/tablaconsumo');
+                exit;
+            }
 }
 
 
