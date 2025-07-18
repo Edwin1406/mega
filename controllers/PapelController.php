@@ -1199,7 +1199,7 @@ public static function apiConsumoTablaPaginador()
     public static function tablaconsumoadmin(Router $router)
     {
         $router->render('admin/produccion/papel/tablaconsumo', [
-            'titulo' => 'TABLA CONSUMO GENERAL',
+            'titulo' => 'TABLA CONSUMO ADMIN',
             
         ]);
     }
