@@ -1229,7 +1229,7 @@ public static function apiConsumoTablaPaginador()
             }
         }
 
-        $router->render('admin/produccion/papel/editar_consumo_admin', [
+        $router->render('admin/produccion/papel/editarconsmoadmin', [
             'titulo' => 'EDITAR CONSUMO GENERAL ADMIN',
             'alertas' => $alertas,
             'consumo' => $consumo
