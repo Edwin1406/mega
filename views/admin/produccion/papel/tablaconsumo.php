@@ -315,7 +315,14 @@ document.addEventListener('click', function(e) {
 document.addEventListener('click', function(e) {
     if (e.target.classList.contains('btn-eliminar') && !e.target.disabled) {
         const id = e.target.getAttribute('data-id');
-        if (confirm('¿Estás seguro de que deseas eliminar este registro?')) {
+        if (Swal.fire({
+            title: '¿Estás seguro?',
+            text: 'No podrás deshacer esta acción.',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Sí, eliminar',
+            cancelButtonText: 'Cancelar'
+        })) {
             fetch('/admin/produccion/papel/eliminar_consumo', {
                 method: 'POST',
                 headers: {
