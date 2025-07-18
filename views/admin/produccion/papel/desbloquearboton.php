@@ -57,6 +57,17 @@
                     placeholder="accion"
                     value="<?php echo $consumo->accion ?? '' ?>">
             </div>
+            <div class="formulario__campo">
+                <label class="formulario__label" for="total_general">Total General:</label>
+                <input
+                    type="number"
+                    name="total_general"
+                    id="total_general"
+                    class="formulario__input"
+                    placeholder="total_general"
+                    value="<?php echo $consumo->total_general ?? '' ?>">
+            </div>
+
         </div>
 
         <input class="formulario__submit formulario__submit--registrar" type="submit" value="Editar acción">
