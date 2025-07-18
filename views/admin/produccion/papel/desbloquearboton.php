@@ -29,7 +29,7 @@
                 name="tipo_maquina"
                 id="tipo_maquina"
                 class="formulario__input">
-                <option value="">Selecciona una opción</option>
+                <option value="" disabled>Selecciona una opción</option>
                 <option value="CORRUGADOR" <?php echo (isset($consumo->tipo_maquina) && $consumo->tipo_maquina == 'CORRUGADOR') ? 'selected' : ''; ?>>CORRUGADOR</option>
                 <option value="MICRO" <?php echo (isset($consumo->tipo_maquina) && $consumo->tipo_maquina == 'MICRO') ? 'selected' : ''; ?>>MICRO</option>
                 <option value="TROQUEL" <?php echo (isset($consumo->tipo_maquina) && $consumo->tipo_maquina == 'TROQUEL') ? 'selected' : ''; ?>>TROQUEL</option>
@@ -55,7 +55,7 @@
                     id="accion"
                     class="formulario__input"
                     placeholder="accion"
-                    value="<?php echo $consumo->accion ?? '' ?>">
+                    value="<?php echo $consumo->accion ?? '' ?>" >
             </div>
             <div class="formulario__campo">
                 <label class="formulario__label" for="total_general">Total General:</label>
@@ -65,7 +65,7 @@
                     id="total_general"
                     class="formulario__input"
                     placeholder="total_general"
-                    value="<?php echo $consumo->total_general ?? '' ?>">
+                    value="<?php echo $consumo->total_general ?? '' ?>" disabled>
             </div>
 
         </div>
