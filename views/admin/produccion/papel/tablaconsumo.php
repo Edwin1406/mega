@@ -28,8 +28,8 @@
 }
 
 .swal-wide {
-    width: 400px !important;
-    font-size: 1rem;
+    width: 800px !important;
+    font-size: 2rem;
 }
 
 
