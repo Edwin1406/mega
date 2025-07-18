@@ -1106,6 +1106,8 @@ public static function apiConsumoTablaPaginador()
     foreach ($consumoGeneral as $registro) {
         $registro->tipo_maquina = trim($registro->tipo_maquina);
         $registro->total_general = (float)$registro->total_general;
+        $registro->accion = (float)$registro->accion;
+
     }
 
     echo json_encode([
