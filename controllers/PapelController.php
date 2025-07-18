@@ -1106,8 +1106,6 @@ public static function apiConsumoTablaPaginador()
     foreach ($consumoGeneral as $registro) {
         $registro->tipo_maquina = trim($registro->tipo_maquina);
         $registro->total_general = (float)$registro->total_general;
-        $registro->accion = (float)$registro->accion;
-
     }
 
     echo json_encode([
@@ -1175,76 +1173,9 @@ public static function apiConsumoTablaPaginador()
 
 
 
-    // eliminar consumo
-    public static function eliminar_consumo()
-    {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $id = $_POST['id'];
-            $id = filter_var($id, FILTER_VALIDATE_INT);
-            $consumo = Consumo_general::find($id);
 
-            if (!isset($consumo)) {
-                header('Location: /admin/produccion/papel/tablaconsumo');
-                exit;
-            }
-            $resultado = $consumo->eliminar();
-            if ($resultado) {
-                header('Location: /admin/produccion/papel/tablaconsumo');
-                exit;
-            }
-        }
-    }
 
-//     // editar editarconsmoadmin
-//     public static function editarconsmoadmin(Router $router)
-//     {
-//         $alertas = [];
-//         $id = $_GET['id'];
-//         $id = filter_var($id, FILTER_VALIDATE_INT);
 
-//         if (!$id) {
-//             header('Location: /admin/produccion/papel/tablaconsumoadmin');
-//             exit;
-//         }
-
-//         $consumo = Consumo_general::find($id);
-
-//         // tipo_maquina
-//         $consumo->tipo_maquina = trim($consumo->tipo_maquina);
-//         // debuguear($consumo);
-
-//         if (!$consumo) {
-//             header('Location: /admin/produccion/papel/tablaconsumoadmin');
-//             exit;
-//         }
-
-//         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-//             $consumo->sincronizar($_POST);
-//             $alertas = $consumo->validar();
-
-//             if (empty($alertas)) {
-//                 $consumo->actualizar();
-//                 header('Location: /admin/produccion/papel/tablaconsumoadmin');
-//                 exit;
-//             }
-//         }
-
-//         $router->render('admin/produccion/papel/editarconsmoadmin', [
-//             'titulo' => 'EDITAR CONSUMO GENERAL ADMIN',
-//             'alertas' => $alertas,
-//             'consumo' => $consumo
-//         ]);
-//     }
-    
-
-//  // tabla consumo general
-//     public static function tablaconsumoadmin(Router $router)
-//     {
-//         $router->render('admin/produccion/papel/tablaconsumoadmin', [
-//             'titulo' => 'TABLA CONSUMO GENERAL ADMIN',
-            
-//         ]);
-//     }
 
 
 }
