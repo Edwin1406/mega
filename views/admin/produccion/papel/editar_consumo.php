@@ -20,7 +20,7 @@
     <?php include_once __DIR__ . '/../../../templates/alertas.php'  ?>
 
 
-    <form method="POST" action="/admin/produccion/papel/consumo_general" class="formulario" enctype="multipart/form-data">
+    <form method="POST" action="/admin/produccion/papel/editar_consumo" class="formulario" enctype="multipart/form-data">
 
 
         <div class="formulario__campo">
