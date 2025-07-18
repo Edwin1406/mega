@@ -25,7 +25,7 @@
 
         <div class="formulario__campo">
             <label class="formulario__label" for="tipo_maquina">Tipo Maquina</label>
-            <select
+            <select disabled
                 name="tipo_maquina"
                 id="tipo_maquina"
                 class="formulario__input">
@@ -55,7 +55,7 @@
                 id="total_general"
                 class="formulario__input"
                 placeholder="total_general"
-                value="<?php echo $consumo->total_general ?? '' ?>">
+                value="<?php echo $consumo->total_general ?? '' ?>"disabled>
         </div>
 
         
@@ -67,7 +67,7 @@
                 id="accion"
                 class="formulario__input"
                 placeholder="accion"
-                value="<?php echo $consumo->accion ?? '' ?>">
+                value="<?php echo $consumo->accion ?? '' ?>" >
         </div>
 
 
