@@ -25,7 +25,7 @@
 
         <div class="formulario__campo">
             <label class="formulario__label" for="tipo_maquina">Tipo Maquina</label>
-            <select
+            <select disabled
                 name="tipo_maquina"
                 id="tipo_maquina"
                 class="formulario__input">
