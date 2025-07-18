@@ -1204,6 +1204,46 @@ public static function apiConsumoTablaPaginador()
         ]);
     }
 
+    public static function editar_consumoadmin(Router $router)
+    {
+        $alertas = [];
+        $id = $_GET['id'];
+        $id = filter_var($id, FILTER_VALIDATE_INT);
+
+        if (!$id) {
+            header('Location: /admin/produccion/papel/tablaconsumoadmin');
+            exit;
+        }
+
+        $consumo = Consumo_general::find($id);
+
+        // tipo_maquina
+        $consumo->tipo_maquina = trim($consumo->tipo_maquina);
+        // debuguear($consumo);
+
+        if (!$consumo) {
+            header('Location: /admin/produccion/papel/tablaconsumoadmin');
+            exit;
+        }
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $consumo->sincronizar($_POST);
+            $alertas = $consumo->validar();
+
+            if (empty($alertas)) {
+                $consumo->actualizar();
+                header('Location: /admin/produccion/papel/tablaconsumoadmin');
+                exit;
+            }
+        }
+
+        $router->render('admin/produccion/papel/editar_consumo_admin', [
+            'titulo' => 'EDITAR CONSUMO ADMIN',
+            'alertas' => $alertas,
+            'consumo' => $consumo
+        ]);
+    }
+
 
 
 
