@@ -1149,10 +1149,7 @@ public static function apiConsumoTablaPaginador()
         $consumo->tipo_maquina = trim($consumo->tipo_maquina);
         // debuguear($consumo);
 
-        if (!$consumo) {
-            header('Location: /admin/produccion/papel/tablaconsumo');
-            exit;
-        }
+        
 
         // if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         //     $consumo->sincronizar($_POST);
