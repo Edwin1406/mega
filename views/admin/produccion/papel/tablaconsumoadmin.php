@@ -181,7 +181,7 @@ function mostrarTabla(datos) {
 document.addEventListener('click', function(e) {
     if (e.target.classList.contains('btn-editar') && !e.target.disabled) {
         const id = e.target.getAttribute('data-id');
-        window.location.href = `/admin/produccion/papel/editar_consumo?id=${id}`;
+        window.location.href = `/admin/produccion/papel/editar_consumoadmin?id=${id}`;
     }
 });
 
