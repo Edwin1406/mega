@@ -1,7 +1,6 @@
 
 
 <h2 class="dashboard__heading"> <?php echo $titulo ?> </h2>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" />
 
 
 
@@ -114,24 +113,6 @@ button.btn-eliminar:hover {
 
 
 
-    .swal2-popup {
-  font-size: 1.1rem !important;
-  width: 450px !important;
-  padding: 2rem !important;
-}
-
-.swal2-title {
-  font-size: 1.6rem !important;
-}
-
-.swal2-html-container {
-  font-size: 1.1rem !important;
-}
-
-.swal2-confirm {
-  font-size: 1rem !important;
-  padding: 0.6rem 1.2rem !important;
-}
 
 
 </style>
