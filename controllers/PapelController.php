@@ -1210,6 +1210,7 @@ public static function apiConsumoTablaPaginador()
         }
 
         $consumo = Consumo_general::find($id);
+        debuguear($consumo);
 
         // tipo_maquina
         $consumo->tipo_maquina = trim($consumo->tipo_maquina);
