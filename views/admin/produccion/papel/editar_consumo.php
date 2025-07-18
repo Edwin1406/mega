@@ -22,6 +22,7 @@
 
     <form method="POST" action="/admin/produccion/papel/editar_consumo" class="formulario" enctype="multipart/form-data">
 
+<input type="hidden" name="id" value="<?php echo $consumo->id; ?>">
 
         <div class="formulario__campo">
             <label class="formulario__label" for="tipo_maquina">Tipo Maquina</label>

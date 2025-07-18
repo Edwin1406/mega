@@ -1143,7 +1143,10 @@ public static function editar_consumo(Router $router)
         exit;
     }
 
+
     $consumo = Consumo_general::find($id);
+    $consumo->sincronizar($_POST);
+
 
     if (!$consumo) {
         header('Location: /admin/produccion/papel/tablaconsumo');
@@ -1154,7 +1157,6 @@ public static function editar_consumo(Router $router)
     // Procesar POST
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $consumo->sincronizar($_POST);
-        debuguear($consumo);
         $alertas = $consumo->validar();
 
         if (empty($alertas)) {
