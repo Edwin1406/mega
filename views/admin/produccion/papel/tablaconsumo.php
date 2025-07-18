@@ -282,7 +282,7 @@ function mostrarTabla(datos) {
     datos.forEach(dato => {
         const fila = document.createElement('tr');
 
-        const deshabilitar = dato.accion === 0 ? 'disabled' : '';
+        const deshabilitar = dato.accion == 0 ? 'disabled' : '';
 
         fila.innerHTML = `
             <td>${dato.id}</td>
