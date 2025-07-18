@@ -1176,11 +1176,20 @@ public static function apiConsumoTablaPaginador()
 
     // editar 2 
 
-    public static function ediatr2(){
+    public static function ediatr2(Router $router){
+        $alertas = [];
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           debuguear($_POST);
         }
+
+ $router->render('admin/produccion/papel/ediatr2', [
+            'titulo' => 'EDITAR CONSUMO GENERAL',
+            'alertas' => $alertas
+        ]);
+
+
+
     }
 
 
