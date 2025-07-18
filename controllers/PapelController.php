@@ -1130,50 +1130,47 @@ public static function apiConsumoTablaPaginador()
 
 
     // ediatar
-public static function editar_consumo(Router $router)
-{
-    $alertas = [];
 
-    // Obtenemos ID desde GET
-    $id = $_GET['id'] ?? null;
-    $id = filter_var($id, FILTER_VALIDATE_INT);
+    public static function editar_consumo(Router $router)
+    {
+        $alertas = [];
+        $id = $_GET['id'];
+        $id = filter_var($id, FILTER_VALIDATE_INT);
 
-    if (!$id) {
-        header('Location: /admin/produccion/papel/tablaconsumo');
-        exit;
-    }
-
-
-    $control = Consumo_general::find($id);
-    $control->sincronizar($_POST);
-
-
-    if (!$control) {
-        header('Location: /admin/produccion/papel/tablaconsumo');
-        exit;
-    }
-
-
-    // Procesar POST
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $control->sincronizar($_POST);
-        $alertas = $control->validar();
-
-        if (empty($alertas)) {
-            $resultado = $control->actualizar(); // También puedes usar guardar()
-
-            // Puedes verificar si $resultado fue exitoso
+        if (!$id) {
             header('Location: /admin/produccion/papel/tablaconsumo');
             exit;
         }
+
+        $consumo = Consumo_general::find($id);
+
+        // tipo_maquina
+        $consumo->tipo_maquina = trim($consumo->tipo_maquina);
+        // debuguear($consumo);
+
+        if (!$consumo) {
+            header('Location: /admin/produccion/papel/tablaconsumo');
+            exit;
+        }
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $consumo->sincronizar($_POST);
+            $alertas = $consumo->validar();
+
+            if (empty($alertas)) {
+                $consumo->actualizar();
+                header('Location: /admin/produccion/papel/tablaconsumo');
+                exit;
+            }
+        }
+
+        $router->render('admin/produccion/papel/editar_consumo', [
+            'titulo' => 'EDITAR CONSUMO GENERAL',
+            'alertas' => $alertas,
+            'consumo' => $consumo
+        ]);
     }
 
-    $router->render('admin/produccion/papel/editar_consumo', [
-        'titulo' => 'EDITAR CONSUMO GENERAL',
-        'alertas' => $alertas,
-        'control' => $control
-    ]);
-}
 
 
 
