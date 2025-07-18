@@ -290,7 +290,7 @@ function mostrarTabla(datos) {
             <td>${dato.total_general}</td>
             <td>${dato.created_at}</td>         
             <td>
-                <button class="btn-editar" data-id="${dato.id}" ${deshabilitar}>Editar</button>
+                <button class="btn-editar" data-id="${dato.id}">Editar</button>
                 <button class="btn-eliminar" data-id="${dato.id}" ${deshabilitar}>Eliminar</button>
             </td>
         `;
