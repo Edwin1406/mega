@@ -1195,7 +1195,51 @@ public static function apiConsumoTablaPaginador()
         }
     }
 
-    
+    // desactivar co
+
+
+     public static function desbloquearboton(Router $router)
+    {
+        $alertas = [];
+        $id = $_GET['id'];
+        $id = filter_var($id, FILTER_VALIDATE_INT);
+
+        if (!$id) {
+            header('Location: /admin/produccion/papel/tablaconsumo');
+            exit;
+        }
+
+        $consumo = Consumo_general::find($id);
+
+        // tipo_maquina
+        $consumo->tipo_maquina = trim($consumo->tipo_maquina);
+        // debuguear($consumo);
+
+        if (!$consumo) {
+            header('Location: /admin/produccion/papel/tablaconsumoadmin');
+            exit;
+        }
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $consumo->sincronizar($_POST);
+            $alertas = $consumo->validar();
+
+            if (empty($alertas)) {
+                $consumo->actualizar();
+                header('Location: /admin/produccion/papel/tablaconsumoadmin');
+                exit;
+            }
+        }
+
+        $router->render('admin/produccion/papel/desbloquearboton', [
+            'titulo' => 'EDITAR CONSUMO GENERAL',
+            'alertas' => $alertas,
+            'consumo' => $consumo
+        ]);
+    }
+
+
+
 
 
 

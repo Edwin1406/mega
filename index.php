@@ -327,6 +327,13 @@ $router->post('/admin/produccion/papel/editar_consumo', [PapelController::class,
 $router->post('/admin/produccion/papel/eliminar_consumo', [PapelController::class, 'eliminar_consumo']);
 
 
+// DESBLOQUEAR BOTON CONSUMO GENERAL
+$router->get('/admin/produccion/papel/desbloquearboton', [PapelController::class, 'desbloquearboton']);
+$router->post('/admin/produccion/papel/desbloquearboton', [PapelController::class, 'desbloquearboton']);
+
+// 
+
+
 
 
 
