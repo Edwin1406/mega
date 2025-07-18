@@ -184,7 +184,7 @@ document.addEventListener('click', function(e) {
     if (e.target.classList.contains('btn-eliminar')) {
         const id = e.target.getAttribute('data-id');
         if (confirm('¿Estás seguro de que deseas eliminar este registro?')) {
-            eliminarRegistro(id);
+            window.location.href = `/admin/produccion/papel/editar_consumo?id=${id}`;
         }
     }
 });
