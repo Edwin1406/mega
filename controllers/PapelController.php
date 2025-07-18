@@ -1195,10 +1195,8 @@ public static function apiConsumoTablaPaginador()
         }
     }
 
-    // desactivar co
-
-
-     public static function desbloquearboton(Router $router)
+    // editar editarconsmoadmin
+    public static function editarconsmoadmin(Router $router)
     {
         $alertas = [];
         $id = $_GET['id'];
@@ -1210,11 +1208,10 @@ public static function apiConsumoTablaPaginador()
         }
 
         $consumo = Consumo_general::find($id);
-        
+
         // tipo_maquina
         $consumo->tipo_maquina = trim($consumo->tipo_maquina);
         // debuguear($consumo);
-    
 
         if (!$consumo) {
             header('Location: /admin/produccion/papel/tablaconsumoadmin');
@@ -1226,20 +1223,19 @@ public static function apiConsumoTablaPaginador()
             $alertas = $consumo->validar();
 
             if (empty($alertas)) {
-                // Actualizar el estado del botón
-                $consumo->estado_boton = $_POST['estado_boton'] ?? 1; // Asegurarse de que el estado del botón se actualice
+                $consumo->actualizar();
                 header('Location: /admin/produccion/papel/tablaconsumoadmin');
                 exit;
             }
         }
 
-        $router->render('admin/produccion/papel/desbloquearboton', [
-            'titulo' => 'EDITAR CONSUMO GENERAL',
+        $router->render('admin/produccion/papel/editar_consumo_admin', [
+            'titulo' => 'EDITAR CONSUMO GENERAL ADMIN',
             'alertas' => $alertas,
             'consumo' => $consumo
         ]);
     }
-
+    
 
  // tabla consumo general
     public static function tablaconsumoadmin(Router $router)
