@@ -314,7 +314,7 @@ document.addEventListener('click', function(e) {
     if (e.target.classList.contains('btn-eliminar') && !e.target.disabled) {
         const id = e.target.getAttribute('data-id');
         if (confirm('¿Estás seguro de que deseas eliminar este registro?')) {
-            window.location.href = `/admin/produccion/papel/editar_consumo?id=${id}`;
+            window.location.href = `/admin/produccion/papel/eliminar_consumo?id=${id}`;
         }
     }
 });
