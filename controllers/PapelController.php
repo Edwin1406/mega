@@ -1137,10 +1137,10 @@ public static function apiConsumoTablaPaginador()
         $id = $_GET['id'];
         $id = filter_var($id, FILTER_VALIDATE_INT);
 
-        if (!$id) {
-            header('Location: /admin/produccion/papel/tablaconsumo');
-            exit;
-        }
+        // if (!$id) {
+        //     header('Location: /admin/produccion/papel/tablaconsumo');
+        //     exit;
+        // }
 
         $consumo = Consumo_general::find($id);
 
