@@ -142,6 +142,7 @@ function mostrarTabla(datos) {
             <td>${dato.created_at}</td>
             <td>
                 <button class="btn-editar" data-id="${dato.id}">Editar</button>
+                <button class="btn-eliminar" data-id="${dato.id}">Eliminar</button>
             </td>
         `;
         tbody.appendChild(fila);
@@ -156,6 +157,16 @@ document.addEventListener('click', function(e) {
     if (e.target.classList.contains('btn-editar')) {
         const id = e.target.getAttribute('data-id');
         window.location.href = `/admin/produccion/papel/editar_consumo?id=${id}`;
+    }
+});
+
+// boton eliminar
+document.addEventListener('click', function(e) {
+    if (e.target.classList.contains('btn-eliminar')) {
+        const id = e.target.getAttribute('data-id');
+        if (confirm('¿Estás seguro de que deseas eliminar este registro?')) {
+            eliminarRegistro(id);
+        }
     }
 });
 
