@@ -330,6 +330,8 @@ $router->get('/admin/produccion/papel/editar_consumoadmin', [PapelController::cl
 $router->post('/admin/produccion/papel/editar_consumoadmin', [PapelController::class, 'editar_consumoadmin']);
 
 
+// eliminar consumo general
+$router->post('/admin/produccion/papel/eliminar_consumo', [PapelController::class, 'eliminar_consumo']);
 
 
 
