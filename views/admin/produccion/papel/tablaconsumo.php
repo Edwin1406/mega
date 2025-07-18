@@ -83,7 +83,6 @@ button.btn-editar:hover {
 
 /* eliminar boton  */
 button.btn-eliminar {
-    padding: 8px 12px;
     border: none;
     background-color: #dc3545;
     color: white;
