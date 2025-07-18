@@ -43,6 +43,7 @@
                 <option value="GUILLOTINA PAPEL" <?php echo (isset($consumo->tipo_maquina) && $consumo->tipo_maquina == 'GUILLOTINA PAPEL') ? 'selected' : ''; ?>>GUILLOTINA PAPEL</option>
                 <option value="EMPAQUE" <?php echo (isset($consumo->tipo_maquina) && $consumo->tipo_maquina == 'EMPAQUE') ? 'selected' : ''; ?>>EMPAQUE</option>
                 <option value="BODEGA" <?php echo (isset($consumo->tipo_maquina) && $consumo->tipo_maquina == 'BODEGA') ? 'selected' : ''; ?>>BODEGA</option>
+                <option value="OTRO" <?php echo (isset($consumo->tipo_maquina) && $consumo->tipo_maquina == 'OTRO') ? 'selected' : ''; ?>>OTRO</option>
 
             </select>
 
