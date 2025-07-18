@@ -76,6 +76,26 @@ button.btn-editar {
     border-radius: 4px;
     transition: background-color 0.2s;
 }
+
+button.btn-editar:hover {
+    background-color: #218838;
+}
+
+/* eliminar boton  */
+button.btn-eliminar {
+    padding: 8px 12px;
+    border: none;
+    background-color: #dc3545;
+    color: white;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.2s;
+}
+
+button.btn-eliminar:hover {
+    background-color: #c82333;
+}
+
 .dashboard__sidebar {
             /* Suponiendo que el contenedor tiene la clase .barra-lateral */
             display: none;
