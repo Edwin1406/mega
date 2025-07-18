@@ -1205,7 +1205,7 @@ public static function apiConsumoTablaPaginador()
         $id = filter_var($id, FILTER_VALIDATE_INT);
 
         if (!$id) {
-            header('Location: /admin/produccion/papel/tablaconsumo');
+            header('Location: /admin/produccion/papel/tablaconsumoadmin');
             exit;
         }
 
@@ -1242,8 +1242,8 @@ public static function apiConsumoTablaPaginador()
  // tabla consumo general
     public static function tablaconsumoadmin(Router $router)
     {
-        $router->render('admin/produccion/papel/tablaconsumo', [
-            'titulo' => 'TABLA CONSUMO GENERAL',
+        $router->render('admin/produccion/papel/tablaconsumoadmin', [
+            'titulo' => 'TABLA CONSUMO GENERAL ADMIN',
             
         ]);
     }
