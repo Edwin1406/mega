@@ -1155,6 +1155,7 @@ public static function apiConsumoTablaPaginador()
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $consumo->sincronizar($_POST);
+            debuguear($consumo);
             $alertas = $consumo->validar();
 
             if (empty($alertas)) {
