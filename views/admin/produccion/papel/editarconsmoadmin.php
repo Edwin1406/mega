@@ -3,9 +3,9 @@
 
 <style>
     .dashboard__sidebar {
-            /* Suponiendo que el contenedor tiene la clase .barra-lateral */
-            display: none;
-        }
+        /* Suponiendo que el contenedor tiene la clase .barra-lateral */
+        display: none;
+    }
 </style>
 <!-- VER TABLA -->
 <div class="dashboard__contenedor-boton">
@@ -25,7 +25,7 @@
 
         <div class="formulario__campo">
             <label class="formulario__label" for="tipo_maquina">Tipo Maquina</label>
-            <select 
+            <select
                 name="tipo_maquina"
                 id="tipo_maquina"
                 class="formulario__input">
@@ -55,7 +55,7 @@
                     id="accion"
                     class="formulario__input"
                     placeholder="accion"
-                    value="<?php echo $consumo->accion ?? '' ?>" >
+                    value="<?php echo $consumo->accion ?? '' ?>">
             </div>
             <div class="formulario__campo">
                 <label class="formulario__label" for="total_general">Total General:</label>
@@ -65,7 +65,7 @@
                     id="total_general"
                     class="formulario__input"
                     placeholder="total_general"
-                    value="<?php echo $consumo->total_general ?? '' ?>" >
+                    value="<?php echo $consumo->total_general ?? '' ?>">
             </div>
 
         </div>
