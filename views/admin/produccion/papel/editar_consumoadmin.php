@@ -3,9 +3,9 @@
 
 <style>
     .dashboard__sidebar {
-            /* Suponiendo que el contenedor tiene la clase .barra-lateral */
-            display: none;
-        }
+        /* Suponiendo que el contenedor tiene la clase .barra-lateral */
+        display: none;
+    }
 </style>
 <!-- VER TABLA -->
 <div class="dashboard__contenedor-boton">
@@ -20,7 +20,7 @@
     <?php include_once __DIR__ . '/../../../templates/alertas.php'  ?>
 
 
-    <form method="POST"  class="formulario" enctype="multipart/form-data">
+    <form method="POST" class="formulario" enctype="multipart/form-data">
 
 
         <div class="formulario__campo">
@@ -48,15 +48,30 @@
         </div>
 
         <div class="formulario__campo">
-                <label class="formulario__label" for="total_general">Total General:</label>
-                <input
-                    type="number"
-                    name="total_general"
-                    id="total_general"
-                    class="formulario__input"
-                    placeholder="total_general"
-                    value="<?php echo $consumo->total_general ?? '' ?>">
-            </div>
+            <label class="formulario__label" for="total_general">Total General:</label>
+            <input
+                type="number"
+                name="total_general"
+                id="total_general"
+                class="formulario__input"
+                placeholder="total_general"
+                value="<?php echo $consumo->total_general ?? '' ?>">
+        </div>
+
+        
+        <div class="formulario__campo">
+            <label class="formulario__label" for="accion">Accion:</label>
+            <input
+                type="number"
+                name="accion"
+                id="accion"
+                class="formulario__input"
+                placeholder="accion"
+                value="<?php echo $consumo->accion ?? '' ?>">
+        </div>
+
+
+
 
         <input class="formulario__submit formulario__submit--registrar" type="submit" value="Editar Consumo General">
     </form>
