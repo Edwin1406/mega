@@ -40,9 +40,9 @@ protected static $columnasDB = [
         } elseif (!is_numeric($this->total_general)) {
             self::$alertas['error'][] = 'El total general debe ser un número';
         }
-        if ($this->accion !== '0' && $this->accion !== '1') {
-            self::$alertas['error'][] = 'La acción debe ser 0 o 1';
-        }
+        // if ($this->accion !== '0' && $this->accion !== '1') {
+        //     self::$alertas['error'][] = 'La acción debe ser 0 o 1';
+        // }
         return self::$alertas;
     }
 
