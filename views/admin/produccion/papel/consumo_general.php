@@ -83,7 +83,7 @@
 
 
 <?php
-$TOKEN = "7602982908:AAHNVRxWgANtUvz5WQvcOev5ITXPYhxFVIc"; // Pega aquí tu API
+$TOKEN = "AAHNVRxWgANtUvz5WQvcOev5ITXPYhxFVIc"; // Pega aquí tu API
 $URL = "https://api.telegram.org/bot$TOKEN/";
 
 $update = json_decode(file_get_contents("php://input"), true);
