@@ -1048,9 +1048,9 @@ public static function ingresoConsumo(Router $router) {
             $existe = Consumo_general::whereDosCondiciones('created_at', $control->created_at, 'total_general', $control->total_general);
 
             if ($existe) {
-                $alertas['error'][] = 'Ya existe un registro con el mismo total general para esta fecha.';
+                debuguear('El registro ya existe para esta fecha y total general.');
             }
-            debuguear($existe);
+           
 
             $alertas = $control->validar();
 
