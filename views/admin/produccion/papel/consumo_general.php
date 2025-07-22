@@ -93,6 +93,7 @@ $message = $update["message"]["text"];
 
 if ($message == "/start") {
     $response = "¡Hola! Soy tu bot 😄";
+    debuguear("El bot ha sido iniciado");
 } else {
     $response = "Dijiste: $message";
 }
