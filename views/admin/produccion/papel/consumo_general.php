@@ -93,6 +93,7 @@ if (isset($update["message"]["chat"]["id"]) && isset($update["message"]["text"])
 
     if ($message == "/start") {
         $response = "¡Hola! Soy tu bot 😄";
+        $response .= "\n\nPuedes usarme para registrar el consumo general de máquinas. Envía el tipo de máquina y el total general.";
         // Aquí podrías registrar el uso con una función log si lo deseas
     } else {
         $response = "Dijiste: $message";
