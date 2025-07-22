@@ -1046,6 +1046,8 @@ public static function ingresoConsumo(Router $router) {
             // debuguear($control);
             // Validar que el total_general no se repita en la misma fecha buscando en la base de datos
             $existe = Consumo_general::whereDosCondiciones('created_at', $control->created_at, 'total_general', $control->total_general);
+
+            debuguear($existe);
             if ($existe) {
                 $alertas['error'][] = 'Ya existe un registro con el mismo total general para esta fecha.';
             }
