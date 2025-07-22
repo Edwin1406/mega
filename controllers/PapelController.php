@@ -1041,19 +1041,35 @@ public static function ingresoConsumo(Router $router) {
         $alertas = [];
           $control = new Consumo_general;
 
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $control->sincronizar($_POST);
-            // debuguear($control);
-            $alertas = $control->validar();
+        // if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        //     $control->sincronizar($_POST);
+        //     // debuguear($control);
+        //     $alertas = $control->validar();
 
-            if (empty($alertas)) {
-                // Guardar el registro
-                $control->guardar();
-                header('Location: /admin/produccion/papel/tablaconsumo');
-                exit;
-            }
+        //     if (empty($alertas)) {
+        //         // Guardar el registro
+        //         $control->guardar();
+        //         header('Location: /admin/produccion/papel/tablaconsumo');
+        //         exit;
+        //     }
            
-        }
+        // }
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                $control->sincronizar($_POST);
+                $alertas = $control->validar();
+
+                // Prevenir duplicado de total_general por día
+                if ($control->existeRegistroDuplicado()) {
+                    $alertas['error'][] = 'Ya existe un TOTAL GENERAL igual registrado para este día.';
+                }
+
+                if (empty($alertas)) {
+                    $control->guardar();
+                    header('Location: /admin/produccion/papel/tablaconsumo');
+                    exit;
+                }
+            }
 
         $router->render('admin/produccion/papel/consumo_general', [
             'titulo' => 'CONSUMO GENERAL',

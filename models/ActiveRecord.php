@@ -2005,6 +2005,26 @@ public static function procesarArchivoExcelpedidos($filePath)
     
         return 0;
     }
+
+
+
+
+
+    // 
+        public function existeRegistroDuplicado()
+{
+    $query = "SELECT id FROM consumo_general 
+              WHERE total_general = :total 
+              AND DATE(created_at) = :fecha
+              LIMIT 1";
+    $stmt = self::$db->prepare($query);
+    $stmt->bindValue(':total', $this->total_general);
+    $stmt->bindValue(':fecha', $this->created_at); // debe estar en formato 'YYYY-MM-DD'
+    $stmt->execute();
+
+    return $stmt->fetch() ? true : false;
+}
+
     
     
   
