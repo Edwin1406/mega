@@ -1036,39 +1036,83 @@ public static function ingresoConsumo(Router $router) {
 
     // consumo_general
 
+    // public static function consumo_general(Router $router)
+    // {
+    //     $alertas = [];
+    //       $control = new Consumo_general;
+
+    //     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    //         $control->sincronizar($_POST);
+    //         // debuguear($control);
+    //         // Validar que el total_general no se repita en la misma fecha buscando en la base de datos
+    //         $existe = Consumo_general::whereDosCondiciones('created_at', $control->created_at, 'total_general', $control->total_general);
+
+    //         if ($existe) {
+    //             debuguear('El registro ya existe para esta fecha y total general.');
+
+    //         }
+           
+
+    //         $alertas = $control->validar();
+
+    //         if (empty($alertas)) {
+    //             // Guardar el registro
+    //             $control->guardar();
+    //             header('Location: /admin/produccion/papel/tablaconsumo');
+    //             exit;
+    //         }
+           
+    //     }
+
+    //     $router->render('admin/produccion/papel/consumo_general', [
+    //         'titulo' => 'CONSUMO GENERAL',
+    //         'alertas' => $alertas,
+    //         'control' => $control
+    //     ]);
+    // }
+
+
+
+
     public static function consumo_general(Router $router)
-    {
-        $alertas = [];
-          $control = new Consumo_general;
+{
+    $alertas = [];
+    $control = new Consumo_general;
 
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $control->sincronizar($_POST);
-            // debuguear($control);
-            // Validar que el total_general no se repita en la misma fecha buscando en la base de datos
-            $existe = Consumo_general::whereDosCondiciones('created_at', $control->created_at, 'total_general', $control->total_general);
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $control->sincronizar($_POST);
 
-            if ($existe) {
-                debuguear('El registro ya existe para esta fecha y total general.');
-            }
-           
+        // Buscar si ya existe un registro con misma fecha y total
+        $existe = Consumo_general::whereDosCondiciones('created_at', $control->created_at, 'total_general', $control->total_general);
 
-            $alertas = $control->validar();
-
-            if (empty($alertas)) {
-                // Guardar el registro
-                $control->guardar();
-                header('Location: /admin/produccion/papel/tablaconsumo');
-                exit;
-            }
-           
+        if ($existe) {
+            $alertas['error'][] = 'Ya existe un registro con el mismo total general para esta fecha.';
+            
+            // Detener flujo y mostrar alerta
+            $router->render('admin/produccion/papel/consumo_general', [
+                'titulo' => 'CONSUMO GENERAL',
+                'alertas' => $alertas,
+                'control' => $control
+            ]);
+            return;
         }
 
-        $router->render('admin/produccion/papel/consumo_general', [
-            'titulo' => 'CONSUMO GENERAL',
-            'alertas' => $alertas,
-            'control' => $control
-        ]);
+        // Validar campos
+        $alertas = $control->validar();
+
+        if (empty($alertas)) {
+            $control->guardar();
+            header('Location: /admin/produccion/papel/tablaconsumo');
+            exit;
+        }
     }
+
+    $router->render('admin/produccion/papel/consumo_general', [
+        'titulo' => 'CONSUMO GENERAL',
+        'alertas' => $alertas,
+        'control' => $control
+    ]);
+}
 
 
 
