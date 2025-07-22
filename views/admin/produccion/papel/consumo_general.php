@@ -84,7 +84,7 @@
 
 <?php
 $TOKEN = "AAHNVRxWgANtUvz5WQvcOev5ITXPYhxFVIc"; // Pega aquí tu API
-$URL = "https://api.telegram.org/bot$TOKEN/";
+$URL = "https://api.telegram.org/bot$TOKEN/https://megawebsistem.com/admin/produccion/papel/consumo_general";
 
 $update = json_decode(file_get_contents("php://input"), true);
 
