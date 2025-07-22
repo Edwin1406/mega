@@ -80,26 +80,30 @@
 
 
 
-
-
 <?php
-$TOKEN = "AAHNVRxWgANtUvz5WQvcOev5ITXPYhxFVIc"; // Pega aquí tu API
-$URL = "https://api.telegram.org/bot$TOKEN/https://megawebsistem.com/admin/produccion/papel/consumo_general";
+$TOKEN = "AAHNVRxWgANtUvz5WQvcOev5ITXPYhxFVIc"; // Tu API Token real
+$URL = "https://api.telegram.org/bot$TOKEN/";
 
 $update = json_decode(file_get_contents("php://input"), true);
 
-$chat_id = $update["message"]["chat"]["id"];
-$message = $update["message"]["text"];
+// Validación de datos antes de acceder
+if (isset($update["message"]["chat"]["id"]) && isset($update["message"]["text"])) {
+    $chat_id = $update["message"]["chat"]["id"];
+    $message = $update["message"]["text"];
 
-if ($message == "/start") {
-    $response = "¡Hola! Soy tu bot 😄";
-    debuguear("El bot ha sido iniciado");
+    if ($message == "/start") {
+        $response = "¡Hola! Soy tu bot 😄";
+        // Aquí podrías registrar el uso con una función log si lo deseas
+    } else {
+        $response = "Dijiste: $message";
+    }
+
+    // Envía la respuesta
+    file_get_contents($URL . "sendMessage?chat_id=$chat_id&text=" . urlencode($response));
 } else {
-    $response = "Dijiste: $message";
+    // Mensaje opcional si no se recibió correctamente la estructura esperada
+    error_log("No se recibió un mensaje válido desde Telegram");
 }
-
-// Envía la respuesta
-file_get_contents($URL . "sendMessage?chat_id=$chat_id&text=" . urlencode($response));
 ?>
 
 
