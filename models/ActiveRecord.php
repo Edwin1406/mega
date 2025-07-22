@@ -701,6 +701,14 @@ public static function find_orden($id_orden) {
     }
 
 
+    public static function whereDosCondiciones($columna1, $valor1, $columna2, $valor2) {
+    $query = "SELECT * FROM " . static::$tabla . " WHERE {$columna1} = '{$valor1}' AND {$columna2} = '{$valor2}'";
+    $resultado = self::consultarSQL($query);
+    return array_shift($resultado); // Devuelve el primer resultado si existe
+}
+
+
+
     public static function wherenuevo($columna, $valor) {
         $query = "SELECT * FROM " . static::$tabla . " WHERE {$columna} = '{$valor}'";
         $resultado = self::consultarSQL($query);
