@@ -2011,19 +2011,22 @@ public static function procesarArchivoExcelpedidos($filePath)
 
 
     // 
-        public function existeRegistroDuplicado()
+public function existeRegistroDuplicado()
 {
     $query = "SELECT id FROM consumo_general 
-              WHERE total_general = :total 
-              AND DATE(created_at) = :fecha
+              WHERE total_general = ? 
+              AND DATE(created_at) = ? 
               LIMIT 1";
-    $stmt = self::$db->prepare($query);
-    $stmt->bindValue(':total', $this->total_general);
-    $stmt->bindValue(':fecha', $this->created_at); // debe estar en formato 'YYYY-MM-DD'
-    $stmt->execute();
 
-    return $stmt->fetch() ? true : false;
+    $stmt = self::$db->prepare($query);
+    $stmt->bind_param('ds', $this->total_general, $this->created_at); // d = double, s = string
+
+    $stmt->execute();
+    $resultado = $stmt->get_result();
+
+    return $resultado->fetch_assoc() ? true : false;
 }
+
 
     
     
