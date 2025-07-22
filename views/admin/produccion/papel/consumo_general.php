@@ -79,32 +79,3 @@
 
 
 
-
-<?php
-$TOKEN = "AAHNVRxWgANtUvz5WQvcOev5ITXPYhxFVIc"; // Tu API Token real
-$URL = "https://api.telegram.org/bot$TOKEN/";
-
-$update = json_decode(file_get_contents("php://input"), true);
-
-// Validación de datos antes de acceder
-if (isset($update["message"]["chat"]["id"]) && isset($update["message"]["text"])) {
-    $chat_id = $update["message"]["chat"]["id"];
-    $message = $update["message"]["text"];
-
-    if ($message == "/start") {
-        $response = "¡Hola! Soy tu bot 😄";
-        $response .= "\n\nPuedes usarme para registrar el consumo general de máquinas. Envía el tipo de máquina y el total general.";
-        // Aquí podrías registrar el uso con una función log si lo deseas
-    } else {
-        $response = "Dijiste: $message";
-    }
-
-    // Envía la respuesta
-    file_get_contents($URL . "sendMessage?chat_id=$chat_id&text=" . urlencode($response));
-} else {
-    // Mensaje opcional si no se recibió correctamente la estructura esperada
-    error_log("No se recibió un mensaje válido desde Telegram");
-}
-?>
-
-
