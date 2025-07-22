@@ -80,3 +80,25 @@
 
 
 
+
+
+<?php
+$TOKEN = "7602982908:AAHNVRxWgANtUvz5WQvcOev5ITXPYhxFVIc"; // Pega aquí tu API
+$URL = "https://api.telegram.org/bot$TOKEN/";
+
+$update = json_decode(file_get_contents("php://input"), true);
+
+$chat_id = $update["message"]["chat"]["id"];
+$message = $update["message"]["text"];
+
+if ($message == "/start") {
+    $response = "¡Hola! Soy tu bot 😄";
+} else {
+    $response = "Dijiste: $message";
+}
+
+// Envía la respuesta
+file_get_contents($URL . "sendMessage?chat_id=$chat_id&text=" . urlencode($response));
+?>
+
+
