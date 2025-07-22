@@ -1043,7 +1043,7 @@ public static function ingresoConsumo(Router $router) {
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $control->sincronizar($_POST);
-            debuguear($control);
+            // debuguear($control);
             // Validar que el total_general no se repita en la misma fecha buscando en la base de datos
             $existe = Consumo_general::whereDosCondiciones('created_at', $control->created_at, 'total_general', $control->total_general);
             if ($existe) {
