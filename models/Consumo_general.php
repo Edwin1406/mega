@@ -26,7 +26,7 @@ protected static $columnasDB = [
         $this->id = $args['id'] ?? null;
         $this->tipo_maquina = $args['tipo_maquina'] ?? '';
         $this->total_general = $args['total_general'] ?? '';
-        $this->created_at = date('Y-m-d H:i:s');
+        $this->created_at = date('Y-m-d');
         $this->accion = $args['accion'] ?? '';
     }
 
