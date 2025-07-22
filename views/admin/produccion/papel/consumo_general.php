@@ -64,6 +64,18 @@
 </div>
 
 
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const formulario = document.querySelector(".formulario");
+        const boton = formulario.querySelector("input[type='submit']");
+
+        formulario.addEventListener("submit", function () {
+            // Desactiva el botón
+            boton.disabled = true;
+            boton.value = "Registrando..."; // Opcional: cambia el texto
+        });
+    });
+</script>
 
 
 
