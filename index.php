@@ -483,5 +483,4 @@ $router->comprobarRutas();
 // Ejecutar el enrutador
 $router->comprobarRutas();
 
-debuguear($router);
 
