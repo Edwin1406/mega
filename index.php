@@ -368,19 +368,8 @@ $router->get('/admin/produccion/planificacion/index', [PlanificoController::clas
 // TRIMAR PEDIDOS CON DUPLAS 
 $router->get('/admin/produccion/materia/corrugador/cartonera/index', [CartoneraController::class, 'cartonera']); 
 $router->get('/admin/produccion/materia/corrugador/cartonera/pedidoseleccionados', [CartoneraController::class, 'pedidoseleccionados']);
-
 $router->get('/admin/produccion/materia/corrugador/cartonera/dupla', [CartoneraController::class, 'dupla']);
-
-
 $router->get('/admin/produccion/materia/corrugador/cartonera/combinacion', [CartoneraController::class, 'combinacion']);
-
-
-
-
-
-
-
-
 
 
 
@@ -402,8 +391,6 @@ $router->get('/admin/api/trimar', [CotizadorController::class, 'trimar']);
 
 $router->get('/admin/produccion/cotizador/trimarp', [CotizadorController::class, 'trimarp']);
 $router->post('/admin/produccion/cotizador/trimarp', [CotizadorController::class, 'trimarp']);
-
-
 
 
 // AREA DE SISTEMA DE INVENTARIO DE PRODUCTOS DE INFORMATICA
@@ -467,21 +454,11 @@ $router->post('/admin/sistemas/ticket/calificar', [SistemasController::class, 'c
 $router->get('/admin/api/apiticket', [SistemasController::class, 'apiticket']);
 
 
-
-
 // api materia prima
 $router->get('/admin/api/apimateriaprimajson', [MateriaPrimaController::class, 'apimateriaprimajson']);
 
-
-
-
 // citas de prueba 
-
 $router->get('/admin/api/citas', [EstimarController::class, 'citas']);
-
-
-
-
 
 
 // CONNTROL DE PORDUCCION
@@ -496,3 +473,15 @@ $router->get('/admin/control/tabla', [ControlController::class, 'tabla']);
 $router->get('/admin/api/apicontroldeproduccion', [ControlController::class, 'apicontroldeproduccion']);
 
 $router->comprobarRutas();
+
+
+
+
+
+
+
+// Ejecutar el enrutador
+$router->comprobarRutas();
+
+debuguear($router);
+
