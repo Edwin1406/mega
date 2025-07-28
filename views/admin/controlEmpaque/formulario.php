@@ -1,3 +1,13 @@
+<style>
+        @media (max-width: 768px) {
+        .dashboard__sidebar {
+            /* Suponiendo que el contenedor tiene la clase .barra-lateral */
+            display: none;
+        }
+    }
+</style>
+
+
 <fieldset class="formulario-troquelado__fieldset">
     <legend class="formulario-troquelado__legend">Control Empaque </legend>
 
