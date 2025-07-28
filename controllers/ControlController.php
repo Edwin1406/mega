@@ -232,7 +232,7 @@ public static function crearEmpaque(Router $router)
             $control->x_hora = 0;
         }
 
-        debuguear($control);
+        debuguear($control->x_hora);
 
         // Validar
         $alertas = $control->validar();
