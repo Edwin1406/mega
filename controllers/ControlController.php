@@ -160,7 +160,7 @@ public static function crearEmpaque(Router $router)
         // horas trabajadas
         $control->sacarTotalHoras();
 
-        debuguear($control);
+        // debuguear($control);
 
 
         // Validar campos específicos si es necesario
