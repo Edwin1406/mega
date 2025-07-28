@@ -142,6 +142,61 @@ public static function apicontroldeproduccion(Router $router)
 
 
 // CONTROL DE EMPAQUE
+// public static function crearEmpaque(Router $router)
+// {
+//     session_start();
+//     isAuth();
+
+//     $resultado = $_GET['resultado'] ?? null;
+
+//     $control = new ControlEmpaque;
+//     $token = $_GET['id'] ?? '';
+//     $alertas = [];
+
+//     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+//          if (isset($_POST['personal']) && is_array($_POST['personal'])) {
+//         $_POST['personal'] = implode(' - ', $_POST['personal']);
+//     }
+//         $control->sincronizar($_POST);
+
+
+//         // horas trabajadas
+//         $control->sacarTotalHoras();
+
+
+//         // debuguear($control->total_horas);
+
+//         // quiero sacar la prodctividad por hora
+// // ya tengo // cantidad y total_horas
+//         if ($control->cantidad > 0 && $control->total_horas > 0) {
+//             $control->x_hora = $control->cantidad / $control->total_horas;
+//         } else {
+//             $control->x_hora = 0;
+//         }
+
+//         // debuguear($control->x_hora); 
+
+//         // Validar campos específicos si es necesario
+//         $alertas = $control->validar();
+
+//         if (empty($alertas)) {
+//             $resultado = $control->guardar();
+//             if ($resultado) {
+//                 header('Location: /admin/controlEmpaque/crear?resultado=1');
+//             }
+//         } else {
+//             $alertas = Control::getAlertas();
+//         }
+//     }
+
+//     $router->render('admin/controlEmpaque/crear', [
+//         'titulo' => 'CONTROL DE EMPAQUE',
+//         'alertas' => $alertas,
+//         'control' => $control,
+//         'token' => $token,
+//         'resultado' => $resultado,
+//     ]);
+
 public static function crearEmpaque(Router $router)
 {
     session_start();
@@ -154,35 +209,39 @@ public static function crearEmpaque(Router $router)
     $alertas = [];
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-         if (isset($_POST['personal']) && is_array($_POST['personal'])) {
-        $_POST['personal'] = implode(' - ', $_POST['personal']);
-    }
-        $control->sincronizar($_POST);
 
-
-        // horas trabajadas
-        $control->sacarTotalHoras();
-
-
-        // debuguear($control->total_horas);
-
-        // quiero sacar la prodctividad por hora
-// ya tengo // cantidad y total_horas
-        if ($control->cantidad > 0 && $control->total_horas > 0) {
-            $control->x_hora = $control->cantidad / $control->total_horas;
-        } else {
-            $control->x_hora = 0;
+        if (isset($_POST['personal']) && is_array($_POST['personal'])) {
+            $_POST['personal'] = implode(' - ', $_POST['personal']);
         }
 
-        // debuguear($control->x_hora); 
+        $control->sincronizar($_POST);
 
-        // Validar campos específicos si es necesario
+        // 🕒 Convertir HH:MM a decimal si aplica
+        if (!empty($control->tiempo_trabajado)) {
+            $control->total_horas = self::convertirHoraADecimal($control->tiempo_trabajado);
+        } else {
+            $control->total_horas = 0;
+        }
+
+        // 🧮 Calcular productividad por hora y por 15 minutos
+        if ($control->cantidad > 0 && $control->total_horas > 0) {
+            $control->x_hora = $control->cantidad / $control->total_horas;
+
+            $total_minutos = $control->total_horas * 60;
+            $control->x_15min = ($control->cantidad / $total_minutos) * 15;
+        } else {
+            $control->x_hora = 0;
+            $control->x_15min = 0;
+        }
+
+        // Validar
         $alertas = $control->validar();
 
         if (empty($alertas)) {
             $resultado = $control->guardar();
             if ($resultado) {
                 header('Location: /admin/controlEmpaque/crear?resultado=1');
+                return;
             }
         } else {
             $alertas = Control::getAlertas();
@@ -196,6 +255,17 @@ public static function crearEmpaque(Router $router)
         'token' => $token,
         'resultado' => $resultado,
     ]);
+}
+
+// 🔄 Función auxiliar para convertir "HH:MM" a decimal
+private static function convertirHoraADecimal($horaString)
+{
+    $partes = explode(':', $horaString);
+    $horas = isset($partes[0]) ? (int)$partes[0] : 0;
+    $minutos = isset($partes[1]) ? (int)$partes[1] : 0;
+
+    return $horas + ($minutos / 60);
+}
 
 
 
