@@ -15,7 +15,8 @@ class ControlEmpaque extends ActiveRecord {
         'cantidad',
         'hora_inicio',
         'hora_fin',
-        'total_horas'
+        'total_horas',
+        'x_hora'
 
     ];
 
@@ -29,6 +30,7 @@ class ControlEmpaque extends ActiveRecord {
     public $hora_inicio;
     public $hora_fin;
     public $total_horas;
+    public $x_hora;
 
     public function __construct($args = []) {
         $this->id = $args['id'] ?? null;
@@ -41,6 +43,7 @@ class ControlEmpaque extends ActiveRecord {
         $this->hora_inicio = $args['hora_inicio'] ?? '';
         $this->hora_fin = $args['hora_fin'] ?? '';
         $this->total_horas = $args['total_horas'] ?? '';
+        $this->x_hora = $args['x_hora'] ?? '';
     }
 
     public function validar() {
@@ -81,7 +84,18 @@ class ControlEmpaque extends ActiveRecord {
 
 
 
+  
+ public function convertirHorasADecimal($horas) {
+    $horas = trim($horas); // eliminar espacios alrededor
+    $partes = explode(':', $horas);
+    
+    if (count($partes) !== 2 || !is_numeric($partes[0]) || !is_numeric($partes[1])) {
+        return 0; // Formato incorrecto
+    }
 
+    $horasDecimal = (int)$partes[0] + ((int)$partes[1] / 60);
+    return $horasDecimal;
+}
 
 
 

@@ -158,9 +158,26 @@ public static function crearEmpaque(Router $router)
 
 
         // horas trabajadas
-        $control->sacarTotalHoras();
+        $control->total_horas=$control->sacarTotalHoras();
+        debuguear($control);
 
-        // debuguear($control);
+        if ($control->total_horas > 0) {
+    // Convertir solo para el cálculo
+    $horasDecimal = $control->convertirHorasADecimal($control->total_horas);
+
+    // Validar que el resultado de conversión sea mayor a 0
+    if ($horasDecimal > 0) {
+        $control->x_hora = $control->cantidad / $horasDecimal;
+    } else {
+        $control->x_hora = 0;
+    }
+} else {
+    $control->x_hora = 0;
+}
+
+
+
+        
 
 
         // Validar campos específicos si es necesario
