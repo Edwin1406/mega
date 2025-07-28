@@ -12,14 +12,14 @@
     </div>
 
     <div class="formulario-troquelado__campo">
-        <label class="formulario-troquelado__label" for="turnos">Nº Turnos:</label>
+        <label class="formulario-troquelado__label" for="turno">Nº Turnos:</label>
         <input
             type="number"
-            name="turnos"
-            id="turnos"
+            name="turno"
+            id="turno"
             class="formulario-troquelado__input"
             placeholder="Nº Turnos"
-            value="<?php echo $control->n_turno ?? '' ?>">
+            value="<?php echo $control->turno ?? '' ?>">
     </div>
 
 
