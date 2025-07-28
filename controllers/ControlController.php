@@ -141,61 +141,6 @@ public static function apicontroldeproduccion(Router $router)
 
 
 
-// CONTROL DE EMPAQUE
-// public static function crearEmpaque(Router $router)
-// {
-//     session_start();
-//     isAuth();
-
-//     $resultado = $_GET['resultado'] ?? null;
-
-//     $control = new ControlEmpaque;
-//     $token = $_GET['id'] ?? '';
-//     $alertas = [];
-
-//     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-//          if (isset($_POST['personal']) && is_array($_POST['personal'])) {
-//         $_POST['personal'] = implode(' - ', $_POST['personal']);
-//     }
-//         $control->sincronizar($_POST);
-
-
-//         // horas trabajadas
-//         $control->sacarTotalHoras();
-
-
-//         // debuguear($control->total_horas);
-
-//         // quiero sacar la prodctividad por hora
-// // ya tengo // cantidad y total_horas
-//         if ($control->cantidad > 0 && $control->total_horas > 0) {
-//             $control->x_hora = $control->cantidad / $control->total_horas;
-//         } else {
-//             $control->x_hora = 0;
-//         }
-
-//         // debuguear($control->x_hora); 
-
-//         // Validar campos específicos si es necesario
-//         $alertas = $control->validar();
-
-//         if (empty($alertas)) {
-//             $resultado = $control->guardar();
-//             if ($resultado) {
-//                 header('Location: /admin/controlEmpaque/crear?resultado=1');
-//             }
-//         } else {
-//             $alertas = Control::getAlertas();
-//         }
-//     }
-
-//     $router->render('admin/controlEmpaque/crear', [
-//         'titulo' => 'CONTROL DE EMPAQUE',
-//         'alertas' => $alertas,
-//         'control' => $control,
-//         'token' => $token,
-//         'resultado' => $resultado,
-//     ]);
 public static function crearEmpaque(Router $router)
 {
     session_start();
@@ -215,16 +160,13 @@ public static function crearEmpaque(Router $router)
 
         $control->sincronizar($_POST);
 
-        // 🕒 Calcular total_horas si no viene calculado
-        // Este paso se omite si ya tienes $control->total_horas calculado previamente
-        $control->sacarTotalHoras(); // Asegúrate que este método establezca correctamente total_horas como decimal
+        $control->sacarTotalHoras(); 
 
-        // ✅ Calcular productividad cada 15 minutos
+        // Calcular productividad cada 15 minutos
         $cantidad = is_numeric($control->cantidad) ? (float)$control->cantidad : 0;
         $minutos_trabajados = $control->total_horas * 60;
 
         if ($cantidad > 0 && $minutos_trabajados > 0) {
-            // 
             // $control->x_hora = ($cantidad / $minutos_trabajados) * 15;
             $control->x_hora = round(($cantidad / $minutos_trabajados) * 15);
 
@@ -232,9 +174,6 @@ public static function crearEmpaque(Router $router)
             $control->x_hora = 0;
         }
 
-        // debuguear($control->x_hora);
-
-        // Validar campos
         $alertas = $control->validar();
 
         if (empty($alertas)) {
@@ -259,12 +198,26 @@ public static function crearEmpaque(Router $router)
 
 
 
+// API Control Empaque
+public static function apicontrolempaque(Router $router)
+{  
+    $control = ControlEmpaque::all();
 
+    // Convertir campos numéricos en cada objeto
+    foreach ($control as $registro) {
+        $registro->cantidad = (int)$registro->cantidad;
+        $registro->total_horas = (float)$registro->total_horas;
+        $registro->x_hora = (float)$registro->x_hora;
+    }
 
+    header('Content-Type: application/json');
+    header('Access-Control-Allow-Origin: *');
+    header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE');
+    header('Access-Control-Allow-Headers: Content-Type, Authorization');
 
-
-
-
+    echo json_encode($control);
+    exit();
+}
 
 
 

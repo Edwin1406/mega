@@ -479,6 +479,10 @@ $router->get('/admin/api/apicontroldeproduccion', [ControlController::class, 'ap
 $router->get('/admin/controlEmpaque/crear', [ControlController::class, 'crearEmpaque']);
 $router->post('/admin/controlEmpaque/crear', [ControlController::class, 'crearEmpaque']);
 
+// API CONTROL DE EMPAQUE
+$router->get('/admin/api/apicontrolempaque', [ControlController::class, 'apicontrolempaque']);
+
+
 
 
 
