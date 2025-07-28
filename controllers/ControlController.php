@@ -154,6 +154,9 @@ public static function crearEmpaque(Router $router)
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $control->sincronizar($_POST);
+
+        // sumar horas
+        $control->total_horas = $control->hora_fin - $control->hora_inicio;
         debuguear($control);
 
         // Validar campos específicos si es necesario
