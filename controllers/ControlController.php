@@ -165,17 +165,13 @@ public static function crearEmpaque(Router $router)
 
         // quiero sacar la prodctividad por hora
 // ya tengo // cantidad y total_horas
-if ($control->cantidad > 0 && $control->total_horas > 0) {
+        if ($control->cantidad > 0 && $control->total_horas > 0) {
             $control->x_hora = $control->cantidad / $control->total_horas;
         } else {
             $control->x_hora = 0;
         }
 
-        debuguear($control->x_hora); 
-
-
-        
-
+        // debuguear($control->x_hora); 
 
         // Validar campos específicos si es necesario
         $alertas = $control->validar();
