@@ -216,22 +216,18 @@ public static function crearEmpaque(Router $router)
 
         $control->sincronizar($_POST);
 
-        // 🕒 Convertir HH:MM a decimal si aplica
+        // 🕒 Convertir HH:MM a minutos
         if (!empty($control->tiempo_trabajado)) {
-            $control->total_horas = self::convertirHoraADecimal($control->tiempo_trabajado);
+            $total_minutos = self::convertirHoraAMinutos($control->tiempo_trabajado);
         } else {
-            $control->total_horas = 0;
+            $total_minutos = 0;
         }
 
-        // 🧮 Calcular productividad por hora y por 15 minutos
-        if ($control->cantidad > 0 && $control->total_horas > 0) {
-            $control->x_hora = $control->cantidad / $control->total_horas;
-
-            $total_minutos = $control->total_horas * 60;
-            $control->x_15min = ($control->cantidad / $total_minutos) * 15;
+        // 🧮 Calcular productividad por cada 15 minutos
+        if ($control->cantidad > 0 && $total_minutos > 0) {
+            $control->x_hora = ($control->cantidad / $total_minutos) * 15;
         } else {
             $control->x_hora = 0;
-            $control->x_15min = 0;
         }
 
         // Validar
@@ -257,21 +253,21 @@ public static function crearEmpaque(Router $router)
     ]);
 }
 
-// 🔄 Función auxiliar para convertir "HH:MM" a decimal
-private static function convertirHoraADecimal($horaString)
+// 🔄 Convertir "HH:MM" a minutos
+private static function convertirHoraAMinutos($horaString)
 {
     $partes = explode(':', $horaString);
     $horas = isset($partes[0]) ? (int)$partes[0] : 0;
     $minutos = isset($partes[1]) ? (int)$partes[1] : 0;
 
-    return $horas + ($minutos / 60);
+    return ($horas * 60) + $minutos;
 }
 
 
 
 
 
-
+}
 
 
 
