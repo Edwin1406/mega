@@ -1,5 +1,5 @@
 <fieldset class="formulario-troquelado__fieldset">
-    <legend class="formulario-troquelado__legend">Control Troquelado </legend>
+    <legend class="formulario-troquelado__legend">Control Empaqe </legend>
 
     <div class="formulario-troquelado__campo">
         <label class="formulario-troquelado__label" for="fecha">Fecha </label>
@@ -36,86 +36,67 @@
         </select>
     </div>
 
+    
     <div class="formulario-troquelado__campo">
-        <label class="formulario-troquelado__label" for="horas_programadas">Horas Programadas</label>
+        <label class="formulario-troquelado__label" for="producto">Producto</label>
+        <select
+            name="producto"
+            id="producto"
+            class="formulario-troquelado__input">
+            <option value="">Selecciona una opción</option>
+            <option value="Producto 1" <?php echo (isset($control->producto) && $control->producto == 'Producto 1') ? 'selected' : ''; ?>>Producto 1</option>
+            <option value="Producto 2" <?php echo (isset($control->producto) && $control->producto == 'Producto 2') ? 'selected' : ''; ?>>Producto 2</option>
+            <option value="Producto 3" <?php echo (isset($control->producto) && $control->producto == 'Producto 3') ? 'selected' : ''; ?>>Producto 3</option>
+        </select>
+    </div>
+
+    <!-- medidas -->
+    <div class="formulario-troquelado__campo">
+        <label class="formulario-troquelado__label" for="medidas">Medidas</label>
+        <input
+            type="text"
+            name="medidas"
+            id="medidas"
+            class="formulario-troquelado__input"
+            placeholder="Medidas"
+            value="<?php echo $control->medidas ?? '' ?>">
+    </div>
+
+<!-- hora de inicio -->
+    <div class="formulario-troquelado__campo">
+        <label class="formulario-troquelado__label" for="hora_inicio">Hora de Inicio</label>
         <input
             type="time"
-            name="horas_programadas"
-            id="horas_programadas"
+            name="hora_inicio"
+            id="hora_inicio"
             class="formulario-troquelado__input"
-            value="<?php echo $control->horas_programadas ?? '' ?>">
+            value="<?php echo $control->hora_inicio ?? '' ?>">
     </div>
 
+<!-- hora de fin -->
     <div class="formulario-troquelado__campo">
-        <label class="formulario-troquelado__label" for="golpes_maquina">Golpes Máquina</label>
-     <input
-    type="number"
-    step="any"
-    name="golpes_maquina"
-    id="golpes_maquina"
-    class="formulario-troquelado__input"
-    placeholder="Golpes Máquina"
-    value="<?php echo $control->golpes_maquina ?? '' ?>">
-
+        <label class="formulario-troquelado__label" for="hora_fin">Hora de Fin</label>
+        <input
+            type="time"
+            name="hora_fin"
+            id="hora_fin"
+            class="formulario-troquelado__input"
+            value="<?php echo $control->hora_fin ?? '' ?>">
     </div>
-
-  
-
+    <!-- cantidad -->
     <div class="formulario-troquelado__campo">
-        <label class="formulario-troquelado__label" for="cambios_medida">Nº Cambios de Medida</label>
+        <label class="formulario-troquelado__label" for="cantidad">Cantidad</label>
         <input
             type="number"
-            name="cambios_medida"
-            id="cambios_medida"
+            name="cantidad"
+            id="cantidad"
             class="formulario-troquelado__input"
-            placeholder="Nº Cambios de Medida"
-            value="<?php echo $control->cambios_medida ?? '' ?>">
-
+            placeholder="Cantidad"
+            value="<?php echo $control->cantidad ?? '' ?>">
     </div>
 
-    <div class="formulario-troquelado__campo">
-        <label class="formulario-troquelado__label" for="cantidad_separadores">Separadores</label>
-        <input
-            type="number"
-            name="cantidad_separadores"
-            id="cantidad_separadores"
-            class="formulario-troquelado__input"
-            placeholder="Cantidad de Separadores"
-            value="<?php echo $control->cantidad_separadores ?? '' ?>">
 
-    </div>
 
-    <div class="formulario-troquelado__campo">
-        <label class="formulario-troquelado__label" for="cantidad_cajas">Cajas</label>
-        <input
-            type="number"
-            name="cantidad_cajas"
-            id="cantidad_cajas"
-            class="formulario-troquelado__input"
-            placeholder="Cantidad de Cajas"
-            value="<?php echo $control->cantidad_cajas ?? '' ?>">
-    </div>
-    <div class="formulario-troquelado__campo">
-        <label class="formulario-troquelado__label" for="cantidad_papel">Papel</label>
-        <input
-            type="number"
-            name="cantidad_papel"
-            id="cantidad_papel"
-            class="formulario-troquelado__input"
-            placeholder="Cantidad de Papel"
-            value="<?php echo $control->cantidad_papel ?? '' ?>">
-    </div>
-
-    <div class="formulario-troquelado__campo">
-        <label class="formulario-troquelado__label" for="desperdicio_kg">Desperdicio (Kg)</label>
-        <input
-            type="number"
-            name="desperdicio_kg"
-            id="desperdicio_kg"
-            class="formulario-troquelado__input"
-            placeholder="Desperdicio en Kg"
-            value="<?php echo $control->desperdicio_kg ?? '' ?>">
-    </div>
 
 </fieldset>
 
