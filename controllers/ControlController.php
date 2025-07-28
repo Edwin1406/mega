@@ -154,6 +154,9 @@ public static function crearEmpaque(Router $router)
     $alertas = [];
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+         if (isset($_POST['personal']) && is_array($_POST['personal'])) {
+        $_POST['personal'] = implode(' - ', $_POST['personal']);
+    }
         $control->sincronizar($_POST);
 
 
