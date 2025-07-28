@@ -472,6 +472,18 @@ $router->get('/admin/control/tabla', [ControlController::class, 'tabla']);
 // API CONTROL DE PRODUCCION
 $router->get('/admin/api/apicontroldeproduccion', [ControlController::class, 'apicontroldeproduccion']);
 
+
+
+
+// CONTROL DE EMPAQUE
+$router->get('/admin/controlEmpaque/crear', [ControlController::class, 'crearEmpaque']);
+$router->post('/admin/controlEmpaque/crear', [ControlController::class, 'crearEmpaque']);
+
+
+
+
+
+
 $router->comprobarRutas();
 
 

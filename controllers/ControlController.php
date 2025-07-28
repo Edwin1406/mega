@@ -139,6 +139,43 @@ public static function apicontroldeproduccion(Router $router)
 
 
 
+// CONTROL DE EMPAQUE
+public static function crearEmpaque(Router $router)
+{
+    session_start();
+    isAuth();
+
+    $resultado = $_GET['resultado'] ?? null;
+
+    $control = new Control;
+    $token = $_GET['id'] ?? '';
+    $alertas = [];
+
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $control->sincronizar($_POST);
+
+        // Validar campos específicos si es necesario
+        $alertas = $control->validar();
+
+        if (empty($alertas)) {
+            $resultado = $control->guardar();
+            if ($resultado) {
+                header('Location: /admin/controlEmpaque/crear?resultado=1');
+            }
+        } else {
+            $alertas = Control::getAlertas();
+        }
+    }
+
+    $router->render('admin/controlEmpaque/crear', [
+        'titulo' => 'CONTROL DE EMPAQUE',
+        'alertas' => $alertas,
+        'control' => $control,
+        'token' => $token,
+        'resultado' => $resultado,
+    ]);
+
+    
 
 
 
