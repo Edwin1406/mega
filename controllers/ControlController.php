@@ -2,6 +2,7 @@
 
 namespace Controllers;
 
+use DateTime;
 use Model\Control;
 use Model\ControlEmpaque;
 use MVC\Router;
@@ -155,9 +156,19 @@ public static function crearEmpaque(Router $router)
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $control->sincronizar($_POST);
 
-        // sumar horas
-        $control->total_horas = $control->hora_fin - $control->hora_inicio;
-        debuguear($control);
+     // Crear objetos DateTime desde las propiedades del objeto
+$inicio = new DateTime($control->hora_inicio);
+$fin = new DateTime($control->hora_fin);
+
+// Calcular la diferencia de tiempo
+$diferencia = $inicio->diff($fin);
+
+// Calcular total de horas como número decimal
+$control->total_horas = $diferencia->h + ($diferencia->i / 60);
+
+// Verificar resultado
+debuguear($control);
+
 
         // Validar campos específicos si es necesario
         $alertas = $control->validar();
