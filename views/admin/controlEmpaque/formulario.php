@@ -23,7 +23,7 @@
     </div>
 
 
-    <div class="formulario-troquelado__campo">
+    <!-- <div class="formulario-troquelado__campo">
         <label class="formulario-troquelado__label" for="personal">Personal</label>
         <select
             name="personal"
@@ -34,7 +34,42 @@
             <option value="Guillermo Bonilla" <?php echo (isset($control->personal) && $control->personal == 'Guillermo Bonilla') ? 'selected' : ''; ?>>Guillermo Bonilla</option>
             <option value="Carlos Govea" <?php echo (isset($control->personal) && $control->personal == 'Carlos Govea') ? 'selected' : ''; ?>>Carlos Govea</option>
         </select>
-    </div>
+    </div> -->
+
+
+    <div class="formulario-troquelado__campo">
+    <label class="formulario-troquelado__label" for="personal">Personal (máximo 2)</label>
+    <select
+        name="personal[]"
+        id="personal"
+        class="formulario-troquelado__input"
+        multiple
+        size="3">
+        <option value="Luis Govea">Luis Govea</option>
+        <option value="Guillermo Bonilla">Guillermo Bonilla</option>
+        <option value="Carlos Govea">Carlos Govea</option>
+        <option value="Carmen Alvarez">Carmen Alvarez</option>
+    </select>
+</div>
+
+<input type="hidden" name="personal_final" id="personal_final">
+
+<script>
+document.getElementById('personal').addEventListener('change', function () {
+    const selected = Array.from(this.selectedOptions).map(opt => opt.value);
+
+    if (selected.length > 2) {
+        // Quita la última opción seleccionada si ya hay 2
+        this.options[this.selectedIndex].selected = false;
+        alert('Solo puedes seleccionar un máximo de 2 personas.');
+        return;
+    }
+
+    // Unir en una sola cadena con guion si hay una o dos selecciones
+    document.getElementById('personal_final').value = selected.join(' - ');
+});
+</script>
+
 
     
     <div class="formulario-troquelado__campo">
