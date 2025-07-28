@@ -175,11 +175,11 @@ public static function crearEmpaque(Router $router)
         'resultado' => $resultado,
     ]);
 
-    
 
 
 
 
+}
 
 
 
