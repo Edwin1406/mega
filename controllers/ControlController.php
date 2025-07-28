@@ -215,6 +215,8 @@ public static function crearEmpaque(Router $router)
         }
 
         $control->sincronizar($_POST);
+                $control->sacarTotalHoras();
+
 
         // 🕒 Convertir HH:MM a minutos
         if (!empty($control->tiempo_trabajado)) {
@@ -229,6 +231,8 @@ public static function crearEmpaque(Router $router)
         } else {
             $control->x_hora = 0;
         }
+
+        debuguear($control);
 
         // Validar
         $alertas = $control->validar();
