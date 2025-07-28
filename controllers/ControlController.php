@@ -224,7 +224,10 @@ public static function crearEmpaque(Router $router)
         $minutos_trabajados = $control->total_horas * 60;
 
         if ($cantidad > 0 && $minutos_trabajados > 0) {
-            $control->x_hora = ($cantidad / $minutos_trabajados) * 15;
+            // 
+            // $control->x_hora = ($cantidad / $minutos_trabajados) * 15;
+            $control->x_hora = round(($cantidad / $minutos_trabajados) * 15);
+
         } else {
             $control->x_hora = 0;
         }
