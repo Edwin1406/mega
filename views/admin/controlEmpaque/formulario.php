@@ -66,7 +66,7 @@
     <div class="formulario-troquelado__campo">
         <label class="formulario-troquelado__label" for="hora_inicio">Hora de Inicio</label>
         <input
-            type="date"
+            type="time"
             name="hora_inicio"
             id="hora_inicio"
             class="formulario-troquelado__input"
@@ -77,7 +77,7 @@
     <div class="formulario-troquelado__campo">
         <label class="formulario-troquelado__label" for="hora_fin">Hora de Fin</label>
         <input
-            type="date"
+            type="time"
             name="hora_fin"
             id="hora_fin"
             class="formulario-troquelado__input"
