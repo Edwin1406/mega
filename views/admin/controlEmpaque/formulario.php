@@ -1,5 +1,5 @@
 <fieldset class="formulario-troquelado__fieldset">
-    <legend class="formulario-troquelado__legend">Control Empaqe </legend>
+    <legend class="formulario-troquelado__legend">Control Empaque </legend>
 
     <div class="formulario-troquelado__campo">
         <label class="formulario-troquelado__label" for="fecha">Fecha </label>
