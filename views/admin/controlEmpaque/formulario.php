@@ -24,15 +24,15 @@
 
 
     <div class="formulario-troquelado__campo">
-        <label class="formulario-troquelado__label" for="operador">Operadores</label>
+        <label class="formulario-troquelado__label" for="personal">Personal</label>
         <select
-            name="operador"
-            id="operador"
+            name="personal"
+            id="personal"
             class="formulario-troquelado__input">
             <option value="">Selecciona una opción</option>
-            <option value="Luis Govea" <?php echo (isset($control->operadores) && $control->operadores == 'Luis Govea') ? 'selected' : ''; ?>>Luis Govea</option>
-            <option value="Guillermo Bonilla" <?php echo (isset($control->operadores) && $control->operadores == 'Guillermo Bonilla') ? 'selected' : ''; ?>>Guillermo Bonilla</option>
-            <!-- <option value="Carlos Govea" <?php echo (isset($control->operadores) && $control->operadores == 'Carlos Govea') ? 'selected' : ''; ?>>Carlos Govea</option> -->
+            <option value="Luis Govea" <?php echo (isset($control->personal) && $control->personal == 'Luis Govea') ? 'selected' : ''; ?>>Luis Govea</option>
+            <option value="Guillermo Bonilla" <?php echo (isset($control->personal) && $control->personal == 'Guillermo Bonilla') ? 'selected' : ''; ?>>Guillermo Bonilla</option>
+            <option value="Carlos Govea" <?php echo (isset($control->personal) && $control->personal == 'Carlos Govea') ? 'selected' : ''; ?>>Carlos Govea</option>
         </select>
     </div>
 

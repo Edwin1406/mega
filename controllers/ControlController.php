@@ -153,6 +153,7 @@ public static function crearEmpaque(Router $router)
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $control->sincronizar($_POST);
+        debuguear($control);
 
         // Validar campos específicos si es necesario
         $alertas = $control->validar();
