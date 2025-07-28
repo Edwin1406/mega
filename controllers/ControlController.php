@@ -159,7 +159,7 @@ public static function crearEmpaque(Router $router)
 
         // horas trabajadas
         $control->total_horas=$control->sacarTotalHoras();
-        debuguear($control);
+
 
         if ($control->total_horas > 0) {
     // Convertir solo para el cálculo
@@ -176,6 +176,7 @@ public static function crearEmpaque(Router $router)
 }
 
 
+debuguear($control);
 
         
 
