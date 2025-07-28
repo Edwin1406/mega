@@ -28,7 +28,7 @@
 
         <?php include_once __DIR__ . '/formulario.php'  ?>
 
-        <input class="formulario-troquelado__submit formulario-troquelado__submit--registrar" type="submit" value="Registrar Control de Empaque">
+        <input class="formulario-troquelado__submit formulario-troquelado__submit--registrar" type="submit" value="Registrar">
 
 
     </form>
