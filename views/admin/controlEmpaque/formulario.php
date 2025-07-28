@@ -39,7 +39,7 @@
 
 
     <style>
-        .formulario-troquelado select {
+        .formulario-troquelados select {
           width: 100%;
           padding: 10px;
           border: 1px solid #ccc;
@@ -53,7 +53,7 @@
     <select
         name="personal[]"
         id="personal"
-        class="formulario-troquelados__input"
+        class="formulario-troquelado__input"
         multiple
         size="3">
         <option value="Luis Govea">Luis Govea</option>
