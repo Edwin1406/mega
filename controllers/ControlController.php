@@ -156,18 +156,11 @@ public static function crearEmpaque(Router $router)
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $control->sincronizar($_POST);
 
-     // Crear objetos DateTime desde las propiedades del objeto
-$inicio = new DateTime($control->hora_inicio);
-$fin = new DateTime($control->hora_fin);
 
-// Calcular la diferencia de tiempo
-$diferencia = $inicio->diff($fin);
+        // horas trabajadas
+        $control->sacarTotalHoras();
 
-// Calcular total de horas como número decimal
-$control->total_horas = $diferencia->h + ($diferencia->i / 60);
-
-// Verificar resultado
-debuguear($control);
+        debuguear($control);
 
 
         // Validar campos específicos si es necesario

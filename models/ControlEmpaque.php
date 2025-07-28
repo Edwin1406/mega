@@ -1,6 +1,8 @@
 <?php
 namespace Model;
 
+use DateTime;
+
 class ControlEmpaque extends ActiveRecord {
     protected static $tabla = 'control_empaque';
     protected static $columnasDB = [
@@ -70,7 +72,12 @@ class ControlEmpaque extends ActiveRecord {
         return self::$alertas;
     }
 
-    
+    public function sacarTotalHoras() {
+        $inicio = new DateTime($this->hora_inicio);
+        $fin = new DateTime($this->hora_fin);
+        $diferencia = $inicio->diff($fin);
+        $this->total_horas = $diferencia->h + ($diferencia->i / 60);
+    }
 
 
 
