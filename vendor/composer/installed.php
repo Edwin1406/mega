@@ -3,7 +3,7 @@
         'name' => 'edwin/megastock',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => '3ec7e30d75a4ccdeae87d12f4368332c1e5293ef',
+        'reference' => '8e96ab6b630282bce903e4e1768e4de5e9c70792',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -22,7 +22,7 @@
         'edwin/megastock' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => '3ec7e30d75a4ccdeae87d12f4368332c1e5293ef',
+            'reference' => '8e96ab6b630282bce903e4e1768e4de5e9c70792',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
