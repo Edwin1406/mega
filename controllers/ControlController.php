@@ -196,7 +196,6 @@ public static function apicontroldeproduccion(Router $router)
 //         'token' => $token,
 //         'resultado' => $resultado,
 //     ]);
-
 public static function crearEmpaque(Router $router)
 {
     session_start();
@@ -215,26 +214,22 @@ public static function crearEmpaque(Router $router)
         }
 
         $control->sincronizar($_POST);
-                $control->sacarTotalHoras();
 
+        // 🕒 Calcular total_horas si no viene calculado
+        // Este paso se omite si ya tienes $control->total_horas calculado previamente
+        $control->sacarTotalHoras(); // Asegúrate que este método establezca correctamente total_horas como decimal
 
-        // 🕒 Convertir HH:MM a minutos
-        if (!empty($control->tiempo_trabajado)) {
-            $total_minutos = self::convertirHoraAMinutos($control->tiempo_trabajado);
-        } else {
-            $total_minutos = 0;
-        }
+        // ✅ Calcular productividad cada 15 minutos
+        $cantidad = is_numeric($control->cantidad) ? (float)$control->cantidad : 0;
+        $minutos_trabajados = $control->total_horas * 60;
 
-        // 🧮 Calcular productividad por cada 15 minutos
-        if ($control->cantidad > 0 && $total_minutos > 0) {
-            $control->x_hora = ($control->cantidad / $total_minutos) * 15;
+        if ($cantidad > 0 && $minutos_trabajados > 0) {
+            $control->x_hora = ($cantidad / $minutos_trabajados) * 15;
         } else {
             $control->x_hora = 0;
         }
 
-        debuguear($control);
-
-        // Validar
+        // Validar campos
         $alertas = $control->validar();
 
         if (empty($alertas)) {
@@ -255,16 +250,6 @@ public static function crearEmpaque(Router $router)
         'token' => $token,
         'resultado' => $resultado,
     ]);
-}
-
-// 🔄 Convertir "HH:MM" a minutos
-private static function convertirHoraAMinutos($horaString)
-{
-    $partes = explode(':', $horaString);
-    $horas = isset($partes[0]) ? (int)$partes[0] : 0;
-    $minutos = isset($partes[1]) ? (int)$partes[1] : 0;
-
-    return ($horas * 60) + $minutos;
 }
 
 
