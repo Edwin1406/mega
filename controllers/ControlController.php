@@ -267,7 +267,7 @@ private static function convertirHoraAMinutos($horaString)
 
 
 
-}
+
 
 
 
