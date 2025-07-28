@@ -161,7 +161,7 @@ public static function crearEmpaque(Router $router)
         $control->sacarTotalHoras();
 
 
-        debuguear($control->total_horas);
+        // debuguear($control->total_horas);
 
         // quiero sacar la prodctividad por hora
 // ya tengo // cantidad y total_horas
