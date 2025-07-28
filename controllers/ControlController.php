@@ -3,6 +3,7 @@
 namespace Controllers;
 
 use Model\Control;
+use Model\ControlEmpaque;
 use MVC\Router;
 
 
@@ -147,7 +148,7 @@ public static function crearEmpaque(Router $router)
 
     $resultado = $_GET['resultado'] ?? null;
 
-    $control = new Control;
+    $control = new ControlEmpaque;
     $token = $_GET['id'] ?? '';
     $alertas = [];
 
