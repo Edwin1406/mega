@@ -52,21 +52,31 @@
     </select>
 </div>
 
+<!-- Mostrar los nombres seleccionados aquí -->
+<div id="personalSeleccionado" style="margin-top: 10px; font-weight: bold; color: #333;"></div>
+
+<!-- Campo oculto para enviar el texto combinado -->
 <input type="hidden" name="personal_final" id="personal_final">
 
 <script>
-document.getElementById('personal').addEventListener('change', function () {
-    const selected = Array.from(this.selectedOptions).map(opt => opt.value);
+const personalSelect = document.getElementById('personal');
+const personalDiv = document.getElementById('personalSeleccionado');
+const hiddenInput = document.getElementById('personal_final');
 
-    if (selected.length > 2) {
-        // Quita la última opción seleccionada si ya hay 2
+personalSelect.addEventListener('change', function () {
+    const selectedOptions = Array.from(this.selectedOptions).map(opt => opt.value);
+
+    if (selectedOptions.length > 2) {
         this.options[this.selectedIndex].selected = false;
         alert('Solo puedes seleccionar un máximo de 2 personas.');
         return;
     }
 
-    // Unir en una sola cadena con guion si hay una o dos selecciones
-    document.getElementById('personal_final').value = selected.join(' - ');
+    // Mostrar de forma clara abajo
+    personalDiv.textContent = selectedOptions.join(' - ');
+
+    // Actualizar campo oculto
+    hiddenInput.value = selectedOptions.join(' - ');
 });
 </script>
 
