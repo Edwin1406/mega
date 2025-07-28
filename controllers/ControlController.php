@@ -229,6 +229,8 @@ public static function crearEmpaque(Router $router)
             $control->x_hora = 0;
         }
 
+        debuguear($control->x_hora);
+
         // Validar campos
         $alertas = $control->validar();
 
