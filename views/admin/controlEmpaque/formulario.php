@@ -37,12 +37,23 @@
     </div> -->
 
 
+
+    <style>
+        .formulario-troquelados__input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+    </style>
+
     <div class="formulario-troquelado__campo">
     <label class="formulario-troquelado__label" for="personal">Personal (máximo 2)</label>
     <select
         name="personal[]"
         id="personal"
-        class="formulario-troquelado__input"
+        class="formulario-troquelados__input"
         multiple
         size="3">
         <option value="Luis Govea">Luis Govea</option>
