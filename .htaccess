@@ -1,20 +1,29 @@
-# --- Permitir SOLO Ecuador si Cloudflare envía el país ---
+# --- Bloqueo por país (Cloudflare) - poner al TOPE ---
 <IfModule mod_rewrite.c>
 RewriteEngine On
 
-# Si Cloudflare SÍ manda el header de país
-#   y NO es Ecuador => 403
-RewriteCond %{HTTP:CF-IPCountry} .
+# (Opcional) Lista blanca: pon tus IPs reales si necesitas acceso desde fuera de EC
+# Usa el header CF-Connecting-IP (IP real del cliente detrás de Cloudflare)
+# Ejemplo: 1.2.3.4 y 5.6.7.8
+RewriteCond %{HTTP:CF-Connecting-IP} ^(1\.2\.3\.4|5\.6\.7\.8)$ [OR]
+RewriteCond %{REMOTE_ADDR} ^(1\.2\.3\.4|5\.6\.7\.8)$
+RewriteRule ^ - [L]
+
+# Excepciones técnicas (ajusta según tu sitio/CMS)
+RewriteCond %{REQUEST_URI} !^/robots\.txt$
+RewriteCond %{REQUEST_URI} !^/\.well-known/
+# Si es WordPress, descomenta estas dos:
+# RewriteCond %{REQUEST_URI} !^/wp-admin/admin-ajax\.php$
+# RewriteCond %{REQUEST_URI} !^/wp-cron\.php$
+
+# Bloquea todo lo que NO sea Ecuador (EC)
 RewriteCond %{HTTP:CF-IPCountry} !^EC$ [NC]
 RewriteRule ^ - [F]
-
-# (opcional) Lista blanca por IP real (si necesitas entrar desde fuera)
-# RewriteCond %{HTTP:CF-Connecting-IP} ^(1\.2\.3\.4|5\.6\.7\.8)$
-# RewriteRule ^ - [L]
 </IfModule>
 # --- Fin bloqueo por país ---
 
 # --- Tus reglas actuales ---
+RewriteEngine On
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^ index.php [QSA,L]
