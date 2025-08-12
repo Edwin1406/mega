@@ -1,8 +1,8 @@
 <?php 
 
 
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
+// error_reporting(E_ALL);
+// ini_set('display_errors', 1);
 
 
 // Detectar la IP del visitante (considerando proxies)
@@ -18,6 +18,10 @@ if ($data && $data->countryCode !== "EC") {
     header("Location: oops_ip_no_segura.php");
     exit();
 }
+
+
+
+
 
 
 
