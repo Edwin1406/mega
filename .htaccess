@@ -1,8 +1,7 @@
-# Bloquea si Cloudflare indica país y NO es Ecuador
 <IfModule mod_rewrite.c>
 RewriteEngine On
 RewriteCond %{HTTP:CF-IPCountry} .
-RewriteCond %{HTTP:CF-IPCOUNTRY} !^EC$ [NC]
+RewriteCond %{HTTP:CF-IPCountry} !^EC$ [NC]
 RewriteRule ^ - [F]
 </IfModule>
 
