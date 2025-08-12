@@ -28,40 +28,36 @@ class ControlController {
 
         // post 
     
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $control->sincronizar($_POST);
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $control->sincronizar($_POST);
 
-if ($control->horas_programadas > 0) {
-    // Convertir solo para el cálculo
-    $horasDecimal = $control->convertirHorasADecimal($control->horas_programadas);
-    
-    // Validar que el resultado de conversión sea mayor a 0
-    if ($horasDecimal > 0) {
-        $control->golpes_maquina_hora = $control->golpes_maquina / $horasDecimal;
-    } else {
-        $control->golpes_maquina_hora = 0;
-    }
-} else {
-    $control->golpes_maquina_hora = 0;
-}
-
-        // debuguear($control);
-    // debuguear($control->golpes_maquina_hora);
-
-    $alertas = $control->validar();
-
-    if (empty($alertas)) {
-        $resultado = $control->guardar();
-        if ($resultado) {
-            // resu
-        header('Location: /admin/control/crear?resultado=1');
-
+        if ($control->horas_programadas > 0) {
+            // Convertir solo para el cálculo
+            $horasDecimal = $control->convertirHorasADecimal($control->horas_programadas);
+            
+            // Validar que el resultado de conversión sea mayor a 0
+            if ($horasDecimal > 0) {
+                $control->golpes_maquina_hora = $control->golpes_maquina / $horasDecimal;
+            } else {
+                $control->golpes_maquina_hora = 0;
+            }
+        } else {
+            $control->golpes_maquina_hora = 0;
         }
-    } else {
-        $alertas = Control::getAlertas();
-    }
-}
 
+            $alertas = $control->validar();
+
+            if (empty($alertas)) {
+                $resultado = $control->guardar();
+                if ($resultado) {
+                    // resu
+                header('Location: /admin/control/crear?resultado=1');
+
+                }
+            } else {
+                $alertas = Control::getAlertas();
+            }
+        }
 
         $router->render('admin/control/crear' , [
             'titulo' => 'CONTROL DE PRODUCCION',
