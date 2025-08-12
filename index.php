@@ -1,10 +1,6 @@
 
 
 
-<?php
-echo 'CF-IPCountry: ' . ($_SERVER['HTTP_CF_IPCOUNTRY'] ?? 'NO_HEADER');
-echo '<br>IP: ' . ($_SERVER['HTTP_CF_CONNECTING_IP'] ?? $_SERVER['REMOTE_ADDR']);
-?>
 <?php 
 
 
