@@ -1,15 +1,4 @@
-# --- Bloqueo por país usando Cloudflare ---
-<IfModule mod_rewrite.c>
 RewriteEngine On
-
-# Bloquea si Cloudflare envía el país y NO es Ecuador
-RewriteCond %{HTTP:CF-IPCountry} .
-RewriteCond %{HTTP:CF-IPCountry} !^EC$ [NC]
-RewriteRule ^ - [F]
-</IfModule>
-# --- Fin bloqueo por país ---
-
-# --- Tus reglas actuales ---
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^ index.php [QSA,L]
