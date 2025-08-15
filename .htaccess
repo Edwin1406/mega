@@ -5,18 +5,12 @@ RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^ index.php [QSA,L]
 
-# Permitir solo IPs de Ecuador
+
+
 <RequireAll>
     Require all denied
-Require ip 157.100.140.1
-
-
-
-
-
-
-
+    Require ip 157.100.140.1
 </RequireAll>
 
-# Página personalizada para bloqueados (opcional)
-ErrorDocument 403 
+# Respuesta vacía para bloqueados (sin cargar PHP)
+ErrorDocument 403 " "
