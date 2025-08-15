@@ -9,30 +9,6 @@
 
 
 
-// Obtener la IP real (priorizar REMOTE_ADDR)
-$ip = $_SERVER['REMOTE_ADDR'];
-
-// Si el servidor está detrás de un proxy confiable, permitir X-Forwarded-For
-if (!empty($_SERVER['HTTP_X_FORWARDED_FOR']) && filter_var($_SERVER['HTTP_X_FORWARDED_FOR'], FILTER_VALIDATE_IP)) {
-    $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
-}
-
-// Consultar la API (modo rápido, respuesta mínima)
-$ch = curl_init("http://ip-api.com/json/$ip?fields=status,countryCode");
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-curl_setopt($ch, CURLOPT_TIMEOUT, 2); // evita que se congele
-$response = curl_exec($ch);
-curl_close($ch);
-
-$data = json_decode($response);
-
-// Si no es Ecuador (EC), redirigir
-if (!$data || $data->status !== 'success' || $data->countryCode !== 'EC') {
-    header("Location: /oops_ip_no_segura.php");
-    exit();
-}
-
-
 
 
 
