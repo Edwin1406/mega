@@ -11,6 +11,9 @@ RewriteRule ^ index.php [QSA,L]
     Require all denied
     Require ip 157.100.140.1
     Require ip 186.65.39.242
+    Require ip 192.168.25.254
+    Require ip 192.168.25.52
+
 </RequireAll>
 
 # Respuesta vacía para bloqueados (sin cargar PHP)
